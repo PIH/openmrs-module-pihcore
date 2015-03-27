@@ -11,7 +11,7 @@ public abstract class VersionedPihMetadataBundle extends PihMetadataBundle {
      * whether or not to call #installNewVersion() (based on checking a global property)
      * @return
      */
-    abstract int getVersion();
+    public abstract int getVersion();
 
     @Override
     public void install() throws Exception {
