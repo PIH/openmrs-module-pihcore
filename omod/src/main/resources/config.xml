@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>${project.parent.groupId}.${project.parent.artifactId}</package>
+	<author>PIH</author>
+	<description>
+		${project.parent.description}
+	</description>
+	<updateURL>https://modules.openmrs.org/modules/download/${project.parent.artifactId}/update.rdf</updateURL>
+	<require_version>${openMRSVersion}</require_version>
+
+	
+	<require_modules>
+		<require_module version="${metadatadeployVersion}">
+			org.openmrs.module.metadatadeploy
+		</require_module>
+	</require_modules>
+
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.PihCoreActivator</activator>
+	
+	<mappingFiles>
+	</mappingFiles>
+
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+
+</module>
+
