@@ -25,7 +25,7 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptS
 public class CoreConcepts extends VersionedPihMetadataBundle {
 
     @Override
-    int getVersion() {
+    public int getVersion() {
         return 1;
     }
 
