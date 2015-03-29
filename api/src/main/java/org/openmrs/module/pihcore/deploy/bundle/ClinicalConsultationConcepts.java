@@ -23,6 +23,8 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
     }
 
     public static final class Concepts {
+        public static final String PRESENTING_HISTORY = "3cd65c90-26fe-102b-80cb-0017a47871b2"; // PIH:PRESENTING HISTORY
+
         public static final String PAST_MEDICAL_HISTORY_CONSTRUCT = "1633AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String PAST_MEDICAL_HISTORY_FINDING = "1628AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String PAST_MEDICAL_HISTORY_PRESENCE = "1729AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -49,6 +51,22 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept partnerOrSpouse = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.PARTNER_OR_SPOUSE);
         Concept guardian = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.GUARDIAN);
         Concept otherRelative = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.OTHER_RELATIVE);
+
+        install(new ConceptBuilder(Concepts.PRESENTING_HISTORY)
+                .datatype(text)
+                .conceptClass(question)
+                .name("3e141cbe-26fe-102b-80cb-0017a47871b2", "Presenting history", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("3e141f8e-26fe-102b-80cb-0017a47871b2", "Anamnèse", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("3e141f8e-26fe-102b-80cb-0017a47871b2", "Histoire de la maladie", Locale.FRENCH, null)
+                .description("ece2fe5e-07fe-102c-b5fa-0017a47871b2", "History of the patients presenting complaint", Locale.ENGLISH)
+                .description("ece30192-07fe-102c-b5fa-0017a47871b2", "Complaintes actuelles", Locale.FRENCH)
+                .mapping(new ConceptMapBuilder("b20be720-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "974").build())
+                .mapping(new ConceptMapBuilder("753e6658-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "PRESENTING HISTORY").build())
+                .mapping(new ConceptMapBuilder("8373bf92-40f8-404a-bfad-34da8639a426")
+                        .type(sameAs).ensureTerm(ciel, "1390").build())
+                .build());
 
         // in CIEL this is called PAST MEDICAL HISTORY ADDED, but we give it a better name
         Concept pmhWhich = install(new ConceptBuilder(Concepts.PAST_MEDICAL_HISTORY_FINDING)
