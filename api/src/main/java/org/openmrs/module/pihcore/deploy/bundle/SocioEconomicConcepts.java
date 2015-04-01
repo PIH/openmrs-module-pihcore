@@ -19,7 +19,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 1;
+        return 2;
     }
 
     public static final class Concepts {
@@ -540,6 +540,111 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         // TODO none and unemployed are the same, right?
                         // TODO trading and commerce are the same, right?
                 .build());
+
+
+        // start religion question and answers
+        // TODO add French and Kreyol translations, if need be
+
+        Concept vodou = install(new ConceptBuilder("162930AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("0fb9b669-e4cf-4215-a4b7-05810077135f", "Voodoo", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("22adced2-1242-4088-83d3-18d6a0cc485e")
+                        .type(sameAs).ensureTerm(pih, "Voodoo").build())
+                .mapping(new ConceptMapBuilder("21b83615-c9cb-4b93-a835-db85f473a26c")
+                        .type(sameAs).ensureTerm(ciel, "162930").build())
+                .mapping(new ConceptMapBuilder("96576ffe-f61a-40e8-b9e1-9246fce7dd5f")
+                        .type(sameAs).ensureTerm(snomedCt, "44399006").build())
+                .build());
+
+        Concept catholic = install(new ConceptBuilder("162931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("d60f7743-8010-4366-b1a2-67419cb26449", "Catholic", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("9c053a48-19ee-4964-8240-c4ba0d163df7")
+                        .type(sameAs).ensureTerm(pih, "Catholic").build())
+                .mapping(new ConceptMapBuilder("eda8d7a6-08de-4214-ba8b-6feedfd914c1")
+                        .type(sameAs).ensureTerm(ciel, "162931").build())
+                .mapping(new ConceptMapBuilder("09f579a5-31fa-4282-accc-904ff7bc6f63")
+                        .type(sameAs).ensureTerm(snomedCt, "276120001").build())
+                .build());
+
+        Concept baptist = install(new ConceptBuilder("1162932AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("acb83b74-09ac-41c5-9d77-9846bee4bd60", "Baptist", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("39b96e32-bfed-4ab2-bf31-07d6c0b8cff8")
+                        .type(sameAs).ensureTerm(pih, "Baptist").build())
+                .mapping(new ConceptMapBuilder("2b52c6ce-d16b-492d-a0fb-0782b277026f")
+                        .type(sameAs).ensureTerm(ciel, "162932").build())
+                .mapping(new ConceptMapBuilder("4252ad9e-b29e-4deb-bd12-ebdf4923727a")
+                        .type(sameAs).ensureTerm(snomedCt, "32617004").build())
+                .build());
+
+        Concept islam = install(new ConceptBuilder("162933AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("27fd8d35-310f-4d8b-973c-3b973e6523d4", "Islam", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("a1bb3862-f245-4aaf-ae73-be56f186808f")
+                        .type(sameAs).ensureTerm(pih, "Islam").build())
+                .mapping(new ConceptMapBuilder("6c5a0151-b600-47e8-ab31-c4f46a009d3b")
+                        .type(sameAs).ensureTerm(ciel, "162933").build())
+                .mapping(new ConceptMapBuilder("3a42c0ca-0052-434d-bd66-3a31af455012")
+                        .type(sameAs).ensureTerm(snomedCt, "271390004").build())
+                .build());
+
+
+        Concept pentecostal = install(new ConceptBuilder("162934AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("649229d4-fb09-4f73-9a47-89e9a99a11ed", "Pentecostal", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("3088f507-6835-4c3e-864d-d26b020009fe")
+                        .type(sameAs).ensureTerm(pih, "Pentecostal").build())
+                .mapping(new ConceptMapBuilder("3811e396-86e3-4fc6-a6f2-d1f24f4318b3")
+                        .type(sameAs).ensureTerm(ciel, "162934").build())
+                .mapping(new ConceptMapBuilder("dbee5d5f-4915-45d4-b858-00b64ce88731")
+                        .type(sameAs).ensureTerm(snomedCt, "309862000").build())
+                .build());
+
+        Concept adventist = install(new ConceptBuilder("162935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("3e47ed11-8d82-466f-82d8-43643ff2923d", "Seventh Day Adventist", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("e7cc2548-e3ea-4892-bc9c-5ba27ba4be4e")
+                        .type(sameAs).ensureTerm(pih, "Seventh Day Adventist").build())
+                .mapping(new ConceptMapBuilder("b011c46f-0641-4fec-8e47-c5147daa9b92")
+                        .type(sameAs).ensureTerm(ciel, "162935").build())
+                .mapping(new ConceptMapBuilder("37950a05-3d5a-4375-a676-5d7b9fa48092")
+                        .type(sameAs).ensureTerm(snomedCt, "298024007").build())
+                .build());
+
+        Concept jehovahsWitness = install(new ConceptBuilder("162936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("58714a23-6ccf-4816-848b-376862ea86cf", "Jehovah's Witness", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("c30fc279-7197-4dcc-b2f0-3ed4e80b7f37")
+                        .type(sameAs).ensureTerm(pih, "Jehovah's Witness").build())
+                .mapping(new ConceptMapBuilder("d98888d2-b834-4b21-a48b-14d83a798cef")
+                        .type(sameAs).ensureTerm(ciel, "162936").build())
+                .mapping(new ConceptMapBuilder("66f53d55-44b1-4061-a8a1-82bf12f63fe0")
+                        .type(sameAs).ensureTerm(snomedCt, "276118004").build())
+                .build());
+
+        install(new ConceptBuilder("162929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(coded)
+                .conceptClass(question)
+                .name("1ad1706a-1400-428e-8b99-0d8b073e1a81", "Religion", Locale.ENGLISH, null) // locale-preferred
+                .name("9050b9ef-96d4-484a-9ca3-a21451d305a8", "Religious affiliation", Locale.ENGLISH, null)
+                .mapping(new ConceptMapBuilder("10281d23-9f19-487c-a0c3-adde06c6d46b")
+                        .type(sameAs).ensureTerm(pih, "Religion").build())
+                .mapping(new ConceptMapBuilder("668e0a10-841c-42a4-a394-c706319bb341")
+                        .type(sameAs).ensureTerm(ciel, "162929").build())
+                .mapping(new ConceptMapBuilder("47714808-2ffb-4ed9-986d-b0810c6ff4a0")
+                        .type(sameAs).ensureTerm(snomedCt, "160538000").build())
+                .answers(vodou, catholic, baptist, islam, pentecostal, adventist, jehovahsWitness, otherNonCoded)
+                .build());
+
+        // end religion question and answers
 
     }
 
