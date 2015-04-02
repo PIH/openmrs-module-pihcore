@@ -17,7 +17,7 @@ public class DeathConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -292,6 +292,19 @@ public class DeathConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "9677").build())
                 .mapping(new ConceptMapBuilder("c500e3a2-2252-4efd-85c7-ce2ae1a792fa")
                         .type(sameAs).ensureTerm(pih, "Condition causing the final disease").build())
+                .build());
+
+        install(new ConceptNumericBuilder("6e656477-72e2-4ecf-a777-0c488c4a14e2")
+                .units("days")
+                .precise(false)
+                .datatype(numeric)
+                .conceptClass(question)
+                .name("c2424b53-cc4b-415c-998a-1c5365c3af9d", "Duration of hospitalization during which patient died, in days", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("da7384c7-29fa-4806-af62-5a3681cfa34a", "If the patient died while hospitalized, then this concept represents the duration of that hospitalization, in days", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("ce3e74e7-53d8-4e73-88ab-8191ab5c1aa1")
+                    .type(sameAs).ensureTerm(pih, "Duration of hospitalization when patient died").build())
+                .mapping(new ConceptMapBuilder("8334471b-ba18-453a-8ce8-747911c01e06")
+                    .type(sameAs).ensureTerm(pih, "9710").build())
                 .build());
     }
 
