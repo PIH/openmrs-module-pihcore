@@ -19,7 +19,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 1;
+        return 2;
     }
 
     // This class contains many concepts not enumerated here

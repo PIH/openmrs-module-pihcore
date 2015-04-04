@@ -11,7 +11,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
 
     @Override
     public int getVersion() {
-        return 1;
+        return 2;
     }
 
     public static final class ConceptSources {
