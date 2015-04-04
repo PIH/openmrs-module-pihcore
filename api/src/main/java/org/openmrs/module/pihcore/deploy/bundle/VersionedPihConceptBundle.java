@@ -26,6 +26,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
     protected ConceptDatatype notApplicable;
     protected ConceptDatatype text;
     protected ConceptDatatype coded;
+    protected ConceptDatatype booleanDatatype;
     protected ConceptDatatype numeric;
     protected ConceptDatatype datetime;
     protected ConceptDatatype date;
@@ -36,6 +37,9 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
     protected ConceptClass question;
     protected ConceptClass misc;
     protected ConceptClass convSet;
+    protected ConceptClass medSet;
+    protected ConceptClass drug;
+    protected ConceptClass procedure;
 
     protected ConceptMapType sameAs;
     protected ConceptMapType narrowerThan;
@@ -47,6 +51,9 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
     protected ConceptSource snomedCt;
     protected ConceptSource snomedNp;
     protected ConceptSource snomedMvp;
+    protected ConceptSource rxNorm;
+    protected ConceptSource imoProcedureIT;
+    protected ConceptSource imoProblemIT;
     protected ConceptSource ampath;
     protected ConceptSource emrapi;
     protected ConceptSource mdrtb;
@@ -70,6 +77,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
         notApplicable = MetadataUtils.existing(ConceptDatatype.class, ConceptDatatypes.N_A);
         text = MetadataUtils.existing(ConceptDatatype.class, ConceptDatatypes.TEXT);
         coded = MetadataUtils.existing(ConceptDatatype.class, ConceptDatatypes.CODED);
+        booleanDatatype = MetadataUtils.existing(ConceptDatatype.class, ConceptDatatypes.BOOLEAN);
         numeric = MetadataUtils.existing(ConceptDatatype.class, ConceptDatatypes.NUMERIC);
         datetime = MetadataUtils.existing(ConceptDatatype.class, ConceptDatatypes.DATETIME);
         date = MetadataUtils.existing(ConceptDatatype.class, ConceptDatatypes.DATE);
@@ -80,6 +88,9 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
         question = MetadataUtils.existing(ConceptClass.class, ConceptClasses.QUESTION);
         misc = MetadataUtils.existing(ConceptClass.class, ConceptClasses.MISC);
         convSet = MetadataUtils.existing(ConceptClass.class, ConceptClasses.CONV_SET);
+        medSet = MetadataUtils.existing(ConceptClass.class, ConceptClasses.MED_SET);
+        drug = MetadataUtils.existing(ConceptClass.class, ConceptClasses.DRUG);
+        procedure = MetadataUtils.existing(ConceptClass.class, ConceptClasses.PROCEDURE);
 
         sameAs = MetadataUtils.existing(ConceptMapType.class, ConceptMapTypes.SAME_AS);
         narrowerThan = MetadataUtils.existing(ConceptMapType.class, ConceptMapTypes.NARROWER_THAN);
@@ -91,6 +102,9 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
         snomedCt = MetadataUtils.existing(ConceptSource.class, ConceptSources.SNOMED_CT);
         snomedNp = MetadataUtils.existing(ConceptSource.class, ConceptSources.SNOMED_NP);
         snomedMvp = MetadataUtils.existing(ConceptSource.class, ConceptSources.SNOMED_MVP);
+        rxNorm = MetadataUtils.existing(ConceptSource.class, ConceptSources.RX_NORM);
+        imoProcedureIT = MetadataUtils.existing(ConceptSource.class, ConceptSources.IMO_PROCEDURE_IT);
+        imoProblemIT = MetadataUtils.existing(ConceptSource.class, ConceptSources.IMO_PROBLEM_IT);
         ampath = MetadataUtils.existing(ConceptSource.class, ConceptSources.AMPATH);
         emrapi = MetadataUtils.existing(ConceptSource.class, ConceptSources.EMRAPI_MODULE);
         mdrtb = MetadataUtils.existing(ConceptSource.class, ConceptSources.MDRTB_MODULE);

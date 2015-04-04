@@ -22,6 +22,9 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         public static final String SNOMED_CT = "1ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
         public static final String SNOMED_NP = "2ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
         public static final String SNOMED_MVP = "14ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+        public static final String RX_NORM = "4ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+        public static final String IMO_PROCEDURE_IT = "25ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+        public static final String IMO_PROBLEM_IT = "24ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
         public static final String EMRAPI_MODULE = "edd52713-8887-47b7-ba9e-6e1148824ca4";
         public static final String MDRTB_MODULE = "ddb6b595-0b85-4a80-9243-efe4ba404eef";
         public static final String AMPATH = "13ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
@@ -31,6 +34,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
     public static final class ConceptDatatypes {
         public static final String N_A = ConceptDatatype.N_A_UUID;
         public static final String CODED = ConceptDatatype.CODED_UUID;
+        public static final String BOOLEAN = ConceptDatatype.BOOLEAN_UUID;
         public static final String TEXT = ConceptDatatype.TEXT_UUID;
         public static final String NUMERIC = ConceptDatatype.NUMERIC_UUID;
         public static final String DATETIME = ConceptDatatype.DATETIME_UUID;
@@ -43,7 +47,10 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         public static final String DIAGNOSIS = "8d4918b0-c2cc-11de-8d13-0010c6dffd0f";
         public static final String QUESTION = "8d491e50-c2cc-11de-8d13-0010c6dffd0f";
         public static final String CONV_SET = "8d492594-c2cc-11de-8d13-0010c6dffd0f";
+        public static final String MED_SET = "8d4923b4-c2cc-11de-8d13-0010c6dffd0f";
         public static final String FINDING = "8d491a9a-c2cc-11de-8d13-0010c6dffd0f";
+        public static final String DRUG = "8d490dfc-c2cc-11de-8d13-0010c6dffd0f";
+        public static final String PROCEDURE = "8d490bf4-c2cc-11de-8d13-0010c6dffd0f";
     }
 
     // these exist already, we don't create them
@@ -64,13 +71,19 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         install(conceptClass("Diagnosis", "Conclusion drawn through findings", ConceptClasses.DIAGNOSIS));
         install(conceptClass("Question", "Question (eg, patient history, SF36 items)", ConceptClasses.QUESTION));
         install(conceptClass("ConvSet", "Term to describe convenience sets", ConceptClasses.CONV_SET));
+        install(conceptClass("MedSet", "Term to describe medication sets", ConceptClasses.MED_SET));
         install(conceptClass("Finding", "Practitioner observation/finding", ConceptClasses.FINDING));
+        install(conceptClass("Drug", "Drug", ConceptClasses.DRUG));
+        install(conceptClass("Procedure", "Describes a clinical procedure", ConceptClasses.PROCEDURE));
 
         install(conceptSource("PIH", "Partners In Health concept dictionary using concept ids and preferred English names", null, ConceptSources.PIH));
         install(conceptSource("PIH Malawi", "Partners in Health Malawi concept dictionary", null, ConceptSources.PIH_MALAWI)); //
         install(conceptSource("CIEL", "Columbia International eHealth Laboratory concept ID", null, ConceptSources.CIEL));
         install(conceptSource("SNOMED CT", "SNOMED Preferred mapping", null, ConceptSources.SNOMED_CT));
         install(conceptSource("SNOMED MVP", "MVP Namespace Identifier extensions to SNOMED CT", null, ConceptSources.SNOMED_MVP));
+        install(conceptSource("RxNORM", "RxNORM CUI", null, ConceptSources.RX_NORM));
+        install(conceptSource("IMO ProcedureIT", "Intelligent Medical Objects, Inc. procedure/test datasource", null, ConceptSources.IMO_PROCEDURE_IT));
+        install(conceptSource("IMO ProblemIT", "Intelligent Medical Objects, Inc. problem/disease/finding datasource", null, ConceptSources.IMO_PROBLEM_IT));
         install(conceptSource("SNOMED NP", "Non-preferred SNOMED CT mappings", null, ConceptSources.SNOMED_NP));
         install(conceptSource("AMPATH", "AMPATH concept dictionary", null, ConceptSources.AMPATH));
         install(conceptSource("LOINC", "A universal code system for identifying laboratory and clinical observations.", null, ConceptSources.LOINC));
