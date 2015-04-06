@@ -18,7 +18,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 1;
+        return 2;
     }
 
     public static final class Concepts {
@@ -189,12 +189,11 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "SURGERY").build())
                 .build());
 
-/* FATHER, MOTHER, OTHER RELATIVE, SIBLING, PARTNER OR SPOUSE, GUARDIAN RELATIONSHIP TO CHILD, BROTHER, SISTER */
         install(new ConceptBuilder(Concepts.FATHER)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e2259b4-26fe-102b-80cb-0017a47871b2", "FATHER", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f672d7ee-d5db-102d-ad2a-000c29c2a5d7", "PÈRE", Locale.FRENCH, null) // locale-preferred
+                .name("3e2259b4-26fe-102b-80cb-0017a47871b2", "Father", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("f672d7ee-d5db-102d-ad2a-000c29c2a5d7", "Père", Locale.FRENCH, null) // locale-preferred
                 .description("ecf0be2c-07fe-102c-b5fa-0017a47871b2", "A father to another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b220bc86-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2174").build())
@@ -207,8 +206,8 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder(Concepts.MOTHER)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e225b1c-26fe-102b-80cb-0017a47871b2", "MOTHER", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f673058e-d5db-102d-ad2a-000c29c2a5d7", "MÈRE", Locale.FRENCH, null) // locale-preferred
+                .name("3e225b1c-26fe-102b-80cb-0017a47871b2", "Mother", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("f673058e-d5db-102d-ad2a-000c29c2a5d7", "Mère", Locale.FRENCH, null) // locale-preferred
                 .description("ecf0bf80-07fe-102c-b5fa-0017a47871b2", "A mother of another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75870606-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "MOTHER").build())
