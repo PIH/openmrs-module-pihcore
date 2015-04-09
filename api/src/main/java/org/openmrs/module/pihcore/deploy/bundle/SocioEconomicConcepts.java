@@ -19,7 +19,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 2;
+        return 3;
     }
 
     public static final class Concepts {
@@ -28,6 +28,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
         public static final String MAIN_ACTIVITY_NON_CODED = "3ce41a38-26fe-102b-80cb-0017a47871b2";
         public static final String URBAN = "c50d9651-f76d-4b95-a6cd-6525608852e3";
         public static final String RURAL = "1b27978f-e175-464f-82a5-ac8fc4e7155c";
+        public static final String PATIENT_CONTACTS_CONSTRUCT = "3cd9936a-26fe-102b-80cb-0017a47871b2";
+        public static final String NAMES_AND_FIRSTNAMES_OF_CONTACT = "3cd997f2-26fe-102b-80cb-0017a47871b2";
     }
 
     @Override
@@ -646,6 +648,27 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
         // end religion question and answers
 
+        Concept namesAndFirstnamesOfContact = install(new ConceptBuilder(Concepts.NAMES_AND_FIRSTNAMES_OF_CONTACT)
+                .datatype(text)
+                .conceptClass(question)
+                .name("3e1817e2-26fe-102b-80cb-0017a47871b2", "The names of a contact of a patient", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("b210a990-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1327").build())
+                .mapping(new ConceptMapBuilder("75717a7a-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "NAMES AND FIRSTNAMES OF CONTACT").build())
+                .build());
+
+        Concept patientContactsConstruct = install(new ConceptBuilder(Concepts.PATIENT_CONTACTS_CONSTRUCT)
+                .datatype(notApplicable)
+                .conceptClass(convSet)
+                .name("3e1810d0-26fe-102b-80cb-0017a47871b2", "Questions on contacts of the patient", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .setMembers(
+                        namesAndFirstnamesOfContact)
+                .mapping(new ConceptMapBuilder("b210a6ac-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1325").build())
+                .mapping(new ConceptMapBuilder("757177b4-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "PATIENT CONTACTS CONSTRUCT").build())
+                .build());
     }
 
 }
