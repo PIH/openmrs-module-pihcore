@@ -19,7 +19,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 3;
+        return 4;
     }
 
     public static final class Concepts {
@@ -30,6 +30,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
         public static final String RURAL = "1b27978f-e175-464f-82a5-ac8fc4e7155c";
         public static final String PATIENT_CONTACTS_CONSTRUCT = "3cd9936a-26fe-102b-80cb-0017a47871b2";
         public static final String NAMES_AND_FIRSTNAMES_OF_CONTACT = "3cd997f2-26fe-102b-80cb-0017a47871b2";
+        public static final String RELATIONSHIPS_OF_CONTACT = "3cd99a68-26fe-102b-80cb-0017a47871b2";
+        public static final String TELEPHONE_NUMBER_OF_CONTACT = "276f8057-55a4-4b1c-8915-69ad090fcffb";
     }
 
     @Override
@@ -658,12 +660,34 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "NAMES AND FIRSTNAMES OF CONTACT").build())
                 .build());
 
+        Concept relationshipsOfContact = install(new ConceptBuilder(Concepts.RELATIONSHIPS_OF_CONTACT)
+                .datatype(text)
+                .conceptClass(question)
+                .name("3e181c9c-26fe-102b-80cb-0017a47871b2", "Relationships of contact to patient", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("b210ab02-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1328").build())
+                .mapping(new ConceptMapBuilder("75717bec-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "RELATIONSHIPS OF CONTACT").build())
+                .build());
+
+        Concept telephoneNumberOfContact = install(new ConceptBuilder(Concepts.TELEPHONE_NUMBER_OF_CONTACT)
+                .datatype(text)
+                .conceptClass(question)
+                .name("441d28cf-bbfc-407e-a007-efa91f303d5b", "The phone number for the patient's contact", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("b2adaa88-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "6194").build())
+                .mapping(new ConceptMapBuilder("75ad601c-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "TELEPHONE NUMBER OF CONTACT").build())
+                .build());
+
         Concept patientContactsConstruct = install(new ConceptBuilder(Concepts.PATIENT_CONTACTS_CONSTRUCT)
                 .datatype(notApplicable)
                 .conceptClass(convSet)
                 .name("3e1810d0-26fe-102b-80cb-0017a47871b2", "Questions on contacts of the patient", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .setMembers(
-                        namesAndFirstnamesOfContact)
+                        namesAndFirstnamesOfContact,
+                        relationshipsOfContact,
+                        telephoneNumberOfContact)
                 .mapping(new ConceptMapBuilder("b210a6ac-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1325").build())
                 .mapping(new ConceptMapBuilder("757177b4-4943-102e-96e9-000c29c2a5d7")
