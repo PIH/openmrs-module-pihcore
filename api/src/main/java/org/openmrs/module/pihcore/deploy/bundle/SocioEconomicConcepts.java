@@ -19,7 +19,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 4;
+        return 5;
     }
 
     public static final class Concepts {
@@ -32,6 +32,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
         public static final String NAMES_AND_FIRSTNAMES_OF_CONTACT = "3cd997f2-26fe-102b-80cb-0017a47871b2";
         public static final String RELATIONSHIPS_OF_CONTACT = "3cd99a68-26fe-102b-80cb-0017a47871b2";
         public static final String TELEPHONE_NUMBER_OF_CONTACT = "276f8057-55a4-4b1c-8915-69ad090fcffb";
+        public static final String ADDRESS_OF_CONTACT = "5190CC3E-83F0-4410-8660-B109086D9A5E";
     }
 
     @Override
@@ -680,6 +681,14 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "TELEPHONE NUMBER OF CONTACT").build())
                 .build());
 
+        Concept addressOfContact = install(new ConceptBuilder(Concepts.ADDRESS_OF_CONTACT)
+                .datatype(text)
+                .conceptClass(question)
+                .name("A7D167A-1B39-4DE9-8BE7-F3980FBE366F", "The address for the patient's contact", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("18636437-061A-4DA8-87D7-F345F8E8C638")
+                        .type(sameAs).ensureTerm(pih, "ADDRESS OF PATIENT CONTACT").build())
+                .build());
+
         Concept patientContactsConstruct = install(new ConceptBuilder(Concepts.PATIENT_CONTACTS_CONSTRUCT)
                 .datatype(notApplicable)
                 .conceptClass(convSet)
@@ -687,7 +696,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .setMembers(
                         namesAndFirstnamesOfContact,
                         relationshipsOfContact,
-                        telephoneNumberOfContact)
+                        telephoneNumberOfContact,
+                        addressOfContact)
                 .mapping(new ConceptMapBuilder("b210a6ac-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1325").build())
                 .mapping(new ConceptMapBuilder("757177b4-4943-102e-96e9-000c29c2a5d7")
