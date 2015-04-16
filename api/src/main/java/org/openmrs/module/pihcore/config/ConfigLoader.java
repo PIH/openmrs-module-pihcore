@@ -38,7 +38,7 @@ public class ConfigLoader {
         objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
 
         if (StringUtils.isBlank(configs)) {
-            configs = "mirebalais";  // we default to mirebalais for now
+            configs = "pihcore";
         }
 
         try {
