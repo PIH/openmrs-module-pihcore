@@ -23,11 +23,17 @@ public class ConfigLoader {
     public static final String PIH_CONFIGURATION_RUNTIME_PROPERTY = "pih.config";
 
     /**
+     * @return the configuration based on runtime properties configuration, or based on default value if not found
+     */
+    public static String getRuntimeConfiguration(String defaultValue) {
+        return Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY, defaultValue);
+    }
+
+    /**
      * Loads Configuration based on configuration in the runtime properties file
      */
     public static ConfigDescriptor loadFromRuntimeProperties() {
-        String configs = Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY);
-        return load(configs);
+        return load(getRuntimeConfiguration("pihcore"));
     }
 
     /**

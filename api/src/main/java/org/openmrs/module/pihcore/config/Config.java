@@ -11,7 +11,7 @@ public class Config {
     private ConfigDescriptor descriptor;
 
     public Config() {
-        descriptor = ConfigLoader.load("pihcore");
+        descriptor = ConfigLoader.loadFromRuntimeProperties();
     }
 
     public void reload(ConfigDescriptor descriptor) {
