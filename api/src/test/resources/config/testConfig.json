@@ -1,0 +1,10 @@
+{
+    "welcomeMessage": "Hello World!",
+
+    "site": "MIREBALAIS",
+
+    "components": [
+        "someComponent",
+        "anotherComponent"
+    ]
+}

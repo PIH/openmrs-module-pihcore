@@ -1,0 +1,12 @@
+{
+    "welcomeMessage": "Hello Mirebalais!",
+    "site": "MIREBALAIS",
+
+    "components": [
+        "someComponent",
+        "anotherComponent",
+        "archives",
+        "appointmentScheduling",
+        "legacyMpi"
+    ]
+}

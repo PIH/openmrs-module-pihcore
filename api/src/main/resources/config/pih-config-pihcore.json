@@ -1,0 +1,19 @@
+{
+    "welcomeMessage": "Welcome to the PIH EMR",
+
+    "components": [
+        "clinicianDashboard",
+        "visitNote",
+        "allergies",
+        "patientRegistration",
+        "visitManagement",
+        "activeVisits",
+        "checkIn",
+        "vitals",
+        "consult",
+        "systemAdministration",
+        "myAccount"
+    ],
+
+    "scheduleBackupReports": "false"
+}
