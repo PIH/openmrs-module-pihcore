@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.config;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Object that encapsulates the options that can be configured on a per-installation basis
@@ -18,6 +19,9 @@ public class ConfigDescriptor {
 
     @JsonProperty
     Site site;
+
+    @JsonProperty
+    Map<String, String> globalProperties;
 
     @JsonProperty
     List<String> components;
@@ -39,6 +43,14 @@ public class ConfigDescriptor {
 
     public void setSite(Site site) {
         this.site = site;
+    }
+
+    public Map<String, String> getGlobalProperties() {
+        return globalProperties;
+    }
+
+    public void setGlobalProperties(Map<String, String> globalProperties) {
+        this.globalProperties = globalProperties;
     }
 
     public List<String> getComponents() {

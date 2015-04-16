@@ -2,6 +2,9 @@ package org.openmrs.module.pihcore.config;
 
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Component
 public class Config {
 
@@ -29,6 +32,14 @@ public class Config {
 
     public ConfigDescriptor.Site getSite() {
         return descriptor.getSite();
+    }
+
+    public String getGlobalProperty(String name) {
+        return getGlobalProperties().get(name);
+    }
+
+    public Map<String, String> getGlobalProperties() {
+        return descriptor.getGlobalProperties() == null ? new HashMap<String, String>() : descriptor.getGlobalProperties();
     }
 
     public Boolean shouldScheduleBackupReports() {
