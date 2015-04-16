@@ -7,6 +7,7 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.api.context.Context;
+import org.openmrs.util.OpenmrsClassLoader;
 import org.openmrs.util.OpenmrsUtil;
 
 import java.io.File;
@@ -65,7 +66,7 @@ public class ConfigLoader {
                     }
                     else {
                         try {
-                            is = ConfigLoader.class.getClassLoader().getResourceAsStream("config/" + configFilename);
+                            is = OpenmrsClassLoader.getInstance().getResourceAsStream("config/" + configFilename);
                         }
                         catch (Exception e) {
                             throw new IllegalArgumentException("Error loading " + configFilename + " from classpath", e);
