@@ -308,6 +308,9 @@ public class DeathConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("8334471b-ba18-453a-8ce8-747911c01e06")
                     .type(sameAs).ensureTerm(pih, "9710").build())
                 .build());
+
+        // Update Death-related Global Properties
+        setGlobalProperty("concept.causeOfDeath", causeOfDeathFromCertificate.getId().toString());
     }
 
 }
