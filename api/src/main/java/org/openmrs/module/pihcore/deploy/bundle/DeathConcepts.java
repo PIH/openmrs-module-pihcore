@@ -15,6 +15,8 @@ import java.util.Locale;
 @Requires({CoreConceptMetadataBundle.class, CommonConcepts.class, AnswerConcepts.class})
 public class DeathConcepts extends VersionedPihConceptBundle {
 
+    public static final String CAUSE_OF_DEATH_FROM_DEATH_CERTIFICATE = "1814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
     @Override
     public int getVersion() {
         return 2;
@@ -116,7 +118,7 @@ public class DeathConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(ciel, "1815").build())
                 .build());
 
-        Concept causeOfDeathFromCertificate = install(new ConceptBuilder("1814AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        Concept causeOfDeathFromCertificate = install(new ConceptBuilder(CAUSE_OF_DEATH_FROM_DEATH_CERTIFICATE)
                 .datatype(coded)
                 .conceptClass(question)
                 .name("2094BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CAUSE OF DEATH FROM DEATH CERTIFICATE", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
