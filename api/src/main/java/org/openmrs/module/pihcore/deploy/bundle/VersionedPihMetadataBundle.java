@@ -6,6 +6,8 @@ package org.openmrs.module.pihcore.deploy.bundle;
  */
 public abstract class VersionedPihMetadataBundle extends PihMetadataBundle {
 
+    private boolean installedNewVersion = false;
+
     /**
      * You need to increment this every time you commit a new change to the bundle, so that the infrastructure knows
      * whether or not to call #installNewVersion() (based on checking a global property)
@@ -28,6 +30,7 @@ public abstract class VersionedPihMetadataBundle extends PihMetadataBundle {
         installEveryTime();
         if (installNewVersion) {
             installNewVersion();
+            installedNewVersion = true;
             setGlobalProperty(gp, "" + getVersion());
         }
     }
@@ -35,5 +38,9 @@ public abstract class VersionedPihMetadataBundle extends PihMetadataBundle {
     protected abstract void installEveryTime() throws Exception;
 
     protected abstract void installNewVersion() throws Exception;
+
+    public boolean isInstalledNewVersion() {
+        return installedNewVersion;
+    }
 
 }
