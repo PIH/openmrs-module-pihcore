@@ -46,7 +46,7 @@
 	</modules>
 	
 	<properties>
-		<openMRSVersion>1.9.8</openMRSVersion>
+		<openMRSVersion>1.10.1</openMRSVersion>
 		<metadatadeployVersion>1.5-SNAPSHOT</metadatadeployVersion>
 		<!--<htmlformentryVersion>2.5</htmlformentryVersion>-->
 		<metadatasharingVersion>1.1.9</metadatasharingVersion>
