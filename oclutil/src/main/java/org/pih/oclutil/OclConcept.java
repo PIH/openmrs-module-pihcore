@@ -32,6 +32,9 @@ public class OclConcept {
     @JsonProperty
     private List<OclMapping> mappings;
 
+    @JsonProperty
+    private Map<String, String> extras;
+
     @Override
     public String toString() {
         if (names != null && names.size() > 0) {
@@ -69,7 +72,7 @@ public class OclConcept {
 
         w.println("// TODO handle if it was numeric");
 
-        w.println("install(new ConceptBuilder(\"" + uuid + "\")");
+        w.println("install(new ConceptBuilder(\"" + extras.get("external_id") + "\")");
         w.println(".datatype(" + replace(datatype) + ")");
         w.println(".conceptClass(" + replace(conceptClass) + ")");
 
