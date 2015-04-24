@@ -29,7 +29,9 @@ public class DiagnosisConcepts extends VersionedPihConceptBundle {
     @Override
     protected void installNewVersion() throws Exception {
         Concept toDelete = conceptService.getConceptByUuid(BAD_CONCEPT_CARDIOPATHY);
-        if (toDelete != null) {
+
+        // if this concept exists and hasn't already been manually retired (i.e. on the concepts server), we try to purge it
+        if (toDelete != null && !toDelete.isRetired()) {
             conceptService.purgeConcept(toDelete);
         }
     }
