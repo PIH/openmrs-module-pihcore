@@ -19,11 +19,12 @@ public class AdministrativeConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 2;
+        return 3;
     }
 
     public static final class Concepts {
         public static final String ID_CARD_PRINTING_REQUESTED = "0dc64225-e9f6-11e4-a8a3-54ee7513a7ff";
+        public static final String ID_CARD_PRINTING_SUCCESSFUL = "9d1b04df-ee77-11e4-a257-54ee7513a7ff";
     }
 
     @Override
@@ -63,16 +64,24 @@ public class AdministrativeConcepts extends VersionedPihConceptBundle {
                         freeTextGeneral)
                 .build());
 
-        // TODO: Concept named PrintingIDCardStatus on zanmi / lacolline / mirebalais exists. It wasn't really preferred to use this for a few reasons:
-        // * It does not have a consistent UUID between servers (it is set up at runtime at first use, and UUID is not a constant)
-        // * It does not have the appropriate data type, and stores values as value_text true/false rather than as coded values
-        // * We should migrate the existing functionality to use this concept
         install(new ConceptBuilder(Concepts.ID_CARD_PRINTING_REQUESTED)
                 .datatype(coded)
                 .conceptClass(question)
                 .name("3fe8bbf9-e9f6-11e4-a8a3-54ee7513a7ff", "ID Card Printing Requested", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .answers(yes, no)
                 .mapping(new ConceptMapBuilder("df6b97bc-e9f6-11e4-a8a3-54ee7513a7ff").type(sameAs).ensureTerm(pih, "ID Card Printing Requested").build())
+                .build());
+
+        // TODO: Concept named PrintingIDCardStatus on zanmi / lacolline / mirebalais exists. It wasn't really preferred to use this for a few reasons:
+        // * It does not have a consistent UUID between servers (it is set up at runtime at first use, and UUID is not a constant)
+        // * It does not have the appropriate data type, and stores values as value_text true/false rather than as coded values
+        // * We should migrate the existing functionality to use this concept
+        install(new ConceptBuilder(Concepts.ID_CARD_PRINTING_SUCCESSFUL)
+                .datatype(coded)
+                .conceptClass(question)
+                .name("590d36df-ee77-11e4-a257-54ee7513a7ff", "ID Card Printing Successful", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .answers(yes, no)
+                .mapping(new ConceptMapBuilder("5fc65369-ee77-11e4-a257-54ee7513a7ff").type(sameAs).ensureTerm(pih, "ID Card Printing Successful").build())
                 .build());
     }
 }
