@@ -15,10 +15,14 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.Map;
 
+import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.packageFile;
+
 /**
  * Includes utility methods that we use in many metadata bundles
  */
 public abstract class PihMetadataBundle extends AbstractMetadataBundle {
+
+	public static final String SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH = "skipMetadataSharingPackageRefresh";
 
     protected Log log = LogFactory.getLog(getClass());
 
@@ -67,5 +71,23 @@ public abstract class PihMetadataBundle extends AbstractMetadataBundle {
             throw new RuntimeException("No concept tagged with code " + conceptCode + " from source " + conceptSource);
         }
     }
+
+    /**
+     * Utility method to install an MDS package if it hasn't been disabled by a system property
+     * @param filename
+     * @param groupUuid
+     * @return true if the package was installed
+     */
+    protected boolean installMetadataSharingPackage(String filename, String groupUuid) {
+        String systemProperty = System.getProperty(SYSTEM_PROPERTY_SKIP_METADATA_SHARING_PACKAGE_REFRESH, "false");
+        if (Boolean.parseBoolean(systemProperty)) {
+            log.warn("Skipping refresh of MDS package: " + filename);
+            return false;
+        }
+        log.warn("Installing Metadata Sharing package: " + filename);
+        install(packageFile(filename, null, groupUuid));
+        return true;
+    }
+
 
 }

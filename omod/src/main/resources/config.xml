@@ -18,9 +18,45 @@
 		<require_module version="${metadatadeployVersion}">
 			org.openmrs.module.metadatadeploy
 		</require_module>
+        <require_module version="${metadatasharingVersion}">
+            org.openmrs.module.metadatasharing
+        </require_module>
+        <require_module version="${htmlformentryVersion}">
+            org.openmrs.module.htmlformentry
+        </require_module>
+        <require_module version="${printerVersion}">
+            org.openmrs.module.printer
+        </require_module>
+        <require_module version="${emrapiVersion}">
+            org.openmrs.module.emrapi
+        </require_module>
+        <require_module version="${registrationcoreVersion}">
+            org.openmrs.module.registrationcore
+        </require_module>
+        <require_module version="${coreappsVersion}">
+            org.openmrs.module.coreapps
+        </require_module>
+        <require_module version="${uiframeworkVersion}">
+            org.openmrs.module.uiframework
+        </require_module>
+        <require_module version="${reportingVersion}">
+            org.openmrs.module.reporting
+        </require_module>
+        <require_module version="${paperrecordVersion}">
+            org.openmrs.module.paperrecord
+        </require_module>
+        <require_module version="${idgenVersion}">
+            org.openmrs.module.idgen
+        </require_module>
+        <require_module version="${providermanagementVersion}">
+            org.openmrs.module.providermanagement
+        </require_module>
+        <require_module version="${appframeworkVersion}">
+            org.openmrs.module.appframework
+        </require_module>
 	</require_modules>
 
-	<activator>${project.parent.groupId}.${project.parent.artifactId}.PihCoreActivator</activator>
+    <activator>${project.parent.groupId}.${project.parent.artifactId}.PihCoreActivator</activator>
 	
 	<mappingFiles>
 	</mappingFiles>

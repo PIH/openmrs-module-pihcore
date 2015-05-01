@@ -29,6 +29,8 @@ public class PihCoreActivator extends BaseModuleActivator {
 
 	protected Log log = LogFactory.getLog(getClass());
 
+    // TODO: do we *want* to install the bundles defined in this module here?
+
 	/**
 	 * Typically a different module will install the metadata deploy packages at startup. (e.g. mirebalaismetadata)
 	 * However for the specific case of concepts.pih-emr.org, we don't have a specific distro module, so we want this

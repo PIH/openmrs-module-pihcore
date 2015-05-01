@@ -15,7 +15,6 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
 
     private Config config;
 
-
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
