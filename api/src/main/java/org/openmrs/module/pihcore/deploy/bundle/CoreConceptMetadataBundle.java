@@ -51,6 +51,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         public static final String FINDING = "8d491a9a-c2cc-11de-8d13-0010c6dffd0f";
         public static final String DRUG = "8d490dfc-c2cc-11de-8d13-0010c6dffd0f";
         public static final String PROCEDURE = "8d490bf4-c2cc-11de-8d13-0010c6dffd0f";
+        public static final String FREQUENCY = "8e071bfe-520c-44c0-a89b-538e9129b42a";
     }
 
     // these exist already, we don't create them
@@ -75,6 +76,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         install(conceptClass("Finding", "Practitioner observation/finding", ConceptClasses.FINDING));
         install(conceptClass("Drug", "Drug", ConceptClasses.DRUG));
         install(conceptClass("Procedure", "Describes a clinical procedure", ConceptClasses.PROCEDURE));
+        install(conceptClass("Frequency", "A concept used for capturing frequency information such as for medication ordering.", ConceptClasses.FREQUENCY));
 
         install(conceptSource("PIH", "Partners In Health concept dictionary using concept ids and preferred English names", null, ConceptSources.PIH));
         install(conceptSource("PIH Malawi", "Partners in Health Malawi concept dictionary", null, ConceptSources.PIH_MALAWI)); //
