@@ -3,12 +3,25 @@ package org.openmrs.module.pihcore.config;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
+import java.util.Properties;
+
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class ConfigTest extends BaseModuleContextSensitiveTest{
 
     private Config config;
+
+
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties p = super.getRuntimeProperties();
+        p.setProperty("pih.config", "pihcore");
+        return p;
+    }
 
     @Test
     public void testComponentConfiguration() {
