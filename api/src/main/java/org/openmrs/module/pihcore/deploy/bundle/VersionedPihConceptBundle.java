@@ -40,6 +40,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
     protected ConceptClass medSet;
     protected ConceptClass drug;
     protected ConceptClass procedure;
+    protected ConceptClass frequency;
 
     protected ConceptMapType sameAs;
     protected ConceptMapType narrowerThan;
@@ -91,6 +92,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
         medSet = MetadataUtils.existing(ConceptClass.class, ConceptClasses.MED_SET);
         drug = MetadataUtils.existing(ConceptClass.class, ConceptClasses.DRUG);
         procedure = MetadataUtils.existing(ConceptClass.class, ConceptClasses.PROCEDURE);
+        frequency = MetadataUtils.existing(ConceptClass.class, ConceptClasses.FREQUENCY);
 
         sameAs = MetadataUtils.existing(ConceptMapType.class, ConceptMapTypes.SAME_AS);
         narrowerThan = MetadataUtils.existing(ConceptMapType.class, ConceptMapTypes.NARROWER_THAN);
