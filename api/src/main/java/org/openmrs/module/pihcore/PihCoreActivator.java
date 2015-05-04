@@ -19,28 +19,54 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
-import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
-
-import java.util.List;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
+import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaBundle;
 
 public class PihCoreActivator extends BaseModuleActivator {
 
-	public static final String RUNTIME_PROPERTY_INSTALL_AT_STARTUP = "pihcore.installMetadataAtStartup";
-
 	protected Log log = LogFactory.getLog(getClass());
 
-    // TODO: do we *want* to install the bundles defined in this module here?
+    private Config config;
 
-	/**
-	 * Typically a different module will install the metadata deploy packages at startup. (e.g. mirebalaismetadata)
-	 * However for the specific case of concepts.pih-emr.org, we don't have a specific distro module, so we want this
-	 * module to set up concepts at startup.
-	 *
-	 * To enable this, set a runtime property of:
-	 *     pihcore.installMetadataAtStartup = true
-	 */
 	@Override
 	public void started() {
+        if (config == null) {  // hack to allow injecting a mock config for testing
+            config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+        }
+        installMetadataBundles(config);
+	}
+
+    private void installMetadataBundles(Config config) {
+
+        MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
+
+        // make this more dynamic, less dependent on if-thens
+
+        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+            deployService.installBundle(Context.getRegisteredComponents(MirebalaisBundle.class).get(0));
+        }
+        else if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
+            // TODO: will need a "Lacolline" location bundle with just Lacolline?
+            deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            deployService.installBundle(Context.getRegisteredComponents(LiberiaBundle.class).get(0));
+        }
+
+    }
+
+    // hack to allow injecting a mock config for testing
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+}
+
+/* Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+        installMetadataBundles(config);
+
 		String property = Context.getRuntimeProperties().getProperty(RUNTIME_PROPERTY_INSTALL_AT_STARTUP, "false");
 		if (Boolean.valueOf(property)) {
 			// Limit to VersionedPihMetadataBundle, in case there are other bundles in non-PIH modules
@@ -59,6 +85,4 @@ public class PihCoreActivator extends BaseModuleActivator {
 		}
 		else {
 			log.info("Not installing metadata deploy bundles. This will be done by a distribution module that depends on this one.");
-		}
-	}
-}
+		}*/

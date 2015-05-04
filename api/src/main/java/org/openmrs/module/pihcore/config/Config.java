@@ -34,6 +34,8 @@ public class Config {
         return descriptor.getSite();
     }
 
+    public ConfigDescriptor.Country getCountry() { return descriptor.getCountry(); }
+
     public String getGlobalProperty(String name) {
         return getGlobalProperties().get(name);
     }

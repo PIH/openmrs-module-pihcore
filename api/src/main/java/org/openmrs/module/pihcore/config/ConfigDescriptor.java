@@ -10,24 +10,31 @@ import java.util.Map;
  */
 public class ConfigDescriptor {
 
+    public enum Country {
+        HAITI, LIBERIA
+    }
+
     public enum Site {
-        MIREBALAIS, LACOLLINE
+        MIREBALAIS, LACOLLINE, PLEEBO
     }
 
     @JsonProperty
-    String welcomeMessage;
+    private String welcomeMessage;
 
     @JsonProperty
-    Site site;
+    private Country country;
 
     @JsonProperty
-    Map<String, String> globalProperties;
+    private Site site;
 
     @JsonProperty
-    List<String> components;
+    private Map<String, String> globalProperties;
 
     @JsonProperty
-    Boolean scheduleBackupReports; // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleBackupReports method in Mirebalais Module Activator), generally this should only be turned on on production
+    private List<String> components;
+
+    @JsonProperty
+    private Boolean scheduleBackupReports; // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleBackupReports method in Mirebalais Module Activator), generally this should only be turned on on production
 
     public String getWelcomeMessage() {
         return welcomeMessage;
@@ -35,6 +42,14 @@ public class ConfigDescriptor {
 
     public void setWelcomeMessage(String welcomeMessage) {
         this.welcomeMessage = welcomeMessage;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     public Site getSite() {

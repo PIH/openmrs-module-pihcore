@@ -4,13 +4,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.ClinicalConsultationConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.CommonConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,11 +48,12 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void testAllMetadataBundles() throws Exception {
-        deployService.installBundles(bundles);
+    public void testMetadataBundles() throws Exception {
+
+        deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
 
         // test a few random concepts
-        assertThat(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES).getName().getName(), is("Yes"));
+        assertThat(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES).getName().getName(), is("Oui"));
 
         Concept mainActivity = MetadataUtils.existing(Concept.class, SocioEconomicConcepts.Concepts.MAIN_ACTIVITY);
         assertThat(mainActivity.getDatatype().getName(), is("Coded"));

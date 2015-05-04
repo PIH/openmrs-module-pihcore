@@ -6,23 +6,15 @@
 <hibernate-configuration>
 	<session-factory>
 
-		<!--<mapping resource="IdentifierSource.hbm.xml"/>-->
+        <mapping resource="ExportedPackage.hbm.xml"/>
+        <mapping resource="ImportedPackage.hbm.xml"/>
+        <mapping resource="ImportedItem.hbm.xml"/>
 
-		<!--<mapping resource="AppointmentType.hbm.xml" />-->
-		<!--<mapping resource="AppointmentBlock.hbm.xml"/>-->
-		<!--<mapping resource="Appointment.hbm.xml"/>-->
-		<!--<mapping resource="TimeSlot.hbm.xml"/>-->
-		<!--<mapping resource="AppointmentStatusHistory.hbm.xml"/>-->
+        <mapping resource="RadiologyOrder.hbm.xml"/>
+        <mapping resource="HtmlFormEntryHtmlForm.hbm.xml"/>
 
-		<!--<mapping resource="ProviderRole.hbm.xml" />-->
-		<!--<mapping resource="Provider.hbm.xml" />-->
-		<!--<mapping resource="ProviderSuggestion.hbm.xml" />-->
-		<!--<mapping resource="SupervisionSuggestion.hbm.xml" />-->
-
-		<!--<mapping resource="Printer.hbm.xml"/>-->
-		<!--<mapping resource="PrinterModel.hbm.xml"/>-->
-
-        <!--<mapping resource="RadiologyOrder.hbm.xml"/>-->
+        <mapping resource="Provider.hbm.xml"/>
+        <mapping resource="ProviderRole.hbm.xml"/>
 
 	</session-factory>
 </hibernate-configuration>
