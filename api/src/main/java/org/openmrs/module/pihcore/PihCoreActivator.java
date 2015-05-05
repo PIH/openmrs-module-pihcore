@@ -16,6 +16,7 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -24,6 +25,7 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaBundle;
+import org.openmrs.module.pihcore.setup.LocationTagSetup;
 
 public class PihCoreActivator extends BaseModuleActivator {
 
@@ -33,11 +35,16 @@ public class PihCoreActivator extends BaseModuleActivator {
 
 	@Override
 	public void started() {
+
+        LocationService locationService = Context.getLocationService();
+
         if (config == null) {  // hack to allow injecting a mock config for testing
             config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
         }
         installMetadataBundles(config);
-	}
+        LocationTagSetup.setupLocationTags(locationService, config);
+
+    }
 
     private void installMetadataBundles(Config config) {
 
