@@ -19,12 +19,15 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.Module;
+import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaBundle;
+import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 
 public class PihCoreActivator extends BaseModuleActivator {
@@ -36,13 +39,22 @@ public class PihCoreActivator extends BaseModuleActivator {
 	@Override
 	public void started() {
 
-        LocationService locationService = Context.getLocationService();
+        try {
+            LocationService locationService = Context.getLocationService();
 
-        if (config == null) {  // hack to allow injecting a mock config for testing
-            config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+            if (config == null) {  // hack to allow injecting a mock config for testing
+                config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+            }
+            installMetadataBundles(config);
+            LocationTagSetup.setupLocationTags(locationService, config);
+            HtmlFormSetup.setupHtmlFormEntryTagHandlers();
+            HtmlFormSetup.setupHtmlForms(config);
         }
-        installMetadataBundles(config);
-        LocationTagSetup.setupLocationTags(locationService, config);
+        catch (Exception e) {
+            Module mod = ModuleFactory.getModuleById("pihcore");
+            ModuleFactory.stopModule(mod);
+            throw new RuntimeException("failed to setup the required modules", e);
+        }
 
     }
 

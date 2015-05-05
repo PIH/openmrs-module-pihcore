@@ -60,7 +60,7 @@
         <metadatadeployVersion>1.5-SNAPSHOT</metadatadeployVersion>
         <htmlformentryVersion>2.6-SNAPSHOT</htmlformentryVersion>
         <htmlformentry19extVersion>1.5</htmlformentry19extVersion>
-        <htmlformentryuiVersion>1.2-SNAPSHOT</htmlformentryuiVersion>
+        <htmlformentryuiVersion>1.3-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
         <reportingVersion>0.9.5-SNAPSHOT</reportingVersion>
         <reportinguiVersion>1.0-SNAPSHOT</reportinguiVersion>
@@ -160,6 +160,14 @@
             <artifactId>emrapi-api-1.10</artifactId>
             <version>${emrapiVersion}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>emrapi-api</artifactId>
+            <version>${emrapiVersion}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -291,6 +299,12 @@
             <version>${appframeworkVersion}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>htmlformentryui-api</artifactId>
+            <version>${htmlformentryuiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- TODO figure out why we still need the 1.9 subproject for testing-->
         <dependency>
@@ -299,6 +313,19 @@
             <version>${emrapiVersion}</version>
             <scope>test</scope>
         </dependency>
+
+
+        <!-- Begin OpenMRS contrib -->
+
+        <dependency>
+            <groupId>org.openmrs.contrib</groupId>
+            <artifactId>testutils</artifactId>
+            <version>${testutilsVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- End OpenMRS contrib -->
+
     </dependencies>
 
 	<build>
