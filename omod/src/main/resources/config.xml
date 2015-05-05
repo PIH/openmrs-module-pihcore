@@ -85,7 +85,7 @@
 
 
     <activator>${project.parent.groupId}.${project.parent.artifactId}.PihCoreActivator</activator>
-	
+
 	<mappingFiles>
 	</mappingFiles>
 
