@@ -29,6 +29,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
@@ -54,6 +55,13 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
     private List<MetadataBundle> bundles;
 
     private PihCoreActivator activator;
+
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties p = super.getRuntimeProperties();
+        p.setProperty("pih.config", "pihcore");
+        return p;
+    }
 
     @Before
     public void setUp() throws Exception {

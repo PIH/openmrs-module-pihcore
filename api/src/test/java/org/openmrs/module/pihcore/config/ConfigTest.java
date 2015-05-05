@@ -7,7 +7,6 @@ import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -29,7 +28,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("patientRegistration"), is(true));
         assertThat(config.isComponentEnabled("missingComponent"), is(false));
         assertThat(config.getWelcomeMessage(), is("Welcome to the PIH EMR"));
-        assertNull(config.getSite());
+        assertThat(config.getSite(), is(ConfigDescriptor.Site.OTHER));
         assertFalse(config.shouldScheduleBackupReports());
     }
 
@@ -37,7 +36,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
     public void testReloadingConfiguration() {
         config = new Config();
         assertThat(config.getWelcomeMessage(), is("Welcome to the PIH EMR"));
-        assertNull(config.getSite());
+        assertThat(config.getSite(), is(ConfigDescriptor.Site.OTHER));
         config.reload(ConfigLoader.load("custom"));
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
         assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));

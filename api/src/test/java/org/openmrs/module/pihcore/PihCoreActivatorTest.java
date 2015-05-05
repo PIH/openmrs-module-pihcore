@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
+import java.util.Properties;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
@@ -39,6 +40,13 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     private List<MetadataBundle> bundles;
+
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties p = super.getRuntimeProperties();
+        p.setProperty("pih.config", "pihcore");
+        return p;
+    }
 
     @Before
     public void setUp() throws Exception {

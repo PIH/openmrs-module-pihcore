@@ -1,6 +1,9 @@
 {
     "welcomeMessage": "Welcome to the PIH EMR",
 
+    "country": "OTHER",
+    "site": "OTHER",
+
     "components": [
         "clinicianDashboard",
         "visitNote",

@@ -11,11 +11,11 @@ import java.util.Map;
 public class ConfigDescriptor {
 
     public enum Country {
-        HAITI, LIBERIA
+        HAITI, LIBERIA, OTHER
     }
 
     public enum Site {
-        MIREBALAIS, LACOLLINE, PLEEBO
+        MIREBALAIS, LACOLLINE, PLEEBO, OTHER
     }
 
     @JsonProperty
