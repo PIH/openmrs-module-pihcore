@@ -21,6 +21,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -29,6 +30,7 @@ import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundl
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
+import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 
 public class PihCoreActivator extends BaseModuleActivator {
 
@@ -41,6 +43,7 @@ public class PihCoreActivator extends BaseModuleActivator {
 
         try {
             LocationService locationService = Context.getLocationService();
+            IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
 
             if (config == null) {  // hack to allow injecting a mock config for testing
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
@@ -49,6 +52,8 @@ public class PihCoreActivator extends BaseModuleActivator {
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
             HtmlFormSetup.setupHtmlForms(config);
+
+            PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
         }
         catch (Exception e) {
             Module mod = ModuleFactory.getModuleById("pihcore");
