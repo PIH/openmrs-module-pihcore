@@ -6,6 +6,8 @@
 <hibernate-configuration>
 	<session-factory>
 
+        <mapping resource="IdentifierSource.hbm.xml"/>
+
         <mapping resource="ExportedPackage.hbm.xml"/>
         <mapping resource="ImportedPackage.hbm.xml"/>
         <mapping resource="ImportedItem.hbm.xml"/>

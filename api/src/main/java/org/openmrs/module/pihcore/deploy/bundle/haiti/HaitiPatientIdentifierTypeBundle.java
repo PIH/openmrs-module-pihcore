@@ -1,23 +1,23 @@
-package org.openmrs.module.pihcore.deploy.bundle.core;
+package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
 import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
 import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.descriptor.PatientIdentifierTypeDescriptor;
-import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PatientIdentifierTypeBundle extends PihMetadataBundle {
+public class HaitiPatientIdentifierTypeBundle extends PihMetadataBundle {
 
     @Override
     public void install() throws Exception {
 
         log.info("Installing PatientIdentifierTypes");
 
-        install(PatientIdentifierTypes.ZL_EMR_ID);
-        install(PatientIdentifierTypes.DOSSIER_NUMBER);
-        install(PatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER);
-        install(PatientIdentifierTypes.HIVEMR_V1);
+        install(HaitiPatientIdentifierTypes.ZL_EMR_ID);
+        install(HaitiPatientIdentifierTypes.DOSSIER_NUMBER);
+        install(HaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER);
+        install(HaitiPatientIdentifierTypes.HIVEMR_V1);
     }
 
     //***** BUNDLE INSTALLATION METHODS FOR DESCRIPTORS

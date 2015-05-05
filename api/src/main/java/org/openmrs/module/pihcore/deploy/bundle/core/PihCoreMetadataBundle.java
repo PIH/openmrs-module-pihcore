@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
         LocationBundle.class,
         LocationTagBundle.class,
         OrderTypeBundle.class,
-        PatientIdentifierTypeBundle.class,
         PersonAttributeTypeBundle.class,
         RolesAndPrivilegesBundle.class,
         VisitTypeBundle.class } )

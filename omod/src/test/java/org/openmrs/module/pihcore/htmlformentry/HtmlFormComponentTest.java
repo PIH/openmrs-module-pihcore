@@ -12,9 +12,7 @@ import org.openmrs.module.htmlformentry.HtmlForm;
 import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
-import org.openmrs.module.pihcore.PihCoreActivator;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
@@ -24,16 +22,11 @@ import org.springframework.mock.web.MockHttpSession;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 @SkipBaseSetup
 public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     private MetadataDeployService metadataDeployService;
-
-    private PihCoreActivator pihCoreActivator;
 
     @Override
     public Properties getRuntimeProperties() {
@@ -48,13 +41,8 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
 
-        // set up metatdata from pih core first
-        pihCoreActivator = new PihCoreActivator();
-        Config config = mock(Config.class);
-        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
-        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
-        pihCoreActivator.setConfig(config);
-        pihCoreActivator.started();
+        // set up metadata from pih core first
+        metadataDeployService.installBundle(Context.getRegisteredComponents(MirebalaisBundle.class).get(0));
 
         // load the test bundle of MDS concepts
         metadataDeployService.installBundle(Context.getRegisteredComponents(ConceptsFromMetadataSharing.class).get(0));

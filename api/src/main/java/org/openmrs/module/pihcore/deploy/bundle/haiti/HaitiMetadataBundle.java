@@ -33,8 +33,8 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.DiagnosisConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.VaccinationConcepts;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
-import org.openmrs.module.pihcore.metadata.core.PatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
@@ -49,6 +49,7 @@ import java.util.Map;
  */
 @Component
 @Requires( { PihCoreMetadataBundle.class,
+        HaitiPatientIdentifierTypeBundle.class,
         HaitiAddressBundle.class,
         AdministrativeConcepts.class,
         ClinicalConsultationConcepts.class,
@@ -92,12 +93,12 @@ public class HaitiMetadataBundle extends PihMetadataBundle {
 
 
 		// EMR API
-		properties.put(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, PatientIdentifierTypes.DOSSIER_NUMBER.uuid() + "," + PatientIdentifierTypes.HIVEMR_V1.uuid());
-		properties.put(EmrApiConstants.PRIMARY_IDENTIFIER_TYPE, PatientIdentifierTypes.ZL_EMR_ID.name());
+		properties.put(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, HaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid() + "," + HaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+		properties.put(EmrApiConstants.PRIMARY_IDENTIFIER_TYPE, HaitiPatientIdentifierTypes.ZL_EMR_ID.name());
 
         // Paper Record
-        properties.put(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, PatientIdentifierTypes.DOSSIER_NUMBER.uuid());
-        properties.put(PaperRecordConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, PatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid());
+        properties.put(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, HaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
+        properties.put(PaperRecordConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, HaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid());
 
         // Core Apps
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MirebalaisLocations.MIREBALAIS_CDI_PARENT.uuid());
@@ -116,9 +117,9 @@ public class HaitiMetadataBundle extends PihMetadataBundle {
 		properties.put(PatientRegistrationGlobalProperties.ID_CARD_LABEL_TEXT, "Zanmi Lasante Patient ID Card");
 		properties.put(PatientRegistrationGlobalProperties.BIRTH_YEAR_INTERVAL, "1");
 		properties.put(PatientRegistrationGlobalProperties.MEDICAL_RECORD_LOCATION_TAG, LocationTags.MEDICAL_RECORD_LOCATION.uuid());
-		properties.put(PatientRegistrationGlobalProperties.PRIMARY_IDENTIFIER_TYPE, PatientIdentifierTypes.ZL_EMR_ID.name());
-		properties.put(PatientRegistrationGlobalProperties.NUMERO_DOSSIER, PatientIdentifierTypes.DOSSIER_NUMBER.uuid());
-		properties.put(PatientRegistrationGlobalProperties.EXTERNAL_NUMERO_DOSSIER, PatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid());
+		properties.put(PatientRegistrationGlobalProperties.PRIMARY_IDENTIFIER_TYPE, HaitiPatientIdentifierTypes.ZL_EMR_ID.name());
+		properties.put(PatientRegistrationGlobalProperties.NUMERO_DOSSIER, HaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
+		properties.put(PatientRegistrationGlobalProperties.EXTERNAL_NUMERO_DOSSIER, HaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid());
 		properties.put(PatientRegistrationGlobalProperties.PROVIDER_IDENTIFIER_PERSON_ATTRIBUTE_TYPE, PersonAttributeTypes.PROVIDER_IDENTIFIER.name());
 		properties.put(PatientRegistrationGlobalProperties.ID_CARD_PERSON_ATTRIBUTE_TYPE, PersonAttributeTypes.TELEPHONE_NUMBER.name());
 		properties.put(PatientRegistrationGlobalProperties.PATIENT_VIEWING_ATTRIBUTE_TYPES, PersonAttributeTypes.TELEPHONE_NUMBER.name());

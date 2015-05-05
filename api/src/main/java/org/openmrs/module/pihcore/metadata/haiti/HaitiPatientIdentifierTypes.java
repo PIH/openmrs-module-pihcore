@@ -12,7 +12,7 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.pihcore.metadata.core;
+package org.openmrs.module.pihcore.metadata.haiti;
 
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
@@ -22,7 +22,7 @@ import org.openmrs.patient.IdentifierValidator;import java.lang.Class;import jav
 /**
  * Constants for all defined patient identifier types
  */
-public class PatientIdentifierTypes {
+public class HaitiPatientIdentifierTypes {
 
 	public static PatientIdentifierTypeDescriptor ZL_EMR_ID = new PatientIdentifierTypeDescriptor() {
 		public String uuid() { return "a541af1e-105c-40bf-b345-ba1fd6a59b85"; }

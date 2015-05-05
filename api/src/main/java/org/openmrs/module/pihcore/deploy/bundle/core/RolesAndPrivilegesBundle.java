@@ -96,30 +96,36 @@ public class RolesAndPrivilegesBundle extends PihMetadataBundle {
 
         log.info("Installing roles");
 
-        install(Roles.SYSTEM_ADMINISTRATOR);
-        install(Roles.SCHEDULE_MANAGER);
-        install(Roles.PHARMACIST);
-        install(Roles.PHARMACY_AIDE);
-        install(Roles.GENERAL_ADMINISTRATION);
-        install(Roles.CLINICAL_MANAGER);
-        install(Roles.MEQ);
-        install(Roles.ARCHIVIST_CLERK);
-        install(Roles.ARCHIVIST_MANAGER);
-        install(Roles.AUXILIARY_NURSE);
-        install(Roles.NURSE);
-        install(Roles.ADVANCED_PRACTICE_NURSE);
-        install(Roles.RADIOLOGY_TECHNICIAN);
-        install(Roles.PHARMACIST);
-        install(Roles.PHARMACY_AIDE);
-        install(Roles.PHARMACY_MANAGER);
-        install(Roles.MEDICAL_STUDENT);
-        install(Roles.RESIDENT);
-        install(Roles.PHYSICIAN);
-        install(Roles.SURGEON);
-        install(Roles.ANAESTHETIST);
-        install(Roles.PSYCHOLOGIST);
-        install(Roles.PHYSICAL_THERAPIST);
-        install(Roles.SOCIAL_WORKER);
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            install(Roles.SYSTEM_ADMINISTRATOR);
+            install(Roles.SCHEDULE_MANAGER);
+            install(Roles.PHARMACIST);
+            install(Roles.PHARMACY_AIDE);
+            install(Roles.GENERAL_ADMINISTRATION);
+            install(Roles.CLINICAL_MANAGER);
+            install(Roles.MEQ);
+            install(Roles.ARCHIVIST_CLERK);
+            install(Roles.ARCHIVIST_MANAGER);
+            install(Roles.AUXILIARY_NURSE);
+            install(Roles.NURSE);
+            install(Roles.ADVANCED_PRACTICE_NURSE);
+            install(Roles.RADIOLOGY_TECHNICIAN);
+            install(Roles.PHARMACIST);
+            install(Roles.PHARMACY_AIDE);
+            install(Roles.PHARMACY_MANAGER);
+            install(Roles.MEDICAL_STUDENT);
+            install(Roles.RESIDENT);
+            install(Roles.PHYSICIAN);
+            install(Roles.SURGEON);
+            install(Roles.ANAESTHETIST);
+            install(Roles.PSYCHOLOGIST);
+            install(Roles.PHYSICAL_THERAPIST);
+            install(Roles.SOCIAL_WORKER);
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            install(Roles.SYSTEM_ADMINISTRATOR);
+            install(Roles.ARCHIVIST_CLERK);
+        }
 
         // old privileges still in use at Mirebalais
         if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
