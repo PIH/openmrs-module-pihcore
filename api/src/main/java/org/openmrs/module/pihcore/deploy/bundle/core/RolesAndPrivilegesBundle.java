@@ -2,15 +2,21 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.Privilege;
 import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.descriptor.PrivilegeDescriptor;
 import org.openmrs.module.pihcore.descriptor.RoleDescriptor;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.Roles;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RolesAndPrivilegesBundle extends PihMetadataBundle {
+
+    @Autowired
+    private Config config;
 
     @Override
     public void install() throws Exception {
@@ -115,17 +121,19 @@ public class RolesAndPrivilegesBundle extends PihMetadataBundle {
         install(Roles.PHYSICAL_THERAPIST);
         install(Roles.SOCIAL_WORKER);
 
-        install(Roles.LEGACY_CLINICAL);
-        install(Roles.LEGACY_DATA_ARCHIVES);
-        install(Roles.LEGACY_RADIOLOGY);
-        install(Roles.LEGACY_REPORTS);
-        install(Roles.LEGACY_ARCHIVIST_AIDE);
-        install(Roles.LEGACY_SCHEDULE_ADMINISTRATOR);
-        install(Roles.LEGACY_SCHEDULER);
-        install(Roles.LEGACY_SCHEDULE_VIEWER);
-        install(Roles.LEGACY_PATIENT_MEDICAL_INFORMATION);
-        install(Roles.LEGACY_CHECK_IN);
-
+        // old privileges still in use at Mirebalais
+        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+            install(Roles.LEGACY_CLINICAL);
+            install(Roles.LEGACY_DATA_ARCHIVES);
+            install(Roles.LEGACY_RADIOLOGY);
+            install(Roles.LEGACY_REPORTS);
+            install(Roles.LEGACY_ARCHIVIST_AIDE);
+            install(Roles.LEGACY_SCHEDULE_ADMINISTRATOR);
+            install(Roles.LEGACY_SCHEDULER);
+            install(Roles.LEGACY_SCHEDULE_VIEWER);
+            install(Roles.LEGACY_PATIENT_MEDICAL_INFORMATION);
+            install(Roles.LEGACY_CHECK_IN);
+        }
 
     }
 
