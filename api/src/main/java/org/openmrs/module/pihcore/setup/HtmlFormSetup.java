@@ -38,7 +38,7 @@ public class HtmlFormSetup {
 
                 if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
                     htmlforms = Arrays.asList("pihcore:htmlforms/admissionNote.xml",
-                            "pihcore:htmlforms/heckin.xml",
+                            "pihcore:htmlforms/checkin.xml",
                             "pihcore:htmlforms/liveCheckin.xml",
                             "pihcore:htmlforms/surgicalPostOpNote.xml",
                             "pihcore:htmlforms/vitals.xml",
