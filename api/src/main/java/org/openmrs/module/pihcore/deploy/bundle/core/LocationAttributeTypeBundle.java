@@ -25,5 +25,4 @@ public class LocationAttributeTypeBundle extends PihMetadataBundle {
         install(type);
     }
 
-
 }

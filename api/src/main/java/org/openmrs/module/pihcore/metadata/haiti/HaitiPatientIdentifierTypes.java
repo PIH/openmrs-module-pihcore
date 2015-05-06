@@ -44,7 +44,6 @@ public class HaitiPatientIdentifierTypes {
 		public String uuid() { return "9dbea4d4-35a9-4793-959e-952f2a9f5347"; }
 		public String name() { return "External Nimewo Dosye"; }
 		public String description() { return "External Dossier number"; }
-
 	};
 
 	public static PatientIdentifierTypeDescriptor HIVEMR_V1 = new PatientIdentifierTypeDescriptor() {
