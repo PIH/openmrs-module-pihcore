@@ -1,6 +1,8 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.Privilege;
+import org.openmrs.Role;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -11,6 +13,9 @@ import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class RolesAndPrivilegesBundle extends PihMetadataBundle {
@@ -143,15 +148,30 @@ public class RolesAndPrivilegesBundle extends PihMetadataBundle {
 
     }
 
-
     protected void install(PrivilegeDescriptor d) {
         install(CoreConstructors.privilege(d.privilege(), d.description(), d.uuid()));
-
     }
 
     protected void install(RoleDescriptor d) {
-        install(CoreConstructors.role(d.role(), d.description(), d.inherited(), d.privileges(), d.uuid()));
-
+        Role obj = new Role();
+        obj.setUuid(d.uuid());
+        obj.setRole(d.role());
+        obj.setDescription(d.description());
+        if (d.inherited() != null) {
+            Set<Role> inheritedRoles = new HashSet<Role>();
+            for (RoleDescriptor rd : d.inherited()) {
+                inheritedRoles.add(MetadataUtils.existing(Role.class, rd.uuid()));
+            }
+            obj.setInheritedRoles(inheritedRoles);
+        }
+        if (d.privileges() != null) {
+            Set<Privilege> privileges = new HashSet<Privilege>();
+            for (PrivilegeDescriptor pd : d.privileges()) {
+                privileges.add(MetadataUtils.existing(Privilege.class, pd.privilege()));
+            }
+            obj.setPrivileges(privileges);
+        }
+        install(obj);
     }
 
 }

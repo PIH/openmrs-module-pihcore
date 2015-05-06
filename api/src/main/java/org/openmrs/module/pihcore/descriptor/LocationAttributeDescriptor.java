@@ -14,10 +14,12 @@
 
 package org.openmrs.module.pihcore.descriptor;
 
+import org.openmrs.LocationAttribute;
+
 /**
  * Encapsulates the information needed to create a new LocationAttribute
  */
-public abstract class LocationAttributeDescriptor implements Descriptor {
+public abstract class LocationAttributeDescriptor implements Descriptor<LocationAttribute> {
 
     /**
      * @return the descriptor for the location that this attribute belongs to
@@ -33,4 +35,12 @@ public abstract class LocationAttributeDescriptor implements Descriptor {
      * @return the value of this attribute
      */
     public abstract String value();
+
+    /**
+     * @see Descriptor#getDescribedType()
+     */
+    @Override
+    public Class<LocationAttribute> getDescribedType() {
+        return LocationAttribute.class;
+    }
 }

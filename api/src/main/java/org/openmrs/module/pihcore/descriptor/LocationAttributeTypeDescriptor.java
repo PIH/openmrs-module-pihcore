@@ -14,10 +14,12 @@
 
 package org.openmrs.module.pihcore.descriptor;
 
+import org.openmrs.LocationAttributeType;
+
 /**
  * Encapsulates the information needed to create a new LocationAttributeType
  */
-public abstract class LocationAttributeTypeDescriptor extends MetadataDescriptor {
+public abstract class LocationAttributeTypeDescriptor extends MetadataDescriptor<LocationAttributeType> {
 
 	/**
 	 * @return the data type of this location attribute type
@@ -45,4 +47,11 @@ public abstract class LocationAttributeTypeDescriptor extends MetadataDescriptor
 		return 1;
 	}
 
+	/**
+	 * @see Descriptor#getDescribedType()
+	 */
+	@Override
+	public Class<LocationAttributeType> getDescribedType() {
+		return LocationAttributeType.class;
+	}
 }

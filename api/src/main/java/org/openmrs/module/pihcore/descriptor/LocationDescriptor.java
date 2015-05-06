@@ -14,13 +14,15 @@
 
 package org.openmrs.module.pihcore.descriptor;
 
+import org.openmrs.Location;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Encapsulates the information needed to create a new Location
  */
-public abstract class LocationDescriptor extends MetadataDescriptor {
+public abstract class LocationDescriptor extends MetadataDescriptor<Location> {
 
     /**
      * @return the descriptors for the parent location for this location . defaults to null
@@ -41,5 +43,13 @@ public abstract class LocationDescriptor extends MetadataDescriptor {
      */
     public List<LocationTagDescriptor> tags() {
         return new ArrayList<LocationTagDescriptor>();
+    }
+
+    /**
+     * @see Descriptor#getDescribedType()
+     */
+    @Override
+    public Class<Location> getDescribedType() {
+        return Location.class;
     }
 }

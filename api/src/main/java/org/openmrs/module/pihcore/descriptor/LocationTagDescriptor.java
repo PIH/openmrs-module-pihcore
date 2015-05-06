@@ -14,11 +14,20 @@
 
 package org.openmrs.module.pihcore.descriptor;
 
+import org.openmrs.LocationTag;
+
 /**
  * Encapsulates the information needed to create a new LocationTag
  */
-public abstract class LocationTagDescriptor extends MetadataDescriptor {
+public abstract class LocationTagDescriptor extends MetadataDescriptor<LocationTag> {
 
 	// For now, we don't need anything extra from MetadataDescriptor, but this is here for forwards compatibility
 
+    /**
+     * @see Descriptor#getDescribedType()
+     */
+    @Override
+    public Class<LocationTag> getDescribedType() {
+        return LocationTag.class;
+    }
 }

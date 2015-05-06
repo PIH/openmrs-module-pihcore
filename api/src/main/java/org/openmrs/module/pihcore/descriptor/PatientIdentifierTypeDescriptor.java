@@ -20,7 +20,7 @@ import org.openmrs.patient.IdentifierValidator;
 /**
  * Encapsulates the information needed to create a new PatientIdentifierType
  */
-public abstract class PatientIdentifierTypeDescriptor extends MetadataDescriptor {
+public abstract class PatientIdentifierTypeDescriptor extends MetadataDescriptor<PatientIdentifierType> {
 
     /**
      * @return the format, defaulting to null
@@ -55,5 +55,13 @@ public abstract class PatientIdentifierTypeDescriptor extends MetadataDescriptor
      */
     public boolean required() {
         return false;
+    }
+
+    /**
+     * @see Descriptor#getDescribedType()
+     */
+    @Override
+    public Class<PatientIdentifierType> getDescribedType() {
+        return PatientIdentifierType.class;
     }
 }

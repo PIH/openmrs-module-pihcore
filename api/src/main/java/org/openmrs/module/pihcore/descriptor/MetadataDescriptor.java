@@ -14,10 +14,12 @@
 
 package org.openmrs.module.pihcore.descriptor;
 
+import org.openmrs.OpenmrsMetadata;
+
 /**
  * Encapsulates the minimum information needed to create OpenmrsMetadata
  */
-public abstract class MetadataDescriptor implements Descriptor {
+public abstract class MetadataDescriptor<T extends OpenmrsMetadata> implements Descriptor<T> {
 
 	/**
 	 * @return the name of the metadata

@@ -14,10 +14,12 @@
 
 package org.openmrs.module.pihcore.descriptor;
 
+import org.openmrs.PersonAttributeType;
+
 /**
  * Encapsulates the information needed to create a new PersonAttributeType
  */
-public abstract class PersonAttributeTypeDescriptor extends MetadataDescriptor {
+public abstract class PersonAttributeTypeDescriptor extends MetadataDescriptor<PersonAttributeType> {
 
     /**
      * @return the format, defaulting to String
@@ -44,4 +46,12 @@ public abstract class PersonAttributeTypeDescriptor extends MetadataDescriptor {
      * @return the sortWeight for this attribute type
      */
     public abstract double sortWeight();
+
+    /**
+     * @see Descriptor#getDescribedType()
+     */
+    @Override
+    public Class<PersonAttributeType> getDescribedType() {
+        return PersonAttributeType.class;
+    }
 }

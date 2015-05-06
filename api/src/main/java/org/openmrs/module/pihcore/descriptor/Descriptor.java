@@ -14,15 +14,21 @@
 
 package org.openmrs.module.pihcore.descriptor;
 
+import org.openmrs.OpenmrsObject;
+
 /**
  * The common interface for all metadata descriptor classes,
  * which provide a mechanism for defining metadata in code
  */
-public interface Descriptor {
+public interface Descriptor<T extends OpenmrsObject> {
 
 	/**
 	 * @return the uuid that uniquely identifies the metadata that this describes
 	 */
 	String uuid();
 
+	/**
+	 * @return the type of Openmrs Object that this descriptor represents
+	 */
+	Class<T> getDescribedType();
 }
