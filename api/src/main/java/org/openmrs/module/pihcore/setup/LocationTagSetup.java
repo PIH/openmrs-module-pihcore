@@ -17,6 +17,7 @@ import java.util.Collection;
 public class LocationTagSetup {
 
     // TODO make this less if-then based
+    // TODO actually, when we get rid of these, we can probably set most of the tags in the bundles?
     public static void setupLocationTags(LocationService locationService, Config config) {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {

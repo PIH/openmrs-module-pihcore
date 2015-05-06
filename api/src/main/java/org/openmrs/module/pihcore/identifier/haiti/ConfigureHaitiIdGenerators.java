@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.identifier;
+package org.openmrs.module.pihcore.identifier.haiti;
 
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
@@ -10,9 +10,14 @@ import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 
-public class ConfigureIdGenerators {
+public class ConfigureHaitiIdGenerators {
 
     public static final String LOCAL_ZL_IDENTIFIER_GENERATOR_ENABLED = "local_zl_identifier_generator_enabled";
     public static final String LOCAL_ZL_IDENTIFIER_GENERATOR_PREFIX = "local_zl_identifier_generator_prefix";
@@ -24,23 +29,54 @@ public class ConfigureIdGenerators {
 
     private final IdentifierSourceService identifierSourceService;
 
-    private final LocationService locationService;
-
 	
-	public ConfigureIdGenerators(
-	    IdentifierSourceService identifierSourceService, LocationService locationService) {
-
+	public ConfigureHaitiIdGenerators(
+            IdentifierSourceService identifierSourceService) {
 
 		this.identifierSourceService = identifierSourceService;
-        this.locationService = locationService;
 		
 		if (identifierSourceService == null) {
 			throw new IllegalStateException("All the dependencies are mandatory");
 		}
 		
 	}
-	
-	public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource, Location location) {
+
+    // TODO refactor all this to make more sense
+    public static void createPatientIdGenerator(ConfigureHaitiIdGenerators configureHaitiIdGenerators) {
+        PatientIdentifierType zlIdentifierType = getZlIdentifierType();
+        RemoteIdentifierSource remoteZlIdentifierSource = configureHaitiIdGenerators.remoteZlIdentifierSource(zlIdentifierType);
+        IdentifierPool localZlIdentifierPool = configureHaitiIdGenerators.localZlIdentifierSource(remoteZlIdentifierSource);
+        configureHaitiIdGenerators.setAutoGenerationOptionsForZlIdentifier(localZlIdentifierPool);
+    }
+
+    public static void createDossierNumberGenerator(LocationService locationService, ConfigureHaitiIdGenerators configureHaitiIdGenerators, Config config) {
+
+        // TODO configure dossier generators for sites besides Mirebalais, if any of them start using the archives app
+        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+            PatientIdentifierType dossierIdentifierType = getDossierIdentifierType();
+
+            SequentialIdentifierGenerator sequentialIdentifierGeneratorForUHM = configureHaitiIdGenerators
+                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
+                            PihCoreConstants.UHM_DOSSIER_NUMBER_PREFIX,
+                            PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+
+            configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForUHM,
+                    locationService.getLocationByUuid(MirebalaisLocations.MIREBALAIS_HOSPITAL.uuid()));
+
+            SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureHaitiIdGenerators
+                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
+                            PihCoreConstants.CDI_DOSSIER_NUMBER_PREFIX,
+                            PihCoreConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+
+            configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
+                    locationService.getLocationByUuid(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL.uuid()));
+
+        }
+
+    }
+
+
+    public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource, Location location) {
 
         AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
                 .getIdentifierType(), location);
@@ -245,5 +281,13 @@ public class ConfigureIdGenerators {
         }
 
         return sequentialIdentifierGenerator;
+    }
+
+    public static PatientIdentifierType getZlIdentifierType() {
+        return MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
+    }
+
+    public static PatientIdentifierType getDossierIdentifierType() {
+        return MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
     }
 }

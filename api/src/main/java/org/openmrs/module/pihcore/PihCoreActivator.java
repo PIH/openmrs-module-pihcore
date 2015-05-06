@@ -27,7 +27,7 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
-import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaBundle;
+import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
@@ -76,7 +76,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            deployService.installBundle(Context.getRegisteredComponents(LiberiaBundle.class).get(0));
+            deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataBundle.class).get(0));
         }
 
     }

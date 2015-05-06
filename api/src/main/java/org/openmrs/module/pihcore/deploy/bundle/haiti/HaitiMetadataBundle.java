@@ -26,12 +26,6 @@ import org.openmrs.module.patientregistration.PatientRegistrationGlobalPropertie
 import org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch;
 import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.DeathConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.DiagnosisConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.VaccinationConcepts;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
@@ -50,13 +44,7 @@ import java.util.Map;
 @Component
 @Requires( { PihCoreMetadataBundle.class,
         HaitiPatientIdentifierTypeBundle.class,
-        HaitiAddressBundle.class,
-        AdministrativeConcepts.class,
-        ClinicalConsultationConcepts.class,
-        DeathConcepts.class,
-        DiagnosisConcepts.class,
-        SocioEconomicConcepts.class,
-        VaccinationConcepts.class
+        HaitiAddressBundle.class
 } )
 public class HaitiMetadataBundle extends PihMetadataBundle {
 
