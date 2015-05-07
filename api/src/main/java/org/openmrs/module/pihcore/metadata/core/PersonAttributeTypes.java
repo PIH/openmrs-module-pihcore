@@ -28,6 +28,14 @@ public class PersonAttributeTypes {
 		public double sortWeight() { return 7; }
 	};
 
+	public static PersonAttributeTypeDescriptor TEST_PATIENT = new PersonAttributeTypeDescriptor() {
+		public String uuid() { return "4f07985c-88a5-4abd-aa0c-f3ec8324d8e7"; }
+		public String name() { return "Test Patient"; }
+		public String description() { return "Flag to describe if the patient was created for demonstration or testing purposes"; }
+		public Class<?> format() { return Boolean.class; }
+		public double sortWeight() { return 8; }
+	};
+
 	public static PersonAttributeTypeDescriptor PROVIDER_IDENTIFIER = new PersonAttributeTypeDescriptor() {
 		public String uuid() { return "6de6c415-97a2-4cca-817a-9501cd9ef382"; }
 		public String name() { return "Provider Identifier"; }
