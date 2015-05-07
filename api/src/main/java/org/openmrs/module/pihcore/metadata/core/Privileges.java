@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.pihcore.metadata.core;
 
+import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.descriptor.PrivilegeDescriptor;import java.lang.String;
 
 /**
@@ -74,13 +75,13 @@ public class Privileges {
 
     public static PrivilegeDescriptor APP_COREAPPS_PATIENT_DASHBOARD = new PrivilegeDescriptor() {
         public String uuid() { return "b37491af-10df-4465-863c-0a7f5d612c08"; }
-        public String privilege() { return "App: coreapps.patientDashboard"; }
+        public String privilege() { return CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD; }
         public String description() { return "Able to access the patient dashboard"; }
     };
 
     public static PrivilegeDescriptor APP_COREAPPS_PATIENT_VISITS = new PrivilegeDescriptor() {
         public String uuid() { return "908aa2ce-cdd6-4b77-9664-bbcdb011432a"; }
-        public String privilege() { return "App: coreapps.patientVisits"; }
+        public String privilege() { return CoreAppsConstants.PRIVILEGE_PATIENT_VISITS; }
         public String description() { return "Able to access the patient visits screen"; }
     };
 
@@ -204,13 +205,13 @@ public class Privileges {
 
     public static PrivilegeDescriptor TASK_COREAPPS_CREATE_VISIT = new PrivilegeDescriptor() {
         public String uuid() { return "ec6fcf8e-e4b7-4c69-8ca0-97cf2796315e"; }
-        public String privilege() { return "Task: coreapps.createVisit"; }
+        public String privilege() { return CoreAppsConstants.PRIVILEGE_START_VISIT; }
         public String description() { return "Rights to start a visit from the patient dashboard"; }
     };
 
     public static PrivilegeDescriptor TASK_COREAPPS_END_VISIT = new PrivilegeDescriptor() {
         public String uuid() { return "3082f9ac-e865-4234-81a9-b8a889225023"; }
-        public String privilege() { return "Task: coreapps.endVisit"; }
+        public String privilege() { return CoreAppsConstants.PRIVILEGE_END_VISIT; }
         public String description() { return "Ability to end visit"; }
     };
 
