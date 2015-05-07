@@ -14,6 +14,7 @@
 
 package org.openmrs.module.pihcore.metadata.core;
 
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.pihcore.descriptor.PersonAttributeTypeDescriptor;import java.lang.String;
 
 /**
@@ -29,7 +30,7 @@ public class PersonAttributeTypes {
 	};
 
 	public static PersonAttributeTypeDescriptor TEST_PATIENT = new PersonAttributeTypeDescriptor() {
-		public String uuid() { return "4f07985c-88a5-4abd-aa0c-f3ec8324d8e7"; }
+		public String uuid() { return EmrApiConstants.TEST_PATIENT_ATTRIBUTE_UUID; }
 		public String name() { return "Test Patient"; }
 		public String description() { return "Flag to describe if the patient was created for demonstration or testing purposes"; }
 		public Class<?> format() { return Boolean.class; }
