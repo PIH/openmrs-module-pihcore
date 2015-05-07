@@ -128,4 +128,11 @@ public class EncounterTypes {
 		public String name() { return "Rapport de radiologie"; }
 		public String description() { return "Radiology Report - represents a report on a radiology study performed by a radiologist"; }
 	};
+
+	public static EncounterTypeDescriptor DEATH = new EncounterTypeDescriptor() {
+		public String uuid() { return "1545d7ff-60f1-485e-9c95-5740b8e6634b"; }
+		public String name() { return "Death"; }
+		public String description() { return "The person has died"; }
+	};
+
 }
