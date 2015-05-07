@@ -129,10 +129,10 @@ public class EncounterTypes {
 		public String description() { return "Radiology Report - represents a report on a radiology study performed by a radiologist"; }
 	};
 
-	public static EncounterTypeDescriptor DEATH = new EncounterTypeDescriptor() {
+	public static EncounterTypeDescriptor DEATH_CERTIFICATE = new EncounterTypeDescriptor() {
 		public String uuid() { return "1545d7ff-60f1-485e-9c95-5740b8e6634b"; }
-		public String name() { return "Death"; }
-		public String description() { return "The person has died"; }
+		public String name() { return "Death Certificate"; }
+		public String description() { return "The official record of a patient's death. A patient may be dead without having one of these encounters, but no living patient should have an encounter with this type"; }
 	};
 
 }
