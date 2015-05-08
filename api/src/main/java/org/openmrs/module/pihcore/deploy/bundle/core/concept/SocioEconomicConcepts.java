@@ -19,13 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() {
-<<<<<<< HEAD
-        return 7;
-=======
-        return 6;
->>>>>>> 55576c54797066004aba7b616da04b0b0522d8dd
-    }
+    public int getVersion() { return 7;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
