@@ -130,6 +130,8 @@ public class RolesAndPrivilegesBundle extends PihMetadataBundle {
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             install(Roles.SYSTEM_ADMINISTRATOR);
             install(Roles.ARCHIVIST_CLERK);
+            install(Roles.PHYSICIAN);
+            install(Roles.MEQ);
         }
 
         // old privileges still in use at Mirebalais

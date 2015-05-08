@@ -37,7 +37,6 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounte
 /**
  * Radiology metadata bundle
  */
-@Requires({ HaitiMetadataBundle.class })
 @Component
 public class MirebalaisRadiologyBundle extends PihMetadataBundle {
 

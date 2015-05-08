@@ -20,7 +20,11 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
+<<<<<<< HEAD
         return 7;
+=======
+        return 6;
+>>>>>>> 55576c54797066004aba7b616da04b0b0522d8dd
     }
 
     public static final class Concepts {

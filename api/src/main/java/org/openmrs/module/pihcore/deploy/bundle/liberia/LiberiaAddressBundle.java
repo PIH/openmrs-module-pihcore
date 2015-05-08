@@ -41,14 +41,18 @@ public class LiberiaAddressBundle extends PihMetadataBundle {
 
         Map<String, String> nameMappings = new HashMap<String, String>();
         nameMappings.put("country", "Country");
-        nameMappings.put("stateProvince", "District");
+        nameMappings.put("stateProvince", "County");
+        nameMappings.put("countyDistrict", "District");
         nameMappings.put("cityVillage", "Settlement");
+        nameMappings.put("address1", "Address");
         addressTemplate.setNameMappings(nameMappings);
 
         Map<String, String> sizeMappings = new HashMap<String, String>();
         sizeMappings.put("country", "40");
         sizeMappings.put("stateProvince", "40");
+        sizeMappings.put("countyDistrict", "40");
         sizeMappings.put("cityVillage", "40");
+        sizeMappings.put("address1", "80");
 
         addressTemplate.setSizeMappings(sizeMappings);
 
@@ -57,8 +61,9 @@ public class LiberiaAddressBundle extends PihMetadataBundle {
         addressTemplate.setElementDefaults(elementDefaults);
 
         List<String> lineByLineFormat = new ArrayList<String>();
+        lineByLineFormat.add("address1");
         lineByLineFormat.add("cityVillage");
-        lineByLineFormat.add("stateProvince, country");
+        lineByLineFormat.add("countyDistrict, stateProvince");
         addressTemplate.setLineByLineFormat(lineByLineFormat);
 
         return addressTemplate;
