@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 ;
 
 @Component
-@Requires({ HaitiMetadataBundle.class, LocationTagBundle.class, LocationAttributeTypeBundle.class} )
+@Requires({ LocationTagBundle.class, LocationAttributeTypeBundle.class} )
 public class MirebalaisLocationsBundle extends PihLocationsMetadataBundle {
 
     @Override
