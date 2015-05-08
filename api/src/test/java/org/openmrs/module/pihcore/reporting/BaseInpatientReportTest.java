@@ -10,7 +10,8 @@ import org.openmrs.Visit;
 import org.openmrs.VisitType;
 import org.openmrs.api.ConceptService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
@@ -31,7 +32,10 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
     private ConceptService conceptService;
 
     @Autowired
-    private MirebalaisBundle mirebalaisBundle;
+    EncounterTypeBundle encounterTypeBundle;
+
+    @Autowired
+    MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
     private MetadataDeployService deployService;
@@ -39,7 +43,8 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
     @Before
     public void setupDontOverrideBaseClassSetup() throws Exception {
 
-        deployService.installBundle(mirebalaisBundle);
+        deployService.installBundle(encounterTypeBundle);
+        deployService.installBundle(mirebalaisLocationsBundle);
 
         VisitType atFacility = emrApiProperties.getAtFacilityVisitType();
         EncounterType checkIn = Metadata.lookup(EncounterTypes.CHECK_IN);
@@ -48,7 +53,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         EncounterType exit = Metadata.lookup(EncounterTypes.EXIT_FROM_CARE);
         EncounterType consultation = Metadata.lookup(EncounterTypes.CONSULTATION);
         EncounterType postOpNote = Metadata.lookup(EncounterTypes.POST_OPERATIVE_NOTE);
-        Location mirebalaisHospital = Metadata.lookup(MirebalaisLocations.MIREBALAIS_HOSPITAL);
+        Location visitLocation = Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT);
         Location outpatientClinic = Metadata.lookup(MirebalaisLocations.OUTPATIENT_CLINIC);
         Location womensInternalMedicine = Metadata.lookup(MirebalaisLocations.WOMENS_INTERNAL_MEDICINE);
         Location mensInternalMedicine = Metadata.lookup(MirebalaisLocations.MENS_INTERNAL_MEDICINE);
@@ -60,7 +65,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         patient1 = data.randomPatient().save();
         Visit visit1 = data.visit().patient(patient1).visitType(atFacility)
                 .started("2013-10-02 09:15:00").stopped("2013-10-14 04:30:00")
-                .location(mirebalaisHospital).save();
+                .location(visitLocation).save();
         Encounter enc1a = data.encounter().visit(visit1).encounterType(checkIn)
                 .location(outpatientClinic).encounterDatetime("2013-10-02 09:15:00").save();
         Encounter enc1b = data.encounter().visit(visit1).encounterType(admission)
@@ -70,7 +75,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         patient2 = data.randomPatient().save();
         Visit visit2 = data.visit().patient(patient2).visitType(atFacility)
                 .started("2013-10-01 17:30:00").stopped("2013-10-03 12:45:00")
-                .location(mirebalaisHospital).save();
+                .location(visitLocation).save();
         data.encounter().visit(visit2).encounterType(checkIn)
                 .location(outpatientClinic).encounterDatetime("2013-10-01 17:30:00").save();
         data.encounter().visit(visit2).encounterType(admission)
@@ -82,7 +87,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         patient3 = data.randomPatient().save();
         Visit visit3a = data.visit().patient(patient3).visitType(atFacility)
                 .started("2013-10-03 12:34:00").stopped("2013-10-07 12:45:00")
-                .location(mirebalaisHospital).save();
+                .location(visitLocation).save();
         data.encounter().visit(visit3a).encounterType(checkIn)
                 .location(outpatientClinic).encounterDatetime("2013-10-03 12:34:00").save();
         data.encounter().visit(visit3a).encounterType(admission)
@@ -93,7 +98,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         // This was a possible readmission, because the patient was admitted and left the previous day
         Visit visit3b = data.visit().patient(patient3).visitType(atFacility)
                 .started("2013-10-02 12:34:00").stopped("2013-10-02 16:45:00")
-                .location(mirebalaisHospital).save();
+                .location(visitLocation).save();
         data.encounter().visit(visit3b).encounterType(admission)
                 .location(mensInternalMedicine).encounterDatetime("2013-10-02 12:34:00").save();
         Encounter encounter3b = data.encounter().visit(visit3b).encounterType(exit)
@@ -104,7 +109,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         patient4 = data.randomPatient().save();
         Visit visit4 = data.visit().patient(patient4).visitType(atFacility)
                 .started("2013-10-01 12:34:00").stopped("2013-10-03 12:45:00")
-                .location(mirebalaisHospital).save();
+                .location(visitLocation).save();
         data.encounter().visit(visit4).encounterType(checkIn)
                 .location(outpatientClinic).encounterDatetime("2013-10-01 12:34:00").save();
         data.encounter().visit(visit4).encounterType(admission)
@@ -120,7 +125,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         patient5 = data.randomPatient().save();
         Visit visit5 = data.visit().patient(patient5).visitType(atFacility)
                 .started("2013-10-01 12:34:00").stopped("2013-10-13 12:45:00")
-                .location(mirebalaisHospital).save();
+                .location(visitLocation).save();
         data.encounter().visit(visit5).encounterType(checkIn)
                 .location(outpatientClinic).encounterDatetime("2013-10-01 12:34:00").save();
         data.encounter().visit(visit5).encounterType(admission)
@@ -132,7 +137,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         patient6 = data.randomPatient().save();
         Visit visit6 = data.visit().patient(patient6).visitType(atFacility)
                 .started("2013-10-03 10:05:00").stopped("2013-10-03 18:32:21")
-                .location(mirebalaisHospital).save();
+                .location(visitLocation).save();
         data.encounter().visit(visit6).encounterType(checkIn)
                 .location(emergencyDepartment).encounterDatetime("2013-10-03 10:05:00").save();
         data.encounter().visit(visit6).encounterType(transfer)
