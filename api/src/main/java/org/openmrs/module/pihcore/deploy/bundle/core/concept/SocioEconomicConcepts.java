@@ -20,7 +20,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 5;
+        return 7;
     }
 
     public static final class Concepts {
@@ -40,7 +40,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
     protected void installNewVersion() throws Exception {
         Concept unknown = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.UNKNOWN);
         Concept otherNonCoded = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.OTHER_NON_CODED);
-        Concept none = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.NONE);
 
         Concept mainActivityNonCoded = install(new ConceptBuilder(Concepts.MAIN_ACTIVITY_NON_CODED)
                 .datatype(text)
@@ -185,17 +184,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "3346").build())
                 .build());
 
-        Concept orphan = install(new ConceptBuilder("94807725-b1cf-437e-b439-c5885440121e")
-                .datatype(notApplicable)
-                .conceptClass(finding)
-                .name("beb20dec-9a7c-4e54-ab4c-6ee4d44b7879", "Orphan", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("f7824dcc-d5db-102d-ad2a-000c29c2a5d7", "Orphelin", Locale.FRENCH, null) // locale-preferred
-                .mapping(new ConceptMapBuilder("b29d5c0a-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "6139").build())
-                .mapping(new ConceptMapBuilder("75ad1a44-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "ORPHAN").build())
-                .build());
-
         Concept married = install(new ConceptBuilder("3cee0aca-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(finding)
@@ -239,7 +227,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "CIVIL STATUS").build())
                 .mapping(new ConceptMapBuilder("db9aa56a-d4be-11e4-9dcf-b36e1005e77b")
                         .type(sameAs).ensureTerm(ciel, "1054").build())
-                .answers(separated, neverMarried, divorced, widowed, livingWithPartner, married, partnerInPrison, singleOrChild, celibate, orphan, unknown, otherNonCoded)
+                .answers(separated, neverMarried, divorced, widowed, livingWithPartner, married, partnerInPrison, singleOrChild, celibate, unknown, otherNonCoded)
                 .build());
 
         Concept housework = install(new ConceptBuilder("3cda14e8-26fe-102b-80cb-0017a47871b2")
@@ -270,7 +258,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("3e17c01c-26fe-102b-80cb-0017a47871b2", "Commerce", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("0b8e937c-15f5-102d-96e4-000c29c2a5d7", "Commerce", Locale.FRENCH, null) // locale-preferred
+                .name("0b8e937c-15f5-102d-96e4-000c29c2a5d7", "Commerçant", Locale.FRENCH, null) // locale-preferred
                 .description("ece769da-07fe-102c-b5fa-0017a47871b2", "Main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b21086fe-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1305").build())
@@ -288,18 +276,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "HOUSEWORK/FIELDWORK").build())
                 .mapping(new ConceptMapBuilder("b255fa68-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2445").build())
-                .build());
-
-        Concept trading = install(new ConceptBuilder("3cd9786c-26fe-102b-80cb-0017a47871b2")
-                .datatype(notApplicable)
-                .conceptClass(misc)
-                .name("3e17cbde-26fe-102b-80cb-0017a47871b2", "Trading", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("3e17ce36-26fe-102b-80cb-0017a47871b2", "Commerçant", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .description("ece77394-07fe-102c-b5fa-0017a47871b2", "Main activity", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("757161f2-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "TRADING").build())
-                .mapping(new ConceptMapBuilder("b2108ba4-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "1308").build())
                 .build());
 
         Concept tooSickToWork = install(new ConceptBuilder("a2c0bdcf-f4ba-4e10-9af4-d9ad7dcc2ca4")
@@ -513,6 +489,51 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "1685").build())
                 .build());
 
+        Concept fisherman = install(new ConceptBuilder("159674AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("107067BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Fisherman", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("b543fde8-54a7-4a8d-ae75-c792708fc731", "Pêcheur", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("16315FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "occupation", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("216817ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(CIEL, "159674").build())
+                .mapping(new ConceptMapBuilder("136442ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(SNOMED CT, "106400003").build())
+                .mapping(new ConceptMapBuilder("136443ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(narrowerThan).ensureTerm(AMPATH, "6401").build())
+                .build());
+
+        Concept marketVendor = install(new ConceptBuilder("162945AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("a1272096-c77b-4e9e-9516-930f31ffd199", "Market vendor", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("75f8b7d4-e8a1-42e3-84a1-cb0ff968e693", "Vendeur de marché", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("a062c2e8-f589-11e4-b9b2-1697f925ec7b")
+                        .type(sameAs).ensureTerm(CIEL, "162945").build())
+                .build());
+
+        Concept civilServant = install(new ConceptBuilder("162944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("5f085cf9-1819-499e-b809-f9f790b7f589", "Civil servant", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("9cae05a1-be90-4703-aca6-6488815bf107", "Fonctionnaire", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("a062c7a2-f589-11e4-b9b2-1697f925ec7b")
+                        .type(sameAs).ensureTerm(CIEL, "162944").build())
+                .build());
+
+        Concept healthCareWorker = install(new ConceptBuilder("3cdbc91e-26fe-102b-80cb-0017a47871b2")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("3e1b1fdc-26fe-102b-80cb-0017a47871b2", "Health care worker", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("367d3538-9f67-45b2-ab98-34107ce442e3", "Membre du service de santé", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("3dd47072-ffe8-47c8-aa5a-7db571be4e20", "Travailleur de soins de santé", Locale.FRENCH, null)
+                .description("ecea574e-07fe-102c-b5fa-0017a47871b2", "A person that works to provide health care. This includes but is not limited to physicians, nurses, health promoters and DOT workers.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("b2133e44-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1538").build())
+                .mapping(new ConceptMapBuilder("75769a96-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "HEALTH CARE WORKER").build())
+                .build());
+
         install(new ConceptBuilder(Concepts.MAIN_ACTIVITY)
                 .datatype(coded)
                 .conceptClass(question)
@@ -526,16 +547,11 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Occupation").build())
                 .mapping(new ConceptMapBuilder("b210855a-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1304").build())
-                .answers(none, trading, farmer, student, unemployed, otherNonCoded, manualLaborer, shepherd, brewer, shopOwner,
+                .answers(farmer, student, unemployed, otherNonCoded, manualLaborer, shepherd, brewer, shopOwner,
                         fruitOrVegetableSeller, miner, factoryWorker, housework, houseworkAndFieldwork, retired, unknown,
                         tooSickToWork, schoolAgeButNotInSchool, driver, professional, smallChild, commerce, teacher,
-                        employed, mainActivityNonCoded)
-                        // TODO should we remove MAIN ACTIVITY, NON-CODED since we already have OTHER?
-                        // TODO why is orphan an option?
-                        // TODO none and unemployed are the same, right?
-                        // TODO trading and commerce are the same, right?
+                        employed, fisherman, marketVendor, civilServant, healthCareWorker)
                 .build());
-
 
         // start religion question and answers
         // TODO add French and Kreyol translations, if need be
