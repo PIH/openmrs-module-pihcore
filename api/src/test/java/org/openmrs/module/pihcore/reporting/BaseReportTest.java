@@ -1,8 +1,15 @@
 package org.openmrs.module.pihcore.reporting;
 
 import org.junit.Before;
+import org.openmrs.api.LocationService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
+import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
@@ -23,10 +30,31 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     @Autowired
     protected TestDataManager data;
 
+    @Autowired
+    EncounterTypeBundle encounterTypeBundle;
+
+    @Autowired
+    MirebalaisLocationsBundle mirebalaisLocationsBundle;
+
+    @Autowired
+    LocationService locationService;
+
+    @Autowired
+    private MetadataDeployService deployService;
+
     @Before
     public void setup() throws Exception {
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
+        deployService.installBundle(encounterTypeBundle);
+        deployService.installBundle(mirebalaisLocationsBundle);
+        LocationTagSetup.setupLocationTags(locationService, getConfig());
     }
 
+    protected Config getConfig() {
+        ConfigDescriptor d = new ConfigDescriptor();
+        d.setCountry(ConfigDescriptor.Country.HAITI);
+        d.setSite(ConfigDescriptor.Site.MIREBALAIS);
+        return new Config(d);
+    }
 }

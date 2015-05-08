@@ -9,9 +9,6 @@ import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.VisitType;
 import org.openmrs.api.ConceptService;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
@@ -31,20 +28,8 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
     @Autowired
     private ConceptService conceptService;
 
-    @Autowired
-    EncounterTypeBundle encounterTypeBundle;
-
-    @Autowired
-    MirebalaisLocationsBundle mirebalaisLocationsBundle;
-
-    @Autowired
-    private MetadataDeployService deployService;
-
     @Before
     public void setupDontOverrideBaseClassSetup() throws Exception {
-
-        deployService.installBundle(encounterTypeBundle);
-        deployService.installBundle(mirebalaisLocationsBundle);
 
         VisitType atFacility = emrApiProperties.getAtFacilityVisitType();
         EncounterType checkIn = Metadata.lookup(EncounterTypes.CHECK_IN);
