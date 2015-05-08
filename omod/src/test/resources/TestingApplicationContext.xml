@@ -11,7 +11,7 @@
         <property name="configLocations">
             <list>
                 <value>classpath:hibernate.cfg.xml</value>
-                <value>classpath:pihcore-test-hibernate.cfg.xml</value>
+                <value>classpath:test-hibernate.cfg.xml</value>
             </list>
         </property>
         <property name="mappingJarLocations">
