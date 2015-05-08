@@ -33,7 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 
 import static org.junit.Assert.assertThat;
-import static org.openmrs.module.reporting.common.ReportingMatchers.isCohortWithExactlyIds;
+import static org.openmrs.module.pihcore.reporting.ReportingMatchers.isCohortWithExactlyIds;
 
 @SkipBaseSetup
 public class LastDispositionBeforeExitCohortDefinitionEvaluatorTest extends BaseInpatientReportTest {

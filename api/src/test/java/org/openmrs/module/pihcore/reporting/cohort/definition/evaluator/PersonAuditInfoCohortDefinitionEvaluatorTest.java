@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import static org.junit.Assert.assertThat;
-import static org.openmrs.module.reporting.common.ReportingMatchers.hasExactlyIds;
+import static org.openmrs.module.pihcore.reporting.ReportingMatchers.hasExactlyIds;
 
 public class PersonAuditInfoCohortDefinitionEvaluatorTest extends BaseModuleContextSensitiveTest {
 
