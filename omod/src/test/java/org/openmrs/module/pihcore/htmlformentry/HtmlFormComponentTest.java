@@ -67,10 +67,9 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
             String xml = IOUtils.toString(in);
             IOUtils.closeQuietly(in);
 
-            HtmlForm form = HtmlFormUtil.getHtmlFormFromResourceXml(Context.getFormService(), Context.getService(HtmlFormEntryService.class), xml);
-
-            FormEntrySession fes = new FormEntrySession(new Patient(), form, FormEntryContext.Mode.ENTER, new MockHttpSession());
             try {
+                HtmlForm form = HtmlFormUtil.getHtmlFormFromResourceXml(Context.getFormService(), Context.getService(HtmlFormEntryService.class), xml);
+                FormEntrySession fes = new FormEntrySession(new Patient(), form, FormEntryContext.Mode.ENTER, new MockHttpSession());
                 String html = fes.getHtmlToDisplay();
             }
             catch (Exception ex) {
