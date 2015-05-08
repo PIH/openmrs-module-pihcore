@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 7;  }
+    public int getVersion() { return 8;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -494,11 +494,11 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("b543fde8-54a7-4a8d-ae75-c792708fc731", "Pêcheur", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("16315FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "occupation", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("216817ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(CIEL, "159674").build())
+                        .type(sameAs).ensureTerm(ciel, "159674").build())
                 .mapping(new ConceptMapBuilder("136442ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(SNOMED CT, "106400003").build())
+                        .type(sameAs).ensureTerm(snomedCt, "106400003").build())
                 .mapping(new ConceptMapBuilder("136443ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(narrowerThan).ensureTerm(AMPATH, "6401").build())
+                        .type(narrowerThan).ensureTerm(ampath, "6401").build())
                 .build());
 
         Concept marketVendor = install(new ConceptBuilder("162945AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -507,7 +507,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("a1272096-c77b-4e9e-9516-930f31ffd199", "Market vendor", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("75f8b7d4-e8a1-42e3-84a1-cb0ff968e693", "Vendeur de marché", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("a062c2e8-f589-11e4-b9b2-1697f925ec7b")
-                        .type(sameAs).ensureTerm(CIEL, "162945").build())
+                        .type(sameAs).ensureTerm(ciel, "162945").build())
                 .build());
 
         Concept civilServant = install(new ConceptBuilder("162944AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -516,7 +516,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("5f085cf9-1819-499e-b809-f9f790b7f589", "Civil servant", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("9cae05a1-be90-4703-aca6-6488815bf107", "Fonctionnaire", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("a062c7a2-f589-11e4-b9b2-1697f925ec7b")
-                        .type(sameAs).ensureTerm(CIEL, "162944").build())
+                        .type(sameAs).ensureTerm(ciel, "162944").build())
                 .build());
 
         Concept healthCareWorker = install(new ConceptBuilder("3cdbc91e-26fe-102b-80cb-0017a47871b2")
