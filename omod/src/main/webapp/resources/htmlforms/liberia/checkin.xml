@@ -39,6 +39,12 @@
 
         </script>
 
+        <div class="hidden">
+            <fieldset class="required">
+                    <encounterLocation type="hidden" default="SessionAttribute:emrContext.sessionLocationId" required="true" tags="Check-In Location"/>
+            </fieldset>
+        </div>
+
         <section id="checkin" sectionTag="section" headerStyle="title" headerCode="mirebalais.retrospectiveCheckin.label">
 
             <fieldset class="required">
@@ -66,19 +72,6 @@
                 <p class="left">
                     <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0"
                                               required="true"/>
-                </p>
-            </fieldset>
-
-            <fieldset class="required">
-                <legend>
-                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
-                </legend>
-                <h3>
-                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
-                </h3>
-
-                <p class="left">
-                    <encounterLocation required="true" tags="Check-In Location"/>
                 </p>
             </fieldset>
 
