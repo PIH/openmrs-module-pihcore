@@ -22,6 +22,9 @@ public class ConfigDescriptor {
     private String welcomeMessage;
 
     @JsonProperty
+    private String dashboardUrl;
+
+    @JsonProperty
     private Country country;
 
     @JsonProperty
@@ -59,6 +62,10 @@ public class ConfigDescriptor {
     public void setSite(Site site) {
         this.site = site;
     }
+
+    public String getDashboardUrl() { return dashboardUrl; }
+
+    public void setDashboardUrl(String dashboardUrl) { this.dashboardUrl = dashboardUrl; }
 
     public Map<String, String> getGlobalProperties() {
         return globalProperties;
