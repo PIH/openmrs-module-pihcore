@@ -6,6 +6,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.User;
+import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
@@ -24,17 +25,26 @@ import org.openmrs.module.reporting.data.patient.definition.EncountersForPatient
 import org.openmrs.module.reporting.data.patient.definition.PatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PersonToPatientDataDefinition;
+import org.openmrs.module.reporting.data.patient.definition.PreferredIdentifierDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.AgeAtDateOfOtherDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonAttributeDataDefinition;
+import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PreferredAddressDataDefinition;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 @Component
 public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefinition> {
+
+    @Autowired
+    EmrApiProperties emrApiProperties;
+
+    @Autowired
+    DataConverterLibrary converters;
 
     @Override
     public Class<? super PatientDataDefinition> getDefinitionType() {
@@ -45,6 +55,40 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     public String getKeyPrefix() {
         return "mirebalais.patientDataCalculation.";
     }
+
+    // Patient Identifier
+
+    @DocumentedDefinition
+    public PatientDataDefinition getPreferredPrimaryIdentifierObject() {
+        PreferredIdentifierDataDefinition d = new PreferredIdentifierDataDefinition();
+        d.setIdentifierType(emrApiProperties.getPrimaryIdentifierType());
+        return d;
+    }
+
+    @DocumentedDefinition
+    public PatientDataDefinition getPreferredPrimaryIdentifier() {
+        return convert(getPreferredPrimaryIdentifierObject(), converters.getIdentifierConverter());
+    }
+
+    @DocumentedDefinition
+    public PatientDataDefinition getPreferredPrimaryIdentifierLocation() {
+        return convert(getPreferredPrimaryIdentifierObject(), converters.getIdentifierLocationNameConverter());
+    }
+
+    @DocumentedDefinition
+    public PatientDataDefinition getAllPrimaryIdentifiers() {
+        PatientIdentifierDataDefinition d = new PatientIdentifierDataDefinition();
+        d.setTypes(Arrays.asList(emrApiProperties.getPrimaryIdentifierType()));
+        return d;
+    }
+
+    @DocumentedDefinition
+    public PatientDataDefinition getNumberOfPrimaryIdentifiers() {
+        return convert(getAllPrimaryIdentifiers(), converters.getCollectionSizeConverter());
+    }
+
+
+    // TODO: See if we need the below identifier libraries to be specific like they are or if we can generalize like the above
 
     @DocumentedDefinition("numberOfZlEmrIds")
     public PatientDataDefinition getNumberOfZlEmrIds() {
@@ -90,12 +134,35 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
                 new PropertyConverter(PatientIdentifier.class, "identifier"));
     }
 
+    private PatientDataDefinition getIdentifiersOf(PatientIdentifierType patientIdentifierType, DataConverter... converters) {
+        return new ConvertedPatientDataDefinition(
+                new PatientIdentifierDataDefinition(null, patientIdentifierType),
+                converters);
+    }
+
+    private PatientDataDefinition getPreferredIdentifierOf(PatientIdentifierType patientIdentifierType, DataConverter... converters) {
+        PatientIdentifierDataDefinition dd = new PatientIdentifierDataDefinition(null, patientIdentifierType);
+        dd.setIncludeFirstNonNullOnly(true);
+        if (converters.length > 0) {
+            return new ConvertedPatientDataDefinition(dd, converters);
+        }
+        else {
+            return dd;
+        }
+    }
+
+    private PatientDataDefinition getMostRecentIdentifierOf(PatientIdentifierType patientIdentifierType, DataConverter... converters) {
+        return getIdentifiersOf(patientIdentifierType,
+                converters(new MostRecentlyCreatedConverter(PatientIdentifier.class), converters));
+    }
+
+    // Demographics
+
     @DocumentedDefinition("unknownPatient.value")
     public PatientDataDefinition getUnknownPatient() {
-        return new ConvertedPatientDataDefinition(
-                new PersonToPatientDataDefinition(
-                        new PersonAttributeDataDefinition(Metadata.lookup(PersonAttributeTypes.UNKNOWN_PATIENT))),
-                new PropertyConverter(PersonAttribute.class, "value"));
+        PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
+        d.setPersonAttributeType(emrApiProperties.getUnknownPatientPersonAttributeType());
+        return convert(d, converters.getRawAttributeValue());
     }
 
     @DocumentedDefinition("preferredAddress.department")
@@ -173,28 +240,6 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
         return new ConvertedPatientDataDefinition(new PersonToPatientDataDefinition(ageAtRegistration), new AgeConverter("{y:1}"));
     }
 
-    private PatientDataDefinition getIdentifiersOf(PatientIdentifierType patientIdentifierType, DataConverter... converters) {
-        return new ConvertedPatientDataDefinition(
-                new PatientIdentifierDataDefinition(null, patientIdentifierType),
-                converters);
-    }
-
-    private PatientDataDefinition getPreferredIdentifierOf(PatientIdentifierType patientIdentifierType, DataConverter... converters) {
-        PatientIdentifierDataDefinition dd = new PatientIdentifierDataDefinition(null, patientIdentifierType);
-        dd.setIncludeFirstNonNullOnly(true);
-        if (converters.length > 0) {
-            return new ConvertedPatientDataDefinition(dd, converters);
-        }
-        else {
-            return dd;
-        }
-    }
-
-    private PatientDataDefinition getMostRecentIdentifierOf(PatientIdentifierType patientIdentifierType, DataConverter... converters) {
-        return getIdentifiersOf(patientIdentifierType,
-                converters(new MostRecentlyCreatedConverter(PatientIdentifier.class), converters));
-    }
-
     private PatientDataDefinition getPreferredAddress(String property) {
         return new ConvertedPatientDataDefinition(
                 new PersonToPatientDataDefinition(
@@ -222,5 +267,15 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
         adtEncounters.setOnlyInActiveVisit(true);
         adtEncounters.setWhich(TimeQualifier.LAST);
         return new ConvertedPatientDataDefinition(adtEncounters,converters);
+    }
+
+    // Convenience methods
+
+    protected ConvertedPatientDataDefinition convert(PatientDataDefinition d, DataConverter... converters) {
+        return new ConvertedPatientDataDefinition(d, converters);
+    }
+
+    protected ConvertedPatientDataDefinition convert(PersonDataDefinition d, DataConverter... converters) {
+        return convert(new PersonToPatientDataDefinition(d), converters);
     }
 }

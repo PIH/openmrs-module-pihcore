@@ -31,16 +31,16 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     protected TestDataManager data;
 
     @Autowired
-    EncounterTypeBundle encounterTypeBundle;
+    protected EncounterTypeBundle encounterTypeBundle;
 
     @Autowired
-    MirebalaisLocationsBundle mirebalaisLocationsBundle;
+    protected MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
-    LocationService locationService;
+    protected LocationService locationService;
 
     @Autowired
-    private MetadataDeployService deployService;
+    protected MetadataDeployService deployService;
 
     @Before
     public void setup() throws Exception {

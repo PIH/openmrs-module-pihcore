@@ -1,18 +1,26 @@
 package org.openmrs.module.pihcore.reporting.library;
 
-import org.openmrs.PersonAttribute;
+import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
-import org.openmrs.module.reporting.data.converter.PropertyConverter;
+import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.person.definition.ConvertedPersonDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonAttributeDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
+import org.openmrs.module.reporting.data.person.definition.PreferredAddressDataDefinition;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PihPersonDataLibrary extends BaseDefinitionLibrary<PersonDataDefinition> {
+
+    @Autowired
+    EmrApiProperties emrApiProperties;
+
+    @Autowired
+    DataConverterLibrary converters;
 
     @Override
     public Class<? super PersonDataDefinition> getDefinitionType() {
@@ -26,8 +34,35 @@ public class PihPersonDataLibrary extends BaseDefinitionLibrary<PersonDataDefini
 
     @DocumentedDefinition("telephoneNumber")
     public PersonDataDefinition getTelephoneNumber() {
-        return new ConvertedPersonDataDefinition("telephoneNumber.value",
-                new PersonAttributeDataDefinition(Metadata.lookup(PersonAttributeTypes.TELEPHONE_NUMBER)),
-                new PropertyConverter(PersonAttribute.class, "value"));
+        PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
+        d.setPersonAttributeType(emrApiProperties.getTelephoneAttributeType());
+        return convert("telephoneNumber.value", d, converters.getRawAttributeValue());
+    }
+
+    public PersonDataDefinition getMothersFirstName() {
+        PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
+        d.setPersonAttributeType(Metadata.lookup(PersonAttributeTypes.MOTHERS_FIRST_NAME));
+        return convert(d, converters.getRawAttributeValue());
+    }
+
+    public PersonDataDefinition getBirthplace() {
+        PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
+        d.setPersonAttributeType(Metadata.lookup(PersonAttributeTypes.BIRTHPLACE));
+        return convert(d, converters.getRawAttributeValue());
+    }
+
+    @DocumentedDefinition
+    public PersonDataDefinition getPreferredAddress() {
+        return new PreferredAddressDataDefinition();
+    }
+
+    // Convenience methods
+
+    protected ConvertedPersonDataDefinition convert(String name, PersonDataDefinition d, DataConverter... converters) {
+        return new ConvertedPersonDataDefinition(name, d, converters);
+    }
+
+    protected ConvertedPersonDataDefinition convert(PersonDataDefinition d, DataConverter... converters) {
+        return convert(null, d, converters);
     }
 }
