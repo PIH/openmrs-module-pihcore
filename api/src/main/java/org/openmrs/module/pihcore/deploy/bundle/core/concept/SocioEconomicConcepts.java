@@ -32,6 +32,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
         public static final String RELATIONSHIPS_OF_CONTACT = "3cd99a68-26fe-102b-80cb-0017a47871b2";
         public static final String TELEPHONE_NUMBER_OF_CONTACT = "276f8057-55a4-4b1c-8915-69ad090fcffb";
         public static final String ADDRESS_OF_CONTACT = "5190CC3E-83F0-4410-8660-B109086D9A5E";
+        public static final String MARRIED = "3cee0aca-26fe-102b-80cb-0017a47871b2";
     }
 
     @Override
@@ -182,7 +183,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "3346").build())
                 .build());
 
-        Concept married = install(new ConceptBuilder("3cee0aca-26fe-102b-80cb-0017a47871b2")
+        Concept married = install(new ConceptBuilder(Concepts.MARRIED)
                 .datatype(notApplicable)
                 .conceptClass(finding)
                 .name("3e3ffcb2-26fe-102b-80cb-0017a47871b2", "Married", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
