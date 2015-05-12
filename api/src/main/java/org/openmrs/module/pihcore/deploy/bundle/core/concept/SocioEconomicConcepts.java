@@ -228,9 +228,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .answers(separated, neverMarried, divorced, widowed, livingWithPartner, married, partnerInPrison, singleOrChild, celibate, unknown, otherNonCoded)
                 .build());
 
-        Concept orphan = uninstall(MetadataUtils.possible(Concept.class, "94807725-b1cf-437e-b439-c5885440121e"));
-
-        Concept trading = uninstall(MetadataUtils.possible(Concept.class, "3cd9786c-26fe-102b-80cb-0017a47871b2"));
+        uninstall(MetadataUtils.possible(Concept.class, "94807725-b1cf-437e-b439-c5885440121e"), "No longer used");
+        uninstall(MetadataUtils.possible(Concept.class, "3cd9786c-26fe-102b-80cb-0017a47871b2"), "No longer used");
 
         Concept housework = install(new ConceptBuilder("3cda14e8-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
