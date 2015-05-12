@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 8;  }
+    public int getVersion() { return 9;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -227,6 +227,10 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(ciel, "1054").build())
                 .answers(separated, neverMarried, divorced, widowed, livingWithPartner, married, partnerInPrison, singleOrChild, celibate, unknown, otherNonCoded)
                 .build());
+
+        Concept orphan = uninstall(MetadataUtils.possible(Concept.class, "94807725-b1cf-437e-b439-c5885440121e"));
+
+        Concept trading = uninstall(MetadataUtils.possible(Concept.class, "3cd9786c-26fe-102b-80cb-0017a47871b2"));
 
         Concept housework = install(new ConceptBuilder("3cda14e8-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
