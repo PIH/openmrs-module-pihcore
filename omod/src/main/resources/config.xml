@@ -27,6 +27,9 @@
         <require_module version="${registrationcoreVersion}">
             org.openmrs.module.registrationcore
         </require_module>
+        <require_module version="${registrationappVersion}">
+            org.openmrs.module.registrationapp
+        </require_module>
         <require_module version="${eventVersion}">
             org.openmrs.event
         </require_module>
