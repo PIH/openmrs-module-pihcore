@@ -13,6 +13,9 @@ public class RegistrationConfigDescriptor {
     @JsonProperty
     private boolean allowManualEntryOfPrimaryIdentifier = false;
 
+    @JsonProperty
+    private String afterCreatedUrl = "registrationapp/registrationSummary.page?patientId={{patientId}}";
+
     public boolean isAllowUnknownPatients() {
         return allowUnknownPatients;
     }
@@ -27,5 +30,13 @@ public class RegistrationConfigDescriptor {
 
     public void setAllowManualEntryOfPrimaryIdentifier(boolean allowManualEntryOfPrimaryIdentifier) {
         this.allowManualEntryOfPrimaryIdentifier = allowManualEntryOfPrimaryIdentifier;
+    }
+
+    public String getAfterCreatedUrl() {
+        return afterCreatedUrl;
+    }
+
+    public void setAfterCreatedUrl(String afterCreatedUrl) {
+        this.afterCreatedUrl = afterCreatedUrl;
     }
 }
