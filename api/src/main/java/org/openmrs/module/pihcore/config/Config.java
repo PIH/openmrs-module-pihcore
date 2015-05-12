@@ -51,6 +51,8 @@ public class Config {
     public Boolean shouldScheduleBackupReports() {
         return descriptor.getScheduleBackupReports() != null ? descriptor.getScheduleBackupReports() : false;
     }
+
+    public RegistrationConfigDescriptor getRegistrationConfig() {
+        return descriptor.getRegistrationConfig();
+    }
 }
-
-

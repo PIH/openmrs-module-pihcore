@@ -18,5 +18,10 @@
         "myAccount"
     ],
 
-    "scheduleBackupReports": "false"
+    "scheduleBackupReports": "false",
+
+    "registrationConfig": {
+        "allowUnknownPatients": true,
+        "allowManualEntryOfPrimaryIdentifier": true
+    }
 }

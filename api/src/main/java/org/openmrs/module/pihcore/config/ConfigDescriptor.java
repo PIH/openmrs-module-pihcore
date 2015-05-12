@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.config;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,9 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private Boolean scheduleBackupReports; // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleBackupReports method in Mirebalais Module Activator), generally this should only be turned on on production
+
+    @JsonProperty
+    private RegistrationConfigDescriptor registrationConfig;
 
     public String getWelcomeMessage() {
         return welcomeMessage;
@@ -76,6 +80,9 @@ public class ConfigDescriptor {
     }
 
     public List<String> getComponents() {
+        if (components == null) {
+            components = new ArrayList<String>();
+        }
         return components;
     }
 
@@ -89,5 +96,16 @@ public class ConfigDescriptor {
 
     public void setScheduleBackupReports(Boolean scheduleBackupReports) {
         this.scheduleBackupReports = scheduleBackupReports;
+    }
+
+    public RegistrationConfigDescriptor getRegistrationConfig() {
+        if (registrationConfig == null) {
+            registrationConfig = new RegistrationConfigDescriptor();
+        }
+        return registrationConfig;
+    }
+
+    public void setRegistrationConfig(RegistrationConfigDescriptor registrationConfig) {
+        this.registrationConfig = registrationConfig;
     }
 }
