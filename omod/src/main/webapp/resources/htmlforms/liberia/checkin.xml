@@ -102,24 +102,28 @@
     </ifMode>
     <!-- END ENTER/EDIT VERSION OF THE FORM -->
 
-    <!-- START VIEW VERSION OF THE FORM (just display answers to obs, not section title or provider, date, location) -->
+    <!-- START VIEW VERSION OF THE FORM (just display answers to obs, not provider, date, location -->
     <ifMode mode="VIEW">
 
-        <fieldset class="type-of-visit-question">
-            <legend>
-                <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
-            </legend>
-            <h3>
-                <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
-            </h3>
+        <!-- we include section so the most recent encounter app can include a custom header/title in the title span that HFE creates -->
+        <section id="checkin" sectionTag="section" headerStyle="title" headerLabel="">
 
-            <p class="left">
-                <obs conceptId="PIH:REASON FOR VISIT" id="typeOfVisit" showUnits="false"
-                     unitsCssClass="append-to-value" style="dropdown" size="9">
-                </obs>
-            </p>
-        </fieldset>
+            <fieldset class="type-of-visit-question">
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
+                </h3>
 
+                <p class="left">
+                    <obs conceptId="PIH:REASON FOR VISIT" id="typeOfVisit" showUnits="false"
+                         unitsCssClass="append-to-value" style="dropdown" size="9">
+                    </obs>
+                </p>
+            </fieldset>
+
+        </section>
 
     </ifMode>
     <!-- END VIEW VERSION OF THE FORM -->
