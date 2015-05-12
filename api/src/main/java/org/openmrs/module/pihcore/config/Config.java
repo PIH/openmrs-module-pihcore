@@ -30,6 +30,10 @@ public class Config {
         return descriptor.getWelcomeMessage();
     }
 
+    public String getDashboardUrl() {
+        return descriptor.getDashboardUrl();
+    }
+
     public ConfigDescriptor.Site getSite() {
         return descriptor.getSite();
     }
