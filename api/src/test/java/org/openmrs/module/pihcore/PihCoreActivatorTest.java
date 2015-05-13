@@ -8,6 +8,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
+import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
@@ -18,6 +19,7 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -35,11 +37,11 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     private MetadataDeployService deployService;
 
     @Autowired
-    @Qualifier("adminService")
-    private AdministrationService administrationService;
+    HaitiMetadataBundle haitiMetadataBundle;
 
     @Autowired
-    private List<MetadataBundle> bundles;
+    @Qualifier("adminService")
+    private AdministrationService administrationService;
 
     @Override
     public Properties getRuntimeProperties() {
@@ -58,7 +60,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     @Test
     public void testMetadataBundles() throws Exception {
 
-        deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
+        deployService.installBundle(haitiMetadataBundle);
 
         // test a few random concepts
         assertThat(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES).getName().getName(), is("Oui"));
@@ -76,12 +78,24 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
         assertThat(construct.getConceptSets().size(), is(4));
 
         // make sure everything installed at the version we expect
-        for (MetadataBundle bundle : bundles) {
-            if (bundle instanceof VersionedPihMetadataBundle) {
-                VersionedPihMetadataBundle versionedBundle = (VersionedPihMetadataBundle) bundle;
-                assertThat(administrationService.getGlobalProperty("metadatadeploy.bundle.version." + bundle.getClass().getName()),
-                        is("" + versionedBundle.getVersion()));
+        for (Class<? extends MetadataBundle> bundleType : getExpectedBundles(haitiMetadataBundle.getClass())) {
+            if (VersionedPihMetadataBundle.class.isAssignableFrom(bundleType)) {
+                VersionedPihMetadataBundle bundle = (VersionedPihMetadataBundle)Context.getRegisteredComponents(bundleType).get(0);
+                String gpValue = administrationService.getGlobalProperty("metadatadeploy.bundle.version." + bundle.getClass().getName());
+                assertThat(gpValue, is("" + bundle.getVersion()));
             }
         }
+    }
+
+    protected List<Class<? extends MetadataBundle>> getExpectedBundles(Class<? extends MetadataBundle> type) {
+        List<Class<? extends MetadataBundle>> bundles = new ArrayList<Class<? extends MetadataBundle>>();
+        bundles.add(type);
+        Requires requires = type.getAnnotation(Requires.class);
+        if (requires != null) {
+            for (Class<? extends MetadataBundle> requiredBundle : requires.value()) {
+                bundles.addAll(getExpectedBundles(requiredBundle));
+            }
+        }
+        return bundles;
     }
 }

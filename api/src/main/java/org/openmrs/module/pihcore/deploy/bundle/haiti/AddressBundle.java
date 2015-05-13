@@ -1,0 +1,114 @@
+package org.openmrs.module.pihcore.deploy.bundle.haiti;
+
+import org.apache.commons.io.IOUtils;
+import org.openmrs.api.SerializationService;
+import org.openmrs.api.context.Context;
+import org.openmrs.layout.web.address.AddressTemplate;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
+import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
+import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
+import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
+import org.openmrs.util.OpenmrsConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public abstract class AddressBundle extends VersionedPihMetadataBundle {
+
+    @Autowired
+    SerializationService serializationService;
+
+    /**
+     * @return the ordered list of address components that make up the address configuration
+     */
+    public abstract List<AddressComponent> getAddressComponents();
+
+    /**
+     * @return the line-by-line format needed by the address template
+     */
+    public abstract List<String> getLineByLineFormat();
+
+    /**
+     * @return the location on the classpath from which to load the address hierarchy entries
+     */
+    public abstract String getAddressHierarchyEntryPath();
+
+    @Override
+    protected void installEveryTime() throws Exception {
+        installAddressTemplate();
+    }
+
+    @Override
+    protected void installNewVersion() throws Exception {
+        installAddressHierarchy();
+    }
+
+    /**
+     * Install the appropriate address template
+     */
+    public void installAddressTemplate() throws Exception {
+        log.info("Installing Address Template");
+        String template = serializationService.getDefaultSerializer().serialize(getAddressTemplate());
+        setGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_ADDRESS_TEMPLATE, template);
+    }
+
+    /**
+     * @return a new AddressTemplate instance for the given configuration
+     */
+    public AddressTemplate getAddressTemplate() {
+        AddressTemplate addressTemplate = new AddressTemplate("");
+        Map<String, String> nameMappings = new HashMap<String, String>();
+        Map<String, String> sizeMappings = new HashMap<String, String>();
+        Map<String, String> elementDefaults = new HashMap<String, String>();
+        for (AddressComponent c : getAddressComponents()) {
+            nameMappings.put(c.getField().getName(), c.getNameMapping());
+            sizeMappings.put(c.getField().getName(), Integer.toString(c.getSizeMapping()));
+            if (c.getElementDefault() != null) {
+                elementDefaults.put(c.getField().getName(), c.getElementDefault());
+            }
+        }
+        addressTemplate.setNameMappings(nameMappings);
+        addressTemplate.setSizeMappings(sizeMappings);
+        addressTemplate.setElementDefaults(elementDefaults);
+        addressTemplate.setLineByLineFormat(getLineByLineFormat());
+        return addressTemplate;
+    }
+
+    /**
+     * Installs a new version of the address hierarchy, including the necessary level configuration
+     */
+    public void installAddressHierarchy() {
+        AddressHierarchyService service = Context.getService(AddressHierarchyService.class);
+        int numberOfLevels = service.getAddressHierarchyLevelsCount();
+
+        // If needed, setup the address hierarchy levels
+        if (numberOfLevels == 0) {
+            log.info("Installing Address Levels");
+            AddressHierarchyLevel lastLevel = null;
+            for (AddressComponent component : getAddressComponents()) {
+                AddressHierarchyLevel level = new AddressHierarchyLevel();
+                level.setAddressField(component.getField());
+                level.setRequired(component.isRequiredInHierarchy());
+                level.setParent(lastLevel);
+                service.saveAddressHierarchyLevel(level);
+                lastLevel = level;
+            }
+        }
+
+        log.info("Installing Address Hierarchy");
+        service.deleteAllAddressHierarchyEntries();
+        InputStream is = null;
+        try {
+            is = getClass().getClassLoader().getResourceAsStream(getAddressHierarchyEntryPath());
+            AddressHierarchyImportUtil.importAddressHierarchyFile(is, "\\|", "\\^");
+        }
+        finally {
+            IOUtils.closeQuietly(is);
+        }
+    }
+
+}
