@@ -14,10 +14,13 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
+import org.openmrs.Concept;
 import org.openmrs.EncounterType;
 import org.openmrs.layout.web.address.AddressSupport;
 import org.openmrs.layout.web.address.AddressTemplate;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.reporting.library.DataConverterLibrary;
@@ -26,10 +29,12 @@ import org.openmrs.module.pihcore.reporting.library.PihEncounterQueryLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPersonDataLibrary;
 import org.openmrs.module.reporting.common.MessageUtil;
+import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.encounter.library.BuiltInEncounterDataLibrary;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.EncounterAndObsDataSetDefinition;
+import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -71,7 +76,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
 
     public DataSetDefinition constructDataSet() {
 
-        EncounterAndObsDataSetDefinition dsd = new EncounterAndObsDataSetDefinition();
+        EncounterDataSetDefinition dsd = new EncounterDataSetDefinition();
         dsd.addParameter(getStartDateParameter());
         dsd.addParameter(getEndDateParameter());
 
@@ -121,9 +126,24 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
         addColumn(dsd, "mothers_first_name", pihPersonData.getMothersFirstName());
         addColumn(dsd, "birthplace", pihPersonData.getBirthplace());
 
-        // Obs are included based on whether they have been entered before, conditionally.
+        addObsColumn(dsd, "civil_status", SocioEconomicConcepts.Concepts.CIVIL_STATUS, converters.getObsValueCodedNameConverter());
+        addObsColumn(dsd, "occupation", SocioEconomicConcepts.Concepts.MAIN_ACTIVITY_NON_CODED, converters.getObsValueTextConverter());
+
+        // TODO: Add in religion question here conditionally when appropriate
+
+        // TODO: If we end up supporting 1+ contacts, will need to restructure this
+
+        addObsColumn(dsd, "contact_person_name", SocioEconomicConcepts.Concepts.NAMES_AND_FIRSTNAMES_OF_CONTACT, converters.getObsValueTextConverter());
+        addObsColumn(dsd, "contact_person_relationship", SocioEconomicConcepts.Concepts.RELATIONSHIPS_OF_CONTACT, converters.getObsValueTextConverter());
+        addObsColumn(dsd, "contact_person_address", SocioEconomicConcepts.Concepts.ADDRESS_OF_CONTACT, converters.getObsValueTextConverter());
+        addObsColumn(dsd, "contact_person_telephone", SocioEconomicConcepts.Concepts.TELEPHONE_NUMBER_OF_CONTACT, converters.getObsValueTextConverter());
 
         return dsd;
+    }
+
+    private void addObsColumn(EncounterDataSetDefinition dsd, String columnName, String conceptUuid, DataConverter... converters) {
+        Concept concept = MetadataUtils.existing(Concept.class, conceptUuid);
+        addColumn(dsd, columnName, pihEncounterData.getSingleObsInEncounter(concept), converters);
     }
 
 }

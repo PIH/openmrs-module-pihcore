@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.reporting.library;
 
+import org.openmrs.Concept;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.reporting.common.AuditInfo;
 import org.openmrs.module.reporting.data.converter.DataConverter;
@@ -8,12 +9,7 @@ import org.openmrs.module.reporting.data.encounter.definition.AgeAtEncounterData
 import org.openmrs.module.reporting.data.encounter.definition.AuditInfoEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.ConvertedEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
-import org.openmrs.module.reporting.data.patient.definition.ConvertedPatientDataDefinition;
-import org.openmrs.module.reporting.data.patient.definition.EncountersForPatientDataDefinition;
-import org.openmrs.module.reporting.data.patient.definition.PatientDataDefinition;
-import org.openmrs.module.reporting.data.patient.definition.PersonToPatientDataDefinition;
-import org.openmrs.module.reporting.data.person.definition.AgeAtDateOfOtherDataDefinition;
-import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.ObsForEncounterDataDefinition;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +47,14 @@ public class PihEncounterDataLibrary extends BaseDefinitionLibrary<EncounterData
     @DocumentedDefinition
     public EncounterDataDefinition getPatientAgeAtEncounter() {
         return new AgeAtEncounterDataDefinition();
+    }
+
+    @DocumentedDefinition
+    public EncounterDataDefinition getSingleObsInEncounter(Concept concept) {
+        ObsForEncounterDataDefinition d = new ObsForEncounterDataDefinition();
+        d.setQuestion(concept);
+        d.setSingleObs(true);
+        return d;
     }
 
     protected ConvertedEncounterDataDefinition convert(EncounterDataDefinition d, DataConverter... converters) {
