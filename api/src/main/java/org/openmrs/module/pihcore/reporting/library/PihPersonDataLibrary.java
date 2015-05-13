@@ -3,7 +3,10 @@ package org.openmrs.module.pihcore.reporting.library;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.reporting.common.Birthdate;
 import org.openmrs.module.reporting.data.converter.DataConverter;
+import org.openmrs.module.reporting.data.converter.PropertyConverter;
+import org.openmrs.module.reporting.data.person.definition.BirthdateDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.ConvertedPersonDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonAttributeDataDefinition;
 import org.openmrs.module.reporting.data.person.definition.PersonDataDefinition;
@@ -30,6 +33,11 @@ public class PihPersonDataLibrary extends BaseDefinitionLibrary<PersonDataDefini
     @Override
     public String getKeyPrefix() {
         return "mirebalais.personDataCalculation.";
+    }
+
+    @DocumentedDefinition("birthdate")
+    public PersonDataDefinition getBirthdate() {
+        return convert(new BirthdateDataDefinition(), new PropertyConverter(Birthdate.class, "birthdate"));
     }
 
     @DocumentedDefinition("telephoneNumber")
