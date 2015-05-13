@@ -89,7 +89,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
 
         // Define columns
 
-        addColumn(dsd, "patient_id", builtInPatientData.getPatientId());
+        //addColumn(dsd, "patient_id", builtInPatientData.getPatientId());
         addColumn(dsd, "emr_id", pihPatientData.getPreferredPrimaryIdentifier());
 
         // TODO: For now, commenting out the below, as they don't really seem useful to this export and aren't univerally applicable
