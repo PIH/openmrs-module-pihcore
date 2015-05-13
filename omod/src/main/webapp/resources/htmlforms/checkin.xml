@@ -143,52 +143,56 @@
     <!-- START VIEW VERSION OF THE FORM (just display answers to obs, not section title or provider, date, location) -->
     <ifMode mode="VIEW">
 
+        <!-- we include section so the most recent encounter app can include a custom header/title in the title span that HFE creates -->
+        <section id="checkin" sectionTag="section" headerStyle="title" headerLabel="">
+
             <fieldset class="type-of-visit-question">
-                <legend>
-                    <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
-                </legend>
-                <h3>
-                    <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
-                </h3>
-
-                <p class="left">
-                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
-                         unitsCssClass="append-to-value" style="dropdown" size="9">
-                    </obs>
-                </p>
-            </fieldset>
-
-            <obsgroup groupingConceptId="PIH:Payment construct">
-                <fieldset id="payment-amount-question" class="required">
                     <legend>
-                        <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+                        <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
                     </legend>
                     <h3>
-                        <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+                        <uimessage code="mirebalais.retrospectiveCheckin.visitType.label"/>
                     </h3>
 
                     <p class="left">
-                        <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
-                             unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
-                             answers="50,0" defaultValue="50"/>
+                        <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
+                             unitsCssClass="append-to-value" style="dropdown" size="9">
+                        </obs>
                     </p>
                 </fieldset>
 
-                <fieldset id="receipt-number-question">
-                    <legend>
-                        <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
-                    </legend>
-                    <h3>
-                        <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
-                    </h3>
+                <obsgroup groupingConceptId="PIH:Payment construct">
+                    <fieldset id="payment-amount-question" class="required">
+                        <legend>
+                            <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+                        </legend>
+                        <h3>
+                            <uimessage code="mirebalais.retrospectiveCheckin.paymentAmount.label"/>
+                        </h3>
 
-                    <p class="left">
-                        <obs conceptId="PIH:Receipt number" id="receiptNumber" showUnits="false"
-                             unitsCssClass="append-to-value" style="dropdown" />
-                    </p>
-                </fieldset>
-            </obsgroup>
+                        <p class="left">
+                            <obs conceptId="PIH:Payment amount" id="paymentAmount" showUnits="false"
+                                 unitsCssClass="append-to-value" style="dropdown" size="3" answerLabels="50,Exempt"
+                                 answers="50,0" defaultValue="50"/>
+                        </p>
+                    </fieldset>
 
+                    <fieldset id="receipt-number-question">
+                        <legend>
+                            <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
+                        </legend>
+                        <h3>
+                            <uimessage code="mirebalais.retrospectiveCheckin.receiptNumber.label"/>
+                        </h3>
+
+                        <p class="left">
+                            <obs conceptId="PIH:Receipt number" id="receiptNumber" showUnits="false"
+                                 unitsCssClass="append-to-value" style="dropdown" />
+                        </p>
+                    </fieldset>
+                </obsgroup>
+
+        </section>
     </ifMode>
     <!-- END VIEW VERSION OF THE FORM -->
 
