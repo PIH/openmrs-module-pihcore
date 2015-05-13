@@ -154,7 +154,7 @@ public class DataConverterLibrary {
     // General Converters
 
     public DataConverter getObjectFormatter() {
-        return getObjectFormatter();
+        return new ObjectFormatter();
     }
 
     // List and Collection Converters
