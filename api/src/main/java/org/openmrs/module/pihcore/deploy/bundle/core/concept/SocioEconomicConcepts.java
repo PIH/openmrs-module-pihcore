@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 9;  }
+    public int getVersion() { return 10;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -103,6 +103,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "3628").build())
                 .build());
 
+        // TODO:  Change all the names to use Locale.LANGUAGE (ie.  Locale.HAITI or Locale.HT)
         Concept divorced = install(new ConceptBuilder("3cd6e55c-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(misc)
@@ -556,12 +557,13 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .build());
 
         // start religion question and answers
-        // TODO add French and Kreyol translations, if need be
 
         Concept vodou = install(new ConceptBuilder("162930AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("0fb9b669-e4cf-4215-a4b7-05810077135f", "Voodoo", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127110BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Vaudou", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127111BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Vodou", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("22adced2-1242-4088-83d3-18d6a0cc485e")
                         .type(sameAs).ensureTerm(pih, "Voodoo").build())
                 .mapping(new ConceptMapBuilder("21b83615-c9cb-4b93-a835-db85f473a26c")
@@ -574,6 +576,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("d60f7743-8010-4366-b1a2-67419cb26449", "Catholic", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127114BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Catholique", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127115BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Katolik", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("9c053a48-19ee-4964-8240-c4ba0d163df7")
                         .type(sameAs).ensureTerm(pih, "Catholic").build())
                 .mapping(new ConceptMapBuilder("eda8d7a6-08de-4214-ba8b-6feedfd914c1")
@@ -586,6 +590,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("acb83b74-09ac-41c5-9d77-9846bee4bd60", "Baptist", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127119BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Baptiste", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127117BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Batis", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("39b96e32-bfed-4ab2-bf31-07d6c0b8cff8")
                         .type(sameAs).ensureTerm(pih, "Baptist").build())
                 .mapping(new ConceptMapBuilder("2b52c6ce-d16b-492d-a0fb-0782b277026f")
@@ -598,6 +604,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("27fd8d35-310f-4d8b-973c-3b973e6523d4", "Islam", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127122BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Musulman", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127123BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Mizilman", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("a1bb3862-f245-4aaf-ae73-be56f186808f")
                         .type(sameAs).ensureTerm(pih, "Islam").build())
                 .mapping(new ConceptMapBuilder("6c5a0151-b600-47e8-ab31-c4f46a009d3b")
@@ -611,6 +619,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("649229d4-fb09-4f73-9a47-89e9a99a11ed", "Pentecostal", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127125BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Pentecôtiste", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127127BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Pentkotist", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("3088f507-6835-4c3e-864d-d26b020009fe")
                         .type(sameAs).ensureTerm(pih, "Pentecostal").build())
                 .mapping(new ConceptMapBuilder("3811e396-86e3-4fc6-a6f2-d1f24f4318b3")
@@ -623,6 +633,9 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("3e47ed11-8d82-466f-82d8-43643ff2923d", "Seventh Day Adventist", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127132BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Adventist", Locale.ENGLISH, null)
+                .name("127131BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Adventiste", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127129BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Advantis", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("e7cc2548-e3ea-4892-bc9c-5ba27ba4be4e")
                         .type(sameAs).ensureTerm(pih, "Seventh Day Adventist").build())
                 .mapping(new ConceptMapBuilder("b011c46f-0641-4fec-8e47-c5147daa9b92")
@@ -635,6 +648,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("58714a23-6ccf-4816-848b-376862ea86cf", "Jehovah's Witness", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127134BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Témoin de Jéhovah", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127133BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Temwen Jewova", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("c30fc279-7197-4dcc-b2f0-3ed4e80b7f37")
                         .type(sameAs).ensureTerm(pih, "Jehovah's Witness").build())
                 .mapping(new ConceptMapBuilder("d98888d2-b834-4b21-a48b-14d83a798cef")
@@ -648,6 +663,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(question)
                 .name("1ad1706a-1400-428e-8b99-0d8b073e1a81", "Religion", Locale.ENGLISH, null) // locale-preferred
                 .name("9050b9ef-96d4-484a-9ca3-a21451d305a8", "Religious affiliation", Locale.ENGLISH, null)
+                .name("127108BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Religion", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("127109BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Relijyon", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("10281d23-9f19-487c-a0c3-adde06c6d46b")
                         .type(sameAs).ensureTerm(pih, "Religion").build())
                 .mapping(new ConceptMapBuilder("668e0a10-841c-42a4-a394-c706319bb341")
