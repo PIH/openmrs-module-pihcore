@@ -38,6 +38,9 @@ public class ConfigDescriptor {
     private List<String> components;
 
     @JsonProperty
+    private String providerIdentifierPrefix;
+
+    @JsonProperty
     private Boolean scheduleBackupReports; // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleBackupReports method in Mirebalais Module Activator), generally this should only be turned on on production
 
     @JsonProperty
@@ -88,6 +91,14 @@ public class ConfigDescriptor {
 
     public void setComponents(List<String> components) {
         this.components = components;
+    }
+
+    public String getProviderIdentifierPrefix() {
+        return providerIdentifierPrefix;
+    }
+
+    public void setProviderIdentifierPrefix(String providerIdentifierPrefix) {
+        this.providerIdentifierPrefix = providerIdentifierPrefix;
     }
 
     public Boolean getScheduleBackupReports() {

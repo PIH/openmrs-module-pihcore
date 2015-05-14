@@ -34,6 +34,8 @@ public class Config {
         return descriptor.getDashboardUrl();
     }
 
+    public String getProviderIdentifierPrefix() { return descriptor.getProviderIdentifierPrefix(); }
+
     public ConfigDescriptor.Site getSite() {
         return descriptor.getSite();
     }
