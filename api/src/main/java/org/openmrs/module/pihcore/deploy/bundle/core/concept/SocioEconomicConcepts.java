@@ -260,7 +260,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("3e17c01c-26fe-102b-80cb-0017a47871b2", "Commerce", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-              //  .name("0b8e937c-15f5-102d-96e4-000c29c2a5d7", "Commerçant", Locale.FRENCH, null) // locale-preferred
+                .name("0b8e937c-15f5-102d-96e4-000c29c2a5d7", "Commerçant", Locale.FRENCH, null) // locale-preferred
                 .description("ece769da-07fe-102c-b5fa-0017a47871b2", "Main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b21086fe-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1305").build())
