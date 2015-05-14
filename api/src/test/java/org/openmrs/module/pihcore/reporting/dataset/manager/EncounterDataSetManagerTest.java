@@ -19,6 +19,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonName;
+import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
@@ -40,6 +41,7 @@ import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinition
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Locale;
 
 public abstract class EncounterDataSetManagerTest extends BaseReportTest {
 
@@ -68,6 +70,7 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
     @Override
     public void setup() throws Exception {
         super.setup();
+        Context.setLocale(Locale.ENGLISH);
         deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(socioEconomicConcepts);
         deployService.installBundle(mockConcepts);
