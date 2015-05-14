@@ -2,7 +2,7 @@ package org.openmrs.module.pihcore.deploy.bundle.liberia;
 
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.AddressBundle;
+import org.openmrs.module.pihcore.deploy.bundle.AddressBundle;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

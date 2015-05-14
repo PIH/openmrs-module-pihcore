@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
 import org.openmrs.module.addresshierarchy.AddressField;
+import org.openmrs.module.pihcore.deploy.bundle.AddressBundle;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.springframework.stereotype.Component;
 

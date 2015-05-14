@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.deploy.bundle.haiti;
+package org.openmrs.module.pihcore.deploy.bundle;
 
 import org.apache.commons.io.IOUtils;
 import org.openmrs.api.SerializationService;
@@ -7,8 +7,6 @@ import org.openmrs.layout.web.address.AddressTemplate;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
-import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
-import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
