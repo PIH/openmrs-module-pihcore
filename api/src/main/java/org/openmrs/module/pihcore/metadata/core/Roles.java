@@ -242,7 +242,6 @@ public class Roles {
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
                     Privileges.APP_COREAPPS_FIND_PATIENT,
-                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_PATIENT_VISITS,
                     Privileges.TASK_RADIOLOGYAPP_TAB
             );}
