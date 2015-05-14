@@ -44,7 +44,8 @@ public abstract class AddressBundle extends VersionedPihMetadataBundle {
 
     @Override
     protected void installNewVersion() throws Exception {
-        installAddressHierarchy();
+        installAddressHierarchyLevels();
+        installAddressHierarchyEntries();
     }
 
     /**
@@ -79,13 +80,11 @@ public abstract class AddressBundle extends VersionedPihMetadataBundle {
     }
 
     /**
-     * Installs a new version of the address hierarchy, including the necessary level configuration
+     * Installs the necessary address hierarchy levels if they are not already configured
      */
-    public void installAddressHierarchy() {
+    public void installAddressHierarchyLevels() {
         AddressHierarchyService service = Context.getService(AddressHierarchyService.class);
         int numberOfLevels = service.getAddressHierarchyLevelsCount();
-
-        // If needed, setup the address hierarchy levels
         if (numberOfLevels == 0) {
             log.info("Installing Address Levels");
             AddressHierarchyLevel lastLevel = null;
@@ -98,9 +97,14 @@ public abstract class AddressBundle extends VersionedPihMetadataBundle {
                 lastLevel = level;
             }
         }
+    }
 
-        log.info("Installing Address Hierarchy");
-        service.deleteAllAddressHierarchyEntries();
+    /**
+     * Installs a new version of the address hierarchy entries
+     */
+    public void installAddressHierarchyEntries() {
+        log.info("Installing Address Hierarchy Entries");
+        Context.getService(AddressHierarchyService.class).deleteAllAddressHierarchyEntries();
         InputStream is = null;
         try {
             is = getClass().getClassLoader().getResourceAsStream(getAddressHierarchyEntryPath());
