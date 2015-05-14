@@ -42,7 +42,8 @@
             <div>
                 <h3><uimessage code="zl.registration.patient.occupation.label"/></h3>
                 <p class="left">
-                    <obs conceptId="PIH:2452" id="occupation" showUnits="false" unitsCssClass="append-to-value" size="20" />
+                    <obs conceptId="PIH:Occupation" id="occupation"
+                         showUnits="false" unitsCssClass="append-to-value" size="dropdown" />
                 </p>
             </div>
 
