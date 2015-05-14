@@ -157,6 +157,16 @@ public class DataConverterLibrary {
         return new ObjectFormatter();
     }
 
+    // Audit Info
+
+    public DataConverter getAuditInfoCreatorNameConverter() {
+        return new ChainedConverter(new PropertyConverter(AuditInfo.class, "creator"), getUserAsNameConverter());
+    }
+
+    public DataConverter getAuditInfoDateCreatedConverter() {
+        return new PropertyConverter(AuditInfo.class, "dateCreated");
+    }
+
     // List and Collection Converters
 
     public DataConverter getCollectionSizeConverter() {

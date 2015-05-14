@@ -1,73 +1,44 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
-import org.openmrs.api.SerializationService;
-import org.openmrs.layout.web.address.AddressTemplate;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
-import org.openmrs.util.OpenmrsConstants;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.openmrs.module.addresshierarchy.AddressField;
+import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
-public class HaitiAddressBundle extends PihMetadataBundle {
-
-    @Autowired
-    SerializationService serializationService;
+public class HaitiAddressBundle extends AddressBundle {
 
     @Override
-    public void install() throws Exception {
-        installAddressTemplate();
-        // TODO: Move address hierarchy setup into this bundle
+    public int getVersion() {
+        return 5;
     }
 
-    /**
-     * Install the appropriate address template
-     */
-    public void installAddressTemplate() throws Exception {
-        log.info("Installing Address Template");
-        String template = serializationService.getDefaultSerializer().serialize(getAddressTemplate());
-        setGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_ADDRESS_TEMPLATE, template);
+    @Override
+    public List<AddressComponent> getAddressComponents() {
+        List<AddressComponent> l = new ArrayList<AddressComponent>();
+        l.add(new AddressComponent(AddressField.COUNTRY, "mirebalais.address.country", 40, "Haiti", true));
+        l.add(new AddressComponent(AddressField.STATE_PROVINCE, "mirebalais.address.stateProvince", 40, null, true));
+        l.add(new AddressComponent(AddressField.CITY_VILLAGE, "mirebalais.address.cityVillage", 40, null, true));
+        l.add(new AddressComponent(AddressField.ADDRESS_3, "mirebalais.address.neighborhoodCell", 60, null, true));
+        l.add(new AddressComponent(AddressField.ADDRESS_1, "mirebalais.address.address1", 60, null, true));
+        l.add(new AddressComponent(AddressField.ADDRESS_2, "mirebalais.address.address2", 60, null, false));
+        return l;
     }
 
-    /**
-     * @return a new AddressTemplate instance for Mirebalais
-     */
-    public AddressTemplate getAddressTemplate() {
-        AddressTemplate addressTemplate = new AddressTemplate("");
+    @Override
+    public List<String> getLineByLineFormat() {
+        List<String> l = new ArrayList<String>();
+        l.add("address2");
+        l.add("address1");
+        l.add("address3, cityVillage");
+        l.add("stateProvince, country");
+        return l;
+    }
 
-        Map<String, String> nameMappings = new HashMap<String, String>();
-        nameMappings.put("country", "mirebalais.address.country");
-        nameMappings.put("stateProvince", "mirebalais.address.stateProvince");
-        nameMappings.put("cityVillage", "mirebalais.address.cityVillage");
-        nameMappings.put("address3", "mirebalais.address.neighborhoodCell");
-        nameMappings.put("address1", "mirebalais.address.address1");
-        nameMappings.put("address2", "mirebalais.address.address2");
-        addressTemplate.setNameMappings(nameMappings);
-
-        Map<String, String> sizeMappings = new HashMap<String, String>();
-        sizeMappings.put("country", "40");
-        sizeMappings.put("stateProvince", "40");
-        sizeMappings.put("cityVillage", "40");
-        sizeMappings.put("address3", "60");
-        sizeMappings.put("address1", "60");
-        sizeMappings.put("address2", "60");
-        addressTemplate.setSizeMappings(sizeMappings);
-
-        Map<String, String> elementDefaults = new HashMap<String, String>();
-        elementDefaults.put("country", "Haiti");
-        addressTemplate.setElementDefaults(elementDefaults);
-
-        List<String> lineByLineFormat = new ArrayList<String>();
-        lineByLineFormat.add("address2");
-        lineByLineFormat.add("address1");
-        lineByLineFormat.add("address3, cityVillage");
-        lineByLineFormat.add("stateProvince, country");
-        addressTemplate.setLineByLineFormat(lineByLineFormat);
-
-        return addressTemplate;
+    @Override
+    public String getAddressHierarchyEntryPath() {
+        return "addresshierarchy/haiti_address_hierarchy_entries_5.csv";
     }
 }

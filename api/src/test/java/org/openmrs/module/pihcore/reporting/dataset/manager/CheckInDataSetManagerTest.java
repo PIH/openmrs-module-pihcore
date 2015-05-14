@@ -26,10 +26,10 @@ import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest {
+public class CheckInDataSetManagerTest extends EncounterDataSetManagerTest {
 
     @Autowired
-    RegistrationDataSetManager registrationDataSetManager;
+    CheckInDataSetManager checkInDataSetManager;
 
     @Before
     @Override
@@ -37,36 +37,26 @@ public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest 
         super.setup();
         Patient p = createPatient("X3XK71");
         createRegistrationEncounter(p);
+        createCheckInEncounter(p);
     }
 
     @Test
     public void testDataSet() throws Exception {
-        DataSetDefinition dsd = registrationDataSetManager.constructDataSet();
+        DataSetDefinition dsd = checkInDataSetManager.constructDataSet();
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
         context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
         SimpleDataSet dataSet = (SimpleDataSet)dataSetDefinitionService.evaluate(dsd, context);
         DataSetRow row = dataSet.getRows().get(0);
         Assert.assertEquals(1, dataSet.getRows().size());
-        Assert.assertEquals(27, dataSet.getMetaData().getColumnCount());
-        Assert.assertEquals("John", row.getColumnValue("GIVEN_NAME"));
-        Assert.assertEquals("Smitty", row.getColumnValue("NICKNAME"));
-        Assert.assertEquals("Smith", row.getColumnValue("FAMILY_NAME"));
+        Assert.assertEquals(16, dataSet.getMetaData().getColumnCount());
+        Assert.assertEquals("X3XK71", row.getColumnValue("EMR_ID"));
         Assert.assertEquals(DateUtil.getDateTime(1977, 11, 23), row.getColumnValue("BIRTHDATE"));
         Assert.assertEquals(false, row.getColumnValue("BIRTHDATE_ESTIMATED"));
-        Assert.assertEquals(37.4, row.getColumnValue("AGE_AT_REGISTRATION"));
+        Assert.assertEquals(37.4, row.getColumnValue("AGE_AT_CHECK_IN"));
         Assert.assertEquals("M", row.getColumnValue("GENDER"));
-        Assert.assertEquals("555-1234", row.getColumnValue("TELEPHONE_NUMBER"));
-        Assert.assertEquals("Wichita", row.getColumnValue("BIRTHPLACE"));
-        Assert.assertEquals("Isabel", row.getColumnValue("MOTHERS_FIRST_NAME"));
-        Assert.assertEquals("MA", row.getColumnValue("MIREBALAIS.ADDRESS.STATEPROVINCE"));
-        Assert.assertEquals("Boston", row.getColumnValue("MIREBALAIS.ADDRESS.CITYVILLAGE"));
-        Assert.assertEquals("JP", row.getColumnValue("MIREBALAIS.ADDRESS.NEIGHBORHOODCELL"));
-        Assert.assertEquals("Pondside", row.getColumnValue("MIREBALAIS.ADDRESS.ADDRESS1"));
-        Assert.assertNull(row.getColumnValue("MIREBALAIS.ADDRESS.ADDRESS2"));
-        Assert.assertEquals("X3XK71", row.getColumnValue("EMR_ID"));
-        Assert.assertEquals(DateUtil.getDateTime(2015, 4, 15), row.getColumnValue("REGISTRATION_DATE"));
-        Assert.assertEquals(MirebalaisLocations.CLINIC_REGISTRATION.name(), row.getColumnValue("REGISTRATION_LOCATION"));
-        Assert.assertEquals("Married", row.getColumnValue("CIVIL_STATUS"));
+        Assert.assertEquals(DateUtil.getDateTime(2015, 4, 15), row.getColumnValue("CHECK_IN_DATE"));
+        Assert.assertEquals(MirebalaisLocations.OUTPATIENT_CLINIC.name(), row.getColumnValue("CHECK_IN_LOCATION"));
+        Assert.assertEquals("Malnutrition program", row.getColumnValue("TYPE_OF_VISIT"));
     }
 }

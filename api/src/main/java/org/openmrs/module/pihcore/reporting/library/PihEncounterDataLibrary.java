@@ -2,9 +2,7 @@ package org.openmrs.module.pihcore.reporting.library;
 
 import org.openmrs.Concept;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.reporting.common.AuditInfo;
 import org.openmrs.module.reporting.data.converter.DataConverter;
-import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.encounter.definition.AgeAtEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.AuditInfoEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.ConvertedEncounterDataDefinition;
@@ -41,7 +39,12 @@ public class PihEncounterDataLibrary extends BaseDefinitionLibrary<EncounterData
 
     @DocumentedDefinition
     public EncounterDataDefinition getCreatorName() {
-        return convert(getAuditInfo(), new PropertyConverter(AuditInfo.class, "creator"), converters.getUserAsNameConverter());
+        return convert(getAuditInfo(), converters.getAuditInfoCreatorNameConverter());
+    }
+
+    @DocumentedDefinition
+    public EncounterDataDefinition getDateCreated() {
+        return convert(getAuditInfo(), converters.getAuditInfoDateCreatedConverter());
     }
 
     @DocumentedDefinition

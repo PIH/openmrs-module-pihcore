@@ -13,10 +13,11 @@
  */
 package org.openmrs.module.pihcore.metadata;
 
+import org.openmrs.Concept;
 import org.openmrs.OpenmrsObject;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.descriptor.Descriptor;
-import org.springframework.stereotype.Component;
 
 /**
  * Convenience methods for working with metadata
@@ -30,4 +31,26 @@ public class Metadata {
         return MetadataUtils.existing(descriptor.getDescribedType(), descriptor.uuid());
     }
 
+    /**
+     * @return the Concept that matches the passed uuid, name or source:code mapping
+     */
+    public static Concept getConcept(String lookup) {
+        Concept c = Context.getConceptService().getConceptByUuid(lookup);
+        if (c == null) {
+            try {
+                String[] split = lookup.split("\\:");
+                if (split.length == 2) {
+                    c = Context.getConceptService().getConceptByMapping(split[1], split[0]);
+                }
+            }
+            catch (Exception e) {}
+        }
+        if (c == null) {
+            c = Context.getConceptService().getConceptByName(lookup);
+        }
+        if (c == null) {
+            throw new IllegalArgumentException("Unable to find Concept using key: " + lookup);
+        }
+        return c;
+    }
 }
