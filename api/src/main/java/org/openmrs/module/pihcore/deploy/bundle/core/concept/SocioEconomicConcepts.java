@@ -232,6 +232,10 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
         uninstall(MetadataUtils.possible(Concept.class, "94807725-b1cf-437e-b439-c5885440121e"), "No longer used");
         uninstall(MetadataUtils.possible(Concept.class, "3cd9786c-26fe-102b-80cb-0017a47871b2"), "No longer used");
+        uninstall(MetadataUtils.possible(Concept.class, "1ed2c51d-7d4d-44df-9257-48eaf61a2f7a"), "No longer used");
+        uninstall(MetadataUtils.possible(Concept.class, "a2c0bdcf-f4ba-4e10-9af4-d9ad7dcc2ca4"), "No longer using too sick");
+        uninstall(MetadataUtils.possible(Concept.class, "96fa6038-30b0-4305-a4ce-0a392a0081c6"), "Small child is not occupation");
+        uninstall(MetadataUtils.possible(Concept.class, "b866af07-d583-4d0c-9861-f00e90677042"), "Employed should be coded or other");
 
         Concept housework = install(new ConceptBuilder("3cda14e8-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
@@ -243,18 +247,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .description("ece86506-07fe-102c-b5fa-0017a47871b2", "A main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b211809a-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1404").build())
-                .build());
-
-        Concept schoolAgeButNotInSchool = install(new ConceptBuilder("1ed2c51d-7d4d-44df-9257-48eaf61a2f7a")
-                .datatype(notApplicable)
-                .conceptClass(misc)
-                .name("0b75e840-15f5-102d-96e4-000c29c2a5d7", "School age but not in school", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f6fe25b0-d5db-102d-ad2a-000c29c2a5d7", "Enfants d'âge scolaire, mais pas à l'école", Locale.FRENCH, null) // locale-preferred
-                .description("ed2447f6-07fe-102c-b5fa-0017a47871b2", "Educational status of a patient.", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("b25d171c-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "3343").build())
-                .mapping(new ConceptMapBuilder("759ed4fc-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "SCHOOL AGE BUT NOT IN SCHOOL").build())
                 .build());
 
         Concept commerce = install(new ConceptBuilder("3cd9740c-26fe-102b-80cb-0017a47871b2")
@@ -281,18 +273,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "2445").build())
                 .build());
 
-        Concept tooSickToWork = install(new ConceptBuilder("a2c0bdcf-f4ba-4e10-9af4-d9ad7dcc2ca4")
-                .datatype(notApplicable)
-                .conceptClass(misc)
-                .name("0b75ea2a-15f5-102d-96e4-000c29c2a5d7", "Too sick to work", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("f6fe57ce-d5db-102d-ad2a-000c29c2a5d7", "Trop malade pour travailler", Locale.FRENCH, null) // locale-preferred
-                .description("ed244aa8-07fe-102c-b5fa-0017a47871b2", "Patient is too sick to work or maintain job.", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("759ed7cc-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "TOO SICK TO WORK").build())
-                .mapping(new ConceptMapBuilder("b25d1a32-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "3345").build())
-                .build());
-
         Concept factoryWorker = install(new ConceptBuilder("3cdcbe78-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(misc)
@@ -303,19 +283,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "1683").build())
                 .mapping(new ConceptMapBuilder("75776d2c-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "FACTORY WORKER").build())
-                .build());
-
-        Concept smallChild = install(new ConceptBuilder("96fa6038-30b0-4305-a4ce-0a392a0081c6")
-                .datatype(notApplicable)
-                .conceptClass(misc)
-                .name("6c1b8567-e4e7-4e89-92e0-4558a1a8d869", "Small child (less than 5 years old)", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("09e8a2db-2d82-4117-9d0e-e9cda15ca9a6", "Child younger than school age", Locale.ENGLISH, null)
-                .name("f7823332-d5db-102d-ad2a-000c29c2a5d7", "Petit enfant (moins de 5 ans)", Locale.FRENCH, null) // locale-preferred
-                .description("66757468-e47a-4006-af51-ab55bf187b80", "Small child (under 5)", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("75ad18dc-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "SMALL CHILD (LESS THAN AGE 5)").build())
-                .mapping(new ConceptMapBuilder("b29d5a8e-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "6138").build())
                 .build());
 
         Concept professional = install(new ConceptBuilder("907716b4-1852-404a-9ee1-beff998f9461")
@@ -379,18 +346,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "FARMER").build())
                 .mapping(new ConceptMapBuilder("b2108898-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1306").build())
-                .build());
-
-        Concept employed = install(new ConceptBuilder("b866af07-d583-4d0c-9861-f00e90677042")
-                .datatype(notApplicable)
-                .conceptClass(misc)
-                .name("0b76dc32-15f5-102d-96e4-000c29c2a5d7", "Employed", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("f70378e4-d5db-102d-ad2a-000c29c2a5d7", "Employé", Locale.FRENCH, null) // locale-preferred
-                .description("ed24cec4-07fe-102c-b5fa-0017a47871b2", "Patient currently employed.", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("759f20c4-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "EMPLOYED").build())
-                .mapping(new ConceptMapBuilder("b25d6514-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "3395").build())
                 .build());
 
         Concept shopOwner = install(new ConceptBuilder("3cdcc468-26fe-102b-80cb-0017a47871b2")
@@ -550,10 +505,11 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Occupation").build())
                 .mapping(new ConceptMapBuilder("b210855a-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1304").build())
-                .answers(farmer, student, unemployed, otherNonCoded, manualLaborer, shepherd, brewer, shopOwner,
-                        fruitOrVegetableSeller, miner, factoryWorker, housework, houseworkAndFieldwork, retired, unknown,
-                        tooSickToWork, schoolAgeButNotInSchool, driver, professional, smallChild, commerce, teacher,
-                        employed, fisherman, marketVendor, civilServant, healthCareWorker)
+                .answers(farmer, manualLaborer, shepherd, brewer, shopOwner,
+                        fruitOrVegetableSeller, miner, factoryWorker, housework, houseworkAndFieldwork,
+                        driver, professional, commerce, teacher,
+                        fisherman, marketVendor, civilServant, healthCareWorker,
+                        retired, student, unemployed, otherNonCoded)
                 .build());
 
         // start religion question and answers
