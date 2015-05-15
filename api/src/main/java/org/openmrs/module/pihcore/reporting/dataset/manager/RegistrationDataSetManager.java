@@ -14,13 +14,10 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
-import org.openmrs.Concept;
 import org.openmrs.EncounterType;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
 import org.springframework.stereotype.Component;
 
@@ -46,7 +43,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
     @Override
     protected void addObsColumns(EncounterDataSetDefinition dsd) {
         addObsColumn(dsd, "civil_status", SocioEconomicConcepts.Concepts.CIVIL_STATUS, converters.getObsValueCodedNameConverter());
-        addObsColumn(dsd, "occupation", SocioEconomicConcepts.Concepts.MAIN_ACTIVITY_NON_CODED, converters.getObsValueTextConverter());
+        addObsColumn(dsd, "occupation", SocioEconomicConcepts.Concepts.MAIN_ACTIVITY, converters.getObsValueCodedNameConverter());
 
         // TODO: Add in religion question here conditionally when appropriate
 
