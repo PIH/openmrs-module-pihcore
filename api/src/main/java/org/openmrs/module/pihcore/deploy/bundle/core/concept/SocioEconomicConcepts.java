@@ -288,7 +288,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
         Concept professional = install(new ConceptBuilder("907716b4-1852-404a-9ee1-beff998f9461")
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("0b76dd22-15f5-102d-96e4-000c29c2a5d7", "Professionel", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("0b76dd22-15f5-102d-96e4-000c29c2a5d7", "Professional", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("f7039220-d5db-102d-ad2a-000c29c2a5d7", "Professionnel", Locale.FRENCH, null) // locale-preferred
                 .description("ed24d0b8-07fe-102c-b5fa-0017a47871b2", "Employment type. Examples are nurse, doctor, teacher, lawyer, or any position outside of agriculture. ", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("759f2222-4943-102e-96e9-000c29c2a5d7")
