@@ -12,7 +12,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
 
     @Override
     public int getVersion() {
-        return 2;
+        return 3;
     }
 
     public static final class ConceptSources {
@@ -82,7 +82,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         install(conceptSource("PIH", "Partners In Health concept dictionary using concept ids and preferred English names", null, ConceptSources.PIH));
         install(conceptSource("PIH Malawi", "Partners in Health Malawi concept dictionary", null, ConceptSources.PIH_MALAWI)); //
         install(conceptSource("CIEL", "Columbia International eHealth Laboratory concept ID", null, ConceptSources.CIEL));
-        install(conceptSource("SNOMED CT", "SNOMED Preferred mapping", null, ConceptSources.SNOMED_CT));
+        install(conceptSource("SNOMED CT", "SNOMED Preferred mapping", "SCT", ConceptSources.SNOMED_CT));
         install(conceptSource("SNOMED MVP", "MVP Namespace Identifier extensions to SNOMED CT", null, ConceptSources.SNOMED_MVP));
         install(conceptSource("RxNORM", "RxNORM CUI", null, ConceptSources.RX_NORM));
         install(conceptSource("IMO ProcedureIT", "Intelligent Medical Objects, Inc. procedure/test datasource", null, ConceptSources.IMO_PROCEDURE_IT));
