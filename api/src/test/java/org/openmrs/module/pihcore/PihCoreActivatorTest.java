@@ -9,6 +9,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
@@ -37,7 +38,10 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     private MetadataDeployService deployService;
 
     @Autowired
-    HaitiMetadataBundle haitiMetadataBundle;
+    private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
+
+    @Autowired
+    private HaitiMetadataBundle haitiMetadataBundle;
 
     @Autowired
     @Qualifier("adminService")
@@ -60,6 +64,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     @Test
     public void testMetadataBundles() throws Exception {
 
+        deployService.installBundle(conceptsFromMetadataSharing);
         deployService.installBundle(haitiMetadataBundle);
 
         // test a few random concepts

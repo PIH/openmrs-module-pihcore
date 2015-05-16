@@ -13,6 +13,7 @@ import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
@@ -54,6 +55,9 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
     @Autowired
     private List<MetadataBundle> bundles;
 
+    @Autowired
+    private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
+
     private PihCoreActivator activator;
 
     @Override
@@ -68,6 +72,8 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
+
+        deployService.installBundle(conceptsFromMetadataSharing);
 
         activator = new PihCoreActivator();
         Config config = mock(Config.class);

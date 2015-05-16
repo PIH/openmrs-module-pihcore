@@ -41,6 +41,9 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
 
+        // load the API test bundle of MDS concepts
+        metadataDeployService.installBundle(Context.getRegisteredComponents(org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing.class).get(0));
+
         // set up metadata from pih core first
         metadataDeployService.installBundle(Context.getRegisteredComponents(MirebalaisBundle.class).get(0));
 
