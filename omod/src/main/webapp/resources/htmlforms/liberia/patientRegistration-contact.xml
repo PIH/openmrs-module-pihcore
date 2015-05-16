@@ -48,7 +48,7 @@
                 <div>
                     <h3><uimessage code="zl.registration.patient.contactPerson.contactAddress.label"/></h3>
                     <p class="left">
-                        <obs conceptId="PIH:ADDRESS OF PATIENT CONTACT" id="contactAddress" style="textarea" cols="50" showUnits="false" unitsCssClass="append-to-value" />
+                        <obs conceptId="PIH:ADDRESS OF PATIENT CONTACT" id="contactAddress" style="textarea" rows="5" cols="60" maxlength="250" showUnits="false" unitsCssClass="append-to-value" />
                     </p>
                 </div>
 
