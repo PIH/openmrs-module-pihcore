@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.pihcore.deploy.bundle.OrderEntryConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Component;
         PersonAttributeTypeBundle.class,
         RolesAndPrivilegesBundle.class,
         VisitTypeBundle.class,
+        OrderEntryConcepts.class,
         AdministrativeConcepts.class,
         ClinicalConsultationConcepts.class,
         DeathConcepts.class,
