@@ -12,6 +12,7 @@ import org.openmrs.module.htmlformentry.HtmlForm;
 import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.pihcore.deploy.bundle.OrderEntryConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -42,7 +43,7 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
         authenticate();
 
         // load the API test bundle of MDS concepts
-        metadataDeployService.installBundle(Context.getRegisteredComponents(org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing.class).get(0));
+        metadataDeployService.installBundle(Context.getRegisteredComponents(OrderEntryConceptsFromMetadataSharing.class).get(0));
 
         // set up metadata from pih core first
         metadataDeployService.installBundle(Context.getRegisteredComponents(MirebalaisBundle.class).get(0));
