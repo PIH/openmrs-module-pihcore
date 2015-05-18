@@ -24,6 +24,7 @@ import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch;
+import org.openmrs.module.pihcore.deploy.bundle.OrderEntryConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
@@ -43,6 +44,7 @@ import java.util.Map;
  */
 @Component
 @Requires( { PihCoreMetadataBundle.class,
+        OrderEntryConcepts.class,
         HaitiPatientIdentifierTypeBundle.class,
         HaitiAddressBundle.class
 } )
