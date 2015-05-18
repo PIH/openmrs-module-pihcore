@@ -1,7 +1,7 @@
-package org.openmrs.module.pihcore.deploy.bundle;
+package org.openmrs.module.pihcore.deploy.bundle.core.concept;
 
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.VersionedPihConceptBundle;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
 
