@@ -164,6 +164,7 @@ public class LocationTagSetup {
             MirebalaisLocations.CHEMOTHERAPY,
             MirebalaisLocations.REHABILITATION,
             MirebalaisLocations.FAMILY_PLANNING,
+            MirebalaisLocations.ANTEPARTUM_WARD,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
         ));
