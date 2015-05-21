@@ -1,0 +1,15 @@
+<!--
+Defines packages to be loaded by the Metadata Sharing module on startup of this module
+-->
+<org.openmrs.module.emrapi.metadata.MetadataPackagesConfig>
+    <packages>
+
+        <org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+            <filenameBase>HUM_Dispensing_Concepts</filenameBase>
+            <groupUuid>c14e1736-c133-42b7-b421-cfe8cdefcbcb</groupUuid>
+            <version>24</version>
+            <importMode>MIRROR</importMode>
+        </org.openmrs.module.emrapi.metadata.MetadataPackageConfig>
+
+    </packages>
+</org.openmrs.module.emrapi.metadata.MetadataPackagesConfig>

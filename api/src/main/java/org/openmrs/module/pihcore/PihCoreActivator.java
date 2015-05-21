@@ -21,6 +21,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.emrapi.utils.MetadataUtil;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
@@ -48,6 +49,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             if (config == null) {  // hack to allow injecting a mock config for testing
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
+            installMetadataPackages(config);
             installMetadataBundles(config);
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
@@ -60,6 +62,19 @@ public class PihCoreActivator extends BaseModuleActivator {
             throw new RuntimeException("failed to setup the required modules", e);
         }
 
+    }
+
+    // Most of the MDS packages are (still) installed in the mirebalaismetadata module activator
+    private void installMetadataPackages(Config config) throws Exception {
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            MetadataUtil.setupSpecificMetadata(getClass().getClassLoader(), "HUM_Dispensing_Concepts");
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            // nothing yet
+        }
+
+        Context.flushSession();
     }
 
     private void installMetadataBundles(Config config) {

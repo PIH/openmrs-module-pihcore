@@ -36,6 +36,9 @@ public class OrderEntryConcepts extends VersionedPihConceptBundle {
         public final static String AT_NIGHT = "023bee9c-2dbb-483c-8401-46f0ccf6b333";
         public final static String WHEN_REQUIRED = "160857AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public final static String IMMEDIATELY = "3cdc5794-26fe-102b-80cb-0017a47871b2";
+
+        public final static String TABLET = "1513AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public final static String CAPSULE = "1608AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     }
 
     @Override
