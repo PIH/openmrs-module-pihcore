@@ -5,10 +5,6 @@
         <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.RedirectToDeathNoteIfMissing"/>
     </includeIf>
 
-    <uiInclude provider="emr" javascript="angular.min.js"/>
-    <uiInclude provider="emr" javascript="diagnoses/diagnoses.js"/>
-    <uiInclude provider="emr" javascript="diagnoses/diagnoses-angular.js"/>
-
     <style type="text/css">
         #who-when-where {
             margin-bottom: 6px;
