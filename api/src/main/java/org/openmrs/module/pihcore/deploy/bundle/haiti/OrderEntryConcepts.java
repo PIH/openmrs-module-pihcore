@@ -1,9 +1,13 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
+import org.openmrs.OrderFrequency;
+import org.openmrs.api.OrderService;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.VersionedPihConceptBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.util.OpenmrsUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors1_10.orderFrequency;
@@ -11,6 +15,9 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors1_10.orde
 @Component
 @Requires({CoreConceptMetadataBundle.class})
 public class OrderEntryConcepts extends VersionedPihConceptBundle {
+
+    @Autowired
+    private OrderService orderService;
 
     public static final class Concepts {
         public static final String ROUTES_OF_ADMINISTRATION = "162394AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -80,6 +87,26 @@ public class OrderEntryConcepts extends VersionedPihConceptBundle {
         install(orderFrequency(Concepts.EVERY_TWELVE_HOURS, 0.5, "0d99917c-ee7b-49e7-b55c-5d2457d9c40a"));
         install(orderFrequency(Concepts.WHEN_REQUIRED, null, "da558e86-3fbc-427a-8e4e-06d61c38d813"));
         install(orderFrequency(Concepts.IMMEDIATELY, null, "8487d0db-3378-49b8-b24c-18f121dfbfd0"));
+    }
+
+    /**
+     * OrderFrequency is not allowed to be resaved after it has an order pointing to it, or it will throw the exception:
+     * "org.openmrs.api.APIException: This order frequency cannot be edited because it is already in use"
+     *
+     * This method only calls the base install method if a field has actually changed, to prevent against spuriously
+     * getting this error.
+     *
+     * @param orderFrequency
+     * @return
+     */
+    private OrderFrequency install(OrderFrequency orderFrequency) {
+        OrderFrequency existing = orderService.getOrderFrequencyByUuid(orderFrequency.getUuid());
+        if (existing != null
+                && existing.getConcept().getUuid().equals(orderFrequency.getConcept().getUuid())
+                && OpenmrsUtil.nullSafeEquals(existing.getFrequencyPerDay(), orderFrequency.getFrequencyPerDay())) {
+            return existing;
+        }
+        return super.install(orderFrequency);
     }
 
 }
