@@ -41,7 +41,7 @@ public class CheckInDataSetManager extends BaseEncounterDataSetManager {
 
     @Override
     protected void addPatientNameColumns(EncounterDataSetDefinition dsd) {
-        // Do not include patient names in this export
+        super.addPatientNameColumns(dsd);
     }
 
     @Override
