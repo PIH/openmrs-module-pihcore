@@ -49,7 +49,7 @@ public class CheckInDataSetManagerTest extends EncounterDataSetManagerTest {
         SimpleDataSet dataSet = (SimpleDataSet)dataSetDefinitionService.evaluate(dsd, context);
         DataSetRow row = dataSet.getRows().get(0);
         Assert.assertEquals(1, dataSet.getRows().size());
-        Assert.assertEquals(16, dataSet.getMetaData().getColumnCount());
+        Assert.assertEquals(19, dataSet.getMetaData().getColumnCount());
         Assert.assertEquals("X3XK71", row.getColumnValue("EMR_ID"));
         Assert.assertEquals(DateUtil.getDateTime(1977, 11, 23), row.getColumnValue("BIRTHDATE"));
         Assert.assertEquals(false, row.getColumnValue("BIRTHDATE_ESTIMATED"));
