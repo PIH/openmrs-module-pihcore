@@ -13,7 +13,7 @@ public class LiberiaAddressBundle extends AddressBundle {
 
     @Override
     public int getVersion() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -38,6 +38,6 @@ public class LiberiaAddressBundle extends AddressBundle {
 
     @Override
     public String getAddressHierarchyEntryPath() {
-        return "addresshierarchy/liberia_address_hierarchy_entries_4.csv";
+        return "addresshierarchy/liberia_address_hierarchy_entries_5.csv";
     }
 }
