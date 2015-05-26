@@ -102,10 +102,16 @@ public class EncounterTypes {
 	public static EncounterTypeDescriptor PRIMARY_CARE_EXAM  = new EncounterTypeDescriptor() {
 		public String uuid() { return "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"; }
 		public String name() { return "Examen"; }
-		public String description() { return "Physical exam and diagnosis, typically captured at every clinical visit"; }
+		public String description() { return "Physical exam, typically captured at every clinical visit"; }
 	};
 
-	public static EncounterTypeDescriptor CONSULTATION_PLAN  = new EncounterTypeDescriptor() {
+    public static EncounterTypeDescriptor PRIMARY_CARE_DIAGNOSIS  = new EncounterTypeDescriptor() {
+        public String uuid() { return "09febbd8-03f1-11e5-8418-1697f925ec7b"; }
+        public String name() { return "Diagnostic"; }
+        public String description() { return "Diagnosis, typically captured at every clinical visit"; }
+    };
+
+    public static EncounterTypeDescriptor CONSULTATION_PLAN  = new EncounterTypeDescriptor() {
 		public String uuid() { return "e0aaa214-1d4b-442a-b527-144adf025299"; }
 		public String name() { return "Conduite a tenir"; }
 		public String description() { return "Orders placed during a consultation"; }
