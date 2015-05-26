@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
         PersonAttributeTypeBundle.class,
         RolesAndPrivilegesBundle.class,
         VisitTypeBundle.class,
+        VisitAttributeTypeBundle.class,
         AdministrativeConcepts.class,
         ClinicalConsultationConcepts.class,
         DeathConcepts.class,
