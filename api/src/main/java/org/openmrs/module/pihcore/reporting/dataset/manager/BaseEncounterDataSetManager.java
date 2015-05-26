@@ -23,6 +23,7 @@ import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.reporting.library.DataConverterLibrary;
+import org.openmrs.module.pihcore.reporting.library.PihCohortDefinitionLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihEncounterDataLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihEncounterQueryLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
@@ -41,6 +42,7 @@ import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
+import org.openmrs.module.reporting.query.encounter.definition.PatientEncounterQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -58,6 +60,9 @@ public abstract class BaseEncounterDataSetManager {
 
 	@Autowired
 	DataConverterLibrary converters;
+
+	@Autowired
+	PihCohortDefinitionLibrary cohortQueries;
 
 	@Autowired
 	PihEncounterQueryLibrary encounterQueries;
@@ -84,6 +89,7 @@ public abstract class BaseEncounterDataSetManager {
 		dsd.addParameter(new Parameter("endDate", "mirebalaisreports.parameter.endDate", Date.class));
 
 		// Rows defined as patients who had an encounter of the configured types during the given period
+		dsd.addRowFilter(Mapped.mapStraightThrough(new PatientEncounterQuery(cohortQueries.getExcludeTestPatients())));
 		dsd.addRowFilter(Mapped.mapStraightThrough(encounterQueries.getEncountersDuringPeriodAtLocation(getEncounterTypes())));
 
 		// Define columns
