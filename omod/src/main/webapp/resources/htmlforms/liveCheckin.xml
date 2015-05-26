@@ -72,7 +72,7 @@
         </script>
         <!-- END WRISTBAND FUNCTIONALITY (JAVASCRIPT)  -->
 
-        <!-- hidden div for setting date/provider/location in view mode when entering a form -->
+        <!-- hidden div for setting date/provider/location in edit mode when entering a form -->
         <ifMode mode="VIEW" include="false">
             <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
                 <fieldset>

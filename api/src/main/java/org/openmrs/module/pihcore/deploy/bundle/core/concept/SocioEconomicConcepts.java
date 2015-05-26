@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 12;  }
+    public int getVersion() { return 13;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -39,6 +39,21 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
     protected void installNewVersion() throws Exception {
         Concept unknown = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.UNKNOWN);
         Concept otherNonCoded = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.OTHER_NON_CODED);
+
+        install(new ConceptBuilder("0b192340-3eb5-4597-8cea-d33c182fc79c")
+                .datatype(text)
+                .conceptClass(question)
+                .name("956ec9c0-07d4-102c-b5fa-0017a47871b2", "Birthplace", Locale.ENGLISH, null) // locale-preferred
+                .name("0b6aeb84-15f5-102d-96e4-000c29c2a5d7", "Place of birth", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("8f149876-967b-4207-86a7-ffb717d31c01", "Lieu de naissance", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("ea5a0b1d-5a89-45ce-a774-9144338a1eba", "Kote li fèt", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("ed1fea62-07fe-102c-b5fa-0017a47871b2", "The place where the person was born.  This could be a city, town or country.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("759c3c06-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "PLACE OF BIRTH").build())
+                .mapping(new ConceptMapBuilder("b25a331c-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "2997").build())
+                .build());
+
 
         Concept mainActivityNonCoded = install(new ConceptBuilder(Concepts.MAIN_ACTIVITY_NON_CODED)
                 .datatype(text)

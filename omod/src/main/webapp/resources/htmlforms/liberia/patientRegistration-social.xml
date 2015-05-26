@@ -30,6 +30,13 @@
         <fieldset>
 
             <div>
+                <h3><uimessage code="zl.registration.patient.birthplace.label"/></h3>
+                <p class="left">
+                    <obs conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth" showUnits="false" unitsCssClass="append-to-value" />
+                </p>
+            </div>
+
+            <div>
                 <h3><uimessage code="zl.registration.patient.civilStatus.label"/></h3>
                 <p class="left">
                     <obs conceptId="PIH:CIVIL STATUS" id="civilStatus"
