@@ -48,7 +48,8 @@ public class HtmlFormSetup {
                             "pihcore:htmlforms/edNote.xml",
                             "pihcore:htmlforms/deathCertificate.xml",
                             "pihcore:htmlforms/haiti/primary-care-adult-history.xml",
-                            "pihcore:htmlforms/haiti/primary-care-adult-exam-dx.xml",
+                            "pihcore:htmlforms/haiti/primary-care-adult-exam.xml",
+                            "pihcore:htmlforms/haiti/primary-care-adult-dx.xml",
                             "pihcore:htmlforms/liberia/checkin.xml"
                     );
                 }
