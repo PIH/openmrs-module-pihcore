@@ -14,6 +14,13 @@ import java.util.Locale;
 @Requires({CoreConceptMetadataBundle.class})
 public class AllergyConcepts extends VersionedPihConceptBundle {
 
+    public static final class Concepts {
+        public static final String ALLERGENS_FOOD_SET = "4c887216-04c1-11e5-8418-1697f925ec7b";
+        public static final String ALLERGENS_DRUG_SET = "4c886e88-04c1-11e5-8418-1697f925ec7b";
+        public static final String ALLERGENS_ENVIRONMENT_SET = "4c887806-04c1-11e5-8418-1697f925ec7b";
+        public static final String ALLERGY_REACTIONS_SET = "4c8865b4-04c1-11e5-8418-1697f925ec7b";
+    }
+
     @Override
     public int getVersion() { return 1;  }
 
@@ -92,7 +99,7 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(icd10who, "I49.9").build())
                 .build());
 
-        install(new ConceptBuilder("4c8865b4-04c1-11e5-8418-1697f925ec7b")
+        install(new ConceptBuilder(Concepts.ALLERGY_REACTIONS_SET)
                 .datatype(notApplicable)
                 .conceptClass(convSet)
                 .name("4c886be0-04c1-11e5-8418-1697f925ec7b", "PIH Core allergic reactions", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -143,7 +150,7 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                         .type(narrowerThan).ensureTerm(snomedNp, "373529000").build())
                 .build());
 
-        install(new ConceptBuilder("4c886e88-04c1-11e5-8418-1697f925ec7b")
+        install(new ConceptBuilder(Concepts.ALLERGENS_DRUG_SET)
                 .datatype(notApplicable)
                 .conceptClass(convSet)
                 .name("4c886fbe-04c1-11e5-8418-1697f925ec7b", "PIH Core drug allergies", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -163,7 +170,7 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(snomedCt, "256349002").build())
                 .build());
 
-        install(new ConceptBuilder("4c887216-04c1-11e5-8418-1697f925ec7b")
+        install(new ConceptBuilder(Concepts.ALLERGENS_FOOD_SET)
                 .datatype(notApplicable)
                 .conceptClass(convSet)
                 .name("4c887338-04c1-11e5-8418-1697f925ec7b", "PIH Core food allergens", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -184,7 +191,7 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(snomedCt, "288328004").build())
                 .build());
 
-        install(new ConceptBuilder("4c887806-04c1-11e5-8418-1697f925ec7b")
+        install(new ConceptBuilder(Concepts.ALLERGENS_ENVIRONMENT_SET)
                 .datatype(notApplicable)
                 .conceptClass(convSet)
                 .name("4c887928-04c1-11e5-8418-1697f925ec7b", "PIH Core environmental allergens", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
