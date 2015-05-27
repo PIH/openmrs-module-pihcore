@@ -44,6 +44,7 @@ import java.util.Map;
 @Component
 @Requires( { PihCoreMetadataBundle.class,
         OrderEntryConcepts.class,
+		TestOrderConcepts.class,
         HaitiPatientIdentifierTypeBundle.class,
         HaitiAddressBundle.class
 } )
