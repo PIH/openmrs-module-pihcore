@@ -136,7 +136,7 @@ public class PastMedicalHistoryCheckboxTagHandlerTest extends BaseModuleContextS
 
             @Override
             public String[] widgetLabels() {
-                return new String[] { "Date:", "Location:", "Provider:", "Asthma:", "Epilepsy:", "STI:", "zl.pastMedicalHistory.specifyLabel" };
+                return new String[] { "Date:", "Location:", "Provider:", "Asthma:", "Epilepsy:", "STI:", "STI:!!1" };
             }
 
             @Override
@@ -151,7 +151,7 @@ public class PastMedicalHistoryCheckboxTagHandlerTest extends BaseModuleContextS
                 request.setParameter(widgets.get("Provider:"), "1");
                 request.setParameter(widgets.get("Asthma:"), "present");
                 request.setParameter(widgets.get("STI:"), "present");
-                request.setParameter(widgets.get("zl.pastMedicalHistory.specifyLabel"), "");
+                request.setParameter(widgets.get("STI:!!1"), "");
             }
 
             @Override
@@ -185,7 +185,7 @@ public class PastMedicalHistoryCheckboxTagHandlerTest extends BaseModuleContextS
                 request.removeParameter(widgets.get("Asthma:")); // this is an unchecked checkbox (but HFE isn't smart enough to know this)
                 request.removeParameter(widgets.get("Epilepsy:")); // this is an unchecked checkbox (but HFE isn't smart enough to know this)
                 request.setParameter(widgets.get("STI:"), "present");
-                request.setParameter(widgets.get("zl.pastMedicalHistory.specifyLabel"), "HIV");
+                request.setParameter(widgets.get("STI:!!1"), "HIV");
             }
 
             @Override
