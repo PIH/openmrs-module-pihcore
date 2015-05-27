@@ -5,6 +5,7 @@ import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.Locations;
@@ -105,6 +106,13 @@ public class GlobalPropertiesBundle extends PihMetadataBundle {
         // Allergies
         properties.put("allergy.concept.unknown", CommonConcepts.Concepts.UNKNOWN);
         properties.put("allergy.concept.otherNonCoded", CommonConcepts.Concepts.OTHER_NON_CODED);
+       // properties.put("allergy.concept.severity.mild", CommonConcepts.Concepts.OTHER_NON_CODED);
+       // properties.put("allergy.concept.severity.moderate", CommonConcepts.Concepts.OTHER_NON_CODED);
+       // properties.put("allergy.concept.severity.severe", CommonConcepts.Concepts.OTHER_NON_CODED);
+        properties.put("allergy.concept.allergen.food", AllergyConcepts.Concepts.ALLERGENS_FOOD_SET);
+        properties.put("allergy.concept.allergen.drug", AllergyConcepts.Concepts.ALLERGENS_DRUG_SET);
+        properties.put("allergy.concept.allergen.environment", AllergyConcepts.Concepts.ALLERGENS_ENVIRONMENT_SET);
+        properties.put("allergy.concept.reactions", AllergyConcepts.Concepts.ALLERGY_REACTIONS_SET);
 
         setGlobalProperties(properties);
     }
