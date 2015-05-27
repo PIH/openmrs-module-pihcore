@@ -178,7 +178,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("278187ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "162749").build())
                 .mapping(new ConceptMapBuilder("278186ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(narrowerThan).ensureTerm(SNOMED NP, "412774003").build())
+                        .type(narrowerThan).ensureTerm(snomedNp, "412774003").build())
                 .build());
 
         installSexualActivity(other, notApplicableConcept, none);
