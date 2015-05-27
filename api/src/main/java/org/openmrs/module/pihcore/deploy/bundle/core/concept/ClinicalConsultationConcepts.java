@@ -170,6 +170,17 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(snomedCt, "57177007").build())
                 .build());
 
+        Concept clinicalMgmtPlanComment = install(new ConceptBuilder("162749AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(text)
+                .conceptClass(question)
+                .name("126604BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Clinical management plan comment", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("5b845ebb-3a1a-4270-9133-e7e970f88268", "Plan de gestion clinique commentaire", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("278187ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ciel, "162749").build())
+                .mapping(new ConceptMapBuilder("278186ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(narrowerThan).ensureTerm(snomedNp, "412774003").build())
+                .build());
+
         installSexualActivity(other, notApplicableConcept, none);
 
         installHospitalization();
