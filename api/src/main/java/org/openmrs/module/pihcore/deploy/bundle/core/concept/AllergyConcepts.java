@@ -191,6 +191,79 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                 .description("4c887a4a-04c1-11e5-8418-1697f925ec7b", "A convenience set to allow for easy selection of common environmental allergens", Locale.ENGLISH)
                 .setMembers(beeSting)
                 .build());
+
+        // Levels of severity
+        Concept severe = install(new ConceptBuilder("1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(finding)
+                .name("1742BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Severe", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("106144BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Sévère", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("16229FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "General qualifier value for the severity assesment", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("171742ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ciel, "1500").build())
+                .mapping(new ConceptMapBuilder("133263ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(pih, "1903").build())
+                .mapping(new ConceptMapBuilder("135122ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ampath, "1745").build())
+                .mapping(new ConceptMapBuilder("132651ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(snomedCt, "24484000").build())
+                .build());
+
+        Concept mild = install(new ConceptBuilder("1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(finding)
+                .name("1738BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Mild", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("106023BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Léger", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("16227FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "General qualifier value", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("171740ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ciel, "1498").build())
+                .mapping(new ConceptMapBuilder("135120ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ampath, "1743").build())
+                .mapping(new ConceptMapBuilder("132650ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(snomedCt, "255604002").build())
+                .mapping(new ConceptMapBuilder("133262ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(pih, "1901").build())
+                .build());
+
+        Concept moderate = install(new ConceptBuilder("1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(finding)
+                .name("1740BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Moderate", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("106027BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Modéré", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("16228FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "General qualifier value of the severity", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("135121ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ampath, "1744").build())
+                .mapping(new ConceptMapBuilder("171741ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ciel, "1499").build())
+                .mapping(new ConceptMapBuilder("133261ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(snomedCt, "6736007").build())
+                .mapping(new ConceptMapBuilder("132653ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(pih, "1907").build())
+                .mapping(new ConceptMapBuilder("132649ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(pih, "1900").build())
+                .build());
+
+        Concept lifeThreatening = install(new ConceptBuilder("162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("126526BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Life threatening severity", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("278076ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(snomedCt, "442452003").build())
+                .mapping(new ConceptMapBuilder("278077ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ciel, "162693").build())
+                .build());
+
+        install(new ConceptBuilder("162760AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(coded)
+                .conceptClass(question)
+                .name("126624BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Severity of adverse reaction", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("278208ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ciel, "162760").build())
+                .mapping(new ConceptMapBuilder("278369ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(narrowerThan).ensureTerm(snomedNp, "405162009").build())
+                .answers(lifeThreatening, moderate, mild, severe)
+                .build());
     }
+
 }
 
