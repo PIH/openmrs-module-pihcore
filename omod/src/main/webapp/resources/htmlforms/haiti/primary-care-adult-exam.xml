@@ -1,7 +1,5 @@
 <htmlform formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique" formEncounterType="0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef" formVersion="1.0">
 
-    <uiInclude provider="uicommons" javascript="angular.min.js"/>
-
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
             #data-collection {

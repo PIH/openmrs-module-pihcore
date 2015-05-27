@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.emr.EmrActivator;
+import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
@@ -15,6 +17,8 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultatio
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
+import org.openmrs.scheduler.SchedulerService;
+import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +30,9 @@ import java.util.Properties;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * This is an integration test that loads all metadata bundles together
@@ -46,6 +52,9 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     @Autowired
     @Qualifier("adminService")
     private AdministrationService administrationService;
+
+    @Autowired
+    private SchedulerService schedulerService;
 
     @Override
     public Properties getRuntimeProperties() {
@@ -103,4 +112,17 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
         }
         return bundles;
     }
+
+    @Test
+    public void testContextRefreshed() throws Exception {
+        new PihCoreActivator().contextRefreshed();
+
+        // verify scheduled task is started
+        TaskDefinition closeStaleVisitsTask = schedulerService.getTaskByName(EmrConstants.TASK_CLOSE_STALE_VISITS_NAME);
+        assertThat(closeStaleVisitsTask, is(notNullValue()));
+        assertThat(closeStaleVisitsTask.getStarted(), is(true));
+        assertThat(closeStaleVisitsTask.getStartOnStartup(), is(true));
+        assertTrue(closeStaleVisitsTask.getSecondsUntilNextExecutionTime() <= 300);
+    }
+
 }

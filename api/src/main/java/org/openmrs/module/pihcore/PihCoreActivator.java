@@ -29,6 +29,7 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
+import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
@@ -62,6 +63,11 @@ public class PihCoreActivator extends BaseModuleActivator {
             throw new RuntimeException("failed to setup the required modules", e);
         }
 
+    }
+
+    @Override
+    public void contextRefreshed() {
+        CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
     }
 
     // Most of the MDS packages are (still) installed in the mirebalaismetadata module activator

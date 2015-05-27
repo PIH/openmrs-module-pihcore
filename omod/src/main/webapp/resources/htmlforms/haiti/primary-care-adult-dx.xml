@@ -1,9 +1,5 @@
 <htmlform formUuid="3498f204-a6fa-4df0-b7fd-a94eb03a43c9" formName="Diagnostic" formEncounterType="09febbd8-03f1-11e5-8418-1697f925ec7b" formVersion="1.0">
 
-    <uiInclude provider="uicommons" javascript="angular.min.js"/>
-    <uiInclude provider="coreapps" javascript="diagnoses/diagnoses.js"/>
-    <uiInclude provider="coreapps" javascript="diagnoses/diagnoses-angular.js"/>
-
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
             #data-collection {
