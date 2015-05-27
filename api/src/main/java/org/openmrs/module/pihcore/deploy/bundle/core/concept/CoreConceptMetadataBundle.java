@@ -12,7 +12,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
 
     @Override
     public int getVersion() {
-        return 3;
+        return 4;
     }
 
     public static final class ConceptSources {
@@ -51,6 +51,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         public static final String MED_SET = "8d4923b4-c2cc-11de-8d13-0010c6dffd0f";
         public static final String FINDING = "8d491a9a-c2cc-11de-8d13-0010c6dffd0f";
         public static final String DRUG = "8d490dfc-c2cc-11de-8d13-0010c6dffd0f";
+        public static final String TEST = "8d4907b2-c2cc-11de-8d13-0010c6dffd0f";
         public static final String PROCEDURE = "8d490bf4-c2cc-11de-8d13-0010c6dffd0f";
         public static final String FREQUENCY = "8e071bfe-520c-44c0-a89b-538e9129b42a";
     }
@@ -76,6 +77,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         install(conceptClass("MedSet", "Term to describe medication sets", ConceptClasses.MED_SET));
         install(conceptClass("Finding", "Practitioner observation/finding", ConceptClasses.FINDING));
         install(conceptClass("Drug", "Drug", ConceptClasses.DRUG));
+        install(conceptClass("Test", "Acq. during patient encounter (vitals, labs, etc.)", ConceptClasses.TEST));
         install(conceptClass("Procedure", "Describes a clinical procedure", ConceptClasses.PROCEDURE));
         install(conceptClass("Frequency", "A concept used for capturing frequency information such as for medication ordering.", ConceptClasses.FREQUENCY));
 

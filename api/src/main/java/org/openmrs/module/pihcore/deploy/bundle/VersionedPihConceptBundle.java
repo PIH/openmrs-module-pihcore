@@ -39,6 +39,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
     protected ConceptClass convSet;
     protected ConceptClass medSet;
     protected ConceptClass drug;
+    protected ConceptClass test;
     protected ConceptClass procedure;
     protected ConceptClass frequency;
 
@@ -91,6 +92,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
         convSet = MetadataUtils.existing(ConceptClass.class, ConceptClasses.CONV_SET);
         medSet = MetadataUtils.existing(ConceptClass.class, ConceptClasses.MED_SET);
         drug = MetadataUtils.existing(ConceptClass.class, ConceptClasses.DRUG);
+        test = MetadataUtils.existing(ConceptClass.class, ConceptClasses.TEST);
         procedure = MetadataUtils.existing(ConceptClass.class, ConceptClasses.PROCEDURE);
         frequency = MetadataUtils.existing(ConceptClass.class, ConceptClasses.FREQUENCY);
 
