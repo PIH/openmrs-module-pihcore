@@ -19,6 +19,9 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
         public static final String ALLERGENS_DRUG_SET = "4c886e88-04c1-11e5-8418-1697f925ec7b";
         public static final String ALLERGENS_ENVIRONMENT_SET = "4c887806-04c1-11e5-8418-1697f925ec7b";
         public static final String ALLERGY_REACTIONS_SET = "4c8865b4-04c1-11e5-8418-1697f925ec7b";
+        public static final String ALLERGY_SEVERITY_MILD = "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String ALLERGY_SEVERITY_MODERATE = "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String ALLERGY_SEVERITY_SEVERE = "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     }
 
     @Override

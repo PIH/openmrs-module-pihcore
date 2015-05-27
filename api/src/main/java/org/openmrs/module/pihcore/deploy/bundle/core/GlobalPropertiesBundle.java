@@ -106,9 +106,9 @@ public class GlobalPropertiesBundle extends PihMetadataBundle {
         // Allergies
         properties.put("allergy.concept.unknown", CommonConcepts.Concepts.UNKNOWN);
         properties.put("allergy.concept.otherNonCoded", CommonConcepts.Concepts.OTHER_NON_CODED);
-       // properties.put("allergy.concept.severity.mild", CommonConcepts.Concepts.OTHER_NON_CODED);
-       // properties.put("allergy.concept.severity.moderate", CommonConcepts.Concepts.OTHER_NON_CODED);
-       // properties.put("allergy.concept.severity.severe", CommonConcepts.Concepts.OTHER_NON_CODED);
+        properties.put("allergy.concept.severity.mild", AllergyConcepts.Concepts.ALLERGY_SEVERITY_MILD);
+        properties.put("allergy.concept.severity.moderate", AllergyConcepts.Concepts.ALLERGY_SEVERITY_MODERATE);
+        properties.put("allergy.concept.severity.severe", AllergyConcepts.Concepts.ALLERGY_SEVERITY_SEVERE);
         properties.put("allergy.concept.allergen.food", AllergyConcepts.Concepts.ALLERGENS_FOOD_SET);
         properties.put("allergy.concept.allergen.drug", AllergyConcepts.Concepts.ALLERGENS_DRUG_SET);
         properties.put("allergy.concept.allergen.environment", AllergyConcepts.Concepts.ALLERGENS_ENVIRONMENT_SET);
