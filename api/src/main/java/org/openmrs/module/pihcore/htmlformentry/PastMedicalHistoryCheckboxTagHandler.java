@@ -22,12 +22,12 @@ import org.openmrs.module.htmlformentry.widget.TextFieldWidget;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Usage:
@@ -80,6 +80,7 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
         ErrorWidget errorWidget = new ErrorWidget();
         if (includeCommentField) {
             textFieldWidget = new TextFieldWidget();
+            textFieldWidget.setPlaceholder(messageSourceService.getMessage("zl.pastMedicalHistory.specifyLabel"));
             context.registerWidget(textFieldWidget);
             context.registerErrorWidget(textFieldWidget, errorWidget);
         }
@@ -88,7 +89,6 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
         html.append("<div class=\"past-medical-history-item\">");
         html.append(checkboxWidget.generateHtml(context));
         if (includeCommentField) {
-            html.append(messageSourceService.getMessage("zl.pastMedicalHistory.specifyLabel"));
             html.append(textFieldWidget.generateHtml(context));
             html.append(errorWidget.generateHtml(context));
         }
