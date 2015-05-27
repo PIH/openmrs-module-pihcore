@@ -29,6 +29,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         public static final String EMRAPI_MODULE = "edd52713-8887-47b7-ba9e-6e1148824ca4";
         public static final String MDRTB_MODULE = "ddb6b595-0b85-4a80-9243-efe4ba404eef";
         public static final String AMPATH = "13ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+        public static final String ICD10 = "3f65bd34-26fe-102b-80cb-0017a47871b2";
     }
 
     // these exist already, we don't create them
@@ -46,6 +47,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
     public static final class ConceptClasses {
         public static final String MISC = "8d492774-c2cc-11de-8d13-0010c6dffd0f";
         public static final String DIAGNOSIS = "8d4918b0-c2cc-11de-8d13-0010c6dffd0f";
+        public static final String SYMPTOM = "8d492954-c2cc-11de-8d13-0010c6dffd0f";
         public static final String QUESTION = "8d491e50-c2cc-11de-8d13-0010c6dffd0f";
         public static final String CONV_SET = "8d492594-c2cc-11de-8d13-0010c6dffd0f";
         public static final String MED_SET = "8d4923b4-c2cc-11de-8d13-0010c6dffd0f";
@@ -72,6 +74,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
     protected void installNewVersion() throws Exception {
         install(conceptClass("Misc", "Terms which don't fit other categories", ConceptClasses.MISC));
         install(conceptClass("Diagnosis", "Conclusion drawn through findings", ConceptClasses.DIAGNOSIS));
+        install(conceptClass("Symptom", "Patient-reported observation", ConceptClasses.SYMPTOM));
         install(conceptClass("Question", "Question (eg, patient history, SF36 items)", ConceptClasses.QUESTION));
         install(conceptClass("ConvSet", "Term to describe convenience sets", ConceptClasses.CONV_SET));
         install(conceptClass("MedSet", "Term to describe medication sets", ConceptClasses.MED_SET));
@@ -91,6 +94,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         install(conceptSource("IMO ProblemIT", "Intelligent Medical Objects, Inc. problem/disease/finding datasource", null, ConceptSources.IMO_PROBLEM_IT));
         install(conceptSource("SNOMED NP", "Non-preferred SNOMED CT mappings", null, ConceptSources.SNOMED_NP));
         install(conceptSource("AMPATH", "AMPATH concept dictionary", null, ConceptSources.AMPATH));
+        install(conceptSource("ICD10", "WHO ICD10 mappings", null, ConceptSources.ICD10));
         install(conceptSource("LOINC", "A universal code system for identifying laboratory and clinical observations.", null, ConceptSources.LOINC));
         install(conceptSource("org.openmrs.module.emrapi", "Source used to tag concepts used in the emr-api module", null, ConceptSources.EMRAPI_MODULE));
         install(conceptSource("org.openmrs.module.mdrtb", "Concepts used with the MDR-TB module", null, ConceptSources.MDRTB_MODULE));

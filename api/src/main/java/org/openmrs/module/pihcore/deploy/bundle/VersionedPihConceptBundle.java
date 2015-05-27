@@ -34,6 +34,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
 
     protected ConceptClass finding;
     protected ConceptClass diagnosis;
+    protected ConceptClass symptom;
     protected ConceptClass question;
     protected ConceptClass misc;
     protected ConceptClass convSet;
@@ -59,6 +60,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
     protected ConceptSource ampath;
     protected ConceptSource emrapi;
     protected ConceptSource mdrtb;
+    protected ConceptSource icd10who;
 
     @Override
     public void install() throws Exception {
@@ -87,6 +89,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
 
         finding = MetadataUtils.existing(ConceptClass.class, ConceptClasses.FINDING);
         diagnosis = MetadataUtils.existing(ConceptClass.class, ConceptClasses.DIAGNOSIS);
+        symptom = MetadataUtils.existing(ConceptClass.class, ConceptClasses.SYMPTOM);
         question = MetadataUtils.existing(ConceptClass.class, ConceptClasses.QUESTION);
         misc = MetadataUtils.existing(ConceptClass.class, ConceptClasses.MISC);
         convSet = MetadataUtils.existing(ConceptClass.class, ConceptClasses.CONV_SET);
@@ -112,6 +115,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
         ampath = MetadataUtils.existing(ConceptSource.class, ConceptSources.AMPATH);
         emrapi = MetadataUtils.existing(ConceptSource.class, ConceptSources.EMRAPI_MODULE);
         mdrtb = MetadataUtils.existing(ConceptSource.class, ConceptSources.MDRTB_MODULE);
+        icd10who = MetadataUtils.existing(ConceptSource.class, ConceptSources.ICD10);
     }
 
 }
