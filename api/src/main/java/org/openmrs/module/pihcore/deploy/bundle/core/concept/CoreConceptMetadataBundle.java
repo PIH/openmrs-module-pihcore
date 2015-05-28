@@ -94,7 +94,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         install(conceptSource("IMO ProblemIT", "Intelligent Medical Objects, Inc. problem/disease/finding datasource", null, ConceptSources.IMO_PROBLEM_IT));
         install(conceptSource("SNOMED NP", "Non-preferred SNOMED CT mappings", null, ConceptSources.SNOMED_NP));
         install(conceptSource("AMPATH", "AMPATH concept dictionary", null, ConceptSources.AMPATH));
-        install(conceptSource("ICD10", "WHO ICD10 mappings", null, ConceptSources.ICD10));
+        install(conceptSource("ICD-10-WHO", "WHO ICD10 mappings", null, ConceptSources.ICD10));
         install(conceptSource("LOINC", "A universal code system for identifying laboratory and clinical observations.", null, ConceptSources.LOINC));
         install(conceptSource("org.openmrs.module.emrapi", "Source used to tag concepts used in the emr-api module", null, ConceptSources.EMRAPI_MODULE));
         install(conceptSource("org.openmrs.module.mdrtb", "Concepts used with the MDR-TB module", null, ConceptSources.MDRTB_MODULE));
