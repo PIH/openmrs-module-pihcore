@@ -25,7 +25,7 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
     }
 
     @Override
-    public int getVersion() { return 1;  }
+    public int getVersion() { return 2;  }
 
     @Override
     protected void installNewVersion() throws Exception {
@@ -203,54 +203,78 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                 .build());
 
         // Levels of severity
-        Concept severe = install(new ConceptBuilder("1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        Concept fatal = install(new ConceptBuilder("25b286a2-584b-4bbb-bb8b-558db9684c7a")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("718228c4-7824-40f6-93a8-9f7e439c01e7", "Fatal", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("cb8ec00c-df19-435f-926f-302ef54c9ff6", "Fatal", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("0f2780f0-a543-102e-a00e-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "FATAL").build())
+                .mapping(new ConceptMapBuilder("278367ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(snomedCt, "399166001").build())
+                .mapping(new ConceptMapBuilder("278368ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ciel, "162819").build())
+                .mapping(new ConceptMapBuilder("cf1bfb76-a542-102e-a00e-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "7059").build())
+                .build());
+
+        Concept severe = install(new ConceptBuilder("3cdefc92-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(finding)
-                .name("1742BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Severe", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("106144BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Sévère", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("0b6342d0-15f5-102d-96e4-000c29c2a5d7", "Severe", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("93b806dc-07d4-102c-b5fa-0017a47871b2", "Severe", Locale.ENGLISH, ConceptNameType.SHORT)
+                .name("cc2e71b8-1cba-4ef4-9cd6-97e2efa93f0c", "Sévère", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("96a55fca-c66b-4bda-9f10-fb0ec126994d", "Grav", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("16229FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "General qualifier value for the severity assesment", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("171742ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "1500").build())
-                .mapping(new ConceptMapBuilder("133263ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(pih, "1903").build())
+                .mapping(new ConceptMapBuilder("7578d19e-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "SEVERE").build())
                 .mapping(new ConceptMapBuilder("135122ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ampath, "1745").build())
                 .mapping(new ConceptMapBuilder("132651ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(snomedCt, "24484000").build())
+                .mapping(new ConceptMapBuilder("b21e7624-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1903").build())
                 .build());
 
-        Concept mild = install(new ConceptBuilder("1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        Concept mild = install(new ConceptBuilder("3cdef9ae-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(finding)
-                .name("1738BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Mild", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("106023BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Léger", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("0b6340dc-15f5-102d-96e4-000c29c2a5d7", "Mild", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("93b7febc-07d4-102c-b5fa-0017a47871b2", "Mild", Locale.ENGLISH, ConceptNameType.SHORT)
+                .name("caac4020-4fc6-4584-83e0-668177b00a77", "Bénin", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("16227FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "General qualifier value", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("171740ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "1498").build())
+                .mapping(new ConceptMapBuilder("7578ce42-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "MILD").build())
                 .mapping(new ConceptMapBuilder("135120ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ampath, "1743").build())
                 .mapping(new ConceptMapBuilder("132650ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(snomedCt, "255604002").build())
-                .mapping(new ConceptMapBuilder("133262ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                .mapping(new ConceptMapBuilder("b21e72fa-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1901").build())
                 .build());
 
-        Concept moderate = install(new ConceptBuilder("1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        Concept moderate = install(new ConceptBuilder("3cdef832-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(finding)
-                .name("1740BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Moderate", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("106027BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Modéré", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("0b633fa6-15f5-102d-96e4-000c29c2a5d7", "Moderate", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("93b7fa98-07d4-102c-b5fa-0017a47871b2", "Moderate", Locale.ENGLISH, ConceptNameType.SHORT)
+                .name("14d2181c-0275-42c8-90e4-f6bc914becad", "Modéré", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("d2fac9a8-b710-4ed7-9f3b-466a48ecaca5", "Modere", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("16228FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "General qualifier value of the severity", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("b21e7142-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1900").build())
                 .mapping(new ConceptMapBuilder("135121ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ampath, "1744").build())
                 .mapping(new ConceptMapBuilder("171741ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "1499").build())
                 .mapping(new ConceptMapBuilder("133261ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(snomedCt, "6736007").build())
-                .mapping(new ConceptMapBuilder("132653ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(pih, "1907").build())
-                .mapping(new ConceptMapBuilder("132649ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(pih, "1900").build())
+                .mapping(new ConceptMapBuilder("7578ccbc-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "MODERATE").build())
                 .build());
 
         Concept lifeThreatening = install(new ConceptBuilder("162693AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
