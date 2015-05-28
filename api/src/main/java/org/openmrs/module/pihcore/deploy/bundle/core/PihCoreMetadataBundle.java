@@ -11,7 +11,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.VaccinationConcepts
 import org.springframework.stereotype.Component;
 
 /**
- * Consolidates all core non-concept metadata into a single required set
+ * Consolidates all core metadata into a single required set
  */
 
 @Component
@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
         VisitTypeBundle.class,
         VisitAttributeTypeBundle.class,
         AdministrativeConcepts.class,
+        AllergyConcepts.class,
         ClinicalConsultationConcepts.class,
         DeathConcepts.class,
         DiagnosisConcepts.class,
