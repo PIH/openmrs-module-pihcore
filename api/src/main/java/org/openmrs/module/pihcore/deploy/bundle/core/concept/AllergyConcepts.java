@@ -19,9 +19,9 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
         public static final String ALLERGENS_DRUG_SET = "4c886e88-04c1-11e5-8418-1697f925ec7b";
         public static final String ALLERGENS_ENVIRONMENT_SET = "4c887806-04c1-11e5-8418-1697f925ec7b";
         public static final String ALLERGY_REACTIONS_SET = "4c8865b4-04c1-11e5-8418-1697f925ec7b";
-        public static final String ALLERGY_SEVERITY_MILD = "1498AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public static final String ALLERGY_SEVERITY_MODERATE = "1499AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-        public static final String ALLERGY_SEVERITY_SEVERE = "1500AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String ALLERGY_SEVERITY_MILD = "3cdef9ae-26fe-102b-80cb-0017a47871b2";
+        public static final String ALLERGY_SEVERITY_MODERATE = "3cdef832-26fe-102b-80cb-0017a47871b2";
+        public static final String ALLERGY_SEVERITY_SEVERE = "3cdefc92-26fe-102b-80cb-0017a47871b2";
     }
 
     @Override
@@ -218,7 +218,7 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "7059").build())
                 .build());
 
-        Concept severe = install(new ConceptBuilder("3cdefc92-26fe-102b-80cb-0017a47871b2")
+        Concept severe = install(new ConceptBuilder(Concepts.ALLERGY_SEVERITY_SEVERE)
                 .datatype(notApplicable)
                 .conceptClass(finding)
                 .name("0b6342d0-15f5-102d-96e4-000c29c2a5d7", "Severe", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -238,7 +238,7 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "1903").build())
                 .build());
 
-        Concept mild = install(new ConceptBuilder("3cdef9ae-26fe-102b-80cb-0017a47871b2")
+        Concept mild = install(new ConceptBuilder(Concepts.ALLERGY_SEVERITY_MILD)
                 .datatype(notApplicable)
                 .conceptClass(finding)
                 .name("0b6340dc-15f5-102d-96e4-000c29c2a5d7", "Mild", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -257,7 +257,7 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "1901").build())
                 .build());
 
-        Concept moderate = install(new ConceptBuilder("3cdef832-26fe-102b-80cb-0017a47871b2")
+        Concept moderate = install(new ConceptBuilder(Concepts.ALLERGY_SEVERITY_MODERATE)
                 .datatype(notApplicable)
                 .conceptClass(finding)
                 .name("0b633fa6-15f5-102d-96e4-000c29c2a5d7", "Moderate", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
