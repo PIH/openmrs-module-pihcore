@@ -30,6 +30,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         public static final String MDRTB_MODULE = "ddb6b595-0b85-4a80-9243-efe4ba404eef";
         public static final String AMPATH = "13ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
         public static final String ICD10 = "3f65bd34-26fe-102b-80cb-0017a47871b2";
+        public static final String HUM_REPORTS_MODULE = "947a1410-1987-4399-8017-c1ea70f242d1";
     }
 
     // these exist already, we don't create them
@@ -98,6 +99,7 @@ public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
         install(conceptSource("LOINC", "A universal code system for identifying laboratory and clinical observations.", null, ConceptSources.LOINC));
         install(conceptSource("org.openmrs.module.emrapi", "Source used to tag concepts used in the emr-api module", null, ConceptSources.EMRAPI_MODULE));
         install(conceptSource("org.openmrs.module.mdrtb", "Concepts used with the MDR-TB module", null, ConceptSources.MDRTB_MODULE));
+        install(conceptSource("org.openmrs.module.mirebalaisreports", "Concepts used for HUM reports", null, ConceptSources.HUM_REPORTS_MODULE));
     }
 
 }

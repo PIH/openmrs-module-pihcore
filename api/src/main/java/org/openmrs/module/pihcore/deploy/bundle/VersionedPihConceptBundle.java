@@ -62,6 +62,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
     protected ConceptSource mdrtb;
     protected ConceptSource icd10who;
     protected ConceptSource loinc;
+    protected ConceptSource mirebalaisReport;
 
     @Override
     public void install() throws Exception {
@@ -118,6 +119,7 @@ public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBund
         mdrtb = MetadataUtils.existing(ConceptSource.class, ConceptSources.MDRTB_MODULE);
         icd10who = MetadataUtils.existing(ConceptSource.class, ConceptSources.ICD10);
         loinc = MetadataUtils.existing(ConceptSource.class, ConceptSources.LOINC);
+        mirebalaisReport = MetadataUtils.existing(ConceptSource.class, ConceptSources.HUM_REPORTS_MODULE);
     }
 
 }

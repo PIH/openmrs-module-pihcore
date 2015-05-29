@@ -1,23 +1,199 @@
-<htmlform formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique" formEncounterType="0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef" formVersion="1.0">
+<htmlform formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique"
+          formEncounterType="0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef" formVersion="1.0">
 
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
             #data-collection {
-                display: inline-block;
-                width: 58%;
-                vertical-align: top;
+            display: inline-block;
+            width: 58%;
+            vertical-align: top;
             }
         </ifMode>
     </style>
 
-    <h3><uimessage code="zl.exam.physicalExam.title"/></h3>
+    <h3>
+        <uimessage code="zl.exam.physicalExam.title"/>
+    </h3>
 
-    TODO: systems <br/>
+    <table>
+        <tr>
+            <td></td>
+            <td align="center">
+                <b>
+                    Normal
+                </b>
+            </td>
+            <td align="center">
+                <b>
+                    Abnormal
+                </b>
+            </td>
+        </tr>
+        <tr class="checkboxGroup">
+            <td>
+                General
+            </td>
+            <td id="checkboxAll">
+                <obs conceptId="PIH:1119" answerConceptId="PIH:1115"
+                     answerLabel="pas d’abnormalités/no abnormalities" style="checkbox"/>
+            </td>
+            <td id="checkboxCheckbox">
+                <obs conceptId="PIH:1119" answerConceptId="PIH:3229" answerLabel="cachectique/cachectic"
+                     style="checkbox"/>
+                <obs conceptId="PIH:1119" answerConceptId="CIEL:115115" answerLabel="obèse/obese"
+                     style="checkbox"/>
+            </td>
+        </tr>
 
-    TODO: this is probably not right for other physical exam findings <br/>
+        <tr>
+            <td>
+                Mental state
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Peau et muqueuse
+                <span class="english">Skin and mucosa</span>
+            </td>
+            <td>
+                <obs conceptId="PIH:1120" answerConceptId="PIH:1115"
+                     answerLabel="pas d’abnormalités/no abnormalities" style="checkbox"/>
+            </td>
+            <td>
+                <obs conceptId="PIH:1120" answerConceptId="PIH:1116"
+                     answerLabel="abnormalités/abnormalities" style="checkbox"/>
+                <br/>
+                <obs conceptId="CIEL:160981"/>
+
+            </td>
+        </tr>
+
+        <!--
+        <tr class="checkboxGroup">
+            <td>
+                Tête,cou,ORL/
+                <span class="english">HEENT</span>
+            </td>
+            <td id="checkboxAll">
+                <obs conceptId="CIEL:1122" answerConceptId="PIH:1115"
+                     answerLabel="pas d’abnormalités/no abnormalities" style="checkbox"/>
+            </td>
+            <td id="checkboxCheckbox">
+                <obs conceptId="CIEL:1122" answerConceptId="PIH:133" answerLabel="goitre/goiter"
+                     style="checkbox"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Cardiovascular
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Pulmonary
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                GI / Abdominal
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                GU / Rectal
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Musculoskeletal
+            </td>
+            <td>
+
+            </td>
+            <td>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Other
+            </td>
+            <td>
+                <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT NORMAL"/>
+            </td>
+            <td>
+                <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT"/>
+            </td>
+        </tr>
+        -->
+
+    </table>
+
     <p>
-        <label><uimessage code="emr.consult.freeTextComments"/></label>
+        <label>
+            <uimessage code="emr.consult.freeTextComments"/>
+        </label>
         <obs conceptId="org.openmrs.module.emrapi:Consult Free Text Comments" style="textarea" rows="3"/>
     </p>
+
+    <ifMode mode="VIEW" include="false">
+        <br/>
+        <br/>
+        <div>
+            <encounterDate id="encounterDate" default="now" widget="hidden"/>
+            <p id="provider">
+                <label>Signed By</label>
+                <!-- TODO: Provider will be entered and not defaulted?  Translate signed by -->
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            </p>
+
+            <p id="location">
+                <label><uimessage code="uicommons.location"/></label>
+                <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
+            </p>
+
+        </div>
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
 
 </htmlform>

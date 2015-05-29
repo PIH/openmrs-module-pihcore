@@ -184,6 +184,8 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         installSexualActivity(other, notApplicableConcept, none);
 
         installHospitalization();
+
+        installPhysicalExam();
     }
 
     private void installHospitalization() {
@@ -467,6 +469,115 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("b25a31a0-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2996").build())
                 .build());
+    }
+
+    private void installPhysicalExam() {
+
+        Concept normal = install(new ConceptBuilder("3cd750a0-26fe-102b-80cb-0017a47871b2")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("3e157fbe-26fe-102b-80cb-0017a47871b2", "Normal", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("123484BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Normal", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("f5d7fe72-d5db-102d-ad2a-000c29c2a5d7", "Normal", Locale.FRENCH, null) // locale-preferred
+                .name("106769BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Normale", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .description("ece4b10e-07fe-102c-b5fa-0017a47871b2", "General descriptive answer.", Locale.ENGLISH)
+                .description("1118FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "General descriptive answer.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("b20d5d26-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1115").build())
+                .mapping(new ConceptMapBuilder("7568ae54-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "NORMAL").build())
+                .mapping(new ConceptMapBuilder("137296ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(snomedCt, "17621005").build())
+                .build());
+
+        Concept abnormal = install(new ConceptBuilder("3cd75230-26fe-102b-80cb-0017a47871b2")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("3e158130-26fe-102b-80cb-0017a47871b2", "Abnormal", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("fcbdb9aa-8f37-4f7c-940f-dbe3b6ad4519", "Anormal", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("ece4b276-07fe-102c-b5fa-0017a47871b2", "General descriptive answer.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("b20d5e98-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1116").build())
+                .mapping(new ConceptMapBuilder("1b510add-5f76-4d2e-baf4-6ca73edd0fa2")
+                        .type(sameAs).ensureTerm(pih, "ABNORMAL").build())
+                .build());
+
+        Concept obesity = install(new ConceptBuilder("115115AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(diagnosis)
+                .name("15666BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Obesity", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("84509BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "obesidad", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("8a2aa89d-c22a-4b53-8444-309f25d1bb00", "Obésité", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("4e2002dc-4472-44f8-8cb9-a4ea0ca0e707", "Obésité", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("4194FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "Increase in body weight beyond skeletal and physical standards as the result of an excessive accumulation of fat in the body. More than two times the ideal weight is considered OBESITY, MORBID.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("41ddbb64-f586-11e3-9323-aa00f871a3e1")
+                        .type(sameAs).ensureTerm(ciel, "115115").build())
+                .mapping(new ConceptMapBuilder("ca204cf7-679b-41d3-a382-59a1cb7e9d0a")
+                        .type(sameAs).ensureTerm(pih, "Obesity").build())
+                .mapping(new ConceptMapBuilder("1cdcaeab-bb02-4f03-82ba-b0e64329f8d3")
+                        .type(sameAs).ensureTerm(pih, "7507").build())
+                .mapping(new ConceptMapBuilder("08a168f3-7a5c-46e0-be56-0d7d206f8c54")
+                        .type(narrowerThan).ensureTerm(mirebalaisReport, "obesity").build())
+                .mapping(new ConceptMapBuilder("74161ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(snomedCt, "414916001").build())
+                .mapping(new ConceptMapBuilder("94226ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(narrowerThan).ensureTerm(icd10who, "E66.9").build())
+                .build());
+
+        Concept cachectic = install(new ConceptBuilder("ecf0a08f-984a-4d5c-84b3-b51590f8a065")
+                .datatype(notApplicable)
+                .conceptClass(finding)
+                .name("0b756e1a-15f5-102d-96e4-000c29c2a5d7", "Cachectic", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("9571c4ae-07d4-102c-b5fa-0017a47871b2", "Physical wasting", Locale.ENGLISH, null)
+                .name("c4ad7606-d22c-49b8-b6ef-c2865fa53d7a", "Cachectique", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("ed2338d4-07fe-102c-b5fa-0017a47871b2", "Having cachexia, physical wasting with loss of weight and muscle mass due to disease. Patients with advanced cancer, AIDS, and some other major chronic progressive diseases may appear cachectic", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("759da3de-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "CACHECTIC").build())
+                .mapping(new ConceptMapBuilder("b25c62b8-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "3229").build())
+                .build());
+
+
+        install(new ConceptBuilder("0adeea3a-15f5-102d-96e4-000c29c2a5d7")
+                .datatype(coded)
+                .conceptClass(finding)
+                .name("0b5dab9a-15f5-102d-96e4-000c29c2a5d7", "General exam findings", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("1290a363-9b8a-4f58-840b-f0bcfb0c9c0b", "Résultats de l'examen général", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("ece4b690-07fe-102c-b5fa-0017a47871b2", "General physical exam findings.  List can be expanded, as more coded answers are identified.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("7568afb2-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "GENERAL EXAM FINDINGS").build())
+                .mapping(new ConceptMapBuilder("b20d62ee-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1119").build())
+                .answers(normal, cachectic, obesity)
+                .build());
+
+        install(new ConceptBuilder("3cd75866-26fe-102b-80cb-0017a47871b2")
+                .datatype(coded)
+                .conceptClass(finding)
+                .name("3e158702-26fe-102b-80cb-0017a47871b2", "Skin exam findings", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("3b1ef02e-1aba-4a78-8b14-10df787c072c", "Résultats de l'examen de la peau", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("ece4b7f8-07fe-102c-b5fa-0017a47871b2", "Findings noted on examination of the skin.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("b20d7bc6-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1120").build())
+                .mapping(new ConceptMapBuilder("7568b11a-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "SKIN EXAM FINDINGS").build())
+                .answers(normal,abnormal)
+                .build());
+
+        install(new ConceptBuilder("160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(text)
+                .conceptClass(finding)
+                .name("109850BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Skin examination (text)", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("109849BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "O/E skin", Locale.ENGLISH, ConceptNameType.SHORT)
+                .mapping(new ConceptMapBuilder("278385ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(narrowerThan).ensureTerm(loinc, "10206-1").build())
+                .mapping(new ConceptMapBuilder("145198ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(narrowerThan).ensureTerm(snomedNp, "271898004").build())
+                .mapping(new ConceptMapBuilder("218099ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(ciel, "160981").build())
+                .build());
+
+
     }
 
 }
