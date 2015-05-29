@@ -95,13 +95,13 @@ public class EncounterTypes {
 
 	public static EncounterTypeDescriptor PRIMARY_CARE_HISTORY  = new EncounterTypeDescriptor() {
 		public String uuid() { return "ffa148de-2c88-4828-833e-f3788991543d"; }
-		public String name() { return "Antecedents"; }
+		public String name() { return "History"; }
 		public String description() { return "Past medical history, for general primary care. Typically only captured at a patient's first visit"; }
 	};
 
 	public static EncounterTypeDescriptor PRIMARY_CARE_EXAM  = new EncounterTypeDescriptor() {
 		public String uuid() { return "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"; }
-		public String name() { return "Examen"; }
+		public String name() { return "Exam"; }
 		public String description() { return "Physical exam, typically captured at every clinical visit"; }
 	};
 
@@ -119,25 +119,25 @@ public class EncounterTypes {
 
     public static EncounterTypeDescriptor CONSULTATION_PLAN  = new EncounterTypeDescriptor() {
 		public String uuid() { return "e0aaa214-1d4b-442a-b527-144adf025299"; }
-		public String name() { return "Conduite a tenir"; }
+		public String name() { return "Plan"; }
 		public String description() { return "Orders placed during a consultation"; }
 	};
 
 	public static EncounterTypeDescriptor RADIOLOGY_ORDER  = new EncounterTypeDescriptor() {
 		public String uuid() { return "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa"; }
-		public String name() { return "Commande de radio"; }
+		public String name() { return "Radiology order"; }
 		public String description() { return "Radiology Order  - the ordering of a radiology exam"; }
 	};
 
 	public static EncounterTypeDescriptor RADIOLOGY_STUDY  = new EncounterTypeDescriptor() {
 		public String uuid() { return "5b1b4a4e-0084-4137-87db-dba76c784439"; }
-		public String name() { return "Examen de radiologie"; }
+		public String name() { return "Radiology study"; }
 		public String description() { return "Radiology Study - represents performance of a radiology study on a patient by a radiology technician"; }
 	};
 
 	public static EncounterTypeDescriptor RADIOLOGY_REPORT  = new EncounterTypeDescriptor() {
 		public String uuid() { return "d5ca53a7-d3b5-44ac-9aa2-1491d2a4b4e9"; }
-		public String name() { return "Rapport de radiologie"; }
+		public String name() { return "Radiology report"; }
 		public String description() { return "Radiology Report - represents a report on a radiology study performed by a radiologist"; }
 	};
 
