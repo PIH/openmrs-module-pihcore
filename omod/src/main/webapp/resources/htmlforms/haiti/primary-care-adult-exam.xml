@@ -20,12 +20,12 @@
             <td></td>
             <td align="center">
                 <b>
-                    Normal
+                    Findings
                 </b>
             </td>
             <td align="center">
                 <b>
-                    Abnormal
+                    Comments
                 </b>
             </td>
         </tr>
@@ -35,13 +35,14 @@
             </td>
             <td id="checkboxAll">
                 <obs conceptId="PIH:1119" answerConceptId="PIH:1115"
-                     answerLabel="pas d’abnormalités/no abnormalities" style="checkbox"/>
+                     answerLabel="normal" style="checkbox"/>
+                <obs conceptId="PIH:1119" answerConceptId="PIH:3229" answerLabel="cachectic"
+                     style="checkbox"/>
+                <obs conceptId="PIH:1119" answerConceptId="CIEL:115115" answerLabel="obese"
+                     style="checkbox"/>
             </td>
-            <td id="checkboxCheckbox">
-                <obs conceptId="PIH:1119" answerConceptId="PIH:3229" answerLabel="cachectique/cachectic"
-                     style="checkbox"/>
-                <obs conceptId="PIH:1119" answerConceptId="CIEL:115115" answerLabel="obèse/obese"
-                     style="checkbox"/>
+            <td>
+
             </td>
         </tr>
 
@@ -59,17 +60,15 @@
 
         <tr>
             <td>
-                Peau et muqueuse
-                <span class="english">Skin and mucosa</span>
+                Skin and mucosa
             </td>
             <td>
                 <obs conceptId="PIH:1120" answerConceptId="PIH:1115"
-                     answerLabel="pas d’abnormalités/no abnormalities" style="checkbox"/>
+                     answerLabel="normal" style="checkbox"/>
+                <obs conceptId="PIH:1120" answerConceptId="PIH:1116"
+                     answerLabel="abnormal" style="checkbox"/>
             </td>
             <td>
-                <obs conceptId="PIH:1120" answerConceptId="PIH:1116"
-                     answerLabel="abnormalités/abnormalities" style="checkbox"/>
-                <br/>
                 <obs conceptId="CIEL:160981"/>
 
             </td>
