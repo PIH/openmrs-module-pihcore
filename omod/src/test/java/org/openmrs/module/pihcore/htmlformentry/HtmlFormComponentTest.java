@@ -57,13 +57,26 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
     @Test
     public void testHtmlForms() throws Exception {
         String[] formsToTest = {
-                "deathCertificate.xml",
-                "patientRegistration.xml",
-                "patientRegistration-rs.xml",
-                "patientRegistration-social.xml",
-                "haiti/primary-care-adult-history.xml",
-                "haiti/primary-care-adult-exam.xml",
-                "haiti/primary-care-adult-dx.xml"
+                "pihcore:htmlforms/patientRegistration.xml",
+                "pihcore:htmlforms/patientRegistration-rs.xml",
+                "pihcore:htmlforms/surgicalPostOpNote.xml",
+                "pihcore:htmlforms/vitals.xml",
+                "pihcore:htmlforms/transferNote.xml",
+                "pihcore:htmlforms/dischargeNote.xml",
+                "pihcore:htmlforms/outpatientConsult.xml",
+                "pihcore:htmlforms/edNote.xml",
+                "pihcore:htmlforms/deathCertificate.xml",
+                "pihcore:htmlforms/haiti/primary-care-adult-history.xml",
+                "pihcore:htmlforms/haiti/primary-care-adult-exam.xml",
+                "pihcore:htmlforms/haiti/primary-care-adult-dx.xml",
+                "pihcore:htmlforms/haiti/checkin.xml",
+                "pihcore:htmlforms/haiti/liveCheckin.xml",
+                "pihcore:htmlforms/haiti/patientRegistration-contact.xml",
+                "pihcore:htmlforms/haiti/patientRegistration-social.xml",
+                "pihcore:htmlforms/liberia/checkin.xml",
+                "pihcore:htmlforms/liberia/liveCheckin.xml",
+                "pihcore:htmlforms/liberia/patientRegistration-contact.xml",
+                "pihcore:htmlforms/liberia/patientRegistration-social.xml"
         };
 
         for (String formName : formsToTest) {

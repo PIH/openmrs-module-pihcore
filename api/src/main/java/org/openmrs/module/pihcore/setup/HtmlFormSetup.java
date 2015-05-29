@@ -38,8 +38,8 @@ public class HtmlFormSetup {
 
                 if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
                     htmlforms = Arrays.asList("pihcore:htmlforms/admissionNote.xml",
-                            "pihcore:htmlforms/checkin.xml",
-                            "pihcore:htmlforms/liveCheckin.xml",
+                            "pihcore:htmlforms/patientRegistration.xml",
+                            "pihcore:htmlforms/patientRegistration-rs.xml",
                             "pihcore:htmlforms/surgicalPostOpNote.xml",
                             "pihcore:htmlforms/vitals.xml",
                             "pihcore:htmlforms/transferNote.xml",
@@ -50,7 +50,20 @@ public class HtmlFormSetup {
                             "pihcore:htmlforms/haiti/primary-care-adult-history.xml",
                             "pihcore:htmlforms/haiti/primary-care-adult-exam.xml",
                             "pihcore:htmlforms/haiti/primary-care-adult-dx.xml",
-                            "pihcore:htmlforms/liberia/checkin.xml"
+                            "pihcore:htmlforms/haiti/checkin.xml",
+                            "pihcore:htmlforms/haiti/liveCheckin.xml",
+                            "pihcore:htmlforms/haiti/patientRegistration-contact.xml",
+                            "pihcore:htmlforms/haiti/patientRegistration-social.xml"
+                    );
+                }
+                else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+                    htmlforms = Arrays.asList(
+                            "pihcore:htmlforms/patientRegistration.xml",
+                            "pihcore:htmlforms/patientRegistration-rs.xml",
+                            "pihcore:htmlforms/liberia/checkin.xml",
+                            "pihcore:htmlforms/liberia/liveCheckin.xml",
+                            "pihcore:htmlforms/liberia/patientRegistration-contact.xml",
+                            "pihcore:htmlforms/liberia/patientRegistration-social.xml"
                     );
                 }
 
