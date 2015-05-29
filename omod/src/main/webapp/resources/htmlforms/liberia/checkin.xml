@@ -87,6 +87,7 @@
                 <p class="left">
                     <obs conceptId="PIH:REASON FOR VISIT" id="typeOfVisit"
                          answerConceptIds="PIH:OUTPATIENT CONSULTATION,PIH:TB VISIT,PIH:MALNUTRITION PROGRAM,PIH:ART VISIT,PIH:Immunization visit,CIEL:159937,PIH:MENTAL HEALTH SERVICES"
+                         answerLabels="Outpatient,TB,Malnutrition,ART,EPI,MCH,Mental health"
                          style="dropdown" size="999">
                     </obs>
                 </p>
