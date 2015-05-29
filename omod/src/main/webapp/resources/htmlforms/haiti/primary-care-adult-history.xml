@@ -118,12 +118,6 @@
     </div>
 
     <div>
-        <h3 class="section-header"><uimessage code="zl.consultNote.previousTests.label"/></h3>
-        What is "Examens paracliniques déjà effectués"?
-        <!--TODO: Can the answers be coded? Confirm what would go here (imaging? psych? what else?) -->
-    </div>
-
-    <div>
         <h3 class="section-header"><uimessage code="zl.consultNote.previousHospitalization.title"/></h3>
         <!-- HOSPITALISATION ANTERIEURE -->
         <!-- TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form? -->

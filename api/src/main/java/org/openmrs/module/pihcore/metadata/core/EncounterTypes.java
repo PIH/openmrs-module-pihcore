@@ -111,6 +111,12 @@ public class EncounterTypes {
         public String description() { return "Diagnosis, typically captured at every clinical visit"; }
     };
 
+    public static EncounterTypeDescriptor LAB_RESULTS = new EncounterTypeDescriptor() {
+        public String uuid() { return "4d77916a-0620-11e5-a6c0-1697f925ec7b"; }
+        public String name() { return "Laboratory results"; }
+        public String description() { return "Laboratory results "; }
+    };
+
     public static EncounterTypeDescriptor CONSULTATION_PLAN  = new EncounterTypeDescriptor() {
 		public String uuid() { return "e0aaa214-1d4b-442a-b527-144adf025299"; }
 		public String name() { return "Conduite a tenir"; }
