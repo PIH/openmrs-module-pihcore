@@ -20,7 +20,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 3;
+        return 4;
     }
 
     // This class contains many concepts not enumerated here
@@ -576,8 +576,6 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("218099ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "160981").build())
                 .build());
-
-
     }
 
 }
