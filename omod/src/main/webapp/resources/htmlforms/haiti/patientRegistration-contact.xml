@@ -59,7 +59,7 @@
                     <!-- edit mode of address -->
                     <ifMode mode="VIEW" include="false">
                         <div id="contactAddress-container">
-                            <h3><uimessage code="zl.registration.patient.contactPerson.contactAddress.label"/></h3>
+                            <h3><uimessage code="zl.registration.patient.contactPerson.address.label"/></h3>
                             <div>
                                 <h3><uimessage code="mirebalais.address.country"/></h3>
                                 <p class="left">
