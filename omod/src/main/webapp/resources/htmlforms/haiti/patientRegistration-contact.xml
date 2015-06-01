@@ -1,6 +1,6 @@
 <htmlform formUuid="9EE91561-42A0-4E1C-9469-ABA6726056BE" formName="Patient Registration Contact Person" formEncounterType="873f968a-73a8-4f9c-ac78-9f4778b751b6" formVersion="1.0">
 
-    <uiInclude provider="registrationapp" javascript="field/personAddressWithHierarchy.js" />
+    <uiInclude provider="uicommons" javascript="field/personAddressWithHierarchy.js" />
 
     <script type="text/javascript">
 
