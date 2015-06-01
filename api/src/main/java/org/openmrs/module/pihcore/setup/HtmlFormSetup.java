@@ -50,8 +50,8 @@ public class HtmlFormSetup {
                             "pihcore:htmlforms/haiti/primary-care-adult-history.xml",
                             "pihcore:htmlforms/haiti/primary-care-adult-exam.xml",
                             "pihcore:htmlforms/haiti/primary-care-adult-dx.xml",
-                            "pihcore:htmlforms/haiti/checkin.xml",
-                            "pihcore:htmlforms/haiti/liveCheckin.xml",
+                            "pihcore:htmlforms/checkin.xml",
+                            "pihcore:htmlforms/liveCheckin.xml",
                             "pihcore:htmlforms/haiti/patientRegistration-contact.xml",
                             "pihcore:htmlforms/haiti/patientRegistration-social.xml"
                     );
