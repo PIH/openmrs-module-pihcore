@@ -13,7 +13,7 @@ public class LiberiaAddressBundle extends AddressBundle {
 
     @Override
     public int getVersion() {
-        return 7;
+        return 8;
     }
 
     @Override
@@ -33,6 +33,7 @@ public class LiberiaAddressBundle extends AddressBundle {
         l.add("address1");
         l.add("cityVillage");
         l.add("countyDistrict, stateProvince");
+        l.add("country");
         return l;
     }
 
