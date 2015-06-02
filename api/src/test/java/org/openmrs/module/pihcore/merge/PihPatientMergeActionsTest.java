@@ -163,12 +163,12 @@ public class PihPatientMergeActionsTest {
     }
 
     @Test
-    public void shouldVoidMostRecentRegistrationEncounterOnNonPreferredPatientIfMoreRecentThanPreferred() {
+    public void shouldVoidMostRecentRegistrationEncountersOnNonPreferredPatientIfMoreRecentThanPreferred() {
         Patient preferred = new Patient(1);
         Patient nonPreferred = new Patient(2);
 
-        Encounter preferredEncounter1 = createEncounter(1, new DateTime(2012, 10, 10, 0, 0, 0).toDate());
-        Encounter preferredEncounter2 = createEncounter(2, new DateTime(2012, 11, 10, 0, 0, 0).toDate());
+        Encounter preferredEncounter1 = createEncounter(1, new DateTime(2012, 9, 10, 0, 0, 0).toDate());
+        Encounter preferredEncounter2 = createEncounter(2, new DateTime(2012, 10, 10, 0, 0, 0).toDate());
 
         Encounter nonPreferredEncounter1 = createEncounter(3, new DateTime(2012, 11, 10, 0, 0, 0).toDate());
         Encounter nonPreferredEncounter2 = createEncounter(4, new DateTime(2012, 12, 10, 0, 0, 0).toDate());
@@ -185,7 +185,7 @@ public class PihPatientMergeActionsTest {
 
         verify(encounterService, never()).voidEncounter(eq(preferredEncounter1), anyString());
         verify(encounterService, never()).voidEncounter(eq(preferredEncounter2), anyString());
-        verify(encounterService, never()).voidEncounter(eq(nonPreferredEncounter1), anyString());
+        verify(encounterService).voidEncounter(eq(nonPreferredEncounter1), anyString());
         verify(encounterService).voidEncounter(eq(nonPreferredEncounter2), anyString());
     }
 

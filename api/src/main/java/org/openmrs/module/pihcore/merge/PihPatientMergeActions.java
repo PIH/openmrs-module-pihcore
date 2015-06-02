@@ -55,27 +55,25 @@ public class PihPatientMergeActions implements PatientMergeAction {
 
     private void voidMostRecentRegistrationIfNonPreferred(Patient preferred, Patient nonPreferred) {
 
-        EncounterType registration = encounterService.getEncounterTypeByUuid(EncounterTypes.PATIENT_REGISTRATION.uuid());
+        EncounterType registrationEncounterType = encounterService.getEncounterTypeByUuid(EncounterTypes.PATIENT_REGISTRATION.uuid());
 
         // the getEncounters method returns encounters sorted by date
-        List<Encounter> preferredRegistration = encounterService.getEncounters(preferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false);
+        List<Encounter> preferredRegistrations = encounterService.getEncounters(preferred, null, null, null, null,
+                Collections.singleton(registrationEncounterType), null, null, null, false);
 
-        List<Encounter> nonPreferredRegistration = encounterService.getEncounters(nonPreferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false);
+        List<Encounter> nonPreferredRegistrations = encounterService.getEncounters(nonPreferred, null, null, null, null,
+                Collections.singleton(registrationEncounterType), null, null, null, false);
 
-        Encounter mostRecentPreferredRegistration = (preferredRegistration != null && preferredRegistration.size() > 0)
-                ? preferredRegistration.get(preferredRegistration.size() - 1) : null;
+        Encounter mostRecentPreferredRegistration = (preferredRegistrations != null && preferredRegistrations.size() > 0)
+                ? preferredRegistrations.get(preferredRegistrations.size() - 1) : null;
 
-        Encounter mostRecentNonPreferredRegistration = (nonPreferredRegistration != null && nonPreferredRegistration.size() > 0)
-                ? nonPreferredRegistration.get(nonPreferredRegistration.size() - 1) : null;
-
-        if (mostRecentPreferredRegistration != null && mostRecentNonPreferredRegistration != null
-                && mostRecentPreferredRegistration.getEncounterDatetime().before(mostRecentNonPreferredRegistration.getEncounterDatetime())) {
-            // if the most recent registration encounter is on the non-preferred patient, void it
-            encounterService.voidEncounter(mostRecentNonPreferredRegistration, "merging into patient " + preferred.getId() + ": voiding most recent registration encounter on non-preferred patient");
+        if (nonPreferredRegistrations != null && mostRecentPreferredRegistration != null) {
+            for (Encounter nonPreferredRegistration : nonPreferredRegistrations) {
+                if (nonPreferredRegistration.getEncounterDatetime().after(mostRecentPreferredRegistration.getEncounterDatetime())) {
+                    encounterService.voidEncounter(nonPreferredRegistration, "merging into patient " + preferred.getId() + ": voiding most recent registration encounter on non-preferred patient");
+                }
+            }
         }
-
     }
 
 
