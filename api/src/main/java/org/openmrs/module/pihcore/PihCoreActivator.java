@@ -32,6 +32,7 @@ import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
+import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 
 public class PihCoreActivator extends BaseModuleActivator {
@@ -52,6 +53,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             }
             installMetadataPackages(config);
             installMetadataBundles(config);
+            MergeActionsSetup.registerMergeActions();
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
             HtmlFormSetup.setupHtmlForms(config);
@@ -63,6 +65,11 @@ public class PihCoreActivator extends BaseModuleActivator {
             throw new RuntimeException("failed to setup the required modules", e);
         }
 
+    }
+
+    @Override
+    public void stopped() {
+        MergeActionsSetup.deregisterMergeActions();
     }
 
     @Override

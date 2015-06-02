@@ -19,11 +19,12 @@ public class PersonAttributeTypeBundle extends PihMetadataBundle {
         install(PersonAttributeTypes.PROVIDER_IDENTIFIER);
         install(PersonAttributeTypes.UNKNOWN_PATIENT);
         install(PersonAttributeTypes.MOTHERS_FIRST_NAME);
-        install(PersonAttributeTypes.BIRTHPLACE);
+        //install(PersonAttributeTypes.BIRTHPLACE);
 
         log.info("Retiring old person attribute types");
         // the mother's name attribute was incorrectly added with a leading space in the uuid, we should remove this
         uninstall(possible(PersonAttributeType.class, " 8d871d18-c2cc-11de-8d13-0010c6dffd0f"), "invalid uuid");
+        uninstall(possible(PersonAttributeType.class, PersonAttributeTypes.BIRTHPLACE.uuid()), "now using obs to record birthplace");
     }
 
     //***** BUNDLE INSTALLATION METHODS FOR DESCRIPTORS

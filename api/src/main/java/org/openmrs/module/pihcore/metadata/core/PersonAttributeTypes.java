@@ -59,6 +59,7 @@ public class PersonAttributeTypes {
 		public double sortWeight() { return 14; }
 	};
 
+    @Deprecated  // now using obs to store birthplace
 	public static PersonAttributeTypeDescriptor BIRTHPLACE = new PersonAttributeTypeDescriptor() {
 		public String uuid() { return "8d8718c2-c2cc-11de-8d13-0010c6dffd0f"; }
 		public String name() { return "Place of birth"; }
