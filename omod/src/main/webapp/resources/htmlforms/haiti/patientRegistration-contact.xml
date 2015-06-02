@@ -102,7 +102,7 @@
                     <!-- view mode of address -->
                     <ifMode mode="VIEW" include="true">
                         <div>
-                            <h3><uimessage code="zl.registration.patient.contactPerson.contactAddress.label"/></h3>
+                            <h3><uimessage code="zl.registration.patient.contactPerson.address.label"/></h3>
                             <p class="left">
                                 <obs class="level" conceptId="PIH:ADDRESS OF PATIENT CONTACT" id="contactAddress-address2" showUnits="false" unitsCssClass="append-to-value" size="20"/><br/>
                                 <obs class="level" conceptId="PIH:ADDRESS OF PATIENT CONTACT" id="contactAddress-address1" showUnits="false" unitsCssClass="append-to-value" size="20"/><br/>
