@@ -1,5 +1,7 @@
 <htmlform formUuid="3C953068-B460-4B1A-8889-0AAD43447CD7" formName="Patient Registration Social" formEncounterType="873f968a-73a8-4f9c-ac78-9f4778b751b6" formVersion="1.0">
 
+    <uiInclude provider="registrationapp" javascript="field/personAddressWithHierarchy.js" />
+
     <script type="text/javascript">
 
         jq(function() {
