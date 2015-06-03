@@ -47,31 +47,31 @@
                     <div>
                         <h3><uimessage code="mirebalais.address.country"/></h3>
                         <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-country" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-country" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </p>
                     </div>
                     <div>
                         <h3><uimessage code="mirebalais.address.stateProvince"/></h3>
                         <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </p>
                     </div>
                     <div>
                         <h3><uimessage code="mirebalais.address.cityVillage"/></h3>
                         <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </p>
                     </div>
                     <div>
                         <h3><uimessage code="mirebalais.address.neighborhoodCell"/></h3>
                         <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address3" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address3" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </p>
                     </div>
                     <div>
                         <h3><uimessage code="mirebalais.address.address1"/></h3>
                         <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </p>
                     </div>
                     <div>
