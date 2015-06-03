@@ -18,6 +18,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Custom actions to perform when merging two patients. Currently used to resolve registration data points as follows:
+ *
+ * 1) If both patients have a telephone number person attribute or a mother's name attribute, void the attribute associated with
+ * the non-preferred patient
+ *
+ * 2) Make sure that the most recent registration encounter is from the preferred patient (void any registration encounters associated with
+ * the non-preferred patient that occurred after the most recent associated with the preferred patient).  This is because
+ * our registration summary simply displays the data from the most recent registration encounter.
+ */
 @Component("pihPatientMergeActions")
 public class PihPatientMergeActions implements PatientMergeAction {
 
@@ -29,9 +39,11 @@ public class PihPatientMergeActions implements PatientMergeAction {
 
     @Override
     public void beforeMergingPatients(Patient preferred, Patient nonPreferred) {
-        // void telephone number and mother's name on non-preferred patient if present on preferred paitient
+        // void telephone number and mother's name on non-preferred patient if present on preferred patient
         voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(PersonAttributeTypes.TELEPHONE_NUMBER.uuid()), preferred, nonPreferred);
         voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid()), preferred, nonPreferred);
+
+        // make sure the most recent registration encounter belongs to the preferred patient.
         voidMostRecentRegistrationIfNonPreferred(preferred, nonPreferred);
     }
 
