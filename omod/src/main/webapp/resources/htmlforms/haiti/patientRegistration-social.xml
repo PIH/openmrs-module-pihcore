@@ -44,42 +44,44 @@
             <ifMode mode="VIEW" include="false">
                 <div id="placeOfBirth-container">
                     <h3><uimessage code="zl.registration.patient.birthplace.label"/></h3>
-                    <div>
-                        <h3><uimessage code="mirebalais.address.country"/></h3>
-                        <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-country" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                        </p>
-                    </div>
-                    <div>
-                        <h3><uimessage code="mirebalais.address.stateProvince"/></h3>
-                        <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                        </p>
-                    </div>
-                    <div>
-                        <h3><uimessage code="mirebalais.address.cityVillage"/></h3>
-                        <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                        </p>
-                    </div>
-                    <div>
-                        <h3><uimessage code="mirebalais.address.neighborhoodCell"/></h3>
-                        <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address3" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                        </p>
-                    </div>
-                    <div>
-                        <h3><uimessage code="mirebalais.address.address1"/></h3>
-                        <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                        </p>
-                    </div>
-                    <div>
-                        <h3><uimessage code="mirebalais.address.address2"/></h3>
-                        <p class="left">
-                            <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address2" showUnits="false" unitsCssClass="append-to-value" size="20"/>
-                        </p>
-                    </div>
+                    <obsgroup groupingConceptId="PIH:Birthplace address construct">
+                        <div>
+                            <h3><uimessage code="mirebalais.address.country"/></h3>
+                            <p class="left">
+                                <obs class="level" conceptId="PIH:Country" id="placeOfBirth-country" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
+                            </p>
+                        </div>
+                        <div>
+                            <h3><uimessage code="mirebalais.address.stateProvince"/></h3>
+                            <p class="left">
+                                <obs class="level" conceptId="PIH:State Province" id="placeOfBirth-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
+                            </p>
+                        </div>
+                        <div>
+                            <h3><uimessage code="mirebalais.address.cityVillage"/></h3>
+                            <p class="left">
+                                <obs class="level" conceptId="PIH:City Village" id="placeOfBirth-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
+                            </p>
+                        </div>
+                        <div>
+                            <h3><uimessage code="mirebalais.address.neighborhoodCell"/></h3>
+                            <p class="left">
+                                <obs class="level" conceptId="PIH:Address3" id="placeOfBirth-address3" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
+                            </p>
+                        </div>
+                        <div>
+                            <h3><uimessage code="mirebalais.address.address1"/></h3>
+                            <p class="left">
+                                <obs class="level" conceptId="PIH:Address1" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
+                            </p>
+                        </div>
+                        <div>
+                            <h3><uimessage code="mirebalais.address.address2"/></h3>
+                            <p class="left">
+                                <obs class="level" conceptId="PIH:Address2" id="placeOfBirth-address2" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                            </p>
+                        </div>
+                    </obsgroup>
                 </div>
             </ifMode>
 
@@ -87,14 +89,16 @@
             <ifMode mode="VIEW" include="true">
                 <div>
                     <h3><uimessage code="zl.registration.patient.birthplace.label"/></h3>
-                    <p class="left">
-                        <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address2" showUnits="false" unitsCssClass="append-to-value" size="20"/><br/>
-                        <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20"/><br/>
-                        <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-address3" showUnits="false" unitsCssClass="append-to-value" size="20"/>,
-                        <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20"/><br/>
-                        <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20"/>,
-                        <obs class="level" conceptId="PIH:PLACE OF BIRTH" id="placeOfBirth-country" showUnits="false" unitsCssClass="append-to-value" size="20"/>
-                    </p>
+                    <obsgroup groupingConceptId="PIH:Birthplace address construct">
+                        <p class="left">
+                            <obs class="level" conceptId="PIH:Address2" id="placeOfBirth-address2" showUnits="false" unitsCssClass="append-to-value" size="20"/><br/>
+                            <obs class="level" conceptId="PIH:Address1" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20"/><br/>
+                            <obs class="level" conceptId="PIH:Address3" id="placeOfBirth-address3" showUnits="false" unitsCssClass="append-to-value" size="20"/>,
+                            <obs class="level" conceptId="PIH:City Village" id="placeOfBirth-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20"/><br/>
+                            <obs class="level" conceptId="PIH:State Province" id="placeOfBirth-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20"/>,
+                            <obs class="level" conceptId="PIH:Country" id="placeOfBirth-country" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                        </p>
+                    </obsgroup>
                 </div>
             </ifMode>
 

@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 13;  }
+    public int getVersion() { return 15;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -40,6 +40,79 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
         Concept unknown = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.UNKNOWN);
         Concept otherNonCoded = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.OTHER_NON_CODED);
 
+
+        // start address fields
+
+        Concept country = install(new ConceptBuilder("b9cf87e0-bf63-43cd-888d-a907d8af47a1")
+                .datatype(text)
+                .conceptClass(question)
+                .name("5619bbf9-a49b-4fb4-a70b-ee2304d981a3", "Country concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("256b5ce3-e0c4-4ca7-9e4b-6564c0865c1b", "Generic concept for storing the equivalent to person_address.country", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("27e264c3-8af8-4a51-8576-f7a4c6033edd")
+                        .type(sameAs).ensureTerm(pih, "Country").build())
+                .mapping(new ConceptMapBuilder("30cec689-68e1-47ac-a56d-0d26b9068c57")
+                        .type(sameAs).ensureTerm(pih, "10382").build())
+                .build());
+
+        Concept stateProvince = install(new ConceptBuilder("717f4cff-a44d-49b4-9a74-0bc2ae466870")
+                .datatype(text)
+                .conceptClass(question)
+                .name("a4eacc94-69c4-4a75-901a-0108a1a69db7", "State Province concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("17c9da99-a8c6-4958-8080-69e413539b15", "Generic concept for storing the equivalent to person_address.state_province", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("dea4f883-a703-4092-b150-2367f00c3b94")
+                        .type(sameAs).ensureTerm(pih, "State Province").build())
+                .mapping(new ConceptMapBuilder("362f24a6-0137-45fb-b9a8-b212a95f5868")
+                        .type(sameAs).ensureTerm(pih, "10384").build())
+                .build());
+
+        Concept cityVillage = install(new ConceptBuilder("d3dad53c-9d33-476d-9997-b91d39831104")
+                .datatype(text)
+                .conceptClass(question)
+                .name("ad2d1756-b011-4a14-a0ee-039ccb7362f5", "City Village concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("27d17b99-168d-45bf-80fe-cad83da60b4e", "Generic concept for storing the equivalent to person_address.city_village", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("bce8f3f2-453c-42c5-abfc-151510ab61d7")
+                        .type(sameAs).ensureTerm(pih, "10383").build())
+                .mapping(new ConceptMapBuilder("72f423c2-a2c3-412a-a61f-0b7325315dd4")
+                        .type(sameAs).ensureTerm(pih, "City Village").build())
+                .build());
+
+        Concept address3 = install(new ConceptBuilder("8203294b-e1ff-4b3e-89de-e0b8fa5e2928")
+                .datatype(text)
+                .conceptClass(question)
+                .name("c343b137-2521-46f4-bb12-4f39c0451ac7", "Address3 concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("e8813644-1649-48f4-8b1c-b1ab5ab61bc4", "Generic concept for storing the equivalent to person_address.address3", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("d17481fd-4549-4ac2-9fe9-4030e2e276bf")
+                        .type(sameAs).ensureTerm(pih, "10381").build())
+                .mapping(new ConceptMapBuilder("5d17859d-d548-4a69-aebf-34e6c8a35fc0")
+                        .type(sameAs).ensureTerm(pih, "Address3").build())
+                .build());
+
+        Concept address2 = install(new ConceptBuilder("1cdbfb42-3d46-4201-b355-f94adece8a5a")
+                .datatype(text)
+                .conceptClass(question)
+                .name("86a028ff-c879-4efd-a239-079cbd11cf59", "Address2 concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("eb802d1d-409c-49b1-b46b-977f96183e08", "Generic concept for storing the equivalent to person_address.address2", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("2afb9fd2-4682-4e01-b0a4-506399f5a0c9")
+                        .type(sameAs).ensureTerm(pih, "Address2").build())
+                .mapping(new ConceptMapBuilder("f833385e-bcee-436f-bb8b-f92a3c60e444")
+                        .type(sameAs).ensureTerm(pih, "10380").build())
+                .build());
+
+        Concept address1 = install(new ConceptBuilder("f2715dfe-dbf7-4baf-80e6-07f6af0f16a9")
+                .datatype(text)
+                .conceptClass(question)
+                .name("f9f05252-0128-4d17-b191-f1aaf0415700", "Address1 concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("f4489388-bb9e-40d2-8bf1-d85ea312e7bc", "Generic concept for storing the equivalent to person_address.address1", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("aeec89f3-8813-4324-965a-9f41d4b99982")
+                        .type(sameAs).ensureTerm(pih, "Address1").build())
+                .mapping(new ConceptMapBuilder("e83bf96b-5e4e-4659-8d0b-780de1b6284d")
+                        .type(sameAs).ensureTerm(pih, "10378").build())
+                .build());
+
+        // end address construct
+
+       // start place of birth
+
         install(new ConceptBuilder("0b192340-3eb5-4597-8cea-d33c182fc79c")
                 .datatype(text)
                 .conceptClass(question)
@@ -54,6 +127,18 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "2997").build())
                 .build());
 
+        install(new ConceptBuilder("43f20178-4aa3-43e8-99c1-a67b12994cc8")
+                .datatype(notApplicable)
+                .conceptClass(convSet)
+                .name("b417be57-726c-4ef5-854d-7eaf2ec9f836", "Birthplace address construct", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .mapping(new ConceptMapBuilder("17b5611b-30f2-461e-a062-ab4c674f6a03")
+                        .type(sameAs).ensureTerm(pih, "Birthplace address construct").build())
+                .mapping(new ConceptMapBuilder("6556b658-6134-4883-85a5-430fda1ce14a")
+                        .type(sameAs).ensureTerm(pih, "10378").build())
+                .setMembers(address1, address2, address3, cityVillage, stateProvince, country)
+                .build());
+
+        // end place of birth
 
         Concept mainActivityNonCoded = install(new ConceptBuilder(Concepts.MAIN_ACTIVITY_NON_CODED)
                 .datatype(text)
@@ -647,6 +732,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
         // end religion question and answers
 
+        // start contacts questions and answers
+
         Concept namesAndFirstnamesOfContact = install(new ConceptBuilder(Concepts.NAMES_AND_FIRSTNAMES_OF_CONTACT)
                 .datatype(text)
                 .conceptClass(question)
@@ -677,28 +764,38 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "TELEPHONE NUMBER OF CONTACT").build())
                 .build());
 
-        Concept addressOfContact = install(new ConceptBuilder(Concepts.ADDRESS_OF_CONTACT)
+        Concept addressOfContact = install(new ConceptBuilder("5190CC3E-83F0-4410-8660-B109086D9A5E")
                 .datatype(text)
                 .conceptClass(question)
-                .name("A7D167A-1B39-4DE9-8BE7-F3980FBE366F", "The address for the patient's contact", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("A7D167A-1B39-4DE9-8BE7-F3980FBE366F", "The address for the patient's contact", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("20535d6a-eac7-459d-b607-6befe23d9c3a", "Concept to store the address of a patient's contact as free text", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("18636437-061A-4DA8-87D7-F345F8E8C638")
                         .type(sameAs).ensureTerm(pih, "ADDRESS OF PATIENT CONTACT").build())
                 .build());
 
-        Concept patientContactsConstruct = install(new ConceptBuilder(Concepts.PATIENT_CONTACTS_CONSTRUCT)
+        install(new ConceptBuilder("3cd9936a-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(convSet)
-                .name("3e1810d0-26fe-102b-80cb-0017a47871b2", "Questions on contacts of the patient", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("640cbd4d-d2d2-4ccb-9fe6-a76698ba324a", "Questions on contacts of the patient", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("ece7a288-07fe-102c-b5fa-0017a47871b2", "Questions on contacts of the patient", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("757177b4-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "PATIENT CONTACTS CONSTRUCT").build())
+                .mapping(new ConceptMapBuilder("b210a6ac-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1325").build())
                 .setMembers(
                         namesAndFirstnamesOfContact,
                         relationshipsOfContact,
                         telephoneNumberOfContact,
-                        addressOfContact)
-                .mapping(new ConceptMapBuilder("b210a6ac-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "1325").build())
-                .mapping(new ConceptMapBuilder("757177b4-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "PATIENT CONTACTS CONSTRUCT").build())
+                        addressOfContact,
+                        address1,
+                        address2,
+                        address3,
+                        cityVillage,
+                        stateProvince,
+                        country)
                 .build());
+
+        // end contacts question and answers
     }
 
 }
