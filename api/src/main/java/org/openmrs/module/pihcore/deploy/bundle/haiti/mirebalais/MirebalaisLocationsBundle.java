@@ -6,7 +6,6 @@ import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.PihLocationsMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +17,6 @@ public class MirebalaisLocationsBundle extends PihLocationsMetadataBundle {
 
     @Override
     public void install() throws Exception {
-
-        installLocation(MirebalaisLocations.LACOLLINE);
 
         // Top level Locations at Mirebalais
         installLocation(MirebalaisLocations.MIREBALAIS_CDI_PARENT);

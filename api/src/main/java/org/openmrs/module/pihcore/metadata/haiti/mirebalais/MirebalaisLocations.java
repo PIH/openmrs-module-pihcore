@@ -28,13 +28,6 @@ import java.util.List;
  */
 public class MirebalaisLocations {
 
-	public static LocationDescriptor LACOLLINE = new LocationDescriptor() {
-		public String uuid() { return "23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960"; }
-		public String name() { return "Lacolline"; }
-		public String description() { return "Lacolline"; }
-		public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.MEDICAL_RECORD_LOCATION, LocationTags.ARCHIVES_LOCATION, LocationTags.VISIT_LOCATION); }
-	};
-
 	//***** MIREBALAIS and CDI LOCATIONS *****
 
 	public static LocationDescriptor MIREBALAIS_CDI_PARENT = new LocationDescriptor() {

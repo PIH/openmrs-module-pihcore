@@ -100,7 +100,6 @@ public class PihCoreActivator extends BaseModuleActivator {
             deployService.installBundle(Context.getRegisteredComponents(MirebalaisBundle.class).get(0));
         }
         else if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
-            // TODO: will need a "Lacolline" location bundle with just Lacolline?
             deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
