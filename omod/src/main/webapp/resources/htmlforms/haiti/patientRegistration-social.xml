@@ -16,11 +16,14 @@
                 id: 'placeOfBirth',
                 container: jq('#placeOfBirth-container'),
                 initialValue: null,
-                shortcutFor: null,
+                shortcutFor:  'address1',
                 manualFields: ['address2']
             }
 
             PersonAddressWithHierarchy(personAddressWithHierarchy);
+
+            // hack to hide the "required" * which take up too much space and don't float properly
+            jq('.required').hide();
 
         });
     </script>
@@ -44,42 +47,34 @@
             <ifMode mode="VIEW" include="false">
                 <div id="placeOfBirth-container">
                     <h3><uimessage code="zl.registration.patient.birthplace.label"/></h3>
+                    <div>
+                        <h3><uimessage code="pihcore.patientRegistration.contact.address.shortcut"/></h3>
+                        <input type="text" class="address-hierarchy-shortcut" size="60"/>
+                    </div>
                     <obsgroup groupingConceptId="PIH:Birthplace address construct">
                         <div>
                             <h3><uimessage code="mirebalais.address.country"/></h3>
-                            <p class="left">
-                                <obs class="level" conceptId="PIH:Country" id="placeOfBirth-country" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                            </p>
+                            <obs class="level" conceptId="PIH:Country" id="placeOfBirth-country" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </div>
                         <div>
                             <h3><uimessage code="mirebalais.address.stateProvince"/></h3>
-                            <p class="left">
-                                <obs class="level" conceptId="PIH:State Province" id="placeOfBirth-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                            </p>
+                            <obs class="level" conceptId="PIH:State Province" id="placeOfBirth-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </div>
                         <div>
                             <h3><uimessage code="mirebalais.address.cityVillage"/></h3>
-                            <p class="left">
-                                <obs class="level" conceptId="PIH:City Village" id="placeOfBirth-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                            </p>
+                            <obs class="level" conceptId="PIH:City Village" id="placeOfBirth-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </div>
                         <div>
                             <h3><uimessage code="mirebalais.address.neighborhoodCell"/></h3>
-                            <p class="left">
-                                <obs class="level" conceptId="PIH:Address3" id="placeOfBirth-address3" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                            </p>
+                            <obs class="level" conceptId="PIH:Address3" id="placeOfBirth-address3" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </div>
                         <div>
                             <h3><uimessage code="mirebalais.address.address1"/></h3>
-                            <p class="left">
-                                <obs class="level" conceptId="PIH:Address1" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
-                            </p>
+                            <obs class="level" conceptId="PIH:Address1" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                         </div>
                         <div>
                             <h3><uimessage code="mirebalais.address.address2"/></h3>
-                            <p class="left">
-                                <obs class="level" conceptId="PIH:Address2" id="placeOfBirth-address2" showUnits="false" unitsCssClass="append-to-value" size="20"/>
-                            </p>
+                            <obs class="level" conceptId="PIH:Address2" id="placeOfBirth-address2" showUnits="false" unitsCssClass="append-to-value" size="20"/>
                         </div>
                     </obsgroup>
                 </div>
@@ -102,33 +97,61 @@
                 </div>
             </ifMode>
 
-            <div>
-                <h3><uimessage code="zl.registration.patient.civilStatus.label"/></h3>
-                <p class="left">
-                    <obs conceptId="PIH:CIVIL STATUS" id="civilStatus"
-                         answerConceptIds="PIH:SINGLE OR A CHILD,PIH:MARRIED,PIH:LIVING WITH PARTNER,PIH:SEPARATED,PIH:DIVORCED,PIH:WIDOWED"
-                         answerCodes="zl.registration.patient.civilStatus.single.label,zl.registration.patient.civilStatus.married.label,zl.registration.patient.civilStatus.livingWithPartner.label,zl.registration.patient.civilStatus.separated.label,zl.registration.patient.civilStatus.divorced.label,zl.registration.patient.civilStatus.widowed.label"
-                         showUnits="false" unitsCssClass="append-to-value" style="dropdown"/>
-                </p>
-            </div>
 
-            <div>
-                <h3><uimessage code="zl.registration.patient.occupation.label"/></h3>
-                <p class="left">
-                    <obs conceptId="PIH:Occupation" id="occupation"
-                         showUnits="false" unitsCssClass="append-to-value" size="dropdown" />
-                </p>
-            </div>
+            <!-- edit mode of civil status, occupation, religion -->
+            <ifMode mode="VIEW" include="false">
+                <div class="left">
+                    <h3><uimessage code="zl.registration.patient.civilStatus.label"/></h3>
+                    <p>
+                        <obs conceptId="PIH:CIVIL STATUS" id="civilStatus"
+                             answerConceptIds="PIH:SINGLE OR A CHILD,PIH:MARRIED,PIH:LIVING WITH PARTNER,PIH:SEPARATED,PIH:DIVORCED,PIH:WIDOWED"
+                             answerCodes="zl.registration.patient.civilStatus.single.label,zl.registration.patient.civilStatus.married.label,zl.registration.patient.civilStatus.livingWithPartner.label,zl.registration.patient.civilStatus.separated.label,zl.registration.patient.civilStatus.divorced.label,zl.registration.patient.civilStatus.widowed.label"
+                             showUnits="false" unitsCssClass="append-to-value" style="dropdown"/>
+                    </p>
+                </div>
 
-            <div>
-                <h3><uimessage code="zl.registration.patient.religion.label"/></h3>
-                <p class="left">
-                    <obs conceptId="PIH:Religion" id="religion"
-                         answerConceptIds="PIH:Voodoo,PIH:Catholic,PIH:Baptist,PIH:Islam,PIH:Pentecostal,PIH:Seventh Day Adventist,PIH:Jehovah's Witness,PIH:OTHER NON-CODED"
-                         answerCodes="zl.registration.patient.religion.voodoo.label,zl.registration.patient.religion.catholic.label,zl.registration.patient.religion.baptist.label,zl.registration.patient.religion.islam.label,zl.registration.patient.religion.pentecostal.label,zl.registration.patient.religion.adventist.label,zl.registration.patient.religion.jehovahsWitness.label,zl.registration.patient.religion.other.label"
-                         showUnits="false" unitsCssClass="append-to-value" style="dropdown"/>
-                </p>
-            </div>
+                <div class="right">
+                    <h3><uimessage code="zl.registration.patient.occupation.label"/></h3>
+                    <p>
+                        <obs conceptId="PIH:Occupation" id="occupation"
+                             showUnits="false" unitsCssClass="append-to-value" size="dropdown" />
+                    </p>
+                </div>
+
+                <div>
+                    <h3><uimessage code="zl.registration.patient.religion.label"/></h3>
+                    <p class="left">
+                        <obs conceptId="PIH:Religion" id="religion"
+                             answerConceptIds="PIH:Voodoo,PIH:Catholic,PIH:Baptist,PIH:Islam,PIH:Pentecostal,PIH:Seventh Day Adventist,PIH:Jehovah's Witness,PIH:OTHER NON-CODED"
+                             answerCodes="zl.registration.patient.religion.voodoo.label,zl.registration.patient.religion.catholic.label,zl.registration.patient.religion.baptist.label,zl.registration.patient.religion.islam.label,zl.registration.patient.religion.pentecostal.label,zl.registration.patient.religion.adventist.label,zl.registration.patient.religion.jehovahsWitness.label,zl.registration.patient.religion.other.label"
+                             showUnits="false" unitsCssClass="append-to-value" style="dropdown"/>
+                    </p>
+                </div>
+            </ifMode>
+
+            <!-- view mode of civil status, occupation, religiopn -->
+            <ifMode mode="VIEW" include="true">
+                <div>
+                    <h3><uimessage code="zl.registration.patient.civilStatus.label"/></h3>
+                    <p class="left">
+                        <obs conceptId="PIH:CIVIL STATUS" id="civilStatus" showUnits="false" unitsCssClass="append-to-value"/>
+                    </p>
+                </div>
+
+                <div>
+                    <h3><uimessage code="zl.registration.patient.occupation.label"/></h3>
+                    <p class="left">
+                        <obs conceptId="PIH:Occupation" id="occupation" showUnits="false" unitsCssClass="append-to-value" />
+                    </p>
+                </div>
+
+                <div>
+                    <h3><uimessage code="zl.registration.patient.religion.label"/></h3>
+                    <p class="left">
+                        <obs conceptId="PIH:Religion" id="religion" showUnits="false" unitsCssClass="append-to-value" />
+                    </p>
+                </div>
+            </ifMode>
 
         </fieldset>
     </section>
