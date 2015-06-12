@@ -18,6 +18,7 @@ public class EncounterTypeBundle extends PihMetadataBundle {
         install(EncounterTypes.VITALS);
         install(EncounterTypes.PRIMARY_CARE_VISIT);
         install(EncounterTypes.CONSULTATION);
+        install(EncounterTypes.ONCOLOGY_CONSULT);
         install(EncounterTypes.MEDICATION_DISPENSED);
         install(EncounterTypes.POST_OPERATIVE_NOTE);
         install(EncounterTypes.TRANSFER);

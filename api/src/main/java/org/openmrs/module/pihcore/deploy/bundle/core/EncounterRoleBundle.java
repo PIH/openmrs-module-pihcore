@@ -10,6 +10,7 @@ public class EncounterRoleBundle extends PihMetadataBundle {
 
 
     public static final class EncounterRoles {
+        // note that there is an UNKNOWN role defined in code
         public static final String DISPENSER = "bad21515-fd04-4ff6-bfcd-78456d12f168";
         public static final String NURSE = "98bf2792-3f0a-4388-81bb-c78b29c0df92";
         public static final String CONSULTING_CLINICIAN = "4f10ad1a-ec49-48df-98c7-1391c6ac7f05";

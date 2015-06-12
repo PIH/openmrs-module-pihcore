@@ -12,8 +12,8 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform id="post-op-surgical-note" class="simple-form-ui" formUuid="d29a49b1-957b-4bcb-b192-07484de4165b"
-          formName="Oncology Consult Sheet"
+<htmlform id="oncology-consult-note" class="simple-form-ui" formUuid="28b76a20-105d-11e5-b939-0800200c9a66"
+          formName="Oncology Consult Note"
           formEncounterType="035fb8da-226a-420b-8d8b-3904f3bedb25" formVersion="0.1">
 
     <translations defaultLocale="fr">
@@ -143,12 +143,12 @@
         jq(function() {
 
         // make text areas expand based on content (this allows us to avoid scrollbars and thereby facilitate printing)
-        jq('#post-op-surgical-note').on( 'keyup', 'textarea', function (){
+        jq('#oncology-consult-note').on( 'keyup', 'textarea', function (){
         jq(this).height( 0 );
         jq(this).height( this.scrollHeight );
         });
 
-        jq('#post-op-surgical-note').find( 'textarea' ).keyup();
+        jq('#oncology-consult-note').find( 'textarea' ).keyup();
 
         });
 

@@ -57,6 +57,12 @@ public class EncounterTypes {
 		public String description() { return "Encounter where a full or abbreviated examination is done, leading to a presumptive or confirmed diagnosis"; }
 	};
 
+    public static EncounterTypeDescriptor ONCOLOGY_CONSULT  = new EncounterTypeDescriptor() {
+        public String uuid() { return "035fb8da-226a-420b-8d8b-3904f3bedb25"; }
+        public String name() { return "Oncology Consultation"; }
+        public String description() { return "Consultation for Oncology"; }
+    };
+
 	public static EncounterTypeDescriptor MEDICATION_DISPENSED  = new EncounterTypeDescriptor() {
 		public String uuid() { return "8ff50dea-18a1-4609-b4c9-3f8f2d611b84"; }
 		public String name() { return "Médicaments administrés"; }
