@@ -20,7 +20,6 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.patientregistration.PatientRegistrationGlobalProperties;
 import org.openmrs.module.patientregistration.search.DefaultPatientRegistrationSearch;
@@ -61,7 +60,6 @@ public class HaitiMetadataBundle extends PihMetadataBundle {
     private static final String REGISTRATION_ENCOUNTER_NAME = "Enregistrement de patient";
     private static final String CHECK_IN_ENCOUNTER_NAME = "Inscription";
     private static final String PRIMARY_CARE_VISIT_ENCOUNTER_NAME = "Consultation soins de base";
-    private static final String DOUBLE_METAPHONE_ALTERNATE_NAME = "Double Metaphone Alternate";
 
 
 	/**
@@ -93,12 +91,6 @@ public class HaitiMetadataBundle extends PihMetadataBundle {
 
         // Core Apps
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MirebalaisLocations.MIREBALAIS_CDI_PARENT.uuid());
-
-        // Name Phonetics
-        properties.put(NamePhoneticsConstants.GIVEN_NAME_GLOBAL_PROPERTY, DOUBLE_METAPHONE_ALTERNATE_NAME);
-        properties.put(NamePhoneticsConstants.MIDDLE_NAME_GLOBAL_PROPERTY, DOUBLE_METAPHONE_ALTERNATE_NAME);
-        properties.put(NamePhoneticsConstants.FAMILY_NAME_GLOBAL_PROPERTY, DOUBLE_METAPHONE_ALTERNATE_NAME);
-        properties.put(NamePhoneticsConstants.FAMILY_NAME2_GLOBAL_PROPERTY, DOUBLE_METAPHONE_ALTERNATE_NAME);
 
         // Patient Registration
 		properties.put(PatientRegistrationGlobalProperties.SUPPORTED_TASKS, "patientRegistration|primaryCareReception|edCheckIn|patientLookup");
