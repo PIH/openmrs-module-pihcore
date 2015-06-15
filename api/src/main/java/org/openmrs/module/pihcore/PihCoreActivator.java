@@ -18,7 +18,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.layout.web.name.NameSupport;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
@@ -34,7 +33,6 @@ import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
-import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 
 public class PihCoreActivator extends BaseModuleActivator {
@@ -76,14 +74,7 @@ public class PihCoreActivator extends BaseModuleActivator {
 
     @Override
     public void contextRefreshed() {
-
         CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
-
-        NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
-        // hack: configure both name support beans, since two actually exist (?)
-        NameTemplateSetup.configureNameTemplate(nameSupport);
-        NameTemplateSetup.configureNameTemplate(NameSupport.getInstance());
-
     }
 
     // Most of the MDS packages are (still) installed in the mirebalaismetadata module activator
