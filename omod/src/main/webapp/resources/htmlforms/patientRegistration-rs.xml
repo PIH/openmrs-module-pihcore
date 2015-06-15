@@ -12,51 +12,106 @@
         });
     </script>
 
+    <!-- ENTER/EDIT VERSION OF THE FORM -->
+    <ifMode mode="VIEW" include="false">
 
-    <section id="patientRegistration" sectionTag="section" headerStyle="title" headerCode="">
+        <section id="patientRegistration" sectionTag="section" headerStyle="title" headerCode="zl.registration.patient.registration.header">
 
-        <ifMode mode="VIEW" include="false">
-            <h2><uimessage code="zl.registration.patient.registration.header"/></h2>
-        </ifMode>
-
-        <fieldset class="required">
-            <div>
+            <fieldset>
+                <legend>
+                    <uimessage code="zl.date"/>
+                </legend>
                 <h3>
                     <uimessage code="zl.date"/>
                 </h3>
-
                 <p class="left">
-                    <encounterDate id="encounterDateField" showTime="false" />
+                    <p class="left">
+                        <encounterDate id="encounterDateField" showTime="false" />
+                    </p>
                 </p>
-            </div>
+            </fieldset>
 
-            <div>
+            <fieldset>
+                <legend>
+                    <uimessage code="emr.patientDashBoard.provider"/>
+                </legend>
                 <h3>
                     <uimessage code="emr.patientDashBoard.provider"/>
                 </h3>
                 <p class="left">
-                    <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+                    <p class="left">
+                        <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+                    </p>
                 </p>
-            </div>
+            </fieldset>
 
-            <div>
+            <fieldset>
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+                </legend>
                 <h3>
                     <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
                 </h3>
                 <p class="left">
-                    <encounterLocation/>
+                    <p class="left">
+                        <encounterLocation/>
+                    </p>
                 </p>
-            </div>
+            </fieldset>
 
-        </fieldset>
-
-    </section>
-
-    <ifMode mode="VIEW" include="false">
-        <div id="buttons">
-            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
-        </div>
+        </section>
     </ifMode>
+    <!-- END ENTER/EDIT VERSION OF THE FORM -->
 
+    <!-- START VIEW VERSION OF THE FORM (just display answers to obs, not provider, date, location -->
+    <ifMode mode="VIEW">
+
+        <!-- we include section so the most recent encounter app can include a custom header/title in the title span that HFE creates -->
+        <section id="contactPerson" sectionTag="section">
+            <fieldset>
+                <legend>
+                    <uimessage code="zl.date"/>
+                </legend>
+                <h3>
+                    <uimessage code="zl.date"/>
+                </h3>
+                <p class="left">
+                    <p class="left">
+                        <encounterDate id="encounterDateField" showTime="false" />
+                    </p>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    <uimessage code="emr.patientDashBoard.provider"/>
+                </legend>
+                <h3>
+                    <uimessage code="emr.patientDashBoard.provider"/>
+                </h3>
+                <p class="left">
+                    <p class="left">
+                        <encounterProviderAndRole encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+                    </p>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
+                </h3>
+                <p class="left">
+                    <p class="left">
+                        <encounterLocation/>
+                    </p>
+                </p>
+            </fieldset>
+
+        </section>
+
+    </ifMode>
+    <!-- END VIEW VERSION OF THE FORM -->
 </htmlform>

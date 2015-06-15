@@ -14,61 +14,134 @@
         });
     </script>
 
+    <!-- ENTER/EDIT VERSION OF THE FORM -->
     <ifMode mode="VIEW" include="false">
-        <h2><uimessage code="zl.registration.patient.contactPerson.header"/></h2>
-    </ifMode>
 
-    <div class="hidden">
-        <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
-        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-    </div>
+        <div class="hidden">
+            <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        </div>
 
-    <input id="displayEncounterDate" value="false" type="hidden" />
+        <input id="displayEncounterDate" value="false" type="hidden" />
 
-    <section id="contactPerson" sectionTag="section" headerStyle="title" headerCode="">
-
-        <fieldset>
-
+        <section id="contactPerson" sectionTag="section" headerStyle="title" headerCode="zl.registration.patient.contactPerson.label">
             <obsgroup groupingConceptId="PIH:PATIENT CONTACTS CONSTRUCT">
 
-                <div>
-                    <h3><uimessage code="zl.registration.patient.contactPerson.contactName.question"/></h3>
-                    <p class="left">
-                        <obs conceptId="PIH:NAMES AND FIRSTNAMES OF CONTACT" id="contactFirstName" showUnits="false" unitsCssClass="append-to-value" size="20"/>
-                    </p>
-                </div>
+            <fieldset>
+                <legend>
+                    <uimessage code="zl.registration.patient.contactPerson.name.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="zl.registration.patient.contactPerson.contactName.question"/>
+                </h3>
+                <p class="left">
+                    <obs conceptId="PIH:NAMES AND FIRSTNAMES OF CONTACT" id="contactFirstName" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                </p>
 
-                <div>
-                    <h3><uimessage code="zl.registration.patient.contactPerson.relationships.label"/></h3>
-                    <p class="left">
-                        <obs conceptId="PIH:RELATIONSHIPS OF CONTACT" id="contactRelationship" showUnits="false" unitsCssClass="append-to-value" size="20"/>
-                    </p>
-                </div>
-
-                <div>
-                    <h3><uimessage code="zl.registration.patient.contactPerson.address.label"/></h3>
-                    <p class="left">
-                        <obs conceptId="PIH:ADDRESS OF PATIENT CONTACT" id="contactAddress" style="textarea" rows="5" cols="60" maxlength="250" showUnits="false" unitsCssClass="append-to-value" />
-                    </p>
-                </div>
-
-                <div>
-                    <h3><uimessage code="registrationapp.patient.phone.label"/></h3>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <uimessage code="zl.registration.patient.contactPerson.relationships.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="zl.registration.patient.contactPerson.relationships.question"/>
+                </h3>
+                <p class="left">
+                    <obs conceptId="PIH:RELATIONSHIPS OF CONTACT" id="contactRelationship" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <uimessage code="zl.registration.patient.contactPerson.address.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="zl.registration.patient.contactPerson.address.question"/>
+                </h3>
+                <p class="left">
+                    <obs conceptId="PIH:ADDRESS OF PATIENT CONTACT" id="contactAddress" style="textarea" rows="5" cols="60" maxlength="250" showUnits="false" unitsCssClass="append-to-value" />
+                </p>
+            </fieldset>
+            <fieldset>
+                <legend>
+                    <uimessage code="zl.registration.patient.contactPerson.phonenumber.label"/>
+                </legend>
+                <h3>
+                    <uimessage code="zl.registration.patient.contactPerson.phonenumber.question"/>
+                </h3>
+                <p class="left">
                     <p class="left">
                         <obs conceptId="PIH:TELEPHONE NUMBER OF CONTACT" id="contactPhoneNumber" showUnits="false" unitsCssClass="append-to-value" size="20" />
                     </p>
-                </div>
+                </p>
+            </fieldset>
 
             </obsgroup>
-
-        </fieldset>
-    </section>
-
-    <ifMode mode="VIEW" include="false">
-        <div id="buttons">
-            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
-        </div>
+        </section>
     </ifMode>
+    <!-- END ENTER/EDIT VERSION OF THE FORM -->
+
+    <!-- START VIEW VERSION OF THE FORM (just display answers to obs, not provider, date, location -->
+    <ifMode mode="VIEW">
+
+        <!-- we include section so the most recent encounter app can include a custom header/title in the title span that HFE creates -->
+        <section id="contactPerson" sectionTag="section" headerStyle="title" headerLabel="zl.registration.patient.contactPerson.label">
+
+            <obsgroup groupingConceptId="PIH:PATIENT CONTACTS CONSTRUCT">
+
+                <fieldset>
+                    <legend>
+                        <uimessage code="zl.registration.patient.contactPerson.name.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="zl.registration.patient.contactPerson.contactName.question"/>
+                    </h3>
+
+                    <p class="left">
+                        <obs conceptId="PIH:NAMES AND FIRSTNAMES OF CONTACT" id="contactFirstName" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                    </p>
+
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <uimessage code="zl.registration.patient.contactPerson.relationships.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="zl.registration.patient.contactPerson.relationships.label"/>
+                    </h3>
+                    <p class="left">
+                        <obs conceptId="PIH:RELATIONSHIPS OF CONTACT" id="contactRelationship" showUnits="false" unitsCssClass="append-to-value" size="20"/>
+                    </p>
+                </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <uimessage code="zl.registration.patient.contactPerson.address.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="zl.registration.patient.contactPerson.address.label"/>
+                    </h3>
+                    <p class="left">
+                        <obs conceptId="PIH:ADDRESS OF PATIENT CONTACT" id="contactAddress" style="textarea" rows="5" cols="60" maxlength="250" showUnits="false" unitsCssClass="append-to-value" />
+                    </p>
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <uimessage code="zl.registration.patient.contactPerson.phonenumber.label"/>
+                    </legend>
+                    <h3>
+                        <uimessage code="zl.registration.patient.contactPerson.phonenumber.label"/>
+                    </h3>
+                    <p class="left">
+                        <p class="left">
+                            <obs conceptId="PIH:TELEPHONE NUMBER OF CONTACT" id="contactPhoneNumber" showUnits="false" unitsCssClass="append-to-value" size="20" />
+                        </p>
+                    </p>
+                </fieldset>
+            </obsgroup>
+
+        </section>
+
+    </ifMode>
+    <!-- END VIEW VERSION OF THE FORM -->
 
 </htmlform>
