@@ -17,6 +17,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultatio
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
+import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -114,8 +115,8 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void testContextRefreshed() throws Exception {
-        new PihCoreActivator().contextRefreshed();
+    public void testSetupCloseStateVisits() throws Exception {
+        CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
 
         // verify scheduled task is started
         TaskDefinition closeStaleVisitsTask = schedulerService.getTaskByName(EmrConstants.TASK_CLOSE_STALE_VISITS_NAME);
