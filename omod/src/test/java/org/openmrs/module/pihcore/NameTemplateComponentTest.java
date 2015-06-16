@@ -4,7 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.layout.web.name.NameSupport;
 import org.openmrs.layout.web.name.NameTemplate;
-import org.openmrs.module.mirebalais.MirebalaisHospitalActivator;import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
