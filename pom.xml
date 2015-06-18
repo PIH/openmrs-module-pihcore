@@ -332,6 +332,12 @@
             <version>${htmlformentryuiVersion}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>appui-api</artifactId>
+            <version>${appuiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- TODO figure out why we still need the 1.9 subproject for testing-->
         <dependency>

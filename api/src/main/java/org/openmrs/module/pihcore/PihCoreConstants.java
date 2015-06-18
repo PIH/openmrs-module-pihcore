@@ -27,4 +27,6 @@ public class PihCoreConstants {
     public static final String CDI_DOSSIER_NUMBER_PREFIX = "CDI";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_UUID = "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb";
 
+    public static final String CURRENT_APP_SESSION_VARIABLE = "currentAppId";
+
 }
