@@ -13,7 +13,7 @@ public class HaitiAddressBundle extends AddressBundle {
 
     @Override
     public int getVersion() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class HaitiAddressBundle extends AddressBundle {
         l.add(new AddressComponent(AddressField.STATE_PROVINCE, "mirebalais.address.stateProvince", 40, null, true));
         l.add(new AddressComponent(AddressField.CITY_VILLAGE, "mirebalais.address.cityVillage", 40, null, true));
         l.add(new AddressComponent(AddressField.ADDRESS_3, "mirebalais.address.neighborhoodCell", 60, null, true));
-        l.add(new AddressComponent(AddressField.ADDRESS_1, "mirebalais.address.address1", 60, null, true));
+        l.add(new AddressComponent(AddressField.ADDRESS_1, "mirebalais.address.address1", 60, null, false));
         l.add(new AddressComponent(AddressField.ADDRESS_2, "mirebalais.address.address2", 60, null, false));
         return l;
     }
@@ -40,6 +40,6 @@ public class HaitiAddressBundle extends AddressBundle {
 
     @Override
     public String getAddressHierarchyEntryPath() {
-        return "addresshierarchy/haiti_address_hierarchy_entries_5.csv";
+        return "addresshierarchy/haiti_address_hierarchy_entries_6.csv";
     }
 }
