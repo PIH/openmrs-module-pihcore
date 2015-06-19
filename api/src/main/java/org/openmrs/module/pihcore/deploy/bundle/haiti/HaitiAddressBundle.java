@@ -13,7 +13,7 @@ public class HaitiAddressBundle extends AddressBundle {
 
     @Override
     public int getVersion() {
-        return 7;
+        return 8;
     }
 
     @Override
