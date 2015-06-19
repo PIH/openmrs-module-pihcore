@@ -21,6 +21,10 @@
                 if ( jq("#contactPerson span.title").length ) {
                     jq("#contactPerson span.title").remove();
                 }
+
+                // hack to hide the "required" * which take up too much space and don't float properly
+                jq('#contactPerson .required').hide();
+
             });
         </script>
     </ifMode>
