@@ -42,7 +42,18 @@ public abstract class AddressBundle extends VersionedPihMetadataBundle {
 
     @Override
     protected void installNewVersion() throws Exception {
-        installAddressHierarchyLevels();
+
+        AddressHierarchyService service = Context.getService(AddressHierarchyService.class);
+
+        // currently we only install the levels if they haven't been installed; no built-in way to edit anything other than "required" at this point
+        int numberOfLevels = service.getAddressHierarchyLevelsCount();
+        if (numberOfLevels == 0) {
+            installAddressHierarchyLevels();
+        }
+        else {
+            updateRequiredProperty();
+        }
+
         installAddressHierarchyEntries();
     }
 
@@ -78,24 +89,35 @@ public abstract class AddressBundle extends VersionedPihMetadataBundle {
     }
 
     /**
-     * Installs the necessary address hierarchy levels if they are not already configured
+     * Installed the address hierarchy levels
      */
     public void installAddressHierarchyLevels() {
         AddressHierarchyService service = Context.getService(AddressHierarchyService.class);
-        int numberOfLevels = service.getAddressHierarchyLevelsCount();
-        if (numberOfLevels == 0) {
-            log.info("Installing Address Levels");
-            AddressHierarchyLevel lastLevel = null;
-            for (AddressComponent component : getAddressComponents()) {
-                AddressHierarchyLevel level = new AddressHierarchyLevel();
-                level.setAddressField(component.getField());
-                level.setRequired(component.isRequiredInHierarchy());
-                level.setParent(lastLevel);
-                service.saveAddressHierarchyLevel(level);
-                lastLevel = level;
-            }
+        log.info("Installing Address Levels");
+        AddressHierarchyLevel lastLevel = null;
+        for (AddressComponent component : getAddressComponents()) {
+            AddressHierarchyLevel level = new AddressHierarchyLevel();
+            level.setAddressField(component.getField());
+            level.setRequired(component.isRequiredInHierarchy());
+            level.setParent(lastLevel);
+            service.saveAddressHierarchyLevel(level);
+            lastLevel = level;
         }
     }
+
+    /**
+     * Iterate through the levels and update the "required" property in case it has changed
+     */
+    public void updateRequiredProperty() {
+        AddressHierarchyService service = Context.getService(AddressHierarchyService.class);
+        log.info("Installing Address Levels");
+        for (AddressComponent component : getAddressComponents()) {
+            AddressHierarchyLevel level = service.getAddressHierarchyLevelByAddressField(component.getField());
+            level.setRequired(component.isRequiredInHierarchy());
+            service.saveAddressHierarchyLevel(level);
+        }
+    }
+
 
     /**
      * Installs a new version of the address hierarchy entries

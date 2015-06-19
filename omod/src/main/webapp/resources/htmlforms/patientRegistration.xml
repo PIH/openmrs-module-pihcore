@@ -1,5 +1,7 @@
 <htmlform formUuid="43bcbb00-8790-11e4-b4a9-0800200c9a66" formName="Patient Registration" formEncounterType="873f968a-73a8-4f9c-ac78-9f4778b751b6" formVersion="1.0">
 
+    <!-- TODO are we still using this?? -->
+
     <script type="text/javascript">
 
         jq(function() {
