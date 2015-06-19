@@ -71,7 +71,7 @@
                         </div>
                         <div>
                             <h3><uimessage code="mirebalais.address.address1"/></h3>
-                            <obs class="level" conceptId="PIH:Address1" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
+                            <obs class="level" conceptId="PIH:Address1" id="placeOfBirth-address1" showUnits="false" unitsCssClass="append-to-value" size="20"/>
                         </div>
                         <div>
                             <h3><uimessage code="mirebalais.address.address2"/></h3>
