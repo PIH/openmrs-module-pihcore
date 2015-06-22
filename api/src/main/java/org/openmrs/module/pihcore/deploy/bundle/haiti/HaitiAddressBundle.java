@@ -13,7 +13,7 @@ public class HaitiAddressBundle extends AddressBundle {
 
     @Override
     public int getVersion() {
-        return 8;
+        return 9;
     }
 
     @Override
@@ -40,6 +40,6 @@ public class HaitiAddressBundle extends AddressBundle {
 
     @Override
     public String getAddressHierarchyEntryPath() {
-        return "addresshierarchy/haiti_address_hierarchy_entries_8.csv";
+        return "addresshierarchy/haiti_address_hierarchy_entries_9.csv";
     }
 }
