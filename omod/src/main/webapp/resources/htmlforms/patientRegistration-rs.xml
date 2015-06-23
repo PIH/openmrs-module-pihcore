@@ -46,7 +46,7 @@
                     <uimessage code="mirebalais.retrospectiveCheckin.location.label"/>
                 </h3>
                 <p class="left">
-                    <encounterLocation/>
+                    <encounterLocation id="encounterLocationField" />
                 </p>
             </div>
 
