@@ -3,7 +3,6 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.DeathConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.DiagnosisConcepts;
@@ -29,7 +28,7 @@ import org.springframework.stereotype.Component;
         VisitTypeBundle.class,
         VisitAttributeTypeBundle.class,
         AdministrativeConcepts.class,
-        AllergyConcepts.class,
+        //AllergyConcepts.class,  // we are now installing all allergy concepts via MDS package
         ClinicalConsultationConcepts.class,
         DeathConcepts.class,
         DiagnosisConcepts.class,

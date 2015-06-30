@@ -24,6 +24,10 @@ public class AllergyConcepts extends VersionedPihConceptBundle {
         public static final String ALLERGY_SEVERITY_SEVERE = "3cdefc92-26fe-102b-80cb-0017a47871b2";
     }
 
+    // ** WE ARE NO LONGER INSTALLING THIS BUNDLE, ALL CONCEPTS ARE INSTALLED VIA AN ALLERGIES MDS BUNDLE ** //
+    // ** NOTE THAT WE ARE STILL USING THE ABOVE UUIDS TO SET GLOBAL PROPERTIES, SO THE CONCEPTS IN THE BUNDLE ** //
+    // ** MUST HAVE UUIDS THAT MATCH THE ABOVE UUIDS ** //
+
     @Override
     public int getVersion() { return 2;  }
 
