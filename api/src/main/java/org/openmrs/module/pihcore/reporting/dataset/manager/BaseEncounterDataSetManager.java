@@ -186,7 +186,6 @@ public abstract class BaseEncounterDataSetManager {
 	protected void addPersonAttributeColumns(EncounterDataSetDefinition dsd) {
 		addColumn(dsd, "telephone_number", pihPersonData.getTelephoneNumber());
 		addColumn(dsd, "mothers_first_name", pihPersonData.getMothersFirstName());
-		addColumn(dsd, "birthplace", pihPersonData.getBirthplace());
 	}
 
 	/**

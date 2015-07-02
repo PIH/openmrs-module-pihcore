@@ -53,12 +53,6 @@ public class PihPersonDataLibrary extends BaseDefinitionLibrary<PersonDataDefini
         return convert(d, converters.getRawAttributeValue());
     }
 
-    public PersonDataDefinition getBirthplace() {
-        PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
-        d.setPersonAttributeType(Metadata.lookup(PersonAttributeTypes.BIRTHPLACE));
-        return convert(d, converters.getRawAttributeValue());
-    }
-
     @DocumentedDefinition
     public PersonDataDefinition getPreferredAddress() {
         return new PreferredAddressDataDefinition();

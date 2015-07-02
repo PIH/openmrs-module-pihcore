@@ -15,10 +15,13 @@
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.openmrs.EncounterType;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -29,6 +32,9 @@ import java.util.List;
  */
 @Component
 public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
+
+    @Autowired
+    Config config;
 
     @Override
     protected List<EncounterType> getEncounterTypes() {
@@ -42,11 +48,14 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
 
     @Override
     protected void addObsColumns(EncounterDataSetDefinition dsd) {
+        addObsColumn(dsd,"birthplace", SocioEconomicConcepts.Concepts.BIRTHPLACE, converters.getObsValueTextConverter());
         addObsColumn(dsd, "civil_status", SocioEconomicConcepts.Concepts.CIVIL_STATUS, converters.getObsValueCodedNameConverter());
         addObsColumn(dsd, "occupation", SocioEconomicConcepts.Concepts.MAIN_ACTIVITY, converters.getObsValueCodedNameConverter());
 
-        // TODO: Add in religion question here conditionally when appropriate
-
+        // Add in religion question here conditionally when appropriate
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            addObsColumn(dsd, "religion", SocioEconomicConcepts.Concepts.RELIGION, converters.getObsValueCodedNameConverter());
+        }
         // TODO: If we end up supporting 1+ contacts, will need to restructure this
 
         addObsColumn(dsd, "contact_person_name", SocioEconomicConcepts.Concepts.NAMES_AND_FIRSTNAMES_OF_CONTACT, converters.getObsValueTextConverter());

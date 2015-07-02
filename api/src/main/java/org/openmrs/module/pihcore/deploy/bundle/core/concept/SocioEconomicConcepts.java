@@ -33,6 +33,8 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
         public static final String TELEPHONE_NUMBER_OF_CONTACT = "276f8057-55a4-4b1c-8915-69ad090fcffb";
         public static final String ADDRESS_OF_CONTACT = "5190CC3E-83F0-4410-8660-B109086D9A5E";
         public static final String MARRIED = "3cee0aca-26fe-102b-80cb-0017a47871b2";
+        public static final String RELIGION = "162929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String BIRTHPLACE = "0b192340-3eb5-4597-8cea-d33c182fc79c";
     }
 
     @Override
@@ -113,7 +115,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
        // start place of birth
 
-        install(new ConceptBuilder("0b192340-3eb5-4597-8cea-d33c182fc79c")
+        install(new ConceptBuilder(Concepts.BIRTHPLACE)
                 .datatype(text)
                 .conceptClass(question)
                 .name("956ec9c0-07d4-102c-b5fa-0017a47871b2", "Birthplace", Locale.ENGLISH, null) // locale-preferred
@@ -714,7 +716,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(snomedCt, "276118004").build())
                 .build());
 
-        install(new ConceptBuilder("162929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+        install(new ConceptBuilder(Concepts.RELIGION)
                 .datatype(coded)
                 .conceptClass(question)
                 .name("1ad1706a-1400-428e-8b99-0d8b073e1a81", "Religion", Locale.ENGLISH, null) // locale-preferred
@@ -764,7 +766,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "TELEPHONE NUMBER OF CONTACT").build())
                 .build());
 
-        Concept addressOfContact = install(new ConceptBuilder("5190CC3E-83F0-4410-8660-B109086D9A5E")
+        Concept addressOfContact = install(new ConceptBuilder(Concepts.ADDRESS_OF_CONTACT)
                 .datatype(text)
                 .conceptClass(question)
                 .name("A7D167A-1B39-4DE9-8BE7-F3980FBE366F", "The address for the patient's contact", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
