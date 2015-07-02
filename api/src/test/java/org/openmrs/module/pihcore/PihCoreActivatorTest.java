@@ -1,11 +1,14 @@
 package org.openmrs.module.pihcore;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.emr.EmrActivator;
+import org.openmrs.module.addresshierarchy.AddressField;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -16,6 +19,7 @@ import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.scheduler.SchedulerService;
@@ -32,6 +36,7 @@ import java.util.Properties;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -100,6 +105,10 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
                 assertThat(gpValue, is("" + bundle.getVersion()));
             }
         }
+
+        // test the address hierarchy
+        verifyAddressHierarchyLevelsCreated();
+        verifyAddressHierarchyLoaded();
     }
 
     protected List<Class<? extends MetadataBundle>> getExpectedBundles(Class<? extends MetadataBundle> type) {
@@ -124,6 +133,35 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
         assertThat(closeStaleVisitsTask.getStarted(), is(true));
         assertThat(closeStaleVisitsTask.getStartOnStartup(), is(true));
         assertTrue(closeStaleVisitsTask.getSecondsUntilNextExecutionTime() <= 300);
+    }
+
+    private void verifyAddressHierarchyLevelsCreated() throws Exception {
+        AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
+
+        // assert that we now have six address hierarchy levels
+        assertEquals(new Integer(6), ahService.getAddressHierarchyLevelsCount());
+
+        // make sure they are mapped correctly
+        List<AddressHierarchyLevel> levels = ahService.getOrderedAddressHierarchyLevels(true);
+        assertEquals(AddressField.COUNTRY, levels.get(0).getAddressField());
+        assertEquals(AddressField.STATE_PROVINCE, levels.get(1).getAddressField());
+        assertEquals(AddressField.CITY_VILLAGE, levels.get(2).getAddressField());
+        assertEquals(AddressField.ADDRESS_3, levels.get(3).getAddressField());
+        assertEquals(AddressField.ADDRESS_1, levels.get(4).getAddressField());
+        assertEquals(AddressField.ADDRESS_2, levels.get(5).getAddressField());
+
+    }
+
+    private void verifyAddressHierarchyLoaded() throws Exception {
+        AddressHierarchyService ahService = Context.getService(AddressHierarchyService.class);
+
+        // we should now have 26000+ address hierarchy entries
+        Assert.assertTrue(ahService.getAddressHierarchyEntryCount() > 26000);
+
+        assertEquals(2, ahService.getAddressHierarchyEntriesAtTopLevel().size());
+        assertEquals("Yon lot peyi", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
+        assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(1).getName());
+        assertEquals("9", Context.getAdministrationService().getGlobalProperty("metadatadeploy.bundle.version." + HaitiAddressBundle.class.getName()));
     }
 
 }
