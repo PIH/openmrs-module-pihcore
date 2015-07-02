@@ -85,7 +85,6 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
         pb.male();
         pb.personAttribute(Metadata.lookup(PersonAttributeTypes.TELEPHONE_NUMBER), "555-1234");
         pb.personAttribute(Metadata.lookup(PersonAttributeTypes.UNKNOWN_PATIENT), "false");
-        pb.personAttribute(Metadata.lookup(PersonAttributeTypes.BIRTHPLACE), "Wichita");
         pb.personAttribute(Metadata.lookup(PersonAttributeTypes.MOTHERS_FIRST_NAME), "Isabel");
         address(pb, haitiAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
         pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
@@ -101,6 +100,7 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
 
         // TODO: Add More Obs to test
         eb.obs(Metadata.getConcept(SocioEconomicConcepts.Concepts.CIVIL_STATUS), Metadata.getConcept(SocioEconomicConcepts.Concepts.MARRIED));
+        eb.obs(Metadata.getConcept(SocioEconomicConcepts.Concepts.BIRTHPLACE), "Wichita");
         return eb.save();
     }
 
