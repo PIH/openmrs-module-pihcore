@@ -26,8 +26,7 @@
             <variant locale="fr" value="Service / Equipe"/>
         </code>
         <code name="other">
-            <variant locale="en" value="***** Needs Translation *****"/>
-            <!-- Use message.properties for this -->
+            <variant locale="en" value="***** Needs Translation *****"/>  <!-- Use message.properties for this -->
             <variant locale="fr" value="autre"/>
         </code>
         <code name="lab">
@@ -51,8 +50,8 @@
             <variant locale="fr" value="Prestataire médical.  (demandé)"/>
         </code>
         <code name="date">
-            <variant locale="en" value="Date of surgery"/>
-            <variant locale="fr" value="Date d'opération"/>
+            <variant locale="en" value="Date of Visit"/>
+            <variant locale="fr" value="Date de Visite"/>
         </code>
         <code name="created_on">
             <variant locale="en" value="Created On"/>
@@ -102,6 +101,132 @@
             <variant locale="en" value="If yes, describe current treatment, including where it is being administered:"/>
             <variant locale="fr" value="Si oui, **** Needs Translation ****"/>
         </code>
+        <code name="goals_of_care">
+            <variant locale="en" value="Goals of Care"/>
+            <variant locale="fr" value="Intention de la Thérapie"/>
+        </code>
+        <code name="hematology">
+            <variant locale="en" value="Hematology"/>
+            <variant locale="fr" value="Hématologie"/>
+        </code>
+        <code name="hemoglobin">
+            <variant locale="en" value="Hb (g/dl)"/>
+            <variant locale="fr" value="Hb (g/dl)"/>
+        </code>
+        <code name="hematocrit">
+            <variant locale="en" value="HCT (%)"/>
+            <variant locale="fr" value="HCT (%)"/>
+        </code>
+        <code name="wbc">
+            <variant locale="en" value="WBC (mnm10**9/ml)"/>
+            <variant locale="fr" value="WBC (mnm10**9/ml)"/>
+        </code>
+        <code name="neutrophil_count">
+            <variant locale="en" value="ANC"/>
+            <variant locale="fr" value="ANC"/>
+        </code>
+        <code name="neutrophil_percent">
+            <variant locale="en" value="ANC %"/>
+            <variant locale="fr" value="ANC %"/>
+        </code>
+        <code name="lymphocyte_count">
+            <variant locale="en" value="Lympho (nx10**9/ml)"/>
+            <variant locale="fr" value="Lympho (nx10**9/ml)"/>
+        </code>
+        <code name="lymphocyte_percent">
+            <variant locale="en" value="Lymph %"/>
+            <variant locale="fr" value="Lymph %"/>
+        </code>
+        <code name="platelets">
+            <variant locale="en" value="Platelets (nx10**9/ml)"/>
+            <variant locale="fr" value="Platelets (nx10**9/ml)"/>
+        </code>
+        <code name="esr">
+            <variant locale="en" value="ESR"/>
+            <variant locale="fr" value="ESR"/>
+        </code>
+        <code name="site_of_care">
+            <variant locale="en" value="Site of Care"/>
+            <variant locale="fr" value="Lieu"/>
+        </code>
+        <code name="recommendations">
+            <variant locale="en" value="Recommendations"/>
+            <variant locale="fr" value="Recommandations"/>
+        </code>
+        <code name="treatment_outcomes">
+            <variant locale="en" value="Treatment and Outcomes"/>
+            <variant locale="fr" value="Traitement et Résultats"/>
+        </code>
+        <code name="rec_chemo">
+            <variant locale="en" value="Chemotherapy"/>
+            <variant locale="fr" value="Chimiothérapie"/>
+        </code>
+        <code name="rec_surgery">
+            <variant locale="en" value="Surgery"/>
+            <variant locale="fr" value="Opération"/>
+        </code>
+        <code name="rec_endocrine_therapy">
+            <variant locale="en" value="Endocrine therapy"/>
+            <variant locale="fr" value="Endocrine therapy**"/>
+        </code>
+        <code name="rec_followup">
+            <variant locale="en" value="Follow-up"/>
+            <variant locale="fr" value="Suivre"/>
+        </code>
+        <code name="disease_status">
+            <variant locale="en" value="Disease Status"/>
+            <variant locale="fr" value="L'état de la maladie"/>
+        </code>
+        <code name="patient_plan">
+            <variant locale="en" value="Patient Plan"/>
+            <variant locale="fr" value="Régime des patients"/>
+        </code>
+        <code name="next_visit">
+            <variant locale="en" value="Patient Next Scheduled Visit"/>
+            <variant locale="fr" value="Date de retour de visite"/>
+        </code>
+        <code name="patient_plan_details">
+            <variant locale="en" value="Patient Plan Details"/>
+            <variant locale="fr" value="Détails du plan"/>
+        </code>
+        <code name="chemotherapy_protocol">
+            <variant locale="en" value="Chemotherapy Protocol"/>
+            <variant locale="fr" value="Protocole de chimiothérapie"/>
+        </code>
+        <code name="chemo_cycle_number">
+            <variant locale="en" value="Cycle Number"/>
+            <variant locale="fr" value="Nombre de cycles"/>
+        </code>
+        <code name="reason_no_chemo">
+            <variant locale="en" value="If the patient didn't receive chemotherapy at visit today, as planned, why not?"/>
+            <variant locale="fr" value="If the patient didn't receive chemotherapy at visit today, as planned, why not?**"/>
+        </code>
+        <code name="chemo_side_effects">
+            <variant locale="en" value="Chemotherapy side effects"/>
+            <variant locale="fr" value="Chemotherapy side effects**"/>
+        </code>
+        <code name="pain">
+            <variant locale="en" value="Pain"/>
+            <variant locale="fr" value="Douleur"/>
+        </code>
+        <code name="pain_details">
+            <variant locale="en" value="Pain Details"/>
+            <variant locale="fr" value="Douleur Détails"/>
+        </code>
+        <code name="special_considerations">
+            <variant locale="en" value="Patient History Special Considerations"/>
+            <variant locale="fr" value="Les antécédents du patient Considérations particulières"/>
+        </code>
+        <code name="important_visit_info">
+            <variant locale="en" value="Important Visit Information"/>
+            <variant locale="fr" value="Important Visit Information**"/>
+        </code>
+        <code name="special_tests">
+            <variant locale="en" value="Special Tests"/>
+            <variant locale="fr" value="Special Tests"/>
+        </code>
+
+
 
     </translations>
 
@@ -134,7 +259,7 @@
         .print-form-datestamps { display: block !important }
         button.cancel, button.submit { display: none }
         label { font-weight: bold }
-        label[for] { font-weight: normal } /* refers to the radio set label */
+        label[for] { font-weight: normal }   /* refers to the radio set label */
         }
     </style>
 
@@ -143,12 +268,12 @@
         jq(function() {
 
         // make text areas expand based on content (this allows us to avoid scrollbars and thereby facilitate printing)
-        jq('#oncology-consult-note').on( 'keyup', 'textarea', function (){
+        jq('#post-op-surgical-note').on( 'keyup', 'textarea', function (){
         jq(this).height( 0 );
         jq(this).height( this.scrollHeight );
         });
 
-        jq('#oncology-consult-note').find( 'textarea' ).keyup();
+        jq('#post-op-surgical-note').find( 'textarea' ).keyup();
 
         });
 
@@ -156,113 +281,81 @@
 
 
     <ifMode mode="VIEW" include="false">
-        <h2>
-            <label>
-                <uimessage code="oncology_consult"/>
-            </label>
-        </h2>
+        <h2><label><uimessage code="oncology_consult"/></label></h2>
     </ifMode>
 
     <div class="print-form-datestamps" style="display:none">
-        <p><uimessage code="created_on"/>:
-            <lookup complexExpression="$form.dateCreated"/>
-        </p>
-        <p><uimessage code="last_updated_on"/>:
-            <lookup complexExpression="$form.dateChanged"/>
-        </p>
-        <p><uimessage code="printed_on"/>:
-            <lookup complexExpression="$formGeneratedDatetime"/>
-        </p>
+        <p><uimessage code="created_on"/>: <lookup complexExpression="$form.dateCreated"/></p>
+        <p><uimessage code="last_updated_on"/>: <lookup complexExpression="$form.dateChanged"/></p>
+        <p><uimessage code="printed_on"/>: <lookup complexExpression="$formGeneratedDatetime"/></p>
     </div>
+
 
 
     <section id="service-team" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="service_team">
 
         <p>
-            <label>
-                <uimessage code="date"/>
-            </label>
-            <encounterDate id="encounterDate" default="now"/>
+            <label><uimessage code="date"/></label>
+            <encounterDate id="encounterDate" default="now" />
         </p>
         <p>
-            <label>
-                <uimessage code="provider"/>
-            </label>
-            <encounterProvider role="Provider" required="true"/>
+            <label><uimessage code="provider"/></label>
+            <encounterProviderAndRole encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                      required="true"/>
         </p>
 
     </section>
 
     <section id="site-of-care" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="site_of_care">
         <p>
-            <label>
-                <uimessage code="location"/>
-            </label>
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+            <label><uimessage code="location"/></label>
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId" />
         </p>
     </section>
 
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
         <p>
-            <label>
-                <uimessage code="cancer_staging"/>
-            </label>
-            <obs conceptId="CIEL:160786"
-                 answerConceptIds="CIEL:160769,CIEL:160771,CIEL:160770,CIEL:160772,CIEL:160773,CIEL:160774,CIEL:160775,CIEL:160776,CIEL:160777,CIEL:160778,CIEL:160779,CIEL:160780,CIEL:160781,CIEL:160782,CIEL:160783,CIEL:160784,CIEL:160785"/>
+            <label><uimessage code="cancer_staging"/></label>
+            <obs conceptId="CIEL:160786" answerConceptIds="CIEL:160769,CIEL:160771,CIEL:160770,CIEL:160772,CIEL:160773,CIEL:160774,CIEL:160775,CIEL:160776,CIEL:160777,CIEL:160778,CIEL:160779,CIEL:160780,CIEL:160781,CIEL:160782,CIEL:160783,CIEL:160784,CIEL:160785"/>
         </p>
     </section>
 
     <section id="hpi" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="hpi">
         <p>
-            <label>
-                <uimessage code="hpi"/>
-            </label>
-            <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" rows="3" cols="80"/>
+            <label><uimessage code="hpi"/></label>
+            <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" rows="3" cols="80" />
         </p>
     </section>
 
     <section id="physical-exam" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="physical_exam">
         <p>
-            <label>
-                <uimessage code="ecog_perf_status"/>
-            </label>
-            <obs conceptId="CIEL:160379"/>
+            <label><uimessage code="ecog_perf_status"/></label>
+            <obs conceptId="CIEL:160379" />
             <br/>
-            <label>
-                <uimessage code="pe_exam_findings"/>
-            </label>
-            <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" labelText="Notable Exam Findings:" style="textarea" rows="3"
-                 cols="80"/>
+            <label><uimessage code="pe_exam_findings"/></label>
+            <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" style="textarea" rows="3" cols="80"/>
         </p>
     </section>
 
     <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
         <p class="radio">
-            <label>
-                <uimessage code="prev_treatment"/>
-            </label>
+            <label><uimessage code="prev_treatment"/></label>
             <obs id="prev_treatment" conceptId="CIEL:162964" style="radio"
                  answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                  answerSeparator=""/>
         </p>
         <p>
-            <label>
-                <uimessage code="prev_treatment_comment"/>
-            </label>
+            <label><uimessage code="prev_treatment_comment"/></label>
             <obs conceptId="CIEL:162965" style="textarea" rows="3" cols="80"/>
         </p>
         <p class="radio">
-            <label>
-                <uimessage code="current_treatment"/>
-            </label>
+            <label><uimessage code="current_treatment"/></label>
             <obs id="current_treatment" conceptId="CIEL:162966" style="radio"
                  answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                  answerSeparator=""/>
         </p>
         <p>
-            <label>
-                <uimessage code="current_treatment_comment"/>
-            </label>
+            <label><uimessage code="current_treatment_comment"/></label>
             <obs conceptId="CIEL:162967" style="textarea" rows="3" cols="80"/>
         </p>
     </section>
@@ -275,70 +368,217 @@
     </section>
     <section id="blood-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="blood-tests">
         <p>
-            <label>
-                <uimessage code="blood_tests"/>
-            </label>
+            <label><uimessage code="blood_tests"/></label>
             <table class="muted-header">
                 <tr>
-                    <td>
-                        Header row
-                    </td>
-                    <td>
-                        Header row2
-                    </td>
+                    <td><uimessage code="hematology"/></td>
+                    <td><uimessage code="hemoglobin"/></td>
+                    <td><uimessage code="hematocrit"/></td>
+                    <td><uimessage code="wbc"/></td>
+                    <td><uimessage code="neutrophil_count"/></td>
+                    <td><uimessage code="neutrophil_percent"/></td>
+                    <td><uimessage code="lymphocyte_count"/></td>
+                    <td><uimessage code="lymphocyte_percent"/></td>
+                    <td><uimessage code="platelets"/></td>
+                    <td><uimessage code="esr"/></td>
                 </tr>
                 <tr>
                     <obsgroup groupingConceptId="PIH:RWANDA HEMATOLOGY SET">
                         <td>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="Hematology"/>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST" />
                         </td>
                         <td>
-                            <obs conceptId="PIH:HEMOGLOBIN" labelText="Hb:" showUnits="true"/>
-                            <obs conceptId="PIH:HEMATOCRIT" labelText="Hct:" showUnits="true"/>
-                            <obs conceptId="PIH:WHITE BLOOD CELLS" labelText="WBC:" showUnits="true"/>
-                            <obs conceptId="PIH:Absolute Neutrophil Count" labelText="ANC:" showUnits="true"/>
-                            <obs conceptId="PIH:NEUTROPHILS" labelText="ANC%" showUnits="true"/>
-                            <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" labelText="Lympho:" showUnits="true"/>
-                            <obs conceptId="PIH:LYMPHOCYTES" labelText="Lymph%:" showUnits="true"/>
-                            <obs conceptId="PIH:PLATELETS" labelText="Platelets:" showUnits="true"/>
-                            <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" labelText="ESR:" showUnits="true"/>
-                            (**NOT in Rwanda Hematology Set**)
+                            <obs conceptId="PIH:HEMOGLOBIN" labelText="Hb:" showUnits="true" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:HEMATOCRIT" labelText="Hct:" showUnits="true" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:WHITE BLOOD CELLS" labelText="WBC:" showUnits="true" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:Absolute Neutrophil Count" labelText="ANC:" showUnits="true" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:NEUTROPHILS" labelText="ANC%" showUnits="true" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" labelText="Lympho:" showUnits="true" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:LYMPHOCYTES" labelText="Lymph%:" showUnits="true" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:PLATELETS" labelText="Platelets:" showUnits="true" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" labelText="ESR:" showUnits="true" /> <!-- (**NOT in Rwanda Hematology Set**) -->
                         </td>
                     </obsgroup>
                 </tr>
+            </table>
+            <br/><br/>
+            <table class="muted-header">
                 <tr>
                     <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
                         <td>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="Biochemistry"/>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="Biochemistry" />
                         </td>
                         <td>
-                            <obs conceptId="PIH:SERUM CREATININE" labelText="Cr:" showUnits="true"/>
-                            <obs conceptId="PIH:TOTAL BILIRUBIN" labelText="Tbili:" showUnits="true"/>
-                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" labelText="SGOT:"
-                                 showUnits="true"/>
-                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" labelText="SGPT:"
-                                 showUnits="true"/>
-                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" labelText="Alk Phos:" showUnits="true"/>
-                            (**Not currently in Biochemistry Results set**)
+                            <obs conceptId="PIH:SERUM CREATININE" labelText="Cr:" showUnits="true" />
+                            <obs conceptId="PIH:TOTAL BILIRUBIN" labelText="Tbili:" showUnits="true" />
+                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" labelText="SGOT:" showUnits="true" />
+                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" labelText="SGPT:" showUnits="true"/>
+                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" labelText="Alk Phos:" showUnits="true" /> <!-- (**Not currently in Biochemistry Results set**) -->
                         </td>
                     </obsgroup>
                 </tr>
+            </table>
+            <br/><br/>
+            <table class="muted-header">
+                <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
+                    <tr>
+                        <td>
+                            Date of Test
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="Biochemistry" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Cr:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:SERUM CREATININE" labelText="Cr:" showUnits="true" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tbili:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:TOTAL BILIRUBIN" labelText="Tbili:" showUnits="true" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            SGOT:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" labelText="SGOT:" showUnits="true" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            SGPT:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" labelText="SGPT:" showUnits="true"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Alk Phos:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" labelText="Alk Phos:" showUnits="true" /> <!-- (**Not currently in Biochemistry Results set**) -->
+                        </td>
+                    </tr>
+                </obsgroup>
+            </table>
+            <br/><br/>
+            <table class="muted-header">
+                <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
+                    <tr>
+                        <td>Biochemistry</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Date of Test
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST" />
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Cr:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:SERUM CREATININE" showUnits="false" />
+                        </td>
+                        <td>
+                            mmol/L
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Tbili:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:TOTAL BILIRUBIN" showUnits="false" />
+                        </td>
+                        <td>
+                            mg/dl
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            SGOT:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="false" />
+                        </td>
+                        <td>
+                            U/L
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            SGPT:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="false"/>
+                        </td>
+                        <td>
+                            U/L
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Alk Phos:
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="false" /> <!-- (**Not currently in Biochemistry Results set**) -->
+                        </td>
+                        <td>
+                            U/L
+                        </td>
+                    </tr>
+                </obsgroup>
+            </table>
+            <br/><br/>
+            <table class="muted-header">
                 <tr>
                     <obsgroup groupingConceptId="PIH:ISTAT CHEM8 PLUS CONSTRUCT">
                         <td>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="iSTAT"/>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="iSTAT" />
                         </td>
                         <td>
-                            <obs conceptId="PIH:SERUM SODIUM" labelText="Na:"/>
-                            <obs conceptId="PIH:SERUM POTASSIUM" labelText="K:"/>
-                            <obs conceptId="PIH:SERUM CHLORIDE" labelText="Cl:"/>
-                            <obs conceptId="PIH:SERUM CARBON DIOXIDE" labelText="CO2:"/>
-                            <obs conceptId="PIH:BLOOD UREA NITROGEN" labelText="BUN:"/>
-                            <obs conceptId="PIH:SERUM CREATININE" labelText="Creatinine:"/>
-                            <obs conceptId="PIH:SERUM GLUCOSE" labelText="Glucose:"/>
-                            <obs conceptId="PIH:LACTATE DEHYDROGENASE" labelText="LDH:"/>
-                            (**Not currently part of any set**)
-                            <obs conceptId="PIH:SERUM CALCIUM" labelText="Ca:"/>
+                            <obs conceptId="PIH:SERUM SODIUM" labelText="Na:" />
+                            <obs conceptId="PIH:SERUM POTASSIUM" labelText="K:" />
+                            <obs conceptId="PIH:SERUM CHLORIDE" labelText="Cl:" />
+                            <obs conceptId="PIH:SERUM CARBON DIOXIDE" labelText="CO2:" />
+                            <obs conceptId="PIH:BLOOD UREA NITROGEN" labelText="BUN:" />
+                            <obs conceptId="PIH:SERUM CREATININE" labelText="Creatinine:" />
+                            <obs conceptId="PIH:SERUM GLUCOSE" labelText="Glucose:" />
+                            <obs conceptId="PIH:LACTATE DEHYDROGENASE" labelText="LDH:" /> <!-- (**Not currently part of any set**) -->
+                            <obs conceptId="PIH:SERUM CALCIUM" labelText="Ca:" />
                         </td>
                     </obsgroup>
                 </tr>
@@ -346,19 +586,134 @@
         </p>
     </section>
 
-    <section id="imaging" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="imaging">
+    <section id="special-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="special_tests">
         <p>
-            <label>
-                <uimessage code="other"/>
-            </label>
+            <table class="muted-header">
+                <!-- This Special Test section will need reworking once the concepts have been added -->
+                <tr>
+                    <td>Test</td>
+                    <td>Site of Sample </td>
+                    <td>Planned</td>
+                    <td>Sent</td>
+                    <td>Reported</td>
+                    <td>Unable to obtain</td>
+                    <td>Location</td>
+                </tr>
+                <tr>
+                    <td>Bone Marrow Aspirate</td>
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox" />  </td>
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                </tr>
+                <tr>
+                    <td>Biopsy</td>
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox" />  </td>
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                </tr>
+                <tr>
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox" />  </td>
+                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                </tr>
+            </table>
         </p>
     </section>
 
-    <section id="special-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="special_tests">
+
+
+    <section id="recommendations" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="recommendations">
         <p>
-            <label>
-                <uimessage code="other"/>
-            </label>
+            <table class="muted-header">
+                <tr>
+                    <td>
+                        <label><uimessage code="rec_surgery"/></label>
+                    </td>
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><uimessage code="rec_chemo"/></label>
+                    </td>
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><uimessage code="rec_endocrine_therapy"/></label>
+                    </td>
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label><uimessage code="rec_followup"/></label>
+                    </td>
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+                    </td>
+                </tr>
+            </table>
+        </p>
+    </section>
+
+    <section id="treatment_outcomes" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment_outcomes">
+        <p>
+            <label><uimessage code="disease_status"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** --> Remission, Stable not improving, grossly improving, local recurrence, grossly worsening progressive, recurrence - metastatic, unknown, cannot assess - no show, other
+            <br/>
+            <label><uimessage code="patient_plan"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** --> Continue current chemotherapy protocol, chemotherapy break, follow-up with oncologist prior to continuing chemotherapy, other
+            <br/>
+            <label><uimessage code="next_visit"/></label>
+            <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
+            <br/>
+            <label><uimessage code="patient_plan_details"/></label>
+            <obs conceptId="PIH:PATIENT PLAN COMMENTS" />
+            <br/>
+            <label><uimessage code="chemotherapy_protocol"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <br/>
+            <label><uimessage code="chemo_cycle_number"/></label>
+            <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER" />
+            <br/>
+            <label><uimessage code="reason_no_chemo"/></label>
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Patient too ill for chemotherapy" /> <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Chemotherapy side effect" /> <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Lab abnormalities" /> <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Vital sign abnormalities" /> <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Unknown" /> <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Other:" /> <!-- **Needs Concept Update** -->
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <br/>
+            <label><uimessage code="chemo_side_effects"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <br/>
+            <label><uimessage code="pain"/></label>
+            <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
+            <br/>
+            <label><uimessage code="pain_details"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <br/>
+            <label><uimessage code="special_considerations"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <br/>
+            <label><uimessage code="important_visit_info"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
         </p>
     </section>
 
@@ -366,27 +721,11 @@
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
             <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel">
-                <uimessage code="emr.cancel"/>
-            </button>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
         </div>
     </ifMode>
 
     <!-- super hack to give our expandable text area space to expand into without causing scrolling/jumping issues -->
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <br/><br/><br/><br/><br/> <br/><br/><br/><br/><br/> <br/><br/><br/><br/><br/>
 
 </htmlform>
