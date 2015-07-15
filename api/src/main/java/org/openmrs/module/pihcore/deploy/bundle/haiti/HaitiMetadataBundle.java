@@ -120,7 +120,7 @@ public class HaitiMetadataBundle extends PihMetadataBundle {
 		properties.put(PatientRegistrationGlobalProperties.RECEIPT_NUMBER_CONCEPT, "PIH: Receipt number|en:Receipt Number|ht:Nimewo Resi a");
 		properties.put(PatientRegistrationGlobalProperties.PAYMENT_AMOUNT_CONCEPT, "PIH: Payment amount|en:Payment amount|ht:Kantite lajan");
 		properties.put(PatientRegistrationGlobalProperties.VISIT_REASON_CONCEPT, "PIH: Type of HUM visit|en:Visit reason|ht:Tip de Vizit");
-		properties.put(PatientRegistrationGlobalProperties.ICD10_CONCEPT_SOURCE, "ICD10");
+		properties.put(PatientRegistrationGlobalProperties.ICD10_CONCEPT_SOURCE, "ICD-10");  // probably not being used except in Lacolline
 
         setGlobalProperties(properties);
 	}
