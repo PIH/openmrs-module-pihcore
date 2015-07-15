@@ -53,7 +53,8 @@ public class HtmlFormSetup {
                             "pihcore:htmlforms/checkin.xml",
                             "pihcore:htmlforms/liveCheckin.xml",
                             "pihcore:htmlforms/haiti/patientRegistration-contact.xml",
-                            "pihcore:htmlforms/haiti/patientRegistration-social.xml"
+                            "pihcore:htmlforms/haiti/patientRegistration-social.xml",
+                            "pihcore:htmlforms/oncologyConsult.xml"
                     );
                 }
                 else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
