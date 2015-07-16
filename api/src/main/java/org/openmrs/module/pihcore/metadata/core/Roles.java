@@ -161,6 +161,7 @@ public class Roles {
                     Privileges.APP_EMR_CHECK_IN,
                     Privileges.TASK_EMR_CHECK_IN,
                     Privileges.TASK_EMR_PRINT_LABELS,
+                    Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_ZL_MPI
             );}
@@ -184,6 +185,7 @@ public class Roles {
                     Privileges.APP_EMR_CHECK_IN,
                     Privileges.TASK_EMR_CHECK_IN,
                     Privileges.TASK_EMR_PRINT_LABELS,
+                    Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_ZL_MPI
             );}
@@ -602,6 +604,7 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
                     Privileges.TASK_EMR_ENTER_VITALS_NOTE,
                     Privileges.TASK_EMR_PRINT_LABELS,
+                    Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY,
                     Privileges.TASK_EMR_DEATH_CERTIFICATE_FORM,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
@@ -638,6 +641,7 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
                     Privileges.TASK_EMR_ENTER_VITALS_NOTE,
                     Privileges.TASK_EMR_PRINT_LABELS,
+                    Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_EMR_RETRO_CLINICAL_NOTE,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
@@ -672,6 +676,7 @@ public class Roles {
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.TASK_COREAPPS_CREATE_VISIT,
                     Privileges.TASK_EMR_PRINT_LABELS,
+                    Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
