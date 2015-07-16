@@ -25,6 +25,7 @@ import org.openmrs.module.reporting.data.converter.DataSetRowConverter;
 import org.openmrs.module.reporting.data.converter.ListConverter;
 import org.openmrs.module.reporting.data.converter.NullValueConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
+import org.openmrs.module.reporting.data.converter.ObsFromObsGroupConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,6 +114,10 @@ public class DataConverterLibrary {
         converter.addConverter(new CollectionConverter(getObsValueCodedConverter(), false, null));
         converter.addConverter(new CollectionElementConverter(valueCoded, true, false));
         return converter;
+    }
+
+    public DataConverter getObsFromObsGroupConverter(Concept concept) {
+        return new ObsFromObsGroupConverter(concept);
     }
 
     // Program Enrollments

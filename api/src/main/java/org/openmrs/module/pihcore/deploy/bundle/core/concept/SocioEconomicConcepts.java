@@ -35,7 +35,15 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
         public static final String MARRIED = "3cee0aca-26fe-102b-80cb-0017a47871b2";
         public static final String RELIGION = "162929AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String BIRTHPLACE = "0b192340-3eb5-4597-8cea-d33c182fc79c";
+        public static final String BIRTHPLACE_ADDRESS_CONSTRUCT = "43f20178-4aa3-43e8-99c1-a67b12994cc8";
+        public static final String COUNTRY = "b9cf87e0-bf63-43cd-888d-a907d8af47a1";
+        public static final String STATE_PROVINCE = "717f4cff-a44d-49b4-9a74-0bc2ae466870";
+        public static final String CITY_VILLAGE = "d3dad53c-9d33-476d-9997-b91d39831104";
+        public static final String ADDRESS_1 = "f2715dfe-dbf7-4baf-80e6-07f6af0f16a9";
+        public static final String ADDRESS_2 = "1cdbfb42-3d46-4201-b355-f94adece8a5a";
+        public static final String ADDRESS_3 = "8203294b-e1ff-4b3e-89de-e0b8fa5e2928";
     }
+
 
     @Override
     protected void installNewVersion() throws Exception {
@@ -45,7 +53,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
         // start address fields
 
-        Concept country = install(new ConceptBuilder("b9cf87e0-bf63-43cd-888d-a907d8af47a1")
+        Concept country = install(new ConceptBuilder(Concepts.COUNTRY)
                 .datatype(text)
                 .conceptClass(question)
                 .name("5619bbf9-a49b-4fb4-a70b-ee2304d981a3", "Country concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -56,7 +64,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "10382").build())
                 .build());
 
-        Concept stateProvince = install(new ConceptBuilder("717f4cff-a44d-49b4-9a74-0bc2ae466870")
+        Concept stateProvince = install(new ConceptBuilder(Concepts.STATE_PROVINCE)
                 .datatype(text)
                 .conceptClass(question)
                 .name("a4eacc94-69c4-4a75-901a-0108a1a69db7", "State Province concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -67,7 +75,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "10384").build())
                 .build());
 
-        Concept cityVillage = install(new ConceptBuilder("d3dad53c-9d33-476d-9997-b91d39831104")
+        Concept cityVillage = install(new ConceptBuilder(Concepts.CITY_VILLAGE)
                 .datatype(text)
                 .conceptClass(question)
                 .name("ad2d1756-b011-4a14-a0ee-039ccb7362f5", "City Village concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -78,7 +86,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "City Village").build())
                 .build());
 
-        Concept address3 = install(new ConceptBuilder("8203294b-e1ff-4b3e-89de-e0b8fa5e2928")
+        Concept address3 = install(new ConceptBuilder(Concepts.ADDRESS_3)
                 .datatype(text)
                 .conceptClass(question)
                 .name("c343b137-2521-46f4-bb12-4f39c0451ac7", "Address3 concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -89,7 +97,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Address3").build())
                 .build());
 
-        Concept address2 = install(new ConceptBuilder("1cdbfb42-3d46-4201-b355-f94adece8a5a")
+        Concept address2 = install(new ConceptBuilder(Concepts.ADDRESS_2)
                 .datatype(text)
                 .conceptClass(question)
                 .name("86a028ff-c879-4efd-a239-079cbd11cf59", "Address2 concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -100,7 +108,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "10380").build())
                 .build());
 
-        Concept address1 = install(new ConceptBuilder("f2715dfe-dbf7-4baf-80e6-07f6af0f16a9")
+        Concept address1 = install(new ConceptBuilder(Concepts.ADDRESS_1)
                 .datatype(text)
                 .conceptClass(question)
                 .name("f9f05252-0128-4d17-b191-f1aaf0415700", "Address1 concept", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -129,7 +137,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "2997").build())
                 .build());
 
-        install(new ConceptBuilder("43f20178-4aa3-43e8-99c1-a67b12994cc8")
+        install(new ConceptBuilder(Concepts.BIRTHPLACE_ADDRESS_CONSTRUCT)
                 .datatype(notApplicable)
                 .conceptClass(convSet)
                 .name("b417be57-726c-4ef5-854d-7eaf2ec9f836", "Birthplace address construct", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -775,7 +783,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "ADDRESS OF PATIENT CONTACT").build())
                 .build());
 
-        install(new ConceptBuilder("3cd9936a-26fe-102b-80cb-0017a47871b2")
+        install(new ConceptBuilder(Concepts.PATIENT_CONTACTS_CONSTRUCT)
                 .datatype(notApplicable)
                 .conceptClass(convSet)
                 .name("640cbd4d-d2d2-4ccb-9fe6-a76698ba324a", "Questions on contacts of the patient", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
