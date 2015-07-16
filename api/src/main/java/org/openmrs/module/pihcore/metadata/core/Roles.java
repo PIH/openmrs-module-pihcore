@@ -160,6 +160,8 @@ public class Roles {
                     Privileges.APP_LEGACY_PATIENT_REGISTRATION_EDIT,
                     Privileges.APP_EMR_CHECK_IN,
                     Privileges.TASK_EMR_CHECK_IN,
+                    Privileges.TASK_EMR_PRINT_LABELS,
+                    Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_ZL_MPI
             );}
     };
@@ -181,6 +183,8 @@ public class Roles {
                     Privileges.APP_LEGACY_PATIENT_REGISTRATION_EDIT,
                     Privileges.APP_EMR_CHECK_IN,
                     Privileges.TASK_EMR_CHECK_IN,
+                    Privileges.TASK_EMR_PRINT_LABELS,
+                    Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_ZL_MPI
             );}
     };
