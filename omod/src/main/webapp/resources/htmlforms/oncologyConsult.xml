@@ -13,6 +13,7 @@
   -->
 
 <htmlform id="oncology-consult-note" class="simple-form-ui" formUuid="28b76a20-105d-11e5-b939-0800200c9a66"
+          htmlformUuid="2a13edbf-4e17-4d9d-9bf8-da10faad5fc5"
           formName="Oncology Consult Note"
           formEncounterType="035fb8da-226a-420b-8d8b-3904f3bedb25" formVersion="0.1">
 
