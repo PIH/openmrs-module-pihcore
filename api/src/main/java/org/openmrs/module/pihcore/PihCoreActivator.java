@@ -58,7 +58,6 @@ public class PihCoreActivator extends BaseModuleActivator {
             MergeActionsSetup.registerMergeActions();
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
-            HtmlFormSetup.setupHtmlForms(config);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
         }
         catch (Exception e) {
