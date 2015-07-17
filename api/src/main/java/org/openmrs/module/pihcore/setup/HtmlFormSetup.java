@@ -46,15 +46,15 @@ public class HtmlFormSetup {
                             "pihcore:htmlforms/dischargeNote.xml",
                             "pihcore:htmlforms/outpatientConsult.xml",
                             "pihcore:htmlforms/edNote.xml",
-                            "pihcore:htmlforms/deathCertificate.xml",
+                          //  "pihcore:htmlforms/deathCertificate.xml",
                             "pihcore:htmlforms/haiti/primary-care-adult-history.xml",
                             "pihcore:htmlforms/haiti/primary-care-adult-exam.xml",
                             "pihcore:htmlforms/haiti/primary-care-adult-dx.xml",
                             "pihcore:htmlforms/checkin.xml",
                             "pihcore:htmlforms/liveCheckin.xml",
                             "pihcore:htmlforms/haiti/patientRegistration-contact.xml",
-                            "pihcore:htmlforms/haiti/patientRegistration-social.xml",
-                            "pihcore:htmlforms/oncologyConsult.xml"
+                            "pihcore:htmlforms/haiti/patientRegistration-social.xml"//,
+                           // "pihcore:htmlforms/oncologyConsult.xml"
                     );
                 }
                 else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
