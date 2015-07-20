@@ -30,6 +30,8 @@ public class MockConcepts extends VersionedPihConceptBundle {
     protected void installNewVersion() throws Exception {
         install(question("Reason for visit", coded, pih, "REASON FOR VISIT"));
         install(answer("Malnutrition program", pih, "MALNUTRITION PROGRAM"));
+
+        install(question("Chief complaint", text, ciel, "160531"));
     }
 
     private Concept baseConcept(String name) {

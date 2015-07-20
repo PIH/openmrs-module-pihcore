@@ -1,14 +1,20 @@
 package org.openmrs.module.pihcore.reporting;
 
 import org.junit.Before;
+import org.openmrs.Patient;
+import org.openmrs.PersonName;
 import org.openmrs.api.LocationService;
 import org.openmrs.contrib.testdata.TestDataManager;
+import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
+import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -56,5 +62,14 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         d.setCountry(ConfigDescriptor.Country.HAITI);
         d.setSite(ConfigDescriptor.Site.MIREBALAIS);
         return new Config(d);
+    }
+
+    protected Patient createPatient() {
+        PatientBuilder pb = data.patient();
+        pb.name(new PersonName("John", "Smitty", "Smith"));
+        pb.birthdate("1977-11-23").birthdateEstimated(false);
+        pb.male();
+        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        return pb.save();
     }
 }

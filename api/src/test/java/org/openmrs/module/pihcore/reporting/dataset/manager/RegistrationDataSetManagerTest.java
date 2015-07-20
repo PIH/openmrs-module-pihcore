@@ -48,13 +48,14 @@ public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest 
         SimpleDataSet dataSet = (SimpleDataSet)dataSetDefinitionService.evaluate(dsd, context);
         DataSetRow row = dataSet.getRows().get(0);
         Assert.assertEquals(1, dataSet.getRows().size());
-        Assert.assertEquals(27, dataSet.getMetaData().getColumnCount());
+        Assert.assertEquals(29, dataSet.getMetaData().getColumnCount());
         Assert.assertEquals("John", row.getColumnValue("GIVEN_NAME"));
         Assert.assertEquals("Smitty", row.getColumnValue("NICKNAME"));
         Assert.assertEquals("Smith", row.getColumnValue("FAMILY_NAME"));
         Assert.assertEquals(DateUtil.getDateTime(1977, 11, 23), row.getColumnValue("BIRTHDATE"));
         Assert.assertEquals(false, row.getColumnValue("BIRTHDATE_ESTIMATED"));
         Assert.assertEquals(37.4, row.getColumnValue("AGE_AT_REGISTRATION"));
+        Assert.assertNull(row.getColumnValue("CHECK_IN_VISIT"));
         Assert.assertEquals("M", row.getColumnValue("GENDER"));
         Assert.assertEquals("555-1234", row.getColumnValue("TELEPHONE_NUMBER"));
         Assert.assertEquals("Wichita", row.getColumnValue("BIRTHPLACE"));
@@ -68,5 +69,6 @@ public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest 
         Assert.assertEquals(DateUtil.getDateTime(2015, 4, 15), row.getColumnValue("REGISTRATION_DATE"));
         Assert.assertEquals(MirebalaisLocations.CLINIC_REGISTRATION.name(), row.getColumnValue("REGISTRATION_LOCATION"));
         Assert.assertEquals("Married", row.getColumnValue("CIVIL_STATUS"));
+        Assert.assertEquals("true", row.getColumnValue("REGISTRATION_RETROSPECTIVE"));
     }
 }

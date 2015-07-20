@@ -16,12 +16,14 @@ package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
+import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.web.address.AddressSupport;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.pihcore.reporting.encounter.definition.RetrospectiveEncounterDataDefinition;
 import org.openmrs.module.pihcore.reporting.library.DataConverterLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihCohortDefinitionLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihEncounterDataLibrary;
@@ -30,7 +32,9 @@ import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPersonDataLibrary;
 import org.openmrs.module.reporting.common.MessageUtil;
 import org.openmrs.module.reporting.common.ObjectUtil;
+import org.openmrs.module.reporting.data.converter.BooleanConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
+import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.PatientToEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.PersonToEncounterDataDefinition;
@@ -155,6 +159,8 @@ public abstract class BaseEncounterDataSetManager {
 		addColumn(dsd, getEncounterColumnPrefix()+ "_date", builtInEncounterData.getEncounterDatetime());
 		addColumn(dsd, getEncounterColumnPrefix()+"_location", builtInEncounterData.getLocationName());
 		addColumn(dsd, getEncounterColumnPrefix()+"_provider", pihEncounterData.getCreatorName());
+        addColumn(dsd, getEncounterColumnPrefix()+"_visit", builtInEncounterData.getEncounterVisit(), new PropertyConverter(Visit.class, "id"));
+        addColumn(dsd, getEncounterColumnPrefix()+"_retrospective", new RetrospectiveEncounterDataDefinition(), new BooleanConverter());
 	}
 
 	/**
