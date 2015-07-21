@@ -16,182 +16,190 @@
     </h3>
 
     <section id="exam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
-    <fieldset>
-        <legend><uimessage code="pihcore.general_exam.title"/></legend>
-        <h3><uimessage code="pihcore.general_exam.title"/></h3>
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.general_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.general_exam.title"/>
+            </h3>
 
-        <p class="left">
-            <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-            <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
-            <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
-        </p>
+            <p class="left">
+                <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
+                <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
+            </p>
 
-        <p class="left">
-            <obs conceptId="CIEL:160981"/>
-        </p>
+            <p class="left">
+                <obs conceptId="CIEL:160981"/>
+            </p>
 
-    </fieldset>
+        </fieldset>
 
-    <fieldset>
-        <legend><uimessage code="pihcore.mental_exam.title"/></legend>
-        <h3><uimessage code="pihcore.mental_exam.title"/></h3>
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.mental_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.mental_exam.title"/>
+            </h3>
 
-        <p class="left">
-            <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox"/>
-            <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
-            <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"/>
-        </p>
+            <p class="left">
+                <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
+                <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"/>
+            </p>
 
-        <p class="left">
-            <obs conceptId="CIEL:163044"/>
-        </p>
+            <p class="left">
+                <obs conceptId="CIEL:163044"/>
+            </p>
 
-    </fieldset>
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.skin_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.skin_exam.title"/>
+            </h3>
+
+            <p class="left">
+                <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:RASH" style="checkbox"/>
+                <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
+            </p>
+
+            <p class="left">
+                <obs conceptId="PIH:SKIN EXAM COMMENT"/>
+            </p>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.heent_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.heent_exam.title"/>
+            </h3>
+
+            <p class="left">
+                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:PALE CONJUNCTIVA" style="checkbox"/>
+                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:GOITER" style="checkbox"/>
+                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:LYMPHADENOPATHY" style="checkbox"/>
+            </p>
+
+            <p class="left">
+                <obs conceptId="PIH:SKIN EXAM COMMENT"/>
+            </p>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.cardiac_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.cardiac_exam.title"/>
+            </h3>
+
+            <p class="left">
+                <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:CARDIAC MURMUR" style="checkbox"/>
+                <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
+            </p>
+
+            <p class="left">
+                <obs conceptId="CIEL:163046"/>
+            </p>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.chest_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.chest_exam.title"/>
+            </h3>
+
+            <p class="left">
+                <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:CREPITATIONS" style="checkbox"/>
+                <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
+            </p>
+
+            <p class="left">
+                <obs conceptId="CIEL:160689"/>
+            </p>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.abdominal_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.abdominal_exam.title"/>
+            </h3>
+
+            <p class="left">
+                <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
+                <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
+            </p>
+
+            <p class="left">
+                <obs conceptId="CIEL:160947"/>
+            </p>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.urogenital_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.urogenital_exam.title"/>
+            </h3>
+
+            <p class="left">
+                <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:CANDIDIASIS" style="checkbox"/>
+                <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
+            </p>
+
+            <p class="left">
+                <!-- TODO:  obs conceptId="CIEL"/ -->
+            </p>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.musculoskeletal_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.musculoskeletal_exam.title"/>
+            </h3>
+
+            <p class="left">
+                <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:MUSCLE TENDERNESS"
+                     style="checkbox"/>
+                <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
+            </p>
+
+            <p class="left">
+                <!-- TODO:  obs conceptId="CIEL"/ -->
+            </p>
+
+        </fieldset>
+
     </section>
 
-    <!--
-<table>
-
-<tr>
-    <td>
-        Skin and mucosa
-    </td>
-    <td>
-        <obs conceptId="PIH:1120" answerConceptId="PIH:1115"
-             answerLabel="normal" style="checkbox"/>
-        <obs conceptId="PIH:1120" answerConceptId="PIH:1116"
-             answerLabel="abnormal" style="checkbox"/>
-    </td>
-    <td>
-        <obs conceptId="CIEL:160981"/>
-
-    </td>
-</tr>
-
-
-<tr class="checkboxGroup">
-    <td>
-        Tête,cou,ORL/
-        <span class="english">HEENT</span>
-    </td>
-    <td id="checkboxAll">
-        <obs conceptId="CIEL:1122" answerConceptId="PIH:1115"
-             answerLabel="pas d’abnormalités/no abnormalities" style="checkbox"/>
-    </td>
-    <td id="checkboxCheckbox">
-        <obs conceptId="CIEL:1122" answerConceptId="PIH:133" answerLabel="goitre/goiter"
-             style="checkbox"/>
-    </td>
-</tr>
-
-<tr>
-    <td>
-        Cardiovascular
-    </td>
-    <td>
-
-    </td>
-    <td>
-
-    </td>
-</tr>
-
-<tr>
-    <td>
-        Pulmonary
-    </td>
-    <td>
-
-    </td>
-    <td>
-
-    </td>
-</tr>
-
-<tr>
-    <td>
-        GI / Abdominal
-    </td>
-    <td>
-
-    </td>
-    <td>
-
-    </td>
-</tr>
-
-<tr>
-    <td>
-        GU / Rectal
-    </td>
-    <td>
-
-    </td>
-    <td>
-
-    </td>
-</tr>
-
-<tr>
-    <td>
-        Musculoskeletal
-    </td>
-    <td>
-
-    </td>
-    <td>
-
-    </td>
-</tr>
-
-<tr>
-    <td>
-        Other
-    </td>
-    <td>
-        <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT NORMAL"/>
-    </td>
-    <td>
-        <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT"/>
-    </td>
-</tr>
-
-
-    </table>
-
-
-    <p>
-        <label>
-            <uimessage code="emr.consult.freeTextComments"/>
-        </label>
-        <obs conceptId="org.openmrs.module.emrapi:Consult Free Text Comments" style="textarea" rows="3"/>
-    </p>
-
-    <ifMode mode="VIEW" include="false">
-        <br/>
-        <br/>
-        <div>
-            <encounterDate id="encounterDate" default="now" widget="hidden"/>
-            <p id="provider">
-                <label>Signed By</label>
-                TODO: Provider will be entered and not defaulted?  Translate signed by
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-            </p>
-
-            <p id="location">
-                <label><uimessage code="uicommons.location"/></label>
-                <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
-            </p>
-
-        </div>
-        <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
-        </div>
-    </ifMode>
-
-        -->
-
-<submit/>
+    <submit/>
 
 </htmlform>
