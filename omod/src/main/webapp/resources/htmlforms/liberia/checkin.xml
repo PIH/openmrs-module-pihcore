@@ -86,7 +86,7 @@
 
                 <p class="left">
                     <obs conceptId="PIH:REASON FOR VISIT" id="typeOfVisit"
-                         answerConceptIds="PIH:OUTPATIENT CONSULTATION,PIH:INPATIENT HOSPITALIZATION,PIH:ANC VISIT,PIH:Labor and delivery visit,PIH:POSTNATAL VISIT,PIH:PRE-ART VISIT,PIH:ART VISIT,PIH:PMTCT VISIT,PIH:Immunization visit,PIH:FAMILY PLANNING SERVICES,PIH:MALNUTRITION PROGRAM,PIH:MENTAL HEALTH SERVICES,PIH:TB VISIT,PIH:Leprosy visit,PIH:EMERGENCY VISIT,PIH:OTHER"
+                         answerConceptIds="PIH:OUTPATIENT CONSULTATION,PIH:INPATIENT HOSPITALIZATION,PIH:ANC VISIT,PIH:Labor and delivery visit,PIH:POSTNATAL VISIT,PIH:PRE-ART VISIT,PIH:ART VISIT,PIH:PMTCT VISIT,PIH:Immunization visit,PIH:FAMILY PLANNING SERVICES,PIH:MALNUTRITION PROGRAM,PIH:MENTAL HEALTH SERVICES,PIH:TB VISIT,PIH:Leprosy visit,PIH:EMERGENCY VISIT,PIH:OTHER NON-CODED"
                          answerLabels="Outpatient,Inpatient,ANC,Labor and Delivery,Postpartum,Pre-ART,ART,PMTCT,EPI,Family Planning,Malnutrition,Mental Health,TB,Leprosy,Emergency,Other"
                          style="dropdown" size="999">
                     </obs>
