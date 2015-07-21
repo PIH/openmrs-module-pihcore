@@ -49,9 +49,6 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
     DataSetDefinitionService dataSetDefinitionService;
 
     @Autowired
-    HaitiAddressBundle haitiAddressBundle;
-
-    @Autowired
     SocioEconomicConcepts socioEconomicConcepts;
 
     @Autowired
@@ -73,9 +70,7 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
         Context.setLocale(Locale.ENGLISH);
         deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(socioEconomicConcepts);
-        deployService.installBundle(mockConcepts);
-        haitiAddressBundle.installAddressTemplate();
-        haitiAddressBundle.installAddressHierarchyLevels();
+        deployService.installBundle(mockConcepts);;
     }
 
     protected Patient createPatient(String identifier) {

@@ -11,6 +11,7 @@ import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
@@ -48,6 +49,10 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     @Autowired
     protected MetadataDeployService deployService;
 
+    @Autowired
+    protected HaitiAddressBundle haitiAddressBundle;
+
+
     @Before
     public void setup() throws Exception {
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
@@ -55,6 +60,8 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         deployService.installBundle(encounterTypeBundle);
         deployService.installBundle(mirebalaisLocationsBundle);
         LocationTagSetup.setupLocationTags(locationService, getConfig());
+        haitiAddressBundle.installAddressTemplate();
+        haitiAddressBundle.installAddressHierarchyLevels();
     }
 
     protected Config getConfig() {
