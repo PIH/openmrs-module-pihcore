@@ -46,22 +46,16 @@ import java.util.Locale;
 public abstract class EncounterDataSetManagerTest extends BaseReportTest {
 
     @Autowired
-    DataSetDefinitionService dataSetDefinitionService;
+    protected DataSetDefinitionService dataSetDefinitionService;
 
     @Autowired
-    SocioEconomicConcepts socioEconomicConcepts;
+    protected SocioEconomicConcepts socioEconomicConcepts;
 
     @Autowired
-    MockConcepts mockConcepts;
+    protected MockConcepts mockConcepts;
 
     @Autowired
-    HaitiPatientIdentifierTypeBundle haitiPatientIdentifierTypeBundle;
-
-    @Autowired
-    EmrApiProperties emrApiProperties;
-
-    @Autowired
-    TestDataManager data;
+    protected HaitiPatientIdentifierTypeBundle haitiPatientIdentifierTypeBundle;;
 
     @Before
     @Override
