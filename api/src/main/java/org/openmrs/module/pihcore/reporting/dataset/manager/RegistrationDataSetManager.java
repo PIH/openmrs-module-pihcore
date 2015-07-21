@@ -54,7 +54,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
     protected void addObsColumns(EncounterDataSetDefinition dsd) {
 
         // we collect full birthplace address hierarchy in Haiti,not elsewhere
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config != null && config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             addObsColumn(dsd, "birthplace_country", SocioEconomicConcepts.Concepts.BIRTHPLACE_ADDRESS_CONSTRUCT,
                     converters.getObsFromObsGroupConverter(conceptService.getConceptByUuid(SocioEconomicConcepts.Concepts.COUNTRY)),
                     converters.getObsValueTextConverter());
@@ -82,7 +82,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
         addObsColumn(dsd, "occupation", SocioEconomicConcepts.Concepts.MAIN_ACTIVITY, converters.getObsValueCodedNameConverter());
 
         // Add in religion question here conditionally when appropriate
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config != null && config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             addObsColumn(dsd, "religion", SocioEconomicConcepts.Concepts.RELIGION, converters.getObsValueCodedNameConverter());
         }
 
@@ -92,7 +92,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
         addObsColumn(dsd, "contact_person_telephone", SocioEconomicConcepts.Concepts.TELEPHONE_NUMBER_OF_CONTACT, converters.getObsValueTextConverter());
 
         // we collect contact address hierarchy in Haiti,not elsewhere
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config != null && config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             addObsColumn(dsd, "contact_person_country", SocioEconomicConcepts.Concepts.PATIENT_CONTACTS_CONSTRUCT,
                     converters.getObsFromObsGroupConverter(conceptService.getConceptByUuid(SocioEconomicConcepts.Concepts.COUNTRY)),
                     converters.getObsValueTextConverter());
