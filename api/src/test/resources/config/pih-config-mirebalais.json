@@ -1,6 +1,7 @@
 {
     "welcomeMessage": "Hello Mirebalais!",
     "site": "MIREBALAIS",
+    "country": "HAITI",
 
     "components": [
         "someComponent",
