@@ -25,7 +25,7 @@
         </ifMode>
     </style>
 
-    <section id="vitals" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
+    <section id="primaryCareExam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
         <fieldset>
             <legend>
                 <uimessage code="pihcore.general_exam.title"/>
@@ -39,6 +39,10 @@
                 <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
                 <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
             </p>
+
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
 
             <p class="left">
                 <obs conceptId="CIEL:160981"/>
@@ -54,13 +58,17 @@
                 <uimessage code="pihcore.mental_exam.title"/>
             </h3>
 
-            <p class="left">
+            <p>
                 <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
                 <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"/>
             </p>
 
-            <p class="left">
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
+
+            <p>
                 <obs conceptId="CIEL:163044"/>
             </p>
 
@@ -79,6 +87,10 @@
                 <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:RASH" style="checkbox"/>
                 <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
             </p>
+
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
 
             <p class="left">
                 <obs conceptId="PIH:SKIN EXAM COMMENT"/>
@@ -101,6 +113,10 @@
                 <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:LYMPHADENOPATHY" style="checkbox"/>
             </p>
 
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
+
             <p class="left">
                 <obs conceptId="PIH:SKIN EXAM COMMENT"/>
             </p>
@@ -120,6 +136,10 @@
                 <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:CARDIAC MURMUR" style="checkbox"/>
                 <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
             </p>
+
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
 
             <p class="left">
                 <obs conceptId="CIEL:163046"/>
@@ -141,6 +161,10 @@
                 <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
             </p>
 
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
+
             <p class="left">
                 <obs conceptId="CIEL:160689"/>
             </p>
@@ -160,6 +184,10 @@
                 <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
                 <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
             </p>
+
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
 
             <p class="left">
                 <obs conceptId="CIEL:160947"/>
@@ -181,6 +209,10 @@
                 <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
             </p>
 
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
+
             <p class="left">
                 <!-- TODO:  obs conceptId="CIEL"/ -->
             </p>
@@ -201,6 +233,10 @@
                      style="checkbox"/>
                 <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
             </p>
+
+            <h4>
+                <uimessage code="pihcore.exam.comment"/>
+            </h4>
 
             <p class="left">
                 <!-- TODO:  obs conceptId="CIEL"/ -->
