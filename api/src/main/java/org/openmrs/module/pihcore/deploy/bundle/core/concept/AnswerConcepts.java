@@ -87,28 +87,28 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder(Concepts.COMMUNITY_HEALTH_WORKER)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("0b785ea4-15f5-102d-96e4-000c29c2a5d7", "VILLAGE HEALTH WORKER", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("1819BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "COMMUNITY HEALTH CARE WORKER", Locale.ENGLISH, null)
+                .name("0b785ea4-15f5-102d-96e4-000c29c2a5d7", "Village Health Worker", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("1819BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Community Health Care Worker", Locale.ENGLISH, null)
                 .name("126198BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CCHA (Community and Clinical Health Assistant)", Locale.ENGLISH, null)
                 .name("99967BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "VHW (Village Health Worker)", Locale.ENGLISH, null)
                 .name("89434BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CHEW (Community Health Extension Worker)", Locale.ENGLISH, null)
                 .name("107416BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CHO (Community Health Officer)", Locale.ENGLISH, null)
                 .name("89567BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CHW (Community Health Worker)", Locale.ENGLISH, null)
                 .name("107415BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CHN (Community Health Nurse)", Locale.ENGLISH, null)
-                .name("f71fff28-d5db-102d-ad2a-000c29c2a5d7", "ACCOMPAGNATEUR", Locale.FRENCH, null) // locale-preferred
-                .name("1820BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "OFFICIER DE SANTÉ DU VILLAGE", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
-                .mapping(new ConceptMapBuilder("b25f6544-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "3645").build())
-                .mapping(new ConceptMapBuilder("75a0ac8c-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "VILLAGE HEALTH WORKER").build())
-                .mapping(new ConceptMapBuilder("3b9816c5-9bd3-441c-a453-5912baf4cfcc")
-                        .type(sameAs).ensureTerm(ciel, "1555").build())
+                .name("7049249e-6ade-4743-a33d-fb3f6d4b33cd", "Accompagnateur", Locale.FRENCH, null) // locale-preferred
+                .name("1820BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Officier de Santé du Village", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
                 .mapping(new ConceptMapBuilder("137476ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(narrowerThan).ensureTerm(snomedNp, "223366009").build())
-                .mapping(new ConceptMapBuilder("141538ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(snomedMvp, "15551000105005").build())
+                .mapping(new ConceptMapBuilder("3b9816c5-9bd3-441c-a453-5912baf4cfcc")
+                        .type(sameAs).ensureTerm(ciel, "1555").build())
+                .mapping(new ConceptMapBuilder("b25f6544-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "3645").build())
                 .mapping(new ConceptMapBuilder("4c10c0b5-ca8e-4b5f-87a4-3142a269929e")
                         .type(sameAs).ensureTerm(ampath, "1862").build())
+                .mapping(new ConceptMapBuilder("75a0ac8c-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "VILLAGE HEALTH WORKER").build())
+                .mapping(new ConceptMapBuilder("141538ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
+                        .type(sameAs).ensureTerm(snomedMvp, "15551000105005").build())
                 .build());
 
         install(new ConceptBuilder(Concepts.HOME)
@@ -221,8 +221,8 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder(Concepts.OTHER_RELATIVE)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e2265d0-26fe-102b-80cb-0017a47871b2", "OTHER RELATIVE", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f6737244-d5db-102d-ad2a-000c29c2a5d7", "AUTRE PARENT", Locale.FRENCH, null) // locale-preferred
+                .name("3e2265d0-26fe-102b-80cb-0017a47871b2", "Other relative", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("ac1661a2-4b4b-4fc5-b683-6ceac5ab24c2", "Autre parent", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf0ce30-07fe-102c-b5fa-0017a47871b2", "A relative (non-coded) to another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b220c3d4-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2179").build())
@@ -235,8 +235,8 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder(Concepts.SIBLING)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e225f36-26fe-102b-80cb-0017a47871b2", "SIBLING", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f67356b0-d5db-102d-ad2a-000c29c2a5d7", "SOEUR/FRÈRE", Locale.FRENCH, null) // locale-preferred
+                .name("3e225f36-26fe-102b-80cb-0017a47871b2", "Sibling", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("57063624-1e75-4529-9731-f79134c27f01", "Soeur/Frère", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf0cc5a-07fe-102c-b5fa-0017a47871b2", "A sibling to another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b220c262-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2178").build())
@@ -249,60 +249,59 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder(Concepts.PARTNER_OR_SPOUSE)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e405a36-26fe-102b-80cb-0017a47871b2", "PARTNER OR SPOUSE", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f76e3896-d5db-102d-ad2a-000c29c2a5d7", "PARTENAIRE OU ÉPOUX", Locale.FRENCH, null) // locale-preferred
+                .name("3e405a36-26fe-102b-80cb-0017a47871b2", "Partner or Spouse", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("78abf00f-360f-4fe1-92a8-2e33fa0c9fba", "Partenaire ou époux", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ed191d5e-07fe-102c-b5fa-0017a47871b2", "General descriptive answer: a patient's partner or spouse.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75aa8f18-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "PARTNER OR SPOUSE").build())
-                .mapping(new ConceptMapBuilder("b299ae3e-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "5617").build())
                 .mapping(new ConceptMapBuilder("c4b3136a-2eb6-4536-865b-4842246aa015")
                         .type(sameAs).ensureTerm(ciel, "5617").build())
+                .mapping(new ConceptMapBuilder("b299ae3e-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "5617").build())
                 .build());
 
-        // This concept incorrectly had French names/description for MOTHER CAUSE OF DEATH
-        // (This concept is also both a question and an answer.)
+        // (This concept is both a question and an answer.)
         install(new ConceptBuilder(Concepts.GUARDIAN)
                 .datatype(text)
                 .conceptClass(question)
-                .name("3e1ef350-26fe-102b-80cb-0017a47871b2", "GUARDIAN RELATIONSHIP TO CHILD", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("3e1ef350-26fe-102b-80cb-0017a47871b2", "Guardian relationship to child", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("93b6c704-07d4-102c-b5fa-0017a47871b2", "GUARDIAN RELATION", Locale.ENGLISH, ConceptNameType.SHORT)
-                .name("f6461a42-d5db-102d-ad2a-000c29c2a5d7", "RELATION DU TUTEUR À L'ENFANT", Locale.FRENCH, null) // locale-preferred
+                .name("50fde515-7d03-4aea-820a-1208acb0fdcf", "Relation de tuteur à l'enfant", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("eceddad6-07fe-102c-b5fa-0017a47871b2", "IF GUARDIAN IS NOT THE CHILD'S PARENTS, WHAT IS HIS/HER RELATION TO THE CHILD?", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("757852a0-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "GUARDIAN RELATIONSHIP TO CHILD").build())
-                .mapping(new ConceptMapBuilder("b21637a2-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "1826").build())
                 .mapping(new ConceptMapBuilder("9d730eed-dae6-4800-9c0c-13cc7fe49bf2")
                         .type(sameAs).ensureTerm(ciel, "160639").build())
+                .mapping(new ConceptMapBuilder("b21637a2-4864-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "1826").build())
                 .build());
 
         install(new ConceptBuilder(Concepts.BROTHER)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e225c7a-26fe-102b-80cb-0017a47871b2", "BROTHER", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f6731f88-d5db-102d-ad2a-000c29c2a5d7", "FRÈRE", Locale.FRENCH, null) // locale-preferred
+                .name("3e225c7a-26fe-102b-80cb-0017a47871b2", "Brother", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("f8400b03-3c37-4675-a3a4-027d67c7ad63", "Frère", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf0c0e8-07fe-102c-b5fa-0017a47871b2", "A brother to another person", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("457a7d24-c13b-4ad9-af3f-b58da4153dfd")
+                        .type(sameAs).ensureTerm(ciel, "160729").build())
                 .mapping(new ConceptMapBuilder("b220bf7e-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2176").build())
                 .mapping(new ConceptMapBuilder("7587076e-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "BROTHER").build())
-                .mapping(new ConceptMapBuilder("457a7d24-c13b-4ad9-af3f-b58da4153dfd")
-                        .type(sameAs).ensureTerm(ciel, "160729").build())
                 .build());
 
         install(new ConceptBuilder(Concepts.SISTER)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e225dd8-26fe-102b-80cb-0017a47871b2", "SISTER", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f67339fa-d5db-102d-ad2a-000c29c2a5d7", "SOEUR", Locale.FRENCH, null) // locale-preferred
+                .name("3e225dd8-26fe-102b-80cb-0017a47871b2", "Sister", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("338ad7f5-1d55-4c45-9c6c-3b7391d0127b", "Soeur", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf0ca5c-07fe-102c-b5fa-0017a47871b2", "Sister to another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b220c0f0-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2177").build())
-                .mapping(new ConceptMapBuilder("758708e0-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "SISTER").build())
                 .mapping(new ConceptMapBuilder("3ddec89b-4770-4777-9d9b-7c15c10322a3")
                         .type(sameAs).ensureTerm(ciel, "160730").build())
+                .mapping(new ConceptMapBuilder("758708e0-4943-102e-96e9-000c29c2a5d7")
+                        .type(sameAs).ensureTerm(pih, "SISTER").build())
                 .build());
     }
 
