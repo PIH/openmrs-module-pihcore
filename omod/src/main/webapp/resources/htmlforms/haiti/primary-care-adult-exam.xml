@@ -59,9 +59,9 @@
             </h3>
 
             <p>
-                <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox" commentFieldLabel="Details:"/>
                 <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
-                <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"/>
+                <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel=""/>
             </p>
 
             <h5>
@@ -69,7 +69,7 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:163044" style="textarea" />
+                <obs conceptId="CIEL:163044" rows="5" cols="60" />
             </p>
 
         </fieldset>
@@ -251,24 +251,12 @@
     <ifMode mode="VIEW" include="false">
         <br/>
         <br/>
-        <div>
-            <encounterDate id="encounterDate" default="now" widget="hidden"/>
-            <p id="provider">
-                <label>Signed By</label>
-                <!-- TODO: Provider will be entered and not defaulted?  Translate signed by -->
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-            </p>
 
-            <p id="location">
-                <label><uimessage code="uicommons.location"/></label>
-                <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
-            </p>
-
-        </div>
         <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
             <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
         </div>
+
     </ifMode>
 
 </htmlform>
