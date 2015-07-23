@@ -45,7 +45,7 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:160981" style="textarea" />
+                <obs conceptId="CIEL:160981" rows="5" cols="60" />
             </p>
 
         </fieldset>
@@ -93,7 +93,7 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:SKIN EXAM COMMENT" style="textarea" />
+                <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
             </p>
 
         </fieldset>
@@ -118,7 +118,7 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:SKIN EXAM COMMENT" style="textarea" />
+                <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
             </p>
 
         </fieldset>
@@ -142,7 +142,7 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:163046" style="textarea" />
+                <obs conceptId="CIEL:163046" rows="5" cols="60" />
             </p>
 
         </fieldset>
@@ -166,7 +166,7 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:160689" style="textarea" />
+                <obs conceptId="CIEL:160689" rows="5" cols="60" />
             </p>
 
         </fieldset>
@@ -190,7 +190,7 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:160947" style="textarea" />
+                <obs conceptId="CIEL:160947" rows="5" cols="60" />
             </p>
 
         </fieldset>
