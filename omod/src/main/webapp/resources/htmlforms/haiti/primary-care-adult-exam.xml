@@ -248,6 +248,27 @@
 
     </section>
 
-    <submit/>
+    <ifMode mode="VIEW" include="false">
+        <br/>
+        <br/>
+        <div>
+            <encounterDate id="encounterDate" default="now" widget="hidden"/>
+            <p id="provider">
+                <label>Signed By</label>
+                <!-- TODO: Provider will be entered and not defaulted?  Translate signed by -->
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            </p>
+
+            <p id="location">
+                <label><uimessage code="uicommons.location"/></label>
+                <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
+            </p>
+
+        </div>
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
 
 </htmlform>
