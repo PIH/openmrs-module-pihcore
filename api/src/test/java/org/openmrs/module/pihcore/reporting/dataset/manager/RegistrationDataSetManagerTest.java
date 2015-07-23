@@ -48,7 +48,7 @@ public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest 
         SimpleDataSet dataSet = (SimpleDataSet)dataSetDefinitionService.evaluate(dsd, context);
         DataSetRow row = dataSet.getRows().get(0);
         Assert.assertEquals(1, dataSet.getRows().size());
-        Assert.assertEquals(29, dataSet.getMetaData().getColumnCount());
+        Assert.assertEquals(28, dataSet.getMetaData().getColumnCount());
         Assert.assertEquals("John", row.getColumnValue("GIVEN_NAME"));
         Assert.assertEquals("Smitty", row.getColumnValue("NICKNAME"));
         Assert.assertEquals("Smith", row.getColumnValue("FAMILY_NAME"));
