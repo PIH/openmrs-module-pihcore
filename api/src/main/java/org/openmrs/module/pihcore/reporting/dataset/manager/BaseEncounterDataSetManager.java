@@ -102,6 +102,7 @@ public abstract class BaseEncounterDataSetManager {
 		addBirthDateAndAgeColumns(dsd);
 		addGenderColumns(dsd);
 		addCoreEncounterColumns(dsd);
+        addCoreVisitColumns(dsd);
 		addAddressColumns(dsd);
 		addPersonAttributeColumns(dsd);
 		addObsColumns(dsd);
@@ -159,11 +160,14 @@ public abstract class BaseEncounterDataSetManager {
 		addColumn(dsd, getEncounterColumnPrefix()+ "_date", builtInEncounterData.getEncounterDatetime());
 		addColumn(dsd, getEncounterColumnPrefix()+"_location", builtInEncounterData.getLocationName());
 		addColumn(dsd, getEncounterColumnPrefix()+"_provider", pihEncounterData.getCreatorName());
-        addColumn(dsd, getEncounterColumnPrefix()+"_visit", builtInEncounterData.getEncounterVisit(), new PropertyConverter(Visit.class, "id"));
         addColumn(dsd, getEncounterColumnPrefix()+"_retrospective", new RetrospectiveEncounterDataDefinition(), new BooleanConverter());
 	}
 
-	/**
+    protected void addCoreVisitColumns(EncounterDataSetDefinition dsd) {
+        addColumn(dsd, getEncounterColumnPrefix()+"_visit", builtInEncounterData.getEncounterVisit(), new PropertyConverter(Visit.class, "id"));
+    }
+
+    /**
 	 * Add columns that describe the information about when the encounter was entered
 	 */
 	protected void addAuditColumns(EncounterDataSetDefinition dsd) {

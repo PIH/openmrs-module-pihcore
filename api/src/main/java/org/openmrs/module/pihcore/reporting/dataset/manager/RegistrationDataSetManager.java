@@ -15,6 +15,7 @@
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.openmrs.EncounterType;
+import org.openmrs.Visit;
 import org.openmrs.api.ConceptService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -48,6 +49,11 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
     @Override
     protected String getEncounterColumnPrefix() {
         return "registration";
+    }
+
+    @Override
+    protected void addCoreVisitColumns(EncounterDataSetDefinition dsd) {
+        // registration encounters are not associated with a visit, so override default core visit columns
     }
 
     @Override
