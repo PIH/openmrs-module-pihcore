@@ -20,7 +20,7 @@ public class CommonConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 2;
+        return 3;
     }
 
     public static final class Concepts {
@@ -153,10 +153,10 @@ public class CommonConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder(Concepts.NOT_APPLICABLE)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e16182a-26fe-102b-80cb-0017a47871b2", "NOT APPLICABLE", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("0b8e7ce8-15f5-102d-96e4-000c29c2a5d7", "sans objet", Locale.FRENCH, null) // locale-preferred
-                .name("f5dfdb38-d5db-102d-ad2a-000c29c2a5d7", "PAS VALABLE", Locale.FRENCH, null)
-                .name("0b8e7bee-15f5-102d-96e4-000c29c2a5d7", "NE PAS APPLICABLE", Locale.FRENCH, null)
+                .name("3e16182a-26fe-102b-80cb-0017a47871b2", "Not applicable", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("0b8e7ce8-15f5-102d-96e4-000c29c2a5d7", "Sans objet", Locale.FRENCH, null) // locale-preferred
+                .name("f5dfdb38-d5db-102d-ad2a-000c29c2a5d7", "Pas valable", Locale.FRENCH, null)
+                .name("0b8e7bee-15f5-102d-96e4-000c29c2a5d7", "Ne pas applicable", Locale.FRENCH, null)
                 .description("ece55cc6-07fe-102c-b5fa-0017a47871b2", "Generic response to a question.  The question doesn't directly apply to the person.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b20f276e-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1175").build())
