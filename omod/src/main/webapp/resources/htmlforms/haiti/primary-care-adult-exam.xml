@@ -38,6 +38,7 @@
                 <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
                 <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
+                <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
             </p>
 
             <h5>
@@ -59,9 +60,9 @@
             </h3>
 
             <p>
-                <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox" commentFieldLabel="Details:"/>
+                <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox" />
                 <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
-                <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel=""/>
+                <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
             </p>
 
             <h5>
@@ -86,6 +87,7 @@
                 <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:RASH" style="checkbox"/>
                 <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
+                <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
             </p>
 
             <h5>
@@ -111,6 +113,8 @@
                 <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:PALE CONJUNCTIVA" style="checkbox"/>
                 <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:GOITER" style="checkbox"/>
                 <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:LYMPHADENOPATHY" style="checkbox"/>
+                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+
             </p>
 
             <h5>
@@ -135,6 +139,7 @@
                 <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:CARDIAC MURMUR" style="checkbox"/>
                 <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
+                <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
             </p>
 
             <h5>
@@ -159,6 +164,7 @@
                 <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:CREPITATIONS" style="checkbox"/>
                 <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
+                <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
             </p>
 
             <h5>
@@ -183,6 +189,7 @@
                 <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
                 <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
+                <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
             </p>
 
             <h5>
@@ -207,6 +214,7 @@
                 <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:CANDIDIASIS" style="checkbox"/>
                 <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
+                <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
             </p>
 
             <h5>
@@ -233,6 +241,7 @@
                 <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:MUSCLE TENDERNESS"
                      style="checkbox"/>
                 <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
+                <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
             </p>
 
             <h5>
@@ -245,6 +254,23 @@
             </p>
 
         </fieldset>
+
+        <fieldset>
+            <legend>
+                <uimessage code="pihcore.other_exam.title"/>
+            </legend>
+
+            <h5>
+                <uimessage code="pihcore.exam.comment"/>
+            </h5>
+
+            <p>
+                <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" rows="5" cols="60"/>
+            </p>
+
+        </fieldset>
+
+        PHYSICAL SYSTEM COMMENT
 
     </section>
 
