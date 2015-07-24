@@ -19,7 +19,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 2;
+        return 3;
     }
 
     public static final class Concepts {

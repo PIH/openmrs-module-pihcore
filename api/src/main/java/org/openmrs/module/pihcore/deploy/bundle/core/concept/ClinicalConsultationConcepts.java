@@ -20,7 +20,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 4;
+        return 5;
     }
 
     // This class contains many concepts not enumerated here
@@ -132,9 +132,9 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept famHxRelationship = install(new ConceptBuilder(Concepts.FAMILY_HISTORY_RELATIONSHIP)
                 .datatype(coded)
                 .conceptClass(question)
-                .name("3e2256c6-26fe-102b-80cb-0017a47871b2", "RELATIONSHIP OF RELATIVE TO PATIENT", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("3e2256c6-26fe-102b-80cb-0017a47871b2", "Relationship of relative to patient", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("93bc0d72-07d4-102c-b5fa-0017a47871b2", "CONTACT_REL", Locale.ENGLISH, ConceptNameType.SHORT)
-                .name("f672a35a-d5db-102d-ad2a-000c29c2a5d7", "RELATION DU PARENT PAR RAPPORT AU PATIENT", Locale.FRENCH, null) // locale-preferred
+                .name("0502ccd4-014b-4e2b-9734-76d17d46afc6", "Relation du rapport au patient", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf0bb66-07fe-102c-b5fa-0017a47871b2", "What is the relationship of this relative to this patient?", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b220b998-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2172").build())
@@ -237,7 +237,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                 .name("d8b4a143-ec63-412e-b9e0-e90842297b85", "Norplant system", Locale.ENGLISH, null)
                 .name("1d91ee71-7b2c-4857-b28e-eb45f446d18f", "Norplant", Locale.ENGLISH, null)
                 .name("7a09813f-6fbe-4067-9713-082575c6db13", "Plan B", Locale.ENGLISH, null)
-                .name("f638c3a6-d5db-102d-ad2a-000c29c2a5d7", "IMPLANT CONTRACEPTIF SOUS-CUTANÉ", Locale.FRENCH, null) // locale-preferred
+                .name("f638c3a6-d5db-102d-ad2a-000c29c2a5d7", "Implant contraceptif sous-cutané", Locale.FRENCH, null) // locale-preferred
                 .description("ecec44dc-07fe-102c-b5fa-0017a47871b2", "Norplant is 99% – 99.95% effective at preventing pregnancy, and is one of the most reliable, though not the most available, forms of birth control.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("d8f77ed9-da09-4dc7-9fb8-48d7ef3d65a6")
                         .type(sameAs).ensureTerm(ciel, "78796").build())
@@ -294,10 +294,10 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept depoProvera = install(new ConceptBuilder("3cd5094e-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(drug)
-                .name("93f47c52-07d4-102c-b5fa-0017a47871b2", "DEPO-PROVERA", Locale.ENGLISH, null)
-                .name("3e12ebd2-26fe-102b-80cb-0017a47871b2", "MEDROXYPROGESTERONE ACETATE", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("93f48134-07d4-102c-b5fa-0017a47871b2", "DEPOPROVERA", Locale.ENGLISH, null)
-                .name("f5b210fe-d5db-102d-ad2a-000c29c2a5d7", "ACÉTATE DE MÉDROXYPROGESTÉRONE", Locale.FRENCH, null) // locale-preferred
+                .name("93f47c52-07d4-102c-b5fa-0017a47871b2", "Depo-provera", Locale.ENGLISH, null) // locale-preferred
+                .name("3e12ebd2-26fe-102b-80cb-0017a47871b2", "Medroxyprogesterone acetate", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("93f48134-07d4-102c-b5fa-0017a47871b2", "Depoprovera", Locale.ENGLISH, null)
+                .name("f5b210fe-d5db-102d-ad2a-000c29c2a5d7", "Acétate de médroxyprogestérone", Locale.FRENCH, null) // locale-preferred
                 .description("ece19d16-07fe-102c-b5fa-0017a47871b2", "A synthetic steroid progestational hormone C24H34O4 that is used especially in the treatment of amenorrhea and abnormal uterine bleeding, in conjunction with conjugated estrogens to relieve the symptoms of menopause and to prevent osteoporosis, and as an injectable contraceptive.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("753e08ac-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "MEDROXYPROGESTERONE ACETATE").build())
@@ -308,9 +308,9 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept injectableContraceptives = install(new ConceptBuilder("3ceb5532-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(medSet)
-                .name("3e3d14d4-26fe-102b-80cb-0017a47871b2", "INJECTABLE CONTRACEPTIVES", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("94acfcbe-07d4-102c-b5fa-0017a47871b2", "INJECTABLE HORMONES", Locale.ENGLISH, null)
-                .name("f75c6936-d5db-102d-ad2a-000c29c2a5d7", "CONTRACEPTION INJECTABLE", Locale.FRENCH, null) // locale-preferred
+                .name("3e3d14d4-26fe-102b-80cb-0017a47871b2", "Injectable contraceptives", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("94acfcbe-07d4-102c-b5fa-0017a47871b2", "Injectable hormones", Locale.ENGLISH, null)
+                .name("f75c6936-d5db-102d-ad2a-000c29c2a5d7", "Contraception injectable", Locale.FRENCH, null) // locale-preferred
                 .description("ed14e5fe-07fe-102c-b5fa-0017a47871b2", "Injectable medicines which enable deliberate prevention of conception or impregnation.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b293b3ee-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "5279").build())
@@ -322,9 +322,9 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept diaphragm = install(new ConceptBuilder("3ceb52ee-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e3d1362-26fe-102b-80cb-0017a47871b2", "DIAPHRAGM", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("93f0eede-07d4-102c-b5fa-0017a47871b2", "CERVICAL CAP", Locale.ENGLISH, null)
-                .name("f75c360a-d5db-102d-ad2a-000c29c2a5d7", "DIAPHRAGME", Locale.FRENCH, null) // locale-preferred
+                .name("3e3d1362-26fe-102b-80cb-0017a47871b2", "Diaphragm", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("93f0eede-07d4-102c-b5fa-0017a47871b2", "Cervical cap", Locale.ENGLISH, null)
+                .name("f75c360a-d5db-102d-ad2a-000c29c2a5d7", "Diaphragme", Locale.FRENCH, null) // locale-preferred
                 .description("ed14e3f6-07fe-102c-b5fa-0017a47871b2", "A molded cap, usually of thin rubber fitted over the uterine cervix to act as a mechanical contraceptive barrier.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b293b27c-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "5278").build())
@@ -350,8 +350,8 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept condoms = install(new ConceptBuilder("3cce7a20-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(drug)
-                .name("3e0ba5ac-26fe-102b-80cb-0017a47871b2", "CONDOMS", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("3e0ba7dc-26fe-102b-80cb-0017a47871b2", "PRESERVATIFS", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("3e0ba5ac-26fe-102b-80cb-0017a47871b2", "Condoms", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("3e0ba7dc-26fe-102b-80cb-0017a47871b2", "Preservatifs", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecd8bee4-07fe-102c-b5fa-0017a47871b2", "Methods for preventing pregnancy.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b1d9c59c-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "190").build())
@@ -362,9 +362,9 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept oralContraception = install(new ConceptBuilder("3cd42786-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(medSet)
-                .name("3e11e0a2-26fe-102b-80cb-0017a47871b2", "ORAL CONTRACEPTION", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("93ee52e6-07d4-102c-b5fa-0017a47871b2", "BIRTH CONTROL PILLS", Locale.ENGLISH, null)
-                .name("f5a61cc2-d5db-102d-ad2a-000c29c2a5d7", "CONTRACEPTION ORALE", Locale.FRENCH, null) // locale-preferred
+                .name("3e11e0a2-26fe-102b-80cb-0017a47871b2", "Oral contraception", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("93ee52e6-07d4-102c-b5fa-0017a47871b2", "Birth control pills", Locale.ENGLISH, null)
+                .name("f5a61cc2-d5db-102d-ad2a-000c29c2a5d7", "Contraception orale", Locale.FRENCH, null) // locale-preferred
                 .description("ece05fa0-07fe-102c-b5fa-0017a47871b2", "Female contraception method.  Ultimately will make a good MedSet.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b2094a24-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "780").build())
@@ -375,9 +375,9 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept naturalFamilyPlanning = install(new ConceptBuilder("3ceb5082-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e3d11dc-26fe-102b-80cb-0017a47871b2", "NATURAL FAMILY PLANNING", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("956506b0-07d4-102c-b5fa-0017a47871b2", "RHYTHM METHOD", Locale.ENGLISH, null)
-                .name("f75c072a-d5db-102d-ad2a-000c29c2a5d7", "PLANIFICATION FAMILIALE NATURELLE", Locale.FRENCH, null) // locale-preferred
+                .name("3e3d11dc-26fe-102b-80cb-0017a47871b2", "Natural family planning", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("956506b0-07d4-102c-b5fa-0017a47871b2", "Rhythm method", Locale.ENGLISH, null)
+                .name("f75c072a-d5db-102d-ad2a-000c29c2a5d7", "Planification familiale naturelle", Locale.FRENCH, null) // locale-preferred
                 .description("ed14e1e4-07fe-102c-b5fa-0017a47871b2", "A method of birth control that involves abstention from sexual intercourse during the period of ovulation which is determined through observation and measurement of bodily signs (as cervical mucus and body temperature).", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75a80888-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "NATURAL FAMILY PLANNING").build())
@@ -388,8 +388,8 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         Concept abstinence = install(new ConceptBuilder("3cdcf5e6-26fe-102b-80cb-0017a47871b2")
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e1deafa-26fe-102b-80cb-0017a47871b2", "ABSTINENCE", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f63907c6-d5db-102d-ad2a-000c29c2a5d7", "ABSTINENCE", Locale.FRENCH, null) // locale-preferred
+                .name("3e1deafa-26fe-102b-80cb-0017a47871b2", "Abstinence", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("f63907c6-d5db-102d-ad2a-000c29c2a5d7", "Abstinence", Locale.FRENCH, null) // locale-preferred
                 .description("ecec487e-07fe-102c-b5fa-0017a47871b2", "Method of preventing pregnancy (fill in)", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b214f158-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1720").build())
@@ -430,9 +430,9 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder("3ccfbd0e-26fe-102b-80cb-0017a47871b2")
                 .datatype(coded)
                 .conceptClass(question)
-                .name("3e0d6c2a-26fe-102b-80cb-0017a47871b2", "METHOD OF FAMILY PLANNING", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("94b6ceba-07d4-102c-b5fa-0017a47871b2", "METHOD OF BIRTH CONTROL", Locale.ENGLISH, null)
-                .name("f58ebafa-d5db-102d-ad2a-000c29c2a5d7", "MÉTHODE DE PLANIFICATION FAMILIALE", Locale.FRENCH, null) // locale-preferred
+                .name("3e0d6c2a-26fe-102b-80cb-0017a47871b2", "Method of family planning", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("94b6ceba-07d4-102c-b5fa-0017a47871b2", "Method of birth control", Locale.ENGLISH, null)
+                .name("b24c6e61-98c4-4842-a7bc-9e6f30c89a8e", "Méthode de planification familiale", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("b1e2124c-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "374").build())
                 .mapping(new ConceptMapBuilder("748ee136-4943-102e-96e9-000c29c2a5d7")
@@ -460,9 +460,9 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder("9dc4818d-049b-4a39-bf3c-69b12ea18f34")
                 .datatype(text)
                 .conceptClass(question)
-                .name("0b6aea8a-15f5-102d-96e4-000c29c2a5d7", "OTHER FAMILY PLANNING METHOD, NON-CODED", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("f6d4bbf8-d5db-102d-ad2a-000c29c2a5d7", "AUTRE MÉTHODE DE PLANNIFICATION FAMILIALE, NON-CODÉ", Locale.FRENCH, null) // locale-preferred
-                .description("ed1fe0bc-07fe-102c-b5fa-0017a47871b2", "The name of a method of family planning besides the coded answers.", Locale.ENGLISH)
+                .name("0b6aea8a-15f5-102d-96e4-000c29c2a5d7", "Other family planning method, non-coded", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("7af5c5e1-b695-4773-a591-d63118a463bd", "Autre méthode de planification familiale (texte)", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("ed1fe0bc-07fe-102c-b5fa-0017a47871b2", "Free-text to describe family planning method.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("759c3a9e-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "OTHER FAMILY PLANNING METHOD, NON-CODED").build())
                 .mapping(new ConceptMapBuilder("b25a31a0-4864-102e-96e9-000c29c2a5d7")

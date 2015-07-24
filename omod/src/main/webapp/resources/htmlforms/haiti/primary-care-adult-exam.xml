@@ -270,8 +270,6 @@
 
         </fieldset>
 
-        PHYSICAL SYSTEM COMMENT
-
     </section>
 
     <ifMode mode="VIEW" include="false">
