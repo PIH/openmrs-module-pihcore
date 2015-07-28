@@ -368,14 +368,27 @@
         </p>
     </section>
     <section id="blood-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="blood-tests">
+
         <p>
-            <label><uimessage code="blood_tests"/></label>
+            <strong><uimessage code="blood_tests"/></strong>
+
+            <label><uimessage code="hematology"/></label>
+            <span class="small"><obs conceptId="PIH:DATE OF LABORATORY TEST" /></span>
+
+            <label><uimessage code="hemoglobin"/></label>
+            <span class="small"><obs conceptId="PIH:HEMOGLOBIN" showUnits="true" /></span>
+
+            <label><uimessage code="hematocrit"/></label>
+            <span class="small"><obs conceptId="PIH:HEMATOCRIT" showUnits="true" /></span>
+
+            <label><uimessage code="wbc"/></label>
+            <span class="small"><obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true" /></span>
+
+        </p>
+
+        <!--
             <table class="muted-header">
                 <tr>
-                    <td><uimessage code="hematology"/></td>
-                    <td><uimessage code="hemoglobin"/></td>
-                    <td><uimessage code="hematocrit"/></td>
-                    <td><uimessage code="wbc"/></td>
                     <td><uimessage code="neutrophil_count"/></td>
                     <td><uimessage code="neutrophil_percent"/></td>
                     <td><uimessage code="lymphocyte_count"/></td>
@@ -385,19 +398,7 @@
                 </tr>
                 <tr>
                     <obsgroup groupingConceptId="PIH:RWANDA HEMATOLOGY SET">
-                        <td>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:HEMOGLOBIN" labelText="Hb:" showUnits="true" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:HEMATOCRIT" labelText="Hct:" showUnits="true" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:WHITE BLOOD CELLS" labelText="WBC:" showUnits="true" />
-                        </td>
-                        <td>
+                         <td>
                             <obs conceptId="PIH:Absolute Neutrophil Count" labelText="ANC:" showUnits="true" />
                         </td>
                         <td>
@@ -413,82 +414,16 @@
                             <obs conceptId="PIH:PLATELETS" labelText="Platelets:" showUnits="true" />
                         </td>
                         <td>
-                            <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" labelText="ESR:" showUnits="true" /> <!-- (**NOT in Rwanda Hematology Set**) -->
+                            <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" labelText="ESR:" showUnits="true" /> **NOT in Rwanda Hematology Set**
                         </td>
                     </obsgroup>
                 </tr>
             </table>
+
+            -->
+
             <br/><br/>
-            <table class="muted-header">
-                <tr>
-                    <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
-                        <td>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="Biochemistry" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:SERUM CREATININE" labelText="Cr:" showUnits="true" />
-                            <obs conceptId="PIH:TOTAL BILIRUBIN" labelText="Tbili:" showUnits="true" />
-                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" labelText="SGOT:" showUnits="true" />
-                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" labelText="SGPT:" showUnits="true"/>
-                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" labelText="Alk Phos:" showUnits="true" /> <!-- (**Not currently in Biochemistry Results set**) -->
-                        </td>
-                    </obsgroup>
-                </tr>
-            </table>
-            <br/><br/>
-            <table class="muted-header">
-                <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
-                    <tr>
-                        <td>
-                            Date of Test
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="Biochemistry" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Cr:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:SERUM CREATININE" labelText="Cr:" showUnits="true" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Tbili:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:TOTAL BILIRUBIN" labelText="Tbili:" showUnits="true" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            SGOT:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" labelText="SGOT:" showUnits="true" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            SGPT:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" labelText="SGPT:" showUnits="true"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Alk Phos:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" labelText="Alk Phos:" showUnits="true" /> <!-- (**Not currently in Biochemistry Results set**) -->
-                        </td>
-                    </tr>
-                </obsgroup>
-            </table>
-            <br/><br/>
+
             <table class="muted-header">
                 <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
                     <tr>
@@ -584,7 +519,6 @@
                     </obsgroup>
                 </tr>
             </table>
-        </p>
     </section>
 
     <section id="special-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="special_tests">
