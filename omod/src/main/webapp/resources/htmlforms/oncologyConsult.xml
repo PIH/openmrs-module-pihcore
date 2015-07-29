@@ -106,6 +106,14 @@
             <variant locale="en" value="Goals of Care"/>
             <variant locale="fr" value="Intention de la Thérapie"/>
         </code>
+        <code name="blood-tests">
+            <variant locale="en" value="Blood tests"/>
+            <variant locale="fr" value="Blood tests"/>
+        </code>
+        <code name="test-date">
+            <variant locale="en" value="Date"/>
+            <variant locale="fr" value="Date"/>
+        </code>
         <code name="hematology">
             <variant locale="en" value="Hematology"/>
             <variant locale="fr" value="Hématologie"/>
@@ -161,6 +169,40 @@
         <code name="alk-phospatase">
             <variant locale="en" value="Alkaline phosphatase"/>
             <variant locale="fr" value="Alk Phos"/>
+
+            <code name="sodium">
+                <variant locale="en" value="Sodium"/>
+                <variant locale="fr" value="Na+"/>
+            </code>
+            <code name="potassium">
+                <variant locale="en" value="Potassium"/>
+                <variant locale="fr" value="K+"/>
+            </code>
+            <code name="chloride">
+                <variant locale="en" value="Chloride"/>
+                <variant locale="fr" value="Cl"/>
+            </code>
+            <code name="co2">
+                <variant locale="en" value="CO2"/>
+                <variant locale="fr" value="CO2"/>
+            </code>
+            <code name="urea">
+                <variant locale="en" value="Urea/BUN"/>
+                <variant locale="fr" value="Urea/BUN"/>
+            </code>
+            <code name="glucose">
+                <variant locale="en" value="Glucose"/>
+                <variant locale="fr" value="Glu"/>
+            </code>
+            <code name="ldh">
+                <variant locale="en" value="LDH"/>
+                <variant locale="fr" value="LDH"/>
+            </code>
+            <code name="calcium">
+                <variant locale="en" value="Calcium"/>
+                <variant locale="fr" value="Ca+"/>
+            </code>
+
         </code>
         <code name="site_of_care">
             <variant locale="en" value="Site of Care"/>
@@ -391,6 +433,11 @@
                     <uimessage code="hematology"/>
                 </strong>
                 <span class="small">
+                    <label>
+                        <uimessage code="test-date"/>
+                    </label>
+                    <!-- ToDo: Figure out how to store the date
+                            Is this the date of the order,test, or result? -->
                     <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
                 </span>
 
@@ -457,6 +504,11 @@
                     <uimessage code="biochemistry"/>
                 </strong>
                 <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
+                    <!-- ToDo: Figure out how to store the date
+                        Is this the date of the order,test, or result? -->
+                    <label>
+                        <uimessage code="test-date"/>
+                    </label>
                     <span class="small">
                         <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
                     </span>
@@ -498,11 +550,19 @@
 
         </div>
 
+        <p></p>
+
+        <div class="column">
             <p>
                 <strong>
-                    <uimessage code="iStat"/>
+                    iStat
                 </strong>
                     <obsgroup groupingConceptId="PIH:ISTAT CHEM8 PLUS CONSTRUCT">
+                        <label>
+                            <uimessage code="test-date"/>
+                        </label>
+                        <!-- ToDo: Figure out how to store the date
+                             Is this the date of the order,test, or result? -->
                         <span class="small">
                             <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
                         </span>
@@ -510,59 +570,77 @@
                             <uimessage code="sodium"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:SERUM SODIUM" labelText="Na:"/>
+                            <obs conceptId="PIH:SERUM SODIUM"/>
                         </span>
                         <label>
                             <uimessage code="potassium"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:SERUM POTASSIUM" labelText="K:"/>
+                            <obs conceptId="PIH:SERUM POTASSIUM" />
                         </span>
                         <label>
                             <uimessage code="chloride"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:SERUM CHLORIDE" labelText="Cl:"/>
+                            <obs conceptId="PIH:SERUM CHLORIDE"/>
                         </span>
                         <label>
                             <uimessage code="co2"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:SERUM CARBON DIOXIDE" labelText="CO2:"/>
+                            <obs conceptId="PIH:SERUM CARBON DIOXIDE"/>
                         </span>
                         <label>
-                            <uimessage code="blood-urea"/>
+                            <uimessage code="urea"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:BLOOD UREA NITROGEN" labelText="BUN:"/>
+                            <obs conceptId="PIH:BLOOD UREA NITROGEN" />
                         </span>
                         <label>
                             <uimessage code="creatinine"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:SERUM CREATININE" labelText="Creatinine:"/>
+                            <obs conceptId="PIH:SERUM CREATININE" />
                         </span>
                         <label>
                             <uimessage code="glucose"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:SERUM GLUCOSE" labelText="Glucose:"/>
+                            <obs conceptId="PIH:SERUM GLUCOSE" />
                         </span>
                         <!-- ToDo: Not currently part of any set -->
                         <label>
-                            <uimessage code="lactate-dehydrogenase"/>
+                            <uimessage code="ldh"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:LACTATE DEHYDROGENASE" labelText="LDH:"/>
+                            <obs conceptId="PIH:LACTATE DEHYDROGENASE" />
                         </span>
                         <label>
-                            <uimessage code=""/>
+                            <uimessage code="calcium"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="PIH:SERUM CALCIUM" labelText="Ca:"/>
+                            <obs conceptId="PIH:SERUM CALCIUM" />
                         </span>
                     </obsgroup>
             </p>
+        </div>
+
+        <div class="column">
+            <p>
+                <strong>Peripheral blood smear</strong>
+                <span class="small">
+                    <!-- ToDo: Cleanup concept and add to mds package
+                    <obs conceptId="PIH:MALARIAL SMEAR" showDate="true" /> -->
+                </span>
+            </p>
+
+            <p>
+                <strong>Other</strong>
+            </p>
+
+
+
+        </div>
     </section>
 
     <section id="special-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="special_tests">
