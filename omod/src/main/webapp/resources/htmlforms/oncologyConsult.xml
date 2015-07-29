@@ -111,16 +111,16 @@
             <variant locale="fr" value="Hématologie"/>
         </code>
         <code name="hemoglobin">
-            <variant locale="en" value="Hb (g/dl)"/>
-            <variant locale="fr" value="Hb (g/dl)"/>
+            <variant locale="en" value="Hb"/>
+            <variant locale="fr" value="Hb"/>
         </code>
         <code name="hematocrit">
-            <variant locale="en" value="HCT (%)"/>
-            <variant locale="fr" value="HCT (%)"/>
+            <variant locale="en" value="HCT"/>
+            <variant locale="fr" value="HCT"/>
         </code>
         <code name="wbc">
-            <variant locale="en" value="WBC (mnm10**9/ml)"/>
-            <variant locale="fr" value="WBC (mnm10**9/ml)"/>
+            <variant locale="en" value="WBC"/>
+            <variant locale="fr" value="WBC"/>
         </code>
         <code name="neutrophil_count">
             <variant locale="en" value="ANC"/>
@@ -131,20 +131,36 @@
             <variant locale="fr" value="ANC %"/>
         </code>
         <code name="lymphocyte_count">
-            <variant locale="en" value="Lympho (nx10**9/ml)"/>
-            <variant locale="fr" value="Lympho (nx10**9/ml)"/>
+            <variant locale="en" value="Lymphocyte"/>
+            <variant locale="fr" value="Lymphocyte"/>
         </code>
         <code name="lymphocyte_percent">
             <variant locale="en" value="Lymph %"/>
             <variant locale="fr" value="Lymph %"/>
         </code>
         <code name="platelets">
-            <variant locale="en" value="Platelets (nx10**9/ml)"/>
-            <variant locale="fr" value="Platelets (nx10**9/ml)"/>
+            <variant locale="en" value="Platelets"/>
+            <variant locale="fr" value="Platelets"/>
         </code>
         <code name="esr">
             <variant locale="en" value="ESR"/>
             <variant locale="fr" value="ESR"/>
+        </code>
+        <code name="biochemistry">
+            <variant locale="en" value="Biochemistry"/>
+            <variant locale="fr" value="Biochimie"/>
+        </code>
+        <code name="creatinine">
+            <variant locale="en" value="Creatinine"/>
+            <variant locale="fr" value="Creatinine"/>
+        </code>
+        <code name="bilirubin">
+            <variant locale="en" value="Total bilirubin"/>
+            <variant locale="fr" value="Tbili"/>
+        </code>
+        <code name="alk-phospatase">
+            <variant locale="en" value="Alkaline phosphatase"/>
+            <variant locale="fr" value="Alk Phos"/>
         </code>
         <code name="site_of_care">
             <variant locale="en" value="Site of Care"/>
@@ -369,156 +385,184 @@
     </section>
     <section id="blood-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="blood-tests">
 
-        <p>
-            <strong><uimessage code="blood_tests"/></strong>
+        <div class="column">
+            <p>
+                <strong>
+                    <uimessage code="hematology"/>
+                </strong>
+                <span class="small">
+                    <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                </span>
 
-            <label><uimessage code="hematology"/></label>
-            <span class="small"><obs conceptId="PIH:DATE OF LABORATORY TEST" /></span>
+                <label>
+                    <uimessage code="hemoglobin"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
+                </span>
 
-            <label><uimessage code="hemoglobin"/></label>
-            <span class="small"><obs conceptId="PIH:HEMOGLOBIN" showUnits="true" /></span>
+                <label>
+                    <uimessage code="hematocrit"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
+                </span>
 
-            <label><uimessage code="hematocrit"/></label>
-            <span class="small"><obs conceptId="PIH:HEMATOCRIT" showUnits="true" /></span>
+                <label>
+                    <uimessage code="wbc"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
+                </span>
 
-            <label><uimessage code="wbc"/></label>
-            <span class="small"><obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true" /></span>
+                <label>
+                    <uimessage code="neutrophil_count"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
+                </span>
+                <span class="small">(<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
+                </span>
 
-        </p>
+                <label>
+                    <uimessage code="lymphocyte_count"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
+                    (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
+                </span>
 
-        <!--
-            <table class="muted-header">
-                <tr>
-                    <td><uimessage code="neutrophil_count"/></td>
-                    <td><uimessage code="neutrophil_percent"/></td>
-                    <td><uimessage code="lymphocyte_count"/></td>
-                    <td><uimessage code="lymphocyte_percent"/></td>
-                    <td><uimessage code="platelets"/></td>
-                    <td><uimessage code="esr"/></td>
-                </tr>
-                <tr>
-                    <obsgroup groupingConceptId="PIH:RWANDA HEMATOLOGY SET">
-                         <td>
-                            <obs conceptId="PIH:Absolute Neutrophil Count" labelText="ANC:" showUnits="true" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:NEUTROPHILS" labelText="ANC%" showUnits="true" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" labelText="Lympho:" showUnits="true" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:LYMPHOCYTES" labelText="Lymph%:" showUnits="true" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:PLATELETS" labelText="Platelets:" showUnits="true" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" labelText="ESR:" showUnits="true" /> **NOT in Rwanda Hematology Set**
-                        </td>
-                    </obsgroup>
-                </tr>
-            </table>
+                <label>
+                    <uimessage code="platelets"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:PLATELETS" showUnits="true"/>
+                </span>
 
-            -->
+                <label>
+                    <uimessage code="esr"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
+                </span>
+            </p>
 
-            <br/><br/>
+        </div>
 
-            <table class="muted-header">
+        <div class="column">
+
+            <p>
+
+                <strong>
+                    <uimessage code="biochemistry"/>
+                </strong>
                 <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
-                    <tr>
-                        <td>Biochemistry</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Date of Test
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" />
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Cr:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:SERUM CREATININE" showUnits="false" />
-                        </td>
-                        <td>
-                            mmol/L
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Tbili:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:TOTAL BILIRUBIN" showUnits="false" />
-                        </td>
-                        <td>
-                            mg/dl
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            SGOT:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="false" />
-                        </td>
-                        <td>
-                            U/L
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            SGPT:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="false"/>
-                        </td>
-                        <td>
-                            U/L
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Alk Phos:
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="false" /> <!-- (**Not currently in Biochemistry Results set**) -->
-                        </td>
-                        <td>
-                            U/L
-                        </td>
-                    </tr>
+                    <span class="small">
+                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                    </span>
+
+                    <label>
+                        <uimessage code="creatinine"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:SERUM CREATININE" showUnits="true"/>
+                    </span>
+
+                    <label>
+                        <uimessage code="bilirubin"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:TOTAL BILIRUBIN" showUnits="true"/>
+                    </span>
+
+                    <label>SGOT</label>
+                    <span class="small">
+                        <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="true"/>
+                    </span>
+
+                    <label>SGPT</label>
+                    <span class="small">
+                        <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
+                    </span>
+
+                    <!-- ToDo:  Not currently in Biochemistry Results set -->
+                    <label>
+                        <uimessage code="alk-phosphatase"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
+                    </span>
+
                 </obsgroup>
-            </table>
-            <br/><br/>
-            <table class="muted-header">
-                <tr>
+            </p>
+
+        </div>
+
+            <p>
+                <strong>
+                    <uimessage code="iStat"/>
+                </strong>
                     <obsgroup groupingConceptId="PIH:ISTAT CHEM8 PLUS CONSTRUCT">
-                        <td>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" labelText="iSTAT" />
-                        </td>
-                        <td>
-                            <obs conceptId="PIH:SERUM SODIUM" labelText="Na:" />
-                            <obs conceptId="PIH:SERUM POTASSIUM" labelText="K:" />
-                            <obs conceptId="PIH:SERUM CHLORIDE" labelText="Cl:" />
-                            <obs conceptId="PIH:SERUM CARBON DIOXIDE" labelText="CO2:" />
-                            <obs conceptId="PIH:BLOOD UREA NITROGEN" labelText="BUN:" />
-                            <obs conceptId="PIH:SERUM CREATININE" labelText="Creatinine:" />
-                            <obs conceptId="PIH:SERUM GLUCOSE" labelText="Glucose:" />
-                            <obs conceptId="PIH:LACTATE DEHYDROGENASE" labelText="LDH:" /> <!-- (**Not currently part of any set**) -->
-                            <obs conceptId="PIH:SERUM CALCIUM" labelText="Ca:" />
-                        </td>
+                        <span class="small">
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </span>
+                        <label>
+                            <uimessage code="sodium"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM SODIUM" labelText="Na:"/>
+                        </span>
+                        <label>
+                            <uimessage code="potassium"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM POTASSIUM" labelText="K:"/>
+                        </span>
+                        <label>
+                            <uimessage code="chloride"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM CHLORIDE" labelText="Cl:"/>
+                        </span>
+                        <label>
+                            <uimessage code="co2"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM CARBON DIOXIDE" labelText="CO2:"/>
+                        </span>
+                        <label>
+                            <uimessage code="blood-urea"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:BLOOD UREA NITROGEN" labelText="BUN:"/>
+                        </span>
+                        <label>
+                            <uimessage code="creatinine"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM CREATININE" labelText="Creatinine:"/>
+                        </span>
+                        <label>
+                            <uimessage code="glucose"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM GLUCOSE" labelText="Glucose:"/>
+                        </span>
+                        <!-- ToDo: Not currently part of any set -->
+                        <label>
+                            <uimessage code="lactate-dehydrogenase"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:LACTATE DEHYDROGENASE" labelText="LDH:"/>
+                        </span>
+                        <label>
+                            <uimessage code=""/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM CALCIUM" labelText="Ca:"/>
+                        </span>
                     </obsgroup>
-                </tr>
-            </table>
+            </p>
     </section>
 
     <section id="special-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="special_tests">
