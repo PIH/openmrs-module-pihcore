@@ -432,15 +432,7 @@
                 <strong>
                     <uimessage code="hematology"/>
                 </strong>
-                <span class="small">
-                    <label>
-                        <uimessage code="test-date"/>
-                    </label>
-                    <!-- ToDo: Figure out how to store the date
-                            Is this the date of the order,test, or result? -->
-                    <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
-                </span>
-
+                    <obsgroup groupingConceptId="PIH:HEMATOLOGY RESULTS SET" showDate="true">
                 <label>
                     <uimessage code="hemoglobin"/>
                 </label>
@@ -492,6 +484,7 @@
                 <span class="small">
                     <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
                 </span>
+                </obsgroup>
             </p>
 
         </div>
@@ -503,7 +496,7 @@
                 <strong>
                     <uimessage code="biochemistry"/>
                 </strong>
-                <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS">
+                <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS" showDate="true">
                     <!-- ToDo: Figure out how to store the date
                         Is this the date of the order,test, or result? -->
                     <label>
