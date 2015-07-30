@@ -432,11 +432,12 @@
                     <uimessage code="hematology"/>
                 </strong>
 
+                <obsgroup groupingConceptId="PIH:Hematology construct">
                     <label>
                         <uimessage code="test-date"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:Date of hematology laboratory test"/>
+                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
                     </span>
 
                     <label>
@@ -491,6 +492,7 @@
                         <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
                     </span>
 
+                </obsgroup>
             </p>
 
         </div>
@@ -502,11 +504,13 @@
                 <strong>
                     <uimessage code="biochemistry"/>
                 </strong>
+
+                <obsgroup groupingConceptId="PIH:Biochemistry construct">
                      <label>
                         <uimessage code="test-date"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:Date of biochemistry lab test"/>
+                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
                     </span>
 
                     <label>
@@ -533,14 +537,13 @@
                         <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
                     </span>
 
-                    <!-- ToDo:  Not currently in Biochemistry Results set -->
                     <label>
                         <uimessage code="alk-phos"/>
                     </label>
                     <span class="small">
                         <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
                     </span>
-
+                </obsgroup>
             </p>
 
         </div>
@@ -552,11 +555,14 @@
                 <strong>
                     iStat
                 </strong>
+
+                <obsgroup groupingConceptId="PIH:i-STAT CHEM 8+ construct">
+
                         <label>
                             <uimessage code="test-date"/>
                         </label>
                          <span class="small">
-                            <obs conceptId="PIH:Date of i-Stat CHEM8 lab test"/>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
                         </span>
                         <label>
                             <uimessage code="sodium"/>
@@ -607,13 +613,14 @@
                             <obs conceptId="PIH:SERUM CALCIUM" />
                         </span>
 
-                        <!-- ToDo: Not currently part of lab set -->
+                        <!-- Not currently part of iStat lab set -->
                         <label>
                             <uimessage code="ldh"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:LACTATE DEHYDROGENASE" />
                         </span>
+                </obsgroup>
 
             </p>
         </div>
