@@ -166,44 +166,43 @@
             <variant locale="en" value="Total bilirubin"/>
             <variant locale="fr" value="Tbili"/>
         </code>
-        <code name="alk-phospatase">
+        <code name="alk-phos">
             <variant locale="en" value="Alkaline phosphatase"/>
             <variant locale="fr" value="Alk Phos"/>
-
-            <code name="sodium">
-                <variant locale="en" value="Sodium"/>
-                <variant locale="fr" value="Na+"/>
-            </code>
-            <code name="potassium">
-                <variant locale="en" value="Potassium"/>
-                <variant locale="fr" value="K+"/>
-            </code>
-            <code name="chloride">
-                <variant locale="en" value="Chloride"/>
-                <variant locale="fr" value="Cl"/>
-            </code>
-            <code name="co2">
-                <variant locale="en" value="CO2"/>
-                <variant locale="fr" value="CO2"/>
-            </code>
-            <code name="urea">
-                <variant locale="en" value="Urea/BUN"/>
-                <variant locale="fr" value="Urea/BUN"/>
-            </code>
-            <code name="glucose">
-                <variant locale="en" value="Glucose"/>
-                <variant locale="fr" value="Glu"/>
-            </code>
-            <code name="ldh">
-                <variant locale="en" value="LDH"/>
-                <variant locale="fr" value="LDH"/>
-            </code>
-            <code name="calcium">
-                <variant locale="en" value="Calcium"/>
-                <variant locale="fr" value="Ca+"/>
-            </code>
-
         </code>
+        <code name="sodium">
+            <variant locale="en" value="Sodium"/>
+            <variant locale="fr" value="Na+"/>
+        </code>
+        <code name="potassium">
+            <variant locale="en" value="Potassium"/>
+            <variant locale="fr" value="K+"/>
+        </code>
+        <code name="chloride">
+            <variant locale="en" value="Chloride"/>
+            <variant locale="fr" value="Cl"/>
+        </code>
+        <code name="co2">
+            <variant locale="en" value="CO2"/>
+            <variant locale="fr" value="CO2"/>
+        </code>
+        <code name="urea">
+            <variant locale="en" value="Urea/BUN"/>
+            <variant locale="fr" value="Urea/BUN"/>
+        </code>
+        <code name="glucose">
+            <variant locale="en" value="Glucose"/>
+            <variant locale="fr" value="Glu"/>
+        </code>
+        <code name="ldh">
+            <variant locale="en" value="LDH"/>
+            <variant locale="fr" value="LDH"/>
+        </code>
+        <code name="calcium">
+            <variant locale="en" value="Calcium"/>
+            <variant locale="fr" value="Ca+"/>
+        </code>
+
         <code name="site_of_care">
             <variant locale="en" value="Site of Care"/>
             <variant locale="fr" value="Lieu"/>
@@ -426,65 +425,72 @@
         </p>
     </section>
     <section id="blood-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="blood-tests">
-
+        <div>
         <div class="column">
             <p>
                 <strong>
                     <uimessage code="hematology"/>
                 </strong>
-                    <obsgroup groupingConceptId="PIH:HEMATOLOGY RESULTS SET" showDate="true">
-                <label>
-                    <uimessage code="hemoglobin"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
-                </span>
 
-                <label>
-                    <uimessage code="hematocrit"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
-                </span>
+                    <label>
+                        <uimessage code="test-date"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:Date of hematology laboratory test"/>
+                    </span>
 
-                <label>
-                    <uimessage code="wbc"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
-                </span>
+                    <label>
+                        <uimessage code="hemoglobin"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
+                    </span>
 
-                <label>
-                    <uimessage code="neutrophil_count"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
-                </span>
-                <span class="small">(<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
-                </span>
+                    <label>
+                        <uimessage code="hematocrit"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
+                    </span>
 
-                <label>
-                    <uimessage code="lymphocyte_count"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
-                    (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
-                </span>
+                    <label>
+                        <uimessage code="wbc"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
+                    </span>
 
-                <label>
-                    <uimessage code="platelets"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:PLATELETS" showUnits="true"/>
-                </span>
+                    <label>
+                        <uimessage code="neutrophil_count"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
+                    </span>
+                    <span class="small">(<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
+                    </span>
 
-                <label>
-                    <uimessage code="esr"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
-                </span>
-                </obsgroup>
+                    <label>
+                        <uimessage code="lymphocyte_count"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
+                        (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
+                    </span>
+
+                    <label>
+                        <uimessage code="platelets"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:PLATELETS" showUnits="true"/>
+                    </span>
+
+                    <label>
+                        <uimessage code="esr"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
+                    </span>
+
             </p>
 
         </div>
@@ -496,14 +502,11 @@
                 <strong>
                     <uimessage code="biochemistry"/>
                 </strong>
-                <obsgroup groupingConceptId="PIH:BIOCHEMISTRY RESULTS" showDate="true">
-                    <!-- ToDo: Figure out how to store the date
-                        Is this the date of the order,test, or result? -->
-                    <label>
+                     <label>
                         <uimessage code="test-date"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        <obs conceptId="PIH:Date of biochemistry lab test"/>
                     </span>
 
                     <label>
@@ -532,32 +535,28 @@
 
                     <!-- ToDo:  Not currently in Biochemistry Results set -->
                     <label>
-                        <uimessage code="alk-phosphatase"/>
+                        <uimessage code="alk-phos"/>
                     </label>
                     <span class="small">
                         <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
                     </span>
 
-                </obsgroup>
             </p>
 
         </div>
+        </div>
 
-        <p></p>
-
-        <div class="column">
+        <div>
+        <div class="two-columns">
             <p>
                 <strong>
                     iStat
                 </strong>
-                    <obsgroup groupingConceptId="PIH:ISTAT CHEM8 PLUS CONSTRUCT">
                         <label>
                             <uimessage code="test-date"/>
                         </label>
-                        <!-- ToDo: Figure out how to store the date
-                             Is this the date of the order,test, or result? -->
-                        <span class="small">
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                         <span class="small">
+                            <obs conceptId="PIH:Date of i-Stat CHEM8 lab test"/>
                         </span>
                         <label>
                             <uimessage code="sodium"/>
@@ -601,21 +600,23 @@
                         <span class="small">
                             <obs conceptId="PIH:SERUM GLUCOSE" />
                         </span>
-                        <!-- ToDo: Not currently part of any set -->
-                        <label>
-                            <uimessage code="ldh"/>
-                        </label>
-                        <span class="small">
-                            <obs conceptId="PIH:LACTATE DEHYDROGENASE" />
-                        </span>
                         <label>
                             <uimessage code="calcium"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:SERUM CALCIUM" />
                         </span>
-                    </obsgroup>
+
+                        <!-- ToDo: Not currently part of lab set -->
+                        <label>
+                            <uimessage code="ldh"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:LACTATE DEHYDROGENASE" />
+                        </span>
+
             </p>
+        </div>
         </div>
 
         <div class="column">
@@ -630,8 +631,6 @@
             <p>
                 <strong>Other</strong>
             </p>
-
-
 
         </div>
     </section>
@@ -747,7 +746,7 @@
             <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Lab abnormalities" /> <!-- **Needs Concept Update** -->
             <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Vital sign abnormalities" /> <!-- **Needs Concept Update** -->
             <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Unknown" /> <!-- **Needs Concept Update** -->
-            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Other:" /> <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Other" commentFieldLabel="specify:"/> <!-- **Needs Concept Update** -->
             <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
             <br/>
             <label><uimessage code="chemo_side_effects"/></label>
