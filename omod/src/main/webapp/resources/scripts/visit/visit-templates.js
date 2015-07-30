@@ -44,7 +44,7 @@ angular.module("visit-templates", ["constants"])
             shortTemplate: "templates/defaultEncounterShort.page",
             longTemplate: "templates/defaultEncounterLong.page",
             icon: "icon-beaker",
-            editUrl: hfeStandardEditUrl
+            editUrl: hfeSimpleEditUrl
         };
         encounterTypeConfig[EncounterTypes.primaryCareExam.uuid] = {
             defaultState: "long",
@@ -174,7 +174,7 @@ angular.module("visit-templates", ["constants"])
             action: {
                 label: "Lab results",
                 icon: "icon-beaker",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/lab-results.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/lab-results.xml&returnUrl={{returnUrl}}"
             }
         };
 
