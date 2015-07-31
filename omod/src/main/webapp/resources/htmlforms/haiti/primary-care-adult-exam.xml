@@ -272,6 +272,7 @@
 
     </section>
 
+    <!-- TdDo: What to do about retrospective entry?  Check the who? when? where? -->
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
             <legend>When?</legend>
