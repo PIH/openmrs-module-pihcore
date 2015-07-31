@@ -19,7 +19,7 @@
         }
     </style>
 
-    <!--TODO: Can the answers be coded? Confirm what would go here (imaging? psych? what else?) -->
+    <!--TODO: Confirm what would go here (imaging? psych? what else?) -->
 
     <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.blood_tests.title">
     <fieldset>
@@ -229,10 +229,10 @@
         <fieldset>
 
             <legend>
-                <uimessage code="pihcore.lab.other"/>
+                <uimessage code="pihcore.other"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.lab.other"/>
+                <uimessage code="pihcore.other"/>
             </h3>
             <p>
                 <strong>Peripheral blood smear</strong>
@@ -250,12 +250,13 @@
             </p>
 
             <p>
-                <strong>Other</strong>
+                <strong><uimessage code="pihcore.other"/></strong>
             </p>
 
         </fieldset>
     </section>
 
+    <!-- TdDo: What to do about retrospective entry?  Check the who? when? where? -->
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
             <legend>When?</legend>
@@ -280,30 +281,5 @@
     </div>
 
     <submit/>
-
-    <!--
-    <ifMode mode="VIEW" include="false">
-        <br/>
-        <br/>
-        <div>
-            <encounterDate id="encounterDate" default="now" widget="hidden"/>
-            <p id="provider">
-                <label>Signed By</label>
-                <!-- TODO: Provider will be entered and not defaulted?  Translate signed by
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-            </p>
-
-            <p id="location">
-                <label><uimessage code="uicommons.location"/></label>
-                <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
-            </p>
-
-        </div>
-        <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
-        </div>
-    </ifMode>
-    -->
 
 </htmlform>

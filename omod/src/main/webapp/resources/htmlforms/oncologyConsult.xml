@@ -26,10 +26,6 @@
             <variant locale="en" value="Service / Team"/>
             <variant locale="fr" value="Service / Equipe"/>
         </code>
-        <code name="other">
-            <variant locale="en" value="***** Needs Translation *****"/>  <!-- Use message.properties for this -->
-            <variant locale="fr" value="autre"/>
-        </code>
         <code name="lab">
             <variant locale="en" value="Lab (ie. culture)"/>
             <variant locale="fr" value="Labo (e.g. culture)"/>
@@ -207,14 +203,11 @@
             <variant locale="en" value="Site of Care"/>
             <variant locale="fr" value="Lieu"/>
         </code>
-        <code name="recommendations">
-            <variant locale="en" value="Recommendations"/>
-            <variant locale="fr" value="Recommandations"/>
-        </code>
         <code name="treatment_outcomes">
             <variant locale="en" value="Treatment and Outcomes"/>
             <variant locale="fr" value="Traitement et Résultats"/>
         </code>
+        <!--
         <code name="rec_chemo">
             <variant locale="en" value="Chemotherapy"/>
             <variant locale="fr" value="Chimiothérapie"/>
@@ -231,6 +224,7 @@
             <variant locale="en" value="Follow-up"/>
             <variant locale="fr" value="Suivre"/>
         </code>
+        -->
         <code name="disease_status">
             <variant locale="en" value="Disease Status"/>
             <variant locale="fr" value="L'état de la maladie"/>
@@ -290,6 +284,29 @@
 
     <style type="text/css">
 
+        #who-when-where {
+        margin-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+        }
+
+        #who-when-where p {
+        display: inline-block;
+        padding-right: 20px;
+        }
+
+        #where > input[type=text] {
+        display: inline-block;
+        }
+
+        .narrow {
+        width: 200px;
+        }
+
+        .field-error {
+        color: #ff6666;
+        font-size: 1.1em;
+        display: block;
+        }
 
         .column {
         float: left;
@@ -319,6 +336,12 @@
         label { font-weight: bold }
         label[for] { font-weight: normal }   /* refers to the radio set label */
         }
+
+        .half-size-text {
+        color: #ff6666;
+        font-size: 50%;
+        display: block;
+        }
     </style>
 
     <script type="text/javascript">
@@ -337,39 +360,87 @@
 
     </script>
 
-
-    <ifMode mode="VIEW" include="false">
-        <h2><label><uimessage code="oncology_consult"/></label></h2>
-    </ifMode>
-
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>: <lookup complexExpression="$form.dateCreated"/></p>
         <p><uimessage code="last_updated_on"/>: <lookup complexExpression="$form.dateChanged"/></p>
         <p><uimessage code="printed_on"/>: <lookup complexExpression="$formGeneratedDatetime"/></p>
     </div>
 
+    <ifMode mode="VIEW" include="false">
+        <h2><label><uimessage code="oncology_consult"/></label></h2>
 
+        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+            <div id="who-when-where">
+                <p id="who">
+                    <label><uimessage code="emr.patientDashBoard.providerRequired"/></label>
+                    <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
+                </p>
+                <p id="where">
+                    <label><uimessage code="emr.locationRequired"/></label>
+                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                </p>
+                <p id="when">
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
+                    <span><encounterDate id="encounterDate" default="now" /></span>
+                </p>
+            </div>
+        </includeIf>
+        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            </div>
 
-    <section id="service-team" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="service_team">
+            <div id="who-when-where">
+                <p id="who">
+                    <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                    <span><lookup expression="user.person.personName" /></span>
+                </p>
+                <p id="where">
+                    <label><uimessage code="emr.locationRequired"/></label>
+                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                </p>
+                <p id="when">
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
+                    <span><encounterDate id="encounterDate" default="now" /></span>
+                </p>
+            </div>
 
-        <p>
-            <label><uimessage code="date"/></label>
-            <encounterDate id="encounterDate" default="now" />
-        </p>
-        <p>
-            <label><uimessage code="provider"/></label>
-            <encounterProviderAndRole encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
-                                      required="true"/>
-        </p>
+        </includeIf>
+        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                <encounterDate id="encounterDate" default="now" />
+            </div>
+            <div id="who-when-where">
+                <table id="who-where-when-view">
+                    <tr>
+                        <td>
+                            <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                            <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
+                        </td>
+                        <td>
+                            <label><uimessage code="emr.location"/></label>
+                            <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
+                        </td>
+                        <td>
+                            <label><uimessage code="emr.patientDashBoard.date"/></label>
+                            <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </includeIf>
+    </ifMode>
 
-    </section>
-
-    <section id="site-of-care" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="site_of_care">
-        <p>
-            <label><uimessage code="location"/></label>
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId" />
-        </p>
-    </section>
+    <br/>
+    <br/>
+    <br/>
+    <strong>DIAGNOSIS</strong>
+    <br/>
 
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
         <p>
@@ -385,245 +456,265 @@
         </p>
     </section>
 
+    <br/>
+    <br/>
+    <br/>
+    <strong>STAGING</strong>
+    <br/>
+
     <section id="physical-exam" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="physical_exam">
         <p>
-            <label><uimessage code="ecog_perf_status"/></label>
-            <obs conceptId="CIEL:160379" />
+            <label><uimessage code="disease_status"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** --> Remission, Stable not improving, grossly improving, local recurrence, grossly worsening progressive, recurrence - metastatic, unknown, cannot assess - no show, other
             <br/>
-            <label><uimessage code="pe_exam_findings"/></label>
-            <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" style="textarea" rows="3" cols="80"/>
         </p>
-    </section>
-
-    <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
-        <p class="radio">
-            <label><uimessage code="prev_treatment"/></label>
-            <obs id="prev_treatment" conceptId="CIEL:162964" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                 answerSeparator=""/>
-        </p>
-        <p>
-            <label><uimessage code="prev_treatment_comment"/></label>
-            <obs conceptId="CIEL:162965" style="textarea" rows="3" cols="80"/>
-        </p>
-        <p class="radio">
-            <label><uimessage code="current_treatment"/></label>
-            <obs id="current_treatment" conceptId="CIEL:162966" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                 answerSeparator=""/>
-        </p>
-        <p>
-            <label><uimessage code="current_treatment_comment"/></label>
-            <obs conceptId="CIEL:162967" style="textarea" rows="3" cols="80"/>
-        </p>
-    </section>
-    <section id="goals-of-care" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="goals_of_care">
-        <p class="radio">
-            <obs conceptId="CIEL:160846" style="radio"
-                 answerConceptIds="CIEL:160847,CIEL:160849" answerCodes="curative,palliative"
-                 answerSeparator=""/>
-        </p>
-    </section>
-    <section id="blood-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="blood-tests">
         <div>
-        <div class="column">
-            <p>
-                <strong>
-                    <uimessage code="hematology"/>
-                </strong>
-
-                <obsgroup groupingConceptId="PIH:Hematology construct">
-                    <label>
-                        <uimessage code="test-date"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
-                    </span>
-
-                    <label>
-                        <uimessage code="hemoglobin"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
-                    </span>
-
-                    <label>
-                        <uimessage code="hematocrit"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
-                    </span>
-
-                    <label>
-                        <uimessage code="wbc"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
-                    </span>
-
-                    <label>
-                        <uimessage code="neutrophil_count"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
-                    </span>
-                    <span class="small">(<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
-                    </span>
-
-                    <label>
-                        <uimessage code="lymphocyte_count"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
-                        (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
-                    </span>
-
-                    <label>
-                        <uimessage code="platelets"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:PLATELETS" showUnits="true"/>
-                    </span>
-
-                    <label>
-                        <uimessage code="esr"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
-                    </span>
-
-                </obsgroup>
-            </p>
-
+            <div class="column">
+                <label><uimessage code="ecog_perf_status"/></label>
+                <obs conceptId="CIEL:160379" />
+            </div>
+            <div class="column">
+                <table class="muted-header" style="font-size:small" >
+                    <tr>
+                        <td>GRADE</td>
+                        <td>ECOG PERFORMANCE STATUS</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>Fully active, able to carry on all pre-disease performance without restriction</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Restricted in physically strenuous activity but ambulatory and able to carry out work of a light or sedentary nature, e.g., light house work, office work</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Ambulatory and capable of all selfcare but unable to carry out any work activities; up and about more than 50% of waking hours</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking hours</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Completely disabled; cannot carry on any selfcare; totally confined to bed or chair</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Dead</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-
-        <div class="column">
-
-            <p>
-
-                <strong>
-                    <uimessage code="biochemistry"/>
-                </strong>
-
-                <obsgroup groupingConceptId="PIH:Biochemistry construct">
-                     <label>
-                        <uimessage code="test-date"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
-                    </span>
-
-                    <label>
-                        <uimessage code="creatinine"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:SERUM CREATININE" showUnits="true"/>
-                    </span>
-
-                    <label>
-                        <uimessage code="bilirubin"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:TOTAL BILIRUBIN" showUnits="true"/>
-                    </span>
-
-                    <label>SGOT</label>
-                    <span class="small">
-                        <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="true"/>
-                    </span>
-
-                    <label>SGPT</label>
-                    <span class="small">
-                        <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
-                    </span>
-
-                    <label>
-                        <uimessage code="alk-phos"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
-                    </span>
-                </obsgroup>
-            </p>
-
-        </div>
-        </div>
-
         <div>
-        <div class="two-columns">
             <p>
-                <strong>
-                    iStat
-                </strong>
+                <br/>
+                <label><uimessage code="pe_exam_findings"/></label>
+                <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" style="textarea" rows="3" cols="80"/>
+            </p>
+        </div>
+    </section>
 
-                <obsgroup groupingConceptId="PIH:i-STAT CHEM 8+ construct">
+    <section id="blood-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.lab.blood-tests.title">
+        <div>
+            <div class="column">
+                <p>
+                    <strong>
+                        <uimessage code="pihcore.lab.hematology.title"/>
+                    </strong>
+
+                    <obsgroup groupingConceptId="PIH:Hematology construct">
+                        <label>
+                            <uimessage code="pihcore.lab.test-date"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </span>
 
                         <label>
-                            <uimessage code="test-date"/>
+                            <uimessage code="pihcore.lab.hemoglobin"/>
                         </label>
-                         <span class="small">
+                        <span class="small">
+                            <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.hematocrit"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.wbc"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.neutrophil_count"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
+                        </span>
+                        <span class="small">(<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.lymphocyte_count"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
+                            (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.platelets"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:PLATELETS" showUnits="true"/>
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.esr"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
+                        </span>
+
+                    </obsgroup>
+                </p>
+
+            </div>
+
+            <div class="column">
+
+                <p>
+
+                    <strong>
+                        <uimessage code="pihcore.lab.biochemistry.title"/>
+                    </strong>
+
+                    <obsgroup groupingConceptId="PIH:Biochemistry construct">
+                        <label>
+                            <uimessage code="pihcore.lab.test-date"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.creatinine"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM CREATININE" showUnits="true"/>
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.bilirubin"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:TOTAL BILIRUBIN" showUnits="true"/>
+                        </span>
+
+                        <label>SGOT</label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="true"/>
+                        </span>
+
+                        <label>SGPT</label>
+                        <span class="small">
+                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
+                        </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.alk-phos"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
+                        </span>
+                    </obsgroup>
+                </p>
+
+            </div>
+        </div>
+
+        <div>
+            <div class="two-columns">
+                <p>
+                    <strong>
+                        <uimessage code="pihcore.lab.iStat.title"/>
+                    </strong>
+
+                    <obsgroup groupingConceptId="PIH:i-STAT CHEM 8+ construct">
+
+                        <label>
+                            <uimessage code="pihcore.lab.test-date"/>
+                        </label>
+                        <span class="small">
                             <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
                         </span>
                         <label>
-                            <uimessage code="sodium"/>
+                            <uimessage code="pihcore.lab.sodium"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:SERUM SODIUM"/>
                         </span>
                         <label>
-                            <uimessage code="potassium"/>
+                            <uimessage code="pihcore.lab.potassium"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:SERUM POTASSIUM" />
                         </span>
                         <label>
-                            <uimessage code="chloride"/>
+                            <uimessage code="pihcore.lab.chloride"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:SERUM CHLORIDE"/>
                         </span>
                         <label>
-                            <uimessage code="co2"/>
+                            <uimessage code="pihcore.lab.co2"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:SERUM CARBON DIOXIDE"/>
                         </span>
                         <label>
-                            <uimessage code="urea"/>
+                            <uimessage code="pihcore.lab.urea"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:BLOOD UREA NITROGEN" />
                         </span>
                         <label>
-                            <uimessage code="creatinine"/>
+                            <uimessage code="pihcore.lab.creatinine"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:SERUM CREATININE" />
                         </span>
                         <label>
-                            <uimessage code="glucose"/>
+                            <uimessage code="pihcore.lab.glucose"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:SERUM GLUCOSE" />
                         </span>
                         <label>
-                            <uimessage code="calcium"/>
+                            <uimessage code="pihcore.lab.calcium"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:SERUM CALCIUM" />
                         </span>
 
-                        <!-- Not currently part of iStat lab set -->
+                        <!-- Not in iStat lab set, but concept available -->
                         <label>
-                            <uimessage code="ldh"/>
+                            <uimessage code="pihcore.lab.ldh"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:LACTATE DEHYDROGENASE" />
                         </span>
-                </obsgroup>
+                    </obsgroup>
 
-            </p>
-        </div>
+                </p>
+            </div>
         </div>
 
         <div class="column">
@@ -686,51 +777,45 @@
         </p>
     </section>
 
+    <br/>
+    <br/>
+    <br/>
+    <strong>TREATMENT</strong>
+    <br/>
 
-
-    <section id="recommendations" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="recommendations">
+    <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
+        <p class="radio">
+            <label><uimessage code="prev_treatment"/></label>
+            <obs id="prev_treatment" conceptId="CIEL:162964" style="radio"
+                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                 answerSeparator=""/>
+        </p>
         <p>
-            <table class="muted-header">
-                <tr>
-                    <td>
-                        <label><uimessage code="rec_surgery"/></label>
-                    </td>
-                    <td>
-                        <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label><uimessage code="rec_chemo"/></label>
-                    </td>
-                    <td>
-                        <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label><uimessage code="rec_endocrine_therapy"/></label>
-                    </td>
-                    <td>
-                        <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label><uimessage code="rec_followup"/></label>
-                    </td>
-                    <td>
-                        <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
-                    </td>
-                </tr>
-            </table>
+            <label><uimessage code="prev_treatment_comment"/></label>
+            <obs conceptId="CIEL:162965" style="textarea" rows="3" cols="80"/>
+        </p>
+        <p class="radio">
+            <label><uimessage code="current_treatment"/></label>
+            <obs id="current_treatment" conceptId="CIEL:162966" style="radio"
+                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                 answerSeparator=""/>
+        </p>
+        <p>
+            <label><uimessage code="current_treatment_comment"/></label>
+            <obs conceptId="CIEL:162967" style="textarea" rows="3" cols="80"/>
         </p>
     </section>
-
+    <section id="goals-of-care" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="goals_of_care">
+        <p class="radio">
+            <obs conceptId="CIEL:160846" style="radio"
+                 answerConceptIds="CIEL:160847,CIEL:160849" answerCodes="curative,palliative"
+                 answerSeparator=""/>
+        </p>
+    </section>
     <section id="treatment_outcomes" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment_outcomes">
         <p>
-            <label><uimessage code="disease_status"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** --> Remission, Stable not improving, grossly improving, local recurrence, grossly worsening progressive, recurrence - metastatic, unknown, cannot assess - no show, other
+            <label><uimessage code="chemotherapy_protocol"/></label>
+            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
             <br/>
             <label><uimessage code="patient_plan"/></label>
             <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** --> Continue current chemotherapy protocol, chemotherapy break, follow-up with oncologist prior to continuing chemotherapy, other
@@ -740,9 +825,6 @@
             <br/>
             <label><uimessage code="patient_plan_details"/></label>
             <obs conceptId="PIH:PATIENT PLAN COMMENTS" />
-            <br/>
-            <label><uimessage code="chemotherapy_protocol"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
             <br/>
             <label><uimessage code="chemo_cycle_number"/></label>
             <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER" />
