@@ -515,7 +515,7 @@
         </div>
     </section>
 
-    <section id="blood-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.lab.blood-tests.title">
+    <section id="blood-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.lab.blood_tests.title">
         <div>
             <div class="column">
                 <p>
@@ -525,7 +525,7 @@
 
                     <obsgroup groupingConceptId="PIH:Hematology construct">
                         <label>
-                            <uimessage code="pihcore.lab.test-date"/>
+                            <uimessage code="pihcore.lab.test_date"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
@@ -546,14 +546,14 @@
                         </span>
 
                         <label>
-                            <uimessage code="pihcore.lab.wbc"/>
+                            <uimessage code="pihcore.lab.white_blood_cell"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
                         </span>
 
                         <label>
-                            <uimessage code="pihcore.lab.neutrophil_count"/>
+                            <uimessage code="pihcore.lab.neutrophil"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
@@ -562,7 +562,7 @@
                         </span>
 
                         <label>
-                            <uimessage code="pihcore.lab.lymphocyte_count"/>
+                            <uimessage code="pihcore.lab.lymphocyte"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
@@ -598,7 +598,7 @@
 
                     <obsgroup groupingConceptId="PIH:Biochemistry construct">
                         <label>
-                            <uimessage code="pihcore.lab.test-date"/>
+                            <uimessage code="pihcore.lab.test_date"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
@@ -629,7 +629,7 @@
                         </span>
 
                         <label>
-                            <uimessage code="pihcore.lab.alk-phos"/>
+                            <uimessage code="pihcore.lab.alk_phos"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
@@ -650,7 +650,7 @@
                     <obsgroup groupingConceptId="PIH:i-STAT CHEM 8+ construct">
 
                         <label>
-                            <uimessage code="pihcore.lab.test-date"/>
+                            <uimessage code="pihcore.lab.test_date"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:DATE OF LABORATORY TEST"/>

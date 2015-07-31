@@ -222,8 +222,7 @@
             </h5>
 
             <p>
-                TBD:  Concept + Text box
-                <!-- TODO:  obs conceptId="CIEL"/ -->
+                <obs conceptId="CIEL:163047" rows="5" cols="60" />
             </p>
 
         </fieldset>
@@ -249,8 +248,7 @@
             </h5>
 
             <p>
-                TBD:  Concept + Text box
-                <!-- TODO:  obs conceptId="CIEL"/ -->
+                <obs conceptId="CIEL:163048" rows="5" cols="60" />
             </p>
 
         </fieldset>
