@@ -2,7 +2,6 @@ package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
@@ -21,11 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-@Ignore
 public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
 
     @Autowired
-    //private VitalsDataSetManager vitalsDataSetManager;
+    private VitalsDataSetManager vitalsDataSetManager;
 
     private Visit visit;
 
@@ -40,8 +38,6 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
 
     @Test
     public void testDataSet() throws Exception {
-        /**
-
         DataSetDefinition dsd = vitalsDataSetManager.constructDataSet();
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
@@ -67,8 +63,6 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
         Assert.assertEquals(95.0, row.getColumnValue("O2_SAT"));
         Assert.assertEquals("headache", row.getColumnValue("CHIEF_COMPLAINT"));
         Assert.assertEquals("false", row.getColumnValue("VITALS_RETROSPECTIVE"));
-
-         */
 
     }
 

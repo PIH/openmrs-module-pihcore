@@ -5,14 +5,12 @@ import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.reporting.encounter.definition.BmiEncounterDataDefinition;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
+import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
 
-// TODO figure out why this is breaking the build
-
-
-//@Component
+@Component
 public class VitalsDataSetManager extends BaseEncounterDataSetManager {
 
     @Override
