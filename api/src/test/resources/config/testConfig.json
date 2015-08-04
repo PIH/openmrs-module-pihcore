@@ -6,5 +6,10 @@
     "components": [
         "someComponent",
         "anotherComponent"
+    ],
+
+    "visitTemplates": [
+        "outpatientTemplate",
+        "inpatientTemplate"
     ]
 }

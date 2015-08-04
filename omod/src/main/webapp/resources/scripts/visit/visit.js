@@ -1,4 +1,4 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService", "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "orderEntry", "ngDialog", "appFramework"])
+angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService", "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "orderEntry", "ngDialog", "appFramework", "configService"])
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -279,16 +279,25 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
-    .service("VisitTemplateService", [ "VisitTemplates", "VisitAttributeTypes", "Encounter",
-        function(VisitTemplates, VisitAttributeTypes, Encounter) {
+    .service("VisitTemplateService", [ "VisitTemplates", "VisitAttributeTypes", "Encounter","ConfigService",
+        function(VisitTemplates, VisitAttributeTypes, Encounter, ConfigService) {
 
             var currentTemplate = null;
 
+            // TODO what if this is not populated in time?
+            var visitTemplates;
+            ConfigService.getVisitTemplates().then(function (templates) {
+                visitTemplates = templates;
+            })
+
             return {
                 getAllowedVisitTemplates: function(visit) {
-                    return _.filter(VisitTemplates, function(it) {
-                        return it.allowedFor(visit);
-                    });
+                    return _.filter(
+                        _.map(visitTemplates, function(visitTemplate) {
+                            return VisitTemplates[visitTemplate];
+                        }), function(it) {
+                            return it.allowedFor(visit);
+                        });
                 },
 
                 setCurrent: function(visitTemplate) {

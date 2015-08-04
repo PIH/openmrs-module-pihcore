@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.config;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -44,6 +45,10 @@ public class Config {
 
     public String getGlobalProperty(String name) {
         return getGlobalProperties().get(name);
+    }
+
+    public List<String> getVisitTemplates() {
+        return descriptor.getVisitTemplates();
     }
 
     public Map<String, String> getGlobalProperties() {

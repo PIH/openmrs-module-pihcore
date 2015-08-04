@@ -20,6 +20,8 @@ public class ConfigDescriptorTest {
         assertThat(configDescriptor.getComponents().contains("missingComponent"), is(false));
         assertThat(configDescriptor.getWelcomeMessage(), is("Hello World!"));
         assertThat(configDescriptor.getSite(), is(ConfigDescriptor.Site.MIREBALAIS));
+        assertThat(configDescriptor.getVisitTemplates().contains("inpatientTemplate"), is(true));
+        assertThat(configDescriptor.getVisitTemplates().contains("outpatientTemplate"), is(true));
     }
 
 }
