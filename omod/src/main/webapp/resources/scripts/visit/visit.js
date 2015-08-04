@@ -235,8 +235,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         return {
             restrict: 'E',
             controller: function($scope) {
+
                 $scope.availableTemplates = VisitTemplateService.getAllowedVisitTemplates($scope.visit);
                 $scope.activeTemplate = VisitTemplateService.getCurrent();
+                $scope.multipleTemplates = $scope.availableTemplates && $scope.availableTemplates.length > 1;
+
                 $scope.$watch("visit", function() {
                     if ($scope.visit) {
                         $scope.selectedTemplate = $scope.visit.getAttributeValue(VisitAttributeTypes.visitTemplate);

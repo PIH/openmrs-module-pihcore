@@ -1,4 +1,4 @@
-<div id="active-visit-template">
+<div id="active-visit-template" ng-show="multipleTemplates">
     <form ng-show="choosingTemplate || !selectedTemplate">
         <select ng-model="newVisitTemplate" ng-options="t.label for t in availableTemplates">
             <option value="">Which visit template?</option>
