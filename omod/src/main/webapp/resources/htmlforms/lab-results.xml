@@ -143,7 +143,7 @@
                         </span>
 
                         <label>
-                            <uimessage code="pihcore.lab.alk-phos"/>
+                            <uimessage code="pihcore.lab.alk_phos"/>
                         </label>
                         <span class="small">
                             <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
@@ -162,7 +162,7 @@
                 <uimessage code="pihcore.lab.iStat.title"/>
             </h3>
 
-                <p>-
+                <p>
 
                     <obsgroup groupingConceptId="PIH:i-STAT CHEM 8+ construct">
 
@@ -229,16 +229,37 @@
         <fieldset>
 
             <legend>
+                <uimessage code="pihcore.lab.hiv.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.lab.hiv.title"/>
+            </h3>
+            <p>
+                <label>
+                    <uimessage code="pihcore.lab.cd4"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:CD4 COUNT" showDate="true" />
+                </span>
+                <!-- ToDo: Add other HIV tests (ie. Viral load, PCR, ELISA, etc) -->
+            </p>
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>
                 <uimessage code="pihcore.other"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.other"/>
             </h3>
             <p>
-                <strong>Peripheral blood smear</strong>
+                <label>
+                    <uimessage code="pihcore.lab.malarial_smear"/>
+                </label>
                 <span class="small">
-                    <!-- ToDo: Cleanup concept and add to mds package
-                    <obs conceptId="PIH:MALARIAL SMEAR" showDate="true" /> -->
+                    <obs conceptId="PIH:MALARIAL SMEAR" showDate="true" />
                 </span>
 
                 <label>
@@ -251,7 +272,9 @@
 
             <p>
                 <strong><uimessage code="pihcore.other"/></strong>
+                <!-- ToDo: Add other lab tests or free-text -->
             </p>
+
 
         </fieldset>
     </section>
