@@ -11,6 +11,7 @@ public class Config {
 
     private ConfigDescriptor descriptor;
 
+
     public Config() {
         descriptor = ConfigLoader.loadFromRuntimeProperties();
     }
