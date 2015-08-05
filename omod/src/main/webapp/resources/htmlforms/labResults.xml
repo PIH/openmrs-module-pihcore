@@ -36,12 +36,6 @@
                     </strong>
 
                     <obsgroup groupingConceptId="PIH:Hematology construct">
-                        <label>
-                            <uimessage code="pihcore.lab.test_date"/>
-                        </label>
-                        <span class="small">
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
-                        </span>
 
                         <label>
                             <uimessage code="pihcore.lab.hemoglobin"/>
@@ -95,6 +89,13 @@
                             <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
                         </span>
 
+                        <label>
+                            <uimessage code="pihcore.lab.test_date"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </span>
+
                     </obsgroup>
                 </p>
 
@@ -111,12 +112,6 @@
                 <p>
 
                     <obsgroup groupingConceptId="PIH:Biochemistry construct">
-                        <label>
-                            <uimessage code="pihcore.lab.test_date"/>
-                        </label>
-                        <span class="small">
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
-                        </span>
 
                         <label>
                             <uimessage code="pihcore.lab.creatinine"/>
@@ -148,6 +143,13 @@
                         <span class="small">
                             <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
                         </span>
+
+                        <label>
+                            <uimessage code="pihcore.lab.test_date"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </span>
                     </obsgroup>
                 </p>
 
@@ -166,12 +168,6 @@
 
                     <obsgroup groupingConceptId="PIH:i-STAT CHEM 8+ construct">
 
-                        <label>
-                            <uimessage code="pihcore.lab.test_date"/>
-                        </label>
-                        <span class="small">
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
-                        </span>
                         <label>
                             <uimessage code="pihcore.lab.sodium"/>
                         </label>
@@ -221,6 +217,13 @@
                             <obs conceptId="PIH:SERUM CALCIUM" />
                         </span>
 
+                        <label>
+                            <uimessage code="pihcore.lab.test_date"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </span>
+
                     </obsgroup>
 
                 </p>
@@ -236,7 +239,7 @@
             </h3>
             <p>
                 <label>
-                    <uimessage code="pihcore.lab.cd4"/>(value,date)
+                    <uimessage code="pihcore.lab.cd4"/>\&nbsp;(value,date)
                 </label>
                 <span class="small">
                     <obs conceptId="PIH:CD4 COUNT" showDate="true" />
@@ -256,14 +259,14 @@
             </h3>
             <p>
                 <label>
-                    <uimessage code="pihcore.lab.malarial_smear"/>(value,date)
+                    <uimessage code="pihcore.lab.malarial_smear"/>\&nbsp;(value,date)
                 </label>
                 <span class="small">
                     <obs conceptId="PIH:MALARIAL SMEAR" showDate="true" />
                 </span>
 
                 <label>
-                    <uimessage code="pihcore.lab.ldh"/>(value,date)
+                    <uimessage code="pihcore.lab.ldh"/>\&nbsp;(value,date)
                 </label>
                 <span class="small">
                     <obs conceptId="PIH:LACTATE DEHYDROGENASE" showDate="true" />
