@@ -342,6 +342,11 @@
         font-size: 50%;
         display: block;
         }
+
+        #treatment_outcomes input[type="checkbox"] {
+        margin-top: 12px;
+        }
+
     </style>
 
     <script type="text/javascript">
