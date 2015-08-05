@@ -113,6 +113,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 }
 
                 $scope.goToPage = function(provider, page, opts) {
+                    if (opts['returnUrl'] === undefined) {
+                        opts['returnUrl'] = "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid;
+                    }
                     location.href = emr.pageLink(provider, page, opts);
                 }
             },
