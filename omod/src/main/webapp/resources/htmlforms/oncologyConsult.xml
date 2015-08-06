@@ -84,121 +84,28 @@
         </code>
         <code name="prev_treatment">
             <variant locale="en" value="Patient has previously received treatment"/>
+            <!-- ToDo: Translate -->
             <variant locale="fr" value="**** Needs Translation ****"/>
         </code>
         <code name="prev_treatment_comment">
             <variant locale="en" value="If yes, describe previous treatment, including where it was received:"/>
+            <!-- ToDo: Translate -->
             <variant locale="fr" value="Si oui, **** Needs Translation ****"/>
         </code>
         <code name="current_treatment">
             <variant locale="en" value="Patient is currently receiving treatment"/>
+            <!-- ToDo: Translate -->
             <variant locale="fr" value="**** Needs Translation ****"/>
         </code>
         <code name="current_treatment_comment">
             <variant locale="en" value="If yes, describe current treatment, including where it is being administered:"/>
+            <!-- ToDo: Translate -->
             <variant locale="fr" value="Si oui, **** Needs Translation ****"/>
         </code>
         <code name="goals_of_care">
             <variant locale="en" value="Goals of Care"/>
             <variant locale="fr" value="Intention de la Thérapie"/>
         </code>
-        <code name="blood-tests">
-            <variant locale="en" value="Blood tests"/>
-            <variant locale="fr" value="Blood tests"/>
-        </code>
-        <code name="test-date">
-            <variant locale="en" value="Date"/>
-            <variant locale="fr" value="Date"/>
-        </code>
-        <code name="hematology">
-            <variant locale="en" value="Hematology"/>
-            <variant locale="fr" value="Hématologie"/>
-        </code>
-        <code name="hemoglobin">
-            <variant locale="en" value="Hb"/>
-            <variant locale="fr" value="Hb"/>
-        </code>
-        <code name="hematocrit">
-            <variant locale="en" value="HCT"/>
-            <variant locale="fr" value="HCT"/>
-        </code>
-        <code name="wbc">
-            <variant locale="en" value="WBC"/>
-            <variant locale="fr" value="WBC"/>
-        </code>
-        <code name="neutrophil_count">
-            <variant locale="en" value="ANC"/>
-            <variant locale="fr" value="ANC"/>
-        </code>
-        <code name="neutrophil_percent">
-            <variant locale="en" value="ANC %"/>
-            <variant locale="fr" value="ANC %"/>
-        </code>
-        <code name="lymphocyte_count">
-            <variant locale="en" value="Lymphocyte"/>
-            <variant locale="fr" value="Lymphocyte"/>
-        </code>
-        <code name="lymphocyte_percent">
-            <variant locale="en" value="Lymph %"/>
-            <variant locale="fr" value="Lymph %"/>
-        </code>
-        <code name="platelets">
-            <variant locale="en" value="Platelets"/>
-            <variant locale="fr" value="Platelets"/>
-        </code>
-        <code name="esr">
-            <variant locale="en" value="ESR"/>
-            <variant locale="fr" value="ESR"/>
-        </code>
-        <code name="biochemistry">
-            <variant locale="en" value="Biochemistry"/>
-            <variant locale="fr" value="Biochimie"/>
-        </code>
-        <code name="creatinine">
-            <variant locale="en" value="Creatinine"/>
-            <variant locale="fr" value="Creatinine"/>
-        </code>
-        <code name="bilirubin">
-            <variant locale="en" value="Total bilirubin"/>
-            <variant locale="fr" value="Tbili"/>
-        </code>
-        <code name="alk-phos">
-            <variant locale="en" value="Alkaline phosphatase"/>
-            <variant locale="fr" value="Alk Phos"/>
-        </code>
-        <code name="sodium">
-            <variant locale="en" value="Sodium"/>
-            <variant locale="fr" value="Na+"/>
-        </code>
-        <code name="potassium">
-            <variant locale="en" value="Potassium"/>
-            <variant locale="fr" value="K+"/>
-        </code>
-        <code name="chloride">
-            <variant locale="en" value="Chloride"/>
-            <variant locale="fr" value="Cl"/>
-        </code>
-        <code name="co2">
-            <variant locale="en" value="CO2"/>
-            <variant locale="fr" value="CO2"/>
-        </code>
-        <code name="urea">
-            <variant locale="en" value="Urea/BUN"/>
-            <variant locale="fr" value="Urea/BUN"/>
-        </code>
-        <code name="glucose">
-            <variant locale="en" value="Glucose"/>
-            <variant locale="fr" value="Glu"/>
-        </code>
-        <code name="ldh">
-            <variant locale="en" value="LDH"/>
-            <variant locale="fr" value="LDH"/>
-        </code>
-        <code name="calcium">
-            <variant locale="en" value="Calcium"/>
-            <variant locale="fr" value="Ca+"/>
-        </code>
-
         <code name="site_of_care">
             <variant locale="en" value="Site of Care"/>
             <variant locale="fr" value="Lieu"/>
@@ -250,8 +157,10 @@
             <variant locale="fr" value="Nombre de cycles"/>
         </code>
         <code name="reason_no_chemo">
-            <variant locale="en" value="If the patient didn't receive chemotherapy at visit today, as planned, why not?"/>
-            <variant locale="fr" value="If the patient didn't receive chemotherapy at visit today, as planned, why not?**"/>
+            <variant locale="en"
+                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?"/>
+            <variant locale="fr"
+                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?**"/>
         </code>
         <code name="chemo_side_effects">
             <variant locale="en" value="Chemotherapy side effects"/>
@@ -277,7 +186,6 @@
             <variant locale="en" value="Special Tests"/>
             <variant locale="fr" value="Special Tests"/>
         </code>
-
 
 
     </translations>
@@ -334,7 +242,7 @@
         .print-form-datestamps { display: block !important }
         button.cancel, button.submit { display: none }
         label { font-weight: bold }
-        label[for] { font-weight: normal }   /* refers to the radio set label */
+        label[for] { font-weight: normal } /* refers to the radio set label */
         }
 
         .half-size-text {
@@ -366,49 +274,88 @@
     </script>
 
     <div class="print-form-datestamps" style="display:none">
-        <p><uimessage code="created_on"/>: <lookup complexExpression="$form.dateCreated"/></p>
-        <p><uimessage code="last_updated_on"/>: <lookup complexExpression="$form.dateChanged"/></p>
-        <p><uimessage code="printed_on"/>: <lookup complexExpression="$formGeneratedDatetime"/></p>
+        <p><uimessage code="created_on"/>:
+            <lookup complexExpression="$form.dateCreated"/>
+        </p>
+        <p><uimessage code="last_updated_on"/>:
+            <lookup complexExpression="$form.dateChanged"/>
+        </p>
+        <p><uimessage code="printed_on"/>:
+            <lookup complexExpression="$formGeneratedDatetime"/>
+        </p>
     </div>
 
     <ifMode mode="VIEW" include="false">
-        <h2><label><uimessage code="oncology_consult"/></label></h2>
+        <h2>
+            <label>
+                <uimessage code="oncology_consult"/>
+            </label>
+        </h2>
 
         <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
             <div id="who-when-where">
                 <p id="who">
-                    <label><uimessage code="emr.patientDashBoard.providerRequired"/></label>
-                    <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
+                    <label>
+                        <uimessage code="emr.patientDashBoard.providerRequired"/>
+                    </label>
+                    <span>
+                        <encounterProviderAndRole default="currentUser"
+                                                  encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                    </span>
                 </p>
                 <p id="where">
-                    <label><uimessage code="emr.locationRequired"/></label>
-                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                    <label>
+                        <uimessage code="emr.locationRequired"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
+                                           tags="Consult Note Location"/>
+                    </span>
                 </p>
                 <p id="when">
-                    <label><uimessage code="emr.patientDashBoard.date"/></label>
-                    <span><encounterDate id="encounterDate" default="now" /></span>
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
                 </p>
             </div>
         </includeIf>
         <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
-        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+        <includeIf
+                velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
             <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                          required="true"/>
             </div>
 
             <div id="who-when-where">
                 <p id="who">
-                    <label><uimessage code="emr.patientDashBoard.provider"/></label>
-                    <span><lookup expression="user.person.personName" /></span>
+                    <label>
+                        <uimessage code="emr.patientDashBoard.provider"/>
+                    </label>
+                    <span>
+                        <lookup expression="user.person.personName"/>
+                    </span>
                 </p>
                 <p id="where">
-                    <label><uimessage code="emr.locationRequired"/></label>
-                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                    <label>
+                        <uimessage code="emr.locationRequired"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
+                                           tags="Consult Note Location"/>
+                    </span>
                 </p>
                 <p id="when">
-                    <label><uimessage code="emr.patientDashBoard.date"/></label>
-                    <span><encounterDate id="encounterDate" default="now" /></span>
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
                 </p>
             </div>
 
@@ -416,24 +363,37 @@
         <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
         <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
             <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                          required="true"/>
                 <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-                <encounterDate id="encounterDate" default="now" />
+                <encounterDate id="encounterDate" default="now"/>
             </div>
             <div id="who-when-where">
                 <table id="who-where-when-view">
                     <tr>
                         <td>
-                            <label><uimessage code="emr.patientDashBoard.provider"/></label>
-                            <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
+                            <label>
+                                <uimessage code="emr.patientDashBoard.provider"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/>
+                            </span>
                         </td>
                         <td>
-                            <label><uimessage code="emr.location"/></label>
-                            <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
+                            <label>
+                                <uimessage code="emr.location"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/>
+                            </span>
                         </td>
                         <td>
-                            <label><uimessage code="emr.patientDashBoard.date"/></label>
-                            <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
+                            <label>
+                                <uimessage code="emr.patientDashBoard.date"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/>
+                            </span>
                         </td>
                     </tr>
                 </table>
@@ -441,45 +401,44 @@
         </includeIf>
     </ifMode>
 
-    <br/>
-    <br/>
-    <br/>
-    <strong>DIAGNOSIS</strong>
-    <br/>
-
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
         <p>
-            <label><uimessage code="cancer_staging"/></label>
-            <obs conceptId="CIEL:160786" answerConceptIds="CIEL:160769,CIEL:160771,CIEL:160770,CIEL:160772,CIEL:160773,CIEL:160774,CIEL:160775,CIEL:160776,CIEL:160777,CIEL:160778,CIEL:160779,CIEL:160780,CIEL:160781,CIEL:160782,CIEL:160783,CIEL:160784,CIEL:160785"/>
+            <label>
+                <uimessage code="cancer_staging"/>
+            </label>
+            <obs conceptId="CIEL:160786"
+                 answerConceptIds="CIEL:160769,CIEL:160771,CIEL:160770,CIEL:160772,CIEL:160773,CIEL:160774,CIEL:160775,CIEL:160776,CIEL:160777,CIEL:160778,CIEL:160779,CIEL:160780,CIEL:160781,CIEL:160782,CIEL:160783,CIEL:160784,CIEL:160785"/>
         </p>
     </section>
 
     <section id="hpi" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="hpi">
         <p>
-            <label><uimessage code="hpi"/></label>
-            <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" rows="3" cols="80" />
+            <label>
+                <uimessage code="hpi"/>
+            </label>
+            <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" rows="3" cols="80"/>
         </p>
     </section>
 
-    <br/>
-    <br/>
-    <br/>
-    <strong>STAGING</strong>
-    <br/>
-
     <section id="physical-exam" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="physical_exam">
         <p>
-            <label><uimessage code="disease_status"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** --> Remission, Stable not improving, grossly improving, local recurrence, grossly worsening progressive, recurrence - metastatic, unknown, cannot assess - no show, other
+            <label>
+                <uimessage code="disease_status"/>
+            </label>
+            <obs conceptId="PIH:GENERAL FREE TEXT"/>  <!-- ToDo: Needs concepts -->
+            <!-- **Needs Concept Update** --> Remission, Stable not improving, grossly improving, local recurrence,
+            grossly worsening progressive, recurrence - metastatic, unknown, cannot assess - no show, other
             <br/>
         </p>
         <div>
             <div class="column">
-                <label><uimessage code="ecog_perf_status"/></label>
-                <obs conceptId="CIEL:160379" />
+                <label>
+                    <uimessage code="ecog_perf_status"/>
+                </label>
+                <obs conceptId="CIEL:160379"/>
             </div>
             <div class="column">
-                <table class="muted-header" style="font-size:small" >
+                <table class="muted-header" style="font-size:small">
                     <tr>
                         <td>GRADE</td>
                         <td>ECOG PERFORMANCE STATUS</td>
@@ -490,15 +449,20 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>Restricted in physically strenuous activity but ambulatory and able to carry out work of a light or sedentary nature, e.g., light house work, office work</td>
+                        <td>Restricted in physically strenuous activity but ambulatory and able to carry out work of a
+                            light or sedentary nature, e.g., light house work, office work
+                        </td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>Ambulatory and capable of all selfcare but unable to carry out any work activities; up and about more than 50% of waking hours</td>
+                        <td>Ambulatory and capable of all selfcare but unable to carry out any work activities; up and
+                            about more than 50% of waking hours
+                        </td>
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking hours</td>
+                        <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking hours
+                        </td>
                     </tr>
                     <tr>
                         <td>4</td>
@@ -514,7 +478,9 @@
         <div>
             <p>
                 <br/>
-                <label><uimessage code="pe_exam_findings"/></label>
+                <label>
+                    <uimessage code="pe_exam_findings"/>
+                </label>
                 <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" style="textarea" rows="3" cols="80"/>
             </p>
         </div>
@@ -523,10 +489,10 @@
     <section id="special-tests" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="special_tests">
         <p>
             <table class="muted-header">
-                <!-- This Special Test section will need reworking once the concepts have been added -->
+                <!-- ToDo: This Special Test section will need reworking once the concepts have been added -->
                 <tr>
                     <td>Test</td>
-                    <td>Site of Sample </td>
+                    <td>Site of Sample</td>
                     <td>Planned</td>
                     <td>Sent</td>
                     <td>Reported</td>
@@ -535,60 +501,116 @@
                 </tr>
                 <tr>
                     <td>Bone Marrow Aspirate</td>
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox" />  </td>
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox"/>
+                    </td>
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
                 </tr>
                 <tr>
                     <td>Biopsy</td>
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox" />  </td>
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox"/>
+                    </td>
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
                 </tr>
                 <tr>
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox" />  </td>
-                    <td><obs conceptId="PIH:GENERAL FREE TEXT" /> </td>  <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT" style="checkbox"/>
+                    </td>
+                    <td>
+                        <obs conceptId="PIH:GENERAL FREE TEXT"/>
+                    </td>
+                    <!-- **Needs Concept Update** -->
                 </tr>
             </table>
         </p>
     </section>
 
-    <br/>
-    <br/>
-    <br/>
-    <strong>TREATMENT</strong>
-    <br/>
-
     <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
         <p class="radio">
-            <label><uimessage code="prev_treatment"/></label>
+            <label>
+                <uimessage code="prev_treatment"/>
+            </label>
             <obs id="prev_treatment" conceptId="CIEL:162964" style="radio"
                  answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                  answerSeparator=""/>
         </p>
         <p>
-            <label><uimessage code="prev_treatment_comment"/></label>
+            <label>
+                <uimessage code="prev_treatment_comment"/>
+            </label>
             <obs conceptId="CIEL:162965" style="textarea" rows="3" cols="80"/>
         </p>
         <p class="radio">
-            <label><uimessage code="current_treatment"/></label>
+            <label>
+                <uimessage code="current_treatment"/>
+            </label>
             <obs id="current_treatment" conceptId="CIEL:162966" style="radio"
                  answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                  answerSeparator=""/>
         </p>
         <p>
-            <label><uimessage code="current_treatment_comment"/></label>
+            <label>
+                <uimessage code="current_treatment_comment"/>
+            </label>
             <obs conceptId="CIEL:162967" style="textarea" rows="3" cols="80"/>
         </p>
     </section>
@@ -599,46 +621,88 @@
                  answerSeparator=""/>
         </p>
     </section>
-    <section id="treatment_outcomes" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment_outcomes">
+
+    <section id="treatment_outcomes" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="treatment_outcomes">
         <p>
-            <label><uimessage code="chemotherapy_protocol"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <!-- ToDo:  Add concepts -->
+            <label>
+                <uimessage code="chemotherapy_protocol"/>
+            </label>
+            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <!-- **Needs Concept Update** -->
             <br/>
-            <label><uimessage code="patient_plan"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** --> Continue current chemotherapy protocol, chemotherapy break, follow-up with oncologist prior to continuing chemotherapy, other
+            <label>
+                <uimessage code="patient_plan"/>
+            </label>
+            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <!-- ToDo:  Add concepts -->
+            Continue current chemotherapy protocol, chemotherapy break, follow-up with
+            oncologist prior to continuing chemotherapy, other
             <br/>
-            <label><uimessage code="next_visit"/></label>
-            <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
+            <label>
+                <uimessage code="next_visit"/>
+            </label>
+            <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
             <br/>
-            <label><uimessage code="patient_plan_details"/></label>
-            <obs conceptId="PIH:PATIENT PLAN COMMENTS" />
+            <label>
+                <uimessage code="patient_plan_details"/>
+            </label>
+            <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
             <br/>
-            <label><uimessage code="chemo_cycle_number"/></label>
-            <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER" />
+            <label>
+                <uimessage code="chemo_cycle_number"/>
+            </label>
+            <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER"/>
             <br/>
-            <label><uimessage code="reason_no_chemo"/></label>
-            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Patient too ill for chemotherapy" /> <!-- **Needs Concept Update** -->
-            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Chemotherapy side effect" /> <!-- **Needs Concept Update** -->
-            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Lab abnormalities" /> <!-- **Needs Concept Update** -->
-            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Vital sign abnormalities" /> <!-- **Needs Concept Update** -->
-            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Unknown" /> <!-- **Needs Concept Update** -->
-            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Other" commentFieldLabel="specify:"/> <!-- **Needs Concept Update** -->
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <label>
+                <uimessage code="reason_no_chemo"/>
+            </label>
+            <!-- ToDo:  Add concepts -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Patient too ill for chemotherapy"/>
+            <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Chemotherapy side effect"/>
+            <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Lab abnormalities"/>
+            <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Vital sign abnormalities"/>
+            <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Unknown"/>
+            <!-- **Needs Concept Update** -->
+            <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Other"
+                 commentFieldLabel="specify:"/>
+            <!-- **Needs Concept Update** -->
+            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <!-- **Needs Concept Update** -->
             <br/>
-            <label><uimessage code="chemo_side_effects"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <label>
+                <uimessage code="chemo_side_effects"/>
+            </label>
+            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <!-- **Needs Concept Update** -->
             <br/>
-            <label><uimessage code="pain"/></label>
+            <label>
+                <uimessage code="pain"/>
+            </label>
             <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
             <br/>
-            <label><uimessage code="pain_details"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <label>
+                <uimessage code="pain_details"/>
+            </label>
+            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <!-- **Needs Concept Update** -->
             <br/>
-            <label><uimessage code="special_considerations"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <label>
+                <uimessage code="special_considerations"/>
+            </label>
+            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <!-- **Needs Concept Update** -->
             <br/>
-            <label><uimessage code="important_visit_info"/></label>
-            <obs conceptId="PIH:GENERAL FREE TEXT" /> <!-- **Needs Concept Update** -->
+            <label>
+                <uimessage code="important_visit_info"/>
+            </label>
+            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <!-- **Needs Concept Update** -->
         </p>
     </section>
 
@@ -646,11 +710,27 @@
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
             <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+            <button type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
         </div>
     </ifMode>
 
     <!-- super hack to give our expandable text area space to expand into without causing scrolling/jumping issues -->
-    <br/><br/><br/><br/><br/> <br/><br/><br/><br/><br/> <br/><br/><br/><br/><br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 
 </htmlform>
