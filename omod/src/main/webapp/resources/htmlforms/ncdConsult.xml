@@ -86,7 +86,7 @@
         }
 
         #treatment_outcomes input[type="checkbox"] {
-        margin-top: 12px;
+        margin: 12px 0 0 0 ;
         }
 
     </style>
@@ -235,7 +235,7 @@
         </includeIf>
     </ifMode>
 
-    <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="ncd_info">
+    <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <p>
             <label>
                 <uimessage code="info"/>
@@ -243,7 +243,7 @@
         </p>
     </section>
 
-    <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="vitals">
+    <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.vitals">
         <p>
             <label>
                 <uimessage code="waist_circum"/>
@@ -260,10 +260,10 @@
         </p>
     </section>
 
-    <section id="heart_failure" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="heart_failure">
+    <section id="heart_failure" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.heart_failure">
         <p>
             <label>
-                <uimessage code="nyha"/>
+                <uimessage code="pihcore.ncd.hf.nyha"/>
             </label>
         </p>
         <p>
@@ -273,7 +273,7 @@
         </p>
     </section>
 
-    <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diabetes">
+    <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.diabetes">
         <p>
             <label>
                 <uimessage code="fasting_glucose"/>
@@ -286,7 +286,31 @@
         </p>
     </section>
 
-    <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="meds">
+    <section id="respire" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
+        <p>
+            <label>
+                <uimessage code="current_meds"/>
+            </label>
+        </p>
+    </section>
+
+    <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epil">
+        <p>
+            <label>
+                <uimessage code="current_meds"/>
+            </label>
+        </p>
+    </section>
+
+    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.plan">
+        <p>
+            <label>
+                <uimessage code="pihcore.ncd.plan"/>
+            </label>
+        </p>
+    </section>
+
+    <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
         <p>
             <label>
                 <uimessage code="current_meds"/>
