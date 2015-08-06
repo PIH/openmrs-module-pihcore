@@ -409,7 +409,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
     .controller("VisitController", [ "$scope", "$rootScope", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state", "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter", "OrderEntryService", "AppFrameworkService",
         function($scope, $rootScope, Visit, VisitTemplateService, CareSetting, $q, $state, $timeout, OrderContext, VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService) {
-            $scope.dateFormat = "d-MMM-yy (hh:mm a)";
+
+            $rootScope.datetimeFormat = "d-MMM-yy (hh:mm a)";
+            $rootScope.dateFormat = "d-MMM-yy";
+
             $scope.VisitDisplayModel = VisitDisplayModel;
 
             AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {

@@ -25,11 +25,23 @@ angular.module('constants', [])
         primaryOrder: {
             uuid: "159943AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
+        diagnosisCertainty: {
+            uuid: "3cd9ef9a-26fe-102b-80cb-0017a47871b2"
+        },
         dispositionConstruct: {
             uuid: "164e9e1b-d26c-4a93-9bdf-af1ce4ae8fce"
         },
         disposition: {
             uuid: "c8b22b09-e2f2-4606-af7d-e52579996de3"
+        },
+        admissionLocation: {
+            uuid: "f3e04276-2db0-4181-b937-d73275dc1b15"
+        },
+        returnVisitDate: {
+            uuid: "pichore.consult.clinicalImpressions"
+        },
+        clinicalImpressions: {
+            uuid: "3cd9d956-26fe-102b-80cb-0017a47871b2"
         },
         typeOfVisit: {
             uuid: "e2964359-790a-419d-be53-602e828dcdb9"
