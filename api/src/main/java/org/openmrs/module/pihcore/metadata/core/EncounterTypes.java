@@ -153,4 +153,9 @@ public class EncounterTypes {
 		public String description() { return "The official record of a patient's death. A patient may be dead without having one of these encounters, but no living patient should have an encounter with this type"; }
 	};
 
+    public static EncounterTypeDescriptor NCD_CONSULT = new EncounterTypeDescriptor() {
+        public String uuid() { return "ae06d311-1866-455b-8a64-126a9bd74171"; }
+        public String name() { return "NCD visit"; }
+        public String description() { return "Non-communicable disease visit"; }
+    };
 }
