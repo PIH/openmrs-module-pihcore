@@ -232,6 +232,55 @@
         <fieldset>
 
             <legend>
+                <uimessage code="pihcore.lab.lipids.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.lab.lipid.title"/>
+            </h3>
+            <p>
+                <obsgroup groupingConceptId="PIH:Lipid panel construct">
+                    <label>
+                        <uimessage code="pihcore.lab.total_chol"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:TOTAL CHOLESTEROL" />
+                    </span>
+
+                    <label>
+                        <uimessage code="pihcore.lab.ldl"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" />
+                    </span>
+
+                    <label>
+                        <uimessage code="pihcore.lab.hdl"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" />
+                    </span>
+
+                    <label>
+                        <uimessage code="pihcore.lab.trigly"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:TRIGLYCERIDES" />
+                    </span>
+
+                    <label>
+                        <uimessage code="pihcore.lab.test_date"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                    </span>
+                </obsgroup>
+            </p>
+
+        </fieldset>
+
+        <fieldset>
+
+            <legend>
                 <uimessage code="pihcore.lab.hiv.title"/>
             </legend>
             <h3>
@@ -259,17 +308,24 @@
             </h3>
             <p>
                 <label>
-                    <uimessage code="pihcore.lab.malarial_smear"/>(value,date)
+                    <uimessage code="pihcore.lab.malarial_smear"/> (value,date)
                 </label>
                 <span class="small">
                     <obs conceptId="PIH:MALARIAL SMEAR" showDate="true" />
                 </span>
 
                 <label>
-                    <uimessage code="pihcore.lab.ldh"/>(value,date)
+                    <uimessage code="pihcore.lab.ldh"/> (value,date)
                 </label>
                 <span class="small">
                     <obs conceptId="PIH:LACTATE DEHYDROGENASE" showDate="true" />
+                </span>
+
+                <label>
+                    <uimessage code="pihcore.lab.inr"/> (value,date)
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:INTERNATIONAL NORMALIZED RATIO" showDate="true" />
                 </span>
             </p>
 
