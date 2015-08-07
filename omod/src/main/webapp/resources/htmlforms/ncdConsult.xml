@@ -93,7 +93,7 @@
         display: block;
         }
 
-        #treatment_outcomes input[type="checkbox"] {
+        #heart_failure input[type="checkbox"] {
         margin: 12px 0 0 0 ;
         }
 
@@ -246,8 +246,10 @@
     <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <p>
             <label>
-                <uimessage code="info"/>
+                <uimessage code="pihcore.ncd.category"/>
             </label>
+            <!-- ToDo: Change to checkboxes and answers-->
+            <obs conceptId="PIH:NCD category" />
         </p>
     </section>
 
@@ -287,17 +289,19 @@
     </section>
 
     <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.diabetes">
-        <p>
+        <p class="radio">
             <label>
-                <uimessage code="fasting_glucose"/>
+                <uimessage code="pihcore.ncd.diabetes.fasting"/> <br/>
+                <uimessage code="pihcore.ncd.diabetes.fasting.comment"/>
             </label>
             <obs conceptId="PIH:Fasting for blood glucose test" style="yes_no"  />
         </p>
-        <p>
+        <p class="radio">
             <label>
-                <uimessage code="hypoglycemia_symptoms"/>
+                <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
             </label>
-            <obs conceptId="PIH:Hypoglycemia symptoms" />
+            <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                 answerCodes="yes,no" answerSeparator=""/>
         </p>
     </section>
 
@@ -306,7 +310,7 @@
             <label>
                 <uimessage code="puffs_per_wk"/>
             </label>
-            <obs conceptId="PIH:Puffs per week of salbutamol" />
+            <span class="small"><obs conceptId="PIH:Puffs per week of salbutamol" /></span>
             <label>
                 <uimessage code="asthma_class"/>
             </label>
@@ -320,12 +324,12 @@
                 <uimessage code="seizure_num"/>
             </label>
             <!-- ToDo: HUM form has yes/no -->
-            <obs conceptId="PIH:Number of seizures since last visit" />
+            <span class="small"><obs conceptId="PIH:Number of seizures since last visit" /></span>
         </p>
     </section>
 
     <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.plan">
-        <p>
+        <p class="radio">
             <label>
                 <uimessage code="pihcore.ncd.plan"/>
             </label>
@@ -336,8 +340,12 @@
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
         <p>
             <label>
-                <uimessage code="current_meds"/>
+                <uimessage code="pihcore.ncd.meds.current_meds"/>
             </label>
+            <!-- ToDo: This should be prescription or drug order -->
+            <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
+            <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
+            <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
         </p>
     </section>
 
