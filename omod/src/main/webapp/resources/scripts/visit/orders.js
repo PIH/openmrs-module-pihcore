@@ -231,7 +231,7 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
             restrict: "E",
             scope: {
                 visit: "=",
-                dateFormat: "="
+                datetimeFormat: "="
             },
             controller: function($scope) {
                 $scope.ordersByEncounters = {};
