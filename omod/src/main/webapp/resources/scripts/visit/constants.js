@@ -34,8 +34,17 @@ angular.module('constants', [])
         disposition: {
             uuid: "c8b22b09-e2f2-4606-af7d-e52579996de3"
         },
+        transferOutLocation: {
+            uuid: "113a5ce0-6487-4f45-964d-2dcbd7d23b67"
+        },
+        dateOfDeath: {
+            uuid: "3cde64e4-26fe-102b-80cb-0017a47871b2"
+        },
         admissionLocation: {
             uuid: "f3e04276-2db0-4181-b937-d73275dc1b15"
+        },
+        transferLocation: {
+            uuid: "a96352e3-3afc-418b-b79f-3290fc26a3b3"
         },
         returnVisitDate: {
             uuid: "pichore.consult.clinicalImpressions"

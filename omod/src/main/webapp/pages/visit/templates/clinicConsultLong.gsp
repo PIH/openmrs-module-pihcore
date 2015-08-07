@@ -21,8 +21,7 @@
 
     <div>
         <h5>${ ui.message('coreapps.consult.disposition') }:</h5>
-        {{ encounter.obs | byConcept:Concepts.dispositionConstruct:true | groupMember:Concepts.disposition | obs:"value"  }}
-        TODO: secondary disposition information (like admit to location)
+        {{ encounter.obs | byConcept:Concepts.dispositionConstruct:true | dispositionLong }}
     </div>
 
     <div>

@@ -9,7 +9,7 @@
         </span>
         <span class="one-half">
             ${ ui.message('coreapps.consult.disposition') }:
-                {{ encounter.obs | byConcept:Concepts.dispositionConstruct:true | groupMember:Concepts.disposition | obs:"value" }}
+                {{ encounter.obs | byConcept:Concepts.dispositionConstruct:true | dispositionShort }}
         </span>
     </span>
     <span class="overall-actions" ng-include="'templates/standardEncounterActions.page'"></span>

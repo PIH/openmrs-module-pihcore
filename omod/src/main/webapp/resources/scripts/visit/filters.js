@@ -79,6 +79,81 @@ angular.module("filters", [ "uicommons.filters", "constants" ])
         }
     }])
 
+    .filter("dispositionShort", ["omrs.displayFilter", "Concepts", function (displayFilter, Concepts) {
+        return function(group) {
+            if (!group) {
+                return "";
+            }
+            var disposition = _.find(group.groupMembers, function(it) {
+                return it.concept.uuid == Concepts.disposition.uuid;
+            });
+
+            if (disposition) {
+                return displayFilter(disposition.value)
+            }
+            return null;
+        }
+    }])
+
+    .filter("dispositionLong", ["$rootScope", "omrs.displayFilter", "serverDateFilter", "Concepts", function ($rootScope, displayFilter, serverDateFilter, Concepts) {
+        return function(group) {
+            if (!group) {
+                return "";
+            }
+            var disposition = _.find(group.groupMembers, function(it) {
+                return it.concept.uuid == Concepts.disposition.uuid;
+            });
+
+            if (disposition) {
+
+                var returnStr = displayFilter(disposition.value);
+
+                var transferOutLocation = _.find(group.groupMembers, function(it) {
+                    return it.concept.uuid == Concepts.transferOutLocation.uuid;
+                });
+
+                if (transferOutLocation) {
+                    returnStr = returnStr + ": " + displayFilter(transferOutLocation.value);
+                    return returnStr;
+                }
+
+                var dateOfDeath = _.find(group.groupMembers, function(it) {
+                    return it.concept.uuid == Concepts.dateOfDeath.uuid;
+                });
+
+                if (dateOfDeath) {
+                    returnStr = returnStr + ": " + serverDateFilter(dateOfDeath.value, $rootScope.dateFormat);
+                    return returnStr;
+                }
+
+                var dateOfDeath = _.find(group.groupMembers, function(it) {
+                    return it.concept.uuid == Concepts.dateOfDeath.uuid;
+                });
+
+                var admissionLocation = _.find(group.groupMembers, function(it) {
+                    return it.concept.uuid == Concepts.admissionLocation.uuid;
+                });
+
+                if (admissionLocation) {
+                    returnStr = returnStr + ": " + displayFilter(admissionLocation.value);
+                    return returnStr;
+                }
+
+                var transferLocation = _.find(group.groupMembers, function(it) {
+                    return it.concept.uuid == Concepts.transferLocation.uuid;
+                });
+
+                if (transferLocation) {
+                    returnStr = returnStr + ": " + displayFilter(transferLocation.value);
+                    return returnStr;
+                }
+
+                return returnStr;
+            }
+            return null;
+        }
+    }])
+
     .filter("diagnosisShort", [ "omrs.displayFilter", "Concepts", function(displayFilter, Concepts) {
         return function(group) {
             if (!group) {
