@@ -18,9 +18,17 @@
           formEncounterType="ae06d311-1866-455b-8a64-126a9bd74171" formVersion="1.0">
 
     <translations defaultLocale="fr">
-        <code name="ncd_consult">
-            <variant locale="en" value="NCD Consult"/>
-            <variant locale="fr" value="Consultation d'NCD"/>
+        <code name="asthma_class">
+            <variant locale="en" value="Asthma classification"/>
+            <variant locale="fr" value="Classification d'asthme"/>
+        </code>
+        <code name="puffs_per_wk">
+            <variant locale="en" value="Puffs per week of salbutamol"/>
+            <variant locale="fr" value="Bouffles/semaine de salbutamol"/>
+        </code>
+        <code name="seizure_num">
+            <variant locale="en" value="Number of seizures since last visit"/>
+            <variant locale="fr" value="Needs translation"/>
         </code>
     </translations>
 
@@ -122,7 +130,7 @@
     <ifMode mode="VIEW" include="false">
         <h2>
             <label>
-                <uimessage code="oncology_consult"/>
+                <uimessage code="ncd_consult"/>
             </label>
         </h2>
 
@@ -246,15 +254,16 @@
     <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.vitals">
         <p>
             <label>
-                <uimessage code="waist_circum"/>
+                <uimessage code="pihcore.ncd.vitals.waist_cm"/>
             </label>
 
             <label>
-                <uimessage code="hip_circum"/>
+                <uimessage code="pihcore.ncd.vitals.hip_cm"/>
             </label>
 
             <label>
-                <uimessage code="waist_hip_ratio" />
+                <uimessage code="pihcore.ncd.vitals.waist_hip_ratio" />
+                <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment" />
                 <!-- ToDo: Calculate? Ask Gene -->
             </label>
         </p>
@@ -265,6 +274,10 @@
             <label>
                 <uimessage code="pihcore.ncd.hf.nyha"/>
             </label>
+            <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
+            <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
+            <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
+            <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 4"/>
         </p>
         <p>
             <label>
@@ -278,27 +291,36 @@
             <label>
                 <uimessage code="fasting_glucose"/>
             </label>
+            <obs conceptId="PIH:Fasting for blood glucose test" style="yes_no"  />
         </p>
         <p>
             <label>
                 <uimessage code="hypoglycemia_symptoms"/>
             </label>
+            <obs conceptId="PIH:Hypoglycemia symptoms" />
         </p>
     </section>
 
     <section id="respire" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
         <p>
             <label>
-                <uimessage code="current_meds"/>
+                <uimessage code="puffs_per_wk"/>
             </label>
+            <obs conceptId="PIH:Puffs per week of salbutamol" />
+            <label>
+                <uimessage code="asthma_class"/>
+            </label>
+            <obs conceptId="PIH:Asthma classification" />
         </p>
     </section>
 
     <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epil">
         <p>
             <label>
-                <uimessage code="current_meds"/>
+                <uimessage code="seizure_num"/>
             </label>
+            <!-- ToDo: HUM form has yes/no -->
+            <obs conceptId="PIH:Number of seizures since last visit" />
         </p>
     </section>
 
@@ -307,6 +329,7 @@
             <label>
                 <uimessage code="pihcore.ncd.plan"/>
             </label>
+            <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="yes_no" />
         </p>
     </section>
 

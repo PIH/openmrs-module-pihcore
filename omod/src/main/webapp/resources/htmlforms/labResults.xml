@@ -235,7 +235,7 @@
                 <uimessage code="pihcore.lab.lipids.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.lab.lipid.title"/>
+                <uimessage code="pihcore.lab.lipids.title"/>
             </h3>
             <p>
                 <obsgroup groupingConceptId="PIH:Lipid panel construct">
