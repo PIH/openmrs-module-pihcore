@@ -45,7 +45,7 @@ public class RedirectToDeathNoteIfMissing implements CustomFormSubmissionAction 
 
         session.setAfterSaveUrlTemplate("htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page" +
                 "?patientId={{patient.id}}" +
-                "&definitionUiResource=mirebalais:htmlforms/deathCertificate.xml");
+                "&definitionUiResource=pihcore:htmlforms/deathCertificate.xml");
     }
 
     private boolean hasDeathCertificateEncounter(Patient patient) {
