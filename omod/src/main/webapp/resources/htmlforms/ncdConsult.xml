@@ -94,7 +94,7 @@
         }
 
         #heart_failure input[type="checkbox"] {
-        margin: 12px 0 0 0 ;
+        margin: 12px 5px 0 0 ;
         }
 
     </style>
@@ -130,7 +130,7 @@
     <ifMode mode="VIEW" include="false">
         <h2>
             <label>
-                <uimessage code="ncd_consult"/>
+                <uimessage code="pihcore.ncd.title"/>
             </label>
         </h2>
 
@@ -283,7 +283,7 @@
         </p>
         <p>
             <label>
-                <uimessage code="vol_status"/>
+                <uimessage code="pihcore.ncd.hf.vol_status"/>
             </label>
         </p>
     </section>
@@ -294,7 +294,7 @@
                 <uimessage code="pihcore.ncd.diabetes.fasting"/> <br/>
                 <uimessage code="pihcore.ncd.diabetes.fasting.comment"/>
             </label>
-            <obs conceptId="PIH:Fasting for blood glucose test" style="yes_no"  />
+            <obs conceptId="PIH:Fasting for blood glucose test" style="radio"  />
         </p>
         <p class="radio">
             <label>
@@ -333,7 +333,7 @@
             <label>
                 <uimessage code="pihcore.ncd.plan"/>
             </label>
-            <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="yes_no" />
+            <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio" />
         </p>
     </section>
 
