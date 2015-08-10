@@ -40,47 +40,53 @@
         </code>
         <code name="location">
             <variant locale="en" value="Location (required)"/>
-            <variant locale="fr" value="Lieu  (demandé)"/>
+            <variant locale="fr" value="Lieu (demandé)"/>
         </code>
         <code name="provider">
             <variant locale="en" value="Provider (required)"/>
-            <variant locale="fr" value="Prestataire médical.  (demandé)"/>
+            <variant locale="fr" value="Prestataire médical (demandé)"/>
         </code>
         <code name="date">
-            <variant locale="en" value="Date of Visit"/>
-            <variant locale="fr" value="Date de Visite"/>
+            <variant locale="en" value="Date of visit"/>
+            <variant locale="fr" value="Date de visite"/>
         </code>
         <code name="created_on">
-            <variant locale="en" value="Created On"/>
-            <variant locale="fr" value="Created On"/>
+            <variant locale="en" value="Created: "/>
+            <variant locale="fr" value="Created: "/>
         </code>
         <code name="last_updated_on">
-            <variant locale="en" value="Last Updated On"/>
-            <variant locale="fr" value="Last Updated On"/>
+            <variant locale="en" value="Last updated: "/>
+            <variant locale="fr" value="Last updated: "/>
         </code>
         <code name="printed_on">
-            <variant locale="en" value="Printed On"/>
-            <variant locale="fr" value="Printed On"/>
+            <variant locale="en" value="Printed: "/>
+            <variant locale="fr" value="Printed: "/>
         </code>
         <code name="pe_exam_findings">
-            <variant locale="en" value="Notable Exam Findings"/>
+            <variant locale="en" value="Notable exam findings"/>
             <variant locale="fr" value="Constatations de l'examen notables"/>
         </code>
         <code name="cancer_staging">
-            <variant locale="en" value="Cancer Staging"/>
+            <variant locale="en" value="Cancer staging"/>
             <variant locale="fr" value="Stadification du cancer"/>
         </code>
         <code name="hpi">
-            <variant locale="en" value="History of Presenting Illness"/>
+            <variant locale="en" value="History of presenting illness"/>
             <variant locale="fr" value="Complaintes actuelles"/>
         </code>
         <code name="ecog_perf_status">
             <variant locale="en" value="ECOG"/>
             <variant locale="fr" value="ECOG"/>
         </code>
-        <code name="blood_tests">
-            <variant locale="en" value="Blood Tests"/>
-            <variant locale="fr" value="Des Analyses de Sang"/>
+        <code name="sample_site">
+            <variant locale="en" value="Site of pathology sample"/>
+            <!-- ToDo: Translate -->
+            <variant locale="fr" value="**** Needs Translation ****"/>
+        </code>
+        <code name="procedure_date">
+            <variant locale="en" value="Date of procedure"/>
+            <!-- ToDo: Translate -->
+            <variant locale="fr" value="**** Needs Translation ****"/>
         </code>
         <code name="prev_treatment">
             <variant locale="en" value="Patient has previously received treatment"/>
@@ -110,10 +116,6 @@
             <variant locale="en" value="Site of Care"/>
             <variant locale="fr" value="Lieu"/>
         </code>
-        <code name="treatment_outcomes">
-            <variant locale="en" value="Treatment and Outcomes"/>
-            <variant locale="fr" value="Traitement et Résultats"/>
-        </code>
         <!--
         <code name="rec_chemo">
             <variant locale="en" value="Chemotherapy"/>
@@ -140,20 +142,16 @@
             <variant locale="en" value="Patient Plan"/>
             <variant locale="fr" value="Régime des patients"/>
         </code>
-        <code name="next_visit">
-            <variant locale="en" value="Patient Next Scheduled Visit"/>
-            <variant locale="fr" value="Date de retour de visite"/>
-        </code>
         <code name="patient_plan_details">
-            <variant locale="en" value="Patient Plan Details"/>
+            <variant locale="en" value="Patient plan details"/>
             <variant locale="fr" value="Détails du plan"/>
         </code>
         <code name="chemotherapy_protocol">
-            <variant locale="en" value="Chemotherapy Protocol"/>
+            <variant locale="en" value="Chemotherapy protocol"/>
             <variant locale="fr" value="Protocole de chimiothérapie"/>
         </code>
         <code name="chemo_cycle_number">
-            <variant locale="en" value="Cycle Number"/>
+            <variant locale="en" value="Cycle number"/>
             <variant locale="fr" value="Nombre de cycles"/>
         </code>
         <code name="reason_no_chemo">
@@ -168,31 +166,32 @@
             <!-- Todo: Translate -->
             <variant locale="fr" value="Chemotherapy side effects**"/>
         </code>
-        <code name="pain">
-            <variant locale="en" value="Pain"/>
+        <code name="pain_scale">
+            <variant locale="en" value="Pain scale (0 = no pain; 10 = worst)"/>
+            <!-- Todo: Translate -->
             <variant locale="fr" value="Douleur"/>
         </code>
         <code name="pain_details">
-            <variant locale="en" value="Pain Details"/>
-            <variant locale="fr" value="Douleur Détails"/>
+            <variant locale="en" value="Pain details"/>
+            <variant locale="fr" value="Douleur détails"/>
         </code>
         <code name="special_considerations">
             <variant locale="en" value="Patient history special considerations"/>
             <variant locale="fr" value="Les antécédents du patient considérations particulières"/>
         </code>
         <code name="important_visit_info">
-            <variant locale="en" value="Important Visit Information"/>
+            <variant locale="en" value="Important visit information"/>
             <!-- Todo: Translate -->
-            <variant locale="fr" value="Important Visit Information**"/>
+            <variant locale="fr" value="Important visit information**"/>
         </code>
         <code name="pathology">
             <variant locale="en" value="Pathology"/>
             <variant locale="fr" value="Pathologie"/>
         </code>
         <code name="confirmed_diagnosis">
-            <variant locale="en" value="Confirmed Diagnosis"/>
+            <variant locale="en" value="Confirmed diagnosis"/>
             <!-- Todo: Translate -->
-            <variant locale="fr" value="Confirmed Diagnosis"/>
+            <variant locale="fr" value="Confirmed diagnosis"/>
         </code>
         <code name="staging">
             <variant locale="en" value="Staging"/>
@@ -265,8 +264,8 @@
         display: block;
         }
 
-        #treatment_outcomes input[type="checkbox"] {
-        margin: 12px 0 0 0;
+        #treatment input[type="checkbox"] {
+        margin: 12px 5px 0 0;
         }
 
     </style>
@@ -447,8 +446,8 @@
             <div class="column">
                 <table class="muted-header" style="font-size:small">
                     <tr>
-                        <td>GRADE</td>
-                        <td>ECOG PERFORMANCE STATUS</td>
+                        <th>GRADE</th>
+                        <th>ECOG PERFORMANCE STATUS</th>
                     </tr>
                     <tr>
                         <td>0</td>
@@ -479,15 +478,14 @@
                 </table>
             </div>
         </div>
-    </section>
 
-    <section id="pathology" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pathology">
+    <strong><uimessage code="pathology"/></strong>
         <p>
             <table class="muted-header">
                 <!-- ToDo: Replace column headers with coded labels with French translations -->
                 <tr>
-                    <td>Site of Sample</td>
-                    <td>Date of Procedure</td>
+                    <th><uimessage code="sample_site"/></th>
+                    <th><uimessage code="procedure_date"/></th>
                 </tr>
                 <tr>
                     <obsgroup groupingConceptId="CIEL:160714">
@@ -552,17 +550,14 @@
             </label>
             <obs conceptId="CIEL:162967" style="textarea" rows="3" cols="80"/>
         </p>
-    </section>
-    <section id="goals-of-care" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="goals_of_care">
+
+        <label><uimessage code="goals_of_care"/></label>
         <p class="radio">
             <obs conceptId="CIEL:160846" style="radio"
                  answerConceptIds="CIEL:160847,CIEL:160849" answerCodes="curative,palliative"
-                 answerSeparator=""/>
+                 answerLabels="curative intent,palliative intent" answerSeparator=""/>
         </p>
-    </section>
 
-    <section id="treatment_outcomes" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="treatment_outcomes">
         <p>
             <label><uimessage code="chemotherapy_protocol"/></label>
             <obs conceptId="CIEL:163073" answerConceptId="CIEL:163060"/>
@@ -610,7 +605,7 @@
             <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" showCommentField="true"/>
             <br/>
             <label>
-                <uimessage code="pain"/>
+                <uimessage code="pain_scale"/>
             </label>
             <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
             <br/>
