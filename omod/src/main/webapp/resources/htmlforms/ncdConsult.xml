@@ -71,6 +71,16 @@
         min-width: 90%
         }
 
+        #calculated-ratio {
+        font-weight: bold;
+        font-size: 1.4em;
+        }
+
+        .encounter-summary-container #calculated-ratio {
+        font-size: 1em;
+        font-weight: normal;
+        }
+
         #encounterDate input {
         min-width: 15%
         }
@@ -259,15 +269,30 @@
                 <uimessage code="pihcore.ncd.vitals.waist_cm"/>
             </label>
 
+            <!-- ToDo: Add concept
+            <obs conceptId="CIEL:xxx" id="waist_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value" />
+            -->
+
             <label>
                 <uimessage code="pihcore.ncd.vitals.hip_cm"/>
             </label>
 
-            <label>
+            <!-- ToDo: Add concept
+            <obs conceptId="CIEL:xxx" id="hip_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value" />
+            -->
+
+            <!-- ToDo: Calculate
+            <span id="calculated-ratio-wrapper">
                 <uimessage code="pihcore.ncd.vitals.waist_hip_ratio" />
                 <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment" />
-                <!-- ToDo: Calculate? Ask Gene -->
-            </label>
+
+                <span id='calculated-ratio'></span>
+            </span>
+            <p id="calculated-ratio-continue">
+                <input type="hidden" name="focus-in-ratio-question" id="hidden-calculated-ratio" />
+                <uimessage code="pihcore.ncd.vitals.calculatedField.continue"/>
+            </p>
+            -->
         </p>
     </section>
 
@@ -294,7 +319,8 @@
                 <uimessage code="pihcore.ncd.diabetes.fasting"/> <br/>
                 <uimessage code="pihcore.ncd.diabetes.fasting.comment"/>
             </label>
-            <obs conceptId="PIH:Fasting for blood glucose test" style="radio"  />
+            <obs conceptId="PIH:Fasting for blood glucose test" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                 answerCodes="yes,no" answerSeparator=""  />
         </p>
         <p class="radio">
             <label>

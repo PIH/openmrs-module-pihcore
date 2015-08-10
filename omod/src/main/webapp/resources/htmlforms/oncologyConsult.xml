@@ -265,7 +265,7 @@
         }
 
         #treatment input[type="checkbox"] {
-        margin: 12px 5px 0 0;
+        margin: 12px 0 0 0;
         }
 
     </style>
@@ -446,8 +446,8 @@
             <div class="column">
                 <table class="muted-header" style="font-size:small">
                     <tr>
-                        <th>GRADE</th>
-                        <th>ECOG PERFORMANCE STATUS</th>
+                        <th>Grade</th>
+                        <th>ECOG Performance Status</th>
                     </tr>
                     <tr>
                         <td>0</td>
@@ -479,7 +479,7 @@
             </div>
         </div>
 
-    <strong><uimessage code="pathology"/></strong>
+    <label><uimessage code="pathology"/></label>
         <p>
             <table class="muted-header">
                 <!-- ToDo: Replace column headers with coded labels with French translations -->
@@ -554,8 +554,7 @@
         <label><uimessage code="goals_of_care"/></label>
         <p class="radio">
             <obs conceptId="CIEL:160846" style="radio"
-                 answerConceptIds="CIEL:160847,CIEL:160849" answerCodes="curative,palliative"
-                 answerLabels="curative intent,palliative intent" answerSeparator=""/>
+                 answerConceptIds="CIEL:160847,CIEL:160849" answerSeparator=""/>
         </p>
 
         <p>
