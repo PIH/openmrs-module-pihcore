@@ -29,6 +29,7 @@ public class VisitPageController {
 
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
+        model.addAttribute("visitUuid", visit.getUuid());
     }
 
 }

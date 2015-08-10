@@ -415,6 +415,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.VisitDisplayModel = VisitDisplayModel;
 
+            $scope.init = function(visitUuid)
+            {
+                $scope.visitUuid= visitUuid;
+            };
+
             AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
                 $scope.visitActions = ext;
             })
@@ -448,6 +453,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 VisitDisplayModel.reset();
             }
 
+          /*  // TODO is this still needed/used?
             function getVisitParameter() {
                 var index = location.href.indexOf("?");
                 var temp = location.href.substring(index + 1);
@@ -462,7 +468,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     temp = temp.substring(0, index);
                 }
                 return temp;
-            }
+            }*/
 
             //$rootScope.$on('$stateChangeStart', function(event, toState) {
             //    if (toState.name === "newPrescription") {
@@ -528,8 +534,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.$watch('visitUuid', function(newVal, oldVal) {
                 loadVisit(newVal);
             })
-
-            $scope.visitUuid = getVisitParameter();
 
             $scope.hasDraftOrders = function() {
                 return OrderContext.get().draftOrders.length > 0;
