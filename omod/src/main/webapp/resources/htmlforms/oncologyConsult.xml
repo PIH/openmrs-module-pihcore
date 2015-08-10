@@ -199,8 +199,6 @@
             <variant locale="fr" value="Staging"/>
         </code>
 
-
-
     </translations>
 
     <style type="text/css">
@@ -265,7 +263,7 @@
         }
 
         #treatment input[type="checkbox"] {
-        margin: 12px 0 0 0;
+        margin: 12px 5px 0 0;
         }
 
     </style>
