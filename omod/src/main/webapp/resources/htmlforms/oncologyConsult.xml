@@ -637,7 +637,7 @@
                 <uimessage code="special_considerations"/>
                 Other patient conditions or diagnoses (ie. HTN, diabetes, heart disease, asthma, etc.)
             </label>
-            <obs conceptId="PIH:Other clinical diagnosis, non-coded"/>
+            <obs conceptId="PIH:6731"/>
             <br/>
 
             <label>
