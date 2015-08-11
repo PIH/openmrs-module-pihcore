@@ -81,11 +81,7 @@
         <require_module version="${addresshierarchyVersion}">
             org.openmrs.module.addresshierarchy
         </require_module>
-        <require_module version="${metadatadeployVersion}">
-            org.openmrs.module.metadatadeploy
-        </require_module>
     </require_modules>
-
 
     <activator>${project.parent.groupId}.${project.parent.artifactId}.PihCoreActivator</activator>
 
