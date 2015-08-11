@@ -62,6 +62,10 @@
             <variant locale="en" value="Printed: "/>
             <variant locale="fr" value="Printed: "/>
         </code>
+        <code name="visit_type">
+            <variant locale="en" value="Visit type"/>
+            <variant locale="fr" value="Type de visite"/>
+        </code>
         <code name="pe_exam_findings">
             <variant locale="en" value="Notable exam findings"/>
             <variant locale="fr" value="Constatations de l'examen notables"/>
@@ -412,7 +416,11 @@
         </includeIf>
     </ifMode>
 
-    <!-- Todo: "Type of Visit" -->
+    <!-- Todo: Improve format -->
+    <p>
+        <label><uimessage code="visit_type"/></label>
+        <obs conceptId="PIH:Type of oncology visit" />
+    </p>
 
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
         <p>
@@ -479,8 +487,7 @@
 
     <label><uimessage code="pathology"/></label>
         <p>
-            <table class="muted-header">
-                <!-- ToDo: Replace column headers with coded labels with French translations -->
+            <table class="muted-header" border="0">
                 <tr>
                     <th><uimessage code="sample_site"/></th>
                     <th><uimessage code="procedure_date"/></th>
@@ -624,62 +631,21 @@
                 <uimessage code="patient_plan_details"/>
             </label>
             <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
+
             <br/>
             <label>
                 <uimessage code="special_considerations"/>
+                Other patient conditions or diagnoses (ie. HTN, diabetes, heart disease, asthma, etc.)
             </label>
-            <!-- ToDo: **Needs Concept Update** -->
-            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <obs conceptId="PIH:Other clinical diagnosis, non-coded"/>
             <br/>
+
             <label>
                 <uimessage code="important_visit_info"/>
             </label>
-            <!-- ToDo: **Needs Concept Update: CIEL:162749** -->
-            <obs conceptId="PIH:GENERAL FREE TEXT"/>
+            <obs conceptId="CIEL:162749"/>
         </p>
     </section>
-
-
-
-    <!--
-        <section id="recycle-bin" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Recycle Bin">
-            <p>
-                <label>
-                    <uimessage code="cancer_staging"/>
-                </label>
-                <obs conceptId="CIEL:160786"
-                     answerConceptIds="CIEL:160769,CIEL:160771,CIEL:160770,CIEL:160772,CIEL:160773,CIEL:160774,CIEL:160775,CIEL:160776,CIEL:160777,CIEL:160778,CIEL:160779,CIEL:160780,CIEL:160781,CIEL:160782,CIEL:160783,CIEL:160784,CIEL:160785"/>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="reason_no_chemo"/>
-                </label>
-                <!- ToDo:  Add concepts ->
-                <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Patient too ill for chemotherapy"/>
-                <!- **Needs Concept Update** ->
-                <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Chemotherapy side effect"/>
-                <!- **Needs Concept Update** ->
-                <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Lab abnormalities"/>
-                <!- **Needs Concept Update** ->
-                <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Vital sign abnormalities"/>
-                <!- **Needs Concept Update** ->
-                <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Unknown"/>
-                <!- **Needs Concept Update** ->
-                <obs conceptId="CIEL:160786" answerConceptId="CIEL:160769" answerLabel="Other"
-                     commentFieldLabel="specify:"/>
-                <!- **Needs Concept Update** ->
-                <obs conceptId="PIH:GENERAL FREE TEXT"/>
-                <!- **Needs Concept Update** ->
-            </p>
-            <p>
-                <label>
-                    <uimessage code="next_visit"/>
-                </label>
-                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"/>
-                <br/>
-            </p>
-        </section>
-    -->
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
