@@ -522,8 +522,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.careSettings = CareSetting.query({v:"default"});
 
             $scope.reloadVisit = function() {
-                loadVisit($scope.visitUuid);
-            }
+                    loadVisit($scope.visitUuid);
+                }
 
             $scope.goToVisit = function(visit) {
                 $scope.visitUuid = visit.uuid;
@@ -551,7 +551,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         visit: visitModel,
                         patient: $scope.visit.patient
                     });
-                    emr.navigateTo({ applicationUrl: "/" + url + "&returnUrl=" +  window.encodeURIComponent(window.location.pathname + window.location.search + "&visit=" + $scope.visit.uuid) });
+
+                    emr.navigateTo({ applicationUrl: "/" + url + "&returnUrl=" +  window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid) });
                 }
             }
 
