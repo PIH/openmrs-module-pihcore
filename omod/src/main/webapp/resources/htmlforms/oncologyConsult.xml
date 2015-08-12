@@ -273,7 +273,9 @@
         .section-container {
         background: #F2F2F2;
         box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
-        margin: 5px;
+        margin: 0;
+        width: 97%;
+        padding: 10px 5px 10px 15px;
         }
 
         .procedure-table td {
@@ -478,8 +480,8 @@
                     <obs conceptId="CIEL:160379"/>
                 </span>
             </div>
-            <div class="column">
-                <table class="muted-header" style="font-size:small">
+            <div class="column" width="60%">
+                <table align="left" class="muted-header" style="font-size:small">
                     <tr>
                         <th>Grade</th>
                         <th>ECOG Performance Status</th>

@@ -254,13 +254,21 @@
     </ifMode>
 
     <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
-        <p>
+        <div class="section-container">
             <label>
                 <uimessage code="pihcore.ncd.category"/>
             </label>
-            <!-- ToDo: Change to checkboxes and answers-->
-            <obs conceptId="PIH:NCD category" />
-        </p>
+
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident" answerLabel="Stroke"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Chronic respiratory disease program" answerLabel="Respiratory"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Rehab program" answerLabel="Rehab (not stroke)"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Sickle-Cell Anemia" answerLabel="Sickle-cell"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER"/>
+        </div>
     </section>
 
     <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.vitals">
@@ -354,10 +362,10 @@
         </p>
     </section>
 
-    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.plan">
+    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.plan.title">
         <p class="radio">
             <label>
-                <uimessage code="pihcore.ncd.plan"/>
+                <uimessage code="pihcore.ncd.plan.hospitalized"/>
             </label>
             <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio" />
         </p>
