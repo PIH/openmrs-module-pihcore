@@ -266,7 +266,7 @@
         display: block;
         }
 
-        #treatment input[type="checkbox"] {
+        #treatment #visit-type input[type="checkbox"] {
         margin: 12px 5px 0 0;
         }
 
@@ -417,12 +417,13 @@
     </ifMode>
 
     <!-- Todo: Improve format -->
-    <p>
-        <label>
-            <uimessage code="visit_type"/>
-        </label>
-        <obs conceptId="PIH:Type of oncology visit"/>
-    </p>
+    <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
+        <p>
+            <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology diagnosis"/>
+            <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology staging"/>
+            <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
+        </p>
+    </section>
 
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
         <p>
