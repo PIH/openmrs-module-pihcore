@@ -551,7 +551,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         visit: visitModel,
                         patient: $scope.visit.patient
                     });
-                    emr.navigateTo({ applicationUrl: "/" + url + "&returnUrl=" +  window.encodeURIComponent(window.location.pathname + window.location.search) });
+                    emr.navigateTo({ applicationUrl: "/" + url + "&returnUrl=" +  window.encodeURIComponent(window.location.pathname + window.location.search + "&visit=" + $scope.visit.uuid) });
                 }
             }
 
