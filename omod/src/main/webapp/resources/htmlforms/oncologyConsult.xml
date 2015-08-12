@@ -421,7 +421,9 @@
         <label>
             <uimessage code="visit_type"/>
         </label>
-        <obs conceptId="PIH:Type of oncology visit"/>
+        <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology diagnosis"/>
+        <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology staging"/>
+        <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
     </p>
 
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
