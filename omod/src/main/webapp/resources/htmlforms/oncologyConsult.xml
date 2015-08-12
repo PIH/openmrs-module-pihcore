@@ -266,10 +266,20 @@
         display: block;
         }
 
-        #treatment #visit-type input[type="checkbox"] {
+        .section-container input[type="checkbox"] {
         margin: 12px 5px 0 0;
         }
 
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        margin: 5px;
+        }
+
+        .procedure-table td {
+        border: 0;
+        padding: 5px 10px;
+        }
     </style>
 
     <script type="text/javascript">
@@ -418,14 +428,17 @@
 
     <!-- Todo: Improve format -->
     <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
+        <div class="section-container">
         <p>
             <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology diagnosis"/>
             <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology staging"/>
             <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
         </p>
+        </div>
     </section>
 
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
+        <div class="section-container">
         <p>
             <label>
                 <uimessage code="hpi"/>
@@ -438,9 +451,11 @@
             </label>
             <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
         </p>
+        </div>
     </section>
 
     <section id="staging" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="staging">
+        <div class="section-container">
         <p>
             <label>
                 <uimessage code="pe_exam_findings"/>
@@ -506,14 +521,14 @@
             <uimessage code="pathology"/>
         </label>
         <p>
-            <table class="muted-header" border="0">
+            <table class="procedure-table">
                 <tr>
-                    <th>
+                    <td>
                         <uimessage code="sample_site"/>
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         <uimessage code="procedure_date"/>
-                    </th>
+                    </td>
                 </tr>
                 <tr>
                     <obsgroup groupingConceptId="CIEL:160714">
@@ -547,9 +562,11 @@
                 </tr>
             </table>
         </p>
+        </div>
     </section>
 
     <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
+        <div class="section-container">
         <p class="radio">
             <label>
                 <uimessage code="prev_treatment"/>
@@ -678,6 +695,7 @@
             </label>
             <obs conceptId="CIEL:162749"/>
         </p>
+        </div>
     </section>
 
     <ifMode mode="VIEW" include="false">
