@@ -270,11 +270,13 @@
         margin: 12px 5px 0 0;
         }
 
+        .section {
+        width: 95%;
+        }
+
         .section-container {
         background: #F2F2F2;
         box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
-        margin: 0;
-        width: 97%;
         padding: 10px 5px 10px 15px;
         }
 
