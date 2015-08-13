@@ -109,7 +109,7 @@
                     </label>
                     <span class="small">
                         <field>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
                         </field>
                     </span>
 
@@ -176,7 +176,7 @@
                     </label>
                     <span class="small">
                         <field>
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
                         </field>
                     </span>
                 </obsgroup>
@@ -250,7 +250,7 @@
                         <uimessage code="pihcore.lab.test_date"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
                     </span>
 
                 </obsgroup>
@@ -300,7 +300,7 @@
                         <uimessage code="pihcore.lab.test_date"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
                     </span>
                 </obsgroup>
             </p>
@@ -320,7 +320,7 @@
                     <uimessage code="pihcore.lab.cd4"/>(value,date)
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:CD4 COUNT" showDate="true"/>
+                    <obs conceptId="PIH:CD4 COUNT" placeholder="Enter value" showDate="true"/>
                 </span>
                 <!-- ToDo: Add other HIV tests (ie. Viral load, PCR, ELISA, etc) -->
             </p>
@@ -341,7 +341,7 @@
                     (value,date)
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:MALARIAL SMEAR" showDate="true"/>
+                    <obs conceptId="PIH:MALARIAL SMEAR" placeholder="Enter value" showDate="true"/>
                 </span>
 
                 <label>
@@ -349,7 +349,7 @@
                     (value,date)
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:LACTATE DEHYDROGENASE" showDate="true"/>
+                    <obs conceptId="PIH:LACTATE DEHYDROGENASE" placeholder="Enter value" showDate="true"/>
                 </span>
 
                 <label>
@@ -357,7 +357,7 @@
                     (value,date)
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:INTERNATIONAL NORMALIZED RATIO" showDate="true"/>
+                    <obs conceptId="PIH:INTERNATIONAL NORMALIZED RATIO" placeholder="Enter value" showDate="true"/>
                 </span>
             </p>
 
