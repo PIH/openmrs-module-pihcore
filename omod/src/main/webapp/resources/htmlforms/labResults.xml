@@ -39,59 +39,78 @@
                         <uimessage code="pihcore.lab.hemoglobin"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.hematocrit"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.white_blood_cell"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.neutrophil"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
-                    </span>
-                    <span class="small">(<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
+                        <field>
+                            <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
+                        </field>
+                        <field>
+                            (<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.lymphocyte"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
-                        (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
+                        <field>
+                            <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
+                        </field>
+                        <field>
+                            (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.platelets"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:PLATELETS" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:PLATELETS" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.esr"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.test_date"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        <field>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </field>
                     </span>
 
                 </obsgroup>
@@ -115,38 +134,50 @@
                         <uimessage code="pihcore.lab.creatinine"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:SERUM CREATININE" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:SERUM CREATININE" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.bilirubin"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:TOTAL BILIRUBIN" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:TOTAL BILIRUBIN" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>SGOT</label>
                     <span class="small">
-                        <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>SGPT</label>
                     <span class="small">
-                        <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.alk_phos"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
+                        <field>
+                            <obs conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
+                        </field>
                     </span>
 
                     <label>
                         <uimessage code="pihcore.lab.test_date"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        <field>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </field>
                     </span>
                 </obsgroup>
             </p>
