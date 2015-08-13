@@ -19,8 +19,8 @@ public class VisitPageController {
                     PageModel model) {
         if (visit == null) {
             if (patient == null) {
-                throw new MissingRequiredParameterException("patient or visit is required");
-            }
+            throw new MissingRequiredParameterException("patient or visit is required");
+        }
             visit = visitService.getVisitsByPatient(patient).get(0);
         }
         if (patient == null) {
@@ -29,7 +29,7 @@ public class VisitPageController {
 
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
-        model.addAttribute("visitUuid", visit.getUuid());
+        model.addAttribute("visit", visit);
     }
 
 }

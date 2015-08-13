@@ -62,12 +62,13 @@
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
-<div id="visit-app" ng-controller="VisitController" ng-init="init('${ visitUuid }')">
+<div id="visit-app" ng-controller="VisitController">
 
     <div ui-view></div>
 
 </div>
 
 <script type="text/javascript">
+    angular.module('visit').value('patientUuid', '${ patient.patient.uuid }').value('visitUuid', '${ visit?.uuid }');
     angular.bootstrap("#visit-app", [ "visit" ])
 </script>

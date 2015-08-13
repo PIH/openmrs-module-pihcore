@@ -407,18 +407,19 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         return model;
     }])
 
-    .controller("VisitController", [ "$scope", "$rootScope", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state", "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter", "OrderEntryService", "AppFrameworkService",
-        function($scope, $rootScope, Visit, VisitTemplateService, CareSetting, $q, $state, $timeout, OrderContext, VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService) {
+    .controller("VisitController", [ "$scope", "$rootScope", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state", "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter", "OrderEntryService", "AppFrameworkService", 'visitUuid', 'patientUuid',
+        function($scope, $rootScope, Visit, VisitTemplateService, CareSetting, $q, $state, $timeout, OrderContext, VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid) {
 
             $rootScope.datetimeFormat = "d-MMM-yy (hh:mm a)";
             $rootScope.dateFormat = "d-MMM-yy";
 
             $scope.VisitDisplayModel = VisitDisplayModel;
 
-            $scope.init = function(visitUuid)
-            {
-                $scope.visitUuid= visitUuid;
-            };
+            $scope.visitUuid = visitUuid;
+            $scope.patientUuid = patientUuid;
+
+            loadVisits(patientUuid);
+            loadVisit(visitUuid);
 
             AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
                 $scope.visitActions = ext;
@@ -428,18 +429,20 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 return d1 && d2 && d1.substring(0, 10) == d2.substring(0, 10);
             }
 
+            function loadVisits(patientUuid) {
+                Visit.get({patient: $scope.patientUuid, v: "default"}).$promise.then(function(response) {
+                    // TODO fetch more pages?
+                    $scope.visits = response.results;
+                    // TODO what does this do?
+                    //$scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return new Date(it.startDatetime) }).startDatetime === $scope.visit.startDatetime;
+                });
+            }
+
             function loadVisit(visitUuid) {
                 Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:default,patient:default,visitType:ref,attributes:default)" })
                     .$promise.then(function(visit) {
                         $scope.visit = new OpenMRS.VisitModel(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
-
-                        // get other visits
-                        Visit.get({patient: $scope.visit.patient.uuid, v: "default"}).$promise.then(function(response) {
-                            // TODO fetch more pages?
-                            $scope.visits = response.results;
-                            $scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return new Date(it.startDatetime) }).startDatetime === $scope.visit.startDatetime;
-                        });
 
                         $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
                         VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit, $scope.VisitDisplayModel);
@@ -530,9 +533,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 $state.go("overview");
             }
 
-            // TODO figure out if we can get rid of this function
+           // TODO figure out if we can get rid of this function
             $scope.$watch('visitUuid', function(newVal, oldVal) {
-                loadVisit(newVal);
+                    loadVisit(newVal);
             })
 
             $scope.hasDraftOrders = function() {
