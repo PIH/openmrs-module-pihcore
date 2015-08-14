@@ -107,6 +107,26 @@
         margin: 12px 5px 0 0 ;
         }
 
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
     </style>
 
     <script type="text/javascript">
@@ -305,6 +325,7 @@
     </section>
 
     <section id="heart_failure" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.heart_failure">
+        <div class="section-container">
         <p>
             <label>
                 <uimessage code="pihcore.ncd.hf.nyha"/>
@@ -318,7 +339,9 @@
             <label>
                 <uimessage code="pihcore.ncd.hf.vol_status"/>
             </label>
+            <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT" />
         </p>
+        </div>
     </section>
 
     <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.diabetes">
@@ -340,6 +363,7 @@
     </section>
 
     <section id="respire" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
+        <div class="section-container">
         <p>
             <label>
                 <uimessage code="puffs_per_wk"/>
@@ -350,6 +374,7 @@
             </label>
             <obs conceptId="PIH:Asthma classification" />
         </p>
+        </div>
     </section>
 
     <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epil">
@@ -367,7 +392,8 @@
             <label>
                 <uimessage code="pihcore.ncd.plan.hospitalized"/>
             </label>
-            <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio" />
+            <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
+                 answerConceptIds="PIH:TRUE,PIH:FALSE" answerLabels="yes,no"/>
         </p>
     </section>
 
