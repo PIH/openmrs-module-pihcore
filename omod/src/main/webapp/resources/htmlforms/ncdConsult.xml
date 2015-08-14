@@ -103,10 +103,6 @@
         display: block;
         }
 
-        #heart_failure input[type="checkbox"] {
-        margin: 12px 5px 0 0 ;
-        }
-
         .section-container {
         background: #F2F2F2;
         box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
@@ -327,9 +323,6 @@
     <section id="heart_failure" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.heart_failure">
         <div class="section-container">
         <p>
-            <label>
-                <uimessage code="pihcore.ncd.hf.nyha"/>
-            </label>
             <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
             <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
             <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
@@ -378,6 +371,7 @@
     </section>
 
     <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epil">
+        <div class="section-container">
         <p>
             <label>
                 <uimessage code="seizure_num"/>
@@ -385,6 +379,7 @@
             <!-- ToDo: HUM form has yes/no -->
             <span class="small"><obs conceptId="PIH:Number of seizures since last visit" /></span>
         </p>
+        </div>
     </section>
 
     <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.plan.title">
@@ -393,21 +388,32 @@
                 <uimessage code="pihcore.ncd.plan.hospitalized"/>
             </label>
             <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
-                 answerConceptIds="PIH:TRUE,PIH:FALSE" answerLabels="yes,no"/>
+                 answerConceptIds="PIH:TRUE,PIH:FALSE" answerLabels="yes,no" answerSeparator=""/>
         </p>
     </section>
 
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
+        <div class="section-container">
         <p>
             <label>
                 <uimessage code="pihcore.ncd.meds.current_meds"/>
             </label>
-            <!-- ToDo: This should be prescription or drug order -->
+            <!-- ToDo: Fix autoshow of all drugs UHM-2121 -->
             <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
             <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
             <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
         </p>
+        </div>
     </section>
+
+    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.general.title">
+        <div class="section-container">
+            <p>
+                <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
+            </p>
+        </div>
+    </section>
+
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">

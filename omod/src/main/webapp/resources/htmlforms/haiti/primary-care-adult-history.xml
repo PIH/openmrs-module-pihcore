@@ -45,6 +45,26 @@
             float: none !important;
             min-width: initial;
         }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
     </style>
 
     <h1>Adult Outpatient History (New Patient)</h1>
@@ -54,8 +74,8 @@
         <obs conceptId="CIEL:160531" style="textarea"/>
     </div>
 
-    <div>
-        <h3 class="section-header"><uimessage code="zl.consultNote.familyHistory.title"/></h3>
+    <section id="family-history" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.familyHistory.title">
+    <div class="section-container">
         <!-- ANTECEDENTS HEREDO-COLLATERAUX -->
         <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
         <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
@@ -68,9 +88,10 @@
         <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
         <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
     </div>
+    </section>
 
-    <div>
-        <h3 class="section-header"><uimessage code="zl.consultNote.patientHistory.title"/></h3>
+    <section id="patient-history" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.patientHistory.title">
+    <div class="section-container">
         <!-- ANTECEDENTS PERSONNELS / HABITUDES -->
 
         <div class="two-columns">
@@ -102,9 +123,10 @@
             <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/>
         </div>
     </div>
+    </section>
 
-    <div>
-        <h3 class="section-header"><uimessage code="zl.consultNote.sexualActivities.label"/></h3>
+    <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.sexualActivities.label">
+    <div class="section-container">
         <p class="radio">
             <label><uimessage code="zl.sexuallyActive"/>:</label>
             <obs conceptId="PIH:SEXUALLY ACTIVE" style="yes_no"/>
@@ -116,13 +138,15 @@
             <obs conceptId="PIH:OTHER FAMILY PLANNING METHOD, NON-CODED" size="30"/>
         </p>
     </div>
+    </section>
 
-    <div>
-        <h3 class="section-header"><uimessage code="zl.consultNote.previousHospitalization.title"/></h3>
+    <section id="previous-hospital" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.previousHospitalization.title">
+    <div class="section-container">
         <!-- HOSPITALISATION ANTERIEURE -->
         <!-- TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form? -->
         <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
     </div>
+    </section>
 
     <ifMode mode="VIEW" include="false">
         <br/>
