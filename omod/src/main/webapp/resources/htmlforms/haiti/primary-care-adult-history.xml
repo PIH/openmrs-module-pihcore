@@ -53,6 +53,13 @@
         line-height: 1.5em; /*add this for vertical spacing between elements*/
         }
 
+        .section-container-color {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
         .section-container input[type="checkbox"] {
         margin: 0px 5px; /*changed values to vertical, horizontal*/
         top:5px; /*added to offset the checkbox position to line up*/
@@ -67,62 +74,77 @@
         }
     </style>
 
-    <h1>Adult Outpatient History (New Patient)</h1>
+    <h1>
+        <uimessage code="pihcore.history.adult.title"/>
+    </h1>
 
-    <div>
-        <h3 class="section-header"><uimessage code="mirebalais.vitals.complaint.title"/></h3>
-        <obs conceptId="CIEL:160531" style="textarea"/>
-    </div>
-
-    <section id="family-history" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.familyHistory.title">
-    <div class="section-container">
-        <!-- ANTECEDENTS HEREDO-COLLATERAUX -->
-        <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="CIEL:117635" comment="Hémoglobinopathie" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
-        <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER" specify="true"/><br/>
-    </div>
+    <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="mirebalais.vitals.complaint.title">
+        <div class="section-container">
+            <p>
+                <obs conceptId="CIEL:160531" style="textarea"/>
+            </p>
+        </div>
     </section>
 
-    <section id="patient-history" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.patientHistory.title">
-    <div class="section-container">
-        <!-- ANTECEDENTS PERSONNELS / HABITUDES -->
-
-        <div class="two-columns">
-            <!-- Allergy is intentionally ommitted because it should be handled in more detail through the Allergy UI -->
-            <pastMedicalHistoryCheckbox concept="PIH:ASTHMA" />
-            <pastMedicalHistoryCheckbox concept="PIH:HEART DISEASE" />
-            <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" />
-            <pastMedicalHistoryCheckbox concept="PIH:Traumatic Injury" specify="true" />
-            <!-- TODO paper form has Surgery/Trauma. verify splitting okay -->
-            <pastMedicalHistoryCheckbox concept="PIH:EPILEPSY" />
-            <pastMedicalHistoryCheckbox concept="CIEL: 117635" comment="Hemoglobinopathy" specify="true" />
-
-            <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="HTA"/>
-            <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="STI/IST" specify="true"/>
-            <!-- TODO explicit options for common STIs -->
-            <pastMedicalHistoryCheckbox concept="CIEL:143849" comment="Congenital malformations" specify="true"/>
-            <pastMedicalHistoryCheckbox concept="PIH:MALNUTRITION" />
-            <pastMedicalHistoryCheckbox concept="PIH:WEIGHT LOSS"/>
-            <!-- TODO paper form has Malnutrition/Weight loss, verify split okay -->
-            <pastMedicalHistoryCheckbox concept="PIH:MEASLES" />
-            <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS" />
-
-            <pastMedicalHistoryCheckbox concept="PIH:VARICELLA" />
-            <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/>
-            <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/>
-            <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
-            <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/>
-            <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/>
-            <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/>
+    <section id="family-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="zl.consultNote.familyHistory.title">
+        <div class="section-container">
+            <!-- ANTECEDENTS HEREDO-COLLATERAUX -->
+            <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/>
+            <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER"
+                                             specify="true"/>
+            <br/>
+            <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER"/>
+            <familyHistoryRelativeCheckboxes concept="CIEL:117635" comment="Hémoglobinopathie"
+                                             relatives="PIH:FATHER,PIH:MOTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER"
+                                             specify="true"/>
+            <br/>
+            <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER"
+                                             specify="true"/>
         </div>
-    </div>
+    </section>
+
+    <section id="patient-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="zl.consultNote.patientHistory.title">
+        <div class="section-container-color">
+            <!-- ANTECEDENTS PERSONNELS / HABITUDES -->
+
+            <div class="two-columns">
+                <!-- Allergy is intentionally ommitted because it should be handled in more detail through the Allergy UI -->
+                <pastMedicalHistoryCheckbox concept="PIH:ASTHMA"/>
+                <pastMedicalHistoryCheckbox concept="PIH:HEART DISEASE"/>
+                <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true"/>
+                <pastMedicalHistoryCheckbox concept="PIH:Traumatic Injury" specify="true"/>
+                <!-- TODO paper form has Surgery/Trauma. verify splitting okay -->
+                <pastMedicalHistoryCheckbox concept="PIH:EPILEPSY"/>
+                <pastMedicalHistoryCheckbox concept="CIEL: 117635" comment="Hemoglobinopathy" specify="true"/>
+
+                <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="HTA"/>
+                <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="STI/IST"
+                                            specify="true"/>
+                <!-- TODO explicit options for common STIs -->
+                <pastMedicalHistoryCheckbox concept="CIEL:143849" comment="Congenital malformations" specify="true"/>
+                <pastMedicalHistoryCheckbox concept="PIH:MALNUTRITION"/>
+                <pastMedicalHistoryCheckbox concept="PIH:WEIGHT LOSS"/>
+                <!-- TODO paper form has Malnutrition/Weight loss, verify split okay -->
+                <pastMedicalHistoryCheckbox concept="PIH:MEASLES"/>
+                <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS"/>
+
+                <pastMedicalHistoryCheckbox concept="PIH:VARICELLA"/>
+                <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/>
+                <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/>
+                <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
+                <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/>
+                <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/>
+                <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/>
+            </div>
+        </div>
     </section>
 
     <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.sexualActivities.label">
@@ -140,12 +162,18 @@
     </div>
     </section>
 
-    <section id="previous-hospital" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.previousHospitalization.title">
-    <div class="section-container">
-        <!-- HOSPITALISATION ANTERIEURE -->
-        <!-- TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form? -->
-        <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
-    </div>
+    <section id="previous-hospital" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="zl.consultNote.previousHospitalization.title">
+        <div class="section-container">
+            <!-- HOSPITALISATION ANTERIEURE -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.comment"/>
+                </label>
+                <!-- TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form? -->
+                <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
+            </p>
+        </div>
     </section>
 
     <ifMode mode="VIEW" include="false">
