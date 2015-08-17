@@ -241,6 +241,26 @@
                 label { font-weight: bold }
                 label[for] { font-weight: normal }   /* refers to the radio set label */
             }
+
+            .section-container {
+            background: #F2F2F2;
+            box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+            padding: 10px 5px 10px 15px;
+            line-height: 1.5em; /*add this for vertical spacing between elements*/
+            }
+
+            .section-container input[type="checkbox"] {
+            margin: 0px 5px; /*changed values to vertical, horizontal*/
+            top:5px; /*added to offset the checkbox position to line up*/
+            }
+
+            .section-container label { /*new definition to override labels inside section-containers*/
+            margin: 0px;
+            }
+
+            .section {
+            width: 95%;
+            }
         </style>
 
         <script type="text/javascript">
@@ -333,7 +353,7 @@
         </section>
 
         <section id="description" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Description">
-
+            <div class="section-container">
 
             <div class="column">
 
@@ -415,11 +435,11 @@
 
 
             </div>
-
+            </div>
         </section>
 
         <section id="ins-outs" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="ins_outs">
-
+            <div class="section-container">
             <div class="column">
 
                 <p>
@@ -493,11 +513,12 @@
                     <obs conceptId="PIH:Venous thromboembolism prophylaxis"/>
                 </p>
             </div>
+            </div>
         </section>
 
         <section id="pathology-complications" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pathology_complications">
-
+            <div class="section-container">
             <p class="radio">
                 <strong><uimessage code="specimen_sent"/></strong>
                 <label><uimessage code="pathology"/></label>
@@ -531,8 +552,11 @@
                 <label><uimessage code="complications"/></label>
                 <obs conceptId="PIH:Complications from surgery"/>
             </p>
+            </div>
         </section>
+
         <section id="plan" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Plan">
+            <div class="section-container">
         <!-- Updated with the generic HUM disposition list
             <p>
                 <label><uimessage code="disposition"/></label>
@@ -547,6 +571,7 @@
                 <label><uimessage code="findings"/></label>
                 <obs id="additional-comments" conceptId="PIH:Additional Surgery Comments" style="textarea" rows="1" cols="80"/>
             </p>
+            </div>
         </section>
         <br />
 
