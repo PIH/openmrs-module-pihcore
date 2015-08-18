@@ -23,7 +23,7 @@
     <!--TODO: Confirm what would go here (imaging? psych? what else?) -->
 
     <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.blood_tests.title">
-        <fieldset>
+        <fieldset class="multi-line-confirmation">
             <legend>
                 <uimessage code="pihcore.lab.hematology.title"/>
             </legend>
@@ -118,7 +118,7 @@
 
         </fieldset>
 
-        <fieldset>
+        <fieldset class="multi-line-confirmation">
 
             <legend>
                 <uimessage code="pihcore.lab.biochemistry.title"/>
@@ -184,7 +184,7 @@
 
         </fieldset>
 
-        <fieldset>
+        <fieldset class="multi-line-confirmation">
 
             <legend>
                 <uimessage code="pihcore.lab.iStat.title"/>
@@ -276,7 +276,7 @@
             </p>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="multi-line-confirmation">
 
             <legend>
                 <uimessage code="pihcore.lab.lipids.title"/>
@@ -335,7 +335,7 @@
 
         </fieldset>
 
-        <fieldset>
+        <fieldset class="multi-line-confirmation">
 
             <legend>
                 <uimessage code="pihcore.lab.hiv.title"/>
@@ -357,7 +357,7 @@
 
         </fieldset>
 
-        <fieldset>
+        <fieldset class="multi-line-confirmation">
 
             <legend>
                 <uimessage code="pihcore.other"/>
