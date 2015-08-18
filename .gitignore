@@ -5,6 +5,10 @@
 *.project
 *.classpath
 
+omod/.rubygems
+omod/.rubygems-provided
+omod/src/main/compass/,sass-cache
+
 target
 api/target
 omod/target
