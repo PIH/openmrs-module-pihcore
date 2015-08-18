@@ -236,6 +236,16 @@
         width: 50%
         }
 
+        .column_narrow {
+        float: left;
+        width: 20%
+        }
+
+        .column_wide {
+        float: left;
+        width: 80%
+        }
+
         .simple-form-ui input {
         min-width: 80%
         }
@@ -290,6 +300,22 @@
         border: 0;
         padding: 5px 5px;
         }
+
+        #proc-table {
+        width: 50%;
+        margin: 0;
+        }
+
+        #proc-table-th1 {
+        width: 30%;
+        text-align: left;
+        }
+
+        #proc-table-th2 {
+        width: 20%;
+        text-align: left;
+        }
+
     </style>
 
     <script type="text/javascript">
@@ -438,272 +464,275 @@
 
     <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
         <div class="section-container">
-        <p>
-            <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology diagnosis"/>
-            <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology staging"/>
-            <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
-        </p>
+            <p>
+                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology diagnosis"/>
+                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology staging"/>
+                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
+            </p>
         </div>
     </section>
 
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
         <div class="section-container">
-        <p>
-            <label>
-                <uimessage code="hpi"/>
-            </label>
-            <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" rows="3" cols="80"/>
-        </p>
-        <p>
-            <label>
-                <uimessage code="confirmed_diagnosis"/>
-            </label>
-            <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-        </p>
+            <p>
+                <label>
+                    <uimessage code="hpi"/>
+                </label>
+                <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" rows="3" cols="80"/>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="confirmed_diagnosis"/>
+                </label>
+                <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            </p>
         </div>
     </section>
 
     <section id="staging" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="staging">
         <div class="section-container">
-        <p>
-            <label>
-                <uimessage code="pe_exam_findings"/>
-            </label>
-            <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" style="textarea" rows="3" cols="80"/>
-        </p>
-        <p>
-            <label>
-                <uimessage code="disease_status"/>
-            </label>
-            <obs conceptId="CIEL:163050" style="dropdown"
-                 answerConceptIds="CIEL:163051,CIEL:163052,CIEL:163053,CIEL:163054,CIEL:163055,CIEL:163056,PIH:1067,PIH:5622"/>
-        </p>
-        <div>
-            <div class="column">
+            <p>
                 <label>
-                    <uimessage code="ecog_perf_status"/>
+                    <uimessage code="pe_exam_findings"/>
                 </label>
-                <span class="small">
-                    <obs conceptId="CIEL:160379"/>
-                </span>
+                <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" style="textarea" rows="3" cols="80"/>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="disease_status"/>
+                </label>
+                <obs conceptId="CIEL:163050" style="dropdown"
+                     answerConceptIds="CIEL:163051,CIEL:163052,CIEL:163053,CIEL:163054,CIEL:163055,CIEL:163056,PIH:1067,PIH:5622"/>
+            </p>
+            <div>
+                <div class="column_narrow">
+                    <label>
+                        <uimessage code="ecog_perf_status"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="CIEL:160379"/>
+                    </span>
+                </div>
+                <div class="column_wide">
+                    <br/>
+                    <table align="left" class="muted-header" style="font-size:small">
+                        <tr>
+                            <th>Grade</th>
+                            <th>ECOG Performance Status</th>
+                        </tr>
+                        <tr>
+                            <td>0</td>
+                            <td>Fully active, able to carry on all pre-disease performance without restriction</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Restricted in physically strenuous activity but ambulatory and able to carry out work of
+                                a
+                                light or sedentary nature, e.g., light house work, office work
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Ambulatory and capable of all selfcare but unable to carry out any work activities; up
+                                and
+                                about more than 50% of waking hours
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking hours
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Completely disabled; cannot carry on any selfcare; totally confined to bed or chair</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Dead</td>
+                        </tr>
+                    </table>
+                </div>
+                <br/>
             </div>
-            <div class="column" width="60%">
-                <table align="left" class="muted-header" style="font-size:small">
+            <label>
+                <uimessage code="pathology"/>
+            </label>
+            <p>
+                <table class="procedure-table" id="proc-table">
                     <tr>
-                        <th>Grade</th>
-                        <th>ECOG Performance Status</th>
+                        <th id="proc-table-th1">
+                            <uimessage code="sample_site"/>
+                        </th>
+                        <th id="proc-table-th2">
+                            <uimessage code="procedure_date"/>
+                        </th>
                     </tr>
                     <tr>
-                        <td>0</td>
-                        <td>Fully active, able to carry on all pre-disease performance without restriction</td>
+                        <obsgroup groupingConceptId="CIEL:160714">
+                            <td>
+                                <obs conceptId="CIEL:163049"/>
+                            </td>
+                            <td>
+                                <obs conceptId="CIEL:160715"/>
+                            </td>
+                        </obsgroup>
                     </tr>
                     <tr>
-                        <td>1</td>
-                        <td>Restricted in physically strenuous activity but ambulatory and able to carry out work of a
-                            light or sedentary nature, e.g., light house work, office work
-                        </td>
+                        <obsgroup groupingConceptId="CIEL:160714">
+                            <td>
+                                <obs conceptId="CIEL:163049"/>
+                            </td>
+                            <td>
+                                <obs conceptId="CIEL:160715"/>
+                            </td>
+                        </obsgroup>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td>Ambulatory and capable of all selfcare but unable to carry out any work activities; up and
-                            about more than 50% of waking hours
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking hours
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Completely disabled; cannot carry on any selfcare; totally confined to bed or chair</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Dead</td>
+                        <obsgroup groupingConceptId="CIEL:160714">
+                            <td>
+                                <obs conceptId="CIEL:163049"/>
+                            </td>
+                            <td>
+                                <obs conceptId="CIEL:160715"/>
+                            </td>
+                        </obsgroup>
                     </tr>
                 </table>
-            </div>
-        </div>
-
-        <label>
-            <uimessage code="pathology"/>
-        </label>
-        <p>
-            <table class="procedure-table">
-                <tr>
-                    <td>
-                        <uimessage code="sample_site"/>
-                    </td>
-                    <td>
-                        <uimessage code="procedure_date"/>
-                    </td>
-                </tr>
-                <tr>
-                    <obsgroup groupingConceptId="CIEL:160714">
-                        <td>
-                            <obs conceptId="CIEL:163049"/>
-                        </td>
-                        <td>
-                            <obs conceptId="CIEL:160715"/>
-                        </td>
-                    </obsgroup>
-                </tr>
-                <tr>
-                    <obsgroup groupingConceptId="CIEL:160714">
-                        <td>
-                            <obs conceptId="CIEL:163049"/>
-                        </td>
-                        <td>
-                            <obs conceptId="CIEL:160715"/>
-                        </td>
-                    </obsgroup>
-                </tr>
-                <tr>
-                    <obsgroup groupingConceptId="CIEL:160714">
-                        <td>
-                            <obs conceptId="CIEL:163049"/>
-                        </td>
-                        <td>
-                            <obs conceptId="CIEL:160715"/>
-                        </td>
-                    </obsgroup>
-                </tr>
-            </table>
-        </p>
+            </p>
         </div>
     </section>
 
     <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
         <div class="section-container">
-        <p class="radio">
-            <label>
-                <uimessage code="prev_treatment"/>
-            </label>
-            <obs id="prev_treatment" conceptId="CIEL:162964" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                 answerSeparator=""/>
-        </p>
-        <p>
-            <label>
-                <uimessage code="prev_treatment_comment"/>
-            </label>
-            <obs conceptId="CIEL:162965" style="textarea" rows="3" cols="80"/>
-        </p>
-        <p class="radio">
-            <label>
-                <uimessage code="current_treatment"/>
-            </label>
-            <obs id="current_treatment" conceptId="CIEL:162966" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                 answerSeparator=""/>
-        </p>
-        <p>
-            <label>
-                <uimessage code="current_treatment_comment"/>
-            </label>
-            <obs conceptId="CIEL:162967" style="textarea" rows="3" cols="80"/>
-        </p>
-
-        <label>
-            <uimessage code="goals_of_care"/>
-        </label>
-        <p class="radio">
-            <obs conceptId="CIEL:160846" style="radio"
-                 answerConceptIds="CIEL:160847,CIEL:160849" answerSeparator=""/>
-        </p>
-
-        <p>
-            <label>
-                <uimessage code="chemotherapy_protocol"/>
-            </label>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163060"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163061"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163062"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163063"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163064"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163065"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:84668"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163066"/>
-            <obs conceptId="CIEL:163073" answerConceptId="PIH:Paclitaxel"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163067"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163068"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163069"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163070"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163071"/>
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:77941"/>
-
-            <obs conceptId="CIEL:163073" answerConceptId="CIEL:163072"/>
-            <obs conceptId="CIEL:163073" answerConceptId="PIH:OTHER" showCommentField="true"/>
-            <br/>
-
-            <label>
-                <uimessage code="chemo_cycle_number"/>
-            </label>
-            <span class="small">
-                <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER"/>
-            </span>
-            <br/>
-
-            <label>
-                <uimessage code="chemo_side_effects"/>
-            </label>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:NONE"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:FATIGUE"/>
-            <obs conceptId="CIEL:163075" answerConceptId="CIEL:163074"/>
-            <obs conceptId="CIEL:163075" answerConceptId="CIEL:115476"/>
-            <obs conceptId="CIEL:163075" answerConceptId="CIEL:122936"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:CONSTIPATION"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:DIARRHEA"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:FEVER"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:Hemorrhage, not elsewhere classified"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:POOR APPETITE	"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:NAUSEA"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:VOMITING"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:RASH"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:ULCER, ORAL"/>
-            <obs conceptId="CIEL:163075" answerConceptId="CIEL:141597"/>
-            <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" showCommentField="true"/>
-            <br/>
-            <label>
-                <uimessage code="pain_scale"/>
-            </label>
-            <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
-            <br/>
-            <label>
-                <uimessage code="pain_details"/>
-            </label>
-            <obs conceptId="CIEL:163077"/>
-            <br/>
-            <label>
-                <uimessage code="patient_plan"/>
-            </label>
             <p class="radio">
-                <obs conceptId="CIEL:163059" style="radio"
-                     answerConceptIds="CIEL:163057,CIEL:160016,CIEL:163058,PIH:OTHER"
-                     answerCodes="Continue previous treatment,Planned treatment interruption,Follow-up with oncologist prior to continuing chemotherapy,Other"
+                <label>
+                    <uimessage code="prev_treatment"/>
+                </label>
+                <obs id="prev_treatment" conceptId="CIEL:162964" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                      answerSeparator=""/>
             </p>
-            <br/>
-            <label>
-                <uimessage code="patient_plan_details"/>
-            </label>
-            <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
+            <p>
+                <label>
+                    <uimessage code="prev_treatment_comment"/>
+                </label>
+                <obs conceptId="CIEL:162965" style="textarea" rows="3" cols="80"/>
+            </p>
+            <p class="radio">
+                <label>
+                    <uimessage code="current_treatment"/>
+                </label>
+                <obs id="current_treatment" conceptId="CIEL:162966" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     answerSeparator=""/>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="current_treatment_comment"/>
+                </label>
+                <obs conceptId="CIEL:162967" style="textarea" rows="3" cols="80"/>
+            </p>
 
-            <br/>
             <label>
-                <uimessage code="special_considerations"/>
+                <uimessage code="goals_of_care"/>
+            </label>
+            <p class="radio">
+                <obs conceptId="CIEL:160846" style="radio"
+                     answerConceptIds="CIEL:160847,CIEL:160849" answerSeparator=""/>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="chemotherapy_protocol"/>
+                </label>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163060"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163061"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163062"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163063"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163064"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163065"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:84668"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163066"/>
+                <obs conceptId="CIEL:163073" answerConceptId="PIH:Paclitaxel"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163067"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163068"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163069"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163070"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163071"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:77941"/>
+
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163072"/>
+                <obs conceptId="CIEL:163073" answerConceptId="PIH:OTHER" showCommentField="true"/>
                 <br/>
-                Other patient conditions or diagnoses (ie. HTN, diabetes, heart disease, asthma, etc.)
-            </label>
-            <obs conceptId="PIH:6731"/>
-            <br/>
 
-            <label>
-                <uimessage code="important_visit_info"/>
-            </label>
-            <obs conceptId="CIEL:162749"/>
-        </p>
+                <label>
+                    <uimessage code="chemo_cycle_number"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER"/>
+                </span>
+                <br/>
+
+                <label>
+                    <uimessage code="chemo_side_effects"/>
+                </label>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:NONE"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:FATIGUE"/>
+                <obs conceptId="CIEL:163075" answerConceptId="CIEL:163074"/>
+                <obs conceptId="CIEL:163075" answerConceptId="CIEL:115476"/>
+                <obs conceptId="CIEL:163075" answerConceptId="CIEL:122936"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:CONSTIPATION"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:DIARRHEA"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:FEVER"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:Hemorrhage, not elsewhere classified"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:POOR APPETITE	"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:NAUSEA"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:VOMITING"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:RASH"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:ULCER, ORAL"/>
+                <obs conceptId="CIEL:163075" answerConceptId="CIEL:141597"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" showCommentField="true"/>
+                <br/>
+                <label>
+                    <uimessage code="pain_scale"/>
+                </label>
+                <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
+                <br/>
+                <label>
+                    <uimessage code="pain_details"/>
+                </label>
+                <obs conceptId="CIEL:163077"/>
+                <br/>
+                <label>
+                    <uimessage code="patient_plan"/>
+                </label>
+                <p class="radio">
+                    <obs conceptId="CIEL:163059" style="radio"
+                         answerConceptIds="CIEL:163057,CIEL:160016,CIEL:163058,PIH:OTHER"
+                         answerCodes="Continue previous treatment,Planned treatment interruption,Follow-up with oncologist prior to continuing chemotherapy,Other"
+                         answerSeparator=""/>
+                </p>
+                <br/>
+                <label>
+                    <uimessage code="patient_plan_details"/>
+                </label>
+                <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
+
+                <br/>
+                <label>
+                    <uimessage code="special_considerations"/>
+                    <br/>
+                    Other patient conditions or diagnoses (ie. HTN, diabetes, heart disease, asthma, etc.)
+                </label>
+                <obs conceptId="PIH:6731"/>
+                <br/>
+
+                <label>
+                    <uimessage code="important_visit_info"/>
+                </label>
+                <obs conceptId="CIEL:162749"/>
+            </p>
         </div>
     </section>
 
