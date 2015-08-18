@@ -22,6 +22,11 @@
             width: 58%;
             vertical-align: top;
             }
+
+            #primaryCareExam input[type="checkbox"] {
+            margin: 0px 5px; /*changed values to vertical, horizontal*/
+            top:5px; /*added to offset the checkbox position to line up*/
+            }
         </ifMode>
     </style>
 
