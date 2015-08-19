@@ -49,12 +49,10 @@
         { label: "${ui.message("coreapps.patientDashBoard.visits")}" }
     ];
 
-   /* emr.loadMessages([
+    emr.loadMessages([
         "orderentryui.dispense", "orderentryui.action.DISCONTINUE", "orderentryui.action.REVISE", "orderentryui.action.NEW",
         "mirebalais.task.checkin.label", "emr.clinic.consult.title"
-    ]);*/
-
-    emr.loadAllMessages();
+    ]);
 
     emr.loadGlobalProperties(["order.drugRoutesConceptUuid", "order.drugDosingUnitsConceptUuid", "order.drugDispensingUnitsConceptUuid",
         "order.durationUnitsConceptUuid", "order.testSpecimenSourcesConceptUuid"]);
