@@ -192,6 +192,11 @@
             <variant locale="en" value="Pathology"/>
             <variant locale="fr" value="Pathologie"/>
         </code>
+        <code name="diagnosis">
+            <variant locale="en" value="Diagnosis"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Diagnosis"/>
+        </code>
         <code name="confirmed_diagnosis">
             <variant locale="en" value="Confirmed diagnosis"/>
             <!-- Todo: Translate -->
@@ -202,6 +207,17 @@
             <!-- Todo: Translate -->
             <variant locale="fr" value="Staging"/>
         </code>
+        <code name="treatment">
+            <variant locale="en" value="Treatment"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Treatment"/>
+        </code>
+        <code name="other">
+            <variant locale="en" value="Other:"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Other:"/>
+        </code>
+
 
     </translations>
 
@@ -318,21 +334,6 @@
 
     </style>
 
-    <script type="text/javascript">
-
-        jq(function() {
-
-        // make text areas expand based on content (this allows us to avoid scrollbars and thereby facilitate printing)
-        jq('#post-op-surgical-note').on( 'keyup', 'textarea', function (){
-        jq(this).height( 0 );
-        jq(this).height( this.scrollHeight );
-        });
-
-        jq('#post-op-surgical-note').find( 'textarea' ).keyup();
-
-        });
-
-    </script>
 
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>:
@@ -513,46 +514,50 @@
                         <obs conceptId="CIEL:160379"/>
                     </span>
                 </div>
-                <div class="column_wide">
-                    <br/>
-                    <table align="left" class="muted-header" style="font-size:small">
-                        <tr>
-                            <th>Grade</th>
-                            <th>ECOG Performance Status</th>
-                        </tr>
-                        <tr>
-                            <td>0</td>
-                            <td>Fully active, able to carry on all pre-disease performance without restriction</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Restricted in physically strenuous activity but ambulatory and able to carry out work of
-                                a
-                                light or sedentary nature, e.g., light house work, office work
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Ambulatory and capable of all selfcare but unable to carry out any work activities; up
-                                and
-                                about more than 50% of waking hours
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking hours
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Completely disabled; cannot carry on any selfcare; totally confined to bed or chair</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Dead</td>
-                        </tr>
-                    </table>
-                </div>
+
+                <ifMode mode="VIEW" include="false">
+                    <div class="column_wide">
+                        <br/>
+                        <table align="left" class="muted-header" style="font-size:small">
+                            <tr>
+                                <th>Grade</th>
+                                <th>ECOG Performance Status</th>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td>Fully active, able to carry on all pre-disease performance without restriction</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Restricted in physically strenuous activity but ambulatory and able to carry out work of
+                                    a
+                                    light or sedentary nature, e.g., light house work, office work
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Ambulatory and capable of all selfcare but unable to carry out any work activities; up
+                                    and
+                                    about more than 50% of waking hours
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking hours
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Completely disabled; cannot carry on any selfcare; totally confined to bed or chair</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Dead</td>
+                            </tr>
+                        </table>
+                    </div>
+                </ifMode>
+
                 <br/>
             </div>
             <label>
@@ -663,7 +668,7 @@
                 <obs conceptId="CIEL:163073" answerConceptId="CIEL:77941"/>
 
                 <obs conceptId="CIEL:163073" answerConceptId="CIEL:163072"/>
-                <obs conceptId="CIEL:163073" answerConceptId="PIH:OTHER" showCommentField="true"/>
+                <obs conceptId="CIEL:163073" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true" commentFieldLabel=" "/>
                 <br/>
 
                 <label>
@@ -692,7 +697,7 @@
                 <obs conceptId="CIEL:163075" answerConceptId="PIH:RASH"/>
                 <obs conceptId="CIEL:163075" answerConceptId="PIH:ULCER, ORAL"/>
                 <obs conceptId="CIEL:163075" answerConceptId="CIEL:141597"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" showCommentField="true"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true" commentFieldLabel=" "/>
                 <br/>
                 <label>
                     <uimessage code="pain_scale"/>
@@ -744,22 +749,5 @@
             </button>
         </div>
     </ifMode>
-
-    <!-- super hack to give our expandable text area space to expand into without causing scrolling/jumping issues -->
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
 
 </htmlform>
