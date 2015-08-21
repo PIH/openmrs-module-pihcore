@@ -26,14 +26,23 @@
 
         <fieldset class="multi-line-confirmation">
 
-            <label for="test-date-hematology">
+            <legend>
                 <uimessage code="pihcore.lab.test_date"/>
-            </label>
-            <span class="small">
-                <field id="test-date-hematology">
-                    <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
-                </field>
-            </span>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.lab.test_date"/>
+            </h3>
+
+            <p>
+                <label for="test-date-hematology">
+                    <uimessage code="pihcore.lab.test_date"/>
+                </label>
+                <span class="small">
+                    <field id="test-date-hematology">
+                        <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
+                    </field>
+                </span>
+            </p>
         </fieldset>
 
         <fieldset class="multi-line-confirmation">
@@ -404,7 +413,7 @@
             <legend>When?</legend>
             <label>When?</label>
 
-            <encounterDate default="now" showTime="false"/>
+        <encounterDate default="now" showTime="false" widget="hidden"/>
         </fieldset>
 
         <fieldset>
@@ -419,7 +428,7 @@
             <legend>Where?</legend>
             <label>Where?</label>
 
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
         </fieldset>
     </div>
 
