@@ -23,6 +23,19 @@
     <!--TODO: Confirm what would go here (imaging? psych? what else?) -->
 
     <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.blood_tests.title">
+
+        <fieldset class="multi-line-confirmation">
+
+            <label for="test-date-hematology">
+                <uimessage code="pihcore.lab.test_date"/>
+            </label>
+            <span class="small">
+                <field id="test-date-hematology">
+                    <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
+                </field>
+            </span>
+        </fieldset>
+
         <fieldset class="multi-line-confirmation">
             <legend>
                 <uimessage code="pihcore.lab.hematology.title"/>
@@ -33,87 +46,83 @@
 
             <p>
 
-                <obsgroup groupingConceptId="PIH:Hematology construct">
+                <label for="hemoglobin">
+                    <uimessage code="pihcore.lab.hemoglobin"/>
+                </label>
+                <span class="small">
+                    <field id="hemoglobin">
+                        <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
+                    </field>
+                </span>
 
-                    <label for="hemoglobin">
-                        <uimessage code="pihcore.lab.hemoglobin"/>
-                    </label>
-                    <span class="small">
-                        <field id="hemoglobin">
-                            <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
-                        </field>
-                    </span>
+                <label for="hematocrit">
+                    <uimessage code="pihcore.lab.hematocrit"/>
+                </label>
+                <span class="small">
+                    <field id="hematocrit">
+                        <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
+                    </field>
+                </span>
 
-                    <label for="hematocrit">
-                        <uimessage code="pihcore.lab.hematocrit"/>
-                    </label>
-                    <span class="small">
-                        <field id="hematocrit">
-                            <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
-                        </field>
-                    </span>
+                <label for="white-blood-cell">
+                    <uimessage code="pihcore.lab.white_blood_cell"/>
+                </label>
+                <span class="small">
+                    <field id="white-blood-cell">
+                        <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
+                    </field>
+                </span>
 
-                    <label for="white-blood-cell">
-                        <uimessage code="pihcore.lab.white_blood_cell"/>
-                    </label>
-                    <span class="small">
-                        <field id="white-blood-cell">
-                            <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
-                        </field>
-                    </span>
+                <label for="neutrophil">
+                    <uimessage code="pihcore.lab.neutrophil"/>
+                </label>
+                <span class="small">
+                    <field id="neutrophil">
+                        <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
+                    </field>
+                    <field>
+                        (<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
+                    </field>
+                </span>
 
-                    <label for="neutrophil">
-                        <uimessage code="pihcore.lab.neutrophil"/>
-                    </label>
-                    <span class="small">
-                        <field id="neutrophil">
-                            <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
-                        </field>
-                        <field>
-                            (<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
-                        </field>
-                    </span>
+                <label for="lymphocyte">
+                    <uimessage code="pihcore.lab.lymphocyte"/>
+                </label>
+                <span class="small">
+                    <field id="lymphocyte">
+                        <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
+                    </field>
+                    <field>
+                        (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
+                    </field>
+                </span>
 
-                    <label for="lymphocyte">
-                        <uimessage code="pihcore.lab.lymphocyte"/>
-                    </label>
-                    <span class="small">
-                        <field id="lymphocyte">
-                            <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
-                        </field>
-                        <field>
-                            (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
-                        </field>
-                    </span>
+                <label for="platelets">
+                    <uimessage code="pihcore.lab.platelets"/>
+                </label>
+                <span class="small">
+                    <field id="platelets">
+                        <obs conceptId="PIH:PLATELETS" showUnits="true"/>
+                    </field>
+                </span>
 
-                    <label for="platelets">
-                        <uimessage code="pihcore.lab.platelets"/>
-                    </label>
-                    <span class="small">
-                        <field id="platelets">
-                            <obs conceptId="PIH:PLATELETS" showUnits="true"/>
-                        </field>
-                    </span>
+                <label for="esr">
+                    <uimessage code="pihcore.lab.esr"/>
+                </label>
+                <span class="small">
+                    <field id="esr">
+                        <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
+                    </field>
+                </span>
 
-                    <label for="esr">
-                        <uimessage code="pihcore.lab.esr"/>
-                    </label>
-                    <span class="small">
-                        <field id="esr">
-                            <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
-                        </field>
-                    </span>
-
-                    <label for="test-date-hematology">
-                        <uimessage code="pihcore.lab.test_date"/>
-                    </label>
-                    <span class="small">
-                        <field id="test-date-hematology">
-                            <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
-                        </field>
-                    </span>
-
-                </obsgroup>
+                <label for="inr">
+                    <uimessage code="pihcore.lab.inr"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="inr" conceptId="PIH:INTERNATIONAL NORMALIZED RATIO" placeholder="Enter value"/>
+                    </field>
+                </span>
             </p>
 
         </fieldset>
@@ -127,59 +136,39 @@
                 <uimessage code="pihcore.lab.biochemistry.title"/>
             </h3>
             <p>
+                <label for="serum-glutamic-oxaloacetic-transaminase">SGOT</label>
+                <span class="small">
+                    <field>
+                        <obs id="serum-glutamic-oxaloacetic-transaminase"
+                             conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="true"/>
+                    </field>
+                </span>
 
-                <obsgroup groupingConceptId="PIH:Biochemistry construct">
+                <label for="serum-glutamic-pyruvic-transaminase">SGPT</label>
+                <span class="small">
+                    <field id="serum-glutamic-pyruvic-transaminase">
+                        <obs id="serum-glutamic-pyruvic-transaminase"
+                             conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
+                    </field>
+                </span>
 
-                    <label for="creatinine">
-                        <uimessage code="pihcore.lab.creatinine"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="creatinine" conceptId="PIH:SERUM CREATININE" showUnits="true"/>
-                        </field>
-                    </span>
+                <label for="bilirubin">
+                    <uimessage code="pihcore.lab.bilirubin"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="bilirubin" conceptId="PIH:TOTAL BILIRUBIN" showUnits="true"/>
+                    </field>
+                </span>
 
-                    <label for="bilirubin">
-                        <uimessage code="pihcore.lab.bilirubin"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="bilirubin" conceptId="PIH:TOTAL BILIRUBIN" showUnits="true"/>
-                        </field>
-                    </span>
-
-                    <label for="serum-glutamic-oxaloacetic-transaminase">SGOT</label>
-                    <span class="small">
-                        <field>
-                            <obs id="serum-glutamic-oxaloacetic-transaminase" conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" showUnits="true"/>
-                        </field>
-                    </span>
-
-                    <label for="serum-glutamic-pyruvic-transaminase">SGPT</label>
-                    <span class="small">
-                        <field id="serum-glutamic-pyruvic-transaminase">
-                            <obs id="serum-glutamic-pyruvic-transaminase" conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
-                        </field>
-                    </span>
-
-                    <label for="alk-phos">
-                        <uimessage code="pihcore.lab.alk_phos"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="alk-phos" conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
-                        </field>
-                    </span>
-
-                    <label for="test-date-biochemistry">
-                        <uimessage code="pihcore.lab.test_date"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="test-date-biochemistry" conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
-                        </field>
-                    </span>
-                </obsgroup>
+                <label for="alk-phos">
+                    <uimessage code="pihcore.lab.alk_phos"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="alk-phos" conceptId="PIH:ALKALINE PHOSPHATASE" showUnits="true"/>
+                    </field>
+                </span>
             </p>
 
         </fieldset>
@@ -194,8 +183,6 @@
             </h3>
 
             <p>
-
-                <obsgroup groupingConceptId="PIH:i-STAT CHEM 8+ construct">
 
                     <label for="sodium">
                         <uimessage code="pihcore.lab.sodium"/>
@@ -261,18 +248,35 @@
                             <obs id="calcium" conceptId="PIH:SERUM CALCIUM"/>
                         </field>
                     </span>
+            </p>
+        </fieldset>
 
-                    <label for="test-date-i-stat">
-                        <uimessage code="pihcore.lab.test_date"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="test-date-i-stat" conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
-                        </field>
-                    </span>
+        <fieldset class="multi-line-confirmation">
 
-                </obsgroup>
+            <legend>
+                <uimessage code="pihcore.lab.carbs.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.lab.carbs.title"/>
+            </h3>
+            <p>
+                <label for="glucose-prandial">
+                    <uimessage code="pihcore.lab.glucose-prandial"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="glucose-prandial" conceptId="CIEL:160914"/>
+                    </field>
+                </span>
 
+                <label for="glucose-fasting">
+                    <uimessage code="pihcore.lab.glucose-fasting"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="glucose-fasting" conceptId="CIEL:160912"/>
+                    </field>
+                </span>
             </p>
         </fieldset>
 
@@ -285,52 +289,41 @@
                 <uimessage code="pihcore.lab.lipids.title"/>
             </h3>
             <p>
-                <obsgroup groupingConceptId="PIH:Lipid panel construct">
-                    <label for="total-chol">
-                        <uimessage code="pihcore.lab.total_chol"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="total-chol" conceptId="PIH:TOTAL CHOLESTEROL"/>
-                        </field>
-                    </span>
+                <label for="total-chol">
+                    <uimessage code="pihcore.lab.total_chol"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="total-chol" conceptId="PIH:TOTAL CHOLESTEROL"/>
+                    </field>
+                </span>
 
-                    <label for="ldl">
-                        <uimessage code="pihcore.lab.ldl"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="ldl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL"/>
-                        </field>
-                    </span>
+                <label for="ldl">
+                    <uimessage code="pihcore.lab.ldl"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="ldl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL"/>
+                    </field>
+                </span>
 
-                    <label for="hdl">
-                        <uimessage code="pihcore.lab.hdl"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="hdl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL"/>
-                        </field>
-                    </span>
+                <label for="hdl">
+                    <uimessage code="pihcore.lab.hdl"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="hdl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL"/>
+                    </field>
+                </span>
 
-                    <label for="trigly">
-                        <uimessage code="pihcore.lab.trigly"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="trigly" conceptId="PIH:TRIGLYCERIDES"/>
-                        </field>
-                    </span>
-
-                    <label for="test-date-lipids">
-                        <uimessage code="pihcore.lab.test_date"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="test-date-lipids" conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
-                        </field>
-                    </span>
-                </obsgroup>
+                <label for="trigly">
+                    <uimessage code="pihcore.lab.trigly"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="trigly" conceptId="PIH:TRIGLYCERIDES"/>
+                    </field>
+                </span>
             </p>
 
         </fieldset>
@@ -345,11 +338,11 @@
             </h3>
             <p>
                 <label for="cd4">
-                    <uimessage code="pihcore.lab.cd4"/>(value,date)
+                    <uimessage code="pihcore.lab.cd4"/>
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="cd4" conceptId="PIH:CD4 COUNT" placeholder="Enter value" showDate="true"/>
+                        <obs id="cd4" conceptId="PIH:CD4 COUNT" placeholder="Enter value"/>
                     </field>
                 </span>
                 <!-- ToDo: Add other HIV tests (ie. Viral load, PCR, ELISA, etc) -->
@@ -368,33 +361,22 @@
             <p>
                 <label for="malarial-smear">
                     <uimessage code="pihcore.lab.malarial_smear"/>
-                    (value,date)
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="malarial-smear" conceptId="PIH:MALARIAL SMEAR" placeholder="Enter value" showDate="true"/>
+                        <obs id="malarial-smear" conceptId="PIH:MALARIAL SMEAR" placeholder="Enter value"/>
                     </field>
                 </span>
 
                 <label for="ldh">
                     <uimessage code="pihcore.lab.ldh"/>
-                    (value,date)
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="ldh" conceptId="PIH:LACTATE DEHYDROGENASE" placeholder="Enter value" showDate="true"/>
+                        <obs id="ldh" conceptId="PIH:LACTATE DEHYDROGENASE" placeholder="Enter value"/>
                     </field>
                 </span>
 
-                <label for="inr">
-                    <uimessage code="pihcore.lab.inr"/>
-                    (value,date)
-                </label>
-                <span class="small">
-                    <field>
-                        <obs id="inr" conceptId="PIH:INTERNATIONAL NORMALIZED RATIO" placeholder="Enter value" showDate="true"/>
-                    </field>
-                </span>
             </p>
 
             <p>
