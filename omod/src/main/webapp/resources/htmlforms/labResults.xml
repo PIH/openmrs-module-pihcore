@@ -55,6 +55,15 @@
                     </field>
                 </span>
 
+                <label for="hemoglobin-a1c">
+                    HbA1c
+                </label>
+                <span class="small">
+                    <field id="hemoglobin-a1c">
+                        <obs conceptId="PIH:HbA1c" showUnits="true"/>
+                    </field>
+                </span>
+
                 <label for="hematocrit">
                     <uimessage code="pihcore.lab.hematocrit"/>
                 </label>
