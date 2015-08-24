@@ -63,6 +63,12 @@ public class EncounterTypes {
         public String description() { return "Consultation for Oncology"; }
     };
 
+    public static EncounterTypeDescriptor CHEMOTHERAPY_SESSION  = new EncounterTypeDescriptor() {
+        public String uuid() { return "828964fa-17eb-446e-aba4-e940b0f4be5b"; }
+        public String name() { return "Chemotheraphy treatment session"; }
+        public String description() { return "Chemotheraphy treatment session for HUM and other places."; }
+    };
+
 	public static EncounterTypeDescriptor MEDICATION_DISPENSED  = new EncounterTypeDescriptor() {
 		public String uuid() { return "8ff50dea-18a1-4609-b4c9-3f8f2d611b84"; }
 		public String name() { return "Médicaments administrés"; }
