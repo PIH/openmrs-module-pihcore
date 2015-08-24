@@ -34,9 +34,6 @@
             </h3>
 
             <p>
-                <label for="test-date-hematology">
-                    <uimessage code="pihcore.lab.test_date"/>
-                </label>
                 <span class="small">
                     <field id="test-date-hematology">
                         <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
