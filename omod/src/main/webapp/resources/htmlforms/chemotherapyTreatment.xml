@@ -85,9 +85,9 @@
             <variant locale="fr" value="Treatment"/>
         </code>
         <code name="tx_received">
-            <variant locale="en" value="Treatment recieved today"/>
+            <variant locale="en" value="Treatment received today"/>
             <!-- Todo: Translate -->
-            <variant locale="fr" value="Treatment recieved today"/>
+            <variant locale="fr" value="Treatment received today"/>
         </code>
         <code name="tx_tolerated">
             <variant locale="en" value="Patient tolerated treatment"/>
