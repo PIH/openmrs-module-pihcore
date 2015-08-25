@@ -410,7 +410,7 @@
             <legend>When?</legend>
             <label>When?</label>
 
-        <encounterDate default="now" showTime="false" widget="hidden"/>
+        <encounterDate default="now" showTime="false"/>
         </fieldset>
 
         <fieldset>
