@@ -1,0 +1,490 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http//license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+  -->
+
+<htmlform id="oncology-consult-note" class="simple-form-ui" formUuid="2fce4b79-a0c8-41ac-81d7-3bbfd85988fd"
+          htmlformUuid="e76143d9-99a0-4811-8b2d-243f615371d4"
+          formName="Oncology Chemotherapy Treatment Session"
+          formEncounterType="828964fa-17eb-446e-aba4-e940b0f4be5b" formVersion="1.0">
+
+    <translations defaultLocale="fr">
+        <code name="chemo_tx_session">
+            <variant locale="en" value="Chemotherapy Treatment Session"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Chemotherapy Treatment Session"/>
+        </code>
+        <code name="yes">
+            <variant locale="en" value="yes"/>
+            <variant locale="fr" value="oui"/>
+        </code>
+        <code name="no">
+            <variant locale="en" value="no"/>
+            <variant locale="fr" value="non"/>
+        </code>
+        <code name="location">
+            <variant locale="en" value="Location (required)"/>
+            <variant locale="fr" value="Lieu (demandé)"/>
+        </code>
+        <code name="provider">
+            <variant locale="en" value="Provider (required)"/>
+            <variant locale="fr" value="Prestataire médical (demandé)"/>
+        </code>
+        <code name="date">
+            <variant locale="en" value="Date of visit"/>
+            <variant locale="fr" value="Date de visite"/>
+        </code>
+        <code name="created_on">
+            <variant locale="en" value="Created: "/>
+            <variant locale="fr" value="Created: "/>
+        </code>
+        <code name="last_updated_on">
+            <variant locale="en" value="Last updated: "/>
+            <variant locale="fr" value="Last updated: "/>
+        </code>
+        <code name="printed_on">
+            <variant locale="en" value="Printed: "/>
+            <variant locale="fr" value="Printed: "/>
+        </code>
+        <code name="visit_type">
+            <variant locale="en" value="Visit type"/>
+            <variant locale="fr" value="Type de visite"/>
+        </code>
+        <code name="chemotherapy_protocol">
+            <variant locale="en" value="Chemotherapy protocol"/>
+            <variant locale="fr" value="Protocole de chimiothérapie"/>
+        </code>
+        <code name="chemo_cycle_number">
+            <variant locale="en" value="Cycle number"/>
+            <variant locale="fr" value="Nombre de cycles"/>
+        </code>
+        <code name="reason_no_chemo">
+            <variant locale="en"
+                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr"
+                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?**"/>
+        </code>
+        <code name="chemo_side_effects">
+            <variant locale="en" value="Chemotherapy side effects"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Chemotherapy side effects**"/>
+        </code>
+        <code name="treatment">
+            <variant locale="en" value="Treatment"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Treatment"/>
+        </code>
+        <code name="tx_received">
+            <variant locale="en" value="Treatment received today"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Treatment received today"/>
+        </code>
+        <code name="tx_tolerated">
+            <variant locale="en" value="Patient tolerated treatment"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Patient tolerated treatment"/>
+        </code>
+        <code name="chemo_side_effects">
+            <variant locale="en" value="Chemotherapy side effects"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Chemotherapy side effects**"/>
+        </code>
+        <code name="pain_scale">
+            <variant locale="en" value="Pain scale (0 = no pain; 10 = worst)"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Douleur"/>
+        </code>
+        <code name="pain_details">
+            <variant locale="en" value="Pain Details"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Pain Details**"/>
+        </code>
+        <code name="patient_plan">
+            <variant locale="en" value="Patient Plan"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Patient Plan**"/>
+        </code>
+        <code name="important_visit_info">
+            <variant locale="en" value="Important visit information"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Important visit information**"/>
+        </code>
+    </translations>
+
+    <style type="text/css">
+
+        #who-when-where {
+        margin-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+        }
+
+        #who-when-where p {
+        display: inline-block;
+        padding-right: 20px;
+        }
+
+        #where > input[type=text] {
+        display: inline-block;
+        }
+
+        .narrow {
+        width: 200px;
+        }
+
+        .field-error {
+        color: #ff6666;
+        font-size: 1.1em;
+        display: block;
+        }
+
+        .column {
+        float: left;
+        width: 50%
+        }
+
+        .column_narrow {
+        float: left;
+        width: 20%
+        }
+
+        .column_wide {
+        float: left;
+        width: 80%
+        }
+
+        .simple-form-ui input {
+        min-width: 80%
+        }
+
+        form fieldset {
+        min-width: 90%
+        }
+
+        #encounterDate input {
+        min-width: 15%
+        }
+
+        textarea {
+        overflow-y: hidden; /* fixes scrollbar flash - kudos to @brettjonesdev */
+        padding-top: 1.1em; /* fixes text jump on Enter keypress */
+        }
+
+        @media print {
+        .print-form-datestamps { display: block !important }
+        button.cancel, button.submit { display: none }
+        label { font-weight: bold }
+        label[for] { font-weight: normal } /* refers to the radio set label */
+        }
+
+        .half-size-text {
+        color: #ff6666;
+        font-size: 50%;
+        display: block;
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
+        .procedure-table td {
+        border: 0;
+        padding: 5px 5px;
+        }
+
+        #proc-table {
+        width: 50%;
+        margin: 0;
+        }
+
+        #proc-table-th1 {
+        width: 30%;
+        text-align: left;
+        }
+
+        #proc-table-th2 {
+        width: 20%;
+        text-align: left;
+        }
+
+    </style>
+
+
+    <div class="print-form-datestamps" style="display:none">
+        <p><uimessage code="created_on"/>:
+            <lookup complexExpression="$form.dateCreated"/>
+        </p>
+        <p><uimessage code="last_updated_on"/>:
+            <lookup complexExpression="$form.dateChanged"/>
+        </p>
+        <p><uimessage code="printed_on"/>:
+            <lookup complexExpression="$formGeneratedDatetime"/>
+        </p>
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <h2>
+            <label>
+                <uimessage code="chemo_tx_session"/>
+            </label>
+        </h2>
+
+        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+            <div id="who-when-where">
+                <p id="who">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.providerRequired"/>
+                    </label>
+                    <span>
+                        <encounterProviderAndRole default="currentUser"
+                                                  encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                    </span>
+                </p>
+                <p id="where">
+                    <label>
+                        <uimessage code="emr.locationRequired"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
+                                           tags="Consult Note Location"/>
+                    </span>
+                </p>
+                <p id="when">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
+                </p>
+            </div>
+        </includeIf>
+        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+        <includeIf
+                velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                          required="true"/>
+            </div>
+
+            <div id="who-when-where">
+                <p id="who">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.provider"/>
+                    </label>
+                    <span>
+                        <lookup expression="user.person.personName"/>
+                    </span>
+                </p>
+                <p id="where">
+                    <label>
+                        <uimessage code="emr.locationRequired"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
+                                           tags="Consult Note Location"/>
+                    </span>
+                </p>
+                <p id="when">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
+                </p>
+            </div>
+
+        </includeIf>
+        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                          required="true"/>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                <encounterDate id="encounterDate" default="now"/>
+            </div>
+            <div id="who-when-where">
+                <table id="who-where-when-view">
+                    <tr>
+                        <td>
+                            <label>
+                                <uimessage code="emr.patientDashBoard.provider"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/>
+                            </span>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="emr.location"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/>
+                            </span>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="emr.patientDashBoard.date"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </includeIf>
+    </ifMode>
+
+    <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
+        <div class="section-container">
+            <p>
+                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
+            </p>
+        </div>
+    </section>
+
+    <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
+        <div class="section-container">
+            <p>
+                <label>
+                    <uimessage code="chemotherapy_protocol"/>
+                </label>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163060"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163061"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163062"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163063"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163064"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163065"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:84668"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163066"/>
+                <obs conceptId="CIEL:163073" answerConceptId="PIH:Paclitaxel"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163067"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163068"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163069"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163070"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163071"/>
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:77941"/>
+
+                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163072"/>
+                <obs conceptId="CIEL:163073" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true"
+                     commentFieldLabel=" "/>
+                <br/>
+
+                <label>
+                    <uimessage code="chemo_cycle_number"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER"/>
+                    of
+                    <obs conceptId="PIH:Total number of planned chemotherapy cycles"/>
+                </span>
+                <br/>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="tx_received"/>
+                    </label>
+                    <obs conceptId="PIH:Chemotherapy treatment received" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerSeparator="" showCommentField="true" commentFieldLabel="If no, explain:"/>
+                </p>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="tx_tolerated"/>
+                    </label>
+                    <obs conceptId="PIH:Chemotherapy treatment tolerated" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerSeparator="" showCommentField="true" commentFieldLabel="If no, explain:"/>
+                </p>
+                <br/>
+
+                <label>
+                    <uimessage code="chemo_side_effects"/>
+                </label>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:NONE"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:FATIGUE"/>
+                <obs conceptId="CIEL:163075" answerConceptId="CIEL:163074"/>
+                <obs conceptId="CIEL:163075" answerConceptId="CIEL:115476"/>
+                <obs conceptId="CIEL:163075" answerConceptId="CIEL:122936"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:CONSTIPATION"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:DIARRHEA"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:FEVER"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:Hemorrhage, not elsewhere classified"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:POOR APPETITE	"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:NAUSEA"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:VOMITING"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:RASH"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:ULCER, ORAL"/>
+                <obs conceptId="CIEL:163075" answerConceptId="CIEL:141597"/>
+                <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true"
+                     commentFieldLabel=" "/>
+                <br/>
+                <label>
+                    <uimessage code="pain_scale"/>
+                </label>
+                <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
+                <br/>
+                <label>
+                    <uimessage code="pain_details"/>
+                </label>
+                <obs conceptId="CIEL:163077"/>
+                <br/>
+                <label>
+                    <uimessage code="patient_plan"/>
+                </label>
+                <p class="radio">
+                    <obs conceptId="CIEL:163059" style="radio"
+                         answerConceptIds="CIEL:163057,CIEL:160016,CIEL:163058,PIH:OTHER"
+                         answerCodes="Continue previous treatment,Planned treatment interruption,Follow-up with oncologist prior to continuing chemotherapy,Other"
+                         answerSeparator=""/>
+                </p>
+                <br/>
+                <label>
+                    <uimessage code="important_visit_info"/>
+                </label>
+                <obs conceptId="CIEL:162749"/>
+
+
+            </p>
+        </div>
+    </section>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>
