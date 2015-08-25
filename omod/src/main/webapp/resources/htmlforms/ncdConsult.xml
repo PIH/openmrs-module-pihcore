@@ -386,22 +386,15 @@
 
     <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
-        <p class="radio">
-            <label>
-                <uimessage code="pihcore.ncd.diabetes.fasting"/>
-                <br/>
-                <uimessage code="pihcore.ncd.diabetes.fasting.comment"/>
-            </label>
-            <obs conceptId="PIH:Fasting for blood glucose test" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="yes,no" answerSeparator=""/>
-        </p>
-        <p class="radio">
-            <label>
-                <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
-            </label>
-            <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="yes,no" answerSeparator=""/>
-        </p>
+        <div class="section-container">
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+                </label>
+                <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no" answerSeparator=""/>
+            </p>
+        </div>
     </section>
 
     <section id="respire" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
@@ -437,13 +430,32 @@
 
     <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.plan.title">
-        <p class="radio">
-            <label>
-                <uimessage code="pihcore.ncd.plan.hospitalized"/>
-            </label>
-            <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
-                 answerConceptIds="PIH:TRUE,PIH:FALSE" answerLabels="yes,no" answerSeparator=""/>
-        </p>
+        <div class="section-container">
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.appt"/>
+                </label>
+                <obs conceptId="PIH:Appearance at appointment time" style="radio"
+                     answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
+                     answerLabels="yes,no - late 1-7 days,no - late more than 7 days" answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.missing_meds"/>
+                </label>
+                <obs conceptId="PIH:Lack of meds in last 2 days" style="radio"
+                     answerConceptIds="PIH:TRUE,PIH:FALSE" answerLabels="yes,no" answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.hospitalized"/>
+                </label>
+                <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
+                     answerConceptIds="PIH:TRUE,PIH:FALSE" answerLabels="yes,no" answerSeparator=""/>
+            </p>
+        </div>
     </section>
 
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
@@ -453,6 +465,7 @@
                     <uimessage code="pihcore.ncd.meds.current_meds"/>
                 </label>
                 <!-- ToDo: Fix autoshow of all drugs UHM-2121 -->
+                <!-- ToDo:  Add the non-drugs:  Anti-TB, ARVs, Other-->
                 <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
                 <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
                 <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
