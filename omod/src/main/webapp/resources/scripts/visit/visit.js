@@ -572,6 +572,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             window.onbeforeunload = function() {
                 if (OrderContext.hasUnsavedData()) {
+                    // TODO: localize
                     return "You have unsaved changes, are you sure you want to discard them?";
                 }
             }

@@ -29,11 +29,11 @@
             <legend>
                 <uimessage code="pihcore.lab.test_date"/>
             </legend>
-            <h3>
-                <uimessage code="pihcore.lab.test_date"/>
-            </h3>
 
             <p>
+                <label for="test-date-hematology">
+                    <uimessage code="pihcore.lab.test_date"/>
+                </label>
                 <span class="small">
                     <field id="test-date-hematology">
                         <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
@@ -410,7 +410,7 @@
             <legend>When?</legend>
             <label>When?</label>
 
-        <encounterDate default="now" showTime="false" widget="hidden"/>
+        <encounterDate default="now" showTime="false"/>
         </fieldset>
 
         <fieldset>
