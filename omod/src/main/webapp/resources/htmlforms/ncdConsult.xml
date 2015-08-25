@@ -271,74 +271,129 @@
 
     <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <div class="section-container">
+            <!-- ToDo: The next 4 questions should only be included on the initial visit -->
+            <label>
+                <uimessage code="pihcore.ncd.referral"/>
+            </label>
+            <obs conceptId="PIH:Type of referring service"
+                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
+            <br/>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.info.aware"/>
+                    <br/>
+                </label>
+                <obs conceptId="PIH:Known chronic disease before referral" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no" answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.info.prior_treatment"/>
+                    <br/>
+                </label>
+                <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
+                     answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
+                     answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
+                     answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.info.controlled"/>
+                    <br/>
+                </label>
+                <obs conceptId="PIH:Chronic disease controlled during initial visit" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no" answerSeparator=""/>
+            </p>
+
+            <!-- This should be included during initial and followup visits -->
             <label>
                 <uimessage code="pihcore.ncd.category"/>
+                <br/>
+                <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
-
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident" answerLabel="Stroke"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Chronic respiratory disease program" answerLabel="Respiratory"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Chronic respiratory disease program"
+                 answerLabel="Respiratory"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Rehab program" answerLabel="Rehab (not stroke)"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Sickle-Cell Anemia" answerLabel="Sickle-cell"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER" showCommentField="true"
+                 commentFieldLabel=" "/>
         </div>
     </section>
 
-    <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.vitals">
-        <p>
-            <label>
-                <uimessage code="pihcore.ncd.vitals.waist_cm"/>
-            </label>
-            <obs conceptId="CIEL:163080" id="waist_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value" />
-            at the level of the umbilicus
-            <label>
-                <uimessage code="pihcore.ncd.vitals.hip_cm"/>
-            </label>
-            <obs conceptId="CIEL:163081" id="hip_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value" />
-
-            <span id="calculated-ratio-wrapper">
-                <uimessage code="pihcore.ncd.vitals.waist_hip_ratio"/>
-                <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>
-                <span id='calculated-ratio'>
-                </span>
-            </span>
-            <!-- ToDo: Calculate
-<p id="calculated-ratio-continue">
-<input type="hidden" name="focus-in-ratio-question" id="hidden-calculated-ratio" />
-<uimessage code="pihcore.ncd.vitals.calculatedField.continue"/>
-</p>
--->
-        </p>
-    </section>
-
-    <section id="heart_failure" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.heart_failure">
+    <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.vitals">
         <div class="section-container">
-        <p>
-            <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
-            <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
-            <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
-            <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 4"/>
-        </p>
-        <p>
-            <label>
-                <uimessage code="pihcore.ncd.hf.vol_status"/>
-            </label>
-            <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT" />
-        </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.vitals.waist_cm"/>
+                    <br/>
+                    <uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
+                </span>
+
+                <label>
+                    <uimessage code="pihcore.ncd.vitals.hip_cm"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163081" id="hip_cm" showUnits="true"/>
+                </span>
+
+                <span id="calculated-ratio-wrapper">
+                    <uimessage code="pihcore.ncd.vitals.waist_hip_ratio"/>
+                    <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>
+                    <span id='calculated-ratio'>
+                    </span>
+                </span>
+                <!-- ToDo: Calculate
+    <p id="calculated-ratio-continue">
+    <input type="hidden" name="focus-in-ratio-question" id="hidden-calculated-ratio" />
+    <uimessage code="pihcore.ncd.vitals.calculatedField.continue"/>
+    </p>
+    -->
+            </p>
         </div>
     </section>
 
-    <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.diabetes">
+    <section id="heart_failure" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.heart_failure">
+        <div class="section-container">
+            <p>
+                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
+                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
+                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
+                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 4"/>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.hf.vol_status"/>
+                </label>
+                <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"/>
+            </p>
+        </div>
+    </section>
+
+    <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.diabetes">
         <p class="radio">
             <label>
-                <uimessage code="pihcore.ncd.diabetes.fasting"/> <br/>
+                <uimessage code="pihcore.ncd.diabetes.fasting"/>
+                <br/>
                 <uimessage code="pihcore.ncd.diabetes.fasting.comment"/>
             </label>
             <obs conceptId="PIH:Fasting for blood glucose test" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                 answerCodes="yes,no" answerSeparator=""  />
+                 answerCodes="yes,no" answerSeparator=""/>
         </p>
         <p class="radio">
             <label>
@@ -351,32 +406,37 @@
 
     <section id="respire" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
         <div class="section-container">
-        <p>
-            <label>
-                <uimessage code="puffs_per_wk"/>
-            </label>
-            <span class="small"><obs conceptId="PIH:Puffs per week of salbutamol" /></span>
-            <label>
-                <uimessage code="asthma_class"/>
-            </label>
-            <obs conceptId="PIH:Asthma classification" />
-        </p>
+            <p>
+                <label>
+                    <uimessage code="puffs_per_wk"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Puffs per week of salbutamol"/>
+                </span>
+                <label>
+                    <uimessage code="asthma_class"/>
+                </label>
+                <obs conceptId="PIH:Asthma classification"/>
+            </p>
         </div>
     </section>
 
     <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epil">
         <div class="section-container">
-        <p>
-            <label>
-                <uimessage code="seizure_num"/>
-            </label>
-            <!-- ToDo: HUM form has yes/no -->
-            <span class="small"><obs conceptId="PIH:Number of seizures since last visit" /></span>
-        </p>
+            <p>
+                <label>
+                    <uimessage code="seizure_num"/>
+                </label>
+                <!-- ToDo: HUM form has yes/no -->
+                <span class="small">
+                    <obs conceptId="PIH:Number of seizures since last visit"/>
+                </span>
+            </p>
         </div>
     </section>
 
-    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.plan.title">
+    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.plan.title">
         <p class="radio">
             <label>
                 <uimessage code="pihcore.ncd.plan.hospitalized"/>
@@ -388,19 +448,20 @@
 
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
         <div class="section-container">
-        <p>
-            <label>
-                <uimessage code="pihcore.ncd.meds.current_meds"/>
-            </label>
-            <!-- ToDo: Fix autoshow of all drugs UHM-2121 -->
-            <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-            <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-            <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-        </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.meds.current_meds"/>
+                </label>
+                <!-- ToDo: Fix autoshow of all drugs UHM-2121 -->
+                <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
+                <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
+                <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
+            </p>
         </div>
     </section>
 
-    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.general.title">
+    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.general.title">
         <div class="section-container">
             <p>
                 <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
