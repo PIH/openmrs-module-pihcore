@@ -12,6 +12,8 @@
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "angular-common.js")
     ui.includeJavascript("uicommons", "angular-app.js")
+    ui.includeJavascript("uicommons", "angular-translate.min.js")
+    ui.includeJavascript("uicommons", "angular-translate-loader-url.min.js")
     ui.includeJavascript("uicommons", "services/visitService.js")
     ui.includeJavascript("uicommons", "services/encounterService.js")
     ui.includeJavascript("uicommons", "services/obsService.js")
@@ -49,13 +51,9 @@
         { label: "${ui.message("coreapps.patientDashBoard.visits")}" }
     ];
 
-    emr.loadMessages([
-        "orderentryui.dispense", "orderentryui.action.DISCONTINUE", "orderentryui.action.REVISE", "orderentryui.action.NEW",
-        "mirebalais.task.checkin.label", "emr.clinic.consult.title"
-    ]);
-
     emr.loadGlobalProperties(["order.drugRoutesConceptUuid", "order.drugDosingUnitsConceptUuid", "order.drugDispensingUnitsConceptUuid",
         "order.durationUnitsConceptUuid", "order.testSpecimenSourcesConceptUuid"]);
+
 </script>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
@@ -67,6 +65,6 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 </div>
 
 <script type="text/javascript">
-    angular.module('visit').value('patientUuid', '${ patient.patient.uuid }').value('visitUuid', '${ visit?.uuid }');
+    angular.module('visit').value('patientUuid', '${ patient.patient.uuid }').value('visitUuid', '${ visit?.uuid }').value('locale', '${ locale }');
     angular.bootstrap("#visit-app", [ "visit" ])
 </script>
