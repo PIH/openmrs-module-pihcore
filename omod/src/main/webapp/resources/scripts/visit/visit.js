@@ -1,6 +1,8 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService", "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "orderEntry", "ngDialog", "appFramework", "configService"])
+angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService",
+    "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "orderEntry", "ngDialog", "appFramework",
+    "configService", 'pascalprecht.translate'])
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
 
         $urlRouterProvider.otherwise("overview");
 
@@ -21,6 +23,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 url: "/addLabOrders",
                 templateUrl: "templates/orders/addLabOrdersState.page"
             });
+
+        $translateProvider
+            .useUrlLoader('/' + OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json');
+
     })
 
     .directive("dateWithPopup", [ function() {
@@ -407,8 +413,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         return model;
     }])
 
-    .controller("VisitController", [ "$scope", "$rootScope", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state", "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter", "OrderEntryService", "AppFrameworkService", 'visitUuid', 'patientUuid',
-        function($scope, $rootScope, Visit, VisitTemplateService, CareSetting, $q, $state, $timeout, OrderContext, VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid) {
+    .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state",
+        "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter", "OrderEntryService", "AppFrameworkService",
+        'visitUuid', 'patientUuid', 'locale',
+        function($scope, $rootScope, $translate, Visit, VisitTemplateService, CareSetting, $q, $state, $timeout, OrderContext,
+                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale) {
 
             $rootScope.datetimeFormat = "d-MMM-yy (hh:mm a)";
             $rootScope.dateFormat = "d-MMM-yy";
@@ -420,6 +429,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             loadVisits(patientUuid);
             loadVisit(visitUuid);
+
+            $translate.use(locale);
 
             AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
                 $scope.visitActions = ext;
@@ -583,5 +594,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             //    }
             //    return "templates/defaultEncounterShort.page"
             //}
+
 
         }]);
