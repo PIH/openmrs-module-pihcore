@@ -292,31 +292,25 @@
             <label>
                 <uimessage code="pihcore.ncd.vitals.waist_cm"/>
             </label>
-
-            <!-- ToDo: Add concept
-            <obs conceptId="CIEL:xxx" id="waist_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value" />
-            -->
-
+            <obs conceptId="CIEL:163080" id="waist_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value" />
+            at the level of the umbilicus
             <label>
                 <uimessage code="pihcore.ncd.vitals.hip_cm"/>
             </label>
+            <obs conceptId="CIEL:163081" id="hip_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value" />
 
-            <!-- ToDo: Add concept
-            <obs conceptId="CIEL:xxx" id="hip_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value" />
-            -->
-
-            <!-- ToDo: Calculate
             <span id="calculated-ratio-wrapper">
-                <uimessage code="pihcore.ncd.vitals.waist_hip_ratio" />
-                <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment" />
-
-                <span id='calculated-ratio'></span>
+                <uimessage code="pihcore.ncd.vitals.waist_hip_ratio"/>
+                <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>
+                <span id='calculated-ratio'>
+                </span>
             </span>
-            <p id="calculated-ratio-continue">
-                <input type="hidden" name="focus-in-ratio-question" id="hidden-calculated-ratio" />
-                <uimessage code="pihcore.ncd.vitals.calculatedField.continue"/>
-            </p>
-            -->
+            <!-- ToDo: Calculate
+<p id="calculated-ratio-continue">
+<input type="hidden" name="focus-in-ratio-question" id="hidden-calculated-ratio" />
+<uimessage code="pihcore.ncd.vitals.calculatedField.continue"/>
+</p>
+-->
         </p>
     </section>
 
