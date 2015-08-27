@@ -276,7 +276,8 @@
                 <uimessage code="pihcore.ncd.referral"/>
             </label>
             <obs conceptId="PIH:Type of referring service"
-                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
+                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"
+                    answerLabels="Hospital (HUM Inpatient),Hospital (autre ZL Inpatient),Klinik Eksten (HUM),Klinik Eksten (autre ZL),non-ZL"/>
             <br/>
 
             <p class="radio">
@@ -313,7 +314,6 @@
             <!-- This should be included during initial and followup visits -->
             <label>
                 <uimessage code="pihcore.ncd.category"/>
-                <br/>
                 <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION"/>
@@ -336,27 +336,30 @@
             <p>
                 <label>
                     <uimessage code="pihcore.ncd.vitals.waist_cm"/>
-                    <br/>
-                    <uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>
+                    (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
                 </label>
                 <span class="small">
                     <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
                 </span>
-
+            </p>
+            <p>
                 <label>
                     <uimessage code="pihcore.ncd.vitals.hip_cm"/>
                 </label>
                 <span class="small">
                     <obs conceptId="CIEL:163081" id="hip_cm" showUnits="true"/>
                 </span>
+            </p>
 
+            <p>
+                <!-- ToDo:  Calculate the ratio -->
                 <span id="calculated-ratio-wrapper">
                     <uimessage code="pihcore.ncd.vitals.waist_hip_ratio"/>
                     <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>
                     <span id='calculated-ratio'>
                     </span>
                 </span>
-                <!-- ToDo: Calculate
+                <!--
     <p id="calculated-ratio-continue">
     <input type="hidden" name="focus-in-ratio-question" id="hidden-calculated-ratio" />
     <uimessage code="pihcore.ncd.vitals.calculatedField.continue"/>
@@ -406,6 +409,9 @@
                 <span class="small">
                     <obs conceptId="PIH:Puffs per week of salbutamol"/>
                 </span>
+            </p>
+            <p>
+                <!-- ToDo: Add message about number of times per week for these classifications -->
                 <label>
                     <uimessage code="asthma_class"/>
                 </label>
@@ -420,7 +426,7 @@
                 <label>
                     <uimessage code="seizure_num"/>
                 </label>
-                <!-- ToDo: HUM form has yes/no -->
+                <!-- Note: HUM form has yes/no -->
                 <span class="small">
                     <obs conceptId="PIH:Number of seizures since last visit"/>
                 </span>

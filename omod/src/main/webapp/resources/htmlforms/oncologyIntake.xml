@@ -12,16 +12,16 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform id="chemotherapy-treatment" class="simple-form-ui" formUuid="2fce4b79-a0c8-41ac-81d7-3bbfd85988fd"
-          htmlformUuid="e76143d9-99a0-4811-8b2d-243f615371d4"
-          formName="Oncology Chemotherapy Treatment Session"
-          formEncounterType="828964fa-17eb-446e-aba4-e940b0f4be5b" formVersion="1.0">
+<htmlform id="oncology-intake" class="simple-form-ui" formUuid="f55d57d3-aecb-4825-b45e-4220ceadf93f"
+          htmlformUuid="4e6ddb34-dbf3-433d-a99d-1b9ca37efda1"
+          formName="Oncology Intake"
+          formEncounterType="f9cfdf8b-d086-4658-9b9d-45a62896da03" formVersion="1.0">
 
     <translations defaultLocale="fr">
-        <code name="chemo_tx_session">
-            <variant locale="en" value="Chemotherapy Treatment Session"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Chemotherapy Treatment Session"/>
+        <code name="oncology_intake">
+            <variant locale="en" value="Oncology Intake"/>
+	    <!-- ToDo: Translate -->
+            <variant locale="fr" value="Intake d'oncologie"/>
         </code>
         <code name="yes">
             <variant locale="en" value="yes"/>
@@ -59,66 +59,30 @@
             <variant locale="en" value="Visit type"/>
             <variant locale="fr" value="Type de visite"/>
         </code>
-        <code name="chemotherapy_protocol">
-            <variant locale="en" value="Chemotherapy protocol"/>
-            <variant locale="fr" value="Protocole de chimiothérapie"/>
-        </code>
-        <code name="chemo_cycle_number">
-            <variant locale="en" value="Cycle number"/>
-            <variant locale="fr" value="Nombre de cycles"/>
-        </code>
-        <code name="reason_no_chemo">
-            <variant locale="en"
-                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr"
-                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?**"/>
-        </code>
-        <code name="chemo_side_effects">
-            <variant locale="en" value="Chemotherapy side effects"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Chemotherapy side effects**"/>
-        </code>
-        <code name="treatment">
-            <variant locale="en" value="Treatment"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Treatment"/>
-        </code>
-        <code name="tx_received">
-            <variant locale="en" value="Treatment received today"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Treatment received today"/>
-        </code>
-        <code name="tx_tolerated">
-            <variant locale="en" value="Patient tolerated treatment"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Patient tolerated treatment"/>
-        </code>
-        <code name="chemo_side_effects">
-            <variant locale="en" value="Chemotherapy side effects"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Chemotherapy side effects**"/>
-        </code>
-        <code name="pain_scale">
-            <variant locale="en" value="Pain scale (0 = no pain; 10 = worst)"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Douleur"/>
-        </code>
-        <code name="pain_details">
-            <variant locale="en" value="Pain Details"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Pain Details**"/>
-        </code>
         <code name="patient_plan">
             <variant locale="en" value="Patient Plan"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Patient Plan**"/>
+            <variant locale="fr" value="Régime des patients"/>
         </code>
-        <code name="important_visit_info">
-            <variant locale="en" value="Important visit information"/>
+        <code name="diagnosis">
+            <variant locale="en" value="Diagnosis"/>
             <!-- Todo: Translate -->
-            <variant locale="fr" value="Important visit information**"/>
+            <variant locale="fr" value="Diagnosis"/>
         </code>
+        <code name="confirmed_diagnosis">
+            <variant locale="en" value="Confirmed diagnosis"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Confirmed diagnosis"/>
+        </code>
+        <code name="other">
+            <variant locale="en" value="Other:"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Other:"/>
+        </code>
+        <code name="cancer_stage">
+            <variant locale="en" value="Cancer Staging"/>
+            <variant locale="fr" value="Stadification du cancer"/>
+        </code>
+
     </translations>
 
     <style type="text/css">
@@ -135,6 +99,10 @@
 
         #where > input[type=text] {
         display: inline-block;
+        }
+
+        .narrow {
+        width: 200px;
         }
 
         .field-error {
@@ -187,7 +155,6 @@
         width: 95%;
         }
 
-
     </style>
 
 
@@ -206,7 +173,7 @@
     <ifMode mode="VIEW" include="false">
         <h2>
             <label>
-                <uimessage code="chemo_tx_session"/>
+                <uimessage code="oncology_intake"/>
             </label>
         </h2>
 
@@ -317,120 +284,40 @@
                 </table>
             </div>
         </includeIf>
-    </ifMode>
+      </ifMode>
 
+      <!-- ToDo: Remove these three checkboxes and replace with one, linked to new visit type, auto-checked by default -->
     <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
         <div class="section-container">
             <p>
-                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Chemotherapy"
-                     defaultValue="PIH:Chemotherapy"/>
+                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology diagnosis" />
+                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology staging"/>
+                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
             </p>
         </div>
     </section>
 
-    <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
+    <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
         <div class="section-container">
             <p>
                 <label>
-                    <uimessage code="chemotherapy_protocol"/>
+                    <uimessage code="confirmed_diagnosis"/>
                 </label>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163060"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163061"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163062"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163063"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163064"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163065"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:84668"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163066"/>
-                <obs conceptId="CIEL:163073" answerConceptId="PIH:Paclitaxel"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163067"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163068"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163069"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163070"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163071"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:77941"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163072"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:78738"/>
-                <obs conceptId="CIEL:163073" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true"
-                     commentFieldLabel=" "/>
-                <br/>
-
+                <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+                <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+                <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            </p>
+            <p>
                 <label>
-                    <uimessage code="chemo_cycle_number"/>
+                    <uimessage code="cancer_stage"/>
                 </label>
-                <span class="small">
-                    <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER"/>
-                    of
-                    <obs conceptId="PIH:Total number of planned chemotherapy cycles"/>
-                </span>
-                <br/>
-
-                <p class="radio">
-                    <label>
-                        <uimessage code="tx_received"/>
-                    </label>
-                    <obs conceptId="PIH:Chemotherapy treatment received" style="radio"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                         answerSeparator="" showCommentField="true" commentFieldLabel="If no, explain:"/>
-                </p>
-
-                <p class="radio">
-                    <label>
-                        <uimessage code="tx_tolerated"/>
-                    </label>
-                    <obs conceptId="PIH:Chemotherapy treatment tolerated" style="radio"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                         answerSeparator="" showCommentField="true" commentFieldLabel="If no, explain:"/>
-                </p>
-                <br/>
-
+                <obs conceptId="CIEL:160786" answerConceptIds="CIEL:160769,CIEL:160771,CIEL:160774,CIEL:160778,CIEL:160782"/>
+            </p>
+            <p>
                 <label>
-                    <uimessage code="chemo_side_effects"/>
+                    <uimessage code="patient_plan_details"/>
                 </label>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:NONE"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:FATIGUE"/>
-                <obs conceptId="CIEL:163075" answerConceptId="CIEL:163074"/>
-                <obs conceptId="CIEL:163075" answerConceptId="CIEL:115476"/>
-                <obs conceptId="CIEL:163075" answerConceptId="CIEL:122936"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:CONSTIPATION"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:DIARRHEA"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:FEVER"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:Hemorrhage, not elsewhere classified"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:POOR APPETITE	"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:NAUSEA"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:VOMITING"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:RASH"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:ULCER, ORAL"/>
-                <obs conceptId="CIEL:163075" answerConceptId="CIEL:141597"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true"
-                     commentFieldLabel=" "/>
-                <br/>
-                <label>
-                    <uimessage code="pain_scale"/>
-                </label>
-                <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
-                <br/>
-                <label>
-                    <uimessage code="pain_details"/>
-                </label>
-                <obs conceptId="CIEL:163077"/>
-                <br/>
-                <label>
-                    <uimessage code="patient_plan"/>
-                </label>
-                <p class="radio">
-                    <obs conceptId="CIEL:163059" style="radio"
-                         answerConceptIds="CIEL:163057,CIEL:160016,CIEL:163058,PIH:OTHER"
-                         answerCodes="Continue previous treatment,Planned treatment interruption,Follow-up with oncologist prior to continuing chemotherapy,Other"
-                         answerSeparator=""/>
-                </p>
-                <br/>
-                <label>
-                    <uimessage code="important_visit_info"/>
-                </label>
-                <obs conceptId="CIEL:162749"/>
-
-
+                <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="3" cols="80"/>
             </p>
         </div>
     </section>
@@ -444,4 +331,4 @@
         </div>
     </ifMode>
 
-</htmlform>
+  </htmlform>
