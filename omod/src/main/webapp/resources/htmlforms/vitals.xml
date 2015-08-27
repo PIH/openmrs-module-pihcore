@@ -197,7 +197,7 @@
     </div>
 
     <section id="vitals" sectionTag="section" headerStyle="title" headerCode="mirebalais.vitals.title">
-        <fieldset>
+        <fieldset field-separator=" ">
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
@@ -221,7 +221,7 @@
 
         </fieldset>
 
-        <fieldset>
+        <fieldset field-separator=" ">
             <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
 
@@ -268,7 +268,7 @@
 
         </includeIf>
 
-        <fieldset>
+        <fieldset field-separator=" ">
             <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.temperature.title"/></h3>
 
