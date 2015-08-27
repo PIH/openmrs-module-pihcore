@@ -12,6 +12,7 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
+
 <htmlform id="oncology-consult-note" class="simple-form-ui" formUuid="28b76a20-105d-11e5-b939-0800200c9a66"
           htmlformUuid="2a13edbf-4e17-4d9d-9bf8-da10faad5fc5"
           formName="Oncology Consult Note"
@@ -21,14 +22,6 @@
         <code name="oncology_consult">
             <variant locale="en" value="Oncology Consult"/>
             <variant locale="fr" value="Consultation d'oncologie"/>
-        </code>
-        <code name="service_team">
-            <variant locale="en" value="Service / Team"/>
-            <variant locale="fr" value="Service / Equipe"/>
-        </code>
-        <code name="lab">
-            <variant locale="en" value="Lab (ie. culture)"/>
-            <variant locale="fr" value="Labo (e.g. culture)"/>
         </code>
         <code name="yes">
             <variant locale="en" value="yes"/>
@@ -66,14 +59,6 @@
             <variant locale="en" value="Visit type"/>
             <variant locale="fr" value="Type de visite"/>
         </code>
-        <code name="pe_exam_findings">
-            <variant locale="en" value="Notable exam findings"/>
-            <variant locale="fr" value="Constatations de l'examen notables"/>
-        </code>
-        <code name="cancer_staging">
-            <variant locale="en" value="Cancer staging"/>
-            <variant locale="fr" value="Stadification du cancer"/>
-        </code>
         <code name="hpi">
             <variant locale="en" value="History of presenting illness"/>
             <variant locale="fr" value="Complaintes actuelles"/>
@@ -82,142 +67,40 @@
             <variant locale="en" value="ECOG"/>
             <variant locale="fr" value="ECOG"/>
         </code>
-        <code name="sample_site">
-            <variant locale="en" value="Site of pathology sample"/>
-            <!-- ToDo: Translate -->
-            <variant locale="fr" value="**** Needs Translation ****"/>
-        </code>
-        <code name="procedure_date">
-            <variant locale="en" value="Date of procedure"/>
-            <!-- ToDo: Translate -->
-            <variant locale="fr" value="**** Needs Translation ****"/>
-        </code>
-        <code name="prev_treatment">
-            <variant locale="en" value="Patient has previously received treatment"/>
-            <!-- ToDo: Translate -->
-            <variant locale="fr" value="**** Needs Translation ****"/>
-        </code>
-        <code name="prev_treatment_comment">
-            <variant locale="en" value="If yes, describe previous treatment, including where it was received:"/>
-            <!-- ToDo: Translate -->
-            <variant locale="fr" value="Si oui, **** Needs Translation ****"/>
-        </code>
-        <code name="current_treatment">
-            <variant locale="en" value="Patient is currently receiving treatment"/>
-            <!-- ToDo: Translate -->
-            <variant locale="fr" value="**** Needs Translation ****"/>
-        </code>
-        <code name="current_treatment_comment">
-            <variant locale="en" value="If yes, describe current treatment, including where it is being administered:"/>
-            <!-- ToDo: Translate -->
-            <variant locale="fr" value="Si oui, **** Needs Translation ****"/>
-        </code>
-        <code name="goals_of_care">
-            <variant locale="en" value="Intent of therapy"/>
-            <variant locale="fr" value="Intention de la thérapie"/>
-        </code>
-        <code name="site_of_care">
-            <variant locale="en" value="Site of Care"/>
-            <variant locale="fr" value="Lieu"/>
-        </code>
-        <!--
-        <code name="rec_chemo">
-            <variant locale="en" value="Chemotherapy"/>
-            <variant locale="fr" value="Chimiothérapie"/>
-        </code>
-        <code name="rec_surgery">
-            <variant locale="en" value="Surgery"/>
-            <variant locale="fr" value="Opération"/>
-        </code>
-        <code name="rec_endocrine_therapy">
-            <variant locale="en" value="Endocrine therapy"/>
-            <variant locale="fr" value="Endocrine therapy**"/>
-        </code>
-        <code name="rec_followup">
-            <variant locale="en" value="Follow-up"/>
-            <variant locale="fr" value="Suivre"/>
-        </code>
-        -->
         <code name="disease_status">
             <variant locale="en" value="Disease Status"/>
             <variant locale="fr" value="L'état de la maladie"/>
         </code>
-        <code name="patient_plan">
-            <variant locale="en" value="Patient Plan"/>
-            <variant locale="fr" value="Régime des patients"/>
-        </code>
-        <code name="patient_plan_details">
-            <variant locale="en" value="Patient plan details"/>
-            <variant locale="fr" value="Détails du plan"/>
-        </code>
-        <code name="chemotherapy_protocol">
-            <variant locale="en" value="Chemotherapy protocol"/>
-            <variant locale="fr" value="Protocole de chimiothérapie"/>
-        </code>
-        <code name="chemo_cycle_number">
-            <variant locale="en" value="Cycle number"/>
-            <variant locale="fr" value="Nombre de cycles"/>
-        </code>
-        <code name="reason_no_chemo">
-            <variant locale="en"
-                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?"/>
+        <code name="consult">
+            <variant locale="en" value="Consult"/>
             <!-- Todo: Translate -->
-            <variant locale="fr"
-                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?**"/>
-        </code>
-        <code name="chemo_side_effects">
-            <variant locale="en" value="Chemotherapy side effects"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Chemotherapy side effects**"/>
-        </code>
-        <code name="pain_scale">
-            <variant locale="en" value="Pain scale (0 = no pain; 10 = worst)"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Douleur"/>
-        </code>
-        <code name="pain_details">
-            <variant locale="en" value="Pain details"/>
-            <variant locale="fr" value="Douleur détails"/>
-        </code>
-        <code name="special_considerations">
-            <variant locale="en" value="Patient history special considerations"/>
-            <variant locale="fr" value="Les antécédents du patient considérations particulières"/>
-        </code>
-        <code name="important_visit_info">
-            <variant locale="en" value="Important visit information"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Important visit information**"/>
-        </code>
-        <code name="pathology">
-            <variant locale="en" value="Pathology"/>
-            <variant locale="fr" value="Pathologie"/>
-        </code>
-        <code name="diagnosis">
-            <variant locale="en" value="Diagnosis"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Diagnosis"/>
-        </code>
-        <code name="confirmed_diagnosis">
-            <variant locale="en" value="Confirmed diagnosis"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Confirmed diagnosis"/>
-        </code>
-        <code name="staging">
-            <variant locale="en" value="Staging"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Staging"/>
-        </code>
-        <code name="treatment">
-            <variant locale="en" value="Treatment"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Treatment"/>
+            <variant locale="fr" value="Consult"/>
         </code>
         <code name="other">
             <variant locale="en" value="Other:"/>
             <!-- Todo: Translate -->
             <variant locale="fr" value="Other:"/>
         </code>
-
+        <code name="history">
+            <variant locale="en" value="History"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="History**"/>
+        </code>
+        <code name="latestobs_dx">
+            <variant locale="en" value="Diagnosis:"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Diagnosis:**"/>
+        </code>
+        <code name="latestobs_stage">
+            <variant locale="en" value="Stage:"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Stage:**"/>
+        </code>
+        <code name="latestobs_plan">
+            <variant locale="en" value="Patient Plan:"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Patient Plan:**"/>
+        </code>
 
     </translations>
 
@@ -286,12 +169,6 @@
         label[for] { font-weight: normal } /* refers to the radio set label */
         }
 
-        .half-size-text {
-        color: #ff6666;
-        font-size: 50%;
-        display: block;
-        }
-
         .section-container {
         background: #F2F2F2;
         box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
@@ -310,26 +187,6 @@
 
         .section {
         width: 95%;
-        }
-
-        .procedure-table td {
-        border: 0;
-        padding: 5px 5px;
-        }
-
-        #proc-table {
-        width: 50%;
-        margin: 0;
-        }
-
-        #proc-table-th1 {
-        width: 30%;
-        text-align: left;
-        }
-
-        #proc-table-th2 {
-        width: 20%;
-        text-align: left;
         }
 
     </style>
@@ -463,6 +320,26 @@
         </includeIf>
     </ifMode>
 
+    <ifMode mode="VIEW" include="false">
+        <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="history">
+            <div class="section-container">
+                <p>
+                    <uimessage code="latestobs_dx"/>
+                    <lookup expression="fn.latestObs('PIH:Primary diagnosis').valueCoded.name"/>
+                    <lookup expression="fn.latestObs('PIH:Primary diagnosis').obsDatetime"/>
+                    <br/>
+                    <uimessage code="latestobs_stage"/>
+                    <lookup expression="fn.latestObs('CIEL:160786').valueCoded.name"/>
+                    <lookup expression="fn.latestObs('CIEL:160786').obsDatetime"/>
+                    <br/>
+                    <uimessage code="latestobs_plan"/>
+                    <lookup expression="fn.latestObs('PIH:PATIENT PLAN COMMENTS').getValueAsString(null)"/>
+                    <lookup expression="fn.latestObs('PIH:PATIENT PLAN COMMENTS').obsDatetime"/>
+                </p>
+            </div>
+        </section>
+    </ifMode>
+
     <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
         <div class="section-container">
             <p>
@@ -473,30 +350,13 @@
         </div>
     </section>
 
-    <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
+    <section id="consult" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="consult">
         <div class="section-container">
             <p>
                 <label>
                     <uimessage code="hpi"/>
                 </label>
                 <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" rows="3" cols="80"/>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="confirmed_diagnosis"/>
-                </label>
-                <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-            </p>
-        </div>
-    </section>
-
-    <section id="staging" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="staging">
-        <div class="section-container">
-            <p>
-                <label>
-                    <uimessage code="pe_exam_findings"/>
-                </label>
-                <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" style="textarea" rows="3" cols="80"/>
             </p>
             <p>
                 <label>
@@ -529,26 +389,31 @@
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td>Restricted in physically strenuous activity but ambulatory and able to carry out work of
+                                <td>Restricted in physically strenuous activity but ambulatory and able to carry out
+                                    work of
                                     a
                                     light or sedentary nature, e.g., light house work, office work
                                 </td>
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td>Ambulatory and capable of all selfcare but unable to carry out any work activities; up
+                                <td>Ambulatory and capable of all selfcare but unable to carry out any work activities;
+                                    up
                                     and
                                     about more than 50% of waking hours
                                 </td>
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking hours
+                                <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking
+                                    hours
                                 </td>
                             </tr>
                             <tr>
                                 <td>4</td>
-                                <td>Completely disabled; cannot carry on any selfcare; totally confined to bed or chair</td>
+                                <td>Completely disabled; cannot carry on any selfcare; totally confined to bed or
+                                    chair
+                                </td>
                             </tr>
                             <tr>
                                 <td>5</td>
@@ -557,186 +422,8 @@
                         </table>
                     </div>
                 </ifMode>
-
-                <br/>
             </div>
-            <label>
-                <uimessage code="pathology"/>
-            </label>
-            <p>
-                <table class="procedure-table" id="proc-table">
-                    <tr>
-                        <th id="proc-table-th1">
-                            <uimessage code="sample_site"/>
-                        </th>
-                        <th id="proc-table-th2">
-                            <uimessage code="procedure_date"/>
-                        </th>
-                    </tr>
-                    <tr>
-                        <obsgroup groupingConceptId="CIEL:160714">
-                            <td>
-                                <obs conceptId="CIEL:163049"/>
-                            </td>
-                            <td>
-                                <obs conceptId="CIEL:160715"/>
-                            </td>
-                        </obsgroup>
-                    </tr>
-                    <tr>
-                        <obsgroup groupingConceptId="CIEL:160714">
-                            <td>
-                                <obs conceptId="CIEL:163049"/>
-                            </td>
-                            <td>
-                                <obs conceptId="CIEL:160715"/>
-                            </td>
-                        </obsgroup>
-                    </tr>
-                    <tr>
-                        <obsgroup groupingConceptId="CIEL:160714">
-                            <td>
-                                <obs conceptId="CIEL:163049"/>
-                            </td>
-                            <td>
-                                <obs conceptId="CIEL:160715"/>
-                            </td>
-                        </obsgroup>
-                    </tr>
-                </table>
-            </p>
-        </div>
-    </section>
-
-    <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
-        <div class="section-container">
-            <p class="radio">
-                <label>
-                    <uimessage code="prev_treatment"/>
-                </label>
-                <obs id="prev_treatment" conceptId="CIEL:162964" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     answerSeparator=""/>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="prev_treatment_comment"/>
-                </label>
-                <obs conceptId="CIEL:162965" style="textarea" rows="3" cols="80"/>
-            </p>
-            <p class="radio">
-                <label>
-                    <uimessage code="current_treatment"/>
-                </label>
-                <obs id="current_treatment" conceptId="CIEL:162966" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     answerSeparator=""/>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="current_treatment_comment"/>
-                </label>
-                <obs conceptId="CIEL:162967" style="textarea" rows="3" cols="80"/>
-            </p>
-
-            <label>
-                <uimessage code="goals_of_care"/>
-            </label>
-            <p class="radio">
-                <obs conceptId="CIEL:160846" style="radio"
-                     answerConceptIds="CIEL:160847,CIEL:160849" answerSeparator=""/>
-            </p>
-
-            <p>
-                <label>
-                    <uimessage code="chemotherapy_protocol"/>
-                </label>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163060"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163061"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163062"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163063"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163064"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163065"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:84668"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163066"/>
-                <obs conceptId="CIEL:163073" answerConceptId="PIH:Paclitaxel"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163067"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163068"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163069"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163070"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163071"/>
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:77941"/>
-
-                <obs conceptId="CIEL:163073" answerConceptId="CIEL:163072"/>
-                <obs conceptId="CIEL:163073" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true" commentFieldLabel=" "/>
-                <br/>
-
-                <label>
-                    <uimessage code="chemo_cycle_number"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER"/>
-                </span>
-                <br/>
-
-                <label>
-                    <uimessage code="chemo_side_effects"/>
-                </label>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:NONE"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:FATIGUE"/>
-                <obs conceptId="CIEL:163075" answerConceptId="CIEL:163074"/>
-                <obs conceptId="CIEL:163075" answerConceptId="CIEL:115476"/>
-                <obs conceptId="CIEL:163075" answerConceptId="CIEL:122936"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:CONSTIPATION"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:DIARRHEA"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:FEVER"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:Hemorrhage, not elsewhere classified"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:POOR APPETITE	"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:NAUSEA"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:VOMITING"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:RASH"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:ULCER, ORAL"/>
-                <obs conceptId="CIEL:163075" answerConceptId="CIEL:141597"/>
-                <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true" commentFieldLabel=" "/>
-                <br/>
-                <label>
-                    <uimessage code="pain_scale"/>
-                </label>
-                <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
-                <br/>
-                <label>
-                    <uimessage code="pain_details"/>
-                </label>
-                <obs conceptId="CIEL:163077"/>
-                <br/>
-                <label>
-                    <uimessage code="patient_plan"/>
-                </label>
-                <p class="radio">
-                    <obs conceptId="CIEL:163059" style="radio"
-                         answerConceptIds="CIEL:163057,CIEL:160016,CIEL:163058,PIH:OTHER"
-                         answerCodes="Continue previous treatment,Planned treatment interruption,Follow-up with oncologist prior to continuing chemotherapy,Other"
-                         answerSeparator=""/>
-                </p>
-                <br/>
-                <label>
-                    <uimessage code="patient_plan_details"/>
-                </label>
-                <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
-
-                <br/>
-                <label>
-                    <uimessage code="special_considerations"/>
-                    <br/>
-                    Other patient conditions or diagnoses (ie. HTN, diabetes, heart disease, asthma, etc.)
-                </label>
-                <obs conceptId="PIH:6731"/>
-                <br/>
-
-                <label>
-                    <uimessage code="important_visit_info"/>
-                </label>
-                <obs conceptId="CIEL:162749"/>
+            <p>.
             </p>
         </div>
     </section>
