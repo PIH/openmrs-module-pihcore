@@ -7,7 +7,8 @@
 
 omod/.rubygems
 omod/.rubygems-provided
-omod/src/main/compass/,sass-cache
+omod/src/main/compass/.sass-cache
+omod/src/main/compass/sass-external
 
 target
 api/target
