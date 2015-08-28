@@ -292,17 +292,6 @@
         </includeIf>
       </ifMode>
 
-      <!-- ToDo: Remove these three checkboxes and replace with one, linked to new visit type, auto-checked by default -->
-    <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
-        <div class="section-container">
-            <p>
-                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology diagnosis" />
-                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology staging"/>
-                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
-            </p>
-        </div>
-    </section>
-
     <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
         <div class="section-container">
             <p>
