@@ -24,11 +24,19 @@
 
     <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.blood_tests.title">
 
-        <fieldset class="multi-line-confirmation">
+
+        <fieldset field-separator=" ">  <!-- field separator is set as a workaround for the super-hack, see below -->
 
             <legend>
                 <uimessage code="pihcore.lab.test_date"/>
             </legend>
+
+            <!-- this is a super-hack to get around the fact that if the date is first field in a form, the
+                 datepicker opens immediately, AND in this case we are getting some odd interactions between this
+                 first datepicker and the hidden datepicker at the bottom form for encounter date -->
+            <field>
+                <span class="ui-helper-hidden-accessible"><input type="text"/></span>
+            </field>
 
             <p>
                 <label for="test-date-hematology">
@@ -404,13 +412,13 @@
         </fieldset>
     </section>
 
-    <!-- TdDo: What to do about retrospective entry?  Check the who? when? where? -->
+    <!-- To Do: What to do about retrospective entry?  Check the who? when? where? -->
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
             <legend>When?</legend>
             <label>When?</label>
 
-        <encounterDate default="now" showTime="false"/>
+            <encounterDate default="now" showTime="false"/>
         </fieldset>
 
         <fieldset>
@@ -425,9 +433,10 @@
             <legend>Where?</legend>
             <label>Where?</label>
 
-        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
         </fieldset>
     </div>
+
 
     <submit/>
 
