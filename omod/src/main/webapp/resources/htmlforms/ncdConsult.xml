@@ -465,17 +465,25 @@
     </section>
 
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
-        <div class="section-container">
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.meds.current_meds"/>
-                </label>
-                <!-- ToDo: Fix autoshow of all drugs UHM-2121 -->
-                <!-- ToDo:  Add the non-drugs:  Anti-TB, ARVs, Other-->
-                <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-                <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-                <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-            </p>
+        <div class="column">
+            <div class="section-container">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.meds.current_meds"/>
+                    </label>
+                    <!-- ToDo: Complete list from PIH:10557 -->
+                    <!-- ToDo:  Add the non-drugs:  Anti-TB, ARVs, Other-->
+
+                    <repeat with="['PIH:Medications prescribed at end of visit',['PIH:AMINOPHYLLINE'],['PIH:AMLODIPINE']">
+                        <obs conceptId="10557" answerConceptId="{0}" style="checkbox" /><br/>
+                    </repeat>
+                    <!--
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
+                    -->
+                </p>
+            </div>
         </div>
     </section>
 
