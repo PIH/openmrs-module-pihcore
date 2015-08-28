@@ -319,15 +319,6 @@
         </includeIf>
     </ifMode>
 
-    <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
-        <div class="section-container">
-            <p>
-                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Chemotherapy"
-                     defaultValue="PIH:Chemotherapy"/>
-            </p>
-        </div>
-    </section>
-
     <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
         <div class="section-container">
             <p>

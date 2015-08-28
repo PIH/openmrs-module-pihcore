@@ -320,36 +320,6 @@
         </includeIf>
     </ifMode>
 
-    <ifMode mode="VIEW" include="false">
-        <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="history">
-            <div class="section-container">
-                <p>
-                    <uimessage code="latestobs_dx"/>
-                    <lookup expression="fn.latestObs('PIH:Primary diagnosis').valueCoded.name"/>
-                    <lookup expression="fn.latestObs('PIH:Primary diagnosis').obsDatetime"/>
-                    <br/>
-                    <uimessage code="latestobs_stage"/>
-                    <lookup expression="fn.latestObs('CIEL:160786').valueCoded.name"/>
-                    <lookup expression="fn.latestObs('CIEL:160786').obsDatetime"/>
-                    <br/>
-                    <uimessage code="latestobs_plan"/>
-                    <lookup expression="fn.latestObs('PIH:PATIENT PLAN COMMENTS').getValueAsString(null)"/>
-                    <lookup expression="fn.latestObs('PIH:PATIENT PLAN COMMENTS').obsDatetime"/>
-                </p>
-            </div>
-        </section>
-    </ifMode>
-
-    <section id="visit-type" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="visit_type">
-        <div class="section-container">
-            <p>
-                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology diagnosis"/>
-                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology staging"/>
-                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:Oncology treatment"/>
-            </p>
-        </div>
-    </section>
-
     <section id="consult" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="consult">
         <div class="section-container">
             <p>
