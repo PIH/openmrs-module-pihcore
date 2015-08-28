@@ -471,17 +471,19 @@
                     <label>
                         <uimessage code="pihcore.ncd.meds.current_meds"/>
                     </label>
-                    <!-- ToDo: Complete list from PIH:10557 -->
-                    <!-- ToDo:  Add the non-drugs:  Anti-TB, ARVs, Other-->
 
-                    <repeat with="['PIH:Medications prescribed at end of visit',['PIH:AMINOPHYLLINE'],['PIH:AMLODIPINE']">
-                        <obs conceptId="10557" answerConceptId="{0}" style="checkbox" /><br/>
+                    <repeat with="['PIH:AMINOPHYLLINE'],['PIH:AMLODIPINE']">
+                        <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox" /><br/>
                     </repeat>
-                    <!--
-                    <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-                    <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-                    <obs conceptId="PIH:Medications prescribed at end of visit" answerClasses="Drug" style="autocomplete"/>
-                    -->
+                    <repeat with="['PIH:Anti-TB medication (generic)','Anti-TB'],['PIH:ARV medication (generic)','ARVs']">
+                        <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" answerLabel="{1}" style="checkbox" /><br/>
+                    </repeat>
+
+                    <repeat with="['PIH:ASPIRIN'],['PIH:ATENOLOL'],['PIH:BECLOMETHASONE'],['PIH:CAPTOPRIL'],['PIH:CARBAMAZEPINE'],['PIH:CARVEDILOL'],['PIH:Cimetidine'],['CIEL:73602'],['PIH:DIGOXIN'],['PIH:FUROSEMIDE'],['PIH:GLIBENCLAMIDE'],['PIH:HYDRALAZINE'],['PIH:HYDROCHLOROTHIAZIDE'],['PIH:Regular insulin'],['PIH:Insulin 70/30'],['PIH:Lente insulin'],['PIH:ISOSORBIDE DINITRATE'],['PIH:LISINOPRIL'],['PIH:METFORMIN'],['PIH:METHYLDOPA'],['PIH:NIFEDIPINE'],['PIH:Omeprazole'],['PIH:PENICILLIN'],['CIEL:81730'],['PIH:PHENOBARBITAL'],['PIH:Prednisolone'],['PIH:RANITIDINE'],['PIH:SALBUTAMOL'],['CIEL:83936'],['PIH:SPIRONOLACTONE'],['PIH:WARFARIN']">
+                        <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox" /><br/>
+                    </repeat>
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true"
+                         commentFieldLabel=" " />
                 </p>
             </div>
         </div>

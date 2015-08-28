@@ -82,6 +82,12 @@
             <variant locale="en" value="Cancer Staging"/>
             <variant locale="fr" value="Stadification du cancer"/>
         </code>
+        <code name="patient_plan_details">
+            <variant locale="en" value="Patient Plan"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Patient Plan"/>
+        </code>
+
 
     </translations>
 
