@@ -7,63 +7,65 @@ angular.module("visit-templates", ["constants"])
         var encounterTypeConfig = {
             DEFAULT: {
                 defaultState: "short",
-                shortTemplate: "templates/defaultEncounterShort.page",
-                longTemplate: "templates/defaultEncounterLong.page"
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterLong.page"
             }
         };
         encounterTypeConfig[EncounterTypes.checkIn.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/checkInShort.page",
-            longTemplate: "templates/defaultEncounterLong.page",
+            shortTemplate: "templates/encounters/checkInShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-check-in",
             editUrl: hfeSimpleEditUrl
         };
         encounterTypeConfig[EncounterTypes.vitals.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/vitalsShort.page",
-            longTemplate: "templates/vitalsLong.page",
+            shortTemplate: "templates/encounters/vitalsShort.page",
+            longTemplate: "templates/encounters/vitalsLong.page",
             icon: "icon-vitals",
             editUrl: hfeSimpleEditUrl
         };
         encounterTypeConfig[EncounterTypes.consultation.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/clinicConsultShort.page",
-            longTemplate: "templates/clinicConsultLong.page",
+            shortTemplate: "templates/encounters/clinicConsultShort.page",
+            longTemplate: "templates/encounters/clinicConsultLong.page",
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl
         };
-        encounterTypeConfig[EncounterTypes.primaryCareHistory.uuid] = {
-            defaultState: "long",
-            shortTemplate: "templates/defaultEncounterShort.page",
-            longTemplate: "templates/primaryCareAdultHistoryLong.page",
-            icon: "icon-file-alt",
-            editUrl: hfeStandardEditUrl
-        };
         encounterTypeConfig[EncounterTypes.labResults.uuid] = {
-            defaultState: "long",
-            shortTemplate: "templates/defaultEncounterShort.page",
-            longTemplate: "templates/defaultEncounterLong.page",
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-beaker",
             editUrl: hfeSimpleEditUrl
         };
+
+        // Tthe follow are encounters only present within the "new visit note" virew
+        encounterTypeConfig[EncounterTypes.primaryCareHistory.uuid] = {
+            defaultState: "long",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/primaryCareAdultHistoryLong.page",
+            icon: "icon-file-alt",
+            editUrl: hfeStandardEditUrl
+        };
         encounterTypeConfig[EncounterTypes.primaryCareExam.uuid] = {
             defaultState: "long",
-            shortTemplate: "templates/defaultEncounterShort.page",
-            longTemplate: "templates/defaultEncounterLong.page",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-stethoscope",
             editUrl: hfeSimpleEditUrl
         };
         encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
             defaultState: "long",
-            shortTemplate: "templates/defaultEncounterShort.page",
-            longTemplate: "templates/defaultEncounterLong.page",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-list-ul",
             editUrl: hfeStandardEditUrl
         };
         encounterTypeConfig[EncounterTypes.consultationPlan.uuid] = {
             defaultState: "long",
-            shortTemplate: "templates/defaultEncounterShort.page",
-            longTemplate: "templates/defaultEncounterLong.page",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-list-ol",
             editUrl: null
         };
@@ -85,7 +87,7 @@ angular.module("visit-templates", ["constants"])
                 encounterType: {
                     uuid: EncounterTypes.checkIn.uuid
                 },
-                shortTemplate: "templates/checkInShort.page"
+                shortTemplate: "templates/encounters/checkInShort.page"
             },
             action: {
                 label: "Check In",
@@ -101,8 +103,8 @@ angular.module("visit-templates", ["constants"])
                 encounterType: {
                     uuid: EncounterTypes.vitals.uuid
                 },
-                shortTemplate: "templates/vitalsShort.page",
-                longTemplate: "templates/vitalsLong.page"
+                shortTemplate: "templates/encounters/vitalsShort.page",
+                longTemplate: "templates/encounters/vitalsLong.page"
             },
             action: {
                 label: "Vitals",
@@ -125,7 +127,7 @@ angular.module("visit-templates", ["constants"])
                 encounterType: {
                     uuid: EncounterTypes.primaryCareHistory.uuid
                 },
-                longTemplate: "templates/primaryCareAdultHistoryLong.page"
+                longTemplate: "templates/encounters/primaryCareAdultHistoryLong.page"
             },
             action: {
                 label: "History (Adult)",
@@ -139,7 +141,7 @@ angular.module("visit-templates", ["constants"])
                 encounterType: {
                     uuid: EncounterTypes.primaryCareExam.uuid
                 },
-                longTemplate: "templates/defaultEncounterLong.page"
+                longTemplate: "templates/encounters/defaultEncounterLong.page"
             },
             action: {
                 label: "Exam (Adult)",
@@ -154,7 +156,7 @@ angular.module("visit-templates", ["constants"])
                 encounterType: {
                     uuid: EncounterTypes.primaryCareDx.uuid
                 },
-                longTemplate: "templates/defaultEncounterLong.page"
+                longTemplate: "templates/encounters/defaultEncounterLong.page"
             },
             action: {
                 label: "Diagnosis",
@@ -169,7 +171,7 @@ angular.module("visit-templates", ["constants"])
                 encounterType: {
                     uuid: EncounterTypes.labResults.uuid
                 },
-                longTemplate: "templates/defaultEncounterLong.page"
+                longTemplate: "templates/encounters/defaultEncounterLong.page"
             },
             action: {
                 label: "Lab results",

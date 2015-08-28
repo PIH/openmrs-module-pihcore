@@ -406,7 +406,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     return config[state + "Template"];
                 }
             }
-            return "templates/defaultEncounterShort.page"
+            return "templates/encounters/defaultEncounterShort.page"
 
         }
         model.reset();
