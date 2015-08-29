@@ -58,9 +58,10 @@
         display: block;
         }
 
-        .column {
-        float: left;
-        width: 50%
+        .two-columns {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
         }
 
         .simple-form-ui input {
@@ -465,26 +466,24 @@
     </section>
 
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
-        <div class="column">
-            <div class="section-container">
-                <p>
-                    <label>
-                        <uimessage code="pihcore.ncd.meds.current_meds"/>
-                    </label>
+        <div class="section-container">
+           <div class="two-columns">
+                <label>
+                    <uimessage code="pihcore.ncd.meds.current_meds"/>
+                </label>
 
-                    <repeat with="['PIH:AMINOPHYLLINE'],['PIH:AMLODIPINE']">
-                        <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox" /><br/>
-                    </repeat>
-                    <repeat with="['PIH:Anti-TB medication (generic)','Anti-TB'],['PIH:ARV medication (generic)','ARVs']">
-                        <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" answerLabel="{1}" style="checkbox" /><br/>
-                    </repeat>
+                <repeat with="['PIH:AMINOPHYLLINE'],['PIH:AMLODIPINE']">
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox" />
+                </repeat>
+                <repeat with="['PIH:Anti-TB medication (generic)','Anti-TB'],['PIH:ARV medication (generic)','ARVs']">
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" answerLabel="{1}" style="checkbox" />
+                </repeat>
 
-                    <repeat with="['PIH:ASPIRIN'],['PIH:ATENOLOL'],['PIH:BECLOMETHASONE'],['PIH:CAPTOPRIL'],['PIH:CARBAMAZEPINE'],['PIH:CARVEDILOL'],['PIH:Cimetidine'],['CIEL:73602'],['PIH:DIGOXIN'],['PIH:FUROSEMIDE'],['PIH:GLIBENCLAMIDE'],['PIH:HYDRALAZINE'],['PIH:HYDROCHLOROTHIAZIDE'],['PIH:Regular insulin'],['PIH:Insulin 70/30'],['PIH:Lente insulin'],['PIH:ISOSORBIDE DINITRATE'],['PIH:LISINOPRIL'],['PIH:METFORMIN'],['PIH:METHYLDOPA'],['PIH:NIFEDIPINE'],['PIH:Omeprazole'],['PIH:PENICILLIN'],['CIEL:81730'],['PIH:PHENOBARBITAL'],['PIH:Prednisolone'],['PIH:RANITIDINE'],['PIH:SALBUTAMOL'],['CIEL:83936'],['PIH:SPIRONOLACTONE'],['PIH:WARFARIN']">
-                        <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox" /><br/>
-                    </repeat>
-                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true"
-                         commentFieldLabel=" " />
-                </p>
+                <repeat with="['PIH:ASPIRIN'],['PIH:ATENOLOL'],['PIH:BECLOMETHASONE'],['PIH:CAPTOPRIL'],['PIH:CARBAMAZEPINE'],['PIH:CARVEDILOL'],['PIH:Cimetidine'],['CIEL:73602'],['PIH:DIGOXIN'],['PIH:FUROSEMIDE'],['PIH:GLIBENCLAMIDE'],['PIH:HYDRALAZINE'],['PIH:HYDROCHLOROTHIAZIDE'],['PIH:Regular insulin'],['PIH:Insulin 70/30'],['PIH:Lente insulin'],['PIH:ISOSORBIDE DINITRATE'],['PIH:LISINOPRIL'],['PIH:METFORMIN'],['PIH:METHYLDOPA'],['PIH:NIFEDIPINE'],['PIH:Omeprazole'],['PIH:PENICILLIN'],['CIEL:81730'],['PIH:PHENOBARBITAL'],['PIH:Prednisolone'],['PIH:RANITIDINE'],['PIH:SALBUTAMOL'],['CIEL:83936'],['PIH:SPIRONOLACTONE'],['PIH:WARFARIN']">
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox" />
+                </repeat>
+                <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true"
+                     commentFieldLabel=" " />
             </div>
         </div>
     </section>
