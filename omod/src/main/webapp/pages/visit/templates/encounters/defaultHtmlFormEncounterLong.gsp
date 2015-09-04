@@ -19,7 +19,7 @@
             </p>
             <span ng-repeat="childField in field.fields" class="aligned">
                 <p ng-show="childField.value" class="aligned">
-                    <label>{{ (\$index == 0 || childField.name != field.fields[\$index-1].name) ? field.name : '' }}</label>
+                    <label>{{ (\$index == 0 || childField.name != field.fields[\$index-1].name) ? childField.name : '' }}</label>
                     <span>{{ childField.value }}</span>
                 </p>
             </span>
@@ -33,7 +33,7 @@
         </p>
         <span ng-repeat="childField in field.fields" class="aligned">
             <p ng-show="childField.value" class="aligned">
-                <label>{{ (\$index == 0 || childField.name != field.fields[\$index-1].name) ? field.name : '' }}</label>
+                <label>{{ (\$index == 0 || childField.name != field.fields[\$index-1].name) ? childField.name : '' }}</label>
                 <span>{{ childField.value }}</span>
             </p>
         </span>
