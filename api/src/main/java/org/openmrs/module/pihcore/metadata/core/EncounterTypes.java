@@ -65,7 +65,7 @@ public class EncounterTypes {
 
     public static EncounterTypeDescriptor ONCOLOGY_INITIAL_VISIT  = new EncounterTypeDescriptor() {
         public String uuid() { return "f9cfdf8b-d086-4658-9b9d-45a62896da03"; }
-        public String name() { return "Oncology initial visit"; }
+        public String name() { return "Oncology Initial Visit"; }
         public String description() { return "Intake for oncology patient"; }
     };
 
@@ -131,8 +131,8 @@ public class EncounterTypes {
 
     public static EncounterTypeDescriptor LAB_RESULTS = new EncounterTypeDescriptor() {
         public String uuid() { return "4d77916a-0620-11e5-a6c0-1697f925ec7b"; }
-        public String name() { return "Laboratory results"; }
-        public String description() { return "Laboratory results "; }
+        public String name() { return "Laboratory Results"; }
+        public String description() { return "Laboratory Results "; }
     };
 
     public static EncounterTypeDescriptor CONSULTATION_PLAN  = new EncounterTypeDescriptor() {

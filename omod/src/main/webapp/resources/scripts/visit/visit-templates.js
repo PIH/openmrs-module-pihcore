@@ -4,24 +4,37 @@ angular.module("visit-templates", ["constants"])
         var hfeSimpleEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}";
         var hfeStandardEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}";
 
+        // template model url:
+        // if a template operates off an model different that the standard OpenMRS REST representation of an encounter,
+        // you specify the URL of the source here; used currently for htmlFormEntry encounter templates, which
+        // require the encounter to be formatted using the HFE schema
+
         var encounterTypeConfig = {
             DEFAULT: {
                 defaultState: "short",
                 shortTemplate: "templates/encounters/defaultEncounterShort.page",
-                longTemplate: "templates/encounters/defaultEncounterLong.page"
+                longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+                templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}"
             }
+        };
+        encounterTypeConfig[EncounterTypes.patientRegistration.uuid] = {  // should never appear on dashboard?
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page"
         };
         encounterTypeConfig[EncounterTypes.checkIn.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/checkInShort.page",
-            longTemplate: "templates/encounters/defaultEncounterLong.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
             icon: "icon-check-in",
             editUrl: hfeSimpleEditUrl
         };
         encounterTypeConfig[EncounterTypes.vitals.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/vitalsShort.page",
-            longTemplate: "templates/encounters/vitalsLong.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
             icon: "icon-vitals",
             editUrl: hfeSimpleEditUrl
         };
@@ -32,15 +45,121 @@ angular.module("visit-templates", ["constants"])
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl
         };
+        encounterTypeConfig[EncounterTypes.oncologyConsult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-paste",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.oncologyInitialVisit.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-paste",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.chemotherapySession.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-retweet",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.medicationDispensed.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-medicine",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.postOperativeNote.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-paste",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.transfer.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-share",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.admission.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-signin",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.cancelAdmission.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-ban-circle",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.exitFromCare.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-signout",
+            editUrl: hfeStandardEditUrl
+        };
         encounterTypeConfig[EncounterTypes.labResults.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterLong.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
             icon: "icon-beaker",
             editUrl: hfeSimpleEditUrl
         };
-
-        // Tthe follow are encounters only present within the "new visit note" virew
+        encounterTypeConfig[EncounterTypes.radiologyOrder.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
+            icon: "icon-x-ray"
+        };
+        encounterTypeConfig[EncounterTypes.radiologyStudy.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
+            icon: "icon-x-ray"
+        };
+        encounterTypeConfig[EncounterTypes.radiologyReport.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
+            icon: "icon-x-ray"
+        };
+        encounterTypeConfig[EncounterTypes.deathCertificate.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-remove-circle",
+            editUrl: hfeStandardEditUrl
+        };
+        encounterTypeConfig[EncounterTypes.ncdConsult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
+            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            icon: "icon-heart",
+            editUrl: hfeStandardEditUrl
+        };
+        // Tthe follow are encounters only present within the "new visit note" view
         encounterTypeConfig[EncounterTypes.primaryCareHistory.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",

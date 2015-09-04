@@ -25,7 +25,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             });
 
         $translateProvider
-            .useUrlLoader('/' + OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json');
+            .useUrlLoader('/' + OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json')
+            .useSanitizeValueStrategy('escape');  // TODO is this the correct one to use http://angular-translate.github.io/docs/#/guide/19_security
 
     })
 
@@ -129,8 +130,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
-    .directive("encounter", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "SessionInfo",
-        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, SessionInfo) {
+    .directive("encounter", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "SessionInfo", "$http",
+        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, SessionInfo, $http) {
             return {
                 restrict: "E",
                 scope: {
@@ -139,15 +140,31 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 },
                 controller: ["$scope", function($scope) {
                     function loadFullEncounter() {
+
+                        // load standard OpenMRS REST representation of an object
                         Encounter.get({ uuid: $scope.encounterStub.uuid, v: "full" }).
                             $promise.then(function(encounter) {
                                 $scope.encounter = encounter;
                             });
+
+                        // if the display templates for this encounter-type require a special model, fetch it (only use case now is the "encounter-in-hfe-schema" model provided by HFE)
+                        if ($scope.templateModelUrl()) {
+                            var url = Handlebars.compile($scope.templateModelUrl())({
+                                encounter: $scope.encounter
+                            });
+                            $http.get("/" + OPENMRS_CONTEXT_PATH + url)
+                                .then(function (response) {
+                                    $scope.templateModel = response.data;
+                                });
+                            // TODO error handling
+                        }
+
                         $scope.orders = OrderEntryService.getOrdersForEncounter($scope.encounterStub);
                     }
 
                     $scope.encounter = $scope.encounterStub;
-                    loadFullEncounter();
+                    $scope.templateModel = {};
+
                     var config = VisitTemplateService.getConfigFor($scope.encounterStub);
                     var currentUser = new OpenMRS.UserModel(SessionInfo.get().user);
 
@@ -157,6 +174,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
                     $scope.currentTemplate = function() {
                         return VisitDisplayModel.displayTemplateFor($scope.encounterStub);
+                    }
+                    $scope.templateModelUrl= function () {
+                        return VisitDisplayModel.templateModelUrlFor($scope.encounterStub);
                     }
                     $scope.canExpand = function() {
                         return VisitDisplayModel.canExpand($scope.encounterStub);
@@ -186,6 +206,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.delete = function() {
                         $scope.$emit("request-delete-encounter", $scope.encounter);
                     }
+                    loadFullEncounter();
                 }],
                 template: '<div class="visit-element"><div ng-include="currentTemplate()"></div></div>'
             }
@@ -408,6 +429,13 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
             return "templates/encounters/defaultEncounterShort.page"
 
+        }
+        model.templateModelUrlFor = function(encounter) {
+            var config = VisitTemplateService.getConfigFor(encounter);
+            if (config) {
+                return config["templateModelUrl"];
+            }
+            return "";  // no custom template model by default
         }
         model.reset();
         return model;

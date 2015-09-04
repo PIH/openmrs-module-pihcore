@@ -154,17 +154,56 @@ angular.module('constants', [])
     })
 
     .value('EncounterTypes', {
+        patientRegistration: {
+            uuid: "873f968a-73a8-4f9c-ac78-9f4778b751b6"
+        },
         checkIn: {
             uuid: "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b"
+        },
+        payment: {
+            uuid: "f1c286d0-b83f-4cd4-8348-7ea3c28ead13"
         },
         vitals: {
             uuid: "4fb47712-34a6-40d2-8ed3-e153abbd25b7"
         },
-        primaryCareHistory: {
-            uuid: "ffa148de-2c88-4828-833e-f3788991543d"
+        primaryCareVisit: {
+            uuid: "1373cf95-06e8-468b-a3da-360ac1cf026d"
+        },
+        consultation: {
+            uuid: "92fd09b4-5335-4f7e-9f63-b2a663fd09a6"
+        },
+        oncologyConsult: {
+            uuid: "035fb8da-226a-420b-8d8b-3904f3bedb25"
+        },
+        oncologyInitialVisit: {
+            uuid: "f9cfdf8b-d086-4658-9b9d-45a62896da03"
+        },
+        chemotherapySession: {
+            uuid: "828964fa-17eb-446e-aba4-e940b0f4be5b"
+        },
+        medicationDispensed: {
+            uuid: "8ff50dea-18a1-4609-b4c9-3f8f2d611b84"
+        },
+        postOperativeNote: {
+            uuid: "c4941dee-7a9b-4c1c-aa6f-8193e9e5e4e5"
+        },
+        transfer: {
+            uuid: "436cfe33-6b81-40ef-a455-f134a9f7e580"
+        },
+        admission: {
+            uuid: "260566e1-c909-4d61-a96f-c1019291a09d"
+        },
+        cancelAdmission: {
+            uuid: "edbb857b-e736-4296-9438-462b31f97ef9"
+        },
+        exitFromCare: {
+            uuid: "b6631959-2105-49dd-b154-e1249e0fbcd7"
         },
         labResults: {
             uuid: "4d77916a-0620-11e5-a6c0-1697f925ec7b"
+        },
+        primaryCareHistory: {
+            uuid: "ffa148de-2c88-4828-833e-f3788991543d"
         },
         primaryCareExam: {
             uuid: "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"
@@ -172,12 +211,25 @@ angular.module('constants', [])
         primaryCareDx: {
             uuid: "09febbd8-03f1-11e5-8418-1697f925ec7b"
         },
-        consultation: {
-            uuid: "92fd09b4-5335-4f7e-9f63-b2a663fd09a6"
-        },
         consultationPlan: {
             uuid: "e0aaa214-1d4b-442a-b527-144adf025299"
+        },
+        radiologyOrder: {
+            uuid: "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa"
+        },
+        radiologyStudy: {
+            uuid: "5b1b4a4e-0084-4137-87db-dba76c784439"
+        },
+        radiologyReport: {
+            uuid: "d5ca53a7-d3b5-44ac-9aa2-1491d2a4b4e9"
+        },
+        deathCertificate: {
+            uuid: "1545d7ff-60f1-485e-9c95-5740b8e6634b"
+        },
+        ncdConsult: {
+            uuid: "ae06d311-1866-455b-8a64-126a9bd74171"
         }
+
     })
 
     .value('VisitAttributeTypes', {
