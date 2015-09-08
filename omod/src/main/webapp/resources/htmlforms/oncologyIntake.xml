@@ -87,6 +87,16 @@
             <!-- Todo: Translate -->
             <variant locale="fr" value="Patient Plan"/>
         </code>
+        <code name="patient_plan_details">
+            <variant locale="en" value="Patient Plan"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Patient Plan"/>
+        </code>
+        <code name="patient_plan_details">
+            <variant locale="en" value="Patient Plan"/>
+            <!-- Todo: Translate -->
+            <variant locale="fr" value="Patient Plan"/>
+        </code>
 
 
     </translations>
@@ -118,7 +128,7 @@
         }
 
         .simple-form-ui input {
-        min-width: 80%
+        min-width: 90%
         }
 
         form fieldset {
@@ -161,8 +171,73 @@
         width: 95%;
         }
 
+        .diagnosis, .diagnosis-primary, .diagnosis-secondary, .diagnosis-confirmed {
+            display: inline-block;
+        }
+
+        .diagnosis {
+            min-width: 60%
+        }
+
+        .diagnosis-primary, .diagnosis-secondary {
+            min-width: 15%;
+        }
+
     </style>
 
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+
+            jq(function() {
+
+                // handle disabling/enabled primary/secondary checkboxes, and setting hidden confirmed checkbox
+                jq('.diagnosis input').focusout(function(e) {
+                    var construct = jq(e.target).closest('.diagnosis-construct');
+                    if (jq(e.target).val()) {
+                        construct.find('.diagnosis-confirmed input').attr('checked', true);
+                        if (!construct.find('.diagnosis-primary input').attr('checked') &amp;&amp;
+                            !construct.find('.diagnosis-secondary input').attr('checked')) {
+                            construct.find('.diagnosis-primary input').attr('checked', true);
+                        }
+                    }
+                    else {
+                        construct.find('.diagnosis-confirmed input').attr('checked', false);
+                        construct.find('.diagnosis-primary input').attr('checked', false);
+                        construct.find('.diagnosis-secondary input').attr('checked', false);
+                    }
+
+                });
+
+                // handle toggling primary/secondary buttons for diagnoses
+                jq('.diagnosis-primary input').change(function(e) {
+                    var construct = jq(e.target).closest('.diagnosis-construct');
+
+                    // can't check if no diagnosis selected
+                    if (!construct.find('.diagnosis input').val()) {
+                        jq(e.target).attr('checked',false);
+                    }
+                    //
+                    else {
+                        jq(e.target).attr('checked', true);
+                        construct.find('.diagnosis-secondary input').attr('checked', false);
+                    }
+                });
+
+                jq('.diagnosis-secondary input').change(function(e) {
+                    var construct = jq(e.target).closest('.diagnosis-construct');
+                    if (!construct.find('.diagnosis input').val()) {
+                        jq(e.target).attr('checked',false);
+                    }
+                    else {
+                        jq(e.target).attr('checked', true);
+                        construct.find('.diagnosis-primary input').attr('checked', false);
+                    }
+                });
+
+            });
+
+        </script>
+    </ifMode>
 
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>:
@@ -298,9 +373,37 @@
                 <label>
                     <uimessage code="confirmed_diagnosis"/>
                 </label>
-                <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-                <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
-                <obs conceptId="PIH:Primary diagnosis" answerClasses="Diagnosis" style="autocomplete"/>
+            </p>
+            <!-- TODO: right labels -->
+            <p class="diagnosis-construct">
+                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                    <obs class="diagnosis" conceptId="PIH:DIAGNOSIS" answerClasses="Diagnosis" style="autocomplete"/>
+                    <obs class="diagnosis-primary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:primary" style="checkbox" answerCode="pihcore.oncologyIntake.primary" />
+                    <obs class="diagnosis-secondary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:secondary" style="checkbox" answerCode="pihcore.oncologyIntake.secondary" />
+                    <span style="display:none">
+                        <obs class="diagnosis-confirmed" conceptId="PIH:CLINICAL IMPRESSION DIAGNOSIS CONFIRMED" answerConceptId="PIH:CONFIRMED" style="checkbox"/>
+                    </span>
+                </obsgroup>
+            </p>
+            <p class="diagnosis-construct">
+                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                    <obs class="diagnosis" conceptId="PIH:DIAGNOSIS" answerClasses="Diagnosis" style="autocomplete"/>
+                    <obs class="diagnosis-primary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:primary" style="checkbox" answerCode="pihcore.oncologyIntake.primary" />
+                    <obs class="diagnosis-secondary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:secondary" style="checkbox" answerCode="pihcore.oncologyIntake.secondary"/>
+                    <span style="display:none">
+                        <obs class="diagnosis-confirmed" conceptId="PIH:CLINICAL IMPRESSION DIAGNOSIS CONFIRMED" answerConceptId="PIH:CONFIRMED" style="checkbox"/>
+                    </span>
+                </obsgroup>
+            </p>
+            <p class="diagnosis-construct">
+                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                    <obs class="diagnosis" conceptId="PIH:DIAGNOSIS" answerClasses="Diagnosis" style="autocomplete"/>
+                    <obs class="diagnosis-primary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:primary" style="checkbox" answerCode="pihcore.oncologyIntake.primary" />
+                    <obs class="diagnosis-secondary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:secondary" style="checkbox" answerCode="pihcore.oncologyIntake.secondary"/>
+                    <span style="display:none">
+                        <obs class="diagnosis-confirmed" conceptId="PIH:CLINICAL IMPRESSION DIAGNOSIS CONFIRMED" answerConceptId="PIH:CONFIRMED" style="checkbox"/>
+                    </span>
+                </obsgroup>
             </p>
             <p>
                 <label>
