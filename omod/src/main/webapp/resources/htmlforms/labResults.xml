@@ -20,15 +20,27 @@
         }
     </style>
 
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+
+            jq(function() {
+                getField('specimen-collection-date-hematology.value').datepicker('option', 'maxDate', new Date());
+                getField('test-date-hematology.value').datepicker('option', 'maxDate', new Date());
+            });
+
+        </script>
+    </ifMode>
+
+
     <!--TODO: Confirm what would go here (imaging? psych? what else?) -->
 
     <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.blood_tests.title">
 
 
-        <fieldset field-separator=" ">  <!-- field separator is set as a workaround for the super-hack, see below -->
+        <fieldset class="multi-line-confirmation" field-separator=" ">  <!-- field separator is set as a workaround for the super-hack, see below -->
 
             <legend>
-                <uimessage code="pihcore.lab.test_date"/>
+                <uimessage code="pihcore.lab.dates"/>
             </legend>
 
             <!-- this is a super-hack to get around the fact that if the date is first field in a form, the
@@ -39,12 +51,23 @@
             </field>
 
             <p>
+                <label for="specimen-collection-date-hematology">
+                    <uimessage code="pihcore.lab.specimen_collection_date"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs  id="specimen-collection-date-hematology" conceptId="CIEL:159951" placeholder="Enter date" allowTime="false"/>
+                    </field>
+                </span>
+            </p>
+
+            <p>
                 <label for="test-date-hematology">
                     <uimessage code="pihcore.lab.test_date"/>
                 </label>
                 <span class="small">
-                    <field id="test-date-hematology">
-                        <obs conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
+                    <field>
+                        <obs  id="test-date-hematology" conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
                     </field>
                 </span>
             </p>
@@ -64,8 +87,8 @@
                     <uimessage code="pihcore.lab.hemoglobin"/>
                 </label>
                 <span class="small">
-                    <field id="hemoglobin">
-                        <obs conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
+                    <field>
+                        <obs id="hemoglobin" conceptId="PIH:HEMOGLOBIN" showUnits="true"/>
                     </field>
                 </span>
 
@@ -73,8 +96,8 @@
                     HbA1c
                 </label>
                 <span class="small">
-                    <field id="hemoglobin-a1c">
-                        <obs conceptId="PIH:HbA1c" showUnits="true"/>
+                    <field>
+                        <obs id="hemoglobin-a1c" conceptId="PIH:HbA1c" showUnits="true"/>
                     </field>
                 </span>
 
@@ -82,8 +105,8 @@
                     <uimessage code="pihcore.lab.hematocrit"/>
                 </label>
                 <span class="small">
-                    <field id="hematocrit">
-                        <obs conceptId="PIH:HEMATOCRIT" showUnits="true"/>
+                    <field>
+                        <obs id="hematocrit" conceptId="PIH:HEMATOCRIT" showUnits="true"/>
                     </field>
                 </span>
 
@@ -91,8 +114,8 @@
                     <uimessage code="pihcore.lab.white_blood_cell"/>
                 </label>
                 <span class="small">
-                    <field id="white-blood-cell">
-                        <obs conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
+                    <field>
+                        <obs id="white-blood-cell" conceptId="PIH:WHITE BLOOD CELLS" showUnits="true"/>
                     </field>
                 </span>
 
@@ -100,8 +123,8 @@
                     <uimessage code="pihcore.lab.neutrophil"/>
                 </label>
                 <span class="small">
-                    <field id="neutrophil">
-                        <obs conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
+                    <field>
+                        <obs id="neutrophil" conceptId="PIH:Absolute Neutrophil Count" showUnits="true"/>
                     </field>
                     <field>
                         (<obs conceptId="PIH:NEUTROPHILS" showUnits="true"/>)
@@ -112,8 +135,8 @@
                     <uimessage code="pihcore.lab.lymphocyte"/>
                 </label>
                 <span class="small">
-                    <field id="lymphocyte">
-                        <obs conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
+                    <field>
+                        <obs id="lymphocyte" conceptId="PIH:ABSOLUTE LYMPHOCYTE COUNT" showUnits="true"/>
                     </field>
                     <field>
                         (<obs conceptId="PIH:LYMPHOCYTES" showUnits="true"/>)
@@ -124,8 +147,8 @@
                     <uimessage code="pihcore.lab.platelets"/>
                 </label>
                 <span class="small">
-                    <field id="platelets">
-                        <obs conceptId="PIH:PLATELETS" showUnits="true"/>
+                    <field>
+                        <obs id="platelets" conceptId="PIH:PLATELETS" showUnits="true"/>
                     </field>
                 </span>
 
@@ -133,8 +156,8 @@
                     <uimessage code="pihcore.lab.esr"/>
                 </label>
                 <span class="small">
-                    <field id="esr">
-                        <obs conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
+                    <field>
+                        <obs id="esr" conceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" showUnits="true"/>
                     </field>
                 </span>
 
@@ -169,7 +192,7 @@
 
                 <label for="serum-glutamic-pyruvic-transaminase">SGPT</label>
                 <span class="small">
-                    <field id="serum-glutamic-pyruvic-transaminase">
+                    <field>
                         <obs id="serum-glutamic-pyruvic-transaminase"
                              conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" showUnits="true"/>
                     </field>
