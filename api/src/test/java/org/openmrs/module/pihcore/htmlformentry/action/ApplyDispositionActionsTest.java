@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.htmlformentry;
+package org.openmrs.module.pihcore.htmlformentry.action;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -36,7 +36,7 @@ import static org.mockito.Mockito.when;
 @Ignore
 public class ApplyDispositionActionsTest extends AuthenticatedUserTestHelper {
 
-    private ApplyDispositionActions applyDispositionActions;
+    private ApplyDispositionAction applyDispositionActions;
 
     private FormEntrySession session;
 
@@ -108,7 +108,7 @@ public class ApplyDispositionActionsTest extends AuthenticatedUserTestHelper {
         when(dispositionService.getDispositionDescriptor()).thenReturn(dispositionDescriptor);
         when(dispositionService.getDispositionFromObsGroup(deathDispositionObsGroup)).thenReturn(deathDisposition);
 
-        applyDispositionActions = new ApplyDispositionActions() {
+        applyDispositionActions = new ApplyDispositionAction() {
             @Override
             <T> T getBean(String beanId, Class<T> clazz) {
                 if (beanId.equals("dischargeIfAdmittedDispositionAction")) {

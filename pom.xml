@@ -345,7 +345,6 @@
             <scope>test</scope>
         </dependency>
 
-
         <!-- Begin OpenMRS contrib -->
 
         <dependency>

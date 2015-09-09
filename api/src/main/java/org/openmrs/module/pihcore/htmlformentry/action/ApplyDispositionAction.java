@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.htmlformentry;
+package org.openmrs.module.pihcore.htmlformentry.action;
 
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
@@ -15,7 +15,7 @@ import org.openmrs.module.htmlformentry.FormEntrySession;
  * If the saved encounter has a disposition obs group and obs, then any actions associated with that disposition will
  * be applied.
  */
-public class ApplyDispositionActions implements CustomFormSubmissionAction {
+public class ApplyDispositionAction implements CustomFormSubmissionAction {
 
     @Override
     public void applyAction(FormEntrySession session) {

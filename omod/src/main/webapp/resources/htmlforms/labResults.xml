@@ -1,6 +1,8 @@
 <htmlform formUuid="4d778ef4-0620-11e5-a6c0-1697f925ec7b" formName="Lab results"
           formEncounterType="4d77916a-0620-11e5-a6c0-1697f925ec7b" formVersion="1.0">
 
+    <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.SetObsDatesToSpecimenCollectionDateAction"/>
+
     <style type="text/css">
 
         .section-header {
