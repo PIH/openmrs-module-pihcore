@@ -15,22 +15,19 @@
             <td>Start</td>
             <td>{{ visit.startDatetime | serverDate }}</td>
             <td>
-                <date-with-popup ng-model="newStartDatetime" max-date="newStopDatetime || now"></date-with-popup>
-                {{ newStartDatetime | serverDate:"hh:mm a" }} TODO
+                <date-with-popup ng-model="newStartDatetime" min-date="startDateLowerLimit" max-date="startDateUpperLimit || now"></date-with-popup>
             </td>
         </tr>
         <tr>
             <td>End</td>
             <td>{{ visit.stopDatetime | serverDate }}</td>
             <td>
-                <date-with-popup type="text" size="20" ng-model="newStopDatetime" min-date="newStartDatetime" max-date="now"></date-with-popup>
-                {{ newStopDatetime | serverDate:"hh:mm a" }} TODO
+                <date-with-popup type="text" size="20" ng-model="newStopDatetime" min-date="endDateLowerLimit" max-date="endDateUpperLimit || now"></date-with-popup>
             </td>
         </tr>
         <tr>
             <td>Location</td>
             <td>{{ visit.location | omrs.display }}</td>
-            <td>TODO</td>
         </tr>
         </tbody>
     </table>

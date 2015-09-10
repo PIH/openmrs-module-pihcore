@@ -238,20 +238,29 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             $dialogScope.now = new Date();
                             $dialogScope.visit = $scope.visit;
                             $dialogScope.newStartDatetime = $scope.visit.startDatetime;
+                            $dialogScope.startDateLowerLimit = $scope.getVisitStartDateLowerLimit($scope.visit);
+                            $dialogScope.startDateUpperLimit = $scope.getVisitStartDateUpperLimit($scope.visit);
+                            $dialogScope.endDateLowerLimit = $scope.getVisitEndDateLowerLimit($scope.visit);
+                            $dialogScope.endDateUpperLimit = $scope.getVisitEndDateUpperLimit($scope.visit);
                             $dialogScope.newStopDatetime = $scope.visit.stopDatetime;
                             $dialogScope.newLocation = $scope.visit.location;
                         }],
                         template: "templates/visitDetailsEdit.page"
                     }).then(function(opts) {
                         // TODO this logic doesn't do the right thing if the client is in a different time zone than the server
-                        opts.start = toServerDateTime(opts.start);
-                        opts.stop = toServerDateTime(opts.stop);
+                        var startDate = new Date(opts.start);
+                        startDate.setUTCDate(startDate.getDate()); startDate.setUTCHours(0); startDate.setUTCMinutes(0); startDate.setUTCSeconds(0); startDate.setUTCMilliseconds(0);
+                        opts.start = startDate;
+                        var stopDate = new Date(opts.stop);
+                        stopDate.setUTCDate(stopDate.getDate()); stopDate.setUTCHours(23); stopDate.setUTCMinutes(59); stopDate.setUTCSeconds(59); stopDate.setUTCMilliseconds(999);
+                        opts.stop = stopDate;
                         new Visit({
                             uuid: $scope.visit.uuid,
                             startDatetime: opts.start,
                             stopDatetime: opts.stop == '' ? null : opts.stop
                         }).$save(function(v) {
-                            $scope.reloadVisit();
+                                $scope.reloadVisits();
+                                $scope.reloadVisit();
                         });
                     });
                 }
@@ -455,6 +464,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.visitUuid = visitUuid;
             $scope.patientUuid = patientUuid;
 
+            $scope.today = new Date();
+
             loadVisits(patientUuid);
             loadVisit(visitUuid);
 
@@ -481,6 +492,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:default,patient:default,visitType:ref,attributes:default)" })
                     .$promise.then(function(visit) {
                         $scope.visit = new OpenMRS.VisitModel(visit);
+                        $scope.visitIdx = $scope.getVisitIdx(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
 
                         $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
@@ -565,7 +577,73 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.reloadVisit = function() {
                     loadVisit($scope.visitUuid);
+            }
+
+            $scope.reloadVisits = function() {
+                loadVisits($scope.patientUuid);
+            }
+
+            $scope.getVisitIdx = function(visit) {
+                var idx = -1;
+                for (var i=0; i < $scope.visits.length ; i++) {
+                    if (visit.uuid == $scope.visits[i].uuid) {
+                        idx = i;
+                        break;
+                    }
                 }
+                return idx;
+            }
+
+            $scope.getVisitStartDateLowerLimit = function(visit) {
+                var lowerLimitDate = new Date(visit.startDatetime);
+                if ( $scope.visitIdx != -1 ) {
+                  if (($scope.visitIdx + 1) == $scope.visits.length) {
+                      //this is the oldest visit in the list and the there is no lower date limit
+                      return null;
+                  } else {
+                      var previousVisitStartDate = new Date($scope.visits[$scope.visitIdx + 1].endDatetime);
+                      // return the day after the end date of the previous visit in the list
+                      previousVisitStartDate.setDate(previousVisitStartDate.getDate() + 1);
+                      return previousVisitStartDate;
+                  }
+                }
+                return new Date(lowerLimitDate);
+            }
+
+            $scope.getVisitStartDateUpperLimit = function(visit) {
+                var upperLimitDate = new Date(visit.startDatetime);
+                if (visit.encounters != null && visit.encounters.length > 0) {
+                    // the visit cannot start after the date of the oldest encounter that is part of this visit
+                    return visit.encounters[visit.encounters.length -1].encounterDatetime;
+                }
+
+                return new Date(upperLimitDate);
+            }
+
+            $scope.getVisitEndDateLowerLimit = function(visit) {
+                var lowerLimitDate = new Date(visit.stopDatetime);
+                if (visit.encounters != null && visit.encounters.length > 0) {
+                    // the visit cannot end before the date of the newest encounter that is part of this visit
+                    return visit.encounters[0].encounterDatetime;
+                }
+                return new Date(lowerLimitDate);
+            }
+
+            $scope.getVisitEndDateUpperLimit = function(visit) {
+                var upperLimitDate = new Date(visit.stopDatetime);
+                if ( $scope.visitIdx != -1 ) {
+                    if ( $scope.visitIdx  == 0) {
+                        //this is the newest visit in the list and the upper date limit is today
+                        return new Date();
+                    } else {
+                        var nextVisitStartDate = new Date($scope.visits[$scope.visitIdx -1].startDatetime);
+                        // return the day before the start date of the next visit in the list
+                        nextVisitStartDate.setDate(nextVisitStartDate.getDate() -1);
+                        return nextVisitStartDate;
+                    }
+                }
+                return new Date(upperLimitDate);
+            }
 
             $scope.goToVisit = function(visit) {
                 $scope.visitUuid = visit.uuid;
