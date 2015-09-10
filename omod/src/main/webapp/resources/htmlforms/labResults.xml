@@ -36,7 +36,7 @@
 
     <!--TODO: Confirm what would go here (imaging? psych? what else?) -->
 
-    <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.blood_tests.title">
+    <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.lab_tests.title">
 
 
         <fieldset class="multi-line-confirmation" field-separator=" ">  <!-- field separator is set as a workaround for the super-hack, see below -->
