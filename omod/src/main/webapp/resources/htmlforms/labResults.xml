@@ -171,6 +171,18 @@
                         <obs id="inr" conceptId="PIH:INTERNATIONAL NORMALIZED RATIO" placeholder="Enter value"/>
                     </field>
                 </span>
+
+                <p>
+                    <label for="cd4">
+                        <uimessage code="pihcore.lab.cd4"/>
+                    </label>
+                    <span class="small">
+                        <field>
+                            <obs id="cd4" conceptId="PIH:CD4 COUNT" placeholder="Enter value"/>
+                        </field>
+                    </span>
+                </p>
+
             </p>
 
         </fieldset>
@@ -376,6 +388,7 @@
 
         </fieldset>
 
+        <!--
         <fieldset class="multi-line-confirmation">
 
             <legend>
@@ -384,19 +397,8 @@
             <h3>
                 <uimessage code="pihcore.lab.hiv.title"/>
             </h3>
-            <p>
-                <label for="cd4">
-                    <uimessage code="pihcore.lab.cd4"/>
-                </label>
-                <span class="small">
-                    <field>
-                        <obs id="cd4" conceptId="PIH:CD4 COUNT" placeholder="Enter value"/>
-                    </field>
-                </span>
-                <!-- ToDo: Add other HIV tests (ie. Viral load, PCR, ELISA, etc) -->
-            </p>
-
         </fieldset>
+        -->
 
         <fieldset class="multi-line-confirmation">
 
