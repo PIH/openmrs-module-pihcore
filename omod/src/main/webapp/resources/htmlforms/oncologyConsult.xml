@@ -18,92 +18,6 @@
           formName="Oncology Consult Note"
           formEncounterType="035fb8da-226a-420b-8d8b-3904f3bedb25" formVersion="1.0">
 
-    <translations defaultLocale="fr">
-        <code name="oncology_consult">
-            <variant locale="en" value="Oncology Consult"/>
-            <variant locale="fr" value="Consultation d'oncologie"/>
-        </code>
-        <code name="yes">
-            <variant locale="en" value="yes"/>
-            <variant locale="fr" value="oui"/>
-        </code>
-        <code name="no">
-            <variant locale="en" value="no"/>
-            <variant locale="fr" value="non"/>
-        </code>
-        <code name="location">
-            <variant locale="en" value="Location (required)"/>
-            <variant locale="fr" value="Lieu (demandé)"/>
-        </code>
-        <code name="provider">
-            <variant locale="en" value="Provider (required)"/>
-            <variant locale="fr" value="Prestataire médical (demandé)"/>
-        </code>
-        <code name="date">
-            <variant locale="en" value="Date of visit"/>
-            <variant locale="fr" value="Date de visite"/>
-        </code>
-        <code name="created_on">
-            <variant locale="en" value="Created: "/>
-            <variant locale="fr" value="Created: "/>
-        </code>
-        <code name="last_updated_on">
-            <variant locale="en" value="Last updated: "/>
-            <variant locale="fr" value="Last updated: "/>
-        </code>
-        <code name="printed_on">
-            <variant locale="en" value="Printed: "/>
-            <variant locale="fr" value="Printed: "/>
-        </code>
-        <code name="visit_type">
-            <variant locale="en" value="Visit type"/>
-            <variant locale="fr" value="Type de visite"/>
-        </code>
-        <code name="hpi">
-            <variant locale="en" value="History of presenting illness"/>
-            <variant locale="fr" value="Complaintes actuelles"/>
-        </code>
-        <code name="ecog_perf_status">
-            <variant locale="en" value="ECOG"/>
-            <variant locale="fr" value="ECOG"/>
-        </code>
-        <code name="disease_status">
-            <variant locale="en" value="Disease Status"/>
-            <variant locale="fr" value="L'état de la maladie"/>
-        </code>
-        <code name="consult">
-            <variant locale="en" value="Consult"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Consult"/>
-        </code>
-        <code name="other">
-            <variant locale="en" value="Other:"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Other:"/>
-        </code>
-        <code name="history">
-            <variant locale="en" value="History"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="History**"/>
-        </code>
-        <code name="latestobs_dx">
-            <variant locale="en" value="Diagnosis:"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Diagnosis:**"/>
-        </code>
-        <code name="latestobs_stage">
-            <variant locale="en" value="Stage:"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Stage:**"/>
-        </code>
-        <code name="latestobs_plan">
-            <variant locale="en" value="Patient Plan:"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Patient Plan:**"/>
-        </code>
-
-    </translations>
-
     <style type="text/css">
 
         #who-when-where {
@@ -193,13 +107,13 @@
 
 
     <div class="print-form-datestamps" style="display:none">
-        <p><uimessage code="created_on"/>:
+        <p><uimessage code="pihcore.form.created_on"/>:
             <lookup complexExpression="$form.dateCreated"/>
         </p>
-        <p><uimessage code="last_updated_on"/>:
+        <p><uimessage code="pihcore.form.last_updated_on"/>:
             <lookup complexExpression="$form.dateChanged"/>
         </p>
-        <p><uimessage code="printed_on"/>:
+        <p><uimessage code="pihcore.form.printed_on"/>:
             <lookup complexExpression="$formGeneratedDatetime"/>
         </p>
     </div>
@@ -207,7 +121,7 @@
     <ifMode mode="VIEW" include="false">
         <h2>
             <label>
-                <uimessage code="oncology_consult"/>
+                <uimessage code="pihcore.oncologyConsult.title"/>
             </label>
         </h2>
 
@@ -320,17 +234,17 @@
         </includeIf>
     </ifMode>
 
-    <section id="consult" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="consult">
+    <section id="consult" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.oncologyConsult.consult">
         <div class="section-container">
             <p>
                 <label>
-                    <uimessage code="hpi"/>
+                    <uimessage code="pihcore.oncologyConsult.hpi"/>
                 </label>
                 <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" rows="3" cols="80"/>
             </p>
             <p>
                 <label>
-                    <uimessage code="disease_status"/>
+                    <uimessage code="pihcore.oncologyConsult.disease_status"/>
                 </label>
                 <obs conceptId="CIEL:163050" style="dropdown"
                      answerConceptIds="CIEL:163051,CIEL:163052,CIEL:163053,CIEL:163054,CIEL:163055,CIEL:163056,PIH:1067,PIH:5622"/>
@@ -338,7 +252,7 @@
             <div>
                 <div class="column_narrow">
                     <label>
-                        <uimessage code="ecog_perf_status"/>
+                        <uimessage code="pihcore.oncologyConsult.ecog_perf_status"/>
                     </label>
                     <span class="small">
                         <obs conceptId="CIEL:160379"/>
@@ -350,44 +264,32 @@
                         <br/>
                         <table align="left" class="muted-header" style="font-size:small">
                             <tr>
-                                <th>Grade</th>
-                                <th>ECOG Performance Status</th>
+                                <th><uimessage code="pihcore.oncologyConsult.grade"/></th>
+                                <th><uimessage code="pihcore.oncologyConsult.ecog_performance_status"/></th>
                             </tr>
                             <tr>
                                 <td>0</td>
-                                <td>Fully active, able to carry on all pre-disease performance without restriction</td>
+                                <td><uimessage code="pihcore.oncologyConsult.performance_status_0"/></td>
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td>Restricted in physically strenuous activity but ambulatory and able to carry out
-                                    work of
-                                    a
-                                    light or sedentary nature, e.g., light house work, office work
-                                </td>
+                                <td><uimessage code="pihcore.oncologyConsult.performance_status_1"/></td>
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td>Ambulatory and capable of all selfcare but unable to carry out any work activities;
-                                    up
-                                    and
-                                    about more than 50% of waking hours
-                                </td>
+                                <td><uimessage code="pihcore.oncologyConsult.performance_status_2"/></td>
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td>Capable of only limited selfcare; confined to bed or chair more than 50% of waking
-                                    hours
-                                </td>
+                                <td><uimessage code="pihcore.oncologyConsult.performance_status_3"/></td>
                             </tr>
                             <tr>
                                 <td>4</td>
-                                <td>Completely disabled; cannot carry on any selfcare; totally confined to bed or
-                                    chair
-                                </td>
+                                <td><uimessage code="pihcore.oncologyConsult.performance_status_4"/></td>
                             </tr>
                             <tr>
                                 <td>5</td>
-                                <td>Dead</td>
+                                <td><uimessage code="pihcore.oncologyConsult.performance_status_5"/></td>
                             </tr>
                         </table>
                     </div>

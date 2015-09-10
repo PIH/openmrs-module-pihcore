@@ -17,90 +17,6 @@
           formName="Oncology Intake"
           formEncounterType="f9cfdf8b-d086-4658-9b9d-45a62896da03" formVersion="1.0">
 
-    <translations defaultLocale="fr">
-        <code name="oncology_intake">
-            <variant locale="en" value="Oncology Intake"/>
-	    <!-- ToDo: Translate -->
-            <variant locale="fr" value="Intake d'oncologie"/>
-        </code>
-        <code name="yes">
-            <variant locale="en" value="yes"/>
-            <variant locale="fr" value="oui"/>
-        </code>
-        <code name="no">
-            <variant locale="en" value="no"/>
-            <variant locale="fr" value="non"/>
-        </code>
-        <code name="location">
-            <variant locale="en" value="Location (required)"/>
-            <variant locale="fr" value="Lieu (demandé)"/>
-        </code>
-        <code name="provider">
-            <variant locale="en" value="Provider (required)"/>
-            <variant locale="fr" value="Prestataire médical (demandé)"/>
-        </code>
-        <code name="date">
-            <variant locale="en" value="Date of visit"/>
-            <variant locale="fr" value="Date de visite"/>
-        </code>
-        <code name="created_on">
-            <variant locale="en" value="Created: "/>
-            <variant locale="fr" value="Created: "/>
-        </code>
-        <code name="last_updated_on">
-            <variant locale="en" value="Last updated: "/>
-            <variant locale="fr" value="Last updated: "/>
-        </code>
-        <code name="printed_on">
-            <variant locale="en" value="Printed: "/>
-            <variant locale="fr" value="Printed: "/>
-        </code>
-        <code name="visit_type">
-            <variant locale="en" value="Visit type"/>
-            <variant locale="fr" value="Type de visite"/>
-        </code>
-        <code name="patient_plan">
-            <variant locale="en" value="Patient Plan"/>
-            <variant locale="fr" value="Régime des patients"/>
-        </code>
-        <code name="diagnosis">
-            <variant locale="en" value="Diagnosis"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Diagnosis"/>
-        </code>
-        <code name="confirmed_diagnosis">
-            <variant locale="en" value="Confirmed diagnosis"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Confirmed diagnosis"/>
-        </code>
-        <code name="other">
-            <variant locale="en" value="Other:"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Other:"/>
-        </code>
-        <code name="cancer_stage">
-            <variant locale="en" value="Cancer Staging"/>
-            <variant locale="fr" value="Stadification du cancer"/>
-        </code>
-        <code name="patient_plan_details">
-            <variant locale="en" value="Patient Plan"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Patient Plan"/>
-        </code>
-        <code name="patient_plan_details">
-            <variant locale="en" value="Patient Plan"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Patient Plan"/>
-        </code>
-        <code name="patient_plan_details">
-            <variant locale="en" value="Patient Plan"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Patient Plan"/>
-        </code>
-
-
-    </translations>
-
     <style type="text/css">
 
         #who-when-where {
@@ -240,13 +156,13 @@
     </ifMode>
 
     <div class="print-form-datestamps" style="display:none">
-        <p><uimessage code="created_on"/>:
+        <p><uimessage code="pih.form.created_on"/>:
             <lookup complexExpression="$form.dateCreated"/>
         </p>
-        <p><uimessage code="last_updated_on"/>:
+        <p><uimessage code="pih.form.last_updated_on"/>:
             <lookup complexExpression="$form.dateChanged"/>
         </p>
-        <p><uimessage code="printed_on"/>:
+        <p><uimessage code="pih.form.printed_on"/>:
             <lookup complexExpression="$formGeneratedDatetime"/>
         </p>
     </div>
@@ -254,7 +170,7 @@
     <ifMode mode="VIEW" include="false">
         <h2>
             <label>
-                <uimessage code="oncology_intake"/>
+                <uimessage code="pihcore.oncologyIntake.title"/>
             </label>
         </h2>
 
@@ -367,11 +283,11 @@
         </includeIf>
       </ifMode>
 
-    <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="diagnosis">
+    <section id="diagnosis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.oncologyIntake.diagnosis">
         <div class="section-container">
             <p>
                 <label>
-                    <uimessage code="confirmed_diagnosis"/>
+                    <uimessage code="pihcore.oncologyIntake.confirmed_diagnosis"/>
                 </label>
             </p>
             <!-- TODO: right labels -->
@@ -407,13 +323,13 @@
             </p>
             <p>
                 <label>
-                    <uimessage code="cancer_stage"/>
+                    <uimessage code="pihcore.oncologyIntake.cancer_stage"/>
                 </label>
                 <obs conceptId="CIEL:160786" answerConceptIds="CIEL:160769,CIEL:160771,CIEL:160774,CIEL:160778,CIEL:160782"/>
             </p>
             <p>
                 <label>
-                    <uimessage code="patient_plan_details"/>
+                    <uimessage code="pihcore.oncologyIntake.patient_plan_details"/>
                 </label>
                 <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="3" cols="80"/>
             </p>

@@ -17,110 +17,6 @@
           formName="Oncology Chemotherapy Treatment Session"
           formEncounterType="828964fa-17eb-446e-aba4-e940b0f4be5b" formVersion="1.0">
 
-    <translations defaultLocale="fr">
-        <code name="chemo_tx_session">
-            <variant locale="en" value="Chemotherapy Treatment Session"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Chemotherapy Treatment Session"/>
-        </code>
-        <code name="yes">
-            <variant locale="en" value="yes"/>
-            <variant locale="fr" value="oui"/>
-        </code>
-        <code name="no">
-            <variant locale="en" value="no"/>
-            <variant locale="fr" value="non"/>
-        </code>
-        <code name="location">
-            <variant locale="en" value="Location (required)"/>
-            <variant locale="fr" value="Lieu (demandé)"/>
-        </code>
-        <code name="provider">
-            <variant locale="en" value="Provider (required)"/>
-            <variant locale="fr" value="Prestataire médical (demandé)"/>
-        </code>
-        <code name="date">
-            <variant locale="en" value="Date of visit"/>
-            <variant locale="fr" value="Date de visite"/>
-        </code>
-        <code name="created_on">
-            <variant locale="en" value="Created: "/>
-            <variant locale="fr" value="Created: "/>
-        </code>
-        <code name="last_updated_on">
-            <variant locale="en" value="Last updated: "/>
-            <variant locale="fr" value="Last updated: "/>
-        </code>
-        <code name="printed_on">
-            <variant locale="en" value="Printed: "/>
-            <variant locale="fr" value="Printed: "/>
-        </code>
-        <code name="visit_type">
-            <variant locale="en" value="Visit type"/>
-            <variant locale="fr" value="Type de visite"/>
-        </code>
-        <code name="chemotherapy_protocol">
-            <variant locale="en" value="Chemotherapy protocol"/>
-            <variant locale="fr" value="Protocole de chimiothérapie"/>
-        </code>
-        <code name="chemo_cycle_number">
-            <variant locale="en" value="Cycle number"/>
-            <variant locale="fr" value="Nombre de cycles"/>
-        </code>
-        <code name="reason_no_chemo">
-            <variant locale="en"
-                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr"
-                     value="If the patient didn't receive chemotherapy at visit today, as planned, why not?**"/>
-        </code>
-        <code name="chemo_side_effects">
-            <variant locale="en" value="Chemotherapy side effects"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Chemotherapy side effects**"/>
-        </code>
-        <code name="treatment">
-            <variant locale="en" value="Treatment"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Treatment"/>
-        </code>
-        <code name="tx_received">
-            <variant locale="en" value="Treatment received today"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Treatment received today"/>
-        </code>
-        <code name="tx_tolerated">
-            <variant locale="en" value="Patient tolerated treatment"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Patient tolerated treatment"/>
-        </code>
-        <code name="chemo_side_effects">
-            <variant locale="en" value="Chemotherapy side effects"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Chemotherapy side effects**"/>
-        </code>
-        <code name="pain_scale">
-            <variant locale="en" value="Pain scale (0 = no pain; 10 = worst)"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Douleur"/>
-        </code>
-        <code name="pain_details">
-            <variant locale="en" value="Pain Details"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Pain Details**"/>
-        </code>
-        <code name="patient_plan">
-            <variant locale="en" value="Patient Plan"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Patient Plan**"/>
-        </code>
-        <code name="important_visit_info">
-            <variant locale="en" value="Important visit information"/>
-            <!-- Todo: Translate -->
-            <variant locale="fr" value="Important visit information**"/>
-        </code>
-    </translations>
-
     <style type="text/css">
 
         #who-when-where {
@@ -192,13 +88,13 @@
 
 
     <div class="print-form-datestamps" style="display:none">
-        <p><uimessage code="created_on"/>:
+        <p><uimessage code="pihcore.form.created_on"/>:
             <lookup complexExpression="$form.dateCreated"/>
         </p>
-        <p><uimessage code="last_updated_on"/>:
+        <p><uimessage code="pihcore.form.last_updated_on"/>:
             <lookup complexExpression="$form.dateChanged"/>
         </p>
-        <p><uimessage code="printed_on"/>:
+        <p><uimessage code="pihcore.form.printed_on"/>:
             <lookup complexExpression="$formGeneratedDatetime"/>
         </p>
     </div>
@@ -206,7 +102,7 @@
     <ifMode mode="VIEW" include="false">
         <h2>
             <label>
-                <uimessage code="chemo_tx_session"/>
+                <uimessage code="pihcore.chemo.chemo_tx_session"/>
             </label>
         </h2>
 
@@ -319,11 +215,11 @@
         </includeIf>
     </ifMode>
 
-    <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="treatment">
+    <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.chemo.treatment">
         <div class="section-container">
             <p>
                 <label>
-                    <uimessage code="chemotherapy_protocol"/>
+                    <uimessage code="pihcore.chemo.chemotherapy_protocol"/>
                 </label>
                 <obs conceptId="CIEL:163073" answerConceptId="CIEL:163060"/>
                 <obs conceptId="CIEL:163073" answerConceptId="CIEL:163061"/>
@@ -347,7 +243,7 @@
                 <br/>
 
                 <label>
-                    <uimessage code="chemo_cycle_number"/>
+                    <uimessage code="pihcore.chemo.chemo_cycle_number"/>
                 </label>
                 <span class="small">
                     <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER"/>
@@ -358,7 +254,7 @@
 
                 <p class="radio">
                     <label>
-                        <uimessage code="tx_received"/>
+                        <uimessage code="pihcore.chemo.tx_received"/>
                     </label>
                     <obs conceptId="PIH:Chemotherapy treatment received" style="radio"
                          answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
@@ -367,7 +263,7 @@
 
                 <p class="radio">
                     <label>
-                        <uimessage code="tx_tolerated"/>
+                        <uimessage code="pihcore.chemo.tx_tolerated"/>
                     </label>
                     <obs conceptId="PIH:Chemotherapy treatment tolerated" style="radio"
                          answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
@@ -376,7 +272,7 @@
                 <br/>
 
                 <label>
-                    <uimessage code="chemo_side_effects"/>
+                    <uimessage code="pihcore.chemo.chemo_side_effects"/>
                 </label>
                 <obs conceptId="CIEL:163075" answerConceptId="PIH:NONE"/>
                 <obs conceptId="CIEL:163075" answerConceptId="PIH:FATIGUE"/>
@@ -397,17 +293,17 @@
                      commentFieldLabel=" "/>
                 <br/>
                 <label>
-                    <uimessage code="pain_scale"/>
+                    <uimessage code="pihcore.chemo.pain_scale"/>
                 </label>
                 <obs conceptId="PIH:PAIN SCALE OF 0 TO 10" style="dropdown" answers="0,1,2,3,4,5,6,7,8,9,10"/>
                 <br/>
                 <label>
-                    <uimessage code="pain_details"/>
+                    <uimessage code="pihcore.chemo.pain_details"/>
                 </label>
                 <obs conceptId="CIEL:163077"/>
                 <br/>
                 <label>
-                    <uimessage code="patient_plan"/>
+                    <uimessage code="pihcore.chemo.patient_plan"/>
                 </label>
                 <p class="radio">
                     <obs conceptId="CIEL:163059" style="radio"
@@ -417,7 +313,7 @@
                 </p>
                 <br/>
                 <label>
-                    <uimessage code="important_visit_info"/>
+                    <uimessage code="pihcore.chemo.important_visit_info"/>
                 </label>
                 <obs conceptId="CIEL:162749"/>
 
