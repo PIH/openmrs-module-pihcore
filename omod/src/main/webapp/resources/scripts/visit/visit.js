@@ -569,10 +569,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.getVisitIdx = function(visit) {
                 var idx = -1;
-                for (var i=0; i < $scope.visits.length ; i++) {
-                    if (visit.uuid == $scope.visits[i].uuid) {
-                        idx = i;
-                        break;
+                if (visit != null && typeof $scope.visits !== "undefined" && $scope.visits != null && $scope.visits.length > 0 ) {
+                    for (var i=0; i < $scope.visits.length ; i++) {
+                        if (visit.uuid == $scope.visits[i].uuid) {
+                            idx = i;
+                            break;
+                        }
                     }
                 }
                 return idx;
@@ -585,10 +587,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                       //this is the oldest visit in the list and the there is no lower date limit
                       return null;
                   } else {
-                      var previousVisitStartDate = new Date($scope.visits[$scope.visitIdx + 1].endDatetime);
+                      var previousVisitEndDate = new Date($scope.visits[$scope.visitIdx + 1].stopDatetime);
                       // return the day after the end date of the previous visit in the list
-                      previousVisitStartDate.setDate(previousVisitStartDate.getDate() + 1);
-                      return previousVisitStartDate;
+                      previousVisitEndDate.setDate(previousVisitEndDate.getDate() + 1);
+                      return previousVisitEndDate;
                   }
                 }
                 return new Date(lowerLimitDate);
