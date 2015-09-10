@@ -31,6 +31,8 @@ public class LocationTagBundle extends PihMetadataBundle {
         install(LocationTags.REGISTRATION_LOCATION);
         install(LocationTags.ED_REGISTRATION_LOCATION);
         install(LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION);
+        install(LocationTags.ONCOLOGY_CONSULT_LOCATION);
+        install(LocationTags.CHEMOTHERAPY_LOCATION);
 
         log.info("Retiring old LocationTags");
 

@@ -182,7 +182,15 @@ public class LocationTagSetup {
             MirebalaisLocations.POST_OP_GYN
         ));
 
-        // TODO: update the following tags to remove unnecessary/unsupported CDI locations
+        setLocationTagsFor(locationService, LocationTags.ONCOLOGY_CONSULT_LOCATION, Arrays.asList(
+            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.CHEMOTHERAPY_LOCATION, Arrays.asList(
+                MirebalaisLocations.CHEMOTHERAPY
+        ));
+
+        // TODO: update the following tags to remove unnecessary/unsupported CDI locations (has this been done already?)
 
         setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, Arrays.asList(
             MirebalaisLocations.ANTEPARTUM_WARD,
