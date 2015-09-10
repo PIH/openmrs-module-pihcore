@@ -214,18 +214,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
     // this is not a reusable directive, and it does not have an isolate scope
     .directive("visitDetails", [ "Visit", "ngDialog", function(Visit, ngDialog) {
-
-        // handles Date or String as input
-        function toServerDateTime(clientDateTime) {
-            if (!clientDateTime) {
-                return null;
-            }
-            if (typeof clientDateTime == "object") {
-                clientDateTime = clientDateTime.toISOString();
-            }
-            return clientDateTime.substring(0, 23);
-        }
-
         return {
             restrict: 'E',
             controller: function($scope) {
@@ -248,16 +236,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         template: "templates/visitDetailsEdit.page"
                     }).then(function(opts) {
                         // TODO this logic doesn't do the right thing if the client is in a different time zone than the server
-                        var startDate = new Date(opts.start);
-                        startDate.setUTCDate(startDate.getDate()); startDate.setUTCHours(0); startDate.setUTCMinutes(0); startDate.setUTCSeconds(0); startDate.setUTCMilliseconds(0);
-                        opts.start = startDate;
-                        var stopDate = new Date(opts.stop);
-                        stopDate.setUTCDate(stopDate.getDate()); stopDate.setUTCHours(23); stopDate.setUTCMinutes(59); stopDate.setUTCSeconds(59); stopDate.setUTCMilliseconds(999);
-                        opts.stop = stopDate;
+                        var start = emr.formatDatetimeForREST(moment(opts.start).startOf('day'));
+                        var stop = opts.stop ? emr.formatDatetimeForREST(moment(opts.stop).endOf('day')) : null;
                         new Visit({
                             uuid: $scope.visit.uuid,
-                            startDatetime: opts.start,
-                            stopDatetime: opts.stop == '' ? null : opts.stop
+                            startDatetime: start,
+                            stopDatetime: stop
                         }).$save(function(v) {
                                 $scope.reloadVisits();
                                 $scope.reloadVisit();
