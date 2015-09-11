@@ -17,6 +17,8 @@ package org.openmrs.module.pihcore.metadata.core;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.pihcore.descriptor.LocationTagDescriptor;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
+import org.openmrs.module.registrationcore.RegistrationCoreConstants;
+
 import java.lang.String;
 
 /**
@@ -35,6 +37,12 @@ public class LocationTags {
 		public String name() { return PaperRecordConstants.LOCATION_TAG_ARCHIVES_LOCATION; }
 		public String description() { return "A location that serves as an archives for storing medical records"; }
 	};
+
+    public static LocationTagDescriptor PRIMARY_IDENTIFIER_LOCATION = new LocationTagDescriptor() {
+        public String uuid() { return "4f8bb500-58bc-11e5-a837-0800200c9a66"; }
+        public String name() { return RegistrationCoreConstants.LOCATION_TAG_PRIMARY_IDENTIFIER_LOCATION; }
+        public String description() { return "A location that that can be associated with a primary identifier"; }
+    };
 
 	public static LocationTagDescriptor LOGIN_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "b8bbf83e-645f-451f-8efe-a0db56f09676"; }
