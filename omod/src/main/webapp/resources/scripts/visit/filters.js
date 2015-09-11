@@ -219,6 +219,47 @@ angular.module("filters", [ "uicommons.filters", "constants" ])
         }
     }])
 
+    .filter("admissionShort", [ "omrs.displayFilter", "Concepts", function(displayFilter, Concepts) {
+        return function(group) {
+            if (!group) {
+                return "";
+            }
+            var coded = _.find(group.groupMembers, function(it) {
+                return it.concept.uuid == Concepts.codedDiagnosis.uuid;
+            });
+
+            var nonCoded = _.find(group.groupMembers, function(it) {
+                return it.concept.uuid == Concepts.nonCodedDiagnosis.uuid;
+            });
+
+            var order = _.find(group.groupMembers, function(it) {
+                return it.concept.uuid == Concepts.diagnosisOrder.uuid;
+            })
+
+            var certainty = _.find(group.groupMembers, function(it) {
+                return it.concept.uuid == Concepts.diagnosisCertainty.uuid;
+            }) ;
+
+            var returnStr = "";
+            if (order) {
+                returnStr =  displayFilter(order.value);
+            }
+            if (certainty) {
+                returnStr = returnStr + " (" + displayFilter(certainty.value) + ") ";
+            }
+
+            if (coded) {
+                returnStr = returnStr + displayFilter(coded.value);
+            } else if(nonCoded) {
+                returnStr = returnStr + nonCoded.value;
+            } else {
+                return null;
+            }
+
+            return returnStr;
+        }
+    }])
+
 
     // if val is not empty, we return before + val + after
     .filter("wrapWith", [ function() {

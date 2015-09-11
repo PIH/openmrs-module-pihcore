@@ -95,9 +95,7 @@ angular.module("visit-templates", ["constants"])
         };
         encounterTypeConfig[EncounterTypes.admission.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
-            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            shortTemplate: "templates/encounters/admissionShort.page",
             icon: "icon-signin",
             editUrl: hfeStandardEditUrl
         };
@@ -112,7 +110,6 @@ angular.module("visit-templates", ["constants"])
         encounterTypeConfig[EncounterTypes.exitFromCare.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
             templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
             icon: "icon-signout",
             editUrl: hfeStandardEditUrl

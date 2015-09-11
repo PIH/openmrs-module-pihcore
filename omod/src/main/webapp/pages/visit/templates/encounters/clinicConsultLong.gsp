@@ -11,9 +11,9 @@
         {{ diag | diagnosisLong }}
     </div>
 
-    <div ng-show="orders && orders.length">
+    <div ng-show="encounter.orders && encounter.orders.length">
         <h5>${ ui.message('pihcore.orders') }:</h5>
-        <p ng-repeat="order in orders | orderBy:'dateActivated'" class="aligned">
+        <p ng-repeat="order in encounter.orders | orderBy:'dateActivated'" class="aligned">
             {{ order.dateActivated | serverDate:dateFormat }}
             {{ order | orderInstructions }}
         </p>
