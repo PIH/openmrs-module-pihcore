@@ -38,10 +38,10 @@ public class LocationTags {
 		public String description() { return "A location that serves as an archives for storing medical records"; }
 	};
 
-    public static LocationTagDescriptor PRIMARY_IDENTIFIER_LOCATION = new LocationTagDescriptor() {
+    public static LocationTagDescriptor IDENTIFIER_ASSIGNMENT_LOCATION = new LocationTagDescriptor() {
         public String uuid() { return "4f8bb500-58bc-11e5-a837-0800200c9a66"; }
-        public String name() { return RegistrationCoreConstants.LOCATION_TAG_PRIMARY_IDENTIFIER_LOCATION; }
-        public String description() { return "A location that that can be associated with a primary identifier"; }
+        public String name() { return RegistrationCoreConstants.LOCATION_TAG_IDENTIFIER_ASSIGNMENT_LOCATION; }
+        public String description() { return "A location that that can be associated with a patient identifier"; }
     };
 
 	public static LocationTagDescriptor LOGIN_LOCATION = new LocationTagDescriptor() {

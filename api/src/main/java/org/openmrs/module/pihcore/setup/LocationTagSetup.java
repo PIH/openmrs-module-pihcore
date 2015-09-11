@@ -70,7 +70,7 @@ public class LocationTagSetup {
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL
         ));
 
-        setLocationTagsFor(locationService, LocationTags.PRIMARY_IDENTIFIER_LOCATION, Arrays.asList(
+        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, Arrays.asList(
             MirebalaisLocations.MIREBALAIS_HOSPITAL,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL
         ));

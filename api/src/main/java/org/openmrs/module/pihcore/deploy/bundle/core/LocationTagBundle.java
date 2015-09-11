@@ -16,7 +16,7 @@ public class LocationTagBundle extends PihMetadataBundle {
         install(LocationTags.LOGIN_LOCATION);
         install(LocationTags.MEDICAL_RECORD_LOCATION);
         install(LocationTags.ARCHIVES_LOCATION);
-        install(LocationTags.PRIMARY_IDENTIFIER_LOCATION);
+        install(LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION);
         install(LocationTags.VISIT_LOCATION);
         install(LocationTags.ADMISSION_LOCATION);
         install(LocationTags.TRANSFER_LOCAITON);
