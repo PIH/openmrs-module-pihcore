@@ -16,8 +16,6 @@ package org.openmrs.module.pihcore.metadata.haiti.mirebalais;
 
 import org.openmrs.module.pihcore.descriptor.LocationAttributeDescriptor;
 import org.openmrs.module.pihcore.descriptor.LocationDescriptor;
-import org.openmrs.module.pihcore.descriptor.LocationTagDescriptor;
-import org.openmrs.module.pihcore.metadata.core.LocationTags;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -35,7 +33,6 @@ public class MirebalaisLocations {
 		public String name() { return "Mirebalais"; }
 		public String description() { return "Mirebalais"; }
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.MIREBALAIS_CDI_PARENT_NAME_TO_PRINT_ON_ID_CARD); }
-		public List<LocationTagDescriptor> tags() { return Collections.singletonList(LocationTags.VISIT_LOCATION); }
 	};
 
 	//***** MIREBALAIS LOCATIONS *****
@@ -46,7 +43,6 @@ public class MirebalaisLocations {
 		public String description() { return "Mirebalais (MoH code 62101)"; }
 		public LocationDescriptor parent() { return MirebalaisLocations.MIREBALAIS_CDI_PARENT; }
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.MIREBALAIS_HOSPITAL_NAME_TO_PRINT_ON_ID_CARD); }
-		public List<LocationTagDescriptor> tags() { return Collections.singletonList(LocationTags.MEDICAL_RECORD_LOCATION); }
 	};
 
 	public static LocationDescriptor ANTEPARTUM_WARD = new LocationDescriptor() {
@@ -71,7 +67,6 @@ public class MirebalaisLocations {
 		public String description() { return "Central Archives room at Mirebalais Hospital"; }
 		public LocationDescriptor parent() { return MirebalaisLocations.MIREBALAIS_HOSPITAL; }
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.CENTRAL_ARCHIVES_LOCATION_CODE); }
-		public List<LocationTagDescriptor> tags() { return Collections.singletonList(LocationTags.ARCHIVES_LOCATION); }
 	};
 
 	public static LocationDescriptor CHEMOTHERAPY = new LocationDescriptor() {
@@ -354,7 +349,6 @@ public class MirebalaisLocations {
 		public String description() { return "CDI Klinik Ekstèn Jeneral"; }
 		public LocationDescriptor parent() { return MirebalaisLocations.MIREBALAIS_CDI_PARENT; }
 		public List<LocationAttributeDescriptor> attributes() { return Arrays.asList(MirebalaisLocationAttributes.CDI_KLINIK_EKSTEN_JENERAL_LOCATION_CODE, MirebalaisLocationAttributes.CDI_KLINIK_EKSTEN_JENERAL_NAME_TO_PRINT_ON_ID_CARD); }
-		public List<LocationTagDescriptor> tags() { return Collections.singletonList(LocationTags.MEDICAL_RECORD_LOCATION); }
 	};
 
 	public static LocationDescriptor CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL = new LocationDescriptor() {
@@ -363,7 +357,6 @@ public class MirebalaisLocations {
 		public String description() { return "CDI Klinik Ekstèn Jeneral Achiv Santral"; }
 		public LocationDescriptor parent() { return MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL; }
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL_LOCATION_CODE); }
-		public List<LocationTagDescriptor> tags() { return Collections.singletonList(LocationTags.ARCHIVES_LOCATION); }
 	};
 
 	public static LocationDescriptor CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU = new LocationDescriptor() {

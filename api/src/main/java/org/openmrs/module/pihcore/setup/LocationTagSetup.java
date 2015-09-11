@@ -61,6 +61,21 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForMirebalais(LocationService locationService) {
 
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(
+            MirebalaisLocations.MIREBALAIS_CDI_PARENT
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(
+            MirebalaisLocations.MIREBALAIS_HOSPITAL,
+            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL
+
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, Arrays.asList(
+            MirebalaisLocations.CENTRAL_ARCHIVES,
+            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL
+        ));
+
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(
             MirebalaisLocations.CLINIC_REGISTRATION,
             MirebalaisLocations.EMERGENCY_DEPARTMENT_RECEPTION,
