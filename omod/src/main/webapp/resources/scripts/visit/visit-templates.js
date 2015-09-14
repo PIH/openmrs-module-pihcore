@@ -110,7 +110,6 @@ angular.module("visit-templates", ["constants"])
         encounterTypeConfig[EncounterTypes.exitFromCare.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
             icon: "icon-signout",
             editUrl: hfeStandardEditUrl
         };
