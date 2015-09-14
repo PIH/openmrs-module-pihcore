@@ -47,6 +47,9 @@ public class ConfigDescriptor {
     private Boolean scheduleBackupReports; // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleBackupReports method in Mirebalais Module Activator), generally this should only be turned on on production
 
     @JsonProperty
+    private Boolean scheduleMonthlyDataExports; // whether or not to schedule the full data export to run monthly on the 5th of each month
+
+    @JsonProperty
     private RegistrationConfigDescriptor registrationConfig;
 
     public String getWelcomeMessage() {
@@ -118,6 +121,14 @@ public class ConfigDescriptor {
 
     public void setScheduleBackupReports(Boolean scheduleBackupReports) {
         this.scheduleBackupReports = scheduleBackupReports;
+    }
+
+    public Boolean getScheduleMonthlyDataExports() {
+        return scheduleMonthlyDataExports;
+    }
+
+    public void setScheduleMonthlyDataExports(Boolean scheduleMonthlyDataExports) {
+        this.scheduleMonthlyDataExports = scheduleMonthlyDataExports;
     }
 
     public RegistrationConfigDescriptor getRegistrationConfig() {

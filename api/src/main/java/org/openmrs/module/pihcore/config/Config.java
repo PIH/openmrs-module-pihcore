@@ -60,6 +60,10 @@ public class Config {
         return descriptor.getScheduleBackupReports() != null ? descriptor.getScheduleBackupReports() : false;
     }
 
+    public Boolean shouldScheduleMonthlyDataExports() {
+        return descriptor.getScheduleMonthlyDataExports() != null ? descriptor.getScheduleMonthlyDataExports() : false;
+    }
+
     public RegistrationConfigDescriptor getRegistrationConfig() {
         return descriptor.getRegistrationConfig();
     }
