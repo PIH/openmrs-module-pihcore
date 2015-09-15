@@ -1,4 +1,4 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "providerService", "obsService",
+angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService",
     "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "orderEntry", "ngDialog", "appFramework",
     "configService", 'pascalprecht.translate'])
 
