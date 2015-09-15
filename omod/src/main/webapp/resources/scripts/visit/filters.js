@@ -232,7 +232,7 @@ angular.module("filters", [ "uicommons.filters", "constants" ])
     }])
 
     .filter('allowedWithContext', [ "SessionInfo", function(SessionInfo) {
-        return function(extensionList, context) {
+        return function(extensionList, visit, context) {
 
             var util = {
                 hasMemberWithProperty: function(list, prop, val) {
