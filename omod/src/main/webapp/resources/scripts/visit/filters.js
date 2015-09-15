@@ -231,6 +231,53 @@ angular.module("filters", [ "uicommons.filters", "constants" ])
         }
     }])
 
+    .filter('getProviderNameFromDisplayString', function() {
+        return function(input) {
+            if (input) {
+                var name = input.split(" - ");
+                return (name != null) ? name[name.length -1] : input;
+            }
+            return "";
+        }
+    })
+
+    .filter('encounterRole', function() {
+        var displayOne = function(input, prefix) {
+            if (input && input.provider && input.provider.display) {
+                return input.provider.display;
+            }
+            return "";
+        }
+
+        var getPrimaryProvider = function(input, primaryEncounterRoleUuid) {
+            if (angular.isArray(input)) {
+                if (input.length > 0) {
+                    _.each(input, function( key, value ) {
+                        if (key.encounterRole && (key.encounterRole.uuid == primaryEncounterRoleUuid)) {
+                            return key;
+                        }
+                    });
+                }
+                return input[0];
+            }
+            return input;
+        }
+
+        return function(input, primaryEncounterRoleUuid, prefix) {
+            if (angular.isArray(input)) {
+                if (primaryEncounterRoleUuid) {
+                    return displayOne(getPrimaryProvider(input), prefix);
+                }
+                return _.map(input, function(item) {
+                    return displayOne(item, prefix);
+                })[0];
+            }
+            else {
+                return displayOne(input, prefix);
+            }
+        }
+    })
+
     .filter('allowedWithContext', [ "SessionInfo", function(SessionInfo) {
         return function(extensionList, visit, context) {
 

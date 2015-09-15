@@ -232,6 +232,12 @@ angular.module('constants', [])
 
     })
 
+    .value('EncounterRoles', {
+        attendingSurgeon: {
+            uuid: "9b135b19-7ebe-4a51-aea2-69a53f9383af"
+        }
+    })
+
     .value('VisitAttributeTypes', {
         visitTemplate: {
             uuid: "f7b07c80-27c3-49de-8830-cb9e3e805eeb"

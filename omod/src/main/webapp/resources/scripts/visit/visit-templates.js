@@ -1,6 +1,6 @@
 angular.module("visit-templates", ["constants"])
 
-    .factory("VisitTemplates", [ "EncounterTypes", function(EncounterTypes) {
+    .factory("VisitTemplates", [ "EncounterTypes", "EncounterRoles", function(EncounterTypes, EncounterRoles) {
         var hfeSimpleEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}";
         var hfeStandardEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}";
 
@@ -82,6 +82,7 @@ angular.module("visit-templates", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
             templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            primaryEncounterRoleUuid: EncounterRoles.attendingSurgeon.uuid,
             icon: "icon-paste",
             editUrl: hfeStandardEditUrl
         };

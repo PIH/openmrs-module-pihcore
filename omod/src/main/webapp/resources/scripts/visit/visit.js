@@ -1,4 +1,4 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService",
+angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "providerService", "obsService",
     "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "orderEntry", "ngDialog", "appFramework",
     "configService", 'pascalprecht.translate'])
 
@@ -59,12 +59,13 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     }])
 
     // This is not a reusable directive. It does not have an isolate scope, but rather inherits scope from VisitController
-    .directive("displayElement", [ "Concepts", "EncounterTypes", "VisitDisplayModel", "VisitTemplateService", function(Concepts, EncounterTypes, VisitDisplayModel, VisitTemplateService) {
+    .directive("displayElement", [ "Concepts", "EncounterTypes", "EncounterRoles", "VisitDisplayModel", "VisitTemplateService", function(Concepts, EncounterTypes, EncounterRoles, VisitDisplayModel, VisitTemplateService) {
         return {
             restrict: 'E',
             controller: function($scope) {
                 $scope.Concepts = Concepts;
                 $scope.EncounterTypes = EncounterTypes;
+                $scope.EncounterRoles = EncounterRoles;
 
                     $scope.getExpectedEncounterActions = function() {
                     return VisitTemplateService.getExpectedEncounterActions();
@@ -171,6 +172,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.session = SessionInfo.get();
                     $scope.Concepts = Concepts;
                     $scope.icon = config ? config.icon : null;
+                    $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
 
                     $scope.currentTemplate = function() {
                         return VisitDisplayModel.displayTemplateFor($scope.encounterStub);
