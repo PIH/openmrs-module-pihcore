@@ -67,4 +67,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 <script type="text/javascript">
     angular.module('visit').value('patientUuid', '${ patient.patient.uuid }').value('visitUuid', '${ visit?.uuid }').value('locale', '${ locale }');
     angular.bootstrap("#visit-app", [ "visit" ])
+
+    jq(function() {
+        // make sure we reload the page if the location is changes; this custom event is emitted by by the location selector in the header
+        jq(document).on('sessionLocationChanged', function() {
+            window.location.reload();
+        });
+    });
+
 </script>
