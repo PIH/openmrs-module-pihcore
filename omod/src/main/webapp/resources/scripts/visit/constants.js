@@ -1,4 +1,9 @@
 angular.module('constants', [])
+    .value('DatetimeFormats', {
+        date: "d-MMM-yy",
+        time: "hh:mm a",
+        datetime: "d-MMM-yy (hh:mm a)"
+    })
 
     .value('Concepts', {
         yes: {
@@ -231,7 +236,6 @@ angular.module('constants', [])
         }
 
     })
-
     .value('EncounterRoles', {
         attendingSurgeon: {
             uuid: "9b135b19-7ebe-4a51-aea2-69a53f9383af"

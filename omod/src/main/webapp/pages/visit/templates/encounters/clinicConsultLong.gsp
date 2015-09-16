@@ -14,7 +14,7 @@
     <div ng-show="encounter.orders && encounter.orders.length">
         <h5>${ ui.message('pihcore.orders') }:</h5>
         <p ng-repeat="order in encounter.orders | orderBy:'dateActivated'" class="aligned">
-            {{ order.dateActivated | serverDate:dateFormat }}
+            {{ order.dateActivated | serverDate:DatetimeFormats.date  }}
             {{ order | orderInstructions }}
         </p>
     </div>
@@ -26,7 +26,7 @@
 
     <div>
         <h5>${ ui.message('pihcore.consult.returnVisitDate') }:</h5>
-        {{ encounter.obs | byConcept:Concepts.returnVisitDate:true | obs:"value" | serverDate:dateFormat }}
+        {{ encounter.obs | byConcept:Concepts.returnVisitDate:true | obs:"value" | serverDate:DatetimeFormats.date }}
     </div>
 
     <div>

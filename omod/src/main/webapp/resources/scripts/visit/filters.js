@@ -95,7 +95,7 @@ angular.module("filters", [ "uicommons.filters", "constants" ])
         }
     }])
 
-    .filter("dispositionLong", ["$rootScope", "omrs.displayFilter", "serverDateFilter", "Concepts", function ($rootScope, displayFilter, serverDateFilter, Concepts) {
+    .filter("dispositionLong", ["$rootScope", "omrs.displayFilter", "serverDateFilter", "Concepts", "DatetimeFormats", function ($rootScope, displayFilter, serverDateFilter, Concepts, DatetimeFormats) {
         return function(group) {
             if (!group) {
                 return "";
@@ -122,7 +122,7 @@ angular.module("filters", [ "uicommons.filters", "constants" ])
                 });
 
                 if (dateOfDeath) {
-                    returnStr = returnStr + ": " + serverDateFilter(dateOfDeath.value, $rootScope.dateFormat);
+                    returnStr = returnStr + ": " + serverDateFilter(dateOfDeath.value, DatetimeFormats.date );
                     return returnStr;
                 }
 

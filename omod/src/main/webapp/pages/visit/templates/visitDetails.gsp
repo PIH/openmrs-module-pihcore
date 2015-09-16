@@ -1,8 +1,8 @@
 <span class="visit-dates">
     <span>
         <i class="icon-time small"></i>
-        {{ visit.startDatetime | serverDate:dateFormat }}
-        <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | serverDate:dateFormat }}</span>
+        {{ visit.startDatetime | serverDate:DatetimeFormats.date }}
+        <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | serverDate:DatetimeFormats.date  }}</span>
         <span ng-hide="visit.stopDatetime" class="lozenge active">
             active
         </span>

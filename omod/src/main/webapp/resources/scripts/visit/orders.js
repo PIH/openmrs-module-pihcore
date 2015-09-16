@@ -226,14 +226,14 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
         }
     }])
 
-    .directive("orderSheet", [ "Order", "Encounter", function(Order, Encounter) {
+    .directive("orderSheet", [ "Order", "Encounter", function(Order, Encounter, DatetimeFormats) {
         return {
             restrict: "E",
             scope: {
-                visit: "=",
-                datetimeFormat: "="
+                visit: "="
             },
             controller: function($scope) {
+                $scoep.DatetimeFormats = DatetimeFormats;
                 $scope.ordersByEncounters = {};
                 angular.forEach($scope.visit.encounters, function(encounter) {
                     Encounter.get({ uuid: encounter.uuid, v: "custom:(uuid,orders:full)" })

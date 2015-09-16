@@ -131,8 +131,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
-    .directive("encounter", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "SessionInfo", "$http",
-        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, SessionInfo, $http) {
+    .directive("encounter", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "DatetimeFormats", "SessionInfo", "$http",
+        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, DatetimeFormats, SessionInfo, $http) {
             return {
                 restrict: "E",
                 scope: {
@@ -164,6 +164,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     }
 
                     $scope.encounter = $scope.encounterStub;
+                    $scope.DatetimeFormats = DatetimeFormats;
                     $scope.templateModel = {};
 
                     var config = VisitTemplateService.getConfigFor($scope.encounterStub);
@@ -437,13 +438,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     }])
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state",
-        "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter", "OrderEntryService", "AppFrameworkService",
-        'visitUuid', 'patientUuid', 'locale',
+        "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
+        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats",
         function($scope, $rootScope, $translate, Visit, VisitTemplateService, CareSetting, $q, $state, $timeout, OrderContext,
-                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale) {
+                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats) {
 
-            $rootScope.datetimeFormat = "d-MMM-yy (hh:mm a)";
-            $rootScope.dateFormat = "d-MMM-yy";
+            $rootScope.DatetimeFormats = DatetimeFormats;
 
             $scope.VisitDisplayModel = VisitDisplayModel;
 
