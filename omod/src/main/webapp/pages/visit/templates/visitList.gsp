@@ -12,7 +12,7 @@
         <td>
             {{ v.stopDatetime | serverDate }}
             <span ng-hide="v.stopDatetime">
-                (Active)
+                (${ ui.message("uicommons.active") })
             </span>
         </td>
         <td>

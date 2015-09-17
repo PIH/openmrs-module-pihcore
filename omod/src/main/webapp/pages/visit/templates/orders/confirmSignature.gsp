@@ -1,3 +1,5 @@
+<!-- TODO localize -->
+
 <div class="dialog-header">
     <h3>Sign this treatment plan</h3>
 </div>

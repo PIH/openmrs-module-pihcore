@@ -1,6 +1,8 @@
 <div class="dialog-header">
-    <h3>Record vaccination</h3>
+    <h3>${ ui.message("pihcore.visitNote.recordVaccination.header") }</h3>
 </div>
+
+<!-- TODO: finish translations -->
 <div class="dialog-content">
     <h4>
         {{ vaccination.label }}, {{ sequence.label }}
@@ -10,7 +12,7 @@
 
         <p ng-show="hasActiveVisit">
             <label>
-                <input type="radio" ng-model="when" value="now"/> Today: {{ now | date }}
+                <input type="radio" ng-model="when" value="now"/> ${ ui.message("uicommons.today") }: {{ now | date }}
             </label>
         </p>
 
@@ -36,7 +38,7 @@
 
         <p ng-show="when != 'now'">
             <br/>
-            Date: <date-with-popup ng-model="date" min-date="minDate" max-date="maxDate"></date-with-popup>
+            ${ ui.message("uicommons.date") }: <date-with-popup ng-model="date" min-date="minDate" max-date="maxDate"></date-with-popup>
         </p>
         <br/>
     </div>

@@ -1,5 +1,5 @@
 <div id="choose-another-visit">
-    <a ui-sref="visitList">Go to another visit</a>
+    <a ui-sref="visitList">${ ui.message("pihcore.visitNote.goToAnotherVisit") }</a>
 </div>
 
 <div id="visit-type">

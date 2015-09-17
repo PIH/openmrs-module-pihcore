@@ -2,7 +2,7 @@
     <div class="header">
         <span class="one-third">
             <i class="icon-medical"></i>
-            <span class="title">Allergies</span>
+            <span class="title">${ ui.message("allergyui.allergies") }</span>
         </span>
         <span class="details">
             <current-allergies patient="visit.patient"></current-allergies>

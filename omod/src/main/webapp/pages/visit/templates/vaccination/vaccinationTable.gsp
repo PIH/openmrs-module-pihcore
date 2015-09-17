@@ -1,7 +1,7 @@
 <table class="vaccination-table">
     <thead>
     <tr>
-        <th>Vaccination</th>
+        <th>${ ui.message("pihcore.visitNote.vaccination.header") }</th>
         <th ng-repeat="sequence in sequences">{{ sequence.label }}</th>
     </tr>
     </thead>

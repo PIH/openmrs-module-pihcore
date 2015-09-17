@@ -1,6 +1,8 @@
 <div class="header" ng-include="'templates/defaultEncounterHeader.page'">
 </div>
 
+<!-- TODO localize this once we finalize on format -->
+
 <div class="content">
     <p>
         <label>Family History:</label>

@@ -1,4 +1,4 @@
-<h2>Request Tests</h2>
+<h2>${ ui.message("pihcore.visitNote.orders.requestTests") }</h2>
 
 <div ng-repeat="group in labs">
     <h3>{{ group.label }}</h3>
@@ -19,7 +19,7 @@
 <br/>
 
 <div class="actions">
-    <button class="confirm right" ng-click="apply()" ng-disabled="!anySelected()">Add</button>
-    <button class="cancel" ui-sref="drugOrders">Cancel</button>
+    <button class="confirm right" ng-click="apply()" ng-disabled="!anySelected()">${ ui.message("uicommons.add") }</button>
+    <button class="cancel" ui-sref="drugOrders">>${ ui.message("uicommons.cancel") }</button>
 </div>
 

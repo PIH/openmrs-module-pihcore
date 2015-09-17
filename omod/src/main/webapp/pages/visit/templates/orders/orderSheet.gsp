@@ -1,5 +1,5 @@
 <div ng-hide="anyOrders()">
-    None
+    ${ ui.message("uicommons.none") }
 </div>
 <ul>
     <li ng-repeat="order in orderList()">

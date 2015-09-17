@@ -1,13 +1,13 @@
 <div id="plan-heading">
     <button ui-sref="overview">
         <i class="icon-arrow-left"></i>
-        Back to Visit
+        ${ ui.message("pihcore.visitNote.backToVisit") }
     </button>
 </div>
 
 <div id="draft-plan">
     <h5 class="orders-category">
-        Prescriptions
+        ${ ui.message("pihcore.visitNote.orders.prescriptions" ) }
     </h5>
     <ul>
         <li class="draft-order" ng-repeat="order in getDraftOrdersByType('drugorder') | filter:{editing:false}">
@@ -28,13 +28,13 @@
         <edit-draft-order draft-order="draftOrder"></edit-draft-order>
     </div>
     <div>
-        <label><i class="icon-plus"></i> Add:</label>
+        <label><i class="icon-plus"></i>${ ui.message("uicommons.add") }:</label>
         <select-drug ng-model="newOrderForDrug" placeholder="Drug" size="20" on-select-callback="focusEdit()"></select-drug>
     </div>
 
 
     <h5 class="orders-category">
-        Test Orders
+        ${ ui.message("pihcore.visitNote.orders.testOrders") }
     </h5>
     <ul>
         <li class="draft-order" ng-repeat="order in getDraftOrdersByType('testorder') | filter:{editing:false}">
@@ -51,8 +51,8 @@
         </li>
         <li>
             <a class="add-orders" ui-sref="addLabOrders">
-                <i class="icon-plus"></i> Add
-            </a>
+                <i class="icon-plus"></i> ${ ui.message("uicommons.add") }
+</a>
         </li>
     </ul>
 

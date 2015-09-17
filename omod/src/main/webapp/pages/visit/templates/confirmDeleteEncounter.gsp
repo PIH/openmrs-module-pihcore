@@ -1,17 +1,17 @@
 <div class="dialog-header">
-    <h3>Delete Encounter</h3>
+    <h3>${ ui.message("pihcore.visitNote.confirmDeleteEncounter.header") }</h3>
 </div>
 <div class="dialog-content">
     <h4>
-        Are you sure you want to delete this encounter from the visit?
+        >${ ui.message("pihcore.visitNote.confirmDeleteEncounter.confirm") }
     </h4>
     <div ng-show="activeOrders && activeOrders.length" class="note-container">
         <div class="note warning">
             <i class="icon-warning-sign medium"></i>
-            This encounter has active orders!
+            >${ ui.message("pihcore.visitNote.confirmDeleteEncounter.encounterHasActiveOrdersWarning") }
             <br/>
             <br/>
-            Confirm you also want to delete these active orders:
+            >${ ui.message("pihcore.visitNote.confirmDeleteEncounter.confirmDeleteActiveOrders") }
             <ul class="small">
                 <li ng-repeat="order in activeOrders">
                     {{ order | orderInstructions }}

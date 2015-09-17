@@ -1,3 +1,3 @@
 <div class="error">
-    Unknown type of visit element: {{type}}
+   ${ ui.message("pihcore.visitNote.unknownTypeOfVisitElement") } {{type}}
 </div>

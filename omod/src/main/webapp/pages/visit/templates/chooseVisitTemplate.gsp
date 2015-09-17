@@ -1,7 +1,7 @@
 <div id="active-visit-template" ng-show="multipleTemplates">
     <form ng-show="choosingTemplate || !selectedTemplate">
         <select ng-model="newVisitTemplate" ng-options="t.label for t in availableTemplates">
-            <option value="">Which visit template?</option>
+            <option value="">${ ui.message("pihcore.visitNote.chooseTemplate") }</option>
         </select>
         <span class="actions">
             <button ng-click="save()">Save</button>

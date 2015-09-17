@@ -5,7 +5,7 @@
 <div class="new-encounter-button">
     <a class="button" ui-sref="editPlan" ng-class="{'confirm': hasDraftOrders()}">
         <i class="icon-list-ol"></i>
-        Plan
+        ${ ui.message("pihcore.visitNote.outpatientPlan") }
     </a>
-    <strong ng-show="hasDraftOrders()">*Unsaved Draft*</strong>
+    <strong ng-show="hasDraftOrders()">${ ui.message("pihcore.visitNote.unsavedDraft") }</strong>
 </div>

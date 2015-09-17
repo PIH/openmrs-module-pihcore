@@ -1,9 +1,9 @@
 <div class="dialog-header">
-    <h3>Delete vaccination?</h3>
+    <h3>${ ui.message("pihcore.visitNote.confirmDeleteVaccination.header") }</h3>
 </div>
 <div class="dialog-content">
     <h4>
-        Are you sure you want to delete this vaccination record?
+        ${ ui.message("pihcore.visitNote.confirmDeleteVaccination.confirm") }
     </h4>
     <div>
         {{ vaccination.label }} - {{ sequence.label }} - {{ dateObs | obs:"value" | date }}

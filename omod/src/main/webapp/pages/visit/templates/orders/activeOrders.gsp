@@ -1,5 +1,5 @@
 <fieldset>
-    <legend>Active Prescriptions ({{ orderContext.careSetting | omrs.display }})</legend>
+    <legend>${ ui.message("pihcore.visitNote.orders.activePrescriptions") } ({{ orderContext.careSetting | omrs.display }})</legend>
 
     <span ng-hide="activeDrugOrders.\$resolved">${ ui.message("uicommons.loading.placeholder") }</span>
 
@@ -21,7 +21,7 @@
                     <i class="icon-remove delete-action"></i>
                 </a>
                 <span ng-show="replacementFor(order)">
-                    will {{ replacementFor(order).action }}
+                    ${ ui.message("pihcore.visitNote.orders.will") } {{ replacementFor(order).action }}
                 </span>
             </td>
         </tr>
