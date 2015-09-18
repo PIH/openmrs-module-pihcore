@@ -1,3 +1,4 @@
+<!-- delete-encounter-dialog and delete-encounter-button classes currently solely used for selenium tests -->
 <div class="dialog-header delete-encounter-dialog">
     <h3>${ ui.message("pihcore.visitNote.confirmDeleteEncounter.header") }</h3>
 </div>
@@ -21,7 +22,7 @@
         </div>
     </div>
     <div>
-        <button class="confirm right" ng-click="confirm()">${ ui.message("uicommons.delete") }</button>
+        <button class="confirm right delete-encounter-button" ng-click="confirm()">${ ui.message("uicommons.delete") }</button>
         <button class="cancel" ng-click="closeThisDialog()">${ ui.message("uicommons.cancel") }</button>
     </div>
 </div>

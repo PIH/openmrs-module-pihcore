@@ -5,7 +5,7 @@
         <th>${ ui.message("uicommons.location") }</th>
     </tr>
 
-    <tr ng-repeat="v in visits" ng-click="goToVisit(v)" class="selectable" ng-class="{ 'selected-visit': v.uuid===visit.uuid, active: !v.stopDatetime }">
+    <tr class="visit-list-item" ng-repeat="v in visits" ng-click="goToVisit(v)" class="selectable" ng-class="{ 'selected-visit': v.uuid===visit.uuid, active: !v.stopDatetime }">
         <td>
             {{ v.startDatetime | serverDate }}
         </td>

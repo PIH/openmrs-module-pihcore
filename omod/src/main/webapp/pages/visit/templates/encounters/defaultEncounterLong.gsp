@@ -1,7 +1,7 @@
 <div class="header" ng-include="'templates/defaultEncounterHeader.page'">
 </div>
 
-<div class="content">
+<div class="content encounter-summary-long">  <!-- encounter-summary-long currently only used for Selenium tests -->
     <p ng-repeat="obs in encounter.obs" class="aligned">
         <label>{{ obs.concept | omrs.display }}</label>
         <span class="value">{{ obs | obs:"value" }}</span>

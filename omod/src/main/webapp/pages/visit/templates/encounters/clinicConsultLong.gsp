@@ -1,7 +1,8 @@
 <div class="header" ng-include="'templates/defaultEncounterHeader.page'">
 </div>
 
-<div class="content">
+<!--encounter-summary-long class currently just used for selenium tests -->
+<div class="content encounter-summary-long">
     <h5>${ ui.message('coreapps.clinicianfacing.diagnoses') }:</h5>
     <div ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
         {{ diag | diagnosisLong }}
