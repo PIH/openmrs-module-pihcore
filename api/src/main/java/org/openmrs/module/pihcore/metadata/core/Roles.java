@@ -630,6 +630,7 @@ public class Roles {
                     Privileges.APP_COREAPPS_ACTIVE_VISITS,
                     Privileges.APP_LEGACY_PATIENT_REGISTRATION,
                     Privileges.APP_LEGACY_PATIENT_REGISTRATION_EDIT,
+                    Privileges.APP_REGISTRATION_REGISTER_PATIENT,
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_VISIT,
