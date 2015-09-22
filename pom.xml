@@ -9,7 +9,8 @@
 	<name>PIH Core Module</name>
 	<description>Core metadata and configuration included in all PIH distributions</description>
 	<url>https://wiki.openmrs.org/display/docs/PIH+Core+Module+Module</url>
-	
+
+
 	<developers>
 		<developer>
 			<name>PIH</name>
