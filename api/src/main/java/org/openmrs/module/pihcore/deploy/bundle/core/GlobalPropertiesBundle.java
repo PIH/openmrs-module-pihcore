@@ -102,8 +102,8 @@ public class GlobalPropertiesBundle extends PihMetadataBundle {
         properties.put(CoreAppsConstants.GP_SEARCH_DELAY_SHORT, "500");
 
         // Registration Core
-        properties.put(RegistrationCoreConstants.GP_PATIENT_NAME_SEARCH, "registrationcore.NamePhoneticsPatientNameSearch");
-        properties.put(RegistrationCoreConstants.GP_FAST_SIMILAR_PATIENT_SEARCH_ALGORITHM, "registrationcore.NamePhoneticsPatientSearchAlgorithm");
+        properties.put(RegistrationCoreConstants.GP_PATIENT_NAME_SEARCH, "registrationcore.ExistingPatientNameSearch");
+        properties.put(RegistrationCoreConstants.GP_FAST_SIMILAR_PATIENT_SEARCH_ALGORITHM, "pihcore.PihPatientSearchAlgorithm");
         properties.put(RegistrationCoreConstants.GP_PRECISE_SIMILAR_PATIENT_SEARCH_ALGORITHM, "registrationcore.BasicExactPatientSearchAlgorithm");
 
         // Name Phonetics
