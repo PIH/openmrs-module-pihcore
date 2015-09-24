@@ -1,13 +1,20 @@
 package org.openmrs.module.pihcore.search;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.openmrs.Patient;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.namephonetics.NamePhoneticsService;
+import org.openmrs.api.AdministrationService;
+import org.openmrs.api.PatientService;
+import org.openmrs.module.namephonetics.NamePhoneticsUtil;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
 import org.openmrs.module.registrationcore.api.search.SimilarPatientSearchAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,10 +25,25 @@ import java.util.Map;
 @Service("pihcore.PihPatientSearchAlgorithm")
 public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm {
 
+    protected static final Log log = LogFactory.getLog(PihPatientSearchAlgorithm.class);
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    @Autowired
+    private PatientService patientService;
+
+    @Qualifier("adminService")
+    @Autowired
+    private AdministrationService adminService;
+
     // TODO add some tests of this
     // TODO what about mother's name?
     // TODO phone number?
     // TODO add address back in
+    // TODO check special characters
+    // TODO what about max results?
+    // TODO switch to direct DB query of name phonetics table?
 
     @Override
     public List<PatientAndMatchQuality> findSimilarPatients(Patient patient, Map<String, Object> otherDataPoints, Double cutoff, Integer maxResults) {
@@ -32,7 +54,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         }
 
         // our initial search to find a "base cohort"; hits will only occur if there is a exact phonetic match on both given name and family name
-        List<Patient> patients = Context.getService(NamePhoneticsService.class).findPatient(patient.getGivenName(), null, patient.getFamilyName(), null);
+        List<Patient> patients = getPatientsByPhonetics(patient.getGivenName(), patient.getFamilyName());
 
         List<PatientAndMatchQuality> matches = new ArrayList<PatientAndMatchQuality>();
 
@@ -144,7 +166,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
      * @param matches
      * @return
      */
-    public boolean nameExactMatch(String value, String matches) {
+    private boolean nameExactMatch(String value, String matches) {
         if (!StringUtils.isBlank(value) && !StringUtils.isBlank(matches)) {
             if (value.equalsIgnoreCase(matches)) {
                 return true;
@@ -153,14 +175,66 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         return false;
     }
 
-    public boolean hasName(Patient patient) {
+    private boolean hasName(Patient patient) {
         return (patient.getGivenName() != null && patient.getFamilyName() != null);
     }
 
-    public boolean hasBirthdate(Patient patient, Map<String, Object> otherDataPoints) {
+    private boolean hasBirthdate(Patient patient, Map<String, Object> otherDataPoints) {
         return ((otherDataPoints.containsKey("birthdateYears") && otherDataPoints.get("birthdateYears") != null) ||
                 (otherDataPoints.containsKey("birthdateMonths") && otherDataPoints.get("birthdateMonths") != null) ||
                 patient.getBirthdate() != null);
+    }
+
+
+    // TODO this should be converted to HQL and/or cleaned up in some other way?
+    private List<Patient> getPatientsByPhonetics(String firstName, String lastName) {
+
+        List<Integer> queryResults = null;
+
+        if (StringUtils.isBlank(firstName) || (StringUtils.isBlank(lastName))){
+            return new ArrayList<Patient>();
+        }
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("select distinct np1.personName.person.personId ");
+        sql.append("from NamePhonetic np1 ");
+        sql.append("where np1.renderedString like '")
+                .append(NamePhoneticsUtil.encodeString(firstName, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder")))
+                .append("%' ");
+        sql.append("and np1.nameField=1 ");
+        sql.append("and np1.personName.personNameId in ");
+        sql.append("(select np2.personName.personNameId from NamePhonetic np2 ");
+        sql.append("where np2.renderedString like '")
+                .append(NamePhoneticsUtil.encodeString(lastName, adminService.getGlobalProperty("namephonetics.familyNameStringEncoder")))
+                .append("%' ");
+        sql.append("and np2.nameField=3)");
+        try{
+            Query query = sessionFactory.getCurrentSession().createQuery(sql.toString());
+            //query.setCacheMode(CacheMode.IGNORE);
+            queryResults = query.list();
+
+        }catch(Exception e){
+            log.error("error retrieving name phonetics", e);
+        }
+
+        if (queryResults != null && queryResults.size() > 0) {
+            return idsToPatients(queryResults);
+        }
+        else {
+            return new ArrayList<Patient>();
+        }
+
+    }
+
+    private List<Patient> idsToPatients(List<Integer> queryResults) {
+        List<Patient> patients = new ArrayList<Patient>();
+        for (Integer i : queryResults) {
+            Patient patient = patientService.getPatient(i);
+            if (patient !=  null) {
+                patients.add(patient);
+            }
+        }
+        return patients;
     }
 
 }
