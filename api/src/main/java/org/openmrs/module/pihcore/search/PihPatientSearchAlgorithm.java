@@ -4,7 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.openmrs.Patient;
-import org.openmrs.PersonName;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.namephonetics.NamePhoneticsService;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
@@ -20,15 +19,19 @@ import java.util.Map;
 public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm {
 
     // TODO add some tests of this
+    // TODO what about mother's name?
+    // TODO phone number?
+    // TODO add address back in
 
     @Override
     public List<PatientAndMatchQuality> findSimilarPatients(Patient patient, Map<String, Object> otherDataPoints, Double cutoff, Integer maxResults) {
 
         // only do search if we have family name, given name, gender, and birthdate--return empty list otherwise
-        if (patient.getFamilyName() == null || patient.getGivenName() == null || patient.getBirthdate() == null || patient.getGender() == null) {
+        if (!hasName(patient) || !hasBirthdate(patient, otherDataPoints) || patient.getGender() == null) {
             return new ArrayList<PatientAndMatchQuality>();
         }
 
+        // our initial search to find a "base cohort"; hits will only occur if there is a exact phonetic match on both given name and family name
         List<Patient> patients = Context.getService(NamePhoneticsService.class).findPatient(patient.getGivenName(), null, patient.getFamilyName(), null);
 
         List<PatientAndMatchQuality> matches = new ArrayList<PatientAndMatchQuality>();
@@ -36,54 +39,66 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         for (Patient match : patients) {
             List<String> matchedFields = new ArrayList<String>();
 
-            double score = 1;    // start with a score of one because already assuming a name phonetics match of given name and family name
+            double score = 0;
 
             matchedFields.add("names.givenName");
             matchedFields.add("names.familyName");
 
-            // only half a point for gender match
+            // one point if gender matches
             if (patient.getGender() != null && match.getGender() != null) {
                 if (patient.getGender().equals(match.getGender())) {
-                    score += 0.5;
+                    score += 1;
                 }
             }
 
+            // exact birthdate match = 10 pts; otherwise, if years between < 5, assign points based on 5-years between
             if (patient.getBirthdate() != null && match.getBirthdate() != null) {
-                // exact birthdate match is worth 5 points
-                if (new DateTime(patient.getBirthdate()).withTimeAtStartOfDay().equals(new DateTime(match.getBirthdate()).withTimeAtStartOfDay())) {
-                    score += 5;
+                if (!match.getBirthdateEstimated() && new DateTime(patient.getBirthdate()).withTimeAtStartOfDay().equals(new DateTime(match.getBirthdate()).withTimeAtStartOfDay())) {
+                    score += 10;
                 }
 
-                // otherwise check the years
                 int yearsBetween = Math.abs(Years.yearsBetween(new DateTime(patient.getBirthdate()), new DateTime(match.getBirthdate())).getYears());
                 if (yearsBetween < 5) {
-                    score += (6 - yearsBetween) / 3;
+                    score += (6 - yearsBetween);
+                }
+            }
+            // try estimated birthdate
+            // TODO this could be better
+            else {
+
+                Integer patientEstimatedAge = null;
+                if (otherDataPoints.containsKey("birthdateYears") && otherDataPoints.get("birthdateYears") != null) {
+                    patientEstimatedAge = (Integer) otherDataPoints.get("birthdateYears");
+                }
+                else if (otherDataPoints.containsKey("birthdateMonths") && otherDataPoints.get("birthdateMonths") != null) {
+                    patientEstimatedAge = 0;
+                }
+
+                if (patientEstimatedAge != null) {
+                    int yearsBetween = Math.abs(patientEstimatedAge - match.getAge());
+                    if (yearsBetween < 5) {
+                        score += (6 - yearsBetween);
+                    }
                 }
             }
 
-            // bump up the count if there is an exact name match
-            double familyNameScore = 0;
-            double givenNameScore = 0;
-            double middleNameScore = 0;
-            for (PersonName patientName : patient.getNames()) {
-                for (PersonName matchName : match.getNames()) {;
-                    if (familyNameScore == 0) {  // to avoid given multiple points if a patient has two names
-                        familyNameScore = nameExactMatch(patientName.getFamilyName(), matchName.getFamilyName());
-                    }
+            boolean familyNameMatch = false;
+            boolean givenNameMatch = false;
+            boolean middleNameMatch = false;
 
-                    if (givenNameScore == 0) {   // to avoid given multiple points if a patient has two names
-                        givenNameScore = nameExactMatch(patientName.getGivenName(), matchName.getGivenName());
-                        //matchedFields.add("names.givenName");
-                    }
+            familyNameMatch = nameExactMatch(patient.getFamilyName(), match.getFamilyName());
+            givenNameMatch = nameExactMatch(patient.getGivenName(), match.getGivenName());
+            middleNameMatch = nameExactMatch(patient.getMiddleName(), match.getMiddleName());
 
-
-                    if (middleNameScore == 0) {   // to avoid given multiple points if a patient has two names
-                        givenNameScore = nameExactMatch(patientName.getMiddleName(), matchName.getMiddleName());
-                        matchedFields.add("names.middleName");
-                    }
-                }
+            if (familyNameMatch && givenNameMatch && middleNameMatch) {
+                score += 5;
             }
-            score = score + familyNameScore + givenNameScore + middleNameScore;
+            else if (familyNameMatch && givenNameMatch) {
+                score += 2;
+            }
+            else if (familyNameMatch || givenNameMatch || middleNameMatch) {
+                score += 0.5;
+            }
 
 // TODO add back in address matching, but skip country, of course; allow us to customize by implementation? what are they currently doing in Pleebo?
 /*
@@ -123,21 +138,29 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         }
 
     }
-    /**
-     * Returns a score higher than 0 if value starts with the matches string.
-     *
+
+    /***
      * @param value
      * @param matches
-     * @return 0 if not matched and 1 if matched
+     * @return
      */
-    public double nameExactMatch(String value, String matches) {
+    public boolean nameExactMatch(String value, String matches) {
         if (!StringUtils.isBlank(value) && !StringUtils.isBlank(matches)) {
-            if (value.equals(matches)) {
-                return 1;
+            if (value.equalsIgnoreCase(matches)) {
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 
+    public boolean hasName(Patient patient) {
+        return (patient.getGivenName() != null && patient.getFamilyName() != null);
+    }
+
+    public boolean hasBirthdate(Patient patient, Map<String, Object> otherDataPoints) {
+        return ((otherDataPoints.containsKey("birthdateYears") && otherDataPoints.get("birthdateYears") != null) ||
+                (otherDataPoints.containsKey("birthdateMonths") && otherDataPoints.get("birthdateMonths") != null) ||
+                patient.getBirthdate() != null);
+    }
 
 }
