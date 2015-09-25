@@ -22,5 +22,7 @@
         <mapping resource="AddressHierarchyLevel.hbm.xml"/>
         <mapping resource="AddressToEntryMap.hbm.xml"/>
 
+        <mapping resource="NamePhonetic.hbm.xml" />
+
 	</session-factory>
 </hibernate-configuration>

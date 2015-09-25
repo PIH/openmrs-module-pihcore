@@ -9,5 +9,21 @@
         "archives",
         "appointmentScheduling",
         "legacyMpi"
-    ]
+    ],
+
+    "registrationConfig": {
+      "allowUnknownPatients": true,
+      "allowManualEntryOfPrimaryIdentifier": true,
+      "similarPatientsSearch": {
+          "addressFields": {
+            "cityVillage": "1",
+            "address3": "1",
+            "address1": "1"
+          },
+        "personAttributeTypes" : {
+            "Birthplace": "1",
+            "Telephone Number": "3"
+        }
+      }
+    }
 }

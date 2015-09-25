@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="windows-1250"?>
+
+<!-- currently we are only using person #13! -->
+
+<dataset>
+    <person person_id="1" gender="M" birthdate_estimated="false" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="dd552fc1-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="2" gender="M" birthdate="1941-05-01" birthdate_estimated="false" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="dd553355-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="6" gender="M" birthdate="1962-04-21" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd55352f-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="13" gender="M" birthdate="1974-11-02" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5536fd-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="16" gender="M" birthdate="1971-06-27" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5538dc-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="17" gender="M" birthdate="1995-10-24" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd553aaf-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="18" gender="M" birthdate="2003-10-11" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd553c85-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="20" gender="M" birthdate="2003-06-21" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd553e53-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="24" gender="F" birthdate="1961-08-15" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd55401d-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="28" gender="F" birthdate="1978-09-05" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5541e2-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="29" gender="F" birthdate="1963-10-15" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5543ac-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="33" gender="F" birthdate="1983-09-18" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd55457a-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="35" gender="F" birthdate="1969-04-09" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd554766-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="36" gender="M" birthdate="1976-09-16" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd55571f-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="39" gender="M" birthdate="1964-08-18" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5558ed-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="40" gender="F" birthdate="2003-02-10" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd555abf-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="42" gender="F" birthdate="1966-05-27" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd555c84-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="43" gender="F" birthdate="1965-09-28" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd555e4a-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="44" gender="M" birthdate="1966-01-02" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd555f6c-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="45" gender="F" birthdate="1965-03-08" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556087-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="48" gender="M" birthdate="1975-02-14" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5561a5-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="50" gender="F" birthdate="1973-10-25" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5562bb-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="52" gender="F" birthdate="1967-06-03" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5563d6-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="53" gender="M" birthdate="1966-12-02" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5564f0-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="55" gender="F" birthdate="1966-09-18" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556606-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="58" gender="F" birthdate="1963-12-08" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556725-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="59" gender="F" birthdate="1966-05-05" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd55683b-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="60" gender="F" birthdate="1961-12-28" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556955-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="63" gender="F" birthdate="1984-09-02" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556a73-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="65" gender="M" birthdate="1978-07-08" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556b89-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="68" gender="F" birthdate="1977-03-27" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556ca8-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="69" gender="F" birthdate="1961-10-13" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556dcb-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="71" gender="F" birthdate="1977-01-20" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd556eea-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="75" gender="M" birthdate="1956-07-11" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd557008-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="77" gender="M" birthdate="1979-10-20" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd55711e-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="78" gender="F" birthdate="2003-03-01" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd557241-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="82" gender="F" birthdate="1992-08-08" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd557357-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="83" gender="F" birthdate="1961-03-26" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd557476-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="90" gender="F" birthdate="1960-09-04" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd55758c-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="92" gender="M" birthdate="1984-03-25" birthdate_estimated="false" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5576a6-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="95" gender="M" birthdate="2003-05-06" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5577c4-1691-11df-97a5-7038c432aabf"/>
+    <person person_id="98" gender="M" birthdate="1960-06-13" birthdate_estimated="true" dead="false" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="dd5578da-1691-11df-97a5-7038c432aabf"/>
+
+    <patient patient_id="2"  creator="1" date_created="2005-09-22 00:00:00.0" voided="false"/>
+    <patient patient_id="6"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="13"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="16"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="17"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="18"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="20"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="24"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="28"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="29"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="33"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="35"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="36"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="39"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="40"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="42"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="43"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="44"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="45"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="48"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="50"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="52"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="53"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="55"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="58"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="59"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="60"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="63"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="65"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="68"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="69"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="71"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="75"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="77"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="78"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="82"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="83"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="90"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="92"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="95"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+    <patient patient_id="98"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
+
+    <person_name person_name_id="2" preferred="true" person_id="2" prefix="Mr." given_name="Horatio" middle_name="L" family_name="Hornblower" family_name_suffix="Esq." creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="de8140e0-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="13" preferred="false" person_id="13" given_name="Jarus" middle_name="Agemba" family_name="Rapondi" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de814b7c-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="16" preferred="false" person_id="16" given_name="Harison" middle_name="Chumo" family_name="Seger" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de8151b7-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="17" preferred="false" person_id="17" given_name="Kiptogom" middle_name="Klinsman" family_name="Karayi" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de8157d0-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="18" preferred="false" person_id="18" given_name="Kipsigisin" middle_name="Kkipsang" family_name="Thoita" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de815ddd-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="20" preferred="false" person_id="20" given_name="Geoffry" middle_name="Ekal" family_name="Lokai" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de8163f2-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="24" preferred="false" person_id="24" given_name="Romana" middle_name="Jebotib" family_name="Sirtui" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de8169fa-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="28" preferred="false" person_id="28" given_name="Mitchell" middle_name="Yebei" family_name="Cherwon" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81702d-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="29" preferred="false" person_id="29" given_name="Anitah" middle_name="Koskei" family_name="Chemai" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81761f-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="33" preferred="false" person_id="33" given_name="Constatina" middle_name="Shijei" family_name="Buigut" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de817c3d-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="35" preferred="false" person_id="35" given_name="Date" middle_name="Khageha" family_name="Seroney" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de818245-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="36" preferred="false" person_id="36" given_name="Kimetto" middle_name="Akimena" family_name="Ediati" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81a7c3-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="39" preferred="false" person_id="39" given_name="Aloice" middle_name="Beiywa" family_name="Mukangu" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81addc-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="40" preferred="false" person_id="40" given_name="Risphar" middle_name="Jenai" family_name="Makhugu" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81b3cb-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="42" preferred="false" person_id="42" given_name="Annastacia" middle_name="Aloyo" family_name="Chemoges" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81b9b5-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="43" preferred="false" person_id="43" given_name="Lorine" middle_name="Mosii" family_name="Ono" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81bfdf-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="44" preferred="false" person_id="44" given_name="Kassin" middle_name="Opiyo" family_name="Oure" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81c5df-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="45" preferred="false" person_id="45" given_name="Chepkeino" middle_name="Lel" family_name="Yebei" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81cbe3-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="48" preferred="false" person_id="48" given_name="Fidel" middle_name="Anyango" family_name="Amalemba" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81cf90-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="50" preferred="false" person_id="50" given_name="Melvine" middle_name="Nyangara" family_name="Busio" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81d33d-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="52" preferred="false" person_id="52" given_name="Margeret" middle_name="Kaizahi" family_name="Borisei" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81d6e1-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="53" preferred="false" person_id="53" given_name="Ray" middle_name="Kimayo" family_name="Chepkwai" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81dccb-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="55" preferred="false" person_id="55" given_name="Romano" middle_name="Kosgey" family_name="Pius" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81e074-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="58" preferred="false" person_id="58" given_name="Alexandia" middle_name="Mukonya" family_name="Komen" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81e41d-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="59" preferred="false" person_id="59" given_name="Hafila" middle_name="Khayele" family_name="Chesanai" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81e7ce-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="60" preferred="false" person_id="60" given_name="Sherly" middle_name="Karambu" family_name="Yapsoi" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81eb6e-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="63" preferred="false" person_id="63" given_name="Sharolyne" middle_name="Salim" family_name="Lenye" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81ef0e-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="65" preferred="false" person_id="65" given_name="Aloysius" middle_name="Isiho" family_name="Tanui" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81f29d-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="68" preferred="false" person_id="68" given_name="Michelle" middle_name="Awor" family_name="Nyambwegi" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81f63e-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="69" preferred="false" person_id="69" given_name="Lucy" middle_name="Awor" family_name="Ayega" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81f9c8-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="71" preferred="false" person_id="71" given_name="Sophy" middle_name="Matiza" family_name="Chebirir" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de81fd64-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="75" preferred="false" person_id="75" given_name="Humprey" middle_name="Biwott" family_name="Siromba" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de8200f3-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="77" preferred="false" person_id="77" given_name="Lavin" middle_name="Obunga" family_name="Jepkirui" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de82048f-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="78" preferred="false" person_id="78" given_name="Thabita" middle_name="Kebenei" family_name="Nyangara" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de82081a-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="82" preferred="false" person_id="82" given_name="Pascalia" middle_name="Sitienei" family_name="Mego" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de820bb6-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="83" preferred="false" person_id="83" given_name="Charline" middle_name="Mazaliza" family_name="Kimunyugei" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de820fb4-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="90" preferred="false" person_id="90" given_name="Clestia" middle_name="C" family_name="Nyonyi" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de821359-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="92" preferred="false" person_id="92" given_name="Keiyo" middle_name="Kipwachoi" family_name="Keiyo" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de8216e8-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="95" preferred="false" person_id="95" given_name="Ditolas" middle_name="Igwenyi" family_name="Chebose" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de821a84-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="98" preferred="false" person_id="98" given_name="Jackim" middle_name="Kuria" family_name="Nari" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="de821e13-1691-11df-97a5-7038c432aabf"/>
+    <person_name person_name_id="99" preferred="false" person_id="98" given_name="Kiptogom" middle_name="Kuria" family_name="Nari" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="92422107-63c7-41c0-bd4b-7c8c8f1b687e"/>
+    <person_name person_name_id="100" preferred="false" person_id="98" given_name="Kiptogom" middle_name="Kuria" family_name="Nari" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="e7757dbc-a71c-4b7f-9f58-80b0cfa0cf8c"/>
+    <person_name person_name_id="101" preferred="false" person_id="98" given_name="Kiptogom" middle_name="Kuria" family_name="Nari" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="a6c70a16-5cea-4827-8a18-6158e848e984"/>
+    <person_name person_name_id="102" preferred="false" person_id="98" given_name="Kiptogom" middle_name="Kuria" family_name="Nari" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="781dcbf8-b83f-481e-9dbb-037605448c84"/>
+    <person_name person_name_id="103" preferred="false" person_id="98" given_name="Kiptogom" middle_name="Kuria" family_name="Nari" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="73d48d9e-78fa-45f6-9b48-5240932c74bc"/>
+    <person_name person_name_id="9347" preferred="true" person_id="1" given_name="Super" middle_name="" family_name="User" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="ded2585e-1691-11df-97a5-7038c432aabf"/>
+
+    <person_address person_address_id="2" person_id="2" preferred="false" address1="1050 Wishard Blvd." address2="RG5" city_village="Indianapolis" state_province="IN" postal_code="46202" country="USA" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="ddc794bd-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="13" person_id="13" preferred="false" city_village="Shiseso" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9d92e-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="16" person_id="16" preferred="false" city_village="Kajamba" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9dd3d-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="17" person_id="17" preferred="false" city_village="Kabuiei" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9df72-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="18" person_id="18" preferred="false" city_village="Langwe" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9e19a-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="20" person_id="20" preferred="false" city_village="Kitany" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9e3f1-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="24" person_id="24" preferred="false" city_village="Chekalini" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9e610-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="28" person_id="28" preferred="false" city_village="Gormaet" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9e83c-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="29" person_id="29" preferred="false" city_village="Marakaru" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9eb60-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="33" person_id="33" preferred="false" city_village="Kamakunji" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9ed88-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="35" person_id="35" preferred="false" city_village="Kasule" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9efa7-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="36" person_id="36" preferred="false" city_village="Esangalo" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddc9fd12-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="39" person_id="39" preferred="false" city_village="Sikhendu" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca0083-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="40" person_id="40" preferred="false" city_village="Main-Campus" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca02a6-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="42" person_id="42" preferred="false" city_village="Township" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca04e8-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="43" person_id="43" preferred="false" city_village="Mlutubwe" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca072d-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="44" person_id="44" preferred="false" city_village="Kamusinga" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca0955-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="45" person_id="45" preferred="false" city_village="Tuigoin" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca0aa3-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="48" person_id="48" preferred="false" city_village="Chepkong'Ogny" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca0bf5-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="50" person_id="50" preferred="false" city_village="Kaptel" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca0e2e-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="52" person_id="52" preferred="false" city_village="Moiben" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca0f88-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="53" person_id="53" preferred="false" city_village="Muyuki" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca10cd-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="55" person_id="55" preferred="false" city_village="Statunga" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca121f-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="58" person_id="58" preferred="false" city_village="Moloi" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca136d-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="59" person_id="59" preferred="false" city_village="Murgusi" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca14c3-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="60" person_id="60" preferred="false" city_village="Moi 'S Bridge" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca163b-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="63" person_id="63" preferred="false" city_village="Buchifi" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca1789-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="65" person_id="65" preferred="false" city_village="Kimu" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca18d2-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="68" person_id="68" preferred="false" city_village="Karabuor" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca1aed-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="69" person_id="69" preferred="false" city_village="Wendo" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca1c37-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="71" person_id="71" preferred="false" city_village="Madharu" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca1d88-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="75" person_id="75" preferred="false" city_village="Esangalo" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca1ed6-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="77" person_id="77" preferred="false" city_village="Mwanzo" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca204e-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="78" person_id="78" preferred="false" city_village="Sirikaru" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca2198-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="82" person_id="82" preferred="false" city_village="Kurkung" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca22ea-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="83" person_id="83" preferred="false" city_village="Kapsara" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca242f-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="90" person_id="90" preferred="false" city_village="Lorikiringet" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca2670-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="92" person_id="92" preferred="false" city_village="Ziwa Machine" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca27ba-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="95" person_id="95" preferred="false" city_village="Kapkarong" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca290b-1691-11df-97a5-7038c432aabf"/>
+    <person_address person_address_id="98" person_id="98" preferred="false" city_village="Esangalo" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca2a59-1691-11df-97a5-7038c432aabf"/>
+
+    <person_attribute_type person_attribute_type_id="10" name="Telephone Number" description="Telephone number of patient" format="java.lang.String" searchable="false" creator="1" date_created="2007-05-04 09:59:23.0" retired="false" uuid="aaa6d540-a32e-44c7-91b3-292d97667518" sort_weight="1"/>
+
+    <person_attribute person_attribute_id="100" person_id="13" value="Boston" person_attribute_type_id="2" creator="1" date_created="2008-08-18 12:25:57.0" voided="false" uuid="66632c97-3793-417e-a1ea-8536b00c4607"/>
+    <person_attribute person_attribute_id="101" person_id="13" value="(617) 867-5309" person_attribute_type_id="10" creator="1" date_created="2008-08-18 12:25:57.0" voided="false" uuid="7732c97-3793-417e-a1ea-8536b00c4607"/>
+
+    <global_property property="namephonetics.familyName2StringEncoder" property_value="Soundex" uuid="4f55827e-26fe-102b-80cb-0017a42631b3"/>
+    <global_property property="namephonetics.familyNameStringEncoder"  property_value="Soundex" uuid="4f45633e-26fe-102b-80cb-0017a86751b3"/>
+    <global_property property="namephonetics.givenNameStringEncoder"   property_value="Soundex" uuid="4f97442e-26fe-102b-80cb-0017a41371b3"/>
+    <global_property property="namephonetics.middleNameStringEncoder"  property_value="Soundex" uuid="4f34572e-26fe-102b-80cb-0017a44571b3"/>
+
+    <name_phonetics name_phonetics_id="1" rendered_string="J620" person_name_id="13" field="1" renderer_class_name="org.apache.commons.codec.language.Soundex"/>
+    <name_phonetics name_phonetics_id="2" rendered_string="R153" person_name_id="13" field="3" renderer_class_name="org.apache.commons.codec.language.Soundex"/>
+
+</dataset>
