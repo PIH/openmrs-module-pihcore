@@ -238,7 +238,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         }
 
         StringBuilder sql = new StringBuilder();
-        sql.append("select distinct np1.personName.person.personId ");
+        sql.append("select distinct np1.personName.person.personId ");   // we fetch ids here and then convert to patients in idToPatients so that we can exclude non-patients from the result list and avoid a cast exception
         sql.append("from NamePhonetic np1 ");
         sql.append("where np1.renderedString like '")
                 .append(NamePhoneticsUtil.encodeString(firstName, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder")))
