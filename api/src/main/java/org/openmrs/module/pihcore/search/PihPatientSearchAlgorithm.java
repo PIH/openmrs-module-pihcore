@@ -138,7 +138,8 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             }
 
             // check for address matches
-            if (config.getRegistrationConfig() != null && config.getRegistrationConfig().getSimilarPatientsSearch().containsKey("addressFields")) {
+            if (config.getRegistrationConfig() != null && config.getRegistrationConfig().getSimilarPatientsSearch() != null
+                    && config.getRegistrationConfig().getSimilarPatientsSearch().containsKey("addressFields")) {
                 Map<String, String> addressFields = (Map<String,String>) config.getRegistrationConfig().getSimilarPatientsSearch().get("addressFields");
                 PersonAddress patientAddress = patient.getPersonAddress();
                 PersonAddress matchAddress = match.getPersonAddress();
@@ -161,7 +162,8 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             }
 
             // check person attribute matches
-            if (config.getRegistrationConfig() != null && config.getRegistrationConfig().getSimilarPatientsSearch().containsKey("personAttributeTypes")) {
+            if (config.getRegistrationConfig() != null && config.getRegistrationConfig().getSimilarPatientsSearch() != null
+                    && config.getRegistrationConfig().getSimilarPatientsSearch().containsKey("personAttributeTypes")) {
                 Map<String, String> personAttributeTypes = (Map<String,String>) config.getRegistrationConfig().getSimilarPatientsSearch().get("personAttributeTypes");
                 for (String personAttributeType : personAttributeTypes.keySet()) {
                     String patientAttribute = patient.getAttribute(personAttributeType) != null ? patient.getAttribute(personAttributeType).getValue() : null;
