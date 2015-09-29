@@ -165,4 +165,32 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
 
     }
 
+    @Test
+    public void shouldDisregardAccentMarksWhenMakingMatch() {
+
+        Patient patient = new Patient();
+
+        PersonName name = new PersonName();
+        patient.addName(name);
+        // this is an exact name match against the database
+        name.setGivenName("Jarus");
+        name.setFamilyName("Rapondi");
+
+        patient.setBirthdate(new Date());
+        patient.setGender("M");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, null, 10);
+        double score = results.get(0).getScore();
+
+        // now we add some accent marks
+        name.setGivenName("Járùs");
+        name.setFamilyName("Rápóndi");
+
+        // if we do a search again, the score should be the same, assuming the accent marks were ignored
+        results = searchAlgorithm.findSimilarPatients(patient, null, null, 10);
+        assertThat(results.get(0).getScore(), is(score));
+
+
+    }
+
 }

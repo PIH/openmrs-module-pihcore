@@ -9,7 +9,6 @@ import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.openmrs.Patient;
-import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
@@ -22,10 +21,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+
+/**
+ The way the search works is that fetches "base cohort" via an HQL query and then "scores" each person in the result set.
+ Persons are ranked via that score and only patients over a certain threshold are returned.  (The Registration App has "2.0"
+ hardcoded as the threshold, so I used that as a basis for determining how to score elements).
+
+ Base Cohort:
+
+ An AND query against the name phonetics table checking given name and family name, so, more or less:
+ WHERE encodedPotentialMatchGivenName LIKE encodedPatientGivenName% AND encodedPotentialMatchFamilyName LIKE encodedMatchFamilyName%
+
+ Then, that cohort is scores as follows:
+
+ Gender:
+ Match; 1 pt
+ Otherwise: -8 pts
+
+ Birth Date:
+ *Exact* match (same day, month and year): 10 pt (what I call one of the "jackpot" cases)
+ Similar age match: if age difference in years <=5, then (6 - difference in age) pts
+ Otherwise: -8 pts
+
+ Exact name matches (name field matching *without* using name phonetics):
+ If givenName, familyName and middleName (nickname) are all the same: 4 pts
+ If givenName and familyName are the same: 2 pts
+ Otherwise, if any *one* of the names match: 0.5 pts
+
+ Address:
+ Customizable via pih-config. A set of key-value pairs matching address field names to weights
+
+ Attributes:
+ Customizable via pih-config. A set of key-value pairs matching address attribute names to weights
+ Special functionality for attribute named "Telephone Number": all non-numeric characters are stripped out before the comparison is made
+
+ Example config snippet for Haiti:
+
+ "registrationConfig": {
+    "allowUnknownPatients": true,
+    "allowManualEntryOfPrimaryIdentifier": true,
+    "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
+    "similarPatientsSearch": {
+        "addressFields": {
+            "cityVillage": "1",
+            "address3": "1",
+            "address1": "1"
+        },
+    "personAttributeTypes" : {
+        "Mother's First Name": "3",
+        "Telephone Number": "10"
+        }
+    }
+ }
+**/
 
 @Service("pihcore.PihPatientSearchAlgorithm")
 public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm {
@@ -47,13 +101,11 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
 
     // TODO what about highlighting/showing the reasons for the match on the screen?
     // TODO what about exact patient search algo? do we want to still use that, or just use this with a higher cutoff?
-    // TODO create config for Pleebo? is this a current bug in Pleebo?
     // TODO phonetics on attributes?
     // TODO what about max results on initial query? needed?
     // TODO more tests? make sure matchedfields are properly included?
     // TODO max results (10 results each time, but changes, and you don't know?)
     // TODO address hierarchy field changes don't trigger a re-search
-    // TODO clear off accent marks when doing exact name search?
 
     @Override
     public List<PatientAndMatchQuality> findSimilarPatients(Patient patient, Map<String, Object> otherDataPoints, Double cutoff, Integer maxResults) {
@@ -81,8 +133,11 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             if (patient.getGender() != null && match.getGender() != null) {
                 if (patient.getGender().equals(match.getGender())) {
                     score += 1;
+                    matchedFields.add("gender");
                 }
-                matchedFields.add("gender");
+                else {
+                    score += -8;
+                }
             }
 
             // exact birthdate match = 10 pts; otherwise, if years between < 5, assign points based on 5-years between
@@ -91,11 +146,15 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                     score += 10;
                     matchedFields.add("birthdate");
                 }
-
-                int yearsBetween = Math.abs(Years.yearsBetween(new DateTime(patient.getBirthdate()), new DateTime(match.getBirthdate())).getYears());
-                if (yearsBetween <= 5) {
-                    score += (6 - yearsBetween);
-                    matchedFields.add("birthdate");
+                else {
+                    int yearsBetween = Math.abs(Years.yearsBetween(new DateTime(patient.getBirthdate()), new DateTime(match.getBirthdate())).getYears());
+                    if (yearsBetween <= 5) {
+                        score += (6 - yearsBetween);
+                        matchedFields.add("birthdate");
+                    }
+                    else {
+                        score += -8;
+                    }
                 }
             }
             // try estimated birthdate
@@ -128,7 +187,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             middleNameMatch = nameExactMatch(patient.getMiddleName(), match.getMiddleName());
 
             if (familyNameMatch && givenNameMatch && middleNameMatch) {
-                score += 5;
+                score += 4;
             }
             else if (familyNameMatch && givenNameMatch) {
                 score += 2;
@@ -149,7 +208,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                             String patientField = (String) PropertyUtils.getProperty(patientAddress, addressField);
                             String matchField = (String) PropertyUtils.getProperty(matchAddress, addressField);
                             if (StringUtils.isNotBlank(patientField) && StringUtils.isNotBlank(matchField) &&
-                                    patientField.equalsIgnoreCase(matchField)) {
+                                    stripAccentMarks(patientField).equalsIgnoreCase(stripAccentMarks(matchField))) {
                                 score += new Double(addressFields.get(addressField));
                                 matchedFields.add("addresses." + addressField);
                             }
@@ -177,7 +236,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                             matchAttribute = matchAttribute.replaceAll("[^0-9]", "");
                         }
 
-                        if (patientAttribute.equalsIgnoreCase(matchAttribute)) {
+                        if (stripAccentMarks(patientAttribute).equalsIgnoreCase(stripAccentMarks(matchAttribute))) {
                             score += new Double(personAttributeTypes.get(personAttributeType));
                             matchedFields.add("attributes." + personAttributeType);
                         }
@@ -212,7 +271,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
      */
     private boolean nameExactMatch(String value, String matches) {
         if (!StringUtils.isBlank(value) && !StringUtils.isBlank(matches)) {
-            if (value.equalsIgnoreCase(matches)) {
+            if (stripAccentMarks(value).equalsIgnoreCase(stripAccentMarks(matches))) {
                 return true;
             }
         }
@@ -275,5 +334,15 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         return patients;
     }
 
+    private String stripAccentMarks(String string) {
+
+        // This will separate all of the accent marks from the characters.
+        string = Normalizer.normalize(string, Normalizer.Form.NFD);
+
+        // this removes all non-alphanumerics
+        string = string.replaceAll("\\p{M}", "");
+
+        return string;
+    }
 
 }
