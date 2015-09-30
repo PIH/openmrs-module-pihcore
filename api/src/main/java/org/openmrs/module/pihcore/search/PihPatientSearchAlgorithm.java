@@ -298,14 +298,15 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
     // does a AND match on firstname and lastname against the name phonetics table; returns partial matches as long as start is match (ie, 'match%')
     private List<Patient> getPatientsByPhonetics(String firstName, String lastName) {
 
-        List<Integer> queryResults = new ArrayList<Integer>();
+        List<Integer> personIds;
+        List<Patient> patients = new ArrayList<Patient>();
 
         if (StringUtils.isBlank(firstName) || (StringUtils.isBlank(lastName))){
             return new ArrayList<Patient>();
         }
 
         StringBuilder sql = new StringBuilder();
-        sql.append("select distinct np1.personName.person.personId ");   // we fetch ids here and then convert to patients in idToPatients so that we can exclude non-patients from the result list and avoid a cast exception
+        sql.append("select distinct np1.personName.person.personId ");
         sql.append("from NamePhonetic np1 ");
         sql.append("where np1.renderedString like '")
                 .append(NamePhoneticsUtil.encodeString(firstName, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder")))
@@ -320,25 +321,20 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         try{
             Query query = sessionFactory.getCurrentSession().createQuery(sql.toString());
             //query.setCacheMode(CacheMode.IGNORE);  // was there a reason we were ignoring the cache? seems like we'd want to cache for performance reasons?
-            queryResults = query.list();
-
-        }catch(Exception e){
+            personIds = query.list();
+            if (personIds != null && personIds.size() > 0) {
+                query = sessionFactory.getCurrentSession().createQuery("from Patient as p where p.personId in (:personIds) and voided='false'");
+                query.setParameterList("personIds", personIds);
+                patients = query.list();
+            }
+        }
+        catch(Exception e){
             log.error("error retrieving name phonetics", e);
         }
 
-        return idsToPatients(queryResults);
-    }
-
-    private List<Patient> idsToPatients(List<Integer> queryResults) {
-        List<Patient> patients = new ArrayList<Patient>();
-        for (Integer i : queryResults) {
-            Patient patient = patientService.getPatient(i);
-            if (patient !=  null) {
-                patients.add(patient);
-            }
-        }
         return patients;
     }
+
 
     private String stripAccentMarks(String string) {
 

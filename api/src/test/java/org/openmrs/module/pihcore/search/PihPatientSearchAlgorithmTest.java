@@ -6,7 +6,9 @@ import org.openmrs.Patient;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonName;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -28,6 +30,9 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private PatientService patientService;
 
     @Override
     public Properties getRuntimeProperties() {
@@ -68,6 +73,30 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
         assertThat(results.size(), is(1));
         assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("Jarus"));
         assertThat(results.get(0).getPatient().getPersonName().getFamilyName(), is("Rapondi"));
+
+    }
+
+    @Test
+    public void shouldExcludeVoidedPatients() {
+
+        Patient patientToVoid = patientService.getPatient(13);
+        patientService.voidPatient(patientToVoid, "test");
+        Context.flushSession();
+
+        Patient patient = new Patient();
+
+        PersonName name = new PersonName();
+        patient.addName(name);
+        name.setGivenName("Jarusz");
+        name.setFamilyName("Rapondee");
+
+        patient.setBirthdate(new Date());
+        patient.setGender("M");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, null, 10);
+
+        assertThat(results.size(), is(0));
+
 
     }
 
