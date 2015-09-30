@@ -15,6 +15,7 @@ import org.openmrs.api.PatientService;
 import org.openmrs.module.namephonetics.NamePhonetic;
 import org.openmrs.module.namephonetics.NamePhoneticsUtil;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
 import org.openmrs.module.registrationcore.api.search.SimilarPatientSearchAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,7 +105,6 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
     // TODO phonetics on attributes?
     // TODO what about max results on initial query? needed?
     // TODO more tests? make sure matchedfields are properly included?
-    // TODO max results (10 results each time, but changes, and you don't know?)
     // TODO address hierarchy field changes don't trigger a re-search
 
     @Override
@@ -231,9 +231,15 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                     if (StringUtils.isNotBlank(patientAttribute) && StringUtils.isNotBlank(matchAttribute)) {
 
                         // special case telephone number: strip all non-numerics
-                        if (personAttributeType.equalsIgnoreCase("Telephone Number")) {
+                        if (personAttributeType.equalsIgnoreCase(PersonAttributeTypes.TELEPHONE_NUMBER.name())) {
                             patientAttribute = patientAttribute.replaceAll("[^0-9]", "");
                             matchAttribute = matchAttribute.replaceAll("[^0-9]", "");
+                        }
+
+                        // special case Mother's First Name: convert to name phonetics
+                        if (personAttributeType.equalsIgnoreCase(PersonAttributeTypes.MOTHERS_FIRST_NAME.name())) {
+                            patientAttribute = NamePhoneticsUtil.encodeString(patientAttribute, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder"));
+                            matchAttribute = NamePhoneticsUtil.encodeString(matchAttribute, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder"));
                         }
 
                         if (stripAccentMarks(patientAttribute).equalsIgnoreCase(stripAccentMarks(matchAttribute))) {

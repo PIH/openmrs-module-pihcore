@@ -7,6 +7,7 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonName;
 import org.openmrs.api.PersonService;
+import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,7 +153,7 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
 
         // now add in address and recalculate
         PersonAttribute attribute = new PersonAttribute();
-        attribute.setAttributeType(personService.getPersonAttributeTypeByName("Telephone Number"));
+        attribute.setAttributeType(personService.getPersonAttributeTypeByName(PersonAttributeTypes.TELEPHONE_NUMBER.name()));
         attribute.setValue("6178675309");
         patient.addAttribute(attribute);
 
@@ -162,6 +163,38 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
         // in our test config we've weighed telephone at 3 points
         assertThat(scoreWithAddress - scoreWithoutAddress, is(3.0));
         assertTrue(results.get(0).getMatchedFields().contains("attributes.Telephone Number"));
+
+    }
+
+    @Test
+    public void shouldMatchMothersNameViaPhonetics() {
+
+        // first get the base score for this patient
+        Patient patient = new Patient();
+
+        PersonName name = new PersonName();
+        patient.addName(name);
+        name.setGivenName("Jarusz");
+        name.setFamilyName("Rapondee");
+
+        patient.setBirthdate(new Date());
+        patient.setGender("M");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, null, 10);
+        double scoreWithoutAddress = results.get(0).getScore();
+
+        // now add in address and recalculate
+        PersonAttribute attribute = new PersonAttribute();
+        attribute.setAttributeType(personService.getPersonAttributeTypeByName(PersonAttributeTypes.MOTHERS_FIRST_NAME.name()));
+        attribute.setValue("Mary");
+        patient.addAttribute(attribute);
+
+        results = searchAlgorithm.findSimilarPatients(patient, null, null, 10);
+        double scoreWithAddress = results.get(0).getScore();
+
+        // in our test config we've weighed mother's first name at 5 points
+        assertThat(scoreWithAddress - scoreWithoutAddress, is(5.0));
+        assertTrue(results.get(0).getMatchedFields().contains("attributes.Mother's First Name"));
 
     }
 
