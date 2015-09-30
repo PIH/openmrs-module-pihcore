@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.config;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +20,13 @@ public class RegistrationConfigDescriptor {
     private String afterCreatedUrl = "registrationapp/registrationSummary.page?patientId={{patientId}}";
 
     @JsonProperty
+    private List<String> matchingPatientsPropertiesToDisplay;
+
+    @JsonProperty
     private Map<String, Object> similarPatientsSearch;
+
+    @JsonProperty
+    private Integer maxPatientMatchResults;
 
     public boolean isAllowUnknownPatients() {
         return allowUnknownPatients;
@@ -51,5 +58,21 @@ public class RegistrationConfigDescriptor {
 
     public void setSimilarPatientsSearch(Map<String, Object> similarPatientsSearch) {
         this.similarPatientsSearch = similarPatientsSearch;
+    }
+
+    public List<String> getMatchingPatientsPropertiesToDisplay() {
+        return matchingPatientsPropertiesToDisplay;
+    }
+
+    public void setMatchingPatientsPropertiesToDisplay(List<String> matchingPatientsPropertiesToDisplay) {
+        this.matchingPatientsPropertiesToDisplay = matchingPatientsPropertiesToDisplay;
+    }
+
+    public Integer getMaxPatientMatchResults() {
+        return maxPatientMatchResults;
+    }
+
+    public void setMaxPatientMatchResults(Integer maxPatientMatchResults) {
+        this.maxPatientMatchResults = maxPatientMatchResults;
     }
 }
