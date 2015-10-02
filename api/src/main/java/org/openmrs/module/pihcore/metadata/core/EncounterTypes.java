@@ -167,7 +167,7 @@ public class EncounterTypes {
 
     public static EncounterTypeDescriptor NCD_CONSULT = new EncounterTypeDescriptor() {
         public String uuid() { return "ae06d311-1866-455b-8a64-126a9bd74171"; }
-        public String name() { return "NCD visit"; }
+        public String name() { return "NCD Consult"; }
         public String description() { return "Non-communicable disease visit"; }
     };
 }

@@ -72,7 +72,7 @@
         min-width: 90%
         }
 
-        #calculated-ratio {
+        #calculated-waist-hip-ratio {
         font-weight: bold;
         font-size: 1.4em;
         }
@@ -113,6 +113,72 @@
         }
 
     </style>
+
+
+    <script type="text/javascript">
+        var calculateWaistHipRatio = function(waist, hip) {
+            var waistHipRatio = null;
+            if (waist &amp;&amp; hip) {
+                waistHipRatio = waist / hip;
+            }
+            return waistHipRatio;
+        }
+    </script>
+
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+
+            jq(function() {
+                // functions to handle updating the waist/hip ratio when in ENTER mode
+                var updateWaistHipRatio = function() {
+
+                    var waist = htmlForm.getValueIfLegal('waist_cm.value');
+                    var hip = htmlForm.getValueIfLegal('hip_cm.value');
+
+                    var waistHipRatio = calculateWaistHipRatio(waist, hip);
+
+                    if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
+                        jq('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
+                    }
+                    else {
+                        jq('#calculated-waist-hip-ratio').html("");
+                    }
+                };
+
+                getField('waist_cm.value').change(updateWaistHipRatio);
+                getField('hip_cm.value').change(updateWaistHipRatio);
+
+                updateWaistHipRatio();
+            });
+
+        </script>
+    </ifMode>
+
+
+
+    <ifMode mode="VIEW">
+        <script type="text/javascript">
+
+            // handle displaying the waist/hip ratio when in VIEW mode
+            jq(function() {
+
+                // we have to iterate through in case there are multiple NCD forms
+                // displayed on a single page
+
+                jq('htmlform').each(function(index, form) {
+                    var waist = jq(form).find('#waist_cm').find('.value').text();
+                    var hip = jq(form).find('#hip_cm').find('.value').text();
+
+                    var waistHipRatio = calculateWaistHipRatio(waist, hip);
+
+                    if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
+                        jq(form).find('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
+                    }
+                });
+            });
+
+        </script>
+    </ifMode>
 
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>:
@@ -328,8 +394,8 @@
                 <!-- ToDo:  Calculate the ratio -->
                 <span id="calculated-ratio-wrapper">
                     <uimessage code="pihcore.ncd.vitals.waist_hip_ratio"/>
-                    <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>
-                    <span id='calculated-ratio'>
+                    <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>:
+                    <span id='calculated-waist-hip-ratio'>
                     </span>
                 </span>
                 <!--
