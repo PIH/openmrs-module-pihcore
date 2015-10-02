@@ -12,7 +12,7 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform id="ncd-consult-note" class="simple-form-ui" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
+<htmlform id="ncd-consult-note" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
           htmlformUuid="59166690-b88b-4cbd-92f7-31fb037bf2dc"
           formName="NCD Consult Note"
           formEncounterType="ae06d311-1866-455b-8a64-126a9bd74171" formVersion="1.0">
@@ -86,11 +86,6 @@
         min-width: 15%
         }
 
-        textarea {
-        overflow-y: hidden; /* fixes scrollbar flash - kudos to @brettjonesdev */
-        padding-top: 1.1em; /* fixes text jump on Enter keypress */
-        }
-
         @media print {
         .print-form-datestamps { display: block !important }
         button.cancel, button.submit { display: none }
@@ -124,23 +119,11 @@
         width: 95%;
         }
 
+        #sections {
+            display: inline-block;
+        }
+
     </style>
-
-    <script type="text/javascript">
-
-        jq(function() {
-
-        // make text areas expand based on content (this allows us to avoid scrollbars and thereby facilitate printing)
-        jq('#post-op-surgical-note').on( 'keyup', 'textarea', function (){
-        jq(this).height( 0 );
-        jq(this).height( this.scrollHeight );
-        });
-
-        jq('#post-op-surgical-note').find( 'textarea' ).keyup();
-
-        });
-
-    </script>
 
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>:
@@ -270,6 +253,7 @@
         </includeIf>
     </ifMode>
 
+    <div id="sections">
     <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <div class="section-container">
             <!-- ToDo: The next 4 questions should only be included on the initial visit -->
@@ -492,8 +476,7 @@
         </div>
     </section>
 
-    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.ncd.general.title">
+    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.general.title">
         <div class="section-container">
             <p>
                 <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
@@ -501,6 +484,7 @@
         </div>
     </section>
 
+    </div>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">

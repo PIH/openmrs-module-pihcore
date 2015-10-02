@@ -263,6 +263,12 @@ public class Privileges {
         public String description() { return "Ability to enter an oncology consult note"; }
     };
 
+    public static PrivilegeDescriptor TASK_EMR_ENTER_NCD_CONSULT_NOTE = new PrivilegeDescriptor() {
+        public String uuid() { return "ba550ca0-6934-11e5-a837-0800200c9a66"; }
+        public String privilege() { return "Task: emr.enterNCDConsultNote"; }
+        public String description() { return "Ability to enter an NCD consult note"; }
+    };
+
     public static PrivilegeDescriptor TASK_EMR_PATIENT_ENCOUNTER_DELETE = new PrivilegeDescriptor() {
         public String uuid() { return "5367155a-e435-4010-877a-f3007059c352"; }
         public String privilege() { return "Task: emr.patient.encounter.delete"; }
