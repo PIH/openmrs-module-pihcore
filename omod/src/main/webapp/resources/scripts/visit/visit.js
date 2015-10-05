@@ -131,8 +131,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
-    .directive("encounter", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "DatetimeFormats", "SessionInfo", "$http",
-        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, DatetimeFormats, SessionInfo, $http) {
+    .directive("encounter", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
+        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
             return {
                 restrict: "E",
                 scope: {
@@ -156,6 +156,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             $http.get("/" + OPENMRS_CONTEXT_PATH + url)
                                 .then(function (response) {
                                     $scope.templateModel = response.data;
+                                    if ($scope.templateModel.html) {
+                                        // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
+                                        $scope.html = $sce.trustAsHtml($scope.templateModel.html);
+                                    }
                                 });
                             // TODO error handling
                         }
