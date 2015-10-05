@@ -1,3 +1,5 @@
+<!-- a template to display the "view" version of an html form provided by the htmlfromentryui getAsHtml method -->
+
 <div class="header" ng-include="'templates/defaultEncounterHeader.page'">
 </div>
 
