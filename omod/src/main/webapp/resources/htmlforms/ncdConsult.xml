@@ -113,6 +113,10 @@
         width: 95%;
         }
 
+        textarea {
+        width: 95%;
+        }
+
     </style>
 
 
