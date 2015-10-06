@@ -69,7 +69,8 @@
         }
 
         form fieldset {
-        min-width: 90%
+        min-width: 90%;
+        display: block;
         }
 
         #calculated-waist-hip-ratio {
@@ -534,7 +535,7 @@
              headerCode="pihcore.ncd.general.title">
         <div class="section-container">
             <p>
-                <obs conceptId="PIH:PATIENT PLAN COMMENTS"/>
+                <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
             </p>
         </div>
     </section>
