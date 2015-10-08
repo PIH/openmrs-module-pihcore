@@ -11,10 +11,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 url: "/overview",
                 templateUrl: "templates/overview.page"
             })
-            .state("visitList", {
-                url: "/visitList",
-                templateUrl: "templates/visitList.page"
-            })
             .state("editPlan", {
                 url: "/editPlan",
                 templateUrl: "templates/orders/editPlan.page"
@@ -312,6 +308,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
+    .directive("visitList", [ function() {
+        return {
+            templateUrl: 'templates/visitList.page'
+        }
+    }])
+
     .service("VisitTemplateService", [ "VisitTemplates", "VisitAttributeTypes", "Encounter","ConfigService",
         function(VisitTemplates, VisitAttributeTypes, Encounter, ConfigService) {
 
@@ -470,7 +472,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             function loadVisits(patientUuid) {
-                Visit.get({patient: $scope.patientUuid, v: "default"}).$promise.then(function(response) {
+                Visit.get({patient: $scope.patientUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:default)"}).$promise.then(function(response) {
                     // TODO fetch more pages?
                     $scope.visits = response.results;
                     // TODO what does this do?

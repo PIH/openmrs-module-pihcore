@@ -1,4 +1,4 @@
-angular.module("filters", [ "uicommons.filters", "constants" ])
+angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConfig" ])
 
     .filter("with", [function() {
         return function(list, property, value, justOne) {
@@ -241,6 +241,27 @@ angular.module("filters", [ "uicommons.filters", "constants" ])
             return "";
         }
     })
+
+    .filter('encounterTypesForVisitList',[ 'EncounterTypeConfig', function(EncounterTypeConfig) {
+        return function(encounters) {
+
+            var result = ""
+            var encounterTypes = [];
+
+            if (encounters) {
+                _.each(encounters, function(e) {
+                    if (EncounterTypeConfig[e.encounterType.uuid].showOnVisitList
+                        && encounterTypes.indexOf(e.encounterType.uuid) < 0) {
+                            result = result + e.encounterType.display + ", ";
+                            encounterTypes.push(e.encounterType.uuid);
+                    }
+                })
+            }
+
+            // trim off trailing ", "
+            return result ? result.substring(0, result.length - 2) : "";
+        }
+    }])
 
     .filter('encounterRole', function() {
         var displayOne = function(input, prefix) {

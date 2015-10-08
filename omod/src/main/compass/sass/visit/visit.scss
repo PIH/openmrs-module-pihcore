@@ -7,13 +7,36 @@ $green: #51A351;
   cursor: pointer;
 }
 
-#visit-list {
-  tr:hover {
+#visit-list-dropdown {
+  display: table;
+
+  li {
+    display: table-row;
+  }
+
+  li.list-element:hover {
     background-color: $link;
     color: white;
   }
-  tr.selected-visit {
+  li.selected-visit {
     font-family: $primaryBoldFont;
+  }
+
+  span {
+    display: table-cell;
+    white-space: nowrap;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .visit-list-date {
+    text-align: right;
+  }
+
+  .visit-list-date-header, .visit-list-encounters-header {
+    font-weight: bold;
   }
 }
 
@@ -197,13 +220,7 @@ $green: #51A351;
 }
 
 #choose-another-visit {
-  float: right;
-  text-align: right;
-
-  .popup {
-    position: absolute;
-    right: 0;
-  }
+  display: inline-block;
 }
 
 table.vaccination-table {
