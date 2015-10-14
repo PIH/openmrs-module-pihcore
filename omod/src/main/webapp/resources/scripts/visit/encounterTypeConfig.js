@@ -131,7 +131,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
         encounterTypeConfig[EncounterTypes.radiologyOrder.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/defaultOrderEncounterShort.page",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-x-ray"
         };

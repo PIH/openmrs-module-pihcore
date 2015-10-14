@@ -4,11 +4,11 @@
 <!--encounter-summary-long class currently just used for selenium tests -->
 <div class="content encounter-summary-long">
     <h5>${ ui.message('coreapps.clinicianfacing.diagnoses') }:</h5>
-    <div ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
+    <div class="diagnosisLongClass" ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
         {{ diag | diagnosisLong }}
     </div>
 
-    <div ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withoutCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
+    <div class="diagnosisLongClass" ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withoutCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
         {{ diag | diagnosisLong }}
     </div>
 
