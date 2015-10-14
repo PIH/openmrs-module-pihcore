@@ -26,7 +26,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
         encounterTypeConfig[EncounterTypes.checkIn.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/checkInShort.page",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-check-in",
@@ -34,7 +34,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
         encounterTypeConfig[EncounterTypes.vitals.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/vitalsShort.page",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
             templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
             icon: "icon-vitals",
@@ -42,7 +42,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
         encounterTypeConfig[EncounterTypes.consultation.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/clinicConsultShort.page",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/clinicConsultLong.page",
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,

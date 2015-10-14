@@ -209,7 +209,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.delete = function() {
                         $scope.$emit("request-delete-encounter", $scope.encounter);
                     }
-                    loadFullEncounter();
                 }],
                 template: '<div class="visit-element"><div ng-include="currentTemplate()"></div></div>'
             }
@@ -481,7 +480,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             function loadVisit(visitUuid) {
-                Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:default,patient:default,visitType:ref,attributes:default)" })
+                Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:ref,orders:ref,voided,visit:ref,encounterProviders),patient:default,visitType:ref,attributes:default)" })
                     .$promise.then(function(visit) {
                         $scope.visit = new OpenMRS.VisitModel(visit);
                         $scope.visitIdx = $scope.getVisitIdx(visit);

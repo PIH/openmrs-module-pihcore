@@ -233,10 +233,20 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
 
     .filter('getProviderNameFromDisplayString', function() {
         return function(input) {
-            if (input) {
-                //we made the assumption the display string is like "P123 - Dr. Bob"
-                var name = input.display.split(" - ");
-                return (name != null) ? name[name.length -1] : input.display;
+           if (input && input.display){
+               //we made the assumption the display string is like "Wideline Louis Charles: Dispenser"
+               // /ws/rest/v1/visit/2a767422-98b2-445d-9294-d008e17b42c5?v=custom:)
+                var name = input.display.split(": ");
+                if (name != null && name[0].length < input.display.length) {
+                    return name[0];
+                } else {
+                    //we made the assumption the display string is like "MAH6P - Wideline Louis Charles"
+                    // /ws/rest/v1/encounter/uuid?v=full
+                    name = input.display.split(" - ");
+                    if (name != null) {
+                        return name[name.length -1];
+                    }
+                }
             }
             return "";
         }
@@ -265,8 +275,10 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
 
     .filter('encounterRole', function() {
         var displayOne = function(input, prefix) {
-            if (input && input.provider && input.provider) {
+            if (input && input.provider ) {
                 return input.provider;
+            } else if (input && input.display) {
+                return input;
             }
             return "";
         }
