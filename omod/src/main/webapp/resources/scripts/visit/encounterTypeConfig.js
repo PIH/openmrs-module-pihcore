@@ -102,7 +102,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
         encounterTypeConfig[EncounterTypes.admission.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/admissionShort.page",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/admissionLong.page",
             icon: "icon-signin",
             editUrl: hfeStandardEditUrl
