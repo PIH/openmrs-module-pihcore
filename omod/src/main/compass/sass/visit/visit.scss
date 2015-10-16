@@ -93,6 +93,21 @@ $green: #51A351;
   margin-top: 10px;
   margin-bottom: 10px;
 
+  .time-span {
+    width: 25%;
+    display: inline-block;
+  }
+
+  .encounter-span {
+    width: 25%;
+    display: inline-block;
+  }
+
+  .provider-and-location-span {
+    width: 20%;
+    display: inline-block;
+  }
+
   .one-third {
     width: 30%;
     display: inline-block;
@@ -105,6 +120,11 @@ $green: #51A351;
 
   .two-thirds {
     width: 63%;
+    display: inline-block;
+  }
+
+  .ninety-percent {
+    width: 90%;
     display: inline-block;
   }
 
