@@ -129,7 +129,7 @@ public class RolesAndPrivilegesBundle extends PihMetadataBundle {
             install(Roles.PHYSICAL_THERAPIST);
             install(Roles.SOCIAL_WORKER);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA) || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             install(Roles.SYSTEM_ADMINISTRATOR);
             install(Roles.ARCHIVIST_CLERK);
             install(Roles.PHYSICIAN);

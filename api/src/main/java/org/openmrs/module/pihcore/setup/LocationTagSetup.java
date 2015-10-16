@@ -11,6 +11,7 @@ import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiLocations;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
+import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,6 +27,9 @@ public class LocationTagSetup {
                 setupLocationTagsForPleebo(locationService);
             }
         }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            setupLocationTagsForSierraLeone(locationService);
+        }
         else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
                 setupLocationTagsForLacolline(locationService);
@@ -35,11 +39,16 @@ public class LocationTagSetup {
         }
     }
 
+    private static void setupLocationTagsForSierraLeone(LocationService locationService) {
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
+    }
+
     private static void setupLocationTagsForPleebo(LocationService locationService) {
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-
     }
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {

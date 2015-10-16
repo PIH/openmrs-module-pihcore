@@ -12,7 +12,7 @@ import java.util.Map;
 public class ConfigDescriptor {
 
     public enum Country {
-        HAITI, LIBERIA, OTHER
+        HAITI, LIBERIA, SIERRA_LEONE, OTHER
     }
 
     public enum Site {

@@ -30,6 +30,7 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
@@ -94,6 +95,9 @@ public class PihCoreActivator extends BaseModuleActivator {
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             // nothing yet
         }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            // nothing yet
+        }
 
         Context.flushSession();
     }
@@ -112,6 +116,9 @@ public class PihCoreActivator extends BaseModuleActivator {
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataBundle.class).get(0));
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataBundle.class).get(0));
         }
 
     }
