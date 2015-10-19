@@ -45,8 +45,6 @@ public class RolesAndPrivilegesBundle extends PihMetadataBundle {
         install(Privileges.APP_EMR_OUTPATIENT_VITALS);
         install(Privileges.APP_EMR_SYSTEM_ADMINISTRATION);
         install(Privileges.APP_LEGACY_ADMIN);
-        install(Privileges.APP_LEGACY_PATIENT_REGISTRATION);
-        install(Privileges.APP_LEGACY_PATIENT_REGISTRATION_EDIT);
         install(Privileges.APP_REGISTRATION_REGISTER_PATIENT);
         install(Privileges.APP_REPORTINGUI_ADHOC_ANALYSIS);
         install(Privileges.APP_REPORTINGUI_REPORTS);

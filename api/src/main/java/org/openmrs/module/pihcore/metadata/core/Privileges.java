@@ -139,18 +139,6 @@ public class Privileges {
         public String description() { return "Ability to run data export reports"; }
     };
 
-    public static PrivilegeDescriptor APP_LEGACY_PATIENT_REGISTRATION = new PrivilegeDescriptor() {
-        public String uuid() { return "29ba7bba-c9b6-4528-b55e-7bef146621e9"; }
-        public String privilege() { return "App: patientregistration.main"; }
-        public String description() { return "Run the (Legacy) Patient Registration app"; }
-    };
-
-    public static PrivilegeDescriptor APP_LEGACY_PATIENT_REGISTRATION_EDIT = new PrivilegeDescriptor() {
-        public String uuid() { return "771cbdc3-4aa2-4dc0-9f7b-dac42f172e36"; }
-        public String privilege() { return "App: patientregistration.edit"; }
-        public String description() { return "Run the (Legacy) Edit a patient app"; }
-    };
-
     public static PrivilegeDescriptor APP_REGISTRATION_REGISTER_PATIENT = new PrivilegeDescriptor() {
         public String uuid() { return "744d914c-8b1f-4f0e-abfb-b4ee17ad0865"; }
         public String privilege() { return "App: registrationapp.registerPatient"; }
