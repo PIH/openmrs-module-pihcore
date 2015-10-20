@@ -151,6 +151,7 @@ public class Roles {
         public String description() { return "Application Role: archivistClerk"; }
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
                     Privileges.APP_EMR_ARCHIVES_ROOM,
                     Privileges.APP_REGISTRATION_REGISTER_PATIENT,
                     Privileges.APP_EMR_CHECK_IN,
@@ -620,6 +621,7 @@ public class Roles {
         public String description() { return "Application Role: dataArchives"; }
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
                     Privileges.APP_EMR_ARCHIVES_ROOM,
                     Privileges.APP_EMR_INPATIENTS,
