@@ -331,7 +331,7 @@
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>uicommons</artifactId>
+            <artifactId>uicommons-api</artifactId>
             <version>${uicommonsVersion}</version>
             <scope>provided</scope>
         </dependency>
