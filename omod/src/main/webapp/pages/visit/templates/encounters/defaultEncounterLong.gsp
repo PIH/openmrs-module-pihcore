@@ -12,6 +12,8 @@
             {{ order.orderNumber }}<br>
             <small>${ ui.message("coreapps.patientDashBoard.order")}</small>
             {{ order.display }}<br>
+            <small>${ ui.message("radiologyapp.order.timing")}</small>
+            {{ (order.urgency == 'ROUTINE') ? ('radiologyapp.order.timing.routine' | translate) : ('radiologyapp.order.timing.urgent' | translate) }}<br>
         </p>
     </div>
 
