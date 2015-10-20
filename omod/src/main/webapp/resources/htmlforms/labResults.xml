@@ -172,16 +172,24 @@
                     </field>
                 </span>
 
-                <p>
-                    <label for="cd4">
-                        <uimessage code="pihcore.lab.cd4"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="cd4" conceptId="PIH:CD4 COUNT" placeholder="Enter value"/>
-                        </field>
-                    </span>
-                </p>
+
+                <label for="cd4">
+                    <uimessage code="pihcore.lab.cd4"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="cd4" conceptId="PIH:CD4 COUNT" placeholder="Enter value"/>
+                    </field>
+                </span>
+
+                <label for="blood-type">
+                    <uimessage code="pihcore.lab.blood_type"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="blood-type" conceptId="PIH:BLOOD TYPING" />
+                    </field>
+                </span>
 
             </p>
 
@@ -426,6 +434,26 @@
                         <obs id="ldh" conceptId="PIH:LACTATE DEHYDROGENASE" placeholder="Enter value"/>
                     </field>
                 </span>
+
+                <label for="hiv-test">
+                    <uimessage code="pihcore.lab.hiv"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="hiv-test" conceptId="PIH:RESULT OF HIV TEST"
+                             answerConceptIds="PIH:POSITIVE,PIH:NEGATIVE,PIH:INDETERMINATE" />
+                    </field>
+                </span>
+
+                <label for="viral-load">
+                    <uimessage code="pihcore.lab.viral_load"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="viral-load" conceptId="PIH:HIV VIRAL LOAD" placeholder="Enter value"/>
+                    </field>
+                </span>
+
 
             </p>
 
