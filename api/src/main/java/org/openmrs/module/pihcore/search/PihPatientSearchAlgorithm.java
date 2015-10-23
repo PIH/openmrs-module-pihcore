@@ -5,13 +5,13 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
-import org.hibernate.SessionFactory;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
 import org.openmrs.Patient;
 import org.openmrs.PersonAddress;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.namephonetics.NamePhonetic;
 import org.openmrs.module.namephonetics.NamePhoneticsUtil;
 import org.openmrs.module.pihcore.config.Config;
@@ -88,10 +88,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
     protected static final Log log = LogFactory.getLog(PihPatientSearchAlgorithm.class);
 
     @Autowired
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    private PatientService patientService;
+    private DbSessionFactory sessionFactory;
 
     @Autowired
     private Config config;

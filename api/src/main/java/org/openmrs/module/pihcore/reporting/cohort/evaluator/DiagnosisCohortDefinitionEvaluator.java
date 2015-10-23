@@ -15,7 +15,6 @@
 package org.openmrs.module.pihcore.reporting.cohort.evaluator;
 
 import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -23,9 +22,10 @@ import org.hibernate.criterion.Subqueries;
 import org.openmrs.Cohort;
 import org.openmrs.Obs;
 import org.openmrs.annotation.Handler;
-import org.openmrs.module.pihcore.reporting.cohort.definition.DiagnosisCohortDefinition;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.diagnosis.DiagnosisMetadata;
+import org.openmrs.module.pihcore.reporting.cohort.definition.DiagnosisCohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.evaluator.CohortDefinitionEvaluator;
@@ -40,7 +40,7 @@ import java.util.List;
 public class DiagnosisCohortDefinitionEvaluator implements CohortDefinitionEvaluator {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private DbSessionFactory sessionFactory;
 
     @Autowired
     private EmrApiProperties emrApiProperties;

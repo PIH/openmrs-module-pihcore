@@ -15,12 +15,12 @@
 package org.openmrs.module.pihcore.reporting.cohort.evaluator;
 
 import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.annotation.Handler;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.pihcore.reporting.cohort.definition.PersonAuditInfoCohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
@@ -36,7 +36,7 @@ import java.util.List;
 public class PersonAuditInfoCohortDefinitionEvaluator implements CohortDefinitionEvaluator {
 
     @Autowired
-    SessionFactory sessionFactory;
+    DbSessionFactory sessionFactory;
 
     @Override
     public EvaluatedCohort evaluate(CohortDefinition cohortDefinition, EvaluationContext context) throws EvaluationException {

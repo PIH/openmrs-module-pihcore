@@ -15,11 +15,11 @@
 package org.openmrs.module.pihcore.reporting.cohort.evaluator;
 
 import org.hibernate.SQLQuery;
-import org.hibernate.SessionFactory;
 import org.openmrs.Cohort;
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.annotation.Handler;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.pihcore.reporting.cohort.definition.InpatientTransferCohortDefinition;
@@ -42,7 +42,7 @@ public class InpatientTransferCohortDefinitionEvaluator implements CohortDefinit
     EmrApiProperties emrApiProperties;
 
     @Autowired
-    private SessionFactory sessionFactory;
+    private DbSessionFactory sessionFactory;
 
     @Override
     public EvaluatedCohort evaluate(CohortDefinition cohortDefinition, EvaluationContext context) throws EvaluationException {
