@@ -15,9 +15,9 @@
 package org.openmrs.module.pihcore.reporting.cohort.evaluator;
 
 import org.hibernate.SQLQuery;
+import org.hibernate.SessionFactory;
 import org.openmrs.Cohort;
 import org.openmrs.annotation.Handler;
-import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.pihcore.reporting.cohort.definition.DiedSoonAfterEncounterCohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
@@ -32,7 +32,7 @@ import java.util.List;
 public class DiedSoonAfterEncounterCohortDefinitionEvaluator implements CohortDefinitionEvaluator {
 
     @Autowired
-    private DbSessionFactory sessionFactory;
+    private SessionFactory sessionFactory;
 
     @Override
     public EvaluatedCohort evaluate(CohortDefinition def, EvaluationContext context) throws EvaluationException {

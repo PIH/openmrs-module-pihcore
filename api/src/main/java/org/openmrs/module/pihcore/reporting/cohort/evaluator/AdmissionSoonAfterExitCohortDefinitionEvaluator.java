@@ -15,9 +15,9 @@
 package org.openmrs.module.pihcore.reporting.cohort.evaluator;
 
 import org.hibernate.SQLQuery;
+import org.hibernate.SessionFactory;
 import org.openmrs.Cohort;
 import org.openmrs.annotation.Handler;
-import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.reporting.cohort.definition.AdmissionSoonAfterExitCohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
@@ -36,7 +36,7 @@ import java.util.List;
 public class AdmissionSoonAfterExitCohortDefinitionEvaluator implements CohortDefinitionEvaluator {
 
     @Autowired
-    DbSessionFactory sessionFactory;
+    SessionFactory sessionFactory;
 
     @Autowired
     private EmrApiProperties emrApiProperties;
