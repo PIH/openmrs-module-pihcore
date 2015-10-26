@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <location location_id="1" name="Test Location" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="92ab9667-4686-49af-8be8-65a4b58fc49c"/>
+    <person person_id="10001" birthdate_estimated="0" gender="M" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="5c521595-4e12-46b0-8248-b8f2d3697766"/>
+    <patient patient_id="10001" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="2" patient_id="10001" identifier="12345-5" identifier_type="1" preferred="0" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="504c83c7-cfbf-4ae7-a4da-bdfa3236689f"/>
+    <person_address person_address_id="10002" person_id="10001" address1="Apartment ABC" address2="123 fake st" city_village="Faketown" state_province="Fakeland" date_created="2005-01-01 00:00:00.0" voided="false" preferred="1"/>
+    <person_name person_name_id="3" preferred="false" person_id="10001" prefix="President" given_name="John" middle_name="Fitzgerald" family_name="Kennedy" family_name_suffix="Esq." creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="c9714a2d-a97e-4673-80f8-ac8dd5ced083"/>
+
+    <person person_id="10002" birthdate_estimated="0" gender="M" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="AF22180D-7FB6-45B5-AC19-7E8815F09CCA"/>
+    <patient patient_id="10002" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="4" patient_id="10002" identifier="1234-4" identifier_type="1" preferred="0" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="24719047-1F65-4781-AEC3-0849D24A1C95"/>
+
+    <person person_id="10003" birthdate_estimated="0" gender="M" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="5F2F2B0E-3F84-4742-8EDD-95D6AFCAA575"/>
+    <patient patient_id="10003" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="5" patient_id="10003" identifier="101-6" identifier_type="1" preferred="0" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="E3D731EB-93EE-45EE-BC43-EFD5044D8F19"/>
+
+    <!-- this sets the identifier type with id=1 in the standard test dataset to the "primary identifier type" -->
+    <global_property property="emr.primaryIdentifierType" property_value="1a339fe9-38bc-4ab3-b180-320988c0b968" uuid="776cb3c3-9e66-42c6-8f03-2a0c1e9ca2a8"/>
+    <person_attribute_type person_attribute_type_id="10" name="Unknown patient" description="Unknown patient" format="java.lang.String" searchable="false" creator="1" date_created="2008-08-15 15:53:36.0" retired="false" uuid="a0f5521c-dbbd-4c10-81b2-1b7ab18330dz" sort_weight="2"/>
+    <global_property property="provider.unknownProviderUuid" property_value="" uuid="984628b0-e914-11e4-b571-0800200c9a66"/>
+    <global_property property="emr.unknownProvider" property_value="" uuid="a0351a90-e914-11e4-b571-0800200c9a66"/>
+
+
+    <!-- just use a random types from the test dataset -->
+    <global_property property="emr.radiologyOrderEncounterType" property_value="61ae96f4-6afe-4351-b6f8-cd4fc383cce1" uuid="696cb344-9e66-42c6-8f03-2a0c1e9ca2a8"/>
+    <global_property property="emr.orderingProviderEncounterRole" property_value="a0b03050-c99b-11e0-9572-0800200c9a66" uuid="696cb344-9e66-6666-8f03-2a0c1e9ca2a8"/>
+    <global_property property="emr.radiologyTestOrderType" property_value="c303c420-e9d4-11e4-b571-0800200c9a66" uuid="677cb344-9e66-6666-8f03-2a0c1e9ca2a8"/>
+    <global_property property="emr.radiologyCareSetting" property_value="6f0c9a92-6f24-11e3-af88-005056821db0" uuid="497f32e0-e9db-11e4-b571-0800200c9a66"/>
+
+    <global_property property="emr.unknownLocation" property_value="8d6c993e-c2cc-11de-8d13-0010c6dffd0f" uuid="6977b3c3-9e66-42c6-8f03-2a0c1e9ca2a8"/>
+    <global_property property="emr.unknownProvider" property_value="c2299800-cca9-11e0-9572-0800200c9a66" uuid="6988b3c3-9e66-42c6-8f03-2a0c1e9ca2a8"/>
+
+    <!-- define metadata for the Radiology Requisiton -->
+    <concept concept_id="2001" retired="false" datatype_id="1" class_id="2" is_set="false" creator="1" date_created="2008-08-15 15:27:51.0" version="" uuid="999e2ed3-dd5f-4f46-9459-26127c9265ab"/>
+    <concept_name concept_id="2001" name="Creatinine Level" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="2001" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="9995693a-f558-40c9-8177-145dfe119ca7"/>
+    <concept_description concept_description_id="2001" concept_id="2001" locale="en" description="Creatinine Level" creator="1" date_created="2004-08-12 00:00:00.0" uuid="999d710b-d444-40b7-b449-6e0e739dedd0"/>
+    <global_property property="radiologyapp.creatinineLevelConcept" property_value="999e2ed3-dd5f-4f46-9459-26127c9265ab" uuid="9998b3c3-9e66-42c6-8f03-2a0c1e9ca2a8"/>
+
+    <encounter_role encounter_role_id="1001" name="Radiology Technician" description="Radiology Technician" creator="1" retired="false" date_created="2011-08-18 14:00:00.0" uuid="a0b03050-c99b-22e0-9572-0800200c9a66" />
+    <global_property property="emr.radiologyTechnicianEncounterRole" property_value="a0b03050-c99b-22e0-9572-0800200c9a66" uuid="6988b3c3-9236-42c6-8f03-2a0c1e9ca2a8"/>
+
+    <concept_reference_source concept_source_id="1001" name="org.openmrs.module.emrapi" description="org.openmrs.module.emrapi" hl7_code="org.openmrs.module.emrapi" creator="1" date_created="2005-02-24 00:00:00.0" uuid="00001827-639f-4cb4-961f-1e025bf80ff0" retired="false"/>
+
+    <concept concept_id="1001" retired="false" datatype_id="4" class_id="2" is_set="false" creator="1" date_created="2008-08-15 15:27:51.0" version="" uuid="0cbe2ed3-dd5f-4f46-9459-26127c9265ab"/>
+    <concept_name concept_id="1001" name="Chest X-ray" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1001" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="9bc5693a-f558-40c9-8177-145dfe119ca7"/>
+    <concept_description concept_description_id="1001" concept_id="1001" locale="en" description="Chest x-ray" creator="1" date_created="2004-08-12 00:00:00.0" uuid="5f4d710b-d444-40b7-b449-6e0e739dedd0"/>
+
+
+    <concept concept_id="113" retired="false" datatype_id="3" class_id="3" is_set="false" creator="1" date_created="2004-08-12 00:00:00.0" version="" changed_by="1" date_changed="2005-02-25 11:43:43.0" uuid="29dc4a20-507f-40ed-9545-d47e932483fa"/>
+    <concept_name concept_id="113" name="Paracetamol" locale="en" creator="1" date_created="2004-08-12 00:00:00.0" concept_name_id="1441" concept_name_type="FULLY_SPECIFIED" locale_preferred="1" voided="false" uuid="29dc4a20-507f-40ed-9545-d47e932483fa"/>
+
+    <encounter_type encounter_type_id="1003" name="RadiologyOrder" description="Radiology Order  - the ordering of a radiology exam" creator="1" date_created="2015-10-23 00:00:00.0" retired="false" uuid="FDE28CB8-3066-4678-B463-A626F261F3C6"/>
+    <encounter_type encounter_type_id="1004" name="DrugOrder" description="Drug Order" creator="1" date_created="2015-10-23 00:00:00.0" retired="false" uuid="645171F0-E7D2-4D42-B8AA-DFDFE641AEFD"/>
+    <!-- define the metadata for the Radiology Report -->
+    <encounter_type encounter_type_id="1002" name="Radiology Report" description="Radiology Report" creator="1" date_created="2005-02-24 00:00:00.0" retired="false" uuid="77ae96f4-6afe-6666-b6f8-cd4fc383cce1"/>
+    <global_property property="emr.radiologyReportEncounterType" property_value="77ae96f4-6afe-6666-b6f8-cd4fc383cce1" uuid="6988b444-9776-42c6-8f03-2a0c1e9ca2a8"/>
+
+    <encounter_role encounter_role_id="1002" name="Principal Results Interpreter" description="Principal Results Interpreter" creator="1" retired="false" date_created="2011-08-18 14:00:00.0" uuid="a0b03050-c99b-22e0-9572-0800123c9a66" />
+    <global_property property="emr.principalResultsInterpreterEncounterRole" property_value="a0b03050-c99b-22e0-9572-0800123c9a66" uuid="6988b3c3-9236-42c6-2203-2a0c1e9ca2a8"/>
+
+    <order_type order_type_id="1001" name="RadiologyOrder" parent="2" java_class_name="org.openmrs.module.radiologyapp.RadiologyOrder" description="Radiology Order" date_created="2008-08-15 13:49:47.0" retired="false" uuid="c303c420-e9d4-11e4-b571-0800200c9a66" creator="1" />  <!-- parent=2 references Test Order in standard test dataset -->
+    <order_type order_type_id="1002" name="DrugOrder" parent="2" java_class_name="org.openmrs.DrugOrder" description="Drug Order" date_created="2008-08-15 15:49:04.0" retired="false" uuid="dd3fb1d0-ae06-22e3-a5e2-0800211c9a66" creator="1"/>
+
+    <encounter encounter_id="1001" encounter_type="1003" patient_id="6" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="EC1C0A78-69F3-449B-8880-6A9387B37D47"/>
+    <orders order_id="1002" order_number="12346" encounter_id="1001" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="6" uuid="4C4157CC-CF06-48B1-BC32-AF31B5916583"/>
+    <test_order order_id="1002"/>
+    <emr_radiology_order order_id="1002"/>
+
+    <encounter encounter_id="1002" encounter_type="1004" patient_id="10002" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="AB05AF2B-6FE9-46E9-9F1B-BE82EC839DCC"/>
+    <orders order_id="1003" order_number="12347" encounter_id="1002" order_action="NEW" order_type_id="1002" care_setting="1" urgency="STAT" concept_id="113" orderer="1" instructions="take medication" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10002" uuid="B7BFB632-B710-4445-8F0D-7BD57149DE8F"/>
+
+    <encounter encounter_id="1003" encounter_type="1003" patient_id="10003" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="112959CA-91B3-41AB-866D-BD5D21A76082"/>
+    <orders order_id="1004" order_number="12348" encounter_id="1003" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10003" uuid="0368FF8B-499C-4DA1-9C8A-008B484DAB7F"/>
+    <test_order order_id="1004"/>
+    <emr_radiology_order order_id="1004"/>
+
+</dataset>
