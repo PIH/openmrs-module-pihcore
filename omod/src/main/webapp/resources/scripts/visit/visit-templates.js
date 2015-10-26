@@ -14,7 +14,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
 
         var checkIn = {
             type: "encounter",
-            addInline: true,
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.checkIn.uuid
@@ -30,7 +29,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
 
         var vitals = {
             type: "encounter",
-            addInline: true,
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.vitals.uuid
@@ -53,7 +51,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "include",
             include: "templates/vaccinations.page"
         };
-        var primaryCareAdultHistory = {
+        var primaryCareHistory = {
             type: "encounter",
             encounter: {
                 encounterType: {
@@ -62,7 +60,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 longTemplate: "templates/encounters/primaryCareAdultHistoryLong.page"
             },
             action: {
-                label: "History (Adult)",
+                label: "History",
                 icon: "icon-file-alt",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-history.xml&returnUrl={{returnUrl}}"
             }
@@ -76,7 +74,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 longTemplate: "templates/encounters/defaultEncounterLong.page"
             },
             action: {
-                label: "Exam (Adult)",
+                label: "Exam",
                 icon: "icon-stethoscope",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam.xml&returnUrl={{returnUrl}}"
             }
@@ -96,6 +94,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-dx.xml&returnUrl={{returnUrl}}"
             }
         };
+/*
 
         var labResults = {
             type: "encounter",
@@ -111,6 +110,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/labResults.xml&returnUrl={{returnUrl}}"
             }
         };
+*/
 
         var outpatientPlan = {
             type: "encounter",
@@ -144,20 +144,21 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     reverseChronologicalEncounters
                 ]
             },
+
             adultInitialOutpatient: {
                 label: "Adult Initial Outpatient Visit",
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
+                    addExpectedEncounters,
                     checkIn,
                     vitals,
                     reviewAllergies,
-                    labResults,
-                    primaryCareAdultHistory,
+                    primaryCareHistory,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan,
-                    addExpectedEncounters
+                    outpatientPlan
+                    // primaryCareDisposition
                 ]
             },
             adultFollowupOutpatient: {
@@ -165,13 +166,13 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
+                    addExpectedEncounters,
                     checkIn,
                     vitals,
-                    reviewAllergies,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan,
-                    addExpectedEncounters
+                    outpatientPlan
+                    // primaryCareDisposition
                 ]
             },
             pedsInitialOutpatient: {
@@ -179,16 +180,36 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
+                    addExpectedEncounters,
                     checkIn,
                     vaccinations,
+                    // supplements
                     vitals,
                     reviewAllergies,
-                    labResults,
-                    primaryCareAdultHistory,
+                    primaryCareHistory,
+                    // feeding,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan,
-                    addExpectedEncounters
+                    outpatientPlan
+                    // primaryCareDisposition
+
+                ]
+            },
+            pedsFollowupOutpatient: {
+                label: "Peds Followup Outpatient Visit",
+                allowedFor: allowedForAll,
+                encounterTypeConfig: EncounterTypeConfig,
+                elements: [
+                    addExpectedEncounters,
+                    checkIn,
+                    vaccinations,
+                    // supplements
+                    vitals,
+                    //  feeding,
+                    primaryCareExam,
+                    primaryCareDx,
+                    outpatientPlan
+                    // primaryCareDisposition
                 ]
             }
         };
@@ -197,3 +218,5 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
         });
         return ret;
     }]);
+
+
