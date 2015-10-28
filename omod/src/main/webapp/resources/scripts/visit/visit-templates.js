@@ -62,7 +62,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "History",
                 icon: "icon-file-alt",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-history.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml&returnUrl={{returnUrl}}"
             }
         };
         var primaryCareExam = {
@@ -76,7 +76,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Exam",
                 icon: "icon-stethoscope",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-exam.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml&returnUrl={{returnUrl}}"
             }
         };
 
@@ -91,7 +91,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Diagnosis",
                 icon: "icon-list-ul",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-adult-dx.xml&returnUrl={{returnUrl}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}"
             }
         };
 /*
