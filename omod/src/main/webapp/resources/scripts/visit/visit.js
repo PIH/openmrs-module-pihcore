@@ -209,6 +209,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.delete = function() {
                         $scope.$emit("request-delete-encounter", $scope.encounter);
                     }
+
+                    if (config.defaultState == "long") {
+                        loadFullEncounter();
+                    }
                 }],
                 template: '<div class="visit-element"><div ng-include="currentTemplate()"></div></div>'
             }
@@ -459,12 +463,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             loadVisits(patientUuid);
             loadVisit(visitUuid);
-
-            $scope.showAlergiesDetails = false;
-            $scope.allergies = Allergies.get({uuid: $scope.patientUuid});
-            $scope.expandAllergies = function(showAlergiesDetails) {
-                $scope.showAlergiesDetails = !showAlergiesDetails;
-            }
 
             $translate.use(locale);
 
