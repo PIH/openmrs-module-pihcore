@@ -442,10 +442,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         return model;
     }])
 
-    .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "CareSetting", "$q", "$state",
+    .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "Allergies", "CareSetting", "$q", "$state",
         "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
         'visitUuid', 'patientUuid', 'locale', "DatetimeFormats",
-        function($scope, $rootScope, $translate, Visit, VisitTemplateService, CareSetting, $q, $state, $timeout, OrderContext,
+        function($scope, $rootScope, $translate, Visit, VisitTemplateService, Allergies, CareSetting, $q, $state, $timeout, OrderContext,
                  VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats) {
 
             $rootScope.DatetimeFormats = DatetimeFormats;
@@ -459,6 +459,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             loadVisits(patientUuid);
             loadVisit(visitUuid);
+
+            $scope.showAlergiesDetails = false;
+            $scope.allergies = Allergies.get({uuid: $scope.patientUuid});
+            $scope.expandAllergies = function(showAlergiesDetails) {
+                $scope.showAlergiesDetails = !showAlergiesDetails;
+            }
 
             $translate.use(locale);
 
