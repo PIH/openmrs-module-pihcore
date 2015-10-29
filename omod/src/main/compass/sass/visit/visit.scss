@@ -7,6 +7,11 @@ $green: #51A351;
   cursor: pointer;
 }
 
+.icon-delete-blank::before {
+  width: 12.58px;
+  content: ' ';
+}
+
 #visit-list-dropdown {
   display: table;
 
