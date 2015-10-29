@@ -84,10 +84,10 @@
     </h1>
 
     <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="mirebalais.vitals.complaint.title">
+             headerCode="pihcore.history.presentingHistory.title">
         <div class="section-container">
             <p>
-                <obs conceptId="CIEL:160531" style="textarea"/>
+                <obs conceptId="PIH:PRESENTING HISTORY" style="textarea"/>
             </p>
         </div>
     </section>
