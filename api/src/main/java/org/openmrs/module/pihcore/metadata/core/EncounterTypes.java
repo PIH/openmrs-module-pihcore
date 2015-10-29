@@ -170,4 +170,10 @@ public class EncounterTypes {
         public String name() { return "NCD Consult"; }
         public String description() { return "Non-communicable disease visit"; }
     };
+
+    public static EncounterTypeDescriptor PRIMARY_CARE_DISPOSITION = new EncounterTypeDescriptor() {
+        public String uuid() { return "5C16E1D6-8E73-47E4-A861-D6AAC03E2224"; }
+        public String name() { return "Primary Care Disposition"; }
+        public String description() { return "Indicates the disposition of the primary care visit"; }
+    };
 }

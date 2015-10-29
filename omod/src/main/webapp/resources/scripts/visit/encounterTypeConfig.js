@@ -178,6 +178,13 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-stethoscope",
             editUrl: hfeSimpleEditUrl
         };
+        encounterTypeConfig[EncounterTypes.primaryCareDisposition.uuid] = {
+            defaultState: "long",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl
+        };
         encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",

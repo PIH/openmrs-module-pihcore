@@ -216,6 +216,9 @@ angular.module('constants', [])
         primaryCareDx: {
             uuid: "09febbd8-03f1-11e5-8418-1697f925ec7b"
         },
+        primaryCareDisposition: {
+            uuid: "5C16E1D6-8E73-47E4-A861-D6AAC03E2224"
+        },
         consultationPlan: {
             uuid: "e0aaa214-1d4b-442a-b527-144adf025299"
         },

@@ -80,6 +80,21 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             }
         };
 
+        var primaryCareDisposition = {
+            type: "encounter",
+            encounter: {
+                encounterType: {
+                    uuid: EncounterTypes.primaryCareDisposition.uuid
+                },
+                longTemplate: "templates/encounters/defaultEncounterLong.page"
+            },
+            action: {
+                label: "Disposition",
+                icon: "icon-stethoscope",
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml&returnUrl={{returnUrl}}"
+            }
+        };
+
         var primaryCareDx = {
             type: "encounter",
             encounter: {
@@ -157,8 +172,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     primaryCareHistory,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan
-                    // primaryCareDisposition
+                    outpatientPlan,
+                    primaryCareDisposition
                 ]
             },
             adultFollowupOutpatient: {
@@ -171,8 +186,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     vitals,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan
-                    // primaryCareDisposition
+                    outpatientPlan,
+                    primaryCareDisposition
                 ]
             },
             pedsInitialOutpatient: {
@@ -190,8 +205,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     // feeding,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan
-                    // primaryCareDisposition
+                    outpatientPlan,
+                    primaryCareDisposition
 
                 ]
             },
@@ -208,8 +223,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     //  feeding,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan
-                    // primaryCareDisposition
+                    outpatientPlan,
+                    primaryCareDisposition
                 ]
             }
         };
