@@ -55,6 +55,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             if (config == null) {  // hack to allow injecting a mock config for testing
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
+            setDispositionConfig(config);
             installMetadataPackages(config);
             installMetadataBundles(config);
             MergeActionsSetup.registerMergeActions();
@@ -78,11 +79,8 @@ public class PihCoreActivator extends BaseModuleActivator {
     @Override
     public void contextRefreshed() {
 
-        // configure which disposition config to use
         setDispositionConfig(config);
-
         CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
-
         NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
         // hack: configure both name support beans, since two actually exist (?)
         NameTemplateSetup.configureNameTemplate(nameSupport);
@@ -127,6 +125,7 @@ public class PihCoreActivator extends BaseModuleActivator {
 
     }
 
+    // configure which disposition config to use
     public void setDispositionConfig(Config config) {
         if (config.getDispositionConfig() != null) {
             Context.getService(DispositionService.class).setDispositionConfig(config.getDispositionConfig());

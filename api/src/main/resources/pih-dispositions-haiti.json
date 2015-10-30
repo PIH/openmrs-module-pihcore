@@ -5,54 +5,31 @@
     "careSettingTypes": ["OUTPATIENT"],
     "name": "disposition.emrapi.admitToHospital",
     "conceptCode": "PIH:ADMIT TO HOSPITAL",
-    "actions": [],
-    "additionalObs": [
-      {
-        "label": "disposition.emrapi.admitToHospital.admissionLocation",
-        "conceptCode": "org.openmrs.module.emrapi: Admission Location",
-        "params": {
-          "id": "admissionLocation",
-          "style": "location",
-          "answerLocationTags": "Admission Location"
-        }
-      }
-    ]
+    "actions": []
   },
   {
     "uuid": "discharge",
     "type": "DISCHARGE",
     "name": "disposition.emrapi.discharge",
     "conceptCode": "PIH:DISCHARGED",
-    "actions": [
-      "dischargeIfAdmittedDispositionAction"
-    ],
     "additionalObs": []
   },
   {
     "uuid": "leftWithoutSeeingAClinician",
     "name": "disposition.emrapi.leftWithoutSeeingAClinician",
     "conceptCode": "PIH:Left without seeing a clinician",
-    "actions": [
-      "dischargeIfAdmittedDispositionAction"
-    ],
     "additionalObs": []
   },
   {
     "uuid": "leftWithoutCompletionOfTreatment",
     "name": "disposition.emrapi.leftWithoutCompletionOfTreatment",
     "conceptCode": "PIH:Departed without medical discharge",
-    "actions": [
-      "dischargeIfAdmittedDispositionAction"
-    ],
     "additionalObs": []
   },
   {
     "uuid": "transferOutOfHospital",
     "name": "disposition.emrapi.transferOutOfHospital",
     "conceptCode": "PIH:Transfer out of hospital",
-    "actions": [
-      "dischargeIfAdmittedDispositionAction"
-    ],
     "additionalObs": [
       {
         "label": "disposition.emrapi.transferOutOfHospital.sites",
@@ -67,35 +44,6 @@
     "uuid": "transferWithinHospital",
     "name": "disposition.emrapi.transferInHospital",
     "conceptCode": "PIH:Transfer within hospital",
-    "actions": [
-      "transferToSpecificLocationDispositionAction"
-    ],
-    "additionalObs": [
-      {
-        "label": "disposition.emrapi.transferInHospital.transferToLocation",
-        "conceptCode": "org.openmrs.module.emrapi: Internal Transfer Location",
-        "params": {
-          "id": "transferInternalLocation",
-          "style": "location",
-          "answerLocationTags": "Transfer Location"
-        }
-      }
-    ]
-  },
-  {
-    "uuid": "stillHospitalized",
-    "name": "disposition.mirebalais.stillHospitalized",
-    "conceptCode": "PIH:Still hospitalized",
-    "keepsVisitOpen": "true",
-    "actions": [],
-    "additionalObs": []
-  },
-  {
-    "uuid": "edObservation",
-    "name": "disposition.mirebalais.edObservation",
-    "conceptCode": "PIH:ED Observation",
-    "keepsVisitOpen": "true",
-    "actions": [],
     "additionalObs": []
   },
   {
@@ -103,7 +51,6 @@
     "name": "disposition.emrapi.death",
     "conceptCode": "PIH:DEATH",
     "actions": [
-      "dischargeIfAdmittedDispositionAction",
       "markPatientDeadDispositionAction"
     ],
     "additionalObs": [
