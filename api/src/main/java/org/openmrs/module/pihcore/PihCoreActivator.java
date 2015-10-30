@@ -22,6 +22,7 @@ import org.openmrs.layout.web.name.NameSupport;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.utils.MetadataUtil;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -77,6 +78,9 @@ public class PihCoreActivator extends BaseModuleActivator {
     @Override
     public void contextRefreshed() {
 
+        // configure which disposition config to use
+        setDispositionConfig(config);
+
         CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
 
         NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
@@ -121,6 +125,12 @@ public class PihCoreActivator extends BaseModuleActivator {
             deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataBundle.class).get(0));
         }
 
+    }
+
+    public void setDispositionConfig(Config config) {
+        if (config.getDispositionConfig() != null) {
+            Context.getService(DispositionService.class).setDispositionConfig(config.getDispositionConfig());
+        }
     }
 
     // hack to allow injecting a mock config for testing

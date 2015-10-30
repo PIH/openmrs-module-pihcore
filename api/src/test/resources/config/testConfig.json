@@ -8,6 +8,8 @@
         "anotherComponent"
     ],
 
+    "dispositionConfig": "pih-dispositions-mirebalais.json",
+
     "visitTemplates": [
         "outpatientTemplate",
         "inpatientTemplate"

@@ -52,6 +52,8 @@ public class Config {
         return descriptor.getVisitTemplates();
     }
 
+    public String getDispositionConfig() { return descriptor.getDispositionConfig(); }
+
     public Map<String, String> getGlobalProperties() {
         return descriptor.getGlobalProperties() == null ? new HashMap<String, String>() : descriptor.getGlobalProperties();
     }

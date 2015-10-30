@@ -44,6 +44,9 @@ public class ConfigDescriptor {
     private String providerIdentifierPrefix;
 
     @JsonProperty
+    private String dispositionConfig; // override the default disposition config file to use
+
+    @JsonProperty
     private Boolean scheduleBackupReports; // whether or not to schedule a set of reports to be exported to disk regularly as a backup in case of downtime (see scheduleBackupReports method in Mirebalais Module Activator), generally this should only be turned on on production
 
     @JsonProperty
@@ -113,6 +116,14 @@ public class ConfigDescriptor {
 
     public void setProviderIdentifierPrefix(String providerIdentifierPrefix) {
         this.providerIdentifierPrefix = providerIdentifierPrefix;
+    }
+
+    public String getDispositionConfig() {
+        return dispositionConfig;
+    }
+
+    public void setDispositionConfig(String dispositionConfig) {
+        this.dispositionConfig = dispositionConfig;
     }
 
     public Boolean getScheduleBackupReports() {
