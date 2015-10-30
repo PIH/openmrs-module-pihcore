@@ -76,7 +76,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     var compiled = Handlebars.compile(template);
                     return compiled({
                         contextPath: OPENMRS_CONTEXT_PATH,
-                        returnUrl: location.href,
+                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid,
                         visit: $scope.visit
                     });
                 }
@@ -571,7 +571,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.careSettings = CareSetting.query({v:"default"});
 
             $scope.reloadVisit = function() {
-                    loadVisit($scope.visitUuid);
+                loadVisit($scope.visitUuid);
             }
 
             $scope.reloadVisits = function() {
