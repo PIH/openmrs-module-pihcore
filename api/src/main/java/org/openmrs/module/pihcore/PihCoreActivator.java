@@ -127,7 +127,7 @@ public class PihCoreActivator extends BaseModuleActivator {
 
     // configure which disposition config to use
     public void setDispositionConfig(Config config) {
-        if (config.getDispositionConfig() != null) {
+        if (config != null && config.getDispositionConfig() != null) {
             Context.getService(DispositionService.class).setDispositionConfig(config.getDispositionConfig());
         }
     }
