@@ -17,6 +17,10 @@
             #encounter-diagnoses-app {
                 margin-bottom: 20px;
             }
+
+            #who-when-where select, #who-when-where input {
+                width: 300px;
+            }
         </ifMode>
     </style>
 
@@ -32,20 +36,68 @@
     </div>
 
     <ifMode mode="VIEW" include="false">
-        <div>
-            <encounterDate id="encounterDate" default="now" widget="hidden"/>
-            <p id="provider">
-                <label>Signed By</label>
-                <!-- TODO: Translate or hide? -->
+        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+            <div id="who-when-where">
+                <p id="who">
+                    <label><uimessage code="pihcore.form.signedBy"/></label>
+                    <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
+                </p>
+                <p id="where">
+                    <label><uimessage code="uicommons.location"/></label>
+                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                </p>
+                <p id="when">
+                    <label><uimessage code="uicommons.date"/></label>
+                    <span><encounterDate id="encounterDate" default="now" /></span>
+                </p>
+            </div>
+        </includeIf>
+
+        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+            <div style="display:none">
                 <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-            </p>
+            </div>
+            <div id="who-when-where">
+                <p id="who">
+                    <label><uimessage code="pihcore.form.signedBy"/></label>
+                    <span><lookup expression="user.person.personName" /></span>
+                </p>
+                <p id="where">
+                    <label><uimessage code="uicommons.location"/></label>
+                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                </p>
+                <p id="when">
+                    <label><uimessage code="uicommons.date"/></label>
+                    <span><encounterDate id="encounterDate" default="now" /></span>
+                </p>
+            </div>
+        </includeIf>
 
-            <p id="location">
-                <label><uimessage code="uicommons.location"/></label>
-                <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
-            </p>
+        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                <encounterDate id="encounterDate" default="now" />
+            </div>
+            <div id="who-when-where">
+                <p id="who">
+                    <label><uimessage code="pihcore.form.signedBy"/></label>
+                    <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
+                </p>
+                <p>
+                    <label><uimessage code="uicommons.location"/></label>
+                    <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
+                </p>
+                <p>
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
+                    <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
+                </p>
+            </div>
+        </includeIf>
 
-        </div>
         <div id="buttons">
             <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
             <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
