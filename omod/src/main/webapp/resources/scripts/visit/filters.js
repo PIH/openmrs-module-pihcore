@@ -273,6 +273,25 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter('translateAs', [ "$filter", function($filter) {
+        return function(input, type) {
+            // first try to see if we have a custom translation property code
+            if (input.uuid) {
+                var result = $filter('translate')("ui.i18n." + type + ".name." + input.uuid);
+                if (result) {
+                    return result;
+                }
+            }
+            if (input.display) {
+                return input.display;
+            }
+            if (input.name) {
+                return input.name;
+            }
+            return "";
+        }
+    }])
+
     .filter('encounterRole', function() {
         var displayOne = function(input, prefix) {
             if (input && input.provider ) {
