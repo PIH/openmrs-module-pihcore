@@ -1,0 +1,152 @@
+<htmlform formUuid="7FC98698-C733-4CCE-B082-A3BDBC8D6EC4" formName="Pediatric Feeding" formEncounterType="92DBE011-67CA-4C0C-80DB-D38989E554C9" formVersion="1.0">
+
+    <style type="text/css">
+
+        form fieldset {
+        display: block;
+        }
+
+        .family-history-item .label {
+        display: inline-block;
+        width: 250px;
+        }
+        .family-history-item .relative {
+        display: inline-block;
+        width: 120px;
+        }
+
+        .section-header {
+        margin-top: 1.5em;
+        }
+
+        .past-medical-history-item {
+        }
+
+        .past-medical-history-item input[type=checkbox] {
+        float: none;
+        vertical-align: middle;
+        }
+
+        .past-medical-history-item input[type=text] {
+        min-width: 200px;
+        display: inline !important;
+        vertical-align: middle;
+        padding: 1px 10px;
+        }
+
+        .past-medical-history-item > span, .past-medical-history-item > label {
+        display: inline !important;
+        vertical-align: middle;
+        }
+
+        .two-columns {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        }
+
+        p.radio > * {
+        display: inline;
+        float: none !important;
+        min-width: initial;
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container-color {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+    </style>
+
+    <h1>
+        <uimessage code="pihcore.feeding.history.title"/>
+    </h1>
+
+
+    <section id="feeding" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.feeding.label">
+        <div class="section-container">
+            <obsgroup groupingConceptId="3014">
+                <p class="radio">
+                    <label><uimessage code="zl.breastfeedExclusively"/>:</label>
+                    <obs conceptId="3016" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="emr.yes"/>
+                    <obs conceptId="3017" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="emr.no"/>
+                    <label><uimessage code="coreapps.age"/>:</label>
+                    <obs conceptId="3015"/>
+                </p>
+            </obsgroup>
+            <obsgroup groupingConceptId="3014">
+                <p class="radio">
+                    <label><uimessage code="zl.infantFormula"/>:</label>
+                    <obs conceptId="3016" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode="emr.yes"/>
+                    <obs conceptId="3017" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode="emr.no"/>
+                    <label><uimessage code="coreapps.age"/>:</label>
+                    <obs conceptId="3015"/>
+                </p>
+            </obsgroup>
+            <obsgroup groupingConceptId="3014">
+                <p class="radio">
+                    <label><uimessage code="zl.mixedFeeding"/>:</label>
+                    <obs conceptId="3016" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode="emr.yes"/>
+                    <obs conceptId="3017" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode="emr.no"/>
+                    <label><uimessage code="coreapps.age"/>:</label>
+                    <obs conceptId="3015"/>
+                </p>
+            </obsgroup>
+            <obsgroup groupingConceptId="3014">
+                <p class="radio">
+                    <label><uimessage code="zl.breastfeedStopped"/>:</label>
+                    <obs conceptId="3016" answerConceptId="PIH:WEANED" style="checkbox" answerCode="emr.yes"/>
+                    <obs conceptId="3017" answerConceptId="PIH:WEANED" style="checkbox" answerCode="emr.no"/>
+                    <label><uimessage code="coreapps.age"/>:</label>
+                    <obs conceptId="3015"/>
+                </p>
+            </obsgroup>
+        </div>
+    </section>
+
+
+    <ifMode mode="VIEW" include="false">
+        <br/>
+        <br/>
+        <div>
+            <encounterDate id="encounterDate" default="now" widget="hidden"/>
+            <p id="provider">
+                <label>Signed By</label>
+                <!-- TODO: Provider will be entered and not defaulted?  Translate signed by -->
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            </p>
+
+            <p id="location">
+                <label><uimessage code="uicommons.location"/></label>
+                <encounterLocation required="false" default="SessionAttribute:emr.sessionLocation"/>
+            </p>
+
+        </div>
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>

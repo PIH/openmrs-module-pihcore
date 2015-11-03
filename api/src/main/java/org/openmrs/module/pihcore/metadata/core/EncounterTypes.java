@@ -176,4 +176,10 @@ public class EncounterTypes {
         public String name() { return "Primary Care Disposition"; }
         public String description() { return "Indicates the disposition of the primary care visit"; }
     };
+
+    public static EncounterTypeDescriptor PRIMARY_CARE_PEDS_FEEDING = new EncounterTypeDescriptor() {
+        public String uuid() { return "92DBE011-67CA-4C0C-80DB-D38989E554C9"; }
+        public String name() { return "Primary Care Pediatric Feeding"; }
+        public String description() { return "Indicates the current feeding"; }
+    };
 }

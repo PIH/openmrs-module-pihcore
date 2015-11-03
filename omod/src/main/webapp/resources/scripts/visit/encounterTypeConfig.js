@@ -187,6 +187,14 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl
         };
+        encounterTypeConfig[EncounterTypes.primaryCarePedsFeeding.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            icon: "icon-food",
+            editUrl: hfeStandardEditUrl
+        };
         encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
