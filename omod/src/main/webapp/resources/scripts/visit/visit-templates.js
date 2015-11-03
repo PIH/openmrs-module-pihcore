@@ -95,6 +95,21 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             }
         };
 
+        var feeding = {
+            type: "encounter",
+            encounter: {
+                encounterType: {
+                    uuid: EncounterTypes.primaryCarePedsFeeding.uuid
+                },
+                longTemplate: "templates/encounters/defaultEncounterLong.page"
+            },
+            action: {
+                label: "Feeding",
+                icon: "icon-food",
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}"
+            }
+        };
+
         var primaryCareDx = {
             type: "encounter",
             encounter: {
@@ -202,7 +217,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     vitals,
                     reviewAllergies,
                     primaryCareHistory,
-                    // feeding,
+                    feeding,
                     primaryCareExam,
                     primaryCareDx,
                     outpatientPlan,
@@ -220,7 +235,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     vaccinations,
                     // supplements
                     vitals,
-                    //  feeding,
+                    feeding,
                     primaryCareExam,
                     primaryCareDx,
                     outpatientPlan,
