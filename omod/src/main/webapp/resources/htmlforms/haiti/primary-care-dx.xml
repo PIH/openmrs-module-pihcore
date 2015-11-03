@@ -2,6 +2,22 @@
 
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
+
+
+            #who-when-where {
+                margin-bottom: 6px;
+                border-bottom: 1px solid #ccc;
+            }
+
+            #who-when-where p {
+                display: inline-block;
+                padding-right: 20px;
+            }
+
+            #where > input[type=text] {
+                display: inline-block;
+            }
+
             #data-collection {
                 display: inline-block;
                 width: 58%;
@@ -17,64 +33,51 @@
             #encounter-diagnoses-app {
                 margin-bottom: 20px;
             }
-
-            #who-when-where select, #who-when-where input {
-                width: 300px;
-            }
         </ifMode>
     </style>
 
     <h3><uimessage code="zl.exam.clinicalImpression.title"/></h3>
-
-    <div id="data-collection">
-
-        <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
-
-    </div>
-
-    <div id="encounter-diagnoses-target">
-    </div>
 
     <ifMode mode="VIEW" include="false">
         <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
             <div id="who-when-where">
                 <p id="who">
-                    <label><uimessage code="pihcore.form.signedBy"/></label>
+                    <label><uimessage code="emr.patientDashBoard.providerRequired"/></label>
                     <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
                 </p>
                 <p id="where">
-                    <label><uimessage code="uicommons.location"/></label>
+                    <label><uimessage code="emr.locationRequired"/></label>
                     <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
                 </p>
                 <p id="when">
-                    <label><uimessage code="uicommons.date"/></label>
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
                     <span><encounterDate id="encounterDate" default="now" /></span>
                 </p>
             </div>
         </includeIf>
-
         <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
             <div style="display:none">
                 <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
             </div>
+
             <div id="who-when-where">
                 <p id="who">
-                    <label><uimessage code="pihcore.form.signedBy"/></label>
+                    <label><uimessage code="emr.patientDashBoard.provider"/></label>
                     <span><lookup expression="user.person.personName" /></span>
                 </p>
                 <p id="where">
-                    <label><uimessage code="uicommons.location"/></label>
+                    <label><uimessage code="emr.locationRequired"/></label>
                     <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
                 </p>
                 <p id="when">
-                    <label><uimessage code="uicommons.date"/></label>
+                    <label><uimessage code="emr.patientDashBoard.date"/></label>
                     <span><encounterDate id="encounterDate" default="now" /></span>
                 </p>
             </div>
-        </includeIf>
 
+        </includeIf>
         <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
         <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
             <div style="display:none">
@@ -83,25 +86,34 @@
                 <encounterDate id="encounterDate" default="now" />
             </div>
             <div id="who-when-where">
-                <p id="who">
-                    <label><uimessage code="pihcore.form.signedBy"/></label>
-                    <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
-                </p>
-                <p>
-                    <label><uimessage code="uicommons.location"/></label>
-                    <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
-                </p>
-                <p>
-                    <label><uimessage code="emr.patientDashBoard.date"/></label>
-                    <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
-                </p>
+                <table id="who-where-when-view">
+                    <tr>
+                        <td>
+                            <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                            <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
+                        </td>
+                        <td>
+                            <label><uimessage code="emr.location"/></label>
+                            <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
+                        </td>
+                        <td>
+                            <label><uimessage code="emr.patientDashBoard.date"/></label>
+                            <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </includeIf>
-
-        <div id="buttons">
-            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
-        </div>
     </ifMode>
+
+    <div id="data-collection">
+        <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+    </div>
+
+
+    <div id="buttons">
+        <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+        <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+    </div>
 
 </htmlform>
