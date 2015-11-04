@@ -30,13 +30,115 @@
         </ifMode>
     </style>
 
+
+    <!-- Pediatrics only content, hidden by default, shown (via above javascript) if pediatrics visit -->
+    <!-- Note that I'm just hiding the content so that the viewing via HtmlFormEncounterController.encounterSchemaViaJson will still work in VIEW mode with no visit informatin present -->
+    <excludeIf velocityTest="$visit.getVisitAttribute('Visit Template') == 'pedsInitialOutpatient' || $visit.getVisitAttribute('Visit Template') == 'pedsFollowupOutpatient'" >
+        <script type="text/javascript">
+            jq(function() {
+                NavigatorController.getQuestionById('gross-motor-skills-exam').hide();
+                NavigatorController.getQuestionById('fine-motor-skills-exam').hide();
+                NavigatorController.getQuestionById('language-development-evaluation').hide();
+                NavigatorController.getQuestionById('social-skills-evaluation').hide();
+            });
+        </script>
+    </excludeIf>
+
     <section id="primaryCareExam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
+
+        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+            <fieldset class="required">
+                <legend>
+                    <uimessage code="emr.patientDashBoard.date"/>
+                </legend>
+                <h3>
+                    <uimessage code="emr.patientDashBoard.date"/>
+                </h3>
+
+                <p class="left">
+                    <encounterDate id="encounterDate" showTime="false" default="now"/>
+                </p>
+            </fieldset>
+
+
+            <fieldset class="required">
+                <legend>
+                    <uimessage code="emr.patientDashBoard.providerRequired"/>
+                </legend>
+                <h3>
+                    <uimessage code="emr.patientDashBoard.providerRequired"/>
+                </h3>
+
+                <p class="left">
+                    <encounterProviderAndRole default="currentUser" encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92"
+                                              required="true"/>
+                </p>
+            </fieldset>
+
+            <fieldset class="required">
+                <legend>
+                    <uimessage code="emr.locationRequired"/>
+                </legend>
+                <h3>
+                    <uimessage code="emr.locationRequired"/>
+                </h3>
+
+                <p class="left">
+                    <encounterLocation required="true" tags="Check-In Location"/>
+                </p>
+            </fieldset>
+        </includeIf>
+
+        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+            <fieldset class="required">
+                <legend>
+                    <uimessage code="emr.patientDashBoard.date"/>
+                </legend>
+                <h3>
+                    <uimessage code="emr.patientDashBoard.date"/>
+                </h3>
+
+                <p class="left">
+                    <encounterDate id="encounterDate" showTime="false" default="now"/>
+                </p>
+            </fieldset>
+
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+            </div>
+
+            <fieldset class="required">
+                <legend>
+                    <uimessage code="emr.locationRequired"/>
+                </legend>
+                <h3>
+                    <uimessage code="emr.locationRequired"/>
+                </h3>
+
+                <p class="left">
+                    <encounterLocation required="true" tags="Check-In Location"/>
+                </p>
+            </fieldset>
+        </includeIf>
+
+        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                <encounterDate id="encounterDate" default="now" />
+            </div>
+        </includeIf>
+
+
         <fieldset>
             <legend>
-                <uimessage code="pihcore.general_exam.title"/>
+                <uimessage code="pihcore.exam.general_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.general_exam.title"/>
+                <uimessage code="pihcore.exam.general_exam.title"/>
             </h3>
 
             <p>
@@ -58,10 +160,10 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.mental_exam.title"/>
+                <uimessage code="pihcore.exam.mental_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.mental_exam.title"/>
+                <uimessage code="pihcore.exam.mental_exam.title"/>
             </h3>
 
             <p>
@@ -82,10 +184,10 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.skin_exam.title"/>
+                <uimessage code="pihcore.exam.skin_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.skin_exam.title"/>
+                <uimessage code="pihcore.exam.skin_exam.title"/>
             </h3>
 
             <p>
@@ -107,10 +209,10 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.heent_exam.title"/>
+                <uimessage code="pihcore.exam.heent_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.heent_exam.title"/>
+                <uimessage code="pihcore.exam.heent_exam.title"/>
             </h3>
 
             <p>
@@ -134,10 +236,10 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.cardiac_exam.title"/>
+                <uimessage code="pihcore.exam.cardiac_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.cardiac_exam.title"/>
+                <uimessage code="pihcore.exam.cardiac_exam.title"/>
             </h3>
 
             <p>
@@ -159,10 +261,10 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.chest_exam.title"/>
+                <uimessage code="pihcore.exam.chest_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.chest_exam.title"/>
+                <uimessage code="pihcore.exam.chest_exam.title"/>
             </h3>
 
             <p>
@@ -184,10 +286,10 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.abdominal_exam.title"/>
+                <uimessage code="pihcore.exam.abdominal_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.abdominal_exam.title"/>
+                <uimessage code="pihcore.exam.abdominal_exam.title"/>
             </h3>
 
             <p>
@@ -209,10 +311,10 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.urogenital_exam.title"/>
+                <uimessage code="pihcore.exam.urogenital_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.urogenital_exam.title"/>
+                <uimessage code="pihcore.exam.urogenital_exam.title"/>
             </h3>
 
             <p>
@@ -234,10 +336,10 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.musculoskeletal_exam.title"/>
+                <uimessage code="pihcore.exam.musculoskeletal_exam.title"/>
             </legend>
             <h3>
-                <uimessage code="pihcore.musculoskeletal_exam.title"/>
+                <uimessage code="pihcore.exam.musculoskeletal_exam.title"/>
             </h3>
 
             <p>
@@ -255,12 +357,99 @@
             <p>
                 <obs conceptId="CIEL:163048" rows="5" cols="60" />
             </p>
+        </fieldset>
 
+        <fieldset id="gross-motor-skills-exam">
+            <legend>
+                <uimessage code="pihcore.exam.gross_motor_skills_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.exam.gross_motor_skills_exam.title"/>
+            </h3>
+
+            <p>
+                <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+            </p>
+
+            <h5>
+                <uimessage code="pihcore.exam.comment"/>
+            </h5>
+
+            <p>
+                <obs conceptId="PIH:Gross Motor Skills Evaluation (text)" rows="5" cols="60" />
+            </p>
+        </fieldset>
+
+        <fieldset id="fine-motor-skills-exam">
+            <legend>
+                <uimessage code="pihcore.exam.fine_motor_skills_exam.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.exam.fine_motor_skills_exam.title"/>
+            </h3>
+
+            <p>
+                <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+            </p>
+
+            <h5>
+                <uimessage code="pihcore.exam.comment"/>
+            </h5>
+
+            <p>
+                <obs conceptId="PIH:Fine Motor Skills Evaluation (text)" rows="5" cols="60" />
+            </p>
+        </fieldset>
+
+        <fieldset id="language-development-evaluation">
+            <legend>
+                <uimessage code="pihcore.exam.language_development_evaluation.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.exam.language_development_evaluation.title"/>
+            </h3>
+
+            <p>
+                <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+            </p>
+
+            <h5>
+                <uimessage code="pihcore.exam.comment"/>
+            </h5>
+
+            <p>
+                <obs conceptId="PIH:Language Development Evaluation (text)" rows="5" cols="60" />
+            </p>
+        </fieldset>
+
+        <fieldset id="social-skills-evaluation">
+            <legend>
+                <uimessage code="pihcore.exam.social_skills_evaluation.title"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.exam.social_skills_evaluation.title"/>
+            </h3>
+
+            <p>
+                <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+            </p>
+
+            <h5>
+                <uimessage code="pihcore.exam.comment"/>
+            </h5>
+
+            <p>
+                <obs conceptId="PIH:Social Skills Evaluation (text)" rows="5" cols="60" />
+            </p>
         </fieldset>
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.other_exam.title"/>
+                <uimessage code="pihcore.exam.other_exam.title"/>
             </legend>
 
             <h5>
@@ -274,30 +463,6 @@
         </fieldset>
 
     </section>
-
-    <!-- TdDo: What to do about retrospective entry?  Check the who? when? where? -->
-    <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
-        <fieldset>
-            <legend>When?</legend>
-            <label>When?</label>
-
-            <encounterDate default="now" showTime="false"/>
-        </fieldset>
-
-        <fieldset>
-            <legend>Who?</legend>
-            <label>Who?</label>
-
-            <encounterProviderAndRole default="currentUser" encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92" required="true"/>
-        </fieldset>
-
-        <fieldset>
-            <legend>Where?</legend>
-            <label>Where?</label>
-
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-        </fieldset>
-    </div>
 
     <submit/>
 
