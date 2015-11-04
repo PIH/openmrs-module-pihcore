@@ -154,10 +154,18 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
-                <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
-                <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                <field>
+                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -165,7 +173,9 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:160981" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="CIEL:160981" rows="5" cols="60" />
+                </field>
             </p>
 
         </fieldset>
@@ -179,9 +189,15 @@
             </h3>
 
             <p>
-                <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox" />
-                <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
-                <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                <field>
+                    <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL" style="checkbox" />
+                </field>
+                <field>
+                    <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -189,7 +205,9 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:163044" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="CIEL:163044" rows="5" cols="60" />
+                </field>
             </p>
 
         </fieldset>
@@ -203,10 +221,18 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:RASH" style="checkbox"/>
-                <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
-                <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                <field>
+                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:RASH" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -214,7 +240,9 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
+                </field>
             </p>
 
         </fieldset>
@@ -228,12 +256,21 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:PALE CONJUNCTIVA" style="checkbox"/>
-                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:GOITER" style="checkbox"/>
-                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:LYMPHADENOPATHY" style="checkbox"/>
-                <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
-
+                <field>
+                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:PALE CONJUNCTIVA" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:GOITER" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:LYMPHADENOPATHY" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -241,7 +278,9 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
+                </field>
             </p>
 
         </fieldset>
@@ -255,10 +294,18 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:CARDIAC MURMUR" style="checkbox"/>
-                <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
-                <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                <field>
+                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:CARDIAC MURMUR" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -266,7 +313,9 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:163046" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="CIEL:163046" rows="5" cols="60" />
+                </field>
             </p>
 
         </fieldset>
@@ -280,10 +329,18 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:CREPITATIONS" style="checkbox"/>
-                <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
-                <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                <field>
+                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:CREPITATIONS" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -291,7 +348,9 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:160689" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="CIEL:160689" rows="5" cols="60" />
+                </field>
             </p>
 
         </fieldset>
@@ -305,10 +364,18 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
-                <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
-                <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                <field>
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -316,7 +383,9 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:160947" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="CIEL:160947" rows="5" cols="60" />
+                </field>
             </p>
 
         </fieldset>
@@ -330,10 +399,18 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:CANDIDIASIS" style="checkbox"/>
-                <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
-                <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                <field>
+                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:CANDIDIASIS" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -341,7 +418,9 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:163047" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="CIEL:163047" rows="5" cols="60" />
+                </field>
             </p>
 
         </fieldset>
@@ -355,11 +434,18 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:MUSCLE TENDERNESS"
-                     style="checkbox"/>
-                <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
-                <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                <field>
+                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:MUSCLE TENDERNESS" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                </field>
             </p>
 
             <h5>
@@ -367,7 +453,9 @@
             </h5>
 
             <p>
-                <obs conceptId="CIEL:163048" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="CIEL:163048" rows="5" cols="60" />
+                </field>
             </p>
         </fieldset>
 
@@ -380,8 +468,12 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                <field>
+                    <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                </field>
             </p>
 
             <h5>
@@ -389,7 +481,9 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:Gross Motor Skills Evaluation (text)" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="PIH:Gross Motor Skills Evaluation (text)" rows="5" cols="60" />
+                </field>
             </p>
         </fieldset>
 
@@ -402,8 +496,12 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                <field>
+                    <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                </field>
             </p>
 
             <h5>
@@ -411,7 +509,9 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:Fine Motor Skills Evaluation (text)" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="PIH:Fine Motor Skills Evaluation (text)" rows="5" cols="60" />
+                </field>
             </p>
         </fieldset>
 
@@ -424,8 +524,12 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                <field>
+                    <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                </field>
             </p>
 
             <h5>
@@ -433,7 +537,9 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:Language Development Evaluation (text)" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="PIH:Language Development Evaluation (text)" rows="5" cols="60" />
+                </field>
             </p>
         </fieldset>
 
@@ -446,8 +552,12 @@
             </h3>
 
             <p>
-                <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                <field>
+                    <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                </field>
             </p>
 
             <h5>
@@ -455,7 +565,9 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:Social Skills Evaluation (text)" rows="5" cols="60" />
+                <field>
+                    <obs conceptId="PIH:Social Skills Evaluation (text)" rows="5" cols="60" />
+                </field>
             </p>
         </fieldset>
 
@@ -469,7 +581,9 @@
             </h5>
 
             <p>
-                <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" rows="5" cols="60"/>
+                <field>
+                    <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" rows="5" cols="60"/>
+                </field>
             </p>
 
         </fieldset>
