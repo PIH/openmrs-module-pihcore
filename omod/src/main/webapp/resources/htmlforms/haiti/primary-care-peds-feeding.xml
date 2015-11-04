@@ -7,21 +7,21 @@
         }
 
         #who-when-where p {
-        display: inline-block;
-        padding-right: 20px;
+            display: inline-block;
+            padding-right: 20px;
         }
 
         #where > input[type=text] {
-        display: inline-block;
+            display: inline-block;
         }
 
 
         form fieldset {
-        display: block;
+            display: block;
         }
 
         .section-header {
-        margin-top: 1.5em;
+            margin-top: 1.5em;
         }
 
         .past-medical-history-item input[type=checkbox] {
@@ -153,42 +153,83 @@
 
    <section id="feeding" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.feeding.label">
         <div class="section-container">
-            <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
-                <p class="radio">
-                    <label><uimessage code="zl.breastfeedExclusively"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="emr.yes"/>
-                    <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="emr.no"/>
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD AGE"/>
-                </p>
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
-                <p class="radio">
-                    <label><uimessage code="zl.infantFormula"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode="emr.yes"/>
-                    <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode="emr.no"/>
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD AGE"/>
-                </p>
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
-                <p class="radio">
-                    <label><uimessage code="zl.mixedFeeding"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode="emr.yes"/>
-                    <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode="emr.no"/>
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD AGE"/>
-                </p>
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
-                <p class="radio">
-                    <label><uimessage code="zl.breastfeedStopped"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode="emr.yes"/>
-                    <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode="emr.no"/>
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD AGE"/>
-                </p>
-            </obsgroup>
+            <table >
+                <thead>
+                    <tr>
+                        <th><uimessage code="pihcore.feeding.history.title"/></th>
+                        <th><uimessage code="emr.yes"/></th>
+                        <th><uimessage code="emr.no"/></th>
+                        <th><uimessage code="coreapps.age"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
+                    <tr>
+                        <td><uimessage code="zl.breastfeedExclusively"/></td>
+                        <td>
+                            <span class="value">
+                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
+                            </span>
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                        </td>
+                    </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
+                        <tr>
+                            <td><uimessage code="zl.infantFormula"/></td>
+                            <td>
+                                <span class="value">
+                                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode=""/>
+                                </span>
+                            </td>
+                            <td>
+                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode=""/>
+                            </td>
+                            <td>
+                                <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
+                        <tr>
+                            <td><uimessage code="zl.mixedFeeding"/></td>
+                            <td>
+                                <span class="value">
+                                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode=""/>
+                                </span>
+                            </td>
+                            <td>
+                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode=""/>
+                            </td>
+                            <td>
+                                <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
+                        <tr>
+                            <td><uimessage code="zl.breastfeedStopped"/></td>
+                            <td>
+                                <span class="value">
+                                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode=""/>
+                                </span>
+                            </td>
+                            <td>
+                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode=""/>
+                            </td>
+                            <td>
+                                <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                </tbody>
+            </table>
+
         </div>
     </section>
 
