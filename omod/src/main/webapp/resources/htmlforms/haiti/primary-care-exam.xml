@@ -30,6 +30,19 @@
         </ifMode>
     </style>
 
+    <script type="text/javascript">
+        jq(function() {
+            // hack--if there is only one location option, hide the location question (but set it on submit)
+            if(jq('#encounterLocation option').size() == 2) {  // "Choose a location..." + 1 location = 2 option elements
+                beforeSubmit.push(function() {
+                    NavigatorController.getQuestionById('location').enable();
+                    setValue('encounterLocation.value', getField('encounterLocation.value').find('option:nth(1)').val());  // nth(1) == second element, ie the location element
+                    return true;
+                })
+                NavigatorController.getQuestionById('location').hide();
+            }
+        });
+    </script>
 
     <!-- Pediatrics only content, hidden by default, shown (via above javascript) if pediatrics visit -->
     <!-- Note that I'm just hiding the content so that the viewing via HtmlFormEncounterController.encounterSchemaViaJson will still work in VIEW mode with no visit informatin present -->
@@ -61,7 +74,6 @@
                 </p>
             </fieldset>
 
-
             <fieldset class="required">
                 <legend>
                     <uimessage code="emr.patientDashBoard.providerRequired"/>
@@ -76,7 +88,7 @@
                 </p>
             </fieldset>
 
-            <fieldset class="required">
+            <fieldset id="location" class="required">
                 <legend>
                     <uimessage code="emr.locationRequired"/>
                 </legend>
@@ -109,7 +121,7 @@
                 <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
             </div>
 
-            <fieldset class="required">
+            <fieldset id="location" class="required">
                 <legend>
                     <uimessage code="emr.locationRequired"/>
                 </legend>
