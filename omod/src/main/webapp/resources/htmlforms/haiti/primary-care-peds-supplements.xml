@@ -153,41 +153,81 @@
 
     <section id="supplements" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Supplements">
         <div class="section-container">
-            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
-                <p class="radio">
-                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" />
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
-                </p>
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
-                <p class="radio">
-                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:FERROUS SULFATE" style="checkbox" />
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
-                </p>
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
-                <p class="radio">
-                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:IODINE" style="checkbox" />
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
-                </p>
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
-                <p class="radio">
-                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:DEWORMING" style="checkbox" />
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
-                </p>
-            </obsgroup>
-            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
-                <p class="radio">
-                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:ZINC" style="checkbox" />
-                    <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
-                </p>
-            </obsgroup>
+            <table >
+                <thead>
+                    <tr>
+                        <th><uimessage code="pihcore.supplements.history.title"/></th>
+                        <th><uimessage code="coreapps.age"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span class="value">
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" />
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span class="value">
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:FERROUS SULFATE" style="checkbox" />
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span class="value">
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:IODINE" style="checkbox" />
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span class="value">
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:DEWORMING" style="checkbox" />
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span class="value">
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:ZINC" style="checkbox" />
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                </tbody>
+            </table>
         </div>
     </section>
 
