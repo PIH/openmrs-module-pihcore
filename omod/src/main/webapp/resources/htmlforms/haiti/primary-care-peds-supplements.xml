@@ -1,4 +1,4 @@
-<htmlform formUuid="7FC98698-C733-4CCE-B082-A3BDBC8D6EC4" formName="Pediatric Feeding" formEncounterType="92DBE011-67CA-4C0C-80DB-D38989E554C9" formVersion="1.0">
+<htmlform formUuid="CF281FB4-8A40-445A-84ED-05101240F5E8" formName="Pediatric Supplements" formEncounterType="D25FFD97-417F-46CC-85EE-3E7DA68B0D07" formVersion="1.0">
 
     <style type="text/css">
         #who-when-where {
@@ -82,7 +82,7 @@
     </style>
 
     <ifMode mode="VIEW" include="false">
-        <h2><uimessage code="pihcore.feeding.history.title"/></h2>
+        <h2><uimessage code="pihcore.supplements.history.title"/></h2>
 
         <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
@@ -151,42 +151,41 @@
         </includeIf>
     </ifMode>
 
-   <section id="feeding" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.feeding.label">
+    <section id="supplements" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Supplements">
         <div class="section-container">
-            <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
+            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                 <p class="radio">
-                    <label><uimessage code="zl.breastfeedExclusively"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="emr.yes"/>
-                    <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="emr.no"/>
+                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" />
                     <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
                 </p>
             </obsgroup>
-            <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
+            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                 <p class="radio">
-                    <label><uimessage code="zl.infantFormula"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode="emr.yes"/>
-                    <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode="emr.no"/>
+                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:FERROUS SULFATE" style="checkbox" />
                     <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
                 </p>
             </obsgroup>
-            <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
+            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                 <p class="radio">
-                    <label><uimessage code="zl.mixedFeeding"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode="emr.yes"/>
-                    <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode="emr.no"/>
+                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:IODINE" style="checkbox" />
                     <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
                 </p>
             </obsgroup>
-            <obsgroup groupingConceptId="PIH:PEDIATRIC FEEDING HISTORY CONSTRUCT">
+            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                 <p class="radio">
-                    <label><uimessage code="zl.breastfeedStopped"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode="emr.yes"/>
-                    <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode="emr.no"/>
+                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:DEWORMING" style="checkbox" />
                     <label><uimessage code="coreapps.age"/>:</label>
-                    <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                </p>
+            </obsgroup>
+            <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                <p class="radio">
+                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:ZINC" style="checkbox" />
+                    <label><uimessage code="coreapps.age"/>:</label>
+                    <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
                 </p>
             </obsgroup>
         </div>

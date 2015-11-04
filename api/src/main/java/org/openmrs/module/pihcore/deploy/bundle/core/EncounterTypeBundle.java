@@ -36,6 +36,7 @@ public class EncounterTypeBundle extends PihMetadataBundle {
         install(EncounterTypes.DEATH_CERTIFICATE);
         install(EncounterTypes.PRIMARY_CARE_DISPOSITION);
         install(EncounterTypes.PRIMARY_CARE_PEDS_FEEDING);
+        install(EncounterTypes.PRIMARY_CARE_PEDS_SUPPLEMENTS);
     }
 
     protected void install(EncounterTypeDescriptor d) {

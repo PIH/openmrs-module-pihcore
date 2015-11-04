@@ -110,6 +110,21 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             }
         };
 
+        var supplements = {
+            type: "encounter",
+            encounter: {
+                encounterType: {
+                    uuid: EncounterTypes.primaryCarePedsSupplements.uuid
+                },
+                longTemplate: "templates/encounters/defaultEncounterLong.page"
+            },
+            action: {
+                label: "Supplements",
+                icon: "icon-asterisk",
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml&returnUrl={{returnUrl}}"
+            }
+        };
+
         var primaryCareDx = {
             type: "encounter",
             encounter: {
@@ -213,7 +228,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     addExpectedEncounters,
                     checkIn,
                     vaccinations,
-                    // supplements
+                    supplements,
                     vitals,
                     reviewAllergies,
                     primaryCareHistory,
@@ -233,7 +248,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     addExpectedEncounters,
                     checkIn,
                     vaccinations,
-                    // supplements
+                    supplements,
                     vitals,
                     feeding,
                     primaryCareExam,

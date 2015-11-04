@@ -182,4 +182,10 @@ public class EncounterTypes {
         public String name() { return "Primary Care Pediatric Feeding"; }
         public String description() { return "Indicates the current feeding"; }
     };
+
+    public static EncounterTypeDescriptor PRIMARY_CARE_PEDS_SUPPLEMENTS = new EncounterTypeDescriptor() {
+        public String uuid() { return "D25FFD97-417F-46CC-85EE-3E7DA68B0D07"; }
+        public String name() { return "Primary Care Pediatric Supplements"; }
+        public String description() { return "Indicates the supplements taken by a pediatric patient"; }
+    };
 }
