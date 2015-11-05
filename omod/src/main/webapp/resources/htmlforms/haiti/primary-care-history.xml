@@ -265,6 +265,29 @@
         </div>
     </section>
 
+    <section id="current-medications" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="zl.consultNote.currentMedications.title">
+        <div class="section-container">
+            <!-- Médicaments actuels -->
+            <p>
+                <obs conceptId="PIH:CURRENT MEDICATIONS" style="textarea"/>
+            </p>
+        </div>
+    </section>
+
+    <section id="diagnostic-tests-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="zl.consultNote.diagnosticTestsHistory.title">
+        <div class="section-container">
+            <!-- Examens paracliniques déjà effectués, Résultats, Date -->
+            <p>
+                <label>
+                    <uimessage code="zl.consultNote.diagnosticTestsHistory.comment"/>
+                </label>
+                <obs conceptId="PIH:DIAGNOSTIC TESTS HISTORY" style="textarea"/>
+            </p>
+        </div>
+    </section>
+
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
             <submit submitClass="confirm right" submitCode="mirebalais.save"/>
