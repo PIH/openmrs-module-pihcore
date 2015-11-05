@@ -39,6 +39,6 @@ public class SierraLeoneAddressBundle extends AddressBundle {
 
     @Override
     public String getAddressHierarchyEntryPath() {
-        return "addresshierarchy/sierra_leone_address_hierarchy_entries_1.csv";
+        return "addresshierarchy/sierra_leone_address_hierarchy_entries_2.csv";
     }
 }
