@@ -36,6 +36,14 @@ public class Config {
         return descriptor.getDashboardUrl();
     }
 
+    public String getVisitPageUrl() {
+        return descriptor.getVisitsPageUrl();
+    }
+
+    public String getVisitsPageWithSpecificUrl() {
+        return descriptor.getVisitsPageWithSpecificUrl();
+    }
+
     public String getProviderIdentifierPrefix() { return descriptor.getProviderIdentifierPrefix(); }
 
     public ConfigDescriptor.Site getSite() {
@@ -69,4 +77,6 @@ public class Config {
     public RegistrationConfigDescriptor getRegistrationConfig() {
         return descriptor.getRegistrationConfig();
     }
+
+
 }
