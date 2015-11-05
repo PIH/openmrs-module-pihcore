@@ -26,6 +26,12 @@ public class ConfigDescriptor {
     private String dashboardUrl;
 
     @JsonProperty
+    private String visitsPageUrl;
+
+    @JsonProperty
+    private String visitsPageWithSpecificUrl;
+
+    @JsonProperty
     private Country country;
 
     @JsonProperty
@@ -82,6 +88,18 @@ public class ConfigDescriptor {
     public String getDashboardUrl() { return dashboardUrl; }
 
     public void setDashboardUrl(String dashboardUrl) { this.dashboardUrl = dashboardUrl; }
+
+    public String getVisitsPageUrl() { return visitsPageUrl; }
+
+    public void setVisitsPageUrl(String visitsPageUrl) { this.visitsPageUrl = visitsPageUrl; }
+
+    public String getVisitsPageWithSpecificUrl() {
+        return visitsPageWithSpecificUrl;
+    }
+
+    public void setVisitsPageWithSpecificUrl(String visitsPageWithSpecificUrl) {
+        this.visitsPageWithSpecificUrl = visitsPageWithSpecificUrl;
+    }
 
     public Map<String, String> getGlobalProperties() {
         return globalProperties;
