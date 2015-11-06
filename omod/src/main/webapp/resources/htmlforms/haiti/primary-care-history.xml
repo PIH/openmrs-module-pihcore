@@ -228,8 +228,7 @@
                 <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="RAA"/>
                 <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
                 <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/>
-                <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/>
-                <pastMedicalHistoryCheckbox concept="PIH:OTHER" label="Autre" specify="true"/>
+                <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other" specify="true"/>
             </div>
         </div>
     </section>
