@@ -189,10 +189,8 @@
                                              relatives="PIH:FATHER,PIH:MOTHER"/>
             <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/>
             <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER"
-                                             specify="true"/>
             <br/>
-            <familyHistoryRelativeCheckboxes concept="PIH:OTHER" label="Autre" relatives="PIH:FATHER,PIH:MOTHER"
+            <familyHistoryRelativeCheckboxes concept="PIH:OTHER" code="pihcore.other" relatives="PIH:FATHER,PIH:MOTHER"
                                              specify="true"/>
         </div>
     </section>
@@ -230,6 +228,20 @@
                 <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/>
                 <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other" specify="true"/>
             </div>
+        </div>
+    </section>
+
+    <section id="patient-blood-type" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.lab.blood_type">
+        <div class="section-container-color">
+            <label for="blood-type">
+                <uimessage code="pihcore.lab.blood_type"/>
+            </label>
+            <span class="small">
+                <field>
+                    <obs id="blood-type" conceptId="PIH:BLOOD TYPING" />
+                </field>
+            </span>
         </div>
     </section>
 
