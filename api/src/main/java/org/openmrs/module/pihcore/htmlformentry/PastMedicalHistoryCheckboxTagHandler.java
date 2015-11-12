@@ -87,6 +87,15 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
         if (includeCommentField) {
             textFieldWidget = new TextFieldWidget();
             textFieldWidget.setPlaceholder(messageSourceService.getMessage("zl.pastMedicalHistory.specifyLabel"));
+            if (existingObs != null ) {
+                Obs candidate = findMember(existingObs, HtmlFormEntryUtil.getConcept(PihCoreConstants.PAST_MEDICAL_HISTORY_FINDING_TEXT));
+                if (candidate != null ) {
+                    String comments = candidate.getValueText();
+                    if (StringUtils.isNotBlank(comments)){
+                        textFieldWidget.setInitialValue(comments);
+                    }
+                }
+            }
             context.registerWidget(textFieldWidget);
             context.registerErrorWidget(textFieldWidget, errorWidget);
         }
@@ -149,10 +158,10 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
             FormSubmissionActions submissionActions = session.getSubmissionActions();
             FormEntryContext context = session.getContext();
 
-            Concept construct = HtmlFormEntryUtil.getConcept("CIEL:1633");
-            Concept which = HtmlFormEntryUtil.getConcept("CIEL:1628");
+            Concept construct = HtmlFormEntryUtil.getConcept(PihCoreConstants.PAST_MEDICAL_HISTORY_CONSTRUCT);
+            Concept which = HtmlFormEntryUtil.getConcept(PihCoreConstants.PAST_MEDICAL_HISTORY_FINDING);
             Concept present = HtmlFormEntryUtil.getConcept("CIEL:1729");
-            Concept comments = HtmlFormEntryUtil.getConcept("CIEL:160221");
+            Concept comments = HtmlFormEntryUtil.getConcept(PihCoreConstants.PAST_MEDICAL_HISTORY_FINDING_TEXT);
 
             boolean presentValue = "present".equals(presenceWidget.getValue(context, request));
             String commentsValue = commentsWidget == null ? null : commentsWidget.getValue(context, request);
@@ -213,20 +222,27 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
                             submissionActions.modifyObs(existingComment, null, null, null, null);
                         }
                         else if (!existingComment.getValueText().equals(commentsValue)) {
-                            submissionActions.modifyObs(existingComment, comments, commentsValue, null, null);
+                            try {
+                                submissionActions.beginObsGroup(existingObs);
+                                submissionActions.modifyObs(existingComment, comments, commentsValue, null, null);
+                                submissionActions.endObsGroup();
+                            } catch (InvalidActionException e) {
+                                throw new IllegalStateException(e);
+                            }
+
                         }
                     }
                 }
             }
         }
+    }
 
-        private Obs findMember(Obs group, Concept concept) {
-            for (Obs candidate : group.getGroupMembers()) {
-                if (candidate.getConcept().equals(concept)) {
-                    return candidate;
-                }
+    private Obs findMember(Obs group, Concept concept) {
+        for (Obs candidate : group.getGroupMembers()) {
+            if (candidate.getConcept().equals(concept)) {
+                return candidate;
             }
-            return null;
         }
+        return null;
     }
 }

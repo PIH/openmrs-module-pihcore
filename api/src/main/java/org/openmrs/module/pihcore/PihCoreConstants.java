@@ -35,6 +35,7 @@ public class PihCoreConstants {
 
     public static final String PAST_MEDICAL_HISTORY_CONSTRUCT = "CIEL:1633";
     public static final String PAST_MEDICAL_HISTORY_FINDING = "CIEL:1628";
+    public static final String PAST_MEDICAL_HISTORY_FINDING_TEXT = "CIEL:160221";
 
 
 }
