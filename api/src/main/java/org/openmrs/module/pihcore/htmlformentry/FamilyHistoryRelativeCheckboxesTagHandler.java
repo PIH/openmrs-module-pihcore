@@ -90,8 +90,11 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
         Concept familyHistoryConstructConcept = HtmlFormEntryUtil.getConcept(PihCoreConstants.PATIENT_FAMILY_HISTORY_LIST_CONSTRUCT);
         Concept relationShipConcept = HtmlFormEntryUtil.getConcept(PihCoreConstants.RELATIONSHIP_OF_RELATIVE_TO_PATIENT);
         Concept diagnosisConcept = HtmlFormEntryUtil.getConcept(PihCoreConstants.FAMILY_HISTORY_DIAGNOSIS);
+        Concept commentsConcept = HtmlFormEntryUtil.getConcept(PihCoreConstants.FAMILY_HISTORY_COMMENT);
 
         FormEntryContext context = session.getContext();
+        TextFieldWidget textFieldWidget = null;
+        ErrorWidget errorWidget = new ErrorWidget();
         // maps from wiget to existing obs for this widget
         Map<CheckboxWidget, Obs> relativeWidgets = new LinkedHashMap<CheckboxWidget, Obs>();
         for (Concept relative : relatives) {
@@ -105,10 +108,16 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
             context.registerWidget(widget);
         }
 
-        TextFieldWidget textFieldWidget = null;
-        ErrorWidget errorWidget = new ErrorWidget();
         if (includeCommentField) {
             textFieldWidget = new TextFieldWidget();
+            Obs existingComments = findDiagnosisCommentInExistingObs(context, familyHistoryConstructConcept, diagnosisConcept, concept, commentsConcept);
+            if (existingComments != null) {
+                String valueText = existingComments.getValueText();
+                if (StringUtils.isNotBlank(valueText)) {
+                    textFieldWidget.setInitialValue(valueText);
+                }
+            }
+
             context.registerWidget(textFieldWidget);
             context.registerErrorWidget(textFieldWidget, errorWidget);
         }
@@ -153,6 +162,34 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
             }
         }
         return null;
+    }
+
+    private Obs findDiagnosisCommentInExistingObs(
+            FormEntryContext context,
+            Concept familyHistoryConstructConcept,
+            Concept diagnosisConcept,
+            Concept diagnosisValue,
+            Concept commentsConcept
+            ) {
+        Obs existingObs = null;
+
+        for (Map.Entry<Obs, Set<Obs>> entry : context.getExistingObsInGroups().entrySet()) {
+            Obs candidateGroup = entry.getKey();
+            if (candidateGroup.getConcept().equals(familyHistoryConstructConcept)) {
+                for (Obs member : entry.getValue()) {
+                    if (member.getConcept().equals(diagnosisConcept)
+                            && member.getValueCoded().equals(diagnosisValue)) {
+                        Obs candidate = findMember(candidateGroup, commentsConcept);
+                        if (candidate != null) {
+                            existingObs = candidate;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return existingObs;
     }
 
     private Obs findDiagnosisAndRelativeInExistingObs(
@@ -235,7 +272,13 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
                         // assume the only thing that can change is comments (since this widget doesn't let you change anything else)
                         Obs existingComment = findMember(existingObs, comments);
                         if (existingComment != null) {
-                            submissionActions.modifyObs(existingComment, comments, commentsValue, null, null);
+                            try {
+                                submissionActions.beginObsGroup(existingObs);
+                                submissionActions.modifyObs(existingComment, comments, commentsValue, null, null);
+                                submissionActions.endObsGroup();
+                            } catch (InvalidActionException e) {
+                                throw new IllegalStateException(e);
+                            }
                         }
                         else if (commentsValue != null) {
                             // I didn't find a better way to add an obs to an existing group

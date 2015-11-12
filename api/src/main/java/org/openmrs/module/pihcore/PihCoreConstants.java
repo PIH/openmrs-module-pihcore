@@ -32,10 +32,10 @@ public class PihCoreConstants {
     public static final String PATIENT_FAMILY_HISTORY_LIST_CONSTRUCT = "CIEL:160593";
     public static final String RELATIONSHIP_OF_RELATIVE_TO_PATIENT = "CIEL:1560";
     public static final String FAMILY_HISTORY_DIAGNOSIS = "CIEL:160592";
+    public static final String FAMILY_HISTORY_COMMENT = "CIEL:160618";
 
     public static final String PAST_MEDICAL_HISTORY_CONSTRUCT = "CIEL:1633";
     public static final String PAST_MEDICAL_HISTORY_FINDING = "CIEL:1628";
     public static final String PAST_MEDICAL_HISTORY_FINDING_TEXT = "CIEL:160221";
-
 
 }
