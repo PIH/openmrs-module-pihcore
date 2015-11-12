@@ -20,6 +20,7 @@ import org.openmrs.module.htmlformentry.widget.CheckboxWidget;
 import org.openmrs.module.htmlformentry.widget.ErrorWidget;
 import org.openmrs.module.htmlformentry.widget.TextFieldWidget;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +74,12 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
 
         FormEntryContext context = session.getContext();
 
+        Obs existingObs = findExistingObs(context,
+                HtmlFormEntryUtil.getConcept(PihCoreConstants.PAST_MEDICAL_HISTORY_CONSTRUCT),
+                HtmlFormEntryUtil.getConcept(PihCoreConstants.PAST_MEDICAL_HISTORY_FINDING), concept);
+
         CheckboxWidget checkboxWidget = new CheckboxWidget(label, PRESENT);
+        checkboxWidget.setInitialValue(existingObs);
         context.registerWidget(checkboxWidget);
 
         TextFieldWidget textFieldWidget = null;
@@ -94,7 +100,6 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
         }
         html.append("</div>");
 
-        Obs existingObs = findExistingObs(context, HtmlFormEntryUtil.getConcept("CIEL:1633"), HtmlFormEntryUtil.getConcept("CIEL:1628"), concept);
         session.getSubmissionController().addAction(new Action(concept, checkboxWidget, textFieldWidget, existingObs));
 
         return html.toString();
@@ -107,8 +112,6 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
                 for (Obs member : entry.getValue()) {
                     if (member.getConcept().equals(withMemberConcept)
                             && member.getValueCoded().equals(withMemberValue)) {
-                        context.getExistingObsInGroups().remove(candidateGroup);
-                        // TODO do we also need to remove this from somewhere in context.getExistingObs()?
                         return candidateGroup;
                     }
                 }
