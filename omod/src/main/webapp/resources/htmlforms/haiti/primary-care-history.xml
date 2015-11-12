@@ -179,9 +179,6 @@
         <div class="section-container">
             <!-- ANTECEDENTS HEREDO-COLLATERAUX -->
             <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/>
-            <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER"
-                                             specify="true"/>
-            <br/>
             <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER"/>
             <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER"/>
             <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER"/>
@@ -189,6 +186,10 @@
                                              relatives="PIH:FATHER,PIH:MOTHER"/>
             <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/>
             <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/>
+            <br/>
+            <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER"
+                                             specify="true"/>
+
             <br/>
             <familyHistoryRelativeCheckboxes concept="PIH:OTHER" code="pihcore.other" relatives="PIH:FATHER,PIH:MOTHER"
                                              specify="true"/>

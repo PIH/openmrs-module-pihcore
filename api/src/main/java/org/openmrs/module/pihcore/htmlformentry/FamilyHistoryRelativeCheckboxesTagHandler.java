@@ -87,13 +87,17 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
             label = concept.getName().getName();
         }
 
+        Concept familyHistoryConstructConcept = HtmlFormEntryUtil.getConcept(PihCoreConstants.PATIENT_FAMILY_HISTORY_LIST_CONSTRUCT);
+        Concept relationShipConcept = HtmlFormEntryUtil.getConcept(PihCoreConstants.RELATIONSHIP_OF_RELATIVE_TO_PATIENT);
+        Concept diagnosisConcept = HtmlFormEntryUtil.getConcept(PihCoreConstants.FAMILY_HISTORY_DIAGNOSIS);
+
         FormEntryContext context = session.getContext();
-        // maps from widget to existing obs for this widget
+        // maps from wiget to existing obs for this widget
         Map<CheckboxWidget, Obs> relativeWidgets = new LinkedHashMap<CheckboxWidget, Obs>();
         for (Concept relative : relatives) {
             // group: family hx construct, member = which relative, member value = $relative
             // note: this assumes that all instances of this obs group have "is present = true"
-            Obs existingObs = findExistingObs(context, HtmlFormEntryUtil.getConcept("CIEL:160593"), HtmlFormEntryUtil.getConcept("CIEL:1560"), relative);
+            Obs existingObs = findDiagnosisAndRelativeInExistingObs(context, familyHistoryConstructConcept, diagnosisConcept, concept, relationShipConcept, relative);
 
             CheckboxWidget widget = new CheckboxWidget(relative.getName().getName(), relative.getUuid());
             widget.setInitialValue(existingObs);
@@ -149,6 +153,40 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
             }
         }
         return null;
+    }
+
+    private Obs findDiagnosisAndRelativeInExistingObs(
+            FormEntryContext context,
+            Concept familyHistoryConstructConcept,
+            Concept diagnosisConcept,
+            Concept diagnosisValue,
+            Concept relationShipConcept,
+            Concept relativeValue) {
+        Obs existingObs = null;
+
+        for (Map.Entry<Obs, Set<Obs>> entry : context.getExistingObsInGroups().entrySet()) {
+            Obs candidateGroup = entry.getKey();
+            if (candidateGroup.getConcept().equals(familyHistoryConstructConcept)) {
+                boolean diagnosisFound = false;
+                boolean relativeFound = false;
+                for (Obs member : entry.getValue()) {
+                    if (member.getConcept().equals(diagnosisConcept)
+                            && member.getValueCoded().equals(diagnosisValue)) {
+                        diagnosisFound = true;
+                    }
+                    if (member.getConcept().equals(relationShipConcept)
+                            && member.getValueCoded().equals(relativeValue)) {
+                        relativeFound = true;
+                    }
+                    if (diagnosisFound && relativeFound) {
+                        existingObs = candidateGroup;
+                        break;
+                    }
+                }
+            }
+        }
+
+        return existingObs;
     }
 
     private class Action implements FormSubmissionControllerAction {

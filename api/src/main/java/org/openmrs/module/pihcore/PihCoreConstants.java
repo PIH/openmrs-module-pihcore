@@ -29,4 +29,9 @@ public class PihCoreConstants {
 
     public static final String CURRENT_APP_SESSION_VARIABLE = "currentAppId";
 
+    public static final String PATIENT_FAMILY_HISTORY_LIST_CONSTRUCT = "CIEL:160593";
+    public static final String RELATIONSHIP_OF_RELATIVE_TO_PATIENT = "CIEL:1560";
+    public static final String FAMILY_HISTORY_DIAGNOSIS = "CIEL:160592";
+
+
 }
