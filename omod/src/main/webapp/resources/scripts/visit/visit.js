@@ -77,6 +77,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     return compiled({
                         contextPath: OPENMRS_CONTEXT_PATH,
                         returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid,
+                        breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
                         visit: $scope.visit
                     });
                 }
@@ -532,6 +533,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         patient: encounter.patient,
                         visit: $scope.visit,
                         encounter: encounter,
+                        breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
                         returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid
                     });
                     emr.navigateTo({applicationUrl: url});
