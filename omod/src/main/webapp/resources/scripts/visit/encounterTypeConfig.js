@@ -206,8 +206,8 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterLong.page",
-            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-list-ul",
             editUrl: hfeStandardEditUrl
         };

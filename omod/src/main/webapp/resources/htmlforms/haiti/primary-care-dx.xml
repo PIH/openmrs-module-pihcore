@@ -35,9 +35,9 @@
             }
         </ifMode>
     </style>
-
-    <h3><uimessage code="zl.exam.clinicalImpression.title"/></h3>
-
+    <ifMode mode="VIEW" include="false">
+        <h3><uimessage code="zl.exam.clinicalImpression.title"/></h3>
+    </ifMode>
     <ifMode mode="VIEW" include="false">
         <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
@@ -110,10 +110,12 @@
         <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
     </div>
 
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
 
-    <div id="buttons">
-        <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-        <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
-    </div>
+    </ifMode>
 
 </htmlform>
