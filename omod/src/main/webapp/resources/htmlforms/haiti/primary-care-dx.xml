@@ -33,6 +33,11 @@
             #encounter-diagnoses-app {
                 margin-bottom: 20px;
             }
+
+            .hasDatepicker {
+                min-width: 100%;
+            }
+
         </ifMode>
     </style>
     <ifMode mode="VIEW" include="false">
