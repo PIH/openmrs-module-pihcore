@@ -151,7 +151,7 @@
         </includeIf>
     </ifMode>
 
-    <section id="supplements" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Supplements">
+    <section id="supplements" sectionTag="fieldset" headerTag="legend">
         <div class="section-container">
             <table >
                 <thead>
