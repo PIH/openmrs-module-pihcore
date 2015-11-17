@@ -108,6 +108,13 @@
 
     <div id="data-collection">
         <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+        <p>
+            <label><uimessage code="emr.consult.freeTextComments"/></label>
+            <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
+        </p>
+    </div>
+
+    <div id="encounter-diagnoses-target">
     </div>
 
     <ifMode mode="VIEW" include="false">
