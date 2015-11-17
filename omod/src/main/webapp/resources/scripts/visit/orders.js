@@ -22,16 +22,16 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
         }
     }])
 
-    .filter('orderInstructions', [ function() {
+    .filter('orderInstructions', [ "$filter", function($filter) {
         return function(order) {
             if (!order || typeof order != 'object') {
                 return "";
             }
             if (order.action == 'DISCONTINUE') {
-                return emr.message("orderentryui.action.DISCONTINUE") + ": " + (order.drug ? order.drug : order.concept ).display;
+                return $filter('translate')("orderentryui.action.DISCONTINUE") + ": " + (order.drug ? order.drug : order.concept ).display;
             }
             else {
-                var text = emr.message("orderentryui.action." + order.action) + ": ";
+                var text = $filter('translate')("orderentryui.action." + order.action) + ": ";
                 if (order.type == "drugorder") {
                     text += order.getDosingType().format(order);
                     if (order.quantity) {

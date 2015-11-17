@@ -66,7 +66,7 @@
     </div>
 
     <div class="actions">
-        <button class="confirm right" ng-disabled="loading || !canSaveDrafts()" ng-click="signAndSaveDraftOrders()">Sign and Save</button>
+        <button class="confirm right" ng-disabled="loading || !canSaveDrafts()" ng-click="signAndSaveDraftOrders()">${ ui.message("mirebalais.save") }</button>
         <div class="signature" ng-show="loading">
             Signing as ${ ui.format(sessionContext.currentProvider) }
             on (auto-generated timestamp)
