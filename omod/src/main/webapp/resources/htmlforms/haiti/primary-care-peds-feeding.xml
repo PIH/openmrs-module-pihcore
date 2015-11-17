@@ -24,29 +24,6 @@
             margin-top: 1.5em;
         }
 
-        .past-medical-history-item input[type=checkbox] {
-        float: none;
-        vertical-align: middle;
-        }
-
-        .past-medical-history-item input[type=text] {
-        min-width: 200px;
-        display: inline !important;
-        vertical-align: middle;
-        padding: 1px 10px;
-        }
-
-        .past-medical-history-item > span, .past-medical-history-item > label {
-        display: inline !important;
-        vertical-align: middle;
-        }
-
-        .two-columns {
-        column-count: 2;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-        }
-
         p.radio > * {
         display: inline;
         float: none !important;
@@ -76,10 +53,33 @@
         margin: 0px;
         }
 
+        .section-container input[type="text"] {
+            min-width: 0%;
+        }
+
         .section {
         width: 95%;
         }
+
+        .hasDatepicker {
+            min-width: 100%;
+        }
     </style>
+
+    <script type="text/javascript">
+        jq(function() {
+/* when age is entered the checkbox gets automatically checked
+
+            console.log("feeding form loaded");
+            jq('#breastfeedAge').focusout(function(){
+                var inputAge = jq('#breastfeedAge').find('input[type=text]').val();
+                if (inputAge.length > 0 ) {
+                    console.log("age has been entered");
+                }
+            });
+*/
+        });
+    </script>
 
     <ifMode mode="VIEW" include="false">
         <h2><uimessage code="pihcore.feeding.history.title"/></h2>
@@ -151,7 +151,7 @@
         </includeIf>
     </ifMode>
 
-   <section id="feeding" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.feeding.label">
+   <section id="feeding" sectionTag="fieldset" headerTag="legend">
         <div class="section-container">
             <table >
                 <thead>
@@ -175,7 +175,7 @@
                             <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
                         </td>
                         <td>
-                            <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                            <obs id="breastfeedAge" conceptId="PIH:FEEDING METHOD AGE"/>
                         </td>
                     </tr>
                     </obsgroup>
