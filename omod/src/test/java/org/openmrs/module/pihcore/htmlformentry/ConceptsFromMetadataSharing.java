@@ -53,6 +53,7 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
         install(question("Disposition comment", text, pih, "DISPOSITION COMMENTS"));
         install(question("Blood type", coded, pih, "BLOOD TYPING"));
         install(finding("Chief complaint", text, ciel, "160531"));
+        install(question("Clinical comments", text, pih, "CLINICAL IMPRESSION COMMENTS"));
     }
 
     private Concept baseConcept(String name) {
