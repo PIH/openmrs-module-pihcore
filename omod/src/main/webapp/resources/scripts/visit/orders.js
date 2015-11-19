@@ -273,6 +273,10 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                             {
                                 label: "Hematocrit",
                                 concept: Concepts.hematocrit
+                            },
+                            {
+                                label: "Blood Type",
+                                concept: Concepts.bloodtyping
                             }
                         ]
                     }
@@ -296,7 +300,7 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                             OrderContext.addDraftOrder(ord);
                         }
                     });
-                    $state.go("drugOrders");
+                    $state.go("editPlan");
                 }
             },
             templateUrl: "templates/orders/addLabOrders.page"
