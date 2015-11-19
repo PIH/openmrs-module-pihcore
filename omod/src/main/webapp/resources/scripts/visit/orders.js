@@ -273,6 +273,10 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                             {
                                 label: "Hematocrit",
                                 concept: Concepts.hematocrit
+                            },
+                            {
+                                label: "Blood Type",
+                                concept: Concepts.bloodtyping
                             }
                         ]
                     }

@@ -10,10 +10,7 @@
             </label>
         </li>
     </ul>
-    <h3>Etc</h3>
-    <ul>
-        <li>More types...</li>
-    </ul>
+
 </div>
 
 <br/>
