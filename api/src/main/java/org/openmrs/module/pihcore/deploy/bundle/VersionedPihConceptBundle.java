@@ -5,6 +5,7 @@ import org.openmrs.ConceptDatatype;
 import org.openmrs.ConceptMapType;
 import org.openmrs.ConceptSource;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.metadatadeploy.bundle.VersionedMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle.ConceptClasses;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle.ConceptDatatypes;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle.ConceptMapTypes;
@@ -16,7 +17,7 @@ import java.util.Locale;
  * Convenience superclass that loads existing datatypes, classes, etc, from {@link org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle}.
  * Any concrete subclass needs to do @Required(CoreConeptMetadataBundle.class)
  */
-public abstract class VersionedPihConceptBundle extends VersionedPihMetadataBundle {
+public abstract class VersionedPihConceptBundle extends VersionedMetadataBundle {
 
     // capitalized this way so they look as close as possible to Locale.ENGLISH in code
     protected Locale locale_HAITI = new Locale("ht");

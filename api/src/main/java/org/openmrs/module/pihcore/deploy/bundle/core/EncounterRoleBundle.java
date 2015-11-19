@@ -1,12 +1,12 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.springframework.stereotype.Component;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounterRole;
 
 @Component
-public class EncounterRoleBundle extends PihMetadataBundle {
+public class EncounterRoleBundle extends AbstractMetadataBundle {
 
 
     public static final class EncounterRoles {

@@ -3,13 +3,13 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.OrderType;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
-import org.openmrs.module.pihcore.descriptor.OrderTypeDescriptor;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
+import org.openmrs.module.metadatadeploy.descriptor.OrderTypeDescriptor;
 import org.openmrs.module.pihcore.metadata.core.OrderTypes;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderTypeBundle extends PihMetadataBundle {
+public class OrderTypeBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {

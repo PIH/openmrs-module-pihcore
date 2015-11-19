@@ -15,12 +15,9 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
-import org.openmrs.module.pihcore.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationAttributeTypes;
 import org.openmrs.module.pihcore.metadata.core.OrderTypes;
@@ -38,7 +35,7 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounte
  * Radiology metadata bundle
  */
 @Component
-public class MirebalaisRadiologyBundle extends PihMetadataBundle {
+public class MirebalaisRadiologyBundle extends AbstractMetadataBundle {
 
 	public static final class EncounterRoles {
 		public static final String RADIOLOGY_TECHNICIAN = "8f4d96e2-c97c-4285-9319-e56b9ba6029c";

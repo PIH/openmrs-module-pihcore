@@ -1,10 +1,10 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
-import org.openmrs.module.pihcore.descriptor.LocationAttributeDescriptor;
-import org.openmrs.module.pihcore.descriptor.LocationDescriptor;
-import org.openmrs.module.pihcore.descriptor.LocationTagDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationAttributeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.location
 
 @Component
 @Requires({ LocationTagBundle.class, LocationAttributeTypeBundle.class} )
-public class LocationBundle extends PihMetadataBundle {
+public class LocationBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {

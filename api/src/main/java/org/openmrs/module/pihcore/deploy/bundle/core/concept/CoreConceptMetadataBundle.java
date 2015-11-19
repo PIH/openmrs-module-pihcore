@@ -1,14 +1,14 @@
 package org.openmrs.module.pihcore.deploy.bundle.core.concept;
 
 import org.openmrs.ConceptDatatype;
-import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
+import org.openmrs.module.metadatadeploy.bundle.VersionedMetadataBundle;
 import org.springframework.stereotype.Component;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptClass;
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
 @Component
-public class CoreConceptMetadataBundle extends VersionedPihMetadataBundle {
+public class CoreConceptMetadataBundle extends VersionedMetadataBundle {
 
     @Override
     public int getVersion() {

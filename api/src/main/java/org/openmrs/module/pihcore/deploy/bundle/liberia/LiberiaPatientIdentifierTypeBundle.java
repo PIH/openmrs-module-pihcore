@@ -1,13 +1,13 @@
 package org.openmrs.module.pihcore.deploy.bundle.liberia;
 
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
-import org.openmrs.module.pihcore.descriptor.PatientIdentifierTypeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LiberiaPatientIdentifierTypeBundle extends PihMetadataBundle {
+public class LiberiaPatientIdentifierTypeBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {

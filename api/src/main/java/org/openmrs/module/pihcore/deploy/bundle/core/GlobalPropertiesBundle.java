@@ -4,8 +4,8 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
-public class GlobalPropertiesBundle extends PihMetadataBundle {
+public class GlobalPropertiesBundle extends AbstractMetadataBundle {
 
     private static final String DOUBLE_METAPHONE_ALTERNATE_NAME = "Double Metaphone Alternate";
 

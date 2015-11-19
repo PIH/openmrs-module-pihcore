@@ -16,8 +16,8 @@ package org.openmrs.module.pihcore.metadata.haiti;
 
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
-import org.openmrs.module.pihcore.descriptor.PatientIdentifierTypeDescriptor;
-import org.openmrs.patient.IdentifierValidator;import java.lang.Class;import java.lang.String;
+import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
+import org.openmrs.patient.IdentifierValidator;
 
 /**
  * Constants for all defined patient identifier types

@@ -14,8 +14,8 @@
 
 package org.openmrs.module.pihcore.metadata.haiti.mirebalais;
 
-import org.openmrs.module.pihcore.descriptor.LocationAttributeDescriptor;
-import org.openmrs.module.pihcore.descriptor.LocationDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationAttributeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationDescriptor;
 
 import java.util.Arrays;
 import java.util.Collections;

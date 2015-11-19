@@ -3,12 +3,12 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 import org.openmrs.Privilege;
 import org.openmrs.Role;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
+import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.RoleDescriptor;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
-import org.openmrs.module.pihcore.descriptor.PrivilegeDescriptor;
-import org.openmrs.module.pihcore.descriptor.RoleDescriptor;
 import org.openmrs.module.pihcore.metadata.core.Privileges;
 import org.openmrs.module.pihcore.metadata.core.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Component
-public class RolesAndPrivilegesBundle extends PihMetadataBundle {
+public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
 
     @Autowired
     private Config config;

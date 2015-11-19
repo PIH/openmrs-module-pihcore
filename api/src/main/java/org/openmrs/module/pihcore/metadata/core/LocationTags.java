@@ -15,11 +15,9 @@
 package org.openmrs.module.pihcore.metadata.core;
 
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.pihcore.descriptor.LocationTagDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
-
-import java.lang.String;
 
 /**
  * Constants for all defined location tags

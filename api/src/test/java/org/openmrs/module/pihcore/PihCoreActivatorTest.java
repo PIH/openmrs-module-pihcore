@@ -14,8 +14,8 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.metadatadeploy.bundle.VersionedMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
-import org.openmrs.module.pihcore.deploy.bundle.VersionedPihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
@@ -99,8 +99,8 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
 
         // make sure everything installed at the version we expect
         for (Class<? extends MetadataBundle> bundleType : getExpectedBundles(haitiMetadataBundle.getClass())) {
-            if (VersionedPihMetadataBundle.class.isAssignableFrom(bundleType)) {
-                VersionedPihMetadataBundle bundle = (VersionedPihMetadataBundle)Context.getRegisteredComponents(bundleType).get(0);
+            if (VersionedMetadataBundle.class.isAssignableFrom(bundleType)) {
+                VersionedMetadataBundle bundle = (VersionedMetadataBundle)Context.getRegisteredComponents(bundleType).get(0);
                 String gpValue = administrationService.getGlobalProperty("metadatadeploy.bundle.version." + bundle.getClass().getName());
                 assertThat(gpValue, is("" + bundle.getVersion()));
             }

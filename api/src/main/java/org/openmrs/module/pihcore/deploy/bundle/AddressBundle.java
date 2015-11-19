@@ -7,6 +7,7 @@ import org.openmrs.layout.web.address.AddressTemplate;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
+import org.openmrs.module.metadatadeploy.bundle.VersionedMetadataBundle;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AddressBundle extends VersionedPihMetadataBundle {
+public abstract class AddressBundle extends VersionedMetadataBundle {
 
     @Autowired
     SerializationService serializationService;

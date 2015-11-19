@@ -14,7 +14,7 @@
 package org.openmrs.module.pihcore.metadata.core;
 
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.pihcore.descriptor.PrivilegeDescriptor;import java.lang.String;
+import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
 
 /**
  * Constants for all defined privileges

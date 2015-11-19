@@ -1,12 +1,12 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.springframework.stereotype.Component;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.visitType;
 
 @Component
-public class VisitTypeBundle extends PihMetadataBundle {
+public class VisitTypeBundle extends AbstractMetadataBundle {
 
     public static final class VisitTypes {
         public static final String CLINIC_OR_HOSPITAL_VISIT = "f01c54cb-2225-471a-9cd5-d348552c337c";

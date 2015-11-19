@@ -13,8 +13,8 @@
  */
 package org.openmrs.module.pihcore.metadata.core;
 
-import org.openmrs.module.pihcore.descriptor.PrivilegeDescriptor;
-import org.openmrs.module.pihcore.descriptor.RoleDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.RoleDescriptor;
 
 import java.util.Arrays;
 import java.util.List;

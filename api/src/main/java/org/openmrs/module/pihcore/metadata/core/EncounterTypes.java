@@ -14,7 +14,8 @@
 
 package org.openmrs.module.pihcore.metadata.core;
 
-import org.openmrs.module.pihcore.descriptor.EncounterTypeDescriptor;
+
+import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 
 /**
  * Constants for all defined encounter types

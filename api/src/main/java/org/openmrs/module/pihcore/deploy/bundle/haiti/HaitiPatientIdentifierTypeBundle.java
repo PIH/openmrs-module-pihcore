@@ -1,13 +1,13 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
-import org.openmrs.module.pihcore.descriptor.PatientIdentifierTypeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HaitiPatientIdentifierTypeBundle extends PihMetadataBundle {
+public class HaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {

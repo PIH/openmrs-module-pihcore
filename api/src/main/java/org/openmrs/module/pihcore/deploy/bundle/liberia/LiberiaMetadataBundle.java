@@ -2,8 +2,8 @@ package org.openmrs.module.pihcore.deploy.bundle.liberia;
 
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Component
 @Requires({ PihCoreMetadataBundle.class, LiberiaLocationsBundle.class, LiberiaPatientIdentifierTypeBundle.class, LiberiaAddressBundle.class } )
-public class LiberiaMetadataBundle extends PihMetadataBundle {
+public class LiberiaMetadataBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {

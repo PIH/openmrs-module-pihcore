@@ -17,7 +17,7 @@ import org.openmrs.Concept;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.pihcore.descriptor.Descriptor;
+import org.openmrs.module.metadatadeploy.descriptor.Descriptor;
 
 /**
  * Convenience methods for working with metadata

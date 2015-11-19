@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.metadata.core;
 
-import org.openmrs.module.pihcore.descriptor.OrderTypeDescriptor;import java.lang.String;
+import org.openmrs.module.metadatadeploy.descriptor.OrderTypeDescriptor;
 
 public class OrderTypes {
 

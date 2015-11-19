@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.metadata.haiti;
 
-import org.openmrs.module.pihcore.descriptor.LocationDescriptor;
-import org.openmrs.module.pihcore.descriptor.LocationTagDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 
 import java.util.Arrays;

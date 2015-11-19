@@ -15,7 +15,7 @@
 package org.openmrs.module.pihcore.metadata.core;
 
 import org.openmrs.customdatatype.datatype.FreeTextDatatype;
-import org.openmrs.module.pihcore.descriptor.LocationAttributeTypeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationAttributeTypeDescriptor;
 import org.openmrs.module.printer.PrinterDatatype;
 
 /**

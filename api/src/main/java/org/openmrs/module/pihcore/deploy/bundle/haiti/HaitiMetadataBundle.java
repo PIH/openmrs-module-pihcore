@@ -21,7 +21,6 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
@@ -44,7 +43,7 @@ import java.util.Map;
         HaitiPatientIdentifierTypeBundle.class,
         HaitiAddressBundle.class
 } )
-public class HaitiMetadataBundle extends PihMetadataBundle {
+public class HaitiMetadataBundle extends AbstractMetadataBundle {
 
 	protected Log log = LogFactory.getLog(getClass());
 

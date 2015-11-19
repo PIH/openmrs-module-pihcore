@@ -2,8 +2,8 @@ package org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais;
 
 import org.openmrs.Location;
 import org.openmrs.LocationAttribute;
+import org.openmrs.module.metadatadeploy.bundle.LocationsMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.pihcore.deploy.bundle.PihLocationsMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Requires({ LocationTagBundle.class, LocationAttributeTypeBundle.class} )
-public class MirebalaisLocationsBundle extends PihLocationsMetadataBundle {
+public class MirebalaisLocationsBundle extends LocationsMetadataBundle {
 
     @Override
     public void install() throws Exception {

@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.metadata.core;
 
-import org.openmrs.module.pihcore.descriptor.LocationDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.LocationDescriptor;
 
 public class Locations {
 

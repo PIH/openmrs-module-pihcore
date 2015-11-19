@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.metadata.liberia;
 
-import org.openmrs.module.pihcore.descriptor.PatientIdentifierTypeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.patient.IdentifierValidator;
 
 public class LiberiaPatientIdentifierTypes {

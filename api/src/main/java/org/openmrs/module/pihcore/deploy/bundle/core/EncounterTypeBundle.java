@@ -1,14 +1,14 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
-import org.openmrs.module.pihcore.descriptor.EncounterTypeDescriptor;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
+import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.springframework.stereotype.Component;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounterType;
 
 @Component
-public class EncounterTypeBundle extends PihMetadataBundle {
+public class EncounterTypeBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {

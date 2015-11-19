@@ -2,8 +2,8 @@ package org.openmrs.module.pihcore.deploy.bundle.sierraLeone;
 
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.pihcore.deploy.bundle.PihMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Component
 @Requires({ PihCoreMetadataBundle.class, SierraLeonePatientIdentifierTypeBundle.class, SierraLeoneLocationsBundle.class, SierraLeoneAddressBundle.class } )
-public class SierraLeoneMetadataBundle extends PihMetadataBundle {
+public class SierraLeoneMetadataBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
