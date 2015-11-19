@@ -296,7 +296,7 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
                             OrderContext.addDraftOrder(ord);
                         }
                     });
-                    $state.go("drugOrders");
+                    $state.go("editPlan");
                 }
             },
             templateUrl: "templates/orders/addLabOrders.page"

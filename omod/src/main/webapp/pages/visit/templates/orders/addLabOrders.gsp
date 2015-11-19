@@ -20,6 +20,6 @@
 
 <div class="actions">
     <button class="confirm right" ng-click="apply()" ng-disabled="!anySelected()">${ ui.message("uicommons.add") }</button>
-    <button class="cancel" ui-sref="drugOrders">>${ ui.message("uicommons.cancel") }</button>
+    <button class="cancel" ui-sref="editPlan">${ ui.message("uicommons.cancel") }</button>
 </div>
 
