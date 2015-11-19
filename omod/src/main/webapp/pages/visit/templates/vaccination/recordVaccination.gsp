@@ -18,21 +18,21 @@
 
         <p>
             <label>
-                <input type="radio" ng-model="when" value="visit"/> During a visit in the patient record
+                <input type="radio" ng-model="when" value="visit"/> ${ ui.message("pihcore.visitNote.duringVisit.label") }
             </label>
         </p>
 
         <p>
             <label>
-                <input type="radio" ng-model="when" value="no-visit"/> Not during a visit in the patient record
+                <input type="radio" ng-model="when" value="no-visit"/>${ ui.message("pihcore.visitNote.notDuringVisit.label") }
             </label>
         </p>
 
         <p ng-show="when == 'visit'">
             <br/>
-            Which visit?
-            <select ng-model="whenVisit"
-                    ng-options="visit as visit.display for visit in visits">
+            ${ ui.message("pihcore.visitNote.whichVisit") }?
+
+            <select id="visit-list-select" ng-model="whenVisit" ng-options="visit as visit.startDatetime | serverDate : 'dd-MMM-yyyy' for visit in visits">
             </select>
         </p>
 

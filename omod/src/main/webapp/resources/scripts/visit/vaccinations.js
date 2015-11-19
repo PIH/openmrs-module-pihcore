@@ -9,9 +9,9 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             deleteDose: function(obsGroup) {
                 return Obs.delete({uuid: obsGroup.uuid});
             },
-            saveWithEncounter: function(visit, vaccination, sequence, date) {
+            saveWithEncounter: function(visit, patient, vaccination, sequence, date) {
                 return EncounterTransaction.save({
-                    patientUuid: visit.patient.uuid,
+                    patientUuid: patient.uuid,
                     visitUuid: visit.uuid,
                     encounterTypeUuid: EncounterTypes.consultation.uuid,
                     encounterDateTime: date,
@@ -230,7 +230,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             VaccinationService.saveWithEncounter($scope.visit, vaccination, sequence, opts.date)
                                 .$promise.then(loadHistory);
                         } else if (opts.when == 'visit') {
-                            VaccinationService.saveWithEncounter(opts.whenVisit, vaccination, sequence, opts.date)
+                            VaccinationService.saveWithEncounter(opts.whenVisit, $scope.visit.patient, vaccination, sequence, opts.date)
                                 .$promise.then(loadHistory);
                         } else if (opts.when == 'no-visit') {
                             VaccinationService.saveWithoutEncounter($scope.visit.patient, vaccination, sequence, opts.date)
