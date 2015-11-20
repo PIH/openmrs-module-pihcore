@@ -2,6 +2,10 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
 
     .factory("VisitTemplates", [ "EncounterTypes", "EncounterRoles", "EncounterTypeConfig", function(EncounterTypes, EncounterRoles, EncounterTypeConfig) {
 
+        // if use has only "enterConsultNote", must be an active visit; retroConsultNote or retroConsultNoteThisProviderOnly required for retro visits
+        var standardConsultNoteRequire = "(user.hasPrivilege('Task: emr.enterConsultNote') && visit && !visit.stopDatetime) || (user.hasPrivilege('Task: emr.retroConsultNote') || user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"
+
+
         var visitActions = {
             type: "include",
             include: "templates/visitActions.page"
@@ -39,7 +43,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Vitals",
                 icon: "icon-vitals",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+                require: "visit && !visit.stopDatetime"   // currently our vitals form only works in the context of an active visit
             }
         };
 
@@ -62,7 +67,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "History",
                 icon: "icon-file-alt",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+                require: standardConsultNoteRequire
             }
         };
         var primaryCareExam = {
@@ -76,7 +82,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Exam",
                 icon: "icon-stethoscope",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+                require: standardConsultNoteRequire
             }
         };
 
@@ -91,7 +98,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Disposition",
                 icon: "icon-stethoscope",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+                require: standardConsultNoteRequire
             }
         };
 
@@ -106,7 +114,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Feeding",
                 icon: "icon-food",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+                require: standardConsultNoteRequire
             }
         };
 
@@ -121,7 +130,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Supplements",
                 icon: "icon-asterisk",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+                require: standardConsultNoteRequire
             }
         };
 
@@ -136,7 +146,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Diagnosis",
                 icon: "icon-list-ul",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+                require: standardConsultNoteRequire
             }
         };
 /*
@@ -166,7 +177,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             action: {
                 label: "Plan",
                 icon: "icon-list-ol",
-                sref: "editPlan"
+                sref: "editPlan",
+                require: standardConsultNoteRequire
             }
         };
 
