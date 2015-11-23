@@ -21,16 +21,6 @@
     </div>
 
     <div>
-        <h5>${ ui.message('coreapps.consult.disposition') }:</h5>
-        {{ encounter.obs | byConcept:Concepts.dispositionConstruct:true | dispositionLong }}
-    </div>
-
-    <div>
-        <h5>${ ui.message('pihcore.consult.returnVisitDate') }:</h5>
-        {{ encounter.obs | byConcept:Concepts.returnVisitDate:true | obs:"value" | serverDate:DatetimeFormats.date }}
-    </div>
-
-    <div>
         <h5>${ ui.message('pihcore.consult.clinicalImpressions') }:</h5>
         {{ encounter.obs | byConcept:Concepts.clinicalImpressions:true | obs:"value" }}
     </div>

@@ -92,7 +92,56 @@
         width: 95%;
         }
     </style>
+    <script type="text/javascript">
+        jq(function() {
 
+                var validateFamHistoryText = function(divElem) {
+                    var parentDiv = divElem.closest('.famHistoryText');
+
+                    if (typeof parentDiv !== "undefined" ) {
+                        var fieldError = parentDiv.find('.field-error');
+                        var commentsInput= parentDiv.find('input[type=text]');
+                        if (typeof commentsInput !== "undefined" ) {
+                            var comments = commentsInput.val();
+                            if ((typeof comments !=="undefined") &amp;&amp; comments.length > 0 ) {
+                                if ( parentDiv.find('input:checked').length &lt; 1 ) {
+                                    fieldError.html("<uimessage code='pihcore.historyNote.family.indicateParent'/>").show();
+                                    return false;
+                                }
+                            } else {
+                                // if there are no comments make sure the adjacent Parent checkbox is not checked
+                                if ( parentDiv.find('input:checked').length &gt; 0 ) {
+                                    fieldError.html("<uimessage code='pihcore.historyNote.family.specifyComments'/>").show();
+                                    return false;
+                                }
+                            }
+                        }
+                        fieldError.html(" ").hide();
+                    }
+                    return true;
+                }
+
+            jq('.famHistoryText').find('input[type=checkbox]').change(function() {
+                validateFamHistoryText(jq(this));
+            });
+
+            jq('.famHistoryText').find('input[type=text]').change(function() {
+                validateFamHistoryText(jq(this));
+
+            });
+
+        beforeSubmit.push(function() {
+            var numErrors = 0;
+            jq('.famHistoryText').find('input[type=text]').each(function() {
+                if (!validateFamHistoryText(jq(this)) ) {
+                    ++numErrors;
+                }
+            });
+            return ( numErrors == 0 );
+        });
+
+        });
+    </script>
     <h1>
         <uimessage code="pihcore.history.title"/>
     </h1>
@@ -187,11 +236,11 @@
             <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/>
             <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/>
             <br/>
-            <familyHistoryRelativeCheckboxes concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER"
+            <familyHistoryRelativeCheckboxes id="familyCancer" class="famHistoryText" concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER"
                                              specify="true"/>
 
             <br/>
-            <familyHistoryRelativeCheckboxes concept="PIH:OTHER" code="pihcore.other" relatives="PIH:FATHER,PIH:MOTHER"
+            <familyHistoryRelativeCheckboxes id="familyOther" class="famHistoryText" concept="PIH:OTHER" code="pihcore.other" relatives="PIH:FATHER,PIH:MOTHER"
                                              specify="true"/>
         </div>
     </section>

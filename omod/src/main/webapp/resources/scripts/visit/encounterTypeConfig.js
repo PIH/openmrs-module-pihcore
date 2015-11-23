@@ -165,9 +165,10 @@ angular.module("encounterTypeConfig", ["constants"])
         };
         // Tthe follow are encounters only present within the "new visit note" view
         encounterTypeConfig[EncounterTypes.primaryCareHistory.uuid] = {
-            defaultState: "long",
+            defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/primaryCareAdultHistoryLong.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-file-alt",
             editUrl: hfeStandardEditUrl
         };
@@ -206,13 +207,13 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            longTemplate: "templates/encounters/clinicConsultLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-list-ul",
             editUrl: hfeStandardEditUrl
         };
         encounterTypeConfig[EncounterTypes.consultationPlan.uuid] = {
-            defaultState: "long",
+            defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-list-ol",

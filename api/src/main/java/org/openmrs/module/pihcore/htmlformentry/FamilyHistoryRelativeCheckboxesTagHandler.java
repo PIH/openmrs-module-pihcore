@@ -121,9 +121,19 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
             context.registerWidget(textFieldWidget);
             context.registerErrorWidget(textFieldWidget, errorWidget);
         }
+        String clazz = attributes.get("class");
+        String elementId = attributes.get("id");
 
         StringBuilder html = new StringBuilder();
-        html.append("<div class=\"family-history-item\">");
+        html.append("<div ");
+        if (StringUtils.isNotBlank(elementId)) {
+            html.append("id=\"").append(elementId).append("\" ");
+        }
+        html.append("class=\"family-history-item");
+        if (StringUtils.isNotBlank(clazz)) {
+            html.append(" ").append(clazz);
+        }
+        html.append("\">");
         html.append("<div class=\"label\">");
         html.append(label);
         if (includeCommentField) {
