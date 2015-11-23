@@ -46,15 +46,22 @@
 %>
 
 <script type="text/javascript">
-    var breadcrumbs = [
+    var breadcrumbsOverview = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },
-        { label: "${ui.message("coreapps.patientDashBoard.visits")}" }
+        { label: "${ui.message("pihcore.visitNote.Visit")}" }
     ];
+    var breadcrumbsPlan = [
+        { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },
+        { label: "${ui.message("pihcore.visitNote.Visit")}", link: "${ui.escapeJs(ui.pageLink("pihcore", "visit/visit", [visit:visit.uuid]))}" },
+        { label: "${ui.message("pihcore.visitNote.plan")}" }
+    ];
+
+    var breadcrumbs = breadcrumbsOverview;
 
     var breadcrumbOverride = [
         { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },
-        { label: "${ui.message("coreapps.patientDashBoard.visits")}", link: "${ui.escapeJs(ui.pageLink("pihcore", "visit/visit", [visit:visit.uuid]))}" }
+        { label: "${ui.message("pihcore.visitNote.Visit")}", link: "${ui.escapeJs(ui.pageLink("pihcore", "visit/visit", [visit:visit.uuid]))}" }
     ];
 
     emr.loadGlobalProperties(["order.drugRoutesConceptUuid", "order.drugDosingUnitsConceptUuid", "order.drugDispensingUnitsConceptUuid",

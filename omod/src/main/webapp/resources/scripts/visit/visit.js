@@ -9,11 +9,19 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         $stateProvider
             .state("overview", {
                 url: "/overview",
-                templateUrl: "templates/overview.page"
+                templateUrl: "templates/overview.page",
+                onEnter: function() {
+                    breadcrumbs = breadcrumbsOverview;
+                    emr.updateBreadcrumbs();
+                }
             })
             .state("editPlan", {
                 url: "/editPlan",
-                templateUrl: "templates/orders/editPlan.page"
+                templateUrl: "templates/orders/editPlan.page",
+                onEnter: function() {
+                    breadcrumbs = breadcrumbsPlan;
+                    emr.updateBreadcrumbs();
+                }
             })
             .state("addLabOrders", {
                 url: "/addLabOrders",
