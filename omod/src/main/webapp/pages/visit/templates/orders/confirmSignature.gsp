@@ -1,5 +1,3 @@
-<!-- TODO localize -->
-
 <div class="dialog-header">
     <h3>${ ui.message("pihcore.visitNote.saveTreatmentPlan") }</h3>
 </div>

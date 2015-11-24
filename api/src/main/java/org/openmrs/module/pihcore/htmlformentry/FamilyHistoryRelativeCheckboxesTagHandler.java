@@ -110,6 +110,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
 
         if (includeCommentField) {
             textFieldWidget = new TextFieldWidget();
+            textFieldWidget.setPlaceholder(messageSourceService.getMessage("zl.pastMedicalHistory.specifyLabel"));
             Obs existingComments = findDiagnosisCommentInExistingObs(context, familyHistoryConstructConcept, diagnosisConcept, concept, commentsConcept);
             if (existingComments != null) {
                 String valueText = existingComments.getValueText();

@@ -99,9 +99,18 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
             context.registerWidget(textFieldWidget);
             context.registerErrorWidget(textFieldWidget, errorWidget);
         }
-
+        String clazz = attributes.get("class");
+        String elementId = attributes.get("id");
         StringBuilder html = new StringBuilder();
-        html.append("<div class=\"past-medical-history-item\">");
+        html.append("<div ");
+        if (StringUtils.isNotBlank(elementId)) {
+            html.append("id=\"").append(elementId).append("\" ");
+        }
+        html.append("class=\"past-medical-history-item");
+        if (StringUtils.isNotBlank(clazz)) {
+            html.append(" ").append(clazz);
+        }
+        html.append("\">");
         html.append(checkboxWidget.generateHtml(context));
         if (includeCommentField) {
             html.append(textFieldWidget.generateHtml(context));
