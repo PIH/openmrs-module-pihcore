@@ -269,7 +269,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     }])
 
     // inherits scope from visit overview controller
-    .directive("chooseVisitTemplate", [ "VisitTemplateService", "VisitAttributeTypes", "VisitService", function(VisitTemplateService, VisitAttributeTypes, VisitService) {
+    .directive("chooseVisitTemplate", [ "VisitTemplateService", "VisitAttributeTypes", "VisitService", "ngDialog", function(VisitTemplateService, VisitAttributeTypes, VisitService, ngDialog) {
         return {
             restrict: 'E',
             controller: function($scope) {
@@ -288,25 +288,50 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
                 $scope.choosingTemplate = false;
 
-                $scope.save = function() {
-                    var existing = $scope.visit.getAttribute(VisitAttributeTypes.visitTemplate);
-                    var VisitAttribute = VisitService.visitAttributeResourceFor($scope.visit);
-                    if ($scope.newVisitTemplate) {
-                        new VisitAttribute({
-                            attributeType: VisitAttributeTypes.visitTemplate.uuid,
-                            value: $scope.newVisitTemplate.name
-                        }).$save().then(function() {
-                            $scope.choosingTemplate = false;
-                            $scope.reloadVisit();
-                        });
-                    }
-                    else {
-                        // they chose nothing
-                        if (existing) {
+                function confirmChangingTemplate(VisitAttribute, existing) {
+                    ngDialog.openConfirm({
+                        showClose: false,
+                        closeByEscape: true,
+                        closeByDocument: true,
+                        template: "templates/confirmVisitTemplateChange.page"
+                    }).then(function() {
+                        // render the visit using the new selected template
+                        if ($scope.newVisitTemplate ) {
+                            new VisitAttribute({
+                                attributeType: VisitAttributeTypes.visitTemplate.uuid,
+                                value: $scope.newVisitTemplate.name
+                            }).$save().then(function () {
+                                    $scope.activeTemplate = $scope.newVisitTemplate;
+                                    $scope.choosingTemplate = false;
+                                    $scope.reloadVisit();
+                                });
+                        } else {
                             new VisitAttribute({uuid: existing.uuid}).$delete().then(function() {
                                 $scope.reloadVisit();
                             });
                         }
+                    }, function() {
+                        $scope.choosingTemplate = false;
+                        $scope.reloadVisit();
+                    });
+                }
+
+                $scope.save = function() {
+                    var existing = $scope.visit.getAttribute(VisitAttributeTypes.visitTemplate);
+                    var VisitAttribute = VisitService.visitAttributeResourceFor($scope.visit);
+
+                    if (existing) {
+                        // if we change from an existing template, prompt the user to confirm the change
+                        confirmChangingTemplate(VisitAttribute, existing);
+                    } else {
+                        // if there is no template set then just assign the new template
+                        new VisitAttribute({
+                            attributeType: VisitAttributeTypes.visitTemplate.uuid,
+                            value: $scope.newVisitTemplate.name
+                        }).$save().then(function() {
+                                $scope.choosingTemplate = false;
+                                $scope.reloadVisit();
+                            });
                     }
                 };
             },
