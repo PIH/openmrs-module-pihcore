@@ -95,6 +95,19 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("combinedVisitDates", ["$rootScope", "omrs.displayFilter", "serverDateFilter", "DatetimeFormats", function($rootScope, displayFilter, serverDateFilter, DatetimeFormats) {
+        return function(visit) {
+            if (!visit) {
+                return "";
+            }
+            var returnStr = serverDateFilter(visit.startDatetime, DatetimeFormats.date );
+            if (visit.stopDatetime) {
+                returnStr = returnStr + " - " + serverDateFilter(visit.stopDatetime, DatetimeFormats.date );
+            }
+            return returnStr;
+        }
+    }])
+
     .filter("dispositionLong", ["$rootScope", "omrs.displayFilter", "serverDateFilter", "Concepts", "DatetimeFormats", function ($rootScope, displayFilter, serverDateFilter, Concepts, DatetimeFormats) {
         return function(group) {
             if (!group) {

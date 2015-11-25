@@ -32,7 +32,7 @@
             <br/>
             ${ ui.message("pihcore.visitNote.whichVisit") }?
 
-            <select id="visit-list-select" ng-model="whenVisit" ng-options="visit as visit.startDatetime | serverDate : 'dd-MMM-yyyy' for visit in visits">
+            <select id="visit-list-select" ng-model="whenVisit" ng-options="visit as visit | combinedVisitDates for visit in visits">
             </select>
         </p>
 
