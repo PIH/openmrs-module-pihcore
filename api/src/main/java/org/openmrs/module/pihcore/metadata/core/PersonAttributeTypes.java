@@ -54,7 +54,7 @@ public class PersonAttributeTypes {
 
 	public static PersonAttributeTypeDescriptor MOTHERS_FIRST_NAME = new PersonAttributeTypeDescriptor() {
 		public String uuid() { return "8d871d18-c2cc-11de-8d13-0010c6dffd0f"; }
-		public String name() { return "Mother's First Name"; }
+		public String name() { return "Mothers First Name"; }
 		public String description() { return "First name of the patient's mother, used for identification"; }
 		public double sortWeight() { return 14; }
 	};
