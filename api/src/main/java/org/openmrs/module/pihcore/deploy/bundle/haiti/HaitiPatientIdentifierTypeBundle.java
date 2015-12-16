@@ -20,9 +20,4 @@ public class HaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle {
         install(HaitiPatientIdentifierTypes.HIVEMR_V1);
     }
 
-    //***** BUNDLE INSTALLATION METHODS FOR DESCRIPTORS
-
-    protected void install(PatientIdentifierTypeDescriptor d) {
-        install(CoreConstructors.patientIdentifierType(d.name(), d.description(), d.format(), d.formatDescription(), d.validator(), d.locationBehavior(), d.required(), d.uuid()));
-    }
 }
