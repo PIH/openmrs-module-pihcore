@@ -35,8 +35,8 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.vitals.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
-            templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-vitals",
             editUrl: hfeSimpleEditUrl
         };
@@ -181,7 +181,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeSimpleEditUrl
         };
         encounterTypeConfig[EncounterTypes.primaryCareDisposition.uuid] = {
-            defaultState: "long",
+            defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
             templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
@@ -205,7 +205,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
         encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
-            defaultState: "long",
+            defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/clinicConsultLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",

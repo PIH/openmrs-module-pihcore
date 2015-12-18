@@ -61,7 +61,7 @@
 
         <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
-            <fieldset class="required">
+            <fieldset class="encounter-date required">
                 <legend>
                     <uimessage code="emr.patientDashBoard.date"/>
                 </legend>
@@ -74,7 +74,7 @@
                 </p>
             </fieldset>
 
-            <fieldset class="required">
+            <fieldset class="encounter-provider required">
                 <legend>
                     <uimessage code="emr.patientDashBoard.providerRequired"/>
                 </legend>
@@ -88,7 +88,7 @@
                 </p>
             </fieldset>
 
-            <fieldset id="location" class="required">
+            <fieldset id="location" class="encounter-location required">
                 <legend>
                     <uimessage code="emr.locationRequired"/>
                 </legend>
@@ -104,7 +104,7 @@
 
         <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
-            <fieldset class="required">
+            <fieldset class="encounter-date required">
                 <legend>
                     <uimessage code="emr.patientDashBoard.date"/>
                 </legend>
@@ -121,7 +121,7 @@
                 <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
             </div>
 
-            <fieldset id="location" class="required">
+            <fieldset id="location" class="encounter-location required">
                 <legend>
                     <uimessage code="emr.locationRequired"/>
                 </legend>
@@ -168,9 +168,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -200,9 +200,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -235,9 +235,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -273,9 +273,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -308,9 +308,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -343,9 +343,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -378,9 +378,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -413,9 +413,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -448,9 +448,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -476,9 +476,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -504,9 +504,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -532,9 +532,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -560,9 +560,9 @@
                 </field>
             </p>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>
@@ -575,10 +575,13 @@
             <legend>
                 <uimessage code="pihcore.exam.other_exam.title"/>
             </legend>
+            <h3>
+                <uimessage code="pihcore.exam.other_exam.title"/>
+            </h3>
 
-            <h5>
+            <p>
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
             <p>
                 <field>

@@ -21,8 +21,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.checkIn.uuid
-                },
-                shortTemplate: "templates/encounters/checkInShort.page"
+                }
             },
             action: {
                 label: "Check In",
@@ -36,9 +35,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.vitals.uuid
-                },
-                shortTemplate: "templates/encounters/vitalsShort.page",
-                longTemplate: "templates/encounters/vitalsLong.page"
+                }
             },
             action: {
                 label: "Vitals",
@@ -61,8 +58,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.primaryCareHistory.uuid
-                },
-                longTemplate: "templates/encounters/primaryCareAdultHistoryLong.page"
+                }
             },
             action: {
                 label: "History",
@@ -76,8 +72,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.primaryCareExam.uuid
-                },
-                longTemplate: "templates/encounters/defaultEncounterLong.page"
+                }
             },
             action: {
                 label: "Exam",
@@ -92,8 +87,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.primaryCareDisposition.uuid
-                },
-                longTemplate: "templates/encounters/defaultEncounterLong.page"
+                }
             },
             action: {
                 label: "Disposition",
@@ -108,8 +102,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.primaryCarePedsFeeding.uuid
-                },
-                longTemplate: "templates/encounters/defaultEncounterLong.page"
+                }
             },
             action: {
                 label: "Feeding",
@@ -124,8 +117,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.primaryCarePedsSupplements.uuid
-                },
-                longTemplate: "templates/encounters/defaultEncounterLong.page"
+                }
             },
             action: {
                 label: "Supplements",
@@ -140,8 +132,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             encounter: {
                 encounterType: {
                     uuid: EncounterTypes.primaryCareDx.uuid
-                },
-                longTemplate: "templates/encounters/defaultEncounterLong.page"
+                }
             },
             action: {
                 label: "Diagnosis",
