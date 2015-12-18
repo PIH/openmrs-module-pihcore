@@ -195,11 +195,14 @@ $green: #51A351;
 
     p.aligned {
       label {
-        width: 300px;
-        text-align: right;
+        width: 200px;
         display: inline-block;
         margin-right: 10px;
-        font-size: 0.9em;
+        color: #501d3d;
+        vertical-align: top;
+      }
+      span {
+        vertical-align: top;
       }
     }
 

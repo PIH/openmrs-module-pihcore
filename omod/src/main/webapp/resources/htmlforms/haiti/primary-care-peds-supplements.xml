@@ -154,7 +154,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" />
                                 </span>
                             </td>
@@ -167,7 +167,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:FERROUS SULFATE" style="checkbox" />
                                 </span>
                             </td>
@@ -180,7 +180,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:IODINE" style="checkbox" />
                                 </span>
                             </td>
@@ -193,7 +193,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:DEWORMING" style="checkbox" />
                                 </span>
                             </td>
@@ -206,7 +206,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:ZINC" style="checkbox" />
                                 </span>
                             </td>
