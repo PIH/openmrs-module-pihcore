@@ -100,9 +100,13 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
             if (!visit) {
                 return "";
             }
-            var returnStr = serverDateFilter(visit.startDatetime, DatetimeFormats.date );
+            var visitStartDate = serverDateFilter(visit.startDatetime, DatetimeFormats.date );
+            var returnStr = visitStartDate;
             if (visit.stopDatetime) {
-                returnStr = returnStr + " - " + serverDateFilter(visit.stopDatetime, DatetimeFormats.date );
+                var visitStopDate = serverDateFilter(visit.stopDatetime, DatetimeFormats.date );
+                if (visitStopDate != visitStartDate) {
+                    returnStr = returnStr + " - " + serverDateFilter(visit.stopDatetime, DatetimeFormats.date);
+                }
             }
             return returnStr;
         }
