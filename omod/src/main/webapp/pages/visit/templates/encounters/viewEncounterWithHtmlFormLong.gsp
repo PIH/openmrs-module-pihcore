@@ -13,7 +13,7 @@
         padding: 0px;
     }
 
-    htmlform h3 {
+    htmlform fieldset h3 {
         font-size: 1em;
         width: 200px;
         display: inline-block;
@@ -23,13 +23,13 @@
         vertical-align: top;
     }
 
-    htmlform p {
+    htmlform fieldset p {
         vertical-align: top;
         display: inline-block;
         float: none;
     }
 
-    htmlform .left {
+    htmlform fieldset .left {
         vertical-align: top;
         display: inline-block;
         float: none;
