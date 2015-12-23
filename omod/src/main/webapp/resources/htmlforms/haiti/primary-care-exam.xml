@@ -12,11 +12,12 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique"
+<htmlform id="primary-care-exam-form" formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique"
           formEncounterType="0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef" formVersion="1.0">
-
+    
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
+            
             #data-collection {
             display: inline-block;
             width: 58%;
@@ -32,14 +33,63 @@
 
     <style type="text/css">
         <ifMode mode="VIEW" include="true">
-            htmlform .comment-label {
+            
+            #primary-care-exam-form legend {
+            display: none;
+            }
+
+            #primary-care-exam-form fieldset {
+            margin: 0px;
+            border: 0px;
+            padding: 0px;
+            }
+
+            #primary-care-exam-form fieldset h3 {
+            font-size: 1em;
+            width: 200px;
+            display: inline-block;
+            margin: 0px;
+            margin-right: 10px;
+            color: #501d3d;
+            vertical-align: top;
+            }
+
+            #primary-care-exam-form fieldset p {
+            vertical-align: top;
+            display: inline-block;
+            float: none;
+            }
+
+            #primary-care-exam-form fieldset .left {
+            vertical-align: top;
+            display: inline-block;
+            float: none;
+            }
+
+            #primary-care-exam-form .title {
+            display: none;
+            }
+
+            #primary-care-exam-form .encounter-date {
+            display: none;
+            }
+
+            #primary-care-exam-form .encounter-provider {
+            display: none;
+            }
+
+            #primary-care-exam-form .encounter-location {
+            display: none;
+            }
+
+            #primary-care-exam-form .comment-label {
                 display: none;
             }
-            htmlform .comment-field {
+            #primary-care-exam-form .comment-field {
                 display: block;
                 margin-left: 215px;
             }
-            br {
+            #primary-care-exam-form br {
                 display: none;
             }
         </ifMode>

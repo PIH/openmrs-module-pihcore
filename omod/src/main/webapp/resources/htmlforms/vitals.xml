@@ -12,7 +12,67 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform formUuid="68728aa6-4985-11e2-8815-657001b58a90" formName="Vitals" formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formVersion="2.1">
+<htmlform id="vitals-form" formUuid="68728aa6-4985-11e2-8815-657001b58a90" formName="Vitals" formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formVersion="2.1">
+
+    <ifMode mode="VIEW" include="true">
+        <!-- a template to display the "view" version of an html form provided by the htmlfromentryui getAsHtml method
+      specifically designed to reformat our "one-question-per-screen" forms to should line-by-line obs -->
+
+        <style>
+
+            #vitals-form legend {
+                display: none;
+            }
+
+            #vitals-form fieldset {
+                margin: 0px;
+                border: 0px;
+                padding: 0px;
+            }
+
+            #vitals-form fieldset h3 {
+                font-size: 1em;
+                width: 200px;
+                display: inline-block;
+                margin: 0px;
+                margin-right: 10px;
+                color: #501d3d;
+                vertical-align: top;
+            }
+
+            #vitals-form fieldset p {
+                vertical-align: top;
+                display: inline-block;
+                float: none;
+            }
+
+            #vitals-form fieldset .left {
+                vertical-align: top;
+                display: inline-block;
+                float: none;
+            }
+
+            #vitals-form .title {
+                display: none;
+            }
+
+            #vitals-form .encounter-date {
+                display: none;
+            }
+
+            #vitals-form .encounter-provider {
+                display: none;
+            }
+
+            #vitals-form .encounter-location {
+                display: none;
+            }
+
+        </style>
+
+    </ifMode>
+
+
     <style>
         #calculated-bmi {
             font-weight: bold;
@@ -116,7 +176,7 @@
                         jq('#calculated-bmi-wrapper').hide();
                     } else {
                         jq('#no-calculated-bmi').hide();
-                        jq('#calculated-bmi-wrapper').show();
+                        jq('#calculated-bmi-wrapper').show(); display: none;
                         jq('#calculated-bmi').html(bmi.toFixed(1));
                         jq('#hidden-calculated-bmi').val(bmi.toFixed(1));
                     }
