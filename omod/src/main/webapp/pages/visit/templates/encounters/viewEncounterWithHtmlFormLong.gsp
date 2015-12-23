@@ -1,4 +1,5 @@
-<!-- a template to display the "view" version of an html form provided by the htmlfromentryui getAsHtml method -->
+<!-- a template to display the "view" version of an html form provided by the htmlfromentryui getAsHtml method
+     specifically designed to reformat our "one-question-per-screen" forms to should line-by-line obs -->
 
 <style>
 
@@ -7,23 +8,31 @@
     }
 
     htmlform fieldset {
-        border: 0px;
         margin: 0px;
+        border: 0px;
         padding: 0px;
-        -webkit-column-break-inside: avoid;
-        page-break-inside: avoid;
-        break-inside: avoid;
     }
 
     htmlform h3 {
-        margin: 2px 0px;
         font-size: 1em;
+        width: 200px;
+        display: inline-block;
+        margin: 0px;
+        margin-right: 10px;
+        color: #501d3d;
+        vertical-align: top;
     }
 
-    htmlform section {
-        -webkit-column-count: 3; /* Chrome, Safari, Opera */
-        -moz-column-count: 3; /* Firefox */
-        column-count: 3;
+    htmlform p {
+        vertical-align: top;
+        display: inline-block;
+        float: none;
+    }
+
+    htmlform .left {
+        vertical-align: top;
+        display: inline-block;
+        float: none;
     }
 
     htmlform .title {
