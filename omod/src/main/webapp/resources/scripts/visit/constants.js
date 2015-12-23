@@ -39,6 +39,9 @@ angular.module('constants', [])
         disposition: {
             uuid: "c8b22b09-e2f2-4606-af7d-e52579996de3"
         },
+        dispositionComment: {
+            uuid: "b4457f1e-ef60-484c-b96a-08180a347e58"
+        },
         transferOutLocation: {
             uuid: "113a5ce0-6487-4f45-964d-2dcbd7d23b67"
         },
@@ -52,7 +55,7 @@ angular.module('constants', [])
             uuid: "a96352e3-3afc-418b-b79f-3290fc26a3b3"
         },
         returnVisitDate: {
-            uuid: "pichore.consult.clinicalImpressions"
+            uuid: "	3ce94df0-26fe-102b-80cb-0017a47871b2"
         },
         clinicalImpressions: {
             uuid: "3cd9d956-26fe-102b-80cb-0017a47871b2"
