@@ -30,6 +30,22 @@
         </ifMode>
     </style>
 
+    <style type="text/css">
+        <ifMode mode="VIEW" include="true">
+            htmlform .comment-label {
+                display: none;
+            }
+            htmlform .comment-field {
+                display: block;
+                margin-left: 215px;
+            }
+            br {
+                display: none;
+            }
+        </ifMode>
+    </style>
+
+
     <script type="text/javascript">
         jq(function() {
             // hack--if there is only one location option, hide the location question (but set it on submit)
@@ -164,15 +180,15 @@
                     <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:160981" rows="5" cols="60" />
                 </field>
@@ -196,15 +212,15 @@
                     <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:163044" rows="5" cols="60" />
                 </field>
@@ -231,15 +247,15 @@
                     <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
                 </field>
@@ -269,15 +285,15 @@
                     <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:LYMPHADENOPATHY" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
                 </field>
@@ -304,15 +320,15 @@
                     <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:163046" rows="5" cols="60" />
                 </field>
@@ -339,15 +355,15 @@
                     <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:160689" rows="5" cols="60" />
                 </field>
@@ -374,15 +390,15 @@
                     <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:160947" rows="5" cols="60" />
                 </field>
@@ -409,15 +425,15 @@
                     <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:163047" rows="5" cols="60" />
                 </field>
@@ -444,15 +460,15 @@
                     <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:163048" rows="5" cols="60" />
                 </field>
@@ -476,11 +492,11 @@
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:Gross Motor Skills Evaluation (text)" rows="5" cols="60" />
                 </field>
@@ -504,11 +520,11 @@
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:Fine Motor Skills Evaluation (text)" rows="5" cols="60" />
                 </field>
@@ -532,11 +548,11 @@
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:Language Development Evaluation (text)" rows="5" cols="60" />
                 </field>
@@ -560,11 +576,11 @@
                 </field>
             </p>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:Social Skills Evaluation (text)" rows="5" cols="60" />
                 </field>
@@ -579,11 +595,11 @@
                 <uimessage code="pihcore.exam.other_exam.title"/>
             </h3>
 
-            <p>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
             </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" rows="5" cols="60"/>
                 </field>
