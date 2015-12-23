@@ -1,3 +1,6 @@
+
+<!-- TODO: are we currently using this?  can we delete? -->
+
 <div class="header" ng-include="'templates/defaultEncounterHeader.page'">
 </div>
 
