@@ -91,7 +91,22 @@
         .section {
         width: 95%;
         }
+
+
+
+
     </style>
+
+
+    <!-- special formatting when in view mode -->
+    <style type="text/css">
+        <ifMode mode="VIEW" include="false">
+            #family-history br {
+                display: none;
+            }
+        </ifMode>
+    </style>
+
     <script type="text/javascript">
         jq(function() {
 
