@@ -213,7 +213,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.consultationPlan.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterLong.page",
+            longTemplate: "templates/encounters/planLong.page",
             icon: "icon-list-ol",
             editUrl: null
         };
