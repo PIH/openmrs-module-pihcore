@@ -1,11 +1,11 @@
 <div class="selectable header" ng-click="expandVaccinations(showVaccinationTable)">
     <span class="one-third">
         <i class="icon-umbrella"></i>
-        <span class="title">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
+        <span class="title" ng-show="!showVaccinationTable">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
     </span>
     <span class="details">
-        <span ng-show="allergies.status == 'See list'" ng-repeat="vaccination in vaccinations">
-            {{ vaccinatination.label }} {{\$last ? '' : (\$index==vaccinations.length-2) ? ' and ' : ', '}}
+        <span>
+            {{ currentVaccinations }}
         </span>
     </span>
     <span class="overall-actions">
