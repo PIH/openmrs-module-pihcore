@@ -24,7 +24,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 }
             },
             action: {
-                label: "Check In",
+                label: "pihcore.checkIn.label",
                 icon: "icon-check-in",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/checkin.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
             }
@@ -38,7 +38,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 }
             },
             action: {
-                label: "Vitals",
+                label: "pihcore.vitals.label",
                 icon: "icon-vitals",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
                 require: "visit && !visit.stopDatetime"   // currently our vitals form only works in the context of an active visit
@@ -61,7 +61,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 }
             },
             action: {
-                label: "History",
+                label: "pihcore.history.label",
                 icon: "icon-file-alt",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
                 require: standardConsultNoteRequire
@@ -75,7 +75,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 }
             },
             action: {
-                label: "Exam",
+                label: "pihcore.exam.label",
                 icon: "icon-stethoscope",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
                 require: standardConsultNoteRequire
@@ -90,7 +90,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 }
             },
             action: {
-                label: "Disposition",
+                label: "pihcore.disposition.label",
                 icon: "icon-stethoscope",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
                 require: standardConsultNoteRequire
@@ -105,7 +105,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 }
             },
             action: {
-                label: "Feeding",
+                label: "pihcore.feeding.history.label",
                 icon: "icon-food",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
                 require: standardConsultNoteRequire
@@ -120,7 +120,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 }
             },
             action: {
-                label: "Supplements",
+                label: "pihcore.supplements.history.label",
                 icon: "icon-asterisk",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
                 require: standardConsultNoteRequire
@@ -135,7 +135,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 }
             },
             action: {
-                label: "Diagnosis",
+                label: "pihcore.diagnosis.label",
                 icon: "icon-list-ul",
                 href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
                 require: standardConsultNoteRequire
@@ -166,7 +166,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 encounterType: EncounterTypes.consultationPlan
             },
             action: {
-                label: "Plan",
+                label: "pihcore.visitNote.plan",
                 icon: "icon-list-ol",
                 sref: "editPlan",
                 require: standardConsultNoteRequire
@@ -184,7 +184,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
 
         var ret = {
             timeline: {
-                label: "Visit (Generic)",
+                label: "pihcore.visitType.generic",
                 encounterTypeConfig: EncounterTypeConfig,
                 allowedFor: allowedForAll,
                 elements: [
@@ -194,7 +194,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             },
 
             adultInitialOutpatient: {
-                label: "Adult Initial Outpatient Visit",
+                label: "pihcore.visitType.adultInitialOutpatient",
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
@@ -210,7 +210,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 ]
             },
             adultFollowupOutpatient: {
-                label: "Adult Followup Outpatient Visit",
+                label: "pihcore.visitType.adultFollowupOutpatient",
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
@@ -224,7 +224,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 ]
             },
             pedsInitialOutpatient: {
-                label: "Peds Initial Outpatient Visit",
+                label: "pihcore.visitType.pedsInitialOutpatient",
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
@@ -244,7 +244,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 ]
             },
             pedsFollowupOutpatient: {
-                label: "Peds Followup Outpatient Visit",
+                label: "pihcore.visitType.pedsFollowupOutpatient",
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
