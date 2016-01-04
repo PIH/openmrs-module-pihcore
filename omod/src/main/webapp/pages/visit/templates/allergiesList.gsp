@@ -2,12 +2,12 @@
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">
             <i class="icon-medical"></i>
-            <span class="title">${ ui.message("allergyui.allergies") }</span>
+            <span class="title" ng-show="!showAlergiesDetails">${ ui.message("allergyui.allergies") }</span>
         </span>
         <span>
             <span ng-show="allergies.status == 'Unknown'">${ ui.message("general.unknown") }</span>
             <span ng-show="allergies.status == 'No known allergies'">${ ui.message("allergyui.noKnownAllergy") }</span>
-            <span ng-show="allergies.status == 'See list'" ng-repeat="allergy in allergies.allergies">
+            <span ng-show="allergies.status == 'See list' && !showAlergiesDetails" ng-repeat="allergy in allergies.allergies">
                 {{ allergy | omrs.display }} {{\$last ? '' : (\$index==allergies.allergies.length-2) ? ' and ' : ', '}}
             </span>
         </span>

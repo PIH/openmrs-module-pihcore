@@ -168,11 +168,28 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 $scope.history = [];
                 $scope.sequences = sequences;
                 $scope.vaccinations = vaccinations;
+                $scope.currentVaccinations = "";
 
                 function loadHistory() {
                     VaccinationService.getHistory($scope.visit.patient).$promise.then(function(response) {
                         $scope.history = response.results;
+                        $scope.currentVaccinations = getCurrentVaccinations();
                     });
+                }
+
+                function getCurrentVaccinations() {
+                    var results = "";
+                    _.each($scope.vaccinations, function(vaccination) {
+                        _.each($scope.sequences, function(sequence) {
+                            if ($scope.existingDose(sequence, vaccination)) {
+                                if (results.length > 0 ) {
+                                    results = results + ", ";
+                                }
+                                results = results + vaccination.label;
+                            }
+                        })
+                    });
+                    return results;
                 }
                 loadHistory();
 
