@@ -41,7 +41,7 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
         DataSetDefinition dsd = vitalsDataSetManager.constructDataSet();
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
-        context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
+        context.addParameterValue("endDate", DateUtil.getDateTime(2016, 12, 31));
         SimpleDataSet dataSet = (SimpleDataSet)dataSetDefinitionService.evaluate(dsd, context);
         DataSetRow row = dataSet.getRows().get(0);
         Assert.assertEquals(1, dataSet.getRows().size());

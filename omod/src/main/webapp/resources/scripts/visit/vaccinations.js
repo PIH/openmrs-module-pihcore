@@ -135,6 +135,11 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         doses: [ 0, 1, 2, 3, 11, 12 ]
                     }
                 ]
+                $scope.showVaccinationTable = false;
+
+                $scope.expandVaccinations = function(showVaccinationTable) {
+                    $scope.showVaccinationTable = !showVaccinationTable;
+                }
 
                 function hasCodedMember(group, concept, codedValue) {
                     return _.find(group.groupMembers, function(member) {
