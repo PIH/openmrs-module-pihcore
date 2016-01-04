@@ -55,16 +55,5 @@
         </div>
     </div>
 
-    <div class="clear">
-        <div class="left-column">
-            <h3 class="plan-header">${ ui.message('pihcore.consult.returnVisitDate') }</h3>
-        </div>
-        <div class="right-column">
-            <p>
-                {{ encounter.obs | byConcept:Concepts.returnVisitDate:true | obs:"value" | serverDate:DatetimeFormats.date }}
-            </p>
-        </div>
-    </div>
-
     <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>
 </div>
