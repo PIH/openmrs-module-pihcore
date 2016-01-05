@@ -1,7 +1,6 @@
 <h2>${ ui.message("pihcore.visitNote.orders.requestTests") }</h2>
 
 <div ng-repeat="group in labs">
-    <h3>{{ group.label }}</h3>
     <ul>
         <li ng-repeat="lab in group.labs">
             <label>

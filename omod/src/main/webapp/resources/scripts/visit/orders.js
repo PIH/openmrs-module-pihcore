@@ -1,4 +1,4 @@
-angular.module("orders", [ "orderService", "encounterService", "ngResource", "orderEntry", "uicommons.filters", 'drugService',
+angular.module("orders", [ "orderService", "encounterService", "ngResource", "orderEntry", "uicommons.filters", 'drugService', 'conceptService',
     "uicommons.widget.select-drug", "uicommons.widget.select-concept-from-list", "uicommons.widget.select-order-frequency",
     "ngDialog"])
 
@@ -257,34 +257,25 @@ angular.module("orders", [ "orderService", "encounterService", "ngResource", "or
         }
     }])
 
-    .directive("addLabOrders", [ "$state", "OrderContext", "Concepts", function($state, OrderContext, Concepts) {
+    .directive("addLabOrders", [ "$state", "$filter", "OrderContext", "Concept", "Concepts", function($state, $filter, OrderContext, Concept, Concepts) {
         return {
             restrict: "E",
             scope: {},
             controller: function($scope) {
-                $scope.labs = [
-                    {
-                        label: "Hematology",
-                        labs: [
-                            {
-                                label: "Hemoglobin",
-                                concept: Concepts.hemoglobin
-                            },
-                            {
-                                label: "Hematocrit",
-                                concept: Concepts.hematocrit
-                            },
-                            {
-                                label: "Blood Type",
-                                concept: Concepts.bloodtyping
-                            }
-                        ]
-                    }
-                ];
-
+                $scope.labs = [];
                 $scope.orderLabs = {};
-                _.each(_.flatten(_.pluck($scope.labs, "labs")), function(it) {
-                    $scope.orderLabs[it.concept.uuid] = { concept: it.concept, label: it.label, selected: false };
+
+                Concept.get({uuid: Concepts.zlLabOrders.uuid}).$promise.then(function(results) {
+                    if (results && results.setMembers && results.setMembers.length > 0) {
+                        var labOrders = [];
+                        _.each(results.setMembers, function(member) {
+                            var concept = {uuid: member.uuid};
+                            var labOrder = { label: member.display, concept: concept};
+                            labOrders.push(labOrder);
+                            $scope.orderLabs[member.uuid] = { concept: concept, label: member.display, selected: false };
+                        })
+                        $scope.labs.push({label: "", labs: labOrders});
+                    }
                 });
 
                 $scope.anySelected = function() {

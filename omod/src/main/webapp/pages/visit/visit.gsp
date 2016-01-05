@@ -17,6 +17,7 @@
     ui.includeJavascript("uicommons", "services/visitService.js")
     ui.includeJavascript("uicommons", "services/encounterService.js")
     ui.includeJavascript("uicommons", "services/obsService.js")
+    ui.includeJavascript("uicommons", "services/conceptService.js")
     ui.includeJavascript("uicommons", "services/orderService.js")
     ui.includeJavascript("uicommons", "services/drugService.js")
     ui.includeJavascript("uicommons", "services/session.js")
