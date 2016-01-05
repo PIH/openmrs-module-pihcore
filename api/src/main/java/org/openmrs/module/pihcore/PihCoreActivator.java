@@ -38,6 +38,7 @@ import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
+import org.openmrs.module.pihcore.setup.RetireProvidersSetup;
 
 public class PihCoreActivator extends BaseModuleActivator {
 
@@ -62,6 +63,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
+            RetireProvidersSetup.setupRetireProvidersTask();
         }
         catch (Exception e) {
             Module mod = ModuleFactory.getModuleById("pihcore");
