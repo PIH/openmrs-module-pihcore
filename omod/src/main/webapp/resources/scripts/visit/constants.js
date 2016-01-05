@@ -147,6 +147,9 @@ angular.module('constants', [])
         diptheriaTetanusVaccination: {
             uuid: "3ccc6b7c-26fe-102b-80cb-0017a47871b2"
         },
+        zlLabOrders: {
+            uuid: "d4d844de-50bd-4299-8575-1ce59b53908b"
+        },
         hemoglobin: {
             uuid: "3ccc7158-26fe-102b-80cb-0017a47871b2"
         },
