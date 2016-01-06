@@ -3,7 +3,7 @@ package org.openmrs.module.pihcore.setup;
 import org.apache.commons.lang.time.DateUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.utils.GeneralUtils;
-import org.openmrs.module.pihcore.task.RetireProvidersWithRetiredUserAccounts;
+import org.openmrs.module.pihcore.task.UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
@@ -25,7 +25,7 @@ public class RetireProvidersSetup {
             task = new TaskDefinition();
             task.setName(TASK_RETIRE_PROVIDERS);
             task.setDescription(TASK_RETIRE_PROVIDERS);
-            task.setTaskClass(RetireProvidersWithRetiredUserAccounts.class.getName());
+            task.setTaskClass(UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts.class.getName());
             task.setStartTime(DateUtils.addMinutes(new Date(), 5));
             task.setRepeatInterval(TASK_RETIRE_PROVIDERS_REPEAT_INTERVAL);
             task.setStartOnStartup(true);
@@ -36,7 +36,7 @@ public class RetireProvidersSetup {
             }
         } else {
             // if you modify any of the properties above, you also need to set them here, in order to update existing servers
-            boolean changed = GeneralUtils.setPropertyIfDifferent(task, "taskClass", RetireProvidersWithRetiredUserAccounts.class.getName());
+            boolean changed = GeneralUtils.setPropertyIfDifferent(task, "taskClass", UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts.class.getName());
             if (changed) {
                 schedulerService.saveTask(task);
             }

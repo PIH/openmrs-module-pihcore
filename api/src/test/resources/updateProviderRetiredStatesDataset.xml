@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- uses persons 7, 8 and 9 from standard test dataset -->
+<dataset>
+
+    <provider provider_id="1001" person_id="7" identifier="Test-Retire-1" creator="1" date_created="2005-01-01 00:00:00.0" retired="true" date_retired="2005-01-01 00:00:00.0" uuid="f9342680-b3c2-11e5-a837-0800200c9a66" />
+    <provider provider_id="1002" person_id="8" identifier="Test-Retire-2" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="f9342681-b3c2-11e5-a837-0800200c9a66" />
+    <provider provider_id="1003" person_id="9" identifier="Test-Retire-3" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="f9342682-b3c2-11e5-a837-0800200c9a66" />
+    <provider provider_id="1004" person_id="9" identifier="Test-Retire-4" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="f9344d90-b3c2-11e5-a837-0800200c9a66" />
+    <provider provider_id="1005" person_id="7" identifier="Test-Retire-5" creator="1" date_created="2005-01-01 00:00:00.0" retired="true"  date_retired="2010-01-01 00:00:00.0" uuid="fccc2680-b3c2-11e5-a837-0800200c9a66" />
+    <provider provider_id="1006" person_id="6" identifier="Test-Retire-6" creator="1" date_created="2005-01-01 00:00:00.0" retired="true"  date_retired="2010-01-01 00:00:00.0" uuid="dccc2680-b3c2-11e5-a837-0800200c9a66" />
+
+    <users user_id="1001" person_id="7" system_id="Test-Retire-1" username="bruno" password="ff6d1655327d385e11a04e1632b4f33ceb8fafd2" salt="5d32c5fd9fde391c755f1f4dfd5e1d6e3debe6" secret_question="" creator="1" date_created="2008-08-15 15:46:47.0" changed_by="1" date_changed="2008-08-15 15:47:07.0" retired="true" retire_reason="test" date_retired="2008-08-15 15:47:07.0" uuid="394c6250-b3c3-11e5-a837-0800200c9a66"/>
+    <users user_id="1002" person_id="8" system_id="Test-Retire-2" username="butch" password="eeeda5c0cc3837151b2d61cfeab54a91fb0c27d" salt="42af4c437a47cd778a54f6564d71b3cd6e8e5ca" secret_question="" creator="1" date_created="2008-08-15 15:57:09.0" changed_by="1" date_changed="2008-08-18 11:51:56.0" retired="false" retire_reason="" uuid="394c6251-b3c3-11e5-a837-0800200c9a66"/>
+    <users user_id="1003" person_id="8" system_id="Test-Retire-3" username="fred" password="ff6d1655327d385e11a04e1632b4f33ceb8fafd2" salt="5d32c5fd9fde391c755f1f4dfd5e1d6e3debe6" secret_question="" creator="1" date_created="2008-08-15 15:46:47.0" changed_by="1" date_changed="2008-08-15 15:47:07.0" retired="false" retire_reason="" uuid="394c6252-b3c3-11e5-a837-0800200c9a66"/>
+    <users user_id="1004" person_id="9" system_id="Test-Retire-4" username="charles" password="eeeda5c0cc3837151b2d61cfeab54a91fb0c27d" salt="42af4c437a47cd778a54f6564d71b3cd6e8e5ca" secret_question="" creator="1" date_created="2008-08-15 15:57:09.0" changed_by="1" date_changed="2008-08-18 11:51:56.0" retired="false" retire_reason="" uuid="394c8960-b3c3-11e5-a837-0800200c9a66"/>
+    <users user_id="1005" person_id="6" system_id="Test-Retire-5" username="charles" password="eeeda5c0cc3837151b2d61cfeab54a91fb0c27d" salt="42af4c437a47cd778a54f6564d71b3cd6e8e5ca" secret_question="" creator="1" date_created="2008-08-15 15:57:09.0" changed_by="1" date_changed="2008-08-18 11:51:56.0" retired="true" retire_reason="" uuid="dd4c8960-b3c3-11e5-a837-0800200c9a66"/>
+
+
+</dataset>
+
+
+
+
+
