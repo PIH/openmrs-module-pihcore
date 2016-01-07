@@ -71,8 +71,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 $scope.EncounterTypes = EncounterTypes;
                 $scope.EncounterRoles = EncounterRoles;
 
-                    $scope.getExpectedEncounterActions = function() {
-                    return VisitTemplateService.getExpectedEncounterActions();
+                $scope.getVisitActions = function() {
+                    return VisitTemplateService.getVisitActions();
                 }
 
                 var element = $scope.element;
@@ -420,17 +420,31 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     });
                 },
 
-                getExpectedEncounterActions: function() {
+                getVisitActions: function() {
+
                     if (!currentTemplate) {
                         return []
                     };
+
                     var elements = _.filter(currentTemplate.elements, function (element) {
-                        return element.type == 'encounter'
-                            && !element.addInline
-                            && (element.encounterStubs.length == 0 || element.allowMultiple);
+
+                        return !element.addInline
+                                && ( (element.type == 'encounter' && (element.encounterStubs.length == 0 || element.allowMultiple))
+                                || element.type == 'consult-section')
                     });
+
                     return _.pluck(elements, "action");
+                },
+
+                getConsultEncounterType: function() {
+                    if (currentTemplate && currentTemplate.consultEncounterType) {
+                        return currentTemplate.consultEncounterType;
+                    }
+                    else {
+                        return null;
+                    }
                 }
+
             }
         }])
 
@@ -482,9 +496,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "Allergies", "CareSetting", "$q", "$state",
         "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
-        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats",
+        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction",
         function($scope, $rootScope, $translate, Visit, VisitTemplateService, Allergies, CareSetting, $q, $state, $timeout, OrderContext,
-                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats) {
+                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats, EncounterTransaction) {
 
             $rootScope.DatetimeFormats = DatetimeFormats;
 
@@ -492,17 +506,24 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.visitUuid = visitUuid;
             $scope.patientUuid = patientUuid;
+            $scope.consultEncounterStub = null;
 
             $scope.today = new Date();
+
+            // set default visit actions
+            // TODO add a real icon
+            $scope.visitActions = [
+                    {
+                        label: "pihcore.visitNote.startConsult",
+                        icon: "icon-start",
+                        type: "start-consult"
+                    }
+                ]
 
             loadVisits(patientUuid);
             loadVisit(visitUuid);
 
             $translate.use(locale);
-
-            AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
-                $scope.visitActions = ext;
-            })
 
             function sameDate(d1, d2) {
                 return d1 && d2 && d1.substring(0, 10) == d2.substring(0, 10);
@@ -523,9 +544,16 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         $scope.visit = new OpenMRS.VisitModel(visit);
                         $scope.visitIdx = $scope.getVisitIdx(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
+                        $scope.consultEncounterStub = VisitTemplateService.getConsultEncounterType() ? $scope.visit.getEncounterByType(VisitTemplateService.getConsultEncounterType().uuid) : null;
 
                         $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
                         VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit, $scope.VisitDisplayModel);
+
+                        // if a consult has been started, load the visit actions
+                        // for visit templates with no consult encounter type, an explicit "start-consult" is not required
+                        if (isConsultStarted() || !VisitTemplateService.getConsultEncounterType()) {
+                            $scope.visitActions = VisitTemplateService.getVisitActions();
+                        }
 
                         // TODO refactor so that OrderContext has better logic for knowing when it is configured/ready, so that we don't have to nest this
                         $scope.careSettings.$promise.then(function() {
@@ -535,6 +563,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     });
                 VisitDisplayModel.reset();
             }
+
+            function isConsultStarted() {
+                return $scope.consultEncounterStub ? true : false;
+            }
+
 
           /*  // TODO is this still needed/used?
             function getVisitParameter() {
@@ -684,29 +717,49 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
            // TODO figure out if we can get rid of this function
             $scope.$watch('visitUuid', function(newVal, oldVal) {
-                    loadVisit(newVal);
+                loadVisit(newVal);
             })
+
+
 
             $scope.hasDraftOrders = function() {
                 return OrderContext.get().draftOrders.length > 0;
             }
 
             $scope.visitAction = function(visitAction) {
-                if (visitAction.type == 'script') {
+
+                // special case, "start consult" action
+                // TODO: **need to set provider**, **make date work in retrospective context**
+                if (visitAction.type == 'start-consult') {
+                    return EncounterTransaction.save({
+                        patientUuid: $scope.patientUuid,
+                        visitUuid: $scope.visitUuid,
+                        encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
+                        encounterDateTime: new Date()
+                    }, function(result) {
+                        $scope.consultEncounterUuid = result.encounterUuid;
+                    })
+
+                }
+                else if (visitAction.type == 'script') {
                     // TODO
-                } else {
+                } else
+                {
                     var visitModel = angular.extend({}, $scope.visit);
                     visitModel.id = $scope.visit.uuid; // HACK! TODO: change our extensions to refer to visit.uuid
                     visitModel.active = !$scope.visit.stopDatetime;
 
                     var url = Handlebars.compile(visitAction.url)({
                         visit: visitModel,
-                        patient: $scope.visit.patient
+                        consultEncounter: $scope.consultEncounterStub,
+                        patient: $scope.visit.patient,
+                        returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid)
                     });
 
-                    emr.navigateTo({ applicationUrl: "/" + url + "&returnUrl=" +  window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid) });
+                    emr.navigateTo({ applicationUrl: (!url.startsWith("/") ? '/' : '') + url });
                 }
             }
+
 
             window.onbeforeunload = function() {
                 if (OrderContext.hasUnsavedData()) {

@@ -5,6 +5,8 @@ angular.module("encounterTypeConfig", ["constants"])
         var hfeSimpleEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
         var hfeStandardEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
 
+        // TODO maybe this will be only be used for the "default" visit type, and the unused encounter types can be removed?
+
         // template model url:
         // if a template operates off an model different that the standard OpenMRS REST representation of an encounter,
         // you specify the URL of the source here; used currently for htmlFormEntry encounter templates, which

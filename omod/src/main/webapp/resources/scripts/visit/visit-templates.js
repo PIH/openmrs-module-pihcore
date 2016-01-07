@@ -16,6 +16,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             include: "templates/reverseChronologicalEncounters.page"
         };
 
+
         var checkIn = {
             type: "encounter",
             encounter: {
@@ -98,16 +99,11 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
         };
 
         var feeding = {
-            type: "encounter",
-            encounter: {
-                encounterType: {
-                    uuid: EncounterTypes.primaryCarePedsFeeding.uuid
-                }
-            },
+            type: "consult-section",
             action: {
                 label: "pihcore.feeding.history.label",
                 icon: "icon-food",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+                url: "/{{contextPath}}/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
                 require: standardConsultNoteRequire
             }
         };
@@ -173,11 +169,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             }
         };
 
-        var addExpectedEncounters = {
-            type: "include",
-            include: "templates/add-expected-encounters.page"
-        }
-
         var allowedForAll = function(visit) {
             return true;
         };
@@ -198,7 +189,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
-                    addExpectedEncounters,
                     checkIn,
                     vitals,
                     reviewAllergies,
@@ -214,7 +204,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
-                    addExpectedEncounters,
                     checkIn,
                     vitals,
                     primaryCareExam,
@@ -226,9 +215,10 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             pedsInitialOutpatient: {
                 label: "pihcore.visitType.pedsInitialOutpatient",
                 allowedFor: allowedForAll,
+                consultEncounterType: EncounterTypes.consultation,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
-                    addExpectedEncounters,
+                    visitActions,
                     checkIn,
                     vaccinations,
                     supplements,
@@ -248,7 +238,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 allowedFor: allowedForAll,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
-                    addExpectedEncounters,
                     checkIn,
                     vaccinations,
                     supplements,

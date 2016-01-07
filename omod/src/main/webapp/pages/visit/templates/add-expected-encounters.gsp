@@ -4,6 +4,6 @@
         ${ ui.message("coreapps.patientDashboard.actionsForInactiveVisit") }
     </p>
 
-    <span ng-repeat="action in getExpectedEncounterActions() | allowedWithContext:visit" class="new-encounter-button" ng-class="{'add-multiple-encounter': encounterStubs.length}" ng-include="'templates/action.page'">
+    <span ng-repeat="action in getVisitActions() | allowedWithContext:visit" class="new-encounter-button" ng-class="{'add-multiple-encounter': encounterStubs.length}" ng-include="'templates/action.page'">
     </span>
 </div>
