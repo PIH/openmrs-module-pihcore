@@ -69,7 +69,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
         }
     }])
 
-    .directive("vaccinationTable", [ "Concepts", "VaccinationService", "ngDialog", "groupMemberFilter", "$timeout", function(Concepts, VaccinationService, ngDialog, groupMemberFilter, $timeout) {
+    .directive("vaccinationTable", [ "Concepts", "VaccinationService", "ngDialog", "groupMemberFilter", "$filter", "$timeout", function(Concepts, VaccinationService, ngDialog, groupMemberFilter, $filter, $timeout) {
         return {
             restrict: "E",
             scope: {
@@ -79,58 +79,58 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             controller: function($scope) {
                 var sequences = [
                     {
-                        label: "Dose 0",
+                        label: $filter('translate')("pihcore.vaccination.sequence.doseZero"),
                         sequenceNumber: 0
                     },
                     {
-                        label: "Dose 1",
+                        label: $filter('translate')("pihcore.vaccination.sequence.doseOne"),
                         sequenceNumber: 1
                     },
                     {
-                        label: "Dose 2",
+                        label: $filter('translate')("pihcore.vaccination.sequence.doseTwo"),
                         sequenceNumber: 2
                     },
                     {
-                        label: "Dose 3",
+                        label: $filter('translate')("pihcore.vaccination.sequence.doseThree"),
                         sequenceNumber: 3
                     },
                     {
-                        label: "Rappel 1",
+                        label: $filter('translate')("pihcore.vaccination.sequence.doseBoosterOne"),
                         sequenceNumber: 11
                     },
                     {
-                        label: "Rappel 2",
+                        label: $filter('translate')("pihcore.vaccination.sequence.doseBoosterTwo"),
                         sequenceNumber: 12
                     }
                 ]
                 var vaccinations = [
                     {
-                        label: "BCG",
+                        label: $filter('translate')("pihcore.concept.name." + Concepts.bcgVaccination.uuid),
                         concept: Concepts.bcgVaccination,
                         doses: [ 1 ]
                     },
                     {
-                        label: "Polio",
+                        label: $filter('translate')("pihcore.concept.name." + Concepts.polioVaccination.uuid),
                         concept: Concepts.polioVaccination,
                         doses: [ 0, 1, 2, 3, 11, 12 ]
                     },
                     {
-                        label: "Pentavalent",
+                        label: $filter('translate')("pihcore.concept.name." + Concepts.pentavalentVaccination.uuid),
                         concept: Concepts.pentavalentVaccination,
                         doses: [ 1, 2, 3 ]
                     },
                     {
-                        label: "Rotavirus",
+                        label: $filter('translate')("pihcore.concept.name." + Concepts.rotavirusVaccination.uuid),
                         concept: Concepts.rotavirusVaccination,
                         doses: [ 1, 2 ]
                     },
                     {
-                        label: "Rougeole/Rubeole",
+                        label: $filter('translate')("pihcore.concept.name." + Concepts.measlesRubellaVaccination.uuid),
                         concept: Concepts.measlesRubellaVaccination,
                         doses: [ 1 ]
                     },
                     {
-                        label: "DT",
+                        label: $filter('translate')("pihcore.concept.name." + Concepts.diptheriaTetanusVaccination.uuid),
                         concept: Concepts.diptheriaTetanusVaccination,
                         doses: [ 0, 1, 2, 3, 11, 12 ]
                     }
