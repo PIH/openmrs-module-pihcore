@@ -180,16 +180,18 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 function getCurrentVaccinations() {
                     var results = "";
                     _.each($scope.vaccinations, function(vaccination) {
+                        var vaccineSequences = [];
                         _.each($scope.sequences, function(sequence) {
                             if ($scope.existingDose(sequence, vaccination)) {
-                                if (results.indexOf(vaccination.label) == -1) {
-                                    if (results.length > 0) {
-                                        results = results + ", ";
-                                    }
-                                    results = results + vaccination.label;
-                                }
+                                vaccineSequences.push( vaccination.label + "-" + sequence.label);
                             }
                         })
+                        if (vaccineSequences.length > 0 ) {
+                            if (results.length > 0) {
+                                results = results + ", ";
+                            }
+                            results = results + vaccineSequences.pop();
+                        }
                     });
                     return results;
                 }
