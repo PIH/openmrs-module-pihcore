@@ -182,10 +182,12 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     _.each($scope.vaccinations, function(vaccination) {
                         _.each($scope.sequences, function(sequence) {
                             if ($scope.existingDose(sequence, vaccination)) {
-                                if (results.length > 0 ) {
-                                    results = results + ", ";
+                                if (results.indexOf(vaccination.label) == -1) {
+                                    if (results.length > 0) {
+                                        results = results + ", ";
+                                    }
+                                    results = results + vaccination.label;
                                 }
-                                results = results + vaccination.label;
                             }
                         })
                     });
@@ -249,7 +251,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         }]
                     }).then(function(opts) {
                         if (opts.when == 'now') {
-                            VaccinationService.saveWithEncounter($scope.visit, vaccination, sequence, opts.date)
+                            VaccinationService.saveWithEncounter($scope.visit, $scope.visit.patient, vaccination, sequence, opts.date)
                                 .$promise.then(loadHistory);
                         } else if (opts.when == 'visit') {
                             VaccinationService.saveWithEncounter(opts.whenVisit, $scope.visit.patient, vaccination, sequence, opts.date)
