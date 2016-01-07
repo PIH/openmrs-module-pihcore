@@ -1,11 +1,13 @@
 <div class="selectable header" ng-click="expandVaccinations(showVaccinationTable)">
-    <span class="one-third">
-        <i class="icon-umbrella"></i>
-        <span class="title">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
-    </span>
-    <span class="details">
+    <span class="selectable ninety-percent">
+        <span class="title encounter-name encounter-span">
+            <i class="icon-umbrella"></i>
+            <span class="title">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
+        </span>
         <span>
-            {{ currentVaccinations }}
+            <span>
+                {{ currentVaccinations }}
+            </span>
         </span>
     </span>
     <span class="overall-actions">
@@ -13,7 +15,6 @@
         <a class="contract-encounter" ng-show="showVaccinationTable" ng-click="contract()"><i class="icon-caret-down"></i></a>
         <a><i class="icon-delete-blank"></i></a>
         <a><i class="icon-delete-blank"></i></a>
-
     </span>
 </div>
 <div class="content" ng-show="showVaccinationTable">
