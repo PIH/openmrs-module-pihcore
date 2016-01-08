@@ -3,7 +3,6 @@ package org.openmrs.module.pihcore.task;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.UserService;
@@ -135,7 +134,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
 
     }
 
-    @Test
+    /*@Test
     public void shouldUnretireProviderAccountWhenUserUnretired() {
 
         // sanity check
@@ -189,5 +188,5 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
         assertTrue(providerService.getProvider(1005).isRetired());
 
     }
-
+*/
 }
