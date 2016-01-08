@@ -9,9 +9,7 @@ import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.scheduler.tasks.AbstractTask;
 
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -32,7 +30,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts extends Ab
 
         Set<Person> personsToIncludeWhenRetiringProviderAccts = new HashSet<Person>();
         Set<Person> personsToExcludeWhenRetiringProviderAccts = new HashSet<Person>();
-        Set<Person> personsToMakeSureHaveActiveProviderAcct = new HashSet<Person>();
+       // Set<Person> personsToMakeSureHaveActiveProviderAcct = new HashSet<Person>();
 
         for (User user : userService.getUsers(null, null, true)) {
 
@@ -43,9 +41,9 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts extends Ab
             }
             else {
                 personsToExcludeWhenRetiringProviderAccts.add(user.getPerson());
-                if (!user.isRetired()) {
+               /* if (!user.isRetired()) {
                     personsToMakeSureHaveActiveProviderAcct.add(user.getPerson());
-                }
+                }*/
             }
         }
 
@@ -60,7 +58,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts extends Ab
             }
         }
 
-        // check all persons to include and make sure, if they have provider accts, that at least one is unretired
+     /*   // check all persons to include and make sure, if they have provider accts, that at least one is unretired
         for (Person person : personsToMakeSureHaveActiveProviderAcct) {
 
             Collection<Provider> providers = providerService.getProvidersByPerson(person);
@@ -89,7 +87,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts extends Ab
                     providerService.unretireProvider(mostRecentlyRetiredProvider);
                 }
             }
-        }
+        }*/
 
     }
 }

@@ -63,7 +63,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     }])
 
     // This is not a reusable directive. It does not have an isolate scope, but rather inherits scope from VisitController
-    .directive("displayElement", [ "Concepts", "EncounterTypes", "EncounterRoles", "VisitDisplayModel", "VisitTemplateService", function(Concepts, EncounterTypes, EncounterRoles, VisitDisplayModel, VisitTemplateService) {
+    .directive("displayElement", [ "$rootScope", "Concepts", "EncounterTypes", "EncounterRoles", "VisitDisplayModel", "VisitTemplateService", function($rootScope, Concepts, EncounterTypes, EncounterRoles, VisitDisplayModel, VisitTemplateService) {
         return {
             restrict: 'E',
             controller: function($scope) {
@@ -111,6 +111,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
                     $scope.template = "templates/visitElementEncounter.page";
 
+                }
+                else if (element.type === 'consult-section') {
+                    $scope.section = element;
+                    $scope.template = "templates/visitElementSection.page";
                 }
                 else if (element.type === 'include') {
                     if (element.includeAsVisitElement) {
@@ -226,6 +230,96 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 template: '<div class="visit-element"><div ng-include="currentTemplate()"></div></div>'
             }
     }])
+
+    // TODO remove any includes that are no longer being used!!
+    .directive("section", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
+        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
+            return {
+                restrict: "E",
+                scope: {
+                    section: "=",
+                    encounter: "=",
+                    visit: "="
+                },
+                controller: ["$scope", function($scope) {
+
+                    $scope.state = 'short';
+
+                    loadSection();
+
+                    function loadSection() {
+
+                        if ($scope.encounter) {
+                            var url = Handlebars.compile($scope.section.templateModelUrl)({
+                                consultEncounter: $scope.encounter
+                            });
+                            $http.get("/" + OPENMRS_CONTEXT_PATH + url)
+                                .then(function (response) {
+                                    $scope.templateModel = response.data;
+                                    if ($scope.templateModel.html) {
+                                        // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
+                                        $scope.html = $sce.trustAsHtml($scope.templateModel.html);
+                                    }
+                                });
+                            // TODO error handling
+                        }
+
+                    }
+
+                    function openSectionForEdit() {
+                        var url = Handlebars.compile($scope.section.editUrl)({
+                            visit: $scope.visit,
+                            consultEncounter: $scope.encounter,
+                            patient: $scope.visit.patient,
+                            returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid)
+                        });
+
+                        emr.navigateTo({ applicationUrl: (!url.startsWith("/") ? '/' : '') + url });
+                    }
+
+                    $scope.canExpand = function() {
+                        return $scope.state === 'short';
+                    }
+                    $scope.canContract = function() {
+                        return $scope.state === 'long';
+                    }
+                    $scope.canEdit = function() {
+                        return true;
+                        // TODO should just be able to pass in the consult encounter here?
+                        //return new OpenMRS.EncounterModel($scope.encounter).canBeEditedBy(currentUser);
+                    }
+
+                    $scope.expand = function() {
+                        $scope.template = $scope.section.longTemplate;
+                        $scope.state = 'long';
+                    }
+                    $scope.contract = function() {
+                        $scope.template = $scope.section.shortTemplate;
+                        $scope.state = 'short';
+                    }
+
+                    $scope.edit = function() {
+                        if ($scope.encounter) {
+                            openSectionForEdit();
+                        }
+                        else {
+                            $scope.$emit('start-consult');
+                            $scope.$on('consult-started', function(event, encounterUuid) {
+                                $scope.encounter = {
+                                    uuid: encounterUuid
+                                }
+                                openSectionForEdit();
+                            })
+                        }
+                    }
+
+                    $scope.template = $scope.section.shortTemplate;
+
+                }],
+                template: '<div class="visit-element"><div ng-include="template"></div></div>'
+            }
+        }])
+
 
     // this is not a reusable directive, and it does not have an isolate scope
     .directive("visitDetails", [ "Visit", "ngDialog", function(Visit, ngDialog) {
@@ -433,7 +527,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                                 || element.type == 'consult-section')
                     });
 
-                    return _.pluck(elements, "action");
+                    return _.compact(_.pluck(elements, "action"));
                 },
 
                 getConsultEncounterType: function() {
@@ -511,14 +605,14 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.today = new Date();
 
             // set default visit actions
-            // TODO add a real icon
+            /*// TODO add a real icon
             $scope.visitActions = [
                     {
                         label: "pihcore.visitNote.startConsult",
                         icon: "icon-start",
                         type: "start-consult"
                     }
-                ]
+                ]*/
 
             loadVisits(patientUuid);
             loadVisit(visitUuid);
@@ -551,9 +645,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
                         // if a consult has been started, load the visit actions
                         // for visit templates with no consult encounter type, an explicit "start-consult" is not required
-                        if (isConsultStarted() || !VisitTemplateService.getConsultEncounterType()) {
+                       // if (isConsultStarted() || !VisitTemplateService.getConsultEncounterType()) {
                             $scope.visitActions = VisitTemplateService.getVisitActions();
-                        }
+                        //}
 
                         // TODO refactor so that OrderContext has better logic for knowing when it is configured/ready, so that we don't have to nest this
                         $scope.careSettings.$promise.then(function() {
@@ -564,10 +658,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 VisitDisplayModel.reset();
             }
 
-            function isConsultStarted() {
+           /* function isConsultStarted() {
                 return $scope.consultEncounterStub ? true : false;
             }
-
+*/
 
           /*  // TODO is this still needed/used?
             function getVisitParameter() {
@@ -635,6 +729,19 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.reloadVisit();
                 }
             });
+
+            $scope.$on('start-consult', function() {
+                EncounterTransaction.save({
+                    patientUuid: $scope.patientUuid,
+                    visitUuid: $scope.visitUuid,
+                    encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
+                    encounterDateTime: new Date()
+                }, function(result) {
+                    $scope.consultEncounterUuid = result.encounterUuid;
+                    $scope.$broadcast("consult-started", result.encounterUuid);
+                })
+            })
+
 
             $scope.careSettings = CareSetting.query({v:"default"});
 
@@ -728,9 +835,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.visitAction = function(visitAction) {
 
-                // special case, "start consult" action
-                // TODO: **need to set provider**, **make date work in retrospective context**
-                if (visitAction.type == 'start-consult') {
+               /* // special case, "start consult" action
+
                     return EncounterTransaction.save({
                         patientUuid: $scope.patientUuid,
                         visitUuid: $scope.visitUuid,
@@ -741,7 +847,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     })
 
                 }
-                else if (visitAction.type == 'script') {
+                else */
+                if (visitAction.type == 'script') {
                     // TODO
                 } else
                 {

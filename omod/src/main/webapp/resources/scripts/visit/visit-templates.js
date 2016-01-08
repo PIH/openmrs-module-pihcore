@@ -55,87 +55,62 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             include: "templates/vaccinations.page"
         };
         var primaryCareHistory = {
-            type: "encounter",
-            encounter: {
-                encounterType: {
-                    uuid: EncounterTypes.primaryCareHistory.uuid
-                }
-            },
-            action: {
-                label: "pihcore.history.label",
-                icon: "icon-file-alt",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
-                require: standardConsultNoteRequire
-            }
+            type: "consult-section",
+            label: "pihcore.history.label",
+            icon: "icon-file-alt",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
         var primaryCareExam = {
-            type: "encounter",
-            encounter: {
-                encounterType: {
-                    uuid: EncounterTypes.primaryCareExam.uuid
-                }
-            },
-            action: {
-                label: "pihcore.exam.label",
-                icon: "icon-stethoscope",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
-                require: standardConsultNoteRequire
-            }
+            type: "consult-section",
+            label: "pihcore.exam.label",
+            icon: "icon-stethoscope",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var primaryCareDisposition = {
-            type: "encounter",
-            encounter: {
-                encounterType: {
-                    uuid: EncounterTypes.primaryCareDisposition.uuid
-                }
-            },
-            action: {
-                label: "pihcore.disposition.label",
-                icon: "icon-stethoscope",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
-                require: standardConsultNoteRequire
-            }
+            type: "consult-section",
+            label: "pihcore.disposition.label",
+            icon: "icon-stethoscope",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var feeding = {
             type: "consult-section",
-            action: {
-                label: "pihcore.feeding.history.label",
-                icon: "icon-food",
-                url: "/{{contextPath}}/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
-                require: standardConsultNoteRequire
-            }
+            label: "pihcore.feeding.history.label",
+            icon: "icon-food",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var supplements = {
-            type: "encounter",
-            encounter: {
-                encounterType: {
-                    uuid: EncounterTypes.primaryCarePedsSupplements.uuid
-                }
-            },
-            action: {
-                label: "pihcore.supplements.history.label",
-                icon: "icon-asterisk",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
-                require: standardConsultNoteRequire
-            }
+            type: "consult-section",
+            label: "pihcore.supplements.history.label",
+            icon: "icon-asterisk",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var primaryCareDx = {
-            type: "encounter",
-            encounter: {
-                encounterType: {
-                    uuid: EncounterTypes.primaryCareDx.uuid
-                }
-            },
-            action: {
-                label: "pihcore.diagnosis.label",
-                icon: "icon-list-ul",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
-                require: standardConsultNoteRequire
-            }
+            type: "consult-section",
+            label: "pihcore.diagnosis.label",
+            icon: "icon-list-ul",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 /*
 
@@ -187,6 +162,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             adultInitialOutpatient: {
                 label: "pihcore.visitType.adultInitialOutpatient",
                 allowedFor: allowedForAll,
+                consultEncounterType: EncounterTypes.consultation,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
                     checkIn,
@@ -195,20 +171,22 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     primaryCareHistory,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan,
+                    //outpatientPlan,
                     primaryCareDisposition
                 ]
             },
             adultFollowupOutpatient: {
                 label: "pihcore.visitType.adultFollowupOutpatient",
                 allowedFor: allowedForAll,
+                consultEncounterType: EncounterTypes.consultation,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
                     checkIn,
                     vitals,
+                    reviewAllergies,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan,
+                    //outpatientPlan,
                     primaryCareDisposition
                 ]
             },
@@ -218,7 +196,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 consultEncounterType: EncounterTypes.consultation,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
-                    visitActions,
+                    //visitActions,
                     checkIn,
                     vaccinations,
                     supplements,
@@ -228,7 +206,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     feeding,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan,
+                   // outpatientPlan,
                     primaryCareDisposition
 
                 ]
@@ -236,16 +214,18 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             pedsFollowupOutpatient: {
                 label: "pihcore.visitType.pedsFollowupOutpatient",
                 allowedFor: allowedForAll,
+                consultEncounterType: EncounterTypes.consultation,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
-                    checkIn,
+                    //checkIn,
                     vaccinations,
                     supplements,
                     vitals,
+                    reviewAllergies,
                     feeding,
                     primaryCareExam,
                     primaryCareDx,
-                    outpatientPlan,
+                    //outpatientPlan,
                     primaryCareDisposition
                 ]
             }
