@@ -70,12 +70,10 @@
                             jq('.diagnosis').length;
 
             if (isValid) {
-                jq('.submitButton').removeAttr('disabled');
-                jq('.submitButton').removeClass('disabled');
+                htmlForm.enableSubmitButton();
             }
             else {
-               jq('.submitButton').attr('disabled', 'disabled');
-               jq('.submitButton').addClass('disabled');
+                htmlForm.disableSubmitButton();
             }
 
         }

@@ -90,13 +90,11 @@
             }
 
             if (isValid) {
-                $('.submitButton').removeAttr('disabled');
-                $('.submitButton').removeClass('disabled');
-            } else {
-                $('.submitButton').attr('disabled', 'disabled');
-                $('.submitButton').addClass('disabled');
+                htmlForm.enableSubmitButton();
             }
-
+            else {
+                htmlForm.disableSubmitButton();
+            }
         }
 
         $(function() {
