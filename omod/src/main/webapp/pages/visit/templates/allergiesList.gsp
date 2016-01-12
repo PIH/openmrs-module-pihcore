@@ -2,7 +2,7 @@
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">
             <i class="icon-medical"></i>
-            <span class="title" ng-show="!showAlergiesDetails">${ ui.message("allergyui.allergies") }</span>
+            <span class="title">${ ui.message("allergyui.allergies") }</span>
         </span>
         <span>
             <span ng-show="allergies.status == 'Unknown'">${ ui.message("general.unknown") }</span>

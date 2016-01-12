@@ -62,7 +62,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
-            //RetireProvidersSetup.setupRetireProvidersTask();
+           // RetireProvidersSetup.setupRetireProvidersTask();
         }
         catch (Exception e) {
             Module mod = ModuleFactory.getModuleById("pihcore");
