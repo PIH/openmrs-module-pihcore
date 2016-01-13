@@ -176,7 +176,7 @@
                         jq('#calculated-bmi-wrapper').hide();
                     } else {
                         jq('#no-calculated-bmi').hide();
-                        jq('#calculated-bmi-wrapper').show(); display: none;
+                        jq('#calculated-bmi-wrapper').show();
                         jq('#calculated-bmi').html(bmi.toFixed(1));
                         jq('#hidden-calculated-bmi').val(bmi.toFixed(1));
                     }
