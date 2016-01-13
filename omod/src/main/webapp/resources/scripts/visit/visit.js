@@ -71,10 +71,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 $scope.EncounterTypes = EncounterTypes;
                 $scope.EncounterRoles = EncounterRoles;
 
-                $scope.getVisitActions = function() {
-                    return VisitTemplateService.getVisitActions();
-                }
-
                 var element = $scope.element;
 
                 $scope.eval = function(template) {
@@ -514,7 +510,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     });
                 },
 
-                getVisitActions: function() {
+              /*  getVisitActions: function() {
+
+                    AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
+                        $scope.visitActions = ext;
+                    })
 
                     if (!currentTemplate) {
                         return []
@@ -528,7 +528,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     });
 
                     return _.compact(_.pluck(elements, "action"));
-                },
+                },*/
 
                 getConsultEncounterType: function() {
                     if (currentTemplate && currentTemplate.consultEncounterType) {
@@ -590,9 +590,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "Allergies", "CareSetting", "$q", "$state",
         "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
-        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction",
+        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo",
         function($scope, $rootScope, $translate, Visit, VisitTemplateService, Allergies, CareSetting, $q, $state, $timeout, OrderContext,
-                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats, EncounterTransaction) {
+                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats, EncounterTransaction, SessionInfo) {
 
             $rootScope.DatetimeFormats = DatetimeFormats;
 
@@ -643,11 +643,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
                         VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit, $scope.VisitDisplayModel);
 
-                        // if a consult has been started, load the visit actions
-                        // for visit templates with no consult encounter type, an explicit "start-consult" is not required
-                       // if (isConsultStarted() || !VisitTemplateService.getConsultEncounterType()) {
-                            $scope.visitActions = VisitTemplateService.getVisitActions();
-                        //}
+                        AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
+                            $scope.visitActions = ext;
+                        })
 
                         // TODO refactor so that OrderContext has better logic for knowing when it is configured/ready, so that we don't have to nest this
                         $scope.careSettings.$promise.then(function() {
@@ -734,7 +732,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 EncounterTransaction.save({
                     patientUuid: $scope.patientUuid,
                     visitUuid: $scope.visitUuid,
+                    locationUuid: SessionInfo.get().sessionLocation.uuid,
                     encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
+                    providers:[ SessionInfo.get().currentProvider ],
                     encounterDateTime: new Date()
                 }, function(result) {
                     $scope.consultEncounterUuid = result.encounterUuid;
