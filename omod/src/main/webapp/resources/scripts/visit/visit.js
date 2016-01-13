@@ -241,6 +241,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 controller: ["$scope", function($scope) {
 
                     $scope.DatetimeFormats = DatetimeFormats;
+                    $scope.Concepts = Concepts;
                     $scope.state = 'short';
                     $scope.sectionLoaded = false;
 
@@ -605,19 +606,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.visitUuid = visitUuid;
             $scope.patientUuid = patientUuid;
-            $scope.consultEncounterStub = null;
+            $scope.consultEncounter = null;
 
             $scope.today = new Date();
-
-            // set default visit actions
-            /*// TODO add a real icon
-            $scope.visitActions = [
-                    {
-                        label: "pihcore.visitNote.startConsult",
-                        icon: "icon-start",
-                        type: "start-consult"
-                    }
-                ]*/
 
             loadVisits(patientUuid);
             loadVisit(visitUuid);
@@ -643,7 +634,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         $scope.visit = new OpenMRS.VisitModel(visit);
                         $scope.visitIdx = $scope.getVisitIdx(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
-                        $scope.consultEncounterStub = VisitTemplateService.getConsultEncounterType() ? $scope.visit.getEncounterByType(VisitTemplateService.getConsultEncounterType().uuid) : null;
+                        $scope.consultEncounter = VisitTemplateService.getConsultEncounterType() ? $scope.visit.getEncounterByType(VisitTemplateService.getConsultEncounterType().uuid) : null;
+
+                        if ($scope.consultEncounter) {
+                            loadConsultEncounter();
+                        }
 
                         $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
                         VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit, $scope.VisitDisplayModel);
@@ -659,6 +654,14 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         })
                     });
                 VisitDisplayModel.reset();
+            }
+
+            function loadConsultEncounter() {
+                // load standard OpenMRS REST representation of an object
+                Encounter.get({ uuid: $scope.consultEncounter.uuid, v: "full" }).
+                    $promise.then(function(encounter) {
+                        $scope.consultEncounter = encounter;
+                    });
             }
 
 
@@ -859,7 +862,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
                     var url = Handlebars.compile(visitAction.url)({
                         visit: visitModel,
-                        consultEncounter: $scope.consultEncounterStub,
+                        consultEncounter: $scope.consultEncounter,
                         patient: $scope.visit.patient,
                         returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid)
                     });

@@ -159,7 +159,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             adultInitialOutpatient: {
                 label: "pihcore.visitType.adultInitialOutpatient",
                 allowedFor: allowedForAll,
-                consultEncounterType: EncounterTypes.consultation,
+                consultEncounterType: EncounterTypes.primaryCareVisit,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
                     checkIn,
@@ -176,7 +176,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             adultFollowupOutpatient: {
                 label: "pihcore.visitType.adultFollowupOutpatient",
                 allowedFor: allowedForAll,
-                consultEncounterType: EncounterTypes.consultation,
+                consultEncounterType: EncounterTypes.primaryCareVisit,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
                     checkIn,
@@ -193,7 +193,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             pedsInitialOutpatient: {
                 label: "pihcore.visitType.pedsInitialOutpatient",
                 allowedFor: allowedForAll,
-                consultEncounterType: EncounterTypes.consultation,
+                consultEncounterType: EncounterTypes.primaryCareVisit,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
                     checkIn,
@@ -214,7 +214,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             pedsFollowupOutpatient: {
                 label: "pihcore.visitType.pedsFollowupOutpatient",
                 allowedFor: allowedForAll,
-                consultEncounterType: EncounterTypes.consultation,
+                consultEncounterType: EncounterTypes.primaryCareVisit,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
                     checkIn,

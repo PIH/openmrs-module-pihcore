@@ -13,8 +13,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 return EncounterTransaction.save({
                     patientUuid: patient.uuid,
                     visitUuid: visit.uuid,
-                    encounterTypeUuid: EncounterTypes.consultation.uuid,
-                    encounterDateTime: date,
+                    encounterTypeUuid: EncounterTypes.primaryCareVisit.uuid,
                     observations: [
                         {
                             concept: Concepts.vaccinationHistoryConstruct.uuid,
