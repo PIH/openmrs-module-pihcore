@@ -1,4 +1,4 @@
-<htmlform formUuid="162091b1-0060-4e56-8c17-7015aeddf608" formName="History" formEncounterType="ffa148de-2c88-4828-833e-f3788991543d" formVersion="1.0">
+<htmlform formUuid="162091b1-0060-4e56-8c17-7015aeddf608" formName="History" formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
 
     <style type="text/css">
 
@@ -91,61 +91,64 @@
         </ifMode>
     </style>
 
-    <script type="text/javascript">
-        jq(function() {
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+                jq(function() {
 
-                var validateFamHistoryText = function(divElem) {
-                    var parentDiv = divElem.closest('.medicalHistoryText');
+                        var validateFamHistoryText = function(divElem) {
+                            var parentDiv = divElem.closest('.medicalHistoryText');
 
-                    if (typeof parentDiv !== "undefined" ) {
-                        var fieldError = parentDiv.find('.field-error');
-                        var commentsInput= parentDiv.find('input[type=text]');
-                        if (typeof commentsInput !== "undefined" ) {
-                            var comments = commentsInput.val();
-                            if ((typeof comments !=="undefined") &amp;&amp; comments.length > 0 ) {
-                                if ( parentDiv.find('input:checked').length &lt; 1 ) {
-                                    if (parentDiv.hasClass("famHistory")) {
-                                        fieldError.html("<uimessage code='pihcore.historyNote.family.indicateParent'/>").show();
-                                    } else if (parentDiv.hasClass("patientHistory")) {
-                                        fieldError.html("<uimessage code='pihcore.historyNote.pastMedicalHistory.checkWithoutComments'/>").show();
+                            if (typeof parentDiv !== "undefined" ) {
+                                var fieldError = parentDiv.find('.field-error');
+                                var commentsInput= parentDiv.find('input[type=text]');
+                                if (typeof commentsInput !== "undefined" ) {
+                                    var comments = commentsInput.val();
+                                    if ((typeof comments !=="undefined") &amp;&amp; comments.length > 0 ) {
+                                        if ( parentDiv.find('input:checked').length &lt; 1 ) {
+                                            if (parentDiv.hasClass("famHistory")) {
+                                                fieldError.html("<uimessage code='pihcore.historyNote.family.indicateParent'/>").show();
+                                            } else if (parentDiv.hasClass("patientHistory")) {
+                                                fieldError.html("<uimessage code='pihcore.historyNote.pastMedicalHistory.checkWithoutComments'/>").show();
+                                            }
+
+                                            return false;
+                                        }
+                                    } else {
+                                        // if there are no comments make sure the adjacent Parent checkbox is not checked
+                                        if ( parentDiv.find('input:checked').length &gt; 0 ) {
+                                            fieldError.html("<uimessage code='pihcore.historyNote.family.specifyComments'/>").show();
+                                            return false;
+                                        }
                                     }
-
-                                    return false;
                                 }
-                            } else {
-                                // if there are no comments make sure the adjacent Parent checkbox is not checked
-                                if ( parentDiv.find('input:checked').length &gt; 0 ) {
-                                    fieldError.html("<uimessage code='pihcore.historyNote.family.specifyComments'/>").show();
-                                    return false;
-                                }
+                                fieldError.html(" ").hide();
                             }
+                            return true;
                         }
-                        fieldError.html(" ").hide();
-                    }
-                    return true;
-                }
 
 
-        jq('.medicalHistoryText').find('input[type=checkbox]').change(function() {
-                validateFamHistoryText(jq(this));
-         });
+                jq('.medicalHistoryText').find('input[type=checkbox]').change(function() {
+                        validateFamHistoryText(jq(this));
+                 });
 
-        jq('.medicalHistoryText').find('input[type=text]').change(function() {
-            validateFamHistoryText(jq(this));
-        });
+                jq('.medicalHistoryText').find('input[type=text]').change(function() {
+                    validateFamHistoryText(jq(this));
+                });
 
-        beforeSubmit.push(function() {
-            var numErrors = 0;
-            jq('.medicalHistoryText').find('input[type=text]').each(function() {
-                if (!validateFamHistoryText(jq(this)) ) {
-                    ++numErrors;
-                }
-            });
-            return ( numErrors == 0 );
-        });
+                beforeSubmit.push(function() {
+                    var numErrors = 0;
+                    jq('.medicalHistoryText').find('input[type=text]').each(function() {
+                        if (!validateFamHistoryText(jq(this)) ) {
+                            ++numErrors;
+                        }
+                    });
+                    return ( numErrors == 0 );
+                });
 
-        });
-    </script>
+                });
+        </script>
+    </ifMode>
+
     <ifMode mode="VIEW" include="false">
         <h1>
             <uimessage code="pihcore.history.title"/>

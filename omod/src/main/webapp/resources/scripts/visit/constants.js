@@ -216,27 +216,6 @@ angular.module('constants', [])
         labResults: {
             uuid: "4d77916a-0620-11e5-a6c0-1697f925ec7b"
         },
-        primaryCareHistory: {
-            uuid: "ffa148de-2c88-4828-833e-f3788991543d"
-        },
-        primaryCareExam: {
-            uuid: "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"
-        },
-        primaryCareDx: {
-            uuid: "09febbd8-03f1-11e5-8418-1697f925ec7b"
-        },
-        primaryCareDisposition: {
-            uuid: "5C16E1D6-8E73-47E4-A861-D6AAC03E2224"
-        },
-        primaryCarePedsFeeding: {
-            uuid: "92DBE011-67CA-4C0C-80DB-D38989E554C9"
-        },
-        primaryCarePedsSupplements: {
-            uuid: "D25FFD97-417F-46CC-85EE-3E7DA68B0D07"
-        },
-        consultationPlan: {
-            uuid: "e0aaa214-1d4b-442a-b527-144adf025299"
-        },
         radiologyOrder: {
             uuid: "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa"
         },

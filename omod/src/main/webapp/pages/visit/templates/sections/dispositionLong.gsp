@@ -26,7 +26,7 @@
 
 </style>
 
-<div class="header" ng-include="'templates/defaultEncounterHeader.page'">
+<div class="header" ng-include="'templates/sections/defaultSectionHeader.page'">
 </div>
 
 <!--encounter-summary-long class currently just used for selenium tests -->

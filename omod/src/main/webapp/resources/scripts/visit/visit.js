@@ -90,6 +90,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.action = element.action;
                     $scope.encounterStubs = element.encounterStubs;
                     $scope.canAdd = element.addInline && (element.encounterStubs.length == 0 || element.allowMultiple);
+                    $scope.canAdd = element.addInline && (element.encounterStubs.length == 0 || element.allowMultiple);
 
                     $scope.encounterTemplate = function() {
                         if ($scope.encounterStub) {
@@ -239,9 +240,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 },
                 controller: ["$scope", function($scope) {
 
+                    $scope.DatetimeFormats = DatetimeFormats;
                     $scope.state = 'short';
-
-                    loadSection();
+                    $scope.sectionLoaded = false;
 
                     function loadSection() {
 
@@ -251,6 +252,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             });
                             $http.get("/" + OPENMRS_CONTEXT_PATH + url)
                                 .then(function (response) {
+                                    $scope.sectionLoaded = true;
                                     $scope.templateModel = response.data;
                                     if ($scope.templateModel.html) {
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
@@ -286,6 +288,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     }
 
                     $scope.expand = function() {
+                        if (!$scope.sectionLoaded) {
+                            loadSection();
+                        }
                         $scope.template = $scope.section.longTemplate;
                         $scope.state = 'long';
                     }
@@ -656,10 +661,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 VisitDisplayModel.reset();
             }
 
-           /* function isConsultStarted() {
-                return $scope.consultEncounterStub ? true : false;
-            }
-*/
 
           /*  // TODO is this still needed/used?
             function getVisitParameter() {
@@ -735,7 +736,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     locationUuid: SessionInfo.get().sessionLocation.uuid,
                     encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
                     providers:[ SessionInfo.get().currentProvider ],
-                    encounterDateTime: new Date()
+                    encounterDateTime: $scope.visit.stopDatetime ? $scope.visit.startDatetime : new Date()
                 }, function(result) {
                     $scope.consultEncounterUuid = result.encounterUuid;
                     $scope.$broadcast("consult-started", result.encounterUuid);

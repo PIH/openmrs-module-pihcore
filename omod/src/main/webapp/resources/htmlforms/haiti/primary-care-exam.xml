@@ -13,7 +13,7 @@
   -->
 
 <htmlform id="primary-care-exam-form" formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique"
-          formEncounterType="0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef" formVersion="1.0">
+          formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
     
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
@@ -94,21 +94,6 @@
             }
         </ifMode>
     </style>
-
-
-    <script type="text/javascript">
-        jq(function() {
-            // hack--if there is only one location option, hide the location question (but set it on submit)
-            if(jq('#encounterLocation option').size() == 2) {  // "Choose a location..." + 1 location = 2 option elements
-                beforeSubmit.push(function() {
-                    NavigatorController.getQuestionById('location').enable();
-                    setValue('encounterLocation.value', getField('encounterLocation.value').find('option:nth(1)').val());  // nth(1) == second element, ie the location element
-                    return true;
-                })
-                NavigatorController.getQuestionById('location').hide();
-            }
-        });
-    </script>
 
     <!-- Pediatrics only content, hidden by default, shown (via above javascript) if pediatrics visit -->
     <!-- Note that I'm just hiding the content so that the viewing via HtmlFormEncounterController.encounterSchemaViaJson will still work in VIEW mode with no visit informatin present -->

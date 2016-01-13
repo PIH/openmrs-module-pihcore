@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
+import org.openmrs.EncounterType;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.springframework.stereotype.Component;
@@ -25,15 +26,16 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.ADMISSION);
         install(EncounterTypes.CANCEL_ADMISSION);
         install(EncounterTypes.EXIT_FROM_CARE);
-        install(EncounterTypes.PRIMARY_CARE_HISTORY);
-        install(EncounterTypes.PRIMARY_CARE_EXAM);
-        install(EncounterTypes.PRIMARY_CARE_DIAGNOSIS);
         install(EncounterTypes.LAB_RESULTS);
-        install(EncounterTypes.CONSULTATION_PLAN);
         install(EncounterTypes.DEATH_CERTIFICATE);
-        install(EncounterTypes.PRIMARY_CARE_DISPOSITION);
-        install(EncounterTypes.PRIMARY_CARE_PEDS_FEEDING);
-        install(EncounterTypes.PRIMARY_CARE_PEDS_SUPPLEMENTS);
+
+        uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DISPOSITION.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_FEEDING.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_SUPPLEMENTS.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_HISTORY.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_EXAM.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DIAGNOSIS.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.CONSULTATION_PLAN.uuid()), "never used");
     }
 
 }

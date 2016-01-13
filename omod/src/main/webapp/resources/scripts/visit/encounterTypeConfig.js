@@ -5,8 +5,6 @@ angular.module("encounterTypeConfig", ["constants"])
         var hfeSimpleEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
         var hfeStandardEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
 
-        // TODO maybe this will be only be used for the "default" visit type, and the unused encounter types can be removed?
-
         // template model url:
         // if a template operates off an model different that the standard OpenMRS REST representation of an encounter,
         // you specify the URL of the source here; used currently for htmlFormEntry encounter templates, which
@@ -165,60 +163,19 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-heart",
             editUrl: hfeStandardEditUrl
         };
-        // Tthe follow are encounters only present within the "new visit note" view
-        encounterTypeConfig[EncounterTypes.primaryCareHistory.uuid] = {
+
+        encounterTypeConfig[EncounterTypes.primaryCareVisit] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-file-alt",
+            icon: "icon-heart",
             editUrl: hfeStandardEditUrl
         };
-        encounterTypeConfig[EncounterTypes.primaryCareExam.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-stethoscope",
-            editUrl: hfeSimpleEditUrl
-        };
-        encounterTypeConfig[EncounterTypes.primaryCareDisposition.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/dispositionLong.page",
-            icon: "icon-stethoscope",
-            editUrl: hfeStandardEditUrl
-        };
-        encounterTypeConfig[EncounterTypes.primaryCarePedsFeeding.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-food",
-            editUrl: hfeStandardEditUrl
-        };
-        encounterTypeConfig[EncounterTypes.primaryCarePedsSupplements.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-asterisk",
-            editUrl: hfeStandardEditUrl
-        };
-        encounterTypeConfig[EncounterTypes.primaryCareDx.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/dxLong.page",
-            icon: "icon-list-ul",
-            editUrl: hfeStandardEditUrl
-        };
-        encounterTypeConfig[EncounterTypes.consultationPlan.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/planLong.page",
-            icon: "icon-list-ol",
-            editUrl: null
-        };
+
+
+
+
 
         return encounterTypeConfig;
     }]);

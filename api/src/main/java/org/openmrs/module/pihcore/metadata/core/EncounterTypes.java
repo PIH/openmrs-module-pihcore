@@ -112,35 +112,13 @@ public class EncounterTypes {
 		public String description() { return "Indicates that a patient&apos;s inpatient care at the hospital is ending, and they are expected to leave soon"; }
 	};
 
-	public static EncounterTypeDescriptor PRIMARY_CARE_HISTORY  = new EncounterTypeDescriptor() {
-		public String uuid() { return "ffa148de-2c88-4828-833e-f3788991543d"; }
-		public String name() { return "Antecedents"; }
-		public String description() { return "Past medical history, for general primary care. Typically only captured at a patient's first visit"; }
-	};
 
-	public static EncounterTypeDescriptor PRIMARY_CARE_EXAM  = new EncounterTypeDescriptor() {
-		public String uuid() { return "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"; }
-		public String name() { return "Examen"; }
-		public String description() { return "Physical exam, typically captured at every clinical visit"; }
-	};
-
-    public static EncounterTypeDescriptor PRIMARY_CARE_DIAGNOSIS  = new EncounterTypeDescriptor() {
-        public String uuid() { return "09febbd8-03f1-11e5-8418-1697f925ec7b"; }
-        public String name() { return "Diagnostic"; }
-        public String description() { return "Diagnosis, typically captured at every clinical visit"; }
-    };
 
     public static EncounterTypeDescriptor LAB_RESULTS = new EncounterTypeDescriptor() {
         public String uuid() { return "4d77916a-0620-11e5-a6c0-1697f925ec7b"; }
         public String name() { return "Laboratory Results"; }
         public String description() { return "Laboratory Results "; }
     };
-
-    public static EncounterTypeDescriptor CONSULTATION_PLAN  = new EncounterTypeDescriptor() {
-		public String uuid() { return "e0aaa214-1d4b-442a-b527-144adf025299"; }
-		public String name() { return "Conduite a tenir"; }
-		public String description() { return "Orders placed during a consultation"; }
-	};
 
 	public static EncounterTypeDescriptor RADIOLOGY_ORDER  = new EncounterTypeDescriptor() {
 		public String uuid() { return "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa"; }
@@ -172,21 +150,56 @@ public class EncounterTypes {
         public String description() { return "Non-communicable disease visit"; }
     };
 
+
+	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
+	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
+
+	@Deprecated
     public static EncounterTypeDescriptor PRIMARY_CARE_DISPOSITION = new EncounterTypeDescriptor() {
         public String uuid() { return "5C16E1D6-8E73-47E4-A861-D6AAC03E2224"; }
         public String name() { return "Primary Care Disposition"; }
         public String description() { return "Indicates the disposition of the primary care visit"; }
     };
 
+	@Deprecated
     public static EncounterTypeDescriptor PRIMARY_CARE_PEDS_FEEDING = new EncounterTypeDescriptor() {
         public String uuid() { return "92DBE011-67CA-4C0C-80DB-D38989E554C9"; }
         public String name() { return "Primary Care Pediatric Feeding"; }
         public String description() { return "Indicates the current feeding"; }
     };
 
+	@Deprecated
     public static EncounterTypeDescriptor PRIMARY_CARE_PEDS_SUPPLEMENTS = new EncounterTypeDescriptor() {
         public String uuid() { return "D25FFD97-417F-46CC-85EE-3E7DA68B0D07"; }
         public String name() { return "Primary Care Pediatric Supplements"; }
         public String description() { return "Indicates the supplements taken by a pediatric patient"; }
     };
+
+	@Deprecated
+	public static EncounterTypeDescriptor PRIMARY_CARE_HISTORY  = new EncounterTypeDescriptor() {
+		public String uuid() { return "ffa148de-2c88-4828-833e-f3788991543d"; }
+		public String name() { return "Antecedents"; }
+		public String description() { return "Past medical history, for general primary care. Typically only captured at a patient's first visit"; }
+	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor PRIMARY_CARE_EXAM  = new EncounterTypeDescriptor() {
+		public String uuid() { return "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"; }
+		public String name() { return "Examen"; }
+		public String description() { return "Physical exam, typically captured at every clinical visit"; }
+	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor PRIMARY_CARE_DIAGNOSIS  = new EncounterTypeDescriptor() {
+		public String uuid() { return "09febbd8-03f1-11e5-8418-1697f925ec7b"; }
+		public String name() { return "Diagnostic"; }
+		public String description() { return "Diagnosis, typically captured at every clinical visit"; }
+	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor CONSULTATION_PLAN  = new EncounterTypeDescriptor() {
+		public String uuid() { return "e0aaa214-1d4b-442a-b527-144adf025299"; }
+		public String name() { return "Conduite a tenir"; }
+		public String description() { return "Orders placed during a consultation"; }
+	};
 }
