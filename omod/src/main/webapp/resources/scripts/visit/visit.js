@@ -441,9 +441,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
-    .directive("visitList", [ function() {
+    .directive("visitListDropdown", [ function() {
         return {
-            templateUrl: 'templates/visitList.page'
+            templateUrl: 'templates/visitListDropdown.page'
         }
     }])
 

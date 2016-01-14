@@ -7,7 +7,7 @@
 </div>
 
 <div id="choose-another-visit">
-    <visit-list></visit-list>
+    <visit-list-dropdown></visit-list-dropdown>
 </div>
 
 <div ng-repeat="element in visitTemplate.elements">
