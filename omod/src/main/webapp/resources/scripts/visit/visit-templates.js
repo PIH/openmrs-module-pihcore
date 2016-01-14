@@ -48,12 +48,12 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
 
         var reviewAllergies = {
             type: "include",
-            include: "templates/reviewAllergies.page"
+            include: "templates/allergies/reviewAllergies.page"
         };
 
         var vaccinations = {
             type: "include",
-            include: "templates/vaccinations.page"
+            include: "templates/vaccination/vaccinations.page"
         };
 
         var primaryCareConsultInfo = {
@@ -127,7 +127,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-        var outpatientPlan = {
+      /*  var outpatientPlan = {
             type: "encounter",
             allowMultiple: true,
             encounter: {
@@ -139,7 +139,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 sref: "editPlan",
                 require: standardConsultNoteRequire
             }
-        };
+        };*/
 
         var allowedForAll = function(visit) {
             return true;

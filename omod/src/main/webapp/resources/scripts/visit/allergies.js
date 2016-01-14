@@ -28,6 +28,6 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
                 }
 
             }],
-            templateUrl: "templates/allergiesList.page"
+            templateUrl: "templates/allergies/allergiesList.page"
         }
     }]);
