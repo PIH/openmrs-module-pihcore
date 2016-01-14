@@ -839,19 +839,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.visitAction = function(visitAction) {
 
-               /* // special case, "start consult" action
-
-                    return EncounterTransaction.save({
-                        patientUuid: $scope.patientUuid,
-                        visitUuid: $scope.visitUuid,
-                        encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
-                        encounterDateTime: new Date()
-                    }, function(result) {
-                        $scope.consultEncounterUuid = result.encounterUuid;
-                    })
-
-                }
-                else */
                 if (visitAction.type == 'script') {
                     // TODO
                 } else
@@ -860,16 +847,24 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     visitModel.id = $scope.visit.uuid; // HACK! TODO: change our extensions to refer to visit.uuid
                     visitModel.active = !$scope.visit.stopDatetime;
 
+                    var returnUrl = window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid);
+
                     var url = Handlebars.compile(visitAction.url)({
                         visit: visitModel,
                         consultEncounter: $scope.consultEncounter,
                         patient: $scope.visit.patient,
-                        returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid)
+                        returnUrl: returnUrl
                     });
+
+                    // if return hasn't been specified as a template in visitAction.url, make sure we append it
+                    if (url.indexOf('returnUrl') == -1) {
+                        url = url + "&returnUrl=" + returnUrl;
+                    }
 
                     emr.navigateTo({ applicationUrl: (!url.startsWith("/") ? '/' : '') + url });
                 }
             }
+
 
 
             window.onbeforeunload = function() {
