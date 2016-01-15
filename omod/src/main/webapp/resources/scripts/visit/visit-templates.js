@@ -151,7 +151,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 encounterTypeConfig: EncounterTypeConfig,
                 allowedFor: allowedForAll,
                 elements: [
-                    visitActions,
+                    //visitActions,
                     reverseChronologicalEncounters
                 ]
             },

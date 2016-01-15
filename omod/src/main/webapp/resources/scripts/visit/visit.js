@@ -447,6 +447,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
+    .directive("visitActionsDropdown", [ function() {
+        return {
+            templateUrl: 'templates/visitActionsDropdown.page'
+        }
+    }])
+
     .service("VisitTemplateService", [ "VisitTemplates", "VisitAttributeTypes", "Encounter","ConfigService",
         function(VisitTemplates, VisitAttributeTypes, Encounter, ConfigService) {
 

@@ -45,6 +45,29 @@ $green: #51A351;
   }
 }
 
+#visit-actions-dropdown {
+  display: table;
+
+  li {
+    display: table-row;
+  }
+
+  li.list-element:hover {
+    background-color: $link;
+    color: white;
+  }
+
+  span {
+    display: table-cell;
+    white-space: nowrap;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+}
+
 #visit-type {
   font-size: 1.5em;
   display: inline-block;
@@ -262,8 +285,22 @@ $green: #51A351;
   }
 }
 
+#overview-buttons {
+  display: inline-block;
+  float:right;
+}
+
+#visit-actions {
+  display: inline-block;
+}
+
 #choose-another-visit {
   display: inline-block;
+}
+
+#visit-actions {
+  display: inline-block;
+  float:right;
 }
 
 table.vaccination-table {
