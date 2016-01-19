@@ -127,19 +127,16 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-      /*  var outpatientPlan = {
-            type: "encounter",
-            allowMultiple: true,
-            encounter: {
-                encounterType: EncounterTypes.consultationPlan
-            },
-            action: {
-                label: "pihcore.visitNote.plan",
-                icon: "icon-list-ol",
-                sref: "editPlan",
-                require: standardConsultNoteRequire
-            }
-        };*/
+        var primaryCarePlan = {
+            type: "consult-section",
+            label: "pihcore.visitNote.plan",
+            icon: "icon-list-ul",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-plan.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+
+        };
 
         var allowedForAll = function(visit) {
             return true;
@@ -169,7 +166,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     primaryCareHistory,
                     primaryCareExam,
                     primaryCareDx,
-                    //outpatientPlan,
+                    primaryCarePlan,
                     primaryCareDisposition
                 ]
             },
@@ -186,7 +183,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     primaryCareHistory,
                     primaryCareExam,
                     primaryCareDx,
-                    //outpatientPlan,
+                    primaryCarePlan,
                     primaryCareDisposition
                 ]
             },
@@ -206,7 +203,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     feeding,
                     primaryCareExam,
                     primaryCareDx,
-                   // outpatientPlan,
+                    primaryCarePlan,
                     primaryCareDisposition
 
                 ]
@@ -226,7 +223,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     feeding,
                     primaryCareExam,
                     primaryCareDx,
-                    //outpatientPlan,
+                    primaryCarePlan,
                     primaryCareDisposition
                 ]
             }

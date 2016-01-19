@@ -24,7 +24,7 @@
             vertical-align: top;
             }
 
-            #primaryCareExam input[type="checkbox"] {
+            #primary-care-exam input[type="checkbox"] {
             margin: 0px 5px; /*changed values to vertical, horizontal*/
             top:5px; /*added to offset the checkbox position to line up*/
             }
@@ -108,7 +108,7 @@
         </script>
     </excludeIf>
 
-    <section id="primaryCareExam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
+    <section id="primary-care-exam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
 
         <fieldset>
             <legend>

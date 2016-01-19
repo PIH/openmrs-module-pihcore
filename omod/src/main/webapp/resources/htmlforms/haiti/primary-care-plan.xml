@@ -1,0 +1,167 @@
+<htmlform id="primary-care-plan-form" formUuid="789211b1-0060-4e56-8c17-7015aeddf608" formName="History" formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
+
+
+    <style type="text/css">
+
+        form fieldset {
+        display: block;
+        }
+
+   <!--     .family-history-item .label {
+        display: inline-block;
+        width: 250px;
+        }
+        .family-history-item .relative {
+        display: inline-block;
+        width: 120px;
+        }
+
+        .section-header {
+        margin-top: 1.5em;
+        }
+-->
+        #test-orders {
+        }
+
+
+        #test-orders input[type=checkbox] {
+            float: none;
+            vertical-align: middle;
+        }
+
+        <!--
+        .past-medical-history-item input[type=text] {
+        min-width: 200px;
+        display: inline !important;
+        vertical-align: middle;
+        padding: 1px 10px;
+        }
+        -->
+        #test-orders p {
+            margin-bottom: 5px
+        }
+
+        #test-orders span, #test-orders label {
+            display: inline !important;
+            vertical-align: middle;
+        }
+
+
+        .two-columns {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        }
+
+        p.radio > * {
+        display: inline;
+        float: none !important;
+        min-width: initial;
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container-color {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h1>
+            <uimessage code="pihcore.visitNote.plan"/>
+        </h1>
+    </ifMode>
+
+    <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.lab.lab_tests.title">
+        <div class="section-container-color">
+            <div class="two-columns">
+                <!-- TODO: medication orders is the wrong concept!!! -->
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:RPR" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:STOOL EXAM" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:CD4 COUNT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV VIRAL LOAD" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV ENZYME IMMUNOASSAY, QUANTITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.consult.clinicalManagementPlan">
+        <div class="section-container">
+            <p>
+                <obs conceptId="CIEL:162749" style="textarea"/>
+            </p>
+        </div>
+    </section>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>

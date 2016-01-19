@@ -1,6 +1,6 @@
 <div id="active-visit-template" ng-show="multipleTemplates">
     <form ng-show="choosingTemplate || !selectedTemplate">
-        <span class="templateName">
+        <span class="template-name">
             <select ng-model="newVisitTemplate" ng-options="t.label | translate for t in availableTemplates" ng-change="save()">
                 <option value="">${ ui.message("pihcore.visitNote.chooseTemplate") }</option>
             </select>
@@ -8,7 +8,7 @@
     </form>
 
     <div ng-show="selectedTemplate && !choosingTemplate">
-        <span class="templateName">
+        <span class="template-name">
             <strong>{{ activeTemplate.label | translate }}</strong>
         </span>
         <span class="actions">
