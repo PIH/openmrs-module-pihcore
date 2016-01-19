@@ -285,22 +285,24 @@ $green: #51A351;
   }
 }
 
-#overview-buttons {
+#visit-overview-buttons {
   display: inline-block;
   float:right;
-}
-
-#visit-actions {
-  display: inline-block;
 }
 
 #choose-another-visit {
   display: inline-block;
+  font-size: 0.8em;
+}
+
+#visit-overview-header {
+  height: 25px;
 }
 
 #visit-actions {
   display: inline-block;
   float:right;
+  font-size: 0.8em;
 }
 
 table.vaccination-table {
