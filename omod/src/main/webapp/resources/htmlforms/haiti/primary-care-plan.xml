@@ -152,7 +152,7 @@
              headerCode="pihcore.consult.clinicalManagementPlan">
         <div class="section-container">
             <p>
-                <obs conceptId="CIEL:162749" style="textarea"/>
+                <obs conceptId="CIEL:162749" style="textarea" rows="5"/>
             </p>
         </div>
     </section>

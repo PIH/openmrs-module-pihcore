@@ -256,6 +256,8 @@
         </fieldset>
     </div>
 
+    <span id="most-recent-encounter-title" style="display:none"><!--The Most Recent Encounter app in Core Apps replaces this with the "most recent" label--></span>
+
     <section id="vitals" sectionTag="section" headerStyle="title" headerCode="mirebalais.vitals.title">
         <fieldset field-separator=" ">
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>

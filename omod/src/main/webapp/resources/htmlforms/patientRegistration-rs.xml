@@ -14,8 +14,9 @@
         </script>
     </ifMode>
 
-
     <section id="patientRegistration" sectionTag="section" headerStyle="title" headerCode="">
+
+        <span id="most-recent-encounter-title" style="display:none"><!--The Most Recent Encounter app in Core Apps replaces this with the "most recent" label--></span>
 
         <ifMode mode="VIEW" include="false">
             <h2><uimessage code="zl.registration.patient.registration.header"/></h2>
