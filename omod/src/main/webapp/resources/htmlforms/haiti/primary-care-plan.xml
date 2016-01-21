@@ -88,11 +88,85 @@
 
     </style>
 
+    <script type="text/javascript">
+        var $j = jQuery;
+    </script>
+
     <ifMode mode="VIEW" include="false">
         <h1>
             <uimessage code="pihcore.visitNote.plan"/>
         </h1>
     </ifMode>
+
+    <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.visitNote.orders.medications">
+
+        <!-- TODO: this is stolen directly from the dispensing module: if we use this, we need to make sure that any dependencies on dispensing are removed -->
+        <!-- TODO: probably want to remove the dispensing-specific questions -->
+        <!-- TODO: change the question concept, shouldn't be medication dispensed -->
+        <!-- TODO: add back in validation javascript? -->
+
+
+        <div class="section-container-color">
+            <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
+                <obsgroup groupingConceptId="PIH:9070" showIfEmpty="false">
+                    <h3>
+                        <uimessage code="mirebalais.dispensing.medication"/>
+                        {0}
+                    </h3>
+                    <fieldset class="medication">
+                        <p class="field-error" style="display:none"></p>
+                        <p>
+                            <label>
+                                <uimessage code="mirebalais.dispensing.medicationName"/>
+                            </label>
+                            <obs id="name{0}" class="medication-name" conceptId="PIH:1282" answerDrugs="true"/>
+                        </p>
+                        <p class="inline">
+                            <label>
+                                <uimessage code="dispensing.medication.dose"/>
+                            </label>
+                            <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
+                            <obs id="doseUnit{0}" class="doseInput select-arrow" conceptId="PIH:9074"
+                                 answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals"
+                                 answerCodes="dispensing.units.mg,dispensing.units.g,dispensing.units.mL,dispensing.units.application,dispensing.units.capsule,dispensing.units.tablet,dispensing.units.drop,dispensing.units.mcg,dispensing.units.patch,dispensing.units.pump,dispensing.units.sachet,dispensing.units.IU"/>
+                        </p>
+                        <p class="inline">
+                            <label>
+                                <uimessage code="mirebalais.dispensing.medicationFrequency"/>
+                            </label>
+
+
+                            <obs id="frequencyCoded{0}" class="frequency select-arrow" conceptId="PIH:9363"
+                                 answerConceptIds=
+                                         "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
+                                 answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,dispensing.general.other" />
+                        </p>
+
+                        <p class="inline">
+                            <label>
+                                <uimessage code="mirebalais.dispensing.medicationDuration"  />
+                            </label>
+                            <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
+                            <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:6412" answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                        </p>
+                        <p class="inline">
+                            <label>
+                                <uimessage code="mirebalais.dispensing.medicationAmount"/>
+                            </label>
+                            <obs id="amount{0}" conceptId="PIH:9071"/>
+                        </p>
+                        <p>
+                            <label>
+                                <uimessage code="mirebalais.dispensing.medicationInstructions"/>
+                            </label>
+                            <obs id="instructions{0}" class="medication-instructions" conceptId="PIH:9072"/>
+                        </p>
+                    </fieldset>
+                </obsgroup>
+            </repeat>
+        </div>
+
+    </section>
 
     <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.lab.lab_tests.title">
