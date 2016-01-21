@@ -192,8 +192,69 @@
         <!-- TODO: this is stolen directly from the dispensing module: if we use this, we need to make sure that any dependencies on dispensing are removed -->
         <!-- TODO: probably want to remove the dispensing-specific questions -->
         <!-- TODO: change the question concept, shouldn't be medication dispensed -->
-        <!-- TODO: add back in validation javascript? -->
 
+        <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.consult.clinicalManagementPlan">
+            <div class="section-container">
+                <p>
+                    <obs conceptId="CIEL:162749" style="textarea" rows="5"/>
+                </p>
+            </div>
+        </section>
+
+        <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.lab.lab_tests.title">
+            <div class="section-container-color">
+                <div class="two-columns">
+                    <!-- TODO: medication orders is the wrong concept!!! -->
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:RPR" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:STOOL EXAM" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:CD4 COUNT" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV VIRAL LOAD" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV ENZYME IMMUNOASSAY, QUANTITATIVE" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
+                    </p>
+                    <p>
+                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
+                    </p>
+                </div>
+            </div>
+        </section>
 
         <div class="section-container-color">
             <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
@@ -255,69 +316,6 @@
             </repeat>
         </div>
 
-    </section>
-
-    <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.lab.lab_tests.title">
-        <div class="section-container-color">
-            <div class="two-columns">
-                <!-- TODO: medication orders is the wrong concept!!! -->
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:RPR" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:STOOL EXAM" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:CD4 COUNT" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV VIRAL LOAD" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV ENZYME IMMUNOASSAY, QUANTITATIVE" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.consult.clinicalManagementPlan">
-        <div class="section-container">
-            <p>
-                <obs conceptId="CIEL:162749" style="textarea" rows="5"/>
-            </p>
-        </div>
     </section>
 
     <ifMode mode="VIEW" include="false">
