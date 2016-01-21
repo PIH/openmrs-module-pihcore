@@ -9,7 +9,7 @@
 
     <div ng-show="selectedTemplate && !choosingTemplate">
         <span class="template-name">
-            <strong>{{ activeTemplate.label | translate }}</strong>
+            {{ activeTemplate.label | translate }}
         </span>
         <span class="actions">
             <a ng-click="choosingTemplate = true"><i class="icon-pencil edit-action"></i></a>

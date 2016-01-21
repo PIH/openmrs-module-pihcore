@@ -277,7 +277,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     }
 
                     $scope.canExpand = function() {
-                        return $scope.state === 'short';
+                        return $scope.state === 'short' && $scope.section.longTemplate;
                     }
                     $scope.canContract = function() {
                         return $scope.state === 'long';
@@ -289,15 +289,19 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     }
 
                     $scope.expand = function() {
-                        if (!$scope.sectionLoaded) {
-                            loadSection();
+                        if ($scope.canExpand()) {
+                            if (!$scope.sectionLoaded) {
+                                loadSection();
+                            }
+                            $scope.template = $scope.section.longTemplate;
+                            $scope.state = 'long';
                         }
-                        $scope.template = $scope.section.longTemplate;
-                        $scope.state = 'long';
                     }
                     $scope.contract = function() {
-                        $scope.template = $scope.section.shortTemplate;
-                        $scope.state = 'short';
+                        if ($scope.canContract()) {
+                            $scope.template = $scope.section.shortTemplate;
+                            $scope.state = 'short';
+                        }
                     }
 
                     $scope.edit = function() {
@@ -314,6 +318,18 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             })
                         }
                     }
+
+                    $scope.$on('expand-all',function() {
+                        if ($scope.canExpand) {
+                            $scope.expand();
+                        }
+                    });
+
+                    $scope.$on('contract-all',function() {
+                        if ($scope.canExpand) {
+                            $scope.contract();
+                        }
+                    });
 
                     $scope.template = $scope.section.shortTemplate;
 
@@ -616,6 +632,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.today = new Date();
 
+            $scope.allExpanded = false;
+
             loadVisits(patientUuid);
             loadVisit(visitUuid);
 
@@ -872,6 +890,15 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
 
+            $scope.expandAll = function() {
+                $scope.$broadcast("expand-all");
+                $scope.allExpanded = true;
+            }
+
+            $scope.contractAll = function() {
+                $scope.$broadcast("contract-all");
+                $scope.allExpanded = false;
+            }
 
             window.onbeforeunload = function() {
                 if (OrderContext.hasUnsavedData()) {

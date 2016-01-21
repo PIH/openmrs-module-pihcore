@@ -71,13 +71,17 @@ $green: #51A351;
 #visit-type {
   font-size: 1.5em;
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 5px;
 
   .actions {
     font-size: 0.7em;
   }
 
-  .template-name, .template-name select {
+  .template-name {
+    font-size: 0.7em;
+  }
+
+  .template-name select {
     font-size: 0.8em;
   }
 }
@@ -286,7 +290,7 @@ $green: #51A351;
   }
 }
 
-#choose-another-visit {
+#choose-another-visit, #visit-actions, #expand-all, #contract-all {
   display: inline-block;
   float:right;
   font-size: 0.8em;
@@ -294,12 +298,6 @@ $green: #51A351;
 
 #visit-overview-header {
   height: 25px;
-}
-
-#visit-actions {
-  display: inline-block;
-  float:right;
-  font-size: 0.8em;
 }
 
 table.vaccination-table {

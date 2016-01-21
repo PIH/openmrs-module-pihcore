@@ -27,6 +27,14 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
                     location.href = emr.pageLink(provider, page, opts);
                 }
 
+                $scope.$on('expand-all',function() {
+                    $scope.showAlergiesDetails = true;
+                });
+
+                $scope.$on('contract-all',function() {
+                    $scope.showAlergiesDetails = false
+                });
+
             }],
             templateUrl: "templates/allergies/allergiesList.page"
         }

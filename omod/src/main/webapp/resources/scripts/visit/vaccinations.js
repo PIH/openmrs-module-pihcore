@@ -140,6 +140,14 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     $scope.showVaccinationTable = !showVaccinationTable;
                 }
 
+                $scope.$on('expand-all',function() {
+                    $scope.showVaccinationTable = true;
+                });
+
+                $scope.$on('contract-all',function() {
+                    $scope.showVaccinationTable = false;
+                });
+
                 function hasCodedMember(group, concept, codedValue) {
                     return _.find(group.groupMembers, function(member) {
                         return member.concept.uuid == concept.uuid
