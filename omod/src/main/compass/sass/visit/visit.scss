@@ -12,6 +12,13 @@ $green: #51A351;
   content: ' ';
 }
 
+#visit-list {
+  tr:hover {
+    background-color: $link;
+    color: white;
+  }
+}
+
 #visit-list-dropdown {
   display: table;
 
@@ -42,6 +49,10 @@ $green: #51A351;
 
   .visit-list-date-header, .visit-list-encounters-header {
     font-weight: bold;
+  }
+
+  #visit-list-full-details-element {
+    text-align: center;
   }
 }
 

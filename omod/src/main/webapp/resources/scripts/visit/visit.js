@@ -16,7 +16,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 }
             })
             .state("visitList", {
-                url: "/visitlist",
+                url: "/visitList",
                 templateUrl: "templates/visitList.page",
             })
 
@@ -636,9 +636,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "Allergies", "CareSetting", "$q", "$state",
         "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
-        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo",
+        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
         function($scope, $rootScope, $translate, Visit, VisitTemplateService, Allergies, CareSetting, $q, $state, $timeout, OrderContext,
-                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats, EncounterTransaction, SessionInfo) {
+                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
+                 EncounterTransaction, SessionInfo, Concepts) {
 
             $rootScope.DatetimeFormats = DatetimeFormats;
 
@@ -649,6 +650,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.consultEncounter = null;
 
             $scope.today = new Date();
+
+            $scope.Concepts = Concepts;
 
             $scope.allExpanded = false;
 
@@ -662,11 +665,23 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             function loadVisits(patientUuid) {
-                Visit.get({patient: $scope.patientUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:default)"}).$promise.then(function(response) {
-                    // TODO fetch more pages?
+                Visit.get({patient: $scope.patientUuid, v: "custom:(uuid,startDatetime,stopDatetime)"}).$promise.then(function(response) {
+
+                    // load a minimal list of visits first, so we can begin to render the visit list page
                     $scope.visits = response.results;
-                    // TODO what does this do?
-                    //$scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return new Date(it.startDatetime) }).startDatetime === $scope.visit.startDatetime;
+
+                    // now load a bigger list so that we can fill out template, diagnoses and encounters
+                    Visit.get({
+                        patient: $scope.patientUuid,
+                        v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default),attributes:default)"
+                    }).$promise.then(function (response) {
+                        // fetch the template for each visit, which we display on the visit list
+                        _.each(response.results, function (visit) {
+                            visit.visitTemplate = VisitTemplateService.determineFor(visit);
+                        })
+                        $scope.visits = response.results;
+                        //$scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return new Date(it.startDatetime) }).startDatetime === $scope.visit.startDatetime;
+                    });
                 });
             }
 

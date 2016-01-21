@@ -171,6 +171,33 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("diagnosesInVisit", function($filter, Concepts) {
+
+        return function(visit) {
+
+            var diagnosisConstructs = [];
+
+            _.each(visit.encounters, function(encounter){
+                diagnosisConstructs = diagnosisConstructs.concat($filter('withCodedMember')($filter('byConcept')(encounter.obs, Concepts.diagnosisConstruct), Concepts.diagnosisOrder, Concepts.primaryOrder))
+            });
+
+            return diagnosisConstructs;
+        }
+    })
+
+    .filter("diagnosesInVisitShort", function($filter, Concepts) {
+        return function(visit) {
+
+            var diagnoses = [];
+
+            _.each($filter('diagnosesInVisit')(visit), function(diagnosisConstruct) {
+                diagnoses.push($filter('diagnosisShort')(diagnosisConstruct))
+            });
+
+            return _.uniq(diagnoses);
+        }
+    })
+
     .filter("diagnosisShort", [ "omrs.displayFilter", "Concepts", function(displayFilter, Concepts) {
         return function(group) {
             if (!group) {

@@ -38,6 +38,7 @@
             margin-right: 10px;
             color: #501d3d;
             vertical-align: top;
+            font-size:0.9em;
             }
 
             #check-in-form fieldset p {
