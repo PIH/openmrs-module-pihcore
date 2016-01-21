@@ -15,7 +15,13 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     emr.updateBreadcrumbs();
                 }
             })
-            .state("editPlan", {
+            .state("visitList", {
+                url: "/visitlist",
+                templateUrl: "templates/visitList.page",
+            })
+
+            /// TODO remove these?
+           /* .state("editPlan", {
                 url: "/editPlan",
                 templateUrl: "templates/orders/editPlan.page",
                 onEnter: function() {
@@ -27,7 +33,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 url: "/addLabOrders",
                 templateUrl: "templates/orders/addLabOrdersState.page"
             });
-
+*/
         $translateProvider
             .useUrlLoader('/' + OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json')
             .useSanitizeValueStrategy('escape');  // TODO is this the correct one to use http://angular-translate.github.io/docs/#/guide/19_security
@@ -219,6 +225,18 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.delete = function() {
                         $scope.$emit("request-delete-encounter", $scope.encounter);
                     }
+
+                    $scope.$on('expand-all',function() {
+                        if ($scope.canExpand) {
+                            $scope.expand();
+                        }
+                    });
+
+                    $scope.$on('contract-all',function() {
+                        if ($scope.canExpand) {
+                            $scope.contract();
+                        }
+                    });
 
                     if (config.defaultState == "long") {
                         loadFullEncounter();
@@ -848,6 +866,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.goToVisit = function(visit) {
                 $scope.visitUuid = visit.uuid;
                 $state.go("overview");
+            }
+
+            $scope.goToVisitList = function() {
+                $state.go("visitList");
             }
 
            // TODO figure out if we can get rid of this function
