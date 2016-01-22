@@ -636,10 +636,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "Allergies", "CareSetting", "$q", "$state",
         "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
-        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
+        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "EncounterRoles",
         function($scope, $rootScope, $translate, Visit, VisitTemplateService, Allergies, CareSetting, $q, $state, $timeout, OrderContext,
                  VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
-                 EncounterTransaction, SessionInfo, Concepts) {
+                 EncounterTransaction, SessionInfo, Concepts, EncounterRoles) {
 
             $rootScope.DatetimeFormats = DatetimeFormats;
 
@@ -790,13 +790,15 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             });
 
             $scope.$on('start-consult', function() {
+
                 EncounterTransaction.save({
                     patientUuid: $scope.patientUuid,
                     visitUuid: $scope.visitUuid,
                     locationUuid: SessionInfo.get().sessionLocation.uuid,
                     encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
-                    providers:[ SessionInfo.get().currentProvider ],
-                    encounterDateTime: $scope.visit.stopDatetime ? $scope.visit.startDatetime : new Date()
+                    providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
+                                    "encounterRole": EncounterRoles.consultingClinician.uuid } ],
+                    encounterDateTime: $scope.visit.stopDatetime ? $scope.visit.startDatetime : new Date()  // TODO can we get rid of this without a problem?
                 }, function(result) {
                     $scope.consultEncounterUuid = result.encounterUuid;
                     $scope.$broadcast("consult-started", result.encounterUuid);

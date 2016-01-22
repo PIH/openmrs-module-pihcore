@@ -236,6 +236,9 @@ angular.module('constants', [])
     .value('EncounterRoles', {
         attendingSurgeon: {
             uuid: "9b135b19-7ebe-4a51-aea2-69a53f9383af"
+        },
+        consultingClinician: {
+            uuid: "4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
         }
     })
 
