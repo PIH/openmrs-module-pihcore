@@ -8,11 +8,11 @@
 </div>
 
 <div id="expand-all" ng-show="!allExpanded">
-    <button id="expand-all-button" ng-click="expandAll()" title="${ ui.message('pihcore.visitNote.expandAll') }"><i class="icon-double-angle-up"/></button>
+    <button id="expand-all-button" ng-click="expandAll()" title="${ ui.message('pihcore.visitNote.expandAll') }"><i class="icon-double-angle-down"/></button>
 </div>
 
 <div id="contract-all" ng-show="allExpanded">
-    <button id="contract-all-button" ng-click="contractAll()" title="${ ui.message('pihcore.visitNote.collapseAll') }"><i class="icon-double-angle-down"/></button>
+    <button id="contract-all-button" ng-click="contractAll()" title="${ ui.message('pihcore.visitNote.collapseAll') }"><i class="icon-double-angle-up"/></button>
 </div>
 
 <div id="visit-actions">
