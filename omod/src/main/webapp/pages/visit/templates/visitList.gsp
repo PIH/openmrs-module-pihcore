@@ -1,3 +1,4 @@
+
 <table id="visit-list">
     <tr>
         <th>${ ui.message("uicommons.start") }</th>
@@ -7,12 +8,13 @@
         <th>${ ui.message("pihcore.visitNote.clinicalNotes") }</th>
     </tr>
 
-    <tr ng-repeat="v in visits" ng-click="goToVisit(v)" class="list-element selectable" ng-class="{ 'selected-visit': v.uuid===visit.uuid, active: !v.stopDatetime }">
+    <tr ng-repeat="v in visits" ng-click="goToVisit(v)" class="list-element selectable" ng-class="{ 'selected-visit': v.uuid===visit.uuid }">
         <td>
-            {{ v.startDatetime | serverDate }}
+            <nobr><span class="visit-list-start-date">{{ v.startDatetime | serverDate : 'dd-MMM-yyyy'}}</span> <span class="visit-list-start-time">{{ v.startDatetime | serverDate : 'H:mm'}}</span>
+            </nobr>
         </td>
         <td>
-            {{ v.stopDatetime | serverDate }}
+            <nobr>{{ v.stopDatetime | serverDate : 'dd-MMM-yyyy' }}</nobr>
             <span ng-hide="v.stopDatetime">
                 (${ ui.message("uicommons.active") })
             </span>
@@ -30,3 +32,9 @@
         </td>
     </tr>
 </table>
+
+<br/>
+
+<button ui-sref="overview" class="cancel">
+    ${ ui.message("uicommons.return") }
+</button>

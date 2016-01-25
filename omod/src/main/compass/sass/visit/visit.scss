@@ -17,6 +17,12 @@ $green: #51A351;
     background-color: $link;
     color: white;
   }
+  tr.selected-visit {
+    font-family: $primaryBoldFont;
+  }
+  .visit-list-start-time {
+    font-size: 0.8em;
+  }
 }
 
 #visit-list-dropdown {

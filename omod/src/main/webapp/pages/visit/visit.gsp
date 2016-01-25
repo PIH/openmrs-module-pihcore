@@ -52,11 +52,6 @@
         { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },
         { label: "${ui.message("pihcore.visitNote.Visit")}" }
     ];
-    var breadcrumbsPlan = [
-        { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },
-        { label: "${ui.message("pihcore.visitNote.Visit")}", link: "${ui.escapeJs(ui.pageLink("pihcore", "visit/visit", [visit:visit.uuid]))}" },
-        { label: "${ui.message("pihcore.visitNote.plan")}" }
-    ];
 
     var breadcrumbs = breadcrumbsOverview;
 

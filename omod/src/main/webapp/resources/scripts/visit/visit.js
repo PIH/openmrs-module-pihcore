@@ -17,10 +17,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             })
             .state("visitList", {
                 url: "/visitList",
-                templateUrl: "templates/visitList.page",
+                templateUrl: "templates/visitList.page"
             })
 
-            /// TODO remove these?
+            ///TODO remove these?
            /* .state("editPlan", {
                 url: "/editPlan",
                 templateUrl: "templates/orders/editPlan.page",
