@@ -184,7 +184,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.templateModel = {};
 
                     var config = VisitTemplateService.getConfigFor($scope.encounterStub);
-                    var currentUser = new OpenMRS.UserModel(SessionInfo.get().user);
 
                     $scope.session = SessionInfo.get();
                     $scope.Concepts = Concepts;
@@ -204,12 +203,20 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         return VisitDisplayModel.canContract($scope.encounterStub);
                     }
                     $scope.canEdit = function() {
+                        var encounter = new OpenMRS.EncounterModel($scope.encounter);
+                        var currentUser = new OpenMRS.UserModel($scope.session.user);
                         return config.editUrl &&
-                            new OpenMRS.EncounterModel($scope.encounter).canBeEditedBy(currentUser);
+                            (encounter.canBeEditedBy(currentUser)
+                                || encounter.participatedIn($scope.session.currentProvider)
+                                || encounter.createdBy(currentUser));
                     }
                     $scope.canDelete = function() {
-                        // also allow deleting if the current user participated in the encounter as a provider
-                        return new OpenMRS.EncounterModel($scope.encounter).canBeDeletedBy(currentUser);
+                        var encounter = new OpenMRS.EncounterModel($scope.encounter);
+                        var currentUser = new OpenMRS.UserModel($scope.session.user);
+                        return config.editUrl &&
+                            (encounter.canBeDeletedBy(currentUser)
+                                || encounter.participatedIn($scope.session.currentProvider)
+                                || encounter.createdBy(currentUser));
                     }
                     $scope.expand = function() {
                         // Get the latest representation when we expand, in case things have been edited
@@ -262,6 +269,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.Concepts = Concepts;
                     $scope.state = 'short';
                     $scope.sectionLoaded = false;
+                    $scope.session = SessionInfo.get();
 
                     function loadSection() {
 
@@ -300,10 +308,24 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.canContract = function() {
                         return $scope.state === 'long';
                     }
+
+                    $scope.canEnter = function() {
+                        var currentUser = new OpenMRS.UserModel($scope.session.user);
+                        return (currentUser.hasPrivilege('Task: emr.enterConsultNote') && !$scope.visit.stopDatetime)
+                            || currentUser.hasPrivilege('Task: emr.retroConsultNote');
+                    }
+
                     $scope.canEdit = function() {
-                        return true;
-                        // TODO should just be able to pass in the consult encounter here?
-                        //return new OpenMRS.EncounterModel($scope.encounter).canBeEditedBy(currentUser);
+                        if (!$scope.encounter) {
+                            return $scope.canEnter();
+                        }
+                        else {
+                            var encounter = new OpenMRS.EncounterModel($scope.encounter);
+                            var currentUser = new OpenMRS.UserModel($scope.session.user);
+                            return (encounter.canBeEditedBy(currentUser)
+                            || encounter.participatedIn($scope.session.currentProvider)
+                            || encounter.createdBy(currentUser));
+                        }
                     }
 
                     $scope.expand = function() {
@@ -655,6 +677,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
             $scope.allExpanded = false;
 
+            $scope.session = SessionInfo.get();
+
             loadVisits(patientUuid);
             loadVisit(visitUuid);
 
@@ -686,7 +710,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             function loadVisit(visitUuid) {
-                Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:ref,orders:ref,voided,visit:ref,encounterProviders),patient:default,visitType:ref,attributes:default)" })
+                Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:ref,orders:ref,voided,visit:ref,encounterProviders,creator),patient:default,visitType:ref,attributes:default)" })
                     .$promise.then(function(visit) {
                         $scope.visit = new OpenMRS.VisitModel(visit);
                         $scope.visitIdx = $scope.getVisitIdx(visit);
@@ -937,6 +961,24 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.contractAll = function() {
                 $scope.$broadcast("contract-all");
                 $scope.allExpanded = false;
+            }
+
+            $scope.canChangeVisitTemplate = function() {
+
+                return true;
+/*
+                var currentUser = new OpenMRS.UserModel($scope.session.user);
+
+                if ($scope.consultEncounter) {
+                    var encounter = new OpenMRS.EncounterModel($scope.consultEncounter);
+                    return (encounter.canBeEditedBy(currentUser)
+                        || encounter.participatedIn($scope.session.currentProvider)
+                        || encounter.createdBy(currentUser));
+                }
+                else {
+                    return (currentUser.hasPrivilege('Task: emr.enterConsultNote') && !$scope.visit.stopDatetime)
+                        || currentUser.hasPrivilege('Task: emr.retroConsultNote');
+                }*/
             }
 
             window.onbeforeunload = function() {
