@@ -1,3 +1,6 @@
+
+// TODO if we keep using this, make sure we include the translate provider like we do in the vaccinations.js
+
 angular.module("orders", [ "orderService", "encounterService", "ngResource", "orderEntry", "uicommons.filters", 'drugService', 'conceptService',
     "uicommons.widget.select-drug", "uicommons.widget.select-concept-from-list", "uicommons.widget.select-order-frequency",
     "ngDialog"])

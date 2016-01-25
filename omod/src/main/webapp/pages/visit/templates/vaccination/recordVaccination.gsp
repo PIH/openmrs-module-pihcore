@@ -8,7 +8,7 @@
         {{ vaccination.label }}, {{ sequence.label }}
     </h4>
     <div class="spaced-paragraphs">
-        <h5>When was it given?</h5>
+        <h5>${ ui.message("pihcore.vaccination.whenWasItGiven") }</h5>
 
         <p ng-show="hasActiveVisit">
             <label>
