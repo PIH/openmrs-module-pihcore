@@ -798,7 +798,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
                     providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
                                     "encounterRole": EncounterRoles.consultingClinician.uuid } ],
-                    encounterDateTime: $scope.visit.stopDatetime ? $scope.visit.startDatetime : new Date()  // TODO can we get rid of this without a problem?
+                    encounterDateTime: $scope.visit.stopDatetime ? $scope.visit.startDatetime : ""  // if active visit, set encounterDateTime == "" (ie, null); in this case, the encounter transaction service will timestamp with the current server datetime
                 }, function(result) {
                     $scope.consultEncounterUuid = result.encounterUuid;
                     $scope.$broadcast("consult-started", result.encounterUuid);
