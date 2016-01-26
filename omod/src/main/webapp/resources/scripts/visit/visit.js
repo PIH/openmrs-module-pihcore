@@ -421,7 +421,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     }])
 
     // inherits scope from visit overview controller
-    .directive("chooseVisitTemplate", [ "VisitTemplateService", "VisitAttributeTypes", "VisitService", "ngDialog", function(VisitTemplateService, VisitAttributeTypes, VisitService, ngDialog) {
+    .directive("chooseVisitTemplate", [ "VisitTemplateService", "VisitAttributeTypes", "VisitService", "ngDialog", "SessionInfo",
+        function(VisitTemplateService, VisitAttributeTypes, VisitService, ngDialog, SessionInfo) {
         return {
             restrict: 'E',
             controller: function($scope) {
@@ -439,6 +440,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 });
 
                 $scope.choosingTemplate = false;
+                $scope.session = SessionInfo.get();
 
                 function confirmChangingTemplate(VisitAttribute, existing) {
                     ngDialog.openConfirm({
@@ -467,6 +469,23 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         $scope.reloadVisit();
                     });
                 }
+
+                $scope.canChangeTemplate = function() {
+
+                    var currentUser = new OpenMRS.UserModel($scope.session.user);
+
+                    if ($scope.consultEncounter) {
+                        var encounter = new OpenMRS.EncounterModel($scope.consultEncounter);
+                        return (encounter.canBeEditedBy(currentUser)
+                        || encounter.participatedIn($scope.session.currentProvider)
+                        || encounter.createdBy(currentUser));
+                    }
+                    else {
+                        return (currentUser.hasPrivilege('Task: emr.enterConsultNote') && !$scope.visit.stopDatetime)
+                            || currentUser.hasPrivilege('Task: emr.retroConsultNote');
+                    }
+                }
+
 
                 $scope.save = function() {
                     var existing = $scope.visit.getAttribute(VisitAttributeTypes.visitTemplate);
@@ -961,24 +980,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.contractAll = function() {
                 $scope.$broadcast("contract-all");
                 $scope.allExpanded = false;
-            }
-
-            $scope.canChangeVisitTemplate = function() {
-
-                return true;
-/*
-                var currentUser = new OpenMRS.UserModel($scope.session.user);
-
-                if ($scope.consultEncounter) {
-                    var encounter = new OpenMRS.EncounterModel($scope.consultEncounter);
-                    return (encounter.canBeEditedBy(currentUser)
-                        || encounter.participatedIn($scope.session.currentProvider)
-                        || encounter.createdBy(currentUser));
-                }
-                else {
-                    return (currentUser.hasPrivilege('Task: emr.enterConsultNote') && !$scope.visit.stopDatetime)
-                        || currentUser.hasPrivilege('Task: emr.retroConsultNote');
-                }*/
             }
 
             window.onbeforeunload = function() {
