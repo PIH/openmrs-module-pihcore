@@ -7,7 +7,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
 
     })
 
-    .factory("VaccinationService", [ "Obs", "Concepts", "EncounterTypes", "EncounterTransaction", function(Obs, Concepts, EncounterTypes, EncounterTransaction) {
+    .factory("VaccinationService", [ "Obs", "Concepts", "EncounterTypes", "EncounterTransaction", "EncounterRoles", "SessionInfo",
+        function(Obs, Concepts, EncounterTypes, EncounterTransaction, EncounterRoles, SessionInfo) {
         return {
             getHistory: function(patient) {
                 // raw REST query, will return { results: [...] }
@@ -20,7 +21,12 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 return EncounterTransaction.save({
                     patientUuid: patient.uuid,
                     visitUuid: visit.uuid,
-                    encounterTypeUuid: EncounterTypes.primaryCareVisit.uuid,
+                    encounterTypeUuid: EncounterTypes.primaryCareVisit.uuid,  // TODO we will have to modify this if we start supporting multiple "consult" encounter types
+                    locationUuid: SessionInfo.get().sessionLocation.uuid,
+                    encounterDateTime: visit.stopDatetime ? (visit.startDatetime > date ? visit.startDatetime : date) : "",   // use the selected date if the not active visit, otherwise let transaction service figure it out
+                    providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
+                        "encounterRoleUuid": EncounterRoles.consultingClinician.uuid } ],
+
                     observations: [
                         {
                             concept: Concepts.vaccinationHistoryConstruct.uuid,
