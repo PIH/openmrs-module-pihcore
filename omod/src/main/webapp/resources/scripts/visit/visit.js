@@ -481,7 +481,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         || encounter.createdBy(currentUser));
                     }
                     else {
-                        return (currentUser.hasPrivilege('Task: emr.enterConsultNote') && !$scope.visit.stopDatetime)
+                        return (currentUser.hasPrivilege('Task: emr.enterConsultNote') && $scope.visit && !$scope.visit.stopDatetime)
                             || currentUser.hasPrivilege('Task: emr.retroConsultNote');
                     }
                 }
