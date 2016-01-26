@@ -821,7 +821,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     locationUuid: SessionInfo.get().sessionLocation.uuid,
                     encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
                     providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
-                                    "encounterRole": EncounterRoles.consultingClinician.uuid } ],
+                                    "encounterRoleUuid": EncounterRoles.consultingClinician.uuid } ],
                     encounterDateTime: $scope.visit.stopDatetime ? $scope.visit.startDatetime : ""  // if active visit, set encounterDateTime == "" (ie, null); in this case, the encounter transaction service will timestamp with the current server datetime
                 }, function(result) {
                     $scope.consultEncounterUuid = result.encounterUuid;
