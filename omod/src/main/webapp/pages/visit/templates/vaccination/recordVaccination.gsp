@@ -43,7 +43,7 @@
         <br/>
     </div>
     <div>
-        <button class="confirm right" ng-click="confirm({when: when, whenVisit: whenVisit, date: date})">${ ui.message("uicommons.save") }</button>
+        <button class="confirm right" ng-disabled="!date" ng-click="confirm({when: when, whenVisit: whenVisit, date: date})">${ ui.message("uicommons.save") }</button>
         <button class="cancel" ng-click="closeThisDialog()">${ ui.message("uicommons.cancel") }</button>
     </div>
 </div>
