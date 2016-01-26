@@ -5,7 +5,7 @@
 <!-- TODO: finish translations -->
 <div class="dialog-content">
     <h4>
-        {{ vaccination.label }}, {{ sequence.label }}
+        {{ vaccination.label | translate }}, {{ sequence.label | translate }}
     </h4>
     <div class="spaced-paragraphs">
         <h5>${ ui.message("pihcore.vaccination.whenWasItGiven") }</h5>

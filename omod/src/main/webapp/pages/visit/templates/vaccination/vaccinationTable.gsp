@@ -5,8 +5,8 @@
             <span class="title">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
         </span>
         <span>
-            <span>
-                {{ currentVaccinations }}
+            <span ng-repeat="vaccination in currentVaccinations">
+                {{ vaccination.vaccination | translate }}-{{ vaccination.sequence | translate }}<span ng-show="!\$last">,</span>
             </span>
         </span>
     </span>
@@ -22,12 +22,12 @@
         <thead>
         <tr>
             <th>${ ui.message("pihcore.visitNote.vaccination.header") }</th>
-            <th nowrap ng-repeat="sequence in sequences">{{ sequence.label }}</th>
+            <th nowrap ng-repeat="sequence in sequences">{{ sequence.label | translate }}</th>
         </tr>
         </thead>
         <tbody>
             <tr ng-repeat="vaccination in vaccinations">
-                <th>{{ vaccination.label }}</th>
+                <th>{{ vaccination.label | translate }}</th>
                 <td nowrap ng-repeat="sequence in sequences" ng-class="{ impossible: !isDoseValidForVaccination(sequence, vaccination) }">
                     <span ng-show="existingDose(sequence, vaccination)">
                         {{ existingDose(sequence, vaccination) | groupMember:Concepts.vaccinationDate | obs:"value" | date }}

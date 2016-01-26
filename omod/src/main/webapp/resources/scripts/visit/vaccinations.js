@@ -92,58 +92,58 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             controller: function($scope) {
                 var sequences = [
                     {
-                        label: $filter('translate')("pihcore.vaccination.sequence.doseZero"),
+                        label: "pihcore.vaccination.sequence.doseZero",
                         sequenceNumber: 0
                     },
                     {
-                        label: $filter('translate')("pihcore.vaccination.sequence.doseOne"),
+                        label: "pihcore.vaccination.sequence.doseOne",
                         sequenceNumber: 1
                     },
                     {
-                        label: $filter('translate')("pihcore.vaccination.sequence.doseTwo"),
+                        label: "pihcore.vaccination.sequence.doseTwo",
                         sequenceNumber: 2
                     },
                     {
-                        label: $filter('translate')("pihcore.vaccination.sequence.doseThree"),
+                        label: "pihcore.vaccination.sequence.doseThree",
                         sequenceNumber: 3
                     },
                     {
-                        label: $filter('translate')("pihcore.vaccination.sequence.doseBoosterOne"),
+                        label: "pihcore.vaccination.sequence.doseBoosterOne",
                         sequenceNumber: 11
                     },
                     {
-                        label: $filter('translate')("pihcore.vaccination.sequence.doseBoosterTwo"),
+                        label: "pihcore.vaccination.sequence.doseBoosterTwo",
                         sequenceNumber: 12
                     }
                 ]
                 var vaccinations = [
                     {
-                        label: $filter('translate')("pihcore.concept.name." + Concepts.bcgVaccination.uuid),
+                        label: "pihcore.concept.name." + Concepts.bcgVaccination.uuid,
                         concept: Concepts.bcgVaccination,
                         doses: [ 1 ]
                     },
                     {
-                        label: $filter('translate')("pihcore.concept.name." + Concepts.polioVaccination.uuid),
+                        label: "pihcore.concept.name." + Concepts.polioVaccination.uuid,
                         concept: Concepts.polioVaccination,
                         doses: [ 0, 1, 2, 3, 11, 12 ]
                     },
                     {
-                        label: $filter('translate')("pihcore.concept.name." + Concepts.pentavalentVaccination.uuid),
+                        label: "pihcore.concept.name." + Concepts.pentavalentVaccination.uuid,
                         concept: Concepts.pentavalentVaccination,
                         doses: [ 1, 2, 3 ]
                     },
                     {
-                        label: $filter('translate')("pihcore.concept.name." + Concepts.rotavirusVaccination.uuid),
+                        label: "pihcore.concept.name." + Concepts.rotavirusVaccination.uuid,
                         concept: Concepts.rotavirusVaccination,
                         doses: [ 1, 2 ]
                     },
                     {
-                        label: $filter('translate')("pihcore.concept.name." + Concepts.measlesRubellaVaccination.uuid),
+                        label: "pihcore.concept.name." + Concepts.measlesRubellaVaccination.uuid,
                         concept: Concepts.measlesRubellaVaccination,
                         doses: [ 1 ]
                     },
                     {
-                        label: $filter('translate')("pihcore.concept.name." + Concepts.diptheriaTetanusVaccination.uuid),
+                        label: "pihcore.concept.name." + Concepts.diptheriaTetanusVaccination.uuid,
                         concept: Concepts.diptheriaTetanusVaccination,
                         doses: [ 0, 1, 2, 3, 11, 12 ]
                     }
@@ -200,22 +200,15 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 }
 
                 function getCurrentVaccinations() {
-                    var results = "";
+                    var vaccineSequences = [];
                     _.each($scope.vaccinations, function(vaccination) {
-                        var vaccineSequences = [];
                         _.each($scope.sequences, function(sequence) {
                             if ($scope.existingDose(sequence, vaccination)) {
-                                vaccineSequences.push( vaccination.label + "-" + sequence.label);
+                                vaccineSequences.push({ "vaccination" : vaccination.label, "sequence": sequence.label });
                             }
                         })
-                        if (vaccineSequences.length > 0 ) {
-                            if (results.length > 0) {
-                                results = results + ", ";
-                            }
-                            results = results + vaccineSequences.pop();
-                        }
                     });
-                    return results;
+                    return vaccineSequences;
                 }
                 loadHistory();
 
