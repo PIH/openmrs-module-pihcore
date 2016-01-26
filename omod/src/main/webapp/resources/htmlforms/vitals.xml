@@ -221,6 +221,7 @@
 
                         if (bmi != null &amp;&amp; !isNaN(bmi)) {
                             jq(form).find('#calculated-bmi-wrapper').show();
+                            jq(form).find('#calculated-bmi-label').hide();
                             jq(form).find('#calculated-bmi').html(bmi.toFixed(1));
                             jq(form).find('#hidden-calculated-bmi').val(bmi.toFixed(1));
                         }
@@ -318,7 +319,9 @@
                     <uimessage code="mirebalais.vitals.bmi.instructions"/>
                 </span>
                 <span id="calculated-bmi-wrapper">
-                    <uimessage code="mirebalais.vitals.bmi.display"/>
+                    <span id="calculated-bmi-label">
+                        <uimessage code="mirebalais.vitals.bmi.display"/>
+                    </span>
                     <span id='calculated-bmi'></span>
                 </span>
 
