@@ -5,7 +5,7 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
         });
     }])
 
-    .directive("currentAllergies", [ 'Allergies', function(Allergies) {
+    .directive("currentAllergies", [ 'Allergies', "SessionInfo", function(Allergies, SessionInfo) {
         return {
             scope: {
                 patient: "=",
@@ -15,6 +15,8 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
                 if ($scope.patient) {
                     $scope.allergies = Allergies.get({uuid: $scope.patient.uuid});
                 }
+
+                $scope.session = SessionInfo.get();
 
                 $scope.showAlergiesDetails = false;
                 $scope.expandAllergies = function(showAlergiesDetails) {
@@ -34,6 +36,12 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
                 $scope.$on('contract-all',function() {
                     $scope.showAlergiesDetails = false
                 });
+
+                $scope.canEdit= function() {
+                    var currentUser = new OpenMRS.UserModel($scope.session.user);
+                    return currentUser.hasPrivilege('Task: emr.enterConsultNote');
+                }
+
 
             }],
             templateUrl: "templates/allergies/allergiesList.page"
