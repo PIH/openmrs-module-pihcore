@@ -187,127 +187,119 @@
         </h1>
     </ifMode>
 
-    <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.visitNote.orders.medications">
+    <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.consult.clinicalManagementPlan">
+        <div class="section-container">
+            <p>
+                <obs conceptId="CIEL:162749" style="textarea" rows="5"/>
+            </p>
+        </div>
+    </section>
 
-        <!-- TODO: this is stolen directly from the dispensing module: if we use this, we need to make sure that any dependencies on dispensing are removed -->
-        <!-- TODO: probably want to remove the dispensing-specific questions -->
-        <!-- TODO: change the question concept, shouldn't be medication dispensed -->
-
-        <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                 headerCode="pihcore.consult.clinicalManagementPlan">
-            <div class="section-container">
+    <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.lab.lab_tests.title">
+        <div class="section-container-color">
+            <div class="two-columns">
+                <!-- TODO: medication orders is the wrong concept!!! -->
                 <p>
-                    <obs conceptId="CIEL:162749" style="textarea" rows="5"/>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:RPR" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:STOOL EXAM" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:CD4 COUNT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV VIRAL LOAD" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV ENZYME IMMUNOASSAY, QUANTITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
                 </p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                 headerCode="pihcore.lab.lab_tests.title">
-            <div class="section-container-color">
-                <div class="two-columns">
-                    <!-- TODO: medication orders is the wrong concept!!! -->
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:RPR" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:STOOL EXAM" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:CD4 COUNT" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV VIRAL LOAD" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV ENZYME IMMUNOASSAY, QUANTITATIVE" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
-                    </p>
-                    <p>
-                        <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
-                    </p>
-                </div>
-            </div>
-        </section>
-
+        <!-- TODO: this is stolen directly from the dispensing module: if we use this, we need to make sure that any dependencies on dispensing are removed -->
+        <!-- TODO: change the question concept, shouldn't be medication dispensed -->
+    <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.visitNote.orders.medications">
         <div class="section-container-color">
             <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
                 <obsgroup groupingConceptId="PIH:9070" showIfEmpty="false">
                     <h3>
-                        <uimessage code="mirebalais.dispensing.medication"/>
+                        <uimessage code="pihcore.visitNote.plan.medication"/>
                         {0}
                     </h3>
                     <fieldset class="medication">
                         <p class="field-error" style="display:none"></p>
                         <p>
                             <label>
-                                <uimessage code="mirebalais.dispensing.medicationName"/>
+                                <uimessage code="pihcore.visitNote.plan.name"/>
                             </label>
                             <obs id="name{0}" class="medication-name" conceptId="PIH:1282" answerDrugs="true"/>
                         </p>
                         <p class="inline">
                             <label>
-                                <uimessage code="dispensing.medication.dose"/>
+                                <uimessage code="pihcore.visitNote.plan.dose"/>
                             </label>
                             <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
                             <obs id="doseUnit{0}" class="doseInput select-arrow" conceptId="PIH:9074"
                                  answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals"
-                                 answerCodes="dispensing.units.mg,dispensing.units.g,dispensing.units.mL,dispensing.units.application,dispensing.units.capsule,dispensing.units.tablet,dispensing.units.drop,dispensing.units.mcg,dispensing.units.patch,dispensing.units.pump,dispensing.units.sachet,dispensing.units.IU"/>
+                                 answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
                         </p>
                         <p class="inline">
                             <label>
-                                <uimessage code="mirebalais.dispensing.medicationFrequency"/>
+                                <uimessage code="pihcore.visitNote.plan.frequency"/>
                             </label>
 
 
                             <obs id="frequencyCoded{0}" class="frequency select-arrow" conceptId="PIH:9363"
                                  answerConceptIds=
                                          "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
-                                 answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,dispensing.general.other" />
+                                 answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other" />
                         </p>
 
                         <p class="inline">
                             <label>
-                                <uimessage code="mirebalais.dispensing.medicationDuration"  />
+                                <uimessage code="pihcore.visitNote.plan.duration"  />
                             </label>
                             <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
                             <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:6412" answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
                         </p>
-                        <p class="inline">
-                            <label>
-                                <uimessage code="mirebalais.dispensing.medicationAmount"/>
-                            </label>
-                            <obs id="amount{0}" conceptId="PIH:9071"/>
-                        </p>
+
                         <p>
                             <label>
-                                <uimessage code="mirebalais.dispensing.medicationInstructions"/>
+                                <uimessage code="pihcore.visitNote.plan.instructions"/>
                             </label>
                             <obs id="instructions{0}" class="medication-instructions" conceptId="PIH:9072"/>
                         </p>
@@ -320,7 +312,7 @@
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <submit submitClass="confirm right" submitCode="emr.save"/>
             <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
         </div>
     </ifMode>
