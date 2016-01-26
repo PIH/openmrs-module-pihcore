@@ -81,7 +81,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
         }
     }])
 
-    .directive("vaccinationTable", [ "Concepts", "VaccinationService", "ngDialog", "groupMemberFilter", "$filter", "$timeout", function(Concepts, VaccinationService, ngDialog, groupMemberFilter, $filter, $timeout) {
+    .directive("vaccinationTable", [ "Concepts", "VaccinationService", "ngDialog", "groupMemberFilter", "SessionInfo", "$filter", "$timeout",
+        function(Concepts, VaccinationService, ngDialog, groupMemberFilter, SessionInfo, $filter, $timeout) {
         return {
             restrict: "E",
             scope: {
@@ -147,7 +148,6 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         doses: [ 0, 1, 2, 3, 11, 12 ]
                     }
                 ]
-                $scope.showVaccinationTable = false;
 
                 $scope.expandVaccinations = function(showVaccinationTable) {
                     $scope.showVaccinationTable = !showVaccinationTable;
@@ -184,6 +184,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     return _.contains(vaccination.doses, sequence.sequenceNumber);
                 }
 
+                $scope.session = SessionInfo.get();
+                $scope.showVaccinationTable = false;
                 $scope.Concepts = Concepts;
                 $scope.history = [];
                 $scope.sequences = sequences;
@@ -305,6 +307,15 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         VaccinationService.deleteDose(existingDose)
                             .$promise.then(loadHistory);
                     });
+                }
+
+                $scope.canEdit= function() {
+                    var currentUser = new OpenMRS.UserModel($scope.session.user);
+                    return currentUser.hasPrivilege('Task: emr.enterConsultNote');
+                }
+
+                $scope.canDelete = function() {
+                   return $scope.canEdit();
                 }
             },
             templateUrl: "templates/vaccination/vaccinationTable.page"

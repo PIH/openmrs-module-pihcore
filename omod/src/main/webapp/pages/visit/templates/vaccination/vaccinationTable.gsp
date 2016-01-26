@@ -31,9 +31,9 @@
                 <td nowrap ng-repeat="sequence in sequences" ng-class="{ impossible: !isDoseValidForVaccination(sequence, vaccination) }">
                     <span ng-show="existingDose(sequence, vaccination)">
                         {{ existingDose(sequence, vaccination) | groupMember:Concepts.vaccinationDate | obs:"value" | date }}
-                        <a class="delete-action" ng-click="confirmDelete(sequence, vaccination)"><i class="icon-remove"></i></a>
+                        <a class="delete-action" ng-show="canDelete()" ng-click="confirmDelete(sequence, vaccination)"><i class="icon-remove"></i></a>
                     </span>
-                    <span ng-show="!existingDose(sequence, vaccination) && isDoseValidForVaccination(sequence, vaccination)">
+                    <span ng-show="canEdit() && !existingDose(sequence, vaccination) && isDoseValidForVaccination(sequence, vaccination)">
                         <a ng-click="openDialog(sequence, vaccination)" class="edit-action"><i class="icon-plus"></i></a>
                     </span>
                 </td>
