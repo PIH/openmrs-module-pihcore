@@ -581,7 +581,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     this.setCurrent(visitTemplate);
                     _.each(visitTemplate.elements, function(it) {
                         if (it.type == 'encounter') {
-                            it.encounterStubs = _.filter(encounters, function(candidate) {
+                            it.encounterStubs = _.filter(visit.encounters, function(candidate) {
                                 // TODO support specifying by form also
                                 return candidate.encounterType.uuid === it.encounter.encounterType.uuid;
                             });
