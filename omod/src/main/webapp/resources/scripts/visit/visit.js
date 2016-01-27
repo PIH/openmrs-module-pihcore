@@ -982,6 +982,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 $scope.allExpanded = false;
             }
 
+            $scope.back = function() {
+                window.history.back();
+            };
+
             window.onbeforeunload = function() {
                 if (OrderContext.hasUnsavedData()) {
                     // TODO: localize

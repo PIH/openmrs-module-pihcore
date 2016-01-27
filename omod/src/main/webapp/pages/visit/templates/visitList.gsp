@@ -35,6 +35,6 @@
 
 <br/>
 
-<button ui-sref="overview" class="cancel">
+<button ng-click="back()" class="cancel">
     ${ ui.message("uicommons.return") }
 </button>
