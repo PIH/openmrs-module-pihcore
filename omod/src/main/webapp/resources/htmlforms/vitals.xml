@@ -213,6 +213,7 @@
                     jq('htmlform').each(function(index, form) {
                         jq(form).find('#calculated-bmi-continue').hide();
                         jq(form).find('#no-calculated-bmi').hide();
+                        jq(form).find('#calculated-bmi-label').hide();
 
                         var wt = jq(form).find('#weight_kg').find('.value').text();
                         var ht = jq(form).find('#height_cm').find('.value').text();
