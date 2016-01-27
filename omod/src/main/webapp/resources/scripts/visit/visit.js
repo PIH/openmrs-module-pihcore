@@ -579,7 +579,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
                 applyVisit: function(visitTemplate, visit, VisitDisplayModel) {
                     this.setCurrent(visitTemplate);
-                    var encounters = _.reject(visit.encounters, function(it) { return it.voided; });
                     _.each(visitTemplate.elements, function(it) {
                         if (it.type == 'encounter') {
                             it.encounterStubs = _.filter(encounters, function(candidate) {
@@ -588,7 +587,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             });
                         }
                     });
-                    _.each(encounters, function(it) {
+                    _.each(visit.encounters, function(it) {
                         var config = visitTemplate.encounterTypeConfig[it.encounterType.uuid];
                         if (!config) {
                             config = visitTemplate.encounterTypeConfig.DEFAULT;
@@ -716,11 +715,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     // now load a bigger list so that we can fill out template, diagnoses and encounters
                     Visit.get({
                         patient: $scope.patientUuid,
-                        v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default),attributes:default)"
+                        v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default,voided),attributes:default)"
                     }).$promise.then(function (response) {
                         // fetch the template for each visit, which we display on the visit list
                         _.each(response.results, function (visit) {
                             visit.visitTemplate = VisitTemplateService.determineFor(visit);
+                            visit.encounters =  _.reject(visit.encounters, function(it) { return it.voided; });
                         })
                         $scope.visits = response.results;
                         //$scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return new Date(it.startDatetime) }).startDatetime === $scope.visit.startDatetime;
@@ -731,6 +731,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             function loadVisit(visitUuid) {
                 Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:ref,orders:ref,voided,visit:ref,encounterProviders,creator),patient:default,visitType:ref,attributes:default)" })
                     .$promise.then(function(visit) {
+                        visit.encounters =  _.reject(visit.encounters, function(it) { return it.voided; });
                         $scope.visit = new OpenMRS.VisitModel(visit);
                         $scope.visitIdx = $scope.getVisitIdx(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
@@ -889,17 +890,16 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             $scope.getVisitStartDateUpperLimit = function(visit) {
-                var upperLimitDate = new Date(visit.startDatetime);
+                var upperLimitDate = new Date(visit.stopDatetime);
                 if (visit.encounters != null && visit.encounters.length > 0) {
                     // the visit cannot start after the date of the oldest encounter that is part of this visit
                     return visit.encounters[visit.encounters.length -1].encounterDatetime;
                 }
-
                 return new Date(upperLimitDate);
             }
 
             $scope.getVisitEndDateLowerLimit = function(visit) {
-                var lowerLimitDate = new Date(visit.stopDatetime);
+                var lowerLimitDate = new Date(visit.startDatetime);
                 if (visit.encounters != null && visit.encounters.length > 0) {
                     // the visit cannot end before the date of the newest encounter that is part of this visit
                     return visit.encounters[0].encounterDatetime;
