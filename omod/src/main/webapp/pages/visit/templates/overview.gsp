@@ -7,6 +7,10 @@
     <visit-details visit="visit"></visit-details>
 </div>
 
+<div id="print-actions">
+    <button id="print-button" ng-click="print()" title="${ ui.message('pihcore.visitNote.print') }"><i class="icon-print"/></button>
+</div>
+
 <div id="expand-all" ng-show="!allExpanded">
     <button id="expand-all-button" ng-click="expandAll()" title="${ ui.message('pihcore.visitNote.expandAll') }"><i class="icon-double-angle-down"/></button>
 </div>

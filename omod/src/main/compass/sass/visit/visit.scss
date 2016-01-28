@@ -307,7 +307,7 @@ $green: #51A351;
   }
 }
 
-#choose-another-visit, #visit-actions, #expand-all, #contract-all {
+#choose-another-visit, #visit-actions, #expand-all, #contract-all, #print-actions {
   display: inline-block;
   float:right;
   font-size: 0.8em;
@@ -426,3 +426,21 @@ table.vaccination-table {
 .glyphicon-chevron-right:before        { content: "\f054"; }
 .glyphicon-chevron-up:before           { content: "\f077"; }
 .glyphicon-chevron-down:before         { content: "\f078"; }
+
+
+@media print {
+
+  body {
+    font-size: 0.8em !important;
+  }
+
+  #visit-actions, #choose-another-visit, #expand-all, #contract-all, #print-actions,
+  a [class^="icon-"],a [class*=" icon-"], .icon-penci {
+    display:none !important;
+  }
+
+  div.visit-element {
+    page-break-inside: avoid;
+  }
+
+}

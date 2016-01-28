@@ -982,6 +982,18 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 $scope.allExpanded = false;
             }
 
+            $scope.print = function () {
+        /*        if (!$scope.allExpanded) {
+                    $scope.expandAll();
+                    $timeout(function() {
+                        window.print();
+                    },10000)
+                }
+                else {*/
+                    window.print();
+             //   }
+            }
+
             $scope.back = function() {
                 window.history.back();
             };
