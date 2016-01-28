@@ -87,9 +87,7 @@
                     <tr>
                         <td><uimessage code="zl.breastfeedExclusively"/></td>
                         <td>
-                            <span class="value">
-                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
-                            </span>
+                            <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
                         </td>
                         <td>
                             <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
@@ -103,9 +101,7 @@
                         <tr>
                             <td><uimessage code="zl.infantFormula"/></td>
                             <td>
-                                <span class="value">
-                                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode=""/>
-                                </span>
+                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode=""/>
                             </td>
                             <td>
                                 <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode=""/>
@@ -119,9 +115,7 @@
                         <tr>
                             <td><uimessage code="zl.mixedFeeding"/></td>
                             <td>
-                                <span class="value">
-                                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode=""/>
-                                </span>
+                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode=""/>
                             </td>
                             <td>
                                 <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode=""/>
@@ -135,9 +129,7 @@
                         <tr>
                             <td><uimessage code="zl.breastfeedStopped"/></td>
                             <td>
-                                <span class="value">
-                                    <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode=""/>
-                                </span>
+                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode=""/>
                             </td>
                             <td>
                                 <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode=""/>

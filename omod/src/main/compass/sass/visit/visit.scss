@@ -386,6 +386,12 @@ table.vaccination-table {
   }
 }
 
+// make sure we are highlighting selected answers when viewing html forms
+.value {
+  color: #2200ff;
+  font-weight: bold;
+}
+
 // ui-bootstrap 0.11.x expects "glyphicion-*" but uicommons only defines "icon-*"
 // Need to research this, since it's hacky to include all this here
 [class^="glyphicon-"],
