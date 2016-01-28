@@ -65,6 +65,10 @@ $green: #51A351;
 #visit-actions-dropdown {
   display: table;
 
+  button: {
+    font-weight: 0.6em;
+  }
+
   li {
     display: table-row;
   }
@@ -310,7 +314,11 @@ $green: #51A351;
 #choose-another-visit, #visit-actions, #expand-all, #contract-all, #print-actions {
   display: inline-block;
   float:right;
-  font-size: 0.8em;
+  font-size: 0.7em;
+
+  button {
+    padding: 8px;
+  }
 }
 
 #visit-overview-header {
