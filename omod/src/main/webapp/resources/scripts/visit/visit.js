@@ -343,12 +343,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         controller: [ "$scope", function($dialogScope) {
                             $dialogScope.now = new Date();
                             $dialogScope.visit = $scope.visit;
-                            $dialogScope.newStartDatetime = $scope.visit.startDatetime;
+                            $dialogScope.newStartDatetime = new Date($scope.visit.startDatetime);
                             $dialogScope.startDateLowerLimit = $scope.getVisitStartDateLowerLimit($scope.visit);
                             $dialogScope.startDateUpperLimit = $scope.getVisitStartDateUpperLimit($scope.visit);
                             $dialogScope.endDateLowerLimit = $scope.getVisitEndDateLowerLimit($scope.visit);
                             $dialogScope.endDateUpperLimit = $scope.getVisitEndDateUpperLimit($scope.visit);
-                            $dialogScope.newStopDatetime = $scope.visit.stopDatetime;
+                            $dialogScope.newStopDatetime = $scope.visit.stopDatetime ? new Date($scope.visit.stopDatetime) : '';
                             $dialogScope.newLocation = $scope.visit.location;
                         }],
                         template: "templates/visitDetailsEdit.page"
@@ -717,7 +717,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                       var previousVisitEndDate = new Date($scope.visits[$scope.visitIdx + 1].stopDatetime);
                       // return the day after the end date of the previous visit in the list
                       previousVisitEndDate.setDate(previousVisitEndDate.getDate() + 1);
-                      return previousVisitEndDate;
+                      return new Date(previousVisitEndDate);
                   }
                 }
                 return new Date(lowerLimitDate);
@@ -727,7 +727,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 var upperLimitDate = new Date(visit.stopDatetime);
                 if (visit.encounters != null && visit.encounters.length > 0) {
                     // the visit cannot start after the date of the oldest encounter that is part of this visit
-                    return visit.encounters[visit.encounters.length -1].encounterDatetime;
+                    return new Date(visit.encounters[visit.encounters.length -1].encounterDatetime);
                 }
                 return new Date(upperLimitDate);
             }
@@ -736,7 +736,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 var lowerLimitDate = new Date(visit.startDatetime);
                 if (visit.encounters != null && visit.encounters.length > 0) {
                     // the visit cannot end before the date of the newest encounter that is part of this visit
-                    return visit.encounters[0].encounterDatetime;
+                    return new Date(visit.encounters[0].encounterDatetime);
                 }
                 return new Date(lowerLimitDate);
             }
@@ -751,7 +751,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         var nextVisitStartDate = new Date($scope.visits[$scope.visitIdx -1].startDatetime);
                         // return the day before the start date of the next visit in the list
                         nextVisitStartDate.setDate(nextVisitStartDate.getDate() -1);
-                        return nextVisitStartDate;
+                        return new Date(nextVisitStartDate);
                     }
                 }
                 return new Date(upperLimitDate);
