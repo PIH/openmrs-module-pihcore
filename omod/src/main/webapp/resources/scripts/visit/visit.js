@@ -546,10 +546,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
         }])
 
-    .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "$state",
+    .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "VisitTemplateService", "$state",
         "$timeout", "OrderContext", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
         'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "EncounterRoles",
-        function($scope, $rootScope, $translate, Visit, VisitTemplateService, $state, $timeout, OrderContext,
+        function($scope, $rootScope, $translate, $http, Visit, VisitTemplateService, $state, $timeout, OrderContext,
                  ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
                  EncounterTransaction, SessionInfo, Concepts, EncounterRoles) {
 
@@ -562,7 +562,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.patientUuid = patientUuid;
             $scope.consultEncounter = null;
 
-            $scope.allExpanded = false;  // TODO can this be removed?
+            $scope.printButtonDisabled = false;
+            $scope.allExpanded = false;
 
             loadVisits(patientUuid);
             loadVisit(visitUuid);
@@ -811,15 +812,27 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             $scope.print = function () {
-        /*      if (!$scope.allExpanded) {
+
+                if (!$scope.allExpanded) {
+                    $scope.printButtonDisabled = true;
                     $scope.expandAll();
-                    $timeout(function() {
-                        window.print();
-                    },10000)
+
+                    // wait on digest cycle and for all templates to be loaded (ie, wait for all sections to be fully expanded
+                    // see: http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle/
+                    var print = function () {
+                        if ($http.pendingRequests.length > 0) {
+                            $timeout(print); // Wait for all templates to be loaded
+                        } else {
+                            window.print();
+                            $scope.printButtonDisabled = false;
+                        }
+                    }
+
+                    $timeout(print);
                 }
-                else {*/
+                else {
                     window.print();
-             //   }
+                }
             }
 
             $scope.back = function() {

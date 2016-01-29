@@ -8,7 +8,7 @@
 </div>
 
 <div id="print-actions">
-    <button id="print-button" ng-click="print()" title="${ ui.message('pihcore.visitNote.print') }"><i class="icon-print"/></button>
+    <button id="print-button" ng-click="print()" ng-disabled="printButtonDisabled" title="${ ui.message('pihcore.visitNote.print') }"><i class="icon-print"/></button>
 </div>
 
 <div id="expand-all" ng-show="!allExpanded">
