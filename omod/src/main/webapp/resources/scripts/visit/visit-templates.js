@@ -23,11 +23,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 encounterType: {
                     uuid: EncounterTypes.checkIn.uuid
                 }
-            },
-            action: {
-                label: "pihcore.checkIn.label",
-                icon: "icon-check-in",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/checkin.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
             }
         };
 
@@ -37,12 +32,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 encounterType: {
                     uuid: EncounterTypes.vitals.uuid
                 }
-            },
-            action: {
-                label: "pihcore.vitals.label",
-                icon: "icon-vitals",
-                href: "/{{contextPath}}/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
-                require: "visit && !visit.stopDatetime"   // currently our vitals form only works in the context of an active visit
             }
         };
 

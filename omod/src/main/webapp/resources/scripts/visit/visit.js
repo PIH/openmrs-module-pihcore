@@ -20,20 +20,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 templateUrl: "templates/visitList.page"
             })
 
-            ///TODO remove these?
-           /* .state("editPlan", {
-                url: "/editPlan",
-                templateUrl: "templates/orders/editPlan.page",
-                onEnter: function() {
-                    breadcrumbs = breadcrumbsPlan;
-                    emr.updateBreadcrumbs();
-                }
-            })
-            .state("addLabOrders", {
-                url: "/addLabOrders",
-                templateUrl: "templates/orders/addLabOrdersState.page"
-            });
-*/
         $translateProvider
             .useUrlLoader('/' + OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json')
             .useSanitizeValueStrategy('escape');  // TODO is this the correct one to use http://angular-translate.github.io/docs/#/guide/19_security
@@ -69,49 +55,16 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
     }])
 
     // This is not a reusable directive. It does not have an isolate scope, but rather inherits scope from VisitController
-    .directive("displayElement", [ "$rootScope", "Concepts", "EncounterTypes", "EncounterRoles", "VisitDisplayModel", "VisitTemplateService", function($rootScope, Concepts, EncounterTypes, EncounterRoles, VisitDisplayModel, VisitTemplateService) {
+    .directive("displayElement", [
+        function() {
         return {
             restrict: 'E',
             controller: function($scope) {
-                $scope.Concepts = Concepts;
-                $scope.EncounterTypes = EncounterTypes;
-                $scope.EncounterRoles = EncounterRoles;
 
                 var element = $scope.element;
 
-                $scope.eval = function(template) {
-                    if (!template) {
-                        return null;
-                    }
-                    var compiled = Handlebars.compile(template);
-                    return compiled({
-                        contextPath: OPENMRS_CONTEXT_PATH,
-                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid,
-                        breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
-                        visit: $scope.visit
-                    });
-                }
-
                 if (element.type === 'encounter') {
-                    $scope.action = element.action;
-                    $scope.encounterStubs = element.encounterStubs;
-                    $scope.canAdd = element.addInline && (element.encounterStubs.length == 0 || element.allowMultiple);
-                    $scope.canAdd = element.addInline && (element.encounterStubs.length == 0 || element.allowMultiple);
-
-                    $scope.encounterTemplate = function() {
-                        if ($scope.encounterStub) {
-                            var state = VisitDisplayModel.encounterState($scope.encounterStub);
-                            var content = element.encounter[state + "Template"];
-                            if (!content) {
-                                content = element.encounter["defaultTemplate"] + "Template";
-                            }
-                            return content;
-                        }
-                        else {
-                            return "templates/action.page";
-                        }
-                    }
-
+                    $scope.encounters = element.encounters;
                     $scope.template = "templates/visitElementEncounter.page";
 
                 }
@@ -120,31 +73,19 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.template = "templates/visitElementSection.page";
                 }
                 else if (element.type === 'include') {
-                    if (element.includeAsVisitElement) {
-                        $scope.include = element.includeAsVisitElement;
-                        $scope.template = "templates/visitElementInclude.page";
-                    } else {
-                        $scope.template = element.include;
-                    }
+                    $scope.template = element.include;
                 }
                 else {
                     $scope.type = element.type;
                     $scope.template = "templates/visitElementNotYetImplemented.page";
-                }
-
-                $scope.goToPage = function(provider, page, opts) {
-                    if (opts['returnUrl'] === undefined) {
-                        opts['returnUrl'] = "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid;
-                    }
-                    location.href = emr.pageLink(provider, page, opts);
                 }
             },
             template: '<div ng-include="template"></div>'
         }
     }])
 
-    .directive("encounter", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
-        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
+    .directive("encounter", [ "Encounter", "VisitTemplateService", "OrderEntryService", "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
+        function(Encounter, VisitTemplateService, OrderEntryService, Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
             return {
                 restrict: "E",
                 scope: {
@@ -179,29 +120,32 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         $scope.orders = OrderEntryService.getOrdersForEncounter($scope.encounterStub);
                     }
 
-                    $scope.encounter = $scope.encounterStub;
                     $scope.DatetimeFormats = DatetimeFormats;
-                    $scope.templateModel = {};
-
-                    var config = VisitTemplateService.getConfigFor($scope.encounterStub);
-
-                    $scope.session = SessionInfo.get();
                     $scope.Concepts = Concepts;
+                    $scope.session = SessionInfo.get();
+
+                    $scope.encounter = $scope.encounterStub;
+
+                    var config = VisitTemplateService.getConfigFor($scope.encounter);
+                    $scope.encounterState = config ? config.defaultState : "short";
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
 
-                    $scope.currentTemplate = function() {
-                        return VisitDisplayModel.displayTemplateFor($scope.encounterStub);
-                    }
                     $scope.templateModelUrl= function () {
-                        return VisitDisplayModel.templateModelUrlFor($scope.encounterStub);
+                        if (config) {
+                            return config["templateModelUrl"];
+                        }
+                        return "";  // no custom template model by default
                     }
+
                     $scope.canExpand = function() {
-                        return VisitDisplayModel.canExpand($scope.encounterStub);
+                        return $scope.encounterState === 'short' && config && config.longTemplate;
                     }
+
                     $scope.canContract = function() {
-                        return VisitDisplayModel.canContract($scope.encounterStub);
+                        return $scope.encounterState === 'long' && config && config.shortTemplate;
                     }
+
                     $scope.canEdit = function() {
                         var encounter = new OpenMRS.EncounterModel($scope.encounter);
                         var currentUser = new OpenMRS.UserModel($scope.session.user);
@@ -210,6 +154,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                                 || encounter.participatedIn($scope.session.currentProvider)
                                 || encounter.createdBy(currentUser));
                     }
+
                     $scope.canDelete = function() {
                         var encounter = new OpenMRS.EncounterModel($scope.encounter);
                         var currentUser = new OpenMRS.UserModel($scope.session.user);
@@ -218,17 +163,23 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                                 || encounter.participatedIn($scope.session.currentProvider)
                                 || encounter.createdBy(currentUser));
                     }
+
                     $scope.expand = function() {
                         // Get the latest representation when we expand, in case things have been edited
-                        loadFullEncounter();
-                        VisitDisplayModel.expand($scope.encounterStub);
+                        loadFullEncounter(); // TODO make this a promise with a then
+                        $scope.encounterState = 'long';
+                        $scope.template = config ? config["longTemplate"] : "templates/encounters/defaultEncounterLong.page"
                     }
+
                     $scope.contract = function() {
-                        VisitDisplayModel.contract($scope.encounterStub);
+                        $scope.encounterState = 'short';
+                        $scope.template = config ? config["shortTemplate"] : "templates/encounters/defaultEncounterShort.page"
                     }
+
                     $scope.edit = function() {
                         $scope.$emit("request-edit-encounter", $scope.encounter);
                     }
+
                     $scope.delete = function() {
                         $scope.$emit("request-delete-encounter", $scope.encounter);
                     }
@@ -248,14 +199,15 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     if (config.defaultState == "long") {
                         loadFullEncounter();
                     }
+
+                    $scope.template = config ? config[config.defaultState + "Template"] : "templates/encounters/defaultEncounterShort.page"
                 }],
-                template: '<div class="visit-element"><div ng-include="currentTemplate()"></div></div>'
+                template: '<div class="visit-element"><div ng-include="template"></div></div>'
             }
     }])
 
-    // TODO remove any includes that are no longer being used!!
-    .directive("section", [ "Encounter", "VisitDisplayModel", "VisitTemplateService", "OrderEntryService", "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
-        function(Encounter, VisitDisplayModel, VisitTemplateService, OrderEntryService, Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
+    .directive("section", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
+        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
             return {
                 restrict: "E",
                 scope: {
@@ -272,7 +224,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.session = SessionInfo.get();
 
                     function loadSection() {
-
                         if ($scope.encounter) {
                             var url = Handlebars.compile($scope.section.templateModelUrl)({
                                 consultEncounter: $scope.encounter
@@ -288,7 +239,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                                 });
                             // TODO error handling
                         }
-
                     }
 
                     function openSectionForEdit() {
@@ -381,6 +331,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
 
     // this is not a reusable directive, and it does not have an isolate scope
     .directive("visitDetails", [ "Visit", "ngDialog", function(Visit, ngDialog) {
+        // TODO make sure this at least gives as error message in case of failure
         return {
             restrict: 'E',
             controller: function($scope) {
@@ -402,7 +353,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         }],
                         template: "templates/visitDetailsEdit.page"
                     }).then(function(opts) {
-                        // TODO this logic doesn't do the right thing if the client is in a different time zone than the server
+                        // TODO **this logic doesn't do the right thing if the client is in a different time zone than the server**
                         var start = emr.formatDatetimeForREST(moment(opts.start).startOf('day'));
                         var stop = opts.stop ? emr.formatDatetimeForREST(moment(opts.stop).endOf('day')) : null;
                         new Visit({
@@ -510,12 +461,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
-    .directive("chooseDisposition", [ function() {
-        return {
-
-        }
-    }])
-
     .directive("visitListDropdown", [ function() {
         return {
             templateUrl: 'templates/visitListDropdown.page'
@@ -577,44 +522,17 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     }
                 },
 
-                applyVisit: function(visitTemplate, visit, VisitDisplayModel) {
+                applyVisit: function(visitTemplate, visit) {
                     this.setCurrent(visitTemplate);
                     _.each(visitTemplate.elements, function(it) {
-                        if (it.type == 'encounter') {
-                            it.encounterStubs = _.filter(visit.encounters, function(candidate) {
-                                // TODO support specifying by form also
+                        if (it.type == 'encounter') {    // find any encounters associated with this element
+                            it.encounters = _.filter(visit.encounters, function(candidate) {
+                                // TODO support finding by form as well?
                                 return candidate.encounterType.uuid === it.encounter.encounterType.uuid;
                             });
                         }
                     });
-                    _.each(visit.encounters, function(it) {
-                        var config = visitTemplate.encounterTypeConfig[it.encounterType.uuid];
-                        if (!config) {
-                            config = visitTemplate.encounterTypeConfig.DEFAULT;
-                        }
-                        VisitDisplayModel.encounterStates[it.uuid] = config.defaultState;
-                    });
                 },
-
-              /*  getVisitActions: function() {
-
-                    AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
-                        $scope.visitActions = ext;
-                    })
-
-                    if (!currentTemplate) {
-                        return []
-                    };
-
-                    var elements = _.filter(currentTemplate.elements, function (element) {
-
-                        return !element.addInline
-                                && ( (element.type == 'encounter' && (element.encounterStubs.length == 0 || element.allowMultiple))
-                                || element.type == 'consult-section')
-                    });
-
-                    return _.compact(_.pluck(elements, "action"));
-                },*/
 
                 getConsultEncounterType: function() {
                     if (currentTemplate && currentTemplate.consultEncounterType) {
@@ -628,74 +546,23 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
         }])
 
-    .factory("VisitDisplayModel", [ "VisitTemplateService", function(VisitTemplateService) {
-        var model = {};
-        model.reset = function() {
-            model.encounterStates = {}; // maps from encounter.uuid => "short" or "long"
-        };
-        model.encounterState = function(encounter) {
-            return model.encounterStates ? model.encounterStates[encounter.uuid] : null;
-        }
-        model.canExpand = function(encounter) {
-            var current = model.encounterState(encounter);
-            var config = VisitTemplateService.getConfigFor(encounter);
-            return current === 'short' && config && config.longTemplate;
-        };
-        model.canContract = function(encounter) {
-            var current = model.encounterState(encounter);
-            var config = VisitTemplateService.getConfigFor(encounter);
-            return current === 'long' && config && config.shortTemplate;
-        };
-        model.expand = function(encounter) {
-            model.encounterStates[encounter.uuid] = 'long';
-        };
-        model.contract = function(encounter) {
-            model.encounterStates[encounter.uuid] = 'short';
-        };
-        model.displayTemplateFor = function(encounter) {
-            var config = VisitTemplateService.getConfigFor(encounter);
-            if (config) {
-                var state = model.encounterStates[encounter.uuid];
-                if (state) {
-                    return config[state + "Template"];
-                }
-            }
-            return "templates/encounters/defaultEncounterShort.page"
-
-        }
-        model.templateModelUrlFor = function(encounter) {
-            var config = VisitTemplateService.getConfigFor(encounter);
-            if (config) {
-                return config["templateModelUrl"];
-            }
-            return "";  // no custom template model by default
-        }
-        model.reset();
-        return model;
-    }])
-
-    .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "Allergies", "CareSetting", "$q", "$state",
-        "$timeout", "OrderContext", "VisitDisplayModel", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
+    .controller("VisitController", [ "$scope", "$rootScope", "$translate", "Visit", "VisitTemplateService", "$state",
+        "$timeout", "OrderContext", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
         'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "EncounterRoles",
-        function($scope, $rootScope, $translate, Visit, VisitTemplateService, Allergies, CareSetting, $q, $state, $timeout, OrderContext,
-                 VisitDisplayModel, ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
+        function($scope, $rootScope, $translate, Visit, VisitTemplateService, $state, $timeout, OrderContext,
+                 ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
                  EncounterTransaction, SessionInfo, Concepts, EncounterRoles) {
 
             $rootScope.DatetimeFormats = DatetimeFormats;
+            $scope.Concepts = Concepts;
 
-            $scope.VisitDisplayModel = VisitDisplayModel;
+            $scope.session = SessionInfo.get();
 
             $scope.visitUuid = visitUuid;
             $scope.patientUuid = patientUuid;
             $scope.consultEncounter = null;
 
-            $scope.today = new Date();
-
-            $scope.Concepts = Concepts;
-
-            $scope.allExpanded = false;
-
-            $scope.session = SessionInfo.get();
+            $scope.allExpanded = false;  // TODO can this be removed?
 
             loadVisits(patientUuid);
             loadVisit(visitUuid);
@@ -723,7 +590,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             visit.encounters =  _.reject(visit.encounters, function(it) { return it.voided; });
                         })
                         $scope.visits = response.results;
-                        //$scope.isLatestVisit = !$scope.visit.stopDatetime || _.max($scope.visits, function(it) { return new Date(it.startDatetime) }).startDatetime === $scope.visit.startDatetime;
                     });
                 });
             }
@@ -742,19 +608,13 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         }
 
                         $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
-                        VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit, $scope.VisitDisplayModel);
+                        VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit);
 
                         AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
                             $scope.visitActions = ext;
                         })
 
-                        // TODO refactor so that OrderContext has better logic for knowing when it is configured/ready, so that we don't have to nest this
-                        $scope.careSettings.$promise.then(function() {
-                            OrderContext.setCareSetting(_.findWhere($scope.careSettings.results, { careSettingType: "OUTPATIENT" }));
-                            OrderContext.setPatient($scope.visit.patient);
-                        })
                     });
-                VisitDisplayModel.reset();
             }
 
             function loadConsultEncounter() {
@@ -764,30 +624,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         $scope.consultEncounter = encounter;
                     });
             }
-
-
-          /*  // TODO is this still needed/used?
-            function getVisitParameter() {
-                var index = location.href.indexOf("?");
-                var temp = location.href.substring(index + 1);
-                index = temp.indexOf("visit=");
-                temp = temp.substring(index + 6);
-                index = temp.indexOf("&");
-                if (index > 0) {
-                    temp = temp.substring(0, index);
-                }
-                index = temp.indexOf("#");
-                if (index > 0) {
-                    temp = temp.substring(0, index);
-                }
-                return temp;
-            }*/
-
-            //$rootScope.$on('$stateChangeStart', function(event, toState) {
-            //    if (toState.name === "newPrescription") {
-            //        $scope.newDraftDrugOrder = OpenMRS.createEmptyDraftOrder(OrderContext.get().careSetting);
-            //    }
-            //});
 
             $rootScope.$on("request-edit-encounter", function(event, encounter) {
                 var config = VisitTemplateService.getConfigFor(encounter);
@@ -848,9 +684,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.$broadcast("consult-started", result.encounterUuid);
                 })
             })
-
-
-            $scope.careSettings = CareSetting.query({v:"default"});
 
             $scope.reloadVisit = function() {
                 loadVisit($scope.visitUuid);
@@ -983,7 +816,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             $scope.print = function () {
-        /*        if (!$scope.allExpanded) {
+        /*      if (!$scope.allExpanded) {
                     $scope.expandAll();
                     $timeout(function() {
                         window.print();
@@ -1004,25 +837,5 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     return "You have unsaved changes, are you sure you want to discard them?";
                 }
             }
-
-            //$scope.configFor = function(encounter) {
-            //    if ($scope.visitTemplate && $scope.visitTemplate.encounterTypeConfig) {
-            //        var templates = $scope.visitTemplate.encounterTypeConfig[encounter.encounterType.uuid];
-            //        return templates ? templates : $scope.visitTemplate.encounterTypeConfig.DEFAULT;
-            //    }
-            //    return null;
-            //}
-
-            //$scope.displayTemplateFor = function(encounter) {
-            //    var config = $scope.configFor(encounter);
-            //    if (config) {
-            //        var state = VisitDisplayModel.encounterStates[encounter.uuid];
-            //        if (state) {
-            //            return config[state + "Template"];
-            //        }
-            //    }
-            //    return "templates/defaultEncounterShort.page"
-            //}
-
 
         }]);
