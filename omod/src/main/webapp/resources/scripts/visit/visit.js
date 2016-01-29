@@ -771,11 +771,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             })
 
 
-
-            $scope.hasDraftOrders = function() {
-                return OrderContext.get().draftOrders.length > 0;
-            }
-
             $scope.visitAction = function(visitAction) {
 
                 if (visitAction.type == 'script') {
@@ -831,11 +826,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 window.history.back();
             };
 
-            window.onbeforeunload = function() {
+           /* window.onbeforeunload = function() {
                 if (OrderContext.hasUnsavedData()) {
                     // TODO: localize
                     return "You have unsaved changes, are you sure you want to discard them?";
                 }
-            }
+            }*/
 
         }]);
