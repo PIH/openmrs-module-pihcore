@@ -18,6 +18,14 @@
           formEncounterType="ae06d311-1866-455b-8a64-126a9bd74171" formVersion="1.0">
 
     <translations defaultLocale="fr">
+        <code name="yes">
+            <variant locale="en" value="yes"/>
+            <variant locale="fr" value="oui"/>
+        </code>
+        <code name="no">
+            <variant locale="en" value="no"/>
+            <variant locale="fr" value="non"/>
+        </code>
         <code name="asthma_class">
             <variant locale="en" value="Asthma classification"/>
             <variant locale="fr" value="Classification d'asthme"/>
@@ -28,7 +36,7 @@
         </code>
         <code name="seizure_num">
             <variant locale="en" value="Number of seizures since last visit"/>
-            <variant locale="fr" value="Needs translation"/>
+            <variant locale="fr" value="Nombre de crises d'épilepsie depuis la dernière visite"/>
         </code>
     </translations>
 
@@ -320,8 +328,7 @@
                 <uimessage code="pihcore.ncd.referral"/>
             </label>
             <obs conceptId="PIH:Type of referring service"
-                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"
-                    answerLabels="Hospital (HUM Inpatient),Hospital (autre ZL Inpatient),Klinik Eksten (HUM),Klinik Eksten (autre ZL),non-ZL"/>
+                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
             <br/>
 
             <p class="radio">
@@ -330,8 +337,8 @@
                     <br/>
                 </label>
                 <obs conceptId="PIH:Known chronic disease before referral" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator=""/>
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     answerSeparator=""/>
             </p>
 
             <p class="radio">
@@ -351,8 +358,8 @@
                     <br/>
                 </label>
                 <obs conceptId="PIH:Chronic disease controlled during initial visit" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator=""/>
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     answerSeparator=""/>
             </p>
 
             <!-- This should be included during initial and followup visits -->
@@ -403,12 +410,6 @@
                     <span id='calculated-waist-hip-ratio'>
                     </span>
                 </span>
-                <!--
-    <p id="calculated-ratio-continue">
-    <input type="hidden" name="focus-in-ratio-question" id="hidden-calculated-ratio" />
-    <uimessage code="pihcore.ncd.vitals.calculatedField.continue"/>
-    </p>
-    -->
             </p>
         </div>
     </section>
@@ -495,7 +496,7 @@
                     <uimessage code="pihcore.ncd.plan.missing_meds"/>
                 </label>
                 <obs conceptId="PIH:Lack of meds in last 2 days" style="radio"
-                     answerConceptIds="PIH:TRUE,PIH:FALSE" answerLabels="yes,no" answerSeparator=""/>
+                     answerConceptIds="PIH:TRUE,PIH:FALSE" answerCodes="yes,no" answerSeparator=""/>
             </p>
 
             <p class="radio">
@@ -503,7 +504,7 @@
                     <uimessage code="pihcore.ncd.plan.hospitalized"/>
                 </label>
                 <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
-                     answerConceptIds="PIH:TRUE,PIH:FALSE" answerLabels="yes,no" answerSeparator=""/>
+                     answerConceptIds="PIH:TRUE,PIH:FALSE" answerCodes="yes,no"  answerSeparator=""/>
             </p>
         </div>
     </section>
