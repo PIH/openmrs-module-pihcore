@@ -12,6 +12,19 @@ $green: #51A351;
   content: ' ';
 }
 
+#visit-list {
+  tr:hover {
+    background-color: $link;
+    color: white;
+  }
+  tr.selected-visit {
+    font-family: $primaryBoldFont;
+  }
+  .visit-list-start-time {
+    font-size: 0.8em;
+  }
+}
+
 #visit-list-dropdown {
   display: table;
 
@@ -43,17 +56,53 @@ $green: #51A351;
   .visit-list-date-header, .visit-list-encounters-header {
     font-weight: bold;
   }
+
+  #visit-list-full-details-element {
+    text-align: center;
+  }
+}
+
+#visit-actions-dropdown {
+  display: table;
+
+  button: {
+    font-weight: 0.6em;
+  }
+
+  li {
+    display: table-row;
+  }
+
+  li.list-element:hover {
+    background-color: $link;
+    color: white;
+  }
+
+  span {
+    display: table-cell;
+    white-space: nowrap;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
 }
 
 #visit-type {
   font-size: 1.5em;
   display: inline-block;
-  margin-right: 20px;
+  margin-right: 5px;
 
   .actions {
     font-size: 0.7em;
   }
-  .templateName {
+
+  .template-name {
+    font-size: 0.7em;
+  }
+
+  .template-name select {
     font-size: 0.8em;
   }
 }
@@ -120,6 +169,11 @@ $green: #51A351;
 
   .provider-and-location-span {
     width: 20%;
+    display: inline-block;
+  }
+
+  .allergy-details-span {
+    width: 65%;
     display: inline-block;
   }
 
@@ -195,11 +249,14 @@ $green: #51A351;
 
     p.aligned {
       label {
-        width: 300px;
-        text-align: right;
+        width: 200px;
         display: inline-block;
         margin-right: 10px;
-        font-size: 0.9em;
+        color: #501d3d;
+        vertical-align: top;
+      }
+      span {
+        vertical-align: top;
       }
     }
 
@@ -254,8 +311,18 @@ $green: #51A351;
   }
 }
 
-#choose-another-visit {
+#choose-another-visit, #visit-actions, #expand-all, #contract-all, #print-actions {
   display: inline-block;
+  float:right;
+  font-size: 0.7em;
+
+  button {
+    padding: 8px;
+  }
+}
+
+#visit-overview-header {
+  height: 25px;
 }
 
 table.vaccination-table {
@@ -327,6 +394,12 @@ table.vaccination-table {
   }
 }
 
+// make sure we are highlighting selected answers when viewing html forms
+.value {
+  color: #2200ff;
+  font-weight: bold;
+}
+
 // ui-bootstrap 0.11.x expects "glyphicion-*" but uicommons only defines "icon-*"
 // Need to research this, since it's hacky to include all this here
 [class^="glyphicon-"],
@@ -361,3 +434,21 @@ table.vaccination-table {
 .glyphicon-chevron-right:before        { content: "\f054"; }
 .glyphicon-chevron-up:before           { content: "\f077"; }
 .glyphicon-chevron-down:before         { content: "\f078"; }
+
+
+@media print {
+
+  body {
+    font-size: 0.8em !important;
+  }
+
+  #visit-actions, #choose-another-visit, #expand-all, #contract-all, #print-actions,
+  a [class^="icon-"],a [class*=" icon-"], .icon-pencil {
+    display:none !important;
+  }
+
+  div.visit-element {
+    page-break-inside: avoid;
+  }
+
+}

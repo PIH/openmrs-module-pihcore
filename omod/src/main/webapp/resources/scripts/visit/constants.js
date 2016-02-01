@@ -39,6 +39,9 @@ angular.module('constants', [])
         disposition: {
             uuid: "c8b22b09-e2f2-4606-af7d-e52579996de3"
         },
+        dispositionComment: {
+            uuid: "b4457f1e-ef60-484c-b96a-08180a347e58"
+        },
         transferOutLocation: {
             uuid: "113a5ce0-6487-4f45-964d-2dcbd7d23b67"
         },
@@ -52,7 +55,7 @@ angular.module('constants', [])
             uuid: "a96352e3-3afc-418b-b79f-3290fc26a3b3"
         },
         returnVisitDate: {
-            uuid: "pichore.consult.clinicalImpressions"
+            uuid: "	3ce94df0-26fe-102b-80cb-0017a47871b2"
         },
         clinicalImpressions: {
             uuid: "3cd9d956-26fe-102b-80cb-0017a47871b2"
@@ -144,6 +147,9 @@ angular.module('constants', [])
         diptheriaTetanusVaccination: {
             uuid: "3ccc6b7c-26fe-102b-80cb-0017a47871b2"
         },
+        zlLabOrders: {
+            uuid: "d4d844de-50bd-4299-8575-1ce59b53908b"
+        },
         hemoglobin: {
             uuid: "3ccc7158-26fe-102b-80cb-0017a47871b2"
         },
@@ -210,27 +216,6 @@ angular.module('constants', [])
         labResults: {
             uuid: "4d77916a-0620-11e5-a6c0-1697f925ec7b"
         },
-        primaryCareHistory: {
-            uuid: "ffa148de-2c88-4828-833e-f3788991543d"
-        },
-        primaryCareExam: {
-            uuid: "0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef"
-        },
-        primaryCareDx: {
-            uuid: "09febbd8-03f1-11e5-8418-1697f925ec7b"
-        },
-        primaryCareDisposition: {
-            uuid: "5C16E1D6-8E73-47E4-A861-D6AAC03E2224"
-        },
-        primaryCarePedsFeeding: {
-            uuid: "92DBE011-67CA-4C0C-80DB-D38989E554C9"
-        },
-        primaryCarePedsSupplements: {
-            uuid: "D25FFD97-417F-46CC-85EE-3E7DA68B0D07"
-        },
-        consultationPlan: {
-            uuid: "e0aaa214-1d4b-442a-b527-144adf025299"
-        },
         radiologyOrder: {
             uuid: "1b3d1e13-f0b1-4b83-86ea-b1b1e2fb4efa"
         },
@@ -251,6 +236,9 @@ angular.module('constants', [])
     .value('EncounterRoles', {
         attendingSurgeon: {
             uuid: "9b135b19-7ebe-4a51-aea2-69a53f9383af"
+        },
+        consultingClinician: {
+            uuid: "4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
         }
     })
 

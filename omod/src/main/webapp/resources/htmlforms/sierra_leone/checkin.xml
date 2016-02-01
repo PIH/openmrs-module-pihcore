@@ -105,8 +105,9 @@
     <!-- START VIEW VERSION OF THE FORM (just display answers to obs, not provider, date, location -->
     <ifMode mode="VIEW">
 
-        <!-- we include section so the most recent encounter app can include a custom header/title in the title span that HFE creates -->
         <section id="checkin" sectionTag="section" headerStyle="title" headerLabel="">
+
+            <span id="most-recent-encounter-title" style="display:none"><!--The Most Recent Encounter app in Core Apps replaces this with the "most recent" label--></span>
 
             <fieldset class="type-of-visit-question">
                 <legend>

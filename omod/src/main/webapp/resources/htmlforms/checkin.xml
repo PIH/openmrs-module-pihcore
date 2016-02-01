@@ -12,8 +12,67 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform formUuid="8757a568-23d1-4e18-907b-728b56ca7756" formName="Checkin"
+<htmlform id="check-in-form" formUuid="8757a568-23d1-4e18-907b-728b56ca7756" formName="Checkin"
           formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="2.0">
+
+    <ifMode mode="VIEW" include="true">
+        <!-- a template to display the "view" version of an html form provided by the htmlfromentryui getAsHtml method
+      specifically designed to reformat our "one-question-per-screen" forms to should line-by-line obs -->
+
+        <style>
+
+            #check-in-form legend {
+            display: none;
+            }
+
+            #check-in-form fieldset {
+            margin: 0px;
+            border: 0px;
+            padding: 0px;
+            }
+
+            #check-in-form fieldset h3 {
+            width: 200px;
+            display: inline-block;
+            margin: 0px;
+            margin-right: 10px;
+            color: #501d3d;
+            vertical-align: top;
+            font-size:0.9em;
+            }
+
+            #check-in-form fieldset p {
+            vertical-align: top;
+            display: inline-block;
+            float: none;
+            }
+
+            #check-in-form fieldset .left {
+            vertical-align: top;
+            display: inline-block;
+            float: none;
+            }
+
+            #check-in-form .title {
+            display: none;
+            }
+
+            #check-in-form .encounter-date {
+            display: none;
+            }
+
+            #check-in-form .encounter-provider {
+            display: none;
+            }
+
+            #check-in-form .encounter-location {
+            display: none;
+            }
+
+        </style>
+
+    </ifMode>
+    
     <style>
         .encounter-summary-container {
             font-size: 1em;
@@ -143,8 +202,9 @@
     <!-- START VIEW VERSION OF THE FORM (just display answers to obs, not section title or provider, date, location) -->
     <ifMode mode="VIEW">
 
-        <!-- we include section so the most recent encounter app can include a custom header/title in the title span that HFE creates -->
         <section id="checkin" sectionTag="section" headerStyle="title" headerLabel="">
+
+            <span id="most-recent-encounter-title" style="display:none"><!--The Most Recent Encounter app in Core Apps replaces this with the "most recent" label--></span>
 
             <fieldset class="type-of-visit-question">
                     <legend>

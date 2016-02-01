@@ -1,0 +1,317 @@
+<htmlform id="primary-care-plan-form" formUuid="00a30a40-bef8-11e5-a837-0800200c9a66" formName="Plan" formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
+
+
+    <style type="text/css">
+
+        form fieldset {
+        display: block;
+        }
+
+   <!--     .family-history-item .label {
+        display: inline-block;
+        width: 250px;
+        }
+        .family-history-item .relative {
+        display: inline-block;
+        width: 120px;
+        }
+
+        .section-header {
+        margin-top: 1.5em;
+        }
+-->
+        #test-orders {
+        }
+
+
+        #test-orders input[type=checkbox] {
+            float: none;
+            vertical-align: middle;
+        }
+
+        <!--
+        .past-medical-history-item input[type=text] {
+        min-width: 200px;
+        display: inline !important;
+        vertical-align: middle;
+        padding: 1px 10px;
+        }
+        -->
+        #test-orders p {
+            margin-bottom: 5px
+        }
+
+        #test-orders span, #test-orders label {
+            display: inline !important;
+            vertical-align: middle;
+        }
+
+
+        .two-columns {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        }
+
+        p.radio > * {
+        display: inline;
+        float: none !important;
+        min-width: initial;
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container-color {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+            var $j = jQuery;
+
+            htmlForm.getBeforeValidation().push(function() {
+                var numErrors = 0;
+                var scrolled = false;
+
+                var requiredAndEmpty = function(jqEl) {
+
+                    // medication-instructions is optional
+                    // duration and duration-units are optional if frequency = STAT
+                    // everything else is required
+                    var empty = !jqEl.val() &amp;&amp; jqEl.siblings('input[type="hidden"]').length == 0 || jqEl.siblings('input[type="hidden"]').attr("value") == "";
+
+                    var optional = false;
+
+                    if (jqEl.closest('.medication-instructions').length) {
+                        optional = true;
+                    } else if (jqEl.closest('.duration').length || jqEl.closest('.duration-unit').length) {
+                        var freq = jqEl.closest('.medication').find('.frequency select')[0];
+                        if (freq.selectedOptions &amp;&amp; freq.selectedOptions[0].label == 'STAT') {
+                            optional = true;
+                        }
+                    }
+                    return empty &amp;&amp; !optional;
+                }
+
+            $('fieldset.medication').each(function() {
+                var numEmptyFields = 0;
+                var numFilledFields = 0;
+                $(this).find('input:not(:last), select').each(function() {
+                    $(this).removeClass('emptyValue');
+
+                    if ($(this).val()) {
+                        numFilledFields += 1;
+                    } else {
+                        numEmptyFields += 1;
+                    }
+                });
+
+                var anyErrors = false;
+
+                if (numFilledFields > 0) {
+                    $(this).find('input, select').each(function () {
+                        if (requiredAndEmpty($(this))) {
+                            if (!$(this).hasClass('illegalValue')) {
+                                $(this).addClass('emptyValue');
+                            }
+                            anyErrors = true;
+                            if (!scrolled) {
+                                $(window).scrollTop($(this).offset().top);
+                                scrolled = true;
+                            }
+                        }
+                    });
+                }
+
+                if (anyErrors) {
+                    ++numErrors;
+                    $(this).find('.field-error').first().html("<uimessage code="dispensing.error.missingRequiredFields"/>").show();
+
+                     $('.medication input.emptyValue, .medication select.emptyValue').on('blur', function() {
+                        if ($(this).val()) {
+                            if($(this).hasClass('illegalValue')) {
+                                $(this).removeClass('emptyValue');
+                            } else {
+                                if($(this).siblings('input[type="hidden"]').length = 0) {
+                                    $(this).removeClass('emptyValue').addClass('notEmpty');
+                                } else {
+                                    if($(this).siblings('input[type="hidden"]').attr("value") != "") {
+                                        $(this).removeClass('emptyValue').addClass('notEmpty');
+                                    }
+                                }
+                            }
+                        } else {
+                            $(this).removeClass('notEmpty').addClass('emptyValue');
+                        }
+                    });
+
+                } else {
+                    $(this).find('.field-error').first().html("").hide();
+                }
+            });
+
+            return numErrors == 0;
+        });
+        </script>
+    </ifMode>
+
+    <ifMode mode="VIEW" include="false">
+        <h1>
+            <uimessage code="pihcore.visitNote.plan"/>
+        </h1>
+    </ifMode>
+
+    <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.consult.clinicalManagementPlan">
+        <div class="section-container">
+            <p>
+                <obs conceptId="CIEL:162749" style="textarea" rows="5"/>
+            </p>
+        </div>
+    </section>
+
+    <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.lab.lab_tests.title">
+        <div class="section-container-color">
+            <div class="two-columns">
+                <!-- TODO: medication orders is the wrong concept!!! -->
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:RPR" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:STOOL EXAM" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:CD4 COUNT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV VIRAL LOAD" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV ENZYME IMMUNOASSAY, QUANTITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
+                </p>
+            </div>
+        </div>
+    </section>
+
+        <!-- TODO: this is stolen directly from the dispensing module: if we use this, we need to make sure that any dependencies on dispensing are removed -->
+        <!-- TODO: change the question concept, shouldn't be medication dispensed -->
+    <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.visitNote.orders.medications">
+        <div class="section-container-color">
+            <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
+                <obsgroup groupingConceptId="PIH:9070" showIfEmpty="false">
+                    <h3>
+                        <uimessage code="pihcore.visitNote.plan.medication"/>
+                        {0}
+                    </h3>
+                    <fieldset class="medication">
+                        <p class="field-error" style="display:none"></p>
+                        <p>
+                            <label>
+                                <uimessage code="pihcore.visitNote.plan.name"/>
+                            </label>
+                            <obs id="name{0}" class="medication-name" conceptId="PIH:1282" answerDrugs="true"/>
+                        </p>
+                        <p class="inline">
+                            <label>
+                                <uimessage code="pihcore.visitNote.plan.dose"/>
+                            </label>
+                            <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
+                            <obs id="doseUnit{0}" class="doseInput select-arrow" conceptId="PIH:9074"
+                                 answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals"
+                                 answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
+                        </p>
+                        <p class="inline">
+                            <label>
+                                <uimessage code="pihcore.visitNote.plan.frequency"/>
+                            </label>
+
+
+                            <obs id="frequencyCoded{0}" class="frequency select-arrow" conceptId="PIH:9363"
+                                 answerConceptIds=
+                                         "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
+                                 answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other" />
+                        </p>
+
+                        <p class="inline">
+                            <label>
+                                <uimessage code="pihcore.visitNote.plan.duration"  />
+                            </label>
+                            <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
+                            <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:6412" answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                        </p>
+
+                        <p>
+                            <label>
+                                <uimessage code="pihcore.visitNote.plan.instructions"/>
+                            </label>
+                            <obs id="instructions{0}" class="medication-instructions" conceptId="PIH:9072"/>
+                        </p>
+                    </fieldset>
+                </obsgroup>
+            </repeat>
+        </div>
+
+    </section>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="emr.save"/>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>

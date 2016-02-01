@@ -5,10 +5,10 @@
 <!-- TODO: finish translations -->
 <div class="dialog-content">
     <h4>
-        {{ vaccination.label }}, {{ sequence.label }}
+        {{ vaccination.label | translate }}, {{ sequence.label | translate }}
     </h4>
     <div class="spaced-paragraphs">
-        <h5>When was it given?</h5>
+        <h5>${ ui.message("pihcore.vaccination.whenWasItGiven") }</h5>
 
         <p ng-show="hasActiveVisit">
             <label>
@@ -43,7 +43,7 @@
         <br/>
     </div>
     <div>
-        <button class="confirm right" ng-click="confirm({when: when, whenVisit: whenVisit, date: date})">${ ui.message("uicommons.save") }</button>
+        <button class="confirm right" ng-disabled="!date" ng-click="confirm({when: when, whenVisit: whenVisit, date: date})">${ ui.message("uicommons.save") }</button>
         <button class="cancel" ng-click="closeThisDialog()">${ ui.message("uicommons.cancel") }</button>
     </div>
 </div>

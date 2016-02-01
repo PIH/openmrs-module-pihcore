@@ -19,14 +19,15 @@ public class VisitPageController {
                     @RequestParam(required = false, value = "visit") Visit visit,
                     UiSessionContext uiSessionContext,
                     PageModel model) {
-        if (visit == null) {
-            if (patient == null) {
-            throw new MissingRequiredParameterException("patient or visit is required");
-        }
-            visit = visitService.getVisitsByPatient(patient).get(0);
-        }
+
+        // fwiw, you are allowed to have a patient without a visit, but only if viewing the "visitList" view
         if (patient == null) {
-            patient = visit.getPatient();
+            if (visit != null) {
+                patient = visit.getPatient();
+            }
+            else {
+                throw new MissingRequiredParameterException("patient or visit is required");
+            }
         }
 
         patientDomainWrapper.setPatient(patient);

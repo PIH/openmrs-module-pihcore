@@ -12,37 +12,88 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique"
-          formEncounterType="0a9facff-fdc4-4aa9-aae0-8d7feaf5b3ef" formVersion="1.0">
-
+<htmlform id="primary-care-exam-form" formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique"
+          formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
+    
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
+            
             #data-collection {
             display: inline-block;
             width: 58%;
             vertical-align: top;
             }
 
-            #primaryCareExam input[type="checkbox"] {
+            #primary-care-exam input[type="checkbox"] {
             margin: 0px 5px; /*changed values to vertical, horizontal*/
             top:5px; /*added to offset the checkbox position to line up*/
             }
         </ifMode>
     </style>
 
-    <script type="text/javascript">
-        jq(function() {
-            // hack--if there is only one location option, hide the location question (but set it on submit)
-            if(jq('#encounterLocation option').size() == 2) {  // "Choose a location..." + 1 location = 2 option elements
-                beforeSubmit.push(function() {
-                    NavigatorController.getQuestionById('location').enable();
-                    setValue('encounterLocation.value', getField('encounterLocation.value').find('option:nth(1)').val());  // nth(1) == second element, ie the location element
-                    return true;
-                })
-                NavigatorController.getQuestionById('location').hide();
+    <style type="text/css">
+        <ifMode mode="VIEW" include="true">
+            
+            #primary-care-exam-form legend {
+            display: none;
             }
-        });
-    </script>
+
+            #primary-care-exam-form fieldset {
+            margin: 0px;
+            border: 0px;
+            padding: 0px;
+            }
+
+            #primary-care-exam-form fieldset h3 {
+            font-size: 1em;
+            width: 200px;
+            display: inline-block;
+            margin: 0px;
+            margin-right: 10px;
+            color: #501d3d;
+            vertical-align: top;
+            }
+
+            #primary-care-exam-form fieldset p {
+            vertical-align: top;
+            display: inline-block;
+            float: none;
+            }
+
+            #primary-care-exam-form fieldset .left {
+            vertical-align: top;
+            display: inline-block;
+            float: none;
+            }
+
+            #primary-care-exam-form .title {
+            display: none;
+            }
+
+            #primary-care-exam-form .encounter-date {
+            display: none;
+            }
+
+            #primary-care-exam-form .encounter-provider {
+            display: none;
+            }
+
+            #primary-care-exam-form .encounter-location {
+            display: none;
+            }
+
+            #primary-care-exam-form .comment-label {
+                display: none;
+            }
+            #primary-care-exam-form .comment-field {
+                display: block;
+                margin-left: 215px;
+            }
+            #primary-care-exam-form br {
+                display: none;
+            }
+        </ifMode>
+    </style>
 
     <!-- Pediatrics only content, hidden by default, shown (via above javascript) if pediatrics visit -->
     <!-- Note that I'm just hiding the content so that the viewing via HtmlFormEncounterController.encounterSchemaViaJson will still work in VIEW mode with no visit informatin present -->
@@ -57,93 +108,7 @@
         </script>
     </excludeIf>
 
-    <section id="primaryCareExam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
-
-        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
-        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
-            <fieldset class="required">
-                <legend>
-                    <uimessage code="emr.patientDashBoard.date"/>
-                </legend>
-                <h3>
-                    <uimessage code="emr.patientDashBoard.date"/>
-                </h3>
-
-                <p class="left">
-                    <encounterDate id="encounterDate" showTime="false" default="now"/>
-                </p>
-            </fieldset>
-
-            <fieldset class="required">
-                <legend>
-                    <uimessage code="emr.patientDashBoard.providerRequired"/>
-                </legend>
-                <h3>
-                    <uimessage code="emr.patientDashBoard.providerRequired"/>
-                </h3>
-
-                <p class="left">
-                    <encounterProviderAndRole default="currentUser" encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92"
-                                              required="true"/>
-                </p>
-            </fieldset>
-
-            <fieldset id="location" class="required">
-                <legend>
-                    <uimessage code="emr.locationRequired"/>
-                </legend>
-                <h3>
-                    <uimessage code="emr.locationRequired"/>
-                </h3>
-
-                <p class="left">
-                    <encounterLocation required="true" tags="Check-In Location"/>
-                </p>
-            </fieldset>
-        </includeIf>
-
-        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
-        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
-            <fieldset class="required">
-                <legend>
-                    <uimessage code="emr.patientDashBoard.date"/>
-                </legend>
-                <h3>
-                    <uimessage code="emr.patientDashBoard.date"/>
-                </h3>
-
-                <p class="left">
-                    <encounterDate id="encounterDate" showTime="false" default="now"/>
-                </p>
-            </fieldset>
-
-            <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-            </div>
-
-            <fieldset id="location" class="required">
-                <legend>
-                    <uimessage code="emr.locationRequired"/>
-                </legend>
-                <h3>
-                    <uimessage code="emr.locationRequired"/>
-                </h3>
-
-                <p class="left">
-                    <encounterLocation required="true" tags="Check-In Location"/>
-                </p>
-            </fieldset>
-        </includeIf>
-
-        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
-        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
-            <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-                <encounterDate id="encounterDate" default="now" />
-            </div>
-        </includeIf>
-
+    <section id="primary-care-exam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
 
         <fieldset>
             <legend>
@@ -164,15 +129,15 @@
                     <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:160981" rows="5" cols="60" />
                 </field>
@@ -196,15 +161,15 @@
                     <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:163044" rows="5" cols="60" />
                 </field>
@@ -231,15 +196,15 @@
                     <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
                 </field>
@@ -269,15 +234,15 @@
                     <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:LYMPHADENOPATHY" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
                 </field>
@@ -304,15 +269,15 @@
                     <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:163046" rows="5" cols="60" />
                 </field>
@@ -339,15 +304,15 @@
                     <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:160689" rows="5" cols="60" />
                 </field>
@@ -374,15 +339,15 @@
                     <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:160947" rows="5" cols="60" />
                 </field>
@@ -409,15 +374,15 @@
                     <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:163047" rows="5" cols="60" />
                 </field>
@@ -444,15 +409,15 @@
                     <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
                 </field>
                 <field>
-                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" commentFieldLabel="specify:" />
+                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="CIEL:163048" rows="5" cols="60" />
                 </field>
@@ -476,11 +441,11 @@
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:Gross Motor Skills Evaluation (text)" rows="5" cols="60" />
                 </field>
@@ -504,11 +469,11 @@
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:Fine Motor Skills Evaluation (text)" rows="5" cols="60" />
                 </field>
@@ -532,11 +497,11 @@
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:Language Development Evaluation (text)" rows="5" cols="60" />
                 </field>
@@ -560,11 +525,11 @@
                 </field>
             </p>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:Social Skills Evaluation (text)" rows="5" cols="60" />
                 </field>
@@ -575,12 +540,15 @@
             <legend>
                 <uimessage code="pihcore.exam.other_exam.title"/>
             </legend>
+            <h3>
+                <uimessage code="pihcore.exam.other_exam.title"/>
+            </h3>
 
-            <h5>
+            <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
-            </h5>
+            </p>
 
-            <p>
+            <p class="comment-field">
                 <field>
                     <obs conceptId="PIH:PHYSICAL SYSTEM COMMENT" rows="5" cols="60"/>
                 </field>

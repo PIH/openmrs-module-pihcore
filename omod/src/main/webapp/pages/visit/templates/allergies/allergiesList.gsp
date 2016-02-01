@@ -1,21 +1,23 @@
 <div class="selectable header" ng-click="expandAllergies(showAlergiesDetails)">
-    <span class="one-third">
-        <i class="icon-medical"></i>
-        <span class="title">${ ui.message("allergyui.allergies") }</span>
-    </span>
-    <span class="details">
-        <span ng-show="allergies.status == 'Unknown'">${ ui.message("general.unknown") }</span>
-        <span ng-show="allergies.status == 'No known allergies'">${ ui.message("allergyui.noKnownAllergy") }</span>
-        <span ng-show="allergies.status == 'See list'" ng-repeat="allergy in allergies.allergies">
-            {{ allergy | omrs.display }} {{\$last ? '' : (\$index==allergies.allergies.length-2) ? ' and ' : ', '}}
+    <span class="selectable ninety-percent">
+        <span class="title encounter-name encounter-span">
+            <i class="icon-medical"></i>
+            <span class="title">${ ui.message("allergyui.allergies") }</span>
+        </span>
+        <span>
+            <span ng-show="allergies.status == 'Unknown'">${ ui.message("allergyui.unknown") }</span>
+            <span ng-show="allergies.status == 'No known allergies'">${ ui.message("allergyui.noKnownAllergies") }</span>
+            <span ng-show="allergies.status == 'See list' && !showAlergiesDetails" ng-repeat="allergy in allergies.allergies">
+                {{ allergy | omrs.display }} {{\$last ? '' : (\$index==allergies.allergies.length-2) ? ' and ' : ', '}}
+            </span>
         </span>
     </span>
     <span class="overall-actions">
         <a class="expand-encounter" ng-show="!showAlergiesDetails" ng-click="expand()"><i class="icon-caret-right"></i></a>
         <a class="contract-encounter" ng-show="showAlergiesDetails" ng-click="contract()"><i class="icon-caret-down"></i></a>
-        <a ng-click="goToPage('allergyui', 'allergies', { patientId: patient.uuid })"><i class="icon-pencil"></i></a>
+        <a ng-show="canEdit()" ng-click="goToPage('allergyui', 'allergies', { patientId: patient.uuid })"><i class="icon-pencil"></i></a>
+        <a ng-show="!canEdit()"><i class="icon-delete-blank"></i></a>
         <a><i class="icon-delete-blank"></i></a>
-
     </span>
 </div>
 <div class="content" ng-show="showAlergiesDetails">

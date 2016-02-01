@@ -10,12 +10,10 @@
                 var isValid =   $('#cancel-reason select').val() != '';
 
                 if (isValid) {
-                    $('.submitButton').removeAttr('disabled');
-                    $('.submitButton').removeClass('disabled');
+                    htmlForm.enableSubmitButton();
                 }
                 else {
-                    $('.submitButton').attr('disabled', 'disabled');
-                $('.submitButton').addClass('disabled');
+                    htmlForm.disableSubmitButton();
                 }
             }
 

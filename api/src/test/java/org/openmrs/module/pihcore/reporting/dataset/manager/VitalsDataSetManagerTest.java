@@ -18,6 +18,7 @@ import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
@@ -41,7 +42,8 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
         DataSetDefinition dsd = vitalsDataSetManager.constructDataSet();
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
-        context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
+        Calendar c = Calendar.getInstance();
+        context.addParameterValue("endDate", DateUtil.getDateTime(c.get(Calendar.YEAR) +1 , 12, 31));
         SimpleDataSet dataSet = (SimpleDataSet)dataSetDefinitionService.evaluate(dsd, context);
         DataSetRow row = dataSet.getRows().get(0);
         Assert.assertEquals(1, dataSet.getRows().size());

@@ -15,7 +15,7 @@
             {{ order | orderInstructions }}
             <span ng-show="order.action == 'DISCONTINUE'">
                 <br/>
-                For: <input ng-model="order.orderReasonNonCoded" class="dc-reason" type="text" placeholder="reason" size="40"/>
+                ${ ui.message("pihcore.visitNote.for") }: <input ng-model="order.orderReasonNonCoded" class="dc-reason" type="text" placeholder="reason" size="40"/>
             </span>
             <span class="actions">
                 <a ng-click="editDraftDrugOrder(order)" ng-show="order.action == 'drugorder' && order.action != 'DISCONTINUE'"><i class="icon-pencil edit-action"></i></a>
@@ -42,7 +42,7 @@
             {{ order | orderInstructions }}
             <span ng-show="order.action == 'DISCONTINUE'">
                 <br/>
-                For: <input ng-model="order.orderReasonNonCoded" class="dc-reason" type="text" placeholder="reason" size="40"/>
+                ${ ui.message("pihcore.visitNote.for") }: <input ng-model="order.orderReasonNonCoded" class="dc-reason" type="text" placeholder="reason" size="40"/>
             </span>
             <span class="actions">
                 <a ng-click="editDraftDrugOrder(order)" ng-show="order.action == 'drugorder' && order.action != 'DISCONTINUE'"><i class="icon-pencil edit-action"></i></a>
@@ -58,18 +58,14 @@
 
 
     <div class="form">
-        <h5>Clinical management plan</h5>
+        <h5>${ ui.message("pihcore.consult.clinicalManagementPlan") }:</h5>
         <textarea ng-model="orderContext.draftData.clinicalManagementPlanComment" placeholder="optional"></textarea>
-
-        <label>Return Visit Date</label>
-        <date-with-popup ng-model="orderContext.draftData.returnVisitDate" min-date="tomorrow"></date-with-popup>
     </div>
 
     <div class="actions">
         <button class="confirm right" ng-disabled="loading || !canSaveDrafts()" ng-click="signAndSaveDraftOrders()">${ ui.message("mirebalais.save") }</button>
         <div class="signature" ng-show="loading">
-            Signing as ${ ui.format(sessionContext.currentProvider) }
-            on (auto-generated timestamp)
+            ${ ui.message("pihcore.visitNote.signingAs") } ${ ui.format(sessionContext.currentProvider) }
             <img src="${ ui.resourceLink("uicommons", "images/spinner.gif") }"/>
         </div>
 

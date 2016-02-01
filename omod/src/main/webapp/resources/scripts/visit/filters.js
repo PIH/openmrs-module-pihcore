@@ -100,9 +100,13 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
             if (!visit) {
                 return "";
             }
-            var returnStr = serverDateFilter(visit.startDatetime, DatetimeFormats.date );
+            var visitStartDate = serverDateFilter(visit.startDatetime, DatetimeFormats.date );
+            var returnStr = visitStartDate;
             if (visit.stopDatetime) {
-                returnStr = returnStr + " - " + serverDateFilter(visit.stopDatetime, DatetimeFormats.date );
+                var visitStopDate = serverDateFilter(visit.stopDatetime, DatetimeFormats.date );
+                if (visitStopDate != visitStartDate) {
+                    returnStr = returnStr + " - " + serverDateFilter(visit.stopDatetime, DatetimeFormats.date);
+                }
             }
             return returnStr;
         }
@@ -166,6 +170,33 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
             return null;
         }
     }])
+
+    .filter("diagnosesInVisit", function($filter, Concepts) {
+
+        return function(visit) {
+
+            var diagnosisConstructs = [];
+
+            _.each(visit.encounters, function(encounter){
+                diagnosisConstructs = diagnosisConstructs.concat($filter('withCodedMember')($filter('byConcept')(encounter.obs, Concepts.diagnosisConstruct), Concepts.diagnosisOrder, Concepts.primaryOrder))
+            });
+
+            return diagnosisConstructs;
+        }
+    })
+
+    .filter("diagnosesInVisitShort", function($filter, Concepts) {
+        return function(visit) {
+
+            var diagnoses = [];
+
+            _.each($filter('diagnosesInVisit')(visit), function(diagnosisConstruct) {
+                diagnoses.push($filter('diagnosisShort')(diagnosisConstruct))
+            });
+
+            return _.uniq(diagnoses);
+        }
+    })
 
     .filter("diagnosisShort", [ "omrs.displayFilter", "Concepts", function(displayFilter, Concepts) {
         return function(group) {
@@ -273,7 +304,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
 
             if (encounters) {
                 _.each(encounters, function(e) {
-                    if (EncounterTypeConfig[e.encounterType.uuid].showOnVisitList
+                    if (EncounterTypeConfig[e.encounterType.uuid] && EncounterTypeConfig[e.encounterType.uuid].showOnVisitList
                         && encounterTypes.indexOf(e.encounterType.uuid) < 0) {
                             result = result + e.encounterType.display + ", ";
                             encounterTypes.push(e.encounterType.uuid);

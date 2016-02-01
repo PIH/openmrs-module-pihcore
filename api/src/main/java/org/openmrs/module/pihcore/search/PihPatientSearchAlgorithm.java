@@ -75,7 +75,7 @@ import java.util.Map;
             "address1": "1"
         },
     "personAttributeTypes" : {
-        "Mother's First Name": "3",
+        "First Name of Mother": "3",
         "Telephone Number": "10"
         }
     }
@@ -236,7 +236,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                             matchAttribute = matchAttribute.replaceAll("[^0-9]", "");
                         }
 
-                        // special case Mother's First Name: convert to name phonetics
+                        // special case First Name of Mother: convert to name phonetics
                         if (personAttributeType.equalsIgnoreCase(PersonAttributeTypes.MOTHERS_FIRST_NAME.name())) {
                             patientAttribute = NamePhoneticsUtil.encodeString(patientAttribute, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder"));
                             matchAttribute = NamePhoneticsUtil.encodeString(matchAttribute, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder"));

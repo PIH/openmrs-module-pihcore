@@ -2,8 +2,6 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.PersonAttributeType;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
-import org.openmrs.module.metadatadeploy.descriptor.PersonAttributeTypeDescriptor;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.springframework.stereotype.Component;
 
@@ -27,9 +25,4 @@ public class PersonAttributeTypeBundle extends AbstractMetadataBundle {
         uninstall(possible(PersonAttributeType.class, PersonAttributeTypes.BIRTHPLACE.uuid()), "now using obs to record birthplace");
     }
 
-    //***** BUNDLE INSTALLATION METHODS FOR DESCRIPTORS
-
-    protected void install(PersonAttributeTypeDescriptor d) {
-        install(CoreConstructors.personAttributeType(d.name(), d.description(), d.format(), d.foreignKey(), d.searchable(), d.sortWeight(), d.uuid()));
-    }
 }

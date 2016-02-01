@@ -3,7 +3,7 @@
 
 <!--encounter-summary-long class currently just used for selenium tests -->
 <div class="content encounter-summary-long">
-    <h5>${ ui.message('coreapps.clinicianfacing.diagnoses') }:</h5>
+    <h6>${ ui.message('coreapps.clinicianfacing.diagnoses') }</h6>
     <div class="diagnosisLongClass" ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
         {{ diag | diagnosisLong }}
     </div>
@@ -13,7 +13,7 @@
     </div>
 
     <div ng-show="encounter.orders && encounter.orders.length">
-        <h5>${ ui.message('pihcore.orders') }:</h5>
+        <h6>${ ui.message('pihcore.orders') }</h6>
         <p ng-repeat="order in encounter.orders | orderBy:'dateActivated'" class="aligned">
             {{ order.dateActivated | serverDate:DatetimeFormats.date  }}
             {{ order | orderInstructions }}
@@ -21,7 +21,7 @@
     </div>
 
     <div>
-        <h5>${ ui.message('pihcore.consult.clinicalImpressions') }:</h5>
+        <h6>${ ui.message('pihcore.consult.clinicalImpressions') }</h6>
         {{ encounter.obs | byConcept:Concepts.clinicalImpressions:true | obs:"value" }}
     </div>
 

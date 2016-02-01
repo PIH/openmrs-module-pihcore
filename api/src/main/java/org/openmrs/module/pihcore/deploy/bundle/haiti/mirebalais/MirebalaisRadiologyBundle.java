@@ -15,7 +15,6 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
@@ -29,7 +28,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounterRole;
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounterType;
 
 /**
  * Radiology metadata bundle
@@ -110,7 +108,4 @@ public class MirebalaisRadiologyBundle extends AbstractMetadataBundle {
 		setGlobalProperties(properties);
 	}
 
-	protected void install(EncounterTypeDescriptor d) {
-		install(encounterType(d.name(), d.description(), d.uuid()));
-	}
 }

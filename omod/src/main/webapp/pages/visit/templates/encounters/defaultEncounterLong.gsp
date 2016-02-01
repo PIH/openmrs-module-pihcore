@@ -7,14 +7,20 @@
         <span class="value">{{ obs | obs:"value" }}</span>
     </p>
     <div ng-show="encounter.orders && encounter.orders.length">
-        <p ng-repeat="order in encounter.orders" class="aligned">
-            <small>${ ui.message("coreapps.patientDashBoard.orderNumber")}</small>
-            {{ order.orderNumber }}<br>
-            <small>${ ui.message("coreapps.patientDashBoard.order")}</small>
-            {{ order.display }}<br>
-            <small>${ ui.message("radiologyapp.order.timing")}</small>
-            {{ (order.urgency == 'ROUTINE') ? ('radiologyapp.order.timing.routine' | translate) : ('radiologyapp.order.timing.urgent' | translate) }}<br>
-        </p>
+        <span ng-repeat="order in encounter.orders">
+            <p class="aligned">
+                <label>${ ui.message("coreapps.patientDashBoard.orderNumber")}</label>
+                <span class="value">{{ order.orderNumber }}</span>
+            </p>
+            <p class="aligned">
+                <label>${ ui.message("coreapps.patientDashBoard.order")}</label>
+                <span class="value">{{ order.display }}</span>
+            </p>
+            <p class="aligned">
+                <label>${ ui.message("radiologyapp.order.timing")}</label>
+                <span>{{ (order.urgency == 'ROUTINE') ? ('radiologyapp.order.timing.routine' | translate) : ('radiologyapp.order.timing.urgent' | translate) }}</span>
+            </p>
+        </span>
     </div>
 
     <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>

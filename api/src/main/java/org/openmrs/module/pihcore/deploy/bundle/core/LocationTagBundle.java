@@ -2,8 +2,6 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.LocationTag;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
-import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.springframework.stereotype.Component;
 
@@ -40,10 +38,6 @@ public class LocationTagBundle extends AbstractMetadataBundle {
         uninstall(possible(LocationTag.class, LocationTags.RETIRED_OUTPATIENT_TRANSFER_LOCATION.uuid()), "never used");
         uninstall(possible(LocationTag.class, LocationTags.RETIRED_INPATIENT_TRANSFER_LOCATION.uuid()), "never used");
 
-    }
-
-    protected void install(LocationTagDescriptor d) {
-        install(CoreConstructors.locationTag(d.name(), d.description(), d.uuid()));
     }
 
 }

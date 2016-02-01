@@ -223,7 +223,7 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
 
         // in our test config we've weighed mother's first name at 5 points
         assertThat(scoreWithAddress - scoreWithoutAddress, is(5.0));
-        assertTrue(results.get(0).getMatchedFields().contains("attributes.Mother's First Name"));
+        assertTrue(results.get(0).getMatchedFields().contains("attributes.First Name of Mother"));
 
     }
 

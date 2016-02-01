@@ -38,7 +38,7 @@ import java.util.Map;
 @Component
 @Requires( { PihCoreMetadataBundle.class,
         OrderEntryConcepts.class,
-		TestOrderConcepts.class,
+		// TestOrderConcepts.class,  I believe we are now installing these via MDS
         HaitiLocationsBundle.class,
         HaitiPatientIdentifierTypeBundle.class,
         HaitiAddressBundle.class

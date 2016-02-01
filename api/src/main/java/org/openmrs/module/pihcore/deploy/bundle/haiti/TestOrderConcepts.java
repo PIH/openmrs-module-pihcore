@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Locale;
 
+@Deprecated
 @Component
 @Requires({CoreConceptMetadataBundle.class})
 public class TestOrderConcepts extends VersionedPihConceptBundle {

@@ -1,19 +1,6 @@
-<htmlform formUuid="CF281FB4-8A40-445A-84ED-05101240F5E8" formName="Pediatric Supplements" formEncounterType="D25FFD97-417F-46CC-85EE-3E7DA68B0D07" formVersion="1.0">
+<htmlform formUuid="CF281FB4-8A40-445A-84ED-05101240F5E8" formName="Pediatric Supplements" formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
 
     <style type="text/css">
-        #who-when-where {
-        margin-bottom: 6px;
-        border-bottom: 1px solid #ccc;
-        }
-
-        #who-when-where p {
-        display: inline-block;
-        padding-right: 20px;
-        }
-
-        #where > input[type=text] {
-        display: inline-block;
-        }
 
         form fieldset {
         display: block;
@@ -73,72 +60,6 @@
 
     <ifMode mode="VIEW" include="false">
         <h2><uimessage code="pihcore.supplements.history.title"/></h2>
-
-        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
-        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
-            <div id="who-when-where">
-                <p id="who">
-                    <label><uimessage code="emr.patientDashBoard.providerRequired"/></label>
-                    <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
-                </p>
-                <p id="where">
-                    <label><uimessage code="emr.locationRequired"/></label>
-                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
-                </p>
-                <p id="when">
-                    <label><uimessage code="emr.patientDashBoard.date"/></label>
-                    <span><encounterDate id="encounterDate" default="now"/></span>
-                </p>
-            </div>
-        </includeIf>
-        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
-        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
-            <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-            </div>
-
-            <div id="who-when-where">
-                <p id="who">
-                    <label><uimessage code="emr.patientDashBoard.provider"/></label>
-                    <span><lookup expression="user.person.personName" /></span>
-                </p>
-                <p id="where">
-                    <label><uimessage code="emr.locationRequired"/></label>
-                    <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
-                </p>
-                <p id="when">
-                    <label><uimessage code="emr.patientDashBoard.date"/></label>
-                    <span><encounterDate id="encounterDate" default="now" /></span>
-                </p>
-            </div>
-
-        </includeIf>
-        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
-        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
-            <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-                <encounterDate id="encounterDate" default="now" />
-            </div>
-            <div id="who-when-where">
-                <table id="who-where-when-view">
-                    <tr>
-                        <td>
-                            <label><uimessage code="emr.patientDashBoard.provider"/></label>
-                            <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
-                        </td>
-                        <td>
-                            <label><uimessage code="emr.location"/></label>
-                            <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
-                        </td>
-                        <td>
-                            <label><uimessage code="emr.patientDashBoard.date"/></label>
-                            <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </includeIf>
     </ifMode>
 
     <section id="supplements" sectionTag="fieldset" headerTag="legend">
@@ -154,7 +75,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" />
                                 </span>
                             </td>
@@ -167,7 +88,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:FERROUS SULFATE" style="checkbox" />
                                 </span>
                             </td>
@@ -180,7 +101,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:IODINE" style="checkbox" />
                                 </span>
                             </td>
@@ -193,7 +114,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:DEWORMING" style="checkbox" />
                                 </span>
                             </td>
@@ -206,7 +127,7 @@
                     <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
                         <tr>
                             <td>
-                                <span class="value">
+                                <span>
                                     <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:ZINC" style="checkbox" />
                                 </span>
                             </td>

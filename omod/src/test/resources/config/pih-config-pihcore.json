@@ -34,7 +34,7 @@
           "personAttributeTypes" : {
             "Birthplace": "1",
             "Telephone Number": "3",
-            "Mother's First Name": "5"
+            "First Name of Mother": "5"
           }
         }
     }
