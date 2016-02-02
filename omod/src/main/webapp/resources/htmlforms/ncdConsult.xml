@@ -34,10 +34,6 @@
             <variant locale="en" value="Puffs per week of salbutamol"/>
             <variant locale="fr" value="Bouffles/semaine de salbutamol"/>
         </code>
-        <code name="seizure_num">
-            <variant locale="en" value="Number of seizures since last visit"/>
-            <variant locale="fr" value="Nombre de crises d'épilepsie depuis la dernière visite"/>
-        </code>
     </translations>
 
     <style type="text/css">
@@ -363,10 +359,18 @@
             </p>
 
             <!-- This should be included during initial and followup visits -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.past_category"/>
+                </label>
+                <lookup complexExpression="#foreach($category in $fn.allObs('PIH:NCD category')) $category.valueCoded.name #end"/>
+            </p>
+
             <label>
                 <uimessage code="pihcore.ncd.category"/>
                 <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
+
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE"/>
@@ -465,11 +469,11 @@
         </div>
     </section>
 
-    <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epil">
+    <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
         <div class="section-container">
             <p>
                 <label>
-                    <uimessage code="seizure_num"/>
+                    <uimessage code="pihcore.ncd.epilepsy.seizure_num"/>
                 </label>
                 <!-- Note: HUM form has yes/no -->
                 <span class="small">
