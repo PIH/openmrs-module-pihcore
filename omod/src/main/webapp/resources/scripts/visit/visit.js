@@ -1,5 +1,5 @@
 angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService",
-    "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "ngDialog", "appFramework",
+    "allergies", "vaccinations", "ui.bootstrap", "ui.router", "session", "ngDialog", "appFramework",
     "configService", 'pascalprecht.translate'])
 
     .config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
@@ -547,9 +547,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }])
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "VisitTemplateService", "$state",
-        "$timeout", "$filter", "OrderContext", "ngDialog", "Encounter", "AppFrameworkService",
+        "$timeout", "$filter", "ngDialog", "Encounter", "AppFrameworkService",
         'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "EncounterRoles",
-        function($scope, $rootScope, $translate, $http, Visit, VisitTemplateService, $state, $timeout, $filter, OrderContext,
+        function($scope, $rootScope, $translate, $http, Visit, VisitTemplateService, $state, $timeout, $filter,
                  ngDialog, Encounter, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
                  EncounterTransaction, SessionInfo, Concepts, EncounterRoles) {
 

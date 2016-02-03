@@ -23,7 +23,7 @@
     <tbody>
     <% if (patientWithCheckInEncounter == null || (patientWithCheckInEncounter != null && patientWithCheckInEncounter.size() == 0) ) { %>
     <tr>
-        <td colspan="2">${ ui.message("coreapps.none") }</td>
+        <td colspan="5">${ ui.message("coreapps.none") }</td>
     </tr>
     <% } %>
     <%  patientWithCheckInEncounter.keySet().each { p ->
