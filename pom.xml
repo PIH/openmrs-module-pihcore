@@ -343,7 +343,7 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>emrapi-api-1.9</artifactId>
-            <version>${emrapiVersion}</version>
+            <version>1.11</version>
             <scope>test</scope>
         </dependency>
 
@@ -575,7 +575,7 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>htmlformentryVersion</name>
+                            <name>htmlformentryfVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
