@@ -76,7 +76,7 @@
         <importpatientfromwsVersion>1.0-SNAPSHOT</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.5-SNAPSHOT</appuiVersion>
-        <dispensingVersion>1.0-SNAPSHOT</dispensingVersion>
+        <dispensingVersion>1.0</dispensingVersion>
         <uicommonsVersion>1.8-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.4-SNAPSHOT</registrationcoreVersion>
         <registrationappVersion>1.5-SNAPSHOT</registrationappVersion>
