@@ -480,6 +480,10 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
+                            <name>allergyapiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
                             <name>allergyuiVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
@@ -487,14 +491,77 @@
                             <name>serializationxstreamVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <!--      <property>
-                                  <name>webservicesRestVersion</name>
-                                  <banSnapshots>true</banSnapshots>
-                              </property>-->
+                        <property>
+                            <name>appointmentschedulingVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>appointmentschedulinguiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>printerVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>radiologyappVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>pacsintegrationVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>paperrecordVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>importpatientfromwsVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>emrVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>providermanagementVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>appframeworkVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>uiframeworkVersion></name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>appuiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>eventVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>dispensingVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>testutilsVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>webservicesRestVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
+                        <property>
+                            <name>reportinguiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                     </properties>
                 </configuration>
             </plugin>
-
         </plugins>
 
 	</build>
