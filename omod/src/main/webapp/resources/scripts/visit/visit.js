@@ -1,5 +1,5 @@
 angular.module("visit", [ "filters", "constants", "visit-templates", "visitService", "encounterService", "obsService",
-    "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "orderEntry", "ngDialog", "appFramework",
+    "allergies", "orders", "vaccinations", "ui.bootstrap", "ui.router", "session", "ngDialog", "appFramework",
     "configService", 'pascalprecht.translate'])
 
     .config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
@@ -84,8 +84,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }
     }])
 
-    .directive("encounter", [ "Encounter", "VisitTemplateService", "OrderEntryService", "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
-        function(Encounter, VisitTemplateService, OrderEntryService, Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
+    .directive("encounter", [ "Encounter", "VisitTemplateService", "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
+        function(Encounter, VisitTemplateService, Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
             return {
                 restrict: "E",
                 scope: {
@@ -117,7 +117,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             // TODO error handling
                         }
 
-                        $scope.orders = OrderEntryService.getOrdersForEncounter($scope.encounterStub);
+                        //$scope.orders = OrderEntryService.getOrdersForEncounter($scope.encounterStub);
                     }
 
                     $scope.DatetimeFormats = DatetimeFormats;
@@ -547,10 +547,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
         }])
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "VisitTemplateService", "$state",
-        "$timeout", "$filter", "OrderContext", "ngDialog", "Encounter","OrderEntryService", "AppFrameworkService",
+        "$timeout", "$filter", "OrderContext", "ngDialog", "Encounter", "AppFrameworkService",
         'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "EncounterRoles",
         function($scope, $rootScope, $translate, $http, Visit, VisitTemplateService, $state, $timeout, $filter, OrderContext,
-                 ngDialog, Encounter, OrderEntryService, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
+                 ngDialog, Encounter, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
                  EncounterTransaction, SessionInfo, Concepts, EncounterRoles) {
 
             $rootScope.DatetimeFormats = DatetimeFormats;
@@ -646,11 +646,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     closeByEscape: true,
                     closeByDocument: true,
                     controller: function($scope) {
-                        OrderEntryService.getOrdersForEncounter(encounter).$promise.then(function(orders) {
+                       /* OrderEntryService.getOrdersForEncounter(encounter).$promise.then(function(orders) {
                             $scope.activeOrders = _.filter(orders, function(it) {
                                 return it.isActive();
                             });
-                        });
+                        });*/
                         $timeout(function() {
                             $(".dialog-content:visible button.confirm").focus();
                         }, 10)

@@ -52,18 +52,18 @@
         <emrapiVersion>1.13-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.0</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
-        <uiframeworkVersion>3.6-SNAPSHOT</uiframeworkVersion>
+        <uiframeworkVersion>3.5</uiframeworkVersion>
         <appframeworkVersion>2.4</appframeworkVersion>
         <metadatasharingVersion>1.1.10</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
-        <htmlformentryVersion>3.0-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>2.7</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.4-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
-        <reportingVersion>0.9.8.1</reportingVersion>
+        <reportingVersion>0.9.9-SNAPSHOT</reportingVersion>
         <reportinguiVersion>1.0</reportinguiVersion>
-        <reportingrestVersion>1.5</reportingrestVersion>
+        <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.10</serializationxstreamVersion>
         <idgenVersion>4.2</idgenVersion>

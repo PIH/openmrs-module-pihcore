@@ -3,7 +3,6 @@
 
     ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
     ui.includeCss("pihcore", "visit/visit.css")
-    ui.includeCss("orderentryui", "drugOrders.css")
 
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.13.0.js")
@@ -32,13 +31,10 @@
     ui.includeJavascript("uicommons", "directives/select-order-frequency.js")
     ui.includeJavascript("uicommons", "handlebars/handlebars.js")
     ui.includeJavascript("uicommons", "moment.min.js")
-    ui.includeJavascript("orderentryui", "order-model.js")
-    ui.includeJavascript("orderentryui", "order-entry.js")
     ui.includeJavascript("pihcore", "visit/constants.js")
     ui.includeJavascript("pihcore", "visit/filters.js")
     ui.includeJavascript("pihcore", "visit/visit-templates.js")
     ui.includeJavascript("pihcore", "visit/allergies.js")
-    ui.includeJavascript("pihcore", "visit/orders.js")
     ui.includeJavascript("pihcore", "visit/vaccinations.js")
     ui.includeJavascript("pihcore", "visit/visit.js")
     ui.includeJavascript("pihcore", "visit/encounterTransaction.js")
