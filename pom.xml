@@ -57,7 +57,7 @@
         <metadatasharingVersion>1.1.10</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
-        <htmlformentryVersion>3.0-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>2.7</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.4-SNAPSHOT</htmlformentryuiVersion>
         <calculationVersion>1.1</calculationVersion>
@@ -424,7 +424,7 @@
                 <version>2.1</version>
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
-                    <allowSnapshots>true</allowSnapshots>
+                    <allowSnapshots>false</allowSnapshots>
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
@@ -575,7 +575,7 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>htmlformentryfVersion</name>
+                            <name>htmlformentryVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
