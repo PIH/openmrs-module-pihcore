@@ -47,8 +47,8 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>1.10.2</openMRSVersion>
-        <openMRSwebVersion>1.10.2</openMRSwebVersion>
+        <openMRSVersion>1.10.4-SNAPSHOT</openMRSVersion>
+        <openMRSwebVersion>1.10.4-SNAPSHOT</openMRSwebVersion>
         <emrapiVersion>1.13-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.0</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
@@ -336,7 +336,7 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>uicommons-api</artifactId>
             <version>${uicommonsVersion}</version>
-            <scope>provided</scope>
+            <scope>provided</scope>label
         </dependency>
 
         <!-- TODO figure out why we still need the 1.9 subproject for testing-->
