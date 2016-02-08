@@ -16,7 +16,7 @@
         <h6>${ ui.message('pihcore.orders') }</h6>
         <p ng-repeat="order in encounter.orders | orderBy:'dateActivated'" class="aligned">
             {{ order.dateActivated | serverDate:DatetimeFormats.date  }}
-        %{--    {{ order | orderInstructions }}--}%
+            <!-- {{ order | orderInstructions }} (this no longer works with order functionality removed)-->
         </p>
     </div>
 

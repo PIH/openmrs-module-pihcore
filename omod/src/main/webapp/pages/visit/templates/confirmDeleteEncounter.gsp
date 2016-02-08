@@ -13,11 +13,11 @@
             <br/>
             <br/>
             ${ ui.message("pihcore.visitNote.confirmDeleteEncounter.confirmDeleteActiveOrders") }
-         %{--   <ul class="small">
+            <!--  <ul class="small">
                 <li ng-repeat="order in activeOrders">
                     {{ order | orderInstructions }}
-                </li>
-            </ul>--}%
+                </li>  (this no longer works with order functionality removed)-->
+            </ul>
 
         </div>
     </div>
