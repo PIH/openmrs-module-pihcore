@@ -578,6 +578,10 @@
                             <name>htmlformentryVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
+                        <property>
+                            <name>htmlformentryuiVersion</name>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                     </properties>
                 </configuration>
             </plugin>
