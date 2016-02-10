@@ -361,9 +361,11 @@
             <!-- This should be included during initial and followup visits -->
             <p>
                 <label>
-                    <uimessage code="pihcore.ncd.past_category"/>
+                    <uimessage code="pihcore.ncd.past_category"/>:
                 </label>
-                <lookup complexExpression="#foreach($category in $fn.allObs('PIH:NCD category')) $category.valueCoded.name #end"/>
+                <!-- ToDo:  Add the previous diagnosis categories
+                <lookup complexExpression="#foreach($category in $fn.allObs('PIH:NCD category')) $!category.valueCoded.name &lt;br/&gt;#end"/>
+                -->
             </p>
 
             <label>
@@ -492,7 +494,7 @@
                 </label>
                 <obs conceptId="PIH:Appearance at appointment time" style="radio"
                      answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
-                     answerLabels="yes,no - late 1-7 days,no - late more than 7 days" answerSeparator=""/>
+                     answerCodes="yes,no - late 1-7 days,no - late more than 7 days" answerSeparator=""/>
             </p>
 
             <p class="radio">

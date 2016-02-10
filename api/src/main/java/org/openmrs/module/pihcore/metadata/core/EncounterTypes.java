@@ -150,6 +150,13 @@ public class EncounterTypes {
         public String description() { return "Non-communicable disease visit"; }
     };
 
+	public static EncounterTypeDescriptor MENTAL_HEALTH_ASSESSMENT = new EncounterTypeDescriptor() {
+		public String uuid() { return "a8584ab8-cc2a-11e5-9956-625662870761"; }
+		public String name() { return "Mental Health Consult"; }
+		public String description() { return "Mental health visit and assessment"; }
+	};
+
+
 
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)

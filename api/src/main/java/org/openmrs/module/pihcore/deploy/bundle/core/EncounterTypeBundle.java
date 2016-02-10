@@ -28,6 +28,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.EXIT_FROM_CARE);
         install(EncounterTypes.LAB_RESULTS);
         install(EncounterTypes.DEATH_CERTIFICATE);
+        install(EncounterTypes.MENTAL_HEALTH_ASSESSMENT);
 
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DISPOSITION.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_FEEDING.uuid()), "never used");
