@@ -47,13 +47,13 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>1.10.4-SNAPSHOT</openMRSVersion>
-        <openMRSwebVersion>1.10.4-SNAPSHOT</openMRSwebVersion>
+        <openMRSVersion>1.10.4</openMRSVersion>
+        <openMRSwebVersion>1.10.4</openMRSwebVersion>
         <emrapiVersion>1.13-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.0</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.6-SNAPSHOT</uiframeworkVersion>
-        <appframeworkVersion>2.6</appframeworkVersion>
+        <appframeworkVersion>2.7</appframeworkVersion>
         <metadatasharingVersion>1.1.10</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
@@ -429,10 +429,12 @@
                         <property>
                             <name>openMRSVersion</name>
                             <version>[1.9.0,1.10.0-!)</version>
+                            <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
                             <version>[1.9.0,1.10.0-!)</version>
+                            <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>htmlwidgetsVersion</name>
