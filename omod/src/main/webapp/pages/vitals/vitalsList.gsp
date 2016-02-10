@@ -17,7 +17,7 @@
         <th>${ ui.message("coreapps.person.name") }</th>
         <th>${ ui.message("pihcore.attributes.mothersFirstName") }</th>
         <th>${ ui.message("coreapps.age") }</th>
-        <th>${ ui.message("pihcore.visitList.checkInTime") }</th>
+        <th>${ ui.message("pihcore.vitalsList.checkInTime") }</th>
     </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
     <%  patientWithCheckInEncounter.keySet().each { p ->
     %>
     <tr id="patient-${ p.id }">
-        <td>${ ui.format(p.patientIdentifier) }</td>
+        <td>${ ui.format(p.patientIdentifier.identifier) }</td>
         <td>
             <a href="${ ui.pageLink("htmlformentryui", "htmlform/enterHtmlFormWithSimpleUi",
                     [   "definitionUiResource": "pihcore:htmlforms/vitals.xml",

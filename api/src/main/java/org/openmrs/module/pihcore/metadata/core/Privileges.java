@@ -157,6 +157,12 @@ public class Privileges {
         public String description() { return "Use the Reports app provided by the reportingui module"; }
     };
 
+    public static PrivilegeDescriptor APP_WAITING_FOR_CONSULT = new PrivilegeDescriptor() {
+        public String uuid() { return "a4bb96b4-b3cb-4e3c-9251-a7c0ca173035"; }
+        public String privilege() { return "App: pihcore.waitingForConsult"; }
+        public String description() { return "Use the Waiting For Consult app provided by PIH Core"; }
+    };
+
     //
     // TASK PRIVILEGES
     //
