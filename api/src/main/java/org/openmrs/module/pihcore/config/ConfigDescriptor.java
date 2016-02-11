@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.config;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ConfigDescriptor {
     }
 
     public enum Site {
-        MIREBALAIS, LACOLLINE, PLEEBO, OTHER
+        MIREBALAIS, LACOLLINE, PLEEBO, OTHER, CROSS_SITE
     }
 
     @JsonProperty

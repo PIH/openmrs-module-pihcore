@@ -15,6 +15,7 @@ import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class LocationTagSetup {
 
@@ -35,6 +36,8 @@ public class LocationTagSetup {
                 setupLocationTagsForLacolline(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 setupLocationTagsForMirebalais(locationService);
+            } else if (config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
+                setupLocationTagsForHaitiCrossSite(locationService);
             }
         }
     }
@@ -67,6 +70,27 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
     }
+
+    private static void setupLocationTagsForHaitiCrossSite(LocationService locationService) {
+
+        List<LocationDescriptor> allZlFacilities = Arrays.asList(HaitiLocations.LACOLLINE, HaitiLocations.CANGE, HaitiLocations.HINCHE);
+
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
+    }
+
 
     private static void setupLocationTagsForMirebalais(LocationService locationService) {
 

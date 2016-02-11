@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.config;
+package org.openmrs.module.pihcore.config.registration;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -24,6 +24,9 @@ public class RegistrationConfigDescriptor {
 
     @JsonProperty
     private Map<String, Object> similarPatientsSearch;
+
+    @JsonProperty
+    private DemographicsDescriptor demographics;
 
     @JsonProperty
     private Integer maxPatientMatchResults;
@@ -75,4 +78,13 @@ public class RegistrationConfigDescriptor {
     public void setMaxPatientMatchResults(Integer maxPatientMatchResults) {
         this.maxPatientMatchResults = maxPatientMatchResults;
     }
+
+    public DemographicsDescriptor getDemographics() {
+        return demographics;
+    }
+
+    public void setDemographics(DemographicsDescriptor demographics) {
+        this.demographics = demographics;
+    }
+
 }

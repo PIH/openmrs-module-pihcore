@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.config;
 
+import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

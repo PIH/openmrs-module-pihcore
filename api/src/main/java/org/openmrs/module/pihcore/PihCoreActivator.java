@@ -114,7 +114,7 @@ public class PihCoreActivator extends BaseModuleActivator {
         if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
             deployService.installBundle(Context.getRegisteredComponents(MirebalaisBundle.class).get(0));
         }
-        else if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
+        else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
             deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {

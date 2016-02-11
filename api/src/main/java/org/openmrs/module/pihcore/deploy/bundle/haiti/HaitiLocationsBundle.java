@@ -14,5 +14,7 @@ public class HaitiLocationsBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
         install(HaitiLocations.LACOLLINE);
+        install(HaitiLocations.CANGE);
+        install(HaitiLocations.HINCHE);
     }
 }
