@@ -41,7 +41,7 @@
 
     %>
     <tr id="patient-${ p.patient.id }">
-        <td>${ ui.format(p.primaryIdentifier.identifier) }</td>
+        <td>${ ui.format(p.primaryIdentifier?.identifier) }</td>
         <td>
             <a href="${ ui.pageLink("pihcore", "visit/visit", [
                     "patient": p.patient.uuid,
