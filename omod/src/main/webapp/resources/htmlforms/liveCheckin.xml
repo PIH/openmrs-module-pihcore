@@ -14,12 +14,16 @@
 
 <htmlform id="check-in-form" formUuid="0a5e8b10-e587-11e2-a28f-0800200c9a66" formName="LiveCheckin" formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="1.1">
 
-    <includeIf velocityTest="$featureToggles.isFeatureEnabled('newCheckin')">
-        <includeIf velocityTest="$config.isComponentEnabled('archives')">
-            <!-- in Mirebalais we prompt for pulling dossier -->
-            <redirectOnSave url="/paperrecord/requestPaperRecord.page?patientId={{patient.id}}&amp;returnProvider=pihcore&amp;returnPage=router/appEndRouter"/>
-        </includeIf>
+    <includeIf velocityTest="$config.isComponentEnabled('archives')">
+        <!-- in Mirebalais we prompt for pulling dossier -->
+        <redirectOnSave url="/paperrecord/requestPaperRecord.page?patientId={{patient.id}}&amp;returnProvider=pihcore&amp;returnPage=router/appEndRouter"/>
     </includeIf>
+
+    <includeIf velocityTest="!$config.isComponentEnabled('archives')">
+        <!-- otherwise redirect back to check-in app -->
+        <redirectOnSave url="/coreapps/findpatient/findPatient.page?app=mirebalais.liveCheckin"/>
+    </includeIf>
+
 
     <style>
         .encounter-summary-container {
