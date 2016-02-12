@@ -57,7 +57,6 @@ public class Roles {
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_OVERBOOK_APPOINTMENTS,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_REQUEST_APPOINTMENTS,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_VIEW_CONFIDENTIAL,
-                Privileges.TASK_ALLERGIES_MODIFY,
                 Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                 Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                 Privileges.TASK_COREAPPS_CREATE_VISIT,
@@ -318,7 +317,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY
             );}
     };
 
@@ -353,7 +353,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY
             );}
     };
 
@@ -390,7 +391,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY
             );}
     };
 
@@ -425,7 +427,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY
             );}
     };
 
@@ -459,7 +462,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY
             );}
     };
 
@@ -490,7 +494,8 @@ public class Roles {
                     Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY,  // TODO this privilege is kind of meaningless if they have the basic retro clinical note privilege?
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY
             );}
     };
 
@@ -520,7 +525,8 @@ public class Roles {
                     Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY,  // TODO this privilege is kind of meaningless if they have the basic retro clinical note privilege?
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY
             );}
     };
 
@@ -615,7 +621,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY
             );}
     };
 
