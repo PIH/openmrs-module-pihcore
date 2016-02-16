@@ -34,6 +34,8 @@ public class LocationTagSetup {
         else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
                 setupLocationTagsForLacolline(locationService);
+            } else if (config.getSite().equals(ConfigDescriptor.Site.THOMONDE)) {
+                setupLocationTagsForThomonde(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 setupLocationTagsForMirebalais(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
@@ -55,12 +57,20 @@ public class LocationTagSetup {
     }
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(HaitiLocations.LACOLLINE));
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(HaitiLocations.LACOLLINE));
-        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  Arrays.asList(HaitiLocations.LACOLLINE));
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(HaitiLocations.LACOLLINE));
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(HaitiLocations.LACOLLINE));
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(HaitiLocations.LACOLLINE));
+        setStandardHaitiSingleSiteLocationTags(locationService, HaitiLocations.LACOLLINE);
+    }
+
+    private static void setupLocationTagsForThomonde(LocationService locationService) {
+        setStandardHaitiSingleSiteLocationTags(locationService, HaitiLocations.THOMONDE);
+    }
+
+    private static void setStandardHaitiSingleSiteLocationTags(LocationService locationService, LocationDescriptor location) {
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
         setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
@@ -73,7 +83,10 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForHaitiCrossSite(LocationService locationService) {
 
-        List<LocationDescriptor> allZlFacilities = Arrays.asList(HaitiLocations.LACOLLINE, HaitiLocations.CANGE, HaitiLocations.HINCHE);
+        List<LocationDescriptor> allZlFacilities = Arrays.asList(HaitiLocations.BELLADERE, HaitiLocations.BOUCAN_CARRE,
+                HaitiLocations.CANGE, HaitiLocations.CERCA_LA_SOURCE, HaitiLocations.HINCHE, HaitiLocations.LACOLLINE,
+                HaitiLocations.PETITE_RIVIERE, HaitiLocations.POZ, HaitiLocations.SAINT_MARC, HaitiLocations.THOMONDE,
+                HaitiLocations.VERRETTES);
 
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allZlFacilities);

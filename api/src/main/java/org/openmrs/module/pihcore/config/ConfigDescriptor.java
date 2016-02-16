@@ -17,7 +17,8 @@ public class ConfigDescriptor {
     }
 
     public enum Site {
-        MIREBALAIS, LACOLLINE, PLEEBO, OTHER, CROSS_SITE
+        MIREBALAIS, LACOLLINE, THOMONDE,
+        PLEEBO, OTHER, CROSS_SITE
     }
 
     @JsonProperty
