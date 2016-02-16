@@ -50,7 +50,7 @@
         <openMRSVersion>1.10.4</openMRSVersion>
         <openMRSwebVersion>1.10.4</openMRSwebVersion>
         <emrapiVersion>1.13-SNAPSHOT</emrapiVersion>
-        <paperrecordVersion>1.0</paperrecordVersion>
+        <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.6-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.7</appframeworkVersion>
