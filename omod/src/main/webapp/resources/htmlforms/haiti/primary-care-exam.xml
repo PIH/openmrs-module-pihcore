@@ -244,7 +244,7 @@
 
             <p class="comment-field">
                 <field>
-                    <obs conceptId="PIH:SKIN EXAM COMMENT" rows="5" cols="60" />
+                    <obs conceptId="CIEL:163045" rows="5" cols="60" />
                 </field>
             </p>
 
