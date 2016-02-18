@@ -158,7 +158,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
 
 
     // TODO make this a reusable utility method (shared with PMHCheckboxTagHandler)
-    private Obs findExistingObs(FormEntryContext context, Concept construct, Concept withMemberConcept, Concept withMemberValue) {
+   /* private Obs findExistingObs(FormEntryContext context, Concept construct, Concept withMemberConcept, Concept withMemberValue) {
         for (Map.Entry<Obs, Set<Obs>> entry : context.getExistingObsInGroups().entrySet()) {
             Obs candidateGroup = entry.getKey();
             if (candidateGroup.getConcept().equals(construct)) {
@@ -173,7 +173,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
             }
         }
         return null;
-    }
+    }*/
 
     private Obs findDiagnosisCommentInExistingObs(
             FormEntryContext context,

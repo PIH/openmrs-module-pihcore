@@ -112,6 +112,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                                     if ($scope.templateModel.html) {
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
                                         $scope.html = $sce.trustAsHtml($scope.templateModel.html);
+                                        $scope.doesNotHaveExistingObs = !$scope.templateModel.hasExistingObs;
                                     }
                                 });
                             // TODO error handling
@@ -206,8 +207,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
     }])
 
-    .directive("section", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
-        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
+    .directive("section", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout",
+        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce, $timeout) {
             return {
                 restrict: "E",
                 scope: {
@@ -222,9 +223,16 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.state = 'short';
                     $scope.sectionLoaded = false;
                     $scope.session = SessionInfo.get();
+                    $scope.template = $scope.section.shortTemplate;
+
+                    // delay loading the section to allow the main page to load first
+                    $timeout(function() {
+                        loadSection()
+                    }, 500);
+
 
                     function loadSection() {
-                        if ($scope.encounter) {
+                        if ($scope.encounter && $scope.section.templateModelUrl) {
                             var url = Handlebars.compile($scope.section.templateModelUrl)({
                                 consultEncounter: $scope.encounter
                             });
@@ -235,6 +243,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                                     if ($scope.templateModel.html) {
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
                                         $scope.html = $sce.trustAsHtml($scope.templateModel.html);
+                                        $scope.doesNotHaveExistingObs = !$scope.templateModel.hasExistingObs;
                                     }
                                 });
                             // TODO error handling
@@ -320,8 +329,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             $scope.contract();
                         }
                     });
-
-                    $scope.template = $scope.section.shortTemplate;
 
                 }],
                 template: '<div class="visit-element"><div ng-include="template"></div></div>'

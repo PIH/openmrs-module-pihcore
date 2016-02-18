@@ -197,6 +197,10 @@ $green: #51A351;
     display: inline-block;
   }
 
+  .incomplete {
+    background-color: $pihSecondaryGrey !important;
+  }
+
   .header {
     background-color: #F9F9F9;
     padding: 3px;
