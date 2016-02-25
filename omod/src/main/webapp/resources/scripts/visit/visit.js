@@ -248,6 +248,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                                 });
                             // TODO error handling
                         }
+                        else {
+                            $scope.doesNotHaveExistingObs = true;
+                        }
                     }
 
                     function openSectionForEdit() {

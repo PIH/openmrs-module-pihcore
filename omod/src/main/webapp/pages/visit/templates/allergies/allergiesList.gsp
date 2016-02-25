@@ -1,4 +1,4 @@
-<div class="selectable header" ng-click="expandAllergies(showAlergiesDetails)">
+<div class="selectable header"  ng-class="{ incomplete: allergies.status == 'Unknown' }" ng-click="expandAllergies(showAlergiesDetails)">
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">
             <i class="icon-medical"></i>

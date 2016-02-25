@@ -100,7 +100,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
         for (Concept relative : relatives) {
             // group: family hx construct, member = which relative, member value = $relative
             // note: this assumes that all instances of this obs group have "is present = true"
-            Obs existingObs = findDiagnosisAndRelativeInExistingObs(context, familyHistoryConstructConcept, diagnosisConcept, concept, relationShipConcept, relative);
+            Obs existingObs = findObsGroupForDiagnosisAndRelativeInExistingObs(context, familyHistoryConstructConcept, diagnosisConcept, concept, relationShipConcept, relative);
 
             CheckboxWidget widget = new CheckboxWidget(relative.getName().getName(), relative.getUuid());
             widget.setInitialValue(existingObs);
@@ -111,7 +111,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
         if (includeCommentField) {
             textFieldWidget = new TextFieldWidget();
             textFieldWidget.setPlaceholder(messageSourceService.getMessage("zl.pastMedicalHistory.specifyLabel"));
-            Obs existingComments = findDiagnosisCommentInExistingObs(context, familyHistoryConstructConcept, diagnosisConcept, concept, commentsConcept);
+            Obs existingComments = findDiagnosisCommentInExistingDiagnosisObsGroups(relativeWidgets, commentsConcept);
             if (existingComments != null) {
                 String valueText = existingComments.getValueText();
                 if (StringUtils.isNotBlank(valueText)) {
@@ -156,60 +156,9 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
         return html.toString();
     }
 
+    private Obs findObsGroupForDiagnosisAndRelativeInExistingObs(FormEntryContext context, Concept familyHistoryConstructConcept,
+                                                                 Concept diagnosisConcept, Concept diagnosisValue, Concept relationShipConcept, Concept relativeValue) {
 
-    // TODO make this a reusable utility method (shared with PMHCheckboxTagHandler)
-   /* private Obs findExistingObs(FormEntryContext context, Concept construct, Concept withMemberConcept, Concept withMemberValue) {
-        for (Map.Entry<Obs, Set<Obs>> entry : context.getExistingObsInGroups().entrySet()) {
-            Obs candidateGroup = entry.getKey();
-            if (candidateGroup.getConcept().equals(construct)) {
-                for (Obs member : entry.getValue()) {
-                    if (member.getConcept().equals(withMemberConcept)
-                            && member.getValueCoded().equals(withMemberValue)) {
-                        context.getExistingObsInGroups().remove(candidateGroup);
-                        // TODO do we also need to remove this from somewhere in context.getExistingObs()?
-                        return candidateGroup;
-                    }
-                }
-            }
-        }
-        return null;
-    }*/
-
-    private Obs findDiagnosisCommentInExistingObs(
-            FormEntryContext context,
-            Concept familyHistoryConstructConcept,
-            Concept diagnosisConcept,
-            Concept diagnosisValue,
-            Concept commentsConcept
-            ) {
-        Obs existingObs = null;
-
-        for (Map.Entry<Obs, Set<Obs>> entry : context.getExistingObsInGroups().entrySet()) {
-            Obs candidateGroup = entry.getKey();
-            if (candidateGroup.getConcept().equals(familyHistoryConstructConcept)) {
-                for (Obs member : entry.getValue()) {
-                    if (member.getConcept().equals(diagnosisConcept)
-                            && member.getValueCoded().equals(diagnosisValue)) {
-                        Obs candidate = findMember(candidateGroup, commentsConcept);
-                        if (candidate != null) {
-                            existingObs = candidate;
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-
-        return existingObs;
-    }
-
-    private Obs findDiagnosisAndRelativeInExistingObs(
-            FormEntryContext context,
-            Concept familyHistoryConstructConcept,
-            Concept diagnosisConcept,
-            Concept diagnosisValue,
-            Concept relationShipConcept,
-            Concept relativeValue) {
         Obs existingObs = null;
 
         for (Map.Entry<Obs, Set<Obs>> entry : context.getExistingObsInGroups().entrySet()) {
@@ -228,6 +177,32 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
                     }
                     if (diagnosisFound && relativeFound) {
                         existingObs = candidateGroup;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (existingObs != null) {
+            context.getExistingObsInGroups().remove(existingObs);
+        }
+
+        return existingObs;
+    }
+
+    private Obs findDiagnosisCommentInExistingDiagnosisObsGroups(Map<CheckboxWidget, Obs> relativeWidgets, Concept commentsConcept) {
+
+        // this is a bit of a hack--we pass in all the obs groups for a specific diagnosis, and return the first comment found;
+        // note that in our current model, the same comment will be stored in each obs group associated with a concept--so
+        // although we are only pulling the first for display purposes, we need to make sure we update all of them
+
+        Obs existingObs = null;
+
+        for (Obs diagnosisObsGroup : relativeWidgets.values()) {
+            if (diagnosisObsGroup != null) {
+                for (Obs member : diagnosisObsGroup.getGroupMembers(false)) {
+                    if (member.getConcept().equals(commentsConcept)) {
+                        existingObs = member;
                         break;
                     }
                 }

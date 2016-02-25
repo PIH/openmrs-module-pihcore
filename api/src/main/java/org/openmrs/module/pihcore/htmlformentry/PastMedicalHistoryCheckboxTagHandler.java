@@ -23,12 +23,12 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Usage:
@@ -124,18 +124,28 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
     }
 
     private Obs findExistingObs(FormEntryContext context, Concept construct, Concept withMemberConcept, Concept withMemberValue) {
+
+        Obs existingObs = null;
+
         for (Map.Entry<Obs, Set<Obs>> entry : context.getExistingObsInGroups().entrySet()) {
             Obs candidateGroup = entry.getKey();
             if (candidateGroup.getConcept().equals(construct)) {
                 for (Obs member : entry.getValue()) {
                     if (member.getConcept().equals(withMemberConcept)
                             && member.getValueCoded().equals(withMemberValue)) {
-                        return candidateGroup;
+                        existingObs = candidateGroup;
+                        break;
                     }
                 }
             }
         }
-        return null;
+
+        if (existingObs != null) {
+            context.getExistingObsInGroups().remove(existingObs);
+            // TODO do we also need to remove this from somewhere in context.getExistingObs()?
+        }
+
+        return existingObs;
     }
 
     public class Action implements FormSubmissionControllerAction {
