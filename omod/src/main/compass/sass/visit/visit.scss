@@ -12,6 +12,10 @@ $green: #51A351;
   content: ' ';
 }
 
+i.highlight {
+  color: $highlight;
+}
+
 #visit-list {
   tr:hover {
     background-color: $link;

@@ -1,2 +1,2 @@
-<div class="header"  ng-class="{ incomplete: doesNotHaveExistingObs }" ng-include="'templates/sections/defaultSectionHeader.page'">
+<div class="header" ng-include="'templates/sections/defaultSectionHeader.page'">
 </div>

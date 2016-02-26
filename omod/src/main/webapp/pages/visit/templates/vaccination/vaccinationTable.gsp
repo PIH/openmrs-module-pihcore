@@ -1,8 +1,9 @@
-<div class="selectable header" ng-class="{ incomplete: currentVaccinations.length == 0 }" ng-click="expandVaccinations(showVaccinationTable)">
+<div class="selectable header" ng-click="expandVaccinations(showVaccinationTable)">
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">
             <i class="icon-umbrella"></i>
             <span class="title">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
+            <i class="icon-exclamation-sign highlight" ng-show="currentVaccinations.length == 0" ></i>
         </span>
         <span>
             <span ng-repeat="vaccination in currentVaccinations">

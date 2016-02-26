@@ -1,8 +1,9 @@
-<div class="selectable header"  ng-class="{ incomplete: allergies.status == 'Unknown' }" ng-click="expandAllergies(showAlergiesDetails)">
+<div class="selectable header" ng-click="expandAllergies(showAlergiesDetails)">
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">
             <i class="icon-medical"></i>
             <span class="title">${ ui.message("allergyui.allergies") }</span>
+            <i class="icon-exclamation-sign highlight" ng-show="allergies.status == 'Unknown'" ></i>
         </span>
         <span>
             <span ng-show="allergies.status == 'Unknown'">${ ui.message("allergyui.unknown") }</span>
