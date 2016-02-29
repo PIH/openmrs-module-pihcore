@@ -60,7 +60,7 @@
 
         var validateForm = function () {
 
-            var needsDisposition = true;
+            var needsDisposition = false;
 
             var hasDisposition = $('#disposition select:first').val() != '';
 
