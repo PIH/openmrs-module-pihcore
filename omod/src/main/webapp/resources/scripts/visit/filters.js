@@ -378,13 +378,11 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
     .filter('allowedWithContext', [ "SessionInfo", function(SessionInfo) {
         return function(extensionList, visit, context) {
 
-            var util = {
-                hasMemberWithProperty: function(list, prop, val) {
+            var hasMemberWithProperty = function(list, prop, val) {
                     return _.any(list, function(it) {
                         return it[prop] == val;
                     });
                 }
-            };
 
             return _.filter(extensionList, function(it) {
                 if (it.requiredPrivilege) {
@@ -395,20 +393,8 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
                 if (it.require) {
                     // find a cleaner way to avoid polluting scope
                     var result = (function(expr) {
-                        // also, clean up the server-side eval code so we can have normal js objects here without this hackiness
                         var sessionLocation = SessionInfo.get().sessionLocation;
-                        sessionLocation.get = function(key) { return sessionLocation[key]; }
-
                         var user = new OpenMRS.UserModel(SessionInfo.get().user);
-                        user.get = function(key) {
-                            return user[key];
-                        }
-                        user.fn = {
-                            hasPrivilege: function(priv) {
-                                return user.hasPrivilege(priv);
-                            }
-                        };
-
                         return eval(expr);
                     })(it.require);
                     if (!result) {
