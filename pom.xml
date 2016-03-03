@@ -302,6 +302,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>org.openmrs</groupId>
+            <artifactId>event-api-1.x</artifactId>
+            <version>${eventVersion}</version>
+            <scope>provided</scope>
+            </dependency>
+        <dependency>
+            <groupId>org.openmrs</groupId>
+            <artifactId>event-api-2.x</artifactId>
+            <version>${eventVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>dispensing-api</artifactId>
             <version>${dispensingVersion}</version>
