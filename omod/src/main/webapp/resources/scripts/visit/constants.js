@@ -230,6 +230,9 @@ angular.module('constants', [])
         },
         ncdConsult: {
             uuid: "ae06d311-1866-455b-8a64-126a9bd74171"
+        },
+        mentalHealth: {
+            uuid: "a8584ab8-cc2a-11e5-9956-625662870761"
         }
 
     })

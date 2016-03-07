@@ -164,6 +164,15 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
 
+        encounterTypeConfig[EncounterTypes.mentalHealth.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            icon: "icon-user",
+            editUrl: hfeStandardEditUrl
+        };
+
         encounterTypeConfig[EncounterTypes.primaryCareVisit] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
