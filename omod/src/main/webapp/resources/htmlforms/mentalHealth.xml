@@ -247,33 +247,113 @@
         </includeIf>
     </ifMode>
 
-    <section id="mh_scores" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.mh.scores">
+<!-- The form -->
+    <section id="mh_scores" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.mentalhealth.scores">
         <div class="section-container">
+
             <label>
-                <uimessage code="pihcore.ncd.referral"/>
+                <uimessage code="pihcore.mentalhealth.zldsi"/>
             </label>
-            <obs conceptId="PIH:Type of referring service"
-                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
-            <br/>
-        </div>
-    </section>
 
-    <section id="mh_diagnoses" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.mh.diagnoses">
-        <div class="section-container">
-            <p>
-                <label>
-                    <uimessage code="pihcore.mh.diagnosis"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="CIEL:163080" id="waist_cm"/>
-                </span>
-            </p>
-        </div>
-    </section>
+            <obs conceptId="CIEL:163225"/>
 
+            <label>
+                <uimessage code="pihcore.mentalhealth.cesd"/>
+            </label>
+
+            <obs conceptId="CIEL:163228"/>
+
+            <label>
+                <uimessage code="pihcore.mentalhealth.cgis"/>
+            </label>
+
+            <obs conceptId="CIEL:163222"/>
+
+            <label>
+                <uimessage code="pihcore.mentalhealth.cgii"/>
+            </label>
+
+            <obs conceptId="CIEL:163223"/>
+
+            <label>
+                <uimessage code="pihcore.mentalhealth.cgie"/>
+            </label>
+
+            <obs conceptId="CIEL:163224"/>
+
+            <label>
+                <uimessage code="pihcore.mentalhealth.whodas"/>
+            </label>
+
+            <obs conceptId="CIEL:163226"/>
+
+            <label>
+                <uimessage code="pihcore.mentalhealth.aims"/>
+            </label>
+
+            <obs conceptId="CIEL:163227" />
+            <label>
+                frequency of epileptic seizures
+            </label>
+            <label>
+                suicidal thoughts Y / N
+            </label>
+            
+        </div>
+
+    </section>
     <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.ncd.general.title">
+             headerCode="pihcore.diagnoses.label">
+         <div class="section-container">
+                <label>
+                    <uimessage code="pihcore.diagnosis.label"/>
+                </label>
+​                ​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" 
+                style="autocomplete" />
+                                    <label>
+                    <uimessage code="pihcore.diagnosis.label"/>
+                </label>
+            ​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" 
+                style="autocomplete" />
+                                    <label>
+                    <uimessage code="pihcore.diagnosis.label"/>
+                </label>
+            ​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" 
+                style="autocomplete" />
+        </div>
+    </section>
+    <section>
+        <div class="section-container">
+        Psychological interventions
+        check 1
+        check 2
+        check 3
+        etc
+        </div>
+    </section>
+        <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.visitNote.orders.medications">
+         <div class="section-container">
+                <label>
+                    <uimessage code="pihcore.visitNote.plan.medication"/>
+                </label>
+​                ​    medication 1
+                <label>
+                    <uimessage code="pihcore.visitNote.plan.medication"/>
+                </label>
+                    medication 2
+                <label>
+                    <uimessage code="pihcore.visitNote.plan.medication"/>
+                </label>
+                    medication 3
+                <br></br>
+                security plan
+                <br></br>
+                hospitalization (check box)
+        </div>
+    </section>
+    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+     headerCode="pihcore.comment">
         <div class="section-container">
             <p>
                 <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
@@ -281,6 +361,10 @@
         </div>
     </section>
 
+
+
+
+<!-- end o form -->
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
