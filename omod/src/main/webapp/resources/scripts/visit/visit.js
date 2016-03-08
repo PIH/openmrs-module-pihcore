@@ -243,9 +243,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             var url = Handlebars.compile($scope.section.templateModelUrl)({
                                 consultEncounter: $scope.encounter
                             });
+                            $scope.sectionLoaded = true; // not entirely accurate, because it hasn't been loaded yet, bu we want to avoid double loadings
                             $http.get("/" + OPENMRS_CONTEXT_PATH + url)
                                 .then(function (response) {
-                                    $scope.sectionLoaded = true;
                                     $scope.templateModel = response.data;
                                     if ($scope.templateModel.html) {
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
