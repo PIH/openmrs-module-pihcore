@@ -301,27 +301,23 @@
             
         </div>
 
-    </section>
-    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.diagnoses.label">
-         <div class="section-container">
-                <label>
-                    <uimessage code="pihcore.diagnosis.label"/>
-                </label>
-​                ​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" 
-                style="autocomplete" />
-                                    <label>
-                    <uimessage code="pihcore.diagnosis.label"/>
-                </label>
-            ​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" 
-                style="autocomplete" />
-                                    <label>
-                    <uimessage code="pihcore.diagnosis.label"/>
-                </label>
-            ​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" 
-                style="autocomplete" />
-        </div>
-    </section>
+</section>
+<section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.diagnoses.label">
+    <div class="section-container">
+        <label>
+            <uimessage code="pihcore.diagnosis.label"/>
+        </label>
+        ​​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" style="autocomplete" />
+        <label>
+            <uimessage code="pihcore.diagnosis.label"/>
+        </label>
+        ​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" style="autocomplete" />
+        <label>
+            <uimessage code="pihcore.diagnosis.label"/>
+        </label>
+        ​<obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis" style="autocomplete" />
+    </div>
+</section>
     <section>
         <div class="section-container">
         Psychological interventions
@@ -333,24 +329,24 @@
     </section>
         <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.visitNote.orders.medications">
-         <div class="section-container">
-                <label>
-                    <uimessage code="pihcore.visitNote.plan.medication"/>
-                </label>
-​                ​    medication 1
-                <label>
-                    <uimessage code="pihcore.visitNote.plan.medication"/>
-                </label>
-                    medication 2
-                <label>
-                    <uimessage code="pihcore.visitNote.plan.medication"/>
-                </label>
-                    medication 3
-                <br></br>
-                security plan
-                <br></br>
-                hospitalization (check box)
-        </div>
+        <div class="section-container">
+            <label>
+                <uimessage code="pihcore.visitNote.plan.medication"/>
+            </label>
+                medication 1
+            <label>
+                <uimessage code="pihcore.visitNote.plan.medication"/>
+            </label>
+                medication 2
+            <label>
+                <uimessage code="pihcore.visitNote.plan.medication"/>
+            </label>
+                medication 3
+            <br></br>
+            security plan
+            <br></br>
+            hospitalization (check box)
+            </div>
     </section>
     <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
      headerCode="pihcore.comment">
