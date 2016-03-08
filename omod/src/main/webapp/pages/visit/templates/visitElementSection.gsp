@@ -1,2 +1,2 @@
 
-<section section="section" encounter="consultEncounter" visit="visit"></section>
+<section section="section" encounter="consultEncounter" encounter-ready="consultEncounterReady" visit="visit"></section>

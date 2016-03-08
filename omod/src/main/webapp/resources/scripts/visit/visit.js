@@ -214,7 +214,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 scope: {
                     section: "=",
                     encounter: "=",
-                    visit: "="
+                    visit: "=",
+                    encounterReady: "="
                 },
                 controller: ["$scope", function($scope) {
 
@@ -225,14 +226,20 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.session = SessionInfo.get();
                     $scope.template = $scope.section.shortTemplate;
 
-                    // delay loading the section to allow the main page to load first
-                    $timeout(function() {
-                        loadSection()
-                    }, 500);
-
+                    // don't load individual sections until we have the base encounter
+                    if ($scope.encounterReady) {
+                        loadSection();
+                    }
+                    else {
+                        $scope.$watch('encounterReady', function(newVal, oldVal) {
+                            if ($scope.encounterReady) {
+                                loadSection();
+                            }
+                        });
+                    }
 
                     function loadSection() {
-                        if ($scope.encounter && $scope.section.templateModelUrl) {
+                        if ($scope.encounter && $scope.section.templateModelUrl && !$scope.sectionLoaded) {
                             var url = Handlebars.compile($scope.section.templateModelUrl)({
                                 consultEncounter: $scope.encounter
                             });
@@ -571,6 +578,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             $scope.visitUuid = visitUuid;
             $scope.patientUuid = patientUuid;
             $scope.consultEncounter = null;
+            $scope.consultEncounterReady = false;
 
             $scope.printButtonDisabled = false;
             $scope.allExpanded = false;
@@ -612,14 +620,17 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         $scope.visit = new OpenMRS.VisitModel(visit);
                         $scope.visitIdx = $scope.getVisitIdx(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
-                        $scope.consultEncounter = VisitTemplateService.getConsultEncounterType() ? $scope.visit.getEncounterByType(VisitTemplateService.getConsultEncounterType().uuid) : null;
+                        $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
+                        VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit);
 
+                        $scope.consultEncounter = VisitTemplateService.getConsultEncounterType() ? $scope.visit.getEncounterByType(VisitTemplateService.getConsultEncounterType().uuid) : null;
                         if ($scope.consultEncounter) {
                             loadConsultEncounter();
                         }
-
-                        $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
-                        VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit);
+                        else {
+                            // no consult encounter, so automatically "ready"
+                            $scope.consultEncounterReady = true;
+                        }
 
                         AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
                             $scope.visitActions = ext;
@@ -633,6 +644,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                 Encounter.get({ uuid: $scope.consultEncounter.uuid, v: "full" }).
                     $promise.then(function(encounter) {
                         $scope.consultEncounter = encounter;
+                        $scope.consultEncounterReady = true;
                     });
             }
 
