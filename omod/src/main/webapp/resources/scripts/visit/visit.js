@@ -614,9 +614,15 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             }
 
             function loadVisit(visitUuid) {
-                Visit.get({ uuid: visitUuid, v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:ref,orders:ref,voided,visit:ref,encounterProviders,creator),patient:default,visitType:ref,attributes:default)" })
-                    .$promise.then(function(visit) {
-                        visit.encounters =  _.reject(visit.encounters, function(it) { return it.voided; });
+                if (visitUuid) {
+                    Visit.get({
+                            uuid: visitUuid,
+                            v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:ref,orders:ref,voided,visit:ref,encounterProviders,creator),patient:default,visitType:ref,attributes:default)"
+                        })
+                        .$promise.then(function (visit) {
+                        visit.encounters = _.reject(visit.encounters, function (it) {
+                            return it.voided;
+                        });
                         $scope.visit = new OpenMRS.VisitModel(visit);
                         $scope.visitIdx = $scope.getVisitIdx(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
@@ -632,11 +638,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             $scope.consultEncounterReady = true;
                         }
 
-                        AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function(ext) {
+                        AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function (ext) {
                             $scope.visitActions = ext;
                         })
 
                     });
+                }
             }
 
             function loadConsultEncounter() {

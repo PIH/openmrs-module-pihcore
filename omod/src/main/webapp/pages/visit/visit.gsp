@@ -64,11 +64,11 @@
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
 <div id="visit-app" ng-controller="VisitController">
-    <div ui-view ng-show="visit"></div>
+    <div ui-view></div>
 </div>
 
 <script type="text/javascript">
-    angular.module('visit').value('patientUuid', '${ patient.patient.uuid }').value('visitUuid', '${ visit?.uuid }').value('locale', '${ locale }');
+    angular.module('visit').value('patientUuid', '${ patient.patient.uuid }').value('visitUuid', ${ visit?.uuid ? "'" + visit.uuid + "'" : null}).value('locale', '${ locale }');
     angular.bootstrap("#visit-app", [ "visit" ])
 
     jq(function() {
