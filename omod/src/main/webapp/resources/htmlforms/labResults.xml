@@ -252,78 +252,71 @@
 
             <p>
 
-                    <label for="sodium">
-                        <uimessage code="pihcore.lab.sodium"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="sodium" conceptId="PIH:SERUM SODIUM" showUnits="true"/>
-                        </field>
-                    </span>
-                    <label for="potassium">
-                        <uimessage code="pihcore.lab.potassium"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="potassium" conceptId="PIH:SERUM POTASSIUM" showUnits="true"/>
-                        </field>
-                    </span>
-                    <label for="serum-chloride">
-                        <uimessage code="pihcore.lab.chloride"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="serum-chloride" conceptId="PIH:SERUM CHLORIDE" showUnits="true"/>
-                        </field>
-                    </span>
-                    <label for="co2">
-                        <uimessage code="pihcore.lab.co2"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs for="co2" conceptId="PIH:SERUM CARBON DIOXIDE" showUnits="true"/>
-                        </field>
-                    </span>
-                    <label for="urea">
-                        <uimessage code="pihcore.lab.urea"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="urea" conceptId="PIH:BLOOD UREA NITROGEN" showUnits="true"/>
-                        </field>
-                    </span>
-                    <label for="creatinine-i-stat">
-                        <uimessage code="pihcore.lab.creatinine"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="creatinine-i-stat" conceptId="PIH:SERUM CREATININE" showUnits="true"/>
-                        </field>
-                    </span>
-                <!--
+                <label for="sodium">
+                    <uimessage code="pihcore.lab.sodium"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="sodium" conceptId="PIH:SERUM SODIUM" showUnits="true"/>
+                    </field>
+                </span>
+                <label for="potassium">
+                    <uimessage code="pihcore.lab.potassium"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="potassium" conceptId="PIH:SERUM POTASSIUM" showUnits="true"/>
+                    </field>
+                </span>
+                <label for="serum-chloride">
+                    <uimessage code="pihcore.lab.chloride"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="serum-chloride" conceptId="PIH:SERUM CHLORIDE" showUnits="true"/>
+                    </field>
+                </span>
+                <label for="co2">
+                    <uimessage code="pihcore.lab.co2"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs for="co2" conceptId="PIH:SERUM CARBON DIOXIDE" showUnits="true"/>
+                    </field>
+                </span>
+                <label for="urea">
+                    <uimessage code="pihcore.lab.urea"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="urea" conceptId="PIH:BLOOD UREA NITROGEN" showUnits="true"/>
+                    </field>
+                </span>
+                <label for="creatinine-i-stat">
+                    <uimessage code="pihcore.lab.creatinine"/>
+                </label>
                 <span class="small">
                     <field>
                         <obs id="creatinine-i-stat" conceptId="PIH:Creatinine mg per dL" showUnits="true"/>
                     </field>
                 </span>
-                -->
 
                 <label for="glucose">
-                        <uimessage code="pihcore.lab.glucose"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
-                        </field>
-                    </span>
-                    <label for="calcium">
-                        <uimessage code="pihcore.lab.calcium" showUnits="true"/>
-                    </label>
-                    <span class="small">
-                        <field>
-                            <obs id="calcium" conceptId="PIH:SERUM CALCIUM" showUnits="true"/>
-                        </field>
-                    </span>
+                    <uimessage code="pihcore.lab.glucose"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
+                    </field>
+                </span>
+                <label for="calcium">
+                    <uimessage code="pihcore.lab.calcium" showUnits="true"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="calcium" conceptId="PIH:SERUM CALCIUM" showUnits="true"/>
+                    </field>
+                </span>
             </p>
         </fieldset>
 
