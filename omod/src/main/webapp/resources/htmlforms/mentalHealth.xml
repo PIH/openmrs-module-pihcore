@@ -367,7 +367,7 @@
 
         <div class="two-columns">
             <repeat with="['PIH:FLUOXETINE'],['PIH:AMITRYPTILINE'],['PIH:PHENOBARBITAL'],['PIH:PHENYTOIN'],['CIEL:83405'],['PIH:HALOPERIDOL'],['PIH:DIAZEPAM'],['PIH:CARBAMAZEPINE'],['PIH:SODIUM VALPROATE']">
-                <obs conceptId="PIH:Mental health medication" answerConceptId="{0}" commentFieldLabel="comments:"
+                <obs conceptId="PIH:Mental health medication" answerConceptId="{0}"
                      style="checkbox"/>
             </repeat>
 
