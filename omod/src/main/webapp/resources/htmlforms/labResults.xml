@@ -257,7 +257,7 @@
                     </label>
                     <span class="small">
                         <field>
-                            <obs id="sodium" conceptId="PIH:SERUM SODIUM"/>
+                            <obs id="sodium" conceptId="PIH:SERUM SODIUM" showUnits="true"/>
                         </field>
                     </span>
                     <label for="potassium">
@@ -265,7 +265,7 @@
                     </label>
                     <span class="small">
                         <field>
-                            <obs id="potassium" conceptId="PIH:SERUM POTASSIUM"/>
+                            <obs id="potassium" conceptId="PIH:SERUM POTASSIUM" showUnits="true"/>
                         </field>
                     </span>
                     <label for="serum-chloride">
@@ -273,7 +273,7 @@
                     </label>
                     <span class="small">
                         <field>
-                            <obs id="serum-chloride" conceptId="PIH:SERUM CHLORIDE"/>
+                            <obs id="serum-chloride" conceptId="PIH:SERUM CHLORIDE" showUnits="true"/>
                         </field>
                     </span>
                     <label for="co2">
@@ -281,7 +281,7 @@
                     </label>
                     <span class="small">
                         <field>
-                            <obs for="co2" conceptId="PIH:SERUM CARBON DIOXIDE"/>
+                            <obs for="co2" conceptId="PIH:SERUM CARBON DIOXIDE" showUnits="true"/>
                         </field>
                     </span>
                     <label for="urea">
@@ -289,7 +289,7 @@
                     </label>
                     <span class="small">
                         <field>
-                            <obs id="urea" conceptId="PIH:BLOOD UREA NITROGEN"/>
+                            <obs id="urea" conceptId="PIH:BLOOD UREA NITROGEN" showUnits="true"/>
                         </field>
                     </span>
                     <label for="creatinine-i-stat">
@@ -297,23 +297,31 @@
                     </label>
                     <span class="small">
                         <field>
-                            <obs id="creatinine-i-stat" conceptId="PIH:SERUM CREATININE"/>
+                            <obs id="creatinine-i-stat" conceptId="PIH:SERUM CREATININE" showUnits="true"/>
                         </field>
                     </span>
-                    <label for="glucose">
+                <!--
+                <span class="small">
+                    <field>
+                        <obs id="creatinine-i-stat" conceptId="PIH:Creatinine mg per dL" showUnits="true"/>
+                    </field>
+                </span>
+                -->
+
+                <label for="glucose">
                         <uimessage code="pihcore.lab.glucose"/>
                     </label>
                     <span class="small">
                         <field>
-                            <obs id="glucose" conceptId="PIH:SERUM GLUCOSE"/>
+                            <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
                         </field>
                     </span>
                     <label for="calcium">
-                        <uimessage code="pihcore.lab.calcium"/>
+                        <uimessage code="pihcore.lab.calcium" showUnits="true"/>
                     </label>
                     <span class="small">
                         <field>
-                            <obs id="calcium" conceptId="PIH:SERUM CALCIUM"/>
+                            <obs id="calcium" conceptId="PIH:SERUM CALCIUM" showUnits="true"/>
                         </field>
                     </span>
             </p>
@@ -333,7 +341,7 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="glucose-prandial" conceptId="CIEL:160914"/>
+                        <obs id="glucose-prandial" conceptId="CIEL:160914" showUnits="true"/>
                     </field>
                 </span>
 
@@ -342,7 +350,7 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="glucose-fasting" conceptId="CIEL:160912"/>
+                        <obs id="glucose-fasting" conceptId="CIEL:160912" showUnits="true"/>
                     </field>
                 </span>
             </p>
@@ -362,7 +370,7 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="total-chol" conceptId="PIH:TOTAL CHOLESTEROL"/>
+                        <obs id="total-chol" conceptId="PIH:TOTAL CHOLESTEROL" showUnits="true"/>
                     </field>
                 </span>
 
@@ -371,7 +379,7 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="ldl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL"/>
+                        <obs id="ldl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
                     </field>
                 </span>
 
@@ -380,7 +388,7 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="hdl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL"/>
+                        <obs id="hdl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
                     </field>
                 </span>
 
@@ -389,7 +397,7 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="trigly" conceptId="PIH:TRIGLYCERIDES"/>
+                        <obs id="trigly" conceptId="PIH:TRIGLYCERIDES" showUnits="true"/>
                     </field>
                 </span>
             </p>
@@ -431,7 +439,7 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="ldh" conceptId="PIH:LACTATE DEHYDROGENASE" placeholder="Enter value"/>
+                        <obs id="ldh" conceptId="PIH:LACTATE DEHYDROGENASE"  showUnits="true" placeholder="Enter value"/>
                     </field>
                 </span>
 
@@ -450,7 +458,7 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="viral-load" conceptId="PIH:HIV VIRAL LOAD" placeholder="Enter value"/>
+                        <obs id="viral-load" conceptId="PIH:HIV VIRAL LOAD"  showUnits="true" placeholder="Enter value"/>
                     </field>
                 </span>
 
