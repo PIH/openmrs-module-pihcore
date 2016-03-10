@@ -483,7 +483,7 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
-                    // Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
                     Privileges.TASK_EMR_ENTER_VITALS_NOTE,
