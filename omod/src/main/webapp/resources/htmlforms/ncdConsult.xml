@@ -548,6 +548,13 @@
             <p>
                 <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
             </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.consult.returnVisitDate"/>
+                </label>
+                <obs conceptId="PIH:RETURN VISIT DATE" />
+            </p>
         </div>
     </section>
 
