@@ -553,7 +553,7 @@
                 <label>
                     <uimessage code="pihcore.consult.returnVisitDate"/>
                 </label>
-                <obs conceptId="PIH:RETURN VISIT DATE" />
+                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
             </p>
         </div>
     </section>

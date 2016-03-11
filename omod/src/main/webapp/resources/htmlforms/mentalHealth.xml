@@ -298,11 +298,11 @@
             </span>
 
             <label>
-                <uimessage code="pihcore.mentalhealth.whodas"/>
+                <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>)
             </label>
 
             <span class="small">
-                <obs conceptId="CIEL:163226"/>
+                <obs conceptId="CIEL:163226" required="true"/>
             </span>
 
             <label>
@@ -311,20 +311,21 @@
             <obs conceptId="CIEL:163227"/>
             <br/>
 
-                <label>
-                    <uimessage code="pihcore.mentalhealth.epilepsySeizureFrequency"/>
-                </label>
+            <label>
+                <uimessage code="pihcore.mentalhealth.epilepsySeizureFrequency"/>
+            </label>
 
-                <obsgroup groupingConceptId="CIEL:161245">
-                    <span class="small">
-                        <obs conceptId="PIH:6797"/>
-                        <uimessage code="permonth"/>
-                    </span>
-                </obsgroup>
-            <br/><br/>
+            <obsgroup groupingConceptId="CIEL:161245">
+                <span class="small">
+                    <obs conceptId="PIH:6797"/>
+                    <uimessage code="permonth"/>
+                </span>
+            </obsgroup>
+            <br/>
+            <br/>
 
-                <obs conceptId="PIH:Mental health diagnosis" answerConceptId="CIEL:125562"
-                     style="checkbox"/>
+            <obs conceptId="PIH:Mental health diagnosis" answerConceptId="CIEL:125562"
+                 style="checkbox"/>
 
         </div>
     </section>
@@ -353,12 +354,8 @@
     </section>
 
     <section id="mh-meds" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.visitNote.orders.medications">
+             headerCode="pihcore.ncd.meds">
         <div class="section-container">
-
-            <label>
-                <uimessage code="pihcore.visitNote.plan.medication"/>
-            </label>
 
             <div class="two-columns">
                 <repeat with="['PIH:FLUOXETINE'],['PIH:AMITRYPTILINE'],['PIH:PHENOBARBITAL'],['PIH:PHENYTOIN'],['CIEL:83405'],['PIH:HALOPERIDOL'],['PIH:DIAZEPAM'],['PIH:CARBAMAZEPINE'],['PIH:SODIUM VALPROATE']">
@@ -381,26 +378,38 @@
              headerCode="pihcore.visitNote.plan">
         <div class="section-container">
 
-            <obs conceptId="PIH:Mental health intervention"
-                 answerConceptId="PIH:Security plan"
-                 style="checkbox"/>
-            <br/>
+            <div class="two-columns">
+                <obs conceptId="PIH:Mental health intervention"
+                     answerConceptId="PIH:Security plan"
+                     style="checkbox"/>
+                <br/>
 
-            <obs conceptId="PIH:TYPE OF PATIENT" answerConceptId="PIH:INPATIENT HOSPITALIZATION"
-                 style="checkbox"/>
-            <br/>
+                <obs conceptId="PIH:TYPE OF PATIENT" answerConceptId="PIH:INPATIENT HOSPITALIZATION"
+                     style="checkbox"/>
+                <br/>
+                <br/>
 
-            <label>
-                <uimessage code="pihcore.referredTo"/>
-            </label>
-            <obs conceptId="PIH:Type of referral role"/>
-            <br/>
+                <label>
+                    <uimessage code="pihcore.referredTo"/>
+                </label>
+                <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:VILLAGE HEALTH WORKER'],['PIH:SOCIAL WORKER SERVICE']">
+                    <obs conceptId="PIH:Type of referral role" answerConceptId="{0}" style="checkbox"/>
+                </repeat>
+            </div>
 
             <label>
                 <uimessage code="pihcore.comment"/>
             </label>
             <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
 
+            <p>
+                <label>
+                    <uimessage code="pihcore.consult.returnVisitDate"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
+                </span>
+            </p>
         </div>
     </section>
 
