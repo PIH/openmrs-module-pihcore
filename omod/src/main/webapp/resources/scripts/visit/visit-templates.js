@@ -233,7 +233,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                 consultEncounterType: EncounterTypes.mentalHealth,
                 encounterTypeConfig: EncounterTypeConfig,
                 elements: [
-                    mentalHealth
+                    mentalHealth,
+                    reverseChronologicalEncounters
                 ]
             }
         };
