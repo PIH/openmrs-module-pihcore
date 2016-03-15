@@ -127,6 +127,17 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
 
         };
 
+        var mentalHealth = {
+            type: "consult-section",
+            label: "pih.task.mentalHealth.label",
+            icon: "icon-user",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+
+        };
+
         var allowedForAll = function(visit) {
             return true;
         };
@@ -214,6 +225,15 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     primaryCareDx,
                     primaryCarePlan,
                     primaryCareDisposition
+                ]
+            },
+            mentalHealth: {
+                label: "pihcore.visitType.mentalHealth",
+                allowedFor: allowedForAll,
+                consultEncounterType: EncounterTypes.mentalHealth,
+                encounterTypeConfig: EncounterTypeConfig,
+                elements: [
+                    mentalHealth
                 ]
             }
         };

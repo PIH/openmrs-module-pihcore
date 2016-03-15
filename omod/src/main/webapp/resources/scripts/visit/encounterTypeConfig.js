@@ -182,9 +182,5 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
 
-
-
-
-
         return encounterTypeConfig;
     }]);

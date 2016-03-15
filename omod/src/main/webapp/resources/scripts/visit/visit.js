@@ -533,9 +533,12 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         return angular.copy(VisitTemplates[specified]);
                     }
                     else {
-                        //var template = visit.patient.person.age < 15 ? "pedsInitialOutpatient" : "adultInitialOutpatient";
-                        var template = "timeline";
-                        return angular.copy(VisitTemplates[template]);
+                        // if no specified, and only one available, use it; otherwise, use timeline
+                        var availableTemplates = this.getAllowedVisitTemplates(visit);
+                        if (availableTemplates && availableTemplates.length == 1) {
+                            return angular.copy(availableTemplates[0]);
+                        }
+                        return angular.copy(VisitTemplates["timeline"]);
                     }
                 },
 
