@@ -161,7 +161,8 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-heart",
-            editUrl: hfeStandardEditUrl
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true
         };
 
         encounterTypeConfig[EncounterTypes.mentalHealth.uuid] = {
@@ -170,7 +171,8 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-user",
-            editUrl: hfeStandardEditUrl
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true
         };
 
         encounterTypeConfig[EncounterTypes.primaryCareVisit] = {
