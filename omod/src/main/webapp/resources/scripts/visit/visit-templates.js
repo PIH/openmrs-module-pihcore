@@ -180,7 +180,6 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
                     vitals,
                     primaryCareConsultInfo,
                     reviewAllergies,
-                    primaryCareHistory,
                     primaryCareExam,
                     primaryCareDx,
                     primaryCarePlan,
