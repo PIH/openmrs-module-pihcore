@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
+import org.openmrs.Location;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
@@ -21,11 +22,14 @@ public class HaitiLocationsBundle extends AbstractMetadataBundle {
         install(HaitiLocations.CANGE);
         install(HaitiLocations.CERCA_LA_SOURCE);
         install(HaitiLocations.HINCHE);
+        install(HaitiLocations.HSN_SAINT_MARC);
         install(HaitiLocations.LACOLLINE);
         install(HaitiLocations.PETITE_RIVIERE);
-        install(HaitiLocations.POZ);
-        install(HaitiLocations.SAINT_MARC);
+        install(HaitiLocations.SSPE_SAINT_MARC);
         install(HaitiLocations.THOMONDE);
         install(HaitiLocations.VERRETTES);
+
+        // we are uninstalling this until we are actually using
+        uninstall(possible(Location.class, HaitiLocations.POZ.uuid()), "uninstall until we actually start using this");
     }
 }

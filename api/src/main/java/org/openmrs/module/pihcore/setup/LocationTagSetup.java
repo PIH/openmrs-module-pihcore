@@ -84,8 +84,8 @@ public class LocationTagSetup {
     private static void setupLocationTagsForHaitiCrossSite(LocationService locationService) {
 
         List<LocationDescriptor> allZlFacilities = Arrays.asList(HaitiLocations.BELLADERE, HaitiLocations.BOUCAN_CARRE,
-                HaitiLocations.CANGE, HaitiLocations.CERCA_LA_SOURCE, HaitiLocations.HINCHE, HaitiLocations.LACOLLINE,
-                HaitiLocations.PETITE_RIVIERE, HaitiLocations.POZ, HaitiLocations.SAINT_MARC, HaitiLocations.THOMONDE,
+                HaitiLocations.CANGE, HaitiLocations.CERCA_LA_SOURCE, HaitiLocations.HINCHE, HaitiLocations.HSN_SAINT_MARC,
+                HaitiLocations.LACOLLINE, HaitiLocations.PETITE_RIVIERE, HaitiLocations.SSPE_SAINT_MARC, HaitiLocations.THOMONDE,
                 HaitiLocations.VERRETTES);
 
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);

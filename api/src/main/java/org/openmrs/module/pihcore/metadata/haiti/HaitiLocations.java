@@ -45,6 +45,13 @@ public class HaitiLocations {
         public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
     };
 
+    public static LocationDescriptor HSN_SAINT_MARC = new LocationDescriptor() {
+        public String uuid() { return "97c241a0-eaec-11e5-a837-0800200c9a66"; }
+        public String name() { return "Saint-Marc HSN"; }
+        public String description() { return "Saint-Marc HSN"; }
+        public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
+    };
+
     public static LocationDescriptor LACOLLINE = new LocationDescriptor() {
         public String uuid() { return "23e7bb0d-51f9-4d5f-b34b-2fbbfeea1960"; }
         public String name() { return "Lacolline"; }
@@ -59,14 +66,7 @@ public class HaitiLocations {
         public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
     };
 
-    public static LocationDescriptor POZ = new LocationDescriptor() {
-        public String uuid() { return "c488ed05-f259-4f7b-a9d4-8f56736da691"; }
-        public String name() { return "POZ"; }
-        public String description() { return "Promotion Objectif Zerosida"; }
-        public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
-    };
-
-    public static LocationDescriptor SAINT_MARC = new LocationDescriptor() {
+    public static LocationDescriptor SSPE_SAINT_MARC = new LocationDescriptor() {
         public String uuid() { return "209c84cf-4cd7-4908-a946-030499c1ff75"; }
         public String name() { return "Saint-Marc SSPE"; }
         public String description() { return "Saint-Marc SSPE"; }
@@ -87,5 +87,13 @@ public class HaitiLocations {
         public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
     };
 
+
+    // we are uninstalling this until we actually start to use it
+    public static LocationDescriptor POZ = new LocationDescriptor() {
+        public String uuid() { return "c488ed05-f259-4f7b-a9d4-8f56736da691"; }
+        public String name() { return "POZ"; }
+        public String description() { return "Promotion Objectif Zerosida"; }
+        public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
+    };
 
 }
