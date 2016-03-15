@@ -52,6 +52,9 @@ public class ConfigDescriptor {
     private String providerIdentifierPrefix;
 
     @JsonProperty
+    private List<String> extraIdentifierTypes;
+
+    @JsonProperty
     private String dispositionConfig; // override the default disposition config file to use
 
     @JsonProperty
@@ -136,6 +139,14 @@ public class ConfigDescriptor {
 
     public void setProviderIdentifierPrefix(String providerIdentifierPrefix) {
         this.providerIdentifierPrefix = providerIdentifierPrefix;
+    }
+
+    public List<String> getExtraIdentifierTypes() {
+        return extraIdentifierTypes;
+    }
+
+    public void setExtraIdentifierTypes(List<String> extraIdentifierTypes) {
+        this.extraIdentifierTypes = extraIdentifierTypes;
     }
 
     public String getDispositionConfig() {

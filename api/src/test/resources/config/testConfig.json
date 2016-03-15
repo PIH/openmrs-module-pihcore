@@ -13,5 +13,10 @@
     "visitTemplates": [
         "outpatientTemplate",
         "inpatientTemplate"
+    ],
+
+    "extraIdentifierTypes": [
+        "someIdentifierTypeUuid",
+        "anotherIdentifierTypeUuid"
     ]
 }

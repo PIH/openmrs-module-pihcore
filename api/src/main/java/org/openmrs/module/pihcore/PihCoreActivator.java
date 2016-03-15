@@ -14,14 +14,18 @@
 package org.openmrs.module.pihcore;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.GlobalProperty;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.web.name.NameSupport;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.utils.MetadataUtil;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
@@ -58,6 +62,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             setDispositionConfig(config);
             installMetadataPackages(config);
             installMetadataBundles(config);
+            setExtraIdentifierTypes(config);
             MergeActionsSetup.registerMergeActions();
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
@@ -133,9 +138,25 @@ public class PihCoreActivator extends BaseModuleActivator {
         }
     }
 
+    public void setExtraIdentifierTypes(Config config) {
+        if (config != null && config.getExtraIdentifierTypes() != null) {
+            setGlobalProperty(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, StringUtils.join(config.getExtraIdentifierTypes(), ","));
+        }
+    }
+
     // hack to allow injecting a mock config for testing
     public void setConfig(Config config) {
         this.config = config;
+    }
+
+    protected void setGlobalProperty(String propertyName, String propertyValue) {
+        AdministrationService administrationService = Context.getAdministrationService();
+        GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
+        if (gp == null) {
+            gp = new GlobalProperty(propertyName);
+        }
+        gp.setPropertyValue(propertyValue);
+        administrationService.saveGlobalProperty(gp);
     }
 }
 

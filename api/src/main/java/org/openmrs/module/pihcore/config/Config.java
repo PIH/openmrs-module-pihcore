@@ -47,6 +47,8 @@ public class Config {
 
     public String getProviderIdentifierPrefix() { return descriptor.getProviderIdentifierPrefix(); }
 
+    public List<String> getExtraIdentifierTypes() { return descriptor.getExtraIdentifierTypes(); }
+
     public ConfigDescriptor.Site getSite() {
         return descriptor.getSite();
     }

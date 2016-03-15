@@ -51,4 +51,10 @@ public class HaitiPatientIdentifierTypes {
 		public String name() { return "HIVEMR-V1"; }
 		public String description() { return "Internal EMR ID for this Patient in the Haiti EMR V1 system"; }
 	};
+
+	public static PatientIdentifierTypeDescriptor USER_ENTERED_REF_NUMBER = new PatientIdentifierTypeDescriptor() {
+		public String uuid() { return "d9009bd0-eac9-11e5-a837-0800200c9a66"; }
+		public String name() { return "User-Entered Reference Number"; }
+		public String description() { return "Any user-entered reference number not assigned by the system; for instance, allows the user to store a dossier number not assigned by the current system"; }
+	};
 }

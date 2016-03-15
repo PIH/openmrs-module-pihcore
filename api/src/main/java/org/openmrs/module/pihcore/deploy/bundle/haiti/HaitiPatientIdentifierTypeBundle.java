@@ -1,8 +1,6 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.openmrs.module.metadatadeploy.bundle.CoreConstructors;
-import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +16,7 @@ public class HaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle {
         install(HaitiPatientIdentifierTypes.DOSSIER_NUMBER);
         install(HaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER);
         install(HaitiPatientIdentifierTypes.HIVEMR_V1);
+        install(HaitiPatientIdentifierTypes.USER_ENTERED_REF_NUMBER);
     }
 
 }
