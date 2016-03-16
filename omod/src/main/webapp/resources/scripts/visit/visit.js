@@ -271,6 +271,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                         emr.navigateTo({ applicationUrl: (!url.startsWith("/") ? '/' : '') + url });
                     }
 
+                    $scope.showEncounterDetails = $scope.section.showEncounterDetails;
+
+                    $scope.hideIncompleteAlert = $scope.section.hideIncompleteAlert;
+
                     $scope.canExpand = function() {
                         return $scope.state === 'short' && $scope.section.longTemplate;
                     }

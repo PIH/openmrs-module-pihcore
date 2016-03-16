@@ -49,9 +49,10 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pihcore.visitNote.consultInfo.label",
             icon: "icon-file-alt",
-            shortTemplate: "templates/sections/consultInfoSectionShort.page",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-consult-info.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-consult-info.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+            showEncounterDetails: true,
+            hideIncompleteAlert: true
         }
 
         var primaryCareHistory = {
@@ -134,8 +135,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+            showEncounterDetails: true
         };
 
         var allowedForAll = function(visit) {
