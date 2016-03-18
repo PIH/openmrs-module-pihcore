@@ -478,6 +478,7 @@ public class Roles {
                     Privileges.APP_EMR_INPATIENTS,
                     Privileges.APP_COREAPPS_PATIENT_VISITS,
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.TASK_COREAPPS_CREATE_VISIT,
                     Privileges.APP_EMR_OUTPATIENT_VITALS,
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
