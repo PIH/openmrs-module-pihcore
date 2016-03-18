@@ -252,6 +252,16 @@
     </ifMode>
 
     <!-- The form -->
+    <section id="mh_refer" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.mentalhealth.referredBy">
+        <div class="section-container">
+            <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:OTHER']">
+                <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
+                     style="checkbox"/>
+            </repeat>
+        </div>
+    </section>
+
     <section id="mh_scores" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.mentalhealth.scores">
 
@@ -324,6 +334,12 @@
             <br/>
             <br/>
 
+            <label>
+                <uimessage code="pihcore.mentalhealth.suicideEval"/>
+            </label>
+            <obs conceptId="PIH:Suicidal evaluation" answerConceptIds="PIH:YES,PIH:NO"
+                 style="radio" answerCodes="yes,no" answerSeparator="" />
+            <br/>
             <obs conceptId="PIH:Mental health diagnosis" answerConceptId="CIEL:125562"
                  style="checkbox"/>
 
@@ -339,6 +355,16 @@
                  style="autocomplete"/>
             <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
                  style="autocomplete"/>
+
+            <br/>
+            <label>
+                <uimessage code="pihcore.mentalhealth.providerType"/>
+            </label>
+            <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST']">
+                <obs conceptId="PIH:Type of provider" answerConceptId="{0}"
+                     style="checkbox"/>
+            </repeat>
+
         </div>
     </section>
 
