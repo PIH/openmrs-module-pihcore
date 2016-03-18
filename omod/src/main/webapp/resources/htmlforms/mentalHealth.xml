@@ -253,12 +253,18 @@
 
     <!-- The form -->
     <section id="mh_refer" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.mentalhealth.referredBy">
+             headerCode="pihcore.mentalhealth.communityReferral">
+
         <div class="section-container">
-            <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:OTHER']">
+            <label>
+                <uimessage code="pihcore.mentalhealth.referredBy" />
+            </label>
+            <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER']">
                 <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
                      style="checkbox"/>
             </repeat>
+            <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
+                 style="checkbox" commentFieldLabel=" " />
         </div>
     </section>
 
