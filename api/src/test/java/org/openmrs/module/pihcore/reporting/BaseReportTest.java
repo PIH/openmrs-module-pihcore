@@ -61,7 +61,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         deployService.installBundle(mirebalaisLocationsBundle);
         LocationTagSetup.setupLocationTags(locationService, getConfig());
         haitiAddressBundle.installAddressTemplate();
-        haitiAddressBundle.installAddressHierarchyLevels();
     }
 
     protected Config getConfig() {

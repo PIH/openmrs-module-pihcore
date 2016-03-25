@@ -35,6 +35,7 @@ public class CheckInDataSetManagerTest extends EncounterDataSetManagerTest {
     @Override
     public void setup() throws Exception {
         super.setup();
+        haitiAddressBundle.installAddressHierarchyLevels();
         Patient p = createPatient("X3XK71");
         createRegistrationEncounter(p);
         createCheckInEncounter(p);
