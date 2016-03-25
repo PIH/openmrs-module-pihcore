@@ -361,14 +361,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- TODO figure out why we still need the 1.9 subproject for testing-->
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>emrapi-api-1.9</artifactId>
-            <version>1.11</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Begin OpenMRS contrib -->
 
         <dependency>
