@@ -60,10 +60,9 @@
         <htmlformentryVersion>3.2</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.5</htmlformentryuiVersion>
-        <calculationVersion>1.1</calculationVersion>
+        <calculationVersion>1.1</calculationVersion>r
         <reportingVersion>0.9.9</reportingVersion>
         <reportinguiVersion>1.0</reportinguiVersion>
-        <reportingrestVersion>1.6-SNAPSHOT</reportingrestVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.11</serializationxstreamVersion>
         <idgenVersion>4.3</idgenVersion>
@@ -257,19 +256,19 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>serialization.xstream-api-1.9</artifactId>
             <version>${serializationxstreamVersion}</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>serialization.xstream-api-1.10</artifactId>
             <version>${serializationxstreamVersion}</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>serialization.xstream-api-2.0</artifactId>
             <version>${serializationxstreamVersion}</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
