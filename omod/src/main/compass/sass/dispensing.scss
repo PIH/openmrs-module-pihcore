@@ -26,15 +26,6 @@ fieldset.medication {
 		background: $successBackground;
 	}
 
-	.emptyValue {
-		background: $error;
-		color: white;
-
-		&:focus {
-			background: $error;
-		}
-	}
-
 	.medication-name input {
 		width: 96%;
 		display: inline-block;
