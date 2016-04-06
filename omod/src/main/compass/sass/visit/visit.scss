@@ -201,12 +201,28 @@ i.highlight {
     display: inline-block;
   }
 
-  .incomplete {
+ /* .incomplete {
     background-color: $pihSecondaryGrey !important;
+  }*/
+
+  .encounter-header {
+    background-color: #D0CECE;
   }
 
+  .vaccinations-header {
+    background-color: #D0CECE;;
+  }
+
+  .allergies-header {
+    background-color: #D0CECE;
+  }
+
+  .section-header {
+    background-color: #D0CECE;
+  }
+
+
   .header {
-    background-color: #F9F9F9;
     padding: 3px;
 
     > span {
@@ -272,15 +288,6 @@ i.highlight {
       text-align: right;
       color: $darkerGrey;
       font-size: 0.9em;
-    }
-  }
-
-  &.missing {
-    border: none; // 1px solid $lighterGrey;
-
-    .header {
-      background-color: white;
-      border-bottom: 1px solid $lighterGrey;
     }
   }
 
