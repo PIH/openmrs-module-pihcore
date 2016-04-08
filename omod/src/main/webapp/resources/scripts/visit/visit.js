@@ -377,7 +377,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     }).then(function(opts) {
                         // we trim off the time zone, because we don't want to send it along: the server will just assume that it is in it's timezone
                         var start = $filter('serverDateForRESTSubmit')(moment(opts.start).startOf('day').format());
-                        var stop = $filter('serverDateForRESTSubmit')(opts.stop ? moment(opts.stop).endOf('day').format() : null);
+                        var stop = $filter('serverDateForRESTSubmit')(opts.stop ?
+                            moment(opts.stop).endOf('day').isBefore(moment()) ?      // set end date to end of day *unless* end of day is after current datetime (ie, end date is today)--then just set to current datetime)
+                            moment(opts.stop).endOf('day').format() :
+                            moment().format() :
+                            null);
                         new Visit({
                             uuid: $scope.visit.uuid,
                             startDatetime: start,
