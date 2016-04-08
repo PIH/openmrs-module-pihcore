@@ -64,8 +64,7 @@
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
 <div id="visit-app" ng-controller="VisitController">
-    <div ng-show="visit" ui-view></div>
-    <div ng-hide="visit"><i class="icon-spinner icon-spin icon-2x"></i></div>
+    <div ui-view></div>
 </div>
 
 <script type="text/javascript">
