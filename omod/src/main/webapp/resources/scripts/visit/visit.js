@@ -628,28 +628,27 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                             v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:ref,orders:ref,voided,visit:ref,encounterProviders,creator),patient:default,visitType:ref,attributes:default)"
                         })
                         .$promise.then(function (visit) {
-                        visit.encounters = _.reject(visit.encounters, function (it) {
-                            return it.voided;
-                        });
-                        $scope.visit = new OpenMRS.VisitModel(visit);
-                        $scope.visitIdx = $scope.getVisitIdx(visit);
-                        $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
-                        $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
-                        VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit);
+                            visit.encounters = _.reject(visit.encounters, function (it) {
+                                return it.voided;
+                            });
+                            $scope.visit = new OpenMRS.VisitModel(visit);
+                            $scope.visitIdx = $scope.getVisitIdx(visit);
+                            $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
+                            $scope.visitTemplate = VisitTemplateService.determineFor($scope.visit);
+                            VisitTemplateService.applyVisit($scope.visitTemplate, $scope.visit);
 
-                        $scope.consultEncounter = VisitTemplateService.getConsultEncounterType() ? $scope.visit.getEncounterByType(VisitTemplateService.getConsultEncounterType().uuid) : null;
-                        if ($scope.consultEncounter) {
-                            loadConsultEncounter();
-                        }
-                        else {
-                            // no consult encounter, so automatically "ready"
-                            $scope.consultEncounterReady = true;
-                        }
+                            $scope.consultEncounter = VisitTemplateService.getConsultEncounterType() ? $scope.visit.getEncounterByType(VisitTemplateService.getConsultEncounterType().uuid) : null;
+                            if ($scope.consultEncounter) {
+                                loadConsultEncounter();
+                            }
+                            else {
+                                // no consult encounter, so automatically "ready"
+                                $scope.consultEncounterReady = true;
+                            }
 
-                        AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function (ext) {
-                            $scope.visitActions = ext;
-                        })
-
+                            AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function (ext) {
+                                $scope.visitActions = ext;
+                            })
                     });
                 }
             }
