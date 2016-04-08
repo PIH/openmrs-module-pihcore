@@ -16,6 +16,12 @@ i.highlight {
   color: $highlight;
 }
 
+#visit-app {
+  .indent {
+    margin-left: 40px;
+  }
+}
+
 #visit-list {
   tr:hover {
     background-color: $link;
@@ -204,23 +210,6 @@ i.highlight {
  /* .incomplete {
     background-color: $pihSecondaryGrey !important;
   }*/
-
-  .encounter-header {
-    background-color: #D0CECE;
-  }
-
-  .vaccinations-header {
-    background-color: #D0CECE;;
-  }
-
-  .allergies-header {
-    background-color: #D0CECE;
-  }
-
-  .section-header {
-    background-color: #D0CECE;
-  }
-
 
   .header {
     padding: 3px;

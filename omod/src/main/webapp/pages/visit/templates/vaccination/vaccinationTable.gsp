@@ -1,4 +1,4 @@
-<div class="selectable header vaccinations-header" ng-click="expandVaccinations(showVaccinationTable)">
+<div class="selectable header" ng-click="expandVaccinations(showVaccinationTable)">
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">
             <i class="icon-umbrella"></i>

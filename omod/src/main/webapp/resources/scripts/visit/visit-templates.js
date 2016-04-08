@@ -37,11 +37,13 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
 
         var reviewAllergies = {
             type: "include",
+            classes: "indent",
             include: "templates/allergies/reviewAllergies.page"
         };
 
         var vaccinations = {
             type: "include",
+            classes: "indent",
             include: "templates/vaccination/vaccinations.page"
         };
 
@@ -59,6 +61,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pihcore.history.label",
             icon: "icon-file-alt",
+            classes: "indent",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml",
@@ -69,6 +72,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pihcore.exam.label",
             icon: "icon-stethoscope",
+            classes: "indent",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml",
@@ -79,6 +83,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pihcore.disposition.label",
             icon: "icon-stethoscope",
+            classes: "indent",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/dispositionLong.page",
             // kind of a hack--we have a custom long template, that doesn't require a specific template module, but we still load the model, just to get the "hasExistingObs" property set
@@ -90,6 +95,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pihcore.feeding.history.label",
             icon: "icon-food",
+            classes: "indent",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml",
@@ -100,6 +106,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pihcore.supplements.history.label",
             icon: "icon-asterisk",
+            classes: "indent",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml",
@@ -110,6 +117,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pihcore.diagnosis.label",
             icon: "icon-list-ul",
+            classes: "indent",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/dxLong.page",
             // kind of a hack--we have a custom long template, that doesn't require a specific template module, but we still load the model, just to get the "hasExistingObs" property set
@@ -121,6 +129,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pihcore.visitNote.plan",
             icon: "icon-list-ul",
+            classes: "indent",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-plan.xml",
@@ -132,6 +141,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             type: "consult-section",
             label: "pih.task.mentalHealth.label",
             icon: "icon-user",
+            classes: "indent",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",

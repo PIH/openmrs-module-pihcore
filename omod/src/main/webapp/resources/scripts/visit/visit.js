@@ -62,6 +62,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
             controller: function($scope) {
 
                 var element = $scope.element;
+                $scope.classes = element.classes;
 
                 if (element.type === 'encounter') {
                     $scope.encounters = element.encounters;
@@ -80,7 +81,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "visitServi
                     $scope.template = "templates/visitElementNotYetImplemented.page";
                 }
             },
-            template: '<div ng-include="template"></div>'
+            template: '<div class="{{classes}}" ng-include="template"></div>'
         }
     }])
 
