@@ -52,6 +52,9 @@ public class ConfigDescriptor {
     private String providerIdentifierPrefix;
 
     @JsonProperty
+    private String dossierIdentifierPrefix;
+
+    @JsonProperty
     private List<String> extraIdentifierTypes;
 
     @JsonProperty
@@ -139,6 +142,14 @@ public class ConfigDescriptor {
 
     public void setProviderIdentifierPrefix(String providerIdentifierPrefix) {
         this.providerIdentifierPrefix = providerIdentifierPrefix;
+    }
+
+    public String getDossierIdentifierPrefix() {
+        return dossierIdentifierPrefix;
+    }
+
+    public void setDossierIdentifierPrefix(String dossierIdentifierPrefix) {
+        this.dossierIdentifierPrefix = dossierIdentifierPrefix;
     }
 
     public List<String> getExtraIdentifierTypes() {

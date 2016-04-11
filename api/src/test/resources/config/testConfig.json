@@ -18,5 +18,7 @@
     "extraIdentifierTypes": [
         "someIdentifierTypeUuid",
         "anotherIdentifierTypeUuid"
-    ]
+    ],
+
+    "dossierIdentifierPrefix": "TH"
 }

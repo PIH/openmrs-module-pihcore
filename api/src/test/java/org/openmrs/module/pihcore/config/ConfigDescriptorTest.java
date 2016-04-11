@@ -25,6 +25,7 @@ public class ConfigDescriptorTest {
         assertThat(configDescriptor.getDispositionConfig(), is("pih-dispositions-mirebalais.json"));
         assertThat(configDescriptor.getExtraIdentifierTypes().contains("someIdentifierTypeUuid"), is(true));
         assertThat(configDescriptor.getExtraIdentifierTypes().contains("anotherIdentifierTypeUuid"), is(true));
+        assertThat(configDescriptor.getDossierIdentifierPrefix(), is("TH"));
     }
 
 }

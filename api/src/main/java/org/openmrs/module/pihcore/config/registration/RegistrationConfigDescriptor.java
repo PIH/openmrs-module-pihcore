@@ -20,6 +20,9 @@ public class RegistrationConfigDescriptor {
     private String afterCreatedUrl = "registrationapp/registrationSummary.page?patientId={{patientId}}";
 
     @JsonProperty
+    private List<String> afterCreatedActions;
+
+    @JsonProperty
     private List<String> matchingPatientsPropertiesToDisplay;
 
     @JsonProperty
@@ -53,6 +56,14 @@ public class RegistrationConfigDescriptor {
 
     public void setAfterCreatedUrl(String afterCreatedUrl) {
         this.afterCreatedUrl = afterCreatedUrl;
+    }
+
+    public List<String> getAfterCreatedActions() {
+        return afterCreatedActions;
+    }
+
+    public void setAfterCreatedActions(List<String> afterCreatedActions) {
+        this.afterCreatedActions = afterCreatedActions;
     }
 
     public Map<String, Object> getSimilarPatientsSearch() {
