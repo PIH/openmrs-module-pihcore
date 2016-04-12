@@ -256,7 +256,7 @@ public class LocationTagSetup {
         ));
 
         setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(
-                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
+                MirebalaisLocations.OUTPATIENT_CLINIC,
                 MirebalaisLocations.WOMENS_CLINIC
         ));
 
