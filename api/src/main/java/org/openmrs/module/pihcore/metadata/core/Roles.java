@@ -616,6 +616,7 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
                     Privileges.TASK_EMR_ENTER_VITALS_NOTE,
+                    Privileges.TASK_EMR_PRINT_LABELS,
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY,
                     Privileges.TASK_EMR_DEATH_CERTIFICATE_FORM,
