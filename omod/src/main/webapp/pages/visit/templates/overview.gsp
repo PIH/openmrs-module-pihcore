@@ -2,9 +2,6 @@
 <div ng-hide="visit"><i class="icon-spinner icon-spin icon-2x"></i></div>
 
 <span ng-show="visit">
-    <div id="visit-type">
-        <choose-visit-template></choose-visit-template>
-    </div>
 
     <div id="visit-details">
         <visit-details visit="visit"></visit-details>
@@ -30,8 +27,9 @@
         <visit-list-dropdown></visit-list-dropdown>
     </div>
 
-    <div ng-repeat="element in visitTemplate.elements">
-        <display-element></display-element>
+    <div ng-repeat="encounter in visit.encounters | filter:{voided:false}">
+        <encounter encounter="encounter" encounter-date-format="encounterDateFormat"></encounter>
     </div>
+
 </span>
 
