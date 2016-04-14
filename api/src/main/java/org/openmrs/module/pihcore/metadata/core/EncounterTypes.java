@@ -46,10 +46,17 @@ public class EncounterTypes {
 		public String description() { return "Encounter where vital signs were captured, and triage may have been done, possibly for triage purposes, but a complete exam was not done."; }
 	};
 
+	// TODO can this be retired if we replace with speific consults?
 	public static EncounterTypeDescriptor PRIMARY_CARE_VISIT  = new EncounterTypeDescriptor() {
 		public String uuid() { return "1373cf95-06e8-468b-a3da-360ac1cf026d"; }
 		public String name() { return "Consultation soins de base"; }
 		public String description() { return "Primary care visit (In Kreyol, it&apos;s &apos;vizit swen primè&apos;)"; }
+	};
+
+	public static EncounterTypeDescriptor PRIMARY_CARE_PEDS_INITIAL_CONSULT = new EncounterTypeDescriptor() {
+		public String uuid() { return "5b812660-0262-11e6-a837-0800200c9a66"; }
+		public String name() { return "Primary Care Pediatric Initial Consult"; }
+		public String description() { return "Primary Care Pediatric Initial Consult"; }
 	};
 
 	public static EncounterTypeDescriptor CONSULTATION  = new EncounterTypeDescriptor() {

@@ -38,5 +38,5 @@ public class Components {
         public static final String ID_CARD_PRINTING = "idcardPrinting";
         public static final String CHART_SEARCH = "chartSearch";
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
-
+        public static final String PRIMARY_CARE = "primaryCare";
 }

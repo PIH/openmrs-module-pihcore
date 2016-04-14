@@ -60,6 +60,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                 restrict: "E",
                 scope: {
                     encounter: "=",
+                    visit: "=",
                     encounterDateFormat: "="
                 },
                 controller: ["$scope", function($scope) {
@@ -72,14 +73,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     $scope.encounterState = config ? config.defaultState : "short";
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
+                    $scope.sections = config && config.sections ? config.sections : [];
+                 //   $scope.encounterReady = false;
 
                     function loadFullEncounter() {
-
-                        // load standard OpenMRS REST representation of an object
-                        Encounter.get({ uuid: $scope.encounter.uuid, v: "full" }).
-                            $promise.then(function(encounter) {
-                                $scope.encounter = encounter;
-                            });
 
                         // if the display templates for this encounter-type require a special model, fetch it (only use case now is the "encounter-in-hfe-schema" model provided by HFE)
                         if ($scope.templateModelUrl()) {
@@ -93,9 +90,18 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
                                         $scope.html = $sce.trustAsHtml($scope.templateModel.html);
                                         $scope.doesNotHaveExistingObs = !$scope.templateModel.hasExistingObs;
+                                     //   $scope.encounterReady = true;
                                     }
                                 });
                             // TODO error handling
+                        }
+                        else {
+                            // load standard OpenMRS REST representation of an object
+                            Encounter.get({ uuid: $scope.encounter.uuid, v: "full" }).
+                                $promise.then(function(encounter) {
+                                    $scope.encounter = encounter;
+                                   // $scope.encounterReady = true;
+                                });
                         }
 
                     }
@@ -165,17 +171,17 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                         }
                     });
 
-                    if (config.defaultState == "long") {
+                   // if (config.defaultState == "long") {
                         loadFullEncounter();
-                    }
+                    //}
 
                     $scope.template = config ? config[config.defaultState + "Template"] : "templates/encounters/defaultEncounterShort.page"
                 }],
-                template: '<div class="visit-element"><div ng-include="template"></div></div>'
+                templateUrl: 'templates/encounterElement.page'
             }
     }])
 
-    .directive("section", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
+    .directive("encounterSection", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
         function(Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
             return {
                 restrict: "E",
@@ -183,9 +189,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     section: "=",
                     encounter: "=",
                     visit: "=",
-                    encounterReady: "="
+                    //encounterReady: "="
                 },
                 controller: ["$scope", function($scope) {
+
+                    // TODO steal something from display element here to do allergies and vaccines? or create two directives, encounter-section, include-section
 
                     $scope.DatetimeFormats = DatetimeFormats;
                     $scope.Concepts = Concepts;
@@ -195,9 +203,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     $scope.template = $scope.section.shortTemplate;
 
                     // don't load individual sections until we have the base encounter
-                    if ($scope.encounterReady) {
+                  //  if ($scope.encounterReady) {
                         loadSection();
-                    }
+                  /*  }
                     else {
                         $scope.$watch('encounterReady', function(newVal, oldVal) {
                             if ($scope.encounterReady) {
@@ -205,11 +213,11 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                             }
                         });
                     }
-
+*/
                     function loadSection() {
                         if ($scope.encounter && $scope.section.templateModelUrl && !$scope.sectionLoaded) {
                             var url = Handlebars.compile($scope.section.templateModelUrl)({
-                                consultEncounter: $scope.encounter
+                                encounter: $scope.encounter
                             });
                             $scope.sectionLoaded = true; // not entirely accurate, because it hasn't been loaded yet, bu we want to avoid double loadings
                             $http.get("/" + OPENMRS_CONTEXT_PATH + url)
@@ -231,7 +239,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     function openSectionForEdit() {
                         var url = Handlebars.compile($scope.section.editUrl)({
                             visit: $scope.visit,
-                            consultEncounter: $scope.encounter,
+                            encounter: $scope.encounter,
                             patient: $scope.visit.patient,
                             returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid)
                         });
@@ -286,18 +294,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     }
 
                     $scope.edit = function() {
-                        if ($scope.encounter) {
-                            openSectionForEdit();
-                        }
-                        else {
-                            $scope.$emit('start-consult');
-                            $scope.$on('consult-started', function(event, encounterUuid) {
-                                $scope.encounter = {
-                                    uuid: encounterUuid
-                                }
-                                openSectionForEdit();
-                            })
-                        }
+                        openSectionForEdit();
                     }
 
                     $scope.$on('expand-all',function() {
@@ -313,10 +310,26 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     });
 
                 }],
-                template: '<div class="visit-element"><div ng-include="template"></div></div>'
+                template: '<div class="visit-element indent"><div ng-include="template"></div></div>'
             }
         }])
 
+    .directive("includeSection", [
+        function() {
+            return {
+                restrict: "E",
+                scope: {
+                    section: "=",
+                    encounter: "=",
+                    visit: "=",
+                    //encounterReady: "="
+                },
+                controller: function($scope) {
+
+                },
+                template: '<div class="indent" ng-include="section.template"></div>'
+            }
+        }])
 
     // this is not a reusable directive, and it does not have an isolate scope
     .directive("visitDetails", [ "Visit", "ngDialog", "$filter", function(Visit, ngDialog, $filter) {
@@ -641,13 +654,14 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
         }]);
 
 
+// get allergies and vaccines to work?
+// add the other three visit types
+// get the encounter ready and loading stuff to work--the flashing (!)
+// anything else we can streamline?
+// better naming conventions--what is a "section"?
+// clean out a lot of old crap in the end! lots unused files--delete everything below this
 
 
-// TODO script action?
-// 1) Add a new pediatric initial encounter type
-//.2) New "start pediatric initial encounter type" visit action,that triggers somethign similar to the "start-consult" action below"
-// 3) build the section functionality into the
-// 999) remove all old stuff
 
 /* $scope.$on('start-consult', function() {
 
@@ -755,34 +769,5 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
  */
 
 
-/*  // This is not a reusable directive. It does not have an isolate scope, but rather inherits scope from VisitController
- .directive("displayElement", [
- function() {
- return {
- restrict: 'E',
- controller: function($scope) {
+// This is not a reusable directive. It does not have an isolate scope, but rather inherits scope from VisitController
 
- var element = $scope.element;
- $scope.classes = element.classes;
-
- if (element.type === 'encounter') {
- $scope.encounters = element.encounters;
- $scope.template = "templates/visitElementEncounter.page";
-
- }
- else if (element.type === 'consult-section') {
- $scope.section = element;
- $scope.template = "templates/visitElementSection.page";
- }
- else if (element.type === 'include') {
- $scope.template = element.include;
- }
- else {
- $scope.type = element.type;
- $scope.template = "templates/visitElementNotYetImplemented.page";
- }
- },
- template: '<div class="{{classes}}" ng-include="template"></div>'
- }
- }])
- */

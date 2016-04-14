@@ -47,7 +47,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             include: "templates/vaccination/vaccinations.page"
         };
 
-        var primaryCareConsultInfo = {
+      /*  var primaryCareConsultInfo = {
             type: "consult-section",
             label: "pihcore.visitNote.consultInfo.label",
             icon: "icon-file-alt",
@@ -56,86 +56,8 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             showEncounterDetails: true,
             hideIncompleteAlert: true
         }
+*/
 
-        var primaryCareHistory = {
-            type: "consult-section",
-            label: "pihcore.history.label",
-            icon: "icon-file-alt",
-            classes: "indent",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var primaryCareExam = {
-            type: "consult-section",
-            label: "pihcore.exam.label",
-            icon: "icon-stethoscope",
-            classes: "indent",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var primaryCareDisposition = {
-            type: "consult-section",
-            label: "pihcore.disposition.label",
-            icon: "icon-stethoscope",
-            classes: "indent",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/dispositionLong.page",
-            // kind of a hack--we have a custom long template, that doesn't require a specific template module, but we still load the model, just to get the "hasExistingObs" property set
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var feeding = {
-            type: "consult-section",
-            label: "pihcore.feeding.history.label",
-            icon: "icon-food",
-            classes: "indent",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var supplements = {
-            type: "consult-section",
-            label: "pihcore.supplements.history.label",
-            icon: "icon-asterisk",
-            classes: "indent",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var primaryCareDx = {
-            type: "consult-section",
-            label: "pihcore.diagnosis.label",
-            icon: "icon-list-ul",
-            classes: "indent",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/dxLong.page",
-            // kind of a hack--we have a custom long template, that doesn't require a specific template module, but we still load the model, just to get the "hasExistingObs" property set
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var primaryCarePlan = {
-            type: "consult-section",
-            label: "pihcore.visitNote.plan",
-            icon: "icon-list-ul",
-            classes: "indent",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-plan.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-
-        };
 
         var mentalHealth = {
             type: "consult-section",

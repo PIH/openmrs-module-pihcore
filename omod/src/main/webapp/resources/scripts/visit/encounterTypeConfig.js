@@ -10,6 +10,95 @@ angular.module("encounterTypeConfig", ["constants"])
         // you specify the URL of the source here; used currently for htmlFormEntry encounter templates, which
         // require the encounter to be formatted using the HFE schema
 
+        // TODO get intentation to work? should it just be standard, remove as a param?
+
+        /* Define Sections */
+        var allergies = {
+            type: "include-section",
+            template: "templates/allergies/reviewAllergies.page"
+        };
+
+        var vaccinations = {
+            type: "include-section",
+            template: "templates/vaccination/vaccinations.page"
+        };
+
+        var primaryCareHistory = {
+            type: "encounter-section",
+            label: "pihcore.history.label",
+            icon: "icon-file-alt",
+            classes: "indent",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+        var primaryCareExam = {
+            type: "encounter-section",
+            label: "pihcore.exam.label",
+            icon: "icon-stethoscope",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+        var primaryCareDisposition = {
+            type: "encounter-section",
+            label: "pihcore.disposition.label",
+            icon: "icon-stethoscope",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/dispositionLong.page",
+            // kind of a hack--we have a custom long template, that doesn't require a specific template module, but we still load the model, just to get the "hasExistingObs" property set
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+        var feeding = {
+            type: "encounter-section",
+            label: "pihcore.feeding.history.label",
+            icon: "icon-food",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+        var supplements = {
+            type: "encounter-section",
+            label: "pihcore.supplements.history.label",
+            icon: "icon-asterisk",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+        var primaryCareDx = {
+            type: "encounter-section",
+            label: "pihcore.diagnosis.label",
+            icon: "icon-list-ul",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/dxLong.page",
+            // kind of a hack--we have a custom long template, that doesn't require a specific template module, but we still load the model, just to get the "hasExistingObs" property set
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+        var primaryCarePlan = {
+            type: "encounter-section",
+            label: "pihcore.visitNote.plan",
+            icon: "icon-list-ul",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-plan.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+
+        };
+
+
+        /* Define Encounter Type */
         var encounterTypeConfig = {
             DEFAULT: {
                 defaultState: "short",
@@ -47,6 +136,24 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true
+        };
+        encounterTypeConfig[EncounterTypes.primaryCarePedsInitialConsult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl,
+            sections: [
+                vaccinations,
+                supplements,
+                allergies,
+                primaryCareHistory,
+                feeding,
+                primaryCareExam,
+                primaryCareDx,
+                primaryCarePlan,
+                primaryCareDisposition
+            ]
         };
         encounterTypeConfig[EncounterTypes.oncologyConsult.uuid] = {
             defaultState: "short",

@@ -186,6 +186,9 @@ angular.module('constants', [])
         consultation: {
             uuid: "92fd09b4-5335-4f7e-9f63-b2a663fd09a6"
         },
+        primaryCarePedsInitialConsult: {
+            uuid: "5b812660-0262-11e6-a837-0800200c9a66"
+        },
         oncologyConsult: {
             uuid: "035fb8da-226a-420b-8d8b-3904f3bedb25"
         },
