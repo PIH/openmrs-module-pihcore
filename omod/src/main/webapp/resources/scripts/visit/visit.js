@@ -61,6 +61,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 scope: {
                     encounter: "=",
                     visit: "=",
+                    visits: "=",
                     encounterDateFormat: "="
                 },
                 controller: ["$scope", function($scope) {
@@ -185,6 +186,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     section: "=",
                     encounter: "=",
                     visit: "=",
+                    visits: "="
                 },
                 controller: ["$scope", function($scope) {
 
@@ -300,6 +302,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     section: "=",
                     encounter: "=",
                     visit: "=",
+                    visits: "="
                 },
                 controller: function($scope) {
 
@@ -631,8 +634,6 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }]);
 
 
-// remove doesNotHaveExistingObs?
-// mental health--do we need a button?
 
 
 
