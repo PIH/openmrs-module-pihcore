@@ -189,6 +189,15 @@ angular.module('constants', [])
         primaryCarePedsInitialConsult: {
             uuid: "5b812660-0262-11e6-a837-0800200c9a66"
         },
+        primaryCarePedsFollowupConsult: {
+            uuid: "229e5160-031b-11e6-a837-0800200c9a66"
+        },
+        primaryCareAdultInitialConsult: {
+            uuid: "27d3a180-031b-11e6-a837-0800200c9a66"
+        },
+        primaryCareAdultFollowupConsult: {
+            uuid: "27d3a181-031b-11e6-a837-0800200c9a66"
+        },
         oncologyConsult: {
             uuid: "035fb8da-226a-420b-8d8b-3904f3bedb25"
         },
@@ -249,7 +258,5 @@ angular.module('constants', [])
     })
 
     .value('VisitAttributeTypes', {
-        visitTemplate: {
-            uuid: "f7b07c80-27c3-49de-8830-cb9e3e805eeb"
-        }
+
     })

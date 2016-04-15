@@ -63,10 +63,6 @@ public class Config {
         return getGlobalProperties().get(name);
     }
 
-    public List<String> getVisitTemplates() {
-        return descriptor.getVisitTemplates();
-    }
-
     public String getDispositionConfig() { return descriptor.getDispositionConfig(); }
 
     public Map<String, String> getGlobalProperties() {

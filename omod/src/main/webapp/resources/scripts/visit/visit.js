@@ -632,11 +632,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
 
 
 // add the other three visit types
-// get the encounter ready and loading stuff to work--the flashing (!)
-// anything else we can streamline?
 // remove old visit-templates.js
 // remove doesNotHaveExistingObs?
-// mental health
+// existing visit list
+// mental health--do we need a button?
 
 
 

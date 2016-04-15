@@ -59,6 +59,24 @@ public class EncounterTypes {
 		public String description() { return "Primary Care Pediatric Initial Consult"; }
 	};
 
+	public static EncounterTypeDescriptor PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT = new EncounterTypeDescriptor() {
+		public String uuid() { return "229e5160-031b-11e6-a837-0800200c9a66"; }
+		public String name() { return "Primary Care Pediatric Followup Consult"; }
+		public String description() { return "Primary Care Pediatric Followup Consult"; }
+	};
+
+	public static EncounterTypeDescriptor PRIMARY_CARE_ADULT_INITIAL_CONSULT = new EncounterTypeDescriptor() {
+		public String uuid() { return "27d3a180-031b-11e6-a837-0800200c9a66"; }
+		public String name() { return "Primary Care Adult Initial Consult"; }
+		public String description() { return "Primary Care Adult Initial Consult"; }
+	};
+
+	public static EncounterTypeDescriptor PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT = new EncounterTypeDescriptor() {
+		public String uuid() { return "27d3a181-031b-11e6-a837-0800200c9a66"; }
+		public String name() { return "Primary Care Adult Followup Consult"; }
+		public String description() { return "Primary Care Adult Followup Consult"; }
+	};
+
 	public static EncounterTypeDescriptor CONSULTATION  = new EncounterTypeDescriptor() {
 		public String uuid() { return "92fd09b4-5335-4f7e-9f63-b2a663fd09a6"; }
 		public String name() { return "Consultation"; }

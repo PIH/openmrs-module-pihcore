@@ -46,9 +46,6 @@ public class ConfigDescriptor {
     private List<String> components;
 
     @JsonProperty
-    private List<String> visitTemplates;
-
-    @JsonProperty
     private String providerIdentifierPrefix;
 
     @JsonProperty
@@ -115,14 +112,6 @@ public class ConfigDescriptor {
 
     public void setGlobalProperties(Map<String, String> globalProperties) {
         this.globalProperties = globalProperties;
-    }
-
-    public List<String> getVisitTemplates() {
-        return visitTemplates;
-    }
-
-    public void setVisitTemplates(List<String> visitTemplates) {
-        this.visitTemplates = visitTemplates;
     }
 
     public List<String> getComponents() {
