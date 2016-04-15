@@ -74,10 +74,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
                     $scope.sections = config && config.sections ? config.sections : [];
-                 //   $scope.encounterReady = false;
 
                     function loadFullEncounter() {
-
                         // if the display templates for this encounter-type require a special model, fetch it (only use case now is the "encounter-in-hfe-schema" model provided by HFE)
                         if ($scope.templateModelUrl()) {
                             var url = Handlebars.compile($scope.templateModelUrl())({
@@ -89,18 +87,16 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                                     if ($scope.templateModel.html) {
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
                                         $scope.html = $sce.trustAsHtml($scope.templateModel.html);
-                                        $scope.doesNotHaveExistingObs = !$scope.templateModel.hasExistingObs;
-                                     //   $scope.encounterReady = true;
+                                        //$scope.doesNotHaveExistingObs = !$scope.templateModel.hasExistingObs;
                                     }
                                 });
                             // TODO error handling
                         }
+                        // otherwise load the standard OpenMRS REST representation of an object
                         else {
-                            // load standard OpenMRS REST representation of an object
                             Encounter.get({ uuid: $scope.encounter.uuid, v: "full" }).
                                 $promise.then(function(encounter) {
                                     $scope.encounter = encounter;
-                                   // $scope.encounterReady = true;
                                 });
                         }
 
@@ -171,9 +167,9 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                         }
                     });
 
-                   // if (config.defaultState == "long") {
+                    if (config.defaultState == "long") {
                         loadFullEncounter();
-                    //}
+                    }
 
                     $scope.template = config ? config[config.defaultState + "Template"] : "templates/encounters/defaultEncounterShort.page"
                 }],
@@ -189,11 +185,8 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     section: "=",
                     encounter: "=",
                     visit: "=",
-                    //encounterReady: "="
                 },
                 controller: ["$scope", function($scope) {
-
-                    // TODO steal something from display element here to do allergies and vaccines? or create two directives, encounter-section, include-section
 
                     $scope.DatetimeFormats = DatetimeFormats;
                     $scope.Concepts = Concepts;
@@ -202,18 +195,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     $scope.session = SessionInfo.get();
                     $scope.template = $scope.section.shortTemplate;
 
-                    // don't load individual sections until we have the base encounter
-                  //  if ($scope.encounterReady) {
-                        loadSection();
-                  /*  }
-                    else {
-                        $scope.$watch('encounterReady', function(newVal, oldVal) {
-                            if ($scope.encounterReady) {
-                                loadSection();
-                            }
-                        });
-                    }
-*/
                     function loadSection() {
                         if ($scope.encounter && $scope.section.templateModelUrl && !$scope.sectionLoaded) {
                             var url = Handlebars.compile($scope.section.templateModelUrl)({
@@ -226,13 +207,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                                     if ($scope.templateModel.html) {
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
                                         $scope.html = $sce.trustAsHtml($scope.templateModel.html);
-                                        $scope.doesNotHaveExistingObs = !$scope.templateModel.hasExistingObs;
+                                        //$scope.doesNotHaveExistingObs = !$scope.templateModel.hasExistingObs;
                                     }
                                 });
                             // TODO error handling
-                        }
-                        else {
-                            $scope.doesNotHaveExistingObs = true;
                         }
                     }
 
@@ -322,7 +300,6 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
                     section: "=",
                     encounter: "=",
                     visit: "=",
-                    //encounterReady: "="
                 },
                 controller: function($scope) {
 
@@ -658,6 +635,20 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
 // get the encounter ready and loading stuff to work--the flashing (!)
 // anything else we can streamline?
 // remove old visit-templates.js
+// remove doesNotHaveExistingObs?
 // mental health
 
 
+
+// don't load individual sections until we have the base encounter
+//  if ($scope.encounterReady) {
+//loadSection();
+/*  }
+ else {
+ $scope.$watch('encounterReady', function(newVal, oldVal) {
+ if ($scope.encounterReady) {
+ loadSection();
+ }
+ });
+ }
+ */

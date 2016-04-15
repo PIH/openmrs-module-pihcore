@@ -3,7 +3,7 @@
         <span class="title encounter-name encounter-span">
             <i class="icon-umbrella"></i>
             <span class="title">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
-            <i class="icon-exclamation-sign highlight" ng-show="currentVaccinations.length == 0" ></i>
+            <!-- <i class="icon-exclamation-sign highlight" ng-show="currentVaccinations.length == 0" ></i> -->
         </span>
         <span>
             <span ng-repeat="vaccination in currentVaccinations">
