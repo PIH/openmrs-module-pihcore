@@ -21,6 +21,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 return EncounterTransaction.save({
                     patientUuid: patient.uuid,
                     encounterUuid: encounter.uuid,
+                        // for now, we are not setting the location or the provider--will pick this up from the parent encounter
                         //locationUuid: SessionInfo.get().sessionLocation.uuid,
                        //providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
                       //  "encounterRoleUuid": EncounterRoles.consultingClinician.uuid } ],
