@@ -1,4 +1,4 @@
-angular.module("visit", [ "filters", "constants", "visit-templates", "encounterTypeConfig", "visitService", "encounterService", "obsService",
+angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitService", "encounterService", "obsService",
     "allergies", "vaccinations", "ui.bootstrap", "ui.router", "session", "ngDialog", "appFramework",
     "configService", 'pascalprecht.translate'])
 
@@ -631,10 +631,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
         }]);
 
 
-// add the other three visit types
-// remove old visit-templates.js
 // remove doesNotHaveExistingObs?
-// existing visit list
 // mental health--do we need a button?
 
 

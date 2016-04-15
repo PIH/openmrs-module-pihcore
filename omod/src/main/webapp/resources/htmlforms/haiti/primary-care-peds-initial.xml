@@ -1,4 +1,7 @@
-<htmlform formUuid="cccc5c38-eb32-11e2-981f-96c0fcb18276" formName="Primary Care Provider and Date" formVersion="1.0">
+
+<htmlform formUuid="40f51770-0267-11e6-a837-0800200c9a66"
+          formEncounterType="5b812660-0262-11e6-a837-0800200c9a66"
+          formName="Primary Care Peds Initial" formVersion="1.0">
 
     <style type="text/css">
         #who-when-where {
@@ -56,7 +59,7 @@
     </style>
 
     <ifMode mode="VIEW" include="false">
-        <h2><uimessage code="pihcore.visitNote.consultInfo.label"/></h2>
+        <h2><uimessage code="ui.i18n.EncounterType.name.5b812660-0262-11e6-a837-0800200c9a66"/></h2>
 
         <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
         <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
@@ -134,3 +137,4 @@
     </ifMode>
 
 </htmlform>
+

@@ -33,7 +33,6 @@
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("pihcore", "visit/constants.js")
     ui.includeJavascript("pihcore", "visit/filters.js")
-    ui.includeJavascript("pihcore", "visit/visit-templates.js")
     ui.includeJavascript("pihcore", "visit/allergies.js")
     ui.includeJavascript("pihcore", "visit/vaccinations.js")
     ui.includeJavascript("pihcore", "visit/visit.js")
