@@ -177,7 +177,7 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
 
                     $scope.template = config ? config[config.defaultState + "Template"] : "templates/encounters/defaultEncounterShort.page"
                 }],
-                templateUrl: 'templates/encounterElement.page'
+                templateUrl: 'templates/encounters/encounter.page'
             }
     }])
 
@@ -654,120 +654,10 @@ angular.module("visit", [ "filters", "constants", "visit-templates", "encounterT
         }]);
 
 
-// get allergies and vaccines to work?
 // add the other three visit types
 // get the encounter ready and loading stuff to work--the flashing (!)
 // anything else we can streamline?
-// better naming conventions--what is a "section"?
-// clean out a lot of old crap in the end! lots unused files--delete everything below this
+// remove old visit-templates.js
+// mental health
 
-
-
-/* $scope.$on('start-consult', function() {
-
- EncounterTransaction.save({
- patientUuid: $scope.patientUuid,
- visitUuid: $scope.visitUuid,
- locationUuid: SessionInfo.get().sessionLocation.uuid,
- encounterTypeUuid: VisitTemplateService.getConsultEncounterType().uuid,
- providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
- "encounterRoleUuid": EncounterRoles.consultingClinician.uuid } ],
- encounterDateTime: $scope.visit.stopDatetime ? $scope.visit.startDatetime : ""  // if active visit, set encounterDateTime == "" (ie, null); in this case, the encounter transaction service will timestamp with the current server datetime
- }, function(result) {
- $scope.consultEncounterUuid = result.encounterUuid;
- $scope.$broadcast("consult-started", result.encounterUuid);
- })
- })*/
-
-
-
-/* window.onbeforeunload = function() {
- if (OrderContext.hasUnsavedData()) {
- // TODO: localize
- return "You have unsaved changes, are you sure you want to discard them?";
- }
- }*/
-
-
-
-
-/* .service("VisitTemplateService", [ "VisitTemplates", "VisitAttributeTypes", "Encounter","ConfigService",
- function(VisitTemplates, VisitAttributeTypes, Encounter, ConfigService) {
-
- var currentTemplate = null;
-
- // TODO what if this is not populated in time?
- var visitTemplates;
- ConfigService.getVisitTemplates().then(function (templates) {
- visitTemplates = templates;
- })
-
- return {
- getAllowedVisitTemplates: function(visit) {
- return _.filter(
- _.map(visitTemplates, function(visitTemplate) {
- return VisitTemplates[visitTemplate];
- }), function(it) {
- return it.allowedFor(visit);
- });
- },
-
- setCurrent: function(visitTemplate) {
- currentTemplate = visitTemplate;
- },
-
- getCurrent: function() {
- return currentTemplate;
- },
-
- getConfigFor: function(encounter) {
- if (currentTemplate && currentTemplate.encounterTypeConfig) {
- var config = currentTemplate.encounterTypeConfig[encounter.encounterType.uuid];
- return config ? config : currentTemplate.encounterTypeConfig.DEFAULT;
- }
- return null;
- },
-
- determineFor: function(visit) {
- var specified = new OpenMRS.VisitModel(visit).getAttributeValue(VisitAttributeTypes.visitTemplate);
- if (specified && VisitTemplates[specified]) {
- return angular.copy(VisitTemplates[specified]);
- }
- else {
- // if no specified, and only one available, use it; otherwise, use timeline
- var availableTemplates = this.getAllowedVisitTemplates(visit);
- if (availableTemplates && availableTemplates.length == 1) {
- return angular.copy(availableTemplates[0]);
- }
- return angular.copy(VisitTemplates["timeline"]);
- }
- },
-
- applyVisit: function(visitTemplate, visit) {
- this.setCurrent(visitTemplate);
- _.each(visitTemplate.elements, function(it) {
- if (it.type == 'encounter') {    // find any encounters associated with this element
- it.encounters = _.filter(visit.encounters, function(candidate) {
- // TODO support finding by form as well?
- return candidate.encounterType.uuid === it.encounter.encounterType.uuid;
- });
- }
- });
- },
-
- getConsultEncounterType: function() {
- if (currentTemplate && currentTemplate.consultEncounterType) {
- return currentTemplate.consultEncounterType;
- }
- else {
- return null;
- }
- }
-
- }
- }])
- */
-
-
-// This is not a reusable directive. It does not have an isolate scope, but rather inherits scope from VisitController
 

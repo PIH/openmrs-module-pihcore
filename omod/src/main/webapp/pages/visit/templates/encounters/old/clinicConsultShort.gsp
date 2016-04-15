@@ -1,5 +1,5 @@
 <div class="header">
-    <span ng-include="'templates/standardEncounterHeading.page'"></span>
+    <span ng-include="'templates/encounters/defaultEncounterHeading.page'"></span>
     <span class="one-third details">
         <span>
             ${ ui.message('coreapps.clinicianfacing.diagnosis') }:
@@ -12,5 +12,5 @@
                 {{ encounter.obs | byConcept:Concepts.dispositionConstruct:true | dispositionShort }}
         </span>
     </span>
-    <span class="overall-actions" ng-include="'templates/standardEncounterActions.page'"></span>
+    <span class="overall-actions" ng-include="'templates/encounters/defaultEncounterActions.page'"></span>
 </div>

@@ -52,7 +52,7 @@ angular.module("visit-templates", ["constants", "encounterTypeConfig"])
             label: "pihcore.visitNote.consultInfo.label",
             icon: "icon-file-alt",
             shortTemplate: "templates/sections/defaultSectionShort.page",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/primary-care-consult-info.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{consultEncounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-consult-info.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
             showEncounterDetails: true,
             hideIncompleteAlert: true
         }

@@ -5,7 +5,7 @@
 
 <!-- obs-value and encounter-summary-long classes currently used just for Selenium tests -->
 
-<div class="header" ng-include="'templates/defaultEncounterHeader.page'">
+<div class="header" ng-include="'templates/encounters/defaultEncounterHeader.page'">
 </div>
 
 <div class="content encounter-summary-long">
@@ -40,5 +40,5 @@
         </span>
     </span>
 
-    <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>
+    <div class="book-keeping" ng-include="'templates/encounters/defaultEncounterBookkeeping.page'"></div>
 </div>

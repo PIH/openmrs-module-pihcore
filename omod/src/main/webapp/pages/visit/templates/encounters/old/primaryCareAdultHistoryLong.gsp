@@ -1,7 +1,7 @@
 
 <!-- TODO: are we currently using this?  can we delete? -->
 
-<div class="header" ng-include="'templates/defaultEncounterHeader.page'">
+<div class="header" ng-include="'templates/encounters/defaultEncounterHeader.page'">
 </div>
 
 <!-- TODO localize this once we finalize on format -->
@@ -26,5 +26,5 @@
         </span>
     </p>
 
-    <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>
+    <div class="book-keeping" ng-include="'templates/encounters/defaultEncounterBookkeeping.page'"></div>
 </div>

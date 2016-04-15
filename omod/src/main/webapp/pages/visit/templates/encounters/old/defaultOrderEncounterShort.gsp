@@ -1,5 +1,5 @@
 <div class="header">
-    <span ng-include="'templates/standardEncounterHeading.page'"></span>
+    <span ng-include="'templates/encounters/defaultEncounterHeading.page'"></span>
     <span class="details">
         <span>
             <div ng-show="encounter.orders && encounter.orders.length">
@@ -9,5 +9,5 @@
             </div>
         </span>
     </span>
-    <span class="overall-actions" ng-include="'templates/standardEncounterActions.page'"></span>
+    <span class="overall-actions" ng-include="'templates/encounters/defaultEncounterActions.page'"></span>
 </div>
