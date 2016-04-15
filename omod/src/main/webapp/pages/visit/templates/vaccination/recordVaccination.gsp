@@ -10,40 +10,26 @@
     <div class="spaced-paragraphs">
         <h5>${ ui.message("pihcore.vaccination.whenWasItGiven") }</h5>
 
-        <p ng-show="hasActiveVisit">
+        <p ng-show="encounter">
             <label>
-                <input type="radio" ng-model="when" value="now"/> ${ ui.message("uicommons.today") }: {{ now | date }}
+                <input type="radio" ng-model="when" value="encounter"/> ${ ui.message("pihcore.visitNote.duringCurrentConsult") }
             </label>
         </p>
 
         <p>
             <label>
-                <input type="radio" ng-model="when" value="visit"/> ${ ui.message("pihcore.visitNote.duringVisit.label") }
+                <input type="radio" ng-model="when" value="no-encounter"/>${ ui.message("pihcore.visitNote.notDuringVisit.label") }
             </label>
         </p>
 
-        <p>
-            <label>
-                <input type="radio" ng-model="when" value="no-visit"/>${ ui.message("pihcore.visitNote.notDuringVisit.label") }
-            </label>
-        </p>
-
-        <p ng-show="when == 'visit'">
-            <br/>
-            ${ ui.message("pihcore.visitNote.whichVisit") }?
-
-            <select id="visit-list-select" ng-model="whenVisit" ng-options="visit as visit | combinedVisitDates for visit in visits">
-            </select>
-        </p>
-
-        <p ng-show="when != 'now'">
+        <p ng-show="when == 'no-encounter'">
             <br/>
             ${ ui.message("uicommons.date") }: <date-with-popup ng-model="date" min-date="minDate" max-date="maxDate"></date-with-popup>
         </p>
         <br/>
     </div>
     <div>
-        <button class="confirm right" ng-disabled="!date" ng-click="confirm({when: when, whenVisit: whenVisit, date: date})">${ ui.message("uicommons.save") }</button>
+        <button class="confirm right" ng-disabled="when != 'encounter' && !date" ng-click="confirm({when: when, date: date})">${ ui.message("uicommons.save") }</button>
         <button class="cancel" ng-click="closeThisDialog()">${ ui.message("uicommons.cancel") }</button>
     </div>
 </div>

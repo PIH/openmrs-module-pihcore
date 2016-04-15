@@ -28,7 +28,7 @@
     </div>
 
     <div ng-repeat="encounter in visit.encounters | filter:{voided:false}">
-        <encounter encounter="encounter" visit="visit" visits="visits" encounter-date-format="encounterDateFormat"></encounter>
+        <encounter encounter="encounter" visit="visit" encounter-date-format="encounterDateFormat"></encounter>
     </div>
 
 </span>

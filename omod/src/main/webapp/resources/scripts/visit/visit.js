@@ -61,7 +61,6 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 scope: {
                     encounter: "=",
                     visit: "=",
-                    visits: "=",
                     encounterDateFormat: "="
                 },
                 controller: ["$scope", function($scope) {
@@ -121,7 +120,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.canEdit = function() {
                         var encounter = new OpenMRS.EncounterModel($scope.encounter);
                         var currentUser = new OpenMRS.UserModel($scope.session.user);
-                        return config.editUrl &&
+                        return config && config.editUrl &&
                             (encounter.canBeEditedBy(currentUser)
                                 || encounter.participatedIn($scope.session.currentProvider)
                                 || encounter.createdBy(currentUser));
@@ -130,7 +129,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.canDelete = function() {
                         var encounter = new OpenMRS.EncounterModel($scope.encounter);
                         var currentUser = new OpenMRS.UserModel($scope.session.user);
-                        return config.editUrl &&
+                        return config && config.editUrl &&
                             (encounter.canBeDeletedBy(currentUser)
                                 || encounter.participatedIn($scope.session.currentProvider)
                                 || encounter.createdBy(currentUser));
@@ -168,7 +167,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         }
                     });
 
-                    if (config.defaultState == "long") {
+                    if (config && config.defaultState == "long") {
                         loadFullEncounter();
                     }
 
@@ -185,8 +184,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 scope: {
                     section: "=",
                     encounter: "=",
-                    visit: "=",
-                    visits: "="
+                    visit: "="
                 },
                 controller: ["$scope", function($scope) {
 
@@ -301,8 +299,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 scope: {
                     section: "=",
                     encounter: "=",
-                    visit: "=",
-                    visits: "="
+                    visit: "="
                 },
                 controller: function($scope) {
 
