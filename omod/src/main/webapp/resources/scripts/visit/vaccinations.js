@@ -206,6 +206,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 $scope.vaccinations = vaccinations;
                 $scope.currentVaccinations = "";
 
+                loadHistory();
+
                 function loadHistory() {
                     VaccinationService.getHistory($scope.patient).$promise.then(function(response) {
                         $scope.history = response.results;
@@ -216,15 +218,15 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 function getCurrentVaccinations() {
                     var vaccineSequences = [];
                     _.each($scope.vaccinations, function(vaccination) {
-                        _.each($scope.sequences, function(sequence) {
-                            if ($scope.existingDose(sequence, vaccination)) {
-                                vaccineSequences.push({ "vaccination" : vaccination.label, "sequence": sequence.label });
-                            }
-                        })
+                        var mostRecentSequence = _.find($scope.sequences.reverse(), function(sequence) {
+                            return $scope.existingDose(sequence, vaccination);
+                        });
+                        if (mostRecentSequence) {
+                            vaccineSequences.push({ "vaccination" : vaccination.label, "sequence": mostRecentSequence.label });
+                        }
                     });
                     return vaccineSequences;
                 }
-                loadHistory();
 
                 $scope.openDialog = function(sequence, vaccination) {
                     ngDialog.openConfirm({
