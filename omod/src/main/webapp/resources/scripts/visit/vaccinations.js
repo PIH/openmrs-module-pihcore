@@ -17,8 +17,9 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             deleteDose: function(obsGroup) {
                 return Obs.delete({uuid: obsGroup.uuid});
             },
-            saveWithEncounter: function(patient, encounter, vaccination, sequence) {
+            saveWithEncounter: function(visit, patient, encounter, vaccination, sequence) {
                 return EncounterTransaction.save({
+                    visitUuid: visit.uuid,
                     patientUuid: patient.uuid,
                     encounterUuid: encounter.uuid,
                         // for now, we are not setting the location or the provider--will pick this up from the parent encounter
@@ -86,7 +87,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             restrict: "E",
             scope: {
                 patient: "=",               // added patient here as we may potentially use this in a non-visit, non-encounter context, but we currently arent ever passing patient into this directive
-                encounter: "="
+                encounter: "=",
+                visit: "="
             },
             controller: function($scope) {
 
@@ -251,7 +253,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         }]
                     }).then(function(opts) {
                         if (opts.when == 'encounter') {
-                            VaccinationService.saveWithEncounter($scope.patient, $scope.encounter, vaccination, sequence)
+                            VaccinationService.saveWithEncounter($scope.visit, $scope.patient, $scope.encounter, vaccination, sequence)
                                 .$promise.then(loadHistory);
                         } else if (opts.when == 'no-encounter') {
                             VaccinationService.saveWithoutEncounter($scope.patient, vaccination, sequence, opts.date)
