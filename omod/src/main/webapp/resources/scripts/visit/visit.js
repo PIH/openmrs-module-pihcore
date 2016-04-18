@@ -74,6 +74,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
                     $scope.sections = config && config.sections ? config.sections : [];
+                    $scope.showSections = false;
 
                     function loadFullEncounter() {
                         // if the display templates for this encounter-type require a special model, fetch it (only use case now is the "encounter-in-hfe-schema" model provided by HFE)
@@ -110,7 +111,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     }
 
                     $scope.canExpand = function() {
-                        return $scope.encounterState === 'short' && config && config.longTemplate;
+                        return $scope.encounterState === 'short' && config
+                            && (config.longTemplate || config.sections);
                     }
 
                     $scope.canContract = function() {
@@ -139,11 +141,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         // Get the latest representation when we expand, in case things have been edited
                         loadFullEncounter(); // TODO make this a promise with a then
                         $scope.encounterState = 'long';
-                        $scope.template = config ? config["longTemplate"] : "templates/encounters/defaultEncounterLong.page"
+                        $scope.showSections = true;
+                        // show long template if available, otherwise just stay with short template (use case: encounters with sections but no long view)
+                        $scope.template = config && config["longTemplate"]  ?
+                            config["longTemplate"] : config ? config["shortTemplate"] : "templates/encounters/defaultEncounterShort.page";
                     }
 
                     $scope.contract = function() {
                         $scope.encounterState = 'short';
+                        $scope.showSections = false;
                         $scope.template = config ? config["shortTemplate"] : "templates/encounters/defaultEncounterShort.page"
                     }
 
