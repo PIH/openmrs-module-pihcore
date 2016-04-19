@@ -61,6 +61,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 scope: {
                     encounter: "=",
                     visit: "=",
+                    showSections: "=",
                     encounterDateFormat: "="
                 },
                 controller: ["$scope", function($scope) {
@@ -74,7 +75,6 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
                     $scope.sections = config && config.sections ? config.sections : [];
-                    $scope.showSections = false;
 
                     function loadFullEncounter() {
                         // if the display templates for this encounter-type require a special model, fetch it (only use case now is the "encounter-in-hfe-schema" model provided by HFE)
@@ -374,10 +374,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        'visitUuid', 'patientUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
+        'visitUuid', 'patientUuid', 'encounterUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
-                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, patientUuid, locale, DatetimeFormats,
-                 EncounterTransaction, SessionInfo, Concepts) {
+                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, patientUuid, encounterUuid,
+                 locale, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts) {
 
             $rootScope.DatetimeFormats = DatetimeFormats;
             $scope.Concepts = Concepts;
@@ -386,6 +386,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             $scope.visitUuid = visitUuid;
             $scope.patientUuid = patientUuid;
+            $scope.encounterUuid = encounterUuid;
 
             $scope.printButtonDisabled = false;
             $scope.allExpanded = false;
