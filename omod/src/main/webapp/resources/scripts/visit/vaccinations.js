@@ -218,7 +218,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 function getCurrentVaccinations() {
                     var vaccineSequences = [];
                     _.each($scope.vaccinations, function(vaccination) {
-                        var mostRecentSequence = _.find($scope.sequences.reverse(), function(sequence) {
+                        var mostRecentSequence = _.find($scope.sequences.concat().reverse(), function(sequence) {
                             return $scope.existingDose(sequence, vaccination);
                         });
                         if (mostRecentSequence) {
