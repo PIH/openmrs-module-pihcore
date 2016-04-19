@@ -71,7 +71,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.DatetimeFormats = DatetimeFormats;
                     $scope.Concepts = Concepts;
                     $scope.session = SessionInfo.get();
-                    $scope.encounterState = config ? config.defaultState : "short";
+                    $scope.encounterState = $scope.selected ? "long" : (config ? config.defaultState : "short");
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
                     $scope.sections = config && config.sections ? config.sections : [];
