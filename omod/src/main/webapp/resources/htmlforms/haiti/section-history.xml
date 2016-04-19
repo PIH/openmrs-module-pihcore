@@ -235,7 +235,8 @@
         </div>
     </section>
 
-    <includeIf velocityTest="$visit.getVisitAttribute('Visit Template') == 'adultInitialOutpatient' || $visit.getVisitAttribute('Visit Template') == 'adultFollowupOutpatient'" >
+    <!-- only show sexual activities if encounter type is Adult Intake or Adult Followup -->
+    <includeIf velocityTest="$encounter.encounterType.uuid == '27d3a180-031b-11e6-a837-0800200c9a66' || $encounter.encounterType.uuid == '27d3a181-031b-11e6-a837-0800200c9a66'" >
         <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.sexualActivities.label">
         <div class="section-container">
             <p class="radio">

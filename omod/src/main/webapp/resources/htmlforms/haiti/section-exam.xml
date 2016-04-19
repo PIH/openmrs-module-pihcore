@@ -97,7 +97,7 @@
 
     <!-- Pediatrics only content, hidden by default, shown (via above javascript) if pediatrics visit -->
     <!-- Note that I'm just hiding the content so that the viewing via HtmlFormEncounterController.encounterSchemaViaJson will still work in VIEW mode with no visit informatin present -->
-    <excludeIf velocityTest="$visit.getVisitAttribute('Visit Template') == 'pedsInitialOutpatient' || $visit.getVisitAttribute('Visit Template') == 'pedsFollowupOutpatient'" >
+<!--    <excludeIf velocityTest="$visit.getVisitAttribute('Visit Template') == 'pedsInitialOutpatient' || $visit.getVisitAttribute('Visit Template') == 'pedsFollowupOutpatient'" >
         <script type="text/javascript">
             jq(function() {
                 NavigatorController.getQuestionById('gross-motor-skills-exam').hide();
@@ -106,7 +106,7 @@
                 NavigatorController.getQuestionById('social-skills-evaluation').hide();
             });
         </script>
-    </excludeIf>
+    </excludeIf>-->
 
     <section id="primary-care-exam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
 
@@ -424,117 +424,120 @@
             </p>
         </fieldset>
 
-        <fieldset id="gross-motor-skills-exam">
-            <legend>
-                <uimessage code="pihcore.exam.gross_motor_skills_exam.title"/>
-            </legend>
-            <h3>
-                <uimessage code="pihcore.exam.gross_motor_skills_exam.title"/>
-            </h3>
+        <!-- peds only questions -->
+        <includeIf velocityTest="$encounter.encounterType.uuid == '5b812660-0262-11e6-a837-0800200c9a66' || $encounter.encounterType.uuid == '229e5160-031b-11e6-a837-0800200c9a66'" >
+            <fieldset id="gross-motor-skills-exam">
+                <legend>
+                    <uimessage code="pihcore.exam.gross_motor_skills_exam.title"/>
+                </legend>
+                <h3>
+                    <uimessage code="pihcore.exam.gross_motor_skills_exam.title"/>
+                </h3>
 
-            <p>
-                <field>
-                    <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                </field>
-                <field>
-                    <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
-                </field>
-            </p>
+                <p>
+                    <field>
+                        <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    </field>
+                    <field>
+                        <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                    </field>
+                </p>
 
-            <p class="comment-label">
-                <uimessage code="pihcore.exam.comment"/>
-            </p>
+                <p class="comment-label">
+                    <uimessage code="pihcore.exam.comment"/>
+                </p>
 
-            <p class="comment-field">
-                <field>
-                    <obs conceptId="PIH:Gross Motor Skills Evaluation (text)" rows="5" cols="60" />
-                </field>
-            </p>
-        </fieldset>
+                <p class="comment-field">
+                    <field>
+                        <obs conceptId="PIH:Gross Motor Skills Evaluation (text)" rows="5" cols="60" />
+                    </field>
+                </p>
+            </fieldset>
 
-        <fieldset id="fine-motor-skills-exam">
-            <legend>
-                <uimessage code="pihcore.exam.fine_motor_skills_exam.title"/>
-            </legend>
-            <h3>
-                <uimessage code="pihcore.exam.fine_motor_skills_exam.title"/>
-            </h3>
+            <fieldset id="fine-motor-skills-exam">
+                <legend>
+                    <uimessage code="pihcore.exam.fine_motor_skills_exam.title"/>
+                </legend>
+                <h3>
+                    <uimessage code="pihcore.exam.fine_motor_skills_exam.title"/>
+                </h3>
 
-            <p>
-                <field>
-                    <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                </field>
-                <field>
-                    <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
-                </field>
-            </p>
+                <p>
+                    <field>
+                        <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    </field>
+                    <field>
+                        <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                    </field>
+                </p>
 
-            <p class="comment-label">
-                <uimessage code="pihcore.exam.comment"/>
-            </p>
+                <p class="comment-label">
+                    <uimessage code="pihcore.exam.comment"/>
+                </p>
 
-            <p class="comment-field">
-                <field>
-                    <obs conceptId="PIH:Fine Motor Skills Evaluation (text)" rows="5" cols="60" />
-                </field>
-            </p>
-        </fieldset>
+                <p class="comment-field">
+                    <field>
+                        <obs conceptId="PIH:Fine Motor Skills Evaluation (text)" rows="5" cols="60" />
+                    </field>
+                </p>
+            </fieldset>
 
-        <fieldset id="language-development-evaluation">
-            <legend>
-                <uimessage code="pihcore.exam.language_development_evaluation.title"/>
-            </legend>
-            <h3>
-                <uimessage code="pihcore.exam.language_development_evaluation.title"/>
-            </h3>
+            <fieldset id="language-development-evaluation">
+                <legend>
+                    <uimessage code="pihcore.exam.language_development_evaluation.title"/>
+                </legend>
+                <h3>
+                    <uimessage code="pihcore.exam.language_development_evaluation.title"/>
+                </h3>
 
-            <p>
-                <field>
-                    <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                </field>
-                <field>
-                    <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
-                </field>
-            </p>
+                <p>
+                    <field>
+                        <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    </field>
+                    <field>
+                        <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                    </field>
+                </p>
 
-            <p class="comment-label">
-                <uimessage code="pihcore.exam.comment"/>
-            </p>
+                <p class="comment-label">
+                    <uimessage code="pihcore.exam.comment"/>
+                </p>
 
-            <p class="comment-field">
-                <field>
-                    <obs conceptId="PIH:Language Development Evaluation (text)" rows="5" cols="60" />
-                </field>
-            </p>
-        </fieldset>
+                <p class="comment-field">
+                    <field>
+                        <obs conceptId="PIH:Language Development Evaluation (text)" rows="5" cols="60" />
+                    </field>
+                </p>
+            </fieldset>
 
-        <fieldset id="social-skills-evaluation">
-            <legend>
-                <uimessage code="pihcore.exam.social_skills_evaluation.title"/>
-            </legend>
-            <h3>
-                <uimessage code="pihcore.exam.social_skills_evaluation.title"/>
-            </h3>
+            <fieldset id="social-skills-evaluation">
+                <legend>
+                    <uimessage code="pihcore.exam.social_skills_evaluation.title"/>
+                </legend>
+                <h3>
+                    <uimessage code="pihcore.exam.social_skills_evaluation.title"/>
+                </h3>
 
-            <p>
-                <field>
-                    <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
-                </field>
-                <field>
-                    <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
-                </field>
-            </p>
+                <p>
+                    <field>
+                        <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    </field>
+                    <field>
+                        <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                    </field>
+                </p>
 
-            <p class="comment-label">
-                <uimessage code="pihcore.exam.comment"/>
-            </p>
+                <p class="comment-label">
+                    <uimessage code="pihcore.exam.comment"/>
+                </p>
 
-            <p class="comment-field">
-                <field>
-                    <obs conceptId="PIH:Social Skills Evaluation (text)" rows="5" cols="60" />
-                </field>
-            </p>
-        </fieldset>
+                <p class="comment-field">
+                    <field>
+                        <obs conceptId="PIH:Social Skills Evaluation (text)" rows="5" cols="60" />
+                    </field>
+                </p>
+            </fieldset>
+        </includeIf>
 
         <fieldset>
             <legend>
