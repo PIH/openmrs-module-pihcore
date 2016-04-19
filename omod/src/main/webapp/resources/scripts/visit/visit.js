@@ -61,7 +61,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 scope: {
                     encounter: "=",
                     visit: "=",
-                    showSections: "=",
+                    selected: '=',
                     encounterDateFormat: "="
                 },
                 controller: ["$scope", function($scope) {
@@ -75,6 +75,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
                     $scope.sections = config && config.sections ? config.sections : [];
+                    $scope.showSections = $scope.selected;
 
                     function loadFullEncounter() {
                         // if the display templates for this encounter-type require a special model, fetch it (only use case now is the "encounter-in-hfe-schema" model provided by HFE)

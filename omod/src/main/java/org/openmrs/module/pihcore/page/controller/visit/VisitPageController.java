@@ -27,9 +27,17 @@ public class VisitPageController {
             if (visit != null) {
                 patient = visit.getPatient();
             }
-            else {
-                throw new MissingRequiredParameterException("patient or visit is required");
+            else if (encounter != null) {
+                patient = encounter.getPatient();
             }
+            else {
+                throw new MissingRequiredParameterException("patient or visit or encounter is required");
+            }
+        }
+
+        // see if we can get a visit from the encounter
+        if (visit == null && encounter != null) {
+            visit = encounter.getVisit();
         }
 
         patientDomainWrapper.setPatient(patient);
