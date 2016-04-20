@@ -72,6 +72,9 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.Concepts = Concepts;
                     $scope.session = SessionInfo.get();
                     $scope.encounterState = $scope.selected ? "long" : (config ? config.defaultState : "short");
+                    $scope.template = config ? config[$scope.encounterState + "Template"] :
+                        $scope.encounterState == 'long' ? "templates/encounters/defaultEncounterLong.page" : "templates/encounters/defaultEncounterShort.page";
+
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
                     $scope.sections = config && config.sections ? config.sections : [];
@@ -174,11 +177,9 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         }
                     });
 
-                    if (config && config.defaultState == "long") {
+                    if ($scope.encounterState == "long") {
                         loadFullEncounter();
                     }
-
-                    $scope.template = config ? config[config.defaultState + "Template"] : "templates/encounters/defaultEncounterShort.page"
                 }],
                 templateUrl: 'templates/encounters/encounter.page'
             }
