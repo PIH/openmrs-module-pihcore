@@ -148,6 +148,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCarePedsInitialConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
@@ -168,6 +169,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCarePedsFollowupConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
@@ -187,6 +189,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCareAdultInitialConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
@@ -205,6 +208,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCareAdultFollowupConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
@@ -228,6 +232,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true
         };
+
         encounterTypeConfig[EncounterTypes.oncologyInitialVisit.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",

@@ -73,7 +73,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.session = SessionInfo.get();
                     $scope.encounterState = $scope.selected ? "long" : (config ? config.defaultState : "short");
                     $scope.template = config ? config[$scope.encounterState + "Template"] :
-                        $scope.encounterState == 'long' ? "templates/encounters/defaultEncounterLong.page" : "templates/encounters/defaultEncounterShort.page";
+                        ($scope.encounterState == 'long' ? "templates/encounters/defaultEncounterLong.page" : "templates/encounters/defaultEncounterShort.page");
 
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
