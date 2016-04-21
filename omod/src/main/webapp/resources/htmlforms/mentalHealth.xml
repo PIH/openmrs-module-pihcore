@@ -120,6 +120,34 @@
 
     </style>
 
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+
+            jq(function() {
+
+                // next appt date can never be before encounter date
+                var setMinReturnVisitDate = function () {
+                    getField('return-visit-date.value').datepicker('option', 'minDate', new Date(getField('encounterDate.value').val()));
+                }
+
+                getField('encounterDate.value').change(function() {
+
+                    var returnVisitDate = getValue('return-visit-date.value');
+
+                    setMinReturnVisitDate();
+
+                    if (returnVisitDate  &amp;&amp; returnVisitDate != getValue('return-visit-date.value')) {
+                        setValue('return-visit-date.value','');  // reset return visit date if change to encounter date makes it invalid
+                        alert('<uimessage code="pihcore.mentalhealth.returnVisitDateResetWarning"/>');
+                    }
+                });
+
+                setMinReturnVisitDate();
+            });
+
+        </script>
+    </ifMode>
+
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>:
             <lookup complexExpression="$form.dateCreated"/>
@@ -439,7 +467,7 @@
                     <uimessage code="pihcore.consult.returnVisitDate"/>
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
+                    <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
                 </span>
             </p>
         </div>
