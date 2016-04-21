@@ -156,6 +156,11 @@ public class LocationTags {
 		public String description() { return "Signifies a Location where NCD consult form can be filled out"; }
 	};
 
+	public static LocationTagDescriptor LAB_RESULTS_LOCATION = new LocationTagDescriptor() {
+		public String uuid() { return "5a1a98d0-0805-11e6-a837-0800200c9a66"; }
+		public String name() { return "Lab Results Location"; }
+		public String description() { return "Signifies a Location where a Lab Results form can be filled out"; }
+	};
 
 	public static LocationTagDescriptor RETIRED_OUTPATIENT_TRANSFER_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "84864264-5fda-4626-b22f-4b690b7279f3"; }
