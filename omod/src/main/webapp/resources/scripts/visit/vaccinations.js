@@ -51,7 +51,12 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             saveWithoutEncounter: function(patient, vaccination, sequence, date) {
                 // this is for the scenario when they are retrospectively recording a vaccination that was not done during
                 // any visit captured in this patient record (e.g. patient brings a paper record from another clinic)
+
                 var obsDatetime = new Date().toISOString();
+
+                // trim time and time zone component from date before submtting
+                var formattedDate = moment(date).format('YYYY-MM-DD');
+
                 return Obs.save({
                     person: patient.uuid,
                     obsDatetime: obsDatetime,
@@ -73,7 +78,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             person: patient.uuid,
                             obsDatetime: obsDatetime,
                             concept: Concepts.vaccinationDate.uuid,
-                            value: date
+                            value: formattedDate
                         }
                     ]
                 });
