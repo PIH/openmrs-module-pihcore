@@ -130,7 +130,7 @@
 
                     var returnVisitDate = getValue('return-visit-date.value');
 
-                    getField('return-visit-date.value').datepicker('option', 'minDate', new Date(getField('encounterDate.value').val()));
+                    getField('return-visit-date.value').datepicker('option', 'minDate', getField('encounterDate.value').datepicker('getDate'));
 
                     if (returnVisitDate  &amp;&amp; returnVisitDate != getValue('return-visit-date.value')) {
                         setValue('return-visit-date.value','');  // reset return visit date if change to encounter date makes it invalid
