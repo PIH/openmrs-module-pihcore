@@ -285,7 +285,7 @@
             <label>
                 <uimessage code="pihcore.mentalhealth.referredBy" />
             </label>
-            <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER']">
+            <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:VILLAGE HEALTH WORKER']">
                 <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
                      style="checkbox"/>
             </repeat>
@@ -342,6 +342,26 @@
             <label>
                 <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>)
             </label>
+
+            <label>
+                <uimessage code="pihcore.mentalhealth.difficultDays"/>
+            </label>
+            <span class="small">
+                <obs conceptId="PIH:Days with difficulties in past month"/>
+            </span>
+            <label>
+                <uimessage code="pihcore.mentalhealth.nonFunctioningDays"/>
+            </label>
+            <span class="small">
+                <obs conceptId="PIH:Days without usual activity in past month"/>
+            </span>
+            <label>
+                <uimessage code="pihcore.mentalhealth.reducedFunctionDays"/>
+            </label>
+            <span class="small">
+                <obs conceptId="PIH:Days with less activity in past month"/>
+            </span>
+
 
             <span class="small">
                 <obs conceptId="CIEL:163226" required="true"/>
