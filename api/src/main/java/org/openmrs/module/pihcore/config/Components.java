@@ -20,7 +20,8 @@ public class Components {
         public static final String MENTAL_HEALTH = "mentalHealth";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
-        public static final String DATA_EXPORTS = "dataExports";
+        public static final String DATA_EXPORTS = "dataExports";  // enabled the data export section
+        public static final String ALL_DATA_EXPORTS = "allDataExports"; // show all data exports, regardless of what components are actually enabled (used by Mirebalais reporting server)
         public static final String ARCHIVES = "archives";
         public static final String WRISTBANDS = "wristbands";
         public static final String APPOINTMENT_SCHEDULING = "appointmentScheduling";
@@ -37,5 +38,5 @@ public class Components {
         public static final String ID_CARD_PRINTING = "idcardPrinting";
         public static final String CHART_SEARCH = "chartSearch";
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
-
+        public static final String PRIMARY_CARE = "primaryCare";
 }

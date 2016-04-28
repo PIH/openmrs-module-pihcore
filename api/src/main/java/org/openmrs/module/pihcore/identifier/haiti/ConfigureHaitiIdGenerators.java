@@ -17,6 +17,8 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 
+import java.util.UUID;
+
 public class ConfigureHaitiIdGenerators {
 
     public static final String LOCAL_ZL_IDENTIFIER_GENERATOR_ENABLED = "local_zl_identifier_generator_enabled";
@@ -51,9 +53,10 @@ public class ConfigureHaitiIdGenerators {
 
     public static void createDossierNumberGenerator(LocationService locationService, ConfigureHaitiIdGenerators configureHaitiIdGenerators, Config config) {
 
-        // TODO configure dossier generators for sites besides Mirebalais, if any of them start using the archives app
+        PatientIdentifierType dossierIdentifierType = getDossierIdentifierType();
+
+        // special, legacy case for Mirebalais
         if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-            PatientIdentifierType dossierIdentifierType = getDossierIdentifierType();
 
             SequentialIdentifierGenerator sequentialIdentifierGeneratorForUHM = configureHaitiIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
@@ -72,7 +75,18 @@ public class ConfigureHaitiIdGenerators {
                     locationService.getLocationByUuid(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL.uuid()));
 
         }
+        else if (config.getDossierIdentifierPrefix() != null) {
 
+            UUID uuid = UUID.randomUUID();
+
+            SequentialIdentifierGenerator sequentialIdentifierGenerator = configureHaitiIdGenerators
+                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
+                            config.getDossierIdentifierPrefix().toString(),
+                            uuid.toString());
+
+            configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGenerator, null);
+
+        }
     }
 
 

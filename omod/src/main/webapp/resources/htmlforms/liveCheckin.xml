@@ -20,8 +20,8 @@
     </includeIf>
 
     <includeIf velocityTest="!$config.isComponentEnabled('archives')">
-        <!-- otherwise redirect back to check-in app -->
-        <redirectOnSave url="/coreapps/findpatient/findPatient.page?app=mirebalais.liveCheckin"/>
+        <!-- otherwise redirect back directly to the router -->
+        <redirectOnSave url="/pihcore/router/appEndRouter.page?patientId={{patient.id}}"/>
     </includeIf>
 
 

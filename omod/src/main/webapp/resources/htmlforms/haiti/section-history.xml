@@ -1,4 +1,4 @@
-<htmlform formUuid="162091b1-0060-4e56-8c17-7015aeddf608" formName="History" formEncounterType="1373cf95-06e8-468b-a3da-360ac1cf026d" formVersion="1.0">
+<htmlform formUuid="162091b1-0060-4e56-8c17-7015aeddf608" formName="History" formVersion="1.0">
 
     <style type="text/css">
 
@@ -235,7 +235,8 @@
         </div>
     </section>
 
-    <includeIf velocityTest="$visit.getVisitAttribute('Visit Template') == 'adultInitialOutpatient' || $visit.getVisitAttribute('Visit Template') == 'adultFollowupOutpatient'" >
+    <!-- only show sexual activities if encounter type is Adult Intake or Adult Followup -->
+    <includeIf velocityTest="$encounter.encounterType.uuid == '27d3a180-031b-11e6-a837-0800200c9a66' || $encounter.encounterType.uuid == '27d3a181-031b-11e6-a837-0800200c9a66'" >
         <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.sexualActivities.label">
         <div class="section-container">
             <p class="radio">

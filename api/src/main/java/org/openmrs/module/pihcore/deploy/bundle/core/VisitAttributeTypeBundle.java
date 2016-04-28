@@ -1,10 +1,8 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
-import org.openmrs.customdatatype.datatype.FreeTextDatatype;
+import org.openmrs.VisitAttributeType;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.springframework.stereotype.Component;
-
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.visitAttributeType;
 
 @Component
 public class VisitAttributeTypeBundle extends AbstractMetadataBundle {
@@ -15,7 +13,6 @@ public class VisitAttributeTypeBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
-        install(visitAttributeType("Visit Template", "Describes how the visit dashboard should be laid out",
-                FreeTextDatatype.class, null, 0, 1, VisitAttributeTypes.VISIT_TEMPLATE));
+        uninstall(possible(VisitAttributeType.class, VisitAttributeTypes.VISIT_TEMPLATE), "no longer using this");
     }
 }

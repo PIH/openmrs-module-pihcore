@@ -1,4 +1,4 @@
-<div class="header" ng-include="'templates/defaultEncounterHeader.page'">
+<div class="header" ng-include="'templates/encounters/defaultEncounterHeader.page'">
 </div>
 
 <div class="content encounter-summary-long">  <!-- encounter-summary-long currently only used for Selenium tests -->
@@ -23,5 +23,5 @@
         </span>
     </div>
 
-    <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>
+    <div class="book-keeping" ng-include="'templates/encounters/defaultEncounterBookkeeping.page'"></div>
 </div>

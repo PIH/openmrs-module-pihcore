@@ -17,15 +17,15 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             deleteDose: function(obsGroup) {
                 return Obs.delete({uuid: obsGroup.uuid});
             },
-            saveWithEncounter: function(visit, patient, vaccination, sequence, date) {
+            saveWithEncounter: function(visit, patient, encounter, vaccination, sequence) {
                 return EncounterTransaction.save({
-                    patientUuid: patient.uuid,
                     visitUuid: visit.uuid,
-                    encounterTypeUuid: EncounterTypes.primaryCareVisit.uuid,  // TODO we will have to modify this if we start supporting multiple "consult" encounter types
-                    locationUuid: SessionInfo.get().sessionLocation.uuid,
-                    encounterDateTime: visit.stopDatetime ? (visit.startDatetime > date ? visit.startDatetime : date) : "",   // use the selected date if the not active visit, otherwise let transaction service figure it out
-                    providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
-                        "encounterRoleUuid": EncounterRoles.consultingClinician.uuid } ],
+                    patientUuid: patient.uuid,
+                    encounterUuid: encounter.uuid,
+                        // for now, we are not setting the location or the provider--will pick this up from the parent encounter
+                        //locationUuid: SessionInfo.get().sessionLocation.uuid,
+                       //providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
+                      //  "encounterRoleUuid": EncounterRoles.consultingClinician.uuid } ],
 
                     observations: [
                         {
@@ -41,7 +41,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                                 },
                                 {
                                     concept: Concepts.vaccinationDate.uuid,
-                                    value: date
+                                    value: encounter.encounterDatetime
                                 }
                             ]
                         }
@@ -51,7 +51,12 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             saveWithoutEncounter: function(patient, vaccination, sequence, date) {
                 // this is for the scenario when they are retrospectively recording a vaccination that was not done during
                 // any visit captured in this patient record (e.g. patient brings a paper record from another clinic)
+
                 var obsDatetime = new Date().toISOString();
+
+                // trim time and time zone component from date before submtting
+                var formattedDate = moment(date).format('YYYY-MM-DD');
+
                 return Obs.save({
                     person: patient.uuid,
                     obsDatetime: obsDatetime,
@@ -73,7 +78,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             person: patient.uuid,
                             obsDatetime: obsDatetime,
                             concept: Concepts.vaccinationDate.uuid,
-                            value: date
+                            value: formattedDate
                         }
                     ]
                 });
@@ -86,10 +91,17 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
         return {
             restrict: "E",
             scope: {
-                visit: "=",
-                visits: "="
+                patient: "=",               // added patient here as we may potentially use this in a non-visit, non-encounter context, but we currently arent ever passing patient into this directive
+                encounter: "=",
+                visit: "="
             },
             controller: function($scope) {
+
+                // should always have at least a patient or an encounter
+                if (!$scope.patient) {
+                    $scope.patient = $scope.encounter.patient;
+                }
+
                 var sequences = [
                     {
                         label: "pihcore.vaccination.sequence.doseZero",
@@ -173,11 +185,18 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             && member.value == numericValue;
                     });
                 }
+
                 $scope.existingDose = function(sequence, vaccination) {
                     return _.find($scope.history, function(it) {
                         return hasNumericMember(it, Concepts.vaccinationSequenceNumber, sequence.sequenceNumber)
                             && hasCodedMember(it, Concepts.vaccinationGiven, vaccination.concept);
                     });
+                }
+
+                $scope.existingDoseInEncounter = function(sequence, vaccination) {
+                    var existingDose = $scope.existingDose(sequence, vaccination);
+                    return $scope.encounter && existingDose && existingDose.encounter
+                        && existingDose.encounter.uuid == $scope.encounter.uuid;
                 }
 
                 $scope.isDoseValidForVaccination = function(sequence, vaccination) {
@@ -192,8 +211,10 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 $scope.vaccinations = vaccinations;
                 $scope.currentVaccinations = "";
 
+                loadHistory();
+
                 function loadHistory() {
-                    VaccinationService.getHistory($scope.visit.patient).$promise.then(function(response) {
+                    VaccinationService.getHistory($scope.patient).$promise.then(function(response) {
                         $scope.history = response.results;
                         $scope.currentVaccinations = getCurrentVaccinations();
                     });
@@ -202,15 +223,15 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 function getCurrentVaccinations() {
                     var vaccineSequences = [];
                     _.each($scope.vaccinations, function(vaccination) {
-                        _.each($scope.sequences, function(sequence) {
-                            if ($scope.existingDose(sequence, vaccination)) {
-                                vaccineSequences.push({ "vaccination" : vaccination.label, "sequence": sequence.label });
-                            }
-                        })
+                        var mostRecentSequence = _.find($scope.sequences.concat().reverse(), function(sequence) {
+                            return $scope.existingDose(sequence, vaccination);
+                        });
+                        if (mostRecentSequence) {
+                            vaccineSequences.push({ "vaccination" : vaccination.label, "sequence": mostRecentSequence.label });
+                        }
                     });
                     return vaccineSequences;
                 }
-                loadHistory();
 
                 $scope.openDialog = function(sequence, vaccination) {
                     ngDialog.openConfirm({
@@ -224,42 +245,13 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             $dialogScope.vaccination = vaccination;
                             $dialogScope.minDate = null;
                             $dialogScope.maxDate = new Date().toISOString();
-                            $dialogScope.visits = $scope.visits;
-                            $dialogScope.hasActiveVisit = _.find($scope.visits, function(it) {
-                                return !it.stopDatetime;
-                            });
+                            $dialogScope.encounter = $scope.encounter
 
-                            // when they choose a visit, set the date and allowed date range based on it
-                            $dialogScope.$watch("whenVisit", function(newVal) {
-                                $dialogScope.date = newVal ? newVal.startDatetime : null;
-                                $dialogScope.minDate = newVal ? newVal.startDatetime : null;
-                                $dialogScope.maxDate = (newVal && newVal.stopDatetime) ? newVal.stopDatetime : $dialogScope.now;
-                            });
-
-                            $dialogScope.$watch("when", function(newVal) {
-                                if (newVal == 'now') {
-                                    $dialogScope.whenVisit = _.find($scope.visits, function(it) {
-                                        return !it.stopDatetime;
-                                    });
-                                }
-                                else if (newVal == 'visit') {
-                                    //$dialogScope.date = null;
-                                }
-                                else if (newVal == 'no-visit') {
-                                    $dialogScope.whenVisit = null; // also triggers setting date to null
-                                }
-                            });
-
-                            // if the current visit is active, default to the "now" option, otherwise default to
-                            // "visit" with the currently-selected visit chosen
-                            if (!$scope.visit.stopDatetime) {
-                                // active visit
-                                $dialogScope.when = "now";
+                            if ($scope.encounter) {
+                                $dialogScope.when = "encounter";
                             }
                             else {
-                                $dialogScope.when = "visit";
-                                $dialogScope.whenVisit = _.findWhere($scope.visits, {uuid: $scope.visit.uuid});
-                                $dialogScope.date = $dialogScope.whenVisit.startDatetime;
+                                $dialogScope.when = "no-encounter";
                             }
 
                             $timeout(function() {
@@ -267,14 +259,11 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             }, 10)
                         }]
                     }).then(function(opts) {
-                        if (opts.when == 'now') {
-                            VaccinationService.saveWithEncounter($scope.visit, $scope.visit.patient, vaccination, sequence, opts.date)
+                        if (opts.when == 'encounter') {
+                            VaccinationService.saveWithEncounter($scope.visit, $scope.patient, $scope.encounter, vaccination, sequence)
                                 .$promise.then(loadHistory);
-                        } else if (opts.when == 'visit') {
-                            VaccinationService.saveWithEncounter(opts.whenVisit, $scope.visit.patient, vaccination, sequence, opts.date)
-                                .$promise.then(loadHistory);
-                        } else if (opts.when == 'no-visit') {
-                            VaccinationService.saveWithoutEncounter($scope.visit.patient, vaccination, sequence, opts.date)
+                        } else if (opts.when == 'no-encounter') {
+                            VaccinationService.saveWithoutEncounter($scope.patient, vaccination, sequence, opts.date)
                                 .$promise.then(loadHistory);
                         }
                     });

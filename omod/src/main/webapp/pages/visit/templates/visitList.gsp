@@ -3,7 +3,6 @@
     <tr>
         <th>${ ui.message("uicommons.start") }</th>
         <th>${ ui.message("uicommons.end") }</th>
-        <th>${ ui.message("pihcore.visitNote.visitTemplate") }</th>
         <th>${ ui.message("pihcore.diagnoses.label") }</th>
         <th>${ ui.message("pihcore.visitNote.clinicalNotes") }</th>
     </tr>
@@ -18,9 +17,6 @@
             <span ng-hide="v.stopDatetime">
                 (${ ui.message("uicommons.active") })
             </span>
-        </td>
-        <td>
-           {{ v.visitTemplate.label | translate }}
         </td>
         <td>
             <span ng-repeat="diag in v | diagnosesInVisitShort">

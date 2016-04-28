@@ -57,5 +57,5 @@
         </div>
     </div>
 
-    <div class="book-keeping" ng-include="'templates/standardEncounterBookkeeping.page'"></div>
+    <div class="book-keeping" ng-include="'templates/encounters/defaultEncounterBookkeeping.page'"></div>
 </div>

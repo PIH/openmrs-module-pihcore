@@ -15,12 +15,6 @@ angular.module('configService', ['ngResource'])
                     $promise.then(function(response) {
                         return response;
                     });
-            },
-            getVisitTemplates:function() {
-                return ConfigResource.query().
-                    $promise.then(function(response) {
-                        return response.visitTemplates;
-                    });
             }
         }
     }]);

@@ -3,7 +3,7 @@
         <span class="title encounter-name encounter-span">
             <i class="icon-umbrella"></i>
             <span class="title">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
-            <i class="icon-exclamation-sign highlight" ng-show="currentVaccinations.length == 0" ></i>
+            <!-- <i class="icon-exclamation-sign highlight" ng-show="currentVaccinations.length == 0" ></i> -->
         </span>
         <span>
             <span ng-repeat="vaccination in currentVaccinations">
@@ -30,8 +30,8 @@
             <tr ng-repeat="vaccination in vaccinations">
                 <th>{{ vaccination.label | translate }}</th>
                 <td nowrap ng-repeat="sequence in sequences" ng-class="{ impossible: !isDoseValidForVaccination(sequence, vaccination) }">
-                    <span ng-show="existingDose(sequence, vaccination)">
-                        {{ existingDose(sequence, vaccination) | groupMember:Concepts.vaccinationDate | obs:"value" | date }}
+                    <span ng-show="existingDose(sequence, vaccination)" ng-class="{'bold': existingDoseInEncounter(sequence, vaccination)}">
+                        {{ existingDose(sequence, vaccination) | groupMember:Concepts.vaccinationDate | obs:"value" | serverDate : 'dd-MMM-yyyy' }}
                         <a class="delete-action" ng-show="canDelete()" ng-click="confirmDelete(sequence, vaccination)"><i class="icon-remove"></i></a>
                     </span>
                     <span ng-show="canEdit() && !existingDose(sequence, vaccination) && isDoseValidForVaccination(sequence, vaccination)">

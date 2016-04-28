@@ -1,2 +1,2 @@
-<div class="header" ng-include="'templates/defaultEncounterHeader.page'">
+<div class="header" ng-include="'templates/encounters/defaultEncounterHeader.page'">
 </div>

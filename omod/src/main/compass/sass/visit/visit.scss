@@ -16,6 +16,12 @@ i.highlight {
   color: $highlight;
 }
 
+#visit-app {
+  .indent {
+    margin-left: 40px;
+  }
+}
+
 #visit-list {
   tr:hover {
     background-color: $link;
@@ -201,12 +207,11 @@ i.highlight {
     display: inline-block;
   }
 
-  .incomplete {
+ /* .incomplete {
     background-color: $pihSecondaryGrey !important;
-  }
+  }*/
 
   .header {
-    background-color: #F9F9F9;
     padding: 3px;
 
     > span {
@@ -272,15 +277,6 @@ i.highlight {
       text-align: right;
       color: $darkerGrey;
       font-size: 0.9em;
-    }
-  }
-
-  &.missing {
-    border: none; // 1px solid $lighterGrey;
-
-    .header {
-      background-color: white;
-      border-bottom: 1px solid $lighterGrey;
     }
   }
 

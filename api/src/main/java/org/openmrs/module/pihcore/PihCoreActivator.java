@@ -49,6 +49,8 @@ public class PihCoreActivator extends BaseModuleActivator {
 
     private Config config;
 
+    // TODO test
+
 	@Override
 	public void started() {
 

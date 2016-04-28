@@ -19,10 +19,7 @@ public class PatientIdentifierSetup {
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             ConfigureHaitiIdGenerators configureHaitiIdGenerators = new ConfigureHaitiIdGenerators(identifierSourceService);
             ConfigureHaitiIdGenerators.createPatientIdGenerator(configureHaitiIdGenerators);
-
-            if (config.isComponentEnabled(ARCHIVES)) {
-                ConfigureHaitiIdGenerators.createDossierNumberGenerator(locationService, configureHaitiIdGenerators, config);
-            }
+            ConfigureHaitiIdGenerators.createDossierNumberGenerator(locationService, configureHaitiIdGenerators, config);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             ConfigureLiberiaIdGenerators.configureGenerators(identifierSourceService);

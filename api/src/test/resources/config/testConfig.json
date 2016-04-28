@@ -10,13 +10,10 @@
 
     "dispositionConfig": "pih-dispositions-mirebalais.json",
 
-    "visitTemplates": [
-        "outpatientTemplate",
-        "inpatientTemplate"
-    ],
-
     "extraIdentifierTypes": [
         "someIdentifierTypeUuid",
         "anotherIdentifierTypeUuid"
-    ]
+    ],
+
+    "dossierIdentifierPrefix": "TH"
 }

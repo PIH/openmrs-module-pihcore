@@ -6,7 +6,7 @@
         ${ ui.message("pihcore.visitNote.confirmDeleteVaccination.confirm") }
     </h4>
     <div>
-        {{ vaccination.label | translate }} - {{ sequence.label | translate }} - {{ dateObs | obs:"value" | date }}
+        {{ vaccination.label | translate }} - {{ sequence.label | translate }} - {{ dateObs | obs:"value" | serverDate : 'dd-MMM-yyyy'  }}
         <br/>
         <br/>
     </div>

@@ -3,7 +3,7 @@
         <span class="title encounter-name encounter-span">
             <i class="icon-medical"></i>
             <span class="title">${ ui.message("allergyui.allergies") }</span>
-            <i class="icon-exclamation-sign highlight" ng-show="allergies.status == 'Unknown'" ></i>
+            <!-- <i class="icon-exclamation-sign highlight" ng-show="allergies.status == 'Unknown'" ></i> -->
         </span>
         <span>
             <span ng-show="allergies.status == 'Unknown'">${ ui.message("allergyui.unknown") }</span>

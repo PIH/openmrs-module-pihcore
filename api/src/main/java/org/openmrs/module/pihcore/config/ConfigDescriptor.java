@@ -46,10 +46,10 @@ public class ConfigDescriptor {
     private List<String> components;
 
     @JsonProperty
-    private List<String> visitTemplates;
+    private String providerIdentifierPrefix;
 
     @JsonProperty
-    private String providerIdentifierPrefix;
+    private String dossierIdentifierPrefix;
 
     @JsonProperty
     private List<String> extraIdentifierTypes;
@@ -114,14 +114,6 @@ public class ConfigDescriptor {
         this.globalProperties = globalProperties;
     }
 
-    public List<String> getVisitTemplates() {
-        return visitTemplates;
-    }
-
-    public void setVisitTemplates(List<String> visitTemplates) {
-        this.visitTemplates = visitTemplates;
-    }
-
     public List<String> getComponents() {
         if (components == null) {
             components = new ArrayList<String>();
@@ -139,6 +131,14 @@ public class ConfigDescriptor {
 
     public void setProviderIdentifierPrefix(String providerIdentifierPrefix) {
         this.providerIdentifierPrefix = providerIdentifierPrefix;
+    }
+
+    public String getDossierIdentifierPrefix() {
+        return dossierIdentifierPrefix;
+    }
+
+    public void setDossierIdentifierPrefix(String dossierIdentifierPrefix) {
+        this.dossierIdentifierPrefix = dossierIdentifierPrefix;
     }
 
     public List<String> getExtraIdentifierTypes() {

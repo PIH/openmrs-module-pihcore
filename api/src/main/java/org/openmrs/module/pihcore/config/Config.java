@@ -47,6 +47,10 @@ public class Config {
 
     public String getProviderIdentifierPrefix() { return descriptor.getProviderIdentifierPrefix(); }
 
+    public String getDossierIdentifierPrefix() {
+        return descriptor.getDossierIdentifierPrefix();
+    }
+
     public List<String> getExtraIdentifierTypes() { return descriptor.getExtraIdentifierTypes(); }
 
     public ConfigDescriptor.Site getSite() {
@@ -57,10 +61,6 @@ public class Config {
 
     public String getGlobalProperty(String name) {
         return getGlobalProperties().get(name);
-    }
-
-    public List<String> getVisitTemplates() {
-        return descriptor.getVisitTemplates();
     }
 
     public String getDispositionConfig() { return descriptor.getDispositionConfig(); }

@@ -32,6 +32,8 @@ public class LocationTagBundle extends AbstractMetadataBundle {
         install(LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION);
         install(LocationTags.ONCOLOGY_CONSULT_LOCATION);
         install(LocationTags.CHEMOTHERAPY_LOCATION);
+        install(LocationTags.NCD_CONSULT_LOCATION);
+        install(LocationTags.LAB_RESULTS_LOCATION);
 
         log.info("Retiring old LocationTags");
 

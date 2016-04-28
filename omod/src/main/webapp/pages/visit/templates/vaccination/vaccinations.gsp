@@ -1,3 +1,3 @@
 <div class="visit-element">
-    <vaccination-table visit="visit" visits="visits"></vaccination-table>
+    <vaccination-table encounter="encounter" patient="patient" visit="visit"></vaccination-table>
 </div>
