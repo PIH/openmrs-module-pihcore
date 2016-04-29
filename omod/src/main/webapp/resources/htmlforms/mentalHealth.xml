@@ -342,6 +342,9 @@
             <label>
                 <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>)
             </label>
+            <span class="small">
+                <obs conceptId="CIEL:163226" required="true"/>
+            </span>
 
             <label>
                 <uimessage code="pihcore.mentalhealth.difficultDays"/>
@@ -360,11 +363,6 @@
             </label>
             <span class="small">
                 <obs conceptId="PIH:Days with less activity in past month"/>
-            </span>
-
-
-            <span class="small">
-                <obs conceptId="CIEL:163226" required="true"/>
             </span>
 
             <label>
