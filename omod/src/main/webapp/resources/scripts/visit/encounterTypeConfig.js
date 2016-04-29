@@ -53,8 +53,7 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-stethoscope",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/dispositionLong.page",
-            // kind of a hack--we have a custom long template, that doesn't require a specific template module, but we still load the model, just to get the "hasExistingObs" property set
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-disposition.xml",
+            //templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-disposition.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
@@ -84,8 +83,7 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-list-ul",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/dxLong.page",
-            // kind of a hack--we have a custom long template, that doesn't require a specific template module, but we still load the model, just to get the "hasExistingObs" property set
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-dx.xml",
+            //templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-dx.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
@@ -148,8 +146,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCarePedsInitialConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view, instead there are individual sections
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
@@ -169,8 +166,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCarePedsFollowupConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
@@ -189,8 +185,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCareAdultInitialConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
@@ -208,8 +203,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.primaryCareAdultFollowupConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
