@@ -29,7 +29,16 @@
     <%  patientWithCheckInEncounter.keySet().each { p ->
     %>
     <tr id="patient-${ p.id }">
-        <td>${ ui.format(p.patientIdentifier.identifier) }</td>
+        <td>
+            <a href="${ ui.pageLink("htmlformentryui", "htmlform/enterHtmlFormWithSimpleUi",
+                    [   "definitionUiResource": "pihcore:htmlforms/vitals.xml",
+                        "visitId": patientWithCheckInEncounter.get(p).visit.id,
+                        "patientId": p.id,
+                        "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "vitals/vitalsList")),
+                        "breadcrumbOverride": breadcrumbOverride ])}">
+                ${ ui.format(p.patientIdentifier.identifier) }
+            </a>
+        </td>
         <td>
             <a href="${ ui.pageLink("htmlformentryui", "htmlform/enterHtmlFormWithSimpleUi",
                     [   "definitionUiResource": "pihcore:htmlforms/vitals.xml",
