@@ -1,4 +1,6 @@
-<div class="selectable header" ng-click="expandVaccinations(showVaccinationTable)">
+
+<!-- vaccination-section class currently only used for smoke tests -->
+<div class="selectable header vaccinations-section" ng-click="expandVaccinations(showVaccinationTable)">
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">
             <i class="icon-umbrella"></i>
