@@ -11,7 +11,8 @@
         <br/>
     </div>
     <div>
-        <button class="confirm right" ng-click="confirm()">${ ui.message("uicommons.delete") }</button>
+        <!-- note: vaccination-confirm is simply a helper class for smoke tests -->
+        <button class="vaccination-confirm confirm right" ng-click="confirm()">${ ui.message("uicommons.delete") }</button>
         <button class="cancel" ng-click="closeThisDialog()">${ ui.message("uicommons.cancel") }</button>
     </div>
 </div>

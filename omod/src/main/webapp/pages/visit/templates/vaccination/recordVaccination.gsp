@@ -29,7 +29,8 @@
         <br/>
     </div>
     <div>
-        <button class="confirm right" ng-disabled="when != 'encounter' && !date" ng-click="confirm({when: when, date: date})">${ ui.message("uicommons.save") }</button>
+        <!-- note: vaccination-confirm is simply a helper class for smoke tests -->
+        <button class="vaccination-confirm confirm right" ng-disabled="when != 'encounter' && !date" ng-click="confirm({when: when, date: date})">${ ui.message("uicommons.save") }</button>
         <button class="cancel" ng-click="closeThisDialog()">${ ui.message("uicommons.cancel") }</button>
     </div>
 </div>
