@@ -159,7 +159,7 @@
              headerCode="pihcore.history.presentingHistory.title">
         <div class="section-container">
             <p>
-                <obs conceptId="PIH:PRESENTING HISTORY" style="textarea"/>
+                <obs conceptId="PIH:PRESENTING HISTORY" style="textarea" id="presenting-history"/>
             </p>
         </div>
     </section>

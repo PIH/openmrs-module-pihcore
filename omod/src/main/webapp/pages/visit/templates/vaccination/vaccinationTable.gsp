@@ -1,5 +1,5 @@
 
-<!-- vaccination-section class currently only used for smoke tests -->
+<!-- vaccinations-section class currently only used for smoke tests -->
 <div class="selectable header vaccinations-section" ng-click="expandVaccinations(showVaccinationTable)">
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">

@@ -76,7 +76,7 @@
                         <tr>
                             <td>
                                 <span>
-                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" />
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" id="vitamin-a"/>
                                 </span>
                             </td>
 

@@ -28,6 +28,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var primaryCareHistory = {
             type: "encounter-section",
+            id: "pihcore-history",
             label: "pihcore.history.label",
             icon: "icon-file-alt",
             classes: "indent",
@@ -39,6 +40,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var primaryCareExam = {
             type: "encounter-section",
+            id: "pihcore-exam",
             label: "pihcore.exam.label",
             icon: "icon-stethoscope",
             shortTemplate: "templates/sections/defaultSectionShort.page",
@@ -49,6 +51,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var primaryCareDisposition = {
             type: "encounter-section",
+            id: "pihcore-disposition",
             label: "pihcore.disposition.label",
             icon: "icon-stethoscope",
             shortTemplate: "templates/sections/defaultSectionShort.page",
@@ -59,6 +62,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var feeding = {
             type: "encounter-section",
+            id: "pihcore-feeding",
             label: "pihcore.feeding.history.label",
             icon: "icon-food",
             shortTemplate: "templates/sections/defaultSectionShort.page",
@@ -69,6 +73,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var supplements = {
             type: "encounter-section",
+            id: "pih-supplements",
             label: "pihcore.supplements.history.label",
             icon: "icon-asterisk",
             shortTemplate: "templates/sections/defaultSectionShort.page",
@@ -79,6 +84,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var primaryCareDx = {
             type: "encounter-section",
+            id: "pihcore-diagnosis",
             label: "pihcore.diagnosis.label",
             icon: "icon-list-ul",
             shortTemplate: "templates/sections/defaultSectionShort.page",
@@ -89,6 +95,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var primaryCarePlan = {
             type: "encounter-section",
+            id: "pihcore-plan",
             label: "pihcore.visitNote.plan",
             icon: "icon-list-ul",
             shortTemplate: "templates/sections/defaultSectionShort.page",

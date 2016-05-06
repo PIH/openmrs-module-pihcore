@@ -1,4 +1,5 @@
-<div class="selectable header" ng-click="expandAllergies(showAlergiesDetails)">
+<!-- allergies-section, edit-allergies classes currently only used for smoke tests -->
+<div class="selectable header allergies-section" ng-click="expandAllergies(showAlergiesDetails)">
     <span class="selectable ninety-percent">
         <span class="title encounter-name encounter-span">
             <i class="icon-medical"></i>
@@ -16,9 +17,9 @@
     <span class="overall-actions">
         <a class="expand-encounter" ng-show="!showAlergiesDetails" ng-click="expand()"><i class="icon-caret-right"></i></a>
         <a class="contract-encounter" ng-show="showAlergiesDetails" ng-click="contract()"><i class="icon-caret-down"></i></a>
-        <a ng-show="canEdit()" ng-click="goToPage('allergyui', 'allergies', { patientId: patient.uuid })"><i class="icon-pencil"></i></a>
+        <a class="edit-allergies" ng-show="canEdit()" ng-click="goToPage('allergyui', 'allergies', { patientId: patient.uuid })"><i class="icon-pencil"></i></a>
         <a ng-show="!canEdit()"><i class="icon-delete-blank"></i></a>
-        <a><i class="icon-delete-blank"></i></a>
+        <i class="icon-delete-blank"></i></>
     </span>
 </div>
 <div class="content" ng-show="showAlergiesDetails">

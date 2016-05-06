@@ -1,2 +1,2 @@
-<div class="header" ng-include="'templates/sections/defaultSectionHeader.page'">
+<div class="header" id="{{section.id}}" ng-include="'templates/sections/defaultSectionHeader.page'">
 </div>
