@@ -73,7 +73,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var supplements = {
             type: "encounter-section",
-            id: "pih-supplements",
+            id: "pihcore-supplements",
             label: "pihcore.supplements.history.label",
             icon: "icon-asterisk",
             shortTemplate: "templates/sections/defaultSectionShort.page",

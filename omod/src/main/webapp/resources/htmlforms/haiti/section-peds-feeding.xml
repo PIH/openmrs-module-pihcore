@@ -87,7 +87,7 @@
                     <tr>
                         <td><uimessage code="zl.breastfeedExclusively"/></td>
                         <td>
-                            <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
+                            <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="" id="breastfeeding-yes"/>  <!-- id used for smoke tests -->
                         </td>
                         <td>
                             <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
