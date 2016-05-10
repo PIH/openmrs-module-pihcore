@@ -282,15 +282,21 @@
              headerCode="pihcore.mentalhealth.communityReferral">
 
         <div class="section-container">
-            <label>
-                <uimessage code="pihcore.mentalhealth.referredBy" />
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.referredBy" />:
+                </label>
+            </p>
             <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:VILLAGE HEALTH WORKER'],['PIH:Other medical service']">
-                <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
-                     style="checkbox"/>
+                <p>
+                    <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
+                         style="checkbox"/>
+                </p>
             </repeat>
-            <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
-                 style="checkbox" commentFieldLabel=" " />
+            <p>
+                <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
+                    style="checkbox" commentFieldLabel=" " />
+            </p>
         </div>
     </section>
 
@@ -299,86 +305,106 @@
 
         <div class="section-container">
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.zldsi"/>
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.zldsi"/>:
+                </label>
 
-            <span class="small">
-                <obs conceptId="CIEL:163225"/>
-            </span>
+                <span class="small">
+                    <obs conceptId="CIEL:163225"/>
+                </span>
+            </p>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.cesd"/>
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.cesd"/>:
+                </label>
 
-            <span class="small">
-                <obs conceptId="CIEL:163228"/>
-            </span>
+                <span class="small">
+                    <obs conceptId="CIEL:163228"/>
+                </span>
+            </p>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.cgis"/>
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.cgis"/>:
+                </label>
 
-            <span class="small">
-                <obs conceptId="CIEL:163222"/>
-            </span>
+                <span class="small">
+                    <obs conceptId="CIEL:163222"/>
+                </span>
+            </p>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.cgii"/>
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.cgii"/>:
+                </label>
 
-            <span class="small">
-                <obs conceptId="CIEL:163223"/>
-            </span>
+                <span class="small">
+                    <obs conceptId="CIEL:163223"/>
+                </span>
+            </p>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.cgie"/>
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.cgie"/>:
+                </label>
 
-            <span class="small">
-                <obs conceptId="CIEL:163224"/>
-            </span>
+                <span class="small">
+                    <obs conceptId="CIEL:163224"/>
+                </span>
+            </p>
         </div>
 
         <hr/>
         <div class="section-container">
-            <label>
-                <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>)
-            </label>
-            <span class="small">
-                <obs conceptId="CIEL:163226" required="true"/>
-            </span>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>):
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163226" required="true"/>
+                </span>
+            </p>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.difficultDays"/>
-            </label>
-            <span class="small">
-                <obs conceptId="PIH:Days with difficulties in past month"/>
-            </span>
-            <label>
-                <uimessage code="pihcore.mentalhealth.nonFunctioningDays"/>
-            </label>
-            <span class="small">
-                <obs conceptId="PIH:Days without usual activity in past month"/>
-            </span>
-            <label>
-                <uimessage code="pihcore.mentalhealth.reducedFunctionDays"/>
-            </label>
-            <span class="small">
-                <obs conceptId="PIH:Days with less activity in past month"/>
-            </span>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.difficultDays"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Days with difficulties in past month"/>
+                </span>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.nonFunctioningDays"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Days without usual activity in past month"/>
+                </span>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.reducedFunctionDays"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Days with less activity in past month"/>
+                </span>
+            </p>
         </div>
         <hr/>
 
         <div class="section-container">
             <label>
-                <uimessage code="pihcore.mentalhealth.aims"/>
+                <uimessage code="pihcore.mentalhealth.aims"/>:
             </label>
             <obs conceptId="CIEL:163227"/>
             <br/>
 
             <label>
-                <uimessage code="pihcore.mentalhealth.epilepsySeizureFrequency"/>
+                <uimessage code="pihcore.mentalhealth.epilepsySeizureFrequency"/>:
             </label>
 
             <obsgroup groupingConceptId="CIEL:161245">
@@ -391,7 +417,7 @@
             <br/>
 
             <label>
-                <uimessage code="pihcore.mentalhealth.suicideEval"/>
+                <uimessage code="pihcore.mentalhealth.suicideEval"/>:
             </label>
             <obs conceptId="PIH:Suicidal evaluation" answerConceptIds="PIH:YES,PIH:NO"
                  style="radio" answerCodes="yes,no" answerSeparator="" />
@@ -405,20 +431,29 @@
     <section id="mh-diagnoses" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.diagnoses.label">
         <div class="section-container">
+            <p>
+                <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
+                     style="autocomplete"/>
+            </p>
+            <p>
+                <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
+                     style="autocomplete"/>
+            </p>
+            <p>
             <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
                  style="autocomplete"/>
-            <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
-                 style="autocomplete"/>
-            <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
-                 style="autocomplete"/>
+            </p>
 
-            <br/>
-            <label>
-                <uimessage code="pihcore.mentalhealth.providerType"/>
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.providerType"/>:
+                </label>
+            </p>
             <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST']">
-                <obs conceptId="PIH:Type of provider" answerConceptId="{0}"
-                     style="checkbox"/>
+                <p>
+                    <obs conceptId="PIH:Type of provider" answerConceptId="{0}"
+                         style="checkbox"/>
+                </p>
             </repeat>
 
         </div>
@@ -428,10 +463,14 @@
              headerCode="pihcore.mentalhealth.interventions">
         <div class="section-container">
             <repeat with="['PIH:Psychotherapy'],['PIH:Psychoeducation'],['PIH:Interpersonal Therapy'],['PIH:Relaxation'],['PIH:Family Support'],['PIH:Grief counseling'],['PIH:Parenting skills'],['PIH:Behavioral activation'],['PIH:PSYCHOSOCIAL COUNSELING']">
-                <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
+                <p>
+                    <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
+                </p>
             </repeat>
-            <obs conceptId="PIH:Mental health intervention" answerConceptId="PIH:OTHER"
-                 commentFieldLabel=""/>
+            <p>
+                <obs conceptId="PIH:Mental health intervention" answerConceptId="PIH:OTHER"
+                     commentFieldLabel=""/>
+            </p>
         </div>
     </section>
 
@@ -441,17 +480,23 @@
 
             <div class="two-columns">
                 <repeat with="['PIH:FLUOXETINE'],['PIH:AMITRYPTILINE'],['PIH:PHENOBARBITAL'],['PIH:PHENYTOIN'],['CIEL:83405'],['PIH:HALOPERIDOL'],['PIH:DIAZEPAM'],['PIH:CARBAMAZEPINE'],['PIH:SODIUM VALPROATE']">
-                    <obs conceptId="PIH:Mental health medication" answerConceptId="{0}"
-                         style="checkbox"/>
+                    <p>
+                        <obs conceptId="PIH:Mental health medication" answerConceptId="{0}"
+                             style="checkbox"/>
+                    </p>
                 </repeat>
             </div>
 
             <br/>
-            <label>
-                <uimessage code="pihcore.exam.comment"/>
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.exam.comment"/>:
+                </label>
+            </p>
 
-            <obs conceptId="PIH:Medication comments (text)"/>
+            <p>
+                <obs conceptId="PIH:Medication comments (text)"/>
+            </p>
 
         </div>
     </section>
@@ -461,32 +506,39 @@
         <div class="section-container">
 
             <div class="two-columns">
-                <obs conceptId="PIH:Mental health intervention"
-                     answerConceptId="PIH:Security plan"
-                     style="checkbox"/>
-                <br/>
+                <p>
+                    <obs conceptId="PIH:Mental health intervention"
+                         answerConceptId="PIH:Security plan"
+                         style="checkbox"/>
+                </p>
 
-                <obs conceptId="PIH:TYPE OF PATIENT" answerConceptId="PIH:INPATIENT HOSPITALIZATION"
-                     style="checkbox"/>
-                <br/>
-                <br/>
+                <p>
+                    <obs conceptId="PIH:TYPE OF PATIENT" answerConceptId="PIH:INPATIENT HOSPITALIZATION"
+                         style="checkbox"/>
+                </p>
 
-                <label>
-                    <uimessage code="pihcore.referredTo"/>
-                </label>
+
+
+                <p style="-webkit-column-break-before: always;break-before:column">
+                    <label>
+                        <uimessage code="pihcore.referredTo"/>:
+                    </label>
+                </p>
                 <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:VILLAGE HEALTH WORKER'],['PIH:SOCIAL WORKER SERVICE']">
-                    <obs conceptId="PIH:Type of referral role" answerConceptId="{0}" style="checkbox"/>
+                    <p>
+                        <obs conceptId="PIH:Type of referral role" answerConceptId="{0}" style="checkbox"/>
+                    </p>
                 </repeat>
             </div>
 
             <label>
-                <uimessage code="pihcore.comment"/>
+                <uimessage code="pihcore.comment"/>:
             </label>
             <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
 
             <p>
                 <label>
-                    <uimessage code="pihcore.consult.returnVisitDate"/>
+                    <uimessage code="pihcore.consult.returnVisitDate"/>:
                 </label>
                 <span class="small">
                     <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
