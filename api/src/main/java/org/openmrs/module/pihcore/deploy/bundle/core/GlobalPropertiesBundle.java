@@ -6,6 +6,8 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
@@ -14,6 +16,7 @@ import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.ReportingConstants;
 import org.openmrs.ui.framework.UiFrameworkConstants;
 import org.openmrs.util.OpenmrsConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -22,10 +25,16 @@ import java.util.Map;
 @Component
 public class GlobalPropertiesBundle extends AbstractMetadataBundle {
 
+    @Autowired
+    private Config config;
+
     private static final String DOUBLE_METAPHONE_ALTERNATE_NAME = "Double Metaphone Alternate";
 
     public static final class Concepts { // TODO: Confirm all below are in Hum_Metadata package
-        public static final String DIAGNOSIS_SET_OF_SETS = "8fcd0b0c-f977-4a66-a1b5-ad7ce68e6770";
+
+        public static final String LIBERIA_DIAGNOSIS_SET_OF_SETS = "ed97232b-1a09-4260-b06c-d193107c32a7";
+        public static final String HAITI_DIAGNOSIS_SET_OF_SETS = "8fcd0b0c-f977-4a66-a1b5-ad7ce68e6770";
+
         public static final String PAYMENT_AMOUNT = "5d1bc5de-6a35-4195-8631-7322941fe528";
         public static final String PAYMENT_REASON = "36ba7721-fae0-4da4-aef2-7e476cc04bdf";
         public static final String PAYMENT_RECEIPT_NUMBER = "20438dc7-c5b4-4d9c-8480-e888f4795123";
@@ -79,11 +88,17 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(EmrApiConstants.GP_ADMISSION_ENCOUNTER_TYPE, EncounterTypes.ADMISSION.uuid());
         properties.put(EmrApiConstants.GP_EXIT_FROM_INPATIENT_ENCOUNTER_TYPE, EncounterTypes.EXIT_FROM_CARE.uuid());
         properties.put(EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE, EncounterTypes.TRANSFER.uuid());
-        properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, Concepts.DIAGNOSIS_SET_OF_SETS);
         properties.put(EmrApiConstants.GP_UNKNOWN_LOCATION, Locations.UNKNOWN.uuid());
         properties.put(EmrApiConstants.GP_ADMISSION_FORM, Forms.ADMISSION);
         properties.put(EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_FORM, Forms.TRANSFER_WITHIN_HOSPITAL);
         properties.put(EmrApiConstants.GP_EXIT_FROM_INPATIENT_FORM, Forms.EXIT_FROM_INPATIENT);
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, Concepts.HAITI_DIAGNOSIS_SET_OF_SETS);
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, Concepts.LIBERIA_DIAGNOSIS_SET_OF_SETS);
+        }
 
 
         // REST

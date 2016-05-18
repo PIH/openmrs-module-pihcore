@@ -54,6 +54,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
     }
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {
