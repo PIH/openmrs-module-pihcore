@@ -1,17 +1,3 @@
-/*
- * The contents of this file are subject to the OpenMRS Public License
- * Version 1.0 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- * http://license.openmrs.org
- *
- * Software distributed under the License is distributed on an "AS IS"
- * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
- * License for the specific language governing rights and limitations
- * under the License.
- *
- * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
- */
-
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.openmrs.EncounterType;
@@ -24,21 +10,21 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Data Export of patient check-in data, limited to an optional period and location
+ * Data Export of patient consultation data, limited to an optional period and location
  *
  * TODO: currently used in Liberia, but Haiti uses old SQL export
  */
 @Component
-public class CheckInDataSetManager extends BaseEncounterDataSetManager {
+public class ConsultationsDataSetManager extends BaseEncounterDataSetManager {
 
     @Override
     protected List<EncounterType> getEncounterTypes() {
-        return Arrays.asList(Metadata.lookup(EncounterTypes.CHECK_IN));
+        return Arrays.asList(Metadata.lookup(EncounterTypes.CONSULTATION));
     }
 
     @Override
     protected String getEncounterColumnPrefix() {
-        return "check_in";
+        return "consult";
     }
 
     @Override
@@ -53,6 +39,13 @@ public class CheckInDataSetManager extends BaseEncounterDataSetManager {
 
     @Override
     protected void addObsColumns(EncounterDataSetDefinition dsd) {
-        addObsColumn(dsd, "type_of_visit", "PIH:REASON FOR VISIT", converters.getObsValueCodedNameConverter());
+
+        // note: does not include diagnoses--use diagnoses export for thoses
+        addObsColumn(dsd, "dispo", "PIH:8620", converters.getObsValueCodedNameConverter());
+        addObsColumn(dsd, "death_date", "PIH:DATE OF DEATH", converters.getObsValueDatetimeConverter());
+        addObsColumn(dsd, "return_visit_date", "PIH:RETURN VISIT DATE", converters.getObsValueDatetimeConverter());
+        addObsColumn(dsd, "clinical_notes", "PIH:CLINICAL IMPRESSION COMMENTS", converters.getObsValueTextConverter());
+
+        // TODO when/if we start to use this in Haiti, we will need to add disposition sub-fields like admission location, etc, that currently aren't used in Pleebo
     }
 }
