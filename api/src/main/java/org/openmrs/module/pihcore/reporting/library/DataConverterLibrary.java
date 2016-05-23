@@ -19,6 +19,7 @@ import org.openmrs.module.reporting.data.converter.AttributeValueConverter;
 import org.openmrs.module.reporting.data.converter.ChainedConverter;
 import org.openmrs.module.reporting.data.converter.CollectionConverter;
 import org.openmrs.module.reporting.data.converter.CollectionElementConverter;
+import org.openmrs.module.reporting.data.converter.ConceptCodeFromConceptConverter;
 import org.openmrs.module.reporting.data.converter.CountConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.DataSetRowConverter;
@@ -213,6 +214,13 @@ public class DataConverterLibrary {
         if (nullReplacement != null) {
             ret.addConverter(new NullValueConverter(nullReplacement));
         }
+        return ret;
+    }
+
+    public DataConverter getObsValueCodedConceptCode(String conceptSourceName) {
+        ChainedConverter ret = new ChainedConverter();
+        ret.addConverter(getObsValueCodedConverter());
+        ret.addConverter(new ConceptCodeFromConceptConverter(conceptSourceName));
         return ret;
     }
 }

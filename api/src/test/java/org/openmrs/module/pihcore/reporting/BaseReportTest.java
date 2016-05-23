@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.reporting;
 
 import org.junit.Before;
 import org.openmrs.Patient;
+import org.openmrs.PersonAddress;
 import org.openmrs.PersonName;
 import org.openmrs.api.LocationService;
 import org.openmrs.contrib.testdata.TestDataManager;
@@ -10,17 +11,22 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
+import org.openmrs.module.reporting.common.ReflectionUtil;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * Sets up basic Mirebalais metadata (instead of the standardTestDataset.xml from openmrs-core)
@@ -79,4 +85,28 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
         return pb.save();
     }
+
+    protected Patient createPatient(String identifier) {
+        PatientBuilder pb = data.patient();
+        pb.name(new PersonName("John", "Smitty", "Smith"));
+        pb.birthdate("1977-11-23").birthdateEstimated(false);
+        pb.male();
+        pb.personAttribute(Metadata.lookup(PersonAttributeTypes.TELEPHONE_NUMBER), "555-1234");
+        pb.personAttribute(Metadata.lookup(PersonAttributeTypes.UNKNOWN_PATIENT), "false");
+        pb.personAttribute(Metadata.lookup(PersonAttributeTypes.MOTHERS_FIRST_NAME), "Isabel");
+        address(pb, haitiAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
+        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        return pb.save();
+    }
+
+    protected PatientBuilder address(PatientBuilder pb, List<AddressComponent> addressComponents, String... values) {
+        PersonAddress a = new PersonAddress();
+        int index = 0;
+        for (AddressComponent property : addressComponents) {
+            ReflectionUtil.setPropertyValue(a, property.getField().getName(), values[index]);
+            index++;
+        }
+        return pb.address(a);
+    }
+
 }
