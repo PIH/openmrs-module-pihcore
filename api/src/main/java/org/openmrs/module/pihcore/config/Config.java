@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 @Component
@@ -75,6 +76,19 @@ public class Config {
 
     public Boolean shouldScheduleMonthlyDataExports() {
         return descriptor.getScheduleMonthlyDataExports() != null ? descriptor.getScheduleMonthlyDataExports() : false;
+    }
+
+    public String getIdCardLabel() {
+        return descriptor.getIdCardLabel();
+    }
+
+    public Locale getIdCardLocale() {
+        if (descriptor.getIdCardLocale() == null) {
+            return new Locale("ht");  // Haiti/Creole by default
+        }
+        else {
+            return descriptor.getIdCardLocale();
+        }
     }
 
     public RegistrationConfigDescriptor getRegistrationConfig() {

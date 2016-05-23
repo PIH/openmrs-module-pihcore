@@ -15,5 +15,9 @@
         "anotherIdentifierTypeUuid"
     ],
 
-    "dossierIdentifierPrefix": "TH"
+    "dossierIdentifierPrefix": "TH",
+
+    "idCardLabel": "PIH Liberia Patient ID Card",
+    "idCardLocale": "en"
+
 }

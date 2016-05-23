@@ -4,6 +4,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.util.Locale;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -24,6 +25,8 @@ public class ConfigDescriptorTest {
         assertThat(configDescriptor.getExtraIdentifierTypes().contains("someIdentifierTypeUuid"), is(true));
         assertThat(configDescriptor.getExtraIdentifierTypes().contains("anotherIdentifierTypeUuid"), is(true));
         assertThat(configDescriptor.getDossierIdentifierPrefix(), is("TH"));
+        assertThat(configDescriptor.getIdCardLabel(), is("PIH Liberia Patient ID Card"));
+        assertThat(configDescriptor.getIdCardLocale(), is(new Locale("en")));
     }
 
 }

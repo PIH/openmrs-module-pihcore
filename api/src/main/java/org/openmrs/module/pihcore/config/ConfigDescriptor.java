@@ -5,6 +5,7 @@ import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescript
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -62,6 +63,12 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private Boolean scheduleMonthlyDataExports; // whether or not to schedule the full data export to run monthly on the 5th of each month
+
+    @JsonProperty
+    private String idCardLabel;  // label printed on the standard PIH ID card
+
+    @JsonProperty
+    private Locale idCardLocale;  // language/locale of labels on on PIH ID card
 
     @JsonProperty
     private RegistrationConfigDescriptor registrationConfig;
@@ -171,6 +178,22 @@ public class ConfigDescriptor {
 
     public void setScheduleMonthlyDataExports(Boolean scheduleMonthlyDataExports) {
         this.scheduleMonthlyDataExports = scheduleMonthlyDataExports;
+    }
+
+    public String getIdCardLabel() {
+        return idCardLabel;
+    }
+
+    public void setIdCardLabel(String idCardLabel) {
+        this.idCardLabel = idCardLabel;
+    }
+
+    public Locale getIdCardLocale() {
+        return idCardLocale;
+    }
+
+    public void setIdCardLocale(Locale idCardLocale) {
+        this.idCardLocale = idCardLocale;
     }
 
     public RegistrationConfigDescriptor getRegistrationConfig() {
