@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Locale;
 
-public class ObsDataSetManagerTest extends BaseReportTest {
+public abstract class ObsDataSetManagerTest extends BaseReportTest {
 
     @Autowired
     protected DataSetDefinitionService dataSetDefinitionService;
