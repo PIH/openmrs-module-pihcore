@@ -11,6 +11,8 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.config.Components;
+import org.openmrs.module.pihcore.config.Config;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +31,12 @@ public class RedirectToDeathNoteIfMissing implements CustomFormSubmissionAction 
 
     @Override
     public void applyAction(FormEntrySession session) {
+
         DispositionService dispositionService = Context.getService(DispositionService.class);
+
+        if (!Context.getRegisteredComponent("config", Config.class).isComponentEnabled(Components.DEATH_CERTIFICATE)) {
+            return;
+        }
 
         if (!Context.hasPrivilege("Task: mirebalais.enterDeathCertificate")) {
             return;

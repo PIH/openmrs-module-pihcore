@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.config;
 
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 
 @Component
+@Qualifier("config")
 public class Config {
 
     private ConfigDescriptor descriptor;
