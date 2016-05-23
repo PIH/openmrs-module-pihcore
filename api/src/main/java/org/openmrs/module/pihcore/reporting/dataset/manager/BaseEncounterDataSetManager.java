@@ -159,7 +159,7 @@ public abstract class BaseEncounterDataSetManager {
 	protected void addCoreEncounterColumns(EncounterDataSetDefinition dsd) {
 		addColumn(dsd, getEncounterColumnPrefix()+ "_date", builtInEncounterData.getEncounterDatetime());
 		addColumn(dsd, getEncounterColumnPrefix()+"_location", builtInEncounterData.getLocationName());
-		addColumn(dsd, getEncounterColumnPrefix()+"_creator", pihEncounterData.getCreatorName());
+		addColumn(dsd, getEncounterColumnPrefix()+"_provider", pihEncounterData.getEncounterProvider());
         addColumn(dsd, getEncounterColumnPrefix()+"_retrospective", new RetrospectiveEncounterDataDefinition(), new BooleanConverter());
 	}
 

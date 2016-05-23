@@ -7,6 +7,7 @@ import org.openmrs.module.reporting.data.encounter.definition.AgeAtEncounterData
 import org.openmrs.module.reporting.data.encounter.definition.AuditInfoEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.ConvertedEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterProviderDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.ObsForEncounterDataDefinition;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
 import org.openmrs.module.reporting.definition.library.DocumentedDefinition;
@@ -45,6 +46,13 @@ public class PihEncounterDataLibrary extends BaseDefinitionLibrary<EncounterData
     @DocumentedDefinition
     public EncounterDataDefinition getDateCreated() {
         return convert(getAuditInfo(), converters.getAuditInfoDateCreatedConverter());
+    }
+
+    @DocumentedDefinition
+    public EncounterDataDefinition getEncounterProvider() {
+        EncounterProviderDataDefinition epdd = new EncounterProviderDataDefinition();
+        epdd.setSingleProvider(true);
+        return epdd;
     }
 
     @DocumentedDefinition

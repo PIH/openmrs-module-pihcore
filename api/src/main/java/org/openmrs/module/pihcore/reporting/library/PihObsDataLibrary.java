@@ -2,6 +2,9 @@ package org.openmrs.module.pihcore.reporting.library;
 
 import org.openmrs.Concept;
 import org.openmrs.module.reporting.data.converter.DataConverter;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterLocationDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterProviderDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.ConvertedObsDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.EncounterToObsDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.GroupMemberObsDataDefinition;
@@ -28,18 +31,20 @@ public class PihObsDataLibrary extends BaseDefinitionLibrary<ObsDataDefinition> 
     }
 
     @DocumentedDefinition
-    public ObsDataDefinition getEncounter() {
-        return new EncounterToObsDataDefinition();
-    }
-
-    @DocumentedDefinition
     public ObsDataDefinition getEncounterDatetime() {
-        return convert(getEncounter(), converters.getEncounterDatetimeConverter());
+        return new EncounterToObsDataDefinition(new EncounterDatetimeDataDefinition());
     }
 
     @DocumentedDefinition
     public ObsDataDefinition getLocationName() {
-        return convert(getEncounter(), converters.getEncounterLocationNameConverter());
+        return new EncounterToObsDataDefinition(new EncounterLocationDataDefinition());
+    }
+
+    @DocumentedDefinition
+    public ObsDataDefinition getEncounterProvider() {
+        EncounterProviderDataDefinition epdd = new EncounterProviderDataDefinition();
+        epdd.setSingleProvider(true);
+        return new EncounterToObsDataDefinition(epdd);
     }
 
     @DocumentedDefinition
