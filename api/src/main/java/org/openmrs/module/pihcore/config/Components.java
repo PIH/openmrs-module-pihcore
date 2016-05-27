@@ -40,4 +40,5 @@ public class Components {
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
         public static final String PRIMARY_CARE = "primaryCare";
         public static final String PACS_INTEGRATION = "pacsIntegration";
+        public static final String ED_TRIAGE = "edTriage";
 }

@@ -40,6 +40,8 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.APP_REGISTRATION_REGISTER_PATIENT);
         install(Privileges.APP_REPORTINGUI_ADHOC_ANALYSIS);
         install(Privileges.APP_REPORTINGUI_REPORTS);
+        //install(Privileges.APP_WAITING_FOR_CONSULT);  // looks like we are currently just using the consult note privilege for the waiting for consult app?
+        install(Privileges.APP_ED_TRIAGE);
         install(Privileges.APP_ZL_MPI);
         install(Privileges.APP_ZL_REPORTS_DATA_EXPORTS);
         install(Privileges.TASK_ALLERGIES_MODIFY);

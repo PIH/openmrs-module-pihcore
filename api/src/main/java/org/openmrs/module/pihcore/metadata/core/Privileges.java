@@ -163,6 +163,12 @@ public class Privileges {
         public String description() { return "Use the Waiting For Consult app provided by PIH Core"; }
     };
 
+    public static PrivilegeDescriptor APP_ED_TRIAGE = new PrivilegeDescriptor() {
+        public String uuid() { return "1b699660-245a-11e6-bdf4-0800200c9a66"; }
+        public String privilege() { return "App: edtriageapp.edtriage"; }
+        public String description() { return "Use ED Triage App provided by the ED Triage moddule"; }
+    };
+
     //
     // TASK PRIVILEGES
     //
