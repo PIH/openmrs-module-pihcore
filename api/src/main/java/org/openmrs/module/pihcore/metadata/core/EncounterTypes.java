@@ -181,6 +181,11 @@ public class EncounterTypes {
 		public String description() { return "Mental health visit and assessment"; }
 	};
 
+	public static EncounterTypeDescriptor EMERGENCY_TRIAGE = new EncounterTypeDescriptor() {
+		public String uuid() { return "74cef0a6-2801-11e6-b67b-9e71128cae77"; }
+		public String name() { return "Emergency Triage"; }
+		public String description() { return "Emergency Department patient triage"; }
+	};
 
 
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
