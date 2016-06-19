@@ -169,6 +169,12 @@ public class Privileges {
         public String description() { return "Use ED Triage App provided by the ED Triage moddule"; }
     };
 
+    public static PrivilegeDescriptor APP_ED_TRIAGE_QUEUE = new PrivilegeDescriptor() {
+        public String uuid() { return "F7BAE2F7-78AB-4D7A-8470-8068E4969F56"; }
+        public String privilege() { return "App: edtriageapp.edtriage.queue"; }
+        public String description() { return "Use ED Triage Queue provided by the ED Triage moddule"; }
+    };
+
     //
     // TASK PRIVILEGES
     //

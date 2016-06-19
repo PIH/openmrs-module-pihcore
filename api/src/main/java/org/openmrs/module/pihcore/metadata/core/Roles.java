@@ -53,6 +53,7 @@ public class Roles {
                 Privileges.APP_ZL_MPI,
                 Privileges.APP_ZL_REPORTS_DATA_EXPORTS,
                 Privileges.APP_ED_TRIAGE,
+                Privileges.APP_ED_TRIAGE_QUEUE,
                 Privileges.TASK_ALLERGIES_MODIFY,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_BOOK_APPOINTMENTS,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_OVERBOOK_APPOINTMENTS,
