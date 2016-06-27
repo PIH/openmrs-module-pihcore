@@ -373,5 +373,13 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
 
+        encounterTypeConfig[EncounterTypes.edTriage] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterLong.page",
+            icon: "icon-ambulance",
+            editUrl: "edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=edtriageapp.app.triageQueue"
+        };
+
         return encounterTypeConfig;
     }]);

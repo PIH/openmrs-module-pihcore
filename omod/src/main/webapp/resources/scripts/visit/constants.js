@@ -245,6 +245,9 @@ angular.module('constants', [])
         },
         mentalHealth: {
             uuid: "a8584ab8-cc2a-11e5-9956-625662870761"
+        },
+        edTriage: {
+            uuid: "74cef0a6-2801-11e6-b67b-9e71128cae77"
         }
 
     })
