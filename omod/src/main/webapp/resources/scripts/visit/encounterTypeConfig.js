@@ -364,7 +364,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        encounterTypeConfig[EncounterTypes.primaryCareVisit] = {
+        encounterTypeConfig[EncounterTypes.primaryCareVisit.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -373,7 +373,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.edTriage] = {
+        encounterTypeConfig[EncounterTypes.edTriage.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
