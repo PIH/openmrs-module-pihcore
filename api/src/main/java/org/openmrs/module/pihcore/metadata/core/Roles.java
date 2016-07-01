@@ -88,7 +88,8 @@ public class Roles {
                 Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                 Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                 Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER,
-                Privileges.TASK_RADIOLOGYAPP_TAB
+                Privileges.TASK_RADIOLOGYAPP_TAB,
+                Privileges.TASK_ED_TRIAGE_ENTER_NOTE
             );}
     };
 
@@ -212,9 +213,12 @@ public class Roles {
                     Privileges.TASK_COREAPPS_CREATE_VISIT,
                     Privileges.APP_EMR_OUTPATIENT_VITALS,
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
+                    Privileges.APP_ED_TRIAGE,
+                    Privileges.APP_ED_TRIAGE_QUEUE,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE
             );}
     };
 
@@ -377,6 +381,8 @@ public class Roles {
                     Privileges.TASK_COREAPPS_CREATE_VISIT,
                     Privileges.APP_EMR_OUTPATIENT_VITALS,
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
+                    Privileges.APP_ED_TRIAGE,
+                    Privileges.APP_ED_TRIAGE_QUEUE,
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
@@ -398,7 +404,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_ALLERGIES_MODIFY
+                    Privileges.TASK_ALLERGIES_MODIFY,
+                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE
             );}
     };
 
@@ -613,6 +620,8 @@ public class Roles {
                     Privileges.APP_EMR_OUTPATIENT_VITALS,
                     Privileges.APP_COREAPPS_ACTIVE_VISITS,
                     Privileges.APP_REPORTINGUI_REPORTS,
+                    Privileges.APP_ED_TRIAGE,
+                    Privileges.APP_ED_TRIAGE_QUEUE,
                     Privileges.TASK_APPOINTMENTSCHEDULINGUI_REQUEST_APPOINTMENTS,
                     Privileges.TASK_APPOINTMENTSCHEDULINGUI_VIEW_CONFIDENTIAL,
                     Privileges.TASK_COREAPPS_CREATE_VISIT,
@@ -633,7 +642,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_ALLERGIES_MODIFY
+                    Privileges.TASK_ALLERGIES_MODIFY,
+                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE
             );}
     };
 

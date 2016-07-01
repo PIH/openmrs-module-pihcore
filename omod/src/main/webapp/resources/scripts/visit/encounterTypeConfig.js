@@ -378,7 +378,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-ambulance",
-            editUrl: "edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=edtriageapp.app.triageQueue"
+            editUrl: "edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue"
         };
 
         return encounterTypeConfig;

@@ -81,6 +81,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY);
         install(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER);
         install(Privileges.TASK_RADIOLOGYAPP_TAB);
+        install(Privileges.TASK_ED_TRIAGE_ENTER_NOTE);
 
         log.info("Retiring old privileges");
 

@@ -500,7 +500,9 @@ public class LocationTagSetup {
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
         ));
 
-
+        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(
+                MirebalaisLocations.EMERGENCY
+        ));
     }
 
     private static void setLocationTagsFor(LocationService service, LocationTagDescriptor locationTag, Collection<LocationDescriptor> locationsThatGetTag) {

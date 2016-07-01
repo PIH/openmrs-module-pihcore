@@ -389,6 +389,12 @@ public class Privileges {
         public String description() { return "Ability to view the Radiology tab for patient"; }
     };
 
+    public static PrivilegeDescriptor TASK_ED_TRIAGE_ENTER_NOTE = new PrivilegeDescriptor() {
+        public String uuid() { return "8accc0c0-3faf-11e6-bdf4-0800200c9a66"; }
+        public String privilege() { return "Task: edtriageapp.enterNote"; }
+        public String description() { return "Ability to enter an ED Triage form fo a patient"; }
+    };
+
 
     // RETIRED PRIVILEGES
 

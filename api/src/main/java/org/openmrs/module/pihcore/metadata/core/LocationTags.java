@@ -162,6 +162,13 @@ public class LocationTags {
 		public String description() { return "Signifies a Location where a Lab Results form can be filled out"; }
 	};
 
+	public static LocationTagDescriptor ED_TRIAGE_LOCATION = new LocationTagDescriptor() {
+		@Override
+		public String uuid() { return "641ed690-3fb2-11e6-bdf4-0800200c9a66"; }
+		public String name() { return "ED Triage Location"; }
+		public String description() { return "Signifies a Location where an ED Triage form can be filled out"; }
+	};
+
 	public static LocationTagDescriptor RETIRED_OUTPATIENT_TRANSFER_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "84864264-5fda-4626-b22f-4b690b7279f3"; }
 		public String name() { return "Outpatient Transfer Location"; }
