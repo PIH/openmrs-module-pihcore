@@ -354,13 +354,15 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
+        // because of a bug, we manually append the defintionUiResource to the template and edit urls
+        // see: https://tickets.pih-emr.org/browse/UHM-2524
         encounterTypeConfig[EncounterTypes.mentalHealth.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
             icon: "icon-user",
-            editUrl: hfeStandardEditUrl,
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
             showOnVisitList: true
         };
 
