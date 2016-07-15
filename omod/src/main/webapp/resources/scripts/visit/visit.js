@@ -123,6 +123,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         return $scope.encounterState === 'long' && config && config.shortTemplate;
                     }
 
+                    $scope.canView = function() {
+                        return config && config.viewUrl;
+                    }
+
                     $scope.canEdit = function() {
                         var encounter = new OpenMRS.EncounterModel($scope.encounter);
                         var currentUser = new OpenMRS.UserModel($scope.session.user);
@@ -155,6 +159,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         $scope.encounterState = 'short';
                         $scope.showSections = false;
                         $scope.template = config ? config["shortTemplate"] : "templates/encounters/defaultEncounterShort.page"
+                    }
+
+                    $scope.view = function() {
+                        $scope.$emit("request-view-encounter", $scope.encounter);
                     }
 
                     $scope.edit = function() {
@@ -443,6 +451,20 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     });
                 }
             }
+
+            $rootScope.$on("request-view-encounter", function(event, encounter) {
+                var config = EncounterTypeConfig[encounter.encounterType.uuid];
+                if (config.viewUrl) {
+                    var url = Handlebars.compile(config.viewUrl)({
+                        patient: encounter.patient,
+                        visit: $scope.visit,
+                        encounter: encounter,
+                        breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
+                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid
+                    });
+                    emr.navigateTo({applicationUrl: url});
+                }
+            });
 
             $rootScope.$on("request-edit-encounter", function(event, encounter) {
                 var config = EncounterTypeConfig[encounter.encounterType.uuid];
