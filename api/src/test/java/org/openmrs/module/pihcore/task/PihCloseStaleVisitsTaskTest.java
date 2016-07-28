@@ -253,7 +253,7 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
 
 
     @Test
-    public void test_shouldKeepVisitOpenIfItHasCheckinAtEmergencyLocationAndEncounterWithinTwentyFourHours() throws Exception {
+    public void test_shouldKeepVisitOpenIfItHasCheckinAtEmergencyLocationAndEncounterWithinFortyEightHours() throws Exception {
 
         ContextSensitiveMetadataTestUtils.setupDispositionDescriptor(conceptService, dispositionService);
         ContextSensitiveMetadataTestUtils.setupAdmissionDecisionConcept(conceptService, emrApiProperties);
@@ -307,7 +307,7 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     }
 
     @Test
-    public void test_shouldNotKeepVisitOpenIfItHasCheckinAtEmergencyLocationButNoEncounterWithinTwentyFourHours() throws Exception {
+    public void test_shouldNotKeepVisitOpenIfItHasCheckinAtEmergencyLocationButNoEncounterWithinFortyEightHours() throws Exception {
 
         ContextSensitiveMetadataTestUtils.setupDispositionDescriptor(conceptService, dispositionService);
         ContextSensitiveMetadataTestUtils.setupAdmissionDecisionConcept(conceptService, emrApiProperties);
@@ -360,7 +360,60 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     }
 
     @Test
-    public void test_shouldKeepVisitOpenIfItHasEDTriageAndEncounterWithinTwentyFourHours() throws Exception {
+    public void test_shouldKeepVisitOpenIfItHasEDTriageAndEncounterWithinFortyEightHours() throws Exception {
+
+        ContextSensitiveMetadataTestUtils.setupDispositionDescriptor(conceptService, dispositionService);
+        ContextSensitiveMetadataTestUtils.setupAdmissionDecisionConcept(conceptService, emrApiProperties);
+        ContextSensitiveMetadataTestUtils.setupSupportsVisitLocationTag(locationService);
+
+        Patient patient = patientService.getPatient(7);    // patient already has one visit in test dataset
+
+        // need to tag the unknown location so we don't run into an error when testing against the existing visits in the test dataset
+        Location unknownLocation = locationService.getLocation(1);
+        unknownLocation.addTag(emrApiProperties.getSupportsVisitsLocationTag());
+        locationService.saveLocation(unknownLocation);
+
+        Location location = locationService.getLocation(2);
+        location.addTag(emrApiProperties.getSupportsVisitsLocationTag());
+        locationService.saveLocation(location);
+
+        Visit visit = new Visit();
+        visit.setStartDatetime(DateUtils.addHours(new Date(), -60));
+        visit.setPatient(patient);
+        visit.setLocation(location);
+        visit.setVisitType(emrApiProperties.getAtFacilityVisitType());
+
+        // create ED Triage encounterdmit to hospital
+        Encounter edTriage = new Encounter();
+        edTriage.setPatient(patient);
+        edTriage.setEncounterType(encounterService.getEncounterTypeByUuid(ED_TRIAGE_ENCOUNTER_TYPE_UUID));
+        edTriage.setEncounterDatetime(visit.getStartDatetime());
+        encounterService.saveEncounter(edTriage);
+
+        // create a another encounter within 48 hours
+        Encounter consult = new Encounter();
+        consult.setPatient(patient);
+        consult.setEncounterType(emrApiProperties.getVisitNoteEncounterType());
+        consult.setEncounterDatetime(DateUtils.addHours(new Date(), -47));
+        encounterService.saveEncounter(consult);
+
+        visit.addEncounter(edTriage);
+        visit.addEncounter(consult);
+        visitService.saveVisit(visit);
+
+        VisitDomainWrapper activeVisit = adtService.getActiveVisit(patient, location);
+
+        // sanity check
+        assertNotNull(activeVisit);
+
+        new PihCloseStaleVisitsTask().execute();
+
+        activeVisit = adtService.getActiveVisit(patient, location);
+        assertNotNull(activeVisit);
+    }
+
+    @Test
+    public void test_shouldNotKeepVisitOpenIfItHasEDTriageAndEncounterWithinFortyEightHoursButAlsoDischargeEncounter() throws Exception {
 
         ContextSensitiveMetadataTestUtils.setupDispositionDescriptor(conceptService, dispositionService);
         ContextSensitiveMetadataTestUtils.setupAdmissionDecisionConcept(conceptService, emrApiProperties);
@@ -397,8 +450,25 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
         consult.setEncounterDatetime(DateUtils.addHours(new Date(), -47));
         encounterService.saveEncounter(consult);
 
+        // create an encounter with a disposition obs of "discharge
+        Encounter encounterWithDisposition = new Encounter();
+        encounterWithDisposition.setPatient(patient);
+        encounterWithDisposition.setEncounterType(encounterService.getEncounterType(1));
+        encounterWithDisposition.setEncounterDatetime(visit.getStartDatetime());
+
+        Obs dispositionObsGroup = new Obs();
+        dispositionObsGroup.setConcept(dispositionService.getDispositionDescriptor().getDispositionSetConcept());
+        Obs dispositionObs = new Obs();
+        dispositionObs.setConcept(dispositionService.getDispositionDescriptor().getDispositionConcept());
+        dispositionObs.setValueCoded(emrConceptService.getConcept(EmrApiConstants.EMR_CONCEPT_SOURCE_NAME + ":Discharged"));  // this fake code is set in ContextSensitiveMetadataTestUtils
+        dispositionObsGroup.addGroupMember(dispositionObs);
+
+        encounterWithDisposition.addObs(dispositionObsGroup);
+        encounterService.saveEncounter(encounterWithDisposition);
+
         visit.addEncounter(edTriage);
         visit.addEncounter(consult);
+        visit.addEncounter(encounterWithDisposition);
         visitService.saveVisit(visit);
 
         VisitDomainWrapper activeVisit = adtService.getActiveVisit(patient, location);
@@ -409,7 +479,7 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
         new PihCloseStaleVisitsTask().execute();
 
         activeVisit = adtService.getActiveVisit(patient, location);
-        assertNotNull(activeVisit);
+        assertNull(activeVisit);
     }
 
 

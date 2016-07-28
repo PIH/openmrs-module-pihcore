@@ -10,6 +10,9 @@ import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.adt.AdtService;
+import org.openmrs.module.emrapi.disposition.Disposition;
+import org.openmrs.module.emrapi.disposition.DispositionType;
+import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.scheduler.tasks.AbstractTask;
@@ -35,8 +38,6 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
             MirebalaisLocations.EMERGENCY_DEPARTMENT_RECEPTION.uuid(),
             MirebalaisLocations.WOMENS_TRIAGE.uuid());
 
-    private static final String ENCOUNTER_TYPE_CHECK_IN_UUID = EncounterTypes.CHECK_IN.uuid();
-
     private static final String ENCOUNTER_TYPE_ED_TRIAGE_UUID = EncounterTypes.EMERGENCY_TRIAGE.uuid();
 
     public void execute() {
@@ -51,7 +52,7 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
 
         List<Visit> openVisits = visitService.getVisits(null, null, locations, null, null, null, null, null, null, false, false);
         for (Visit visit : openVisits) {
-            if (adtService.shouldBeClosed(visit) && !isActiveEDVisit(visit)) {
+            if (adtService.shouldBeClosed(visit) && !isActiveEDVisit(adtService.wrap(visit))) {
                 try {
                     adtService.closeAndSaveVisit(visit);
                 } catch (Exception ex) {
@@ -61,41 +62,54 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
         }
     }
 
-    private boolean isActiveEDVisit(Visit visit) {
+    private boolean isActiveEDVisit(VisitDomainWrapper visit) {
 
-        if (hasCheckInAtEDLocation(visit) || hasEDTriageEncounter(visit)) {
+        if ((hasCheckInAtEDLocation(visit) || hasEDTriageEncounter(visit)) && hasNotBeenDischarged(visit)) {
             Date now = new Date();
             Date mustHaveSomethingAfter = DateUtils.addHours(now, -ED_VISIT_EXPIRE_TIME_IN_HOURS);
             // we don't test the visit start time because we know there must be at least one encounter (the check-in encounter)
-            if (visit.getEncounters() != null) {
-                for (Encounter candidate : visit.getEncounters()) {
-                    if (OpenmrsUtil.compare(candidate.getEncounterDatetime(), mustHaveSomethingAfter) >= 0) {
-                        return true;
-                    }
+            if (visit.hasEncounters() && OpenmrsUtil.compare(visit.getMostRecentEncounter().getEncounterDatetime(), mustHaveSomethingAfter) >= 0) {
+                    return true;
+
+            }
+        }
+
+        return false;
+    }
+
+    private boolean hasCheckInAtEDLocation(VisitDomainWrapper visit) {
+
+        Encounter mostRecentCheckIn = visit.getMostRecentCheckInEncounter();
+
+        if (mostRecentCheckIn != null && mostRecentCheckIn.getLocation() != null
+                && ED_LOCATION_UUIDS.contains(mostRecentCheckIn.getLocation().getUuid())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    private boolean hasEDTriageEncounter(VisitDomainWrapper visit) {
+        if (visit.hasEncounters()) {
+            for (Encounter encounter : visit.getSortedEncounters()) {
+                if (encounter.getEncounterType().getUuid().equals(ENCOUNTER_TYPE_ED_TRIAGE_UUID)) {
+                    return true;
                 }
             }
         }
-
         return false;
     }
 
-    private boolean hasCheckInAtEDLocation(Visit visit) {
-        for (Encounter encounter : visit.getEncounters()) {
-            if (!encounter.isVoided() && encounter.getEncounterType().getUuid().equals(ENCOUNTER_TYPE_CHECK_IN_UUID)
-                    && (encounter.getLocation() != null && ED_LOCATION_UUIDS.contains(encounter.getLocation().getUuid()))) {
-                return true;
-            }
+    private boolean hasNotBeenDischarged(VisitDomainWrapper visit) {
+        Disposition mostRecentDisposition = visit.getMostRecentDisposition();
+        if (mostRecentDisposition != null && DispositionType.DISCHARGE.equals(mostRecentDisposition.getType())) {
+            return false;
         }
-        return false;
-    }
-
-    private boolean hasEDTriageEncounter(Visit visit) {
-        for (Encounter encounter : visit.getEncounters()) {
-            if (!encounter.isVoided() && encounter.getEncounterType().getUuid().equals(ENCOUNTER_TYPE_ED_TRIAGE_UUID)) {
-                return true;
-            }
+        else {
+            return true;
         }
-        return false;
     }
 
 }
