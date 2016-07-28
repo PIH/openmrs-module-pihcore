@@ -3,8 +3,8 @@ package org.openmrs.module.pihcore.setup;
 import org.apache.commons.lang.time.DateUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emr.EmrConstants;
-import org.openmrs.module.emrapi.adt.CloseStaleVisitsTask;
 import org.openmrs.module.emrapi.utils.GeneralUtils;
+import org.openmrs.module.pihcore.task.PihCloseStaleVisitsTask;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
@@ -21,7 +21,7 @@ public class CloseStaleVisitsSetup {
             task = new TaskDefinition();
             task.setName(EmrConstants.TASK_CLOSE_STALE_VISITS_NAME);
             task.setDescription(EmrConstants.TASK_CLOSE_STALE_VISITS_DESCRIPTION);
-            task.setTaskClass(CloseStaleVisitsTask.class.getName());
+            task.setTaskClass(PihCloseStaleVisitsTask.class.getName());
             task.setStartTime(DateUtils.addMinutes(new Date(), 5));
             task.setRepeatInterval(EmrConstants.TASK_CLOSE_STALE_VISITS_REPEAT_INTERVAL);
             task.setStartOnStartup(true);
@@ -32,7 +32,7 @@ public class CloseStaleVisitsSetup {
             }
         } else {
             // if you modify any of the properties above, you also need to set them here, in order to update existing servers
-            boolean changed = GeneralUtils.setPropertyIfDifferent(task, "taskClass", CloseStaleVisitsTask.class.getName());
+            boolean changed = GeneralUtils.setPropertyIfDifferent(task, "taskClass", PihCloseStaleVisitsTask.class.getName());
             if (changed) {
                 schedulerService.saveTask(task);
             }
