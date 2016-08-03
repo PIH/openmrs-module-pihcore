@@ -19,6 +19,8 @@ import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 
 import java.util.UUID;
 
+import static org.openmrs.module.pihcore.PihCoreConstants.ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID;
+
 public class ConfigureHaitiIdGenerators {
 
     public static final String LOCAL_ZL_IDENTIFIER_GENERATOR_ENABLED = "local_zl_identifier_generator_enabled";
@@ -77,12 +79,10 @@ public class ConfigureHaitiIdGenerators {
         }
         else if (config.getDossierIdentifierPrefix() != null) {
 
-            UUID uuid = UUID.randomUUID();
-
             SequentialIdentifierGenerator sequentialIdentifierGenerator = configureHaitiIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
                             config.getDossierIdentifierPrefix().toString(),
-                            uuid.toString());
+                            ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGenerator, null);
 
