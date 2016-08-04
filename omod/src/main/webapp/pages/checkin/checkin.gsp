@@ -71,7 +71,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
                     <button id="cancel" class="cancel medium">
                         <i class="icon-arrow-left"></i>
-                        ${ ui.message("pichore.checkIn.back") }
+                        ${ ui.message("pihcore.checkIn.back") }
                     </button>
                 </div>
             """
