@@ -438,7 +438,7 @@
                 <version>2.1</version>
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
-                    <allowSnapshots>false</allowSnapshots>
+                    <allowSnapshots>true</allowSnapshots>
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
