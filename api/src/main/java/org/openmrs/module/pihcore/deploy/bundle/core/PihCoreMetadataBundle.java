@@ -2,12 +2,7 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.DeathConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.DiagnosisConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.VaccinationConcepts;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -33,6 +28,7 @@ import org.springframework.stereotype.Component;
         DeathConcepts.class,
         DiagnosisConcepts.class,
         SocioEconomicConcepts.class,
+        InsuranceConcepts.class,
         VaccinationConcepts.class
         } )
 public class PihCoreMetadataBundle extends AbstractMetadataBundle {
