@@ -54,13 +54,13 @@
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.8-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
-        <metadatasharingVersion>1.2</metadatasharingVersion>
+        <metadatasharingVersion>1.2.1</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
         <htmlformentryVersion>3.2</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.5</htmlformentryuiVersion>
-        <calculationVersion>1.1</calculationVersion>
+        <calculationVersion>1.2</calculationVersion>
         <reportingVersion>0.10.1</reportingVersion>
         <reportinguiVersion>1.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
@@ -74,7 +74,7 @@
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
-        <appuiVersion>1.6-SNAPSHOT</appuiVersion>
+        <appuiVersion>1.6</appuiVersion>
         <dispensingVersion>1.0</dispensingVersion>
         <uicommonsVersion>1.10-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.5</registrationcoreVersion>
