@@ -1,5 +1,5 @@
 <fieldset>
-    <legend>${ ui.message("pihcore.visitNote.orders.activePrescriptions") } ({{ orderContext.careSetting | omrs.display }})</legend>
+    <legend>${ ui.message("pihcore.visitNote.orders.activePrescriptions") } ({{ orderContext.careSetting | omrsDisplay }})</legend>
 
     <span ng-hide="activeDrugOrders.\$resolved">${ ui.message("uicommons.loading.placeholder") }</span>
 

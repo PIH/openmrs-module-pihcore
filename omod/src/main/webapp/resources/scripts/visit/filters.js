@@ -55,7 +55,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
-    .filter("obs", [ "omrs.displayFilter", function(displayFilter) {
+    .filter("obs", [ "omrsDisplayFilter", function(displayFilter) {
         return function(obs, mode) {
             if (!obs) {
                 return "";
@@ -79,7 +79,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
-    .filter("dispositionShort", ["omrs.displayFilter", "Concepts", function (displayFilter, Concepts) {
+    .filter("dispositionShort", ["omrsDisplayFilter", "Concepts", function (displayFilter, Concepts) {
         return function(group) {
             if (!group) {
                 return "";
@@ -95,7 +95,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
-    .filter("combinedVisitDates", ["$rootScope", "omrs.displayFilter", "serverDateFilter", "DatetimeFormats", function($rootScope, displayFilter, serverDateFilter, DatetimeFormats) {
+    .filter("combinedVisitDates", ["$rootScope", "omrsDisplayFilter", "serverDateFilter", "DatetimeFormats", function($rootScope, displayFilter, serverDateFilter, DatetimeFormats) {
         return function(visit) {
             if (!visit) {
                 return "";
@@ -112,7 +112,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
-    .filter("dispositionLong", ["$rootScope", "omrs.displayFilter", "serverDateFilter", "Concepts", "DatetimeFormats", function ($rootScope, displayFilter, serverDateFilter, Concepts, DatetimeFormats) {
+    .filter("dispositionLong", ["$rootScope", "omrsDisplayFilter", "serverDateFilter", "Concepts", "DatetimeFormats", function ($rootScope, displayFilter, serverDateFilter, Concepts, DatetimeFormats) {
         return function(group) {
             if (!group) {
                 return "";
@@ -198,7 +198,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     })
 
-    .filter("diagnosisShort", [ "omrs.displayFilter", "Concepts", function(displayFilter, Concepts) {
+    .filter("diagnosisShort", [ "omrsDisplayFilter", "Concepts", function(displayFilter, Concepts) {
         return function(group) {
             if (!group) {
                 return "";
@@ -218,7 +218,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
-    .filter("diagnosisLong", [ "omrs.displayFilter", "Concepts", function(displayFilter, Concepts) {
+    .filter("diagnosisLong", [ "omrsDisplayFilter", "Concepts", function(displayFilter, Concepts) {
         return function(group) {
             if (!group) {
                 return "";

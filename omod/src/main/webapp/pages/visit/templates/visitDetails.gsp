@@ -11,7 +11,7 @@
 
 <span class="visit-location">
     <i class="icon-hospital small"></i>
-    {{ visit.location | omrs.display }}
+    {{ visit.location | omrsDisplay }}
 </span>
 
 <span class="actions">

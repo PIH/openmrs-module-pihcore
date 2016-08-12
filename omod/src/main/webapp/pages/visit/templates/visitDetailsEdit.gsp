@@ -27,7 +27,7 @@
         </tr>
         <tr>
             <td>${ ui.message("uicommons.location") }</td>
-            <td>{{ visit.location | omrs.display }}</td>
+            <td>{{ visit.location | omrsDisplay }}</td>
         </tr>
         </tbody>
     </table>

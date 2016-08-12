@@ -14,6 +14,6 @@
         {{ encounter.encounterProviders | encounterRole:primaryEncounterRoleUuid | getProviderNameFromDisplayString }}
     </span>
     <span class="encounter-provider admission-location provider-and-location-span" ng-hide="encounter.location.uuid == encounter.visit.location.uuid">
-        ${ ui.message("uicommons.at") } {{encounter.location | omrs.display}}
+        ${ ui.message("uicommons.at") } {{encounter.location | omrsDisplay}}
     </span>
 </span>

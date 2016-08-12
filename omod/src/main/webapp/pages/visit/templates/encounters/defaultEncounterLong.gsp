@@ -3,7 +3,7 @@
 
 <div class="content encounter-summary-long">  <!-- encounter-summary-long currently only used for Selenium tests -->
     <p ng-repeat="obs in encounter.obs" class="aligned">
-        <label>{{ obs.concept | omrs.display }}</label>
+        <label>{{ obs.concept | omrsDisplay }}</label>
         <span class="value">{{ obs | obs:"value" }}</span>
     </p>
     <div ng-show="encounter.orders && encounter.orders.length">
