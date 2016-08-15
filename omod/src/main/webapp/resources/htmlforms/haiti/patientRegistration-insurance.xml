@@ -39,11 +39,18 @@
                 <div class="left">
                     <h3><uimessage code="zl.registration.patient.insurance.label"/></h3>
                     <p>
+
                         <obs conceptId="PIH:Haiti insurance company name" id="insuranceName"
-                             answerConceptIds="PIH:NONE,PIH:AIC,PIH:INASSA,PIH:CAH,PIH:CONAM,PIH:Sogebank Assurance,PIH:UniAssurances,PIH:GMC Henner,PIH:CIGNA (Vanbreda),PIH:OTHER,PIH:UNKNOWN"
-                             answerCodes="zl.registration.patient.insurance.none.label,zl.registration.patient.insurance.aic.label,zl.registration.patient.insurance.inassa.label,zl.registration.patient.insurance.cah.label,zl.registration.patient.insurance.conam.label,zl.registration.patient.insurance.sogebank.label,zl.registration.patient.insurance.uniAssurances.label,zl.registration.patient.insurance.gmcHenner.label,zl.registration.patient.insurance.cigna.label,zl.registration.patient.insurance.other.label,zl.registration.patient.insurance.unknown.label"
-                             showUnits="false" unitsCssClass="append-to-value" style="dropdown"/>
+                             answerConceptIds="PIH:NONE,PIH:AIC,PIH:INASSA,PIH:CAH,PIH:CONAM,PIH:Sogebank Assurance,PIH:UniAssurances,PIH:GMC Henner,PIH:CIGNA (Vanbreda),PIH:UNKNOWN"
+                             answerCodes="zl.registration.patient.insurance.none.label,zl.registration.patient.insurance.aic.label,zl.registration.patient.insurance.inassa.label,zl.registration.patient.insurance.cah.label,zl.registration.patient.insurance.conam.label,zl.registration.patient.insurance.sogebank.label,zl.registration.patient.insurance.uniAssurances.label,zl.registration.patient.insurance.gmcHenner.label,zl.registration.patient.insurance.cigna.label,zl.registration.patient.insurance.unknown.label"
+                             showUnits="false" unitsCssClass="append-to-value" style="dropdown" />
                     </p>
+                    <div id="alternativeInsuranceCo">
+                        <uimessage code="zl.registration.patient.insurance.other.label"/>
+                        <p>
+                            <obs conceptId="PIH:Insurance company name (text)" id="otherInsurance" answerLabel="zl.registration.patient.insurance.other.label"/>
+                        </p>
+                    </div>
                 </div>
 
                 <div class="right">
@@ -63,7 +70,12 @@
                         <obs conceptId="PIH:Haiti insurance company name" id="insuranceName" showUnits="false" unitsCssClass="append-to-value"/>
                     </p>
                 </div>
-
+                <div>
+                    <h3><uimessage code="zl.registration.patient.insurance.other.label"/></h3>
+                    <p class="left">
+                        <obs conceptId="PIH:Insurance company name (text)" id="otherInsuranceName" showUnits="false" unitsCssClass="append-to-value"/>
+                    </p>
+                </div>
                 <div>
                     <h3><uimessage code="zl.registration.patient.insurance.insuranceNumber.label"/></h3>
                     <p class="left">
