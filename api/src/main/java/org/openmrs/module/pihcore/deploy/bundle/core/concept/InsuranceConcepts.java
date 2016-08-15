@@ -176,6 +176,18 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
                         none,other,unknown)
                 .build());
 
+        Concept insuranceCoOther = install(new ConceptBuilder("ce581a9c-433f-43f4-8a03-58cc83af5e3d")
+                .datatype(text)
+                .conceptClass(question)
+                .name("ddd3d35b-0b7a-4d33-8ffe-dce09cb978aa", "Insurance company name (text)", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("9b49feaa-cc1b-47d9-aab9-207606317bac", "Insurance company name, non-coded", Locale.ENGLISH, null)
+                .description("96e8ab41-b110-42c8-9fce-4968a35a3cea", "The insurance company name (non coded, free text)", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("667fbdc3-9ba9-471c-b9a6-d30e3d4b58f0")
+                        .type(sameAs).ensureTerm(pih, "Insurance company name (text)").build())
+                .mapping(new ConceptMapBuilder("740b2a1b-0aee-4f7f-ae76-a338545a800c")
+                        .type(sameAs).ensureTerm(pih, "10740").build())
+                .build());
+
         install(new ConceptBuilder("729cf278-2a3e-4f0c-87ff-3cbe25bf2bc9")
                 .datatype(notApplicable)
                 .conceptClass(convSet)
@@ -184,7 +196,7 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "10738").build())
                 .mapping(new ConceptMapBuilder("f43ad6e1-a34f-4ec2-9e6f-b778e9c6e383")
                         .type(sameAs).ensureTerm(pih, "Insurance construct").build())
-                .setMembers(haitiInsuranceCo, insuranceNumber)
+                .setMembers(haitiInsuranceCo, insuranceCoOther, insuranceNumber)
                 .build());
     }
 
