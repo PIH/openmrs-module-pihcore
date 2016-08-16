@@ -59,6 +59,40 @@
     </style>
 
     <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+        jq(function() {
+
+                var validateAgeInput = function(boxElement, focus) {
+                    var ageInput = boxElement.closest('tr').find('input[type=text]');
+                    if (typeof ageInput !== "undefined" ) {
+                        if ( boxElement.prop("checked") ) {
+                            ageInput.prop('disabled', false);
+                            if (focus) {
+                                ageInput.focus();
+                            }
+                        } else {
+                            ageInput.val("");
+                            ageInput.prop('disabled', true);
+                        }
+                    }
+
+                    return true;
+                }
+
+                function enableAgeEntries() {
+                    jq('.supplement').find('input[type=checkbox]').each(function() {
+                        validateAgeInput(jq(this), false);
+                    });
+                }
+
+                jq('.supplement').find('input[type=checkbox]').change(function() {
+                    validateAgeInput(jq(this), true);
+
+                });
+
+                enableAgeEntries();
+            });
+        </script>
         <h2><uimessage code="pihcore.supplements.history.title"/></h2>
     </ifMode>
 
@@ -76,12 +110,12 @@
                         <tr>
                             <td>
                                 <span>
-                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" id="vitamin-a"/>
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" id="vitamin-a" class="supplement"/>
                                 </span>
                             </td>
 
                             <td>
-                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" placeholder="Specify" class="ageReceived"/>
                             </td>
                         </tr>
                     </obsgroup>
@@ -89,12 +123,12 @@
                         <tr>
                             <td>
                                 <span>
-                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:FERROUS SULFATE" style="checkbox" />
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:FERROUS SULFATE" style="checkbox" class="supplement"/>
                                 </span>
                             </td>
 
                             <td>
-                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" class="ageReceived" placeholder="Specify" />
                             </td>
                         </tr>
                     </obsgroup>
@@ -102,12 +136,12 @@
                         <tr>
                             <td>
                                 <span>
-                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:IODINE" style="checkbox" />
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:IODINE" style="checkbox" class="supplement" />
                                 </span>
                             </td>
 
                             <td>
-                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" placeholder="Specify" class="ageReceived"/>
                             </td>
                         </tr>
                     </obsgroup>
@@ -115,12 +149,12 @@
                         <tr>
                             <td>
                                 <span>
-                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:DEWORMING" style="checkbox" />
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:DEWORMING" style="checkbox" class="supplement" />
                                 </span>
                             </td>
 
                             <td>
-                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" placeholder="Specify" class="ageReceived"/>
                             </td>
                         </tr>
                     </obsgroup>
@@ -128,12 +162,12 @@
                         <tr>
                             <td>
                                 <span>
-                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:ZINC" style="checkbox" />
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:ZINC" style="checkbox" class="supplement" />
                                 </span>
                             </td>
 
                             <td>
-                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED"/>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" placeholder="Specify" class="ageReceived"/>
                             </td>
                         </tr>
                     </obsgroup>
