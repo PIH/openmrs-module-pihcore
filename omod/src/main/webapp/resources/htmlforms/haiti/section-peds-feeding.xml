@@ -54,16 +54,61 @@
 
     <script type="text/javascript">
         jq(function() {
-/* when age is entered the checkbox gets automatically checked
 
-            console.log("feeding form loaded");
-            jq('#breastfeedAge').focusout(function(){
-                var inputAge = jq('#breastfeedAge').find('input[type=text]').val();
-                if (inputAge.length > 0 ) {
-                    console.log("age has been entered");
+            var validateAgeInput = function(boxElement, focus) {
+                var ageInput = boxElement.closest('tr').find('.ageReceived').find('input[type=text]');
+                if (typeof ageInput !== "undefined" ) {
+                    if ( boxElement.prop("checked") ) {
+                        ageInput.prop('disabled', false);
+                        //uncheck the No checkbox
+                        var noCheckBox = boxElement.closest('tr').find('.no-feeding').find('input[type=checkbox]');
+                        if (typeof noCheckBox !== "undefined" ) {
+                            noCheckBox.prop("checked", false);
+                        }
+                        if (focus) {
+                            ageInput.focus();
+                        }
+                    } else {
+                        ageInput.val("");
+                        ageInput.prop('disabled', true);
+                    }
                 }
+
+                return true;
+            }
+
+            var disableAgeInput = function(boxElement) {
+                var ageInput = boxElement.closest('tr').find('.ageReceived').find('input[type=text]');
+                if (typeof ageInput !== "undefined" ) {
+                    if ( boxElement.prop("checked") ) {
+                        ageInput.val("");
+                        ageInput.prop('disabled', true);
+                        //uncheck the Yes checkbox
+                        var yesCheckBox = boxElement.closest('tr').find('.yes-feeding').find('input[type=checkbox]');
+                        if (typeof yesCheckBox !== "undefined" ) {
+                            yesCheckBox.prop("checked", false);
+                        }
+                    }
+                }
+                return true;
+            }
+
+            function enableAgeEntries() {
+                jq('.yes-feeding').find('input[type=checkbox]').each(function() {
+                    validateAgeInput(jq(this), false);
+                });
+            }
+
+            jq('.yes-feeding').find('input[type=checkbox]').change(function() {
+                validateAgeInput(jq(this), true);
             });
-*/
+
+            jq('.no-feeding').find('input[type=checkbox]').change(function() {
+                disableAgeInput(jq(this));
+            });
+
+            enableAgeEntries();
+
         });
     </script>
 
@@ -87,13 +132,13 @@
                     <tr>
                         <td><uimessage code="zl.breastfeedExclusively"/></td>
                         <td>
-                            <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="" id="breastfeeding-yes"/>  <!-- id used for smoke tests -->
+                            <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode="" id="breastfeeding-yes" class="yes-feeding"/>  <!-- id used for smoke tests -->
                         </td>
                         <td>
-                            <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" answerCode=""/>
+                            <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:BREASTFED EXCLUSIVELY" style="checkbox" class="no-feeding" answerCode=""/>
                         </td>
                         <td>
-                            <obs id="breastfeedAge" conceptId="PIH:FEEDING METHOD AGE"/>
+                            <obs id="breastfeedAge" conceptId="PIH:FEEDING METHOD AGE" placeholder="Specify" class="ageReceived"/>
                         </td>
                     </tr>
                     </obsgroup>
@@ -101,13 +146,13 @@
                         <tr>
                             <td><uimessage code="zl.infantFormula"/></td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode=""/>
+                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" class="yes-feeding" answerCode=""/>
                             </td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode=""/>
+                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:INFANT FORMULA" style="checkbox" answerCode="" class="no-feeding"/>
                             </td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                                <obs conceptId="PIH:FEEDING METHOD AGE" placeholder="Specify" class="ageReceived"/>
                             </td>
                         </tr>
                     </obsgroup>
@@ -115,13 +160,13 @@
                         <tr>
                             <td><uimessage code="zl.mixedFeeding"/></td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode=""/>
+                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" class="yes-feeding" answerCode=""/>
                             </td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode=""/>
+                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:MIXED FEEDING" style="checkbox" answerCode="" class="no-feeding"/>
                             </td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                                <obs conceptId="PIH:FEEDING METHOD AGE" placeholder="Specify" class="ageReceived"/>
                             </td>
                         </tr>
                     </obsgroup>
@@ -129,13 +174,13 @@
                         <tr>
                             <td><uimessage code="zl.breastfeedStopped"/></td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode=""/>
+                                <obs conceptId="PIH:FEEDING METHOD PRESENT" answerConceptId="PIH:WEANED" style="checkbox" class="yes-feeding" answerCode=""/>
                             </td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode=""/>
+                                <obs conceptId="PIH:FEEDING METHOD ABSENT" answerConceptId="PIH:WEANED" style="checkbox" answerCode="" class="no-feeding"/>
                             </td>
                             <td>
-                                <obs conceptId="PIH:FEEDING METHOD AGE"/>
+                                <obs conceptId="PIH:FEEDING METHOD AGE" placeholder="Specify" class="ageReceived"/>
                             </td>
                         </tr>
                     </obsgroup>
