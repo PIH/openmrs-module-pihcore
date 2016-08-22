@@ -59,6 +59,13 @@ public class PersonAttributeTypes {
 		public double sortWeight() { return 14; }
 	};
 
+	public static PersonAttributeTypeDescriptor BIOMETRIC_REFERENCE_NUMBER = new PersonAttributeTypeDescriptor() {
+		public String uuid() { return "602a3c35-abfd-4a06-93d8-c9b52fe2b860"; }
+		public String name() { return "Biometric Reference Number"; }
+		public String description() { return "Reference to the user in an external biometric matching system"; }
+		public double sortWeight() { return 99; }
+	};
+
     @Deprecated  // now using obs to store birthplace
 	public static PersonAttributeTypeDescriptor BIRTHPLACE = new PersonAttributeTypeDescriptor() {
 		public String uuid() { return "8d8718c2-c2cc-11de-8d13-0010c6dffd0f"; }

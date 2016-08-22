@@ -17,6 +17,7 @@ public class PersonAttributeTypeBundle extends AbstractMetadataBundle {
         install(PersonAttributeTypes.PROVIDER_IDENTIFIER);
         install(PersonAttributeTypes.UNKNOWN_PATIENT);
         install(PersonAttributeTypes.MOTHERS_FIRST_NAME);
+        install(PersonAttributeTypes.BIOMETRIC_REFERENCE_NUMBER);
         //install(PersonAttributeTypes.BIRTHPLACE);
 
         log.info("Retiring old person attribute types");

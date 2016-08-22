@@ -42,4 +42,5 @@ public class Components {
         public static final String PACS_INTEGRATION = "pacsIntegration";
         public static final String ED_TRIAGE = "edTriage";
         public static final String ED_TRIAGE_QUEUE = "edTriageQueue";
+        public static final String BIOMETRICS_FINGERPRINTS = "biometricsFingerPrints";
 }
