@@ -37,7 +37,7 @@
             <!-- edit mode of insurance name and number -->
             <ifMode mode="VIEW" include="false">
                 <div class="left">
-                    <h3><uimessage code="zl.registration.patient.insuranceName.label"/></h3>
+                    <h3><uimessage code="zl.registration.patient.insurance.insuranceName.label"/></h3>
                     <p>
 
                         <obs conceptId="PIH:Haiti insurance company name" id="insuranceName"
@@ -65,7 +65,7 @@
             <!-- view mode of insurance name and insurance number -->
             <ifMode mode="VIEW" include="true">
                 <div>
-                    <h3><uimessage code="zl.registration.patient.insuranceName.label"/></h3>
+                    <h3><uimessage code="zl.registration.patient.insurance.insuranceName.question"/></h3>
                     <p class="left">
                         <obs conceptId="PIH:Haiti insurance company name" id="insuranceName" showUnits="false" unitsCssClass="append-to-value"/>
                     </p>
