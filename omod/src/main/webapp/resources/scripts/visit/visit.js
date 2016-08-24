@@ -435,7 +435,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 if (visitUuid) {
                     Visit.get({
                             uuid: visitUuid,
-                            v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:ref,orders:ref,voided,visit:ref,encounterProviders,creator),patient:default,visitType:ref,attributes:default)"
+                            v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:full,orders:ref,voided,visit:ref,encounterProviders,creator),patient:default,visitType:ref,attributes:default)"
                         })
                         .$promise.then(function (visit) {
                             visit.encounters = _.reject(visit.encounters, function (it) {
