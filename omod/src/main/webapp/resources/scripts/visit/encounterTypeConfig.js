@@ -197,7 +197,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                vaccinations,
                 allergies,
                 primaryCareHistory,
                 primaryCareExam,
@@ -215,7 +214,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                vaccinations,
                 allergies,
                 primaryCareExam,
                 primaryCareDx,
