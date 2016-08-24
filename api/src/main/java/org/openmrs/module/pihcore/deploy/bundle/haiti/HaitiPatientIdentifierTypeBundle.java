@@ -17,6 +17,7 @@ public class HaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle {
         install(HaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER);
         install(HaitiPatientIdentifierTypes.HIVEMR_V1);
         install(HaitiPatientIdentifierTypes.USER_ENTERED_REF_NUMBER);
+        install(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER);
     }
 
 }

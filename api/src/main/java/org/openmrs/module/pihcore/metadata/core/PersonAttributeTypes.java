@@ -59,6 +59,7 @@ public class PersonAttributeTypes {
 		public double sortWeight() { return 14; }
 	};
 
+	@Deprecated  // now using patient identifier to store biometrics
 	public static PersonAttributeTypeDescriptor BIOMETRIC_REFERENCE_NUMBER = new PersonAttributeTypeDescriptor() {
 		public String uuid() { return "602a3c35-abfd-4a06-93d8-c9b52fe2b860"; }
 		public String name() { return "Biometric Reference Number"; }

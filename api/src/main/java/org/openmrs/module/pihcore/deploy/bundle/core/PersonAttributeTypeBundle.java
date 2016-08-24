@@ -17,13 +17,12 @@ public class PersonAttributeTypeBundle extends AbstractMetadataBundle {
         install(PersonAttributeTypes.PROVIDER_IDENTIFIER);
         install(PersonAttributeTypes.UNKNOWN_PATIENT);
         install(PersonAttributeTypes.MOTHERS_FIRST_NAME);
-        install(PersonAttributeTypes.BIOMETRIC_REFERENCE_NUMBER);
-        //install(PersonAttributeTypes.BIRTHPLACE);
 
         log.info("Retiring old person attribute types");
         // the mother's name attribute was incorrectly added with a leading space in the uuid, we should remove this
         uninstall(possible(PersonAttributeType.class, " 8d871d18-c2cc-11de-8d13-0010c6dffd0f"), "invalid uuid");
         uninstall(possible(PersonAttributeType.class, PersonAttributeTypes.BIRTHPLACE.uuid()), "now using obs to record birthplace");
+        uninstall(possible(PersonAttributeType.class, PersonAttributeTypes.BIOMETRIC_REFERENCE_NUMBER.uuid()), "never used, decided to store as identifier instead");
     }
 
 }

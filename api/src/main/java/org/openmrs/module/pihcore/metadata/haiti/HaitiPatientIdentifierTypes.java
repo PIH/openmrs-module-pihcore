@@ -57,4 +57,10 @@ public class HaitiPatientIdentifierTypes {
 		public String name() { return "User-Entered Reference Number"; }
 		public String description() { return "Any user-entered reference number not assigned by the system; for instance, allows the user to store a dossier number not assigned by the current system"; }
 	};
+
+	public static PatientIdentifierTypeDescriptor BIOMETRIC_REF_NUMBER = new PatientIdentifierTypeDescriptor() {
+		public String uuid() { return "e26ca279-8f57-44a5-9ed8-8cc16e90e559"; }
+		public String name() { return "Biometrics Reference Code"; }
+		public String description() { return "Code referencing a patient's record in an external biometrics system"; }
+	};
 }
