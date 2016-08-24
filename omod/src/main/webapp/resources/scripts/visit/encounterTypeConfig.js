@@ -125,7 +125,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         encounterTypeConfig[EncounterTypes.checkIn.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            shortTemplate: "templates/encounters/checkInShort.page",
             longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
             templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
             icon: "icon-check-in",
