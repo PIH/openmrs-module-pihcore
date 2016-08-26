@@ -185,6 +185,21 @@ angular.module('constants', [])
         },
         zinc: {
             uuid: "75015399-72f0-4ee4-b45a-7efd9ede2051"
+        },
+        feedingHistoryConstruct: {
+            uuid: "7f32715f-b2cd-4058-9663-1ba7a0bd2d42"
+        },
+        breastedExclusively: {
+            uuid: "3cedd4ec-26fe-102b-80cb-0017a47871b2"
+        },
+        infantFormula: {
+            uuid: "3ceb2c7e-26fe-102b-80cb-0017a47871b2"
+        },
+        mixedFeeding: {
+            uuid: "3cf2ddc0-26fe-102b-80cb-0017a47871b2"
+        },
+        weaned: {
+            uuid: "3cd78b10-26fe-102b-80cb-0017a47871b2"
         }
     })
 
