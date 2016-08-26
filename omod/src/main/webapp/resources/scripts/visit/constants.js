@@ -165,8 +165,26 @@ angular.module('constants', [])
         returnVisitDate: {
             uuid: "3ce94df0-26fe-102b-80cb-0017a47871b2"
         },
+        supplementHistoryConstruct: {
+            uuid: "2fe2b0ad-5b83-40a9-9b95-762afa663405"
+        },
         supplementReceived: {
             uuid: "40258d8e-6ea5-46f4-b8e7-7cb302f1393f"
+        },
+        vitaminA: {
+            uuid: "ed69b6e2-63c6-416d-b471-f95c9c5e8847"
+        },
+        ferrousSulfate: {
+            uuid: "3ccee960-26fe-102b-80cb-0017a47871b2"
+        },
+        iode: {
+            uuid: "3669eb6a-fe41-44e3-8263-10993c92e802"
+        },
+        deworming: {
+            uuid: "d171e697-bead-4ca9-b5e0-906b8fa769ea"
+        },
+        zinc: {
+            uuid: "75015399-72f0-4ee4-b45a-7efd9ede2051"
         }
     })
 

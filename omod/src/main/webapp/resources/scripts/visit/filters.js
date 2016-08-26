@@ -21,6 +21,22 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("valueGroupMember", [function() {
+        return function(obs, concept) {
+            if (!obs) {
+                return null;
+            }
+
+            var candidate = _.find(obs.groupMembers, function(candidate) {
+                return candidate.value.uuid === concept.uuid;
+            });
+            if ( candidate ) {
+                return candidate.value;
+            }
+            return null;
+        }
+    }])
+
     .filter("groupMember", [function() {
         return function(obs, concept) {
             if (!obs) {
