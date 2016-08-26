@@ -76,7 +76,7 @@ angular.module("encounterTypeConfig", ["constants"])
             id: "pihcore-supplements",
             label: "pihcore.supplements.history.label",
             icon: "icon-asterisk",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
+            shortTemplate: "templates/sections/supplementsSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-peds-supplements.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
@@ -134,7 +134,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         encounterTypeConfig[EncounterTypes.vitals.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            shortTemplate: "templates/encounters/old/vitalsShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-vitals",

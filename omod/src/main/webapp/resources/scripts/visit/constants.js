@@ -164,6 +164,9 @@ angular.module('constants', [])
         },
         returnVisitDate: {
             uuid: "3ce94df0-26fe-102b-80cb-0017a47871b2"
+        },
+        supplementReceived: {
+            uuid: "40258d8e-6ea5-46f4-b8e7-7cb302f1393f"
         }
     })
 
