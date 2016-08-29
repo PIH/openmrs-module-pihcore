@@ -32,7 +32,7 @@ angular.module("encounterTypeConfig", ["constants"])
             label: "pihcore.history.label",
             icon: "icon-file-alt",
             classes: "indent",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
+            shortTemplate: "templates/sections/primaryCareHistorySectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-history.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"

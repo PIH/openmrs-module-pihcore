@@ -102,6 +102,63 @@ angular.module('constants', [])
         pastMedicalHistoryComment: {
             uuid: "160221AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
+        asthma: {
+            uuid: "3ccc4bf6-26fe-102b-80cb-0017a47871b2"
+        },
+        heartDisease: {
+            uuid: "f40bf9bb-fcaa-4f90-8199-197bc6cb2b03"
+        },
+        surgery: {
+            uuid: "a2bbe648-8b69-438a-9657-8148478cf951"
+        },
+        traumaticInjury: {
+            uuid: "124193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        epilepsy: {
+            uuid: "3cce0a90-26fe-102b-80cb-0017a47871b2"
+        },
+        haemoglobinopathy: {
+            uuid: "117635AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        hypertension: {
+            uuid: "3cd50188-26fe-102b-80cb-0017a47871b2"
+        },
+        sexuallyTransmittedInfection: {
+            uuid: "3cce6116-26fe-102b-80cb-0017a47871b2"
+        },
+        congenitalMalformation: {
+            uuid: "143849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        malnutrition: {
+            uuid: "3cccb654-26fe-102b-80cb-0017a47871b2"
+        },
+        weightLoss: {
+            uuid: "3cd482ee-26fe-102b-80cb-0017a47871b2"
+        },
+        measles: {
+            uuid: "3cccaf06-26fe-102b-80cb-0017a47871b2"
+        },
+        tuberculosis: {
+            uuid: "3ccca7cc-26fe-102b-80cb-0017a47871b2"
+        },
+        varicella: {
+            uuid: "3cd4e978-26fe-102b-80cb-0017a47871b2"
+        },
+        diphtheria: {
+            uuid: "119399AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        acuteRheumaticFever: {
+            uuid: "006ab3b2-a0ea-45bf-b495-83e06f26f87a"
+        },
+        diabetes: {
+            uuid: "edf4ecc4-44f6-457a-b561-179f4426b16a"
+        },
+        prematureBirth: {
+            uuid: "6b3447ed-c599-4f51-8ee8-fb78c4f6ef60"
+        },
+        otherNonCoded: {
+            uuid: "3cee7fb4-26fe-102b-80cb-0017a47871b2"
+        },
         familyHistoryConstruct: {
             uuid: "160593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
