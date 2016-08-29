@@ -1,13 +1,6 @@
 <div class="header">
-    <span class="one-third" ng-include="'templates/encounters/defaultEncounterHeading.page'"></span>
-    <span class="one-half details">
-        <span class="one-half">
-            BP:
-            {{ encounter.obs | byConcept:Concepts.systolicBloodPressure:true | obs:"value" }}/{{ encounter.obs | byConcept:Concepts.diastolicBloodPressure:true | obs:"value" }}
-        </span>
-        <span class="one-half">
-            {{ encounter.obs | byConcept:Concepts.temperature:true | obs }}
-        </span>
-    </span>
+    <span class="ninety-percent" ng-show="canExpand()==null" ng-include="'templates/encounters/vitalsEncounterHeading.page'"></span>
+    <span class="selectable ninety-percent" ng-show="canExpand()" ng-click="expand()" ng-include="'templates/encounters/vitalsEncounterHeading.page'"></span>
+    <span class="selectable ninety-percent" ng-show="canContract()" ng-click="contract()" ng-include="'templates/encounters/vitalsEncounterHeading.page'"></span>
     <span class="overall-actions" ng-include="'templates/encounters/defaultEncounterActions.page'"></span>
 </div>
