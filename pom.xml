@@ -551,7 +551,7 @@
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
-                            <name>uiframeworkVersion></name>
+                            <name>uiframeworkVersion</name>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
