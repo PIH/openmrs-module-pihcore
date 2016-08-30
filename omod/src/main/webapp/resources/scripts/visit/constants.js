@@ -159,6 +159,9 @@ angular.module('constants', [])
         otherNonCoded: {
             uuid: "3cee7fb4-26fe-102b-80cb-0017a47871b2"
         },
+        currentMedications: {
+            uuid: "20966786-903b-4ca7-9aa3-159c3ee4458a"
+        },
         familyHistoryConstruct: {
             uuid: "160593AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },

@@ -23,5 +23,7 @@
     {{ obs | valueGroupMember:Concepts.otherNonCoded | omrsDisplay}}
     {{ \$last ? "" : "," }}
 </span>
+<span ng-show="(encounter.obs|byConcept:Concepts.pastMedicalHistoryConstruct).length > 0 && (encounter.obs | byConcept:Concepts.currentMedications).length > 0" >,&nbsp;</span>
+<span> {{ encounter.obs | byConcept:Concepts.currentMedications | omrsDisplay }}</span>
 
 <span ng-show="showEncounterDetails" ng-include="'templates/showEncounterDetails.page'" />
