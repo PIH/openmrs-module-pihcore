@@ -54,7 +54,7 @@ angular.module("encounterTypeConfig", ["constants"])
             id: "pihcore-disposition",
             label: "pihcore.disposition.label",
             icon: "icon-stethoscope",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
+            shortTemplate: "templates/sections/dispositionSectionShort.page",
             longTemplate: "templates/sections/dispositionLong.page",
             //templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-disposition.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
