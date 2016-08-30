@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 15;  }
+    public int getVersion() { return 16;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -602,6 +602,21 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "HEALTH CARE WORKER").build())
                 .build());
 
+        Concept zlStaff = install(new ConceptBuilder("87cced76-131d-487d-bc5e-50d902c0d1e8")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("da6c974e-86b0-45fa-bf78-d7a9371507b9", "ZL employee", Locale.ENGLISH, null) // locale-preferred
+                .name("b286eb9a-4e74-47b1-9e57-34df62b57d54", "Zanmi Lasante employee", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("3f28ec50-3251-47a2-abc8-6c4a565cd2fc", "ZL staff", Locale.ENGLISH, null)
+                .name("7d306f1b-0896-4f2d-8267-6fd32043e3dd", "Employé de ZL", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("13d7d1c8-ead6-4240-a28c-91cf6193c6bd", "ZL anplwaye", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .description("5b9577ac-4b26-4a6c-afdc-08eb50c7814c", "An employee of Zanmi Lasante", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("31afa0a7-2599-4f8c-8a21-fd992591f465")
+                        .type(sameAs).ensureTerm(pih, "10741").build())
+                .mapping(new ConceptMapBuilder("c84a233f-996a-4d7c-b9b3-78a537348163")
+                        .type(sameAs).ensureTerm(pih, "Zanmi Lasante employee").build())
+                .build());
+
         install(new ConceptBuilder(Concepts.MAIN_ACTIVITY)
                 .datatype(coded)
                 .conceptClass(question)
@@ -618,7 +633,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .answers(farmer, manualLaborer, shepherd, brewer, shopOwner,
                         fruitOrVegetableSeller, miner, factoryWorker, housework, houseworkAndFieldwork,
                         driver, professional, commerce, teacher,
-                        fisherman, marketVendor, civilServant, healthCareWorker,
+                        fisherman, marketVendor, civilServant, healthCareWorker, zlStaff,
                         retired, student, unemployed, otherNonCoded)
                 .build());
 
