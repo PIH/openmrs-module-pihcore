@@ -53,8 +53,12 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
             var f = justOne ? _.find : _.filter;
             return f(listOfObs, function(candidate) {
                 return _.find(candidate.groupMembers, function(member) {
-                    return member.concept.uuid == concept.uuid
-                        && member.value.uuid == codedValue.uuid;
+                    if ( codedValue ) {
+                        return member.concept.uuid == concept.uuid
+                            && member.value.uuid == codedValue.uuid;
+                    } else {
+                        return member.concept.uuid == concept.uuid;
+                    }
                 });
             });
         }

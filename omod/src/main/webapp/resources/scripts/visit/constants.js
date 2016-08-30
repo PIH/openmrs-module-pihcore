@@ -249,6 +249,12 @@ angular.module('constants', [])
         feedingHistoryConstruct: {
             uuid: "7f32715f-b2cd-4058-9663-1ba7a0bd2d42"
         },
+        feedingMethodPresent: {
+            uuid: "5b98dcbe-0efc-4cc2-9544-c1da596e7039"
+        },
+        feedingMethodAbsent: {
+            uuid: "2f4b8b9c-0214-4f54-9446-fa306b3ddff0"
+        },
         breastedExclusively: {
             uuid: "3cedd4ec-26fe-102b-80cb-0017a47871b2"
         },
