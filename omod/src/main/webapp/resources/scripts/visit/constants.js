@@ -266,9 +266,43 @@ angular.module('constants', [])
         },
         weaned: {
             uuid: "3cd78b10-26fe-102b-80cb-0017a47871b2"
+        },
+        normalExamFinding: {
+            uuid: "3cd750a0-26fe-102b-80cb-0017a47871b2"
+        },
+        labTestOrdered : {
+            uuid: "3cd9491e-26fe-102b-80cb-0017a47871b2"
         }
     })
-
+    .value('PrimaryCareExamConcepts', {
+        generalExam: {
+            uuid: "0adeea3a-15f5-102d-96e4-000c29c2a5d7"
+        },
+        mentalStatusExam: {
+            uuid: "163043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        skinExam: {
+            uuid: "3cd75866-26fe-102b-80cb-0017a47871b2"
+        },
+        heentExam: {
+            uuid: "3cd75b86-26fe-102b-80cb-0017a47871b2"
+        },
+        cardiovascularExam: {
+            uuid: "3cd75e9c-26fe-102b-80cb-0017a47871b2"
+        },
+        chestExam: {
+            uuid: "3cd75d0c-26fe-102b-80cb-0017a47871b2"
+        },
+        abdominalExam: {
+            uuid: "3cd76054-26fe-102b-80cb-0017a47871b2"
+        },
+        urogenitalExam: {
+            uuid: "3cd761ee-26fe-102b-80cb-0017a47871b2"
+        },
+        musculoskeletalExam: {
+            uuid: "3cd7650e-26fe-102b-80cb-0017a47871b2"
+        }
+    })
     .value('EncounterTypes', {
         patientRegistration: {
             uuid: "873f968a-73a8-4f9c-ac78-9f4778b751b6"
