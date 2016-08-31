@@ -75,6 +75,21 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("primaryCareExam", ["Concepts", "PrimaryCareExamConcepts", function (Concepts, PrimaryCareExamConcepts) {
+        return function(listOfObs) {
+            return _.filter(listOfObs, function (candidate) {
+               var examConcept = _.find(PrimaryCareExamConcepts, function(it) {
+                   return it.uuid == candidate.concept.uuid;
+               });
+               if (examConcept && (candidate.value.uuid !== Concepts.normalExamFinding.uuid) ) {
+                   return true;
+               } else {
+                   return false;
+               }
+            });
+        }
+    }])
+
     .filter("obs", [ "omrsDisplayFilter", function(displayFilter) {
         return function(obs, mode) {
             if (!obs) {
