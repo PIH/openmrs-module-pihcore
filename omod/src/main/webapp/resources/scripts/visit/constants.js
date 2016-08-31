@@ -269,6 +269,9 @@ angular.module('constants', [])
         },
         normalExamFinding: {
             uuid: "3cd750a0-26fe-102b-80cb-0017a47871b2"
+        },
+        labTestOrdered : {
+            uuid: "3cd9491e-26fe-102b-80cb-0017a47871b2"
         }
     })
     .value('PrimaryCareExamConcepts', {
