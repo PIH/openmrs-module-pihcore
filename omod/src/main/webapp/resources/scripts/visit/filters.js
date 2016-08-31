@@ -37,6 +37,15 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("firstWord", [function() {
+        return function(input){
+            var fistWordIndex = input.indexOf(" ");
+            if ( fistWordIndex > 0) {
+                return input.substr(0, fistWordIndex);
+            }
+        }
+    }])
+
     .filter("groupMember", [function() {
         return function(obs, concept) {
             if (!obs) {
