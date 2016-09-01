@@ -17,8 +17,8 @@ public class PihCoreConstants {
 
     public static final String ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8";
 
-    public static final int LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE = 500;
-    public static final int LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE = 1000;
+    public static final int LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE = 1000;
+    public static final int LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE = 2000;
 
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL = "http://localhost:8080/mirebalais/module/idgen/exportIdentifiers.form?source=3&comment=Testing+Mirebalais";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME = "testidgen";
