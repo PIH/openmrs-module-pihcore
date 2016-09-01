@@ -17,7 +17,15 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             deleteDose: function(obsGroup) {
                 return Obs.delete({uuid: obsGroup.uuid});
             },
-            saveWithEncounter: function(visit, patient, encounter, vaccination, sequence) {
+            saveWithEncounter: function(visit, patient, encounter, vaccination, sequence, date) {
+
+                var vaccinationDate = encounter.encounterDatetime;
+                if (date) {
+                    var obsDatetime = new Date().toISOString();
+
+                    // trim time and time zone component from date before submtting
+                    vaccinationDate = moment(date).format('YYYY-MM-DD');
+                }
                 return EncounterTransaction.save({
                     visitUuid: visit.uuid,
                     patientUuid: patient.uuid,
@@ -41,7 +49,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                                 },
                                 {
                                     concept: Concepts.vaccinationDate.uuid,
-                                    value: encounter.encounterDatetime
+                                    value: vaccinationDate
                                 }
                             ]
                         }
@@ -263,7 +271,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             VaccinationService.saveWithEncounter($scope.visit, $scope.patient, $scope.encounter, vaccination, sequence)
                                 .$promise.then(loadHistory);
                         } else if (opts.when == 'no-encounter') {
-                            VaccinationService.saveWithoutEncounter($scope.patient, vaccination, sequence, opts.date)
+                            VaccinationService.saveWithEncounter($scope.visit, $scope.patient, $scope.encounter, vaccination, sequence, opts.date)
                                 .$promise.then(loadHistory);
                         }
                     });
