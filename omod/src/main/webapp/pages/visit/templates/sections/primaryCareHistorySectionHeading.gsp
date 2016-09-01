@@ -12,6 +12,7 @@
     {{ obs | valueGroupMember:Concepts.hypertension | omrsDisplay}}
     {{ obs | valueGroupMember:Concepts.sexuallyTransmittedInfection | omrsDisplay}}
     {{ obs | valueGroupMember:Concepts.congenitalMalformation | omrsDisplay}}
+    {{ obs | valueGroupMember:Concepts.malnutrition | omrsDisplay}}
     {{ obs | valueGroupMember:Concepts.weightLoss | omrsDisplay}}
     {{ obs | valueGroupMember:Concepts.measles | omrsDisplay}}
     {{ obs | valueGroupMember:Concepts.tuberculosis | omrsDisplay}}
