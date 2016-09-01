@@ -8,10 +8,10 @@
 </span>
 
 <!-- add a comma between tests and medications -->
-<span ng-show="(encounter.obs|byConcept:Concepts.labTestOrdered).length > 0 && (encounter.obs | byConcept:Concepts.dispensingConstruct).length > 0" >,&nbsp;</span>
+<span ng-show="(encounter.obs|byConcept:Concepts.labTestOrdered).length > 0 && (encounter.obs | byConcept:Concepts.prescriptionConstruct).length > 0" >,&nbsp;</span>
 
-<span ng-repeat="obs in encounter.obs | byConcept:Concepts.dispensingConstruct">
-    {{ (obs | groupMember:Concepts.labTestOrdered).value | omrsDisplay | firstWord}}
+<span ng-repeat="obs in encounter.obs | byConcept:Concepts.prescriptionConstruct">
+    {{ (obs | groupMember:Concepts.labTestOrdered).value.concept | omrsDisplay }}
     {{ \$last ? "" : "," }}
 </span>
 <span ng-show="showEncounterDetails" ng-include="'templates/showEncounterDetails.page'" />

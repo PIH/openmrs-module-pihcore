@@ -273,8 +273,8 @@ angular.module('constants', [])
         labTestOrdered: {
             uuid: "3cd9491e-26fe-102b-80cb-0017a47871b2"
         },
-        dispensingConstruct: {
-            uuid: "cef4a703-8521-4c2d-9932-d1429a57e684"
+        prescriptionConstruct: {
+            uuid: "9ab17798-1486-4d56-9218-e3578646a772"
         }
     })
     .value('PrimaryCareExamConcepts', {
