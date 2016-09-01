@@ -197,51 +197,50 @@
              headerCode="pihcore.lab.lab_tests.title">
         <div class="section-container-color">
             <div class="two-columns">
-                <!-- TODO: medication orders is the wrong concept!!! -->
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:RPR" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:RPR" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:STOOL EXAM" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:STOOL EXAM" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:CD4 COUNT" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:CD4 COUNT" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV VIRAL LOAD" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:HIV VIRAL LOAD" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV ENZYME IMMUNOASSAY, QUANTITATIVE" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:HIV ENZYME IMMUNOASSAY, QUANTITATIVE" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
                 </p>
             </div>
         </div>
