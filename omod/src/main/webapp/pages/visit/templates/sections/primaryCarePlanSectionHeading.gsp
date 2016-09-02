@@ -2,13 +2,13 @@
     <i class="{{ section.icon }}"></i>  {{ section.label | translate }}
     <i class="icon-exclamation-sign highlight" ng-show="doesNotHaveExistingObs && !hideIncompleteAlert"></i>
 </span> <!-- encounter-type class added for smoke tests -->
-<span ng-repeat="obs in encounter.obs | byConcept:Concepts.labTestOrdered">
+<span ng-repeat="obs in encounter.obs | byConcept:Concepts.labTestOrderedCoded">
     {{ obs |  obs:"value" }}
     {{ \$last ? "" : "," }}
 </span>
 
 <!-- add a comma between tests and medications -->
-<span ng-show="(encounter.obs|byConcept:Concepts.labTestOrdered).length > 0 && (encounter.obs | byConcept:Concepts.prescriptionConstruct).length > 0" >,&nbsp;</span>
+<span ng-show="(encounter.obs|byConcept:Concepts.labTestOrderedCoded).length > 0 && (encounter.obs | byConcept:Concepts.prescriptionConstruct).length > 0" >,&nbsp;</span>
 
 <span ng-repeat="obs in encounter.obs | byConcept:Concepts.prescriptionConstruct">
     {{ (obs | groupMember:Concepts.labTestOrdered).value.concept | omrsDisplay }}
