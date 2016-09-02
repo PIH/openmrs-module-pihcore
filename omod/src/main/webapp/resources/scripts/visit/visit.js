@@ -193,8 +193,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
     }])
 
-    .directive("encounterSection", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce",
-        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce) {
+    .directive("encounterSection", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout",
+        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce, $timeout) {
             return {
                 restrict: "E",
                 scope: {
@@ -227,6 +227,24 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                     }
                                 });
                             // TODO error handling
+                        }
+                    }
+
+                    function loadPrescriptionsSection() {
+                        if ($scope.encounter && $scope.section.printTemplateUrl) {
+                            var url = Handlebars.compile($scope.section.printTemplateUrl)({
+                                encounter: $scope.encounter
+                            });
+
+                            $http.get("/" + OPENMRS_CONTEXT_PATH + url)
+                                .then(function (response) {
+                                    $scope.templateModel = response.data;
+                                    if ($scope.templateModel.html) {
+                                        // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
+                                        $scope.html = $sce.trustAsHtml($scope.templateModel.html);
+                                        //$scope.doesNotHaveExistingObs = !$scope.templateModel.hasExistingObs;
+                                    }
+                                });
                         }
                     }
 
@@ -289,6 +307,47 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                     $scope.edit = function() {
                         openSectionForEdit();
+                    }
+
+                    function printDiv(data) {
+                        if (data) {
+                            var mywindow = window.open('', 'my div', 'height=400,width=600');
+                            mywindow.document.write('<html><head><title>Print Prescriptions</title>');
+                            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+                            mywindow.document.write('</head><body >');
+                            mywindow.document.write(data);
+                            mywindow.document.write('</body></html>');
+
+                            mywindow.document.close();
+                            mywindow.focus();
+
+                            mywindow.print();
+                            mywindow.close();
+
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    $scope.printPrescriptions = function() {
+                        $scope.sectionLoaded = false;
+                        if (!$("#prescriptionsDiv").is(':visible')) {
+                            loadPrescriptionsSection();
+                            $scope.template = $scope.section.printTemplate;
+                            $scope.state = 'long';
+
+                            var print = function () {
+                                if ($http.pendingRequests.length > 0) {
+                                    $timeout(print); // Wait for the print template to be loaded
+                                } else {
+                                    printDiv($("#prescriptionsDiv").html());
+                                }
+                            }
+                            $timeout(print);
+                        } else {
+                            printDiv($("#prescriptionsDiv").html());
+                        }
+
                     }
 
                     $scope.$on('expand-all',function() {
@@ -660,20 +719,3 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
 
         }]);
-
-
-
-
-
-// don't load individual sections until we have the base encounter
-//  if ($scope.encounterReady) {
-//loadSection();
-/*  }
- else {
- $scope.$watch('encounterReady', function(newVal, oldVal) {
- if ($scope.encounterReady) {
- loadSection();
- }
- });
- }
- */

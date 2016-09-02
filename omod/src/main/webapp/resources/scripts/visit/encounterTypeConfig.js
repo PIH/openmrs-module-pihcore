@@ -99,7 +99,9 @@ angular.module("encounterTypeConfig", ["constants"])
             label: "pihcore.visitNote.plan",
             icon: "icon-list-ul",
             shortTemplate: "templates/sections/primaryCarePlanSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
+            printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
+            printTemplateUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-prescriptions-print.xml",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-plan.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
 

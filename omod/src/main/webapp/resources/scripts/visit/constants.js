@@ -273,6 +273,9 @@ angular.module('constants', [])
         labTestOrdered: {
             uuid: "3cd9491e-26fe-102b-80cb-0017a47871b2"
         },
+        labTestOrderedCoded: {
+            uuid: "25fa3a49-ca69-4e8d-9e55-394a9964a1cd"
+        },
         prescriptionConstruct: {
             uuid: "9ab17798-1486-4d56-9218-e3578646a772"
         }
