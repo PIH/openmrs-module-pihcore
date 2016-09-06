@@ -114,9 +114,9 @@
        <div style="border-bottom: 1px black solid; width: 450px; display: inline-block"></div>
        <br/>
        <div style="padding-left: 150px; font-size: 0.9em;">
-           Hôpital Universitaire de Mirebalais<br/>
-           Route Départmentale 11,
-           Mirebalais, Haïti
+           <uimessage code="pihcore.signature.hum.name"/>
+           <br/>
+           <uimessage code="pihcore.signature.hum.address"/>
        </div>
    </div>
 
