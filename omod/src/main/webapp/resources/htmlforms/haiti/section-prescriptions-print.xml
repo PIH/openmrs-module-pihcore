@@ -115,11 +115,6 @@
        Signature:
        <div style="border-bottom: 1px black solid; width: 450px; display: inline-block"></div>
        <br/>
-       <div style="padding-left: 150px; font-size: 0.9em;">
-           <uimessage code="pihcore.signature.hum.name"/>
-           <br/>
-           <uimessage code="pihcore.signature.hum.address"/>
-       </div>
    </div>
 
 </div>
