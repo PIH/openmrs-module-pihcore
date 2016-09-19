@@ -36,6 +36,8 @@ public class LocationTagSetup {
                 setupLocationTagsForLacolline(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.THOMONDE)) {
                 setupLocationTagsForThomonde(locationService);
+            } else if (config.getSite().equals(ConfigDescriptor.Site.ZLTRAINING)) {
+                setupLocationTagsForThomonde(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 setupLocationTagsForMirebalais(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
@@ -62,6 +64,10 @@ public class LocationTagSetup {
     }
 
     private static void setupLocationTagsForThomonde(LocationService locationService) {
+        setStandardHaitiSingleSiteLocationTags(locationService, HaitiLocations.THOMONDE);
+    }
+
+    private static void setupLocationTagsForZLTraining(LocationService locationService) {
         setStandardHaitiSingleSiteLocationTags(locationService, HaitiLocations.THOMONDE);
     }
 
