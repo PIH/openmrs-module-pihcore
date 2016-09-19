@@ -25,7 +25,7 @@ import java.util.List;
 
 public class WaitingForConsultPageController {
 
-    public static String WAITING_FOR_CONSULT_STATUS_CONCEPT_UUID = "c45892e5-c715-4923-a27e-9c242e5a1a23" ;
+    public static String WAITING_FOR_CONSULT_STATUS_CONCEPT_UUID = "dee1b1ba-b82a-41b9-897b-28d7868c4bcd" ;
 
     public String get(PageModel model, UiUtils ui,
                       @SpringBean("encounterService") EncounterService encounterService,
