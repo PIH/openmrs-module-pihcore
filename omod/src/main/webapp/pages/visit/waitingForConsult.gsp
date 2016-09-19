@@ -1,6 +1,41 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
 
+    ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
+    ui.includeCss("pihcore", "bootstrap.css")
+
+    ui.includeJavascript("uicommons", "angular.min.js")
+    ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.13.0.js")
+    ui.includeJavascript("uicommons", "angular-ui/angular-ui-router.min.js")
+    ui.includeJavascript("uicommons", "ngDialog/ngDialog.min.js")
+    ui.includeJavascript("uicommons", "angular-resource.min.js")
+    ui.includeJavascript("uicommons", "angular-common.js")
+    ui.includeJavascript("uicommons", "angular-app.js")
+    ui.includeJavascript("uicommons", "angular-translate.min.js")
+    ui.includeJavascript("uicommons", "angular-translate-loader-url.min.js")
+    ui.includeJavascript("uicommons", "services/visitService.js")
+    ui.includeJavascript("uicommons", "services/encounterService.js")
+    ui.includeJavascript("uicommons", "services/obsService.js")
+    ui.includeJavascript("uicommons", "services/conceptService.js")
+    ui.includeJavascript("uicommons", "services/orderService.js")
+    ui.includeJavascript("uicommons", "services/drugService.js")
+    ui.includeJavascript("uicommons", "services/session.js")
+    ui.includeJavascript("uicommons", "services/appFrameworkService.js")
+    ui.includeJavascript("uicommons", "model/user-model.js")
+    ui.includeJavascript("uicommons", "model/encounter-model.js")
+    ui.includeJavascript("uicommons", "model/visit-model.js")
+    ui.includeJavascript("uicommons", "filters/display.js")
+    ui.includeJavascript("uicommons", "filters/serverDate.js")
+    ui.includeJavascript("uicommons", "directives/select-drug.js")
+    ui.includeJavascript("uicommons", "directives/select-concept-from-list.js")
+    ui.includeJavascript("uicommons", "directives/select-order-frequency.js")
+    ui.includeJavascript("uicommons", "handlebars/handlebars.js")
+    ui.includeJavascript("uicommons", "moment.min.js")
+
+    ui.includeJavascript("pihcore", "waitingforconsult/waitingForConsultApp.js")
+    ui.includeJavascript("pihcore", "waitingforconsult/waitingForConsultService.js")
+    ui.includeJavascript("pihcore", "waitingforconsult/primaryCareWaitingForConsultController.js")
+
     def formatDiagnoses = {
         it.collect{ ui.escapeHtml(it.diagnosis.formatWithoutSpecificAnswer(context.locale)) } .join(", ")
     }
@@ -11,6 +46,14 @@
         { label: "${ ui.message("pihcore.waitingForConsult.title")}"}
     ];
 </script>
+
+<div class="container" id="waitingForConsult-app" ng-controller="WaitingForConsultController">
+    <div class="alert alert-{{message.type}} alert-dismissible fade in" role="alert" ng-show="message.text.length > 0">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{message.text}}
+    </div>
 
 <h3>${ ui.message("pihcore.waitingForConsult.title") }</h3>
 
@@ -24,6 +67,7 @@
         <th>${ ui.message("coreapps.person.address") }</th>
         <th>${ ui.message("pihcore.waitingForConsult.lastVisitDate") }</th>
         <th>${ ui.message("pihcore.waitingForConsult.lastDiagnoses") }</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -70,6 +114,10 @@
         <td>
             ${ diagnosesLastVisit ? formatDiagnoses(diagnosesLastVisit) : ''}
         </td>
+        <td class="edtriage-queue-button-column">
+            <button type="button" class="btn btn-xs btn-primary edtriage-queue-button" ng-disabled="isSaving" ng-click="beginConsult('${p.patient.uuid}', '${currentVisit?.visit.uuid}')">${ ui.message("edtriageapp.beginConsult") }</button>
+            <button type="button" class="btn btn-xs btn-default" ng-click="removeFromQueue('${p.patient.uuid}', '${currentVisit?.visit.uuid}')">${ ui.message("edtriageapp.remove") }</button>
+        </td>
     </tr>
     <% } %>
     </tbody>
@@ -88,3 +136,17 @@ ${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#waiting-for-c
                                                          ]
 ]) }
 <% } %>
+
+</div>
+
+<script type="text/javascript">
+    var app = angular.module('waitingForConsultApp');
+    angular.bootstrap("#waitingForConsult-app", [ "waitingForConsultApp" ])
+    jq(function () {
+        // make sure we reload the page if the location is changes; this custom event is emitted by by the location selector in the header
+        jq(document).on('sessionLocationChanged', function () {
+            window.location.reload();
+        });
+    });
+</script>
+
