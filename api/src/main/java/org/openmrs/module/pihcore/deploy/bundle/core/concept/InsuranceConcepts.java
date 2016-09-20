@@ -23,7 +23,11 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
         return 2;
     }
 
+
     public static final class Concepts {
+        public static final String HAITI_INSURANCE_COMPANY_NAME= "c9131281-e086-41a1-a8cb-4cce9fdefe05";
+        public static final String INSURANCE_POLICY_NUMBER= "762fde47-e001-43bd-a808-154452d24cb4";
+        public static final String OTHER_INSURANCE_COMPANY_NAME= "ce581a9c-433f-43f4-8a03-58cc83af5e3d";
     }
 
     @Override
@@ -34,7 +38,7 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
         Concept none = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.NONE);
 
 
-        Concept insuranceNumber = install(new ConceptBuilder("762fde47-e001-43bd-a808-154452d24cb4")
+        Concept insuranceNumber = install(new ConceptBuilder(Concepts.INSURANCE_POLICY_NUMBER)
                 .datatype(text)
                 .conceptClass(question)
                 .name("efd4653e-9a0f-4d60-bd41-19795c7ffce9", "Insurance policy number", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -162,7 +166,7 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "10729").build())
                 .build());
 
-        Concept haitiInsuranceCo = install(new ConceptBuilder("c9131281-e086-41a1-a8cb-4cce9fdefe05")
+        Concept haitiInsuranceCo = install(new ConceptBuilder(Concepts.HAITI_INSURANCE_COMPANY_NAME)
                 .datatype(coded)
                 .conceptClass(question)
                 .name("be6a0015-3fc1-4559-8c31-24a5126e0537", "Haiti insurance company name", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
@@ -176,7 +180,7 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
                         none,other,unknown)
                 .build());
 
-        Concept insuranceCoOther = install(new ConceptBuilder("ce581a9c-433f-43f4-8a03-58cc83af5e3d")
+        Concept insuranceCoOther = install(new ConceptBuilder(Concepts.OTHER_INSURANCE_COMPANY_NAME)
                 .datatype(text)
                 .conceptClass(question)
                 .name("ddd3d35b-0b7a-4d33-8ffe-dce09cb978aa", "Insurance company name (text)", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred

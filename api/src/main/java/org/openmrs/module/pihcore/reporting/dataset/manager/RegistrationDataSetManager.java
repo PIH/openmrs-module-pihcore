@@ -19,6 +19,7 @@ import org.openmrs.Visit;
 import org.openmrs.api.ConceptService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.InsuranceConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
@@ -61,6 +62,11 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
 
         // we collect full birthplace address hierarchy in Haiti,not elsewhere
         if (config != null && config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+
+            addObsColumn(dsd, "insurance_company", InsuranceConcepts.Concepts.HAITI_INSURANCE_COMPANY_NAME, converters.getObsValueCodedNameConverter());
+            addObsColumn(dsd, "insurance_policy_number", InsuranceConcepts.Concepts.INSURANCE_POLICY_NUMBER, converters.getObsValueTextConverter());
+            addObsColumn(dsd, "insurance_company_other", InsuranceConcepts.Concepts.OTHER_INSURANCE_COMPANY_NAME, converters.getObsValueTextConverter());
+
             addObsColumn(dsd, "birthplace_country", SocioEconomicConcepts.Concepts.BIRTHPLACE_ADDRESS_CONSTRUCT,
                     converters.getObsFromObsGroupConverter(conceptService.getConceptByUuid(SocioEconomicConcepts.Concepts.COUNTRY)),
                     converters.getObsValueTextConverter());
