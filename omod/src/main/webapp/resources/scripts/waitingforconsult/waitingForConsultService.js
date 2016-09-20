@@ -25,9 +25,9 @@ angular.module("waitingforConsultService", [])
                              };
                              if (response.data && response.data.results && response.data.results.length > 0 ) {
                                  //update patient current status
-                                 var obs = response.data.results[0];
-                                 if (obs) {
-                                     return saveObs(obs, obs.uuid);
+                                 var exitingObs = response.data.results[0];
+                                 if (exitingObs) {
+                                     return saveObs(obs, exitingObs.uuid);
                                  }
                              } else {
                                  // create BEGIN_CONSULT status
@@ -52,9 +52,9 @@ angular.module("waitingforConsultService", [])
                             };
                             if (response.data && response.data.results && response.data.results.length > 0 ) {
                                 //update patient current status
-                                var obs = response.data.results[0];
-                                if (obs) {
-                                    return saveObs(obs, obs.uuid);
+                                var exitingObs = response.data.results[0];
+                                if (exitingObs) {
+                                    return saveObs(obs, exitingObs.uuid);
                                 }
                             } else {
                                 // create BEGIN_CONSULT status
