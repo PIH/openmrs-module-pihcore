@@ -44,6 +44,8 @@ import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 
+import java.util.Map;
+
 public class PihCoreActivator extends BaseModuleActivator {
 
 	protected Log log = LogFactory.getLog(getClass());
@@ -65,6 +67,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             setDispositionConfig(config);
             installMetadataPackages(config);
             installMetadataBundles(config);
+            setGlobalProperties(config);
             setExtraIdentifierTypes(config);
             MergeActionsSetup.registerMergeActions();
             LocationTagSetup.setupLocationTags(locationService, config);
@@ -145,6 +148,15 @@ public class PihCoreActivator extends BaseModuleActivator {
     public void setExtraIdentifierTypes(Config config) {
         if (config != null && config.getExtraIdentifierTypes() != null) {
             setGlobalProperty(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, StringUtils.join(config.getExtraIdentifierTypes(), ","));
+        }
+    }
+
+    public void setGlobalProperties(Config config) {
+        if (config != null && config.getGlobalProperties() != null) {
+            Map<String, String> globalProperties = config.getGlobalProperties();
+            for (String name : globalProperties.keySet()) {
+                setGlobalProperty(name, globalProperties.get(name));
+            }
         }
     }
 
