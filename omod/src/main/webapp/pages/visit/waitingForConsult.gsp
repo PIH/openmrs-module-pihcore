@@ -3,6 +3,7 @@
 
     ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
     ui.includeCss("pihcore", "bootstrap.css")
+    ui.includeCss("pihcore", "visit/visit.css")
 
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.13.0.js")
@@ -39,12 +40,61 @@
     def formatDiagnoses = {
         it.collect{ ui.escapeHtml(it.diagnosis.formatWithoutSpecificAnswer(context.locale)) } .join(", ")
     }
+
+    def statusColumnIndex = 7
+    def waitingForConsultation = ui.message("pihcore.waitingForConsult.title")
+    def statusOptions = [ [label: waitingForConsultation, value: 'waiting'],
+                          [label: ui.message("pihcore.waitingForConsult.filter.inConsultation"), value: 'consultation'],
+                          [label: ui.message("pihcore.waitingForConsult.filter.removed"), value: 'removed']]
 %>
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("pihcore.waitingForConsult.title")}"}
     ];
+
+    var STATUS_COLUMN_INDEX = '${statusColumnIndex}';
+
+    jq(document).ready(function() {
+
+        var waitingStatus="";
+
+        jq.fn.dataTableExt.afnFiltering.push(
+                function (oSettings, aData, iDataIndex) {
+
+                    // remove single quote, everything after the <br> (datetime), and trim leading and trailing whitespace
+                    var currentStatus = jq.trim(aData[STATUS_COLUMN_INDEX].replace(/'/g, "\\’"));
+
+                    if (waitingStatus && jq.trim(waitingStatus).length != 0) {
+                        if (currentStatus != waitingStatus) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+        );
+
+        jq("#waitingFilterByStatus").change(function(event){
+            var selectedItemId="";
+
+            jq("select option:selected").each(function(){
+                waitingStatus = jq(this).text();
+                waitingStatus = waitingStatus.replace(/'/g, "\\’");
+                selectedItemId = this.value;
+                if (waitingStatus.length > 0) {
+                    jq('#waiting-for-consult-list').dataTable({ "bRetrieve": true }).fnDraw();
+                } else {
+                    jq('#waiting-for-consult-list').dataTable({ "bRetrieve": true }).fnFilter('', STATUS_COLUMN_INDEX);
+                }
+            });
+        });
+
+    });
+
+    jq( window ).load(function() {
+        jq("#waitingFilterByStatus").val("waiting").change();
+    });
+
 </script>
 
 <div class="container" id="waitingForConsult-app" ng-controller="WaitingForConsultController">
@@ -56,6 +106,16 @@
     </div>
 
 <h3>${ ui.message("pihcore.waitingForConsult.title") }</h3>
+    <div class="waitingForConsult-filter">
+        ${ ui.includeFragment("uicommons", "field/dropDown", [
+                id: "waitingFilterByStatus",
+                formFieldName: "waitingFilterByStatus",
+                label: ui.message("pihcore.waitingForConsult.filter.label"),
+                options: statusOptions,
+                initialValue: "waiting",
+                hideEmptyLabel: true
+        ] ) }
+    </div>
 
 <table id="waiting-for-consult-list" width="100%" border="1" cellspacing="0" cellpadding="2">
     <thead>
@@ -67,6 +127,7 @@
         <th>${ ui.message("coreapps.person.address") }</th>
         <th>${ ui.message("pihcore.waitingForConsult.lastVisitDate") }</th>
         <th>${ ui.message("pihcore.waitingForConsult.lastDiagnoses") }</th>
+        <th>${ ui.message("pihcore.waitingForConsult.status") }</th>
         <th></th>
     </tr>
     </thead>
@@ -76,8 +137,9 @@
         <td colspan="6">${ ui.message("coreapps.none") }</td>
     </tr>
     <% } %>
-    <%  patientsWhoNeedConsult.each { p ->
+    <%  patientsWhoNeedConsult.each { w ->
 
+            def p = w.patientDomainWrapper;
             def allVisits = p.allVisitsUsingWrappers;
             def currentVisit = allVisits.size() > 0 ? allVisits[0]: null;
             def lastVisit = allVisits.size() > 1 ? allVisits[1]: null;
@@ -114,9 +176,18 @@
         <td>
             ${ diagnosesLastVisit ? formatDiagnoses(diagnosesLastVisit) : ''}
         </td>
+        <td>
+            <% if ( w.status != null ) { %>
+                ${ ui.format(w.status.valueCoded.name.name) }
+            <% } else { %>
+                ${ waitingForConsultation }
+            <% } %>
+        </td>
         <td class="edtriage-queue-button-column">
+            <% if ( w.status == null ) { %>
             <button type="button" class="btn btn-xs btn-primary edtriage-queue-button" ng-disabled="isSaving" ng-click="beginConsult('${p.patient.uuid}', '${currentVisit?.visit.uuid}')">${ ui.message("edtriageapp.beginConsult") }</button>
             <button type="button" class="btn btn-xs btn-default" ng-click="removeFromQueue('${p.patient.uuid}', '${currentVisit?.visit.uuid}')">${ ui.message("edtriageapp.remove") }</button>
+            <% } %>
         </td>
     </tr>
     <% } %>
@@ -132,6 +203,7 @@ ${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#waiting-for-c
                                                                  iDisplayLength: 10,
                                                                  sPaginationType: '\"full_numbers\"',
                                                                  bSort: false,
+                                                                 aoColumnDefs: '[{ bVisible: false, aTargets: [ ' + statusColumnIndex  + ' ] }]',
                                                                  sDom: '\'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>\''
                                                          ]
 ]) }
