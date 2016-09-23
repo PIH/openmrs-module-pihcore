@@ -21,11 +21,35 @@ import org.openmrs.ui.framework.page.PageModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class WaitingForConsultPageController {
 
     public static String WAITING_FOR_CONSULT_STATUS_CONCEPT_UUID = "dee1b1ba-b82a-41b9-897b-28d7868c4bcd" ;
+
+    class WaitingStatusWrapper {
+        Obs status = null;
+        PatientDomainWrapper patientDomainWrapper = null;
+
+        public Obs getStatus() {
+            return status;
+        }
+
+        public void setStatus(Obs status) {
+            this.status = status;
+        }
+
+        public PatientDomainWrapper getPatientDomainWrapper() {
+            return patientDomainWrapper;
+        }
+
+        public void setPatientDomainWrapper(PatientDomainWrapper patientDomainWrapper) {
+            this.patientDomainWrapper = patientDomainWrapper;
+        }
+
+        public WaitingStatusWrapper() {}
+    }
 
     public String get(PageModel model, UiUtils ui,
                       @SpringBean("encounterService") EncounterService encounterService,
@@ -57,11 +81,6 @@ public class WaitingForConsultPageController {
 
         // make a list of all patients with vitals today
         for (Encounter encounter : vitalsEncountersToday) {
-            // look for any waiting for consult status changes after the last Vitals encounter
-            if (hasQueueStatusChanged(encounter, obsService, conceptService)) {
-                //the patient was removed or is in the consultation room
-                continue;
-            }
             // we check that the patient isn't already in the list instead of just inserting again because we want to keep the earliest date
             if (!patientsWithVitalsTodayButNoConsultToday.contains(encounter.getPatient())) {
                 patientsWithVitalsTodayButNoConsultToday.add(encounter.getPatient());
@@ -85,10 +104,6 @@ public class WaitingForConsultPageController {
 
         // make a list of all patients with vitals yesterday
         for (Encounter encounter : vitalsEncountersYesterday) {
-            if (hasQueueStatusChanged(encounter, obsService, conceptService)) {
-                //the patient was removed or is in the consultation room
-                continue;
-            }
             // we check that the patient isn't already in the list instead of just inserting again because we want to keep the earliest date
             if (!patientsWithVitalsYesterdayButNoConsultTodayOrYesterday.contains(encounter.getPatient())) {
                 patientsWithVitalsYesterdayButNoConsultTodayOrYesterday.add(encounter.getPatient());
@@ -112,13 +127,20 @@ public class WaitingForConsultPageController {
             }
         }
 
-        List<PatientDomainWrapper> patientsWhoNeedConsultWrapped = new ArrayList<PatientDomainWrapper>();
+
+        //List<PatientDomainWrapper> patientsWhoNeedConsultWrapped = new ArrayList<PatientDomainWrapper>();
+        List<WaitingStatusWrapper> patientsWhoNeedConsultWrapped = new ArrayList<WaitingStatusWrapper>();
 
         // now wrap them all in a patient domain wrap
         for (Patient patient : patientsWhoNeedConsult) {
-            patientsWhoNeedConsultWrapped.add(domainWrapperFactory.newPatientDomainWrapper(patient));
+            WaitingStatusWrapper waitingStatusWrapper = new WaitingStatusWrapper();
+            waitingStatusWrapper.setPatientDomainWrapper(domainWrapperFactory.newPatientDomainWrapper(patient));
+            Obs status = getLatestWaitingStatus(patient, obsService, conceptService,  new DateMidnight().minusDays(1).toDate());
+            if ( status != null ) {
+                waitingStatusWrapper.setStatus(status);
+            }
+            patientsWhoNeedConsultWrapped.add(waitingStatusWrapper);
         }
-
 
         // used to determine whether or not we display a link to the patient in the results list
         model.addAttribute("patientsWhoNeedConsult", patientsWhoNeedConsultWrapped);
@@ -127,18 +149,24 @@ public class WaitingForConsultPageController {
         return null;
     }
 
+    private Obs getLatestWaitingStatus(Patient patient, ObsService obsService, ConceptService conceptService, Date since) {
+        Obs status = null;
+        List<Obs> wfcObs = obsService.getObservations(
+                Collections.singletonList((Person) patient), null,
+                Collections.singletonList(conceptService.getConceptByUuid(WAITING_FOR_CONSULT_STATUS_CONCEPT_UUID)),
+                null, null, null, null, new Integer(1), null,
+                since, null, false);
+
+        if ((wfcObs != null) && (wfcObs.size() > 0)) {
+            //the patient was removed or is in consultation
+            return wfcObs.get(0);
+        }
+        return status;
+    }
+
     private boolean hasQueueStatusChanged(Encounter encounter, ObsService obsService, ConceptService conceptService) {
         if (encounter != null) {
-            List<Obs> wfcObs = obsService.getObservations(
-                    Collections.singletonList((Person) encounter.getPatient()), null,
-                    Collections.singletonList(conceptService.getConceptByUuid(WAITING_FOR_CONSULT_STATUS_CONCEPT_UUID)),
-                    null, null, null, null, new Integer(1), null,
-                    encounter.getEncounterDatetime(), null, false);
-
-            if ((wfcObs != null) && (wfcObs.size() > 0)) {
-                //the patient was removed or is in consultation
-                return true;
-            }
+            return (getLatestWaitingStatus(encounter.getPatient(), obsService, conceptService, encounter.getEncounterDatetime()) != null ) ? true : false ;
         }
         return false;
     }
