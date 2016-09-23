@@ -104,7 +104,7 @@
 
             <fieldset class="required">
                 <legend>
-                    <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
+                   <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
                 </legend>
                 <h3>
                     <uimessage code="mirebalais.retrospectiveCheckin.checkinDate.label"/>
