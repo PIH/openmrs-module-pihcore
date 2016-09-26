@@ -40,6 +40,10 @@ public class Config {
         return descriptor.getDashboardUrl();
     }
 
+    public String getAfterMergeUrl() {
+        return descriptor.getAfterMergeUrl();
+    }
+
     public String getVisitPageUrl() {
         return descriptor.getVisitsPageUrl();
     }

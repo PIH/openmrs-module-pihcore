@@ -29,6 +29,9 @@ public class ConfigDescriptor {
     private String dashboardUrl;
 
     @JsonProperty
+    private String afterMergeUrl;
+
+    @JsonProperty
     private String visitsPageUrl;
 
     @JsonProperty
@@ -100,6 +103,10 @@ public class ConfigDescriptor {
     public String getDashboardUrl() { return dashboardUrl; }
 
     public void setDashboardUrl(String dashboardUrl) { this.dashboardUrl = dashboardUrl; }
+
+    public String getAfterMergeUrl() { return afterMergeUrl; }
+
+    public void setAfterMergeUrl(String afterMergeUrl) { this.afterMergeUrl = afterMergeUrl; }
 
     public String getVisitsPageUrl() { return visitsPageUrl; }
 
