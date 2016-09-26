@@ -41,6 +41,7 @@
         it.collect{ ui.escapeHtml(it.diagnosis.formatWithoutSpecificAnswer(context.locale)) } .join(", ")
     }
 
+    def emptyList = (patientsWhoNeedConsult == null || (patientsWhoNeedConsult != null && patientsWhoNeedConsult.size() == 0) ) ? true:false
     def statusColumnIndex = 7
     def waitingForConsultation = ui.message("pihcore.waitingForConsult.title")
     def statusOptions = [ [label: waitingForConsultation, value: 'waiting'],
@@ -59,40 +60,45 @@
 
         var waitingStatus="";
 
-        jq.fn.dataTableExt.afnFiltering.push(
-                function (oSettings, aData, iDataIndex) {
+        if ( !${emptyList}) {
 
-                    // remove single quote, everything after the <br> (datetime), and trim leading and trailing whitespace
-                    var currentStatus = jq.trim(aData[STATUS_COLUMN_INDEX].replace(/'/g, "\\’"));
+            jq.fn.dataTableExt.afnFiltering.push(
+                    function (oSettings, aData, iDataIndex) {
 
-                    if (waitingStatus && jq.trim(waitingStatus).length != 0) {
-                        if (currentStatus != waitingStatus) {
-                            return false;
+                        // remove single quote, everything after the <br> (datetime), and trim leading and trailing whitespace
+                        var currentStatus = jq.trim(aData[STATUS_COLUMN_INDEX].replace(/'/g, "\\’"));
+
+                        if (waitingStatus && jq.trim(waitingStatus).length != 0) {
+                            if (currentStatus != waitingStatus) {
+                                return false;
+                            }
                         }
+                        return true;
                     }
-                    return true;
-                }
-        );
+            );
 
-        jq("#waitingFilterByStatus").change(function(event){
-            var selectedItemId="";
+            jq("#waitingFilterByStatus").change(function (event) {
+                var selectedItemId = "";
 
-            jq("select option:selected").each(function(){
-                waitingStatus = jq(this).text();
-                waitingStatus = waitingStatus.replace(/'/g, "\\’");
-                selectedItemId = this.value;
-                if (waitingStatus.length > 0) {
-                    jq('#waiting-for-consult-list').dataTable({ "bRetrieve": true }).fnDraw();
-                } else {
-                    jq('#waiting-for-consult-list').dataTable({ "bRetrieve": true }).fnFilter('', STATUS_COLUMN_INDEX);
-                }
+                jq("select option:selected").each(function () {
+                    waitingStatus = jq(this).text();
+                    waitingStatus = waitingStatus.replace(/'/g, "\\’");
+                    selectedItemId = this.value;
+                    if (waitingStatus.length > 0) {
+                        jq('#waiting-for-consult-list').dataTable({"bRetrieve": true}).fnDraw();
+                    } else {
+                        jq('#waiting-for-consult-list').dataTable({"bRetrieve": true}).fnFilter('', STATUS_COLUMN_INDEX);
+                    }
+                });
             });
-        });
+        }
 
     });
 
     jq( window ).load(function() {
-        jq("#waitingFilterByStatus").val("waiting").change();
+        if ( !${emptyList}) {
+            jq("#waitingFilterByStatus").val("waiting").change();
+        }
     });
 
 </script>
@@ -127,7 +133,9 @@
         <th>${ ui.message("coreapps.person.address") }</th>
         <th>${ ui.message("pihcore.waitingForConsult.lastVisitDate") }</th>
         <th>${ ui.message("pihcore.waitingForConsult.lastDiagnoses") }</th>
-        <th>${ ui.message("pihcore.waitingForConsult.status") }</th>
+        <% if (!emptyList) { %>
+            <th>${ ui.message("pihcore.waitingForConsult.status") }</th>
+        <% } %>
         <th></th>
     </tr>
     </thead>
