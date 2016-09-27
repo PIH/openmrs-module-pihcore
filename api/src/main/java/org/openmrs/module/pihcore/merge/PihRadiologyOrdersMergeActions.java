@@ -5,6 +5,8 @@ import org.openmrs.OrderType;
 import org.openmrs.Patient;
 import org.openmrs.api.OrderService;
 import org.openmrs.module.emrapi.merge.PatientMergeAction;
+import org.openmrs.module.pihcore.config.Components;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,6 +31,9 @@ public class PihRadiologyOrdersMergeActions implements PatientMergeAction {
     @Autowired
     private RadiologyProperties radiologyProperties;
 
+    @Autowired
+    private Config config;
+
     private List<Integer> unvoidOrders;
     /**
      * This method will be called before calling the underlying OpenMRS
@@ -40,15 +45,17 @@ public class PihRadiologyOrdersMergeActions implements PatientMergeAction {
      */
     @Override
     public void beforeMergingPatients(Patient preferred, Patient notPreferred) {
-        OrderType radiologyTestOrderType = radiologyProperties.getRadiologyTestOrderType();
-        List<Order> orders = orderService.getAllOrdersByPatient(notPreferred);
-        if (orders !=null && orders.size() > 0) {
-            this.unvoidOrders = new ArrayList<Integer>();
-            for (Order order : orders) {
-                if (order.getOrderType().equals(radiologyTestOrderType) && !order.isVoided()) {
-                    // void Radiology orders so openmrs-core will allowed them to be merged
-                    orderService.voidOrder(order, "pre-merge radiology orders");
-                    this.unvoidOrders.add(order.getId());
+        if (config.isComponentEnabled(Components.RADIOLOGY)) {
+            OrderType radiologyTestOrderType = radiologyProperties.getRadiologyTestOrderType();
+            List<Order> orders = orderService.getAllOrdersByPatient(notPreferred);
+            if (orders != null && orders.size() > 0) {
+                this.unvoidOrders = new ArrayList<Integer>();
+                for (Order order : orders) {
+                    if (order.getOrderType().equals(radiologyTestOrderType) && !order.isVoided()) {
+                        // void Radiology orders so openmrs-core will allowed them to be merged
+                        orderService.voidOrder(order, "pre-merge radiology orders");
+                        this.unvoidOrders.add(order.getId());
+                    }
                 }
             }
         }
