@@ -25,6 +25,10 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.DispositionService;
+import org.openmrs.module.pihcore.config.Components;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
 import org.openmrs.module.radiologyapp.RadiologyRequisition;
@@ -37,11 +41,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.openmrs.util.NameMatcher.containsFullName;
 
 public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleContextSensitiveTest {
@@ -135,6 +142,13 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
     @Test
     public void shouldMergePatientsWhenNonPreferredPatientHasOnlyRadiologyOrders()
             throws Exception {
+
+
+        PihRadiologyOrdersMergeActions pihRadiologyOrdersMergeActions = Context.getRegisteredComponent("pihRadiologyOrdersMergeActions", PihRadiologyOrdersMergeActions.class);
+        Config config = mock(Config.class);
+        runtimeProperties.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "mirebalais");
+        config = new Config(ConfigLoader.loadFromRuntimeProperties());
+        pihRadiologyOrdersMergeActions.setConfig(config);
 
         Patient preferredPatient = patientService.getPatient(6);
 

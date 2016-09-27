@@ -35,6 +35,11 @@ public class PihRadiologyOrdersMergeActions implements PatientMergeAction {
     private Config config;
 
     private List<Integer> unvoidOrders;
+
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+
     /**
      * This method will be called before calling the underlying OpenMRS
      * {@link org.openmrs.api.PatientService#mergePatients(org.openmrs.Patient, org.openmrs.Patient)} method, but in the
