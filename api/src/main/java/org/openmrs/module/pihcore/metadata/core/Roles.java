@@ -188,6 +188,8 @@ public class Roles {
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
                     Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_EMR_CHECK_IN,
+                    Privileges.TASK_EMR_CHECK_IN,
                     Privileges.APP_EMR_ARCHIVES_ROOM,
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
