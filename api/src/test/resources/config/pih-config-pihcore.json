@@ -13,6 +13,7 @@
         "activeVisits",
         "checkIn",
         "vitals",
+        "radiology",
         "consult",
         "systemAdministration",
         "myAccount"
