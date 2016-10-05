@@ -61,7 +61,7 @@
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.6.0</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
-        <reportingVersion>0.10.3</reportingVersion>
+        <reportingVersion>0.10.4</reportingVersion>
         <reportinguiVersion>1.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.12</serializationxstreamVersion>
@@ -74,10 +74,10 @@
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
-        <appuiVersion>1.6</appuiVersion>
+        <appuiVersion>1.7</appuiVersion>
         <dispensingVersion>1.0</dispensingVersion>
         <uicommonsVersion>2.1-SNAPSHOT</uicommonsVersion>
-        <registrationcoreVersion>1.5</registrationcoreVersion>
+        <registrationcoreVersion>1.6</registrationcoreVersion>
         <registrationappVersion>1.5</registrationappVersion>
         <radiologyappVersion>1.0</radiologyappVersion>
         <coreappsVersion>1.11.1-SNAPSHOT</coreappsVersion>
