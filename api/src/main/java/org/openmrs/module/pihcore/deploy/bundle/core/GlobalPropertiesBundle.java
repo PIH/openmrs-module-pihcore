@@ -113,8 +113,9 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(EmrConstants.PAYMENT_RECEIPT_NUMBER_CONCEPT, Concepts.PAYMENT_RECEIPT_NUMBER);
         properties.put(EmrConstants.PAYMENT_CONSTRUCT_CONCEPT, Concepts.PAYMENT_CONSTRUCT);
 
-        // Core Apps
-        properties.put(CoreAppsConstants.GP_SEARCH_DELAY_SHORT, "500");
+        // Core Apps (force the user to hit enter when searching--no "autocomplete")
+        properties.put(CoreAppsConstants.GP_SEARCH_DELAY_SHORT, "99999999");
+        properties.put(CoreAppsConstants.GP_SEARCH_DELAY_LONG, "99999999");
 
         // Registration Core
         properties.put(RegistrationCoreConstants.GP_PATIENT_NAME_SEARCH, "registrationcore.ExistingPatientNameSearch");
