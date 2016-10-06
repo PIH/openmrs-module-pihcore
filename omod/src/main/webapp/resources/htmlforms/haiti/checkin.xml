@@ -84,6 +84,7 @@
         <macro key="paymentAmts" expression="fn.globalProperty('mirebalais.checkIn.paymentAmounts')"/>
         <macro key="paymentAmtLabels" expression="fn.globalProperty('mirebalais.checkIn.paymentAmountLabels')"/>
         <macro key="paymentAmtDefault" expression="fn.globalProperty('mirebalais.checkIn.paymentAmountDefault')"/>
+        <macro key="reasonsForVisit" expression="fn.globalProperty('haiti.checkIn.reasonsForVisit')"/>
     </macros>
 
     <!-- START ENTER/EDIT VERSION OF THE FORM -->
@@ -153,8 +154,9 @@
                 </h3>
 
                 <p class="left">
-                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
-                         unitsCssClass="append-to-value" style="dropdown" size="999">
+                    <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit"
+                         answerConceptIds="$reasonsForVisit"
+                         showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="999">
                     </obs>
                 </p>
             </fieldset>
@@ -216,6 +218,7 @@
 
                     <p class="left">
                         <obs conceptId="PIH:Type of HUM visit" id="typeOfVisit" showUnits="false"
+                             answerConceptIds="$reasonsForVisit"
                              unitsCssClass="append-to-value" style="dropdown" size="9">
                         </obs>
                     </p>

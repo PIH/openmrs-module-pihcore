@@ -166,6 +166,37 @@ public class Roles {
             );}
     };
 
+    public static RoleDescriptor ARCHIVIST_REGISTRATION = new RoleDescriptor() {
+        public String uuid() { return "1C9E2AC6-0CA4-4686-BA88-42E80F67EEEE"; }
+        public String role() { return "Application Role: archivistRegistration"; }
+        public String description() { return "Application Role: archivistRegistration"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_EMR_ARCHIVES_ROOM,
+                    Privileges.APP_REGISTRATION_REGISTER_PATIENT,
+                    Privileges.TASK_EMR_PRINT_WRISTBAND,
+                    Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.APP_ZL_MPI
+            );}
+    };
+
+    public static RoleDescriptor ARCHIVIST_CHECK_IN = new RoleDescriptor() {
+        public String uuid() { return "9705429B-2064-40C3-A673-D52A31E82404"; }
+        public String role() { return "Application Role: archivistCheckIn"; }
+        public String description() { return "Application Role: archivistCheckIn"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_EMR_CHECK_IN,
+                    Privileges.TASK_EMR_CHECK_IN,
+                    Privileges.APP_EMR_ARCHIVES_ROOM,
+                    Privileges.TASK_EMR_PRINT_WRISTBAND,
+                    Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.APP_ZL_MPI
+            );}
+    };
+
     public static RoleDescriptor ARCHIVIST_MANAGER = new RoleDescriptor() {
         public String uuid() { return "a5559530-e78a-11e4-b571-0800200c9a66"; }
         public String role() { return "Application Role: archivistManager"; }
