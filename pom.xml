@@ -49,10 +49,10 @@
     <properties>
         <openMRSVersion>1.10.4</openMRSVersion>
         <openMRSwebVersion>1.10.4</openMRSwebVersion>
-        <emrapiVersion>1.18-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>1.18</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
-        <uiframeworkVersion>3.9-SNAPSHOT</uiframeworkVersion>
+        <uiframeworkVersion>3.10-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
         <metadatamappingVersion>1.0.1</metadatamappingVersion>
@@ -76,7 +76,7 @@
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.7</appuiVersion>
         <dispensingVersion>1.0</dispensingVersion>
-        <uicommonsVersion>2.1</uicommonsVersion>
+        <uicommonsVersion>2.2-SNAPSHOT</uicommonsVersion>
         <registrationcoreVersion>1.6</registrationcoreVersion>
         <registrationappVersion>1.5</registrationappVersion>
         <radiologyappVersion>1.0</radiologyappVersion>
