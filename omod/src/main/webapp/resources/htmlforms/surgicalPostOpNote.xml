@@ -665,16 +665,6 @@
 
     <section id="plan" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="Plan">
         <div class="section-container">
-            <!-- Updated with the generic HUM disposition list
-                <p>
-                    <label><uimessage code="disposition"/></label>
-                    <obs conceptId="PIH:HUM Disposition categories" answerConceptId="PIH:8623,PIH:7889,PIH:8619,PIH:8858"/>
-                </p>
-                <p>
-                    <label><uimessage code="wardName"/></label>
-                    <obs conceptId="org.openmrs.module.emr:AdmissionLocation"/>
-                </p>
-             -->
             <p>
                 <label>
                     <uimessage code="findings"/>
