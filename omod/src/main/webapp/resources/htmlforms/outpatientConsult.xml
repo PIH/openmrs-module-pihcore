@@ -174,15 +174,16 @@
 
         <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
 
+        <includeIf velocityTest="$featureToggles.isFeatureEnabled('procedures')">
+            <p>
+                <label>
+                    <uimessage code="pihcore.consult.procedure"/>
+                </label>
 
-        <p>
-            <label>
-                <uimessage code="pihcore.consult.procedure"/>
-            </label>
-
-            <obs conceptId="PIH:Outpatient procedure" answerConceptSetIds="PIH:WH outpatient procedures"
-                 style="autocomplete"/>
-        </p>
+                <obs conceptId="PIH:Outpatient procedure" answerConceptSetIds="PIH:WH outpatient procedures"
+                     style="autocomplete"/>
+            </p>
+        </includeIf>
 
         <div id="disposition">
             <encounterDisposition/>
