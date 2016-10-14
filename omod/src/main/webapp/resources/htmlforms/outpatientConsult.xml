@@ -180,8 +180,9 @@
                     <uimessage code="pihcore.consult.procedure"/>
                 </label>
 
-                <obs conceptId="PIH:Outpatient procedure" answerConceptSetIds="PIH:WH outpatient procedures"
+                <obs conceptId="PIH:Outpatient procedure" answerConceptSetIds="PIH:WH procedures,PIH:General procedures"
                      style="autocomplete"/>
+                <!-- placeholder="${ ui.message("pihcore.consult.procedure") }" -->
             </p>
         </includeIf>
 
