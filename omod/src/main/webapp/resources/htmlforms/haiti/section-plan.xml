@@ -7,19 +7,6 @@
         display: block;
         }
 
-   <!--     .family-history-item .label {
-        display: inline-block;
-        width: 250px;
-        }
-        .family-history-item .relative {
-        display: inline-block;
-        width: 120px;
-        }
-
-        .section-header {
-        margin-top: 1.5em;
-        }
--->
         #test-orders {
         }
 
