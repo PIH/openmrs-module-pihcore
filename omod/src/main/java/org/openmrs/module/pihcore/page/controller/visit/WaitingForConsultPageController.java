@@ -15,6 +15,7 @@ import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -144,6 +145,7 @@ public class WaitingForConsultPageController {
 
         // used to determine whether or not we display a link to the patient in the results list
         model.addAttribute("patientsWhoNeedConsult", patientsWhoNeedConsultWrapped);
+        model.addAttribute("dossierIdentifierName", HaitiPatientIdentifierTypes.DOSSIER_NUMBER.name());
         model.addAttribute("mothersFirstName", personService.getPersonAttributeTypeByUuid(PersonAttributeTypes.MOTHERS_FIRST_NAME.uuid()));
 
         return null;
