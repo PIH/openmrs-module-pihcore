@@ -36,6 +36,9 @@ angular.module('constants', [])
         dispositionConstruct: {
             uuid: "164e9e1b-d26c-4a93-9bdf-af1ce4ae8fce"
         },
+        proceduresConstruct: {
+            uuid: "c6a87394-4cd0-48b7-a8ac-c7dad55be2e6"
+        },
         disposition: {
             uuid: "c8b22b09-e2f2-4606-af7d-e52579996de3"
         },

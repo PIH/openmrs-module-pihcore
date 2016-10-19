@@ -57,6 +57,17 @@
         </div>
     </div>
 
+    <div>
+        <div class="left-column">
+            <h3 class="consult-header">${ ui.message('pihcore.consult.procedure') }</h3>
+        </div>
+        <div class="right-column">
+            <p>
+                {{ encounter.obs | byConcept:Concepts.proceduresConstruct:true | obs:"value" }}
+            </p>
+        </div>
+    </div>
+
 
     <div class="clear">
         <div class="left-column">
