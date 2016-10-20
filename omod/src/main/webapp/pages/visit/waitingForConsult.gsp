@@ -42,7 +42,7 @@
     }
 
     def emptyList = (patientsWhoNeedConsult == null || (patientsWhoNeedConsult != null && patientsWhoNeedConsult.size() == 0) ) ? true:false
-    def statusColumnIndex = 7
+    def statusColumnIndex = 8
     def waitingForConsultation = ui.message("pihcore.waitingForConsult.title")
     def statusOptions = [ [label: waitingForConsultation, value: 'waiting'],
                           [label: ui.message("pihcore.waitingForConsult.filter.inConsultation"), value: 'consultation'],
@@ -127,6 +127,7 @@
     <thead>
     <tr>
         <th>${ ui.message("coreapps.patient.identifier") }</th>
+        <th>${ ui.message("ui.i18n.PatientIdentifierType.name.e66645eb-03a8-4991-b4ce-e87318e37566") }</th>
         <th>${ ui.message("coreapps.person.name") }</th>
         <th>${ ui.message("pihcore.attributes.mothersFirstName") }</th>
         <th>${ ui.message("coreapps.age") }</th>
@@ -142,7 +143,7 @@
     <tbody>
     <% if (patientsWhoNeedConsult == null || (patientsWhoNeedConsult != null && patientsWhoNeedConsult.size() == 0) ) { %>
     <tr>
-        <td colspan="6">${ ui.message("coreapps.none") }</td>
+        <td colspan="8">${ ui.message("coreapps.none") }</td>
     </tr>
     <% } %>
     <%  patientsWhoNeedConsult.each { w ->
@@ -161,6 +162,10 @@
                     "visit": currentVisit?.visit.uuid ])}">
                 ${ ui.format(p.primaryIdentifier?.identifier) }
             </a>
+        </td>
+        <td><% if(dossierIdentifierName != null ) { %>
+            ${ p.patient.getPatientIdentifier(dossierIdentifierName) }
+        <% } %>
         </td>
         <td>
             <a href="${ ui.pageLink("pihcore", "visit/visit", [
