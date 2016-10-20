@@ -246,6 +246,7 @@ public class Roles {
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
                     Privileges.APP_ED_TRIAGE,
                     Privileges.APP_ED_TRIAGE_QUEUE,
+                    Privileges.TASK_EMR_ENTER_VITALS_NOTE,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
@@ -267,6 +268,7 @@ public class Roles {
                     Privileges.TASK_COREAPPS_CREATE_VISIT,
                     Privileges.APP_EMR_OUTPATIENT_VITALS,
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
+                    Privileges.TASK_EMR_ENTER_VITALS_NOTE,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB
