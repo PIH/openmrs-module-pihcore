@@ -162,6 +162,7 @@ public class Roles {
                     Privileges.TASK_EMR_CHECK_IN,
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_MPI
             );}
     };
@@ -177,6 +178,7 @@ public class Roles {
                     Privileges.APP_REGISTRATION_REGISTER_PATIENT,
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_MPI
             );}
     };
@@ -193,6 +195,7 @@ public class Roles {
                     Privileges.APP_EMR_ARCHIVES_ROOM,
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_MPI
             );}
     };
@@ -215,6 +218,7 @@ public class Roles {
                     Privileges.TASK_EMR_PRINT_LABELS,
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_MPI
             );}
     };
