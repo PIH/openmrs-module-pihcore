@@ -158,9 +158,15 @@ public class Privileges {
     };
 
     public static PrivilegeDescriptor APP_WAITING_FOR_CONSULT = new PrivilegeDescriptor() {
-        public String uuid() { return "a4bb96b4-b3cb-4e3c-9251-a7c0ca173035"; }
+        public String uuid() { return "0f986bdc-1cb2-4096-aeac-0d397de61dd5"; }
         public String privilege() { return "App: pihcore.waitingForConsult"; }
         public String description() { return "Use the Waiting For Consult app provided by PIH Core"; }
+    };
+
+    public static PrivilegeDescriptor APP_TODAYS_VISITS = new PrivilegeDescriptor() {
+        public String uuid() { return "af11d5d3-caa0-4f7f-83d7-c7f2c3b902fd"; }
+        public String privilege() { return "App: pihcore.todaysVisits"; }
+        public String description() { return "Use the Today's Visits app provided by PIH Core"; }
     };
 
     public static PrivilegeDescriptor APP_ED_TRIAGE = new PrivilegeDescriptor() {
