@@ -10,7 +10,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             .state("overview", {
                 url: "/overview",
                 templateUrl: "templates/overview.page",
-                onEnter: function() {
+                onEnter: function () {
                     breadcrumbs = breadcrumbsOverview;
                     emr.updateBreadcrumbs();
                 }
@@ -18,6 +18,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             .state("visitList", {
                 url: "/visitList",
                 templateUrl: "templates/visitList.page"
+            })
+            .state("print", {
+                url: "/print",
+                templateUrl: "templates/print.page"
             })
 
         $translateProvider
@@ -62,7 +66,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     encounter: "=",
                     visit: "=",
                     selected: '=',
-                    encounterDateFormat: "="
+                    encounterDateFormat: "=",
+                    expandOnLoad: "="
                 },
                 controller: ["$scope", function($scope) {
 
@@ -185,8 +190,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         }
                     });
 
-                    if ($scope.encounterState == "long") {
-                        loadFullEncounter();
+                    if ($scope.encounterState == "long" || $scope.expandOnLoad) {
+                        $scope.expand();
                     }
                 }],
                 templateUrl: 'templates/encounters/encounter.page'
@@ -200,7 +205,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 scope: {
                     section: "=",
                     encounter: "=",
-                    visit: "="
+                    visit: "=",
+                    expandOnLoad: "="
                 },
                 controller: ["$scope", function($scope) {
 
@@ -362,6 +368,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         }
                     });
 
+                    if ($scope.expandOnLoad) {
+                        $scope.expand();
+                    }
+
                 }],
                 template: '<div class="visit-element indent"><div ng-include="template"></div></div>'
             }
@@ -374,7 +384,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 scope: {
                     section: "=",
                     encounter: "=",
-                    visit: "="
+                    visit: "=",
+                    expandOnLoad: "="
                 },
                 controller: function($scope) {
 
@@ -558,6 +569,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 });
             });
 
+            $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+                if (toState.name == 'print') {
+                    $scope.$on('$viewContentLoaded', function(){
+                        $scope.printAndClose();
+                    });
+
+                }
+            });
+
             $scope.$on('visit-changed', function(event, visit) {
                 if ($scope.visitUuid == visit.uuid) {
                     $scope.reloadVisit();
@@ -689,20 +709,24 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 $scope.allExpanded = false;
             }
 
-            $scope.print = function () {
+            $scope.print = function (closeAfterPrint) {
 
                 if (!$scope.allExpanded) {
                     $scope.printButtonDisabled = true;
+
                     $scope.expandAll();
 
                     // wait on digest cycle and for all templates to be loaded (ie, wait for all sections to be fully expanded
                     // see: http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle/
-                    var print = function () {
-                        if ($http.pendingRequests.length > 0) {
+                   var print = function () {
+                        if ($http.pendingRequests.length > 0 || !$scope.allExpanded) {
                             $timeout(print); // Wait for all templates to be loaded
                         } else {
                             window.print();
                             $scope.printButtonDisabled = false;
+                            if (closeAfterPrint) {
+                                window.close();
+                            }
                         }
                     }
 
@@ -710,12 +734,18 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 }
                 else {
                     window.print();
+                    if (closeAfterPrint) {
+                        window.close();
+                    }
                 }
+            }
+
+            $scope.printAndClose = function () {
+                $scope.print(true);
             }
 
             $scope.back = function() {
                 window.history.back();
             };
-
 
         }]);

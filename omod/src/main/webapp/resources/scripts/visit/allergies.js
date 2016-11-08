@@ -9,7 +9,8 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
         return {
             scope: {
                 patient: "=",
-                visituuid: "="
+                visituuid: "=",
+                expandOnLoad: "="
             },
             controller: ["$scope", function($scope) {
                 if ($scope.patient) {
@@ -19,9 +20,11 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
                 $scope.session = SessionInfo.get();
 
                 $scope.showAlergiesDetails = false;
+
                 $scope.expandAllergies = function(showAlergiesDetails) {
                     $scope.showAlergiesDetails = !showAlergiesDetails;
                 }
+
                 $scope.goToPage = function(provider, page, opts) {
                     if (opts['returnUrl'] === undefined) {
                         opts['returnUrl'] = "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visituuid;
@@ -40,6 +43,10 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
                 $scope.canEdit= function() {
                     var currentUser = new OpenMRS.UserModel($scope.session.user);
                     return currentUser.hasPrivilege('Task: emr.enterConsultNote');
+                }
+
+                if ($scope.expandOnLoad) {
+                    $scope.expandAllergies()
                 }
 
 

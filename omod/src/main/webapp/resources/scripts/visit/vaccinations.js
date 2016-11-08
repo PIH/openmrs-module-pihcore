@@ -101,7 +101,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             scope: {
                 patient: "=",               // added patient here as we may potentially use this in a non-visit, non-encounter context, but we currently arent ever passing patient into this directive
                 encounter: "=",
-                visit: "="
+                visit: "=",
+                expandOnLoad: "="
             },
             controller: function($scope) {
 
@@ -306,6 +307,10 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
 
                 $scope.canDelete = function() {
                    return $scope.canEdit();
+                }
+
+                if ($scope.expandOnLoad) {
+                    $scope.expandVaccinations($scope.showVaccinationTable);
                 }
             },
             templateUrl: "templates/vaccination/vaccinationTable.page"
