@@ -138,7 +138,6 @@ public class EncounterTypes {
 	};
 
 
-
     public static EncounterTypeDescriptor LAB_RESULTS = new EncounterTypeDescriptor() {
         public String uuid() { return "4d77916a-0620-11e5-a6c0-1697f925ec7b"; }
         public String name() { return "Laboratory Results"; }
@@ -187,6 +186,17 @@ public class EncounterTypes {
 		public String description() { return "Emergency Department patient triage"; }
 	};
 
+	public static EncounterTypeDescriptor TEST_ORDER  = new EncounterTypeDescriptor() {
+		public String uuid() { return "b3a0e3ad-b80c-4f3f-9626-ace1ced7e2dd"; }
+		public String name() { return "Test Order"; }
+		public String description() { return "Test Order - the order of test (labs, biopsy, etc)"; }
+	};
+
+	public static EncounterTypeDescriptor SPECIMEN_COLLECTION  = new EncounterTypeDescriptor() {
+		public String uuid() { return "10db3139-07c0-4766-b4e5-a41b01363145"; }
+		public String name() { return "Specimen Collection"; }
+		public String description() { return "Specimen Collection - the collection of specimen for a test (blood draw, biopsy, etc)"; }
+	};
 
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
