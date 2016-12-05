@@ -63,4 +63,10 @@ public class HaitiPatientIdentifierTypes {
 		public String name() { return "Biometrics Reference Code"; }
 		public String description() { return "Code referencing a patient's record in an external biometrics system"; }
 	};
+
+	public static PatientIdentifierTypeDescriptor DENTAL_DOSSIER_NUMBER = new PatientIdentifierTypeDescriptor() {
+		public String uuid() { return "b5d0a5bd-adf3-4fe0-a231-5a488f6d2c61"; }
+		public String name() { return "Dental Dossier Number"; }
+		public String description() { return "Dental clinic dossier number"; }
+	};
 }
