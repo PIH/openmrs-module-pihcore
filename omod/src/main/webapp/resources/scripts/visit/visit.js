@@ -482,22 +482,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             function loadVisits(patientUuid) {
                 Visit.get({patient: $scope.patientUuid, v: "custom:(uuid,startDatetime,stopDatetime)"}).$promise.then(function(response) {
-
-                    // load a minimal list of visits first, so we can begin to render the visit list page
                     $scope.visits = response.results;
-
-                    // now load a bigger list so that we can fill out template, diagnoses and encounters on the detailed visit list page
-                    Visit.get({
-                        patient: $scope.patientUuid,
-                        v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default,voided),attributes:default)"
-                    }).$promise.then(function (response) {
-                        _.each(response.results, function (visit) {
-                            visit.encounters =  _.reject(visit.encounters, function(it) {
-                                return it.voided;
-                            });
-                        })
-                        $scope.visits = response.results;
-                    });
                 });
             }
 
@@ -575,6 +560,24 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         $scope.printAndClose();
                     });
 
+                }
+            });
+
+            $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+                // when we enter the visitList view, load the full visit information so we can disaply the encounters and diagnoses for each visit
+                if (toState.name == 'visitList') {
+                    // TODO: this is going to grow to be *way* too big--loads every obs for a patient!
+                    Visit.get({
+                        patient: $scope.patientUuid,
+                        v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default,voided),attributes:default)"
+                    }).$promise.then(function (response) {
+                        _.each(response.results, function (visit) {
+                            visit.encounters =  _.reject(visit.encounters, function(it) {
+                                return it.voided;
+                            });
+                        })
+                        $scope.visits = response.results;
+                    });
                 }
             });
 
