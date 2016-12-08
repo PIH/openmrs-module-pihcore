@@ -262,7 +262,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid)
                         });
 
-                        emr.navigateTo({ applicationUrl: (!url.startsWith("/") ? '/' : '') + url });
+                        emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
                     }
 
                     $scope.showEncounterDetails = $scope.section.showEncounterDetails;
@@ -694,7 +694,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         url = url + "&returnUrl=" + returnUrl;
                     }
 
-                    emr.navigateTo({ applicationUrl: (!url.startsWith("/") ? '/' : '') + url });
+                    emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
                 }
             }
 
