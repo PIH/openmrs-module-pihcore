@@ -486,7 +486,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     // load a minimal list of visits first, so we can begin to render the visit list page
                     $scope.visits = response.results;
 
-                    // now load a bigger list so that we can fill out template, diagnoses and encounters
+                    // now load a bigger list so that we can fill out template, diagnoses and encounters on the detailed visit list page
                     Visit.get({
                         patient: $scope.patientUuid,
                         v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default,voided),attributes:default)"
@@ -505,7 +505,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 if (visitUuid) {
                     Visit.get({
                             uuid: visitUuid,
-                            v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:default,orders:ref,voided,visit:ref,encounterProviders,creator),patient:default,visitType:ref,attributes:default)"
+                            v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:default,orders:ref,voided,visit:ref,encounterProviders,creator:ref),patient:default,visitType:ref,attributes:default)"
                         })
                         .$promise.then(function (visit) {
                             visit.encounters = _.reject(visit.encounters, function (it) {
