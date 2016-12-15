@@ -78,6 +78,8 @@
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
 
+            var $j = jQuery;
+
             <!-- TODO we have removed this per: https://tickets.pih-emr.org/browse/UHM-2686; leaving this code around in case the decision is reverted, but we should remove eventually -->
 
            <!-- var $j = jQuery;
