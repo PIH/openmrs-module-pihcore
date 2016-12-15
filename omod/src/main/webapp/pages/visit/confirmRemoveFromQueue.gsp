@@ -1,3 +1,5 @@
+<!-- TODO: no longer used, eventually remove! -->
+
 <div class="dialog-header">
     <h3>${ ui.message("uicommons.confirm") }</h3>
 </div>

@@ -1,3 +1,5 @@
+// TODO: no longer used, keeping around in case we bring it back, but can be deleted eventually
+
 angular.module("waitingforConsultService", [])
     .service('WaitingForConsultService', ['$q', '$http',
         function($q, $http) {

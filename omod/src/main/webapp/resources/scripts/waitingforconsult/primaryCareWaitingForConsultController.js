@@ -1,3 +1,6 @@
+
+// TODO: no longer used, keeping around in case we bring it back, but can be deleted eventually
+
 angular.module("primaryCareWaitingForConsultController", [])
     .controller("WaitingForConsultController", ["$scope", "WaitingForConsultService","ngDialog",
     function($scope, WaitingForConsultService, ngDialog) {
