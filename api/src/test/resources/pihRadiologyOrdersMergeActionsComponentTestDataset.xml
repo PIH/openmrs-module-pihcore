@@ -16,6 +16,11 @@
     <patient patient_id="10003" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
     <patient_identifier patient_identifier_id="5" patient_id="10003" identifier="101-6" identifier_type="1" preferred="0" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="E3D731EB-93EE-45EE-BC43-EFD5044D8F19"/>
 
+    <person person_id="10004" birthdate_estimated="0" gender="M" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="aba64c53-4bfe-4c1a-8974-29d421916476"/>
+    <patient patient_id="10004" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="6" patient_id="10004" identifier="202-2" identifier_type="1" preferred="0" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="f0cc0456-4ee5-4bb4-95b4-83c75757e687"/>
+
+
     <!-- this sets the identifier type with id=1 in the standard test dataset to the "primary identifier type" -->
     <global_property property="emr.primaryIdentifierType" property_value="1a339fe9-38bc-4ab3-b180-320988c0b968" uuid="776cb3c3-9e66-42c6-8f03-2a0c1e9ca2a8"/>
     <person_attribute_type person_attribute_type_id="10" name="Unknown patient" description="Unknown patient" format="java.lang.String" searchable="false" creator="1" date_created="2008-08-15 15:53:36.0" retired="false" uuid="a0f5521c-dbbd-4c10-81b2-1b7ab18330dz" sort_weight="2"/>
@@ -75,5 +80,12 @@
     <orders order_id="1004" order_number="12348" encounter_id="1003" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10003" uuid="0368FF8B-499C-4DA1-9C8A-008B484DAB7F"/>
     <test_order order_id="1004"/>
     <emr_radiology_order order_id="1004"/>
+
+    <!-- associate this order with a visit that is at the same time as a visit for patient 6 from the standard test dataset (the patient we will be attempting to merge into) -->
+    <visit visit_id="1001" patient_id="10004" visit_type_id="1" date_started="2005-01-01 00:00:00.0" creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="49a1aefb-730e-45a4-8402-409833a484ff" />
+    <encounter encounter_id="1004" visit_id="1001" encounter_type="1003" patient_id="10004" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="611e0a81-a6a8-4faa-9eb1-48b941e8ab52"/>
+    <orders order_id="1005" order_number="45648" encounter_id="1004" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10004" uuid="d5721243-c153-48bb-8be3-42fc54b82f71"/>
+    <test_order order_id="1005"/>
+    <emr_radiology_order order_id="1005"/>
 
 </dataset>

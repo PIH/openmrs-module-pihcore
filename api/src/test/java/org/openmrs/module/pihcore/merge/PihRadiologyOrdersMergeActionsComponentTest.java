@@ -1,18 +1,13 @@
 package org.openmrs.module.pihcore.merge;
 
 
-import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Encounter;
-import org.openmrs.Obs;
 import org.openmrs.Order;
-import org.openmrs.OrderType;
 import org.openmrs.Patient;
-import org.openmrs.PersonName;
-import org.openmrs.Visit;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
@@ -25,31 +20,19 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.DispositionService;
-import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
-import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
-import org.openmrs.module.radiologyapp.RadiologyRequisition;
 import org.openmrs.module.radiologyapp.RadiologyService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.openmrs.test.Verifies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.openmrs.util.NameMatcher.containsFullName;
 
 public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleContextSensitiveTest {
 
@@ -153,6 +136,38 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
         Patient preferredPatient = patientService.getPatient(6);
 
         Patient nonPreferredPatient = patientService.getPatient(10003);
+        List<Encounter> encountersByPatient = encounterService.getEncountersByPatient(nonPreferredPatient);
+        // patient has 1 Radiology Encounter
+        Assert.assertEquals(1, encountersByPatient.size());
+        Assert.assertEquals("RadiologyOrder", encountersByPatient.get(0).getEncounterType().getName());
+        Set<Order> orders = encountersByPatient.get(0).getOrders();
+        Assert.assertEquals(1, orders.size());
+        Order radiologyOrder = null;
+        for (Order order : orders) {
+            radiologyOrder = order;
+        }
+        Assert.assertEquals("RadiologyOrder", radiologyOrder.getOrderType().getName());
+        adtService.mergePatients(preferredPatient, nonPreferredPatient);
+
+        assertTrue("RadiologyOrder was not merged", orderService.getAllOrdersByPatient(preferredPatient).contains(radiologyOrder));
+    }
+
+    // TODO un-ignore once we have the EMR API module updated
+    @Test
+    @Ignore
+    public void shouldMergePatientsWhenNonPreferredPatientHasRadiologyOrdersInOverlappingVisit()
+            throws Exception {
+
+
+        PihRadiologyOrdersMergeActions pihRadiologyOrdersMergeActions = Context.getRegisteredComponent("pihRadiologyOrdersMergeActions", PihRadiologyOrdersMergeActions.class);
+        Config config = mock(Config.class);
+        runtimeProperties.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "mirebalais");
+        config = new Config(ConfigLoader.loadFromRuntimeProperties());
+        pihRadiologyOrdersMergeActions.setConfig(config);
+
+        Patient preferredPatient = patientService.getPatient(6);
+
+        Patient nonPreferredPatient = patientService.getPatient(10004);
         List<Encounter> encountersByPatient = encounterService.getEncountersByPatient(nonPreferredPatient);
         // patient has 1 Radiology Encounter
         Assert.assertEquals(1, encountersByPatient.size());
