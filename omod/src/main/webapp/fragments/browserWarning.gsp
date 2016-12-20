@@ -16,8 +16,9 @@
     <div class="note error">
         <div class="text">
             <i class="icon-remove medium"></i>
-            <!-- we are currently only using this on the login/home page, which appears before we know the user's context (and language preference) so the request has been to just hardcode to French -->
-            <p>Veuillez utiliser un navigateur Chrome</p>
+            <!-- this is primarily used on the home page, before we know a user's locale, so the message text is
+                 set in the implementation's config, not messages.properties -->
+            <p>${ browserWarning }</p>
         </div>
         <div class="close-icon"><i class="icon-remove"></i></div>
     </div>

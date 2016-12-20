@@ -36,6 +36,8 @@ public class Config {
         return descriptor.getWelcomeMessage();
     }
 
+    public String getBrowserWarning() { return descriptor.getBrowserWarning(); }
+
     public String getDashboardUrl() {
         return descriptor.getDashboardUrl();
     }

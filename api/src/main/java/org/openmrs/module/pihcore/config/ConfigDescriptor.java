@@ -26,6 +26,9 @@ public class ConfigDescriptor {
     private String welcomeMessage;
 
     @JsonProperty
+    private String browserWarning;
+
+    @JsonProperty
     private String dashboardUrl;
 
     @JsonProperty
@@ -82,6 +85,14 @@ public class ConfigDescriptor {
 
     public void setWelcomeMessage(String welcomeMessage) {
         this.welcomeMessage = welcomeMessage;
+    }
+
+    public String getBrowserWarning() {
+        return browserWarning;
+    }
+
+    public void setBrowserWarning(String browserWarning) {
+        this.browserWarning = browserWarning;
     }
 
     public Country getCountry() {

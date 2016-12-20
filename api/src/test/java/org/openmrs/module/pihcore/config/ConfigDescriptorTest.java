@@ -20,6 +20,7 @@ public class ConfigDescriptorTest {
         assertThat(configDescriptor.getComponents().contains("anotherComponent"), is(true));
         assertThat(configDescriptor.getComponents().contains("missingComponent"), is(false));
         assertThat(configDescriptor.getWelcomeMessage(), is("Hello World!"));
+        assertThat(configDescriptor.getBrowserWarning(), is("Use Chrome!"));
         assertThat(configDescriptor.getSite(), is(ConfigDescriptor.Site.MIREBALAIS));
         assertThat(configDescriptor.getDispositionConfig(), is("pih-dispositions-mirebalais.json"));
         assertThat(configDescriptor.getExtraIdentifierTypes().contains("someIdentifierTypeUuid"), is(true));
