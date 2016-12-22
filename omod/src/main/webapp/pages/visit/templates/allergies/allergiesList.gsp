@@ -10,7 +10,7 @@
             <span ng-show="allergies.status == 'Unknown'">${ ui.message("allergyui.unknown") }</span>
             <span ng-show="allergies.status == 'No known allergies'">${ ui.message("allergyui.noKnownAllergies") }</span>
             <span ng-show="allergies.status == 'See list' && !showAlergiesDetails" ng-repeat="allergy in allergies.allergies">
-                {{ allergy | omrsDisplay }} {{\$last ? '' : (\$index==allergies.allergies.length-2) ? ' and ' : ', '}}
+                {{ allergy | omrsDisplay }}{{\$last ? '' : (\$index==allergies.allergies.length-2) ? ' and ' : ', '}}
             </span>
         </span>
     </span>

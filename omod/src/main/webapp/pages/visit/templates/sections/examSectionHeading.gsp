@@ -4,8 +4,7 @@
 </span> <!-- encounter-type class added for smoke tests -->
 <span class="obs-span">
     <span ng-repeat="obs in encounter.obs | primaryCareExam">
-        {{ obs |  obs:"value" }}
-        {{ \$last ? "" : "," }}
+        {{ obs |  obs:"value" }}{{ \$last ? "" : "," }}
     </span>
 </span>
 <span ng-show="showEncounterDetails" ng-include="'templates/showEncounterDetails.page'" />

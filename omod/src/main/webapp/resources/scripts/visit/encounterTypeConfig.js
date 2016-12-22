@@ -49,17 +49,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-        var primaryCareDisposition = {
-            type: "encounter-section",
-            id: "pihcore-disposition",
-            label: "pihcore.disposition.label",
-            icon: "icon-stethoscope",
-            shortTemplate: "templates/sections/dispositionSectionShort.page",
-            longTemplate: "templates/sections/dispositionLong.page",
-            //templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-disposition.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-disposition.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
         var feeding = {
             type: "encounter-section",
             id: "pihcore-feeding",
@@ -167,8 +156,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 feeding,
                 primaryCareExam,
                 primaryCareDx,
-                primaryCarePlan,
-                primaryCareDisposition
+                primaryCarePlan
             ]
         };
 
@@ -186,8 +174,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 feeding,
                 primaryCareExam,
                 primaryCareDx,
-                primaryCarePlan,
-                primaryCareDisposition
+                primaryCarePlan
             ]
         };
 
@@ -203,8 +190,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareHistory,
                 primaryCareExam,
                 primaryCareDx,
-                primaryCarePlan,
-                primaryCareDisposition
+                primaryCarePlan
             ]
         };
 
@@ -219,8 +205,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 allergies,
                 primaryCareExam,
                 primaryCareDx,
-                primaryCarePlan,
-                primaryCareDisposition
+                primaryCarePlan
             ]
         };
 
