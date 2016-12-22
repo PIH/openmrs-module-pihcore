@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.page.controller.visit;
 
 import org.joda.time.DateMidnight;
+import org.joda.time.DateTimeConstants;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
@@ -58,6 +59,16 @@ public class WaitingForConsultPageController {
         primaryCareEncounterTypes.add(encounterService.getEncounterTypeByUuid(EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid()));
         primaryCareEncounterTypes.add(encounterService.getEncounterTypeByUuid(EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid()));
 
+        // first handle any patients with vitals taken today:
+
+        // create a list of all patients that have a vitals encounter today, *ordered by time of first vitals encounter*
+        LinkedHashSet<Patient> patientsWithVitalsToday = new LinkedHashSet<Patient>();
+        for (Encounter encounter : encounterService.getEncounters(null, null, new DateMidnight().toDate(), null,
+                null, Collections.singletonList(encounterService.getEncounterTypeByUuid(EncounterTypes.VITALS.uuid())),
+                null, null, null, false)) {
+            patientsWithVitalsToday.add(encounter.getPatient());
+        }
+
         // fetch the set of all patients that have a primary care encounter today
         Set<Patient> patientsWithConsultToday = new HashSet<Patient>();
         for (Encounter encounter :  encounterService.getEncounters(null, null, new DateMidnight().toDate(), null,
@@ -73,65 +84,72 @@ public class WaitingForConsultPageController {
             patientsWithDispositionToday.add((Patient) obs.getPerson());  // assumption: only patients have obs, not plain persio
         }
 
-        // create a list of all patients that have a vitals encounter today, *ordered by time of first vitals encounter*
-        LinkedHashSet<Patient> patientsWithVitalsToday = new LinkedHashSet<Patient>();
-        for (Encounter encounter : encounterService.getEncounters(null, null, new DateMidnight().toDate(), null,
-                null, Collections.singletonList(encounterService.getEncounterTypeByUuid(EncounterTypes.VITALS.uuid())),
-                null, null, null, false)) {
-            patientsWithVitalsToday.add(encounter.getPatient());
-        }
-
         LinkedHashSet<Patient> patientListForToday = patientsWithVitalsToday;
 
         // assumption: you can't have a disposition without also having a consult
         if (filter.equals(Filter.WAITING_FOR_CONSULT)) {
-            // all patients with vitals today but no consult
+            // the "waiting for consult" list is all patients with vitals today but no consult
             patientListForToday.removeAll(patientsWithConsultToday);
         }
         else {
-            // all patients with vitals and consult today but no dispostion (disposition is our trigger that a consult is finished)
+            // the "in-consultation" list is all patients with vitals AND consult today but no dispostion (disposition is our trigger that a consult is finished)
             patientListForToday.retainAll(patientsWithConsultToday);
             patientListForToday.removeAll(patientsWithDispositionToday);
         }
 
-        // fetch the set of all patients that have a primary care encounter yesterday or today
-        Set<Patient> patientsWithConsultYesterdayOrToday = new HashSet<Patient>();
-        for (Encounter encounter :  encounterService.getEncounters(null, null, new DateMidnight().minusDays(1).toDate(), null,
-                null, primaryCareEncounterTypes, null, null, null, false)) {
-            patientsWithConsultYesterdayOrToday.add(encounter.getPatient());
-        }
+        // now handle any patients with vitals taken on the last business day
 
-        // fetch the set of all patients who have a disposition yesterday or today
-        Set<Patient> patientsWithDispositionYesterdayOrToday = new HashSet<Patient>();
-        for (Obs obs : obsService.getObservations(null, null, Collections.singletonList(dispoConceptSet),
-                null, null, null, null, null, null, new DateMidnight().minusDays(1).toDate(), null,false)) {
-            patientsWithDispositionYesterdayOrToday.add((Patient) obs.getPerson());  // assumption: only patients have obs, not plain persio
-        }
+        boolean isMonday = new DateMidnight().getDayOfWeek() == DateTimeConstants.MONDAY;
 
-        // create a list of all patients that have a vitals encounter today, *ordered by time of first vitals encounter*
-        LinkedHashSet<Patient> patientsWithVitalsYesterday = new LinkedHashSet<Patient>();
-        for (Encounter encounter : encounterService.getEncounters(null, null, new DateMidnight().minus(1).toDate(),
-                new DateMidnight().toDate(), null, Collections.singletonList(encounterService.getEncounterTypeByUuid(EncounterTypes.VITALS.uuid())),
+        // create a list of all patients that have a vitals encounter on last business day, *ordered by time of first vitals encounter*
+        LinkedHashSet<Patient> patientsWithVitalsOnPreviousBusinessDay = new LinkedHashSet<Patient>();
+        for (Encounter encounter : encounterService.getEncounters(null, null,
+                isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate(),
+                isMonday ? new DateMidnight().minusDays(2).toDate() : new DateMidnight().toDate(),
+                null, Collections.singletonList(encounterService.getEncounterTypeByUuid(EncounterTypes.VITALS.uuid())),
                 null, null, null, false)) {
-            patientsWithVitalsYesterday.add(encounter.getPatient());
+            patientsWithVitalsOnPreviousBusinessDay.add(encounter.getPatient());
         }
 
-        LinkedHashSet<Patient> patientListForYesterday = patientsWithVitalsYesterday;
+        Set<Patient> patientsWithConsultOnPreviousBusinessDayOrToday = new HashSet<Patient>();
+        // fetch the set of all patients that have a primary care encounter last business day
+        for (Encounter encounter :  encounterService.getEncounters(null, null,
+                isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate(),
+                isMonday ? new DateMidnight().minusDays(2).toDate() : new DateMidnight().toDate(),
+                null, primaryCareEncounterTypes, null, null, null, false)) {
+            patientsWithConsultOnPreviousBusinessDayOrToday.add(encounter.getPatient());
+        }
+        // add all patiens with primary care encounter today
+        patientsWithConsultOnPreviousBusinessDayOrToday.addAll(patientsWithConsultToday);
+
+        Set<Patient> patientsWithDispositionOnPreviousDaysOrToday = new HashSet<Patient>();
+        // fetch the set of all patients who have a disposition last business day
+        for (Obs obs : obsService.getObservations(null, null, Collections.singletonList(dispoConceptSet),
+                null, null, null, null, null, null,
+                isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate(),
+                isMonday ? new DateMidnight().minusDays(2).toDate() : new DateMidnight().toDate(),
+                false)) {
+            patientsWithDispositionOnPreviousDaysOrToday.add((Patient) obs.getPerson());  // assumption: only patients have obs, not plain persio
+        }
+        // add all patiens with disposition today
+        patientsWithConsultOnPreviousBusinessDayOrToday.addAll(patientsWithDispositionToday);
+
+
+        LinkedHashSet<Patient> patientListForPreviousBusinessDay = patientsWithVitalsOnPreviousBusinessDay;
 
         // assumption: you can't have a disposition without also having a consult
         if (filter.equals(Filter.WAITING_FOR_CONSULT)) {
-            // all patients with vitals yesterday but no consult yesterday or today
-            patientListForYesterday.removeAll(patientsWithConsultYesterdayOrToday);
+            // the "waiting for consult" list is all patients with vitals last business day but no consult then or today
+            patientListForPreviousBusinessDay.removeAll(patientsWithConsultOnPreviousBusinessDayOrToday);
         }
         else {
-            // all patients with vitals yesterday and consult yesterday or today, but no disposition
-            patientListForYesterday.retainAll(patientsWithConsultYesterdayOrToday);
-            patientListForYesterday.removeAll(patientsWithDispositionYesterdayOrToday);
+            // the "in-consultation" list is all patients with vitals last business day and consult last business day or today, but no disposition
+            patientListForPreviousBusinessDay.retainAll(patientsWithConsultOnPreviousBusinessDayOrToday);
+            patientListForPreviousBusinessDay.removeAll(patientsWithDispositionOnPreviousDaysOrToday);
         }
 
-
-        // now create our final list
-        LinkedHashSet<Patient> patientList = patientListForYesterday;
+        // now create our final list by combining the list for the previous business day with the list for the current day
+        LinkedHashSet<Patient> patientList = patientListForPreviousBusinessDay;
         patientList.addAll(patientListForToday);
 
         // now wrap them all in a patient domain wrapper
