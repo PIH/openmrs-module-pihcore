@@ -6,7 +6,7 @@
             <span class="title">${ ui.message("allergyui.allergies") }</span>
             <!-- <i class="icon-exclamation-sign highlight" ng-show="allergies.status == 'Unknown'" ></i> -->
         </span>
-        <span>
+        <span class="obs-span">
             <span ng-show="allergies.status == 'Unknown'">${ ui.message("allergyui.unknown") }</span>
             <span ng-show="allergies.status == 'No known allergies'">${ ui.message("allergyui.noKnownAllergies") }</span>
             <span ng-show="allergies.status == 'See list' && !showAlergiesDetails" ng-repeat="allergy in allergies.allergies">

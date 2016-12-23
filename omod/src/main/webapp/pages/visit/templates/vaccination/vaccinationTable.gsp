@@ -7,7 +7,7 @@
             <span class="title">${ ui.message("pihcore.visitNote.vaccinations.label") }</span>
             <!-- <i class="icon-exclamation-sign highlight" ng-show="currentVaccinations.length == 0" ></i> -->
         </span>
-        <span>
+        <span class="obs-span">
             <span ng-repeat="vaccination in currentVaccinations">
                 {{ vaccination.vaccination | translate }}-{{ vaccination.sequence | translate }}<span ng-show="!\$last">,</span>
             </span>

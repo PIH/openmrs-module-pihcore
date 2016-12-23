@@ -21,6 +21,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    // given an obs group, returns the group member that matches the passed-in concept
     .filter("valueGroupMember", [function() {
         return function(obs, concept) {
             if (!obs) {
@@ -29,6 +30,25 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
 
             var candidate = _.find(obs.groupMembers, function(candidate) {
                 return candidate.value.uuid === concept.uuid;
+            });
+            if ( candidate ) {
+                return candidate.value;
+            }
+            return null;
+        }
+    }])
+
+    // given an obs group, returns the first group member that matches any of passed-in concepts
+    .filter("valueFirstGroupMember", [function() {
+        return function(obs, concepts) {
+            if (!obs) {
+                return null;
+            }
+
+            var candidate = _.find(obs.groupMembers, function(candidate) {
+                return _.any(concepts, function(concept) {
+                    return candidate.value.uuid === concept.uuid;
+                });
             });
             if ( candidate ) {
                 return candidate.value;
@@ -99,13 +119,18 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    // usage examples:  "obs" --> return the concept and value for the obs
+    //                  "obs:{mode: 'value'}"  --> returns just the value for the obs
+    //                  "obs:{appendComma:true}"  --> appends a comma *if the obs has a value*
+    //                  "obs:'value'"  --> shortcut for ""obs:{mode: 'value'}"
     .filter("obs", [ "omrsDisplayFilter", function(displayFilter) {
-        return function(obs, mode) {
+        return function(obs, options) {
+
             if (!obs) {
                 return "";
             }
             var includeConcept = true;
-            if ("value" === mode) {
+            if ("value" === options || (options != undefined && "value"  === options['mode'])) {
                 includeConcept = false;
             }
             var ret = includeConcept ?
@@ -119,6 +144,11 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
             } else {
                 ret += displayFilter(obs.value);
             }
+
+            if (options != undefined && options['appendComma']) {
+                ret += ", "
+            }
+
             return ret;
         }
     }])
