@@ -281,6 +281,9 @@ angular.module('constants', [])
         },
         prescriptionConstruct: {
             uuid: "9ab17798-1486-4d56-9218-e3578646a772"
+        },
+        chiefComplaint: {
+            uuid: "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
     })
     .value('PrimaryCareExamConcepts', {

@@ -16,6 +16,18 @@ angular.module("encounterTypeConfig", ["constants"])
         // require the encounter to be formatted using the HFE schema
 
         /* Define Sections */
+        var chiefComplaint = {
+            type: "encounter-section",
+            id: "pihcore-chief-complaint",
+            label: "pihcore.chiefComplaint.title",
+            icon: "icon-list-ul",
+            classes: "indent",
+            shortTemplate: "templates/sections/chiefComplaintSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-chief-complaint.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-chief-complaint.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        }
+
         var allergies = {
             type: "include-section",
             template: "templates/allergies/reviewAllergies.page"
@@ -149,6 +161,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
+                chiefComplaint,
                 vaccinations,
                 supplements,
                 allergies,
@@ -168,6 +181,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
+                chiefComplaint,
                 vaccinations,
                 supplements,
                 allergies,
@@ -186,6 +200,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
+                chiefComplaint,
                 allergies,
                 primaryCareHistory,
                 primaryCareExam,
@@ -202,6 +217,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
+                chiefComplaint,
                 allergies,
                 primaryCareExam,
                 primaryCareDx,
