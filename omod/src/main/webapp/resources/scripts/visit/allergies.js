@@ -10,6 +10,7 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
             scope: {
                 patient: "=",
                 visituuid: "=",
+                encounteruuid: "=",
                 expandOnLoad: "="
             },
             controller: ["$scope", function($scope) {
@@ -27,7 +28,7 @@ angular.module("allergies", [ "constants", "ngResource", "uicommons.common" ])
 
                 $scope.goToPage = function(provider, page, opts) {
                     if (opts['returnUrl'] === undefined) {
-                        opts['returnUrl'] = "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visituuid;
+                        opts['returnUrl'] = "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visituuid + "&encounter=" + $scope.encounteruuid;
                     }
                     location.href = emr.pageLink(provider, page, opts);
                 }

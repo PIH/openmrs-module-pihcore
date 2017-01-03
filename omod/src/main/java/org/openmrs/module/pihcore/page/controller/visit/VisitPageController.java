@@ -18,9 +18,13 @@ public class VisitPageController {
                     @InjectBeans PatientDomainWrapper patientDomainWrapper,
                     @RequestParam(required = false, value = "patient") Patient patient,
                     @RequestParam(required = false, value = "visit") Visit visit,
-                    @RequestParam(required = false, value = "encounterId") Encounter encounter,  // passed by the htmformentryui module after form submission creates new encounter
+                    @RequestParam(required = false, value = "encounter") Encounter enc,
+                    @RequestParam(required = false, value = "encounterId") Encounter encounterById,  // passed by the htmformentryui module after form submission creates new encounter (really should be "encounter" for consistency)
                     UiSessionContext uiSessionContext,
                     PageModel model) {
+
+        // there are two params that could pass in an encounter, test which one, if any, was used to pass in a value
+        Encounter encounter = enc != null ? enc : (encounterById != null ? encounterById : null);
 
         // fwiw, you are allowed to have a patient without a visit, but only if viewing the "visitList" view
         if (patient == null) {

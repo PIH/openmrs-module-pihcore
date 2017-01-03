@@ -259,7 +259,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             visit: $scope.visit,
                             encounter: $scope.encounter,
                             patient: $scope.visit.patient,
-                            returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid)
+                            returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid + "&encounter=" + $scope.encounter.uuid)
                         });
 
                         emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
@@ -388,7 +388,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     expandOnLoad: "="
                 },
                 controller: function($scope) {
-
+                    $scope.encounter
                 },
                 template: '<div class="indent" ng-include="section.template"></div>'
             }
@@ -515,7 +515,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         visit: $scope.visit,
                         encounter: encounter,
                         breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
-                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid
+                        returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid + "&encounter=" + encounter.uuid)
                     });
                     emr.navigateTo({applicationUrl: url});
                 }
@@ -529,7 +529,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         visit: $scope.visit,
                         encounter: encounter,
                         breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
-                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid
+                        returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid + "&encounter=" + encounter.uuid)
                     });
                     emr.navigateTo({applicationUrl: url});
                 }
