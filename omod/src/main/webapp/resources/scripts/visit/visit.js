@@ -388,7 +388,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     expandOnLoad: "="
                 },
                 controller: function($scope) {
-                    $scope.encounter
+
                 },
                 template: '<div class="indent" ng-include="section.template"></div>'
             }
@@ -515,7 +515,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         visit: $scope.visit,
                         encounter: encounter,
                         breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
-                        returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid + "&encounter=" + encounter.uuid)
+                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid
                     });
                     emr.navigateTo({applicationUrl: url});
                 }
@@ -529,7 +529,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         visit: $scope.visit,
                         encounter: encounter,
                         breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
-                        returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid + "&encounter=" + encounter.uuid)
+                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid
                     });
                     emr.navigateTo({applicationUrl: url});
                 }
