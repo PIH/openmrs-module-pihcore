@@ -168,37 +168,50 @@ i.highlight {
     width: 12%;
     display: inline-block;
     font-size: 0.8em;
+    vertical-align: top;
   }
 
   .time-span {
     width: 13%;
     display: inline-block;
     font-size: 0.8em;
+    vertical-align: top;
   }
 
   .encounter-span {
     width: 25%;
     display: inline-block;
+    vertical-align: top;
+
+    > span {
+      width: 50%;
+      display: inline-block;
+      vertical-align: top;
+    }
   }
 
   .obs-span {
     width: 65%;
     display: inline-block;
+    vertical-align: top;
   }
 
   .vitals-header-span {
     width: 40%;
     display: inline-block;
+    vertical-align: top;
   }
 
   .provider-and-location-span {
     width: 20%;
     display: inline-block;
+    vertical-align: top;
   }
 
   .allergy-details-span {
     width: 65%;
     display: inline-block;
+    vertical-align: top;
   }
 
   .one-third {
