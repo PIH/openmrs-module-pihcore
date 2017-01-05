@@ -819,4 +819,14 @@ public class Roles {
             );}
     };
 
+    public static RoleDescriptor LEGACY_PRINT_LABELS = new RoleDescriptor() {
+        public String uuid() { return "866fb01c-d386-11e6-bf26-cec0c932ce01"; }
+        public String role() { return "Application Role: printLabels"; }
+        public String description() { return "Gives user the ability to print labels"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.TASK_EMR_PRINT_LABELS
+            );}
+    };
+
 }
