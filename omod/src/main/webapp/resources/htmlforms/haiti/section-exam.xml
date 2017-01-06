@@ -117,6 +117,25 @@
         </script>
     </excludeIf>-->
 
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // super-hack to insert the "Next" button into the confirmation screen defined by htmlformentryui
+                jq('button.submitButton').parent().prepend('<button id="next" type="button" class="submitButton confirm right" style="margin-left:10px"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>');
+
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-exam");
+                        return true;
+                    });
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
     <section id="primary-care-exam" sectionTag="section" headerStyle="title" headerCode="pihcore.exam.title">
 
         <fieldset class="section-container">

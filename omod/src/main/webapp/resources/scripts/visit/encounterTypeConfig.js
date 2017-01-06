@@ -28,14 +28,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-chief-complaint.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
+        // we include the edit url here because the "Next" navigator functionality uses it
         var allergies = {
             type: "include-section",
-            template: "templates/allergies/reviewAllergies.page"
+            template: "templates/allergies/reviewAllergies.page",
+            editUrl: "/allergyui/allergies.page?patientId={{patient.uuid}}&returnUrl={{returnUrl}}"
         };
 
         var vaccinations = {
             type: "include-section",
-            template: "templates/vaccination/vaccinations.page"
+            template: "templates/vaccination/vaccinations.page",
+            editUrl: ""
         };
 
         var primaryCareHistory = {

@@ -49,6 +49,26 @@
         <h1>
             <uimessage code="pihcore.chiefComplaint.title"/>
         </h1>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-chief-complaint");
+                        return true;
+                    });
+
+                    window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
     </ifMode>
 
     <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.chiefComplaint.title">
@@ -61,10 +81,10 @@
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
-            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
         </div>
-
     </ifMode>
 
 </htmlform>

@@ -95,55 +95,70 @@
         <script type="text/javascript">
                 jq(function() {
 
-                        var validateFamHistoryText = function(divElem) {
-                            var parentDiv = divElem.closest('.medicalHistoryText');
+                    var validateFamHistoryText = function(divElem) {
+                        var parentDiv = divElem.closest('.medicalHistoryText');
 
-                            if (typeof parentDiv !== "undefined" ) {
-                                var fieldError = parentDiv.find('.field-error');
-                                var commentsInput= parentDiv.find('input[type=text]');
-                                if (typeof commentsInput !== "undefined" ) {
-                                    var comments = commentsInput.val();
-                                    if ((typeof comments !=="undefined") &amp;&amp; comments.length > 0 ) {
-                                        if ( parentDiv.find('input:checked').length &lt; 1 ) {
-                                            if (parentDiv.hasClass("famHistory")) {
-                                                fieldError.html("<uimessage code='pihcore.historyNote.family.indicateParent'/>").show();
-                                            } else if (parentDiv.hasClass("patientHistory")) {
-                                                fieldError.html("<uimessage code='pihcore.historyNote.pastMedicalHistory.checkWithoutComments'/>").show();
-                                            }
+                        if (typeof parentDiv !== "undefined" ) {
+                            var fieldError = parentDiv.find('.field-error');
+                            var commentsInput= parentDiv.find('input[type=text]');
+                            if (typeof commentsInput !== "undefined" ) {
+                                var comments = commentsInput.val();
+                                if ((typeof comments !=="undefined") &amp;&amp; comments.length > 0 ) {
+                                    if ( parentDiv.find('input:checked').length &lt; 1 ) {
+                                        if (parentDiv.hasClass("famHistory")) {
+                                            fieldError.html("<uimessage code='pihcore.historyNote.family.indicateParent'/>").show();
+                                        } else if (parentDiv.hasClass("patientHistory")) {
+                                            fieldError.html("<uimessage code='pihcore.historyNote.pastMedicalHistory.checkWithoutComments'/>").show();
+                                        }
 
-                                            return false;
-                                        }
-                                    } else {
-                                        // if there are no comments make sure the adjacent Parent checkbox is not checked
-                                        if ( parentDiv.find('input:checked').length &gt; 0 ) {
-                                            fieldError.html("<uimessage code='pihcore.historyNote.family.specifyComments'/>").show();
-                                            return false;
-                                        }
+                                        return false;
+                                    }
+                                } else {
+                                    // if there are no comments make sure the adjacent Parent checkbox is not checked
+                                    if ( parentDiv.find('input:checked').length &gt; 0 ) {
+                                        fieldError.html("<uimessage code='pihcore.historyNote.family.specifyComments'/>").show();
+                                        return false;
                                     }
                                 }
-                                fieldError.html(" ").hide();
                             }
-                            return true;
+                            fieldError.html(" ").hide();
                         }
+                        return true;
+                    }
 
 
-                jq('.medicalHistoryText').find('input[type=checkbox]').change(function() {
+                    jq('.medicalHistoryText').find('input[type=checkbox]').change(function() {
+                            validateFamHistoryText(jq(this));
+                     });
+
+                    jq('.medicalHistoryText').find('input[type=text]').change(function() {
                         validateFamHistoryText(jq(this));
-                 });
-
-                jq('.medicalHistoryText').find('input[type=text]').change(function() {
-                    validateFamHistoryText(jq(this));
-                });
-
-                beforeSubmit.push(function() {
-                    var numErrors = 0;
-                    jq('.medicalHistoryText').find('input[type=text]').each(function() {
-                        if (!validateFamHistoryText(jq(this)) ) {
-                            ++numErrors;
-                        }
                     });
-                    return ( numErrors == 0 );
-                });
+
+                    // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                    jq('#next').click(function() {
+                        window.htmlForm.getBeforeSubmit().push(function () {
+                            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-history");
+                            return true;
+                        });
+
+                        window.htmlForm.submitHtmlForm();
+                    })
+
+                    jq('#submit').click(function() {
+                        window.htmlForm.submitHtmlForm();
+                    })
+
+
+                    beforeSubmit.push(function() {
+                        var numErrors = 0;
+                        jq('.medicalHistoryText').find('input[type=text]').each(function() {
+                            if (!validateFamHistoryText(jq(this)) ) {
+                                ++numErrors;
+                            }
+                        });
+                        return ( numErrors == 0 );
+                    });
 
                 });
         </script>
@@ -292,8 +307,9 @@
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
         </div>
     </ifMode>
 

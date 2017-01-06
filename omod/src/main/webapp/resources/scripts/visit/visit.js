@@ -454,27 +454,81 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        'visitUuid', 'patientUuid', 'encounterUuid', 'locale', "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
+        "visitUuid", "patientUuid", "encounterUuid", "locale", "goToNextSection", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, patientUuid, encounterUuid,
-                 locale, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts) {
+                 locale, goToNextSection, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts) {
 
-            $rootScope.DatetimeFormats = DatetimeFormats;
-            $scope.Concepts = Concepts;
+            // if we've got a section to go to, immediately redirect to that
+            if (goToNextSection && encounterUuid) {
+                goToPage(goToNextSection, patientUuid, encounterUuid, visitUuid);
+            }
+            else {
+                // otherwise do standard loading
+               loadPage();
+            }
 
-            $scope.session = SessionInfo.get();
+            function loadPage() {
 
-            $scope.visitUuid = visitUuid;
-            $scope.patientUuid = patientUuid;
-            $scope.encounterUuid = encounterUuid;
+                $rootScope.DatetimeFormats = DatetimeFormats;
+                $scope.Concepts = Concepts;
 
-            $scope.printButtonDisabled = false;
-            $scope.allExpanded = false;
+                $scope.session = SessionInfo.get();
 
-            loadVisits(patientUuid);
-            loadVisit(visitUuid);
+                $scope.visitUuid = visitUuid;
+                $scope.patientUuid = patientUuid;
+                $scope.encounterUuid = encounterUuid;
 
-            $translate.use(locale);
+                $scope.printButtonDisabled = false;
+                $scope.allExpanded = false;
+
+                $translate.use(locale);
+
+                loadVisits(patientUuid);
+                loadVisit(visitUuid);
+            }
+
+            function goToPage(goToNextSection, patientUuid, encounterUuid, visitUuid) {
+
+                // fetch the encounter so we can determine the encounter type, which we need to determine where to redirect to
+                // TODO error handling, what if not
+                Encounter.get({ uuid: encounterUuid }).
+                    $promise.then(function(encounter) {
+                        var sections = EncounterTypeConfig[encounter.encounterType.uuid].sections;
+                        i = 0;
+                        while (i < sections.length && sections[i].id != goToNextSection) {
+                            i++;
+                        }
+
+                        // we want to the redirect to the edit section of the *next* section
+                        if (i + 1 < sections.length && sections[i + 1].editUrl) {
+
+                            var url = Handlebars.compile(sections[i + 1].editUrl)({
+                                visit: {
+                                    uuid: visitUuid,
+                                    patient: {
+                                        uuid: patientUuid
+                                    }
+                                },
+                                encounter: {
+                                    uuid: encounterUuid
+                                },
+                                patient: {
+                                    uuid: patientUuid
+                                },
+                                returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + visitUuid + "&encounter=" + encounterUuid)
+                            });
+
+                            emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
+                        }
+                        else {
+                            // if there are any errors, just continue loading the page
+                            loadPage();
+                        }
+                    });
+
+
+            }
 
             function sameDate(d1, d2) {
                 return d1 && d2 && d1.substring(0, 10) == d2.substring(0, 10);
