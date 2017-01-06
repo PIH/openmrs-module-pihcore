@@ -178,6 +178,10 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     $scope.showVaccinationTable = true;
                 });
 
+                $scope.$on('expand-vaccinations',function() {
+                    $scope.showVaccinationTable = true;
+                });
+
                 $scope.$on('contract-all',function() {
                     $scope.showVaccinationTable = false;
                 });

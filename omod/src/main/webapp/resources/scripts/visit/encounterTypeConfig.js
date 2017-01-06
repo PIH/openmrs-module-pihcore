@@ -31,12 +31,14 @@ angular.module("encounterTypeConfig", ["constants"])
         // we include the edit url here because the "Next" navigator functionality uses it
         var allergies = {
             type: "include-section",
+            id: "allergies",
             template: "templates/allergies/reviewAllergies.page",
             editUrl: "/allergyui/allergies.page?patientId={{patient.uuid}}&returnUrl={{returnUrl}}"
         };
 
         var vaccinations = {
             type: "include-section",
+            id: "vaccinations",
             template: "templates/vaccination/vaccinations.page",
             editUrl: ""
         };

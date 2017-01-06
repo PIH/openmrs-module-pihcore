@@ -468,7 +468,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                loadPage();
             }
 
-            function loadPage() {
+            function loadPage(expandSection) {
 
                 $rootScope.DatetimeFormats = DatetimeFormats;
                 $scope.Concepts = Concepts;
@@ -486,6 +486,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                 loadVisits(patientUuid);
                 loadVisit(visitUuid);
+                expandAfterPageLoad(expandSection);
+
             }
 
             function goToPage(goToNextSection, patientUuid, encounterUuid, visitUuid) {
@@ -522,12 +524,35 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
                         }
                         else {
-                            // if there are any errors, just continue loading the page
-                            loadPage();
+                            // if we don't find an editurl, just open the page, passing in the id of the next section
+                            if (i + 1 < sections.length) {
+                                loadPage(sections[i + 1].id);
+                            }
+                            else {
+                                // if there are any errors, just continue loading the page
+                                loadPage();
+                            }
                         }
                     });
 
 
+            }
+
+            // current only vaccination section supports expansion via this method
+            // (but should be able to implement for other sections by adding $on listeners for the appropriate events)
+            function expandAfterPageLoad(section) {
+                if (section) {
+                    // wait on digest cycle and for all templates to be loaded
+                    // see: http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle/
+                    var expand = function () {
+                        if ($http.pendingRequests.length > 0) {
+                            $timeout(expand); // Wait for all templates to be loaded
+                        } else {
+                            $scope.$broadcast("expand-" + section);
+                        }
+                    }
+                    $timeout(expand);
+                }
             }
 
             function sameDate(d1, d2) {
