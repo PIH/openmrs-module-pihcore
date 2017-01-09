@@ -501,15 +501,24 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 Encounter.get({ uuid: encounterUuid }).
                     $promise.then(function(encounter) {
                         var sections = EncounterTypeConfig[encounter.encounterType.uuid].sections;
-                        i = 0;
-                        while (i < sections.length && sections[i].id != currentSection) {
-                            i++;
+
+                        var redirectToSectionIdx = 0;
+
+                        // if current section is the "encounter-info" section, we just want to jump to first "real" section (idx = 0)
+                        // otherwise find the current section and add one
+                        if (currentSection != "encounter-info") {
+                            i = 0;
+                            while (i < sections.length && sections[i].id != currentSection) {
+                                i++;
+                            }
+                            redirectToSectionIdx = i + 1;
                         }
 
-                        // we want to the redirect to the edit section of the *next* section
-                        if (i + 1 < sections.length && sections[i + 1].editUrl) {
 
-                            var url = Handlebars.compile(sections[i + 1].editUrl)({
+                        // we want to the redirect to the edit section of the *next* section
+                        if (redirectToSectionIdx < sections.length && sections[redirectToSectionIdx].editUrl) {
+
+                            var url = Handlebars.compile(sections[redirectToSectionIdx].editUrl)({
                                 visit: {
                                     uuid: visitUuid,
                                     patient: {

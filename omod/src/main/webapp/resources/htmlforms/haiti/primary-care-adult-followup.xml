@@ -73,11 +73,25 @@
     <ifMode mode="EDIT" include="true">
         <script type="text/javascript">
             jq(function() {
+
                 jq('.htmlform').show();
+
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=encounter-info");
+                        return true;
+                    });
+
+                    window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
             });
         </script>
     </ifMode>
-
     <div class="htmlform" style="display:none">
 
         <ifMode mode="VIEW" include="false">
@@ -153,8 +167,9 @@
 
         <ifMode mode="VIEW" include="false">
             <div id="buttons">
-                <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-                <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+                <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+                <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+                <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
             </div>
         </ifMode>
     </div>
