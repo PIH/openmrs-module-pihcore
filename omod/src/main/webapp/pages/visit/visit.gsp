@@ -72,7 +72,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             .value('visitUuid', ${ visit?.uuid ? "'" + visit.uuid + "'" : null})
             .value('encounterUuid', ${ encounter?.uuid ? "'" + encounter.uuid + "'" : null})
             .value('locale', '${ locale }')
-            .value('goToNextSection', ${ goToNextSection ? "'" + goToNextSection + "'" : null});
+            .value('currentSection', ${ goToNextSection ? "'" + goToNextSection + "'" : null});
     angular.bootstrap("#visit-app", [ "visit" ])
 
     jq(function() {

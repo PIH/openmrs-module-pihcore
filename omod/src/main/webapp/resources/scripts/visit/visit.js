@@ -15,6 +15,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     emr.updateBreadcrumbs();
                 }
             })
+            .state("vaccinations", {
+                url: "/vaccinations",
+                templateUrl: "templates/vaccination/vaccinationsPage.page"
+            })
             .state("visitList", {
                 url: "/visitList",
                 templateUrl: "templates/visitList.page"
@@ -454,21 +458,21 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        "visitUuid", "patientUuid", "encounterUuid", "locale", "goToNextSection", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
+        "visitUuid", "patientUuid", "encounterUuid", "locale", "currentSection", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, patientUuid, encounterUuid,
-                 locale, goToNextSection, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts) {
+                 locale, currentSection, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts) {
 
-            // if we've got a section to go to, immediately redirect to that
-            if (goToNextSection && encounterUuid) {
-                goToPage(goToNextSection, patientUuid, encounterUuid, visitUuid);
+            // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
+            if (currentSection && encounterUuid) {
+                goToNextSection(currentSection, patientUuid, encounterUuid, visitUuid);
             }
             else {
                 // otherwise do standard loading
                loadPage();
             }
 
-            function loadPage(expandSection) {
+            function loadPage(state) {
 
                 $rootScope.DatetimeFormats = DatetimeFormats;
                 $scope.Concepts = Concepts;
@@ -486,11 +490,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                 loadVisits(patientUuid);
                 loadVisit(visitUuid);
-                expandAfterPageLoad(expandSection);
+                switchToState(state);
 
             }
 
-            function goToPage(goToNextSection, patientUuid, encounterUuid, visitUuid) {
+            function goToNextSection(currentSection, patientUuid, encounterUuid, visitUuid) {
 
                 // fetch the encounter so we can determine the encounter type, which we need to determine where to redirect to
                 // TODO error handling, what if not
@@ -498,7 +502,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $promise.then(function(encounter) {
                         var sections = EncounterTypeConfig[encounter.encounterType.uuid].sections;
                         i = 0;
-                        while (i < sections.length && sections[i].id != goToNextSection) {
+                        while (i < sections.length && sections[i].id != currentSection) {
                             i++;
                         }
 
@@ -538,20 +542,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             }
 
-            // current only vaccination section supports expansion via this method
-            // (but should be able to implement for other sections by adding $on listeners for the appropriate events)
-            function expandAfterPageLoad(section) {
-                if (section) {
-                    // wait on digest cycle and for all templates to be loaded
-                    // see: http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle/
-                    var expand = function () {
-                        if ($http.pendingRequests.length > 0) {
-                            $timeout(expand); // Wait for all templates to be loaded
-                        } else {
-                            $scope.$broadcast("expand-" + section);
-                        }
+            function switchToState(state) {
+                if (state) {
+                    if (encounterUuid) {
+                        Encounter.get({uuid: encounterUuid, v: "full"}).$promise.then(function (encounter) {
+                            $scope.encounter = encounter;
+                            $scope.expandOnLoad = true;
+                            $state.go(state);
+                        });
                     }
-                    $timeout(expand);
                 }
             }
 
@@ -738,8 +737,14 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 return null;
             }
 
+            $scope.goToNextSection = function(currentSection) {
+                goToNextSection(currentSection, $scope.patientUuid, $scope.encounterUuid, $scope.visitUuid)
+            }
+
             $scope.goToVisit = function(visit) {
-                $scope.visitUuid = visit.uuid;
+                if (visit) {
+                    $scope.visitUuid = visit.uuid;
+                }
                 $state.go("overview");
             }
 
