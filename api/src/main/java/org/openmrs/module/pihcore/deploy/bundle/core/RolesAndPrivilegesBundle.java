@@ -127,6 +127,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PSYCHOLOGIST);
             install(Roles.PHYSICAL_THERAPIST);
             install(Roles.SOCIAL_WORKER);
+            install(Roles.PRINT_LABELS);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA) || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             install(Roles.SYSTEM_ADMINISTRATOR);
