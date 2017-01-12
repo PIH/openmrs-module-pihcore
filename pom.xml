@@ -49,7 +49,7 @@
     <properties>
         <openMRSVersion>1.10.4</openMRSVersion>
         <openMRSwebVersion>1.10.4</openMRSwebVersion>
-        <emrapiVersion>1.19</emrapiVersion>
+        <emrapiVersion>1.20</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.10-SNAPSHOT</uiframeworkVersion>
