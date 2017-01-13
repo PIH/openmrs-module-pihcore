@@ -181,6 +181,12 @@ public class Privileges {
         public String description() { return "Use ED Triage Queue provided by the ED Triage moddule"; }
     };
 
+    public static PrivilegeDescriptor APP_LAB_TRACKING_MONITOR_ORDERS = new PrivilegeDescriptor() {
+        public String uuid() { return "1bc1d453-c675-4674-b1eb-120b19d97f16"; }
+        public String privilege() { return "App: labtrackingapp.monitorOrders"; }
+        public String description() { return "Use the Monitor Orders app provided by the Lab Tracking app"; }
+    };
+
     //
     // TASK PRIVILEGES
     //
@@ -399,6 +405,12 @@ public class Privileges {
         public String uuid() { return "8accc0c0-3faf-11e6-bdf4-0800200c9a66"; }
         public String privilege() { return "Task: edtriageapp.enterNote"; }
         public String description() { return "Ability to enter an ED Triage form fo a patient"; }
+    };
+
+    public static PrivilegeDescriptor TASK_LAB_TRACKING_PLACE_ORDERS = new PrivilegeDescriptor() {
+        public String uuid() { return "8c14474d-07e9-4283-9af2-0720522f1496"; }
+        public String privilege() { return "Task: labtrackingapp.placeOrders"; }
+        public String description() { return "Ability to place orders using functionality provided by the Lab Tracking app"; }
     };
 
 

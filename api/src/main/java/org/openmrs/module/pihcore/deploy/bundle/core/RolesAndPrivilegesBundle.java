@@ -46,6 +46,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.APP_ED_TRIAGE_QUEUE);
         install(Privileges.APP_ZL_MPI);
         install(Privileges.APP_ZL_REPORTS_DATA_EXPORTS);
+        install(Privileges.APP_LAB_TRACKING_MONITOR_ORDERS);
         install(Privileges.TASK_ALLERGIES_MODIFY);
         install(Privileges.TASK_APPOINTMENTSCHEDULINGUI_BOOK_APPOINTMENTS);
         install(Privileges.TASK_APPOINTMENTSCHEDULINGUI_OVERBOOK_APPOINTMENTS);
@@ -83,6 +84,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER);
         install(Privileges.TASK_RADIOLOGYAPP_TAB);
         install(Privileges.TASK_ED_TRIAGE_ENTER_NOTE);
+        install(Privileges.TASK_LAB_TRACKING_PLACE_ORDERS);
 
         log.info("Retiring old privileges");
 

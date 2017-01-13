@@ -56,6 +56,7 @@ public class Roles {
                 Privileges.APP_ED_TRIAGE_QUEUE,
                 Privileges.APP_WAITING_FOR_CONSULT,
                 Privileges.APP_TODAYS_VISITS,
+                Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.TASK_ALLERGIES_MODIFY,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_BOOK_APPOINTMENTS,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_OVERBOOK_APPOINTMENTS,
@@ -91,7 +92,8 @@ public class Roles {
                 Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                 Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER,
                 Privileges.TASK_RADIOLOGYAPP_TAB,
-                Privileges.TASK_ED_TRIAGE_ENTER_NOTE
+                Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
+                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS
             );}
     };
 
