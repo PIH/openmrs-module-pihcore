@@ -23,8 +23,6 @@ public class ConfigDescriptorTest {
         assertThat(configDescriptor.getBrowserWarning(), is("Use Chrome!"));
         assertThat(configDescriptor.getSite(), is(ConfigDescriptor.Site.MIREBALAIS));
         assertThat(configDescriptor.getDispositionConfig(), is("pih-dispositions-mirebalais.json"));
-        assertThat(configDescriptor.getExtraIdentifierTypes().contains("someIdentifierTypeUuid"), is(true));
-        assertThat(configDescriptor.getExtraIdentifierTypes().contains("anotherIdentifierTypeUuid"), is(true));
         assertThat(configDescriptor.getDossierIdentifierPrefix(), is("TH"));
         assertThat(configDescriptor.getIdCardLabel(), is("PIH Liberia Patient ID Card"));
         assertThat(configDescriptor.getIdCardLocale(), is(new Locale("en")));

@@ -24,6 +24,9 @@
         <require_module version="${metadatadeployVersion}">
             org.openmrs.module.metadatadeploy
         </require_module>
+        <require_module version="${metadatamappingVersion}">
+            org.openmrs.module.metadatamapping
+        </require_module>
         <require_module version="${registrationcoreVersion}">
             org.openmrs.module.registrationcore
         </require_module>

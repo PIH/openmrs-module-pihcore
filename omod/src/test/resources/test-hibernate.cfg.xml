@@ -22,5 +22,10 @@
         <mapping resource="AddressHierarchyLevel.hbm.xml"/>
         <mapping resource="AddressToEntryMap.hbm.xml"/>
 
-	</session-factory>
+        <mapping resource="MetadataSource.hbm.xml" />
+        <mapping resource="MetadataTermMapping.hbm.xml" />
+        <mapping resource="MetadataSet.hbm.xml" />
+        <mapping resource="MetadataSetMember.hbm.xml" />
+
+    </session-factory>
 </hibernate-configuration>

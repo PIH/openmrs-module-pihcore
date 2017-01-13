@@ -59,9 +59,6 @@ public class ConfigDescriptor {
     private String dossierIdentifierPrefix;
 
     @JsonProperty
-    private List<String> extraIdentifierTypes;
-
-    @JsonProperty
     private String dispositionConfig; // override the default disposition config file to use
 
     @JsonProperty
@@ -164,14 +161,6 @@ public class ConfigDescriptor {
 
     public void setDossierIdentifierPrefix(String dossierIdentifierPrefix) {
         this.dossierIdentifierPrefix = dossierIdentifierPrefix;
-    }
-
-    public List<String> getExtraIdentifierTypes() {
-        return extraIdentifierTypes;
-    }
-
-    public void setExtraIdentifierTypes(List<String> extraIdentifierTypes) {
-        this.extraIdentifierTypes = extraIdentifierTypes;
     }
 
     public String getDispositionConfig() {

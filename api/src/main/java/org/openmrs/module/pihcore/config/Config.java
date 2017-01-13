@@ -60,8 +60,6 @@ public class Config {
         return descriptor.getDossierIdentifierPrefix();
     }
 
-    public List<String> getExtraIdentifierTypes() { return descriptor.getExtraIdentifierTypes(); }
-
     public ConfigDescriptor.Site getSite() {
         return descriptor.getSite();
     }

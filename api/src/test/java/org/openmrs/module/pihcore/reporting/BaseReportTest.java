@@ -13,7 +13,9 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.MetadataMappingsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPropertiesAndMappingsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
@@ -50,6 +52,12 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     protected MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
+    protected MetadataMappingsBundle metadataMappingsBundle;
+
+    @Autowired
+    protected HaitiPropertiesAndMappingsBundle haitiPropertiesAndMappingsBundle;
+
+    @Autowired
     protected LocationService locationService;
 
     @Autowired
@@ -65,6 +73,8 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         authenticate();
         deployService.installBundle(encounterTypeBundle);
         deployService.installBundle(mirebalaisLocationsBundle);
+        deployService.installBundle(metadataMappingsBundle);
+        deployService.installBundle(haitiPropertiesAndMappingsBundle);
         LocationTagSetup.setupLocationTags(locationService, getConfig());
         haitiAddressBundle.installAddressTemplate();
         haitiAddressBundle.installAddressHierarchyLevels();

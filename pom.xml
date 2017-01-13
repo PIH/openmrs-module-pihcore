@@ -49,14 +49,14 @@
     <properties>
         <openMRSVersion>1.10.4</openMRSVersion>
         <openMRSwebVersion>1.10.4</openMRSwebVersion>
-        <emrapiVersion>1.20</emrapiVersion>
+        <emrapiVersion>1.21-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.10-SNAPSHOT</uiframeworkVersion>
         <appframeworkVersion>2.9</appframeworkVersion>
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
-        <metadatamappingVersion>1.0.1</metadatamappingVersion>
-        <metadatadeployVersion>1.7</metadatadeployVersion>
+        <metadatamappingVersion>1.2.1</metadatamappingVersion>
+        <metadatadeployVersion>1.8-SNAPSHOT</metadatadeployVersion>
         <htmlformentryVersion>3.3.1</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.6.1</htmlformentryuiVersion>
@@ -154,12 +154,20 @@
 			<version>${metadatadeployVersion}</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>metadatadeploy-api-1.10</artifactId>
 			<version>${metadatadeployVersion}</version>
 			<scope>provided</scope>
 		</dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>metadatamapping-api</artifactId>
+            <version>${metadatamappingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>

@@ -14,7 +14,6 @@
 package org.openmrs.module.pihcore;
 
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
@@ -25,14 +24,13 @@ import org.openmrs.layout.web.name.NameSupport;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
-import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.utils.MetadataUtil;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
@@ -68,7 +66,6 @@ public class PihCoreActivator extends BaseModuleActivator {
             installMetadataPackages(config);
             installMetadataBundles(config);
             setGlobalProperties(config);
-            setExtraIdentifierTypes(config);
             MergeActionsSetup.registerMergeActions();
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
@@ -127,7 +124,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             deployService.installBundle(Context.getRegisteredComponents(MirebalaisBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-            deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
+            deployService.installBundle(Context.getRegisteredComponents(HaitiBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataBundle.class).get(0));
@@ -142,12 +139,6 @@ public class PihCoreActivator extends BaseModuleActivator {
     public void setDispositionConfig(Config config) {
         if (config != null && config.getDispositionConfig() != null) {
             Context.getService(DispositionService.class).setDispositionConfig(config.getDispositionConfig());
-        }
-    }
-
-    public void setExtraIdentifierTypes(Config config) {
-        if (config != null && config.getExtraIdentifierTypes() != null) {
-            setGlobalProperty(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, StringUtils.join(config.getExtraIdentifierTypes(), ","));
         }
     }
 

@@ -11,11 +11,6 @@
 
     "dispositionConfig": "pih-dispositions-mirebalais.json",
 
-    "extraIdentifierTypes": [
-        "someIdentifierTypeUuid",
-        "anotherIdentifierTypeUuid"
-    ],
-
     "dossierIdentifierPrefix": "TH",
 
     "idCardLabel": "PIH Liberia Patient ID Card",

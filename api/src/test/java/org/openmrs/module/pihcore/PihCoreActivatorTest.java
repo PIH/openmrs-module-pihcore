@@ -20,7 +20,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultatio
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiBundle;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
@@ -53,7 +53,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
 
     @Autowired
-    private HaitiMetadataBundle haitiMetadataBundle;
+    private HaitiBundle haitiBundle;
 
     @Autowired
     @Qualifier("adminService")
@@ -80,7 +80,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     public void testMetadataBundles() throws Exception {
 
         deployService.installBundle(conceptsFromMetadataSharing);
-        deployService.installBundle(haitiMetadataBundle);
+        deployService.installBundle(haitiBundle);
 
         // test a few random concepts
         assertThat(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES).getName().getName(), is("Oui"));
@@ -98,7 +98,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
         assertThat(construct.getConceptSets().size(), is(4));
 
         // make sure everything installed at the version we expect
-        for (Class<? extends MetadataBundle> bundleType : getExpectedBundles(haitiMetadataBundle.getClass())) {
+        for (Class<? extends MetadataBundle> bundleType : getExpectedBundles(haitiBundle.getClass())) {
             if (VersionedMetadataBundle.class.isAssignableFrom(bundleType)) {
                 VersionedMetadataBundle bundle = (VersionedMetadataBundle)Context.getRegisteredComponents(bundleType).get(0);
                 String gpValue = administrationService.getGlobalProperty("metadatadeploy.bundle.version." + bundle.getClass().getName());

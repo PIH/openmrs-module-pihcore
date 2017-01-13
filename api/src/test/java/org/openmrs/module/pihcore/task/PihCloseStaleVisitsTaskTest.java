@@ -21,6 +21,8 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.test.ContextSensitiveMetadataTestUtils;
 import org.openmrs.module.emrapi.visit.EmrVisitService;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.pihcore.deploy.bundle.core.MetadataMappingsBundle;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +69,16 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     @Autowired
     EmrConceptService emrConceptService;
 
+    @Autowired
+    MetadataMappingsBundle metadataMappingsBundle;
+
+    @Autowired
+    protected MetadataDeployService deployService;
+
     @Before
     public void setUp() throws Exception {
         executeDataSet("closeStaleVisitsTestDataset.xml");
+        deployService.installBundle(metadataMappingsBundle);
     }
 
     @Test
