@@ -111,7 +111,7 @@
             </a>
         </td>
         <td><% if(dossierIdentifierName != null ) { %>
-            ${ p.patient.getPatientIdentifier(dossierIdentifierName) }
+            ${ p.patient.getPatientIdentifier(dossierIdentifierName) != null ? p.patient.getPatientIdentifier(dossierIdentifierName) : ''}
         <% } %>
         </td>
         <td>
