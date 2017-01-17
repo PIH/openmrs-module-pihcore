@@ -74,7 +74,7 @@
     <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.chiefComplaint.title">
         <div class="section-container">
             <p>
-                <obs conceptId="CIEL:160531" style="textarea" id="chief_complaint"/>
+                <obs conceptId="CIEL:160531" style="textarea" id="chief-complaint"/>
             </p>
         </div>
     </section>
