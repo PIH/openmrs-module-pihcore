@@ -4,22 +4,31 @@ import org.junit.Before;
 import org.openmrs.Patient;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonName;
+import org.openmrs.api.EncounterService;
+import org.openmrs.api.FormService;
 import org.openmrs.api.LocationService;
+import org.openmrs.api.PatientService;
+import org.openmrs.api.VisitService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.metadatamapping.MetadataSource;
+import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
+import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.reporting.common.ReflectionUtil;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -50,21 +59,42 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     protected MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
-    protected LocationService locationService;
-
-    @Autowired
     protected MetadataDeployService deployService;
 
     @Autowired
     protected HaitiAddressBundle haitiAddressBundle;
 
+    @Autowired
+    protected HaitiPatientIdentifierTypeBundle haitiPatientIdentifierTypeBundle;
+
+    @Autowired
+    protected MetadataMappingService metadataMappingService;
+
+    @Autowired
+    protected VisitService visitService;
+
+    @Autowired
+    protected PatientService patientService;
+
+    @Autowired
+    protected EncounterService encounterService;
+
+    @Autowired
+    protected LocationService locationService;
+
+    @Autowired
+    protected FormService formService;
 
     @Before
     public void setup() throws Exception {
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
         deployService.installBundle(encounterTypeBundle);
+        deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(mirebalaisLocationsBundle);
+        createEmrApiMappingSource(metadataMappingService);
+        MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
+        MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, getConfig());
         LocationTagSetup.setupLocationTags(locationService, getConfig());
         haitiAddressBundle.installAddressTemplate();
         haitiAddressBundle.installAddressHierarchyLevels();
@@ -75,6 +105,12 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         d.setCountry(ConfigDescriptor.Country.HAITI);
         d.setSite(ConfigDescriptor.Site.MIREBALAIS);
         return new Config(d);
+    }
+
+    protected void createEmrApiMappingSource(MetadataMappingService metadataMappingService) {
+        MetadataSource source = new MetadataSource();
+        source.setName(EmrApiConstants.EMR_METADATA_SOURCE_NAME);
+        metadataMappingService.saveMetadataSource(source);
     }
 
     protected Patient createPatient() {

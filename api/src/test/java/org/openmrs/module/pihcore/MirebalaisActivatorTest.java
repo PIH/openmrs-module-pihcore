@@ -7,9 +7,12 @@ import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.layout.web.address.AddressSupport;
 import org.openmrs.layout.web.address.AddressTemplate;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
+import org.openmrs.module.metadatamapping.MetadataSource;
+import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -49,6 +52,9 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
     private MetadataDeployService deployService;
 
     @Autowired
+    private MetadataMappingService metadataMappingService;
+
+    @Autowired
     @Qualifier("adminService")
     private AdministrationService adminService;
 
@@ -74,6 +80,7 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
         authenticate();
 
         deployService.installBundle(conceptsFromMetadataSharing);
+        createEmrApiMappingSource(metadataMappingService);
 
         activator = new PihCoreActivator();
         Config config = mock(Config.class);
@@ -82,6 +89,13 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
         activator.setConfig(config);
         activator.started();
     }
+
+    protected void createEmrApiMappingSource(MetadataMappingService metadataMappingService) {
+        MetadataSource source = new MetadataSource();
+        source.setName(EmrApiConstants.EMR_METADATA_SOURCE_NAME);
+        metadataMappingService.saveMetadataSource(source);
+    }
+
 
     @Test
     public void testThatActivatorDoesAllSetupForMirebalais() throws Exception {

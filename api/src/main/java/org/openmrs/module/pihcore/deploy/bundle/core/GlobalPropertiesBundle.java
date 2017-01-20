@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
+import org.openmrs.GlobalProperty;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -10,8 +11,6 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.ReportingConstants;
 import org.openmrs.ui.framework.UiFrameworkConstants;
@@ -78,21 +77,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(UiFrameworkConstants.GP_FORMATTER_DATE_FORMAT, DEFAULT_DATE_FORMAT);
         properties.put(UiFrameworkConstants.GP_FORMATTER_DATETIME_FORMAT, DEFAULT_DATETIME_FORMAT);
 
-        // EMR API
-        properties.put(EmrApiConstants.GP_CLINICIAN_ENCOUNTER_ROLE, EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN);
-        properties.put(EmrApiConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE, EncounterRoleBundle.EncounterRoles.ORDERING_PROVIDER);
-        properties.put(EmrApiConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE, EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK);
-        properties.put(EmrApiConstants.GP_AT_FACILITY_VISIT_TYPE, VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT);
-        properties.put(EmrApiConstants.GP_VISIT_NOTE_ENCOUNTER_TYPE, EncounterTypes.CONSULTATION.uuid());
-        properties.put(EmrApiConstants.GP_CHECK_IN_ENCOUNTER_TYPE, EncounterTypes.CHECK_IN.uuid());
-        properties.put(EmrApiConstants.GP_ADMISSION_ENCOUNTER_TYPE, EncounterTypes.ADMISSION.uuid());
-        properties.put(EmrApiConstants.GP_EXIT_FROM_INPATIENT_ENCOUNTER_TYPE, EncounterTypes.EXIT_FROM_CARE.uuid());
-        properties.put(EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE, EncounterTypes.TRANSFER.uuid());
-        properties.put(EmrApiConstants.GP_UNKNOWN_LOCATION, Locations.UNKNOWN.uuid());
-        properties.put(EmrApiConstants.GP_ADMISSION_FORM, Forms.ADMISSION);
-        properties.put(EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_FORM, Forms.TRANSFER_WITHIN_HOSPITAL);
-        properties.put(EmrApiConstants.GP_EXIT_FROM_INPATIENT_FORM, Forms.EXIT_FROM_INPATIENT);
-
+        // EMR API: most global properties have been moved to metadata mappings, but evidently not this one
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, Concepts.HAITI_DIAGNOSIS_SET_OF_SETS);
         }
@@ -140,5 +125,22 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("allergy.concept.reactions", AllergyConcepts.Concepts.ALLERGY_REACTIONS_SET);
 
         setGlobalProperties(properties);
+
+        // EMR API global properties are now set up via Metadata Mappings
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_UNKNOWN_LOCATION), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_AT_FACILITY_VISIT_TYPE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_CLINICIAN_ENCOUNTER_ROLE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_CHECK_IN_ENCOUNTER_TYPE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_EXIT_FROM_INPATIENT_ENCOUNTER_TYPE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_ADMISSION_ENCOUNTER_TYPE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_VISIT_NOTE_ENCOUNTER_TYPE), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_ADMISSION_FORM), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_FORM), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_EXIT_FROM_INPATIENT_FORM), "replaced by metadata mapping");
+        uninstall(possible(GlobalProperty.class, EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES), "replaced by metadata mapping");
+
     }
 }

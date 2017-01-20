@@ -20,7 +20,6 @@ import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
@@ -43,17 +42,14 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
     @Autowired
     protected MockConcepts mockConcepts;
 
-    @Autowired
-    protected HaitiPatientIdentifierTypeBundle haitiPatientIdentifierTypeBundle;;
-
     @Before
     @Override
     public void setup() throws Exception {
         super.setup();
         Context.setLocale(Locale.ENGLISH);
-        deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(socioEconomicConcepts);
-        deployService.installBundle(mockConcepts);;
+        deployService.installBundle(mockConcepts);
+
     }
 
     protected Encounter createRegistrationEncounter(Patient p) {

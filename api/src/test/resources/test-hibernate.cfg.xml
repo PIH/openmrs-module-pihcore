@@ -24,5 +24,10 @@
 
         <mapping resource="NamePhonetic.hbm.xml" />
 
+        <mapping resource="MetadataSource.hbm.xml" />
+        <mapping resource="MetadataTermMapping.hbm.xml" />
+        <mapping resource="MetadataSet.hbm.xml" />
+        <mapping resource="MetadataSetMember.hbm.xml" />
+
 	</session-factory>
 </hibernate-configuration>

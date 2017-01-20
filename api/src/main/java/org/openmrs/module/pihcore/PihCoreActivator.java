@@ -14,12 +14,16 @@
 package org.openmrs.module.pihcore;
 
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
+import org.openmrs.api.EncounterService;
+import org.openmrs.api.FormService;
 import org.openmrs.api.LocationService;
+import org.openmrs.api.PatientService;
+import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.web.name.NameSupport;
 import org.openmrs.module.BaseModuleActivator;
@@ -30,6 +34,7 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.utils.MetadataUtil;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
@@ -40,10 +45,13 @@ import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
+import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class PihCoreActivator extends BaseModuleActivator {
@@ -58,7 +66,12 @@ public class PihCoreActivator extends BaseModuleActivator {
 	public void started() {
 
         try {
+            MetadataMappingService metadataMappingService = Context.getService(MetadataMappingService.class);
+            PatientService patientService = Context.getPatientService();
+            FormService formService = Context.getFormService();
             LocationService locationService = Context.getLocationService();
+            EncounterService encounterService = Context.getEncounterService();
+            VisitService visitService = Context.getVisitService();
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
 
             if (config == null) {  // hack to allow injecting a mock config for testing
@@ -68,10 +81,14 @@ public class PihCoreActivator extends BaseModuleActivator {
             installMetadataPackages(config);
             installMetadataBundles(config);
             setGlobalProperties(config);
-            setExtraIdentifierTypes(config);
+            setExtraIdentifierTypes(metadataMappingService, patientService, config);
             MergeActionsSetup.registerMergeActions();
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
+            MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
+            MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
+            // TODO: need to figure out how to handle these
+            //MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService, formService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
             PacIntegrationSetup.setup(config);
            // RetireProvidersSetup.setupRetireProvidersTask();
@@ -145,9 +162,15 @@ public class PihCoreActivator extends BaseModuleActivator {
         }
     }
 
-    public void setExtraIdentifierTypes(Config config) {
-        if (config != null && config.getExtraIdentifierTypes() != null) {
-            setGlobalProperty(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, StringUtils.join(config.getExtraIdentifierTypes(), ","));
+    public void setExtraIdentifierTypes(MetadataMappingService metadataMappingService, PatientService patientService, Config config) {
+        if (config != null && config.getExtraIdentifierTypes() != null && config.getExtraIdentifierTypes().size() > 0) {
+
+            List<PatientIdentifierType> extraIdentifierTypes = new ArrayList<PatientIdentifierType>();
+            for (String uuid : config.getExtraIdentifierTypes()) {
+                extraIdentifierTypes.add(patientService.getPatientIdentifierTypeByUuid(uuid));
+            }
+
+            metadataMappingService.mapMetadataItems(extraIdentifierTypes, EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES);
         }
     }
 

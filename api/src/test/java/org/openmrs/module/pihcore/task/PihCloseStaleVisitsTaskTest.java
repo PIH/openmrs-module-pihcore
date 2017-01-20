@@ -10,6 +10,7 @@ import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
+import org.openmrs.api.FormService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
@@ -21,6 +22,10 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.test.ContextSensitiveMetadataTestUtils;
 import org.openmrs.module.emrapi.visit.EmrVisitService;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
+import org.openmrs.module.metadatamapping.MetadataSource;
+import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,15 +49,6 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     private EmrApiProperties emrApiProperties;
 
     @Autowired
-    LocationService locationService;
-
-    @Autowired
-    PatientService patientService;
-
-    @Autowired
-    VisitService visitService;
-
-    @Autowired
     EmrVisitService emrVisitService;
 
     @Autowired
@@ -62,14 +58,45 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     DispositionService dispositionService;
 
     @Autowired
-    EncounterService encounterService;
+    EmrConceptService emrConceptService;
 
     @Autowired
-    EmrConceptService emrConceptService;
+    protected MetadataMappingService metadataMappingService;
+
+    @Autowired
+    protected VisitService visitService;
+
+    @Autowired
+    protected PatientService patientService;
+
+    @Autowired
+    protected EncounterService encounterService;
+
+    @Autowired
+    protected LocationService locationService;
+
+    @Autowired
+    protected FormService formService;
 
     @Before
     public void setUp() throws Exception {
         executeDataSet("closeStaleVisitsTestDataset.xml");
+        createEmrApiMappingSource(metadataMappingService);
+        //MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
+        //MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, getConfig());
+    }
+
+    protected Config getConfig() {
+        ConfigDescriptor d = new ConfigDescriptor();
+        d.setCountry(ConfigDescriptor.Country.HAITI);
+        d.setSite(ConfigDescriptor.Site.MIREBALAIS);
+        return new Config(d);
+    }
+
+    protected void createEmrApiMappingSource(MetadataMappingService metadataMappingService) {
+        MetadataSource source = new MetadataSource();
+        source.setName(EmrApiConstants.EMR_METADATA_SOURCE_NAME);
+        metadataMappingService.saveMetadataSource(source);
     }
 
     @Test
