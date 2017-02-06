@@ -223,10 +223,85 @@
                     });
 
                 });
-
             </script>
         </ifMode>
 
+    </includeIf>
+
+    <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
+    <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
+        <script type="text/javascript">
+
+            // cm to mm converter
+            var cmExitHandler = {
+                handleExit: function (fieldValue) {
+                    if (fieldValue &amp;&amp; fieldValue.value()) {
+                        setValue('muac_mm.value', convertCmToMm(fieldValue.value()));
+                        getField('muac_mm.value').change() // trigger change event so ratio is updated
+                        jq('#muac_cm').val('');
+                    }
+                    return true;
+                }
+            }
+
+            ExitHandlers['cm'] = cmExitHandler;
+
+            var convertCmToMm = function(muacCm) {
+                return (muacCm * 10);
+            }
+
+            var convertMmToCm = function(muacMm) {
+                return (muacMm / 10);
+            }
+
+        </script>
+
+        <!-- ToDo:  Not working -->
+        <!-- Convert muac to cm units on the view/dashboard -->
+        <ifMode mode="VIEW">
+            <script type="text/javascript">
+
+                // handle displaying the muac when in VIEW mode
+                jq(function() {
+
+                    // we have to iterate through in case there are multiple vitals forms
+                    // displayed on a single page
+
+                    jq('htmlform').each(function(index, form) {
+                        jq(form).find('#calculated-muac-continue').hide();
+                        jq(form).find('#no-calculated-muac').hide();
+                        jq(form).find('#calculated-muac-label').show();
+
+                        var muacMm = jq(form).find('#muac_mm').find('.value').text();
+
+                        var muac = convertMmToCm(muacMm);
+
+                        if (muac != null &amp;&amp; !isNaN(muac)) {
+                            getField('muac.value').show();
+                            jq(form).find('#calculated-muac-wrapper').show();
+                            jq(form).find('#calculated-muac-label').hide();
+                            // jq(form).find('#calculated-muac').html(muac.toFixed(1));
+                       }
+                    });
+
+                });
+
+            </script>
+        </ifMode>
+    </includeIf>
+
+    <!-- ToDo:  Not used, yet.  Need to add the calculation jq function for the ratio -->
+    <!-- only show Ratio if patient is less than 3 years old (on the encounterDate) -->
+    <includeIf velocityTest="3 > $patient.getAge($encounter.getEncounterDatetime())">
+        <script type="text/javascript">
+            var calculateRatio = function(muac_cm, hc) {
+                var ratio = null
+                if (muac_cm &amp;&amp; hc) {
+                    ratio = muac_cm / hc;
+                }
+                return ratio ;
+            }
+        </script>
     </includeIf>
 
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
@@ -398,12 +473,72 @@
         <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
             <fieldset>
                 <legend><uimessage code="mirebalais.vitals.muac.navigation.title"/></legend>
-                <h3><uimessage code="mirebalais.vitals.muac.title"/></h3>
+                <h3><uimessage code="mirebalais.vitals.muac.navigation.title"/></h3>
+
+                <ifMode mode="VIEW" include="false">
+                     <p class='left'>
+                        <span class='obs-field'>
+                            <input type="text" id="muac_cm" size="5" min="1" max="60" class="number numeric-range cm"/>
+                            <span class="append-to-value"><uimessage code="emr.units.centimeters"/></span>
+                            <span class="error field-error" style="display: none"></span>
+                        </span>
+                    </p>
+                    <p class="left">
+                        <uimessage code="mirebalais.vitals.or"/>
+                    </p>
+                </ifMode>
 
                 <p>
-                    <obs conceptId="PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)" id="muac" showUnits="emr.units.millimeters" unitsCssClass="append-to-value"/>
+                    <obs conceptId="PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)"
+                         id="muac_mm" showUnits="emr.units.millimeters" unitsCssClass="append-to-value"/>
+                </p>
+
+                <!-- ToDo: Add something for converting the muac from mm to cm on the dashboard
+                <ifMode mode="VIEW">
+                    <span id="calculated-muac-wrapper">
+                        <span id="calculated-muac-label">
+                            <uimessage code="mirebalais.vitals.muac.navigation.title"/>
+                        </span>
+                        <span id='calculated-muac' class="value"></span>
+                    </span>
+                </ifMode>
+                -->
+            </fieldset>
+        </includeIf>
+
+        <!-- only show Head circumference if patient is less than 3 years old (on the encounterDate) -->
+        <includeIf velocityTest="3 > $patient.getAge($encounter.getEncounterDatetime())">
+            <fieldset>
+                <legend><uimessage code="mirebalais.vitals.head.navigation.title"/></legend>
+                <h3><uimessage code="mirebalais.vitals.head.title"/></h3>
+
+                <p>
+                    <obs conceptId="PIH:HEAD CIRCUMFERENCE" id="head" showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
                 </p>
             </fieldset>
+
+            <!-- ToDo:  Add MUAC/head circumference ratio on edit AND view
+                 Complete this untested code
+            <fieldset>
+                <legend><uimessage code="mirebalais.vitals.ratioMuacHC.title"/></legend>
+                <h3><uimessage code="mirebalais.vitals.ratioMuacHC.title"/></h3>
+
+                <span id="no-calculated-ratio">
+                    <uimessage code="mirebalais.vitals.ratioMuacHC.instructions"/>
+                </span>
+                <span id="calculated-ratio-wrapper">
+                    <span id="calculated-ratio-label">
+                        <uimessage code="mirebalais.vitals.ratioMuacHC.display"/>
+                    </span>
+                    <span id='calculated-ratio' class="value"></span>
+                </span>
+
+                <p id="calculated-ratio-continue">
+                    <input type="hidden" name="focus-in-ratio-question" id="hidden-calculated-ratio" />
+                    <uimessage code="mirebalais.vitals.calculatedField.continue"/>
+                </p>
+            </fieldset>
+            -->
         </includeIf>
 
         <includeIf velocityTest="$featureToggles.isFeatureEnabled('chiefComplaint')">
