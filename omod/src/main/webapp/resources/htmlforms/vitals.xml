@@ -230,22 +230,8 @@
 
     <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
     <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
+
         <script type="text/javascript">
-
-            // cm to mm converter
-            var cmExitHandler = {
-                handleExit: function (fieldValue) {
-                    if (fieldValue &amp;&amp; fieldValue.value()) {
-                        setValue('muac_mm.value', convertCmToMm(fieldValue.value()));
-                        getField('muac_mm.value').change() // trigger change event so ratio is updated
-                        jq('#muac_cm').val('');
-                    }
-                    return true;
-                }
-            }
-
-            ExitHandlers['cm'] = cmExitHandler;
-
             var convertCmToMm = function(muacCm) {
                 return (muacCm * 10);
             }
@@ -253,10 +239,48 @@
             var convertMmToCm = function(muacMm) {
                 return (muacMm / 10);
             }
-
         </script>
 
-        <!-- ToDo:  Not working -->
+
+        <ifMode mode="VIEW" include="false">
+            <script type="text/javascript">
+
+                // cm to mm ExitHandler when in edit mode
+
+                var cmExitHandler = {
+                    handleExit: function (fieldValue) {
+                        if (fieldValue &amp;&amp; fieldValue.value()) {
+                            setValue('muac_mm.value', convertCmToMm(fieldValue.value()));
+                            getField('muac_mm.value').change() // trigger change event so ratio is updated
+                        }
+                        return true;
+                    }
+                }
+
+                var mmExitHandler = {
+                    handleExit: function (fieldValue) {
+                        console.log('mm');
+                         if (fieldValue &amp;&amp; fieldValue.value()) {
+                            jq('#muac_cm').val(convertMmToCm(fieldValue.value()));
+                        }
+                        return true;
+                    }
+                }
+
+                ExitHandlers['mm'] = mmExitHandler;
+                ExitHandlers['cm'] = cmExitHandler;
+
+                // set cm field when reloading
+                jq(function() {
+                    var muac_mm = getValue('muac_mm.value');
+                    if (muac_mm) {
+                        jq('#muac_cm').val(convertMmToCm(muac_mm));
+                    }
+                });
+
+            </script>
+        </ifMode>
+
         <!-- Convert muac to cm units on the view/dashboard -->
         <ifMode mode="VIEW">
             <script type="text/javascript">
@@ -268,19 +292,14 @@
                     // displayed on a single page
 
                     jq('htmlform').each(function(index, form) {
-                        jq(form).find('#calculated-muac-continue').hide();
-                        jq(form).find('#no-calculated-muac').hide();
-                        jq(form).find('#calculated-muac-label').show();
 
+                        // display muac in cm, not mm
+                        jq(form).find('#muac_mm').hide();
                         var muacMm = jq(form).find('#muac_mm').find('.value').text();
-
                         var muac = convertMmToCm(muacMm);
 
                         if (muac != null &amp;&amp; !isNaN(muac)) {
-                            getField('muac.value').show();
-                            jq(form).find('#calculated-muac-wrapper').show();
-                            jq(form).find('#calculated-muac-label').hide();
-                            // jq(form).find('#calculated-muac').html(muac.toFixed(1));
+                            jq(form).find('#muac_cm_display').text(muac);
                        }
                     });
 
@@ -290,8 +309,7 @@
         </ifMode>
     </includeIf>
 
-    <!-- ToDo:  Not used, yet.  Need to add the calculation jq function for the ratio -->
-    <!-- only show Ratio if patient is less than 3 years old (on the encounterDate) -->
+    <!-- only show muac to head ratio if patient is less than 3 years old (on the encounterDate) -->
     <includeIf velocityTest="3 > $patient.getAge($encounter.getEncounterDatetime())">
         <script type="text/javascript">
             var calculateRatio = function(muac, hc) {
@@ -533,10 +551,11 @@
 
         <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
         <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
-            <fieldset>
+            <fieldset field-separator=" or ">
                 <legend><uimessage code="mirebalais.vitals.muac.navigation.title"/></legend>
                 <h3><uimessage code="mirebalais.vitals.muac.navigation.title"/></h3>
 
+                <!-- add cm field for conversion if in edit mode -->
                 <ifMode mode="VIEW" include="false">
                      <p class='left'>
                         <span class='obs-field'>
@@ -550,21 +569,22 @@
                     </p>
                 </ifMode>
 
-                <p>
+                <!-- this will be manually hidden in view mode (we need it to be rendered because we need to pluck the mm measurement from it -->
+                <p class="mm">
                     <obs conceptId="PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)"
                          id="muac_mm" showUnits="emr.units.millimeters" unitsCssClass="append-to-value"/>
                 </p>
 
-                <!-- ToDo: Add something for converting the muac from mm to cm on the dashboard
+                <!-- add cm for view if in view mode -->
                 <ifMode mode="VIEW">
-                    <span id="calculated-muac-wrapper">
-                        <span id="calculated-muac-label">
-                            <uimessage code="mirebalais.vitals.muac.navigation.title"/>
+                    <p>
+                        <span class='obs-field'>
+                            <span id="muac_cm_display"/>
+                            <span class="append-to-value"><uimessage code="emr.units.centimeters"/></span>
                         </span>
-                        <span id='calculated-muac' class="value"></span>
-                    </span>
+                    </p>
                 </ifMode>
-                -->
+
             </fieldset>
         </includeIf>
 
@@ -579,8 +599,6 @@
                 </p>
             </fieldset>
 
-            <!-- ToDo:  Add MUAC/head circumference ratio on edit AND view
-                 Complete this untested code -->
             <fieldset>
                 <legend><uimessage code="mirebalais.vitals.ratioMuacHC.title"/></legend>
                 <h3><uimessage code="mirebalais.vitals.ratioMuacHC.title"/></h3>
