@@ -284,6 +284,42 @@ angular.module('constants', [])
         },
         chiefComplaint: {
             uuid: "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        procedureOrdered: {
+            uuid: "d6d585b6-4887-4aac-8361-424c17b030f2"
+        },
+        procedureOrderedNonCoded: {
+            uuid: "823242df-e317-4426-9bd6-548146546b15"
+        },
+        procedurePerformed: {
+            uuid: "d2a8e2d1-88f9-45f9-9511-4ac5df877340"
+        },
+        procedurePerformedNonCoded: {
+            uuid: "2ccfa5d8-b2a0-4ff0-9d87-c2471ef069f4"
+        },
+        postPathologyDiagnosisConstruct: {
+            uuid: "2da3ec67-62aa-4be8-a32c-cb32723742c8"
+        },
+        specimenOneComment: {
+            uuid: "7d557ddc-eca3-421e-98ae-5469a1ecba4d"
+        },
+        specimenTwoComment: {
+            uuid: "a6f54c87-a6aa-4312-bbc9-1346842a7f3f"
+        },
+        specimenThreeComment: {
+            uuid: "873d2496-4576-4948-80c3-e36913d2a9a7"
+        },
+        specimenFourComment: {
+            uuid: "96010c0d-0328-4d5f-a4e4-b8bb391a3882"
+        },
+        specimenResultsComment: {
+            uuid: "65a4cc8e-c27a-42d5-b9bf-e13674970d2a"
+        },
+        urgentReview: {
+            uuid: "9e4b6acc-ab97-4ecd-a48c-b3d67e5ef778"
+        },
+        testResultsDate: {
+            uuid: "68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0"
         }
     })
     .value('PrimaryCareExamConcepts', {
@@ -396,12 +432,21 @@ angular.module('constants', [])
         },
         edTriage: {
             uuid: "74cef0a6-2801-11e6-b67b-9e71128cae77"
+        },
+        testOrder: {
+            uuid: "b3a0e3ad-b80c-4f3f-9626-ace1ced7e2dd"
+        },
+        specimenCollection: {
+            uuid: "10db3139-07c0-4766-b4e5-a41b01363145"
         }
 
     })
     .value('EncounterRoles', {
         attendingSurgeon: {
             uuid: "9b135b19-7ebe-4a51-aea2-69a53f9383af"
+        },
+        assistingSurgeon: {
+            uuid: "6e630e03-5182-4cb3-9a82-a5b1a85c09a7"
         },
         consultingClinician: {
             uuid: "4f10ad1a-ec49-48df-98c7-1391c6ac7f05"

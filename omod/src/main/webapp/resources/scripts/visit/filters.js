@@ -21,6 +21,20 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("byConcepts", [function() {
+        return function(listOfObs, listOfConcepts, justOne) {
+            var f = justOne ? _.find : _.filter;
+            return f(listOfObs, function(candidate) {
+                if (!candidate.concept) {
+                    return false; // too small a representation to determine
+                }
+                return _.some(listOfConcepts, function(concept) {
+                    return candidate.concept.uuid === concept.uuid;
+                })
+            });
+        }
+    }])
+
     // given an obs group, returns the group member that matches the passed-in concept
     .filter("valueGroupMember", [function() {
         return function(obs, concept) {

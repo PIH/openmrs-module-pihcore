@@ -389,5 +389,19 @@ angular.module("encounterTypeConfig", ["constants"])
             viewUrl: "edtriageapp/edtriageEditPatient.page?editable=false&patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        encounterTypeConfig[EncounterTypes.testOrder.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/testOrderLong.page",
+            icon: "icon-beaker"
+        };
+
+        encounterTypeConfig[EncounterTypes.specimenCollection.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/specimenCollectionLong.page",
+            icon: "icon-beaker"
+        };
+
         return encounterTypeConfig;
     }]);

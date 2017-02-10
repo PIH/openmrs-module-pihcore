@@ -62,8 +62,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
-    .directive("encounter", [ "Encounter", "Concepts", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce",
-        function(Encounter, Concepts, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce) {
+    .directive("encounter", [ "Encounter", "Concepts", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce",
+        function(Encounter, Concepts, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce) {
             return {
                 restrict: "E",
                 scope: {
@@ -79,6 +79,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                     $scope.DatetimeFormats = DatetimeFormats;
                     $scope.Concepts = Concepts;
+                    $scope.EncounterRoles = EncounterRoles;
                     $scope.session = SessionInfo.get();
                     $scope.encounterState = $scope.selected ? "long" : (config ? config.defaultState : "short");
                     $scope.template = config ? config[$scope.encounterState + "Template"] :
