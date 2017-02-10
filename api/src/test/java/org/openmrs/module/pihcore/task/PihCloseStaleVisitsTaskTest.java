@@ -22,11 +22,16 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.test.ContextSensitiveMetadataTestUtils;
 import org.openmrs.module.emrapi.visit.EmrVisitService;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
+import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -78,12 +83,26 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     @Autowired
     protected FormService formService;
 
+    @Autowired
+    private MetadataDeployService deployService;
+
+    @Autowired
+    private EncounterTypeBundle encounterTypeBundle;
+
+    @Autowired
+    private EncounterRoleBundle encounterRoleBundle;
+
+    @Autowired
+    private VisitTypeBundle visitTypeBundle;
+
     @Before
     public void setUp() throws Exception {
         executeDataSet("closeStaleVisitsTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);
-        //MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
-        //MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, getConfig());
+        deployService.installBundle(encounterTypeBundle);
+        deployService.installBundle(encounterRoleBundle);
+        deployService.installBundle(visitTypeBundle);
+        MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
     }
 
     protected Config getConfig() {
@@ -274,7 +293,6 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
-
 
     }
 

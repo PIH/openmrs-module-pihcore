@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.setup;
 
+import org.openmrs.Form;
 import org.openmrs.api.EncounterService;
-import org.openmrs.api.FormService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
@@ -40,7 +40,7 @@ public class MetadataMappingsSetup {
 
         metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CLINICIAN_ENCOUNTER_ROLE);
         metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.ORDERING_PROVIDER), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE);
-        metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CHECK_IN_ENCOUNTER_TYPE);
+        metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE);
 
         metadataMappingService.mapMetadataItem(visitService.getVisitTypeByUuid(VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_AT_FACILITY_VISIT_TYPE);
 
@@ -58,13 +58,10 @@ public class MetadataMappingsSetup {
         }
     }
 
-    public static void setupFormMetadataMappings(MetadataMappingService metadataMappingService,
-                                                   FormService formService) {
-
-        metadataMappingService.mapMetadataItem(formService.getFormByUuid(Forms.ADMISSION), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_ADMISSION_FORM);
-        metadataMappingService.mapMetadataItem(formService.getFormByUuid(Forms.TRANSFER_WITHIN_HOSPITAL), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE);
-        metadataMappingService.mapMetadataItem(formService.getFormByUuid(Forms.EXIT_FROM_INPATIENT), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_EXIT_FROM_INPATIENT_FORM);
-
+    public static void setupFormMetadataMappings(MetadataMappingService metadataMappingService) {
+        metadataMappingService.mapMetadataItem(Forms.ADMISSION, Form.class.getCanonicalName(), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_ADMISSION_FORM);
+        metadataMappingService.mapMetadataItem(Forms.TRANSFER_WITHIN_HOSPITAL, Form.class.getCanonicalName(), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE);
+        metadataMappingService.mapMetadataItem(Forms.EXIT_FROM_INPATIENT, Form.class.getCanonicalName(), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_EXIT_FROM_INPATIENT_FORM);
     }
 
 }

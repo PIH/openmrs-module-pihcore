@@ -87,8 +87,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
             MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
             MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
-            // TODO: need to figure out how to handle these
-            //MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService, formService);
+            MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
             PacIntegrationSetup.setup(config);
            // RetireProvidersSetup.setupRetireProvidersTask();
