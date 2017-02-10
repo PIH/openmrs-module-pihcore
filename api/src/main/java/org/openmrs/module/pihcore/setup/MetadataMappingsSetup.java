@@ -60,7 +60,7 @@ public class MetadataMappingsSetup {
 
     public static void setupFormMetadataMappings(MetadataMappingService metadataMappingService) {
         metadataMappingService.mapMetadataItem(Forms.ADMISSION, Form.class.getCanonicalName(), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_ADMISSION_FORM);
-        metadataMappingService.mapMetadataItem(Forms.TRANSFER_WITHIN_HOSPITAL, Form.class.getCanonicalName(), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE);
+        metadataMappingService.mapMetadataItem(Forms.TRANSFER_WITHIN_HOSPITAL, Form.class.getCanonicalName(), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_FORM);
         metadataMappingService.mapMetadataItem(Forms.EXIT_FROM_INPATIENT, Form.class.getCanonicalName(), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_EXIT_FROM_INPATIENT_FORM);
     }
 
