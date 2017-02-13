@@ -555,6 +555,16 @@
                 <legend><uimessage code="mirebalais.vitals.muac.navigation.title"/></legend>
                 <h3><uimessage code="mirebalais.vitals.muac.navigation.title"/></h3>
 
+                <!-- add cm for view if in view mode -->
+                <ifMode mode="VIEW">
+                    <p>
+                        <span class='obs-field'>
+                            <span id="muac_cm_display" class="value"/>
+                            <span class="append-to-value"><uimessage code="emr.units.centimeters"/></span>
+                        </span>
+                    </p>
+                </ifMode>
+
                 <!-- add cm field for conversion if in edit mode -->
                 <ifMode mode="VIEW" include="false">
                      <p class='left'>
@@ -574,16 +584,6 @@
                     <obs conceptId="PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)"
                          id="muac_mm" showUnits="emr.units.millimeters" unitsCssClass="append-to-value"/>
                 </p>
-
-                <!-- add cm for view if in view mode -->
-                <ifMode mode="VIEW">
-                    <p>
-                        <span class='obs-field'>
-                            <span id="muac_cm_display"/>
-                            <span class="append-to-value"><uimessage code="emr.units.centimeters"/></span>
-                        </span>
-                    </p>
-                </ifMode>
 
             </fieldset>
         </includeIf>
