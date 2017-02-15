@@ -169,7 +169,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 chiefComplaint,
                 vaccinations,
                 supplements,
-                allergies,
+                //allergies,
                 primaryCareHistory,
                 feeding,
                 primaryCareExam,
@@ -189,7 +189,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 chiefComplaint,
                 vaccinations,
                 supplements,
-                allergies,
+                //allergies,
                 feeding,
                 primaryCareExam,
                 primaryCareDx,
@@ -206,7 +206,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 chiefComplaint,
-                allergies,
+                //allergies,
                 primaryCareHistory,
                 primaryCareExam,
                 primaryCareDx,
@@ -223,7 +223,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 chiefComplaint,
-                allergies,
+                //allergies,
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan
