@@ -70,15 +70,8 @@
             var $j = jQuery;
 
             $j(function() {
-                jq('#medication-1').show();
 
-                jq('#show-more-medications').click(function() {
-                    jq('.medication').show();
-                    jq('#show-more-medications').hide();
-                    jq('#show-less-medications').show();
-                });
-
-                jq('#show-less-medications').click(function() {
+                var hideOtherMeds = function() {
                     jq('#medication-2').hide();
                     jq('#medication-3').hide();
                     jq('#medication-4').hide();
@@ -86,9 +79,23 @@
                     jq('#medication-6').hide();
                     jq('#medication-7').hide();
                     jq('#medication-8').hide();
-                    jq('#show-less-medications').hide();
-                    jq('#show-more-medications').show();
+                }
+
+                hideOtherMeds();
+                jq('#show-more-medications-button').show();
+
+                jq('#show-more-medications-button').click(function() {
+                    jq('.medication').show();
+                    jq('#show-more-medications-button').hide();
+                    jq('#show-less-medications-button').show();
                 });
+
+                jq('#show-less-medications-button').click(function() {
+                    hideOtherMeds();
+                    jq('#show-less-medications-button').hide();
+                    jq('#show-more-medications-button').show();
+                });
+
             })
 
 
@@ -167,7 +174,7 @@
     <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.visitNote.orders.medications">
         <div class="section-container-color">
             <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
-                <span id="medication-{0}" class="medication" style="display:none;">
+                <span id="medication-{0}" class="medication">
                     <obsgroup groupingConceptId="PIH:Prescription construct" showIfEmpty="false">
                         <h3>
                             <uimessage code="pihcore.visitNote.plan.medication"/>
@@ -222,8 +229,8 @@
                     </obsgroup>
                 </span>
             </repeat>
-            <button id="show-more-medications" type="button"><uimessage code="pihcore.showMore"/></button>
-            <button id="show-less-medications" type="button" style="display:none"><uimessage code="pihcore.showLess"/></button>
+            <button id="show-more-medications-button" type="button" style="display:none"><uimessage code="pihcore.showMore"/></button>
+            <button id="show-less-medications-button" type="button" style="display:none"><uimessage code="pihcore.showLess"/></button>
         </div>
 
     </section>
