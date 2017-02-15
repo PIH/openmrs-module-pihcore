@@ -48,8 +48,7 @@
         { label: "${ui.message("pihcore.visitNote.Visit")}" }
     ];
 
-    // we use .slice to make a copy of this array; at times we make change "breadcrumbs", but can then copy "breadcrumbsOverview" back in to reset to original value (see visit.js)
-    var breadcrumbs = breadcrumbsOverview.slice();
+    var breadcrumbs = breadcrumbsOverview;
 
     var breadcrumbOverride = [
         { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },

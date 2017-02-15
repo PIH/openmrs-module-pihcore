@@ -12,7 +12,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 templateUrl: "templates/overview.page",
                 onEnter: function () {
                     // each time we enter the "overview" state we "reset" the breadcrumbs to their original value (using .slice() to copy by value)
-                    breadcrumbs = breadcrumbsOverview.slice();
+                    breadcrumbs = breadcrumbsOverview;
                     emr.updateBreadcrumbs();
                 }
             })
@@ -539,10 +539,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
                         }
                         else {
-                            // if we don't find an editurl, just open the page, passing in the id of the next section (right now, used only for vaccinations)
+                            // if we don't find an editurl, just open the page, passing in the id of the next section
                             if (i + 1 < sections.length) {
-                                // hack: temporarily set the breadcrumb to point to the visit note page instead of the clinician dashboard when in this state; moving to "overview" state will reset
-                                breadcrumbs[1].link = window.location.pathname + "?visit=" + visitUuid + "&encounter=" + encounterUuid;
                                 loadPage(sections[i + 1].id);
                             }
                             else {
