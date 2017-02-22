@@ -256,7 +256,8 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-retweet",
-            editUrl: hfeStandardEditUrl
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true
         };
 
         encounterTypeConfig[EncounterTypes.medicationDispensed.uuid] = {
