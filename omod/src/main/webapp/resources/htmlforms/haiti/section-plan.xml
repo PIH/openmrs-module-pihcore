@@ -88,7 +88,7 @@
 
                     if (!medication &amp;&amp; (dose || doseUnits || frequency || duration || durationUnits || instructions)) {
                         valid = false;
-                        jq(this).find('.field-error').first().append("<uimessage code="pihcore.visitNote.plan.medications.error.noMedication"/> ").show();
+                        jq(this).find('.field-error').first().append("<uimessage code="pihcore.visitNote.plan.medications.error.noMedication"/>. ").show();
                     }
 
                     if (dose &amp;&amp; !doseUnits) {
