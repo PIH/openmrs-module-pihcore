@@ -304,13 +304,22 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     });
                 }
 
-                $scope.canEdit= function() {
+                $scope.canEdit= function(sequence, vaccination) {
+                    var encounter = new OpenMRS.EncounterModel($scope.encounter);
                     var currentUser = new OpenMRS.UserModel($scope.session.user);
-                    return currentUser.hasPrivilege('Task: emr.enterConsultNote');
+                    return (encounter.canBeEditedBy(currentUser)
+                        || encounter.participatedIn($scope.session.currentProvider)
+                        || encounter.createdBy(currentUser));
                 }
 
-                $scope.canDelete = function() {
-                   return $scope.canEdit();
+                $scope.canDelete = function(sequence, vaccination) {
+                    var existingDose = $scope.existingDose(sequence, vaccination);
+                    var encounter = new OpenMRS.EncounterModel($scope.encounter);
+                    var currentUser = new OpenMRS.UserModel($scope.session.user);
+                    return existingDose && existingDose.encounter.uuid == encounter.uuid &&  // only allow deleting a vaccination in the context of the visit where it was created
+                        (encounter.canBeDeletedBy(currentUser)
+                        || encounter.participatedIn($scope.session.currentProvider)
+                        || encounter.createdBy(currentUser));
                 }
 
                 if ($scope.expandOnLoad) {
