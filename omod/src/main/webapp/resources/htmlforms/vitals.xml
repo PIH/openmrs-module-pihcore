@@ -621,17 +621,14 @@
 
         </includeIf>
 
-        <includeIf velocityTest="$featureToggles.isFeatureEnabled('chiefComplaint')">
-            <fieldset>
-                <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
-                <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
+        <fieldset>
+            <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
+            <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
 
-                <p>
-                    <obs conceptId="CIEL:160531" id="chief_complaint"/>
-                </p>
-            </fieldset>
-        </includeIf>
-
+            <p>
+                <obs conceptId="CIEL:160531" id="chief_complaint"/>
+            </p>
+        </fieldset>
 
     </section>
 
