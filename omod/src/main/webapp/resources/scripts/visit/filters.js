@@ -483,6 +483,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
                     var result = (function(expr) {
                         var sessionLocation = SessionInfo.get().sessionLocation;
                         var user = new OpenMRS.UserModel(SessionInfo.get().user);
+                        var patient = visit ? visit.patient : null;
                         return eval(expr);
                     })(it.require);
                     if (!result) {
