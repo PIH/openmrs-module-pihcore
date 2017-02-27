@@ -226,7 +226,7 @@
                     <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:Chest 1 view (XRay)" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:OTHER" style="checkbox" showComments="true"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:OTHER" style="checkbox" showCommentField="true" commentFieldLabel="" />
                 </p>
             </div>
         </div>
