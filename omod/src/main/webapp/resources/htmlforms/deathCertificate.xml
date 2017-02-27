@@ -360,8 +360,8 @@
                 demogConfirm += '<lookup expression="patient.personName.givenName"/>, ';
                 demogConfirm += '<lookup expression="patient.gender"/>, ';
                 demogConfirm += '<lookup complexExpression="#if( $patient.birthdateEstimated )~#end"/>';
-                demogConfirm += '<lookup expression="patient.birthdate"/> &lt;br/&gt;';
-                demogConfirm += '<lookup complexExpression="#foreach( $addr in $patient.addresses ) $ui.format($addr).replaceAll('\n', ', ') &lt;br/&gt;#end"/>';
+                demogConfirm += '<lookup expression="patient.birthdate"/>,';
+                demogConfirm += '<lookup complexExpression="#foreach( $addr in $patient.addresses ) $ui.format($addr).replaceAll('\n', ', ')#end"/>';
                 $('#hidden-demog').val(demogConfirm);
             });
         </script>
