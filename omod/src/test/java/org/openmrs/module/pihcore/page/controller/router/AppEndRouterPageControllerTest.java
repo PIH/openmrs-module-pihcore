@@ -48,7 +48,7 @@ public class AppEndRouterPageControllerTest {
         Patient patient = new Patient(1);
         when(session.getAttribute(PihCoreConstants.CURRENT_APP_SESSION_VARIABLE)).thenReturn("");
         Redirect redirect = new AppEndRouterPageController().controller(request, appFrameworkService, patient);
-        assertThat(redirect.getUrl(), is("registrationapp/registrationSummary.page?patientId=1"));
+        assertThat(redirect.getUrl(), is("registrationapp/registrationSummary.page?patientId=1&appId=registrationapp.registerPatient"));
     }
 
 }

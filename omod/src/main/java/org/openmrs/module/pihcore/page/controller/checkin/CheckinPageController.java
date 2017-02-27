@@ -53,7 +53,7 @@ public class CheckinPageController {
 
         // if there is no active visit, redirect directly to the form
         if (activeVisit == null) {
-            return new Redirect("/registrationapp/registrationSummary.page?patientId=" + patient.getId() +
+            return new Redirect("/registrationapp/registrationSummary.page?patientId=" + patient.getId() + "&appId=registrationapp.registerPatient" +
                     "&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=mirebalais.liveCheckin&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label");
         }
         // prompt the user to see if they want close the existing visit

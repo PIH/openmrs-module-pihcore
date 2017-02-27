@@ -25,7 +25,7 @@ public class AppEndRouterPageController {
         }
 
         // TODO HACK--since we are only using this for the check-in use case righ now, by default we redirect back to registration summary page
-        return new Redirect("registrationapp", "registrationSummary", "patientId=" + patient.getId());
+        return new Redirect("registrationapp", "registrationSummary", "patientId=" + patient.getId() + "&appId=registrationapp.registerPatient");
     }
 
     private String getCurrentApp(HttpServletRequest request) {
