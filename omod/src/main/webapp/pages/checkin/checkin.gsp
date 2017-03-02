@@ -43,6 +43,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 page: "registrationSummary",
                 query: {
                     patientId: "${ patient.id }",
+                    appId: "registrationapp.registerPatient",
                     breadcrumbOverrideProvider: "coreapps",
                     breadcrumbOverridePage: "findpatient%2FfindPatient",
                     breadcrumbOverrideApp: "mirebalais.liveCheckin",
