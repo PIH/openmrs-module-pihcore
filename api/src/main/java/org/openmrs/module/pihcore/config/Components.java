@@ -20,6 +20,7 @@ public class Components {
         public static final String MENTAL_HEALTH = "mentalHealth";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
+        public static final String MONITORING_REPORTS = "monitoringReports";
         public static final String DATA_EXPORTS = "dataExports";  // enabled the data export section
         public static final String ALL_DATA_EXPORTS = "allDataExports"; // show all data exports, regardless of what components are actually enabled (used by Mirebalais reporting server)
         public static final String ARCHIVES = "archives";
