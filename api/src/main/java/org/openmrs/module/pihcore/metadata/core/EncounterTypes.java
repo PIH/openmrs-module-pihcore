@@ -168,11 +168,17 @@ public class EncounterTypes {
 		public String description() { return "The official record of a patient's death. A patient may be dead without having one of these encounters, but no living patient should have an encounter with this type"; }
 	};
 
-    public static EncounterTypeDescriptor NCD_CONSULT = new EncounterTypeDescriptor() {
+    public static EncounterTypeDescriptor NCD_ADULT_INITIAL_CONSULT = new EncounterTypeDescriptor() {
         public String uuid() { return "ae06d311-1866-455b-8a64-126a9bd74171"; }
-        public String name() { return "NCD Consult"; }
-        public String description() { return "Non-communicable disease visit"; }
+        public String name() { return "NCD Adult Initial Consult"; }
+        public String description() { return "Non-communicable disease initial consult for adults"; }
     };
+
+	public static EncounterTypeDescriptor NCD_ADULT_FOLLOWUP_CONSULT = new EncounterTypeDescriptor() {
+		public String uuid() { return "5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c"; }
+		public String name() { return "NCD Adult Followup Consult"; }
+		public String description() { return "Non-communicable disease followup consult for adults"; }
+	};
 
 	public static EncounterTypeDescriptor MENTAL_HEALTH_ASSESSMENT = new EncounterTypeDescriptor() {
 		public String uuid() { return "a8584ab8-cc2a-11e5-9956-625662870761"; }

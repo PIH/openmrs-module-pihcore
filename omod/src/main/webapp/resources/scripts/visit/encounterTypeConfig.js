@@ -113,6 +113,39 @@ angular.module("encounterTypeConfig", ["constants"])
 
         };
 
+        var ncdInitial = {
+            type: "encounter-section",
+            id: "pihcore-ncd-initial",
+            label: "pihcore.visitNote.ncdInitial",
+            icon: "icon-heart",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-intial.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-initial.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        }
+
+        var ncdFollowup = {
+            type: "encounter-section",
+            id: "pihcore-ncd-followup",
+            label: "pihcore.visitNote.ncdFollowup",
+            icon: "icon-heart",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-followup.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-followup.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        }
+
+        var vitalsSection = {
+            type: "encounter-section",
+            id: "pihcore-vitals-section",
+            label: "mirebalais.vitals.title",
+            icon: "icon-vitals",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+//            shortTemplate: "templates/encounters/old/vitalsShort.page",  // TODO why are we using an old template here???
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+
+        }
 
         /* Define Encounter Types */
         var encounterTypeConfig = {
@@ -229,6 +262,43 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCarePlan
             ]
         };
+
+        encounterTypeConfig[EncounterTypes.ncdInitialConsult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
+            icon: "icon-heart",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                vitalsSection,
+                allergies,
+                primaryCareHistory,
+                primaryCareExam,
+                primaryCareDx,
+                primaryCarePlan,
+                ncdInitial
+            ]
+        }
+
+        encounterTypeConfig[EncounterTypes.ncdFollowupConsult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
+            icon: "icon-heart",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                vitalsSection,
+                allergies,
+                primaryCareHistory,
+                primaryCareExam,
+                primaryCareDx,
+                primaryCarePlan,
+                ncdInitial
+            ]
+        };
+
 
         encounterTypeConfig[EncounterTypes.oncologyConsult.uuid] = {
             defaultState: "short",
@@ -349,16 +419,6 @@ angular.module("encounterTypeConfig", ["constants"])
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-remove-circle",
             editUrl: hfeStandardEditUrl
-        };
-
-        encounterTypeConfig[EncounterTypes.ncdConsult.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-heart",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true
         };
 
         // because of a bug, we manually append the defintionUiResource to the template and edit urls

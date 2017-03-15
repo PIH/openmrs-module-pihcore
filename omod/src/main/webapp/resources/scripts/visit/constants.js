@@ -424,8 +424,11 @@ angular.module('constants', [])
         deathCertificate: {
             uuid: "1545d7ff-60f1-485e-9c95-5740b8e6634b"
         },
-        ncdConsult: {
+        ncdInitialConsult: {
             uuid: "ae06d311-1866-455b-8a64-126a9bd74171"
+        },
+        ncdFollowupConsult: {
+            uuid: "5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c"
         },
         mentalHealth: {
             uuid: "a8584ab8-cc2a-11e5-9956-625662870761"

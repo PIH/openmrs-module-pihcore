@@ -126,11 +126,11 @@
 
     <script type="text/javascript">
         var calculateWaistHipRatio = function(waist, hip) {
-            var waistHipRatio = null;
-            if (waist &amp;&amp; hip) {
-                waistHipRatio = waist / hip;
-            }
-            return waistHipRatio;
+        var waistHipRatio = null;
+        if (waist &amp;&amp; hip) {
+        waistHipRatio = waist / hip;
+        }
+        return waistHipRatio;
         }
     </script>
 
@@ -138,26 +138,26 @@
         <script type="text/javascript">
 
             jq(function() {
-                // functions to handle updating the waist/hip ratio when in ENTER mode
-                var updateWaistHipRatio = function() {
+            // functions to handle updating the waist/hip ratio when in ENTER mode
+            var updateWaistHipRatio = function() {
 
-                    var waist = htmlForm.getValueIfLegal('waist_cm.value');
-                    var hip = htmlForm.getValueIfLegal('hip_cm.value');
+            var waist = htmlForm.getValueIfLegal('waist_cm.value');
+            var hip = htmlForm.getValueIfLegal('hip_cm.value');
 
-                    var waistHipRatio = calculateWaistHipRatio(waist, hip);
+            var waistHipRatio = calculateWaistHipRatio(waist, hip);
 
-                    if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
-                        jq('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
-                    }
-                    else {
-                        jq('#calculated-waist-hip-ratio').html("");
-                    }
-                };
+            if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
+            jq('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
+            }
+            else {
+            jq('#calculated-waist-hip-ratio').html("");
+            }
+            };
 
-                getField('waist_cm.value').change(updateWaistHipRatio);
-                getField('hip_cm.value').change(updateWaistHipRatio);
+            getField('waist_cm.value').change(updateWaistHipRatio);
+            getField('hip_cm.value').change(updateWaistHipRatio);
 
-                updateWaistHipRatio();
+            updateWaistHipRatio();
             });
 
         </script>
@@ -171,19 +171,19 @@
             // handle displaying the waist/hip ratio when in VIEW mode
             jq(function() {
 
-                // we have to iterate through in case there are multiple NCD forms
-                // displayed on a single page
+            // we have to iterate through in case there are multiple NCD forms
+            // displayed on a single page
 
-                jq('htmlform').each(function(index, form) {
-                    var waist = jq(form).find('#waist_cm').find('.value').text();
-                    var hip = jq(form).find('#hip_cm').find('.value').text();
+            jq('htmlform').each(function(index, form) {
+            var waist = jq(form).find('#waist_cm').find('.value').text();
+            var hip = jq(form).find('#hip_cm').find('.value').text();
 
-                    var waistHipRatio = calculateWaistHipRatio(waist, hip);
+            var waistHipRatio = calculateWaistHipRatio(waist, hip);
 
-                    if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
-                        jq(form).find('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
-                    }
-                });
+            if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
+            jq(form).find('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
+            }
+            });
             });
 
         </script>
@@ -200,192 +200,6 @@
             <lookup complexExpression="$formGeneratedDatetime"/>
         </p>
     </div>
-
-    <ifMode mode="VIEW" include="false">
-        <h2>
-            <label>
-                <uimessage code="pihcore.ncd.title"/>
-            </label>
-        </h2>
-
-        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
-        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
-            <div id="who-when-where">
-                <p id="who">
-                    <label>
-                        <uimessage code="emr.patientDashBoard.providerRequired"/>
-                    </label>
-                    <span>
-                        <encounterProviderAndRole default="currentUser"
-                                                  encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-                    </span>
-                </p>
-                <p id="where">
-                    <label>
-                        <uimessage code="emr.locationRequired"/>
-                    </label>
-                    <span>
-                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
-                                           tags="Consult Note Location"/>
-                    </span>
-                </p>
-                <p id="when">
-                    <label>
-                        <uimessage code="emr.patientDashBoard.date"/>
-                    </label>
-                    <span>
-                        <encounterDate id="encounterDate" default="now"/>
-                    </span>
-                </p>
-            </div>
-        </includeIf>
-        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
-        <includeIf
-                velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
-            <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
-                                          required="true"/>
-            </div>
-
-            <div id="who-when-where">
-                <p id="who">
-                    <label>
-                        <uimessage code="emr.patientDashBoard.provider"/>
-                    </label>
-                    <span>
-                        <lookup expression="user.person.personName"/>
-                    </span>
-                </p>
-                <p id="where">
-                    <label>
-                        <uimessage code="emr.locationRequired"/>
-                    </label>
-                    <span>
-                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
-                                           tags="Consult Note Location"/>
-                    </span>
-                </p>
-                <p id="when">
-                    <label>
-                        <uimessage code="emr.patientDashBoard.date"/>
-                    </label>
-                    <span>
-                        <encounterDate id="encounterDate" default="now"/>
-                    </span>
-                </p>
-            </div>
-
-        </includeIf>
-        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
-        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
-            <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
-                                          required="true"/>
-                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-                <encounterDate id="encounterDate" default="now"/>
-            </div>
-            <div id="who-when-where">
-                <table id="who-where-when-view">
-                    <tr>
-                        <td>
-                            <label>
-                                <uimessage code="emr.patientDashBoard.provider"/>
-                            </label>
-                            <span>
-                                <lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/>
-                            </span>
-                        </td>
-                        <td>
-                            <label>
-                                <uimessage code="emr.location"/>
-                            </label>
-                            <span>
-                                <lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/>
-                            </span>
-                        </td>
-                        <td>
-                            <label>
-                                <uimessage code="emr.patientDashBoard.date"/>
-                            </label>
-                            <span>
-                                <lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </includeIf>
-    </ifMode>
-
-    <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
-        <div class="section-container">
-            <!-- ToDo: The next 4 questions should only be included on the initial visit -->
-            <label>
-                <uimessage code="pihcore.ncd.referral"/>
-            </label>
-            <obs conceptId="PIH:Type of referring service"
-                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
-            <br/>
-
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.info.aware"/>
-                    <br/>
-                </label>
-                <obs conceptId="PIH:Known chronic disease before referral" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     answerSeparator=""/>
-            </p>
-
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.info.prior_treatment"/>
-                    <br/>
-                </label>
-                <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
-                     answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
-                     answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
-                     answerSeparator=""/>
-            </p>
-
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.info.controlled"/>
-                    <br/>
-                </label>
-                <obs conceptId="PIH:Chronic disease controlled during initial visit" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     answerSeparator=""/>
-            </p>
-
-            <!-- This should be included during initial and followup visits -->
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.past_category"/>:
-                </label>
-                <!-- ToDo:  Add the previous diagnosis categories
-                <lookup complexExpression="#foreach($category in $fn.allObs('PIH:NCD category')) $!category.valueCoded.name &lt;br/&gt;#end"/>
-                -->
-            </p>
-
-            <label>
-                <uimessage code="pihcore.ncd.category"/>
-                <uimessage code="pihcore.ncd.category.instructions"/>
-            </label>
-
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION" />
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE" style="checkbox" toggle="heart_failure"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident" answerLabel="Stroke"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Chronic respiratory disease program"
-                 answerLabel="Respiratory" style="checkbox" toggle="respire"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Rehab program" answerLabel="Rehab (not stroke)"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Sickle-Cell Anemia" answerLabel="Sickle-cell"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER" showCommentField="true"
-                 commentFieldLabel=" "/>
-        </div>
-    </section>
 
     <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.vitals">
