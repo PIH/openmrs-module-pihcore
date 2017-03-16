@@ -119,8 +119,8 @@ angular.module("encounterTypeConfig", ["constants"])
             label: "pihcore.visitNote.ncdInitial",
             icon: "icon-heart",
             shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-intial.xml",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-initial.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-initial.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
@@ -130,21 +130,9 @@ angular.module("encounterTypeConfig", ["constants"])
             label: "pihcore.visitNote.ncdFollowup",
             icon: "icon-heart",
             shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-followup.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-followup.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        }
-
-        var vitalsSection = {
-            type: "encounter-section",
-            id: "pihcore-vitals-section",
-            label: "mirebalais.vitals.title",
-            icon: "icon-vitals",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-//            shortTemplate: "templates/encounters/old/vitalsShort.page",  // TODO why are we using an old template here???
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/vitals.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-
         }
 
         /* Define Encounter Types */
@@ -175,7 +163,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         encounterTypeConfig[EncounterTypes.vitals.uuid] = {
             defaultState: "short",
-            shortTemplate: "templates/encounters/old/vitalsShort.page",
+            shortTemplate: "templates/encounters/vitalsShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             icon: "icon-vitals",
@@ -271,13 +259,11 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                vitalsSection,
-                allergies,
                 primaryCareHistory,
                 primaryCareExam,
                 primaryCareDx,
-                primaryCarePlan,
-                ncdInitial
+                ncdInitial,
+                primaryCarePlan
             ]
         }
 
@@ -289,13 +275,11 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                vitalsSection,
-                allergies,
                 primaryCareHistory,
                 primaryCareExam,
                 primaryCareDx,
-                primaryCarePlan,
-                ncdFollowup
+                ncdFollowup,
+                primaryCarePlan
             ]
         };
 

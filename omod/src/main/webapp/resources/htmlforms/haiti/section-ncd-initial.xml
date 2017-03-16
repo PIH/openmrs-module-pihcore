@@ -138,26 +138,41 @@
         <script type="text/javascript">
 
             jq(function() {
-                // functions to handle updating the waist/hip ratio when in ENTER mode
-                var updateWaistHipRatio = function() {
+            // functions to handle updating the waist/hip ratio when in ENTER mode
+            var updateWaistHipRatio = function() {
 
-                    var waist = htmlForm.getValueIfLegal('waist_cm.value');
-                    var hip = htmlForm.getValueIfLegal('hip_cm.value');
+            var waist = htmlForm.getValueIfLegal('waist_cm.value');
+            var hip = htmlForm.getValueIfLegal('hip_cm.value');
 
-                    var waistHipRatio = calculateWaistHipRatio(waist, hip);
+            var waistHipRatio = calculateWaistHipRatio(waist, hip);
 
-                    if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
-                        jq('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
-                    }
-                    else {
-                        jq('#calculated-waist-hip-ratio').html("");
-                    }
-                };
+            if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
+            jq('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
+            }
+            else {
+            jq('#calculated-waist-hip-ratio').html("");
+            }
+            };
 
-                getField('waist_cm.value').change(updateWaistHipRatio);
-                getField('hip_cm.value').change(updateWaistHipRatio);
+            getField('waist_cm.value').change(updateWaistHipRatio);
+            getField('hip_cm.value').change(updateWaistHipRatio);
 
-                updateWaistHipRatio();
+            updateWaistHipRatio();
+
+            // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+            jq('#next').click(function() {
+            window.htmlForm.getBeforeSubmit().push(function () {
+            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-ncd-initial");
+            return true;
+            });
+
+            window.htmlForm.submitHtmlForm();
+            })
+
+            jq('#submit').click(function() {
+            window.htmlForm.submitHtmlForm();
+            })
+
             });
 
         </script>
@@ -448,10 +463,9 @@
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel">
-                <uimessage code="emr.cancel"/>
-            </button>
+            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
         </div>
     </ifMode>
 
