@@ -126,11 +126,11 @@
 
     <script type="text/javascript">
         var calculateWaistHipRatio = function(waist, hip) {
-        var waistHipRatio = null;
-        if (waist &amp;&amp; hip) {
-        waistHipRatio = waist / hip;
-        }
-        return waistHipRatio;
+            var waistHipRatio = null;
+            if (waist &amp;&amp; hip) {
+                waistHipRatio = waist / hip;
+            }
+            return waistHipRatio;
         }
     </script>
 
@@ -162,7 +162,7 @@
             // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
             jq('#next').click(function() {
             window.htmlForm.getBeforeSubmit().push(function () {
-            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-ncd-followup");
+            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-ncd");
             return true;
             });
 
@@ -186,19 +186,19 @@
             // handle displaying the waist/hip ratio when in VIEW mode
             jq(function() {
 
-            // we have to iterate through in case there are multiple NCD forms
-            // displayed on a single page
+                // we have to iterate through in case there are multiple NCD forms
+                // displayed on a single page
 
-            jq('htmlform').each(function(index, form) {
-            var waist = jq(form).find('#waist_cm').find('.value').text();
-            var hip = jq(form).find('#hip_cm').find('.value').text();
+                jq('htmlform').each(function(index, form) {
+                    var waist = jq(form).find('#waist_cm').find('.value').text();
+                    var hip = jq(form).find('#hip_cm').find('.value').text();
 
-            var waistHipRatio = calculateWaistHipRatio(waist, hip);
+                    var waistHipRatio = calculateWaistHipRatio(waist, hip);
 
-            if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
-            jq(form).find('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
-            }
-            });
+                    if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
+                        jq(form).find('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
+                    }
+                });
             });
 
         </script>
@@ -215,6 +215,79 @@
             <lookup complexExpression="$formGeneratedDatetime"/>
         </p>
     </div>
+
+    <!-- this section is not included if it is a follow-up encounter (encounter type referenced by 5cdfd6...) -->
+    <excludeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+        <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
+        <div class="section-container">
+            <!-- ToDo: The next 4 questions should only be included on the initial visit -->
+            <label>
+                <uimessage code="pihcore.ncd.referral"/>
+            </label>
+            <obs conceptId="PIH:Type of referring service"
+                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
+            <br/>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.info.aware"/>
+                    <br/>
+                </label>
+                <obs conceptId="PIH:Known chronic disease before referral" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.info.prior_treatment"/>
+                    <br/>
+                </label>
+                <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
+                     answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
+                     answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
+                     answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.info.controlled"/>
+                    <br/>
+                </label>
+                <obs conceptId="PIH:Chronic disease controlled during initial visit" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     answerSeparator=""/>
+            </p>
+
+            <!-- This should be included during initial and followup visits -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.past_category"/>:
+                </label>
+                <!-- ToDo:  Add the previous diagnosis categories
+                <lookup complexExpression="#foreach($category in $fn.allObs('PIH:NCD category')) $!category.valueCoded.name &lt;br/&gt;#end"/>
+                -->
+            </p>
+
+            <label>
+                <uimessage code="pihcore.ncd.category"/>
+                <uimessage code="pihcore.ncd.category.instructions"/>
+            </label>
+
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE" style="checkbox" toggle="heart_failure"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident" answerLabel="Stroke"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Chronic respiratory disease program"
+                 answerLabel="Respiratory" style="checkbox" toggle="respire"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Rehab program" answerLabel="Rehab (not stroke)"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Sickle-Cell Anemia" answerLabel="Sickle-cell"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER" showCommentField="true"
+                 commentFieldLabel=" "/>
+        </div>
+    </section>
+    </excludeIf>
 
     <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.vitals">

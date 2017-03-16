@@ -113,26 +113,15 @@ angular.module("encounterTypeConfig", ["constants"])
 
         };
 
-        var ncdInitial = {
+        var ncd = {
             type: "encounter-section",
-            id: "pihcore-ncd-initial",
-            label: "pihcore.visitNote.ncdInitial",
+            id: "pihcore-ncd",
+            label: "pihcore.visitNote.ncd",
             icon: "icon-heart",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-initial.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-initial.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        }
-
-        var ncdFollowup = {
-            type: "encounter-section",
-            id: "pihcore-ncd-followup",
-            label: "pihcore.visitNote.ncdFollowup",
-            icon: "icon-heart",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-followup.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd-followup.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
         /* Define Encounter Types */
@@ -262,7 +251,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareHistory,
                 primaryCareExam,
                 primaryCareDx,
-                ncdInitial,
+                ncd,
                 primaryCarePlan
             ]
         }
@@ -278,7 +267,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareHistory,
                 primaryCareExam,
                 primaryCareDx,
-                ncdFollowup,
+                ncd,
                 primaryCarePlan
             ]
         };
