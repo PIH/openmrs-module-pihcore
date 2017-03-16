@@ -52,8 +52,8 @@
         <emrapiVersion>1.21.0</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
-        <uiframeworkVersion>3.10-SNAPSHOT</uiframeworkVersion>
-        <appframeworkVersion>2.9</appframeworkVersion>
+        <uiframeworkVersion>3.10.1-SNAPSHOT</uiframeworkVersion>
+        <appframeworkVersion>2.10.0</appframeworkVersion>
         <metadatasharingVersion>1.2.2</metadatasharingVersion>
         <metadatamappingVersion>1.3.1</metadatamappingVersion>
         <metadatadeployVersion>1.7</metadatadeployVersion>
@@ -80,7 +80,7 @@
         <registrationcoreVersion>1.6</registrationcoreVersion>
         <registrationappVersion>1.7.0</registrationappVersion>
         <radiologyappVersion>1.2</radiologyappVersion>
-        <coreappsVersion>1.11.2-SNAPSHOT</coreappsVersion>
+        <coreappsVersion>1.12.1-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.13</webservicesRestVersion>
         <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.2</appointmentschedulinguiVersion>
