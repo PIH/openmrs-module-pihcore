@@ -356,7 +356,6 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
-                    Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                     //Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
@@ -395,7 +394,6 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
-                    Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
@@ -419,6 +417,48 @@ public class Roles {
         public String uuid() { return "55f0a630-e797-11e4-b571-0800200c9a66"; }
         public String role() { return "Application Role: physician"; }
         public String description() { return "Application Role: physician"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_ACTIVE_VISITS,
+                    Privileges.APP_EMR_INPATIENTS,
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.TASK_COREAPPS_CREATE_VISIT,
+                    Privileges.APP_EMR_OUTPATIENT_VITALS,
+                    Privileges.APP_COREAPPS_AWAITING_ADMISSION,
+                    Privileges.APP_ED_TRIAGE,
+                    Privileges.APP_ED_TRIAGE_QUEUE,
+                    Privileges.APP_WAITING_FOR_CONSULT,
+                    Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
+                    Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
+                    Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
+                    // Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    Privileges.TASK_EMR_ENTER_LAB_RESULTS,
+                    Privileges.TASK_EMR_ENTER_ED_NOTE,
+                    Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
+                    Privileges.TASK_EMR_ENTER_VITALS_NOTE,
+                    Privileges.TASK_EMR_DEATH_CERTIFICATE_FORM,
+                    Privileges.TASK_EMR_PATIENT_ENCOUNTER_EDIT,
+                    Privileges.TASK_EMR_PATIENT_ENCOUNTER_DELETE,
+                    Privileges.TASK_EMR_PRINT_LABELS,
+                    Privileges.TASK_EMR_RETRO_CLINICAL_NOTE,
+                    Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY,  // TODO this privilege is kind of meaningless if they have the basic retro clinical note privilege?
+                    Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
+                    Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
+                    Privileges.TASK_RADIOLOGYAPP_ORDER_US,
+                    Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_ALLERGIES_MODIFY,
+                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE
+            );}
+    };
+
+    public static RoleDescriptor NCD_PHYSICIAN = new RoleDescriptor() {
+        public String uuid() { return "8d57e1c3-2251-4c24-965e-7314427d6165"; }
+        public String role() { return "Application Role: ncdPhysician"; }
+        public String description() { return "Application Role: ncdPhysician"; }
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
                     Privileges.APP_COREAPPS_FIND_PATIENT,
@@ -476,7 +516,6 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
-                    Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
@@ -513,7 +552,6 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
-                    Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
@@ -550,7 +588,6 @@ public class Roles {
                     Privileges.APP_WAITING_FOR_CONSULT,
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
-                    Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
@@ -583,7 +620,6 @@ public class Roles {
                     Privileges.APP_WAITING_FOR_CONSULT,
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
-                    Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
                     Privileges.TASK_EMR_ENTER_VITALS_NOTE,
@@ -681,7 +717,6 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
-                    Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                     //Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
@@ -724,7 +759,6 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
-                    Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                     //Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
