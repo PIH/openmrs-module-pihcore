@@ -295,7 +295,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan,
-                ncdInitial
+                ncdFollowup
             ]
         };
 
