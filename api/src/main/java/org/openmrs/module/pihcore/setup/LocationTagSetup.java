@@ -78,6 +78,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
         setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
