@@ -12,7 +12,7 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform id="ncd-consult-note" class="simple-form-ui" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
+<htmlform id="ncd-consult-note" class="simple-form-ui" formName="NCD" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
           htmlformUuid="59166690-b88b-4cbd-92f7-31fb037bf2dc" formVersion="1.0">
 
     <translations defaultLocale="fr">
