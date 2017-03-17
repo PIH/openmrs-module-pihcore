@@ -13,9 +13,7 @@
   -->
 
 <htmlform id="ncd-consult-note" class="simple-form-ui" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
-          htmlformUuid="59166690-b88b-4cbd-92f7-31fb037bf2dc"
-          formName="NCD Consult Note"
-          formEncounterType="ae06d311-1866-455b-8a64-126a9bd74171" formVersion="1.0">
+          htmlformUuid="59166690-b88b-4cbd-92f7-31fb037bf2dc" formVersion="1.0">
 
     <translations defaultLocale="fr">
         <code name="yes">
