@@ -113,10 +113,21 @@ angular.module("encounterTypeConfig", ["constants"])
 
         };
 
-        var ncd = {
+        var ncdInitial = {
             type: "encounter-section",
             id: "pihcore-ncd",
-            label: "pihcore.visitNote.ncd",
+            label: "pihcore.visitNote.ncdInitial",
+            icon: "icon-heart",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        }
+
+        var ncdFollowup = {
+            type: "encounter-section",
+            id: "pihcore-ncd",
+            label: "pihcore.visitNote.ncdFollowup",
             icon: "icon-heart",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
@@ -251,7 +262,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareHistory,
                 primaryCareExam,
                 primaryCareDx,
-                ncd,
+                ncdInitial,
                 primaryCarePlan
             ]
         }
@@ -266,7 +277,7 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
                 primaryCareExam,
                 primaryCareDx,
-                ncd,
+                ncdFollowup,
                 primaryCarePlan
             ]
         };
