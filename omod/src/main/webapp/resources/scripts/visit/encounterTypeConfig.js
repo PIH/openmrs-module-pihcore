@@ -264,7 +264,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                primaryCareHistory,
                 primaryCareExam,
                 primaryCareDx,
                 ncd,
