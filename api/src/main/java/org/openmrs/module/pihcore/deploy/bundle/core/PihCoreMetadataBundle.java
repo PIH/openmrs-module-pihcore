@@ -29,7 +29,11 @@ import org.springframework.stereotype.Component;
         DiagnosisConcepts.class,
         SocioEconomicConcepts.class,
         InsuranceConcepts.class,
-        VaccinationConcepts.class
+        VaccinationConcepts.class,
+                RelationshipTypeBundle.class,
+                ProviderAttributeTypeBundle.class,
+                ProviderRoleBundle.class
+
         } )
 public class PihCoreMetadataBundle extends AbstractMetadataBundle {
     @Override
