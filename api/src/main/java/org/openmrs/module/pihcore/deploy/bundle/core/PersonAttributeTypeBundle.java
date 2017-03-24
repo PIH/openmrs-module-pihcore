@@ -12,11 +12,7 @@ public class PersonAttributeTypeBundle extends AbstractMetadataBundle {
     public void install() throws Exception {
 
         log.info("Installing PersonAttributeTypes");
-        install(PersonAttributeTypes.TELEPHONE_NUMBER);
-        install(PersonAttributeTypes.TEST_PATIENT);
         install(PersonAttributeTypes.PROVIDER_IDENTIFIER);
-        install(PersonAttributeTypes.UNKNOWN_PATIENT);
-        install(PersonAttributeTypes.MOTHERS_FIRST_NAME);
 
         log.info("Retiring old person attribute types");
         // the mother's name attribute was incorrectly added with a leading space in the uuid, we should remove this

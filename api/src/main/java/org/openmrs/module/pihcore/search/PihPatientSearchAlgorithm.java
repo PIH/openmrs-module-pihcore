@@ -12,10 +12,10 @@ import org.openmrs.Patient;
 import org.openmrs.PersonAddress;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
+import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.namephonetics.NamePhonetic;
 import org.openmrs.module.namephonetics.NamePhoneticsUtil;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
 import org.openmrs.module.registrationcore.api.search.SimilarPatientSearchAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -231,13 +231,13 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                     if (StringUtils.isNotBlank(patientAttribute) && StringUtils.isNotBlank(matchAttribute)) {
 
                         // special case telephone number: strip all non-numerics
-                        if (personAttributeType.equalsIgnoreCase(PersonAttributeTypes.TELEPHONE_NUMBER.name())) {
+                        if (personAttributeType.equalsIgnoreCase(HaitiPersonAttributeTypes.TELEPHONE_NUMBER.name())) {
                             patientAttribute = patientAttribute.replaceAll("[^0-9]", "");
                             matchAttribute = matchAttribute.replaceAll("[^0-9]", "");
                         }
 
                         // special case First Name of Mother: convert to name phonetics
-                        if (personAttributeType.equalsIgnoreCase(PersonAttributeTypes.MOTHERS_FIRST_NAME.name())) {
+                        if (personAttributeType.equalsIgnoreCase(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.name())) {
                             patientAttribute = NamePhoneticsUtil.encodeString(patientAttribute, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder"));
                             matchAttribute = NamePhoneticsUtil.encodeString(matchAttribute, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder"));
                         }

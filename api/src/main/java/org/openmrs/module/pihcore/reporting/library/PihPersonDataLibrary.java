@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.reporting.library;
 
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.reporting.common.Birthdate;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
@@ -49,7 +49,7 @@ public class PihPersonDataLibrary extends BaseDefinitionLibrary<PersonDataDefini
 
     public PersonDataDefinition getMothersFirstName() {
         PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
-        d.setPersonAttributeType(Metadata.lookup(PersonAttributeTypes.MOTHERS_FIRST_NAME));
+        d.setPersonAttributeType(Metadata.lookup(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME));
         return convert(d, converters.getRawAttributeValue());
     }
 

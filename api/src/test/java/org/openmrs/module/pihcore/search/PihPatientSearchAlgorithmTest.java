@@ -9,7 +9,7 @@ import org.openmrs.PersonName;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,7 +182,7 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
 
         // now add in address and recalculate
         PersonAttribute attribute = new PersonAttribute();
-        attribute.setAttributeType(personService.getPersonAttributeTypeByName(PersonAttributeTypes.TELEPHONE_NUMBER.name()));
+        attribute.setAttributeType(personService.getPersonAttributeTypeByName(HaitiPersonAttributeTypes.TELEPHONE_NUMBER.name()));
         attribute.setValue("6178675309");
         patient.addAttribute(attribute);
 
@@ -214,7 +214,7 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
 
         // now add in address and recalculate
         PersonAttribute attribute = new PersonAttribute();
-        attribute.setAttributeType(personService.getPersonAttributeTypeByName(PersonAttributeTypes.MOTHERS_FIRST_NAME.name()));
+        attribute.setAttributeType(personService.getPersonAttributeTypeByName(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.name()));
         attribute.setValue("Mary");
         patient.addAttribute(attribute);
 

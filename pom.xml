@@ -49,6 +49,7 @@
     <properties>
         <openMRSVersion>1.10.4</openMRSVersion>
         <openMRSwebVersion>1.10.4</openMRSwebVersion>
+        <haiticoreVersion>1.0.0-SNAPSHOT</haiticoreVersion>
         <emrapiVersion>1.21.0</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
@@ -373,6 +374,13 @@
             <version>${uicommonsVersion}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>haiticore-api</artifactId>
+            <version>${haiticoreVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
 
         <!-- Begin OpenMRS contrib -->
 
