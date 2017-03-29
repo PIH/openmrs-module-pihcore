@@ -46,4 +46,5 @@ public class Components {
         public static final String BIOMETRICS_FINGERPRINTS = "biometricsFingerPrints";
         public static final String TODAYS_VISITS = "todaysVisits";
         public static final String LAB_TRACKING = "labTracking";
+        public static final String PROGRAMS = "programs";
 }
