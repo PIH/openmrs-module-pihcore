@@ -33,9 +33,6 @@
         </script>
     </ifMode>
 
-
-    <!--TODO: Confirm what would go here (imaging? psych? what else?) -->
-
     <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.lab_tests.title">
 
 
@@ -455,6 +452,15 @@
                     </field>
                 </span>
 
+                <label for="zika-pcr">
+                    <uimessage code="pihcore.lab.zika_pcr"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="zika-pcr" conceptId="CIEL:164920"
+                             answerConceptIds="PIH:POSITIVE,PIH:NEGATIVE,PIH:INDETERMINATE" />
+                    </field>
+                </span>
 
             </p>
 
