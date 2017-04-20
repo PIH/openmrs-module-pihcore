@@ -461,7 +461,24 @@
                              answerConceptIds="PIH:POSITIVE,PIH:NEGATIVE,PIH:INDETERMINATE" />
                     </field>
                 </span>
-
+                <label for="chik-pcr">
+                    <uimessage code="pihcore.lab.chik_pcr"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="chik-pcr" conceptId="CIEL:164924"
+                             answerConceptIds="PIH:POSITIVE,PIH:NEGATIVE,PIH:INDETERMINATE" />
+                    </field>
+                </span>
+                <label for="dengue-pcr">
+                    <uimessage code="pihcore.lab.dengue_pcr"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="dengue-pcr" conceptId="CIEL:164926"
+                             answerConceptIds="PIH:POSITIVE,PIH:NEGATIVE,PIH:INDETERMINATE" />
+                    </field>
+                </span>
             </p>
 
             <p>
