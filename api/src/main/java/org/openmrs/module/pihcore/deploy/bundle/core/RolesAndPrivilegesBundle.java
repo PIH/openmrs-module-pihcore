@@ -55,6 +55,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_ALLERGIES_MODIFY);
         install(Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS);
         install(Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT);
+        install(Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS);
         install(Privileges.TASK_COREAPPS_CREATE_VISIT);
         install(Privileges.TASK_COREAPPS_END_VISIT);
         install(Privileges.TASK_COREAPPS_DELETE_VISIT);
