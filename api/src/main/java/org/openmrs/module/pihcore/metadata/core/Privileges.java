@@ -221,6 +221,12 @@ public class Privileges {
         public String description() { return "Ability to create a create retrospective visit (i.e., one that starts in the past)"; }
     };
 
+    public static PrivilegeDescriptor TASK_COREAPPS_EDIT_RELATIONSHIPS = new PrivilegeDescriptor() {
+        public String uuid() { return "334D684B-6A43-4ACF-BA8A-E130CB659A76"; }
+        public String privilege() { return CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS; }
+        public String description() { return "Able to edit relationships"; }
+    };
+
     public static PrivilegeDescriptor TASK_COREAPPS_CREATE_VISIT = new PrivilegeDescriptor() {
         public String uuid() { return "ec6fcf8e-e4b7-4c69-8ca0-97cf2796315e"; }
         public String privilege() { return CoreAppsConstants.PRIVILEGE_START_VISIT; }

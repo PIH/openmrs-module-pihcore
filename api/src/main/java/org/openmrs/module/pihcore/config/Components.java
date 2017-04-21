@@ -47,4 +47,5 @@ public class Components {
         public static final String TODAYS_VISITS = "todaysVisits";
         public static final String LAB_TRACKING = "labTracking";
         public static final String PROGRAMS = "programs";
+        public static final String RELATIONSHIPS = "relationships";
 }

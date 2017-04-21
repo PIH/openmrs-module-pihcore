@@ -93,7 +93,8 @@ public class Roles {
                 Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER,
                 Privileges.TASK_RADIOLOGYAPP_TAB,
                 Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
-                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS
+                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
+                Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -169,7 +170,8 @@ public class Roles {
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_REPORTINGUI_REPORTS,
-                    Privileges.APP_ZL_MPI
+                    Privileges.APP_ZL_MPI,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -186,7 +188,8 @@ public class Roles {
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_REPORTINGUI_REPORTS,
-                    Privileges.APP_ZL_MPI
+                    Privileges.APP_ZL_MPI,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -204,7 +207,8 @@ public class Roles {
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_REPORTINGUI_REPORTS,
-                    Privileges.APP_ZL_MPI
+                    Privileges.APP_ZL_MPI,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -228,7 +232,8 @@ public class Roles {
                     Privileges.TASK_EMR_PRINT_WRISTBAND,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_REPORTINGUI_REPORTS,
-                    Privileges.APP_ZL_MPI
+                    Privileges.APP_ZL_MPI,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -263,7 +268,8 @@ public class Roles {
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE
+                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -372,7 +378,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_ALLERGIES_MODIFY
+                    Privileges.TASK_ALLERGIES_MODIFY,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -409,7 +416,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_ALLERGIES_MODIFY
+                    Privileges.TASK_ALLERGIES_MODIFY,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -451,7 +459,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
-                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE
+                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -494,7 +503,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
-                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE
+                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -531,7 +541,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_ALLERGIES_MODIFY
+                    Privileges.TASK_ALLERGIES_MODIFY,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -567,7 +578,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_ALLERGIES_MODIFY
+                    Privileges.TASK_ALLERGIES_MODIFY,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -600,7 +612,8 @@ public class Roles {
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_ALLERGIES_MODIFY
+                    Privileges.TASK_ALLERGIES_MODIFY,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -684,7 +697,8 @@ public class Roles {
         public String description() { return "Gives access to only the archives app"; }
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
-                    Privileges.APP_EMR_ARCHIVES_ROOM
+                    Privileges.APP_EMR_ARCHIVES_ROOM,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -731,7 +745,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
-                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE
+                    Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -769,7 +784,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
-                    Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER
+                    Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
