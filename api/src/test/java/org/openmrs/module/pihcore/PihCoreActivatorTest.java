@@ -19,7 +19,6 @@ import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.scheduler.SchedulerService;
@@ -161,7 +160,6 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
         assertEquals(2, ahService.getAddressHierarchyEntriesAtTopLevel().size());
         assertEquals("Yon lot peyi", ahService.getAddressHierarchyEntriesAtTopLevel().get(0).getName());
         assertEquals("Haiti", ahService.getAddressHierarchyEntriesAtTopLevel().get(1).getName());
-        assertEquals("9", Context.getAdministrationService().getGlobalProperty("metadatadeploy.bundle.version." + HaitiAddressBundle.class.getName()));
     }
 
 }

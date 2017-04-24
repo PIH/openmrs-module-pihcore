@@ -22,6 +22,7 @@ import org.openmrs.module.metadatadeploy.descriptor.EncounterTypeDescriptor;
  */
 public class EncounterTypes {
 
+	// note that the Haiti Core module also installs this encounter type as well--we should try to keep these consistent!
 	public static EncounterTypeDescriptor PATIENT_REGISTRATION  = new EncounterTypeDescriptor() {
 		public String uuid() { return "873f968a-73a8-4f9c-ac78-9f4778b751b6"; }
 		public String name() { return "Enregistrement de patient"; }

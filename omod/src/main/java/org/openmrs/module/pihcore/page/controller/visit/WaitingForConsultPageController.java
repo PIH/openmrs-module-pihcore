@@ -14,7 +14,7 @@ import org.openmrs.api.PersonService;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
+import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
 import org.openmrs.ui.framework.annotation.SpringBean;

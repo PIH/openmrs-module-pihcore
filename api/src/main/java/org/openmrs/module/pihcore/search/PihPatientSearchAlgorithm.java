@@ -12,7 +12,7 @@ import org.openmrs.Patient;
 import org.openmrs.PersonAddress;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.PatientService;
-import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
+import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.namephonetics.NamePhonetic;
 import org.openmrs.module.namephonetics.NamePhoneticsUtil;
 import org.openmrs.module.pihcore.config.Config;

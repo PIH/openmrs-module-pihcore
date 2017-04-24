@@ -13,15 +13,15 @@ import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.haiticore.org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
+import org.openmrs.module.haiticore.metadata.AddressComponent;
+import org.openmrs.module.haiticore.metadata.HaitiAddressBundle;
+import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiAddressBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
@@ -36,6 +36,8 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+
+;
 
 /**
  * Sets up basic Mirebalais metadata (instead of the standardTestDataset.xml from openmrs-core)

@@ -41,8 +41,7 @@ import java.util.Map;
         OrderEntryConcepts.class,
 		// TestOrderConcepts.class,  I believe we are now installing these via MDS
         HaitiLocationsBundle.class,
-        HaitiPatientIdentifierTypeBundle.class,
-        HaitiAddressBundle.class
+        HaitiPatientIdentifierTypeBundle.class
 } )
 public class HaitiMetadataBundle extends AbstractMetadataBundle {
 
