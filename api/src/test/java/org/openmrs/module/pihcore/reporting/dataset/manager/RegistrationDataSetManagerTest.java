@@ -60,11 +60,11 @@ public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest 
         Assert.assertEquals("555-1234", row.getColumnValue("TELEPHONE_NUMBER"));
         Assert.assertEquals("Wichita", row.getColumnValue("BIRTHPLACE"));
         Assert.assertEquals("Isabel", row.getColumnValue("MOTHERS_FIRST_NAME"));
-        Assert.assertEquals("MA", row.getColumnValue("MIREBALAIS.ADDRESS.STATEPROVINCE"));
-        Assert.assertEquals("Boston", row.getColumnValue("MIREBALAIS.ADDRESS.CITYVILLAGE"));
-        Assert.assertEquals("JP", row.getColumnValue("MIREBALAIS.ADDRESS.NEIGHBORHOODCELL"));
-        Assert.assertEquals("Pondside", row.getColumnValue("MIREBALAIS.ADDRESS.ADDRESS1"));
-        Assert.assertNull(row.getColumnValue("MIREBALAIS.ADDRESS.ADDRESS2"));
+        Assert.assertEquals("MA", row.getColumnValue("HAITICORE.ADDRESS.STATEPROVINCE"));
+        Assert.assertEquals("Boston", row.getColumnValue("HAITICORE.ADDRESS.CITYVILLAGE"));
+        Assert.assertEquals("JP", row.getColumnValue("HAITICORE.ADDRESS.NEIGHBORHOODCELL"));
+        Assert.assertEquals("Pondside", row.getColumnValue("HAITICORE.ADDRESS.ADDRESS1"));
+        Assert.assertNull(row.getColumnValue("HAITICORE.ADDRESS.ADDRESS2"));
         Assert.assertEquals("X3XK71", row.getColumnValue("EMR_ID"));
         Assert.assertEquals(DateUtil.getDateTime(2015, 4, 15), row.getColumnValue("REGISTRATION_DATE"));
         Assert.assertEquals(MirebalaisLocations.CLINIC_REGISTRATION.name(), row.getColumnValue("REGISTRATION_LOCATION"));

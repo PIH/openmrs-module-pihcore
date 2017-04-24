@@ -100,7 +100,6 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
     @Test
     public void testThatActivatorDoesAllSetupForMirebalais() throws Exception {
         verifyMirebalaisMetadataInstalled();
-        verifyAddressTemplateConfigured();
         verifyGlobalPropertiesConfigured();
         verifyDatetimeFormatting();
         verifyPacsIntegrationGlobalPropertiesConfigured();
@@ -121,27 +120,6 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
         construct = MetadataUtils.existing(Concept.class, ClinicalConsultationConcepts.Concepts.FAMILY_HISTORY_CONSTRUCT);
         assertThat(construct.getUuid(), is(ClinicalConsultationConcepts.Concepts.FAMILY_HISTORY_CONSTRUCT));
         assertThat(construct.getConceptSets().size(), is(4));
-    }
-
-    private void verifyAddressTemplateConfigured() throws Exception {
-        AddressTemplate at = AddressSupport.getInstance().getDefaultLayoutTemplate();
-        assertEquals("mirebalais.address.country", at.getNameMappings().get("country"));
-        assertEquals("mirebalais.address.stateProvince", at.getNameMappings().get("stateProvince"));
-        assertEquals("mirebalais.address.cityVillage", at.getNameMappings().get("cityVillage"));
-        assertEquals("mirebalais.address.neighborhoodCell", at.getNameMappings().get("address3"));
-        assertEquals("mirebalais.address.address1", at.getNameMappings().get("address1"));
-        assertEquals("mirebalais.address.address2", at.getNameMappings().get("address2"));
-        assertEquals("40", at.getSizeMappings().get("country"));
-        assertEquals("40", at.getSizeMappings().get("stateProvince"));
-        assertEquals("40", at.getSizeMappings().get("cityVillage"));
-        assertEquals("60", at.getSizeMappings().get("address3"));
-        assertEquals("60", at.getSizeMappings().get("address1"));
-        assertEquals("60", at.getSizeMappings().get("address2"));
-        assertEquals("Haiti", at.getElementDefaults().get("country"));
-        assertEquals("address2", at.getLineByLineFormat().get(0));
-        assertEquals("address1", at.getLineByLineFormat().get(1));
-        assertEquals("address3, cityVillage", at.getLineByLineFormat().get(2));
-        assertEquals("stateProvince, country", at.getLineByLineFormat().get(3));
     }
 
     private void verifyGlobalPropertiesConfigured() throws Exception {
