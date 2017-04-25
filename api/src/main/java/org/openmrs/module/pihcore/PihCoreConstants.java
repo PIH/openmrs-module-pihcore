@@ -40,4 +40,8 @@ public class PihCoreConstants {
     public static final String PAST_MEDICAL_HISTORY_FINDING = "CIEL:1628";
     public static final String PAST_MEDICAL_HISTORY_FINDING_TEXT = "CIEL:160221";
 
+    public static final String RELATIONSHIP_SIBLING = "8d91a01c-c2cc-11de-8d13-0010c6dffd0f";
+    public static final String RELATIONSHIP_PARENT_CHILD = "8d91a210-c2cc-11de-8d13-0010c6dffd0f";
+    public static final String RELATIONSHIP_AUNT_UNCLE = "8d91a3dc-c2cc-11de-8d13-0010c6dffd0f";
+
 }
