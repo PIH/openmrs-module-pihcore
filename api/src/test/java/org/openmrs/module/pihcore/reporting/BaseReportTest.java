@@ -94,12 +94,11 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         deployService.installBundle(encounterTypeBundle);
         deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(mirebalaisLocationsBundle);
+        deployService.installBundle(haitiAddressBundle);
         createEmrApiMappingSource(metadataMappingService);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, getConfig());
         LocationTagSetup.setupLocationTags(locationService, getConfig());
-        haitiAddressBundle.installAddressTemplate();
-        haitiAddressBundle.installAddressHierarchyLevels();
     }
 
     protected Config getConfig() {
