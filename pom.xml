@@ -50,7 +50,7 @@
         <openMRSVersion>1.10.4</openMRSVersion>
         <openMRSwebVersion>1.10.4</openMRSwebVersion>
         <haiticoreVersion>1.0.0-SNAPSHOT</haiticoreVersion>
-        <emrapiVersion>1.22.0</emrapiVersion>
+        <emrapiVersion>1.21.0</emrapiVersion>
         <paperrecordVersion>1.1</paperrecordVersion>
         <emrVersion>2.0</emrVersion>
         <uiframeworkVersion>3.12.0-SNAPSHOT</uiframeworkVersion>
@@ -474,6 +474,7 @@
                         <property>
                             <name>emrapiVersion</name>
                             <banSnapshots>true</banSnapshots>
+                            <version>1.21.0</version>
                         </property>
                         <property>
                             <name>htmlwidgetsVersion</name>
