@@ -66,6 +66,9 @@ angular.module('constants', [])
         typeOfVisit: {
             uuid: "e2964359-790a-419d-be53-602e828dcdb9"
         },
+        triageQueueStatus: {
+            uuid: "66c18ba5-459e-4049-94ab-f80aca5c6a98"
+        },
         paymentInformation: {
             uuid: "7a6330f1-9503-465c-8d63-82e1ad914b47"
         },
