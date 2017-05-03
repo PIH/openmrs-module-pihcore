@@ -60,7 +60,7 @@
         <metadatadeployVersion>1.8.1</metadatadeployVersion>
         <htmlformentryVersion>3.3.2</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
-        <htmlformentryuiVersion>1.6.2</htmlformentryuiVersion>
+        <htmlformentryuiVersion>1.6.3</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
         <reportingVersion>1.12.0</reportingVersion>
         <reportinguiVersion>1.0</reportinguiVersion>
@@ -81,7 +81,7 @@
         <registrationcoreVersion>1.6</registrationcoreVersion>
         <registrationappVersion>1.8.0</registrationappVersion>
         <radiologyappVersion>1.2</radiologyappVersion>
-        <coreappsVersion>1.12.1-SNAPSHOT</coreappsVersion>
+        <coreappsVersion>1.14.0-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.13</webservicesRestVersion>
         <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.2</appointmentschedulinguiVersion>
