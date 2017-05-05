@@ -53,10 +53,10 @@
         });
     });
 
-    // set up auto-refresh of tables every 5 minutes
+    // set up auto-refresh of tables every 2 minutes
     setTimeout(function() {
         window.location = window.location;
-    }, 300000)
+    }, 120000)
 
 </script>
 
