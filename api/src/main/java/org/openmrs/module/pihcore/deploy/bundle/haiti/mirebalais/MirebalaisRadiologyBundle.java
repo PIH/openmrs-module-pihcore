@@ -20,7 +20,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadata
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.LocationAttributeTypes;
 import org.openmrs.module.pihcore.metadata.core.OrderTypes;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.springframework.stereotype.Component;
 
@@ -97,7 +97,7 @@ public class MirebalaisRadiologyBundle extends AbstractMetadataBundle {
 		properties.put(RadiologyConstants.GP_LEAD_RADIOLOGY_TECH_CONTACT_INFO, "4868-9765");
 		
 		// PACS Integration
-		properties.put(PacsIntegrationConstants.GP_PATIENT_IDENTIFIER_TYPE_UUID, HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
+		properties.put(PacsIntegrationConstants.GP_PATIENT_IDENTIFIER_TYPE_UUID, PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
 		properties.put(PacsIntegrationConstants.GP_DEFAULT_LOCALE, "en");
 		properties.put(PacsIntegrationConstants.GP_SENDING_FACILITY, "Mirebalais");
 		properties.put(PacsIntegrationConstants.GP_PROCEDURE_CODE_CONCEPT_SOURCE_UUID, CoreConceptMetadataBundle.ConceptSources.LOINC);

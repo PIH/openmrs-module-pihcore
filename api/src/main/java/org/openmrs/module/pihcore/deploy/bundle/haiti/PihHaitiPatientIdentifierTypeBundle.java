@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,12 +12,12 @@ public class PihHaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle 
 
         log.info("Installing PatientIdentifierTypes");
 
-        install(HaitiPatientIdentifierTypes.ZL_EMR_ID);
-        install(HaitiPatientIdentifierTypes.DOSSIER_NUMBER);
-        install(HaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER);
-        install(HaitiPatientIdentifierTypes.HIVEMR_V1);
-        install(HaitiPatientIdentifierTypes.USER_ENTERED_REF_NUMBER);
-        install(HaitiPatientIdentifierTypes.DENTAL_DOSSIER_NUMBER);
+        install(PihHaitiPatientIdentifierTypes.ZL_EMR_ID);
+        install(PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER);
+        install(PihHaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER);
+        install(PihHaitiPatientIdentifierTypes.HIVEMR_V1);
+        install(PihHaitiPatientIdentifierTypes.USER_ENTERED_REF_NUMBER);
+        install(PihHaitiPatientIdentifierTypes.DENTAL_DOSSIER_NUMBER);
     }
 
 }

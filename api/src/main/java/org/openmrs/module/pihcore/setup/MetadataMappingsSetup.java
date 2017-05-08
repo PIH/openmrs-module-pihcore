@@ -13,7 +13,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.Locations;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
@@ -48,7 +48,7 @@ public class MetadataMappingsSetup {
 
     public static void setupPrimaryIdentifierTypeBasedOnCountry(MetadataMappingService metadataMappingService, PatientService patientService, Config config) {
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(LiberiaPatientIdentifierTypes.PLEEBO_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);

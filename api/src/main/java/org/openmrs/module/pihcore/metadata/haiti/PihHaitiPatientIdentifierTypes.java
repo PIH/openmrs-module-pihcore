@@ -22,7 +22,7 @@ import org.openmrs.patient.IdentifierValidator;
 /**
  * Constants for all defined patient identifier types
  */
-public class HaitiPatientIdentifierTypes {
+public class PihHaitiPatientIdentifierTypes {
 
 	public static PatientIdentifierTypeDescriptor ZL_EMR_ID = new PatientIdentifierTypeDescriptor() {
 		public String uuid() { return "a541af1e-105c-40bf-b345-ba1fd6a59b85"; }

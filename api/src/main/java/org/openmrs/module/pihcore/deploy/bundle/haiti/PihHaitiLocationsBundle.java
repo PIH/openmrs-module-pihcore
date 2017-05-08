@@ -5,7 +5,7 @@ import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiLocations;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,19 +17,19 @@ public class PihHaitiLocationsBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
-        install(HaitiLocations.BELLADERE);
-        install(HaitiLocations.BOUCAN_CARRE);
-        install(HaitiLocations.CANGE);
-        install(HaitiLocations.CERCA_LA_SOURCE);
-        install(HaitiLocations.HINCHE);
-        install(HaitiLocations.HSN_SAINT_MARC);
-        install(HaitiLocations.LACOLLINE);
-        install(HaitiLocations.PETITE_RIVIERE);
-        install(HaitiLocations.SSPE_SAINT_MARC);
-        install(HaitiLocations.THOMONDE);
-        install(HaitiLocations.VERRETTES);
+        install(PihHaitiLocations.BELLADERE);
+        install(PihHaitiLocations.BOUCAN_CARRE);
+        install(PihHaitiLocations.CANGE);
+        install(PihHaitiLocations.CERCA_LA_SOURCE);
+        install(PihHaitiLocations.HINCHE);
+        install(PihHaitiLocations.HSN_SAINT_MARC);
+        install(PihHaitiLocations.LACOLLINE);
+        install(PihHaitiLocations.PETITE_RIVIERE);
+        install(PihHaitiLocations.SSPE_SAINT_MARC);
+        install(PihHaitiLocations.THOMONDE);
+        install(PihHaitiLocations.VERRETTES);
 
         // we are uninstalling this until we are actually using
-        uninstall(possible(Location.class, HaitiLocations.POZ.uuid()), "uninstall until we actually start using this");
+        uninstall(possible(Location.class, PihHaitiLocations.POZ.uuid()), "uninstall until we actually start using this");
     }
 }

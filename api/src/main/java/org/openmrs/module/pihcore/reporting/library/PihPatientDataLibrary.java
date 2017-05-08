@@ -4,13 +4,11 @@ import org.openmrs.Encounter;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
-import org.openmrs.PersonAttribute;
 import org.openmrs.User;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.MappedData;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
@@ -92,30 +90,30 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
 
     @DocumentedDefinition("numberOfZlEmrIds")
     public PatientDataDefinition getNumberOfZlEmrIds() {
-        return getIdentifiersOf(Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID), new CountConverter());
+        return getIdentifiersOf(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), new CountConverter());
     }
 
     @DocumentedDefinition("numberOfDossierNumbers")
     public PatientDataDefinition getNumberOfDossierNumbers() {
-        return getIdentifiersOf(Metadata.lookup(HaitiPatientIdentifierTypes.DOSSIER_NUMBER), new CountConverter());
+        return getIdentifiersOf(Metadata.lookup(PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER), new CountConverter());
     }
 
     @DocumentedDefinition("numberOfHivEmrIds")
     public PatientDataDefinition getNumberOfHivEmrIds() {
-        return getIdentifiersOf(Metadata.lookup(HaitiPatientIdentifierTypes.HIVEMR_V1), new CountConverter());
+        return getIdentifiersOf(Metadata.lookup(PihHaitiPatientIdentifierTypes.HIVEMR_V1), new CountConverter());
     }
 
     @DocumentedDefinition("preferredZlEmrId.identifier")
     public PatientDataDefinition getPreferredZlEmrIdIdentifier() {
         return getPreferredIdentifierOf(
-                Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID),
+                Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID),
                 new PropertyConverter(PatientIdentifier.class, "identifier"));
     }
 
     @DocumentedDefinition("mostRecentZlEmrId.location")
     public PatientDataDefinition getMostRecentZlEmrIdLocation() {
         return getMostRecentIdentifierOf(
-                Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID),
+                Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID),
                 new PropertyConverter(PatientIdentifier.class, "location"),
                 new ObjectFormatter());
     }
@@ -123,14 +121,14 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     @DocumentedDefinition("mostRecentDossierNumber.identifier")
     public PatientDataDefinition getMostRecentDossierNumberIdentifier() {
         return getMostRecentIdentifierOf(
-                Metadata.lookup(HaitiPatientIdentifierTypes.DOSSIER_NUMBER),
+                Metadata.lookup(PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER),
                 new PropertyConverter(PatientIdentifier.class, "identifier"));
     }
 
     @DocumentedDefinition("mostRecentHivEmrId.identifier")
     public PatientDataDefinition getMostRecentHivEmrIdIdentifier() {
         return getMostRecentIdentifierOf(
-                Metadata.lookup(HaitiPatientIdentifierTypes.HIVEMR_V1),
+                Metadata.lookup(PihHaitiPatientIdentifierTypes.HIVEMR_V1),
                 new PropertyConverter(PatientIdentifier.class, "identifier"));
     }
 

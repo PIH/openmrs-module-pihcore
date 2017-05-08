@@ -7,7 +7,7 @@ import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import java.util.Arrays;
 import java.util.List;
 
-public class HaitiLocations {
+public class PihHaitiLocations {
 
     public static LocationDescriptor BELLADERE = new LocationDescriptor() {
         public String uuid() { return "d6dafa1a-9a2f-4f61-a33e-410acb64b0e9"; }

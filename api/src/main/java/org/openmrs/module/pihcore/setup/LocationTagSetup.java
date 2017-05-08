@@ -8,7 +8,7 @@ import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiLocations;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
@@ -60,15 +60,15 @@ public class LocationTagSetup {
     }
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {
-        setStandardHaitiSingleSiteLocationTags(locationService, HaitiLocations.LACOLLINE);
+        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.LACOLLINE);
     }
 
     private static void setupLocationTagsForThomonde(LocationService locationService) {
-        setStandardHaitiSingleSiteLocationTags(locationService, HaitiLocations.THOMONDE);
+        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.THOMONDE);
     }
 
     private static void setupLocationTagsForZLTraining(LocationService locationService) {
-        setStandardHaitiSingleSiteLocationTags(locationService, HaitiLocations.THOMONDE);
+        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.THOMONDE);
     }
 
     private static void setStandardHaitiSingleSiteLocationTags(LocationService locationService, LocationDescriptor location) {
@@ -91,10 +91,10 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForHaitiCrossSite(LocationService locationService) {
 
-        List<LocationDescriptor> allZlFacilities = Arrays.asList(HaitiLocations.BELLADERE, HaitiLocations.BOUCAN_CARRE,
-                HaitiLocations.CANGE, HaitiLocations.CERCA_LA_SOURCE, HaitiLocations.HINCHE, HaitiLocations.HSN_SAINT_MARC,
-                HaitiLocations.LACOLLINE, HaitiLocations.PETITE_RIVIERE, HaitiLocations.SSPE_SAINT_MARC, HaitiLocations.THOMONDE,
-                HaitiLocations.VERRETTES);
+        List<LocationDescriptor> allZlFacilities = Arrays.asList(PihHaitiLocations.BELLADERE, PihHaitiLocations.BOUCAN_CARRE,
+                PihHaitiLocations.CANGE, PihHaitiLocations.CERCA_LA_SOURCE, PihHaitiLocations.HINCHE, PihHaitiLocations.HSN_SAINT_MARC,
+                PihHaitiLocations.LACOLLINE, PihHaitiLocations.PETITE_RIVIERE, PihHaitiLocations.SSPE_SAINT_MARC, PihHaitiLocations.THOMONDE,
+                PihHaitiLocations.VERRETTES);
 
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allZlFacilities);

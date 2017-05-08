@@ -14,10 +14,8 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
-
-import java.util.UUID;
 
 import static org.openmrs.module.pihcore.PihCoreConstants.ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID;
 
@@ -298,10 +296,10 @@ public class ConfigureHaitiIdGenerators {
     }
 
     public static PatientIdentifierType getZlIdentifierType() {
-        return MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
+        return MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
     }
 
     public static PatientIdentifierType getDossierIdentifierType() {
-        return MetadataUtils.existing(PatientIdentifierType.class, HaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
+        return MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
     }
 }

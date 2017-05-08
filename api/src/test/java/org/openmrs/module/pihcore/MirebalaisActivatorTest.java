@@ -5,8 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
-import org.openmrs.layout.web.address.AddressSupport;
-import org.openmrs.layout.web.address.AddressTemplate;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -21,7 +19,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultatio
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.ui.framework.UiFrameworkConstants;
@@ -135,7 +133,7 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
     }
 
     private void verifyPacsIntegrationGlobalPropertiesConfigured() throws Exception {
-        assertEquals(HaitiPatientIdentifierTypes.ZL_EMR_ID.uuid(), adminService.getGlobalProperty(PacsIntegrationConstants.GP_PATIENT_IDENTIFIER_TYPE_UUID));
+        assertEquals(PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid(), adminService.getGlobalProperty(PacsIntegrationConstants.GP_PATIENT_IDENTIFIER_TYPE_UUID));
         assertEquals("en", adminService.getGlobalProperty(PacsIntegrationConstants.GP_DEFAULT_LOCALE));
         assertEquals("Mirebalais", adminService.getGlobalProperty(PacsIntegrationConstants.GP_SENDING_FACILITY));
         assertEquals(CoreConceptMetadataBundle.ConceptSources.LOINC, adminService.getGlobalProperty(PacsIntegrationConstants.GP_PROCEDURE_CODE_CONCEPT_SOURCE_UUID));

@@ -27,7 +27,7 @@ import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
@@ -86,13 +86,13 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
 
 		// EMR API
 		// extra patient identifiers now set as part of Config
-		// properties.put(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, HaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid() + "," + HaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+		// properties.put(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid() + "," + PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
 		// primary identifier type now installed via metadata mappings
-		// properties.put(EmrApiConstants.PRIMARY_IDENTIFIER_TYPE, HaitiPatientIdentifierTypes.ZL_EMR_ID.name());
+		// properties.put(EmrApiConstants.PRIMARY_IDENTIFIER_TYPE, PihHaitiPatientIdentifierTypes.ZL_EMR_ID.name());
 
         // Paper Record
-        properties.put(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, HaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
-        properties.put(PaperRecordConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, HaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid());
+        properties.put(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
+        properties.put(PaperRecordConstants.GP_EXTERNAL_DOSSIER_IDENTIFIER_TYPE, PihHaitiPatientIdentifierTypes.EXTERNAL_DOSSIER_NUMBER.uuid());
 
         // Core Apps
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MirebalaisLocations.MIREBALAIS_CDI_PARENT.uuid());

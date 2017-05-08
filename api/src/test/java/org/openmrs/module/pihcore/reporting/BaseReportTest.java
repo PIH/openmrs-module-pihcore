@@ -25,7 +25,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.haiti.HaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
@@ -119,7 +119,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.name(new PersonName("John", "Smitty", "Smith"));
         pb.birthdate("1977-11-23").birthdateEstimated(false);
         pb.male();
-        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
         return pb.save();
     }
 
@@ -132,7 +132,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.UNKNOWN_PATIENT), "false");
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME), "Isabel");
         address(pb, haitiAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
-        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
         return pb.save();
     }
 
