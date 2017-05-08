@@ -14,6 +14,7 @@ public class RelationshipTypeBundle extends AbstractMetadataBundle {
 
     public static final class RelationshipTypes {
         public static final String CHW_TO_PATIENT = "eb567be2-fda1-4746-9d51-833de8a7e81f";
+        public static final String SPOUSE_PARTNER = "C8CDE783-00EB-4FEA-9E4B-A2BDCAD8D33E";
     }
     /**
      * Performs the installation of the metadata items
@@ -23,5 +24,6 @@ public class RelationshipTypeBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
         install(relationshipType("Community Health Worker", "Patient", "CHW to Patient relationship", RelationshipTypes.CHW_TO_PATIENT));
+        install(relationshipType("Spouse/Partner", "Patient", "Spouse/Partner relationship", RelationshipTypes.SPOUSE_PARTNER));
     }
 }
