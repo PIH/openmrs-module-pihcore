@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Requires({ LocationTagBundle.class, LocationAttributeTypeBundle.class} )
-public class HaitiLocationsBundle extends AbstractMetadataBundle {
+public class PihHaitiLocationsBundle extends AbstractMetadataBundle {
 
     // TODO figure out how to install Mirebalais locations in a non-Mirebalais context; one issue is that we have a parent
     // TODO location "Mirebalais" that encompasses both CDI and Mirebalais, and CDI and Mirebalais aren't visit locations in the Mirebalais syste,
