@@ -24,6 +24,6 @@ public class RelationshipTypeBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
         install(relationshipType("Community Health Worker", "Patient", "CHW to Patient relationship", RelationshipTypes.CHW_TO_PATIENT));
-        install(relationshipType("Spouse/Partner", "Patient", "Spouse/Partner relationship", RelationshipTypes.SPOUSE_PARTNER));
+        install(relationshipType("Spouse/Partner", "Spouse/Partner", "Spouse/Partner relationship", RelationshipTypes.SPOUSE_PARTNER));
     }
 }
