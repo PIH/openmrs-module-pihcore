@@ -44,4 +44,7 @@ public class PihCoreConstants {
     public static final String RELATIONSHIP_PARENT_CHILD = "8d91a210-c2cc-11de-8d13-0010c6dffd0f";
     public static final String RELATIONSHIP_AUNT_UNCLE = "8d91a3dc-c2cc-11de-8d13-0010c6dffd0f";
 
+    // uuids of concepts associated with programs
+    public static final String ZIKA_PROGRAM_CONCEPT_UUID = "58c9ab03-9601-4d88-88b7-c4932004374e";
+
 }

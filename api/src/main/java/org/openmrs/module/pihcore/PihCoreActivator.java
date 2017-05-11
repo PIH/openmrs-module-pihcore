@@ -31,7 +31,6 @@ import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
-import org.openmrs.module.emrapi.utils.MetadataUtil;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
@@ -78,7 +77,6 @@ public class PihCoreActivator extends BaseModuleActivator {
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
             setDispositionConfig(config);
-            installMetadataPackages(config);
             installMetadataBundles(config);
             setGlobalProperties(config);
             setExtraIdentifierTypes(metadataMappingService, patientService, config);
@@ -118,7 +116,7 @@ public class PihCoreActivator extends BaseModuleActivator {
     }
 
     // Most of the MDS packages are (still) installed in the mirebalaismetadata module activator
-    private void installMetadataPackages(Config config) throws Exception {
+  /*  private void installMetadataPackages(Config config) throws Exception {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             MetadataUtil.setupSpecificMetadata(getClass().getClassLoader(), "HUM_Dispensing_Concepts");
@@ -131,7 +129,7 @@ public class PihCoreActivator extends BaseModuleActivator {
         }
 
         Context.flushSession();
-    }
+    }*/
 
     private void installMetadataBundles(Config config) {
 
