@@ -479,6 +479,25 @@
                              answerConceptIds="PIH:POSITIVE,PIH:NEGATIVE,PIH:INDETERMINATE" />
                     </field>
                 </span>
+
+                <label for="zika-igg">
+                    <uimessage code="pihcore.lab.zika_igg"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="zika-igg" conceptId="CIEL:164934"
+                             answerConceptIds="CIEL:164931,CIEL:164932,CIEL:164933,PIH:NEGATIVE" />
+                    </field>
+                </span>
+                <label for="zika-igm">
+                    <uimessage code="pihcore.lab.zika_igm"/>
+                </label>
+                <span class="small">
+                    <field>
+                        <obs id="zika-igm" conceptId="CIEL:164930"
+                             answerConceptIds="CIEL:164931,CIEL:164932,CIEL:164933,PIH:NEGATIVE" />
+                    </field>
+                </span>
             </p>
 
             <p>
