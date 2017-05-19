@@ -38,6 +38,11 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.EMERGENCY_TRIAGE);
         install(EncounterTypes.TEST_ORDER);
         install(EncounterTypes.SPECIMEN_COLLECTION);
+        install(EncounterTypes.ADULT_HIV_INTAKE);
+        install(EncounterTypes.ADULT_HIV_FOLLOWUP);
+        install(EncounterTypes.PEDS_HIV_INTAKE);
+        install(EncounterTypes.PEDS_HIV_FOLLOWUP);
+        install(EncounterTypes.ART_ADHERENCE);
 
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DISPOSITION.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_FEEDING.uuid()), "never used");

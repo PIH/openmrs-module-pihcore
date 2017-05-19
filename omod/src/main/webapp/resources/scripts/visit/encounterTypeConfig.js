@@ -416,6 +416,53 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
+        // HIV forms from MSPP and iSantePlus
+        encounterTypeConfig[EncounterTypes.artAdherence.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/Adherence.xml",
+            icon: "icon-asterisk",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/Adherence.xml",
+            showOnVisitList: true
+        };
+        encounterTypeConfig[EncounterTypes.hivIntakeAdult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/SaisiePremiereVisiteAdult.xml",
+            icon: "icon-asterisk",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/SaisiePremiereVisiteAdult.xml",
+            showOnVisitList: true
+        };
+        encounterTypeConfig[EncounterTypes.hivIntakePeds.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/SaisiePremiereVisitePediatrique.xml",
+            icon: "icon-asterisk",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/SaisiePremiereVisitePediatrique.xml",
+            showOnVisitList: true
+        };
+        encounterTypeConfig[EncounterTypes.hivFollowupAdult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/VisiteDeSuivi.xml",
+            icon: "icon-asterisk",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/VisiteDeSuivi.xml",
+            showOnVisitList: true
+        };
+        encounterTypeConfig[EncounterTypes.hivFollowupPeds.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/VisiteDeSuiviPediatrique.xml",
+            icon: "icon-asterisk",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/VisiteDeSuiviPediatrique.xml",
+            showOnVisitList: true
+        };
+
         encounterTypeConfig[EncounterTypes.primaryCareVisit.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",

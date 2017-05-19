@@ -444,6 +444,21 @@ angular.module('constants', [])
         },
         specimenCollection: {
             uuid: "10db3139-07c0-4766-b4e5-a41b01363145"
+        },
+        artAdherence: {
+            uuid: "c45d7299-ad08-4cb5-8e5d-e0ce40532939"
+        },
+        hivIntakeAdult: {
+            uuid: "17536ba6-dd7c-4f58-8014-08c7cb798ac7"
+        },
+        hivIntakePeds: {
+            uuid: "349ae0b4-65c1-4122-aa06-480f186c8350"
+        },
+        hivFollowupAdult: {
+            uuid: "204ad066-c5c2-4229-9a62-644bc5617ca2"
+        },
+        hivFollowupPeds: {
+            uuid: "33491314-c352-42d0-bd5d-a9d0bffc9bf1"
         }
 
     })

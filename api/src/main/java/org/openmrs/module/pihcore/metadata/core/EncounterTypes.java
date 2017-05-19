@@ -256,4 +256,53 @@ public class EncounterTypes {
 		public String name() { return "Conduite a tenir"; }
 		public String description() { return "Orders placed during a consultation"; }
 	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor ADULT_HIV_INTAKE  = new EncounterTypeDescriptor() {
+		public String uuid() { return "17536ba6-dd7c-4f58-8014-08c7cb798ac7"; }
+		public String name() { return "Saisie Première pour le VIH"; }
+		public String description() { return "Saisie Première visite Adulte VIH"; }
+	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor ADULT_HIV_FOLLOWUP  = new EncounterTypeDescriptor() {
+		public String uuid() { return "204ad066-c5c2-4229-9a62-644bc5617ca2"; }
+		public String name() { return "Suivi Visite pour le VIH"; }
+		public String description() { return "Saisie visite suivi Adulte VIH"; }
+	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor PEDS_HIV_INTAKE  = new EncounterTypeDescriptor() {
+		public String uuid() { return "349ae0b4-65c1-4122-aa06-480f186c8350"; }
+		public String name() { return "Saisie Première pour le VIH (pédiatrique)"; }
+		public String description() { return "Saisie Première visite Pédiatrique VIH"; }
+	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor PEDS_HIV_FOLLOWUP  = new EncounterTypeDescriptor() {
+		public String uuid() { return "33491314-c352-42d0-bd5d-a9d0bffc9bf1"; }
+		public String name() { return "Suivi visite pour le VIH (pédiatrique)"; }
+		public String description() { return "Saisie visite Suivi pédiatrique VIH"; }
+	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor ART_ADHERENCE  = new EncounterTypeDescriptor() {
+		public String uuid() { return "c45d7299-ad08-4cb5-8e5d-e0ce40532939"; }
+		public String name() { return "ART Adhérence"; }
+		public String description() { return "Conseils ART d'Adhérence"; }
+	};
+
+	// Adherence
+	// formUuid="81ddaf29-50d9-4654-a2e2-5a3d784b7427"
+
+	// Intake (adult)
+	// formUuid="f73c1969-49c4-4ef5-8943-e8838547a275"
+
+	// Intake (peds)
+
+	// Followup (adult)
+	// formUuid="df621bc1-6f2e-46bf-9fe9-184f1fdd41f2"
+
+	// Followup (peds)
+	// formUuid="f55d3760-1bf1-4e42-a7f9-0a901fa49cf0"
 }
