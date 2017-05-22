@@ -121,6 +121,11 @@
   font-weight: bold;
 }
 
+#export-patient {
+  width: 700px;
+  height: 400px;
+}
+
 .dialog-diagnoses {
   @extend .dialog;
   width: 850px;
