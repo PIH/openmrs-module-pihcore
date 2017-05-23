@@ -250,30 +250,33 @@
                 </label>
                 <span class="small">
                     <obs conceptId="PIH:CHEMOTHERAPY CYCLE NUMBER"/>
-                    of
+                    of&amp;nbsp;
                     <obs conceptId="PIH:Total number of planned chemotherapy cycles"/>
                 </span>
                 <br/>
 
                 <div class="two-columns">
-                    <p class="radio">
-                        <label>
-                            <uimessage code="pihcore.chemo.tx_received"/>
-                        </label>
-                        <obs conceptId="PIH:Chemotherapy treatment received" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                             answerSeparator="" showCommentField="true" commentFieldLabel="If no, explain:"/>
-                    </p>
-
-                    <p class="radio">
-                        <label>
-                            <uimessage code="pihcore.chemo.tx_tolerated"/>
-                        </label>
-                        <obs conceptId="PIH:Chemotherapy treatment tolerated" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                             answerSeparator="" showCommentField="true" commentFieldLabel="If no, explain:"/>
-                    </p>
+                    <label>
+                        <uimessage code="pihcore.chemo.tx_received"/>
+                    </label>
+                    <obs conceptId="PIH:Chemotherapy treatment received" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerSeparator="" />
+                    <label>
+                        <uimessage code="pihcore.chemo.reason_no_tx"/>
+                    </label>
+                    <obs conceptId="CIEL:160582"
+                         answerConceptIds="PIH:PATIENT MISSED VISIT,CIEL:160585,PIH:Abnormal laboratory result,CIEL:1754,PIH:Material supply or equipment unavailable"
+                         style="dropdown" />
                 </div>
+
+                <br/>
+                <label>
+                    <uimessage code="pihcore.chemo.tx_tolerated"/>
+                </label>
+                <obs conceptId="PIH:Chemotherapy treatment tolerated" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     answerSeparator="" showCommentField="true" commentFieldLabel="If no, explain:"/>
 
                 <label>
                     <uimessage code="pihcore.chemo.chemo_side_effects"/>
@@ -297,7 +300,7 @@
                 </div>
                 <obs conceptId="CIEL:163075" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true"
                      commentFieldLabel=" "/>
-                <br/><br/>
+                <br/>
 
                 <div class="two-columns">
                     <label>
@@ -320,7 +323,7 @@
                          answerCodes="Continue previous treatment,Planned treatment interruption,Follow-up with oncologist prior to continuing chemotherapy,Other"
                          answerSeparator=""/>
                 </p>
-                <br/>
+
                 <label>
                     <uimessage code="pihcore.chemo.important_visit_info"/>
                 </label>
