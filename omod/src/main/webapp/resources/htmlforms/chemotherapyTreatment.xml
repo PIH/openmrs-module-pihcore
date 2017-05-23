@@ -227,13 +227,11 @@
                     <uimessage code="pihcore.chemo.chemotherapy_protocol"/>
                 </label>
                 <div class="two-columns">
-                    <obs conceptId="CIEL:163073" answerConceptId="CIEL:163060"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163061"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163062"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163063"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163064"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163065"/>
-                    <obs conceptId="CIEL:163073" answerConceptId="CIEL:84668"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163066"/>
                     <obs conceptId="CIEL:163073" answerConceptId="PIH:Paclitaxel"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163067"/>
@@ -241,12 +239,8 @@
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163069"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163068"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163069"/>
-
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163071"/>
-                    <obs conceptId="CIEL:163073" answerConceptId="CIEL:77941"/>
                     <obs conceptId="CIEL:163073" answerConceptId="CIEL:163072"/>
-                    <obs conceptId="CIEL:163073" answerConceptId="CIEL:78738"/>
-
                 </div>
                 <obs conceptId="CIEL:163073" answerConceptId="CIEL:163070"/>
                 <obs conceptId="CIEL:163073" answerConceptId="PIH:OTHER" answerCode="other" showCommentField="true"
