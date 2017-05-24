@@ -51,5 +51,6 @@ public class Components {
         public static final String RELATIONSHIPS = "relationships";
         public static final String ZIKA = "zika";
         public static final String EXPORT_PATIENTS = "exportPatients";
+        public static final String IMPORT_PATIENTS = "importPatients";
 
 }

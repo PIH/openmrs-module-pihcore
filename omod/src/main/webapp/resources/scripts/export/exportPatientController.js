@@ -34,7 +34,6 @@ angular.module('exportPatientApp', ['ngDialog'])
                 $scope.exportPatient = function (patientUuid) {
                         return ExportPatientService.exportPatient(patientUuid).then(function (result) {
                                 if (result.status == 200 ) {
-                                        // $scope.currentPatientJson = angular.toJson(result.data);
                                         $scope.currentPatientJson = JSON.stringify(result.data, undefined, 4);
                                         ngDialog.openConfirm({
                                                 showClose: true,
