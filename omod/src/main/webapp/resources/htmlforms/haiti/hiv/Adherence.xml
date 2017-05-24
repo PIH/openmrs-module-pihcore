@@ -160,7 +160,7 @@ formName="Adhérence" formVersion="1.0"
 
 	<div id="contenerGeneral">
 		<div id="dateVisite">
-			<b>>MSPP FICHE D'ADHÉRENCE (VERSION OCTOBRE 2006)<br/>iSantePlus</b>
+			<b>MSPP FICHE D'ADHÉRENCE (VERSION OCTOBRE 2006)<br/>iSantePlus</b>
 			<table>
 				<tr>
 					<td>Date visite:</td>
