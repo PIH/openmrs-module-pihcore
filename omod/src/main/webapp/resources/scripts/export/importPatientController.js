@@ -4,17 +4,38 @@ angular.module('importPatientApp', ['ngDialog'])
             var CONSTANTS = {
                 URLS: {
                     PATIENT: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/patient",
+                    VISIT: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/visit",
                     OBS: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/obs"
                 }
             };
 
-            this.importPatient = function (patientJson) {
-                var patient = JSON.parse(patientJson);
-                return $http.post(CONSTANTS.URLS.PATIENT, patient);
+            this.importPatient = function (patient) {
+                if (angular.isDefined(patient)) {
+                    return $http.post(CONSTANTS.URLS.PATIENT, patient)
+                        .then( function(response) {
+                            if (response.status == 201 ) {
+                                //new patient record created
+                                return response.data;
+                            } else {
+                                return null;
+                            }
+                        }, function(error) {
+                            console.log(JSON.stringify(error, undefined, 4));
+                        });
+                }
+            };
+
+            this.importVisits = function(visits){
+                var promises = [];
+                angular.forEach(visits, function(visit) {
+                   var promise = $http.post(CONSTANTS.URLS.VISIT, visit);
+                    promises.push(promise);
+                });
+                return $q.all(promises);
             };
         }])
-    .controller('ImportPatientController', ['$scope', 'ImportPatientService', 'ngDialog',
-        function($scope, ImportPatientService, ngDialog) {
+    .controller('ImportPatientController', ['$q', '$scope', 'ImportPatientService', 'ngDialog',
+        function($q, $scope, ImportPatientService, ngDialog) {
 
             $scope.importedPatients = [];
             $scope.content = null;
@@ -38,20 +59,17 @@ angular.module('importPatientApp', ['ngDialog'])
 
             $scope.importPatient = function() {
                 if ($scope.patientJson) {
-                    return ImportPatientService.importPatient($scope.patientJson).then(function (result) {
-                        if (result.status == 201) {
-                            var patient = result.data;
-                            $scope.importedPatients.push(patient);
-                            console.log("Patient was successfully imported. Patient UUID=" + patient.uuid);
-                        } else {
-                            console.log("result.status = " + result.status);
-                        }
-                        $scope.content = null;
-                        $scope.errorMessage = null;
-                    }, function (error) {
-                        $scope.errorMessage = JSON.stringify(error, undefined, 4);
-                        console.log("Failed to create patient record: " + $scope.errorMessage);
-                    });
+                    var patientRecord = JSON.parse($scope.patientJson);
+                    if (angular.isDefined(patientRecord) && patientRecord.patient) {
+                        ImportPatientService.importPatient(patientRecord.patient)
+                            .then( function(patient) {
+                                $scope.importedPatients.push(patient);
+                                return ImportPatientService.importVisits(patientRecord.visits);
+                            }).then( function(visits) {                             
+                                $scope.content = null;
+                                $scope.errorMessage = null;
+                            })
+                    }
                 }
             }
             

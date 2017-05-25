@@ -4,19 +4,42 @@ angular.module('exportPatientApp', ['ngDialog'])
                     var CONSTANTS = {
                             URLS: {
                                     PATIENT: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/patient",
+                                    VISIT: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/visit",
                                     OBS: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/obs"
                             },
-                            PATIENT_CUSTOM_REP: "v=custom:(uuid,display,identifiers,person:(uuid,display,gender,age,birthdate,birthdateEstimated,dead,deathDate,causeOfDeath,names,addresses,attributes))"
+                            PATIENT_CUSTOM_REP: "v=custom:(uuid,display,identifiers,person:(uuid,display,gender,age,birthdate,birthdateEstimated,dead,deathDate,causeOfDeath,names,addresses,attributes))",
+                            VISIT_CUSTOM_REP: "v=custom:(patient:(uuid),attributes,startDatetime,stopDatetime,indication,location:(uuid),visitType:(uuid))"
                     };
 
-                    this.exportPatient = function (patientUuid) {
-                            return $http.get(CONSTANTS.URLS.PATIENT + "/" + patientUuid + "?" + CONSTANTS.PATIENT_CUSTOM_REP);
+                    this.getPatient = function (patientUuid) {
+                            return $http.get(CONSTANTS.URLS.PATIENT + "/" + patientUuid + "?" + CONSTANTS.PATIENT_CUSTOM_REP).then(function(resp) {
+                                    if (resp.status == 200) {
+                                            return resp.data;
+                                    } else {
+                                            return null;
+                                    }
+                            }, function (error) {
+                                    console.log(JSON.stringify(err, undefined, 4));
+                            });
                     };
+                    this.getVisits = function (patientUuid) {
+                            return $http.get(CONSTANTS.URLS.VISIT + "/"  + "?patient=" + patientUuid + "&" + CONSTANTS.VISIT_CUSTOM_REP).then(function (resp) {
+                                    if (resp.status == 200) {
+                                            return resp.data.results;
+                                    } else {
+                                            return null;
+                                    }
+
+                            }, function (err) {
+                                    console.log(JSON.stringify(err, undefined, 4));
+                            });
+                    };
+
             }])
-    .controller('ExportPatientController', ['$scope', 'ExportPatientService', 'ngDialog', 'allPatients',
-        function($scope, ExportPatientService, ngDialog, allPatients) {
+    .controller('ExportPatientController', ['$q', '$scope', 'ExportPatientService', 'ngDialog', 'allPatients',
+        function($q, $scope, ExportPatientService, ngDialog, allPatients) {
                 $scope.allPatients = allPatients;
-                $scope.currentPatientJson = "test";
+                $scope.currentPatientJson = null;
 
                 function saveFile(data, filename) {
                         var blob = new Blob([data], {type: 'text/json'});
@@ -32,21 +55,30 @@ angular.module('exportPatientApp', ['ngDialog'])
                 }
 
                 $scope.exportPatient = function (patientUuid) {
-                        return ExportPatientService.exportPatient(patientUuid).then(function (result) {
-                                if (result.status == 200 ) {
-                                        $scope.currentPatientJson = JSON.stringify(result.data, undefined, 4);
-                                        ngDialog.openConfirm({
-                                                showClose: true,
-                                                closeByEscape: true,
-                                                scope: $scope,
-                                                template: "confirmExportPatient.page"
-                                        }).then(function() {
-                                            saveFile($scope.currentPatientJson, patientUuid + "_patient.json") ;
-                                        });
-                                }
-                        }, function (error) {
-                                console.log("Failed to retrieve patient record: " + error);
+
+                        var promises = [];
+                        var patient = ExportPatientService.getPatient(patientUuid);
+                        promises.push(patient);
+                        var visits = ExportPatientService.getVisits(patientUuid);
+                        promises.push(visits);
+                        
+                        return $q.all(promises).then(function(data) {
+                                var patientRecord={};
+                                patientRecord.patient = data[0];
+                                patientRecord.visits =  data[1];
+
+                                $scope.currentPatientJson = JSON.stringify(patientRecord, undefined, 4);
+                                ngDialog.openConfirm({
+                                        showClose: true,
+                                        closeByEscape: true,
+                                        scope: $scope,
+                                        template: "confirmExportPatient.page"
+                                }).then(function () {
+                                        saveFile($scope.currentPatientJson, patientUuid + "_patient.json");
+                                });
                         });
+
+
                 };
 
         }]);
