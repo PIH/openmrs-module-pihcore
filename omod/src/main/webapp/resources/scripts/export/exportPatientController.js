@@ -8,7 +8,7 @@ angular.module('exportPatientApp', ['ngDialog'])
                                     OBS: "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/obs"
                             },
                             PATIENT_CUSTOM_REP: "v=custom:(uuid,display,identifiers,person:(uuid,display,gender,age,birthdate,birthdateEstimated,dead,deathDate,causeOfDeath,names,addresses,attributes))",
-                            VISIT_CUSTOM_REP: "v=custom:(patient:(uuid),attributes,startDatetime,stopDatetime,indication,location:(uuid),visitType:(uuid))"
+                            VISIT_CUSTOM_REP: "v=custom:(patient:(uuid),attributes,startDatetime,stopDatetime,indication,location:(uuid),visitType:(uuid),encounters:(uuid,patient:(uuid),location:(uuid),encounterType:(uuid),encounterDatetime,voided),voided"
                     };
 
                     this.getPatient = function (patientUuid) {
