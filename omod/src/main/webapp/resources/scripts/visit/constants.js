@@ -459,6 +459,18 @@ angular.module('constants', [])
         },
         hivFollowupPeds: {
             uuid: "33491314-c352-42d0-bd5d-a9d0bffc9bf1"
+        },
+        zlHivIntakeAdult: {
+            uuid: "c31d306a-40c4-11e7-a919-92ebcb67fe33"
+        },
+        zlHivIntakePeds: {
+            uuid: "c31d3416-40c4-11e7-a919-92ebcb67fe33"
+        },
+        zlHivFollowupAdult: {
+            uuid: "c31d3312-40c4-11e7-a919-92ebcb67fe33"
+        },
+        zlHivFollowupPeds: {
+            uuid: "c31d34f2-40c4-11e7-a919-92ebcb67fe33"
         }
 
     })
