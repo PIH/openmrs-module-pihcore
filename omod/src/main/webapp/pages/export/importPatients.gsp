@@ -69,19 +69,17 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="patient in importedPatients">
+            <tr ng-repeat="record in importedPatients">
                 <td>
-                    <a ng-click="navigateTo(patient.uuid)">{{ patient.display }}</a>
+                    <a ng-click="navigateTo(record.patient.uuid)">{{ record.patient.display }}</a>
                 </td>
                 <td>
-                    {{ patient.person.gender }}
+                    {{ record.patient.person.gender }}
                 </td>
                 <td>
-                    {{ patient.person.age }}
+                    {{ record.patient.person.age }}
                 </td>
-
             </tr>
-
             </tbody>
         </table>
     </div>
