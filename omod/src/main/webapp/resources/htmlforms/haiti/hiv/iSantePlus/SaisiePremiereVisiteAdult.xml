@@ -1203,8 +1203,8 @@
 				<td>Candidose, vulvo-vaginale (non chronique)</td>
 			</tr>
 			<tr class="checkboxGroup">
-				<td><span id="actif"><obs conceptId="CIEL:6042" answerConceptId="CIEL:127794" showDate="true" answerLabel=""/></span></td>
-				<td><span id="gueri"><obs conceptId="CIEL:6097" answerConceptId="CIEL:127794" showDate="true" answerLabel=""/></span></td>
+				<td><span id="actif"><obs conceptId="CIEL:6042" answerConceptId="CIEL:127784" showDate="true" answerLabel=""/></span></td>
+				<td><span id="gueri"><obs conceptId="CIEL:6097" answerConceptId="CIEL:127784" showDate="true" answerLabel=""/></span></td>
 				<td>Infections récurrentes des voies respiratoires supérieures</td>
 			</tr>
 			<tr bgcolor="#D8D8D8" class="checkboxGroup">

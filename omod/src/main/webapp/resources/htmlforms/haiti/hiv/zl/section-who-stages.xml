@@ -1,0 +1,190 @@
+<htmlform formUuid="50835e50-46f8-11e7-a919-92ebcb67fe33"
+          formName="HIV WHO Stages" formVersion="1.0">
+
+    <style type="text/css">
+        <ifMode mode="VIEW" include="false">
+
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
+
+            .two-columns {
+                column-count: 2;
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+            }
+
+            .section-container {
+                background: #F2F2F2;
+                box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+                padding: 10px 5px 10px 15px;
+                line-height: 1.5em; /*add this for vertical spacing between elements*/
+            }
+
+            .section-container input[type="checkbox"] {
+                margin: 0px 5px; /*changed values to vertical, horizontal*/
+                top:5px; /*added to offset the checkbox position to line up*/
+            }
+
+            .section-container label { /*new definition to override labels inside section-containers*/
+                margin: 0px;
+            }
+        </ifMode>
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h3>
+            O. <uimessage code="pihcore.hiv.whoStages"/>
+            <!-- Differences between ZL and iSantePlus WHO HIV stages
+                 -->
+        </h3>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is
+                clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-diagnosis");
+                    return true;
+                });
+
+                window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
+    <div class="hiv-who-stage">
+        <div class="section-container">
+            <p>
+                <label>
+                    <b>
+                        <uimessage code="pihcore.hiv.whoStage1"/>
+                    </b>
+                    <!-- Stade 1 de l'OMS -->
+                </label>
+
+                <!-- Infection à VIH asymptomatique -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5327" style="checkbox"/>
+                </p>
+
+                <!-- Lymphadénopathie généralisée persistante -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5328" style="checkbox"/>
+                </p>
+
+                <!-- MSPP Stage 1, but not on ZL form -->
+                <!-- Fatigue chronique
+                <obs conceptId="CIEL:6042" answerConceptId="CIEL:120655" />
+                -->
+            </p>
+
+            <p>
+                <label>
+                    <b>
+                        <uimessage code="pihcore.hiv.whoStage2"/>
+                    </b>
+                    <!-- Stade 2 de l'OMS -->
+                </label>
+
+                <!-- Perte de poids less than 10% -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5332" style="checkbox"/>
+                </p>
+
+                <!-- Infections récurrentes des voies respiratoires supérieures -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:127784" style="checkbox"/>
+                </p>
+
+                <!-- Zona -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:117543" style="checkbox"/>
+                </p>
+
+                <!-- ZL but not iSantePlus (next 1 diagnoses) -->
+                <!-- Perleche (CIEL:148762)
+                    ToDo: Uncomment when the concept is in mds package
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:148762" style="checkbox"/>
+                </p> -->
+
+                <!-- Ulcere Ulcérations buccales récurrentes (non chronique)	-->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:111721" style="checkbox"/>
+                </p>
+
+                <!-- ZL but not iSantePlus (next 3 diagnoses) -->
+                <!-- Papular pruritic eruption (CIEL:1249) -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:1249" style="checkbox"/>
+                </p>
+                <!-- Seborrheic dermatitis (CIEL:113116) -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:113116" style="checkbox"/>
+                </p>
+                <!-- Fungal nail infection (CIEL:132387) -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:132387" style="checkbox"/>
+                </p>
+
+                <!-- MSPP Stage 2, but not on ZL form -->
+                <!-- Candidose, vulvo-vaginale (non chronique) 
+                        <obs conceptId="CIEL:6042" answerConceptId="CIEL:298" /> -->
+                <!-- Manifestations cutanéomuqueuses secondaires 			
+                        <obs conceptId="CIEL:6042" answerConceptId="CIEL:512" /> -->
+                <!-- Fièvre less than 1 mois 
+                        <obs conceptId="CIEL:6042" answerConceptId="CIEL:163282"/> -->
+                <!-- Diarrhée less than 1 mois 					
+                        <obs conceptId="CIEL:6042" answerConceptId="CIEL:1467" /> -->
+            </p>
+
+            <p>
+                <label>
+                    <b>
+                        <uimessage code="pihcore.hiv.whoStage3"/>
+                    </b>
+                    <!-- Stade 3 de l'OMS -->
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    <b>
+                        <uimessage code="pihcore.hiv.whoStage4"/>
+                    </b>
+                    <!-- Stade 4 de l'OMS -->
+                </label>
+            </p>
+        </div>
+    </div>
+
+    <p></p>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right">
+                <uimessage code="emr.next"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="submit" class="submitButton confirm right">
+                <uimessage code="mirebalais.save"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="cancel" type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>

@@ -146,6 +146,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-risk-factors.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var whoHIVStages = {
+            type: "encounter-section",
+            id: "hiv-who-stages",
+            label: "pihcore.hiv.who-stages",
+            icon: "icon-asterisk",
+            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages-factors.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         /* Define Encounter Types */
         var encounterTypeConfig = {
             DEFAULT: {
@@ -303,7 +314,8 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 hivRiskFactors,
-                primaryCareExam
+                primaryCareExam,
+                whoHIVStages
             ]
         };
 
