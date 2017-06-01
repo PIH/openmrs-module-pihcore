@@ -56,7 +56,10 @@
         <% allPatients.sort { it.personName?.familyName.toLowerCase() }.each{  %>
         <tr>
             <td>
-                ${ ui.format(it.personName)}
+                <a href="${ ui.pageLink("coreapps", "clinicianfacing/patient", [
+                        "patientId": it.uuid ])}">
+                    ${ ui.format(it.personName) }
+                </a>
             </td>
             <td>
                 ${ ui.format(it.gender) }
