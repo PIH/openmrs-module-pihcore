@@ -149,7 +149,7 @@ angular.module("encounterTypeConfig", ["constants"])
         var whoHIVStages = {
             type: "encounter-section",
             id: "hiv-who-stages",
-            label: "pihcore.hiv.who-stages",
+            label: "pihcore.hiv.whoStages",
             icon: "icon-asterisk",
             shortTemplate: "templates/sections/supplementsSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",

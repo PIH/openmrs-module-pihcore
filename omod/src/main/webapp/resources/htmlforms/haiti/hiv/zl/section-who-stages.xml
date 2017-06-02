@@ -38,6 +38,8 @@
         <h3>
             O. <uimessage code="pihcore.hiv.whoStages"/>
             <!-- Differences between ZL and iSantePlus WHO HIV stages
+                 * iSantePlus has start/stop dates
+                 * Some differences with diagnoses (see inline)
                  -->
         </h3>
 
@@ -63,8 +65,8 @@
         </script>
     </ifMode>
 
-    <div class="hiv-who-stage">
-        <div class="section-container">
+    <div class="hiv-who-stages">
+        <div class="two-columns">
             <p>
                 <label>
                     <b>
@@ -114,10 +116,10 @@
 
                 <!-- ZL but not iSantePlus (next 1 diagnoses) -->
                 <!-- Perleche (CIEL:148762)
-                    ToDo: Uncomment when the concept is in mds package
+                    ToDo: Uncomment when the concept is in mds package -->
                 <p>
                     <obs conceptId="CIEL:6042" answerConceptId="CIEL:148762" style="checkbox"/>
-                </p> -->
+                </p>
 
                 <!-- Ulcere Ulcérations buccales récurrentes (non chronique)	-->
                 <p>
@@ -156,6 +158,67 @@
                     </b>
                     <!-- Stade 3 de l'OMS -->
                 </label>
+
+                <!-- Perte de poids &#62;10% -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5339" style="checkbox"/>
+                </p>
+
+                <!-- Diarrhée &#62;1 mois sans cause identifiée -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5018" style="checkbox"/>
+                </p>
+
+                <!-- Fièvre &#62;1 mois sans cause identifiée -->
+                <!-- Swapped order on iSantePlus and ZL forms -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5027" style="checkbox"/>
+                </p>
+
+                <!-- Candidose, buccale (muguet) -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5334" style="checkbox"/>
+                </p>
+
+                <!-- Leucoplasie chevelue buccale -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5337" style="checkbox"/>
+                </p>
+
+                <!-- M. tuberculosis(TB) pulmonaire (different label on ZL form) -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:42" style="checkbox"/>
+                </p>
+
+                <!-- different ZL form:  Infections bactériennes graves (pneumonie, Pyo myosite) -->
+                <!-- Pneumonie bactérienne (serious)-->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5030" style="checkbox"/>
+                </p>
+
+                <!-- ZL form but not iSantePlus (next 2 diagnoses)
+                     Stomatite ulcéro-nécrotique aiguë, gingivite ou parodontite -->
+                <!-- ToDo:  Add to mds package and uncomment
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:149629" style="checkbox"/></p>
+
+                Anémie, thrombocytopénie ou neutropénie inexpliquées
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="PIH:2582" style="checkbox"/>
+                </p>
+                -->
+
+                <!-- iSantePlus, but not ZL (next 5 diagnoses)
+                Affections inflammatoires pelviennes
+				<p><obs conceptId="CIEL:6042" answerConceptId="CIEL:902" style="checkbox"/></p>
+                Infections bactérienne, autre (septicémie incluse) (severe)
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5333" style="checkbox"/></p>
+                Candidose, vulvo-vaginale chronique (&#62;1 mois)
+				<p><obs conceptId="CIEL:6042" answerConceptId="CIEL:298" style="checkbox"/></p>
+                Méningites bactériennes
+				<p><obs conceptId="CIEL:6042" answerConceptId="CIEL:121255" style="checkbox"/></p>
+                Tuberculose multirésistante
+				<p><obs conceptId="CIEL:6042" answerConceptId="CIEL:159355" style="checkbox"/></p>
+				-->
             </p>
 
             <p>
@@ -165,6 +228,138 @@
                     </b>
                     <!-- Stade 4 de l'OMS -->
                 </label>
+
+                <!-- ZL not iSantePlus: Wasting syndrome -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:823" style="checkbox"/>
+                </p>
+
+                <!-- ZL not iSantePlus: Pneumocystis carinii pneumonia -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:882" style="checkbox"/>
+                </p>
+
+                <!-- ZL not iSantePlus: Pneumonie bactérienne récurrente -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:1215" style="checkbox"/>
+                </p>
+
+                <!-- ZL not iSantePlus: Herpès simplex -->
+                <!-- ToDo: Change from PIH mapping to CIEL:138706 -->
+                <p>
+                    <obs conceptId="CIEL:6042" answerConceptId="PIH:3728" style="checkbox"/>
+                </p>
+
+                <!-- GOOD? Oesphagites dûe à candidose -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:139739" style="checkbox" /></p>
+
+                <!-- M. tuberculosis (TB) extrapulmonaire ou disséminée -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:118890" style="checkbox" /></p>
+
+                <!-- Sarcome de Kaposi -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:507" style="checkbox" /></p>
+
+                <!-- Toxoplasmose: CNS -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:990" style="checkbox" /></p>
+
+                <!-- ZL only:  HIV encephalopathy -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:160442" style="checkbox" /></p>
+
+                <!-- Cryptococcocus (extra pulmonaire) -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5033" style="checkbox" /></p>
+
+                <!-- Mycobacteriose, autre (incl. avium complex) -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5043" style="checkbox" /></p>
+
+                <!-- Leuco-encéphalopathie multifocale progressive -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5046" style="checkbox" /></p>
+
+                <!-- Cryptosporidiose -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5034" style="checkbox" /></p>
+
+                <!-- Isosporose intestinale -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:136458" style="checkbox" /></p>
+
+                <!-- Coccidiomycoses (extra pulmonaire) -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:120330" style="checkbox" /></p>
+
+                <!-- ZL only: Septicémie récurrente -->
+                <!-- ToDo: Uncomment with new mds package
+                <p><obs conceptId="CIEL:6042" answerConceptId="PIH:11407" style="checkbox" /></p>
+                -->
+
+                <!-- Lymphomes, non-Hodgkins -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:115195" style="checkbox" /></p>
+
+                <!-- Cancer cervical invasif -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:116023" style="checkbox" /></p>
+
+                <!-- ZL only:
+                     Leishmaniose atypique disséminée -->
+                <!-- ToDo: Uncomment with new mds package
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:159338" style="checkbox" /></p>
+                -->
+
+                <!-- Nephropathy or cardiomyopathy symptoms -->
+                <!-- ToDo: Uncomment with new mds package
+                <p><obs conceptId="CIEL:6042" answerConceptId="PIH:2721" style="checkbox" /></p>
+                -->
+
+                <!-- iSantePlus but not ZL
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:1207" style="checkbox" /></p>
+                perte de poids &#62;10% PLUS<br/>
+                a) diarrhée &#62;1 mois sans cause identifiée OU<br/>
+                b) fièvre &#62;1 mois sans cause identifiée
+
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5035" style="checkbox" /></p>
+                Retinite à CMV
+
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:142963" style="checkbox" /></p>
+                CMV viscéral <br/>(sauf rétine, ou foie, rate, ganglions lymphatiques)
+
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5033" style="checkbox" /></p>
+                Méningites à Cryptococcose (extra pulmonaire)
+
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:1460" style="checkbox" /></p>
+                Démence liée au VIH)
+
+                <b>OMS Stade Clinique IV <br/>Diarrhée chronique >1 mois (dûe à): </b>
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:145443" style="checkbox" /></p>
+                Cause inconnue
+
+                Oesphagites avec ulcère (dûe à):
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:118510" style="checkbox" /></p>
+                Cause inconnue
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:110516" style="checkbox" /></p>
+                Oesophagites HSV
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:156804" style="checkbox" /></p>
+                Oesophagites CMV
+
+                Lésions cérébrales focales (dûe à):
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:135886" style="checkbox" /></p>
+                Cause inconnue
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5040" style="checkbox" /></p>
+                Lymphome primaire CNS
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5038" style="checkbox" /></p>
+                Histoplasmoses (extra pulmonaires)
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:141488" style="checkbox" /></p>
+                Ulcère chronique a HSV (>1 mois)
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5041" style="checkbox" /></p>
+                Lymphomes, Hodgkins
+
+                Pneumonie non bactérienne (dûe à):
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:114100" style="checkbox" /></p>
+                Cause inconnue
+
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5340" style="checkbox" /></p>
+                Candidose
+
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:123098" style="checkbox" /></p>
+                Infections virales (incl. HSV,CMV)
+
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:882" style="checkbox" /></p>
+                PCP
+                -->
             </p>
         </div>
     </div>
