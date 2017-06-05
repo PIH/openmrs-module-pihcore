@@ -114,15 +114,14 @@
                 </p>
 
                 <!-- ZL but not iSantePlus (next 1 diagnoses) -->
-                <!-- Perleche (CIEL:148762)
-                    ToDo: Uncomment when the concept is in mds package -->
+                <!-- Perleche (CIEL:148762) -->
                 <p>
                     <obs conceptId="CIEL:6042" answerConceptId="CIEL:148762" style="checkbox"/>
                 </p>
 
                 <!-- Ulcere Ulcérations buccales récurrentes (non chronique)	-->
                 <p>
-                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:111721" style="checkbox"/>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:159912" style="checkbox"/>
                 </p>
 
                 <!-- ZL but not iSantePlus (next 3 diagnoses) -->
@@ -174,9 +173,9 @@
                     <obs conceptId="CIEL:6042" answerConceptId="CIEL:5027" style="checkbox"/>
                 </p>
 
-                <!-- Candidose, buccale (muguet) -->
+                <!-- ZL form show "persistent" oral candidiasis -->
                 <p>
-                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5334" style="checkbox"/>
+                    <obs conceptId="CIEL:6042" answerConceptId="PIH:2580" style="checkbox"/>
                 </p>
 
                 <!-- Leucoplasie chevelue buccale -->
@@ -197,14 +196,12 @@
 
                 <!-- ZL form but not iSantePlus (next 2 diagnoses)
                      Stomatite ulcéro-nécrotique aiguë, gingivite ou parodontite -->
-                <!-- ToDo:  Add to mds package and uncomment
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:149629" style="checkbox"/></p>
 
-                Anémie, thrombocytopénie ou neutropénie inexpliquées
+                <!-- Anémie, thrombocytopénie ou neutropénie inexpliquées -->
                 <p>
                     <obs conceptId="CIEL:6042" answerConceptId="PIH:2582" style="checkbox"/>
                 </p>
-                -->
 
                 <!-- iSantePlus, but not ZL (next 5 diagnoses)
                 Affections inflammatoires pelviennes
@@ -244,19 +241,25 @@
                 </p>
 
                 <!-- ZL not iSantePlus: Herpès simplex -->
-                <!-- ToDo: Change from PIH mapping to CIEL:138706 -->
                 <p>
-                    <obs conceptId="CIEL:6042" answerConceptId="PIH:3728" style="checkbox"/>
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:138706" style="checkbox"/>
                 </p>
 
-                <!-- GOOD? Oesphagites dûe à candidose -->
-                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:139739" style="checkbox" /></p>
+                <!-- ZL only: candidose -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5340" style="checkbox" /></p>
 
-                <!-- M. tuberculosis (TB) extrapulmonaire ou disséminée -->
-                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:118890" style="checkbox" /></p>
+                <!-- Difference between ZL and iSantePlus
+                     iSantePlus:  M. tuberculosis (TB) extrapulmonaire ou disséminée (CIEL:118890)
+                     ZL: Extrapulmonary TB -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5042" style="checkbox" /></p>
 
                 <!-- Sarcome de Kaposi -->
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:507" style="checkbox" /></p>
+
+                <!-- ZL only: Cytomegalovirus disease -->
+                <!-- ToDo: Uncomment with new mds package
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5035" style="checkbox" /></p>
+                -->
 
                 <!-- Toxoplasmose: CNS -->
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:990" style="checkbox" /></p>
@@ -276,16 +279,16 @@
                 <!-- Cryptosporidiose -->
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5034" style="checkbox" /></p>
 
-                <!-- Isosporose intestinale -->
-                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:136458" style="checkbox" /></p>
+                <!-- Difference between ZL and iSantePlus
+                     iSantePlus: Isosporose intestinale (CIEL:136458)
+                     ZL: Isosporidiose chronique -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:160520" style="checkbox" /></p>
 
-                <!-- Coccidiomycoses (extra pulmonaire) -->
-                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:120330" style="checkbox" /></p>
+                <!-- ZL only:  Mycose disséminée -->
+                <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5350" style="checkbox" /></p>
 
                 <!-- ZL only: Septicémie récurrente -->
-                <!-- ToDo: Uncomment with new mds package
                 <p><obs conceptId="CIEL:6042" answerConceptId="PIH:11407" style="checkbox" /></p>
-                -->
 
                 <!-- Lymphomes, non-Hodgkins -->
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:115195" style="checkbox" /></p>
@@ -295,14 +298,10 @@
 
                 <!-- ZL only:
                      Leishmaniose atypique disséminée -->
-                <!-- ToDo: Uncomment with new mds package
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:159338" style="checkbox" /></p>
-                -->
 
                 <!-- Nephropathy or cardiomyopathy symptoms -->
-                <!-- ToDo: Uncomment with new mds package
                 <p><obs conceptId="CIEL:6042" answerConceptId="PIH:2721" style="checkbox" /></p>
-                -->
 
                 <!-- iSantePlus but not ZL
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:1207" style="checkbox" /></p>
