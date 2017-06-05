@@ -50,7 +50,7 @@
                 clicked
                 jq('#next').click(function() {
                     window.htmlForm.getBeforeSubmit().push(function () {
-                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-diagnosis");
+                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-who-stages");
                     return true;
                 });
 
