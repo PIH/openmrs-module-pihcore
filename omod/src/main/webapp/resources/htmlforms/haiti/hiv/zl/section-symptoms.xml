@@ -1,0 +1,116 @@
+<htmlform formUuid="889327c0-4ad7-11e7-a919-92ebcb67fe33"
+          formName="HIV Symptoms" formVersion="1.0">
+
+    <style type="text/css">
+        <ifMode mode="VIEW" include="false">
+
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
+
+            .two-columns {
+                column-count: 2;
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+            }
+
+            .section-container {
+                background: #F2F2F2;
+                box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+                padding: 10px 5px 10px 15px;
+                line-height: 1.5em; /*add this for vertical spacing between elements*/
+            }
+
+            .section-container input[type="checkbox"] {
+                margin: 0px 5px; /*changed values to vertical, horizontal*/
+                top:5px; /*added to offset the checkbox position to line up*/
+            }
+
+            .section-container label { /*new definition to override labels inside section-containers*/
+                margin: 0px;
+            }
+        </ifMode>
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h3>
+            K. <uimessage code="pihcore.hiv.symptomSigns"/>
+            <!-- Differences between ZL and iSantePlus Signes and Symptoms
+                 * ZL has N/Y/duration
+                 * iSantePlus has Y
+                 * Some differences with symptoms (see inline)
+                 -->
+        </h3>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-who-stages");
+                    return true;
+                });
+
+                window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
+    <div class="hiv-symptoms">
+        <repeat>
+            <template>
+                <obsgroup groupingConceptId="CIEL:1727">
+                    <obs conceptId="CIEL:1728" answerConceptId="{symptom}"/>
+                    <obs conceptId="CIEL:1729" answerConceptIds="CIEL:1066,CIEL:1065"/>
+                    <obs conceptId="CIEL:1731" />
+                    <obs conceptId="CIEL:1732" answerConceptIds="CIEL:1072,CIEL:1073,CIEL:1074"/>
+                </obsgroup>
+            </template>
+
+            <render symptom="CIEL:5978" comment="Nausea"/>
+            <render symptom="CIEL:122983" comment="Vomiting"/>
+            <render symptom="PIH:215" comment="Jaundice"/>
+            <render symptom="CIEL:142412" comment="Diarrhea"/>
+            <render symptom="CIEL:118789" comment="Dysphagia"/>
+            <render symptom="CIEL:128321" comment="Prurigo nodularis"/>
+            <render symptom="CIEL:512" comment="Rash"/> <!-- ZL form:  Other eruption -->
+            <render symptom="CIEL:139084" comment="Headache"/>
+            <render symptom="CIEL:119938" comment="Vision problem"/>
+            <render symptom="CIEL:113054" comment="Seizure"/>
+            <render symptom="CIEL:1466" comment="Déficit neurologique focal"/>
+            <render symptom="CIEL:120345" comment="Confusion"/>
+            <render symptom="CIEL:6004" comment="Paresthesia"/>
+            <render symptom="PIH:1816" comment="Genital discharge"/>
+            <render symptom="CIEL:864" comment="Ulcérations génitales"/>
+            <render symptom="CIEL:140238" comment="Fever"/>
+            <render symptom="CIEL:143264" comment="Cough"/>
+            <render symptom="CIEL:141128" comment="Epigastric pain"/>
+        </repeat>
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right">
+                <uimessage code="emr.next"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="submit" class="submitButton confirm right">
+                <uimessage code="mirebalais.save"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="cancel" type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>

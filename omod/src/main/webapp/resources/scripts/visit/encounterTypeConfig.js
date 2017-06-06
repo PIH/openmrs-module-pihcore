@@ -146,6 +146,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-risk-factors.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var hivSymptoms = {
+            type: "encounter-section",
+            id: "hiv-symptoms",
+            label: "pihcore.hiv.symptomSigns",
+            icon: "icon-asterisk",
+            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         var whoHIVStages = {
             type: "encounter-section",
             id: "hiv-who-stages",
@@ -153,7 +164,7 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-asterisk",
             shortTemplate: "templates/sections/supplementsSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages-factors.xml",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
@@ -314,11 +325,11 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 hivRiskFactors,
+                hivSymptoms,
                 primaryCareExam,
                 whoHIVStages
             ]
         };
-
 
         encounterTypeConfig[EncounterTypes.oncologyConsult.uuid] = {
             defaultState: "short",

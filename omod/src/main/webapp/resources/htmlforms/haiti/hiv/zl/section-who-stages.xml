@@ -217,6 +217,8 @@
 				-->
             </p>
 
+            <br/>
+
             <p>
                 <label>
                     <b>
@@ -257,9 +259,7 @@
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:507" style="checkbox" /></p>
 
                 <!-- ZL only: Cytomegalovirus disease -->
-                <!-- ToDo: Uncomment with new mds package
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5035" style="checkbox" /></p>
-                -->
 
                 <!-- Toxoplasmose: CNS -->
                 <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:990" style="checkbox" /></p>
