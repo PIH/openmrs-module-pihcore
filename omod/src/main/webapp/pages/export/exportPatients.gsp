@@ -30,6 +30,10 @@
 
     ui.includeJavascript("pihcore", "export/exportPatientController.js")
 
+    def allPatientsUuids = []
+    allPatients.each {
+        allPatientsUuids.push(it.uuid);
+    }
 %>
 <script type="text/javascript">
     var breadcrumbs = [
@@ -42,6 +46,9 @@
 <h3>${  ui.message("pihcore.patient.export") }</h3>
 
 <div class="container" id="exportPatient-app" ng-controller="ExportPatientController">
+    <div class="waitingForConsult-filter">
+        <button type="button" class="cancel" ng-click="exportAllPatients()">${ ui.message("pihcore.patient.exportAll") }</button>
+    </div>
 <table id="list-patients" cellspacing="0" cellpadding="2">
     <thead>
         <tr>
@@ -75,7 +82,7 @@
                 <% } %>
             </td>
             <td>
-                <button type="button" ng-click="exportPatient('${it.uuid}')">${ ui.message("pihcore.export") }</button>
+                <button type="button" ng-click="exportPatient('${it.uuid}', true)">${ ui.message("pihcore.export") }</button>
             </td>
         </tr>
     <% } %>
@@ -99,7 +106,7 @@
 </div>
 
 <script type="text/javascript">
-    angular.module('exportPatientApp').value("allPatients", '${ allPatients }');
+    angular.module('exportPatientApp').value("allPatientsUuids", '${ allPatientsUuids.join(",") }');
     angular.bootstrap("#exportPatient-app", [ "exportPatientApp" ]);
     jq(function () {
         jq(document).on('sessionLocationChanged', function () {

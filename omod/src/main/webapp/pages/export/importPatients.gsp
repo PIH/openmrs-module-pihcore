@@ -45,7 +45,7 @@
     <input type="file" on-read-file="showContent(fileContent)" />
     <br>
     <div ng-if="content && !errorMessage">
-        <button type="button" class="confirm" ng-click="importPatient()">${ ui.message("pihcore.import") }</button>
+        <button type="button" class="confirm" ng-click="importPatients()">${ ui.message("pihcore.import") }</button>
         <br>
         <br>
         <pre>{{ content }}</pre>

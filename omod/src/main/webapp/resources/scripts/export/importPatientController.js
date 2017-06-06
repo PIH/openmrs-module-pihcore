@@ -112,7 +112,76 @@ angular.module('importPatientApp', ['ngDialog'])
             $scope.errorMessage = null;
             $scope.patientJson = null;
             $scope.patientPage = "/coreapps/clinicianfacing/patient.page?patientId={{patientUuid}}";
+            
+            
+            function importPatientRecord(patientRecord) {
+                var deferred = $q.defer();
+                var importedPatientRecord = {};
+                if (patientRecord) {
+                    if (angular.isDefined(patientRecord) && patientRecord.patient) {
+                        ImportPatientService.importPatient(patientRecord.patient)
+                            .then(function (patient) {
+                                importedPatientRecord.patient = patient;
+                                return ImportPatientService.importVisits(patientRecord.visits);
+                            }, function (error) {
+                                $scope.content = null;
+                                $scope.errorMessage = JSON.stringify(error, undefined, 4);
+                                deferred.reject(error);
+                            }).then(function (visits) {
+                            if (visits && visits.length > 0) {
+                                var importedVisits = [];
+                                angular.forEach(visits, function (visit) {
+                                    importedVisits.push(visit.data);
+                                });
+                                importedPatientRecord.visits = importedVisits;
+                            }
+                            return ImportPatientService.importEncounters(patientRecord.encounters);
+                        }, function (error) {
+                            console.log("failed to import patient visits");
+                            $scope.content = null;
+                            $scope.errorMessage = JSON.stringify(error, undefined, 4);
+                            deferred.reject(error);
+                        }).then(function (encounters) {
+                            if (encounters && encounters.length > 0) {
+                                var importedEncounters = [];
+                                angular.forEach(encounters, function (encounter) {
+                                    importedEncounters.push(encounter.data);
+                                });
+                                importedPatientRecord.encounters = importedEncounters;
+                                deferred.resolve(importedPatientRecord);
+                            }
+                        }, function (error) {
+                            $scope.content = null;
+                            $scope.errorMessage = JSON.stringify(error, undefined, 4);
+                            deferred.reject(error);
+                        }).catch(function (error) {
+                            console.log("error=" + error);
+                            deferred.reject(error);
+                        });
+                    }
+                }
 
+                return deferred.promise;
+            };
+
+            function importPatients(patientRecords){
+                if (angular.isDefined(patientRecords) && patientRecords.length > 0) {
+                    $scope.importedPatients = [];
+
+                    patientRecords.reduce(function(p, val) {
+                        return p.then(function() {
+                            return importPatientRecord(val).then(function(patientRecord) {
+                                $scope.importedPatients.push(patientRecord);
+                            });
+                        });
+                    }, $q.when(true)).then(function(finalResult) {
+                        $scope.content = null;
+                    }, function(error) {
+                        $scope.content = null;
+                        $scope.errorMessage = JSON.stringify(error, undefined, 4);
+                    });
+                }
+            }
             $scope.showContent = function(fileContent){
                 $scope.errorMessage = null;
                 $scope.patientJson = fileContent;
@@ -127,50 +196,10 @@ angular.module('importPatientApp', ['ngDialog'])
                 window.location.href = "/" + OPENMRS_CONTEXT_PATH + destinationPage;
             };
 
-            $scope.importPatient = function() {
+            $scope.importPatients = function() {
                 if ($scope.patientJson) {
-                    var patientRecord = JSON.parse($scope.patientJson);
-                    var importedPatientRecord = {};
-                    if (angular.isDefined(patientRecord) && patientRecord.patient) {
-                        ImportPatientService.importPatient(patientRecord.patient)
-                            .then( function(patient) {
-                                importedPatientRecord.patient = patient;
-                                return ImportPatientService.importVisits(patientRecord.visits);
-                            }, function(error) {
-                                $scope.content = null;
-                                $scope.errorMessage = JSON.stringify(error, undefined, 4);
-                                return $q.reject(error);
-                            }).then( function(visits) {
-                                if (visits && visits.length > 0) {
-                                    var importedVisits = [];
-                                    angular.forEach(visits, function(visit) { importedVisits.push(visit.data); });
-                                    importedPatientRecord.visits = importedVisits;
-                                }
-                                return ImportPatientService.importEncounters(patientRecord.encounters);
-                            }, function(error) {
-                                console.log("failed to import patient visits");
-                                $scope.content = null;
-                                $scope.errorMessage = JSON.stringify(error, undefined, 4);
-                                return $q.reject(error);
-                        }).then( function (encounters) {
-                            if (encounters && encounters.length > 0) {
-                                var importedEncounters = [];
-                                angular.forEach(encounters, function(encounter) { importedEncounters.push(encounter.data); });
-                                importedPatientRecord.encounters = importedEncounters;
-                            }
-                        }, function (error) {
-                            $scope.content = null;
-                            $scope.errorMessage = JSON.stringify(error, undefined, 4);
-                            return $q.reject(error);
-                        }).catch( function(error){
-                                console.log("error=" + error);
-                        }).finally( function() {
-                            if (importedPatientRecord) {
-                                $scope.importedPatients.push(importedPatientRecord);
-                                $scope.content = null;
-                            }
-                        });
-                    }
+                    var patientRecords = JSON.parse($scope.patientJson);
+                    importPatients(patientRecords);
                 }
             }
             

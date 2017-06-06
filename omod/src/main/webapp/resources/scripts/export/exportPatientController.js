@@ -22,7 +22,7 @@ angular.module('exportPatientApp', ['ngDialog'])
                                             return null;
                                     }
                             }, function (error) {
-                                    console.log(JSON.stringify(err, undefined, 4));
+                                    console.log(JSON.stringify(error, undefined, 4));
                             });
                     };
                     this.getVisits = function (patientUuid) {
@@ -51,9 +51,9 @@ angular.module('exportPatientApp', ['ngDialog'])
                     };
 
             }])
-    .controller('ExportPatientController', ['$q', '$scope', 'ExportPatientService', 'ngDialog', 'allPatients',
-        function($q, $scope, ExportPatientService, ngDialog, allPatients) {
-                $scope.allPatients = allPatients;
+    .controller('ExportPatientController', ['$q', '$scope', 'ExportPatientService', 'ngDialog', 'allPatientsUuids',
+        function($q, $scope, ExportPatientService, ngDialog, allPatientsUuids) {
+                $scope.allPatients = allPatientsUuids.split(",");
                 $scope.currentPatientJson = null;
 
                 function saveFile(data, filename) {
@@ -83,7 +83,13 @@ angular.module('exportPatientApp', ['ngDialog'])
                         obs.valueCodedName = inputObs.valueCodedName;
                         obs.voided = inputObs.voided;
                         if (inputObs.value) {
-                                obs.value = inputObs.value;
+                                if (inputObs.value.uuid) {
+                                        var tempValue= {};
+                                        tempValue.uuid = inputObs.value.uuid;
+                                        obs.value = tempValue;
+                                } else {
+                                        obs.value = inputObs.value;
+                                }
                         }
                         if (inputObs.groupMembers && inputObs.groupMembers.length > 0) {
                                 var importedGroupMembers = [];
@@ -101,6 +107,9 @@ angular.module('exportPatientApp', ['ngDialog'])
                                 var encounter = {};
                                 encounter.uuid= result.uuid;
                                 encounter.patient= result.patient;
+                                if (result.location && result.location.uuid) {
+                                        encounter.location = result.location.uuid;
+                                }
                                 encounter.encounterType= result.encounterType;
                                 encounter.encounterDatetime= result.encounterDatetime;
                                 encounter.voided= result.voided;
@@ -116,8 +125,8 @@ angular.module('exportPatientApp', ['ngDialog'])
                         return encounters;
                 }
 
-                $scope.exportPatient = function (patientUuid) {
-
+                function exportPatientRecord(patientUuid, dialog) {
+                        $scope.currentPatientJson = null;
                         var promises = [];
                         var patient = ExportPatientService.getPatient(patientUuid);
                         promises.push(patient);
@@ -125,25 +134,48 @@ angular.module('exportPatientApp', ['ngDialog'])
                         promises.push(visits);
                         var encounters = ExportPatientService.getEncounters(patientUuid);
                         promises.push(encounters);
-                        
+
                         return $q.all(promises).then(function(data) {
+                                var allPatients = [];
                                 var patientRecord={};
                                 patientRecord.patient = data[0];
                                 patientRecord.visits =  data[1];
                                 patientRecord.encounters =  parseEncounters(data[2]);
+                                allPatients.push(patientRecord);
 
-                                $scope.currentPatientJson = JSON.stringify(patientRecord, undefined, 4);
-                                ngDialog.openConfirm({
-                                        showClose: true,
-                                        closeByEscape: true,
-                                        scope: $scope,
-                                        template: "confirmExportPatient.page"
-                                }).then(function () {
-                                        saveFile($scope.currentPatientJson, patientUuid + "_patient.json");
-                                });
+                                $scope.currentPatientJson = JSON.stringify(allPatients, undefined, 4);
+                                if (dialog == true) {
+                                        ngDialog.openConfirm({
+                                                showClose: true,
+                                                closeByEscape: true,
+                                                scope: $scope,
+                                                template: "confirmExportPatient.page"
+                                        }).then(function () {
+                                                saveFile($scope.currentPatientJson, patientUuid + "_patient.json");
+                                        });
+                                } else {
+                                        return patientRecord;
+                                }
                         });
+                };
 
+                $scope.exportPatient = function (patientUuid, dialog) {
+                        exportPatientRecord(patientUuid, dialog);
+                };
 
+                $scope.exportAllPatients = function () {
+                        var promises = [];
+                        angular.forEach($scope.allPatients, function(patient) {
+                                promises.push(exportPatientRecord(patient, false));
+                        })
+                        return $q.all(promises).then(function(data) {
+                                var allPatients = [];
+                                angular.forEach(data, function(record){
+                                        allPatients.push(record);
+                                });
+                                var allPatientsJson = JSON.stringify(allPatients, undefined, 4);
+                                saveFile(allPatientsJson, "all_patients.json");
+                        });
                 };
 
         }]);
