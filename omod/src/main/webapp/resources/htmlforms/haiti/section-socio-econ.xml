@@ -1,0 +1,121 @@
+<htmlform formUuid="3498f204-a6fa-4df0-b7fd-a94eb03a43c9" formName="Diagnostic" formVersion="1.0">
+
+    <style type="text/css">
+        <ifMode mode="VIEW" include="false">
+
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
+
+            form input[type="checkbox"], form input[type="radio"], .form input[type="checkbox"], .form input[type="radio"] {
+                float: none;
+                display: inline-block;
+            }
+
+            form label, .form label {
+                display: inline-block;
+            }
+
+        </ifMode>
+    </style>
+    <ifMode mode="VIEW" include="false">
+        <h3>C. <uimessage code="pihcore.socioEconomic.title"/></h3>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=socio-economics");
+                        return true;
+                    });
+
+                    window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
+    <div id="socio-economics">
+            <p>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.levelEducation"/>
+                </label>
+                <obs conceptId="CIEL:1712" answerConceptIds="CIEL:1107,CIEL:1713,CIEL:1714,PIH:3396,CIEL:159785"/>
+            </p>
+
+            <!-- Note: Civil status is within registration -->
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.housing" style="dropdown"/>
+                        </label>
+                        <br/>
+
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.numPeople"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="CIEL:1474"/>
+                        </span>
+
+                        <br/>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.numRooms"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="CIEL:1475"/>
+                        </span>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.floor"/>
+                        </label>
+                        <obs conceptId="CIEL:159387"
+                             answerConceptIds="CIEL:1943,CIEL:1944,CIEL:159679,CIEL:5622"/>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.roof"/>
+                        </label>
+                        <obs conceptId="CIEL:1290"
+                             answerConceptIds="PIH:1320,CIEL:1942,CIEL:1943,CIEL:5622"/>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.toilet"/>
+                        </label>
+                        <obs conceptId="CIEL:159389" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.radio"/>
+                        </label>
+                        <obs conceptId="CIEL:159388" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
+                    </p>
+            <!-- ToDo: What is the difference between toilet and latrine? -->
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>

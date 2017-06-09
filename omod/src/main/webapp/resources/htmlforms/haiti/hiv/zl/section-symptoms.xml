@@ -66,19 +66,24 @@
     </ifMode>
 
     <div class="hiv-symptoms">
+        <div class="two-columns">
         <repeat>
             <template>
+                <p>
                 <obsgroup groupingConceptId="CIEL:1727">
                     <obs conceptId="CIEL:1728" answerConceptId="{symptom}"/>
                     <obs conceptId="CIEL:1729" answerConceptIds="CIEL:1066,CIEL:1065"/>
-                    <obs conceptId="CIEL:1731" />
-                    <obs conceptId="CIEL:1732" answerConceptIds="CIEL:1072,CIEL:1073,CIEL:1074"/>
-                </obsgroup>
+                    <span class="small">
+                        <obs conceptId="CIEL:1731" />
+                        <obs conceptId="CIEL:1732" answerConceptIds="CIEL:1072,CIEL:1073,CIEL:1074"/>
+                    </span>
+                    </obsgroup>
+                </p>
             </template>
 
             <render symptom="CIEL:5978" comment="Nausea"/>
             <render symptom="CIEL:122983" comment="Vomiting"/>
-            <render symptom="PIH:215" comment="Jaundice"/>
+            <render symptom="CIEL:136443" comment="Jaundice"/>
             <render symptom="CIEL:142412" comment="Diarrhea"/>
             <render symptom="CIEL:118789" comment="Dysphagia"/>
             <render symptom="CIEL:128321" comment="Prurigo nodularis"/>
@@ -95,6 +100,7 @@
             <render symptom="CIEL:143264" comment="Cough"/>
             <render symptom="CIEL:141128" comment="Epigastric pain"/>
         </repeat>
+    </div>
     </div>
 
     <ifMode mode="VIEW" include="false">

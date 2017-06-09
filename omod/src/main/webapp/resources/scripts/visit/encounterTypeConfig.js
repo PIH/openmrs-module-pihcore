@@ -135,6 +135,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
+        var socioEcon = {
+            type: "encounter-section",
+            id: "socio-economics",
+            label: "pihcore.socioEconomic.title",
+            icon: "icon-home",
+            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-socio-econ.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-socio-econ.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         var hivRiskFactors = {
             type: "encounter-section",
             id: "hiv-risk-factors",
@@ -324,6 +335,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
+                socioEcon,
                 hivRiskFactors,
                 hivSymptoms,
                 primaryCareExam,
