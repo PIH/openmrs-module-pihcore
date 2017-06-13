@@ -60,7 +60,7 @@
         </tr>
     </thead>
     <tbody>
-        <% allPatients.sort { it.personName?.familyName.toLowerCase() }.each{  %>
+        <% allPatients.sort { it.personName?.familyName?.toLowerCase() }.each{  %>
         <tr>
             <td>
                 <a href="${ ui.pageLink("coreapps", "clinicianfacing/patient", [
