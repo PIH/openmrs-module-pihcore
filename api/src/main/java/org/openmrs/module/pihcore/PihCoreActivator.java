@@ -115,22 +115,6 @@ public class PihCoreActivator extends BaseModuleActivator {
 
     }
 
-    // Most of the MDS packages are (still) installed in the mirebalaismetadata module activator
-  /*  private void installMetadataPackages(Config config) throws Exception {
-
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            MetadataUtil.setupSpecificMetadata(getClass().getClassLoader(), "HUM_Dispensing_Concepts");
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            // nothing yet
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            // nothing yet
-        }
-
-        Context.flushSession();
-    }*/
-
     private void installMetadataBundles(Config config) {
 
         MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
