@@ -42,7 +42,7 @@ import java.util.Map;
  */
 @Component
 @Requires( { PihCoreMetadataBundle.class,
-        OrderEntryConcepts.class,
+        // OrderEntryConcepts.class,  install this after the MDS packages
 		// TestOrderConcepts.class,  I believe we are now installing these via MDS
  		HaitiPatientIdentifierTypeBundle.class,
  		HaitiEncounterTypeBundle.class,

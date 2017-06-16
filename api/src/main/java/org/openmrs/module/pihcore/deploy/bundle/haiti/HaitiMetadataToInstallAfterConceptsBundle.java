@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 // concepts have been installed via metadata sharing (since programs reference concepts)
 // TODO: incorporate all PIH metadata installation into this module, remove Mirebalais Metadata module?
 @Component
-@Requires( { PihHaitiProgramsBundle.class } )
+@Requires( { PihHaitiProgramsBundle.class, OrderEntryConcepts.class } )
 public class HaitiMetadataToInstallAfterConceptsBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {

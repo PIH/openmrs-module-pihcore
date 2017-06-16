@@ -60,7 +60,8 @@ angular.module('importPatientApp', ['ngDialog'])
                     //check to see if patient exist
                     getRestObject(postUrl, patient.uuid).then(function(status) {
                         if (status.code == 200) {
-                            postUrl = postUrl + "/" + patient.uuid;
+                            // stop here because this patient was already imported
+                            deferred.reject({ error: "Patient with this uuid was already imported. " + patient.display + "; uuid=" + patient.uuid });
                         }
                     }, function(error) {
                         console.log(JSON.stringify(error, undefined, 4));
