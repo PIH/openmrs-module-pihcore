@@ -181,7 +181,7 @@
                 <uimessage code="pihcore.consult.procedure"/>
             </label>
 
-            <obs conceptId="PIH:Outpatient procedure" answerConceptSetIds="PIH:WH procedures,PIH:General procedures"
+            <obs conceptId="PIH:Outpatient procedure" answerConceptSetIds="PIH:WH procedures,PIH:General procedures,PIH:HUM pathology procedure"
                  style="autocomplete"/>
         </p>
 
