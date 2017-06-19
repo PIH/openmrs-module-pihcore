@@ -1,0 +1,345 @@
+<htmlform formUuid="178f9aa8-550a-11e7-b114-b2f933d5fe66"
+          formName="Plan" formVersion="1.0">
+
+    <style type="text/css">
+
+        form fieldset {
+        display: block;
+        }
+
+        #test-orders {
+        }
+
+        #test-orders input[type=checkbox] {
+            float: none;
+            vertical-align: middle;
+        }
+
+        #test-orders p {
+            margin-bottom: 5px
+        }
+
+        #test-orders span, #test-orders label {
+            display: inline !important;
+            vertical-align: middle;
+        }
+
+
+        .two-columns {
+            column-count: 2;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
+        }
+
+        .section-container-color {
+            background: #F2F2F2;
+            box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+            padding: 10px 5px 10px 15px;
+            line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+
+        .section {
+            width: 95%;
+        }
+
+        label {
+            padding: 0px 3px 0px 0px
+        }
+
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h3>M. <uimessage code="pihcore.order.title"/></h3>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=lab-rad-order");
+                        return true;
+                    });
+
+                    window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
+    <div id="rad-orders">
+        <p>
+            <label>
+                <uimessage code="pihcore.rad_order.title"/>
+            </label>
+        </p>
+        <!-- ToDo: This is different from the Radiology app which uses encounter
+             and order.  This uses  'Radiology procedure performed'.
+             Add interpretation and date -->
+        <p>
+            <obs conceptId="PIH:Radiology image ordered"
+                 answerConceptId="PIH:Chest 1 view (XRay)"
+                 style="checkbox"/>
+        </p>
+        <p>
+            <obs conceptId="PIH:Radiology image ordered"
+                 answerClasses="Radiology/Imaging Procedure"
+                 style="autocomplete"/>
+        </p>
+        <p>
+            <obs conceptId="PIH:Radiology image ordered"
+                 answerClasses="Radiology/Imaging Procedure"
+                 style="autocomplete"/>
+        </p>
+        <p>
+            <obs conceptId="PIH:Radiology image ordered"
+                 answerClasses="Radiology/Imaging Procedure"
+                 style="autocomplete"/>
+        </p>
+    </div>
+
+    <div id="lab-orders">
+        <p>
+            <label>
+                <uimessage code="pihcore.lab_order.title"/>
+            </label>
+        </p>
+
+        <div class="section-container-color">
+            <div class="two-columns">
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:HEMOGLOBIN" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:HEMATOCRIT" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:ERYTHROCYTE SEDIMENTATION RATE" style="checkbox"/>
+                </p>
+
+                <!-- Glucose -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:887"
+                         answerCode="pihcore.lab.glucose"
+                         style="checkbox"/>
+                </p>
+
+                <!-- Malaria -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:32"
+                         style="checkbox"/>
+                </p>
+
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:BLOOD TYPING" style="checkbox"/>
+                </p>
+
+                <!-- Liver Function Test (LFT) -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:953" style="checkbox"/>
+                </p>
+
+                <!-- Urinalysis -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:302" style="checkbox"/>
+                </p>
+
+                <!-- Stool exam -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:304" style="checkbox"/>
+                </p>
+
+                <!-- Typhoid (Widal test) -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:306" style="checkbox"/>
+                </p>
+
+                <!-- Spinal fluid -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:159645"
+                         style="checkbox"/>
+                </p>
+
+                <!-- CrAg -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:163613"
+                         style="checkbox"/>
+                </p>
+
+                <!-- ASO -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:161469"
+                         answerLabel="ASO"
+                         style="checkbox"/>
+                </p>
+
+                <!-- C-reactive protein -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:161500"
+                         style="checkbox"/>
+                </p>
+
+                <!-- Hemoglobin electrophoresis -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:161421"
+                         style="checkbox"/>
+                </p>
+
+                <!-- Sickling -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:160225"
+                         style="checkbox"/>
+                </p>
+
+                <!-- H pylori -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:163620"
+                         style="checkbox"/>
+                </p>
+
+                <hr/>
+
+                <!-- TB -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.lab.tb.title"/>
+                    </label>
+                </p>
+                <p>
+                    <!-- AFB / Smear -->
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:TUBERCULOSIS SMEAR RESULT"
+                         answerCode="pihcore.lab.tbSmear"
+                         style="checkbox"/>
+                </p>
+                <p>
+                    <!-- Culture -->
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT"
+                         answerCode="pihcore.lab.tbCulture"
+                         style="checkbox"/>
+                </p>
+                <p>
+                    <!-- TB skin test:  PPD, qualitative -->
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:1435"
+                         answerCode="pihcore.lab.tbSkin"
+                         style="checkbox"/>
+                </p>
+                <p>
+                    <!-- GeneXpert -->
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:162202"
+                         style="checkbox"/>
+                </p>
+
+                <hr/>
+                <!-- HIV -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.lab.hiv.title"/>
+                    </label>
+                </p>
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:HIV RAPID TEST, QUALITATIVE"
+                         answerCode="pihcore.lab.hivRapid"
+                         style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:CD4 COUNT"
+                         answerCode="pihcore.lab.cd4"
+                         style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:HIV VIRAL LOAD"
+                         style="checkbox"/>
+                </p>
+                <p>
+                    <!-- HIV ELISA (quant) -->
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:1041"
+                         answerCode="pihcore.lab.elisaQuant"
+                         style="checkbox"/>
+                </p>
+
+
+                <hr/>
+                <!-- Pregnancy -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:B-HCG"
+                         answerCode="pihcore.lab.pregnancy"
+                         style="checkbox"/>
+                </p>
+
+                <!-- PAP test -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="CIEL:885" answerLabel="PAP test"
+                         style="checkbox"/>
+                </p>
+
+                <!-- Syphilis test -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:RPR"
+                         answerCode="pihcore.lab.syphilis"
+                         style="checkbox"/>
+                </p>
+
+                <hr/>
+                <!-- Other -->
+                <p>
+                    <obs conceptId="PIH:Lab test ordered coded"
+                         answerConceptId="PIH:OTHER" style="checkbox"
+                         showCommentField="true" commentFieldLabel=""/>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <p/>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right">
+                <uimessage code="emr.next"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="submit" class="submitButton confirm right">
+                <uimessage code="mirebalais.save"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="cancel" type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>

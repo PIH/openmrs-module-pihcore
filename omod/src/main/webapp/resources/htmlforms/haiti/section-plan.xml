@@ -202,7 +202,7 @@
                     <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:TUBERCULOSIS CULTURE RESULT" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:PPD, QUALITATIVE" style="checkbox"/>
+                    <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:1435" style="checkbox"/>
                 </p>
                 <p>
                     <obs conceptId="PIH:Lab test ordered coded" answerConceptId="PIH:RPR" style="checkbox"/>

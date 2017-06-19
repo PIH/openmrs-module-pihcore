@@ -146,6 +146,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-socio-econ.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var labRadOrder = {
+            type: "encounter-section",
+            id: "lab-rad-order",
+            label: "pihcore.order.title",
+            icon: "icon-beaker",
+            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-lab-order.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-lab-order.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         var hivRiskFactors = {
             type: "encounter-section",
             id: "hiv-risk-factors",
@@ -339,6 +350,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 hivRiskFactors,
                 hivSymptoms,
                 primaryCareExam,
+                labRadOrder,
                 whoHIVStages
             ]
         };
