@@ -46,5 +46,5 @@ public class PihCoreConstants {
 
     // uuids of concepts associated with programs
     public static final String ZIKA_PROGRAM_CONCEPT_UUID = "58c9ab03-9601-4d88-88b7-c4932004374e";
-
+    public static final String ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID = "e39310c1-2936-4395-83a5-f4d49061a117";
 }
