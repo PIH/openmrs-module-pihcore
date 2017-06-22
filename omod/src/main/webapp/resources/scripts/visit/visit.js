@@ -30,9 +30,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             })
 
         $translateProvider
-            .useUrlLoader('/' + OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json')
+            .useUrlLoader('/' +  OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json',  {
+                queryParameter : 'localeKey'
+            })
             .useSanitizeValueStrategy('escape');  // TODO is this the correct one to use http://angular-translate.github.io/docs/#/guide/19_security
-
     })
 
     .directive("dateWithPopup", [ function() {
