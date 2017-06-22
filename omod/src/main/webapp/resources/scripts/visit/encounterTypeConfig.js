@@ -140,7 +140,7 @@ angular.module("encounterTypeConfig", ["constants"])
             id: "socio-economics",
             label: "pihcore.socioEconomic.title",
             icon: "icon-home",
-            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-socio-econ.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-socio-econ.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
@@ -151,7 +151,7 @@ angular.module("encounterTypeConfig", ["constants"])
             id: "lab-rad-order",
             label: "pihcore.order.title",
             icon: "icon-beaker",
-            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-lab-order.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-lab-order.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
@@ -162,7 +162,7 @@ angular.module("encounterTypeConfig", ["constants"])
             id: "hiv-risk-factors",
             label: "pihcore.hiv.risk-factors",
             icon: "icon-asterisk",
-            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-risk-factors.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-risk-factors.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
@@ -173,7 +173,7 @@ angular.module("encounterTypeConfig", ["constants"])
             id: "hiv-symptoms",
             label: "pihcore.hiv.symptomSigns",
             icon: "icon-asterisk",
-            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
@@ -184,7 +184,7 @@ angular.module("encounterTypeConfig", ["constants"])
             id: "hiv-who-stages",
             label: "pihcore.hiv.whoStages",
             icon: "icon-asterisk",
-            shortTemplate: "templates/sections/supplementsSectionShort.page",
+            shortTemplate: "templates/sections/hivSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
