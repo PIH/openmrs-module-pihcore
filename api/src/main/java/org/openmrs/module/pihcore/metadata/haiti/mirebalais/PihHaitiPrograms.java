@@ -15,4 +15,12 @@ public class PihHaitiPrograms {
         public String uuid() { return "3bea593a-9afd-4642-96a6-210b60f5aff2"; }
     };
 
+    public static ProgramDescriptor HIV = new ProgramDescriptor() {
+        public String conceptUuid() { return ZIKA_PROGRAM_CONCEPT_UUID; }   // this concept is installed via metadata package
+        public String name() { return "HIV"; }
+        public String description() { return "HIV Program"; }
+        @Override public String outcomesConceptUuid()  { return ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID; }   // this concept is installed via metadata package
+        public String uuid() { return "b1cb1fc1-5190-4f7a-af08-48870975dafc"; }
+    };
+
 }

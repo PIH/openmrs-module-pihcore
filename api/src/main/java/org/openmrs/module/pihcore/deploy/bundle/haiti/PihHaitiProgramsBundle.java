@@ -10,5 +10,6 @@ public class PihHaitiProgramsBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
         install(PihHaitiPrograms.ZIKA);
+        install(PihHaitiPrograms.HIV);
     }
 }
