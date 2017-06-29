@@ -25,10 +25,10 @@
         }
 
 
-        .two-columns {
-            column-count: 2;
-            -webkit-column-count: 2;
-            -moz-column-count: 2;
+        .three-columns {
+            column-count: 3;
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
         }
 
         .section-container-color {
@@ -75,32 +75,17 @@
         </script>
     </ifMode>
 
-    <div id="rad-orders">
-        <h4>
-            <uimessage code="pihcore.rad_order.title"/>
-        </h4>
-
-        <!-- ToDo: This is different from the Radiology app which uses encounter
-             and order.  This uses  'Radiology procedure performed'.
-             Add interpretation and date -->
-        <p>
-            <obs conceptId="PIH:Radiology image ordered"
-                 answerConceptId="PIH:Chest 1 view (XRay)"
-                 style="checkbox"/>
-        </p>
-        <p>
-            <obs conceptId="PIH:Radiology image ordered"
-                 answerClasses="Radiology/Imaging Procedure"
-                 style="autocomplete"/>
-        </p>
-    </div>
-
     <div id="lab-orders">
         <h4>
             <uimessage code="pihcore.lab_order.title"/>
         </h4>
 
-        <div class="two-columns">
+        <div class="three-columns">
+            <p>
+                <label>
+                    <uimessage code="pihcore.lab.hematology.title"/>
+                </label>
+            </p>
             <repeat>
                 <template>
                     <p>
@@ -110,54 +95,131 @@
                     </p>
                 </template>
 
+                <!-- Hematology -->
                 <render labName="PIH:HEMOGLOBIN" comment="Hemoglobin"/>
                 <render labName="PIH:HEMATOCRIT" comment="Hematocrit"/>
-                <render labName="PIH:ERYTHROCYTE SEDIMENTATION RATE" labNameLabel="" comment="ESR"/>
-                <render labName="CIEL:32" comment="Malaria"/>
-                <render labName="PIH:BLOOD TYPING" comment="Blood group"/>
-                <render labName="CIEL:953" comment="Liver (LFT)"/>
-                <render labName="CIEL:161488" comment="Renal (RFT)"/>
-                <!-- ToDo: Lipid panel should use CIEL:1010 -->
-                <render labName="PIH:LIPID PANEL" comment="Lipid panel"/>
-                <render labName="CIEL:302" comment="Uninalysis"/>
-                <render labName="CIEL:304" comment="Stool"/>
-                <render labName="CIEL:159645" comment="Spinal fluid (CSF)"/>
-                <render labName="CIEL:161152" comment="Coagulation"/>
-                <render labName="CIEL:161500" comment="C-reactive protein"/>
-                <render labName="CIEL:161421" comment="Hemoglobin electrophoresis"/>
+                <render labName="CIEL:1019" comment="Hemogram"/>
                 <render labName="CIEL:160225" comment="Sickling"/>
-                <render labName="CIEL:163620" comment="H pylori"/>
-                <render labName="CIEL:163613" comment="CrAg"/>
+                <render labName="CIEL:161152" comment="Coagulation"/>
+                <render labName="PIH:BLOOD TYPING" comment="Blood group"/>
+                <!-- ToDo: Create lab mds on concepts
+                <render labName="CIEL:161233" comment="Crossmatching"/> -->
+                <render labName="CIEL:161421" comment="Hemoglobin electrophoresis"/>
             </repeat>
 
+            <!-- Parasitology -->
+            <hr/>
+            <label>
+                <uimessage code="pihcore.lab.parasitology.title"/>
+            </label>
 
             <repeat>
                 <template>
                     <p>
                         <obs conceptId="PIH:Lab test ordered coded"
                              answerConceptId="{labName}"
-                             answerCode="{codeLabel}"
                              style="checkbox" />
                     </p>
                 </template>
+                <render labName="CIEL:32" comment="Malaria smear"/>
+                <render labName="CIEL:1643" comment="Malaria RDT"/>
+                <render labName="CIEL:304" comment="Stool"/>
+            </repeat>
 
-                <render labName="CIEL:887" codeLabel="pihcore.lab.glucose" comment="Glucose"/>
-                <render labName="CIEL:306" codeLabel="pihcore.lab.typhoid" comment="Typhoid (Widal)"/>
-                <render labName="CIEL:161469" codeLabel="ASO" comment="ASO"/>
-                <render labName="PIH:B-HCG" codeLabel="pihcore.lab.pregnancy" comment="Pregnancy"/>
-                <render labName="CIEL:885" codeLabel="PAP test" comment="PAP test"/>
-                <render labName="PIH:RPR" codeLabel="pihcore.lab.syphilis" comment="Syphilis (RPR)"/>
+            <!-- ANC -->
+            <includeIf velocityTest="$patient.gender == 'F' ">
+                <hr/>
+                <p>
+                    <label>
+                        ANC
+                    </label>
+                </p>
+                <repeat>
+                    <template>
+                        <p>
+                            <obs conceptId="PIH:Lab test ordered coded"
+                                 answerConceptId="{labName}"
+                                 answerCode="{codeLabel}"
+                                 style="checkbox"/>
+                        </p>
+                    </template>
+                    <render labName="PIH:B-HCG" codeLabel="pihcore.lab.pregnancy" comment="Pregnancy"/>
+                    <render labName="PIH:RPR" codeLabel="pihcore.lab.syphilis" comment="Syphilis (RPR)"/>
+                    <!-- ToDo: Vaginal discharge -->
+                </repeat>
+            </includeIf>
+
+            <label>
+                <i>Vaginal discharge</i>
+            </label>
+
+            <!-- Chemistry -->
+            <hr/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.lab.chemistry.title"/>
+                </label>
+            </p>
+            <repeat>
+                <template>
+                    <p>
+                        <obs conceptId="PIH:Lab test ordered coded"
+                             answerConceptId="{labName}"
+                             style="checkbox" />
+                    </p>
+                </template>
+                <render labName="CIEL:887" comment="Glucose"/>
+                <render labName="CIEL:953" comment="Liver (LFT)"/>
+                <render labName="CIEL:161488" comment="Renal (RFT)"/>
+                <render labName="CIEL:1010" comment="Lipid panel"/>
+                <render labName="CIEL:5473" comment="Electrolytes" />
             </repeat>
 
             <hr/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.lab.serology.title"/>
+                </label>
+            </p>
+            <repeat>
+                <template>
+                    <p>
+                        <obs conceptId="PIH:Lab test ordered coded"
+                             answerConceptId="{labName}"
+                             style="checkbox" />
+                    </p>
+                </template>
+
+                <!-- Serology -->
+                <render labName="CIEL:163618" comment="Chlamydia"/>
+                <render labName="CIEL:161475" comment="Hep B"/>
+                <render labName="CIEL:161474" comment="Hep C"/>
+                <render labName="CIEL:159645" comment="Spinal fluid (CSF)"/>
+                <render labName="CIEL:161500" comment="C-reactive protein"/>
+                <render labName="CIEL:163613" comment="CrAg"/>
+           </repeat>
+           <repeat>
+               <template>
+                   <p>
+                       <obs conceptId="PIH:Lab test ordered coded"
+                            answerConceptId="{labName}"
+                            answerCode="{codeLabel}"
+                            style="checkbox" />
+                   </p>
+               </template>
+
+               <!-- Serology continued -->
+                <render labName="CIEL:306" codeLabel="pihcore.lab.typhoid" comment="Typhoid (Widal)"/>
+                <render labName="CIEL:161469" codeLabel="ASO" comment="ASO"/>
+            </repeat>
 
             <!-- TB -->
+            <hr/>
             <p>
                 <label>
                     <uimessage code="pihcore.lab.tb.title"/>
                 </label>
             </p>
-
             <repeat>
                 <template>
                     <p>
@@ -170,17 +232,14 @@
 
                 <render labName="PIH:TUBERCULOSIS SMEAR RESULT" codeLabel="pihcore.lab.tbSmear" comment="AFB / Smear"/>
                 <render labName="PIH:TUBERCULOSIS CULTURE RESULT" codeLabel="pihcore.lab.tbCulture" comment="TB culture"/>
-                <render labName="PIH:1435" codeLabel="pihcore.lab.tbSkin" comment="TB Skin"/>
-                <render labName="CIEL:162202" codeLabel="GeneXpert" comment="GenXpert"/>
+                <render labName="CIEL:162202" codeLabel="pihcore.lab.tbGeneXpert" comment="GenXpert"/>
             </repeat>
 
             <hr/>
             <!-- HIV -->
-            <p>
-                <label>
-                    <uimessage code="pihcore.lab.hiv.title"/>
-                </label>
-            </p>
+            <label>
+                <uimessage code="pihcore.lab.hiv.title"/>
+            </label>
 
             <repeat>
                 <template>
@@ -193,22 +252,80 @@
                 </template>
 
                 <render labName="CIEL:163722" codeLabel="pihcore.lab.hivRapid" comment="AFB / Smear"/>
-                <render labName="PIH:CD4 COUNT" codeLabel="pihcore.lab.cd4" comment="CD4 count"/>
-                <render labName="PIH:HIV VIRAL LOAD" codeLabel="Viral load" comment="HIV viral load"/>
                 <render labName="PIH:1041" codeLabel="pihcore.lab.elisaQuant" comment="HIV ELISA (quant)"/>
+                <!-- ToDo: ELISA EID -->
+                <render labName="PIH:HIV VIRAL LOAD" codeLabel="pihcore.lab.viralLoad" comment="HIV viral load"/>
+                <includeIf velocityTest="$patient.age &lt; 2">
+                    <render labName="PIH:CD4 COUNT" codeLabel="pihcore.lab.hivpcr" comment="HIV PCR"/>
+                </includeIf>
+                <render labName="PIH:CD4 COUNT" codeLabel="pihcore.lab.cd4" comment="CD4 count"/>
             </repeat>
 
-            <hr/>
             <!-- Other -->
+            <hr/>
+            <label>
+                <uimessage code="pihcore.other"/>
+            </label>
+
+            <repeat>
+                <template>
+                    <p>
+                        <obs conceptId="PIH:Lab test ordered coded"
+                             answerConceptId="{labName}"
+                             answerCode="{comment}"
+                             style="checkbox" />
+                    </p>
+                </template>
+                <render labName="CIEL:302" comment="pihcore.lab.urine"/>
+                <render labName="CIEL:885" comment="PAP test"/>
+                <render labName="CIEL:161454" comment="Gram stain"/>
+                <render labName="CIEL:163620" comment="H pylori"/>
+            </repeat>
             <p>
                 <obs conceptId="PIH:Lab test ordered coded"
-                     answerConceptId="PIH:OTHER" style="checkbox"
+                     answerConceptId="PIH:OTHER"
+                     answerCode="zl.ifOtherSpecify"
+                     style="checkbox"
                      showCommentField="true" commentFieldLabel=""/>
             </p>
+
+            <p></p>
         </div>
     </div>
 
-    <p/>
+    <hr/>
+    <div id="rad-orders">
+        <h4>
+            <uimessage code="pihcore.rad_order.title"/>
+        </h4>
+
+        <includeIf velocityTest="!$config.isComponentEnabled('radiology')">
+
+            <!-- ToDo: This is different from the Radiology app which uses encounter
+                 and order.  This uses  'Radiology procedure performed'.
+                 Add interpretation and date -->
+            <p>
+                <obs conceptId="PIH:Radiology image ordered"
+                     answerConceptId="PIH:Chest 1 view (XRay)"
+                     style="checkbox"/>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="zl.ifOtherSpecify"/>:
+                </label>
+            </p>
+            <p>
+                <obs conceptId="PIH:Radiology image ordered"
+                     answerClasses="Radiology/Imaging Procedure"
+                     style="autocomplete"/>
+            </p>
+
+        </includeIf>
+        <includeIf velocityTest="$config.isComponentEnabled('radiology')">
+            <p>At HUM, use <uimessage code="pihcore.rad_order.title"/></p>
+        </includeIf>
+
+    </div>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
