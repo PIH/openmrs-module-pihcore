@@ -1,5 +1,5 @@
 <htmlform formUuid="178f9aa8-550a-11e7-b114-b2f933d5fe66"
-          formName="Plan" formVersion="1.0">
+          formName="Test order" formVersion="1.0">
 
     <style type="text/css">
 
@@ -102,8 +102,7 @@
                 <render labName="CIEL:160225" comment="Sickling"/>
                 <render labName="CIEL:161152" comment="Coagulation"/>
                 <render labName="PIH:BLOOD TYPING" comment="Blood group"/>
-                <!-- ToDo: Create lab mds on concepts
-                <render labName="CIEL:161233" comment="Crossmatching"/> -->
+                <render labName="CIEL:161233" comment="Crossmatching"/>
                 <render labName="CIEL:161421" comment="Hemoglobin electrophoresis"/>
             </repeat>
 

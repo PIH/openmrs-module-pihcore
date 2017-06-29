@@ -190,6 +190,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var familyPlanning = {
+            type: "encounter-section",
+            id: "family-planning",
+            label: "pihcore.familyPlanning.title",
+            icon: "icon-group",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-family-planning.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-family-planning.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         /* Define Encounter Types */
         var encounterTypeConfig = {
             DEFAULT: {
@@ -348,6 +359,7 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
                 socioEcon,
                 hivRiskFactors,
+                familyPlanning,
                 hivSymptoms,
                 primaryCareExam,
                 labRadOrder,

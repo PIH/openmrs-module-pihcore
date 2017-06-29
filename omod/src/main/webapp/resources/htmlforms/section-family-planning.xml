@@ -1,0 +1,135 @@
+<htmlform formUuid="d32b2d60-5cf1-11e7-907b-a6006ad3dba0"
+          formName="Family planning" formVersion="1.0">
+
+    <style type="text/css">
+
+        form fieldset {
+            display: block;
+        }
+
+        #test-orders {
+        }
+
+        #test-orders input[type=checkbox] {
+            float: none;
+            vertical-align: middle;
+        }
+
+        #test-orders p {
+            margin-bottom: 5px
+        }
+
+        .section-container-color {
+            background: #F2F2F2;
+            box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+            padding: 10px 5px 10px 15px;
+            line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+            margin: 0px 5px; /*changed values to vertical, horizontal*/
+            top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+            margin: 0px;
+        }
+
+        .section {
+            width: 95%;
+        }
+
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h3>
+            <uimessage code="pihcore.familyPlanning.title"/>
+        </h3>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=lab-rad-order");
+                        return true;
+                    });
+
+                    window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
+    <div id="family-planning">
+        <table>
+            <tr>
+                <th>
+                    <label>
+                        <uimessage code="pihcore.familyPlanning.method"/>
+                    </label>
+                </th>
+                <th>
+                    <label>
+                        <uimessage code="pihcore.familyPlanning.startDate"/>
+                    </label>
+                </th>
+                <th>
+                    <label>
+                        <uimessage code="pihcore.familyPlanning.endDate"/>
+                    </label>
+                </th>
+            </tr>
+
+            <repeat>
+                <template>
+                    <obsgroup groupingConceptId="PIH:Family planning construct">
+                    <tr>
+                        <td class="section-container">
+                            <obs conceptId="CIEL:374"
+                             answerConceptId="{fpMethod}"
+                             style="checkbox" />
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:163757"/>
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:163758"/>
+                        </td>
+                    </tr>
+                </obsgroup>
+                </template>
+                <render fpMethod="CIEL:780" comment="The pill"/>
+                <render fpMethod="PIH:907" comment="Depo-provera"/>
+                <render fpMethod="CIEL:190" comment="Condoms"/>
+                <render fpMethod="CIEL:78796" comment="Norplant"/>
+                <render fpMethod="PIH:5275" comment="IUD"/>
+                <render fpMethod="PIH:2712" comment="Sterilization"/>
+                <render fpMethod="CIEL:5622" comment="Other"/>
+           </repeat>
+        </table>
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right">
+                <uimessage code="emr.next"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="submit" class="submitButton confirm right">
+                <uimessage code="mirebalais.save"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="cancel" type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>
