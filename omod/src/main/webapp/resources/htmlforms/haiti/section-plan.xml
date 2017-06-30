@@ -396,33 +396,32 @@
     <section id="radiology-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.rad_order.title">
         <div class="section-container-color">
+            <includeIf velocityTest="!$config.isComponentEnabled('radiology')">
 
-        <includeIf velocityTest="!$config.isComponentEnabled('radiology')">
+                <!-- ToDo: This is different from the Radiology app which uses encounter
+                     and order.  This uses  'Radiology procedure performed'.
+                     Add interpretation and date -->
+                <p>
+                    <obs conceptId="PIH:Radiology image ordered"
+                         answerConceptId="PIH:Chest 1 view (XRay)"
+                         style="checkbox"/>
+                </p>
+                <p>
+                    <label>
+                        <uimessage code="zl.ifOtherSpecify"/>:
+                    </label>
+                </p>
+                <p>
+                    <obs conceptId="PIH:Radiology image ordered"
+                         answerClasses="Radiology/Imaging Procedure"
+                         style="autocomplete"/>
+                </p>
 
-            <!-- ToDo: This is different from the Radiology app which uses encounter
-                 and order.  This uses  'Radiology procedure performed'.
-                 Add interpretation and date -->
-            <p>
-                <obs conceptId="PIH:Radiology image ordered"
-                     answerConceptId="PIH:Chest 1 view (XRay)"
-                     style="checkbox"/>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="zl.ifOtherSpecify"/>:
-                </label>
-            </p>
-            <p>
-                <obs conceptId="PIH:Radiology image ordered"
-                     answerClasses="Radiology/Imaging Procedure"
-                     style="autocomplete"/>
-            </p>
-
-        </includeIf>
-        <includeIf velocityTest="$config.isComponentEnabled('radiology')">
-            <p>At HUM, use <uimessage code="pihcore.rad_order.title"/></p>
-        </includeIf>
-
+            </includeIf>
+            <includeIf velocityTest="$config.isComponentEnabled('radiology')">
+                <p>At HUM, use <uimessage code="pihcore.rad_order.title"/></p>
+            </includeIf>
+        </div>
     </section>
 
     <!-- Stolen from the dispensing module, but using prescription construct instead of dispensing -->
