@@ -206,7 +206,6 @@
             </repeat>
 
             <!-- Parasitology -->
-            <hr/>
             <label>
                 <uimessage code="pihcore.lab.parasitology.title"/>
             </label>
@@ -226,7 +225,6 @@
 
             <!-- ANC -->
             <includeIf velocityTest="$patient.gender == 'F' ">
-                <hr/>
                 <p>
                     <label>
                         ANC
@@ -252,7 +250,6 @@
             </label>
 
             <!-- Chemistry -->
-            <hr/>
             <p>
                 <label>
                     <uimessage code="pihcore.lab.chemistry.title"/>
@@ -273,7 +270,6 @@
                 <render labName="CIEL:5473" comment="Electrolytes" />
             </repeat>
 
-            <hr/>
             <p>
                 <label>
                     <uimessage code="pihcore.lab.serology.title"/>
@@ -312,7 +308,6 @@
             </repeat>
 
             <!-- TB -->
-            <hr/>
             <p>
                 <label>
                     <uimessage code="pihcore.lab.tb.title"/>
@@ -333,7 +328,6 @@
                 <render labName="CIEL:162202" codeLabel="pihcore.lab.tbGeneXpert" comment="GenXpert"/>
             </repeat>
 
-            <hr/>
             <!-- HIV -->
             <label>
                 <uimessage code="pihcore.lab.hiv.title"/>
@@ -360,7 +354,6 @@
             </repeat>
 
             <!-- Other -->
-            <hr/>
             <label>
                 <uimessage code="pihcore.other"/>
             </label>
