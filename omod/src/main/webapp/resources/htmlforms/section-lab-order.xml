@@ -144,13 +144,9 @@
                     </template>
                     <render labName="PIH:B-HCG" codeLabel="pihcore.lab.pregnancy" comment="Pregnancy"/>
                     <render labName="PIH:RPR" codeLabel="pihcore.lab.syphilis" comment="Syphilis (RPR)"/>
-                    <!-- ToDo: Vaginal discharge -->
+                    <render labName="PIH:11481" codeLabel="pihcore.lab.vaginal" comment="Vaginal discharge"/>
                 </repeat>
             </includeIf>
-
-            <label>
-                <i>Vaginal discharge</i>
-            </label>
 
             <!-- Chemistry -->
             <hr/>
@@ -212,6 +208,10 @@
                 <render labName="CIEL:161469" codeLabel="ASO" comment="ASO"/>
             </repeat>
 
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <!-- TB -->
             <hr/>
             <p>
@@ -231,7 +231,7 @@
 
                 <render labName="PIH:TUBERCULOSIS SMEAR RESULT" codeLabel="pihcore.lab.tbSmear" comment="AFB / Smear"/>
                 <render labName="PIH:TUBERCULOSIS CULTURE RESULT" codeLabel="pihcore.lab.tbCulture" comment="TB culture"/>
-                <render labName="CIEL:162202" codeLabel="pihcore.lab.tbGeneXpert" comment="GenXpert"/>
+                <render labName="CIEL:164945" codeLabel="pihcore.lab.tbGeneXpert" comment="GenXpert"/>
             </repeat>
 
             <hr/>
@@ -288,7 +288,8 @@
                      showCommentField="true" commentFieldLabel=""/>
             </p>
 
-            <p></p>
+            <br/>
+            <br/>
         </div>
     </div>
 
