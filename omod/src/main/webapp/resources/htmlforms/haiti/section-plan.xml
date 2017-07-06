@@ -244,6 +244,7 @@
                     <render labName="PIH:11481" codeLabel="pihcore.lab.vaginal" comment="Vaginal discharge"/>
                 </repeat>
             </includeIf>
+            <br/>
 
             <!-- Chemistry -->
             <p>
@@ -303,7 +304,6 @@
                 <render labName="CIEL:161469" codeLabel="ASO" comment="ASO"/>
             </repeat>
 
-            <br/>
             <br/>
             <br/>
             <br/>
@@ -401,7 +401,7 @@
                 </p>
                 <p>
                     <label>
-                        <uimessage code="zl.ifOtherSpecify"/>:
+                        <uimessage code="zl.ifOtherSpecify"/>
                     </label>
                 </p>
                 <p>
