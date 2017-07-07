@@ -7,18 +7,6 @@
             display: block;
         }
 
-        #test-orders {
-        }
-
-        #test-orders input[type=checkbox] {
-            float: none;
-            vertical-align: middle;
-        }
-
-        #test-orders p {
-            margin-bottom: 5px
-        }
-
         .section-container-color {
             background: #F2F2F2;
             box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
@@ -90,22 +78,23 @@
             <repeat>
                 <template>
                     <obsgroup groupingConceptId="PIH:Family planning construct">
+                    <!-- ToDo:  Toggle both cells/dates off (grey-out) unless method of family planning is selected -->
                     <tr>
-                        <td class="section-container">
+                        <td id="{comment}-fp">
                             <obs conceptId="CIEL:374"
-                             answerConceptId="{fpMethod}"
-                             style="checkbox" />
+                                 answerConceptId="{fpMethod}"
+                                 style="checkbox" />
                         </td>
-                        <td>
+                        <td id="{comment}-date" >
                             <obs conceptId="CIEL:163757"/>
                         </td>
-                        <td>
+                        <td id="{comment}-date" >
                             <obs conceptId="CIEL:163758"/>
                         </td>
                     </tr>
                 </obsgroup>
                 </template>
-                <render fpMethod="CIEL:780" comment="The pill"/>
+                <render fpMethod="CIEL:780" comment="Pill"/>
                 <render fpMethod="PIH:907" comment="Depo-provera"/>
                 <render fpMethod="CIEL:190" comment="Condoms"/>
                 <render fpMethod="CIEL:78796" comment="Norplant"/>
@@ -115,6 +104,8 @@
            </repeat>
         </table>
     </div>
+
+    <br/>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
