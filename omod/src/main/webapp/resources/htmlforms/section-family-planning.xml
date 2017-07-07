@@ -83,12 +83,14 @@
                         <td id="{comment}-fp">
                             <obs conceptId="CIEL:374"
                                  answerConceptId="{fpMethod}"
-                                 style="checkbox" />
+                                 style="checkbox"
+                                 toggle="{id: '{comment}-date', style: 'dim'}"
+                                 />
                         </td>
-                        <td id="{comment}-date" >
+                        <td class="{comment}-date">
                             <obs conceptId="CIEL:163757"/>
                         </td>
-                        <td id="{comment}-date" >
+                        <td class="{comment}-date">
                             <obs conceptId="CIEL:163758"/>
                         </td>
                     </tr>
