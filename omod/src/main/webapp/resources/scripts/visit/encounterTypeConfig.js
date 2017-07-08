@@ -135,6 +135,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
+        var hivSero = {
+            type: "encounter-section",
+            id: "hiv-serology",
+            label: "pihcore.hiv.serology.title",
+            icon: "icon-home",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-serology.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-serology.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         var socioEcon = {
             type: "encounter-section",
             id: "socio-economics",
@@ -161,7 +172,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "hiv-risk-factors",
             label: "pihcore.hiv.risk-factors",
-            icon: "icon-asterisk",
+            icon: "icon-warning-sign",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-risk-factors.xml",
@@ -183,7 +194,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "hiv-who-stages",
             label: "pihcore.hiv.whoStages",
-            icon: "icon-asterisk",
+            icon: "icon-th-large",
             shortTemplate: "templates/sections/hivSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml",
@@ -357,6 +368,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
+                hivSero,
                 socioEcon,
                 hivRiskFactors,
                 familyPlanning,

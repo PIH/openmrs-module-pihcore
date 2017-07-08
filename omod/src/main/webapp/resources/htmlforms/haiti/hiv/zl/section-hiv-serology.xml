@@ -1,0 +1,163 @@
+<htmlform formUuid="f9655ae0-635f-11e7-907b-a6006ad3dba0"
+          formName="HIV Serology" formVersion="1.0">
+
+    <style type="text/css">
+        <ifMode mode="VIEW" include="false">
+
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
+
+            .two-columns {
+                column-count: 2;
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+            }
+
+            .section-container {
+                background: #F2F2F2;
+                box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+                padding: 10px 5px 10px 15px;
+                line-height: 1.5em; /*add this for vertical spacing between elements*/
+            }
+
+            .section-container input[type="checkbox"] {
+                margin: 0px 5px; /*changed values to vertical, horizontal*/
+                top:5px; /*added to offset the checkbox position to line up*/
+            }
+
+            .section-container label { /*new definition to override labels inside section-containers*/
+                margin: 0px;
+            }
+        </ifMode>
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h3>
+            B. <uimessage code="pihcore.hiv.serology.title"/>
+        </h3>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-symptoms");
+                    return true;
+                });
+
+                window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
+    <div class="hiv-serology">
+        <div class="two-columns">
+            <p>
+                <label>
+                    <uimessage code="pihcore.hiv.testDate"/>
+                </label>
+            </p>
+            <p>
+                <!-- ToDo: Get from hiv mds
+                <obs conceptId="CIEL:164400"/>
+                -->
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.testOrderedBy"/>
+                </label>
+            </p>
+            <repeat>
+                <template>
+                    <p>
+                        <obs conceptId="CIEL:159936" answerConceptId="{point}"/>
+                    </p>
+                </template>
+
+                <render point="CIEL:159940" comment="CDV"/>
+                <render point="CIEL:159937" comment="MCH"/>
+                <render point="CIEL:160542" comment="Outpatient"/>
+                <render point="CIEL:159939" comment="Mobile"/>
+                <!-- ToDo: Get from hiv mds
+                <render point="PIH:2714" comment="Family planning clinic"/>
+                <render point="PIH:2235" comment="inpatient maternity"/>
+                <render point="PIH:7891" comment="inpatient internal med"/>
+                                                -->
+                <render point="PIH:6298" comment="surgery"/>
+                <!--
+                <render point="PIH:2717" comment="inpatient peds"/>
+                -->
+                <render point="CIEL:5622" comment="Other"/>
+            </repeat>
+
+
+            <!-- Partner -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.hiv.partnerTesting"/>
+                </label>
+            </p>
+            <!-- ToDo: Get mds
+            <obs conceptId="CIEL:159381"
+                answerConceptIds="CIEL:1066,CIEL:1065,PIH:NO PARTNER"
+                style="radio" answerSeparator="&amp;nbsp;" />
+            -->
+
+            <!-- Pregnant -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.pregnancy.status"/>
+                </label>
+            </p>
+            <obs conceptId="CIEL:5272" answerConceptIds="CIEL:1066,CIEL:1065"
+                 style="radio" answerSeparator="&amp;nbsp;"/>
+
+            <!-- DPA -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.pregnancy.dueDate"/>
+                </label>
+            </p>
+            <!-- ToDo: Get mds
+            <obs conceptId="CIEL:5596"/>
+            -->
+
+            <!-- DPR? -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                </label>
+            </p>
+            <obs conceptId="CIEL:1427"/>
+
+        </div>
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right">
+                <uimessage code="emr.next"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="submit" class="submitButton confirm right">
+                <uimessage code="mirebalais.save"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="cancel" type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>
