@@ -148,8 +148,15 @@
                 </repeat>
             </includeIf>
 
+            <includeIf velocityTest="$patient.gender == 'M' ">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </includeIf>
+
             <!-- Chemistry -->
-            <hr/>
             <p>
                 <label>
                     <uimessage code="pihcore.lab.chemistry.title"/>
@@ -170,7 +177,6 @@
                 <render labName="CIEL:5473" comment="Electrolytes" />
             </repeat>
 
-            <hr/>
             <p>
                 <label>
                     <uimessage code="pihcore.lab.serology.title"/>
@@ -211,9 +217,7 @@
             <br/>
             <br/>
             <br/>
-            <br/>
             <!-- TB -->
-            <hr/>
             <p>
                 <label>
                     <uimessage code="pihcore.lab.tb.title"/>
@@ -234,12 +238,12 @@
                 <render labName="CIEL:164945" codeLabel="pihcore.lab.tbGeneXpert" comment="GenXpert"/>
             </repeat>
 
-            <hr/>
             <!-- HIV -->
-            <label>
-                <uimessage code="pihcore.lab.hiv.title"/>
-            </label>
-
+            <p>
+                <label>
+                    <uimessage code="pihcore.lab.hiv.title"/>
+                </label>
+            </p>
             <repeat>
                 <template>
                     <p>
@@ -261,10 +265,11 @@
             </repeat>
 
             <!-- Other -->
-            <hr/>
-            <label>
-                <uimessage code="pihcore.other"/>
-            </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.other"/>
+                </label>
+            </p>
 
             <repeat>
                 <template>
@@ -287,9 +292,6 @@
                      style="checkbox"
                      showCommentField="true" commentFieldLabel=""/>
             </p>
-
-            <br/>
-            <br/>
         </div>
     </div>
 

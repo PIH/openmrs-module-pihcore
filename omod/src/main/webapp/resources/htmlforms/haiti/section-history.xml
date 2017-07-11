@@ -262,7 +262,7 @@
                 <label>Contraception:</label>
                 <obs conceptId="PIH:METHOD OF FAMILY PLANNING"/>
                 <label>, <uimessage code="zl.ifOtherSpecify"/></label>
-                <obs conceptId="PIH:OTHER FAMILY PLANNING METHOD, NON-CODED" size="30"/>
+                <obs conceptId="PIH:2996" size="30"/>
             </p>
         </div>
         </section>

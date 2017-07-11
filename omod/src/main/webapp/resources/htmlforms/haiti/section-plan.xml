@@ -244,7 +244,14 @@
                     <render labName="PIH:11481" codeLabel="pihcore.lab.vaginal" comment="Vaginal discharge"/>
                 </repeat>
             </includeIf>
-            <br/>
+
+                <includeIf velocityTest="$patient.gender == 'M' ">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </includeIf>
 
             <!-- Chemistry -->
             <p>
@@ -306,7 +313,7 @@
 
             <br/>
             <br/>
-            <br/>
+
             <!-- TB -->
             <p>
                 <label>

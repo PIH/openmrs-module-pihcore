@@ -15,22 +15,6 @@
                 -webkit-column-count: 2;
                 -moz-column-count: 2;
             }
-
-            .section-container {
-                background: #F2F2F2;
-                box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
-                padding: 10px 5px 10px 15px;
-                line-height: 1.5em; /*add this for vertical spacing between elements*/
-            }
-
-            .section-container input[type="checkbox"] {
-                margin: 0px 5px; /*changed values to vertical, horizontal*/
-                top:5px; /*added to offset the checkbox position to line up*/
-            }
-
-            .section-container label { /*new definition to override labels inside section-containers*/
-                margin: 0px;
-            }
         </ifMode>
     </style>
 
@@ -68,9 +52,7 @@
                 </label>
             </p>
             <p>
-                <!-- ToDo: Get from hiv mds
                 <obs conceptId="CIEL:164400"/>
-                -->
             </p>
 
             <p>
@@ -89,18 +71,13 @@
                 <render point="CIEL:159937" comment="MCH"/>
                 <render point="CIEL:160542" comment="Outpatient"/>
                 <render point="CIEL:159939" comment="Mobile"/>
-                <!-- ToDo: Get from hiv mds
                 <render point="PIH:2714" comment="Family planning clinic"/>
                 <render point="PIH:2235" comment="inpatient maternity"/>
                 <render point="PIH:7891" comment="inpatient internal med"/>
-                                                -->
                 <render point="PIH:6298" comment="surgery"/>
-                <!--
                 <render point="PIH:2717" comment="inpatient peds"/>
-                -->
                 <render point="CIEL:5622" comment="Other"/>
             </repeat>
-
 
             <!-- Partner -->
             <p>
@@ -108,41 +85,51 @@
                     <uimessage code="pihcore.hiv.partnerTesting"/>
                 </label>
             </p>
-            <!-- ToDo: Get mds
             <obs conceptId="CIEL:159381"
                 answerConceptIds="CIEL:1066,CIEL:1065,PIH:NO PARTNER"
-                style="radio" answerSeparator="&amp;nbsp;" />
-            -->
+                style="radio" answerSeparator="" />
 
-            <!-- Pregnant -->
-            <p>
-                <label>
-                    <uimessage code="pihcore.pregnancy.status"/>
-                </label>
-            </p>
-            <obs conceptId="CIEL:5272" answerConceptIds="CIEL:1066,CIEL:1065"
-                 style="radio" answerSeparator="&amp;nbsp;"/>
+            <includeIf velocityTest="$patient.gender == 'F' ">
+                <!-- Pregnant -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.pregnancy.status"/>?
+                    </label>
+                </p>
+                <obs conceptId="CIEL:5272"
+                     answerConceptIds="CIEL:1066,CIEL:1065"
+                     style="radio" answerSeparator=""/>
 
-            <!-- DPA -->
-            <p>
-                <label>
-                    <uimessage code="pihcore.pregnancy.dueDate"/>
-                </label>
-            </p>
-            <!-- ToDo: Get mds
-            <obs conceptId="CIEL:5596"/>
-            -->
+                <!-- DPA -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.pregnancy.dueDate"/>
+                    </label>
+                </p>
+                <obs conceptId="CIEL:5596"/>
 
-            <!-- DPR? -->
-            <p>
-                <label>
-                    <uimessage code="pihcore.pregnancy.lastPeriod"/>
-                </label>
-            </p>
-            <obs conceptId="CIEL:1427"/>
+                <!-- DPR? -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                    </label>
+                </p>
+                <obs conceptId="CIEL:1427"/>
 
+                <!-- ToDo: Add PMTCT program enrollment but lookup/show -->
+                <!-- ToDo: Is PMTCT also for infants? -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.pmtct.enrollmentStatus"/>
+                    </label>
+                </p>
+            </includeIf>
+            <br/>
+            <br/>
         </div>
     </div>
+
+    <br/>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">

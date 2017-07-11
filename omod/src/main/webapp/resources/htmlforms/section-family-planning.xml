@@ -78,23 +78,22 @@
             <repeat>
                 <template>
                     <obsgroup groupingConceptId="PIH:Family planning construct">
-                    <!-- ToDo:  Toggle both cells/dates off (grey-out) unless method of family planning is selected -->
-                    <tr>
-                        <td id="{comment}-fp">
-                            <obs conceptId="CIEL:374"
-                                 answerConceptId="{fpMethod}"
-                                 style="checkbox"
-                                 toggle="{id: '{comment}-date', style: 'dim'}"
-                                 />
-                        </td>
-                        <td class="{comment}-date">
-                            <obs conceptId="CIEL:163757"/>
-                        </td>
-                        <td class="{comment}-date">
-                            <obs conceptId="CIEL:163758"/>
-                        </td>
-                    </tr>
-                </obsgroup>
+                        <tr>
+                            <td id="{comment}-fp">
+                                <obs conceptId="CIEL:374"
+                                     answerConceptId="{fpMethod}"
+                                     style="checkbox"
+                                     toggle="{id: '{comment}-date', style: 'dim'}"
+                                />
+                            </td>
+                            <td class="{comment}-date">
+                                <obs conceptId="CIEL:163757"/>
+                            </td>
+                            <td class="{comment}-date">
+                                <obs conceptId="CIEL:163758"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
                 </template>
                 <render fpMethod="CIEL:780" comment="Pill"/>
                 <render fpMethod="PIH:907" comment="Depo-provera"/>
@@ -103,7 +102,18 @@
                 <render fpMethod="PIH:5275" comment="IUD"/>
                 <render fpMethod="PIH:2712" comment="Sterilization"/>
                 <render fpMethod="CIEL:5622" comment="Other"/>
-           </repeat>
+            </repeat>
+
+            <tr>
+                <td align="right">
+                    <label>
+                        <uimessage code="zl.ifOtherSpecify"/>
+                    </label>
+                <obs conceptId="PIH:2996" size="30"/>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
         </table>
     </div>
 
