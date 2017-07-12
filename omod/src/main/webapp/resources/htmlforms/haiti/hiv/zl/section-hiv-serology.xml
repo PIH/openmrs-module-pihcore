@@ -63,21 +63,29 @@
             <repeat>
                 <template>
                     <p>
-                        <obs conceptId="CIEL:159936" answerConceptId="{point}"/>
+                        <obs conceptId="CIEL:159936"
+                             answerConceptId="{point}" answerCode="{message}"/>
                     </p>
                 </template>
 
-                <render point="CIEL:159940" comment="CDV"/>
-                <render point="CIEL:159937" comment="MCH"/>
-                <render point="CIEL:160542" comment="Outpatient"/>
-                <render point="CIEL:159939" comment="Mobile"/>
-                <render point="PIH:2714" comment="Family planning clinic"/>
-                <render point="PIH:2235" comment="inpatient maternity"/>
-                <render point="PIH:7891" comment="inpatient internal med"/>
-                <render point="PIH:6298" comment="surgery"/>
-                <render point="PIH:2717" comment="inpatient peds"/>
-                <render point="CIEL:5622" comment="Other"/>
-            </repeat>
+                <render point="CIEL:159940" message="pihcore.testLocation.vct" comment="vct"/>
+                <render point="CIEL:159937" message="pihcore.testLocation.mch" comment="MCH"/>
+                <render point="CIEL:160542" message="pihcore.testLocation.primary" comment="Outpatient"/>
+                <render point="CIEL:159939" message="pihcore.testLocation.mobile" comment="Mobile"/>
+                <render point="PIH:2714" message="pihcore.testLocation.familyPlan" comment="Family planning clinic"/>
+                <render point="PIH:2235" message="pihcore.testLocation.maternity" comment="inpatient maternity"/>
+                <render point="PIH:6298" message="pihcore.testLocation.surgery" comment="surgery"/>
+                <render point="PIH:7891" message="pihcore.testLocation.intMed" comment="inpatient internal med"/>
+                <render point="PIH:2717" message="pihcore.testLocation.pedWard" comment="inpatient peds"/>
+             </repeat>
+
+            <p>
+                <obs conceptId="CIEL:159936"
+                     answerConceptId="CIEL:5622" answerCode="pihcore.other"
+                     commentFieldLabel="Si autre, préciser:"
+                />
+            </p>
+            <br/>
 
             <!-- Partner -->
             <p>
@@ -120,12 +128,35 @@
                 <!-- ToDo: Is PMTCT also for infants? -->
                 <p>
                     <label>
-                        <uimessage code="pihcore.pmtct.enrollmentStatus"/>
+                        <i>NOTE: Add <uimessage code="pihcore.pmtct.enrollmentStatus"/></i>
                     </label>
                 </p>
             </includeIf>
+
+            <includeIf velocityTest="$patient.gender == 'M' ">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </includeIf>
             <br/>
             <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
         </div>
     </div>
 
