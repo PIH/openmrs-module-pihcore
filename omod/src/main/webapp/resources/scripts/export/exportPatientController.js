@@ -57,11 +57,19 @@ angular.module('exportPatientApp', ['ngDialog'])
                 $scope.currentPatientJson = null;
 
                 function saveFile(data, filename) {
+                        var currentDate = new Date();
+                        var month = currentDate.getMonth() + 1;
+                        var dateString = currentDate.getFullYear() + "_"
+                            + month + "_"
+                            + currentDate.getDate() + "_"
+                            + currentDate.getHours() + "_"
+                            + currentDate.getMinutes() ;
+
                         var blob = new Blob([data], {type: 'text/json'});
                         var e = document.createEvent('MouseEvents'),
                             a = document.createElement('a');
 
-                        a.download = filename;
+                        a.download = dateString + "_" + filename;
                         a.href = window.URL.createObjectURL(blob);
                         a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
                         e.initEvent('click', true, false, window,
