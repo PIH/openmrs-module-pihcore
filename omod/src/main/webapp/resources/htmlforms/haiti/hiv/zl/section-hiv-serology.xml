@@ -86,6 +86,7 @@
                 />
             </p>
             <br/>
+            <br/>
 
             <!-- Partner -->
             <p>
@@ -98,23 +99,24 @@
                 style="radio" answerSeparator="" />
 
             <includeIf velocityTest="$patient.gender == 'F' ">
+                <br/>
                 <!-- Pregnant -->
                 <p>
-                    <label>
-                        <uimessage code="pihcore.pregnancy.status"/>?
-                    </label>
-                </p>
-                <obs conceptId="CIEL:5272"
-                     answerConceptIds="CIEL:1066,CIEL:1065"
-                     style="radio" answerSeparator=""/>
+                    <obs conceptId="CIEL:5272" toggle="pregnant"
+                         answerConceptId="CIEL:1065"
+                         answerCode="pihcore.pregnancy.status"
+                         style="checkbox"/>
 
-                <!-- DPA -->
-                <p>
-                    <label>
-                        <uimessage code="pihcore.pregnancy.dueDate"/>
-                    </label>
+                    <!-- DPA -->
+                    <div id="pregnant">
+                        <p>
+                            <label>
+                                <uimessage code="pihcore.pregnancy.dueDate"/>
+                            </label>
+                        </p>
+                        <obs conceptId="CIEL:5596"/>
+                    </div>
                 </p>
-                <obs conceptId="CIEL:5596"/>
 
                 <!-- DPR? -->
                 <p>
@@ -131,6 +133,13 @@
                         <i>NOTE: Add <uimessage code="pihcore.pmtct.enrollmentStatus"/></i>
                     </label>
                 </p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </includeIf>
 
             <includeIf velocityTest="$patient.gender == 'M' ">
@@ -152,11 +161,6 @@
             </includeIf>
             <br/>
             <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-
         </div>
     </div>
 
