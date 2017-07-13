@@ -52,6 +52,7 @@
 <table id="list-patients" cellspacing="0" cellpadding="2">
     <thead>
         <tr>
+            <th>${ ui.message("coreapps.patient.identifier") }</th>
             <th>${ ui.message("emr.person.name")}</th>
             <th>${ ui.message("emr.gender") }</th>
             <th>${ ui.message("coreapps.age") }</th>
@@ -65,7 +66,13 @@
             <td>
                 <a href="${ ui.pageLink("coreapps", "clinicianfacing/patient", [
                         "patientId": it.uuid ])}">
-                    ${ ui.format(it.personName) }
+                     ${ it.getPatientIdentifier(primaryIdentifierType.id) }
+                </a>
+            </td>
+            <td>
+                <a href="${ ui.pageLink("coreapps", "clinicianfacing/patient", [
+                        "patientId": it.uuid ])}">
+                    ${ ui.format(it.personName) }, ${it.getPatientIdentifier(primaryIdentifierType.id)}
                 </a>
             </td>
             <td>
