@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.reporting.library;
 
 import org.openmrs.Encounter;
+import org.openmrs.EncounterType;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
@@ -204,6 +205,34 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
         return getAdmissionEncounter(new PropertyConverter(Encounter.class, "encounterDatetime"));
     }
 
+    @DocumentedDefinition("lastEncounter.type")
+    public PatientDataDefinition getLastEncounterType() {
+        return getLastEncounter(new PropertyConverter(EncounterType.class, "encounterType"),
+                new ObjectFormatter());
+    }
+
+    @DocumentedDefinition("lastEncounter.location")
+    public PatientDataDefinition getLastEncounterLocation() {
+        return getLastEncounter(new PropertyConverter(Encounter.class, "location"),
+                new ObjectFormatter());
+    }
+
+    @DocumentedDefinition("lastEncounter.encounterDatetime")
+    public PatientDataDefinition getLastEncounterDatetime() {
+        return getLastEncounter(new PropertyConverter(Encounter.class, "encounterDatetime"));
+    }
+
+    @DocumentedDefinition("checkin.location")
+    public PatientDataDefinition getCheckinLocation() {
+        return getCheckinEncounter(new PropertyConverter(Encounter.class, "location"),
+                new ObjectFormatter());
+    }
+
+    @DocumentedDefinition("checkin.encounterDatetime")
+    public PatientDataDefinition getCheckinDatetime() {
+        return getCheckinEncounter(new PropertyConverter(Encounter.class, "encounterDatetime"));
+    }
+
     @DocumentedDefinition("inpatient.location")
     public PatientDataDefinition getInpatientLocation() {
         return getAdmissionOrTransferEncounter(new PropertyConverter(Encounter.class, "location"),
@@ -265,6 +294,20 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
         adtEncounters.setOnlyInActiveVisit(true);
         adtEncounters.setWhich(TimeQualifier.LAST);
         return new ConvertedPatientDataDefinition(adtEncounters,converters);
+    }
+    private PatientDataDefinition getCheckinEncounter(DataConverter... converters) {
+        EncountersForPatientDataDefinition checkinEncounters = new EncountersForPatientDataDefinition();
+        checkinEncounters.setTypes(Arrays.asList(Metadata.lookup(EncounterTypes.CHECK_IN)));
+        checkinEncounters.setOnlyInActiveVisit(true);
+        checkinEncounters.setWhich(TimeQualifier.FIRST);
+        return new ConvertedPatientDataDefinition(checkinEncounters, converters);
+    }
+
+    private PatientDataDefinition getLastEncounter(DataConverter... converters) {
+        EncountersForPatientDataDefinition visitEncounters = new EncountersForPatientDataDefinition();
+        visitEncounters.setOnlyInActiveVisit(true);
+        visitEncounters.setWhich(TimeQualifier.LAST);
+        return new ConvertedPatientDataDefinition(visitEncounters, converters);
     }
 
     // Convenience methods
