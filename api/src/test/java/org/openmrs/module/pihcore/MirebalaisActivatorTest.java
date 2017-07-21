@@ -14,6 +14,7 @@ import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pacsintegration.PacsIntegrationConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
@@ -84,6 +85,7 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
         when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         activator.setConfig(config);
         activator.started();
     }

@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.config;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 
 import java.util.ArrayList;
@@ -78,6 +79,9 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private RegistrationConfigDescriptor registrationConfig;
+
+    @JsonProperty
+    private BiometricsConfigDescriptor biometricsConfig;
 
     public String getWelcomeMessage() {
         return welcomeMessage;
@@ -223,5 +227,16 @@ public class ConfigDescriptor {
 
     public void setRegistrationConfig(RegistrationConfigDescriptor registrationConfig) {
         this.registrationConfig = registrationConfig;
+    }
+
+    public BiometricsConfigDescriptor getBiometricsConfig() {
+        if (biometricsConfig == null) {
+            biometricsConfig = new BiometricsConfigDescriptor();
+        }
+        return biometricsConfig;
+    }
+
+    public void setBiometrics(BiometricsConfigDescriptor biometricsConfig) {
+        this.biometricsConfig = biometricsConfig;
     }
 }

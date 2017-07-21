@@ -36,6 +36,7 @@ import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
@@ -48,6 +49,7 @@ import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
+import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,6 +163,10 @@ public class PihCoreActivator extends BaseModuleActivator {
             for (String name : globalProperties.keySet()) {
                 setGlobalProperty(name, globalProperties.get(name));
             }
+        }
+        if (config != null) {
+            BiometricsConfigDescriptor biometricsDescriptor = config.getBiometricsConfig();
+            setGlobalProperty(RegistrationCoreConstants.GP_BIOMETRICS_IMPLEMENTATION, biometricsDescriptor.getBiometricEngine());
         }
     }
 

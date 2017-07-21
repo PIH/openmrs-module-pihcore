@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.config;
 
+import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -103,5 +104,7 @@ public class Config {
         return descriptor.getRegistrationConfig();
     }
 
-
+    public BiometricsConfigDescriptor getBiometricsConfig() {
+        return descriptor.getBiometricsConfig();
+    }
 }
