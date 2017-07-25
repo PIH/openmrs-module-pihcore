@@ -67,7 +67,7 @@
 
     <!-- ToDo:  Add dates using showDate="true" OR
                 obsgroup (CIEL:163288) with exposure start date/time (CIEL:162601) -->
-    <div class="risk-factors">
+    <div class="hiv-risk-factors">
         <p>
             <label>
                 <uimessage code="pihcore.hiv.syphilisHistory"/>:

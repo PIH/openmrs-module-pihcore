@@ -139,7 +139,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "hiv-serology",
             label: "pihcore.hiv.serology.title",
-            icon: "icon-home",
+            icon: "icon-beaker",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-serology.xml",
@@ -201,9 +201,9 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-        var familyPlanning = {
+        var familyPlanningHistory = {
             type: "encounter-section",
-            id: "family-planning",
+            id: "family-planning-history",
             label: "pihcore.familyPlanning.title",
             icon: "icon-group",
             shortTemplate: "templates/sections/defaultSectionShort.page",
@@ -371,7 +371,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 hivSero,
                 socioEcon,
                 hivRiskFactors,
-                familyPlanning,
+                familyPlanningHistory,
                 hivSymptoms,
                 primaryCareExam,
                 labRadOrder,

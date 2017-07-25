@@ -72,11 +72,13 @@
                 <p>
                 <obsgroup groupingConceptId="CIEL:1727">
                     <obs conceptId="CIEL:1728" answerConceptId="{symptom}"/>
+                    <!-- ToDo: Work on the formatting
                     <obs conceptId="CIEL:1729" answerConceptIds="CIEL:1066,CIEL:1065"/>
                     <span class="small">
                         <obs conceptId="CIEL:1731" />
                         <obs conceptId="CIEL:1732" answerConceptIds="CIEL:1072,CIEL:1073,CIEL:1074"/>
                     </span>
+                    -->
                     </obsgroup>
                 </p>
             </template>
@@ -89,7 +91,7 @@
             <render symptom="CIEL:128321" comment="Prurigo nodularis"/>
             <render symptom="CIEL:512" comment="Rash"/> <!-- ZL form:  Other eruption -->
             <render symptom="CIEL:139084" comment="Headache"/>
-            <render symptom="CIEL:119938" comment="Vision problem"/>
+            <render symptom="CIEL:118938" comment="Vision problem"/>
             <render symptom="CIEL:113054" comment="Seizure"/>
             <render symptom="CIEL:1466" comment="Déficit neurologique focal"/>
             <render symptom="CIEL:120345" comment="Confusion"/>

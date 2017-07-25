@@ -31,7 +31,7 @@
 
     <ifMode mode="VIEW" include="false">
         <h3>
-            <uimessage code="pihcore.familyPlanning.title"/>
+            <uimessage code="pihcore.familyPlanningHistory.title"/>
         </h3>
 
         <script type="text/javascript">
@@ -40,7 +40,7 @@
                 // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
                 jq('#next').click(function() {
                     window.htmlForm.getBeforeSubmit().push(function () {
-                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=lab-rad-order");
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=family-planning-history");
                         return true;
                     });
 
@@ -55,7 +55,7 @@
         </script>
     </ifMode>
 
-    <div id="family-planning">
+    <div class="family-planning-history">
         <table>
             <tr>
                 <th>

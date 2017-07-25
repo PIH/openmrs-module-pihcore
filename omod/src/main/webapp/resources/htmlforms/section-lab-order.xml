@@ -75,7 +75,7 @@
         </script>
     </ifMode>
 
-    <div id="lab-orders">
+    <div class="lab-rad-order">
         <h4>
             <uimessage code="pihcore.lab_order.title"/>
         </h4>

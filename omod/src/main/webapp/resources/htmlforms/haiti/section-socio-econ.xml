@@ -1,4 +1,5 @@
-<htmlform formUuid="3498f204-a6fa-4df0-b7fd-a94eb03a43c9" formName="Diagnostic" formVersion="1.0">
+<htmlform formUuid="3498f204-a6fa-4df0-b7fd-a94eb03a43c9"
+          formName="Socio-economics" formVersion="1.0">
 
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
@@ -16,6 +17,12 @@
 
             form label, .form label {
                 display: inline-block;
+            }
+
+            .two-columns {
+                column-count: 2;
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
             }
 
         </ifMode>
@@ -44,71 +51,76 @@
         </script>
     </ifMode>
 
-    <div id="socio-economics">
+    <div class="socio-economics">
+        <p>
+            <label>
+                <uimessage code="pihcore.socioEconomic.levelEducation"/>
+            </label>
+            <obs conceptId="CIEL:1712" answerConceptIds="CIEL:1107,CIEL:1713,CIEL:1714,PIH:3396,CIEL:159785"/>
+        </p>
+
+        <!-- Note: Civil status is within registration -->
+        <h5>
+            <uimessage code="pihcore.socioEconomic.housing" style="dropdown"/>
+        </h5>
+        <div class="two-columns">
             <p>
                 <label>
-                    <uimessage code="pihcore.socioEconomic.levelEducation"/>
+                    <uimessage code="pihcore.socioEconomic.numPeople"/>
                 </label>
-                <obs conceptId="CIEL:1712" answerConceptIds="CIEL:1107,CIEL:1713,CIEL:1714,PIH:3396,CIEL:159785"/>
+                <span class="small">
+                    <obs conceptId="CIEL:1474"/>
+                </span>
+
+                <br/>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.numRooms"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:1475"/>
+                </span>
+            </p>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.floor"/>
+                </label>
+                <obs conceptId="CIEL:159387"
+                     answerConceptIds="CIEL:1943,CIEL:1944,CIEL:159679,CIEL:5622"/>
             </p>
 
-            <!-- Note: Civil status is within registration -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.roof"/>
+                </label>
+                <obs conceptId="CIEL:1290"
+                     answerConceptIds="PIH:1320,CIEL:1942,CIEL:1943,CIEL:5622"/>
+            </p>
 
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.housing" style="dropdown"/>
-                        </label>
-                        <br/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.toilet"/>
+                </label>
+                <obs conceptId="CIEL:159389" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
+            </p>
 
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.numPeople"/>
-                        </label>
-                        <span class="small">
-                            <obs conceptId="CIEL:1474"/>
-                        </span>
+            <p>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.radio"/>
+                </label>
+                <obs conceptId="CIEL:159388" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
+            </p>
 
-                        <br/>
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.numRooms"/>
-                        </label>
-                        <span class="small">
-                            <obs conceptId="CIEL:1475"/>
-                        </span>
-                    </p>
-
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.floor"/>
-                        </label>
-                        <obs conceptId="CIEL:159387"
-                             answerConceptIds="CIEL:1943,CIEL:1944,CIEL:159679,CIEL:5622"/>
-                    </p>
-
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.roof"/>
-                        </label>
-                        <obs conceptId="CIEL:1290"
-                             answerConceptIds="PIH:1320,CIEL:1942,CIEL:1943,CIEL:5622"/>
-                    </p>
-
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.toilet"/>
-                        </label>
-                        <obs conceptId="CIEL:159389" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
-                    </p>
-
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.radio"/>
-                        </label>
-                        <obs conceptId="CIEL:159388" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
-                    </p>
             <!-- ToDo: What is the difference between toilet and latrine? -->
+        </div>
     </div>
+
+    <br/>
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
