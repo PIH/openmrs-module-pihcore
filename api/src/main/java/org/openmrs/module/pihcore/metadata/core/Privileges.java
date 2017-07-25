@@ -414,11 +414,28 @@ public class Privileges {
     };
 
     public static PrivilegeDescriptor TASK_LAB_TRACKING_PLACE_ORDERS = new PrivilegeDescriptor() {
-        public String uuid() { return "8c14474d-07e9-4283-9af2-0720522f1496"; }
+        public String uuid() { return "79fb0222-e351-4a30-86ec-79b56f4eb9fc"; }
         public String privilege() { return "Task: labtrackingapp.placeOrders"; }
         public String description() { return "Ability to place orders using functionality provided by the Lab Tracking app"; }
     };
 
+    public static PrivilegeDescriptor TASK_ENROLL_IN_PROGRAM = new PrivilegeDescriptor() {
+        public String uuid() { return "8c14474d-07e9-4283-9af2-0720522f1496"; }
+        public String privilege() { return "Task: coreapps.enrollInProgram"; }
+        public String description() { return "Ability to enroll a patient in a program via the program status widget"; }
+    };
+
+    public static PrivilegeDescriptor TASK_EDIT_PATIENT_PROGRAM = new PrivilegeDescriptor() {
+        public String uuid() { return "e98c742f-c05e-4d35-acff-1752f0d2507c"; }
+        public String privilege() { return "Task: coreapps.editPatientProgram"; }
+        public String description() { return "Ability to edit a patient program via the program status widget"; }
+    };
+
+    public static PrivilegeDescriptor TASK_DELETE_PATIENT_PROGRAM = new PrivilegeDescriptor() {
+        public String uuid() { return "a1e0ae0a-dc7c-459f-bac6-5180ee71647f"; }
+        public String privilege() { return "Task: coreapps.deletePatientProgram"; }
+        public String description() { return "Ability to delete a patient program via the program status widget"; }
+    };
 
     // RETIRED PRIVILEGES
 

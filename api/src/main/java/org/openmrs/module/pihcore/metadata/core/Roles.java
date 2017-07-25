@@ -94,7 +94,10 @@ public class Roles {
                 Privileges.TASK_RADIOLOGYAPP_TAB,
                 Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
                 Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
-                Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
+                Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
+                Privileges.TASK_ENROLL_IN_PROGRAM,
+                Privileges.TASK_EDIT_PATIENT_PROGRAM,
+                Privileges.TASK_DELETE_PATIENT_PROGRAM
             );}
     };
 
@@ -688,6 +691,20 @@ public class Roles {
                     Privileges.TASK_APPOINTMENTSCHEDULINGUI_BOOK_APPOINTMENTS,
                     Privileges.TASK_APPOINTMENTSCHEDULINGUI_OVERBOOK_APPOINTMENTS,
                     Privileges.APP_APPOINTMENTSCHEDULINGUI_VIEW_APPOINTMENTS
+            );}
+    };
+
+    public static RoleDescriptor PROGRAM_MANAGER = new RoleDescriptor() {
+        public String uuid() { return "1024add6-76c5-468c-ab1e-f96aa71f6362"; }
+        public String role() { return "Application Role: programManager"; }
+        public String description() { return "Gives user ability to add, edit and delete patient program enrollments"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.TASK_ENROLL_IN_PROGRAM,
+                    Privileges.TASK_EDIT_PATIENT_PROGRAM,
+                    Privileges.TASK_DELETE_PATIENT_PROGRAM
             );}
     };
 
