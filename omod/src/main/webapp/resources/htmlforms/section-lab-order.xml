@@ -153,7 +153,6 @@
                 <br/>
                 <br/>
                 <br/>
-                <br/>
             </includeIf>
 
             <!-- Chemistry -->
@@ -215,8 +214,14 @@
             </repeat>
 
             <br/>
-            <br/>
-            <br/>
+            <includeIf velocityTest="$patient.gender == 'F' ">
+                <br/>
+                <br/>
+            </includeIf>
+            <includeIf velocityTest="$patient.age &lt; 2">
+                <br/>
+            </includeIf>
+
             <!-- TB -->
             <p>
                 <label>
@@ -244,6 +249,22 @@
                     <uimessage code="pihcore.lab.hiv.title"/>
                 </label>
             </p>
+
+            <!-- Only for infant (less than 2) -->
+            <includeIf velocityTest="$patient.age &lt; 2">
+                <repeat>
+                    <template>
+                        <p>
+                            <obs conceptId="PIH:Lab test ordered coded"
+                                 answerConceptId="{labName}"
+                                 answerCode="{codeLabel}"
+                                 style="checkbox"/>
+                        </p>
+                    </template>
+                    <render labName="CIEL:1030" codeLabel="pihcore.lab.hivpcr" comment="HIV PCR"/>
+                </repeat>
+            </includeIf>
+
             <repeat>
                 <template>
                     <p>
@@ -271,6 +292,20 @@
                 </label>
             </p>
 
+            <includeIf velocityTest="$patient.gender == 'F' ">
+                <repeat>
+                    <template>
+                        <p>
+                            <obs conceptId="PIH:Lab test ordered coded"
+                                 answerConceptId="{labName}"
+                                 answerCode="{comment}"
+                                 style="checkbox"/>
+                        </p>
+                    </template>
+                    <render labName="CIEL:885" comment="PAP test"/>
+                </repeat>
+            </includeIf>
+
             <repeat>
                 <template>
                     <p>
@@ -281,7 +316,6 @@
                     </p>
                 </template>
                 <render labName="CIEL:302" comment="pihcore.lab.urine"/>
-                <render labName="CIEL:885" comment="PAP test"/>
                 <render labName="CIEL:161454" comment="Gram stain"/>
                 <render labName="CIEL:163620" comment="H pylori"/>
             </repeat>
