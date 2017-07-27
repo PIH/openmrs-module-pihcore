@@ -33,6 +33,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             .useUrlLoader('/' +  OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json',  {
                 queryParameter : 'localeKey'
             })
+            .fallbackLanguage('en')
             .useSanitizeValueStrategy('escape');  // TODO is this the correct one to use http://angular-translate.github.io/docs/#/guide/19_security
     })
 
