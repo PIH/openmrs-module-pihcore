@@ -414,13 +414,13 @@ public class Privileges {
     };
 
     public static PrivilegeDescriptor TASK_LAB_TRACKING_PLACE_ORDERS = new PrivilegeDescriptor() {
-        public String uuid() { return "79fb0222-e351-4a30-86ec-79b56f4eb9fc"; }
+        public String uuid() { return "8c14474d-07e9-4283-9af2-0720522f1496"; }
         public String privilege() { return "Task: labtrackingapp.placeOrders"; }
         public String description() { return "Ability to place orders using functionality provided by the Lab Tracking app"; }
     };
 
     public static PrivilegeDescriptor TASK_ENROLL_IN_PROGRAM = new PrivilegeDescriptor() {
-        public String uuid() { return "8c14474d-07e9-4283-9af2-0720522f1496"; }
+        public String uuid() { return "79fb0222-e351-4a30-86ec-79b56f4eb9fc"; }
         public String privilege() { return "Task: coreapps.enrollInProgram"; }
         public String description() { return "Ability to enroll a patient in a program via the program status widget"; }
     };
