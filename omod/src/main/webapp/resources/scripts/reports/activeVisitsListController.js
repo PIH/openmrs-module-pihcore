@@ -1,15 +1,28 @@
-angular.module('activeVisitsListApp', ['ngDialog', "ui.bootstrap", 'ngGrid'])
+angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.bootstrap", 'ngGrid',
+    'configService', 'pascalprecht.translate'])
+
+    .config(function ($translateProvider) {
+        $translateProvider
+            .useUrlLoader('/' +  OPENMRS_CONTEXT_PATH + '/module/uicommons/messages/messages.json',  {
+                queryParameter : 'localeKey'
+            })
+            .fallbackLanguage('en')
+            .useSanitizeValueStrategy('escape');
+    })
     .service('ActiveVisitsListService', ['$q', '$http',
         function($q, $http) {
         }])
-    .controller('ActiveVisitsListController', ['$q', '$http', '$scope', 'ActiveVisitsListService', 'ngDialog', 'allPatientsIds',
-        function($q, $http, $scope, ExportPatientService, ngDialog, allPatientsIds) {
+    .controller('ActiveVisitsListController', ['$q', '$http', '$scope', 'ActiveVisitsListService', 'ngDialog', 'allPatientsIds', 'dashboardUrl', '$filter', '$translate', 'locale',
+        function($q, $http, $scope, ExportPatientService, ngDialog, allPatientsIds, dashboardUrl, $filter, $translate, locale) {
 
             $scope.allPatients = allPatientsIds.split(",");
+            $scope.dashboardUrl = "/" + OPENMRS_CONTEXT_PATH + dashboardUrl;
             $scope.activeVisitsData = [];
             $scope.pagingInformation = '';
             $scope.showResultsSpinner = true;
             $scope.totalActiveVisitsItems = $scope.allPatients.length;
+
+            $translate.use(locale);
 
             $scope.filterOptions = {
                 filterText: "",
@@ -19,6 +32,16 @@ angular.module('activeVisitsListApp', ['ngDialog', "ui.bootstrap", 'ngGrid'])
             $scope.pagingOptions = {
                 pageSize: 15,
                 currentPage: 1
+            };
+
+            $scope.getPatientUrl = function(patientId) {
+                var patientUrl = $scope.dashboardUrl;
+                return patientUrl.replace("{{patientId}}", patientId);
+            };
+
+            $scope.getFormatedDate = function(date) {
+                var formatedDate = new Date($filter('serverDate')(date));
+                return formatedDate;
             };
 
             $scope.getIdsForPage = function(pageSize, page){
@@ -96,20 +119,24 @@ angular.module('activeVisitsListApp', ['ngDialog', "ui.bootstrap", 'ngGrid'])
                 filterOptions: $scope.filterOptions,
                 columnDefs: [
                     {
-                        field: 'patientId',
-                        displayName: 'Patient ID'
+                        field: 'zlEmrId',
+                        width: '20%',
+                        cellTemplate: "<div>{{ row.getProperty(\'zlEmrId\') }}</div>",
+                        headerCellTemplate: "<div>{{ \'coreapps.patient.identifier\' | translate }}</div>"
                     },
                     {
                         field: 'familyName',
-                        displayName: 'Name'
+                        cellTemplate:  '<div> <a href="{{ getPatientUrl(row.getProperty(\'patientId\')) }}">{{ row.getProperty(\'familyName\') }}, {{ row.getProperty(\'givenName\') }} </a><div>',
+                        headerCellTemplate: "<div>{{ \'coreapps.person.name\' | translate }}</div>"
                     },
                     {
                         field: 'checkinDateTime',
-                        displayName: 'Check-In'
+                        cellTemplate:  '<div> {{ row.getProperty(\'firstCheckinLocation\') }} @ {{ row.getProperty(\'checkinDateTime\') | serverDate:DatetimeFormats.date }} <div>',
+                        headerCellTemplate: "<div>{{ \'coreapps.activeVisits.checkIn\' | translate }}</div>"
                     },
                     {
                         field: 'lastEncounterLocation',
-                        displayName: 'Last Seen'
+                        headerCellTemplate: "<div>{{ \'coreapps.activeVisits.lastSeen\' | translate }}</div>"
                     }
                 ]
 

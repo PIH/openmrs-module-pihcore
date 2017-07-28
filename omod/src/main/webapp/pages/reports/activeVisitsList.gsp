@@ -8,12 +8,12 @@
     ui.includeJavascript("uicommons", "angular-app.js")
     ui.includeJavascript("uicommons", "angular-common.js")
     ui.includeJavascript("uicommons", "angular-resource.min.js")
-    ui.includeJavascript("uicommons", "angular-translate.min.js")
     ui.includeJavascript("uicommons", "angular-ui/angular-ui-router.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ng-grid-2.0.7.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.13.0.js")
     ui.includeJavascript("uicommons", "ngDialog/ngDialog.min.js")
 
+    ui.includeJavascript("uicommons", "angular-translate.min.js")
     ui.includeJavascript("uicommons", "angular-translate-loader-url.min.js")
     ui.includeJavascript("uicommons", "services/session.js")
     ui.includeJavascript("uicommons", "services/appFrameworkService.js")
@@ -22,12 +22,13 @@
     ui.includeJavascript("uicommons", "model/visit-model.js")
     ui.includeJavascript("uicommons", "filters/display.js")
     ui.includeJavascript("uicommons", "filters/serverDate.js")
-
     ui.includeJavascript("uicommons", "handlebars/handlebars.js")
     ui.includeJavascript("uicommons", "moment.min.js")
+    ui.includeJavascript("pihcore", "services/configService.js")
 
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
 
+    ui.includeJavascript("pihcore", "visit/filters.js")
     ui.includeJavascript("pihcore", "reports/activeVisitsListController.js")
 
     def lastLocationId = lastLocation;
@@ -60,10 +61,10 @@
 
         jq("#visits-filterByLocation select").change(function(event){
             var selectedLocationId = this.value;
-            jq("#activeVisitsGrid").hide();
-            var url = '/${ contextPath }/pihcore/reports/activeVisitsList.page';
+            jq("#active-visits").hide();
+            var url = '/${ contextPath }/pihcore/reports/activeVisitsList.page?app=pih.app.activeVisits';
             if (parseInt(selectedLocationId) > 0) {
-                url = url +'?location=' + selectedLocationId;
+                url = url +'&location=' + selectedLocationId;
             }
             window.location= url;
         });
@@ -87,7 +88,7 @@
         <img src="${ui.resourceLink("uicommons", "images/spinner.gif")}">
     </div>
 
-    <table class="gridStyle" ng-grid="activeVisitsGrid" id="activeVisitsGrid" ng-hide="showResultsSpinner"></table>
+    <table class="gridStyle" ng-grid="activeVisitsGrid" id="active-visits" ng-hide="showResultsSpinner"></table>
 
     <div>
         {{ pagingInformation }}
@@ -97,7 +98,10 @@
 
 
 <script type="text/javascript">
-    angular.module('activeVisitsListApp').value("allPatientsIds", '${ allPatientsIds.join(",") }');
+    angular.module('activeVisitsListApp')
+            .value("allPatientsIds", '${ allPatientsIds.join(",") }')
+            .value('dashboardUrl', '${ dashboardUrl }')
+            .value('locale', '${ locale }');
     angular.bootstrap("#activeVisitsList-app", [ "activeVisitsListApp" ]);
     jq(function () {
         jq(document).on('sessionLocationChanged', function () {
