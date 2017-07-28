@@ -73,6 +73,7 @@ public class ActiveVisitsAjaxController {
         dsd.addColumn("lastEncounterType", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.lastEncounter.type"), "");
         dsd.addColumn("lastEncounterLocation", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.lastEncounter.location"), "");
         dsd.addColumn("lastEncounterDateTime", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.lastEncounter.encounterDatetime"), "");
+        dsd.addColumn("visitUuid", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.lastEncounter.visit.uuid"), "");
 
         result = dsdService.evaluate(dsd, context);
         String json = toJson(DataSetUtil.simplify(result));

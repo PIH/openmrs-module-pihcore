@@ -12,11 +12,11 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
     .service('ActiveVisitsListService', ['$q', '$http',
         function($q, $http) {
         }])
-    .controller('ActiveVisitsListController', ['$q', '$http', '$scope', 'ActiveVisitsListService', 'ngDialog', 'allPatientsIds', 'dashboardUrl', '$filter', '$translate', 'locale',
-        function($q, $http, $scope, ExportPatientService, ngDialog, allPatientsIds, dashboardUrl, $filter, $translate, locale) {
+    .controller('ActiveVisitsListController', ['$q', '$http', '$scope', 'ActiveVisitsListService', 'ngDialog', 'allPatientsIds', 'patientPageUrl', '$filter', '$translate', 'locale',
+        function($q, $http, $scope, ExportPatientService, ngDialog, allPatientsIds, patientPageUrl, $filter, $translate, locale) {
 
             $scope.allPatients = allPatientsIds.split(",");
-            $scope.dashboardUrl = "/" + OPENMRS_CONTEXT_PATH + dashboardUrl;
+            $scope.patientPageUrl = "/" + OPENMRS_CONTEXT_PATH + patientPageUrl;
             $scope.activeVisitsData = [];
             $scope.pagingInformation = '';
             $scope.showResultsSpinner = true;
@@ -34,9 +34,9 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                 currentPage: 1
             };
 
-            $scope.getPatientUrl = function(patientId) {
-                var patientUrl = $scope.dashboardUrl;
-                return patientUrl.replace("{{patientId}}", patientId);
+            $scope.getPatientUrl = function(patientId, visitUuid) {
+                var patientUrl = $scope.patientPageUrl;
+                return patientUrl.replace("{{patient.uuid}}", patientId).replace("{{visit.uuid}}", visitUuid);
             };
 
             $scope.getFormatedDate = function(date) {
@@ -126,16 +126,17 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                     },
                     {
                         field: 'familyName',
-                        cellTemplate:  '<div> <a href="{{ getPatientUrl(row.getProperty(\'patientId\')) }}">{{ row.getProperty(\'familyName\') }}, {{ row.getProperty(\'givenName\') }} </a><div>',
+                        cellTemplate:  '<div> <a href="{{ getPatientUrl(row.getProperty(\'patientId\'), row.getProperty(\'visitUuid\')) }}">{{ row.getProperty(\'familyName\') }}, {{ row.getProperty(\'givenName\') }} </a><div>',
                         headerCellTemplate: "<div>{{ \'coreapps.person.name\' | translate }}</div>"
                     },
                     {
                         field: 'checkinDateTime',
-                        cellTemplate:  '<div> {{ row.getProperty(\'firstCheckinLocation\') }} @ {{ row.getProperty(\'checkinDateTime\') | serverDate:DatetimeFormats.date }} <div>',
+                        cellTemplate:  '<div ng-if="row.getProperty(\'checkinDateTime\')"><small> {{ row.getProperty(\'firstCheckinLocation\') }} @ {{ row.getProperty(\'checkinDateTime\') | serverDate:DatetimeFormats.date }} </small><div>',
                         headerCellTemplate: "<div>{{ \'coreapps.activeVisits.checkIn\' | translate }}</div>"
                     },
                     {
                         field: 'lastEncounterLocation',
+                        cellTemplate:  '<div> {{ row.getProperty(\'lastEncounterType\')  | translate }} <br/> <small>{{ row.getProperty(\'lastEncounterLocation\') }} @ {{ row.getProperty(\'lastEncounterDateTime\') | serverDate:DatetimeFormats.date }} </small><div>',
                         headerCellTemplate: "<div>{{ \'coreapps.activeVisits.lastSeen\' | translate }}</div>"
                     }
                 ]

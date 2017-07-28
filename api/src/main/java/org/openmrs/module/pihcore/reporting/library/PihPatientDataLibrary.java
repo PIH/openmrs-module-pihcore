@@ -6,6 +6,7 @@ import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
 import org.openmrs.User;
+import org.openmrs.Visit;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
@@ -220,6 +221,11 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     @DocumentedDefinition("lastEncounter.encounterDatetime")
     public PatientDataDefinition getLastEncounterDatetime() {
         return getLastEncounter(new PropertyConverter(Encounter.class, "encounterDatetime"));
+    }
+
+    @DocumentedDefinition("lastEncounter.visit.uuid")
+    public PatientDataDefinition getLastEncounterVisitUuid() {
+        return getLastEncounter(new PropertyConverter(Visit.class, "visit.uuid"));
     }
 
     @DocumentedDefinition("checkin.location")
