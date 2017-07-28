@@ -1,0 +1,31 @@
+#activeVisitsGrid.gridStyle {
+  border: 1px solid rgb(212,212,212);
+  width: 100%;
+  height: 600px;
+}
+
+#activeVisitsGrid .ngTopPanel{
+  z-index: 0;
+}
+
+#activeVisitsGrid .ngCell  {
+  display : table-cell;
+  overflow: visible;
+  position: static;
+  padding: 4px;
+  border: 1px solid rgb(212,212,212);
+}
+
+#activeVisitsGrid .ngRow {
+  display : table-row;
+  position: static;
+}
+
+#activeVisitsGrid .ngCellText {
+  white-space: normal;
+  vertical-align: middle;
+}
+
+
+
+

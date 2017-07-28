@@ -28,6 +28,7 @@
 
     ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
 
+    ui.includeCss("pihcore", "activeVisitsList.css")
     ui.includeJavascript("pihcore", "visit/filters.js")
     ui.includeJavascript("pihcore", "reports/activeVisitsListController.js")
 
@@ -37,15 +38,6 @@
         allPatientsIds.push(it);
     }
 %>
-
-<style>
-
-.gridStyle {
-    border: 1px solid rgb(212,212,212);
-    height: 540px;
-}
-
-</style>
 
 <script type="text/javascript">
     var breadcrumbs = [
@@ -61,7 +53,7 @@
 
         jq("#visits-filterByLocation select").change(function(event){
             var selectedLocationId = this.value;
-            jq("#active-visits").hide();
+            jq("#activeVisitsGrid").hide();
             var url = '/${ contextPath }/pihcore/reports/activeVisitsList.page?app=pih.app.activeVisits';
             if (parseInt(selectedLocationId) > 0) {
                 url = url +'&location=' + selectedLocationId;
@@ -88,7 +80,7 @@
         <img src="${ui.resourceLink("uicommons", "images/spinner.gif")}">
     </div>
 
-    <table class="gridStyle" ng-grid="activeVisitsGrid" id="active-visits" ng-hide="showResultsSpinner"></table>
+    <table class="gridStyle" ng-grid="activeVisitsGrid" id="activeVisitsGrid" ng-hide="showResultsSpinner"></table>
 
     <div>
         {{ pagingInformation }}

@@ -30,7 +30,8 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
             };
 
             $scope.pagingOptions = {
-                pageSize: 15,
+                pageSize: '15',
+                pageSizes: [15, 30, 100],
                 currentPage: 1
             };
 
@@ -46,9 +47,11 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
 
             $scope.getIdsForPage = function(pageSize, page){
                 if (pageSize > 0 && page > 0) {
-                    var pos = (page -1) * pageSize;
+                    var p = parseInt(page);
+                    var ps = parseInt(pageSize);
+                    var pos = (p -1) * ps;
                     if (pos < ($scope.allPatients.length -1) ) {
-                        return $scope.allPatients.slice( pos, pos + pageSize);
+                        return $scope.allPatients.slice( pos, pos + ps);
                     }
                 }
                 return null;
