@@ -212,6 +212,18 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-family-planning.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var hivIntakePlan = {
+            type: "encounter-section",
+            id: "hiv-intake-plan",
+            label: "pihcore.visitNote.plan",
+            icon: "icon-list-ul",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-intake-plan.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-intake-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+
         /* Define Encounter Types */
         var encounterTypeConfig = {
             DEFAULT: {
@@ -375,7 +387,8 @@ angular.module("encounterTypeConfig", ["constants"])
                 hivSymptoms,
                 primaryCareExam,
                 labRadOrder,
-                whoHIVStages
+                whoHIVStages,
+                hivIntakePlan
             ]
         };
 

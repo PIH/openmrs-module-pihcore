@@ -65,19 +65,19 @@
                 </th>
                 <th>
                     <label>
-                        <uimessage code="pihcore.familyPlanning.startDate"/>
+                        <uimessage code="pihcore.startDate"/>
                     </label>
                 </th>
                 <th>
                     <label>
-                        <uimessage code="pihcore.familyPlanning.endDate"/>
+                        <uimessage code="pihcore.endDate"/>
                     </label>
                 </th>
             </tr>
 
             <repeat>
                 <template>
-                    <obsgroup groupingConceptId="PIH:Family planning construct">
+                    <obsgroup groupingConceptId="PIH:Family planning history construct">
                         <tr>
                             <td id="{comment}-fp">
                                 <obs conceptId="CIEL:374"
