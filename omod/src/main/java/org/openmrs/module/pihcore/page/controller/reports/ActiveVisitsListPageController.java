@@ -7,7 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.appframework.domain.AppDescriptor;cd pih  
+import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.reporting.cohort.definition.ActiveVisitsWithEncountersCohortDefinition;
