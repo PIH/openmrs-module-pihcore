@@ -405,6 +405,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    // TODO really shouldn't need this, as the REST "display" should be localized
     .filter('translateAs', [ "$filter", function($filter) {
         return function(input, type) {
             // first try to see if we have a custom translation property code
