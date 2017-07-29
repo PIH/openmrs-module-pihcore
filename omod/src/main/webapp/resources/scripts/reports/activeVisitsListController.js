@@ -54,7 +54,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                         return $scope.allPatients.slice( pos, pos + ps);
                     }
                 }
-                return null;
+                return $scope.allPatients;
             };
 
             $scope.updatePagingInformation = function() {
@@ -120,6 +120,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                 totalServerItems: 'totalActiveVisitsItems',
                 pagingOptions: $scope.pagingOptions,
                 filterOptions: $scope.filterOptions,
+                headerRowHeight: 60,
                 columnDefs: [
                     {
                         field: 'zlEmrId',

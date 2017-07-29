@@ -15,15 +15,12 @@ import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinition
 import org.openmrs.module.reporting.definition.library.AllDefinitionLibraries;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.EvaluationException;
-import org.openmrs.ui.framework.UiUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -49,8 +46,11 @@ public class ActiveVisitsAjaxController {
 
         EvaluationContext context = new EvaluationContext();
         Cohort c = null;
-
-        if (patientIds != null && patientIds.length > 0) {
+        if (patientIds != null && patientIds.length > 0 ) {
+            if ( patientIds[0] == null ) {
+                // there are no patients with last encounter at this specific location
+                return;
+            }
             c = new Cohort("active", "Patients with active visits", patientIds);
         }
 
