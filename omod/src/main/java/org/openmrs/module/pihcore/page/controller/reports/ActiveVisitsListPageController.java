@@ -11,6 +11,7 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.reporting.cohort.definition.ActiveVisitsWithEncountersCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.VisitCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
@@ -35,10 +36,11 @@ public class ActiveVisitsListPageController {
 
 
         EvaluationContext context = new EvaluationContext();
-        ActiveVisitsWithEncountersCohortDefinition visitCohortDefinition = new ActiveVisitsWithEncountersCohortDefinition();
-        visitCohortDefinition.setActive(true);
+        ActiveVisitsWithEncountersCohortDefinition encounterCohortDefinition = new ActiveVisitsWithEncountersCohortDefinition();
+        encounterCohortDefinition.setActive(true);
+        Cohort visitCohort = null;
         if (location != null) {
-            visitCohortDefinition.setLocationList(Collections.singletonList(new Location(location)));
+            encounterCohortDefinition.setLocationList(Collections.singletonList(new Location(location)));
             TimeQualifier qualifier = null;
             if (StringUtils.isNotBlank(timeQualifier)) {
                 qualifier = TimeQualifier.valueOf(timeQualifier);
@@ -46,10 +48,13 @@ public class ActiveVisitsListPageController {
             if (qualifier == null ) {
                 qualifier = TimeQualifier.LAST;
             }
-            visitCohortDefinition.setWhichEncounter(qualifier);
+            encounterCohortDefinition.setWhichEncounter(qualifier);
+            visitCohort = (Context.getService(CohortDefinitionService.class)).evaluate(encounterCohortDefinition, context);
+        } else {
+            VisitCohortDefinition visitCohortDefinition = new VisitCohortDefinition();
+            visitCohortDefinition.setActive(true);
+            visitCohort = (Context.getService(CohortDefinitionService.class)).evaluate(visitCohortDefinition, context);
         }
-
-        Cohort visitCohort = (Context.getService(CohortDefinitionService.class)).evaluate(visitCohortDefinition, context);
 
         String patientPageUrl = app.getConfig().get("patientPageUrl").getTextValue();
         model.addAttribute("patientPageUrl", patientPageUrl);

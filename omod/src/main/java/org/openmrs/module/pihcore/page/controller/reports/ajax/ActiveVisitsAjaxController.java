@@ -7,6 +7,7 @@ import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.reporting.cohort.definition.ActiveVisitsWithEncountersCohortDefinition;
+import org.openmrs.module.reporting.cohort.definition.VisitCohortDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientDataDefinition;
 import org.openmrs.module.reporting.dataset.DataSet;
 import org.openmrs.module.reporting.dataset.DataSetUtil;
@@ -57,7 +58,7 @@ public class ActiveVisitsAjaxController {
         DataSet result = null ;
         PatientDataSetDefinition dsd = new PatientDataSetDefinition();
 
-        ActiveVisitsWithEncountersCohortDefinition visitCohortDefinition = new ActiveVisitsWithEncountersCohortDefinition();
+        VisitCohortDefinition visitCohortDefinition = new VisitCohortDefinition();
         visitCohortDefinition.setActive(true);
         if (c != null) {
             context.setBaseCohort(c);

@@ -140,7 +140,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                     },
                     {
                         field: 'lastEncounterLocation',
-                        cellTemplate:  '<div> {{ row.getProperty(\'lastEncounterType\')  | translate }} <br/> <small>{{ row.getProperty(\'lastEncounterLocation\') }} @ {{ row.getProperty(\'lastEncounterDateTime\') | serverDate:DatetimeFormats.date }} </small><div>',
+                        cellTemplate:  '<div ng-if="row.getProperty(\'lastEncounterLocation\')"> {{ row.getProperty(\'lastEncounterType\')  | translate }} <br/> <small>{{ row.getProperty(\'lastEncounterLocation\') }} @ {{ row.getProperty(\'lastEncounterDateTime\') | serverDate:DatetimeFormats.date }} </small><div>',
                         headerCellTemplate: "<div>{{ \'coreapps.activeVisits.lastSeen\' | translate }}</div>"
                     }
                 ]
