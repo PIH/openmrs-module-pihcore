@@ -386,7 +386,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 familyPlanningHistory,
                 hivSymptoms,
                 primaryCareExam,
-                labRadOrder,
+                // labRadOrder,
                 whoHIVStages,
                 hivIntakePlan
             ]

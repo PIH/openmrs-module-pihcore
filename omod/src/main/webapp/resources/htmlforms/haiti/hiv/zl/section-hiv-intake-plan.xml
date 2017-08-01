@@ -457,6 +457,61 @@
                 </h4>
             </p>
 
+            <p>
+                <label>
+                    <uimessage code="pihcore.hiv.needsART"/>
+                </label>
+                <obs conceptId="CIEL:162703"/>
+            </p>
+
+            <p>
+                <!-- Reason for ARVs -->
+                <label>
+                    <uimessage code="pihcore.hiv.startARVreason"/>
+                </label>
+                <obs conceptId="CIEL:162225"/>
+            </p>
+
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.hiv.startDateARV"/>
+                    </label>
+                    <obs conceptId="CIEL:159599"/>
+                </p>
+
+                <includeIf velocityTest="$patient.gender == 'F' ">
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.hiv.startARVforPMTCT"/>
+                        </label>
+                        <obs conceptId="CIEL:5576" />
+                    </p>
+                </includeIf>
+
+                <includeIf velocityTest="$patient.gender == 'M' ">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </includeIf>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.hiv.startRegimenName"/>:
+                    </label>
+                    <!-- ARV medications -->
+                    <obsgroup groupingConceptId="CIEL:160741">
+                        <obs conceptId="CIEL:1282"
+                             answerConceptIds="CIEL:1652,CIEL:162565,CIEL:164505,CIEL:160124,CIEL:164512,CIEL:162201,CIEL:5622"/>
+                        <!-- answerLabels="AZT+3TC+NVP,TDF+3TC+NVP,TDF+3TC+EFV,AZT+3TC+EFV,TDF+3TC+ATV/r,TDF+3TC+LPV/r,Other" -->
+                    </obsgroup>
+                    <label>
+                        <uimessage code="pihcore.visitNote.plan.other"/> ARV:
+                    </label>
+                    <obs conceptId="CIEL:5424"/>
+                </p>
+            </div>
         </div>
 
         <div class="section-container-color">
