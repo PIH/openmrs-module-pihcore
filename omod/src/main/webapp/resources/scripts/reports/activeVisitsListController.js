@@ -37,7 +37,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
 
             $scope.getPatientUrl = function(patientId, visitUuid) {
                 var patientUrl = $scope.patientPageUrl;
-                return patientUrl.replace("{{patient.uuid}}", patientId).replace("{{visit.uuid}}", visitUuid);
+                return patientUrl.replace("{{patientId}}", patientId);
             };
 
             $scope.getFormatedDate = function(date) {

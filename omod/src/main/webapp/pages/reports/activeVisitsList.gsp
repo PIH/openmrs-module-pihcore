@@ -92,7 +92,7 @@
 <script type="text/javascript">
     angular.module('activeVisitsListApp')
             .value("allPatientsIds", '${ allPatientsIds.join(",") }')
-            .value('patientPageUrl', '${ patientPageUrl }')
+            .value('patientPageUrl', '${ dashboardUrl }')
             .value('locale', '${ locale }');
     angular.bootstrap("#activeVisitsList-app", [ "activeVisitsListApp" ]);
     jq(function () {
