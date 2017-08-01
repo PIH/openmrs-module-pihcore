@@ -12,8 +12,8 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
     .service('ActiveVisitsListService', ['$q', '$http',
         function($q, $http) {
         }])
-    .controller('ActiveVisitsListController', ['$q', '$http', '$scope', 'ActiveVisitsListService', 'ngDialog', 'allPatientsIds', 'patientPageUrl', '$filter', '$translate', 'locale',
-        function($q, $http, $scope, ExportPatientService, ngDialog, allPatientsIds, patientPageUrl, $filter, $translate, locale) {
+    .controller('ActiveVisitsListController', ['$q', '$http', '$scope', 'ActiveVisitsListService', 'ngDialog', 'allPatientsIds', 'patientPageUrl', '$filter', '$translate', 'locale','$timeout',
+        function($q, $http, $scope, ExportPatientService, ngDialog, allPatientsIds, patientPageUrl, $filter, $translate, locale, $timeout) {
 
             $scope.allPatients = allPatientsIds.split(",");
             $scope.patientPageUrl = "/" + OPENMRS_CONTEXT_PATH + patientPageUrl;
@@ -21,6 +21,9 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
             $scope.pagingInformation = '';
             $scope.showResultsSpinner = true;
             $scope.totalActiveVisitsItems = $scope.allPatients.length;
+
+            $scope.timeoutPromise;
+            $scope.delayInMs = 1000;
 
             $translate.use(locale);
 
@@ -31,7 +34,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
 
             $scope.pagingOptions = {
                 pageSize: '15',
-                pageSizes: [15, 30, 100],
+                pageSizes: [15],
                 currentPage: 1
             };
 
@@ -100,18 +103,16 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
 
 
             $scope.$watch('pagingOptions', function (newVal, oldVal) {
+                window.clearTimeout($scope.timeoutPromise);  //does nothing, if timeout already done
                 if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage && (newVal.currentPage > 0)) {
-                    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+                    $scope.timeoutPromise = window.setTimeout( function() {
+                            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
+                        }
+                        , $scope.delayInMs);
                 }
             }, true);
             
-            $scope.$watch('filterOptions', function (newVal, oldVal) {
-                if (newVal !== oldVal) {
-                    $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-                }
-            }, true);
-            
-            
+
             $scope.activeVisitsGrid = {
                 data: 'activeVisitsData',
                 enablePaging: true,
