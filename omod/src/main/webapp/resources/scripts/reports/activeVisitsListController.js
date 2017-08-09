@@ -34,7 +34,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
 
             $scope.pagingOptions = {
                 pageSize: '15',
-                pageSizes: [15],
+                pageSizes: [15, 30, 100],
                 currentPage: 1
             };
 
@@ -104,7 +104,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
 
             $scope.$watch('pagingOptions', function (newVal, oldVal) {
                 window.clearTimeout($scope.timeoutPromise);  //does nothing, if timeout already done
-                if (newVal !== oldVal && newVal.currentPage !== oldVal.currentPage && (newVal.currentPage > 0)) {
+                if (newVal !== oldVal && (newVal.currentPage > 0)) {
                     $scope.timeoutPromise = window.setTimeout( function() {
                             $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
                         }
@@ -112,6 +112,10 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                 }
             }, true);
             
+
+            $scope.changedGridOptions = function() {
+                console.log("grid options changed");
+            };
 
             $scope.activeVisitsGrid = {
                 data: 'activeVisitsData',

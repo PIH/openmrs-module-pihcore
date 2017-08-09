@@ -4,6 +4,7 @@
     ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
     ui.includeCss("pihcore", "bootstrap.css")
     ui.includeCss("pihcore", "visit/visit.css")
+    ui.includeCss("pihcore", "visit/waitingForConsult.css")
 
     ui.includeJavascript("uicommons", "angular.min.js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.13.0.js")
@@ -46,21 +47,47 @@
         { label: "${ ui.message("pihcore.waitingForConsult.title")}"}
     ];
 
+    var timerRefreshIntervalInSeconds = 10; // update the time left until refresh every 10 seconds
+    var dataRefreshIntervalInSeconds = 120; // re-load the page every 2 minutes
+    var lastUpdatedAtStr = "2:00 ";
+    var lastUpdatedAtInMillis = new Date().getTime();
+
     jq(function() {
+        jq('#timeToRefresh').text(lastUpdatedAtStr);
         // make sure we reload the page if the location is changes; this custom event is emitted by by the location selector in the header
         jq('#waitingFilterByStatus').change(function() {
             window.location.href = '?filter=' + jq('#waitingFilterByStatus select').val();
         });
     });
 
-    // set up auto-refresh of tables every 2 minutes
-    setTimeout(function() {
-        window.location = window.location;
-    }, 120000)
+    var interval = setInterval(function() {
+        var diff = dataRefreshIntervalInSeconds - ((new Date().getTime()) - lastUpdatedAtInMillis)/1000;
+        if(diff <= 0){
+            //time to reload the page
+            window.location = window.location;
+            return;
+        }
+
+        var minutes = Math.floor(diff / 60);
+        var seconds = Math.floor(diff % 60);
+        if(seconds < 10){
+            seconds = "0" + seconds;
+        }
+
+        lastUpdatedAtStr = minutes + ":" + seconds;
+        jq('#timeToRefresh').text(lastUpdatedAtStr);
+    }, timerRefreshIntervalInSeconds*1000);
+
 
 </script>
-
-<h3>${ ui.message("pihcore.waitingForConsult.title") }</h3>
+<div id="waitingForConsultHeader">
+    <div id="headerLabel">
+        <h3>${ ui.message("pihcore.waitingForConsult.title") }</h3>
+    </div>
+    <div id="refreshTimeDiv">
+        <span id="refreshMessage">${ ui.message("pihcore.queueStatusMessagePrefix") } <span id="timeToRefresh"></span> ${ ui.message("pihcore.queueStatusMessageSuffix") }</span>
+    </div>
+</div>
     <div class="waitingForConsult-filter">
         ${ ui.includeFragment("uicommons", "field/dropDown", [
                 id: "waitingFilterByStatus",
