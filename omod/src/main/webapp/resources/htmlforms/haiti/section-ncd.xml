@@ -215,57 +215,57 @@
     </div>
 
     <!-- this section is not included if it is a follow-up encounter (encounter type referenced by 5cdfd6...) -->
-    <excludeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+
         <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <div class="section-container">
-            <!-- ToDo: The next 4 questions should only be included on the initial visit -->
-            <label>
-                <uimessage code="pihcore.ncd.referral"/>
-            </label>
-            <obs conceptId="PIH:Type of referring service"
-                 answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
-            <br/>
-
-            <p class="radio">
+            <excludeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+                <!-- ToDo: The next 4 questions should only be included on the initial visit -->
                 <label>
-                    <uimessage code="pihcore.ncd.info.aware"/>
-                    <br/>
+                    <uimessage code="pihcore.ncd.referral"/>
                 </label>
-                <obs conceptId="PIH:Known chronic disease before referral" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     answerSeparator=""/>
-            </p>
+                <obs conceptId="PIH:Type of referring service"
+                     answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
+                <br/>
 
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.info.prior_treatment"/>
-                    <br/>
-                </label>
-                <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
-                     answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
-                     answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
-                     answerSeparator=""/>
-            </p>
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.info.aware"/>
+                        <br/>
+                    </label>
+                    <obs conceptId="PIH:Known chronic disease before referral" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerSeparator=""/>
+                </p>
 
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.info.controlled"/>
-                    <br/>
-                </label>
-                <obs conceptId="PIH:Chronic disease controlled during initial visit" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     answerSeparator=""/>
-            </p>
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.info.prior_treatment"/>
+                        <br/>
+                    </label>
+                    <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
+                         answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
+                         answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
+                         answerSeparator=""/>
+                </p>
 
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.info.controlled"/>
+                        <br/>
+                    </label>
+                    <obs conceptId="PIH:Chronic disease controlled during initial visit" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerSeparator=""/>
+                </p>
+            </excludeIf>
             <!-- This should be included during initial and followup visits -->
-            <p>
+     <!--       <p>
                 <label>
                     <uimessage code="pihcore.ncd.past_category"/>:
                 </label>
-                <!-- ToDo:  Add the previous diagnosis categories
+                &lt;!&ndash; ToDo:  Add the previous diagnosis categories &ndash;&gt;
                 <lookup complexExpression="#foreach($category in $fn.allObs('PIH:NCD category')) $!category.valueCoded.name &lt;br/&gt;#end"/>
-                -->
-            </p>
+            </p>-->
 
             <label>
                 <uimessage code="pihcore.ncd.category"/>
@@ -285,7 +285,7 @@
                  commentFieldLabel=" "/>
         </div>
     </section>
-    </excludeIf>
+
 
     <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.vitals">
