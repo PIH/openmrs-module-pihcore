@@ -273,6 +273,7 @@
                         </p>
                     </template>
                     <render labName="CIEL:887" comment="Glucose"/>
+                    <render labName="CIEL:159644" comment="HbA1c"/>
                     <render labName="CIEL:953" comment="Liver (LFT)"/>
                     <render labName="CIEL:161488" comment="Renal (RFT)"/>
                     <render labName="CIEL:1010" comment="Lipid panel"/>
@@ -316,7 +317,6 @@
                     <render labName="CIEL:161469" codeLabel="ASO" comment="ASO"/>
                 </repeat>
 
-                <br/>
                 <includeIf velocityTest="$patient.gender == 'F' ">
                     <br/>
                 </includeIf>
