@@ -37,19 +37,19 @@
         <script type="text/javascript">
             jq(document).ready(function() {
 
-                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
-                jq('#next').click(function() {
-                    window.htmlForm.getBeforeSubmit().push(function () {
-                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=family-planning-history");
-                        return true;
-                    });
+            // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+            jq('#next').click(function() {
+            window.htmlForm.getBeforeSubmit().push(function () {
+            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=family-planning-history");
+            return true;
+            });
 
-                    window.htmlForm.submitHtmlForm();
-                })
+            window.htmlForm.submitHtmlForm();
+            })
 
-                jq('#submit').click(function() {
-                    window.htmlForm.submitHtmlForm();
-                })
+            jq('#submit').click(function() {
+            window.htmlForm.submitHtmlForm();
+            })
 
             });
         </script>
@@ -90,7 +90,7 @@
                                 <obs conceptId="CIEL:163757"/>
                             </td>
                             <td class="{comment}-date">
-                                <obs conceptId="CIEL:163758"/>
+                                <obs conceptId="CIEL:163758" allowFutureDates="true" />
                             </td>
                         </tr>
                     </obsgroup>
