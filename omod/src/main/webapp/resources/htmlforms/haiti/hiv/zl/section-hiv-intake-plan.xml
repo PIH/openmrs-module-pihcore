@@ -409,14 +409,14 @@
                                     <obs conceptId="CIEL:1190" />
                                 </td>
                                 <td>
-                                    <obs conceptId="CIEL:1191" />
+                                    <obs conceptId="CIEL:1191" allowFutureDates="true" />
                                 </td>
                                 <td>
                                     <obs conceptId="CIEL:1282" answerConceptId="CIEL:159367"
                                          answerLabel=""/>
                                 </td>
                                 <td>
-                                    <obs conceptId="CIEL:6098" />
+                                    <small><obs conceptId="CIEL:6098" /></small>
                                 </td>
                             </tr>
                         </obsgroup>

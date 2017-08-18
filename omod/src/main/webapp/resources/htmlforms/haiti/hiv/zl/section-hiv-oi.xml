@@ -1,0 +1,86 @@
+<htmlform formUuid="ada7eeb8-8459-11e7-bb31-be2e44b06b34"
+          formName="HIV Opportunistic Infections" formVersion="1.0">
+
+    <style type="text/css">
+        <ifMode mode="VIEW" include="false">
+
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
+
+            .two-columns {
+                column-count: 2;
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+            }
+
+            form label, .form label {
+                display: inline-block;
+            }
+        </ifMode>
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h3>
+            N. <uimessage code="pihcore.oi.title"/>
+        </h3>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-oi");
+                    return true;
+                });
+
+                window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
+    <div class="hiv-oi">
+        <p>
+            <label>
+                Enter OI here:
+            </label>
+            <!-- ToDo:  Add PIH:6900 to mds package and replace diagnosis? -->
+            <obs conceptId="PIH:DIAGNOSIS"
+                 answerConceptSetIds="PIH:HUM opportunistic infection"
+                 style="autocomplete" />
+            <obs conceptId="PIH:DIAGNOSIS"
+                 answerConceptSetIds="PIH:HUM opportunistic infection"
+                 style="autocomplete" />
+            <obs conceptId="PIH:DIAGNOSIS"
+                 answerConceptSetIds="PIH:HUM opportunistic infection"
+                 style="autocomplete" />
+        </p>
+
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right">
+                <uimessage code="emr.next"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="submit" class="submitButton confirm right">
+                <uimessage code="mirebalais.save"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="cancel" type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>
