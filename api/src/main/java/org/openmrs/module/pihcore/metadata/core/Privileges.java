@@ -187,6 +187,12 @@ public class Privileges {
         public String description() { return "Use the Monitor Orders app provided by the Lab Tracking app"; }
     };
 
+    public static PrivilegeDescriptor APP_VISIT_DOCUMENTS_PAGE = new PrivilegeDescriptor() {
+        public String uuid() { return "d93c1b89-0683-4d74-8cee-0eb0ccb32e61"; }
+        public String privilege() { return "App: visitdocumentsui.visitdocuments.page"; }
+        public String description() { return "Allows access to the visit documents page"; }
+    };
+
     //
     // TASK PRIVILEGES
     //
