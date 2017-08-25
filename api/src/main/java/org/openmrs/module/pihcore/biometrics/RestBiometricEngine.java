@@ -127,7 +127,7 @@ public class RestBiometricEngine implements BiometricEngine {
     @Override
     public void delete(String subjectId) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = getSubjectUrl() + subjectId;
+        String url = getSubjectUrl() + "/" + subjectId;
         restTemplate.delete(url);
     }
 }
