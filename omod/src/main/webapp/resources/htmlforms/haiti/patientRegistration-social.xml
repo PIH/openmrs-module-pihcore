@@ -117,7 +117,7 @@
                         <obs conceptId="PIH:Occupation" id="occupation"
                              answerConceptIds="PIH:SHEPHERD,PIH:BREWER,PIH:DRIVER,PIH:COMMERCE,PIH:FARMER,CIEL:162944,PIH:MANUAL LABORER,PIH:HEALTH CARE WORKER,PIH:Zanmi Lasante employee,PIH:MINER,PIH:1404,PIH:HOUSEWORK/FIELDWORK,PIH:FACTORY WORKER,PIH:Teacher,PIH:PROFESSIONAL,PIH:SHOP OWNER,CIEL:159674,PIH:RETIRED,PIH:FRUIT OR VEGETABLE SELLER,CIEL:162945,PIH:STUDENT,PIH:UNEMPLOYED,PIH:OTHER NON-CODED"
                              answerCodes="zl.registration.patient.occupation.shepherd.label,zl.registration.patient.occupation.brewer.label,zl.registration.patient.occupation.driver.label,zl.registration.patient.occupation.commerce.label,zl.registration.patient.occupation.farmer.label,zl.registration.patient.occupation.civilServant.label,zl.registration.patient.occupation.manualLaborer.label,zl.registration.patient.occupation.healthCareWorker.label,zl.registration.patient.occupation.zlStaff.label,zl.registration.patient.occupation.miner.label,zl.registration.patient.occupation.housework.label,zl.registration.patient.occupation.houseworkFieldwork.label,zl.registration.patient.occupation.factoryWorker.label,zl.registration.patient.occupation.teacher.label,zl.registration.patient.occupation.professional.label,zl.registration.patient.occupation.shopOwner.label,zl.registration.patient.occupation.fisherman.label,zl.registration.patient.occupation.retired.label,zl.registration.patient.occupation.fruitOrVegetableVendor.label,zl.registration.patient.occupation.marketVendor.label,zl.registration.patient.occupation.student.label,zl.registration.patient.occupation.unemployed.label,zl.registration.patient.occupation.other.label"
-                             showUnits="false" unitsCssClass="append-to-value" size="dropdown" />
+                             showUnits="false" unitsCssClass="append-to-value" style="dropdown" />
                     </p>
                 </div>
 
@@ -132,7 +132,7 @@
                 </div>
             </ifMode>
 
-            <!-- view mode of civil status, occupation, religiopn -->
+            <!-- view mode of civil status, occupation, religion -->
             <ifMode mode="VIEW" include="true">
                 <div>
                     <h3><uimessage code="zl.registration.patient.civilStatus.label"/></h3>
