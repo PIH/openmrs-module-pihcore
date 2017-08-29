@@ -74,7 +74,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
 
             $scope.setPagingData = function(data, totalItems, page, pageSize){
                 $scope.showResultsSpinner = false;
-                $scope.activeVisitsData = data;
+                $scope.activeVisitsData = $filter('orderBy')(data, '-lastEncounterDateTime');
                 $scope.totalActiveVisitsItems = totalItems;
                 if (!$scope.$$phase) {
                     $scope.$apply();

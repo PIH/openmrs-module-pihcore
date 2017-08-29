@@ -1,27 +1,23 @@
 package org.openmrs.module.pihcore.page.controller.reports;
 
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Cohort;
-import org.openmrs.Location;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.coreapps.CoreAppsProperties;
-import org.openmrs.module.pihcore.reporting.cohort.definition.ActiveVisitsWithEncountersCohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.VisitCohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.service.CohortDefinitionService;
-import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.openmrs.module.reporting.evaluation.EvaluationException;
+import org.openmrs.module.reporting.evaluation.querybuilder.SqlQueryBuilder;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class ActiveVisitsListPageController {
@@ -37,29 +33,36 @@ public class ActiveVisitsListPageController {
 
 
         EvaluationContext context = new EvaluationContext();
-        ActiveVisitsWithEncountersCohortDefinition encounterCohortDefinition = new ActiveVisitsWithEncountersCohortDefinition();
-        encounterCohortDefinition.setActive(true);
-        Cohort visitCohort = null;
+
+        SqlQueryBuilder q = new SqlQueryBuilder();
+        q.append("select e.patient_id, e.encounter_datetime");
+        q.append(" from encounter e");
+        q.append(" inner join (");
+        q.append(" select patient_id, max(encounter_datetime) lastSeen ");
+        q.append(" from encounter");
+        q.append(" where voided = 0 and visit_id in ( select visit_id from visit where date_stopped is null and voided = 0)");
+        q.append(" group by patient_id");
+        q.append(" ) b on e.patient_id = b.patient_id and  e.encounter_datetime = b.lastSeen");
+        q.append(" where e.voided = 0 and e.visit_id in");
+        q.append(" ( select visit_id from visit where date_stopped is null and voided = 0)");
         if (location != null) {
-            encounterCohortDefinition.setLocationList(Collections.singletonList(new Location(location)));
-            TimeQualifier qualifier = null;
-            if (StringUtils.isNotBlank(timeQualifier)) {
-                qualifier = TimeQualifier.valueOf(timeQualifier);
+            q.append(" and e.location_id = :location").addParameter("location", location);
+        }
+        q.append(" group by e.patient_id");
+        q.append(" order by e.encounter_datetime desc");
+
+        DbSessionFactory dbSessionFactory = Context.getRegisteredComponents(DbSessionFactory.class).get(0);
+        List<Object[]> resultSet = q.evaluateToList(dbSessionFactory, context);
+        List<Integer> activeVisitsCohort = new ArrayList<Integer>();
+        if (resultSet != null && resultSet.size() > 0) {
+            for (Object[] activeVisit : resultSet) {
+                activeVisitsCohort.add((Integer) activeVisit[0]);
             }
-            if (qualifier == null ) {
-                qualifier = TimeQualifier.LAST;
-            }
-            encounterCohortDefinition.setWhichEncounter(qualifier);
-            visitCohort = (Context.getService(CohortDefinitionService.class)).evaluate(encounterCohortDefinition, context);
-        } else {
-            VisitCohortDefinition visitCohortDefinition = new VisitCohortDefinition();
-            visitCohortDefinition.setActive(true);
-            visitCohort = (Context.getService(CohortDefinitionService.class)).evaluate(visitCohortDefinition, context);
         }
 
         model.addAttribute("locale", uiSessionContext.getLocale());
         model.addAttribute("lastLocation", location);
-        model.addAttribute("activeVisitsCohort", visitCohort.getMemberIds());
+        model.addAttribute("activeVisitsCohort", activeVisitsCohort);
         model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
         model.put("privilegePatientDashboard", CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD);  // used to determine if we display links to patient dashboard)
     }
