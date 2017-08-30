@@ -35,7 +35,7 @@ public class ActiveVisitsListPageController {
         EvaluationContext context = new EvaluationContext();
 
         SqlQueryBuilder q = new SqlQueryBuilder();
-        q.append("select e.patient_id, e.encounter_datetime");
+        q.append("(select e.patient_id, e.encounter_datetime as lastSeen");
         q.append(" from encounter e");
         q.append(" inner join (");
         q.append(" select patient_id, max(encounter_datetime) lastSeen ");
@@ -48,8 +48,14 @@ public class ActiveVisitsListPageController {
         if (location != null) {
             q.append(" and e.location_id = :location").addParameter("location", location);
         }
-        q.append(" group by e.patient_id");
-        q.append(" order by e.encounter_datetime desc");
+        q.append(" )");
+        q.append(" union");
+        q.append(" (select v.patient_id, v.date_started as lastSeen");
+        q.append(" from visit v");
+        q.append(" where v.date_stopped is null and v.voided = 0 ");
+        q.append(" and v.visit_id not in");
+        q.append(" (select e.visit_id from encounter e where e.patient_id = v.patient_id and e.visit_id is not null and e.voided = 0))");
+        q.append(" order by lastSeen desc");
 
         DbSessionFactory dbSessionFactory = Context.getRegisteredComponents(DbSessionFactory.class).get(0);
         List<Object[]> resultSet = q.evaluateToList(dbSessionFactory, context);

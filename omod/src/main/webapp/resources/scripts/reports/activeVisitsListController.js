@@ -20,7 +20,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
             $scope.activeVisitsData = [];
             $scope.pagingInformation = '';
             $scope.showResultsSpinner = true;
-            $scope.totalActiveVisitsItems = $scope.allPatients.length;
+            $scope.totalActiveVisitsItems = $scope.allPatients.length - 1;
 
             $scope.timeoutPromise;
             $scope.delayInMs = 1000;
@@ -65,10 +65,17 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                 var sz = $scope.pagingOptions.pageSize;
                 var tot = $scope.totalActiveVisitsItems;
                 var lastOnPage = pg * sz;
-                var firstOnPage = lastOnPage - sz + 1;
-                if (lastOnPage > tot) {
-                    lastOnPage = tot;
+                var firstOnPage = 0;
+                if (lastOnPage) {
+                    var firstOnPage = lastOnPage - sz + 1;
+                    if (lastOnPage > tot) {
+                        lastOnPage = tot;
+                    }
+                } else {
+                    lastOnPage = 0 ;
                 }
+
+
                 $scope.pagingInformation = firstOnPage + " to " + lastOnPage + " of " + tot;
             };
 
