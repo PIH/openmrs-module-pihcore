@@ -80,10 +80,11 @@
              </repeat>
 
             <p>
-                <!-- ToDo: Test OpenMRS ticket HTML-665 about adding commentFieldCode -->
+                <!-- ToDo: Test OpenMRS ticket HTML-665 without showCommentField -->
                 <obs conceptId="CIEL:159936"
                      answerConceptId="CIEL:5622" answerCode="pihcore.other"
-                     commentFieldCode="zl.ifOtherSpecify" />
+                     commentFieldCode="zl.ifOtherSpecify"
+                     showCommentField="true" />
             </p>
             <br/>
             <br/>
