@@ -23,6 +23,7 @@ import org.openmrs.module.haiticore.metadata.HaitiAddressBundle;
 import org.openmrs.module.haiticore.metadata.HaitiEncounterTypeBundle;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypeBundle;
 import org.openmrs.module.haiticore.metadata.patientidentifiertypebundles.HaitiBiometricPatientIdentifierTypeBundle;
+import org.openmrs.module.haiticore.metadata.patientidentifiertypebundles.HaitiNationalPatientIdentifierTypeBundle;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
@@ -45,6 +46,7 @@ import java.util.Map;
         // OrderEntryConcepts.class,  install this after the MDS packages
 		// TestOrderConcepts.class,  I believe we are now installing these via MDS
  		HaitiBiometricPatientIdentifierTypeBundle.class,
+		HaitiNationalPatientIdentifierTypeBundle.class,
  		HaitiEncounterTypeBundle.class,
 		HaitiPersonAttributeTypeBundle.class,
         PihHaitiPatientIdentifierTypeBundle.class,
