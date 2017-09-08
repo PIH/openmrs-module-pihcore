@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.reporting.library;
 
+import org.apache.commons.collections.comparators.ComparableComparator;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.PatientIdentifier;
@@ -14,6 +15,7 @@ import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.MappedData;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
+import org.openmrs.module.reporting.data.converter.CollectionConverter;
 import org.openmrs.module.reporting.data.converter.CountConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.EarliestCreatedConverter;
@@ -118,6 +120,15 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
                 Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID),
                 new PropertyConverter(PatientIdentifier.class, "location"),
                 new ObjectFormatter());
+    }
+
+    @DocumentedDefinition("allDossierNumbers.identifier")
+    public PatientDataDefinition getAllDossierNumberIdentifiers() {
+        PatientIdentifierDataDefinition pdd = new PatientIdentifierDataDefinition();
+        pdd.setTypes(Arrays.asList(Metadata.lookup(PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER)));
+        CollectionConverter cc = new CollectionConverter(new PropertyConverter(PatientIdentifier.class, "identifier"),
+                false, new ComparableComparator());
+        return new ConvertedPatientDataDefinition(pdd, cc);
     }
 
     @DocumentedDefinition("mostRecentDossierNumber.identifier")
