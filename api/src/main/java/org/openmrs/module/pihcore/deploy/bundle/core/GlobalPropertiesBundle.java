@@ -13,6 +13,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.ReportingConstants;
+import org.openmrs.module.visitdocumentsui.VisitDocumentsConstants;
 import org.openmrs.ui.framework.UiFrameworkConstants;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +124,11 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("allergy.concept.allergen.drug", AllergyConcepts.Concepts.ALLERGENS_DRUG_SET);
         properties.put("allergy.concept.allergen.environment", AllergyConcepts.Concepts.ALLERGENS_ENVIRONMENT_SET);
         properties.put("allergy.concept.reactions", AllergyConcepts.Concepts.ALLERGY_REACTIONS_SET);
+
+        // Visit Document Module
+        properties.put(VisitDocumentsConstants.GP_ALLOW_NO_CAPTION, "true");
+        properties.put(VisitDocumentsConstants.GP_WEBCAM_ALLOWED, "false");
+        properties.put(VisitDocumentsConstants.GP_ENCOUNTER_TYPE_UUID, "");
 
         setGlobalProperties(properties);
 

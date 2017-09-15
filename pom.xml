@@ -90,6 +90,7 @@
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
+        <visitdocumentsVersion>1.4-SNAPSHOT</visitdocumentsVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -380,7 +381,12 @@
             <version>${haiticoreVersion}</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>visitdocumentsui-api</artifactId>
+            <version>${visitdocumentsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Begin OpenMRS contrib -->
 
