@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 import org.openmrs.EncounterType;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.visitdocumentsui.VisitDocumentsConstants;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -47,6 +48,9 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.PEDS_HIV_INTAKE);
         install(EncounterTypes.PEDS_HIV_FOLLOWUP);
         install(EncounterTypes.ART_ADHERENCE);
+
+        // TODO we can re-enable this once the Visit Document changes come through
+        uninstall(possible(EncounterType.class, VisitDocumentsConstants.ENCOUNTER_TYPE_UUID), "not used");
 
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DISPOSITION.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_FEEDING.uuid()), "never used");
