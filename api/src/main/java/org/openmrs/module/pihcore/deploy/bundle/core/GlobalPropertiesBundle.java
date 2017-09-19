@@ -128,7 +128,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         // Visit Document Module
         properties.put(VisitDocumentsConstants.GP_ALLOW_NO_CAPTION, "true");
         properties.put(VisitDocumentsConstants.GP_WEBCAM_ALLOWED, "false");
-        properties.put(VisitDocumentsConstants.GP_ENCOUNTER_TYPE_UUID, "");
+        //properties.put(VisitDocumentsConstants.GP_ENCOUNTER_TYPE_UUID, "");
 
         setGlobalProperties(properties);
 
