@@ -49,9 +49,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.PEDS_HIV_FOLLOWUP);
         install(EncounterTypes.ART_ADHERENCE);
 
-        // TODO we can re-enable this once the Visit Document changes come through
         uninstall(possible(EncounterType.class, VisitDocumentsConstants.ENCOUNTER_TYPE_UUID), "not used");
-
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DISPOSITION.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_FEEDING.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_SUPPLEMENTS.uuid()), "never used");
