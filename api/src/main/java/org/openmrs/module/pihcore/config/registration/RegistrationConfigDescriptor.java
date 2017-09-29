@@ -26,6 +26,9 @@ public class RegistrationConfigDescriptor {
     private List<String> matchingPatientsPropertiesToDisplay;
 
     @JsonProperty
+    private List<String> identifierTypesToDisplay;
+
+    @JsonProperty
     private Map<String, Object> similarPatientsSearch;
 
     @JsonProperty
@@ -80,6 +83,14 @@ public class RegistrationConfigDescriptor {
 
     public void setMatchingPatientsPropertiesToDisplay(List<String> matchingPatientsPropertiesToDisplay) {
         this.matchingPatientsPropertiesToDisplay = matchingPatientsPropertiesToDisplay;
+    }
+
+    public List<String> getIdentifierTypesToDisplay() {
+        return identifierTypesToDisplay;
+    }
+
+    public void setIdentifierTypesToDisplay(List<String> identifierTypesToDisplay) {
+        this.identifierTypesToDisplay = identifierTypesToDisplay;
     }
 
     public Integer getMaxPatientMatchResults() {
