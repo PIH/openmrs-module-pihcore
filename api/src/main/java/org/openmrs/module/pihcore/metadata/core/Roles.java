@@ -58,6 +58,7 @@ public class Roles {
                 Privileges.APP_TODAYS_VISITS,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.APP_VISIT_DOCUMENTS_PAGE,
+                Privileges.APP_CHW,
                 Privileges.TASK_ALLERGIES_MODIFY,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_BOOK_APPOINTMENTS,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_OVERBOOK_APPOINTMENTS,

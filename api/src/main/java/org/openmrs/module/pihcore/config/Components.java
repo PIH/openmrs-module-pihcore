@@ -53,5 +53,6 @@ public class Components {
         public static final String EXPORT_PATIENTS = "exportPatients";
         public static final String IMPORT_PATIENTS = "importPatients";
         public static final String PATIENT_DOCUMENTS = "patientDocuments";
+        public static final String CHW_APP = "chwApp";
 
 }

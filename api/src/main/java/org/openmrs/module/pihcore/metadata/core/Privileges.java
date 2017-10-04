@@ -169,6 +169,12 @@ public class Privileges {
         public String description() { return "Use the Today's Visits app provided by PIH Core"; }
     };
 
+    public static PrivilegeDescriptor APP_CHW = new PrivilegeDescriptor() {
+        public String uuid() { return "F5330846-A1B4-4BB5-9843-66203E767E90"; }
+        public String privilege() { return "App: chwapp.mgmt"; }
+        public String description() { return "Use CHW management app"; }
+    };
+
     public static PrivilegeDescriptor APP_ED_TRIAGE = new PrivilegeDescriptor() {
         public String uuid() { return "1b699660-245a-11e6-bdf4-0800200c9a66"; }
         public String privilege() { return "App: edtriageapp.edtriage"; }
