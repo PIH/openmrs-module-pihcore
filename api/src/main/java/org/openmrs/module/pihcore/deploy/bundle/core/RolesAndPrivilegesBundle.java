@@ -144,6 +144,10 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.ARCHIVIST_CLERK);
             install(Roles.PHYSICIAN);
             install(Roles.MEQ);
+
+            if (config.getSite().equals(ConfigDescriptor.Site.MENTAL_HEALTH)) {
+                install(Roles.PSYCHOLOGIST);
+            }
         }
 
         // old privileges still in use at Mirebalais

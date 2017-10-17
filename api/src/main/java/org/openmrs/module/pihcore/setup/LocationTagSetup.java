@@ -27,6 +27,10 @@ public class LocationTagSetup {
             if (config.getSite().equals(ConfigDescriptor.Site.PLEEBO)) {
                 setupLocationTagsForPleebo(locationService);
             }
+            else if (config.getSite().equals(ConfigDescriptor.Site.MENTAL_HEALTH)) {
+                // TODO set up actual locations & tags for Liberia mental health
+                setupLocationTagsForPleebo(locationService);
+            }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             setupLocationTagsForSierraLeone(locationService);
@@ -40,8 +44,8 @@ public class LocationTagSetup {
                 setupLocationTagsForThomonde(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 setupLocationTagsForMirebalais(locationService);
-            } else if (config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
-                setupLocationTagsForHaitiCrossSite(locationService);
+            } else if (config.getSite().equals(ConfigDescriptor.Site.MENTAL_HEALTH)) {
+                setupLocationTagsForHaitiMentalHealth(locationService);
             }
         }
     }
@@ -89,7 +93,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
     }
 
-    private static void setupLocationTagsForHaitiCrossSite(LocationService locationService) {
+    private static void setupLocationTagsForHaitiMentalHealth(LocationService locationService) {
 
         List<LocationDescriptor> allZlFacilities = Arrays.asList(PihHaitiLocations.BELLADERE, PihHaitiLocations.BOUCAN_CARRE,
                 PihHaitiLocations.CANGE, PihHaitiLocations.CERCA_LA_SOURCE, PihHaitiLocations.HINCHE, PihHaitiLocations.HSN_SAINT_MARC,

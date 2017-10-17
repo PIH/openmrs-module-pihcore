@@ -20,7 +20,7 @@ public class ConfigDescriptor {
 
     public enum Site {
         MIREBALAIS, LACOLLINE, THOMONDE, ZLTRAINING,
-        PLEEBO, OTHER, CROSS_SITE
+        PLEEBO, OTHER, MENTAL_HEALTH, HIV
     }
 
     @JsonProperty
