@@ -31,6 +31,8 @@ public class PihHaitiPrograms {
         public String uuid() { return "3bea593a-9afd-4642-96a6-210b60f5aff2"; }
     };
 
+    // TODO rework this so that the workflows and states are in PihHaitiProgramWorkflow and PihHaitiProgramWorkflowState classes?
+
     /**
      * HIV Program
      */
