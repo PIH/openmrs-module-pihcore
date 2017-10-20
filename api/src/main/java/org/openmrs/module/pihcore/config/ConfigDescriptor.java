@@ -23,6 +23,10 @@ public class ConfigDescriptor {
         PLEEBO, OTHER, CROSS_SITE
     }
 
+    public enum Specialty {
+        HIV, MENTAL_HEALTH
+    }
+
     @JsonProperty
     private String welcomeMessage;
 
@@ -43,6 +47,9 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private Country country;
+
+    @JsonProperty
+    private Specialty specialty;
 
     @JsonProperty
     private Site site;
@@ -105,6 +112,14 @@ public class ConfigDescriptor {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public Specialty getSpecialty() {
+        return specialty;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
     }
 
     public Site getSite() {

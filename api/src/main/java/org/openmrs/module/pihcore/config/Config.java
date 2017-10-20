@@ -67,6 +67,10 @@ public class Config {
         return descriptor.getSite();
     }
 
+    public ConfigDescriptor.Specialty getSpecialty() {
+        return descriptor.getSpecialty();
+    }
+
     public ConfigDescriptor.Country getCountry() { return descriptor.getCountry(); }
 
     public String getGlobalProperty(String name) {

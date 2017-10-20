@@ -3,6 +3,7 @@
     "browserWarning": "Use Chrome!",
 
     "site": "MIREBALAIS",
+    "specialty": "MENTAL_HEALTH",
 
     "components": [
         "someComponent",

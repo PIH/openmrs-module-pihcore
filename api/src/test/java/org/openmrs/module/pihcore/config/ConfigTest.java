@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -29,6 +30,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("missingComponent"), is(false));
         assertThat(config.getWelcomeMessage(), is("Welcome to the PIH EMR"));
         assertThat(config.getSite(), is(ConfigDescriptor.Site.OTHER));
+        assertNull(config.getSpecialty());
         assertFalse(config.shouldScheduleBackupReports());
     }
 

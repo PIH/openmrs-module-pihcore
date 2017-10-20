@@ -28,6 +28,7 @@ public class ConfigDescriptorTest {
         assertThat(configDescriptor.getDossierIdentifierPrefix(), is("TH"));
         assertThat(configDescriptor.getIdCardLabel(), is("PIH Liberia Patient ID Card"));
         assertThat(configDescriptor.getIdCardLocale(), is(new Locale("en")));
+        assertThat(configDescriptor.getSpecialty(), is(ConfigDescriptor.Specialty.MENTAL_HEALTH));
     }
 
 }
