@@ -65,12 +65,12 @@
         <reportingVersion>1.13.0</reportingVersion>
         <reportinguiVersion>1.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
-        <serializationxstreamVersion>0.2.12</serializationxstreamVersion>
+        <serializationxstreamVersion>0.2.13</serializationxstreamVersion>
         <idgenVersion>4.4.1</idgenVersion>
         <namephoneticsVersion>1.5</namephoneticsVersion>
         <pacsintegrationVersion>1.4</pacsintegrationVersion>
         <addresshierarchyVersion>2.10</addresshierarchyVersion>
-        <providermanagementVersion>2.8.0</providermanagementVersion>
+        <providermanagementVersion>2.9.0</providermanagementVersion>
         <eventVersion>2.5</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
