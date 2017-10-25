@@ -299,7 +299,13 @@
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>namephonetics-api</artifactId>
+            <artifactId>namephonetics-api-1.x</artifactId>
+            <version>${namephoneticsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>namephonetics-api-2.x</artifactId>
             <version>${namephoneticsVersion}</version>
             <scope>provided</scope>
         </dependency>
