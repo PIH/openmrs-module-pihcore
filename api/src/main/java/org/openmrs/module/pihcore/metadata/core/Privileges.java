@@ -79,6 +79,12 @@ public class Privileges {
         public String description() { return "Able to access the patient dashboard"; }
     };
 
+    public static PrivilegeDescriptor APP_COREAPPS_SUMMARY_DASHBOARD = new PrivilegeDescriptor() {
+        public String uuid() { return "26e8c2b7-96a4-43d3-bb7c-65d0a6bfe6c5"; }
+        public String privilege() { return CoreAppsConstants.PRIVILEGE_SUMMARY_DASHBOARD; }
+        public String description() { return "Able to access summary dashboards"; }
+    };
+
     public static PrivilegeDescriptor APP_COREAPPS_PATIENT_VISITS = new PrivilegeDescriptor() {
         public String uuid() { return "908aa2ce-cdd6-4b77-9664-bbcdb011432a"; }
         public String privilege() { return CoreAppsConstants.PRIVILEGE_PATIENT_VISITS; }

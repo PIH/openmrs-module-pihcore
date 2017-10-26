@@ -29,6 +29,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.APP_COREAPPS_DATA_MANAGEMENT);
         install(Privileges.APP_COREAPPS_FIND_PATIENT);
         install(Privileges.APP_COREAPPS_PATIENT_DASHBOARD);
+        install(Privileges.APP_COREAPPS_SUMMARY_DASHBOARD);
         install(Privileges.APP_COREAPPS_PATIENT_VISITS);
         install(Privileges.APP_DISPENSING_APP_DISPENSE);
         install(Privileges.APP_EMR_ARCHIVES_ROOM);
