@@ -1,6 +1,6 @@
-<htmlform formUuid="3a0a04ae-4184-11e7-a919-92ebcb67fe33"
-          formEncounterType="c31d306a-40c4-11e7-a919-92ebcb67fe33"
-          formName="HIV Adult Initial" formVersion="1.0">
+<htmlform formUuid="3959f67c-b83a-11e7-abc4-cec278b6b50a"
+          formEncounterType="c31d3312-40c4-11e7-a919-92ebcb67fe33"
+          formName="HIV Adult Followup" formVersion="1.0">
 
     <style type="text/css">
         #who-when-where {
@@ -94,7 +94,7 @@
 
     <div class="htmlform" style="display:none">
         <ifMode mode="VIEW" include="false">
-            <h2><uimessage code="ui.i18n.EncounterType.name.c31d3312-40c4-11e7-a919-92ebcb67fe33"/></h2>
+            <h2><uimessage code="ui.i18n.EncounterType.name.c31d306a-40c4-11e7-a919-92ebcb67fe33"/></h2>
 
             <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
             <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">

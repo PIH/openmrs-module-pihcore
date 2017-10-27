@@ -214,7 +214,7 @@ public class EncounterTypes {
 	public static EncounterTypeDescriptor ZL_ADULT_HIV_FOLLOWUP  = new EncounterTypeDescriptor() {
 		public String uuid() { return "c31d3312-40c4-11e7-a919-92ebcb67fe33"; }
 		public String name() { return "ZL VIH Rendez-vous Adultes"; }
-		public String description() { return "ZL VIH Rendez-vous Adultes (HIV Followup adult"; }
+		public String description() { return "ZL VIH Rendez-vous Adultes (HIV Followup adult)"; }
 	};
 
 	public static EncounterTypeDescriptor ZL_PEDS_HIV_INTAKE  = new EncounterTypeDescriptor() {

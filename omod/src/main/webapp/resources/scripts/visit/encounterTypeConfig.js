@@ -234,6 +234,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-oi.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var hivState = {
+            type: "encounter-section",
+            id: "hiv-state",
+            label: "pihcore.hiv.clinicalState.short",
+            icon: "icon-bolt",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-state.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-state.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
 
         /* Define Encounter Types */
         var encounterTypeConfig = {
@@ -382,7 +393,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        // ToDo: Replace the icon and add sections
+        // ToDo: Replace the icon and add more sections
         encounterTypeConfig[EncounterTypes.zlHivIntakeAdult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -400,6 +411,22 @@ angular.module("encounterTypeConfig", ["constants"])
                 // labRadOrder,
                 hivOI,
                 whoHIVStages,
+                hivIntakePlan
+            ]
+        };
+
+        // ToDo: Replace the icon and add sections
+        encounterTypeConfig[EncounterTypes.zlHivFollowupAdult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
+            icon: "icon-asterisk",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                hivState,
+                primaryCareDx,
+                // ToDo: Modify plan for followup
                 hivIntakePlan
             ]
         };
