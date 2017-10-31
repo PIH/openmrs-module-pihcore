@@ -394,7 +394,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         // ToDo: Replace the icon and add more sections
-        encounterTypeConfig[EncounterTypes.zlHivIntakeAdult.uuid] = {
+        encounterTypeConfig[EncounterTypes.zlHivIntake.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
@@ -416,7 +416,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         // ToDo: Replace the icon and add sections
-        encounterTypeConfig[EncounterTypes.zlHivFollowupAdult.uuid] = {
+        encounterTypeConfig[EncounterTypes.zlHivFollowup.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
