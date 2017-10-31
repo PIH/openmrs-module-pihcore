@@ -39,10 +39,10 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.EMERGENCY_TRIAGE);
         install(EncounterTypes.TEST_ORDER);
         install(EncounterTypes.SPECIMEN_COLLECTION);
-        install(EncounterTypes.ZL_ADULT_HIV_INTAKE);
-        install(EncounterTypes.ZL_ADULT_HIV_FOLLOWUP);
-        install(EncounterTypes.ZL_PEDS_HIV_INTAKE);
-        install(EncounterTypes.ZL_PEDS_HIV_FOLLOWUP);
+        install(EncounterTypes.ZL_HIV_INTAKE);
+        install(EncounterTypes.ZL_HIV_FOLLOWUP);
+        // install(EncounterTypes.ZL_PEDS_HIV_INTAKE);
+        // install(EncounterTypes.ZL_PEDS_HIV_FOLLOWUP);
         install(EncounterTypes.ADULT_HIV_INTAKE);
         install(EncounterTypes.ADULT_HIV_FOLLOWUP);
         install(EncounterTypes.PEDS_HIV_INTAKE);

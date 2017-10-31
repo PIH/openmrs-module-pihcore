@@ -205,18 +205,19 @@ public class EncounterTypes {
 		public String description() { return "Specimen Collection - the collection of specimen for a test (blood draw, biopsy, etc)"; }
 	};
 
-	public static EncounterTypeDescriptor ZL_ADULT_HIV_INTAKE  = new EncounterTypeDescriptor() {
+	public static EncounterTypeDescriptor ZL_HIV_INTAKE  = new EncounterTypeDescriptor() {
 		public String uuid() { return "c31d306a-40c4-11e7-a919-92ebcb67fe33"; }
-		public String name() { return "ZL VIH Données de Base Adultes"; }
-		public String description() { return "ZL VIH Données de Base Adultes (HIV Intake adult)"; }
+		public String name() { return "ZL VIH Données de Base"; }
+		public String description() { return "ZL VIH Données de Base (HIV Intake)"; }
 	};
 
-	public static EncounterTypeDescriptor ZL_ADULT_HIV_FOLLOWUP  = new EncounterTypeDescriptor() {
+	public static EncounterTypeDescriptor ZL_HIV_FOLLOWUP  = new EncounterTypeDescriptor() {
 		public String uuid() { return "c31d3312-40c4-11e7-a919-92ebcb67fe33"; }
-		public String name() { return "ZL VIH Rendez-vous Adultes"; }
-		public String description() { return "ZL VIH Rendez-vous Adultes (HIV Followup adult)"; }
+		public String name() { return "ZL VIH Rendez-vous"; }
+		public String description() { return "ZL VIH Rendez-vous (HIV Followup)"; }
 	};
 
+	/*
 	public static EncounterTypeDescriptor ZL_PEDS_HIV_INTAKE  = new EncounterTypeDescriptor() {
 		public String uuid() { return "c31d3416-40c4-11e7-a919-92ebcb67fe33"; }
 		public String name() { return "ZL VIH Données de Base Pédiatriques"; }
@@ -228,6 +229,7 @@ public class EncounterTypes {
 		public String name() { return "ZL VIH Rendez-vous Pédiatriques"; }
 		public String description() { return "Fiche de suivi des visites cliniques - Enfants VIH+ (HIV followup child)"; }
 	};
+	*/
 
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
