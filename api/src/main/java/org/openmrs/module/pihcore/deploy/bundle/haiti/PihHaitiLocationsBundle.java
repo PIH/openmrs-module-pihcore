@@ -6,6 +6,7 @@ import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
+import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -28,8 +29,9 @@ public class PihHaitiLocationsBundle extends AbstractMetadataBundle {
         install(PihHaitiLocations.SSPE_SAINT_MARC);
         install(PihHaitiLocations.THOMONDE);
         install(PihHaitiLocations.VERRETTES);
+        install(PihHaitiLocations.LASCAHOBAS);
+        install(PihHaitiLocations.POZ);
+        install(MirebalaisLocations.MIREBALAIS_CDI_PARENT);
 
-        // we are uninstalling this until we are actually using
-        uninstall(possible(Location.class, PihHaitiLocations.POZ.uuid()), "uninstall until we actually start using this");
     }
 }

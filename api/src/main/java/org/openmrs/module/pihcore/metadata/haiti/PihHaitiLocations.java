@@ -87,6 +87,12 @@ public class PihHaitiLocations {
         public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
     };
 
+    public static LocationDescriptor LASCAHOBAS = new LocationDescriptor() {
+        public String uuid() { return "59326152-F3AD-42A1-AAEF-4114E6D88B81"; }
+        public String name() { return "Lascahobas"; }
+        public String description() { return "Lascahobas"; }
+        public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
+    };
 
     // we are uninstalling this until we actually start to use it
     public static LocationDescriptor POZ = new LocationDescriptor() {
