@@ -89,6 +89,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_RADIOLOGYAPP_TAB);
         install(Privileges.TASK_ED_TRIAGE_ENTER_NOTE);
         install(Privileges.TASK_LAB_TRACKING_PLACE_ORDERS);
+        install(Privileges.TASK_LAB_TRACKING_UPDATE);
         install(Privileges.TASK_ENROLL_IN_PROGRAM);
         install(Privileges.TASK_EDIT_PATIENT_PROGRAM);
         install(Privileges.TASK_DELETE_PATIENT_PROGRAM);
@@ -139,6 +140,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.SOCIAL_WORKER);
             install(Roles.PRINT_LABELS);
             install(Roles.PROGRAM_MANAGER);
+            install(Roles.LAB_TECHNICIAN);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA) || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             install(Roles.SYSTEM_ADMINISTRATOR);

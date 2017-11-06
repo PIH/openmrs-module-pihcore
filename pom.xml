@@ -91,6 +91,7 @@
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
         <visitdocumentsVersion>1.4-SNAPSHOT</visitdocumentsVersion>
+        <labtrackingappVersion>1.0.0-SNAPSHOT</labtrackingappVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -391,6 +392,12 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>visitdocumentsui-api</artifactId>
             <version>${visitdocumentsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>labtrackingapp-api</artifactId>
+            <version>${labtrackingappVersion}</version>
             <scope>provided</scope>
         </dependency>
 

@@ -87,6 +87,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ORDER_PATHOLOGY_LOCATION, null);
     }
 
     private static void setupLocationTagsForHaitiCrossSite(LocationService locationService) {
@@ -110,6 +111,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ORDER_PATHOLOGY_LOCATION, null);
     }
 
 
@@ -506,6 +508,46 @@ public class LocationTagSetup {
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
         ));
+
+        setLocationTagsFor(locationService, LocationTags.ORDER_PATHOLOGY_LOCATION, Arrays.asList(
+                MirebalaisLocations.ANTEPARTUM_WARD,
+                MirebalaisLocations.POSTPARTUM_WARD,
+                MirebalaisLocations.WOMENS_CLINIC,
+                MirebalaisLocations.PRE_OP_PACU,
+                MirebalaisLocations.OUTPATIENT_CLINIC,
+                MirebalaisLocations.RADIOLOGY,
+                MirebalaisLocations.EMERGENCY,
+                MirebalaisLocations.ISOLATION,
+                MirebalaisLocations.DENTAL,
+                MirebalaisLocations.MENS_INTERNAL_MEDICINE,
+                MirebalaisLocations.MENS_INTERNAL_MEDICINE_A,
+                MirebalaisLocations.MENS_INTERNAL_MEDICINE_B,
+                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
+                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_A,
+                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_B,
+                MirebalaisLocations.PEDIATRICS,
+                MirebalaisLocations.PEDIATRICS_A,
+                MirebalaisLocations.PEDIATRICS_B,
+                MirebalaisLocations.SURGICAL_WARD,
+                MirebalaisLocations.POST_OP_GYN,
+                MirebalaisLocations.COMMUNITY_HEALTH,
+                MirebalaisLocations.NICU,
+                MirebalaisLocations.OPERATING_ROOMS,
+                MirebalaisLocations.WOMENS_TRIAGE,
+                MirebalaisLocations.ICU,
+                MirebalaisLocations.LABOR_AND_DELIVERY,
+                MirebalaisLocations.CHEMOTHERAPY,
+                MirebalaisLocations.REHABILITATION,
+                MirebalaisLocations.FAMILY_PLANNING,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_ACHIV_SANTRAL,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_BIWO_RANDEVOU,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+        ));
+
 
         setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(
                 MirebalaisLocations.EMERGENCY

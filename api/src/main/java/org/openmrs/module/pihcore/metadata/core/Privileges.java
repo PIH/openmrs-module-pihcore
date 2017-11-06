@@ -14,6 +14,7 @@
 package org.openmrs.module.pihcore.metadata.core;
 
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.labtrackingapp.LabTrackingConstants;
 import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
 
 /**
@@ -434,6 +435,12 @@ public class Privileges {
     public static PrivilegeDescriptor TASK_LAB_TRACKING_PLACE_ORDERS = new PrivilegeDescriptor() {
         public String uuid() { return "8c14474d-07e9-4283-9af2-0720522f1496"; }
         public String privilege() { return "Task: labtrackingapp.placeOrders"; }
+        public String description() { return "Ability to place orders using functionality provided by the Lab Tracking app"; }
+    };
+
+    public static PrivilegeDescriptor TASK_LAB_TRACKING_UPDATE = new PrivilegeDescriptor() {
+        public String uuid() { return "7ea70e95-2e5a-49c4-8db0-d67718628923"; }
+        public String privilege() { return LabTrackingConstants.LAB_TRACKING_UPDATE_PRIVILEGE; }
         public String description() { return "Ability to place orders using functionality provided by the Lab Tracking app"; }
     };
 

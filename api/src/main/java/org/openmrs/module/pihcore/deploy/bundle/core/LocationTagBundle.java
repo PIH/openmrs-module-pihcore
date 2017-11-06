@@ -35,6 +35,7 @@ public class LocationTagBundle extends AbstractMetadataBundle {
         install(LocationTags.NCD_CONSULT_LOCATION);
         install(LocationTags.LAB_RESULTS_LOCATION);
         install(LocationTags.ED_TRIAGE_LOCATION);
+        install(LocationTags.ORDER_PATHOLOGY_LOCATION);
 
         log.info("Retiring old LocationTags");
 

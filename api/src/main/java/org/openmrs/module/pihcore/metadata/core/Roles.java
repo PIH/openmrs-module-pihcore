@@ -60,6 +60,7 @@ public class Roles {
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.APP_VISIT_DOCUMENTS_PAGE,
                 Privileges.APP_CHW,
+                Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.TASK_ALLERGIES_MODIFY,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_BOOK_APPOINTMENTS,
                 Privileges.TASK_APPOINTMENTSCHEDULINGUI_OVERBOOK_APPOINTMENTS,
@@ -100,7 +101,9 @@ public class Roles {
                 Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                 Privileges.TASK_ENROLL_IN_PROGRAM,
                 Privileges.TASK_EDIT_PATIENT_PROGRAM,
-                Privileges.TASK_DELETE_PATIENT_PROGRAM
+                Privileges.TASK_DELETE_PATIENT_PROGRAM,
+                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
+                Privileges.TASK_LAB_TRACKING_UPDATE
             );}
     };
 
@@ -728,6 +731,21 @@ public class Roles {
                     Privileges.TASK_DELETE_PATIENT_PROGRAM
             );}
     };
+
+    public static RoleDescriptor LAB_TECHNICIAN = new RoleDescriptor() {
+        public String uuid() { return "d20b348c-6ea9-4f98-b7cc-72f1e0422174"; }
+        public String role() { return "Application Role: labTechnician"; }
+        public String description() { return "Gives user ability to view and update orders in the lab tracking app"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_UPDATE
+            );}
+    };
+
 
     public static RoleDescriptor LEGACY_ARCHIVIST_AIDE = new RoleDescriptor() {
         public String uuid() { return "2170e9bf-6d30-4ad9-9319-a454bf32dbf9"; }
