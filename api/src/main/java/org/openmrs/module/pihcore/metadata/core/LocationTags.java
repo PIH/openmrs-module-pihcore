@@ -156,6 +156,13 @@ public class LocationTags {
 		public String description() { return "Signifies a Location where NCD consult form can be filled out"; }
 	};
 
+	public static LocationTagDescriptor HIV_CONSULT_LOCATION = new LocationTagDescriptor() {
+		public String uuid() { return "d31ced52-9103-4b01-81ae-69f1bb216a6a"; }
+		public String name() { return "HIV Consult Location"; }
+		public String description() { return "Signifies a Location where HIV consult form can be filled out"; }
+	};
+
+
 	public static LocationTagDescriptor LAB_RESULTS_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "5a1a98d0-0805-11e6-a837-0800200c9a66"; }
 		public String name() { return "Lab Results Location"; }
