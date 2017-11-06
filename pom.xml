@@ -69,7 +69,7 @@
         <idgenVersion>4.4.1</idgenVersion>
         <namephoneticsVersion>1.6.0</namephoneticsVersion>
         <pacsintegrationVersion>1.4</pacsintegrationVersion>
-        <addresshierarchyVersion>2.10</addresshierarchyVersion>
+        <addresshierarchyVersion>2.11.0</addresshierarchyVersion>
         <providermanagementVersion>2.9.0</providermanagementVersion>
         <eventVersion>2.5</eventVersion>
         <logicVersion>0.5.2</logicVersion>
