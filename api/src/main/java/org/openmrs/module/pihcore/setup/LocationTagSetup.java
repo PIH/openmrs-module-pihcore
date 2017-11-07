@@ -96,7 +96,7 @@ public class LocationTagSetup {
         List<LocationDescriptor> allZlFacilities = Arrays.asList(PihHaitiLocations.BELLADERE, PihHaitiLocations.BOUCAN_CARRE,
                 PihHaitiLocations.CANGE, PihHaitiLocations.CERCA_LA_SOURCE, PihHaitiLocations.HINCHE, PihHaitiLocations.HSN_SAINT_MARC,
                 PihHaitiLocations.LACOLLINE, PihHaitiLocations.PETITE_RIVIERE, PihHaitiLocations.SSPE_SAINT_MARC, PihHaitiLocations.THOMONDE,
-                PihHaitiLocations.VERRETTES, PihHaitiLocations.LASCAHOBAS, PihHaitiLocations.POZ, MirebalaisLocations.MIREBALAIS_CDI_PARENT);
+                PihHaitiLocations.VERRETTES, PihHaitiLocations.LASCAHOBAS, MirebalaisLocations.MIREBALAIS_CDI_PARENT);
 
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allZlFacilities);
