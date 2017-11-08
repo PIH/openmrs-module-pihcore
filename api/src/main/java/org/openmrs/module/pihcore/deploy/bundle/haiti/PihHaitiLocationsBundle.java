@@ -29,9 +29,9 @@ public class PihHaitiLocationsBundle extends AbstractMetadataBundle {
         install(PihHaitiLocations.SSPE_SAINT_MARC);
         install(PihHaitiLocations.THOMONDE);
         install(PihHaitiLocations.VERRETTES);
-        install(PihHaitiLocations.LASCAHOBAS);
         install(MirebalaisLocations.MIREBALAIS_CDI_PARENT);
 
+        uninstall(possible(Location.class, PihHaitiLocations.LASCAHOBAS.uuid()), "not used");
         uninstall(possible(Location.class, PihHaitiLocations.POZ.uuid()), "not used");
 
     }
