@@ -11,5 +11,6 @@ public class PihHaitiProgramsBundle extends AbstractMetadataBundle {
     public void install() throws Exception {
         install(PihHaitiPrograms.ZIKA);
         install(PihHaitiPrograms.HIV);
+        install(PihHaitiPrograms.NCD);
     }
 }

@@ -9,13 +9,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_CONCEPT_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_ON_ART_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_OUTCOMES_CONCEPT_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_PRE_ART_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_TREATMENT_STATUS_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.ZIKA_PROGRAM_CONCEPT_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID;
+import static org.openmrs.module.pihcore.PihCoreConstants.*;
 
 public class PihHaitiPrograms {
 
@@ -29,6 +23,46 @@ public class PihHaitiPrograms {
         public String conceptUuid() { return ZIKA_PROGRAM_CONCEPT_UUID; }   // this concept is installed via metadata package
         @Override public String outcomesConceptUuid()  { return ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID; }   // this concept is installed via metadata package
         public String uuid() { return "3bea593a-9afd-4642-96a6-210b60f5aff2"; }
+    };
+
+    /**
+     * NCD Program
+     */
+
+    public static ProgramWorkflowStateDescriptor NCD_STABLE_STATE = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return PROGRAM_STABLE_STATE_UUID; }
+        public Boolean initial() { return true; }
+        public Boolean terminal() { return true; }
+        public String uuid() { return "51579e44-bf3a-11e7-abc4-cec278b6b50a"; }
+    };
+
+    public static ProgramWorkflowStateDescriptor NCD_UNSTABLE_STATE = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return PROGRAM_UNSTABLE_STATE_UUID; }
+        public Boolean initial() { return true; }
+        public Boolean terminal() { return true; }
+        public String uuid() { return "51579fde-bf3a-11e7-abc4-cec278b6b50a"; }
+    };
+
+    public static ProgramWorkflowStateDescriptor NCD_COMPLICATED_STATE = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return PROGRAM_COMPLICATED_STATE_UUID; }
+        public Boolean initial() { return true; }
+        public Boolean terminal() { return true; }
+        public String uuid() { return "5157a15a-bf3a-11e7-abc4-cec278b6b50a"; }
+    };
+
+    public static ProgramWorkflowDescriptor NCD_CLINICAL_STATUS = new ProgramWorkflowDescriptor() {
+        public String conceptUuid() { return NCD_PROGRAM_STATUS_UUID; }
+        public String uuid() { return "51579bce-bf3a-11e7-abc4-cec278b6b50a"; }
+        @Override public Set<ProgramWorkflowStateDescriptor> states() { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(NCD_STABLE_STATE,NCD_UNSTABLE_STATE,NCD_COMPLICATED_STATE)); }
+    };
+
+    public static ProgramDescriptor NCD = new ProgramDescriptor() {
+        public String conceptUuid() { return NCD_PROGRAM_CONCEPT_UUID; }   // this concept is installed via metadata package
+        public String name() { return "NCD"; }
+        public String description() { return "NCD Program"; }
+        @Override public String outcomesConceptUuid()  { return NCD_PROGRAM_OUTCOMES_CONCEPT_UUID; }   // this concept is installed via metadata package
+        public String uuid() { return "515796ec-bf3a-11e7-abc4-cec278b6b50a"; }
+        @Override public Set<ProgramWorkflowDescriptor> workflows() { return Collections.singleton(NCD_CLINICAL_STATUS); }
     };
 
     // TODO rework this so that the workflows and states are in PihHaitiProgramWorkflow and PihHaitiProgramWorkflowState classes?

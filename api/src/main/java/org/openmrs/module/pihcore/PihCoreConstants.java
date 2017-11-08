@@ -53,4 +53,13 @@ public class PihCoreConstants {
     public static final String HIV_PROGRAM_TREATMENT_STATUS_UUID = "37c7cf83-bce6-469c-acab-6a90e63264d2";
     public static final String HIV_PROGRAM_PRE_ART_UUID = "19ffb355-a889-4a7f-a473-15c20496c66a";
     public static final String HIV_PROGRAM_ON_ART_UUID = "3cdc0a8c-26fe-102b-80cb-0017a47871b2";
+
+    public static final String NCD_PROGRAM_CONCEPT_UUID = "099d3ba9-b302-4565-a060-09915f3c85b5";
+    public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";
+    public static final String NCD_PROGRAM_STATUS_UUID = "83a258b8-3294-4746-acb6-f045cccd37e8";
+    public static final String PROGRAM_STABLE_STATE_UUID = "df3e1542-035a-404f-84d6-8cb9b4266551";
+    public static final String PROGRAM_UNSTABLE_STATE_UUID = "c799a966-e204-4d81-8bc6-31b3310ece5a";
+    public static final String PROGRAM_COMPLICATED_STATE_UUID = "84d0a344-2725-437c-a9d7-e86be508c13c";
+    // ToDo: Define the NCD workflow/state
+    // public static final String NCD_PROGRAM_TREATMENT_STATUS_CONCEPT_UUID = "";
 }
