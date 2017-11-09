@@ -63,4 +63,10 @@ public class PihHaitiPatientIdentifierTypes {
 		public String name() { return "Dental Dossier Number"; }
 		public String description() { return "Dental clinic dossier number"; }
 	};
+
+	public static PatientIdentifierTypeDescriptor HIV_DOSSIER_NUMBER = new PatientIdentifierTypeDescriptor() {
+		public String uuid() { return "3B954DB1-0D41-498E-A3F9-1E20CCC47323"; }
+		public String name() { return "HIV Nimewo Dosye"; }
+		public String description() { return "HIV EMR Dossier number"; }
+	};
 }

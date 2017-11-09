@@ -18,6 +18,7 @@ public class PihHaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle 
         install(PihHaitiPatientIdentifierTypes.HIVEMR_V1);
         install(PihHaitiPatientIdentifierTypes.USER_ENTERED_REF_NUMBER);
         install(PihHaitiPatientIdentifierTypes.DENTAL_DOSSIER_NUMBER);
+        install(PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER);
     }
 
 }
