@@ -100,6 +100,7 @@ public class LocationTagSetup {
 
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allZlFacilities);
