@@ -85,23 +85,27 @@
                     </label>
                 </th>
             </tr>
+
             <repeat>
                 <template>
                     <obsgroup groupingConceptId="PIH:1295">
                         <tr>
-                            <td>
-                                <obs conceptId="PIH:1297" style="checkbox"
-                                     answerConceptId="{concept}" />
+                            <td id="{name}-ae">
+                                <obs conceptId="PIH:1297"
+                                     answerConceptId="{concept}"
+                                     style="checkbox" />
+                                     <!-- ToDo: This isn't working for the date toggle
+                                     toggle="{id: '{name}-date', style: 'dim'}" -->
                             </td>
-                            <td>
+                            <td class="{name}-date">
                                 <obs conceptId="PIH:1300" />
                             </td>
                         </tr>
                     </obsgroup>
                 </template>
                 <render concept="CIEL:118983" name="Neuropathy"/>
-                <render concept="CIEL:136162" name="Lactic acidosis" />
-                <render concept="CIEL:133473" name="Nausea and vomiting" />
+                <render concept="CIEL:136162" name="LacticAcidosis" />
+                <render concept="CIEL:133473" name="NauseaVomiting" />
                 <render concept="CIEL:116986" name="Hepatitis" />
                 <render concept="CIEL:121629" name="Anemia"/>
                 <render concept="CIEL:136443" name="Jaundice"/>
