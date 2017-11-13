@@ -93,11 +93,10 @@
                             <td id="{name}-ae">
                                 <obs conceptId="PIH:1297"
                                      answerConceptId="{concept}"
-                                     style="checkbox" />
-                                     <!-- ToDo: This isn't working for the date toggle
-                                     toggle="{id: '{name}-date', style: 'dim'}" -->
+                                     style="checkbox"
+                                     toggle="{id: '{name}-date', style: 'dim'}" />
                             </td>
-                            <td class="{name}-date">
+                            <td id="{name}-date">
                                 <obs conceptId="PIH:1300" />
                             </td>
                         </tr>
