@@ -30,8 +30,8 @@ public class MirebalaisLocations {
 
 	public static LocationDescriptor MIREBALAIS_CDI_PARENT = new LocationDescriptor() {
 		public String uuid() { return "a084f714-a536-473b-94e6-ec317b152b43"; }
-		public String name() { return "Mirebalais"; }
-		public String description() { return "Mirebalais"; }
+		public String name() { return "Hôpital Universitaire de Mirebalais"; }
+		public String description() { return "Mirebalais (MoH code 62101)"; }
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.MIREBALAIS_CDI_PARENT_NAME_TO_PRINT_ON_ID_CARD); }
 	};
 
@@ -39,8 +39,8 @@ public class MirebalaisLocations {
 
 	public static LocationDescriptor MIREBALAIS_HOSPITAL = new LocationDescriptor() {
 		public String uuid() { return "24bd1390-5959-11e4-8ed6-0800200c9a66"; }
-		public String name() { return "Hôpital Universitaire de Mirebalais"; }
-		public String description() { return "Mirebalais (MoH code 62101)"; }
+		public String name() { return "Hôpital Universitaire de Mirebalais - Prensipal"; }
+		public String description() { return "Hôpital Universitaire de Mirebalais - Prensipal"; }
 		public LocationDescriptor parent() { return MirebalaisLocations.MIREBALAIS_CDI_PARENT; }
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.MIREBALAIS_HOSPITAL_NAME_TO_PRINT_ON_ID_CARD); }
 	};
