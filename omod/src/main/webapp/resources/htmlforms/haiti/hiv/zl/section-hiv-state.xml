@@ -94,9 +94,9 @@
                                 <obs conceptId="PIH:1297"
                                      answerConceptId="{concept}"
                                      style="checkbox"
-                                     toggle="{id: '{name}-date', style: 'dim'}" />
+                                     toggle="{id: '{name}-ae-date', style: 'dim'}" />
                             </td>
-                            <td id="{name}-date">
+                            <td id="{name}-ae-date">
                                 <obs conceptId="PIH:1300" />
                             </td>
                         </tr>
@@ -114,18 +114,20 @@
                 <template>
                     <obsgroup groupingConceptId="PIH:1295">
                         <tr>
-                            <td>
-                                <obs conceptId="PIH:1297" style="checkbox"
+                            <td id="{name}-ae">
+                                <obs conceptId="PIH:1297"
                                      answerConceptId="{concept}"
-                                     commentFieldLabel="(préciser)" />
+                                     style="checkbox"
+                                     commentFieldLabel="(préciser)"
+                                     toggle="{id: '{name}-ae-date', style: 'dim'}" />
                             </td>
-                            <td>
+                            <td id="{name}-ae-date">
                                 <obs conceptId="PIH:1300" />
                             </td>
                         </tr>
                     </obsgroup>
                 </template>
-                <render concept="CIEL:5622" name="Autres (préciser):" />
+                <render concept="CIEL:5622" name="Other" />
             </repeat>
         </table>
     </div>

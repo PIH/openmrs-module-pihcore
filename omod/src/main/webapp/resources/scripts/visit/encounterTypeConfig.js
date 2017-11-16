@@ -407,6 +407,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 hivRiskFactors,
                 familyPlanningHistory,
                 hivSymptoms,
+                primaryCareDx,
                 primaryCareExam,
                 // labRadOrder,
                 hivOI,
@@ -426,6 +427,7 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
                 hivState,
                 primaryCareDx,
+                primaryCareExam,
                 // ToDo: Modify plan for followup
                 hivIntakePlan
             ]
