@@ -573,58 +573,6 @@
         </div>
     </section>
 
-    <section id="socio-econ-aid" sectionTag="fieldset"
-             headerTag="legend" headerStyle="title" headerCode="pihcore.socioEconAssist">
-
-        <div class="section-container-color">
-            <table>
-                <tr>
-                    <td></td>
-                    <td>
-                        <label>
-                            <uimessage code="pihcore.received"/>
-                        </label>
-                    </td>
-                    <td>
-                        <label>
-                            <uimessage code="pihcore.recommended"/>
-                        </label>
-                    </td>
-                </tr>
-
-                <repeat>
-                    <template>
-                        <tr>
-                            <td>
-                                <label>
-                                    <uimessage code="{aidLabel}"/>
-                                </label>
-                            </td>
-                            <td>
-                                <obs conceptId="PIH:2156" answerConceptId="{aid}"
-                                     answerLabel="" style="checkbox" />
-                            </td>
-                            <td>
-                                <obs conceptId="PIH:2157" answerConceptId="{aid}"
-                                     answerLabel="" style="checkbox" />
-                            </td>
-                        </tr>
-                    </template>
-                    <render aid="PIH:ASSISTANCE WITH TRANSPORT" aidLabel="pihcore.aid.transport"/>
-                    <render aid="PIH:NUTRITIONAL AID" aidLabel="pihcore.aid.food"/>
-                    <render aid="CIEL:5622" aidLabel="pihcore.visitNote.plan.other"/>
-                </repeat>
-            </table>
-
-            <p>
-                <label>
-                    <uimessage code="pihcore.remarks"/>:
-                </label>
-                <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE COMMENT" style="text"/>
-            </p>
-        </div>
-    </section>
-
     <section id="transfer-section" sectionTag="fieldset"
              headerTag="legend" headerStyle="title" headerCode="pihcore.transfer.title">
         <div class="section-container-color">

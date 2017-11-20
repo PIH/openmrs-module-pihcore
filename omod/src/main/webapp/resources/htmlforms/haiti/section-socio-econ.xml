@@ -28,7 +28,7 @@
         </ifMode>
     </style>
     <ifMode mode="VIEW" include="false">
-        <h3>C. <uimessage code="pihcore.socioEconomic.title"/></h3>
+        <h3><uimessage code="pihcore.socioEconomic.title"/></h3>
 
         <script type="text/javascript">
             jq(document).ready(function() {
@@ -52,6 +52,9 @@
     </ifMode>
 
     <div class="socio-economics">
+        <h5>
+            <uimessage code="pihcore.socioEconomic.education"/>
+        </h5>
         <p>
             <label>
                 <uimessage code="pihcore.socioEconomic.levelEducation"/>
@@ -61,7 +64,7 @@
 
         <!-- Note: Civil status is within registration -->
         <h5>
-            <uimessage code="pihcore.socioEconomic.housing" style="dropdown"/>
+            <uimessage code="pihcore.socioEconomic.housing"/>
         </h5>
         <div class="two-columns">
             <p>
@@ -80,10 +83,15 @@
                     <obs conceptId="CIEL:1475"/>
                 </span>
             </p>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.toilet"/>
+                </label>
+                <obs conceptId="CIEL:159389" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
+            </p>
+
             <p>
                 <label>
                     <uimessage code="pihcore.socioEconomic.floor"/>
@@ -102,14 +110,6 @@
 
             <p>
                 <label>
-                    <uimessage code="pihcore.socioEconomic.toilet"/>
-                </label>
-                <obs conceptId="CIEL:159389" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
-            </p>
-
-            <p>
-                <label>
                     <uimessage code="pihcore.socioEconomic.radio"/>
                 </label>
                 <obs conceptId="CIEL:159388" style="radio"
@@ -118,6 +118,97 @@
 
             <!-- ToDo: What is the difference between toilet and latrine? -->
         </div>
+    </div>
+
+    <div class="transport">
+        <h5>
+            <uimessage code="pihcore.socioEconomic.transport"/>
+        </h5>
+
+        <div class="two-columns">
+            <p>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.methodTransport"/>
+                </label>
+                <obs conceptId="PIH:975" />
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.socioEconomic.transportTime"/>
+                </label>
+                <obs conceptId="PIH:CLINIC TRAVEL TIME"
+                    answerConceptIds="PIH:1049,PIH:1050,PIH:1051,PIH:982,PIH:3669"/>
+            </p>
+        </div>
+    </div>
+
+    <div class="activity">
+        <h5>
+            <uimessage code="pihcore.socioEconomic.dailyActivity"/>
+        </h5>
+
+        <!-- ToDo: We are collecting occupation during registration.
+            Is that different from "main activity"? -->
+        <p>
+            <label>
+                Ki pi gwo aktivite ke w te konn fè anvan w te vinn malad ?  (pa ekzanp : fè jaden, gade bèt, fè travay nan kay, okipe timoun, fè komès, ale lekòl) ?
+            </label>
+            <label>
+                Eske kounye a jan w santi w la, anpeche w fè gwo aktivite sa a ?
+            </label>
+        </p>
+    </div>
+
+    <div class="section-container-color">
+        <h5>
+            <uimessage code="pihcore.socioEconomic.assistance"/>
+        </h5>
+        <table>
+            <tr>
+                <td></td>
+                <td>
+                    <label>
+                        <uimessage code="pihcore.received"/>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <uimessage code="pihcore.recommended"/>
+                    </label>
+                </td>
+            </tr>
+
+            <repeat>
+                <template>
+                    <tr>
+                        <td>
+                            <label>
+                                <uimessage code="{aidLabel}"/>
+                            </label>
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:2156" answerConceptId="{aid}"
+                                 answerLabel="" style="checkbox" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:2157" answerConceptId="{aid}"
+                                 answerLabel="" style="checkbox" />
+                        </td>
+                    </tr>
+                </template>
+                <render aid="PIH:ASSISTANCE WITH TRANSPORT" aidLabel="pihcore.aid.transport"/>
+                <render aid="PIH:NUTRITIONAL AID" aidLabel="pihcore.aid.food"/>
+                <render aid="CIEL:5622" aidLabel="pihcore.visitNote.plan.other"/>
+            </repeat>
+        </table>
+
+        <p>
+            <label>
+                <uimessage code="pihcore.remarks"/>:
+            </label>
+            <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE COMMENT" style="text"/>
+        </p>
     </div>
 
     <br/>

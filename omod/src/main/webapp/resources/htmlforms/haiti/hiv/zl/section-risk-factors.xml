@@ -33,7 +33,7 @@
 
     <ifMode mode="VIEW" include="false">
         <h3>
-            G. <uimessage code="pihcore.hiv.risk-factors"/>
+            <uimessage code="pihcore.hiv.risk-factors"/>
             <!-- Differences between ZL and iSantePlus risk factor section
                  * ZL has yes/no/unknown + date
                  * iSantePlus has yes/no/unknown, yes/no, and checkbox
