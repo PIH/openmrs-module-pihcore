@@ -20,7 +20,7 @@
 
     <ifMode mode="VIEW" include="false">
         <h3>
-            B. <uimessage code="pihcore.hiv.serology.title"/>
+            <uimessage code="pihcore.hiv.serology.title"/>
         </h3>
 
         <script type="text/javascript">

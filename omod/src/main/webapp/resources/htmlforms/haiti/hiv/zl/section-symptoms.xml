@@ -36,7 +36,7 @@
 
     <ifMode mode="VIEW" include="false">
         <h3>
-            K. <uimessage code="pihcore.hiv.symptomSigns"/>
+            <uimessage code="pihcore.hiv.symptomSigns"/>
             <!-- Differences between ZL and iSantePlus Signes and Symptoms
                  * ZL has N/Y/duration
                  * iSantePlus has Y

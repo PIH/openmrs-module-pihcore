@@ -36,7 +36,7 @@
 
     <ifMode mode="VIEW" include="false">
         <h3>
-            O. <uimessage code="pihcore.hiv.whoStages"/>
+            <uimessage code="pihcore.hiv.whoStages"/>
             <!-- Differences between ZL and iSantePlus WHO HIV stages
                  * iSantePlus has start/stop dates
                  * Some differences with diagnoses (see inline)

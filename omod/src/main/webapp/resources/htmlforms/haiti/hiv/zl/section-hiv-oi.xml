@@ -24,7 +24,7 @@
 
     <ifMode mode="VIEW" include="false">
         <h3>
-            N. <uimessage code="pihcore.oi.title"/>
+            <uimessage code="pihcore.oi.title"/>
         </h3>
 
         <script type="text/javascript">
