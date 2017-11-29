@@ -199,6 +199,9 @@
                 </template>
                 <render aid="PIH:ASSISTANCE WITH TRANSPORT" aidLabel="pihcore.aid.transport"/>
                 <render aid="PIH:NUTRITIONAL AID" aidLabel="pihcore.aid.food"/>
+                <render aid="PIH:FINANCIAL AID" aidLabel="pihcore.aid.money"/>
+                <render aid="PIH:SCHOOL EXPENSES" aidLabel="pihcore.aid.school"/>
+                <render aid="PIH:HOUSING EXPENSES" aidLabel="pihcore.aid.home"/>
                 <render aid="CIEL:5622" aidLabel="pihcore.visitNote.plan.other"/>
             </repeat>
         </table>
