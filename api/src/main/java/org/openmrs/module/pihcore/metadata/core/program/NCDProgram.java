@@ -21,21 +21,21 @@ public class NCDProgram {
     public static ProgramWorkflowStateDescriptor NCD_STABLE_STATE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return PROGRAM_STABLE_STATE_UUID; }
         public Boolean initial() { return true; }
-        public Boolean terminal() { return true; }
+        public Boolean terminal() { return false; }
         public String uuid() { return "51579e44-bf3a-11e7-abc4-cec278b6b50a"; }
     };
 
     public static ProgramWorkflowStateDescriptor NCD_UNSTABLE_STATE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return PROGRAM_UNSTABLE_STATE_UUID; }
         public Boolean initial() { return true; }
-        public Boolean terminal() { return true; }
+        public Boolean terminal() { return false; }
         public String uuid() { return "51579fde-bf3a-11e7-abc4-cec278b6b50a"; }
     };
 
     public static ProgramWorkflowStateDescriptor NCD_COMPLICATED_STATE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return PROGRAM_COMPLICATED_STATE_UUID; }
         public Boolean initial() { return true; }
-        public Boolean terminal() { return true; }
+        public Boolean terminal() { return false; }
         public String uuid() { return "5157a15a-bf3a-11e7-abc4-cec278b6b50a"; }
     };
 
