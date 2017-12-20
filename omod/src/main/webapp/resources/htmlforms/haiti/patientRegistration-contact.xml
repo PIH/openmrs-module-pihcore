@@ -91,28 +91,28 @@
                                 <input type="text" class="address-hierarchy-shortcut" size="60"/>
                             </div>
                             <div>
-                                <h3><uimessage code="mirebalais.address.country"/></h3>
+                                <h3><uimessage code="haiticore.address.country"/></h3>
                                 <obs class="level" conceptId="PIH:Country" id="contactAddress-country" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                             </div>
                             <div>
-                                <h3><uimessage code="mirebalais.address.stateProvince"/></h3>
+                                <h3><uimessage code="haiticore.address.stateProvince"/></h3>
                                 <obs class="level" conceptId="PIH:State Province" id="contactAddress-stateProvince" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                             </div>
                             <div>
-                                <h3><uimessage code="mirebalais.address.cityVillage"/></h3>
+                                <h3><uimessage code="haiticore.address.cityVillage"/></h3>
                                 <obs class="level" conceptId="PIH:City Village" id="contactAddress-cityVillage" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
                             </div>
                             <div>
-                                <h3><uimessage code="mirebalais.address.neighborhoodCell"/></h3>
+                                <h3><uimessage code="haiticore.address.neighborhoodCell"/></h3>
                                 <obs class="level" conceptId="PIH:Address3" id="contactAddress-address3" showUnits="false" unitsCssClass="append-to-value" size="20" required="true"/>
 
                             </div>
                             <div>
-                                <h3><uimessage code="mirebalais.address.address1"/></h3>
+                                <h3><uimessage code="haiticore.address.address1"/></h3>
                                 <obs class="level" conceptId="PIH:Address1" id="contactAddress-address1" showUnits="false" unitsCssClass="append-to-value" size="20"/>
                             </div>
                             <div>
-                                <h3><uimessage code="mirebalais.address.address2"/></h3>
+                                <h3><uimessage code="haiticore.address.address2"/></h3>
                                 <obs class="level" conceptId="PIH:Address2" id="contactAddress-address2" showUnits="false" unitsCssClass="append-to-value" size="20"/>
 
                             </div>
