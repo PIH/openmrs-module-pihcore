@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.AdministrationService;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.FormService;
 import org.openmrs.api.LocationService;
@@ -41,6 +42,7 @@ import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
+import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
@@ -74,6 +76,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             EncounterService encounterService = Context.getEncounterService();
             VisitService visitService = Context.getVisitService();
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+            ConceptService conceptService = Context.getService(ConceptService.class);
 
             if (config == null) {  // hack to allow injecting a mock config for testing
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
@@ -90,6 +93,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
             PacIntegrationSetup.setup(config);
+            AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
         }
         catch (Exception e) {

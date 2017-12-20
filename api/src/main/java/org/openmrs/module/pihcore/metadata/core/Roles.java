@@ -58,7 +58,7 @@ public class Roles {
                 Privileges.APP_WAITING_FOR_CONSULT,
                 Privileges.APP_TODAYS_VISITS,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
-                Privileges.APP_VISIT_DOCUMENTS_PAGE,
+                Privileges.APP_ATTACHMENTS_PAGE,
                 Privileges.APP_CHW,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.TASK_ALLERGIES_MODIFY,

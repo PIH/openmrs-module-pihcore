@@ -1,9 +1,9 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.EncounterType;
+import org.openmrs.module.attachments.AttachmentsConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.visitdocumentsui.VisitDocumentsConstants;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -49,7 +49,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.PEDS_HIV_FOLLOWUP);
         install(EncounterTypes.ART_ADHERENCE);
 
-        uninstall(possible(EncounterType.class, VisitDocumentsConstants.ENCOUNTER_TYPE_UUID), "not used");
+        uninstall(possible(EncounterType.class, AttachmentsConstants.ENCOUNTER_TYPE_UUID), "not used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DISPOSITION.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_FEEDING.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_PEDS_SUPPLEMENTS.uuid()), "never used");

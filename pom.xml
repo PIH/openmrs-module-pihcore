@@ -90,7 +90,7 @@
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
-        <visitdocumentsVersion>1.4-SNAPSHOT</visitdocumentsVersion>
+        <attachmentsVersion>2.0.0-SNAPSHOT</attachmentsVersion>
         <labtrackingappVersion>1.0.0-SNAPSHOT</labtrackingappVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -390,8 +390,8 @@
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>visitdocumentsui-api</artifactId>
-            <version>${visitdocumentsVersion}</version>
+            <artifactId>attachments-api</artifactId>
+            <version>${attachmentsVersion}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
