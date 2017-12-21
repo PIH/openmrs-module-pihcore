@@ -2,7 +2,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
     "allergies", "vaccinations", "ui.bootstrap", "ui.router", "session", "ngDialog", "appFramework",
     "configService", 'pascalprecht.translate'])
 
-    .config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $translateProvider, $templateRequestProvider) {
 
         $urlRouterProvider.otherwise("overview");
 
@@ -35,6 +35,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             })
             .fallbackLanguage('en')
             .useSanitizeValueStrategy('escape');  // TODO is this the correct one to use http://angular-translate.github.io/docs/#/guide/19_security
+
+        $templateRequestProvider.httpOptions({
+            headers: { Accept: 'text/html' }
+        });
+
     })
 
     .directive("dateWithPopup", [ function() {
