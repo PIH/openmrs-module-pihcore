@@ -57,7 +57,7 @@ public class PersonAuditInfoCohortDefinitionEvaluatorTest extends BaseModuleCont
         PersonAuditInfoCohortDefinition cd = new PersonAuditInfoCohortDefinition();
         cd.setIncludeVoided(true);
         EvaluatedCohort actual = evaluator.evaluate((CohortDefinition) cd, new EvaluationContext());
-        assertThat(actual, hasExactlyIds(2, 6, 7, 8, 999));
+        assertThat(actual, hasExactlyIds(2, 6, 7, 8, 432, 999));
     }
 
     @Test

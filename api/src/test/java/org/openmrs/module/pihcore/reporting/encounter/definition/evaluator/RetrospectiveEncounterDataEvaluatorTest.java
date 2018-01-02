@@ -36,6 +36,7 @@ public class RetrospectiveEncounterDataEvaluatorTest extends BaseReportTest {
         eb.patient(createPatient());
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
         eb.location(Metadata.lookup(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+        eb.encounterType(1);
         Encounter enc = eb.save();
 
         EncounterEvaluationContext context = new EncounterEvaluationContext();
@@ -51,6 +52,7 @@ public class RetrospectiveEncounterDataEvaluatorTest extends BaseReportTest {
         eb.patient(createPatient());
         eb.encounterDatetime(new Date());
         eb.location(Metadata.lookup(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+        eb.encounterType(1);
         Encounter enc = eb.save();
 
         EncounterEvaluationContext context = new EncounterEvaluationContext();

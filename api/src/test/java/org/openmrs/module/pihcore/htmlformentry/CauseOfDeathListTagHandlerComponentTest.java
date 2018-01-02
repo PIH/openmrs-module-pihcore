@@ -13,6 +13,7 @@ import org.openmrs.GlobalProperty;
 import org.openmrs.Obs;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.htmlformentry.RegressionTestHelper;
@@ -23,6 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
@@ -49,8 +51,10 @@ public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleContextSe
 
     @Before
     public void setUp() throws Exception {
+
+        Context.setLocale(new Locale("en"));  // for some reason, one of the other tests leaves the context dirty, and the locale set to "fr", which causes the tests to fail when matching obs
         unknownConcept = testData.concept().datatype("N/A").conceptClass("Misc")
-                .name("Unknown").save();
+                .name("Unknown Concept").save();
         administrationService.saveGlobalProperty(
                 new GlobalProperty(HtmlFormEntryConstants.GP_UNKNOWN_CONCEPT, unknownConcept.getUuid()));
 

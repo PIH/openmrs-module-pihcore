@@ -12,9 +12,9 @@
 
     <concept_reference_source concept_source_id="1001" name="org.openmrs.module.emrapi" description="EMR API Concept Source" creator="1" date_created="2009-06-03 13:41:25.0" retired="false" uuid="edd52713-8887-47b7-ba9e-6e1148824ca4"/>
 
-    <location location_id="8" name="Ijans" description="Emergency room at Mirebalais Hospital (Ijans)" creator="2" date_created="2012-09-24 10:10:31.0" retired="false" parent_location="2" uuid="f3a5586e-f06c-4dfb-96b0-6f3451a35e90"/>
+    <location location_id="8" name="Ijans" description="Emergency room at Mirebalais Hospital (Ijans)" creator="501" date_created="2012-09-24 10:10:31.0" retired="false" parent_location="2" uuid="f3a5586e-f06c-4dfb-96b0-6f3451a35e90"/>
 
-    <encounter_type encounter_type_id="2002" name="Emergency Triage" description="Emergency Triage" creator="1"
+    <encounter_type encounter_type_id="2002" name="Emergency Triage" description="Emergency Triage" creator="501"
                     date_created="2012-10-23 18:04:14" retired="0" uuid="74cef0a6-2801-11e6-b67b-9e71128cae77"/>
 
 </dataset>
