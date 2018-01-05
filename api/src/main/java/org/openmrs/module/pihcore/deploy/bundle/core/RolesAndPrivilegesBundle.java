@@ -94,6 +94,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_ENROLL_IN_PROGRAM);
         install(Privileges.TASK_EDIT_PATIENT_PROGRAM);
         install(Privileges.TASK_DELETE_PATIENT_PROGRAM);
+        install(Privileges.TASK_MANAGE_CONDITIONS_LIST);
 
         log.info("Retiring old privileges");
 

@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.pihcore.metadata.core;
 
+import org.openmrs.module.conditionui.ConditionUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.labtrackingapp.LabTrackingConstants;
 import org.openmrs.module.metadatadeploy.descriptor.PrivilegeDescriptor;
@@ -466,6 +467,12 @@ public class Privileges {
         public String uuid() { return "a1e0ae0a-dc7c-459f-bac6-5180ee71647f"; }
         public String privilege() { return "Task: coreapps.deletePatientProgram"; }
         public String description() { return "Ability to delete a patient program via the program status widget"; }
+    };
+
+    public static PrivilegeDescriptor TASK_MANAGE_CONDITIONS_LIST = new PrivilegeDescriptor() {
+        public String uuid() { return "4552626e-5279-4b5a-aa79-e63882d3c885"; }
+        public String privilege() { return ConditionUIConstants.MANAGE_CONDITIONS_PRIVILEGE; }
+        public String description() { return "Able to activate/inactivate/void condition lists."; }
     };
 
     // RETIRED PRIVILEGES
