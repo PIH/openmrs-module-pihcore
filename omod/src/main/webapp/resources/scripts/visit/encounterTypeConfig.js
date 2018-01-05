@@ -613,6 +613,17 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
+        // VCT
+        encounterTypeConfig[EncounterTypes.vct.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/vct.xml",
+            icon: "icon-asterisk",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/vct.xml",
+            showOnVisitList: true
+        };
+
         encounterTypeConfig[EncounterTypes.primaryCareVisit.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",

@@ -41,13 +41,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.SPECIMEN_COLLECTION);
         install(EncounterTypes.ZL_HIV_INTAKE);
         install(EncounterTypes.ZL_HIV_FOLLOWUP);
-        // install(EncounterTypes.ZL_PEDS_HIV_INTAKE);
-        // install(EncounterTypes.ZL_PEDS_HIV_FOLLOWUP);
-        install(EncounterTypes.ADULT_HIV_INTAKE);
-        install(EncounterTypes.ADULT_HIV_FOLLOWUP);
-        install(EncounterTypes.PEDS_HIV_INTAKE);
-        install(EncounterTypes.PEDS_HIV_FOLLOWUP);
-        install(EncounterTypes.ART_ADHERENCE);
+        install(EncounterTypes.VCT);
 
         uninstall(possible(EncounterType.class, AttachmentsConstants.ENCOUNTER_TYPE_UUID), "not used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DISPOSITION.uuid()), "never used");
@@ -57,6 +51,12 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_EXAM.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DIAGNOSIS.uuid()), "never used");
         uninstall(possible(EncounterType.class, EncounterTypes.CONSULTATION_PLAN.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.ADULT_HIV_INTAKE.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.ADULT_HIV_FOLLOWUP.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.PEDS_HIV_INTAKE.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.PEDS_HIV_FOLLOWUP.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.ZL_PEDS_HIV_INTAKE.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.ZL_PEDS_HIV_FOLLOWUP.uuid()), "never used");
+        uninstall(possible(EncounterType.class, EncounterTypes.ART_ADHERENCE.uuid()), "never used");
     }
-
 }

@@ -1,0 +1,370 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http//license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+  -->
+
+<htmlform id="vct" class="simple-form-ui"
+          formUuid="616b6b36-f189-11e7-8c3f-9a214cf093ae"
+          htmlformUuid="616b6c94-f189-11e7-8c3f-9a214cf093ae"
+          formName="Voluntary counseling and testing (VCT)"
+          formEncounterType="616b66fe-f189-11e7-8c3f-9a214cf093ae"
+          formVersion="1.0">
+
+    <style type="text/css">
+
+        #who-when-where {
+        margin-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+        }
+
+        #who-when-where p {
+        display: inline-block;
+        padding-right: 20px;
+        }
+
+        #where > input[type=text] {
+        display: inline-block;
+        }
+
+        .field-error {
+        color: #ff6666;
+        font-size: 1.1em;
+        display: block;
+        }
+
+        .simple-form-ui input {
+        min-width: 80%
+        }
+
+        form fieldset {
+        min-width: 90%
+        }
+
+        #encounterDate input {
+        min-width: 15%
+        }
+
+        textarea {
+        overflow-y: hidden; /* fixes scrollbar flash - kudos to @brettjonesdev */
+        padding-top: 1.1em; /* fixes text jump on Enter keypress */
+        }
+
+        @media print {
+        .print-form-datestamps { display: block !important }
+        button.cancel, button.submit { display: none }
+        label { font-weight: bold }
+        label[for] { font-weight: normal } /* refers to the radio set label */
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
+        .two-columns {
+            column-count: 2;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
+        }
+
+    </style>
+
+
+    <div class="print-form-datestamps" style="display:none">
+        <p><uimessage code="pihcore.form.created_on"/>:
+            <lookup complexExpression="$form.dateCreated"/>
+        </p>
+        <p><uimessage code="pihcore.form.last_updated_on"/>:
+            <lookup complexExpression="$form.dateChanged"/>
+        </p>
+        <p><uimessage code="pihcore.form.printed_on"/>:
+            <lookup complexExpression="$formGeneratedDatetime"/>
+        </p>
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <h2>
+            <label>
+                <uimessage code="pihcore.vct"/>
+            </label>
+        </h2>
+
+        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+            <div id="who-when-where">
+                <p id="who">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.providerRequired"/>
+                    </label>
+                    <span>
+                        <encounterProviderAndRole default="currentUser"
+                                                  encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                    </span>
+                </p>
+                <p id="where">
+                    <label>
+                        <uimessage code="emr.locationRequired"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
+                                           tags="Consult Note Location"/>
+                    </span>
+                </p>
+                <p id="when">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
+                </p>
+            </div>
+        </includeIf>
+        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+        <includeIf
+                velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                          required="true"/>
+            </div>
+
+            <div id="who-when-where">
+                <p id="who">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.provider"/>
+                    </label>
+                    <span>
+                        <lookup expression="user.person.personName"/>
+                    </span>
+                </p>
+                <p id="where">
+                    <label>
+                        <uimessage code="emr.locationRequired"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
+                                           tags="Consult Note Location"/>
+                    </span>
+                </p>
+                <p id="when">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
+                </p>
+            </div>
+
+        </includeIf>
+        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
+            <div style="display:none">
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                          required="true"/>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                <encounterDate id="encounterDate" default="now"/>
+            </div>
+            <div id="who-when-where">
+                <table id="who-where-when-view">
+                    <tr>
+                        <td>
+                            <label>
+                                <uimessage code="emr.patientDashBoard.provider"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/>
+                            </span>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="emr.location"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/>
+                            </span>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="emr.patientDashBoard.date"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </includeIf>
+    </ifMode>
+
+    <section id="vct-screening" sectionTag="fieldset" headerTag="legend"
+             headerStyle="title" headerCode="pihcore.screening">
+        <div class="section-container">
+            <p>
+                <!--
+                 - MOTIF DE DEPISTAGE - Reason for screening
+                    - 1 Client désireux de connaitre son statut sérologique (Patient wishes to know his/her HIV status)					
+                    - 2 Présence d'IST constatée chez le client (Patient has STD)					
+                    - 3 Activités sexuelles à risque - rapports sexuels (Patient engaged in sexual risky behavior)					
+                    - 4 Accident d'exposition au sang (AES) (Blood exposure accident)					
+                    - 5 Agression sexuelle (AS) (Sexual Assault victim)					
+                    - 6 Client Référé (Referred patient)					
+                    - 7 Test de contrôle (sur demande de personnel médical) (Controlled test on request of doctor)				
+                    - 8 Autres (Other)					
+                 - NOTES - Choose note below, that refer to the reasons above (by number)			
+                    - 1a - Partenaire VIH + (Partner HIV+)
+                    - 1b - Partenaire VIH- (Partner HIV-)		
+                    - 1c - Statut de partenaire inconnu	(Unknown partner status)	
+                    - 2a - Présence/Hx de Syphilis (Presence/history of syphilis)
+                    - 2b - Présence/Hx d'autre IST (Presence/history of STD)		
+                        - 3a - Sans condom (without condom)
+                    - 3b - Par voie anale (Anal)
+                    - 3c - Entre homme et homme (male to male)
+                    - 3d - Avec travailleur/euse du sexe (with sex worker)
+                    - 3e - Avec personne qui s’injecte la drogue (with intravenous drug user)
+                    - 3f - Avec personne VIH+ (with HIV+ person)
+                    - 4a- AES( travailleurs de santé) (health workers exposed to blood)
+                    - 4b- Autres cas que 4a (others exposed to blood)
+                    - 6a - Par partenaire (by partner)
+                    - 6b - Par mère enceinte VIH(+) (by HIV+ pregnant mother)
+                    - 6c - Par autre site (test de confirmation) (by other site for confirmation)
+                    - 6d - Par autre site (non accès au CDV) (by other site without VCT)
+                    - 6e - par service TB (TB confirmé) (by TB service when TB confirmed)
+                    - 6f  - par service TB (TB non confirmé) (by TB service when TB not confirmed)
+                    - 8a - Injection de drogues (inravenous drug user)
+                    - 8b - Transfusion sanguine (blood transfusion)
+                    - 8c - Mariage (Marriage)
+                    - 8d - Autre (Other)
+                 - VIOLENCE PHYSIQUE ET/OU EMOTIONNELLE	- Physical and/or emotional violence
+                    - Y
+                    - N		
+                 - DATE PRÉ-TEST COUNSELING - date of pre-test counseling			
+                 -->
+            </p>
+        </div>
+    </section>
+
+    <section id="vct-test" sectionTag="fieldset" headerTag="legend"
+             headerStyle="title" headerCode="pihcore.testing">
+        <div class="section-container">
+            <table>
+                <tr>
+                    <th>Test</th>
+                    <th>Test date</th>
+                    <th>Result date</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <!-- DATE TEST VIH - Date of HIV test
+                     - DATE RÉSULTAT TEST VIH - Date of HIV test results
+                        - +
+                        - -
+                        - INDETERMINÉ
+                        -->
+                    <td>
+                        <uimessage code="pihcore.hiv"/>
+                    </td>
+
+                    <td>
+                        <uimessage code="pihcore.hiv.testDate"/>
+                    </td>
+                    <td></td>
+                    <td>
+                        <obs conceptId="CIEL:164400"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <!--
+                         - DATE TEST RPR - Date of RPR test
+                         - DATE RÉSULTAT TEST RPR
+                            - +
+                            - -
+                      -->
+                    <td>
+                        RPR
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <obs conceptId="PIH:RPR"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <!-- DATE ÉVALUATION TB - Date of TB test	-->
+                    <td>
+                        TB
+                    </td>
+                    <td>
+
+                    </td>
+                    <td></td>
+                    <td>
+                        <!-- ToDo: Is this the correct test? -->
+                        <obs conceptId="PIH:TUBERCULOSIS SMEAR RESULT	"/>
+                    </td>
+                </tr>
+
+                <!--
+                 - DATE POST-TEST - Date of post-test counseling.  (usually same day but not always)
+                 -->
+            </table>
+        </div>
+    </section>
+
+    <section id="vct-plan" sectionTag="fieldset" headerTag="legend"
+             headerStyle="title" headerCode="pihcore.plan">
+        <div class="section-container">
+            <p>
+                <!--
+                 - DATE Rx RPR - Date of RPR Medication  
+                    - DEBUT - Start date
+                    - FIN - End date
+                 - DATE RÉFÉRENCE  SERVICE  PRISE EN CHARGE - This is the date the VCT service referred the patient to another service. (usually same day but not always)  			
+                 - DATE PROPHYLAXIE AES - Date of HIV Prophylactic Medication due to Blood Exposure  			
+                 - DATE PROPHYLAXIE  AGRESSION  SEXUELLE - Date of HIV Prophylactic Medication due to Sexual Aggression	
+                 - REMARQUES - Comments			
+                -->
+            </p>
+        </div>
+    </section>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>

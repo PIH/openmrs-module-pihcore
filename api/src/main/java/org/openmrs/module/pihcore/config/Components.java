@@ -18,6 +18,7 @@ public class Components {
         public static final String ONCOLOGY = "oncology";
         public static final String NCD = "ncd";
         public static final String HIV = "hiv";
+        public static final String VCT = "vct";
         public static final String MENTAL_HEALTH = "mentalHealth";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";

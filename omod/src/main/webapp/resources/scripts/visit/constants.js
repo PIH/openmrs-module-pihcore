@@ -465,15 +465,10 @@ angular.module('constants', [])
         },
         zlHivFollowup: {
             uuid: "c31d3312-40c4-11e7-a919-92ebcb67fe33"
-        }
-        /* Removed Adult/Peds versions
-        zlHivIntakePeds: {
-            uuid: "c31d3416-40c4-11e7-a919-92ebcb67fe33"
         },
-        zlHivFollowupPeds: {
-            uuid: "c31d34f2-40c4-11e7-a919-92ebcb67fe33"
+        vct: {
+            uuid: "616b66fe-f189-11e7-8c3f-9a214cf093ae"
         }
-        */
 
     })
     .value('EncounterRoles', {
