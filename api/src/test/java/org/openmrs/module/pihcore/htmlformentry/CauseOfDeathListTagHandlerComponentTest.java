@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptName;
+import org.openmrs.ConceptSource;
 import org.openmrs.Encounter;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Obs;
@@ -17,6 +18,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.htmlformentry.RegressionTestHelper;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
 public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleContextSensitiveTest {
 
@@ -52,6 +55,9 @@ public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleContextSe
     @Before
     public void setUp() throws Exception {
 
+        ConceptSource ciel = conceptSource("CIEL", "Columbia International eHealth Laboratory concept ID", null, CoreConceptMetadataBundle.ConceptSources.CIEL);
+        conceptService.saveConceptSource(ciel);
+
         Context.setLocale(new Locale("en"));  // for some reason, one of the other tests leaves the context dirty, and the locale set to "fr", which causes the tests to fail when matching obs
         unknownConcept = testData.concept().datatype("N/A").conceptClass("Misc")
                 .name("Unknown Concept").save();
@@ -64,7 +70,7 @@ public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleContextSe
         nonCodedCauseConcept = testData.concept().datatype("Text").conceptClass("Misc")
                 .name("Probable cause of death (text)").mapping("SAME-AS", "CIEL:160218").save();
 
-        sequenceConcept = testData.concept().datatype("Numeric").conceptClass("Misc")
+        sequenceConcept = testData.conceptNumeric().datatype("Numeric").conceptClass("Misc")
                 .name("DIAGNOSIS SEQUENCE NUMBER").mapping("SAME-AS", "CIEL:1815").save();
 
         groupingConcept = testData.concept().datatype("N/A").conceptClass("Misc")
@@ -134,16 +140,16 @@ public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleContextSe
                 results.assertObsGroupCreatedCount(4);
                 results.assertObsGroupCreated(groupingConcept.getConceptId(),
                         codedCauseConcept.getId(), causeOne,
-                        sequenceConcept.getId(), Double.valueOf(1));
+                        sequenceConcept.getId(), 1);
                 results.assertObsGroupCreated(groupingConcept.getConceptId(),
                         codedCauseConcept.getId(), causeTwo,
-                        sequenceConcept.getId(), Double.valueOf(2));
+                        sequenceConcept.getId(), 2);
                 results.assertObsGroupCreated(groupingConcept.getConceptId(),
                         nonCodedCauseConcept.getId(), causeThree,
-                        sequenceConcept.getId(), Double.valueOf(3));
+                        sequenceConcept.getId(), 3);
                 results.assertObsGroupCreated(groupingConcept.getConceptId(),
                         codedCauseConcept.getId(), causeFour,
-                        sequenceConcept.getId(), Double.valueOf(4));
+                        sequenceConcept.getId(), 4);
                 assertThat(results.getPatient().getCauseOfDeath(), is(causeFour));
             }
 
@@ -177,13 +183,13 @@ public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleContextSe
                 results.assertObsGroupCreatedCount(3);
                 results.assertObsGroupCreated(groupingConcept.getConceptId(),
                         codedCauseConcept.getId(), causeOne,
-                        sequenceConcept.getId(), Double.valueOf(1));
+                        sequenceConcept.getId(),1);
                 results.assertObsGroupCreated(groupingConcept.getConceptId(),
                         codedCauseConcept.getId(), editedCauseTwo,
-                        sequenceConcept.getId(), Double.valueOf(2));
+                        sequenceConcept.getId(), 2);
                 results.assertObsGroupCreated(groupingConcept.getConceptId(),
                         nonCodedCauseConcept.getId(), editedCauseThree,
-                        sequenceConcept.getId(), Double.valueOf(3));
+                        sequenceConcept.getId(), 3);
                 assertThat(results.getPatient().getCauseOfDeath(), is(unknownConcept));
             }
 

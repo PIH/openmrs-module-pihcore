@@ -18,7 +18,7 @@ import org.openmrs.Concept;
 import org.openmrs.EncounterType;
 import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
-import org.openmrs.layout.web.address.AddressSupport;
+import org.openmrs.layout.address.AddressSupport;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.config.Config;

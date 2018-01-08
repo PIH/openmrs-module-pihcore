@@ -3,7 +3,7 @@ package org.openmrs.module.pihcore.deploy.bundle;
 import org.apache.commons.io.IOUtils;
 import org.openmrs.api.SerializationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.layout.web.address.AddressTemplate;
+import org.openmrs.layout.address.AddressTemplate;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.addresshierarchy.util.AddressHierarchyImportUtil;
