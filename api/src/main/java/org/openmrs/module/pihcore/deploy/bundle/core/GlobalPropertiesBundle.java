@@ -63,7 +63,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(OpenmrsConstants.GP_PASSWORD_REQUIRES_NON_DIGIT, "false");
         properties.put(OpenmrsConstants.GP_PASSWORD_REQUIRES_UPPER_AND_LOWER_CASE, "false");
         properties.put(OpenmrsConstants.GLOBAL_PROPERTY_PATIENT_NAME_REGEX, "");
-        //properties.put(OpenmrsConstants.GP_CASE_SENSITIVE_DATABASE_STRING_COMPARISON, "false");
+        properties.put(OpenmrsConstants.GP_CASE_SENSITIVE_DATABASE_STRING_COMPARISON, "false");
 
 
         // Html Form Entry

@@ -185,7 +185,10 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
     }
 
 
+    // this restriction has been relaxed in Core 2.x  A "non-preferred" patient can now have orders as long as they aren't of the same type as those of the preferred patient
+    // ignoring this test, should eventually remove but keeping it around for now
     @Test
+    @Ignore
     public void shouldFailToMergePatientsWhenNonPreferredPatientHasDrugOrders()
             throws Exception {
 
