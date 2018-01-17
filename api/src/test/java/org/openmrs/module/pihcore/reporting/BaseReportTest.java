@@ -90,7 +90,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
 
     @Before
     public void setup() throws Exception {
-        setAutoIncrementOnConceptTable();  // TODO replace with utility method added to core once that is complete
+        setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
         deployService.installBundle(encounterTypeBundle);
@@ -148,12 +148,5 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         return pb.address(a);
     }
 
-    private void setAutoIncrementOnConceptTable() throws Exception {
-        List<String> tables = Arrays.asList("concept");
-        for (String table : tables) {
-            getConnection().prepareStatement("ALTER TABLE " + table + " ALTER COLUMN " + table + "_id INT AUTO_INCREMENT")
-                    .execute();
-        }
-    }
 
 }
