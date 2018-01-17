@@ -35,6 +35,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.List;
 
 ;
@@ -42,7 +43,7 @@ import java.util.List;
 /**
  * Sets up basic Mirebalais metadata (instead of the standardTestDataset.xml from openmrs-core)
  */
-@SkipBaseSetup // because of TRUNK-4051, this annotation will not be picked up, and you need to declare this on your concrete subclass
+@SkipBaseSetup
 public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
@@ -89,6 +90,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
 
     @Before
     public void setup() throws Exception {
+        setAutoIncrementOnConceptTable();  // TODO replace with utility method added to core once that is complete
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
         deployService.installBundle(encounterTypeBundle);
@@ -144,6 +146,14 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
             index++;
         }
         return pb.address(a);
+    }
+
+    private void setAutoIncrementOnConceptTable() throws Exception {
+        List<String> tables = Arrays.asList("concept");
+        for (String table : tables) {
+            getConnection().prepareStatement("ALTER TABLE " + table + " ALTER COLUMN " + table + "_id INT AUTO_INCREMENT")
+                    .execute();
+        }
     }
 
 }

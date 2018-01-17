@@ -124,6 +124,7 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
 
     private void verifyGlobalPropertiesConfigured() throws Exception {
         assertEquals("fr", adminService.getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_LOCALE));
+        assertEquals("ht, fr, en", adminService.getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST));
     }
 
     private void verifyDatetimeFormatting() {

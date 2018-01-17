@@ -56,7 +56,7 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
         Assert.assertEquals(45.4, row.getColumnValue("WEIGHT_KG"));
         Assert.assertEquals(152.4, row.getColumnValue("HEIGHT_CM"));
         Assert.assertEquals(19.5, row.getColumnValue("BMI"));
-        Assert.assertEquals(25.0, row.getColumnValue("MUAC"));
+        Assert.assertEquals(65.0, row.getColumnValue("MUAC"));
         Assert.assertEquals(35.5, row.getColumnValue("TEMP_C"));
         Assert.assertEquals(120.0, row.getColumnValue("HEART_RATE"));
         Assert.assertEquals(80.0, row.getColumnValue("RESP_RATE"));
@@ -77,7 +77,7 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
 
         eb.obs(Metadata.getConcept("PIH:WEIGHT (KG)"), 45.4);
         eb.obs(Metadata.getConcept("PIH:HEIGHT (CM)"), 152.4);
-        eb.obs(Metadata.getConcept("PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)"), 25);
+        eb.obs(Metadata.getConcept("PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)"), 65);
         eb.obs(Metadata.getConcept("PIH:TEMPERATURE (C)"), 35.5);
         eb.obs(Metadata.getConcept("PIH:PULSE"), 120);
         eb.obs(Metadata.getConcept("PIH:RESPIRATORY RATE"), 80);

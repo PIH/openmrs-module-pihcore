@@ -29,6 +29,7 @@ import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
+import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
 
@@ -60,6 +61,7 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
 	}
 
 	public static final String DEFAULT_LOCALE = "fr";
+ 	public static final String ALLOWED_LOCALES = "ht, fr, en";
     private static final String REGISTRATION_ENCOUNTER_NAME = "Enregistrement de patient";
     private static final String CHECK_IN_ENCOUNTER_NAME = "Inscription";
     private static final String PRIMARY_CARE_VISIT_ENCOUNTER_NAME = "Consultation soins de base";
@@ -80,8 +82,17 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
 		Map<String, String> properties = new LinkedHashMap<String, String>();
 		
 		// OpenMRS Core
-		properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, "ht, fr, en");
+		// (we have to do this rigamarole because of new validations in 2.x that confirms that the allowed list contains the default locale, making it a two-step process to change)
+		if (ALLOWED_LOCALES.contains(LocaleUtility.getDefaultLocale().toString())) {
+			properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, ALLOWED_LOCALES);
+		}
+		else {
+			properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, ALLOWED_LOCALES +", " + LocaleUtility.getDefaultLocale().toString());
+		}
 		properties.put(OpenmrsConstants.GLOBAL_PROPERTY_DEFAULT_LOCALE, DEFAULT_LOCALE);
+		setGlobalProperties(properties);
+
+		properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, ALLOWED_LOCALES);
 
 
 		// EMR API

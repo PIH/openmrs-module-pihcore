@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.openmrs.layout.web.name.NameSupport;
-import org.openmrs.layout.web.name.NameTemplate;
+import org.openmrs.layout.name.NameSupport;
+import org.openmrs.layout.name.NameTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;

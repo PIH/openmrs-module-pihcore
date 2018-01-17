@@ -34,7 +34,7 @@ public class CloseStaleVisitsSetup {
             // if you modify any of the properties above, you also need to set them here, in order to update existing servers
             boolean changed = GeneralUtils.setPropertyIfDifferent(task, "taskClass", PihCloseStaleVisitsTask.class.getName());
             if (changed) {
-                schedulerService.saveTask(task);
+                schedulerService.saveTaskDefinition(task);
             }
 
             if (!task.getStarted()) {
