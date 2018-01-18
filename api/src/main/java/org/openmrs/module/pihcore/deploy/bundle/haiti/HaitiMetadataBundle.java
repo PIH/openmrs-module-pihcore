@@ -83,6 +83,7 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
 		
 		// OpenMRS Core
 		// (we have to do this rigamarole because of new validations in 2.x that confirms that the allowed list contains the default locale, making it a two-step process to change)
+		// (this is also a direct copy of code in LiberiaMetadataBundle, we should abstract this out)
 		if (ALLOWED_LOCALES.contains(LocaleUtility.getDefaultLocale().toString())) {
 			properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, ALLOWED_LOCALES);
 		}
