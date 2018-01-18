@@ -55,6 +55,8 @@ public class Config {
         return descriptor.getVisitsPageWithSpecificUrl();
     }
 
+    public String getPrimaryIdentifierPrefix() { return descriptor.getPrimaryIdentifierPrefix(); }
+
     public String getProviderIdentifierPrefix() { return descriptor.getProviderIdentifierPrefix(); }
 
     public String getDossierIdentifierPrefix() {

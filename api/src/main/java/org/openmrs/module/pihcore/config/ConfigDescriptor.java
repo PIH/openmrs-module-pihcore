@@ -61,6 +61,9 @@ public class ConfigDescriptor {
     private List<String> components;
 
     @JsonProperty
+    private String primaryIdentifierPrefix;
+
+    @JsonProperty
     private String providerIdentifierPrefix;
 
     @JsonProperty
@@ -167,6 +170,14 @@ public class ConfigDescriptor {
 
     public void setComponents(List<String> components) {
         this.components = components;
+    }
+
+    public String getPrimaryIdentifierPrefix() {
+        return primaryIdentifierPrefix;
+    }
+
+    public void setPrimaryIdentifierPrefix(String primaryIdentifierPrefix) {
+        this.primaryIdentifierPrefix = primaryIdentifierPrefix;
     }
 
     public String getProviderIdentifierPrefix() {
