@@ -22,7 +22,7 @@ public class PatientIdentifierSetup {
             ConfigureHaitiIdGenerators.createDossierNumberGenerator(locationService, configureHaitiIdGenerators, config);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            ConfigureLiberiaIdGenerators.configureGenerators(identifierSourceService);
+            ConfigureLiberiaIdGenerators.configureGenerators(identifierSourceService, config);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             ConfigureSierraLeoneIdGenerators.configureGenerators(identifierSourceService);
