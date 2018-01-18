@@ -60,7 +60,7 @@ public class ConfigLoader {
                     String configFilename = "pih-config-" + config.trim() + ".json";
 
                     // first see if is in the .OpenMRS directory (which will override any file of the same name on the classpath)
-                    File configFile = new File(OpenmrsUtil.getApplicationDataDirectory() + File.separatorChar + config);
+                    File configFile = new File(OpenmrsUtil.getApplicationDataDirectory() + File.separatorChar + configFilename);
 
                     if (configFile.exists()) {
                         try {
