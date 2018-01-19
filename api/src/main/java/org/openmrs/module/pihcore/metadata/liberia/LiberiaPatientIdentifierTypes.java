@@ -12,4 +12,11 @@ public class LiberiaPatientIdentifierTypes {
         public Class<? extends IdentifierValidator> validator() { return null; }
     };
 
+    public static PatientIdentifierTypeDescriptor SAMPLE_DOSSIER_NUMBER_ID = new PatientIdentifierTypeDescriptor() {
+        public String uuid() { return "c31b0dd2-b484-41f0-8fce-bbe72e07843c"; }
+        public String name() { return "Sample Dossier Number"; }
+        public String description() { return "A sample dossier number used for demo purposes" ; }
+        public Class<? extends IdentifierValidator> validator() { return null; }
+    };
+
 }

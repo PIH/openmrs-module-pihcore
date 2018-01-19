@@ -24,8 +24,11 @@ public class LocationTagSetup {
     public static void setupLocationTags(LocationService locationService, Config config) {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            if (config.getSite().equals(ConfigDescriptor.Site.PLEEBO) || (config.getSite().equals(ConfigDescriptor.Site.HARPER))) {
+            if (config.getSite().equals(ConfigDescriptor.Site.PLEEBO)) {
                 setupLocationTagsForPleebo(locationService);
+            }
+            if (config.getSite().equals(ConfigDescriptor.Site.HARPER)) {
+                setupLocationTagsForHarper(locationService);
             }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
@@ -58,6 +61,37 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
     }
+
+    private static void setupLocationTagsForHarper(LocationService locationService) {
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.ORDER_PATHOLOGY_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.ONCOLOGY_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.CHEMOTHERAPY_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+    }
+
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.LACOLLINE);
