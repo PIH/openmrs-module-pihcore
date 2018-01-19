@@ -20,7 +20,7 @@ public class ConfigDescriptor {
 
     public enum Site {
         MIREBALAIS, LACOLLINE, THOMONDE, ZLTRAINING,
-        PLEEBO, OTHER, CROSS_SITE
+        PLEEBO, HARPER, OTHER, CROSS_SITE
     }
 
     public enum Specialty {
