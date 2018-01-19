@@ -24,7 +24,7 @@ public class LocationTagSetup {
     public static void setupLocationTags(LocationService locationService, Config config) {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            if (config.getSite().equals(ConfigDescriptor.Site.PLEEBO)) {
+            if (config.getSite().equals(ConfigDescriptor.Site.PLEEBO) || (config.getSite().equals(ConfigDescriptor.Site.HARPER))) {
                 setupLocationTagsForPleebo(locationService);
             }
         }
