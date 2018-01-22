@@ -5,8 +5,10 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
+import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
@@ -46,6 +48,8 @@ public class LiberiaMetadataBundle extends AbstractMetadataBundle {
         properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, ALLOWED_LOCALES);
 
         // Core Apps
+
+        properties.put(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, LiberiaPatientIdentifierTypes.SAMPLE_DOSSIER_NUMBER_ID.uuid());
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, LiberiaLocations.PLEEBO.uuid());
 
         setGlobalProperties(properties);
