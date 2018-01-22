@@ -6,7 +6,6 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiProgramsBundle;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsConstants;
@@ -17,7 +16,6 @@ import java.util.Map;
 
 @Component
 @Requires({ PihCoreMetadataBundle.class,
-            PihHaitiProgramsBundle.class,  // do we really want this long-term?
             LiberiaLocationsBundle.class,
             LiberiaPatientIdentifierTypeBundle.class,
             LiberiaAddressBundle.class } )
