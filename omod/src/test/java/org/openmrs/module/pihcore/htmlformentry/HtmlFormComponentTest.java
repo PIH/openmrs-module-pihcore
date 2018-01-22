@@ -66,10 +66,10 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
                 //"outpatientConsult.xml",
                 //"edNote.xml",
                 "deathCertificate.xml",
-                "haiti/section-history.xml",
+                "section-history.xml",
                 // TODO fix so this test passes
                 //"haiti/section-exam.xml",
-                "haiti/section-dx.xml",
+                "section-dx.xml",
                 //"haiti/checkin.xml",
                 //"haiti/liveCheckin.xml",
                 "haiti/patientRegistration-contact.xml",
