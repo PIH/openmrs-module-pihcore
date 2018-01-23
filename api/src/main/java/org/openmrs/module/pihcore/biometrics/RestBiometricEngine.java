@@ -20,6 +20,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -93,6 +94,7 @@ public class RestBiometricEngine implements BiometricEngine {
     public List<BiometricMatch> search(BiometricSubject subject) {
         List<BiometricMatch> ret = new ArrayList<BiometricMatch>();
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         String url = getMatchUrl();
         ResponseEntity<List> response = restTemplate.postForEntity(url, subject, List.class);
         if (HttpStatus.OK.equals(response.getStatusCode())) {
