@@ -20,12 +20,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Base implementation of a Biometric Engine that is accessible over HTTP via REST
@@ -35,8 +35,6 @@ public class RestBiometricEngine implements BiometricEngine {
 
     @Autowired
     Config config;
-
-    RestTemplate restTemplate = new RestTemplate();
 
     public String getSubjectUrl() {
         return config.getBiometricsConfig().getSubjectUrl();
@@ -56,6 +54,7 @@ public class RestBiometricEngine implements BiometricEngine {
 
     @Override
     public BiometricSubject enroll(BiometricSubject subject) {
+        RestTemplate restTemplate = new RestTemplate();
         String url = getSubjectUrl();
         ResponseEntity<BiometricSubject> response = restTemplate.postForEntity(url, subject, BiometricSubject.class);
         if (HttpStatus.OK.equals(response.getStatusCode()) || HttpStatus.CREATED.equals(response.getStatusCode())) {
@@ -68,6 +67,7 @@ public class RestBiometricEngine implements BiometricEngine {
 
     @Override
     public BiometricSubject update(BiometricSubject subject) {
+        RestTemplate restTemplate = new RestTemplate();
         String url = getSubjectUrl();
         ResponseEntity<BiometricSubject> response = restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<BiometricSubject>(subject), BiometricSubject.class);
         if (HttpStatus.OK.equals(response.getStatusCode()) || HttpStatus.CREATED.equals(response.getStatusCode())) {
@@ -93,7 +93,8 @@ public class RestBiometricEngine implements BiometricEngine {
     @Override
     public List<BiometricMatch> search(BiometricSubject subject) {
         List<BiometricMatch> ret = new ArrayList<BiometricMatch>();
-
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         String url = getMatchUrl();
         ResponseEntity<List> response = restTemplate.postForEntity(url, subject, List.class);
         if (HttpStatus.OK.equals(response.getStatusCode())) {
@@ -111,6 +112,7 @@ public class RestBiometricEngine implements BiometricEngine {
 
     @Override
     public BiometricSubject lookup(String subjectId) {
+        RestTemplate restTemplate = new RestTemplate();
         String url = getSubjectUrl() + "/" + subjectId;
         ResponseEntity<BiometricSubject> response = restTemplate.getForEntity(url, BiometricSubject.class);
         if (HttpStatus.OK.equals(response.getStatusCode())) {
@@ -126,6 +128,7 @@ public class RestBiometricEngine implements BiometricEngine {
 
     @Override
     public void delete(String subjectId) {
+        RestTemplate restTemplate = new RestTemplate();
         String url = getSubjectUrl() + "/" + subjectId;
         restTemplate.delete(url);
     }
