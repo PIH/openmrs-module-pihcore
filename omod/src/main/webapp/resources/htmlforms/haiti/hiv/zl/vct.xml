@@ -86,18 +86,18 @@
         }
 
         form input[type="checkbox"], form input[type="radio"], .form input[type="checkbox"], .form input[type="radio"] {
-            float: none;
-            display: inline-block;
+        float: none;
+        display: inline-block;
         }
 
         form label, .form label {
-            display: inline-block;
+        display: inline-block;
         }
 
         .two-columns {
-            column-count: 2;
-            -webkit-column-count: 2;
-            -moz-column-count: 2;
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
         }
 
     </style>
@@ -262,7 +262,9 @@
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:163276"
                                  answerCode="pihcore.hxSyphilis"
-                                 style="checkbox"/><br/><br/>
+                                 style="checkbox"/>
+                            <br/>
+                            <br/>
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:156660"
                                  answerCode="pihcore.hxOtherSTI"
@@ -279,34 +281,39 @@
 
                     <div id="risky">
                         <div class="two-columns">
-                        <span style="padding-left:30px;"></span>
-                        <obs conceptId="PIH:11535"
-                             answerConceptId="CIEL:159218"
-                             answerCode="pihcore.withoutCondom"
-                             style="checkbox"/><br/>
                             <span style="padding-left:30px;"></span>
-                        <obs conceptId="PIH:11535"
-                             answerConceptId="CIEL:163278"
-                             answerCode="pihcore.analSex"
-                             style="checkbox"/><br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:159218"
+                                 answerCode="pihcore.withoutCondom"
+                                 style="checkbox"/>
+                            <br/>
                             <span style="padding-left:30px;"></span>
-                        <obs conceptId="PIH:11535"
-                             answerConceptId="CIEL:160578"
-                             answerCode="pihcore.homoSexual"
-                             style="checkbox"/><br/>
-                        <obs conceptId="PIH:11535"
-                             answerConceptId="CIEL:160580"
-                             answerCode="pihcore.withSexWorker"
-                             style="checkbox"/><br/>
-                        <obs conceptId="PIH:11535"
-                             answerConceptId="PIH:11534"
-                             answerCode="pihcore.withIvDrugUser"
-                             style="checkbox"/><br/>
-                        <obs conceptId="PIH:11535"
-                             answerConceptId="CIEL:163289"
-                             answerCode="pihcore.hivSexPartner"
-                             style="checkbox"/>
-                    </div>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:163278"
+                                 answerCode="pihcore.analSex"
+                                 style="checkbox"/>
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:160578"
+                                 answerCode="pihcore.homoSexual"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:160580"
+                                 answerCode="pihcore.withSexWorker"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="PIH:11534"
+                                 answerCode="pihcore.withIvDrugUser"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:163289"
+                                 answerCode="pihcore.hivSexPartner"
+                                 style="checkbox"/>
+                        </div>
                     </div>
                 </p>
 
@@ -322,7 +329,9 @@
                             <obs conceptId="PIH:11535"
                                  answerConceptId="PIH:11524"
                                  answerCode="pihcore.bloodExposureHealthWorker"
-                                 style="checkbox"/><br/><br/>
+                                 style="checkbox"/>
+                            <br/>
+                            <br/>
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:163274"
                                  answerCode="pihcore.bloodExposureOther"
@@ -346,34 +355,37 @@
 
                     <div id="refer">
                         <div class="two-columns">
-                            <!--
-                             - 6a - Par partenaire (by partner) CIEL:159381
-                             - 6b - Par mère enceinte VIH(+) (by HIV+ pregnant mother) PIH:11528
-                             - 6c - Par autre site (test de confirmation) (by other site for confirmation)
-                             - 6d - Par autre site (non accès au CDV) (by other site without VCT)
-                             - 6e - par service TB (TB confirmé) (by TB service when TB confirmed)
-                             - 6f - par service TB (TB non confirmé) (by TB service when TB not confirmed)
-                            -->
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11527"
                                  answerConceptId="CIEL:5617"
-                                 style="checkbox"/><br/>
+                                 answerCode="pihcore.referred.byPartner"
+                                 style="checkbox"/>
+                            <br/>
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11527"
                                  answerConceptId="PIH:11528"
-                                 style="checkbox"/><br/>
+                                 answerCode="pihcore.referred.byHIVmom"
+                                 style="checkbox"/>
+                            <br/>
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11527"
                                  answerConceptId="PIH:11529"
-                                 style="checkbox"/><br/>
+                                 answerCode="pihcore.referred.byOtherVCT"
+                                 style="checkbox"/>
+                            <br/>
                             <obs conceptId="PIH:11527"
                                  answerConceptId="PIH:11530"
-                                 style="checkbox"/><br/>
+                                 answerCode="pihcore.referred.byNonVCTsite"
+                                 style="checkbox"/>
+                            <br/>
                             <obs conceptId="PIH:11527"
                                  answerConceptId="PIH:11531"
-                                 style="checkbox"/><br/>
+                                 answerCode="pihcore.referred.byConfirmedTB"
+                                 style="checkbox"/>
+                            <br/>
                             <obs conceptId="PIH:11527"
                                  answerConceptId="PIH:11532"
+                                 answerCode="pihcore.referred.byNotConfirmedTB"
                                  style="checkbox"/>
                         </div>
                     </div>
@@ -398,15 +410,18 @@
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:105"
                                  answerCode="pihcore.ivDrugUser"
-                                 style="checkbox"/><br/>
+                                 style="checkbox"/>
+                            <br/>
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:1063"
-                                 style="checkbox"/><br/>
+                                 style="checkbox"/>
+                            <br/>
                             <obs conceptId="PIH:11535"
                                  answerConceptId="PIH:5555"
                                  answerCode="pihcore.marriage"
-                                 style="checkbox"/><br/>
+                                 style="checkbox"/>
+                            <br/>
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:5622"
                                  answerCode="pihcore.other"
@@ -422,43 +437,6 @@
                          answerConceptId="PIH:11533"
                          style="checkbox"/>
                 </p>
-                <!--
-                 - MOTIF DE DEPISTAGE - Reason for screening
-                    - 1 Client désireux de connaitre son statut sérologique (Patient wishes to know his/her HIV status)					
-                    - 2 Présence d'IST constatée chez le client (Patient has STD)					
-                    - 3 Activités sexuelles à risque - rapports sexuels (Patient engaged in sexual risky behavior)					
-                    - 4 Accident d'exposition au sang (AES) (Blood exposure accident)					
-                    - 5 Agression sexuelle (AS) (Sexual Assault victim)					
-                    - 6 Client Référé (Referred patient)					
-                    - 7 Test de contrôle (sur demande de personnel médical) (Controlled test on request of doctor)				
-                    - 8 Autres (Other)					
-                 - NOTES - Choose note below, that refer to the reasons above (by number)			
-                    - 1a - Partenaire VIH + (Partner HIV+)
-                    - 1b - Partenaire VIH- (Partner HIV-)		
-                    - 1c - Statut de partenaire inconnu	(Unknown partner status)	
-                    - 2a - Présence/Hx de Syphilis (Presence/history of syphilis)
-                    - 2b - Présence/Hx d'autre IST (Presence/history of STD)		
-                        - 3a - Sans condom (without condom)
-                    - 3b - Par voie anale (Anal)
-                    - 3c - Entre homme et homme (male to male)
-                    - 3d - Avec travailleur/euse du sexe (with sex worker)
-                    - 3e - Avec personne qui s’injecte la drogue (with intravenous drug user)
-                    - 3f - Avec personne VIH+ (with HIV+ person)
-                    - 4a- AES( travailleurs de santé) (health workers exposed to blood)
-                    - 4b- Autres cas que 4a (others exposed to blood)
-                    - 6a - Par partenaire (by partner)
-                    - 6b - Par mère enceinte VIH(+) (by HIV+ pregnant mother)
-                    - 6c - Par autre site (test de confirmation) (by other site for confirmation)
-                    - 6d - Par autre site (non accès au CDV) (by other site without VCT)
-                    - 6e - par service TB (TB confirmé) (by TB service when TB confirmed)
-                    - 6f  - par service TB (TB non confirmé) (by TB service when TB not confirmed)
-                    - 8a - Injection de drogues (intravenous drug user) CIEL:105
-                    - 8b - Transfusion sanguine (blood transfusion) CIEL:1063
-                    - 8c - Mariage (Marriage) PIH:5555
-                    - 8d - Autre (Other)
-
-                 - DATE PRÉ-TEST COUNSELING - date of pre-test counseling			
-                 -->
             </p>
         </div>
     </section>
@@ -557,39 +535,44 @@
 
     <section id="vct-plan" sectionTag="fieldset" headerTag="legend"
              headerStyle="title" headerCode="pihcore.plan">
-        <div class="section-container">
 
-        <div class="section-container">
-            <div class="two-columns">
-                Rx RPR <obs conceptId="PIH:11536" labelCode="pihcore.startDate" />
-                Rx RPR <obs conceptId="PIH:11537" labelCode="pihcore.endDate" />
+        <section id="rx-rpr" sectionTag="fieldset" headerTag="legend"
+                 headerStyle="title" headerCode="pihcore.RxRPR">
+            <div class="section-container">
+                <div class="two-columns">
+                    <obs conceptId="PIH:11536" labelCode="pihcore.startDate"/>
+                    <obs conceptId="PIH:11537" labelCode="pihcore.endDate"/>
+                </div>
             </div>
-        </div>
+        </section>
 
-            <p></p>
+        <p></p>
+
+        <div class="section-container">
 
             <div class="two-columns">
                 <p>
                     <label>
                         <uimessage code="pihcore.dateReferOther"/>
                     </label>
-                    <obs conceptId="PIH:11538" />
+                    <obs conceptId="PIH:11538"/>
                 </p>
 
                 <p>
                     <label>
                         <uimessage code="pihcore.dateProphylaxisBloodExpo"/>
                     </label>
-                    <obs conceptId="PIH:11539" />
+                    <obs conceptId="PIH:11539"/>
                 </p>
 
                 <p>
                     <label>
                         <uimessage code="pihcore.dateProphylaxisSexAssault"/>
                     </label>
-                    <obs conceptId="PIH:11540" />
+                    <obs conceptId="PIH:11540"/>
                 </p>
-                <br/><br/>
+                <br/>
+                <br/>
             </div>
 
             <p>
@@ -597,7 +580,7 @@
                     <uimessage code="pihcore.remarks"/>
                 </label>
 
-                <obs conceptId="CIEL:162749" rows="4" cols="40" />
+                <obs conceptId="CIEL:162749" rows="4" cols="40"/>
             </p>
         </div>
     </section>
