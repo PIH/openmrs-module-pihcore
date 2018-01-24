@@ -257,15 +257,17 @@
                          style="checkbox"/>
 
                     <div id="sti">
-                        <span style="padding-left:30px;"></span>
-                            <obs conceptId="CIEL:160581"
+                        <div class="two-columns">
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:163276"
                                  answerCode="pihcore.hxSyphilis"
+                                 style="checkbox"/><br/><br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:156660"
+                                 answerCode="pihcore.hxOtherSTI"
                                  style="checkbox"/>
-                        <obs conceptId="CIEL:160581"
-                             answerConceptId="CIEL:156660"
-                             answerCode="pihcore.hxOtherSTI"
-                             style="checkbox"/>
+                        </div>
                     </div>
                 </p>
 
@@ -278,34 +280,34 @@
                     <div id="risky">
                         <div class="two-columns">
                         <span style="padding-left:30px;"></span>
-                        <obs conceptId="CIEL:160581"
+                        <obs conceptId="PIH:11535"
                              answerConceptId="CIEL:159218"
                              answerCode="pihcore.withoutCondom"
                              style="checkbox"/><br/>
                             <span style="padding-left:30px;"></span>
-                        <obs conceptId="CIEL:160581"
+                        <obs conceptId="PIH:11535"
                              answerConceptId="CIEL:163278"
                              answerCode="pihcore.analSex"
                              style="checkbox"/><br/>
                             <span style="padding-left:30px;"></span>
-                        <obs conceptId="CIEL:160581"
+                        <obs conceptId="PIH:11535"
                              answerConceptId="CIEL:160578"
                              answerCode="pihcore.homoSexual"
                              style="checkbox"/><br/>
-                        <obs conceptId="CIEL:160581"
+                        <obs conceptId="PIH:11535"
                              answerConceptId="CIEL:160580"
                              answerCode="pihcore.withSexWorker"
                              style="checkbox"/><br/>
-                        <obs conceptId="CIEL:160581"
-                             answerConceptId="CIEL:105"
+                        <obs conceptId="PIH:11535"
+                             answerConceptId="PIH:11534"
                              answerCode="pihcore.withIvDrugUser"
                              style="checkbox"/><br/>
-                        <!-- ToDo:  Add answer to concept -->
-                        <obs conceptId="CIEL:160581"
+                        <obs conceptId="PIH:11535"
                              answerConceptId="CIEL:163289"
                              answerCode="pihcore.hivSexPartner"
                              style="checkbox"/>
-                    </div></div>
+                    </div>
+                    </div>
                 </p>
 
                 <p>
@@ -315,9 +317,17 @@
                          style="checkbox"/>
 
                     <div id="blood">
-                        <span style="padding-left:30px;"></span>
-                            more...
-                        <!-- ToDo:  Add -->
+                        <div class="two-columns">
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="PIH:11524"
+                                 answerCode="pihcore.bloodExposureHealthWorker"
+                                 style="checkbox"/><br/><br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:163274"
+                                 answerCode="pihcore.bloodExposureOther"
+                                 style="checkbox"/>
+                        </div>
                     </div>
                 </p>
 
@@ -335,9 +345,37 @@
                          style="checkbox"/>
 
                     <div id="refer">
-                        <span style="padding-left:30px;"></span>
-                            more...
-                        <!-- ToDo:  Add -->
+                        <div class="two-columns">
+                            <!--
+                             - 6a - Par partenaire (by partner) CIEL:159381
+                             - 6b - Par mère enceinte VIH(+) (by HIV+ pregnant mother) PIH:11528
+                             - 6c - Par autre site (test de confirmation) (by other site for confirmation)
+                             - 6d - Par autre site (non accès au CDV) (by other site without VCT)
+                             - 6e - par service TB (TB confirmé) (by TB service when TB confirmed)
+                             - 6f - par service TB (TB non confirmé) (by TB service when TB not confirmed)
+                            -->
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11527"
+                                 answerConceptId="CIEL:5617"
+                                 style="checkbox"/><br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11527"
+                                 answerConceptId="PIH:11528"
+                                 style="checkbox"/><br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11527"
+                                 answerConceptId="PIH:11529"
+                                 style="checkbox"/><br/>
+                            <obs conceptId="PIH:11527"
+                                 answerConceptId="PIH:11530"
+                                 style="checkbox"/><br/>
+                            <obs conceptId="PIH:11527"
+                                 answerConceptId="PIH:11531"
+                                 style="checkbox"/><br/>
+                            <obs conceptId="PIH:11527"
+                                 answerConceptId="PIH:11532"
+                                 style="checkbox"/>
+                        </div>
                     </div>
                 </p>
 
@@ -355,25 +393,33 @@
                          style="checkbox"/>
 
                     <div id="otherReason">
-                        <span style="padding-left:30px;"></span>
-                        <obs conceptId="CIEL:160581"
-                             answerConceptId="CIEL:105"
-                             answerCode="pihcore.ivDrugUser"
-                             style="checkbox"/>
-                        <!-- ToDo:  Add 2 answers -->
-                        <obs conceptId="CIEL:160581"
-                             answerConceptId="CIEL:5622"
-                             answerCode="pihcore.other"
-                             style="checkbox"/><br/>
-
+                        <div class="two-columns">
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:105"
+                                 answerCode="pihcore.ivDrugUser"
+                                 style="checkbox"/><br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:1063"
+                                 style="checkbox"/><br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="PIH:5555"
+                                 answerCode="pihcore.marriage"
+                                 style="checkbox"/><br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:5622"
+                                 answerCode="pihcore.other"
+                                 style="checkbox"
+                                 commentFieldLabel=""/>
+                        </div>
                     </div>
                 </p>
 
                 <hr/>
                 <p>
                     <obs conceptId="PIH:Type of trauma"
-                         answerConceptId="CIEL:141815"
-                         answerCode="pihcore.domesticAbuse"
+                         answerConceptId="PIH:11533"
                          style="checkbox"/>
                 </p>
                 <!--
@@ -406,13 +452,11 @@
                     - 6d - Par autre site (non accès au CDV) (by other site without VCT)
                     - 6e - par service TB (TB confirmé) (by TB service when TB confirmed)
                     - 6f  - par service TB (TB non confirmé) (by TB service when TB not confirmed)
-                    - 8a - Injection de drogues (inravenous drug user)
-                    - 8b - Transfusion sanguine (blood transfusion)
-                    - 8c - Mariage (Marriage)
+                    - 8a - Injection de drogues (intravenous drug user) CIEL:105
+                    - 8b - Transfusion sanguine (blood transfusion) CIEL:1063
+                    - 8c - Mariage (Marriage) PIH:5555
                     - 8d - Autre (Other)
-                 - VIOLENCE PHYSIQUE ET/OU EMOTIONNELLE	- Physical and/or emotional violence
-                    - Y
-                    - N		
+
                  - DATE PRÉ-TEST COUNSELING - date of pre-test counseling			
                  -->
             </p>
@@ -424,86 +468,136 @@
         <div class="section-container">
             <table>
                 <tr>
-                    <th>Test</th>
-                    <th>Test date</th>
-                    <th colspan="2">Result with result date</th>
+                    <th>
+                        Test
+                    </th>
+
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.lab.testDate"/>
+                        </label>
+                    </th>
+                    <th colspan="2">
+                        <label>
+                            <uimessage code="pihcore.lab.resultWithDate"/>
+                        </label>
+                    </th>
                 </tr>
                 <tr>
-                    <!-- ToDo:  Create convset concept for 3 tests -->
-                    <td>
-                        <uimessage code="pihcore.lab.hiv.title"/>
-                    </td>
-                    <td>
-                        <obs conceptId="CIEL:164400"/>
-                    </td>
-                    <td>
-                        <obs conceptId="CIEL:163722"
-                             answerConceptIds="CIEL:703,CIEL:664,CIEL:1138"
-                             answerCodes="pihcore.positiveSign,pihcore.negativeSign,pihcore.indeterminate"
-                             answerSeparator="&amp;nbsp;"
-                             style="radio"/>
-                    </td>
-                    <td>
-                        TBD
-                    </td>
+                    <!-- HIV test -->
+                    <obsgroup groupingConceptId="PIH:11522">
+                        <td>
+                            <uimessage code="pihcore.lab.hiv.title"/>
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:164400"/>
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:163722"
+                                 answerConceptIds="CIEL:703,CIEL:664,CIEL:1138"
+                                 answerCodes="pihcore.positiveSign,pihcore.negativeSign,pihcore.indeterminate"
+                                 answerSeparator="&amp;nbsp;"
+                                 style="radio"/>
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:160082"/>
+                        </td>
+                    </obsgroup>
                 </tr>
 
                 <tr>
-                    <!-- ToDo:  Create convset concept for 3 tests -->
-                    <td>
-                        RPR
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <obs conceptId="PIH:RPR"
-                             answerConceptIds="CIEL:703,CIEL:664"
-                             answerCodes="pihcore.positiveSign,pihcore.negativeSign"
-                             answerSeparator="&amp;nbsp;"
-                             style="radio"/>
-                    </td>
-                    <td>
-                        TBD
-                    </td>
+                    <!-- RPR test -->
+                    <obsgroup groupingConceptId="PIH:11523">
+                        <td>
+                            RPR
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:RPR"
+                                 answerConceptIds="CIEL:703,CIEL:664"
+                                 answerCodes="pihcore.positiveSign,pihcore.negativeSign"
+                                 answerSeparator="&amp;nbsp;"
+                                 style="radio"/>
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:Date of test results"/>
+                        </td>
+                    </obsgroup>
                 </tr>
-
             </table>
 
             <br/>
 
-            <!-- DATE POST-TEST - Date of post-test counseling.	-->
-            <p>
-                <strong>
-                    <uimessage code="pihcore.lab.datePostTest"/>
-                </strong>
-                <!-- ToDo: Add concept -->
-            </p>
+            <!-- DATE POST-TEST - Date of post-test counseling	-->
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.lab.datePostTest"/>
+                    </label>
+                    <obs conceptId="PIH:11525"/>
+                </p>
 
-            <!-- DATE ÉVALUATION TB - Date of TB test	-->
-            <p>
-                <strong>
-                    <uimessage code="pihcore.lab.dateTBtest"/>
-                </strong>
-                <!-- ToDo: Is this the correct test? -->
-                <!-- ToDo: Add concept -->
-                <obs conceptId="PIH:TUBERCULOSIS SMEAR RESULT"/>
-            </p>
+                <!-- DATE ÉVALUATION TB - Date of TB test	-->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.lab.dateTBtest"/>
+                    </label>
+
+                    <obs conceptId="PIH:11526"/>
+
+                    <!-- ToDo: Is this the correct test? Don't you want a result?
+                        <obs conceptId="PIH:TUBERCULOSIS SMEAR RESULT"/>
+                        -->
+                </p>
+            </div>
         </div>
     </section>
 
     <section id="vct-plan" sectionTag="fieldset" headerTag="legend"
              headerStyle="title" headerCode="pihcore.plan">
         <div class="section-container">
+
+        <div class="section-container">
+            <div class="two-columns">
+                Rx RPR <obs conceptId="PIH:11536" labelCode="pihcore.startDate" />
+                Rx RPR <obs conceptId="PIH:11537" labelCode="pihcore.endDate" />
+            </div>
+        </div>
+
+            <p></p>
+
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.dateReferOther"/>
+                    </label>
+                    <obs conceptId="PIH:11538" />
+                </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.dateProphylaxisBloodExpo"/>
+                    </label>
+                    <obs conceptId="PIH:11539" />
+                </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.dateProphylaxisSexAssault"/>
+                    </label>
+                    <obs conceptId="PIH:11540" />
+                </p>
+                <br/><br/>
+            </div>
+
             <p>
-                <!--
-                 - DATE Rx RPR - Date of RPR Medication  
-                    - DEBUT - Start date
-                    - FIN - End date
-                 - DATE RÉFÉRENCE  SERVICE  PRISE EN CHARGE - This is the date the VCT service referred the patient to another service. (usually same day but not always)  			
-                 - DATE PROPHYLAXIE AES - Date of HIV Prophylactic Medication due to Blood Exposure  			
-                 - DATE PROPHYLAXIE  AGRESSION  SEXUELLE - Date of HIV Prophylactic Medication due to Sexual Aggression	
-                 - REMARQUES - Comments			
-                -->
+                <label>
+                    <uimessage code="pihcore.remarks"/>
+                </label>
+
+                <obs conceptId="CIEL:162749" rows="4" cols="40" />
             </p>
         </div>
     </section>
