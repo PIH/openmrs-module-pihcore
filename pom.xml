@@ -81,7 +81,7 @@
         <registrationcoreVersion>1.8.0</registrationcoreVersion>
         <registrationappVersion>1.10.0</registrationappVersion>
         <radiologyappVersion>1.2</radiologyappVersion>
-        <coreappsVersion>1.18.0</coreappsVersion>
+        <coreappsVersion>1.19.0-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.13</webservicesRestVersion>
         <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.2</appointmentschedulinguiVersion>
@@ -92,7 +92,6 @@
         <chartsearchVersion>1.5</chartsearchVersion>
         <attachmentsVersion>2.0.0-SNAPSHOT</attachmentsVersion>
         <labtrackingappVersion>1.0.0-SNAPSHOT</labtrackingappVersion>
-        <conditionuiVersion>1.0.0-SNAPSHOT</conditionuiVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -399,12 +398,6 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>labtrackingapp-api</artifactId>
             <version>${labtrackingappVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>conditionui-api</artifactId>
-            <version>${conditionuiVersion}</version>
             <scope>provided</scope>
         </dependency>
 
