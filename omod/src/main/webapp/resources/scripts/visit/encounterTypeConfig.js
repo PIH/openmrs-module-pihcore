@@ -613,7 +613,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        // VCT
+        // CT
         encounterTypeConfig[EncounterTypes.vct.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
