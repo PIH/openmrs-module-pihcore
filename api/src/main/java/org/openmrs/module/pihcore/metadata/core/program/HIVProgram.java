@@ -9,16 +9,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_CONCEPT_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_ON_ART_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_OUTCOMES_CONCEPT_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_PRE_ART_UUID;
-import static org.openmrs.module.pihcore.PihCoreConstants.HIV_PROGRAM_TREATMENT_STATUS_UUID;
+import static org.openmrs.module.pihcore.PihCoreConstants.*;
 
 public class HIVProgram {
 
-    public static ProgramWorkflowStateDescriptor HIV_PRE_ART = new ProgramWorkflowStateDescriptor() {
-        public String conceptUuid() { return HIV_PROGRAM_PRE_ART_UUID; }
+    public static ProgramWorkflowStateDescriptor HIV_TRANSITION = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return HIV_PROGRAM_TRANSITION_UUID; }
         // TODO what exactly do initial and terminal mean again and what should these be?
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
@@ -36,7 +32,8 @@ public class HIVProgram {
     public static ProgramWorkflowDescriptor TREATMENT_STATUS = new ProgramWorkflowDescriptor() {
         public String conceptUuid() { return HIV_PROGRAM_TREATMENT_STATUS_UUID; }
         public String uuid() { return "f5022f7d-cdb2-491c-9f06-4f87c9877d17"; }
-        @Override public Set<ProgramWorkflowStateDescriptor> states() { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(HIV_PRE_ART, HIV_ON_ART)); }
+        @Override public Set<ProgramWorkflowStateDescriptor> states()
+        { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(HIV_TRANSITION, HIV_ON_ART)); }
     };
 
     public static ProgramDescriptor HIV = new ProgramDescriptor() {
