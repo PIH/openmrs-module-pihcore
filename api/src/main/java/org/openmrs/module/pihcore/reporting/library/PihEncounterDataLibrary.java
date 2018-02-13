@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.reporting.library;
 import org.openmrs.Concept;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.reporting.data.converter.DataConverter;
+import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.encounter.definition.AgeAtEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.AuditInfoEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.ConvertedEncounterDataDefinition;
@@ -52,7 +53,7 @@ public class PihEncounterDataLibrary extends BaseDefinitionLibrary<EncounterData
     public EncounterDataDefinition getEncounterProvider() {
         EncounterProviderDataDefinition epdd = new EncounterProviderDataDefinition();
         epdd.setSingleProvider(true);
-        return epdd;
+        return new ConvertedEncounterDataDefinition(epdd, new DataConverter[]{new ObjectFormatter()});
     }
 
     @DocumentedDefinition
