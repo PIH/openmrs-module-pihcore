@@ -15,7 +15,7 @@
 <htmlform id="vct" class="simple-form-ui"
           formUuid="616b6b36-f189-11e7-8c3f-9a214cf093ae"
           htmlformUuid="616b6c94-f189-11e7-8c3f-9a214cf093ae"
-          formName="Voluntary counseling and testing (VCT)"
+          formName="HIV Counseling and Testing (CT)"
           formEncounterType="616b66fe-f189-11e7-8c3f-9a214cf093ae"
           formVersion="1.0">
 
@@ -299,6 +299,7 @@
                                  answerCode="pihcore.homoSexual"
                                  style="checkbox"/>
                             <br/>
+                            <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:160580"
                                  answerCode="pihcore.withSexWorker"
@@ -313,6 +314,12 @@
                                  answerConceptId="CIEL:163289"
                                  answerCode="pihcore.hivSexPartner"
                                  style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:5567"
+                                 answerCode="pihcore.multipleSexPartners"
+                                 style="checkbox"/>
+                            <br/>
                         </div>
                     </div>
                 </p>
@@ -516,18 +523,16 @@
                     </label>
                     <obs conceptId="PIH:11525"/>
                 </p>
+                <br/>
 
                 <!-- DATE ÉVALUATION TB - Date of TB test	-->
                 <p>
                     <label>
-                        <uimessage code="pihcore.lab.dateTBtest"/>
+                        <uimessage code="pihcore.lab.evaluationTB"/>
                     </label>
 
-                    <obs conceptId="PIH:11526"/>
-
-                    <!-- ToDo: Is this the correct test? Don't you want a result?
-                        <obs conceptId="PIH:TUBERCULOSIS SMEAR RESULT"/>
-                        -->
+                    <obs conceptId="PIH:11541" answerConceptId="PIH:YES"
+                         style="checkbox"/>
                 </p>
             </div>
         </div>
@@ -540,8 +545,10 @@
                  headerStyle="title" headerCode="pihcore.RxRPR">
             <div class="section-container">
                 <div class="two-columns">
-                    <obs conceptId="PIH:11536" labelCode="pihcore.startDate"/>
-                    <obs conceptId="PIH:11537" labelCode="pihcore.endDate"/>
+                    <obs conceptId="PIH:11536" labelCode="pihcore.startDate"
+                         allowFutureDates="true" />
+                    <obs conceptId="PIH:11537" labelCode="pihcore.endDate"
+                         allowFutureDates="true" />
                 </div>
             </div>
         </section>
