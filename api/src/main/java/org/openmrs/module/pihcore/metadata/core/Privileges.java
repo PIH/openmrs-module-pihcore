@@ -324,6 +324,12 @@ public class Privileges {
         public String description() { return "Ability to enter a VCT note"; }
     };
 
+    public static PrivilegeDescriptor TASK_EMR_ENTER_SOCIO = new PrivilegeDescriptor() {
+        public String uuid() { return "de845182-11e1-11e8-b642-0ed5f89f718b"; }
+        public String privilege() { return "Task: emr.enterSocioEconomics"; }
+        public String description() { return "Ability to enter a Socio-economics note"; }
+    };
+
     public static PrivilegeDescriptor TASK_EMR_ENTER_HIV_CONSULT_NOTE = new PrivilegeDescriptor() {
         public String uuid() { return "86698b3d-b2c7-4537-9157-3c8446946a9a"; }
         public String privilege() { return "Task: emr.enterHIVConsultNote"; }

@@ -223,6 +223,12 @@ public class EncounterTypes {
 		public String description() { return "Voluntary counselling and testing (VCT) for HIV"; }
 	};
 
+	public static EncounterTypeDescriptor SOCIO_ECONOMICS  = new EncounterTypeDescriptor() {
+		public String uuid() { return "de844e58-11e1-11e8-b642-0ed5f89f718b"; }
+		public String name() { return "Socio-economics"; }
+		public String description() { return "Education and housing information on the patient"; }
+	};
+
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 

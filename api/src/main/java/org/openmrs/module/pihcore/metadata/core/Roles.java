@@ -83,6 +83,7 @@ public class Roles {
                 Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                 Privileges.TASK_EMR_ENTER_VCT,
+                Privileges.TASK_EMR_ENTER_SOCIO,
                 Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                 Privileges.TASK_EMR_ENTER_ED_NOTE,
                 Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
@@ -471,6 +472,7 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_VCT,
+                    Privileges.TASK_EMR_ENTER_SOCIO,
                     // Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
@@ -702,7 +704,8 @@ public class Roles {
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
                     Privileges.APP_EMR_OUTPATIENT_VITALS,
-                    Privileges.APP_COREAPPS_AWAITING_ADMISSION
+                    Privileges.APP_COREAPPS_AWAITING_ADMISSION,
+                    Privileges.TASK_EMR_ENTER_SOCIO
             );}
     };
 

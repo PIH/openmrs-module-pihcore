@@ -42,6 +42,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.ZL_HIV_INTAKE);
         install(EncounterTypes.ZL_HIV_FOLLOWUP);
         install(EncounterTypes.VCT);
+        install(EncounterTypes.SOCIO_ECONOMICS);
 
         uninstall(possible(EncounterType.class, AttachmentsConstants.ENCOUNTER_TYPE_UUID), "not used");
         uninstall(possible(EncounterType.class, EncounterTypes.PRIMARY_CARE_DISPOSITION.uuid()), "never used");

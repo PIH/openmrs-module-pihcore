@@ -41,8 +41,8 @@
                     <p>
 
                         <obs conceptId="PIH:Haiti insurance company name" id="insuranceName"
-                             answerConceptIds="PIH:NONE,PIH:AIC,PIH:INASSA,PIH:CAH,PIH:CONAM,PIH:Sogebank Assurance,PIH:UniAssurances,PIH:GMC Henner,PIH:CIGNA (Vanbreda),PIH:UNKNOWN,PIH:OTHER"
-                             answerCodes="zl.registration.patient.insurance.none.label,zl.registration.patient.insurance.aic.label,zl.registration.patient.insurance.inassa.label,zl.registration.patient.insurance.cah.label,zl.registration.patient.insurance.conam.label,zl.registration.patient.insurance.sogebank.label,zl.registration.patient.insurance.uniAssurances.label,zl.registration.patient.insurance.gmcHenner.label,zl.registration.patient.insurance.cigna.label,zl.registration.patient.insurance.unknown.label,zl.registration.patient.insurance.other.label"
+                             answerConceptIds="PIH:NONE,PIH:AIC,PIH:INASSA,PIH:CAH,PIH:CONAM,PIH:OFATMA,PIH:Sogebank Assurance,PIH:UniAssurances,PIH:GMC Henner,PIH:CIGNA (Vanbreda),PIH:UNKNOWN,PIH:OTHER"
+                             answerCodes="zl.registration.patient.insurance.none.label,zl.registration.patient.insurance.aic.label,zl.registration.patient.insurance.inassa.label,zl.registration.patient.insurance.cah.label,zl.registration.patient.insurance.conam.label,zl.registration.patient.insurance.ofatma.label,zl.registration.patient.insurance.sogebank.label,zl.registration.patient.insurance.uniAssurances.label,zl.registration.patient.insurance.gmcHenner.label,zl.registration.patient.insurance.cigna.label,zl.registration.patient.insurance.unknown.label,zl.registration.patient.insurance.other.label"
                              showUnits="false" unitsCssClass="append-to-value" style="dropdown" />
                     </p>
                     <div id="alternativeInsuranceCo">

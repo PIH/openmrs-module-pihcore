@@ -468,6 +468,9 @@ angular.module('constants', [])
         },
         vct: {
             uuid: "616b66fe-f189-11e7-8c3f-9a214cf093ae"
+        },
+        socioEconomics: {
+            uuid: "de844e58-11e1-11e8-b642-0ed5f89f718b"
         }
 
     })

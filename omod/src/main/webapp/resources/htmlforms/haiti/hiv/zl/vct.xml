@@ -301,8 +301,8 @@
                             <br/>
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:160580"
-                                 answerCode="pihcore.withSexWorker"
+                                 answerConceptId="CIEL:160579"
+                                 answerCode="pihcore.sexWorker"
                                  style="checkbox"/>
                             <br/>
                             <obs conceptId="PIH:11535"
@@ -318,6 +318,11 @@
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:5567"
                                  answerCode="pihcore.multipleSexPartners"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:160580"
+                                 answerCode="pihcore.withSexWorker"
                                  style="checkbox"/>
                             <br/>
                         </div>

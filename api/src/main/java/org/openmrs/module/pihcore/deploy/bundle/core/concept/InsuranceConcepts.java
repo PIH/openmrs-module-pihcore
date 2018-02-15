@@ -20,7 +20,7 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 2;
+        return 3;
     }
 
 
@@ -90,13 +90,13 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "UniAssurances").build())
                 .build());
 
-        Concept sogebankAssurance = install(new ConceptBuilder("bfa263ac-cf3d-4250-a6d4-180ce918b0ef")
+        Concept sogeAssurance = install(new ConceptBuilder("bfa263ac-cf3d-4250-a6d4-180ce918b0ef")
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("003d636f-4eb8-4895-8a23-60db0510db81", "Sogebank Assurance", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("335f7137-da23-41c9-851b-734c1412ce2e", "Sogebank Assurance", Locale.FRENCH, null) // locale-preferred
+                .name("003d636f-4eb8-4895-8a23-60db0510db81", "SOGE Assurance", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("335f7137-da23-41c9-851b-734c1412ce2e", "SOGE Assurance", Locale.FRENCH, null) // locale-preferred
                 .name("b5fdb5a1-d5b6-45c6-923f-808c571fc8af", "Société générale haïtienne de Banque", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
-                .name("a7a88d46-ab0e-4df0-b1cf-c497c96db78b", "Sogebank Assurance", locale_HAITI, null) // locale-preferred
+                .name("a7a88d46-ab0e-4df0-b1cf-c497c96db78b", "SOGE Assurance", locale_HAITI, null) // locale-preferred
                 .name("9af9a671-4ca6-4cb1-b21b-f0261612b81a", "Société générale haïtienne de Banque", locale_HAITI, ConceptNameType.FULLY_SPECIFIED)
                 .description("ab749613-15b0-4110-9d92-f7d991f5cfcb", "Haitian insurance company", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("f0b4cb9c-1a73-4df9-9bf0-de08d6f7e4f1")
@@ -166,6 +166,20 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "10729").build())
                 .build());
 
+                Concept ofatma = install(new ConceptBuilder("fb323f04-44cd-4cc0-9eb5-5c0d2c9988c7")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("72dfc07b-9007-440c-92e6-d2c674dbc4d9", "OFATMA", Locale.ENGLISH, null) // locale-preferred
+                .name("e2b966de-826c-47f5-acde-f5521b00545e", "OFATMA", Locale.FRENCH, null) // locale-preferred
+                .name("e89aa8be-78ee-41df-bbeb-310da7e9afb0", "OFATMA", locale_HAITI, null) // locale-preferred
+                .description("87361b91-29d9-472f-bd16-a92995cac380",
+                        "Office d'Assurance Accidents du Travail, Maladie et Maternité", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("7f301c49-9d51-45be-a717-203233419b19")
+                        .type(sameAs).ensureTerm(pih, "OFATMA").build())
+                .mapping(new ConceptMapBuilder("f0ff2a37-cfc5-43b4-aff2-9daebd664eeb")
+                        .type(sameAs).ensureTerm(pih, "11544").build())
+                .build());
+
         Concept haitiInsuranceCo = install(new ConceptBuilder(Concepts.HAITI_INSURANCE_COMPANY_NAME)
                 .datatype(coded)
                 .conceptClass(question)
@@ -176,7 +190,7 @@ public class InsuranceConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("18eb55fa-080b-406a-a09e-ed1378b19f1a")
                         .type(sameAs).ensureTerm(pih, "10728").build())
                 .answers(
-                        aic,inassa,cah,conam,sogebankAssurance,uniAssurances,gmcHenner,cigna,
+                        aic,inassa,cah,conam,sogeAssurance,uniAssurances,gmcHenner,cigna,ofatma,
                         none,other,unknown)
                 .build());
 
