@@ -22,11 +22,20 @@ public class ConfigLoader {
 
     public static final String PIH_CONFIGURATION_RUNTIME_PROPERTY = "pih.config";
 
+    // allows users to specify a directory other than the application data directory to look for config files
+    // helpful for developers, where you may want to point this to the appropriate directory in your local checkout
+    // of our puppet project, ie: /home/mgoodrich/openmrs/modules/mirebalais-puppet/mirebalais-modules/openmrs/files/config
+    public static final String PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY = "pih.config.dir";
+
     /**
      * @return the configuration based on runtime properties configuration, or based on default value if not found
      */
     public static String getRuntimeConfiguration(String defaultValue) {
         return Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY, defaultValue);
+    }
+
+    public static String getPihConfigurationDirRuntimeProperty(String defaultValue) {
+        return Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY, defaultValue);
     }
 
     /**
@@ -59,8 +68,10 @@ public class ConfigLoader {
                 try {
                     String configFilename = "pih-config-" + config.trim() + ".json";
 
-                    // first see if is in the .OpenMRS directory (which will override any file of the same name on the classpath)
-                    File configFile = new File(OpenmrsUtil.getApplicationDataDirectory() + File.separatorChar + configFilename);
+                    // first see if is in the .OpenMRS directory (or directory specifed in pih.config.dir runtime property)
+                    // (any file found will override any file of the same name on the classpath)
+                    String dir = getPihConfigurationDirRuntimeProperty(OpenmrsUtil.getApplicationDataDirectory());
+                    File configFile = new File(dir + File.separatorChar + configFilename);
 
                     if (configFile.exists()) {
                         try {
