@@ -65,7 +65,7 @@
         <reportingVersion>1.15.0</reportingVersion>
         <reportinguiVersion>1.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
-        <serializationxstreamVersion>0.2.13</serializationxstreamVersion>
+        <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
         <idgenVersion>4.4.1</idgenVersion>
         <namephoneticsVersion>1.6.0</namephoneticsVersion>
         <pacsintegrationVersion>1.4</pacsintegrationVersion>
