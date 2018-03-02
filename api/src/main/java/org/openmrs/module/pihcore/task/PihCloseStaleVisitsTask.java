@@ -33,8 +33,8 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private static int HUM_VISIT_EXPIRE_TIME_IN_HOURS = 24;
-    private static int ED_VISIT_EXPIRE_TIME_IN_HOURS = 48;
-    private static int ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS = 168; // 7days
+    private static int ED_VISIT_EXPIRE_TIME_IN_HOURS = 168; // 7days -- All ED visits stay open for at least 7 days
+    private static int ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS = 720; // 30 days (UHM-3009)
 
     private static final List<String> ED_LOCATION_UUIDS = Arrays.asList(MirebalaisLocations.EMERGENCY.uuid(),
             MirebalaisLocations.EMERGENCY_DEPARTMENT_RECEPTION.uuid(),
