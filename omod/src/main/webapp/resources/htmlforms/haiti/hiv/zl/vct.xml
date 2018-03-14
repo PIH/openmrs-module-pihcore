@@ -242,11 +242,35 @@
                          style="checkbox"/>
 
                     <div id="wantstoknow">
-                        <span style="padding-left:30px;"></span>
-                        <obs conceptId="CIEL:1436"
-                             answerConceptIds="CIEL:703,CIEL:664,CIEL:1138"
-                             answerCodes="pihcore.positivePartner,pihcore.negativePartner,pihcore.unknownPartner"
-                             style="radio"/>
+                        <div class="two-columns">
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="CIEL:1436"
+                                 answerConceptId="CIEL:5564"
+                                 answerCode="pihcore.suspectedPartner"
+                                 style="checkbox" />
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="CIEL:1436"
+                                 answerConceptId="PIH:5566"
+                                 answerCode="pihcore.confirmedPartner"
+                                 style="checkbox" />
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="CIEL:1436"
+                                 answerConceptId="CIEL:664"
+                                 answerCode="pihcore.negativePartner"
+                                 style="checkbox" />
+                            <br/>
+                            <obs conceptId="CIEL:1436"
+                                 answerConceptId="CIEL:1067"
+                                 answerCode="pihcore.unknownPartner"
+                                 style="checkbox" />
+                            <br/>
+                            <obs conceptId="CIEL:1436"
+                                 answerConceptId="CIEL:163609"
+                                 answerCode="pihcore.noHistoryPartner"
+                                 style="checkbox" />
+                        </div>
                     </div>
                 </p>
 
@@ -263,8 +287,7 @@
                                  answerConceptId="CIEL:163276"
                                  answerCode="pihcore.hxSyphilis"
                                  style="checkbox"/>
-                            <br/>
-                            <br/>
+                            <br/><br/>
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:156660"
                                  answerCode="pihcore.hxOtherSTI"
@@ -283,7 +306,7 @@
                         <div class="two-columns">
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:159218"
+                                 answerConceptId="PIH:11553"
                                  answerCode="pihcore.withoutCondom"
                                  style="checkbox"/>
                             <br/>
@@ -295,14 +318,8 @@
                             <br/>
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:160578"
-                                 answerCode="pihcore.homoSexual"
-                                 style="checkbox"/>
-                            <br/>
-                            <span style="padding-left:30px;"></span>
-                            <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:160579"
-                                 answerCode="pihcore.sexWorker"
+                                 answerConceptId="PIH:11554"
+                                 answerCode="pihcore.withSexWorkerWithoutCondom"
                                  style="checkbox"/>
                             <br/>
                             <obs conceptId="PIH:11535"
@@ -313,16 +330,6 @@
                             <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:163289"
                                  answerCode="pihcore.hivSexPartner"
-                                 style="checkbox"/>
-                            <br/>
-                            <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:5567"
-                                 answerCode="pihcore.multipleSexPartners"
-                                 style="checkbox"/>
-                            <br/>
-                            <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:160580"
-                                 answerCode="pihcore.withSexWorker"
                                  style="checkbox"/>
                             <br/>
                         </div>
@@ -354,7 +361,7 @@
 
                 <p>
                     <obs conceptId="CIEL:164082"
-                         answerConceptId="CIEL:126582"
+                         answerConceptId="CIEL:123160"
                          answerCode="pihcore.sexualAssault"
                          style="checkbox"/>
                 </p>
@@ -369,46 +376,132 @@
                         <div class="two-columns">
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11527"
-                                 answerConceptId="CIEL:5617"
-                                 answerCode="pihcore.referred.byPartner"
+                                 answerConceptId="PIH:11555"
+                                 answerCode="pihcore.referred.confirmationTest"
                                  style="checkbox"/>
                             <br/>
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11527"
-                                 answerConceptId="PIH:11528"
-                                 answerCode="pihcore.referred.byHIVmom"
-                                 style="checkbox"/>
-                            <br/>
-                            <span style="padding-left:30px;"></span>
-                            <obs conceptId="PIH:11527"
-                                 answerConceptId="PIH:11529"
-                                 answerCode="pihcore.referred.byOtherVCT"
-                                 style="checkbox"/>
-                            <br/>
-                            <obs conceptId="PIH:11527"
-                                 answerConceptId="PIH:11530"
-                                 answerCode="pihcore.referred.byNonVCTsite"
-                                 style="checkbox"/>
-                            <br/>
-                            <obs conceptId="PIH:11527"
-                                 answerConceptId="PIH:11531"
-                                 answerCode="pihcore.referred.byConfirmedTB"
-                                 style="checkbox"/>
-                            <br/>
-                            <obs conceptId="PIH:11527"
-                                 answerConceptId="PIH:11532"
-                                 answerCode="pihcore.referred.byNotConfirmedTB"
+                                 answerConceptId="PIH:11556"
+                                 answerCode="pihcore.referred.verificationTest"
                                  style="checkbox"/>
                         </div>
                     </div>
                 </p>
 
                 <p>
-                    <obs conceptId="CIEL:164082"
-                         answerConceptId="PIH:11520"
-                         answerCode="pihcore.controlTest"
+                    <obs conceptId="CIEL:164082" toggle="contactindex"
+                         answerConceptId="PIH:11557"
+                         answerCode="pihcore.referenceContacts"
                          style="checkbox"/>
+
+                    <div id="contactindex">
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11527"
+                                 answerConceptId="PIH:11558"
+                                 answerCode="pihcore.indexCase"
+                                 style="checkbox"/>
+                    </div>
                 </p>
+
+                <p>
+                    <obs conceptId="CIEL:164082" toggle="recommend"
+                         answerConceptId="PIH:11559"
+                         answerCode="pihcore.serviceRecommend"
+                         style="checkbox"/>
+
+                    <div id="recommend">
+                        <div class="two-columns">
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="PIH:9358"
+                                 style="checkbox"/>
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="PIH:68"
+                                 style="checkbox"/>
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="PIH:7813"
+                                 style="checkbox"/>
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="PIH:11532"
+                                 answerCode="pihcore.tbNotConfirmed"
+                                 style="checkbox" />
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="PIH:11531"
+                                 answerCode="pihcore.tbConfirmed"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="CIEL:5485"
+                                 answerCode="pihcore.hospitalized"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="CIEL:5622"
+                                 answerCode="pihcore.otherService"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="PIH:1786"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11559"
+                                 answerConceptId="PIH:6139"
+                                 answerCode="pihcore.orphan"
+                                 style="checkbox"/>
+                            <br/>
+
+                        </div>
+                    </div>
+                </p>
+
+                <p>
+                    <obs conceptId="CIEL:164082" toggle="hiPops"
+                         answerConceptId="PIH:11560"
+                         answerCode="pihcore.highRiskPopulations"
+                         style="checkbox"/>
+
+                    <div id="hiPops">
+                        <div class="two-columns">
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:160578"
+                                 answerCode="pihcore.homoSexual"
+                                 style="checkbox"/>
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:160579"
+                                 answerCode="pihcore.sexWorker"
+                                 style="checkbox"/>
+                            <br/>
+                            <span style="padding-left:30px;"></span>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="PIH:11561"
+                                 answerCode="pihcore.transgender"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:156761"
+                                 answerCode="pihcore.prisoner"
+                                 style="checkbox"/>
+                            <br/>
+                            <obs conceptId="PIH:11535"
+                                 answerConceptId="CIEL:105"
+                                 answerCode="pihcore.ivDrugUser"
+                                 style="checkbox"/>
+                        </div>
+                    </div>
+                </p>
+
 
                 <p>
                     <obs conceptId="CIEL:164082" toggle="otherReason"
@@ -420,15 +513,10 @@
                         <div class="two-columns">
                             <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:105"
-                                 answerCode="pihcore.ivDrugUser"
-                                 style="checkbox"/>
-                            <br/>
-                            <span style="padding-left:30px;"></span>
-                            <obs conceptId="PIH:11535"
                                  answerConceptId="CIEL:1063"
                                  style="checkbox"/>
                             <br/>
+                            <span style="padding-left:30px;"></span>
                             <obs conceptId="PIH:11535"
                                  answerConceptId="PIH:5555"
                                  answerCode="pihcore.marriage"
@@ -438,17 +526,11 @@
                                  answerConceptId="CIEL:5622"
                                  answerCode="pihcore.other"
                                  style="checkbox"
-                                 commentFieldLabel=""/>
+                                 commentFieldCode=""/>
                         </div>
                     </div>
                 </p>
 
-                <hr/>
-                <p>
-                    <obs conceptId="PIH:Type of trauma"
-                         answerConceptId="PIH:11533"
-                         style="checkbox"/>
-                </p>
             </p>
         </div>
     </section>
@@ -506,8 +588,7 @@
                         </td>
                         <td>
                             <obs conceptId="PIH:RPR"
-                                 answerConceptIds="CIEL:703,CIEL:664"
-                                 answerCodes="pihcore.positiveSign,pihcore.negativeSign"
+                                 answerConceptIds="PIH:REACTIVE,PIH:NON-REACTIVE"
                                  answerSeparator="&amp;nbsp;"
                                  style="radio"/>
                         </td>
@@ -521,25 +602,14 @@
             <br/>
 
             <!-- DATE POST-TEST - Date of post-test counseling	-->
-            <div class="two-columns">
-                <p>
-                    <label>
-                        <uimessage code="pihcore.lab.datePostTest"/>
-                    </label>
-                    <obs conceptId="PIH:11525"/>
-                </p>
-                <br/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.lab.datePostTest"/>
+                </label>
+                <obs conceptId="PIH:11525"/>
+            </p>
+            <br/>
 
-                <!-- DATE ÉVALUATION TB - Date of TB test	-->
-                <p>
-                    <label>
-                        <uimessage code="pihcore.lab.evaluationTB"/>
-                    </label>
-
-                    <obs conceptId="PIH:11541" answerConceptId="PIH:YES"
-                         style="checkbox"/>
-                </p>
-            </div>
         </div>
     </section>
 
@@ -558,18 +628,22 @@
             </div>
         </section>
 
+        <section id="tb" sectionTag="fieldset" headerTag="legend"
+                 headerStyle="title" headerCode="TB">
+
+            <!-- ÉVALUATION TB -->
+            <div class="section-container">
+                <obs conceptId="PIH:11541" toggle="tbEval"
+                     answerConceptId="PIH:YES"
+                     answerCode="pihcore.lab.evaluationTB"
+                     style="checkbox"/>
+            </div>
+        </section>
+
         <p></p>
 
         <div class="section-container">
-
             <div class="two-columns">
-                <p>
-                    <label>
-                        <uimessage code="pihcore.dateReferOther"/>
-                    </label>
-                    <obs conceptId="PIH:11538"/>
-                </p>
-
                 <p>
                     <label>
                         <uimessage code="pihcore.dateProphylaxisBloodExpo"/>
@@ -583,7 +657,20 @@
                     </label>
                     <obs conceptId="PIH:11540"/>
                 </p>
-                <br/>
+
+                <p>
+                    <obs conceptId="PIH:Type of trauma"
+                         answerConceptId="CIEL:165088"
+                         answerCode="pihcore.victimGBV"
+                         style="checkbox"/>
+                </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.dateReferOther"/>
+                    </label>
+                    <obs conceptId="PIH:11538"/>
+                </p>
                 <br/>
             </div>
 
