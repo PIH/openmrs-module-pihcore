@@ -9,6 +9,7 @@ import org.openmrs.PersonAddress;
 import org.openmrs.User;
 import org.openmrs.Visit;
 import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
@@ -19,6 +20,7 @@ import org.openmrs.module.reporting.data.converter.CollectionConverter;
 import org.openmrs.module.reporting.data.converter.CountConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.EarliestCreatedConverter;
+import org.openmrs.module.reporting.data.converter.ExistenceConverter;
 import org.openmrs.module.reporting.data.converter.MostRecentlyCreatedConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
@@ -87,6 +89,23 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     @DocumentedDefinition
     public PatientDataDefinition getNumberOfPrimaryIdentifiers() {
         return convert(getAllPrimaryIdentifiers(), converters.getCollectionSizeConverter());
+    }
+
+    @DocumentedDefinition
+    public PatientDataDefinition getBiometricsIdentifierObject() {
+        PreferredIdentifierDataDefinition d = new PreferredIdentifierDataDefinition();
+        d.setIdentifierType(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER));
+        return d;
+    }
+
+    @DocumentedDefinition
+    public PatientDataDefinition getBiometricsIdentifier() {
+        return convert(getBiometricsIdentifierObject(), converters.getIdentifierConverter());
+    }
+
+    @DocumentedDefinition
+    public PatientDataDefinition getHasBiometricsIdentifier() {
+        return convert(getBiometricsIdentifierObject(), new ExistenceConverter("true", "false"));
     }
 
 

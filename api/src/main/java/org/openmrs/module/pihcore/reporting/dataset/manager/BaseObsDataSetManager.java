@@ -73,10 +73,11 @@ public abstract class BaseObsDataSetManager {
         dsd.addRowFilter(Mapped.mapStraightThrough(obsQueries.getObsDuringPeriod(getQuestionConcepts())));
 
         // Define columns
-        addIdentifierColumns(dsd);
+        addPrimaryIdentifierColumns(dsd);
         addPatientNameColumns(dsd);
         addBirthDateAndAgeColumns(dsd);
         addGenderColumns(dsd);
+        addOtherIdentifierColumns(dsd);
         addCoreEncounterColumns(dsd);
         addAddressColumns(dsd);
         addPersonAttributeColumns(dsd);
@@ -94,7 +95,7 @@ public abstract class BaseObsDataSetManager {
      * Add any name columns that are desired.  By default, the patient given, family, and nickname are included
      *
      */
-    protected void addIdentifierColumns(ObsDataSetDefinition dsd) {
+    protected void addPrimaryIdentifierColumns(ObsDataSetDefinition dsd) {
         addColumn(dsd, "emr_id", pihPatientData.getPreferredPrimaryIdentifier());
     }
 
@@ -129,6 +130,10 @@ public abstract class BaseObsDataSetManager {
         addColumn(dsd, "encounter_date", pihObsData.getEncounterDatetime());
         addColumn(dsd, "encounter_location", pihObsData.getLocationName());
         addColumn(dsd, "encounter_provider", pihObsData.getEncounterProvider());
+    }
+
+    protected void addOtherIdentifierColumns(ObsDataSetDefinition dsd) {
+        addColumn(dsd, "biometrics_collected", pihPatientData.getHasBiometricsIdentifier());
     }
 
     /**

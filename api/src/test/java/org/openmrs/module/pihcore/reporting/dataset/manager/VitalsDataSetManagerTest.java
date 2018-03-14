@@ -47,7 +47,7 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
         SimpleDataSet dataSet = (SimpleDataSet)dataSetDefinitionService.evaluate(dsd, context);
         DataSetRow row = dataSet.getRows().get(0);
         Assert.assertEquals(1, dataSet.getRows().size());
-        Assert.assertEquals(23, dataSet.getMetaData().getColumnCount());
+        Assert.assertEquals(24, dataSet.getMetaData().getColumnCount());
         Assert.assertEquals(visit.getId(), row.getColumnValue("VITALS_VISIT"));
         Assert.assertEquals(DateUtil.getDateTime(1977, 11, 23), row.getColumnValue("BIRTHDATE"));
         Assert.assertEquals(false, row.getColumnValue("BIRTHDATE_ESTIMATED"));
@@ -65,6 +65,7 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
         Assert.assertEquals(95.0, row.getColumnValue("O2_SAT"));
         Assert.assertEquals("headache", row.getColumnValue("CHIEF_COMPLAINT"));
         Assert.assertEquals("false", row.getColumnValue("VITALS_RETROSPECTIVE"));
+        Assert.assertEquals("true", row.getColumnValue("BIOMETRICS_COLLECTED"));
 
     }
 

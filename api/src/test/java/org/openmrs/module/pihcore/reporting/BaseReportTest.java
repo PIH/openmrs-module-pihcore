@@ -14,8 +14,10 @@ import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.haiticore.metadata.AddressComponent;
+import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.haiticore.metadata.bundles.HaitiAddressBundle;
+import org.openmrs.module.haiticore.metadata.bundles.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
@@ -37,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 ;
 
@@ -71,6 +74,9 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     protected PihHaitiPatientIdentifierTypeBundle pihHaitiPatientIdentifierTypeBundle;
 
     @Autowired
+    protected HaitiPatientIdentifierTypeBundle haitiPatientIdentifierTypeBundle;
+
+    @Autowired
     protected MetadataMappingService metadataMappingService;
 
     @Autowired
@@ -94,6 +100,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
         deployService.installBundle(encounterTypeBundle);
+        deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(pihHaitiPatientIdentifierTypeBundle);
         deployService.installBundle(mirebalaisLocationsBundle);
         deployService.installBundle(haitiAddressBundle);
@@ -135,6 +142,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME), "Isabel");
         address(pb, haitiAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
         pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER), UUID.randomUUID().toString(), Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
         return pb.save();
     }
 

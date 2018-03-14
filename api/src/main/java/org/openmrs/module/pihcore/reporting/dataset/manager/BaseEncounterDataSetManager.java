@@ -97,10 +97,11 @@ public abstract class BaseEncounterDataSetManager {
 		dsd.addRowFilter(Mapped.mapStraightThrough(encounterQueries.getEncountersDuringPeriodAtLocation(getEncounterTypes())));
 
 		// Define columns
-		addIdentifierColumns(dsd);
+		addPrimaryIdentifierColumns(dsd);
 		addPatientNameColumns(dsd);
 		addBirthDateAndAgeColumns(dsd);
 		addGenderColumns(dsd);
+		addOtherIdentifierColumns(dsd);
 		addCoreEncounterColumns(dsd);
         addCoreVisitColumns(dsd);
 		addAddressColumns(dsd);
@@ -124,7 +125,7 @@ public abstract class BaseEncounterDataSetManager {
 	/**
 	 * Add any name columns that are desired.  By default, the patient given, family, and nickname are included
 	 */
-	protected void addIdentifierColumns(EncounterDataSetDefinition dsd) {
+	protected void addPrimaryIdentifierColumns(EncounterDataSetDefinition dsd) {
 		addColumn(dsd, "emr_id", pihPatientData.getPreferredPrimaryIdentifier());
 	}
 
@@ -151,6 +152,10 @@ public abstract class BaseEncounterDataSetManager {
 	 */
 	protected void addGenderColumns(EncounterDataSetDefinition dsd) {
 		addColumn(dsd, "gender", builtInPatientData.getGender());
+	}
+
+	protected void addOtherIdentifierColumns(EncounterDataSetDefinition dsd) {
+		addColumn(dsd, "biometrics_collected", pihPatientData.getHasBiometricsIdentifier());
 	}
 
 	/**

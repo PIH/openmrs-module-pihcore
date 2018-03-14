@@ -50,7 +50,7 @@ public class CheckInDataSetManagerTest extends EncounterDataSetManagerTest {
         DataSetRow row = dataSet.getRows().get(0);
         Assert.assertEquals(1, dataSet.getRows().size());
         Assert.assertNull(row.getColumnValue("CHECK_IN_VISIT"));
-        Assert.assertEquals(21, dataSet.getMetaData().getColumnCount());
+        Assert.assertEquals(22, dataSet.getMetaData().getColumnCount());
         Assert.assertEquals("X3XK71", row.getColumnValue("EMR_ID"));
         Assert.assertEquals(DateUtil.getDateTime(1977, 11, 23), row.getColumnValue("BIRTHDATE"));
         Assert.assertEquals(false, row.getColumnValue("BIRTHDATE_ESTIMATED"));
@@ -60,5 +60,6 @@ public class CheckInDataSetManagerTest extends EncounterDataSetManagerTest {
         Assert.assertEquals(MirebalaisLocations.OUTPATIENT_CLINIC.name(), row.getColumnValue("CHECK_IN_LOCATION"));
         Assert.assertEquals("Malnutrition program", row.getColumnValue("TYPE_OF_VISIT"));
         Assert.assertEquals("true", row.getColumnValue("CHECK_IN_RETROSPECTIVE"));
+        Assert.assertEquals("true", row.getColumnValue("BIOMETRICS_COLLECTED"));
     }
 }
