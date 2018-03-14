@@ -77,7 +77,6 @@ public abstract class BaseObsDataSetManager {
         addPatientNameColumns(dsd);
         addBirthDateAndAgeColumns(dsd);
         addGenderColumns(dsd);
-        addOtherIdentifierColumns(dsd);
         addCoreEncounterColumns(dsd);
         addAddressColumns(dsd);
         addPersonAttributeColumns(dsd);

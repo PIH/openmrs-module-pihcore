@@ -17,10 +17,12 @@ package org.openmrs.module.pihcore.reporting.dataset.manager;
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
 import org.openmrs.Visit;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.address.AddressSupport;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
+import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.reporting.encounter.definition.RetrospectiveEncounterDataDefinition;
@@ -85,6 +87,9 @@ public abstract class BaseEncounterDataSetManager {
 
 	@Autowired
 	PihEncounterDataLibrary pihEncounterData;
+
+	@Autowired
+	PatientService patientService;
 
 	public DataSetDefinition constructDataSet() {
 
@@ -155,7 +160,10 @@ public abstract class BaseEncounterDataSetManager {
 	}
 
 	protected void addOtherIdentifierColumns(EncounterDataSetDefinition dsd) {
-		addColumn(dsd, "biometrics_collected", pihPatientData.getHasBiometricsIdentifier());
+		// slight hack, only biometrics on systems where that identifier is present
+		if (patientService.getPatientIdentifierTypeByUuid(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER.uuid()) != null) {
+			addColumn(dsd, "biometrics_collected", pihPatientData.getHasBiometricsIdentifier());
+		}
 	}
 
 	/**
