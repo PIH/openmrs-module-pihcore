@@ -589,6 +589,7 @@
                         <td>
                             <obs conceptId="PIH:RPR"
                                  answerConceptIds="PIH:REACTIVE,PIH:NON-REACTIVE"
+                                 answerCodes="pihcore.reactive,pihcore.nonreactive"
                                  answerSeparator="&amp;nbsp;"
                                  style="radio"/>
                         </td>
@@ -608,8 +609,6 @@
                 </label>
                 <obs conceptId="PIH:11525"/>
             </p>
-            <br/>
-
         </div>
     </section>
 
@@ -637,6 +636,35 @@
                      answerConceptId="PIH:YES"
                      answerCode="pihcore.lab.evaluationTB"
                      style="checkbox"/>
+
+                <div id="tbEval">
+                    <p></p>
+                    <table>
+                    <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['tbContact','11568'],['painfulNodes','11569']">
+                        <tr>
+                            <td>
+                                <!-- TB symptom -->
+                                <obs conceptId="PIH:11563"
+                                     answerConceptId="PIH:{1}"
+                                     answerCode="pihcore.yes.oneChar"
+                                     style="checkbox" />
+                            </td>
+                            <td>
+                                <!-- No TB symptom -->
+                                <obs conceptId="PIH:11564"
+                                     answerConceptId="PIH:{1}"
+                                     answerCode="pihcore.no.oneChar"
+                                     style="checkbox" />
+                            </td>
+                            <td>
+                                <label>
+                                    <uimessage code="pihcore.tbscreen.{0}"/>
+                                </label>
+                            </td>
+                        </tr>
+                    </repeat>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -667,7 +695,7 @@
 
                 <p>
                     <label>
-                        <uimessage code="pihcore.dateReferOther"/>
+                        <uimessage code="pihcore.dateReferHIV"/>
                     </label>
                     <obs conceptId="PIH:11538"/>
                 </p>
