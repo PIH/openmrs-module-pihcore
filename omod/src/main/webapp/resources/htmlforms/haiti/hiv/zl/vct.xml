@@ -610,6 +610,43 @@
                 <obs conceptId="PIH:11525"/>
             </p>
         </div>
+
+        <!-- ÉVALUATION TB -->
+        <div class="section-container">
+            <obs conceptId="PIH:11541" toggle="tbEval"
+                 answerConceptId="PIH:YES"
+                 answerCode="pihcore.lab.evaluationTB"
+                 style="checkbox"/>
+
+            <div id="tbEval">
+                <p></p>
+                <table>
+                    <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['tbContact','11568'],['painfulNodes','11569']">
+                        <tr>
+                            <td>
+                                <!-- TB symptom -->
+                                <obs conceptId="PIH:11563"
+                                     answerConceptId="PIH:{1}"
+                                     answerCode="coreapps.yes"
+                                     style="checkbox" />
+                            </td>
+                            <td>
+                                <!-- No TB symptom -->
+                                <obs conceptId="PIH:11564"
+                                     answerConceptId="PIH:{1}"
+                                     answerCode="coreapps.no"
+                                     style="checkbox" />
+                            </td>
+                            <td>
+                                <label>
+                                    <uimessage code="pihcore.tbscreen.{0}"/>
+                                </label>
+                            </td>
+                        </tr>
+                    </repeat>
+                </table>
+            </div>
+        </div>
     </section>
 
     <section id="vct-plan" sectionTag="fieldset" headerTag="legend"
@@ -623,47 +660,6 @@
                          allowFutureDates="true" />
                     <obs conceptId="PIH:11537" labelCode="pihcore.endDate"
                          allowFutureDates="true" />
-                </div>
-            </div>
-        </section>
-
-        <section id="tb" sectionTag="fieldset" headerTag="legend"
-                 headerStyle="title" headerCode="TB">
-
-            <!-- ÉVALUATION TB -->
-            <div class="section-container">
-                <obs conceptId="PIH:11541" toggle="tbEval"
-                     answerConceptId="PIH:YES"
-                     answerCode="pihcore.lab.evaluationTB"
-                     style="checkbox"/>
-
-                <div id="tbEval">
-                    <p></p>
-                    <table>
-                    <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['tbContact','11568'],['painfulNodes','11569']">
-                        <tr>
-                            <td>
-                                <!-- TB symptom -->
-                                <obs conceptId="PIH:11563"
-                                     answerConceptId="PIH:{1}"
-                                     answerCode="pihcore.yes.oneChar"
-                                     style="checkbox" />
-                            </td>
-                            <td>
-                                <!-- No TB symptom -->
-                                <obs conceptId="PIH:11564"
-                                     answerConceptId="PIH:{1}"
-                                     answerCode="pihcore.no.oneChar"
-                                     style="checkbox" />
-                            </td>
-                            <td>
-                                <label>
-                                    <uimessage code="pihcore.tbscreen.{0}"/>
-                                </label>
-                            </td>
-                        </tr>
-                    </repeat>
-                    </table>
                 </div>
             </div>
         </section>

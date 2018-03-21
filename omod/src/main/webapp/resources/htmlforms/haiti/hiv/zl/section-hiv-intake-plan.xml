@@ -236,7 +236,7 @@
                             comment="AFB / Smear"/>
                     <render labName="PIH:TUBERCULOSIS CULTURE RESULT" codeLabel="pihcore.lab.tbCulture"
                             comment="TB culture"/>
-                    <render labName="CIEL:164945" codeLabel="pihcore.lab.tbGeneXpert" comment="GenXpert"/>
+                    <render labName="CIEL:164945" codeLabel="pihcore.lab.tbRIF" comment="GenXpert"/>
                 </repeat>
 
                 <!-- HIV -->

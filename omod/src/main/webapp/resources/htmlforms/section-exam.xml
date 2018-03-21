@@ -12,7 +12,9 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform id="primary-care-exam-form" formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b" formName="Examen physique"
+<htmlform id="primary-care-exam-form"
+          formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b"
+          formName="Examen physique"
           formVersion="1.0">
     
     <style type="text/css">
@@ -140,7 +142,7 @@
 
         <fieldset class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.general_exam.title"/>
+                <uimessage code="pihcore.exam.general_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.general_exam.title"/>
@@ -175,7 +177,7 @@
 
         <fieldset class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.mental_exam.title"/>
+                <uimessage code="pihcore.exam.mental_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.mental_exam.title"/>
@@ -207,7 +209,7 @@
 
         <fieldset  class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.skin_exam.title"/>
+                <uimessage code="pihcore.exam.skin_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.skin_exam.title"/>
@@ -242,7 +244,7 @@
 
         <fieldset class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.heent_exam.title"/>
+                <uimessage code="pihcore.exam.heent_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.heent_exam.title"/>
@@ -280,7 +282,45 @@
 
         <fieldset class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.cardiac_exam.title"/>
+                <uimessage code="pihcore.exam.lymph_exam"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.exam.lymph_exam.title"/>
+            </h3>
+
+            <p>
+                <field>
+                    <obs conceptId="CIEL:1121" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="CIEL:1121" answerConceptId="CIEL:148058" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="CIEL:1121" answerConceptId="CIEL:145802" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="CIEL:1121" answerConceptId="CIEL:137155" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="CIEL:1121" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
+                </field>
+            </p>
+
+            <p class="comment-label">
+                <uimessage code="pihcore.exam.comment"/>
+            </p>
+
+            <p class="comment-field">
+                <field>
+                    <obs conceptId="PIH:11572" rows="5" cols="60" />
+                </field>
+            </p>
+
+        </fieldset>
+
+        <fieldset class="section-container">
+            <legend>
+                <uimessage code="pihcore.exam.cardiac_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.cardiac_exam.title"/>
@@ -315,7 +355,7 @@
 
         <fieldset class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.chest_exam.title"/>
+                <uimessage code="pihcore.exam.chest_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.chest_exam.title"/>
@@ -350,7 +390,7 @@
 
         <fieldset class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.abdominal_exam.title"/>
+                <uimessage code="pihcore.exam.abdominal_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.abdominal_exam.title"/>
@@ -385,7 +425,7 @@
 
         <fieldset class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.urogenital_exam.title"/>
+                <uimessage code="pihcore.exam.urogenital_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.urogenital_exam.title"/>
@@ -420,7 +460,39 @@
 
         <fieldset class="section-container">
             <legend>
-                <uimessage code="pihcore.exam.musculoskeletal_exam.title"/>
+                <uimessage code="pihcore.exam.neuro_exam"/>
+            </legend>
+            <h3>
+                <uimessage code="pihcore.exam.neuro_exam.title"/>
+            </h3>
+
+            <p>
+                <field>
+                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:SEIZURE" style="checkbox"/>
+                </field>
+                <field>
+                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED"
+                         style="checkbox"  showCommentField="true" commentFieldLabel="" />
+                </field>
+            </p>
+
+            <p class="comment-label">
+                <uimessage code="pihcore.exam.comment"/>
+            </p>
+
+            <p class="comment-field">
+                <field>
+                    <obs conceptId="PIH:11570" rows="5" cols="60" />
+                </field>
+            </p>
+        </fieldset>
+
+        <fieldset class="section-container">
+            <legend>
+                <uimessage code="pihcore.exam.musculoskeletal_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.musculoskeletal_exam.title"/>
@@ -569,7 +641,7 @@
 
         <fieldset>
             <legend>
-                <uimessage code="pihcore.exam.other_exam.title"/>
+                <uimessage code="pihcore.exam.other_exam"/>
             </legend>
             <h3>
                 <uimessage code="pihcore.exam.other_exam.title"/>
