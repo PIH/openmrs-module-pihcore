@@ -2,9 +2,7 @@
 
     <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.ApplyDispositionAction"/>
     <includeIf velocityTest="$config.isComponentEnabled('deathCertificate')">
-        <includeIf velocityTest="$featureToggles.isFeatureEnabled('deathNote')">
-            <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.RedirectToDeathNoteIfMissing"/>
-        </includeIf>
+        <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.RedirectToDeathNoteIfMissing"/>
     </includeIf>
 
     <style type="text/css">

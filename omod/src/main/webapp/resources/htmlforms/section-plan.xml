@@ -1,11 +1,6 @@
 <htmlform id="primary-care-plan-form" formUuid="00a30a40-bef8-11e5-a837-0800200c9a66" formName="Plan" formVersion="1.0">
 
     <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.ApplyDispositionAction"/>
-    <includeIf velocityTest="$config.isComponentEnabled('deathCertificate')">
-        <includeIf velocityTest="$featureToggles.isFeatureEnabled('deathNote')">
-            <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.RedirectToDeathNoteIfMissing"/>
-        </includeIf>
-    </includeIf>
 
     <style type="text/css">
 
