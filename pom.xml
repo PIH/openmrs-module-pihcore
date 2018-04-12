@@ -79,7 +79,7 @@
         <dispensingVersion>1.0</dispensingVersion>
         <uicommonsVersion>2.6.0</uicommonsVersion>
         <registrationcoreVersion>1.8.0</registrationcoreVersion>
-        <registrationappVersion>1.11.0</registrationappVersion>
+        <registrationappVersion>1.12.0</registrationappVersion>
         <radiologyappVersion>1.4.0</radiologyappVersion>
         <coreappsVersion>1.19.0</coreappsVersion>
         <webservicesRestVersion>2.13</webservicesRestVersion>
