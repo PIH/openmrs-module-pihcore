@@ -50,7 +50,7 @@
         <openMRSVersion>2.1.3</openMRSVersion>
         <openMRSwebVersion>2.1.3-SNAPSHOT</openMRSwebVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
-        <emrapiVersion>1.24.1</emrapiVersion>
+        <emrapiVersion>1.24.4</emrapiVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <emrVersion>2.1.0</emrVersion>
         <uiframeworkVersion>3.13.0</uiframeworkVersion>
@@ -58,7 +58,7 @@
         <metadatasharingVersion>1.3.0</metadatasharingVersion>
         <metadatamappingVersion>1.3.4</metadatamappingVersion>
         <metadatadeployVersion>1.10.0</metadatadeployVersion>
-        <htmlformentryVersion>3.6.0</htmlformentryVersion>
+        <htmlformentryVersion>3.7.0</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.6.4</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
