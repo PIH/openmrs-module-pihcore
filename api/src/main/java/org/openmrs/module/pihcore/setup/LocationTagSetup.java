@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.setup;
 
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
+import org.openmrs.api.APIException;
 import org.openmrs.api.LocationService;
 import org.openmrs.module.metadatadeploy.descriptor.LocationDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
@@ -13,6 +14,7 @@ import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -24,11 +26,11 @@ public class LocationTagSetup {
     public static void setupLocationTags(LocationService locationService, Config config) {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            if (config.getSite().equals(ConfigDescriptor.Site.PLEEBO)) {
-                setupLocationTagsForPleebo(locationService);
+            try {
+                setupLocationTagsForLiberia(locationService, config);
             }
-            if (config.getSite().equals(ConfigDescriptor.Site.HARPER)) {
-                setupLocationTagsForHarper(locationService);
+            catch (Exception e) {
+                throw new APIException("Unable to set up location tags, likely issue is no location with name " + config.getSite().name().toString() + " configured");
             }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
@@ -55,11 +57,13 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
     }
 
-    private static void setupLocationTagsForPleebo(LocationService locationService) {
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+    private static void setupLocationTagsForLiberia(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException {
+        Field locationField = LiberiaLocations.class.getField(config.getSite().name().toString());
+        LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
     }
 
     private static void setupLocationTagsForHarper(LocationService locationService) {

@@ -19,4 +19,11 @@ public class LiberiaPatientIdentifierTypes {
         public Class<? extends IdentifierValidator> validator() { return null; }
     };
 
+    // pretty much copied from Haiti Core
+    public static PatientIdentifierTypeDescriptor BIOMETRIC_REF_NUMBER = new PatientIdentifierTypeDescriptor() {
+        public String uuid() { return "e26ca279-8f57-44a5-9ed8-8cc16e90e559"; }
+        public String name() { return "Biometrics Reference Code"; }
+        public String description() { return "Code referencing a patient's record in an external biometrics system"; }
+    };
+
 }

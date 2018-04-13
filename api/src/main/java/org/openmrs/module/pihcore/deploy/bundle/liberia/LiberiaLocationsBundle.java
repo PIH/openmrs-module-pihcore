@@ -13,5 +13,6 @@ public class LiberiaLocationsBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
         install(LiberiaLocations.PLEEBO);
+        install(LiberiaLocations.HARPER);
     }
 }
