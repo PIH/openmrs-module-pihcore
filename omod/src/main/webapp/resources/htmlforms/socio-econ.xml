@@ -47,7 +47,7 @@
                  headerStyle="title" headerCode="pihcore.socioEconomic.education">
             <div class="section-container">
                 <p>
-                    <obs conceptId="CIEL:1712"
+                    <obs conceptId="CIEL:1712" style="radio"
                          answerConceptIds="CIEL:1107,CIEL:1713,CIEL:1714,PIH:3396,CIEL:159785"/>
                 </p>
             </div>
@@ -84,7 +84,8 @@
                             <uimessage code="pihcore.socioEconomic.toilet"/>
                         </label>
                         <obs conceptId="CIEL:159389" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
                     </p>
 
                     <p>
@@ -92,23 +93,26 @@
                             <uimessage code="pihcore.socioEconomic.radio"/>
                         </label>
                         <obs conceptId="CIEL:159388" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO" answerSeparator=""/>
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
                     </p>
 
                     <p>
                         <label>
                             <uimessage code="pihcore.socioEconomic.floor"/>
                         </label>
-                        <obs conceptId="CIEL:159387"
-                             answerConceptIds="CIEL:1943,CIEL:1944,CIEL:159679,CIEL:5622"/>
+                        <obs conceptId="CIEL:159387" style="radio"
+                             answerConceptIds="CIEL:1943,CIEL:1944,CIEL:159679,CIEL:5622"
+                             answerSeparator="&amp;nbsp;" />
                     </p>
 
                     <p>
                         <label>
                             <uimessage code="pihcore.socioEconomic.roof"/>
                         </label>
-                        <obs conceptId="CIEL:1290"
-                             answerConceptIds="PIH:1320,CIEL:1942,CIEL:1943,CIEL:5622"/>
+                        <obs conceptId="CIEL:1290" style="radio"
+                             answerConceptIds="PIH:1320,CIEL:1942,CIEL:1943,CIEL:5622"
+                             answerSeparator="&amp;nbsp;" />
                     </p>
                 </div>
             </div>
@@ -120,20 +124,24 @@
              headerStyle="title" headerCode="pihcore.socioEconomic.transport">
         <div class="section-container">
 
-            <div class="two-columns">
+            <div>
                 <p>
                     <label>
                         <uimessage code="pihcore.socioEconomic.methodTransport"/>
                     </label>
-                    <obs conceptId="PIH:975" />
+                    <br/>
+                    <obs conceptId="PIH:975" style="radio"
+                         answerSeparator="&amp;nbsp;" />
                 </p>
 
                 <p>
                     <label>
                         <uimessage code="pihcore.socioEconomic.transportTime"/>
                     </label>
-                    <obs conceptId="PIH:CLINIC TRAVEL TIME"
-                        answerConceptIds="PIH:1049,PIH:1050,PIH:1051,PIH:982,PIH:3669"/>
+                    <br/>
+                    <obs conceptId="PIH:CLINIC TRAVEL TIME" style="radio"
+                         answerSeparator="&amp;nbsp;"
+                         answerConceptIds="PIH:1049,PIH:1050,PIH:1051,PIH:982,PIH:3669"/>
                 </p>
             </div>
         </div>
