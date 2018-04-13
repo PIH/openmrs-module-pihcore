@@ -176,6 +176,13 @@ public class LocationTags {
 		public String description() { return "Signifies a Location where an ED Triage form can be filled out"; }
 	};
 
+	public static LocationTagDescriptor ORDER_PATHOLOGY_LOCATION = new LocationTagDescriptor() {
+		public String uuid() { return "728f5f07-f748-4efa-9abe-b6df64e84c92"; }
+		public String name() { return "Order Pathology Location"; }
+		public String description() { return ""; }
+		public boolean retired() { return true; }
+	};
+
 	public static LocationTagDescriptor RETIRED_OUTPATIENT_TRANSFER_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "84864264-5fda-4626-b22f-4b690b7279f3"; }
 		public String name() { return "Outpatient Transfer Location"; }
@@ -190,10 +197,4 @@ public class LocationTags {
 		public boolean retired() { return true; }
 	};
 
-	public static LocationTagDescriptor ORDER_PATHOLOGY_LOCATION = new LocationTagDescriptor() {
-		public String uuid() { return "728f5f07-f748-4efa-9abe-b6df64e84c92"; }
-		public String name() { return "Order Pathology Location"; }
-		public String description() { return ""; }
-		public boolean retired() { return true; }
-	};
 }

@@ -58,42 +58,37 @@ public class LocationTagSetup {
     }
 
     private static void setupLocationTagsForLiberia(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException {
+
         Field locationField = LiberiaLocations.class.getField(config.getSite().name().toString());
         LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
-    }
 
-    private static void setupLocationTagsForHarper(LocationService locationService) {
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.ORDER_PATHOLOGY_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.ONCOLOGY_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.CHEMOTHERAPY_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
-        setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, Arrays.asList(LiberiaLocations.PLEEBO));
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION,  Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION,  Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
+
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.CHEMOTHERAPY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ONCOLOGY_CONSULT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ORDER_PATHOLOGY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
     }
 
 
@@ -110,23 +105,33 @@ public class LocationTagSetup {
     }
 
     private static void setStandardHaitiSingleSiteLocationTags(LocationService locationService, LocationDescriptor location) {
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
+
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
+
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
-        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.CHEMOTHERAPY_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ONCOLOGY_CONSULT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ORDER_PATHOLOGY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
     }
 
     private static void setupLocationTagsForHaitiCrossSite(LocationService locationService) {
@@ -136,22 +141,32 @@ public class LocationTagSetup {
                 PihHaitiLocations.LACOLLINE, PihHaitiLocations.PETITE_RIVIERE, PihHaitiLocations.SSPE_SAINT_MARC, PihHaitiLocations.THOMONDE,
                 PihHaitiLocations.VERRETTES, MirebalaisLocations.MIREBALAIS_CDI_PARENT);
 
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, allZlFacilities);
-        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  allZlFacilities);
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allZlFacilities);
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  allZlFacilities);
+
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
-        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.CHEMOTHERAPY_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ONCOLOGY_CONSULT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ORDER_PATHOLOGY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
     }
 
 
