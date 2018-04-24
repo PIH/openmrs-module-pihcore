@@ -234,7 +234,6 @@
     <section id="vct-screening" sectionTag="fieldset" headerTag="legend"
              headerStyle="title" headerCode="pihcore.screening">
         <div class="section-container">
-            <p>
                 <p>
                     <obs conceptId="CIEL:164082" toggle="wantstoknow"
                          answerConceptId="PIH:11518"
@@ -281,18 +280,17 @@
                          style="checkbox"/>
 
                     <div id="sti">
-                        <div class="two-columns">
-                            <span style="padding-left:30px;"></span>
-                            <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:163276"
-                                 answerCode="pihcore.hxSyphilis"
-                                 style="checkbox"/>
-                            <br/><br/>
-                            <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:156660"
-                                 answerCode="pihcore.hxOtherSTI"
-                                 style="checkbox"/>
-                        </div>
+                        <span style="padding-left:30px;"/>
+                        <obs conceptId="PIH:11535"
+                             answerConceptId="CIEL:163276"
+                             answerCode="pihcore.hxSyphilis"
+                             style="checkbox"/>
+                        <br/>
+                        <span style="padding-left:30px;"/>
+                        <obs conceptId="PIH:11535"
+                             answerConceptId="CIEL:156660"
+                             answerCode="pihcore.hxOtherSTI"
+                             style="checkbox"/>
                     </div>
                 </p>
 
@@ -343,19 +341,17 @@
                          style="checkbox"/>
 
                     <div id="blood">
-                        <div class="two-columns">
-                            <span style="padding-left:30px;"></span>
-                            <obs conceptId="PIH:11535"
-                                 answerConceptId="PIH:11524"
-                                 answerCode="pihcore.bloodExposureHealthWorker"
-                                 style="checkbox"/>
-                            <br/>
-                            <br/>
-                            <obs conceptId="PIH:11535"
-                                 answerConceptId="CIEL:163274"
-                                 answerCode="pihcore.bloodExposureOther"
-                                 style="checkbox"/>
-                        </div>
+                        <span style="padding-left:30px;"/>
+                        <obs conceptId="PIH:11535"
+                             answerConceptId="PIH:11524"
+                             answerCode="pihcore.bloodExposureHealthWorker"
+                             style="checkbox"/>
+                        <br/>
+                        <span style="padding-left:30px;"/>
+                        <obs conceptId="PIH:11535"
+                             answerConceptId="CIEL:163274"
+                             answerCode="pihcore.bloodExposureOther"
+                             style="checkbox"/>
                     </div>
                 </p>
 
@@ -373,19 +369,17 @@
                          style="checkbox"/>
 
                     <div id="refer">
-                        <div class="two-columns">
-                            <span style="padding-left:30px;"></span>
-                            <obs conceptId="PIH:11527"
-                                 answerConceptId="PIH:11555"
-                                 answerCode="pihcore.referred.confirmationTest"
-                                 style="checkbox"/>
-                            <br/>
-                            <span style="padding-left:30px;"></span>
-                            <obs conceptId="PIH:11527"
-                                 answerConceptId="PIH:11556"
-                                 answerCode="pihcore.referred.verificationTest"
-                                 style="checkbox"/>
-                        </div>
+                        <span style="padding-left:30px;"></span>
+                        <obs conceptId="PIH:11527"
+                             answerConceptId="PIH:11555"
+                             answerCode="pihcore.referred.confirmationTest"
+                             style="checkbox"/>
+                        <br/>
+                        <span style="padding-left:30px;"></span>
+                        <obs conceptId="PIH:11527"
+                             answerConceptId="PIH:11556"
+                             answerCode="pihcore.referred.verificationTest"
+                             style="checkbox"/>
                     </div>
                 </p>
 
@@ -530,8 +524,6 @@
                         </div>
                     </div>
                 </p>
-
-            </p>
         </div>
     </section>
 
