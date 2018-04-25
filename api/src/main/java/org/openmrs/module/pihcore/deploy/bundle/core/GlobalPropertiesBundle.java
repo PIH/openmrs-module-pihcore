@@ -133,6 +133,10 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(AttachmentsConstants.GP_MAX_UPLOAD_FILE_SIZE, "5.0");
         properties.put(AttachmentsConstants.GP_ENCOUNTER_TYPE_UUID, "");
 
+        // Order Entry OWA
+        // TODO: determine what this should actually be
+        properties.put("order.encounterType", "Test Order");
+
 
         setGlobalProperties(properties);
 
