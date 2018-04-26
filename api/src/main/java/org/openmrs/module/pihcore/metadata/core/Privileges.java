@@ -206,6 +206,13 @@ public class Privileges {
         public String description() { return "Allows access to the attachments page"; }
     };
 
+    public static PrivilegeDescriptor APP_ORDER_ENTRY_ORDER_DRUGS = new PrivilegeDescriptor() {
+        public String uuid() { return "fd7c4193-1202-48b7-a346-9046ffe15716"; }
+        public String privilege() { return "App: orderentryui.drugOrders"; }
+        public String description() { return "Allows access to drug orders page"; }
+    };
+
+
     //
     // TASK PRIVILEGES
     //
