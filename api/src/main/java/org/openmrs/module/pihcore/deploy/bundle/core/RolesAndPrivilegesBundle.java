@@ -51,6 +51,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.APP_ATTACHMENTS_PAGE);
         install(Privileges.APP_CHW);
         install(Privileges.APP_ORDER_ENTRY_ORDER_DRUGS);
+        install(Privileges.APP_COHORT_BUILDER);
         install(Privileges.TASK_ALLERGIES_MODIFY);
         install(Privileges.TASK_APPOINTMENTSCHEDULINGUI_BOOK_APPOINTMENTS);
         install(Privileges.TASK_APPOINTMENTSCHEDULINGUI_OVERBOOK_APPOINTMENTS);
