@@ -212,6 +212,11 @@ public class Privileges {
         public String description() { return "Allows access to drug orders page"; }
     };
 
+    public static PrivilegeDescriptor APP_COHORT_BUILDER = new PrivilegeDescriptor() {
+        public String uuid() { return "5b38d53c-a521-4df4-be11-8f1abdcdae12"; }
+        public String privilege() { return "App: cohortBuilder"; }
+        public String description() { return "Allows access to cohort builder app"; }
+    };
 
     //
     // TASK PRIVILEGES
