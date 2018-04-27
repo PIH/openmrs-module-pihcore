@@ -58,5 +58,5 @@ public class Components {
         public static final String CHW_APP = "chwApp";
         public static final String CONDITION_LIST = "conditionList";
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
-
+        public static final String COHORT_BUILDER = "cohortBuilder";
 }
