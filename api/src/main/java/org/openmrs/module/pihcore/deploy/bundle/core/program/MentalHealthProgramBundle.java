@@ -1,14 +1,15 @@
 package org.openmrs.module.pihcore.deploy.bundle.core.program;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.pihcore.metadata.core.program.MentalHealthProgram;
 import org.springframework.stereotype.Component;
 
 @Component
-@Requires({ HIVProgramBundle.class, NCDProgramBundle.class, ZikaProgramBundle.class, MentalHealthProgramBundle.class} )
-public class PihProgramsBundle extends AbstractMetadataBundle {
+public class MentalHealthProgramBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
+        install(MentalHealthProgram.MENTAL_HEALTH);
     }
+
 }
