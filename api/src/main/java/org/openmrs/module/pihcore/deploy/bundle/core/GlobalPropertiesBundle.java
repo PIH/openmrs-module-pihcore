@@ -136,6 +136,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         // Order Entry OWA
         // TODO: determine what this should actually be
         properties.put("order.encounterType", "Test Order");
+        properties.put("order.encounterRole", "Ordering Provider");
 
 
         setGlobalProperties(properties);
