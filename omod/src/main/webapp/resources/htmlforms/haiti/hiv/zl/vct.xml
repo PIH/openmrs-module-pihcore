@@ -590,11 +590,39 @@
                         </td>
                     </obsgroup>
                 </tr>
+
+                <tr>
+                    <!-- Hepatitis B test -->
+                    <obsgroup groupingConceptId="PIH:11576">
+                        <td>
+                            <uimessage code="pihcore.lab.hepB"/>
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:DATE OF LABORATORY TEST"/>
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:1322"
+                                 answerConceptIds="CIEL:703,CIEL:664,CIEL:1138"
+                                 answerCodes="pihcore.positiveSign,pihcore.negativeSign,pihcore.indeterminate"
+                                 answerSeparator="&amp;nbsp;"
+                                 style="radio"/>
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:Date of test results"/>
+                        </td>
+                    </obsgroup>
+                </tr>
             </table>
 
             <br/>
 
-            <!-- DATE POST-TEST - Date of post-test counseling	-->
+            <!-- Dates of Pre-test and Post-test counseling	-->
+            <p>
+                <label>
+                    <uimessage code="pihcore.lab.datePreTest"/>
+                </label>
+                <obs conceptId="PIH:11577"/>
+            </p>
             <p>
                 <label>
                     <uimessage code="pihcore.lab.datePostTest"/>
