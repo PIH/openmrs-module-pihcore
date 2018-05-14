@@ -223,6 +223,9 @@
     <section id="treatment" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.chemo.treatment">
         <div class="section-container">
             <p>
+                <obs conceptId="PIH:Type of oncology visit" answerConceptId="PIH:11578" />
+            </p>
+            <p>
                 <label>
                     <uimessage code="pihcore.chemo.chemotherapy_protocol"/>
                 </label>
