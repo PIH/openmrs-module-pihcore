@@ -46,7 +46,7 @@ public class LocationTagSetup {
             } else if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 setupLocationTagsForMirebalais(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.HINCHE)) {
-                setupLocationTagsForMirebalais(locationService);
+                setupLocationTagsForHinche(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
                 setupLocationTagsForHaitiCrossSite(locationService);
             }
