@@ -131,7 +131,8 @@
                     </label>
                     <br/>
                     <obs conceptId="PIH:975" style="radio"
-                         answerSeparator="&amp;nbsp;" />
+                         answerSeparator="&amp;nbsp;"
+                         answerConceptIds="PIH:WALKING,PIH:BY BICYCLE,PIH:MOTORBIKE,PIH:CAR,PIH:MINI BUS,PIH:980,PIH:STRETCHER,PIH:OTHER"/>
                 </p>
 
                 <p>
@@ -209,11 +210,26 @@
                 </template>
                 <render aid="PIH:ASSISTANCE WITH TRANSPORT" aidLabel="pihcore.aid.transport"/>
                 <render aid="PIH:NUTRITIONAL AID" aidLabel="pihcore.aid.food"/>
-                <render aid="PIH:FINANCIAL AID" aidLabel="pihcore.aid.money"/>
                 <render aid="PIH:SCHOOL EXPENSES" aidLabel="pihcore.aid.school"/>
                 <render aid="PIH:HOUSING EXPENSES" aidLabel="pihcore.aid.home"/>
-                <render aid="CIEL:5622" aidLabel="pihcore.visitNote.plan.other"/>
             </repeat>
+
+            <tr>
+                <td>
+                    <label>
+                        <uimessage code="pihcore.visitNote.plan.other"/>
+                    </label>
+                </td>
+                <td>
+                    <obs conceptId="PIH:2156" answerConceptId="CIEL:5622"
+                         answerLabel="" style="checkbox" showCommentField="true" />
+                </td>
+                <td>
+                    <obs conceptId="PIH:2157" answerConceptId="CIEL:5622"
+                         answerLabel="" style="checkbox" showCommentField="true" />
+                </td>
+            </tr>
+
         </table>
 
         <p>
