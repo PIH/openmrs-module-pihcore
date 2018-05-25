@@ -45,6 +45,8 @@ public class LocationTagSetup {
                 setupLocationTagsForThomonde(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
                 setupLocationTagsForMirebalais(locationService);
+            } else if (config.getSite().equals(ConfigDescriptor.Site.HINCHE)) {
+                setupLocationTagsForMirebalais(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
                 setupLocationTagsForHaitiCrossSite(locationService);
             }
@@ -98,6 +100,10 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForThomonde(LocationService locationService) {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.THOMONDE);
+    }
+
+    private static void setupLocationTagsForHinche(LocationService locationService) {
+        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.HINCHE);
     }
 
     private static void setupLocationTagsForZLTraining(LocationService locationService) {

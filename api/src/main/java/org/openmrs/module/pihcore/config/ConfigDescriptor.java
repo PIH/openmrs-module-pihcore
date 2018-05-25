@@ -19,7 +19,7 @@ public class ConfigDescriptor {
     }
 
     public enum Site {
-        MIREBALAIS, LACOLLINE, THOMONDE, ZLTRAINING,
+        MIREBALAIS, LACOLLINE, THOMONDE, ZLTRAINING, HINCHE,
         PLEEBO, HARPER, OTHER, CROSS_SITE
     }
 
