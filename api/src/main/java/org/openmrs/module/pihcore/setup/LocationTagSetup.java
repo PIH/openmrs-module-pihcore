@@ -47,6 +47,10 @@ public class LocationTagSetup {
                 setupLocationTagsForMirebalais(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.HINCHE)) {
                 setupLocationTagsForHinche(locationService);
+            } else if (config.getSite().equals(ConfigDescriptor.Site.BELLADERE)) {
+                setupLocationTagsForBelladere(locationService);
+            } else if (config.getSite().equals(ConfigDescriptor.Site.CERCA_LA_SOURCE)) {
+                setupLocationTagsForCerca(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
                 setupLocationTagsForHaitiCrossSite(locationService);
             }
@@ -102,12 +106,20 @@ public class LocationTagSetup {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.THOMONDE);
     }
 
+    private static void setupLocationTagsForZLTraining(LocationService locationService) {
+        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.THOMONDE);
+    }
+
     private static void setupLocationTagsForHinche(LocationService locationService) {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.HINCHE);
     }
+    
+    private static void setupLocationTagsForCerca(LocationService locationService) {
+        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.CERCA_LA_SOURCE);
+    }
 
-    private static void setupLocationTagsForZLTraining(LocationService locationService) {
-        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.THOMONDE);
+    private static void setupLocationTagsForBelladere(LocationService locationService) {
+        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.BELLADERE);
     }
 
     private static void setStandardHaitiSingleSiteLocationTags(LocationService locationService, LocationDescriptor location) {
