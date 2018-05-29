@@ -35,7 +35,7 @@ public class PihHaitiPatientIdentifierTypes {
 		public String uuid() { return "e66645eb-03a8-4991-b4ce-e87318e37566"; }
 		public String name() { return "Nimewo Dosye"; }
 		public String description() { return "Patient Dossier number"; }
-		public String format() { return "\\w{1,3}\\d{6}"; }
+		public String format() { return "\\w{1,4}\\d{6}"; }
 		public String formatDescription() { return "A000001"; }
 		public PatientIdentifierType.LocationBehavior locationBehavior() { return PatientIdentifierType.LocationBehavior.REQUIRED; }
 	};
