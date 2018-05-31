@@ -113,7 +113,7 @@ public class LocationTagSetup {
     private static void setupLocationTagsForHinche(LocationService locationService) {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.HINCHE);
     }
-    
+
     private static void setupLocationTagsForCerca(LocationService locationService) {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.CERCA_LA_SOURCE);
     }
