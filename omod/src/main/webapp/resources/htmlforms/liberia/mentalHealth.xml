@@ -1,0 +1,517 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http//license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+  -->
+
+<htmlform id="liberia-mental-health" class="simple-form-ui"
+          formUuid="e1cff6a2-651a-11e8-adc0-fa7ae01bbebc"
+          htmlformUuid="e1cffbf2-651a-11e8-adc0-fa7ae01bbebc"
+          formName="Mental Health (Liberia)"
+          formEncounterType="a8584ab8-cc2a-11e5-9956-625662870761" formVersion="1.0">
+
+    <translations defaultLocale="en">
+        <code name="yes">
+            <variant locale="en" value="yes"/>
+        </code>
+        <code name="no">
+            <variant locale="en" value="no"/>
+        </code>
+        <code name="permonth">
+            <variant locale="en" value="per month"/>
+        </code>
+    </translations>
+
+    <style type="text/css">
+
+        #who-when-where {
+        margin-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+        }
+
+        #who-when-where p {
+        display: inline-block;
+        padding-right: 20px;
+        }
+
+        #where > input[type=text] {
+        display: inline-block;
+        }
+
+        .narrow {
+        width: 200px;
+        }
+
+        .field-error {
+        color: #ff6666;
+        font-size: 1.1em;
+        display: block;
+        }
+
+        .two-columns {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        }
+
+        .simple-form-ui input {
+        min-width: 80%
+        }
+
+        form fieldset {
+        min-width: 90%;
+        display: block;
+        }
+
+        #calculated-waist-hip-ratio {
+        font-weight: bold;
+        font-size: 1.4em;
+        }
+
+        .encounter-summary-container #calculated-ratio {
+        font-size: 1em;
+        font-weight: normal;
+        }
+
+        #encounterDate input {
+        min-width: 15%
+        }
+
+        .half-size-text {
+        color: #ff6666;
+        font-size: 50%;
+        display: block;
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
+        textarea {
+        width: 95%;
+        }
+
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+
+            jq(function() {
+
+                // return appointment date can never be before encounter date
+                var setMinReturnVisitDate = function () {
+
+                    var returnVisitDate = getValue('return-visit-date.value');
+
+                    getField('return-visit-date.value').datepicker('option', 'minDate', getField('encounterDate.value').datepicker('getDate'));
+
+                    if (returnVisitDate  &amp;&amp; returnVisitDate != getValue('return-visit-date.value')) {
+                        setValue('return-visit-date.value','');  // reset return visit date if change to encounter date makes it invalid
+                        alert('<uimessage code="pihcore.mentalhealth.returnVisitDateResetWarning"/>');
+                    }
+                }
+
+                getField('encounterDate.value').change(setMinReturnVisitDate);
+
+                setMinReturnVisitDate();
+            });
+
+        </script>
+    </ifMode>
+
+    <div class="print-form-datestamps" style="display:none">
+        <p><uimessage code="created_on"/>:
+            <lookup complexExpression="$form.dateCreated"/>
+        </p>
+        <p><uimessage code="last_updated_on"/>:
+            <lookup complexExpression="$form.dateChanged"/>
+        </p>
+        <p><uimessage code="printed_on"/>:
+            <lookup complexExpression="$formGeneratedDatetime"/>
+        </p>
+    </div>
+
+    <ifMode mode="VIEW" include="false">
+        <h2>
+            <label>
+                <uimessage code="pihcore.mentalhealth.title"/>
+            </label>
+        </h2>
+
+        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
+        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+            <div id="who-when-where">
+                <p id="who">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.providerRequired"/>
+                    </label>
+                    <span>
+                        <!-- ToDo:  Add and change encounter_role -->
+                        <encounterProviderAndRole default="currentUser"
+                                                  encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                    </span>
+                </p>
+                <p id="where">
+                    <label>
+                        <uimessage code="emr.locationRequired"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
+                                           tags="Consult Note Location"/>
+                    </span>
+                </p>
+                <p id="when">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
+                </p>
+            </div>
+        </includeIf>
+        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+        <includeIf
+                velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+            <div style="display:none">
+                <!-- ToDo:  Add and change encounter_role -->
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                          required="true"/>
+            </div>
+
+            <div id="who-when-where">
+                <p id="who">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.provider"/>
+                    </label>
+                    <span>
+                        <lookup expression="user.person.personName"/>
+                    </span>
+                </p>
+                <p id="where">
+                    <label>
+                        <uimessage code="emr.locationRequired"/>
+                    </label>
+                    <span>
+                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
+                                           tags="Consult Note Location"/>
+                    </span>
+                </p>
+                <p id="when">
+                    <label>
+                        <uimessage code="emr.patientDashBoard.date"/>
+                    </label>
+                    <span>
+                        <encounterDate id="encounterDate" default="now"/>
+                    </span>
+                </p>
+            </div>
+
+        </includeIf>
+        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
+            <div style="display:none">
+                <!-- ToDo:  Create and change encounter_role -->
+                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                          required="true"/>
+                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                <encounterDate id="encounterDate" default="now"/>
+            </div>
+            <div id="who-when-where">
+                <table id="who-where-when-view">
+                    <tr>
+                        <td>
+                            <label>
+                                <uimessage code="emr.patientDashBoard.provider"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/>
+                            </span>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="emr.location"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/>
+                            </span>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="emr.patientDashBoard.date"/>
+                            </label>
+                            <span>
+                                <lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </includeIf>
+    </ifMode>
+
+    <!-- The form -->
+    <section id="mh_refer" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.mentalhealth.communityReferral">
+
+        <div class="section-container">
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.referredBy" />:
+                </label>
+            </p>
+            <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:VILLAGE HEALTH WORKER'],['PIH:Other medical service']">
+                <p>
+                    <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
+                         style="checkbox"/>
+                </p>
+            </repeat>
+            <p>
+                <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
+                    style="checkbox" commentFieldLabel=" " />
+            </p>
+        </div>
+    </section>
+
+    <section id="mh_scores" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.mentalhealth.scores">
+
+        <div class="section-container">
+
+            <p>
+                <label>
+                    PHQ-9 score:
+                </label>
+
+                <span class="small">
+                    <obs conceptId="CIEL:163225"/>
+                </span>
+            </p>
+        </div>
+
+        <hr/>
+        <div class="section-container">
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>):
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163226" required="true"/>
+                </span>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.difficultDays"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Days with difficulties in past month"/>
+                </span>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.nonFunctioningDays"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Days without usual activity in past month"/>
+                </span>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.reducedFunctionDays"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Days with less activity in past month"/>
+                </span>
+            </p>
+        </div>
+        <hr/>
+
+        <div class="section-container">
+            <label>
+                <uimessage code="pihcore.mentalhealth.aims"/>:
+            </label>
+            <obs conceptId="CIEL:163227"/>
+            <br/>
+
+            <label>
+                <uimessage code="pihcore.mentalhealth.epilepsySeizureFrequency"/>:
+            </label>
+
+            <obsgroup groupingConceptId="CIEL:161245">
+                <span class="small">
+                    <obs conceptId="PIH:6797"/>
+                    <uimessage code="permonth"/>
+                </span>
+            </obsgroup>
+            <br/>
+            <br/>
+
+            <label>
+                <uimessage code="pihcore.mentalhealth.suicideEval"/>:
+            </label>
+            <obs conceptId="PIH:Suicidal evaluation" answerConceptIds="PIH:YES,PIH:NO"
+                 style="radio" answerCodes="yes,no" answerSeparator="" />
+            <br/>
+            <obs conceptId="PIH:Mental health diagnosis" answerConceptId="CIEL:125562"
+                 style="checkbox"/>
+
+        </div>
+    </section>
+
+    <section id="mh-diagnoses" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.diagnoses.label">
+        <div class="section-container">
+            <p>
+                <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
+                     style="autocomplete"/>
+            </p>
+            <p>
+                <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
+                     style="autocomplete"/>
+            </p>
+            <p>
+            <obs conceptId="PIH:Mental health diagnosis" answerConceptSetIds="PIH:HUM Psychological diagnosis"
+                 style="autocomplete"/>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.providerType"/>:
+                </label>
+            </p>
+            <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST']">
+                <p>
+                    <obs conceptId="PIH:Type of provider" answerConceptId="{0}"
+                         style="checkbox"/>
+                </p>
+            </repeat>
+
+        </div>
+    </section>
+
+    <section id="mh-interventions" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.mentalhealth.interventions">
+        <div class="section-container">
+            <repeat with="['PIH:Psychotherapy'],['PIH:Psychoeducation'],['PIH:Interpersonal Therapy'],['PIH:Relaxation'],['PIH:Family Support'],['PIH:Grief counseling'],['PIH:Parenting skills'],['PIH:Behavioral activation'],['PIH:PSYCHOSOCIAL COUNSELING']">
+                <p>
+                    <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
+                </p>
+            </repeat>
+            <p>
+                <obs conceptId="PIH:Mental health intervention" answerConceptId="PIH:OTHER"
+                     commentFieldLabel=""/>
+            </p>
+        </div>
+    </section>
+
+    <section id="mh-meds" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.meds">
+        <div class="section-container">
+
+            <div class="two-columns">
+                <repeat with="['PIH:FLUOXETINE'],['PIH:AMITRYPTILINE'],['PIH:PHENOBARBITAL'],['PIH:PHENYTOIN'],['CIEL:83405'],['PIH:HALOPERIDOL'],['PIH:DIAZEPAM'],['PIH:CARBAMAZEPINE'],['PIH:SODIUM VALPROATE']">
+                    <p>
+                        <obs conceptId="PIH:Mental health medication" answerConceptId="{0}"
+                             style="checkbox"/>
+                    </p>
+                </repeat>
+            </div>
+
+            <br/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.exam.comment"/>:
+                </label>
+            </p>
+
+            <p>
+                <obs conceptId="PIH:Medication comments (text)"/>
+            </p>
+
+        </div>
+    </section>
+
+    <section id="mh-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.visitNote.plan">
+        <div class="section-container">
+
+            <div class="two-columns">
+                <p>
+                    <obs conceptId="PIH:Mental health intervention"
+                         answerConceptId="PIH:Security plan"
+                         style="checkbox"/>
+                </p>
+
+                <p>
+                    <obs conceptId="PIH:TYPE OF PATIENT" answerConceptId="PIH:INPATIENT HOSPITALIZATION"
+                         style="checkbox"/>
+                </p>
+
+
+
+                <p style="-webkit-column-break-before: always;break-before:column">
+                    <label>
+                        <uimessage code="pihcore.referredTo"/>:
+                    </label>
+                </p>
+                <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:VILLAGE HEALTH WORKER'],['PIH:SOCIAL WORKER SERVICE']">
+                    <p>
+                        <obs conceptId="PIH:Type of referral role" answerConceptId="{0}" style="checkbox"/>
+                    </p>
+                </repeat>
+            </div>
+
+            <label>
+                <uimessage code="pihcore.comment"/>:
+            </label>
+            <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.consult.returnVisitDate"/>:
+                </label>
+                <span class="small">
+                    <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
+                </span>
+            </p>
+        </div>
+    </section>
+
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>
