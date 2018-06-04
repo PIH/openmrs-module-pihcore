@@ -137,6 +137,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         // TODO: determine what this should actually be
         properties.put("order.encounterType", "Test Order");
         properties.put("order.encounterRole", "Ordering Provider");
+        properties.put("orderentryowa.dateAndTimeFormat", "DD-MMM-YYYY HH:mm");
 
 
         setGlobalProperties(properties);
