@@ -320,9 +320,7 @@
                     <render concept="PIH:Bipolar disorder" name="Bipolar" />
                     <render concept="PIH:SCHIZOPHRENIA" name="Schizophrenia" />
                     <render concept="PIH:Psychosomatic problems" name="Psychosomatic" />
-                    <!-- ToDo:  Add to mds
                     <render concept="PIH:Hyperkinetic Behavior" name="ADHD" />
-                    -->
                     <render concept="PIH:Conduct disorder" name="Conduct" />
                     <render concept="PIH:Mental handicap" name="Intellect" />
                     <render concept="PIH:DEMENTIA" name="Dementia" />
