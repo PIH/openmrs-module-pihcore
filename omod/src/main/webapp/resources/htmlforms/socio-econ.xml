@@ -219,14 +219,16 @@
                     <label>
                         <uimessage code="pihcore.visitNote.plan.other"/>
                     </label>
+                    <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE NON-CODED"
+                         labelCode="zl.ifOtherSpecify"/>
                 </td>
                 <td>
                     <obs conceptId="PIH:2156" answerConceptId="CIEL:5622"
-                         answerLabel="" style="checkbox" showCommentField="true" />
+                         answerLabel="" style="checkbox" />
                 </td>
                 <td>
                     <obs conceptId="PIH:2157" answerConceptId="CIEL:5622"
-                         answerLabel="" style="checkbox" showCommentField="true" />
+                         answerLabel="" style="checkbox" />
                 </td>
             </tr>
 

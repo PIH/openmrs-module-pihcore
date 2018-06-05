@@ -5,7 +5,7 @@ import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.springframework.stereotype.Component;
 
 @Component
-@Requires({ HIVProgramBundle.class, NCDProgramBundle.class, ZikaProgramBundle.class, MentalHealthProgramBundle.class} )
+@Requires({ HIVProgramBundle.class, NCDProgramBundle.class, OncologyProgramBundle.class, ZikaProgramBundle.class, MentalHealthProgramBundle.class} )
 public class PihProgramsBundle extends AbstractMetadataBundle {
 
     @Override
