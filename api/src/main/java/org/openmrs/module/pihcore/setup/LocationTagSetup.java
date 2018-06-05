@@ -78,6 +78,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(location));
 
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
@@ -87,7 +88,6 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ONCOLOGY_CONSULT_LOCATION, null);
