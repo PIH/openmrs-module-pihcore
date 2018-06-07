@@ -216,9 +216,6 @@
 
             <tr>
                 <td>
-                    <label>
-                        <uimessage code="pihcore.visitNote.plan.other"/>
-                    </label>
                     <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE NON-CODED"
                          labelCode="zl.ifOtherSpecify"/>
                 </td>
