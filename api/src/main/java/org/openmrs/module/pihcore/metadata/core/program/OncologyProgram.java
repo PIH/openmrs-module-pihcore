@@ -26,6 +26,20 @@ public class OncologyProgram {
         public String uuid() { return "1573301c-6851-11e8-adc0-fa7ae01bbebc"; }
     };
 
+    public static ProgramWorkflowStateDescriptor FOLLOWUP_STATE = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return FOLLOWUP_STATE_UUID; }
+        public Boolean initial() { return true; }
+        public Boolean terminal() { return false; }
+        public String uuid() { return "5feade52-6a76-11e8-adc0-fa7ae01bbebc"; }
+    };
+
+    public static ProgramWorkflowStateDescriptor PALLIATIVE_ONLY_STATE = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return PALLIATIVE_ONLY_STATE_UUID; }
+        public Boolean initial() { return true; }
+        public Boolean terminal() { return false; }
+        public String uuid() { return "5feae118-6a76-11e8-adc0-fa7ae01bbebc"; }
+    };
+
     public static ProgramWorkflowStateDescriptor OTHER_STATE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return OTHER_STATE_UUID; }
         public Boolean initial() { return true; }
@@ -35,12 +49,17 @@ public class OncologyProgram {
 
     public static ProgramWorkflowDescriptor ONCOLOGY_PROGRESS_STATUS = new ProgramWorkflowDescriptor() {
         public String conceptUuid() { return ONCOLOGY_PROGRESS_STATUS_UUID; }
+        // ToDo:  This doesn't work
+        // public String name() { return "Program status"; }
         public String uuid() { return "157333e6-6851-11e8-adc0-fa7ae01bbebc"; }
-        @Override public Set<ProgramWorkflowStateDescriptor> states() { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(THERAPY_STATE,SURVEILLANCE_STATE,OTHER_STATE)); }
+        @Override public Set<ProgramWorkflowStateDescriptor> states()
+            { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(THERAPY_STATE,SURVEILLANCE_STATE,FOLLOWUP_STATE,PALLIATIVE_ONLY_STATE,OTHER_STATE)); }
     };
 
     public static ProgramWorkflowStateDescriptor ONCOLOGY_PALLIATIVE_STATE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return PALLIATIVE_STATE_UUID; }
+        // ToDo:  This doesn't work
+        // public String name() { return "Palliative treatment"; }
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
         public String uuid() { return "45ffabfa-684e-11e8-adc0-fa7ae01bbebc"; }
@@ -48,6 +67,8 @@ public class OncologyProgram {
 
     public static ProgramWorkflowStateDescriptor ONCOLOGY_CURE_STATE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return CURATIVE_STATE_UUID; }
+        // ToDo:  This doesn't work
+        // public String name() { return "Curative treatment"; }
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
         public String uuid() { return "45ffaace-684e-11e8-adc0-fa7ae01bbebc"; }
@@ -56,7 +77,8 @@ public class OncologyProgram {
     public static ProgramWorkflowDescriptor ONCOLOGY_TREATMENT_STATUS = new ProgramWorkflowDescriptor() {
         public String conceptUuid() { return ONCOLOGY_TREATMENT_STATUS_UUID; }
         public String uuid() { return "45ffa97a-684e-11e8-adc0-fa7ae01bbebc"; }
-        @Override public Set<ProgramWorkflowStateDescriptor> states() { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ONCOLOGY_CURE_STATE,ONCOLOGY_PALLIATIVE_STATE)); }
+        @Override public Set<ProgramWorkflowStateDescriptor> states()
+        { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ONCOLOGY_CURE_STATE,ONCOLOGY_PALLIATIVE_STATE)); }
     };
 
     public static ProgramDescriptor ONCOLOGY = new ProgramDescriptor() {
