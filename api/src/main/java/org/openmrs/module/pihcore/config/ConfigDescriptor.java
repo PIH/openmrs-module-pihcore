@@ -15,12 +15,13 @@ import java.util.Map;
 public class ConfigDescriptor {
 
     public enum Country {
-        HAITI, LIBERIA, SIERRA_LEONE, OTHER
+        HAITI, LIBERIA, SIERRA_LEONE, MEXICO, OTHER
     }
 
+    // TODO replace CHIAPAS will the proper site name we'd want to use in Mexico
     public enum Site {
         MIREBALAIS, LACOLLINE, THOMONDE, ZLTRAINING, HINCHE, CERCA_LA_SOURCE, BELLADERE,
-        PLEEBO, HARPER, OTHER, CROSS_SITE
+        PLEEBO, HARPER, CHIAPAS, OTHER, CROSS_SITE
     }
 
     public enum Specialty {

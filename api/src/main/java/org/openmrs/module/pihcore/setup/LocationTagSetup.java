@@ -12,6 +12,7 @@ import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
+import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
 
 import java.lang.reflect.Field;
@@ -35,6 +36,9 @@ public class LocationTagSetup {
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             setupLocationTagsForSierraLeone(locationService);
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+            setupLocationTagsForMexico(locationService);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
@@ -61,6 +65,12 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
+    }
+
+    private static void setupLocationTagsForMexico(LocationService locationService) {
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(MexicoLocations.CHIAPAS));
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(MexicoLocations.CHIAPAS));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(MexicoLocations.CHIAPAS));
     }
 
     private static void setupLocationTagsForLiberia(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException {

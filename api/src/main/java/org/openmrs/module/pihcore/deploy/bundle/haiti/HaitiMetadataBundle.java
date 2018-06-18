@@ -26,6 +26,7 @@ import org.openmrs.module.haiticore.metadata.bundles.HaitiPersonAttributeTypeBun
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
+import org.openmrs.module.pihcore.deploy.bundle.core.GlobalPropertiesBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
@@ -95,8 +96,9 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
 
 		properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, ALLOWED_LOCALES);
 
+        // EMR API: most global properties have been moved to metadata mappings, but evidently not this one
+		properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, GlobalPropertiesBundle.Concepts.HAITI_DIAGNOSIS_SET_OF_SETS);
 
-		// EMR API
 		// extra patient identifiers now set as part of Config
 		// properties.put(EmrApiConstants.GP_EXTRA_PATIENT_IDENTIFIER_TYPES, PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid() + "," + PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
 		// primary identifier type now installed via metadata mappings

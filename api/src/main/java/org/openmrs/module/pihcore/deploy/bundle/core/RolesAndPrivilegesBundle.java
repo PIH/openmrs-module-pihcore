@@ -148,7 +148,9 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PROGRAM_MANAGER);
             install(Roles.LAB_TECHNICIAN);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA) || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)
+                || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)
+                || config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             install(Roles.SYSTEM_ADMINISTRATOR);
             install(Roles.ARCHIVIST_CLERK);
             install(Roles.PHYSICIAN);

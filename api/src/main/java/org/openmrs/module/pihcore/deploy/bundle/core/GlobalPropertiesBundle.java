@@ -9,7 +9,6 @@ import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
@@ -78,15 +77,6 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         // UI Framework
         properties.put(UiFrameworkConstants.GP_FORMATTER_DATE_FORMAT, DEFAULT_DATE_FORMAT);
         properties.put(UiFrameworkConstants.GP_FORMATTER_DATETIME_FORMAT, DEFAULT_DATETIME_FORMAT);
-
-        // EMR API: most global properties have been moved to metadata mappings, but evidently not this one
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, Concepts.HAITI_DIAGNOSIS_SET_OF_SETS);
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, Concepts.LIBERIA_DIAGNOSIS_SET_OF_SETS);
-        }
-
 
         // REST
         // These do not use constants from the rest module due to the omod dependency when provided in maven.
