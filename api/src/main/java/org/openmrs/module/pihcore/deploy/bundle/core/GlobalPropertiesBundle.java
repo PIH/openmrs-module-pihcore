@@ -124,9 +124,9 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(AttachmentsConstants.GP_ENCOUNTER_TYPE_UUID, "");
 
         // Order Entry OWA
-        // TODO: determine what this should actually be
-        properties.put("order.encounterType", "Test Order");
-        properties.put("order.encounterRole", "Ordering Provider");
+        // TODO: can we get rid of "order.encounterType" and "order.encounterRole" GP?
+        properties.put("orderentryowa.encounterType", "Test Order");
+        properties.put("orderentryowa.encounterRole", "Ordering Provider");
         properties.put("orderentryowa.dateAndTimeFormat", "DD-MMM-YYYY HH:mm");
 
 
