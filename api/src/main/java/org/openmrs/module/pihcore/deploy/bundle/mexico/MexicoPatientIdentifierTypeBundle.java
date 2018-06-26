@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.deploy.bundle.mexico;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
+import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -8,6 +9,6 @@ public class MexicoPatientIdentifierTypeBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
-        // TODO define patient identifier types
+        install(MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID);
     }
 }
