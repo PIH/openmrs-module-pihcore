@@ -5,6 +5,7 @@ import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.Locations;
+import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -27,7 +28,7 @@ public class MexicoMetadataBundle extends AbstractMetadataBundle {
         // OpenMRS Core
 
         // Core Apps
-        properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, Locations.UNKNOWN.uuid());
+        properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MexicoLocations.CHIAPAS.uuid());
 
         setGlobalProperties(properties);
 

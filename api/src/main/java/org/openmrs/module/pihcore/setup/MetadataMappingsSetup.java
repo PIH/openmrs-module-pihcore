@@ -11,10 +11,12 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
+import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
 public class MetadataMappingsSetup {
@@ -55,6 +57,9 @@ public class MetadataMappingsSetup {
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
         }
     }
 
