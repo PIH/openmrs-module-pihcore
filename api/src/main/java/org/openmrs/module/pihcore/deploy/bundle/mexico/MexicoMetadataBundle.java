@@ -28,7 +28,7 @@ public class MexicoMetadataBundle extends AbstractMetadataBundle {
         // OpenMRS Core
 
         // Core Apps
-        properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MexicoLocations.CHIAPAS.uuid());
+        properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MexicoLocations.JALTENANGO.uuid());
 
         setGlobalProperties(properties);
 
