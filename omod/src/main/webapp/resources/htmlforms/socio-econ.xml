@@ -69,6 +69,35 @@
                         </span>
 
                     </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.numChild"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="CIEL:1825"/>
+                        </span>
+
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.toilet"/>
+                        </label>
+                        <obs conceptId="CIEL:159389" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.latrine"/>
+                        </label>
+                        <obs conceptId="PIH:Latrine" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
+                    </p>
+
                     <p>
                         <label>
                             <uimessage code="pihcore.socioEconomic.numRooms"/>
@@ -76,16 +105,6 @@
                         <span class="small">
                             <obs conceptId="CIEL:1475"/>
                         </span>
-                    </p>
-
-                    <p>
-                        <!-- ToDo: What is the difference between toilet and latrine? -->
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.toilet"/>
-                        </label>
-                        <obs conceptId="CIEL:159389" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO"
-                             answerSeparator=""/>
                     </p>
 
                     <p>
