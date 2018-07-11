@@ -6,6 +6,7 @@ import org.openmrs.module.pihcore.metadata.core.LocationTags;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class MexicoLocations {
 
