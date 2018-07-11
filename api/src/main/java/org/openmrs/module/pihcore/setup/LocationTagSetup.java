@@ -68,9 +68,26 @@ public class LocationTagSetup {
     }
 
     private static void setupLocationTagsForMexico(LocationService locationService) {
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(MexicoLocations.CHIAPAS));
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(MexicoLocations.CHIAPAS));
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(MexicoLocations.CHIAPAS));
+
+        List<LocationDescriptor> allLocations = Arrays.asList(
+                MexicoLocations.JALTENANGO,
+                MexicoLocations.CAPITAN,
+                MexicoLocations.HONDURAS,
+                MexicoLocations.LAGUNA_DEL_COFRE,
+                MexicoLocations.LETRERO,
+                MexicoLocations.MATAZANO,
+                MexicoLocations.MONTERREY,
+                MexicoLocations.PLAN_DE_LA_LIBERTAD,
+                MexicoLocations.REFORMA,
+                MexicoLocations.SALVADOR,
+                MexicoLocations.SOLEDAD
+        );
+
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allLocations);
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allLocations);
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allLocations);
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allLocations);
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, allLocations);
     }
 
     private static void setupLocationTagsForLiberia(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException {

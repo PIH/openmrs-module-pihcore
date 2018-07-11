@@ -17,7 +17,7 @@ public class ConfigureMexicoIdGenerators {
 
     public static void configureGenerators(IdentifierSourceService identifierSourceService) {
 
-        Location identifierLocation = MetadataUtils.existing(Location.class, MexicoLocations.CHIAPAS.uuid());
+        Location identifierLocation = MetadataUtils.existing(Location.class, MexicoLocations.JALTENANGO.uuid());
 
         SequentialIdentifierGenerator chiapasPrimaryIdentifierSource = (SequentialIdentifierGenerator)
                 identifierSourceService.getIdentifierSourceByUuid(CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID);
