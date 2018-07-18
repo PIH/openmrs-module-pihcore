@@ -69,8 +69,13 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForMexico(LocationService locationService) {
 
-        List<LocationDescriptor> allLocations = Arrays.asList(
-                MexicoLocations.JALTENANGO,
+        // Tags for our hub in Jaltenango
+        List<LocationDescriptor> jalte = Arrays.asList(MexicoLocations.JALTENANGO);
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, jalte);
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, jalte);
+
+        // Tags for our clinics, where visits happen
+        List<LocationDescriptor> allClinics = Arrays.asList(
                 MexicoLocations.CAPITAN,
                 MexicoLocations.HONDURAS,
                 MexicoLocations.LAGUNA_DEL_COFRE,
@@ -82,12 +87,12 @@ public class LocationTagSetup {
                 MexicoLocations.SALVADOR,
                 MexicoLocations.SOLEDAD
         );
-
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allLocations);
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allLocations);
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allLocations);
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allLocations);
-        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, allLocations);
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allClinics);
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allClinics);
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allClinics);
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allClinics);
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, allClinics);
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, allClinics);
     }
 
     private static void setupLocationTagsForLiberia(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException {
