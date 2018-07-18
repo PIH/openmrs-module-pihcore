@@ -19,6 +19,7 @@ public class Components {
         public static final String NCD = "ncd";
         public static final String HIV = "hiv";
         public static final String VCT = "vct";
+        public static final String MCH = "mch";
         public static final String MENTAL_HEALTH = "mentalHealth";
         public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";
         public static final String SOCIO_ECONOMICS= "socioEconomics";

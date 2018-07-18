@@ -78,4 +78,11 @@ public class PihCoreConstants {
     public static final String CURATIVE_STATE_UUID = "160849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String PALLIATIVE_STATE_UUID = "160847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String OTHER_STATE_UUID = "3cee7fb4-26fe-102b-80cb-0017a47871b2";
+
+    public static final String GROUP1_UUID = "3cdf67d6-26fe-102b-80cb-0017a47871b2";
+    public static final String GROUP2_UUID = "3cdf7f1e-26fe-102b-80cb-0017a47871b2";
+    public static final String MOTHER_GROUP_UUID = "e219babf-faca-4d16-9207-c3e99d58a428";
+    public static final String CHILD_GROUP_UUID = "68b4ecc7-f3c4-4f3f-a6e2-556cb33f463b";
+    public static final String MCH_PROGRAM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String MCH_PROGRAM_OUTCOME_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";
 }
