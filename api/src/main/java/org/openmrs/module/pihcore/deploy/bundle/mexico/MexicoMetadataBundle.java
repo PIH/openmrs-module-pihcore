@@ -4,8 +4,9 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
-import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
+import org.openmrs.util.LocaleUtility;
+import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
