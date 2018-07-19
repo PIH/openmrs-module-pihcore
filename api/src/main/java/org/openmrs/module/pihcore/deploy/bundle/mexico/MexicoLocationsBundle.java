@@ -24,6 +24,5 @@ public class MexicoLocationsBundle extends AbstractMetadataBundle {
         install(MexicoLocations.REFORMA);
         install(MexicoLocations.SALVADOR);
         install(MexicoLocations.SOLEDAD);
-        install(MexicoLocations.TEST);
     }
 }
