@@ -85,7 +85,8 @@ public class LocationTagSetup {
                 MexicoLocations.PLAN_DE_LA_LIBERTAD,
                 MexicoLocations.REFORMA,
                 MexicoLocations.SALVADOR,
-                MexicoLocations.SOLEDAD
+                MexicoLocations.SOLEDAD,
+                MexicoLocations.TEST
         );
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allClinics);

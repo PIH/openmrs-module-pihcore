@@ -86,5 +86,12 @@ public class MexicoLocations {
         public String description() { return "Soledad"; }
         public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
     };
+
+    public static LocationDescriptor TEST = new LocationDescriptor() {
+        public String uuid() { return "c31869d6-8535-11e8-9d02-74AAAAAAAAAA"; }
+        public String name() { return "Test"; }
+        public String description() { return "Test"; }
+        public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION); }
+    };
 }
 
