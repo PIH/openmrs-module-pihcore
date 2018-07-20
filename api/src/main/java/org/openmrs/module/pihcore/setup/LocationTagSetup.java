@@ -87,7 +87,6 @@ public class LocationTagSetup {
                 MexicoLocations.SALVADOR,
                 MexicoLocations.SOLEDAD
         );
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allClinics);
