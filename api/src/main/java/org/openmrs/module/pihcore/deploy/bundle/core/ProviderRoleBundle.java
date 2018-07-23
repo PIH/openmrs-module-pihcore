@@ -19,7 +19,7 @@ import static org.openmrs.module.pihcore.deploy.PihConstructors.providerRole;
  * Install CHW Provider Roles
  */
 @Component
-@Requires( {ProviderAttributeTypeBundle.class, RelationshipTypeBundle.class})
+@Requires({ProviderAttributeTypeBundle.class, RelationshipTypeBundle.class})
 public class ProviderRoleBundle extends AbstractMetadataBundle {
 
     @Autowired
@@ -43,39 +43,45 @@ public class ProviderRoleBundle extends AbstractMetadataBundle {
     public void install() throws Exception {
 
         Set<RelationshipType> relationshipTypes = null;
-        RelationshipType vhwToPatient = personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT);
-        RelationshipType nurseVhwToPatient = personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.NURSE_CHW_PATIENT);
+        RelationshipType vhwToPatient =
+                personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT);
+        RelationshipType nurseVhwToPatient =
+                personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.NURSE_CHW_PATIENT);
+
+        Set<ProviderAttributeType> providerAttributes = new HashSet<ProviderAttributeType>();
+        ProviderAttributeType providerAttributeType =
+                providerService.getProviderAttributeTypeByUuid(ProviderAttributeTypeBundle.ProviderAttributeTypes.DATE_HIRED);
+        if (providerAttributeType != null) {
+            providerAttributes.add(providerAttributeType);
+        }
+        providerAttributeType =
+                providerService.getProviderAttributeTypeByUuid(ProviderAttributeTypeBundle.ProviderAttributeTypes.NUMBER_OF_HOUSEHOLDS);
+        if (providerAttributeType != null) {
+            providerAttributes.add(providerAttributeType);
+        }
 
         if (vhwToPatient != null) {
             relationshipTypes = new HashSet<RelationshipType>();
             relationshipTypes.add(vhwToPatient);
         }
+        ProviderRole vhwSupervisee =
+                install(providerRole("CHW", null, relationshipTypes, providerAttributes, ProviderRoles.CHW));
+
+        Set<ProviderRole> superviseeRoles = null;
+        if (vhwSupervisee != null) {
+            superviseeRoles = new HashSet<ProviderRole>();
+            superviseeRoles.add(vhwSupervisee);
+        }
+
+        install(providerRole("CHW Supervisor", superviseeRoles, relationshipTypes, providerAttributes, ProviderRoles.CHW_SUPERVISOR));
 
         if (nurseVhwToPatient != null) {
             relationshipTypes = new HashSet<RelationshipType>();
             relationshipTypes.add(nurseVhwToPatient);
         }
 
-        Set<ProviderAttributeType> providerAttributes = new HashSet<ProviderAttributeType>();
-        ProviderAttributeType providerAttributeType = providerService.getProviderAttributeTypeByUuid(ProviderAttributeTypeBundle.ProviderAttributeTypes.DATE_HIRED);
-        if (providerAttributeType !=null ) {
-            providerAttributes.add(providerAttributeType);
-        }
-        providerAttributeType = providerService.getProviderAttributeTypeByUuid(ProviderAttributeTypeBundle.ProviderAttributeTypes.NUMBER_OF_HOUSEHOLDS);
-        if (providerAttributeType !=null ) {
-            providerAttributes.add(providerAttributeType);
-        }
+        install(providerRole("Nurse Accompagnateur", null, relationshipTypes, providerAttributes, ProviderRoles.NURSE_ACCOMPAGNATEUR));
 
-        ProviderRole vhwSupervisee = install(providerRole("CHW", null, relationshipTypes, providerAttributes, ProviderRoles.CHW));
-        ProviderRole nurseAccompagnateur = install(providerRole("Nurse Accompagnateur", null, relationshipTypes, providerAttributes, ProviderRoles.NURSE_ACCOMPAGNATEUR));
-
-        Set<ProviderRole> superviseeRoles = null;
-        if (vhwSupervisee != null ) {
-            superviseeRoles = new HashSet<ProviderRole>();
-            superviseeRoles.add(vhwSupervisee);
-        }
-
-        install(providerRole("CHW Supervisor", superviseeRoles, relationshipTypes, providerAttributes, ProviderRoles.CHW_SUPERVISOR));
     }
 
 }
