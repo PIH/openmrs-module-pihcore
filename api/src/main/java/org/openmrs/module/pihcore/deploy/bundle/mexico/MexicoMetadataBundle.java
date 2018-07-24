@@ -14,8 +14,9 @@ import java.util.Map;
 
 @Component
 @Requires({ PihCoreMetadataBundle.class,
-        MexicoLocationsBundle.class,
-        MexicoPatientIdentifierTypeBundle.class} )
+            MexicoAddressBundle.class,
+            MexicoLocationsBundle.class,
+            MexicoPatientIdentifierTypeBundle.class} )
 public class MexicoMetadataBundle extends AbstractMetadataBundle {
     public static final String DEFAULT_LOCALE = "es";
     public static final String ALLOWED_LOCALES = "es, en";
