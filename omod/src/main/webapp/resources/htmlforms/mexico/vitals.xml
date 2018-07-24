@@ -558,6 +558,18 @@
             </p>
         </fieldset>
 
+        <!-- only show Head circumference if patient is less than 3 years old (on the encounterDate) -->
+        <includeIf velocityTest="3 > $patient.getAge($encounter.getEncounterDatetime())">
+            <fieldset>
+                <legend><uimessage code="mirebalais.vitals.head.navigation.title"/></legend>
+                <h3><uimessage code="mirebalais.vitals.head.title"/></h3>
+
+                <p>
+                    <obs conceptId="PIH:HEAD CIRCUMFERENCE" id="head_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
+                </p>
+            </fieldset>
+        </includeIf>
+
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
