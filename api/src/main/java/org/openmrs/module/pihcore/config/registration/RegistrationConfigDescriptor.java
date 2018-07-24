@@ -11,6 +11,9 @@ import java.util.Map;
 public class RegistrationConfigDescriptor {
 
     @JsonProperty
+    private AddressConfigDescriptor addressConfig;
+
+    @JsonProperty
     private boolean allowUnknownPatients = false;
 
     @JsonProperty
@@ -36,6 +39,14 @@ public class RegistrationConfigDescriptor {
 
     @JsonProperty
     private Integer maxPatientMatchResults;
+
+    public AddressConfigDescriptor getAddressConfig() {
+        return addressConfig;
+    }
+
+    public void setAddressConfig(AddressConfigDescriptor addressConfig) {
+        this.addressConfig = addressConfig;
+    }
 
     public boolean isAllowUnknownPatients() {
         return allowUnknownPatients;
