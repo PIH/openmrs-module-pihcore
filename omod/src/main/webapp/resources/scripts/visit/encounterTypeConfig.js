@@ -644,7 +644,6 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-beaker"
         };
 
-
         // MCH/Prenatal
         encounterTypeConfig[EncounterTypes.ancIntake.uuid] = {
             defaultState: "short",
@@ -674,6 +673,37 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-gift",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/delivery.xml",
             showOnVisitList: true
+        };
+
+        // Mexico Clinic
+        encounterTypeConfig[EncounterTypes.mexicoClinicInitialVisit.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                chiefComplaint,
+                allergies,
+                primaryCareHistory,
+                primaryCareDx,
+                primaryCarePlan
+            ]
+        };
+
+        encounterTypeConfig[EncounterTypes.mexicoClinicFollowupVisit.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                chiefComplaint,
+                primaryCareDx,
+                primaryCarePlan
+            ]
         };
 
         return encounterTypeConfig;
