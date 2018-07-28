@@ -19,7 +19,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 4;
+        return 3;
     }
 
     public static final class Concepts {
@@ -40,7 +40,6 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         public static final String PARTNER_OR_SPOUSE = "3cee77da-26fe-102b-80cb-0017a47871b2";
         public static final String GUARDIAN = "3cde7c90-26fe-102b-80cb-0017a47871b2";
         public static final String OTHER_RELATIVE = "3ce18bec-26fe-102b-80cb-0017a47871b2";
-        public static final String NURSE_CHW = "9a4b471e-8a9f-11e8-9a94-a6cf71072f73";
     }
 
     @Override
@@ -303,16 +302,6 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(ciel, "160730").build())
                 .mapping(new ConceptMapBuilder("758708e0-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "SISTER").build())
-                .build());
-
-        install(new ConceptBuilder(Concepts.NURSE_CHW)
-                .datatype(notApplicable)
-                .conceptClass(misc)
-                .name("9a4b4976-8a9f-11e8-9a94-a6cf71072f73", "Nurse Accompagnateur", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("9a4b5470-8a9f-11e8-9a94-a6cf71072f73", "Infirmière Accompagnateur ", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .description("9a4b55d8-8a9f-11e8-9a94-a6cf71072f73", "Nurse accompagnateur", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("9a4b570e-8a9f-11e8-9a94-a6cf71072f73")
-                        .type(sameAs).ensureTerm(pih, "Nurse CHW").build())
                 .build());
     }
 

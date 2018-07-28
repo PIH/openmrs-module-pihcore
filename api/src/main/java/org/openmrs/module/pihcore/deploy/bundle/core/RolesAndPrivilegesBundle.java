@@ -80,7 +80,6 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_EMR_ENTER_HIV_CONSULT_NOTE);
         install(Privileges.TASK_EMR_ENTER_VCT);
         install(Privileges.TASK_EMR_ENTER_SOCIO);
-        install(Privileges.TASK_EMR_ENTER_MCH);
         install(Privileges.TASK_EMR_ENTER_LAB_RESULTS);
         install(Privileges.TASK_EMR_PATIENT_ENCOUNTER_DELETE);
         install(Privileges.TASK_EMR_PATIENT_ENCOUNTER_EDIT);

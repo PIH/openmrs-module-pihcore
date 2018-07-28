@@ -176,13 +176,6 @@ public class LocationTags {
 		public String description() { return "Signifies a Location where an ED Triage form can be filled out"; }
 	};
 
-	public static LocationTagDescriptor MCH_LOCATION = new LocationTagDescriptor() {
-		@Override
-		public String uuid() { return "87037934-91a6-11e8-9eb6-529269fb1459"; }
-		public String name() { return "Maternal and Child Location"; }
-		public String description() { return "Signifies Locations where Maternal and Child health is provided"; }
-	};
-
 	public static LocationTagDescriptor ORDER_PATHOLOGY_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "728f5f07-f748-4efa-9abe-b6df64e84c92"; }
 		public String name() { return "Order Pathology Location"; }

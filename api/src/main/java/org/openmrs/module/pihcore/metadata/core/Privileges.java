@@ -324,12 +324,6 @@ public class Privileges {
         public String description() { return "Ability to enter an NCD consult note"; }
     };
 
-    public static PrivilegeDescriptor TASK_EMR_ENTER_MCH = new PrivilegeDescriptor() {
-        public String uuid() { return "819b8a30-910c-11e8-9eb6-529269fb1459"; }
-        public String privilege() { return "Task: emr.enterMCH"; }
-        public String description() { return "Ability to enter an Maternal and Child health notes"; }
-    };
-
     public static PrivilegeDescriptor TASK_EMR_ENTER_MENTAL_HEALTH_NOTE = new PrivilegeDescriptor() {
         public String uuid() { return "5f520ae8-cf63-11e5-ab30-625662870761"; }
         public String privilege() { return "Task: emr.enterMentalHealthNote"; }

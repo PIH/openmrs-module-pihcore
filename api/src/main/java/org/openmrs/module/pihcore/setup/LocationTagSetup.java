@@ -662,22 +662,6 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(
                 MirebalaisLocations.EMERGENCY
         ));
-
-        setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, Arrays.asList(
-                MirebalaisLocations.WOMENS_CLINIC,
-                MirebalaisLocations.LABOR_AND_DELIVERY,
-                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
-                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_A,
-                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_B,
-                MirebalaisLocations.WOMENS_TRIAGE,
-                MirebalaisLocations.FAMILY_PLANNING,
-                MirebalaisLocations.ANTEPARTUM_WARD,
-                MirebalaisLocations.POSTPARTUM_WARD,
-                MirebalaisLocations.PEDIATRICS,
-                MirebalaisLocations.PEDIATRICS_A,
-                MirebalaisLocations.PEDIATRICS_B,
-                MirebalaisLocations.NICU
-        ));
     }
 
     private static void setLocationTagsFor(LocationService service, LocationTagDescriptor locationTag, Collection<LocationDescriptor> locationsThatGetTag) {

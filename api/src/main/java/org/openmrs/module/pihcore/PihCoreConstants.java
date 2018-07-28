@@ -81,16 +81,6 @@ public class PihCoreConstants {
 
     public static final String GROUP1_UUID = "3cdf67d6-26fe-102b-80cb-0017a47871b2";
     public static final String GROUP2_UUID = "3cdf7f1e-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP3_UUID = "3cdf7dc0-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP4_UUID = "3cdf6ac4-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP5_UUID = "3cdf6c40-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP6_UUID = "3cdf5764-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP7_UUID = "3cdf55e8-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP8_UUID = "3cdf5ec6-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP9_UUID = "3cdf70c8-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP10_UUID = "3cdf665a-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP11_UUID = "3cdf6042-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP12_UUID = "3cdf5bd8-26fe-102b-80cb-0017a47871b2";
     public static final String MOTHER_GROUP_UUID = "e219babf-faca-4d16-9207-c3e99d58a428";
     public static final String CHILD_GROUP_UUID = "68b4ecc7-f3c4-4f3f-a6e2-556cb33f463b";
     public static final String MCH_PROGRAM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
