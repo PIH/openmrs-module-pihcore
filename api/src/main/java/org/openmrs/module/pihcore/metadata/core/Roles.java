@@ -86,6 +86,7 @@ public class Roles {
                 Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                 Privileges.TASK_EMR_ENTER_VCT,
                 Privileges.TASK_EMR_ENTER_SOCIO,
+                Privileges.TASK_EMR_ENTER_MCH,
                 Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                 Privileges.TASK_EMR_ENTER_ED_NOTE,
                 Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,

@@ -229,6 +229,24 @@ public class EncounterTypes {
 		public String description() { return "Education and housing information on the patient"; }
 	};
 
+	public static EncounterTypeDescriptor ANC_INTAKE  = new EncounterTypeDescriptor() {
+		public String uuid() { return "00e5e810-90ec-11e8-9eb6-529269fb1459"; }
+		public String name() { return "ANC Intake"; }
+		public String description() { return "Initial prenatal (aka ANC) visit for pregnant mother"; }
+	};
+
+	public static EncounterTypeDescriptor ANC_FOLLOWUP  = new EncounterTypeDescriptor() {
+		public String uuid() { return "00e5e946-90ec-11e8-9eb6-529269fb1459"; }
+		public String name() { return "ANC Followup"; }
+		public String description() { return "Followup prenatal (aka ANC) visits for pregnant mother"; }
+	};
+
+	public static EncounterTypeDescriptor MCH_DELIVERY  = new EncounterTypeDescriptor() {
+		public String uuid() { return "00e5ebb2-90ec-11e8-9eb6-529269fb1459"; }
+		public String name() { return "MCH Delivery"; }
+		public String description() { return "Mother's visit for delivery of baby"; }
+	};
+
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 
