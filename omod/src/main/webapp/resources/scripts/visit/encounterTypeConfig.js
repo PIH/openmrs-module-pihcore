@@ -644,5 +644,37 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-beaker"
         };
 
+
+        // MCH/Prenatal
+        encounterTypeConfig[EncounterTypes.ancIntake.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/ancIntake.xml",
+            icon: "icon-gift",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/ancIntake.xml",
+            showOnVisitList: true
+        };
+
+        encounterTypeConfig[EncounterTypes.ancFollowup.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/ancFollowup.xml",
+            icon: "icon-gift",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/ancFollowup.xml",
+            showOnVisitList: true
+        };
+
+        encounterTypeConfig[EncounterTypes.delivery.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/delivery.xml",
+            icon: "icon-gift",
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/delivery.xml",
+            showOnVisitList: true
+        };
+
         return encounterTypeConfig;
     }]);

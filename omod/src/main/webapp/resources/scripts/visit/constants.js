@@ -471,6 +471,15 @@ angular.module('constants', [])
         },
         socioEconomics: {
             uuid: "de844e58-11e1-11e8-b642-0ed5f89f718b"
+        },
+        ancIntake: {
+            uuid: "00e5e810-90ec-11e8-9eb6-529269fb1459"
+        },
+        ancFollowup: {
+            uuid: "00e5e946-90ec-11e8-9eb6-529269fb1459"
+        },
+        delivery: {
+            uuid: "00e5ebb2-90ec-11e8-9eb6-529269fb1459"
         }
 
     })

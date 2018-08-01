@@ -419,6 +419,7 @@
         </div>
     </section>
 
+    <!-- ToDo:  Delete this section which should be completed on the plan
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
         <div class="section-container">
             <label>
@@ -463,7 +464,7 @@
             </p>
         </div>
     </section>
-
+    -->
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">

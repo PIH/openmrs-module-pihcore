@@ -1,6 +1,5 @@
 <htmlform id="anc-followup" class="simple-form-ui"
           formUuid="819b7edc-910c-11e8-9eb6-529269fb1459"
-          htmlformUuid="819b8436-910c-11e8-9eb6-529269fb1459"
           formName="ANC Followup"
           formEncounterType="00e5e946-90ec-11e8-9eb6-529269fb1459"
           formVersion="1.0">
@@ -210,14 +209,6 @@
 
     <div class="anc-followup">
         <div class="section-container">
-            <p>
-                <label>
-                    <uimessage code="pihcore.hiv.testDate"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="CIEL:164400"/>
-                </span>
-            </p>
 
             <p>
                 <label>
