@@ -230,8 +230,6 @@
                          answerConceptId="CIEL:1723" answerCodes="pihcore.mch.thirdTri"/>
                 </p>
 
-
-
                 <!-- Last menstrual period (LMP or DDR) -->
                 <p>
                     <label>
@@ -242,6 +240,7 @@
                     </span>
                 </p>
 
+                <br/>
                 <!-- HIV test -->
                 <p>
                     <label>
@@ -252,7 +251,7 @@
                          style="checkbox" />
                 </p>
 
-                <!-- Risky factors for mother -->
+                <!-- Risk factors for mother -->
                 <p>
                     <label>
                         <uimessage code="pihcore.mch.riskFactors"/>
@@ -260,11 +259,12 @@
 
                     <obs conceptId="CIEL:160079" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:130109" style="checkbox"/>
-                    <!-- ToDo: Get CIEL:115939 Malpresentation of fetus -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:115939" style="checkbox"/>
                 </p>
 
                 <p>
                     <label>
+
                         <uimessage code="pihcore.pregnancy.dueDate"/>
                     </label>
                     <span class="small">

@@ -12,6 +12,16 @@ import static org.openmrs.module.pihcore.PihCoreConstants.*;
 
 public class MCHProgram {
 
+    public static ProgramDescriptor MCH = new ProgramDescriptor() {
+        public String name() { return "MCH"; }
+        public String description() { return "Maternal and Child Health Program"; }
+        public String conceptUuid() { return MCH_PROGRAM_CONCEPT_UUID; }   // this concept is installed via metadata package
+        @Override public String outcomesConceptUuid()  { return MCH_PROGRAM_OUTCOME_CONCEPT_UUID; }   // this concept is installed via metadata package
+        public String uuid() { return "41a2715e-8a14-11e8-9a94-a6cf71072f73"; }
+        // @Override public Set<ProgramWorkflowDescriptor> workflows() { return new HashSet<ProgramWorkflowDescriptor>(Arrays.asList(MOTHER_GROUP,CHILD_GROUP)); }
+    };
+
+    // ToDo:  Delete ALL these after they are UNINSTALLED
     public static ProgramWorkflowStateDescriptor GROUP1 = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return GROUP1_UUID; }
         public Boolean initial() { return true; }
@@ -192,15 +202,6 @@ public class MCHProgram {
         public String uuid() { return "41a27ab4-8a14-11e8-9a94-a6cf71072f73"; }
         @Override public Set<ProgramWorkflowStateDescriptor> states()
         { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(GROUPC1,GROUPC2,GROUPC3,GROUPC4,GROUPC5,GROUPC6,GROUPC7,GROUPC8,GROUPC9,GROUPC10,GROUPC11,GROUPC12)); }
-    };
-
-    public static ProgramDescriptor MCH = new ProgramDescriptor() {
-        public String name() { return "MCH"; }
-        public String description() { return "Maternal and Child Health Program"; }
-        public String conceptUuid() { return MCH_PROGRAM_CONCEPT_UUID; }   // this concept is installed via metadata package
-        @Override public String outcomesConceptUuid()  { return MCH_PROGRAM_OUTCOME_CONCEPT_UUID; }   // this concept is installed via metadata package
-        public String uuid() { return "41a2715e-8a14-11e8-9a94-a6cf71072f73"; }
-        @Override public Set<ProgramWorkflowDescriptor> workflows() { return new HashSet<ProgramWorkflowDescriptor>(Arrays.asList(MOTHER_GROUP,CHILD_GROUP)); }
     };
 
 }
