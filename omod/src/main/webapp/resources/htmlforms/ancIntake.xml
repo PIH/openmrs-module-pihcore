@@ -230,16 +230,6 @@
                          answerConceptId="CIEL:1723" answerCodes="pihcore.mch.thirdTri"/>
                 </p>
 
-                <!-- Last menstrual period (LMP or DDR) -->
-                <p>
-                    <label>
-                        <uimessage code="pihcore.pregnancy.lastPeriod"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="CIEL:1427"/>
-                    </span>
-                </p>
-
                 <br/>
                 <!-- HIV test -->
                 <p>
@@ -262,9 +252,22 @@
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:115939" style="checkbox"/>
                 </p>
 
+            </div>
+
+            <div class="two-columns">
+
+                <!-- Last menstrual period (LMP or DDR) -->
                 <p>
                     <label>
+                        <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="CIEL:1427"/>
+                    </span>
+                </p>
 
+                <p>
+                    <label>
                         <uimessage code="pihcore.pregnancy.dueDate"/>
                     </label>
                     <span class="small">
@@ -272,6 +275,15 @@
                     </span>
                 </p>
             </div>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.consult.returnVisitDate" />
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+                </span>
+            </p>
         </div>
     </div>
 

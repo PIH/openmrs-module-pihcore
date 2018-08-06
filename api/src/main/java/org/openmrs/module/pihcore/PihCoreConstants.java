@@ -79,20 +79,9 @@ public class PihCoreConstants {
     public static final String PALLIATIVE_STATE_UUID = "160847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String OTHER_STATE_UUID = "3cee7fb4-26fe-102b-80cb-0017a47871b2";
 
-    public static final String GROUP1_UUID = "3cdf67d6-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP2_UUID = "3cdf7f1e-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP3_UUID = "3cdf7dc0-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP4_UUID = "3cdf6ac4-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP5_UUID = "3cdf6c40-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP6_UUID = "3cdf5764-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP7_UUID = "3cdf55e8-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP8_UUID = "3cdf5ec6-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP9_UUID = "3cdf70c8-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP10_UUID = "3cdf665a-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP11_UUID = "3cdf6042-26fe-102b-80cb-0017a47871b2";
-    public static final String GROUP12_UUID = "3cdf5bd8-26fe-102b-80cb-0017a47871b2";
-    public static final String MOTHER_GROUP_UUID = "e219babf-faca-4d16-9207-c3e99d58a428";
-    public static final String CHILD_GROUP_UUID = "68b4ecc7-f3c4-4f3f-a6e2-556cb33f463b";
+    public static final String GROUP_CARE_UUID = "f58e875f-de07-4cfd-8fc7-3e70b7390ecc";
+    public static final String INDIVIDUAL_CARE_UUID = "d16fc2d4-e736-4372-8cbf-99542e5dac5e";
+    public static final String TREATMENT_CARE_UUID = "f49129b7-274f-44b7-b491-1c54376b28ba";
     public static final String MCH_PROGRAM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String MCH_PROGRAM_OUTCOME_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";
 }
