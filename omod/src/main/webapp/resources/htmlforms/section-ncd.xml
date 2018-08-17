@@ -419,12 +419,21 @@
         </div>
     </section>
 
-    <!-- ToDo:  Delete this section which should be completed on the plan
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
         <div class="section-container">
             <label>
                 <uimessage code="pihcore.ncd.meds.current_meds"/>
             </label>
+
+            <p>
+                <label>
+                    <i>
+                        <uimessage code="pihcore.ncd.meds.tempMessage"/>
+                    </i>
+                </label>
+            </p>
+
+
             <div class="two-columns">
 
                 <repeat with="['PIH:AMINOPHYLLINE'],['PIH:AMLODIPINE']">
@@ -447,6 +456,7 @@
         </div>
     </section>
 
+    <!-- ToDo:  Delete this section which should be completed on the plan
     <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.general.title">
         <div class="section-container">
@@ -464,7 +474,7 @@
             </p>
         </div>
     </section>
-    -->
+-->
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
