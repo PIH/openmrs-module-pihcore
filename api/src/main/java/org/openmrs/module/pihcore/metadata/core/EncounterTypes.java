@@ -247,6 +247,18 @@ public class EncounterTypes {
 		public String description() { return "Mother's visit for delivery of baby"; }
 	};
 
+	public static EncounterTypeDescriptor MEXICO_CLINIC_INITIAL_VISIT =  new EncounterTypeDescriptor() {
+		public String uuid() { return "8ad0b7d3-2973-40ae-916c-0369f3df86c5"; }
+		public String name() { return "Clinic Initial Visit"; }
+		public String description() { return "First visit to one of our primary care clinics"; }
+	};
+
+	public static EncounterTypeDescriptor MEXICO_CLINIC_FOLLOWUP_VISIT =  new EncounterTypeDescriptor() {
+		public String uuid() { return "b29cec8c-b21c-4c95-bfed-916a51db2a26"; }
+		public String name() { return "Clinic Visit"; }
+		public String description() { return "A visit to one of our primary care clinics"; }
+	};
+
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 
