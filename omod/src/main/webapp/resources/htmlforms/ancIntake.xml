@@ -209,6 +209,32 @@
 
     <div class="anc-intake">
         <div class="section-container">
+                  <div class="two-columns">
+                  <p>
+                            <label>
+                                      <uimessage code="pihcore.mch.grava" />
+                            </label> 
+                             <obs conceptId="CIEL:5624" />
+                  </p>
+                  <p>
+                            <label>
+                                      <uimessage code="pihcore.mch.para" />
+                            </label>  
+                            <obs conceptId="CIEL:1053" />
+                  </p>
+                  <p>
+                            <label>
+                                      <uimessage code="pihcore.mch.abortus" />
+                            </label>
+                            <obs conceptId="CIEL:1823" />
+                  </p>
+                  <p>
+                            <label>
+                                      <uimessage code="pihcore.mch.living" />
+                            </label>
+                            <obs conceptId="CIEL:1825" />
+                  </p>
+                  </div>
             <div class="two-columns">
                 <p>
                     <label>
