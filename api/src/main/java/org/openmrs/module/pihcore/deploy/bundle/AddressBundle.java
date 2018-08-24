@@ -47,6 +47,7 @@ public abstract class AddressBundle extends VersionedMetadataBundle {
         AddressHierarchyService service = Context.getService(AddressHierarchyService.class);
 
         // currently we only install the levels if they haven't been installed; no built-in way to edit anything other than "required" at this point
+        // if you need to update your levels, you can delete all the entries in address_hierarchy_level and address_hierarchy_entry before installing a new bundle
         int numberOfLevels = service.getAddressHierarchyLevelsCount();
         if (numberOfLevels == 0) {
             installAddressHierarchyLevels();
