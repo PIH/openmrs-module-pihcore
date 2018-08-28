@@ -216,11 +216,15 @@
                         <uimessage code="pihcore.hiv.symptomSigns"/>
                     </label>
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:460" style="checkbox"/>
+                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:140238" style="checkbox"/>
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:139084" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:150802" style="checkbox"/>
+                    <obs conceptId="CIEL:1284" answerConceptId="PIH:7102" style="checkbox"/>
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:113054" style="checkbox"/>
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:148968" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:127639" style="checkbox"/>
+                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:118938" style="checkbox"/>
+                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:122983" style="checkbox"/>
+                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:122496" style="checkbox"/>
+                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:142412" style="checkbox"/>
                 </p>
 
                 <p>
@@ -241,6 +245,9 @@
                     </span>
                 </p>
 
+                <br/>
+                <br/>
+                <br/><br/>
             </div>
         </div>
     </div>
