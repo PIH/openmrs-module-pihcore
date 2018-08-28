@@ -209,37 +209,52 @@
 
     <div class="labor-delivery">
         <div class="section-container">
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mch.deliveryDate"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="CIEL:5596" allowFutureDates="true"/>
+                    </span>
+                </p>
 
-            <p>
-                <label>
-                    <uimessage code="pihcore.mch.deliveryDate"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="CIEL:5596" allowFutureDates="true"/>
-                </span>
-            </p>
+                <!-- Delivery type -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mch.deliveryType"/>
+                    </label>
+                    <obs conceptId="PIH:11663" answerConceptId="CIEL:1170" style="checkbox"  />
+                    <obs conceptId="PIH:11663" answerConceptId="CIEL:155884" style="checkbox"  />
+                </p>
 
-            <!-- Delivery type -->
-            <p>
-                <label>
-                    <uimessage code="pihcore.mch.deliveryType"/>
-                </label>
-                <obs conceptId="PIH:11663" answerConceptIds="CIEL:1170,CIEL:155884"
-                     style="radio" answerSeparator="" />
-            </p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
 
-            <!-- Risky factors during delivery -->
-            <p>
-                <label>
-                    <uimessage code="pihcore.mch.riskFactors"/>
-                </label>
+                <!-- Risky factors during delivery -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mch.riskFactors"/>
+                    </label>
 
-                <obs conceptId="PIH:11664" answerConceptId="CIEL:162239" style="checkbox"/>
-                <obs conceptId="PIH:11664" answerConceptId="CIEL:129211" style="checkbox"/>
-                <obs conceptId="PIH:11664" answerConceptId="CIEL:115866" style="checkbox"/>
-                <obs conceptId="PIH:11664" answerConceptId="CIEL:113006" style="checkbox"/>
-                <obs conceptId="PIH:11664" answerConceptId="PIH:Eclampsia" style="checkbox"/>
-            </p>
+                    <obs conceptId="PIH:11664" answerConceptId="CIEL:162239" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="CIEL:129211" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="CIEL:115866" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="CIEL:113006" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="PIH:Eclampsia" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="PIH:Birth Asphyxia" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="PIH:7102" style="checkbox"/>
+
+                    <obs conceptId="PIH:11664" answerConceptId="CIEL:138706" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="CIEL:112493" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="PIH:174"
+                         answerCode="pihcore.mch.otherSTI" style="checkbox"/>
+                </p>
+            </div>
         </div>
     </div>
 

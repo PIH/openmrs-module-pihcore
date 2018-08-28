@@ -32,6 +32,7 @@ public class ProviderRoleBundle extends AbstractMetadataBundle {
         public static final String CHW = "68624C4C-9E10-473B-A849-204820D16C45";
         public static final String CHW_SUPERVISOR = "11C1A56D-82F7-4269-95E8-2B67B9A3D837";
         public static final String NURSE_ACCOMPAGNATEUR = "9a4b44b2-8a9f-11e8-9a94-a6cf71072f73";
+        public static final String CLINICIAN = "2fa6f8da-aa58-11e8-98d0-529269fb1459";
     }
 
     /**
@@ -47,6 +48,9 @@ public class ProviderRoleBundle extends AbstractMetadataBundle {
                 personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT);
         RelationshipType nurseVhwToPatient =
                 personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.NURSE_CHW_PATIENT);
+        RelationshipType clinicianToPatient =
+                personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.CLINICIAN_PATIENT);
+
 
         Set<ProviderAttributeType> providerAttributes = new HashSet<ProviderAttributeType>();
         ProviderAttributeType providerAttributeType =
@@ -82,6 +86,12 @@ public class ProviderRoleBundle extends AbstractMetadataBundle {
 
         install(providerRole("Nurse Accompagnateur", null, relationshipTypes, providerAttributes, ProviderRoles.NURSE_ACCOMPAGNATEUR));
 
+        if (clinicianToPatient != null) {
+            relationshipTypes = new HashSet<RelationshipType>();
+            relationshipTypes.add(clinicianToPatient);
+        }
+
+        install(providerRole("Clinician", null, relationshipTypes, providerAttributes, ProviderRoles.CLINICIAN));
     }
 
 }
