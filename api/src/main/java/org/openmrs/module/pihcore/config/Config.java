@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.config;
 
+import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -104,6 +105,10 @@ public class Config {
         else {
             return descriptor.getIdCardLocale();
         }
+    }
+
+    public AddressConfigDescriptor getAddressConfig() {
+        return descriptor.getAddressConfig();
     }
 
     public RegistrationConfigDescriptor getRegistrationConfig() {

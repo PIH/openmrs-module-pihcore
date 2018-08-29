@@ -3,7 +3,7 @@ package org.openmrs.module.pihcore.deploy.bundle;
 import org.openmrs.module.addresshierarchy.AddressField;
 
 /**
- * Represents a component of a hierarchical address
+ * Represents a component of a hierarchical address.
  */
 public class AddressComponent {
 

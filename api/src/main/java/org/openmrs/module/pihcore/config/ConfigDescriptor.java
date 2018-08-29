@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.config;
 
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 
@@ -87,6 +88,9 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private Locale idCardLocale;  // language/locale of labels on on PIH ID card
+
+    @JsonProperty
+    private AddressConfigDescriptor addressConfig;  // configuration of the address hierarchy
 
     @JsonProperty
     private RegistrationConfigDescriptor registrationConfig;
@@ -243,6 +247,14 @@ public class ConfigDescriptor {
 
     public void setIdCardLocale(Locale idCardLocale) {
         this.idCardLocale = idCardLocale;
+    }
+
+    public AddressConfigDescriptor getAddressConfig() {
+        return addressConfig;
+    }
+
+    public void setAddressConfig(AddressConfigDescriptor addressConfig) {
+        this.addressConfig = addressConfig;
     }
 
     public RegistrationConfigDescriptor getRegistrationConfig() {

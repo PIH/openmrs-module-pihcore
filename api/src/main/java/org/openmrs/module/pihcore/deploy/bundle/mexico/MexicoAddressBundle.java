@@ -12,14 +12,13 @@ import java.util.List;
 public class MexicoAddressBundle extends AddressBundle {
 
     @Override
-    public int getVersion() {
-        return 1;
-    }
+    public int getVersion() { return 9; }
 
     @Override
     public List<AddressComponent> getAddressComponents() {
         List<AddressComponent> l = new ArrayList<AddressComponent>();
-        l.add(new AddressComponent(AddressField.CITY_VILLAGE, "Comunidad", 40, null, false));
+        l.add(new AddressComponent(AddressField.CITY_VILLAGE, "Comunidad", 40, null, true));
+        l.add(new AddressComponent(AddressField.ADDRESS_2, "Comunidad (si otro)", 40, null, false));
         l.add(new AddressComponent(AddressField.ADDRESS_1, "Dirección", 80, null, false));
         return l;
     }
@@ -27,13 +26,14 @@ public class MexicoAddressBundle extends AddressBundle {
     @Override
     public List<String> getLineByLineFormat() {
         List<String> l = new ArrayList<String>();
-        l.add("address1");
         l.add("cityVillage");
+        l.add("address2");
+        l.add("address1");
         return l;
     }
 
     @Override
     public String getAddressHierarchyEntryPath() {
-        return "addresshierarchy/mexico_address_hierarchy_entries_1.csv";
+        return "addresshierarchy/mexico_address_hierarchy_entries_5.csv";
     }
 }

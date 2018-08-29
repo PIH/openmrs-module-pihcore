@@ -16,6 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents the aspects of an address that are stored in data by
+ * the addresshierarchy module.
+ */
 public abstract class AddressBundle extends VersionedMetadataBundle {
 
     @Autowired
@@ -77,6 +81,7 @@ public abstract class AddressBundle extends VersionedMetadataBundle {
         Map<String, String> sizeMappings = new HashMap<String, String>();
         Map<String, String> elementDefaults = new HashMap<String, String>();
         for (AddressComponent c : getAddressComponents()) {
+            log.error("adding " + c.getField().getName() + " to nameMappings");
             nameMappings.put(c.getField().getName(), c.getNameMapping());
             sizeMappings.put(c.getField().getName(), Integer.toString(c.getSizeMapping()));
             if (c.getElementDefault() != null) {
@@ -115,8 +120,12 @@ public abstract class AddressBundle extends VersionedMetadataBundle {
         log.info("Installing Address Levels");
         for (AddressComponent component : getAddressComponents()) {
             AddressHierarchyLevel level = service.getAddressHierarchyLevelByAddressField(component.getField());
-            level.setRequired(component.isRequiredInHierarchy());
-            service.saveAddressHierarchyLevel(level);
+            if (level != null) {
+                level.setRequired(component.isRequiredInHierarchy());
+                service.saveAddressHierarchyLevel(level);
+            } else {
+                log.warn("AddressHierarchyLevel is null for AddressComponent " + component.getField());
+            }
         }
     }
 
