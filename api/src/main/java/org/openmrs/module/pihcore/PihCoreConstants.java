@@ -74,12 +74,15 @@ public class PihCoreConstants {
     public static final String ONCOLOGY_PROGRESS_STATUS_UUID = "6271c622-1909-41ca-a4ce-a6e31fae0d17";
     public static final String THERAPY_STATE_UUID = "324fdca6-6d0d-4898-89fd-2a3fa5a52bd5";
     public static final String SURVEILLANCE_STATE_UUID = "651f2289-9a4e-404b-8c93-894ab7349da5";
-    public static final String FOLLOWUP_STATE_UUID = "3ce451d8-26fe-102b-80cb-0017a47871b2";
-    public static final String PALLIATIVE_ONLY_STATE_UUID = "6bd18154-242a-44e9-8952-95eb837fe3fc";
     public static final String ONCOLOGY_TREATMENT_STATUS_UUID = "7883b7c3-02f7-485f-8b7c-555e08d13030";
     public static final String CURATIVE_STATE_UUID = "160849AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String PALLIATIVE_STATE_UUID = "160847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    public static final String OTHER_STATE_UUID = "3cee7fb4-26fe-102b-80cb-0017a47871b2";
+    public static final String CONFIRMED_STATE_UUID = "3cd9bd04-26fe-102b-80cb-0017a47871b2";
+    public static final String WAITING_STATE_UUID = "3ce1d688-26fe-102b-80cb-0017a47871b2";
+
+    // ToDo: These can be removed after they have been cleaned up on all servers
+    public static final String FOLLOWUP_STATE_UUID = "3ce451d8-26fe-102b-80cb-0017a47871b2";
+    public static final String PALLIATIVE_ONLY_STATE_UUID = "6bd18154-242a-44e9-8952-95eb837fe3fc";
 
     public static final String GROUP_CARE_UUID = "f58e875f-de07-4cfd-8fc7-3e70b7390ecc";
     public static final String PEDS_GROUP_CARE_UUID = "d087f783-de30-4aea-8a4d-50ec72ed656a";

@@ -26,25 +26,18 @@ public class OncologyProgram {
         public String uuid() { return "1573301c-6851-11e8-adc0-fa7ae01bbebc"; }
     };
 
-    public static ProgramWorkflowStateDescriptor FOLLOWUP_STATE = new ProgramWorkflowStateDescriptor() {
-        public String conceptUuid() { return FOLLOWUP_STATE_UUID; }
+    public static ProgramWorkflowStateDescriptor CONFIRMED_STATE = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return CONFIRMED_STATE_UUID; }
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
-        public String uuid() { return "5feade52-6a76-11e8-adc0-fa7ae01bbebc"; }
+        public String uuid() { return "18ec50f6-aba5-11e8-98d0-529269fb1459"; }
     };
 
-    public static ProgramWorkflowStateDescriptor PALLIATIVE_ONLY_STATE = new ProgramWorkflowStateDescriptor() {
-        public String conceptUuid() { return PALLIATIVE_ONLY_STATE_UUID; }
+    public static ProgramWorkflowStateDescriptor WAITING_STATE = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return WAITING_STATE_UUID; }
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
-        public String uuid() { return "5feae118-6a76-11e8-adc0-fa7ae01bbebc"; }
-    };
-
-    public static ProgramWorkflowStateDescriptor OTHER_STATE = new ProgramWorkflowStateDescriptor() {
-        public String conceptUuid() { return OTHER_STATE_UUID; }
-        public Boolean initial() { return true; }
-        public Boolean terminal() { return false; }
-        public String uuid() { return "157335ee-6851-11e8-adc0-fa7ae01bbebc"; }
+        public String uuid() { return "18ec4e26-aba5-11e8-98d0-529269fb1459"; }
     };
 
     public static ProgramWorkflowDescriptor ONCOLOGY_PROGRESS_STATUS = new ProgramWorkflowDescriptor() {
@@ -53,13 +46,13 @@ public class OncologyProgram {
         // public String name() { return "Program status"; }
         public String uuid() { return "157333e6-6851-11e8-adc0-fa7ae01bbebc"; }
         @Override public Set<ProgramWorkflowStateDescriptor> states()
-            { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(THERAPY_STATE,SURVEILLANCE_STATE,FOLLOWUP_STATE,PALLIATIVE_ONLY_STATE,OTHER_STATE)); }
+            { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(WAITING_STATE,CONFIRMED_STATE,THERAPY_STATE,SURVEILLANCE_STATE)); }
     };
 
     public static ProgramWorkflowStateDescriptor ONCOLOGY_PALLIATIVE_STATE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return PALLIATIVE_STATE_UUID; }
         // ToDo:  This doesn't work
-        // public String name() { return "Palliative treatment"; }
+        public String name() { return "Palliative treatment"; }
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
         public String uuid() { return "45ffabfa-684e-11e8-adc0-fa7ae01bbebc"; }
@@ -68,7 +61,7 @@ public class OncologyProgram {
     public static ProgramWorkflowStateDescriptor ONCOLOGY_CURE_STATE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return CURATIVE_STATE_UUID; }
         // ToDo:  This doesn't work
-        // public String name() { return "Curative treatment"; }
+        public String name() { return "Curative treatment"; }
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
         public String uuid() { return "45ffaace-684e-11e8-adc0-fa7ae01bbebc"; }
@@ -76,6 +69,7 @@ public class OncologyProgram {
 
     public static ProgramWorkflowDescriptor ONCOLOGY_TREATMENT_STATUS = new ProgramWorkflowDescriptor() {
         public String conceptUuid() { return ONCOLOGY_TREATMENT_STATUS_UUID; }
+        public String name() { return "Treatment status"; }
         public String uuid() { return "45ffa97a-684e-11e8-adc0-fa7ae01bbebc"; }
         @Override public Set<ProgramWorkflowStateDescriptor> states()
         { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ONCOLOGY_CURE_STATE,ONCOLOGY_PALLIATIVE_STATE)); }
