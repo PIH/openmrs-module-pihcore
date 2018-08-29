@@ -48,6 +48,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.APP_ZL_MPI);
         install(Privileges.APP_ZL_REPORTS_DATA_EXPORTS);
         install(Privileges.APP_LAB_TRACKING_MONITOR_ORDERS);
+        install(Privileges.APP_LABS);
         install(Privileges.APP_ATTACHMENTS_PAGE);
         install(Privileges.APP_CHW);
         install(Privileges.APP_ORDER_ENTRY_ORDER_DRUGS);
@@ -147,7 +148,8 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.SOCIAL_WORKER);
             install(Roles.PRINT_LABELS);
             install(Roles.PROGRAM_MANAGER);
-            install(Roles.LAB_TECHNICIAN);
+            install(Roles.PATHOLOGY_TECHNICIAN);
+            install(Roles.LABS);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)
                 || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)

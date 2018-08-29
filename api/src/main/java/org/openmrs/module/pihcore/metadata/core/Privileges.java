@@ -200,6 +200,12 @@ public class Privileges {
         public String description() { return "Use the Monitor Orders app provided by the Lab Tracking app"; }
     };
 
+    public static PrivilegeDescriptor APP_LABS = new PrivilegeDescriptor() {
+        public String uuid() { return "0a2e8032-abc9-11e8-843e-54ee75ef41c2"; }
+        public String privilege() { return "App: labs"; }
+        public String description() { return "Allows access to Labs apps"; }
+    };
+
     public static PrivilegeDescriptor APP_ATTACHMENTS_PAGE = new PrivilegeDescriptor() {
         public String uuid() { return "d93c1b89-0683-4d74-8cee-0eb0ccb32e61"; }
         public String privilege() { return "App: attachments.attachments.page"; }

@@ -58,6 +58,7 @@ public class Roles {
                 Privileges.APP_WAITING_FOR_CONSULT,
                 Privileges.APP_TODAYS_VISITS,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
+                Privileges.APP_LABS,
                 Privileges.APP_ATTACHMENTS_PAGE,
                 Privileges.APP_CHW,
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
@@ -760,10 +761,10 @@ public class Roles {
             );}
     };
 
-    public static RoleDescriptor LAB_TECHNICIAN = new RoleDescriptor() {
+    public static RoleDescriptor PATHOLOGY_TECHNICIAN = new RoleDescriptor() {
         public String uuid() { return "d20b348c-6ea9-4f98-b7cc-72f1e0422174"; }
         public String role() { return "Application Role: labTechnician"; }
-        public String description() { return "Gives user ability to view and update orders in the lab tracking app"; }
+        public String description() { return "Gives user ability to view and update orders in the pathology tracking app"; }
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
                     Privileges.APP_COREAPPS_FIND_PATIENT,
@@ -771,6 +772,16 @@ public class Roles {
                     Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                     Privileges.TASK_LAB_TRACKING_UPDATE
+            );}
+    };
+
+    public static RoleDescriptor LABS = new RoleDescriptor() {
+        public String uuid() { return "892fee60-abce-11e8-843e-54ee75ef41c2"; }
+        public String role() { return "Application Role: labs"; }
+        public String description() { return "Gives users the ability to view and update lab orders"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_LABS
             );}
     };
 
