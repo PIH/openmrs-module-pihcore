@@ -6,15 +6,28 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
- * Contains configuration for addresses, used in mirebalais/.../PatientRegistrationApp
+ * Contains configuration for addresses, used at runtime (in mirebalais/.../PatientRegistrationApp)
  */
 public class AddressConfigDescriptor {
 
     @JsonProperty
-    private String shortcutField;
+    private List<String> manualFields;
 
     @JsonProperty
-    private List<AddressFieldDescriptor> addressFields;
+    private String shortcutField;
+
+    public List<String> getManualFields() {
+        return manualFields;
+    }
+
+    public void setManualFields(List<String> manualFields) {
+        for (String fieldName : manualFields) {
+            if (AddressField.getByName(fieldName) == null) {
+                throw new RuntimeException("manual field '" + fieldName + "' is not a value in addresshierarchy.AddressField");
+            }
+        }
+        this.manualFields = manualFields;
+    }
 
     public String getShortcutField() {
         return shortcutField;
@@ -22,16 +35,8 @@ public class AddressConfigDescriptor {
 
     public void setShortcutField(String shortcutField) {
         if (AddressField.getByName(shortcutField) == null) {
-            throw new RuntimeException("shortcutField is not a value in addresshierarchy.AddressField");
+            throw new RuntimeException("shortcutField '" + shortcutField + "' is not a value in addresshierarchy.AddressField");
         }
         this.shortcutField = shortcutField;
-    }
-
-    public List<AddressFieldDescriptor> getAddressFields() {
-        return addressFields;
-    }
-
-    public void setAddressFields(List<AddressFieldDescriptor> addressFields) {
-        this.addressFields = addressFields;
     }
 }
