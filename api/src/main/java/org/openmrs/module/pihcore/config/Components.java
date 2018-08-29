@@ -50,7 +50,7 @@ public class Components {
         public static final String ED_TRIAGE_QUEUE = "edTriageQueue";
         public static final String BIOMETRICS_FINGERPRINTS = "biometricsFingerPrints";
         public static final String TODAYS_VISITS = "todaysVisits";
-        public static final String LAB_TRACKING = "labTracking";
+        public static final String PATHOLOGY_TRACKING = "pathologyTracking";
         public static final String PROGRAMS = "programs";
         public static final String RELATIONSHIPS = "relationships";
         public static final String ZIKA = "zika";
