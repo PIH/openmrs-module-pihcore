@@ -63,4 +63,5 @@ public class Components {
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String COHORT_BUILDER = "cohortBuilder";
         public static final String MEXICO_CLINIC = "mexicoClinic";
+        public static final String HYPERTENSION = "hypertension";
 }
