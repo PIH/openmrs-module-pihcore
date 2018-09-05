@@ -12,7 +12,17 @@
 <div id="apps">
 
     <% if (context.hasPrivilege("App: labs")) { %>
-        <a class="button app big" href="/owa/openmrs-owa-labworkflow/index.html">
+        
+        <!-- TODO: dynamically generate link based on context path, 
+            is there a server-side way to do this? 
+        -->
+        <script type="text/javascript">
+            document.write(
+                '<a class="button app big" href="/' 
+                    + OPENMRS_CONTEXT_PATH + '/owa/openmrs-owa-labworkflow/index.html'
+                    + '">'
+            );
+        </script>
             <i class="icon-beaker"></i>
             ${ ui.message("pih.app.labtracking") }
         </a>
