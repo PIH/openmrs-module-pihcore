@@ -152,12 +152,18 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.LABS);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)
-                || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)
-                || config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+                || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             install(Roles.SYSTEM_ADMINISTRATOR);
             install(Roles.ARCHIVIST_CLERK);
             install(Roles.PHYSICIAN);
             install(Roles.MEQ);
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+            install(Roles.SYSTEM_ADMINISTRATOR);
+            install(Roles.ARCHIVIST_CLERK);
+            install(Roles.PHYSICIAN);
+            install(Roles.MEQ);
+            install(Roles.PROGRAM_MANAGER);
         }
 
         // old privileges still in use at Mirebalais
