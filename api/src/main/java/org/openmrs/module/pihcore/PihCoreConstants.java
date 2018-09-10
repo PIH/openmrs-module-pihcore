@@ -50,8 +50,8 @@ public class PihCoreConstants {
     public static final String ZIKA_PROGRAM_CONCEPT_UUID = "58c9ab03-9601-4d88-88b7-c4932004374e";
     public static final String ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID = "e39310c1-2936-4395-83a5-f4d49061a117";
 
-    public static final String MENTAL_HEALTH_PROGRAM_CONCEPT_UUID = "d3368ded-6d96-4bfc-b590-cb663b7ec70b";
-    public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";
+    public static final String MENTAL_HEALTH_PROGRAM_CONCEPT_UUID = "d3368ded-6d96-4bfc-b590-cb663b7ec70b";  // 11574
+    public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
     public static final String HIV_PROGRAM_CONCEPT_UUID = "3cdb4962-26fe-102b-80cb-0017a47871b2";
     public static final String HIV_PROGRAM_OUTCOMES_CONCEPT_UUID = "e65f5aaa-ba76-4a6c-ab38-07c9bf831892";
@@ -60,11 +60,14 @@ public class PihCoreConstants {
     public static final String HIV_PROGRAM_ON_ART_UUID = "3cdc0a8c-26fe-102b-80cb-0017a47871b2";
 
     public static final String NCD_PROGRAM_CONCEPT_UUID = "099d3ba9-b302-4565-a060-09915f3c85b5";
-    public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";
+    public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
     public static final String NCD_PROGRAM_STATUS_UUID = "83a258b8-3294-4746-acb6-f045cccd37e8";
     public static final String PROGRAM_STABLE_STATE_UUID = "df3e1542-035a-404f-84d6-8cb9b4266551";
     public static final String PROGRAM_UNSTABLE_STATE_UUID = "c799a966-e204-4d81-8bc6-31b3310ece5a";
     public static final String PROGRAM_COMPLICATED_STATE_UUID = "84d0a344-2725-437c-a9d7-e86be508c13c";
+
+    public static final String HYPERTENSION_PROGRAM_CONCEPT_UUID = "0bfa44d1-d11b-4fdd-acc8-1e974f8ca65e";  // FIXME Brandon
+    public static final String HYPERTENSION_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
     // ToDo: Define the NCD workflow/state
     // public static final String NCD_PROGRAM_TREATMENT_STATUS_CONCEPT_UUID = "";

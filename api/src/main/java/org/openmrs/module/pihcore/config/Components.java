@@ -22,6 +22,7 @@ public class Components {
         public static final String MCH = "mch";
         public static final String MENTAL_HEALTH = "mentalHealth";
         public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";
+        public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";
         public static final String SOCIO_ECONOMICS= "socioEconomics";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
