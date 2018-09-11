@@ -47,7 +47,7 @@ public class PihCoreConstants {
     public static final String RELATIONSHIP_CLINICIAN = "2fa6fcea-aa58-11e8-98d0-529269fb1459";
 
     // uuids of concepts associated with programs
-    public static final String HYPERTENSION_PROGRAM_CONCEPT_UUID = "0bfa44d1-d11b-4fdd-acc8-1e974f8ca65e";  // FIXME Brandon
+    public static final String HYPERTENSION_PROGRAM_CONCEPT_UUID = "74b896da-9583-4f5e-88c9-7f76c71e84b3";  // 6846
     public static final String HYPERTENSION_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
     public static final String HIV_PROGRAM_CONCEPT_UUID = "3cdb4962-26fe-102b-80cb-0017a47871b2";
