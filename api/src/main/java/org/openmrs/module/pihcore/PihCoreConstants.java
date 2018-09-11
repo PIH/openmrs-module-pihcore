@@ -47,11 +47,8 @@ public class PihCoreConstants {
     public static final String RELATIONSHIP_CLINICIAN = "2fa6fcea-aa58-11e8-98d0-529269fb1459";
 
     // uuids of concepts associated with programs
-    public static final String ZIKA_PROGRAM_CONCEPT_UUID = "58c9ab03-9601-4d88-88b7-c4932004374e";
-    public static final String ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID = "e39310c1-2936-4395-83a5-f4d49061a117";
-
-    public static final String MENTAL_HEALTH_PROGRAM_CONCEPT_UUID = "d3368ded-6d96-4bfc-b590-cb663b7ec70b";
-    public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";
+    public static final String HYPERTENSION_PROGRAM_CONCEPT_UUID = "74b896da-9583-4f5e-88c9-7f76c71e84b3";  // 6846
+    public static final String HYPERTENSION_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
     public static final String HIV_PROGRAM_CONCEPT_UUID = "3cdb4962-26fe-102b-80cb-0017a47871b2";
     public static final String HIV_PROGRAM_OUTCOMES_CONCEPT_UUID = "e65f5aaa-ba76-4a6c-ab38-07c9bf831892";
@@ -59,13 +56,15 @@ public class PihCoreConstants {
     public static final String HIV_PROGRAM_TRANSITION_UUID = "f3ebbcac-b614-4e65-becc-816079552cf5";
     public static final String HIV_PROGRAM_ON_ART_UUID = "3cdc0a8c-26fe-102b-80cb-0017a47871b2";
 
+    public static final String MENTAL_HEALTH_PROGRAM_CONCEPT_UUID = "d3368ded-6d96-4bfc-b590-cb663b7ec70b";  // 11574
+    public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
+
     public static final String NCD_PROGRAM_CONCEPT_UUID = "099d3ba9-b302-4565-a060-09915f3c85b5";
-    public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";
+    public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
     public static final String NCD_PROGRAM_STATUS_UUID = "83a258b8-3294-4746-acb6-f045cccd37e8";
     public static final String PROGRAM_STABLE_STATE_UUID = "df3e1542-035a-404f-84d6-8cb9b4266551";
     public static final String PROGRAM_UNSTABLE_STATE_UUID = "c799a966-e204-4d81-8bc6-31b3310ece5a";
     public static final String PROGRAM_COMPLICATED_STATE_UUID = "84d0a344-2725-437c-a9d7-e86be508c13c";
-
     // ToDo: Define the NCD workflow/state
     // public static final String NCD_PROGRAM_TREATMENT_STATUS_CONCEPT_UUID = "";
 
@@ -79,6 +78,9 @@ public class PihCoreConstants {
     public static final String PALLIATIVE_STATE_UUID = "160847AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String CONFIRMED_STATE_UUID = "3cd9bd04-26fe-102b-80cb-0017a47871b2";
     public static final String WAITING_STATE_UUID = "3ce1d688-26fe-102b-80cb-0017a47871b2";
+
+    public static final String ZIKA_PROGRAM_CONCEPT_UUID = "58c9ab03-9601-4d88-88b7-c4932004374e";
+    public static final String ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID = "e39310c1-2936-4395-83a5-f4d49061a117";
 
     // ToDo: These can be removed after they have been cleaned up on all servers
     public static final String FOLLOWUP_STATE_UUID = "3ce451d8-26fe-102b-80cb-0017a47871b2";

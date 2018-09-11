@@ -90,6 +90,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allClinics);
+        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, allClinics);

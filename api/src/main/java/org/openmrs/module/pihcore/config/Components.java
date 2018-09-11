@@ -15,13 +15,15 @@ public class Components {
         public static final String RADIOLOGY = "radiology";
         public static final String DISPENSING = "dispensing";
         public static final String SURGERY = "surgery";
-        public static final String ONCOLOGY = "oncology";
-        public static final String NCD = "ncd";
-        public static final String HIV = "hiv";
+        public static final String ONCOLOGY = "oncology";  // program
+        public static final String NCD = "ncd";  // program
+        public static final String HIV = "hiv";  // program
         public static final String VCT = "vct";
-        public static final String MCH = "mch";
+        public static final String MCH = "mch";  // program
+        public static final String ZIKA = "zika";  // program
         public static final String MENTAL_HEALTH = "mentalHealth";
         public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";
+        public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";
         public static final String SOCIO_ECONOMICS= "socioEconomics";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
@@ -54,7 +56,6 @@ public class Components {
         public static final String LABS = "labs";
         public static final String PROGRAMS = "programs";
         public static final String RELATIONSHIPS = "relationships";
-        public static final String ZIKA = "zika";
         public static final String EXPORT_PATIENTS = "exportPatients";
         public static final String IMPORT_PATIENTS = "importPatients";
         public static final String PATIENT_DOCUMENTS = "patientDocuments";
