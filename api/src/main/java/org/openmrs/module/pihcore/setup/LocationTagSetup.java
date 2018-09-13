@@ -16,6 +16,7 @@ import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -88,12 +89,15 @@ public class LocationTagSetup {
                 MexicoLocations.SOLEDAD
         );
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allClinics);
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allClinics);
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, allClinics);
+
+        List<LocationDescriptor> allLocations = new ArrayList<LocationDescriptor>(allClinics);
+        allLocations.add(MexicoLocations.JALTENANGO);
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allLocations);
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allLocations);
     }
 
     private static void setupLocationTagsForLiberia(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException {
