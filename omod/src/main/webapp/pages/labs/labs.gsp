@@ -12,7 +12,7 @@
 <div id="apps">
 
     <% if (context.hasPrivilege("App: labs")) { %>
-        <a class="button app big" href='/${contextPath}/owa/openmrs-owa-labworkflow/index.html'>
+        <a class="button app big" href='/${contextPath}/owa/labworkflow/index.html'>
             <i class="icon-beaker"></i>
             ${ ui.message("pih.app.labtracking") }
         </a>
