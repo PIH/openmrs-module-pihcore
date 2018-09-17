@@ -686,7 +686,6 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
                 chiefComplaint,
                 allergies,
-                primaryCareHistory,
                 primaryCareDx,
                 primaryCarePlan
             ]
