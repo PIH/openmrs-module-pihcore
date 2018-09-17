@@ -130,6 +130,10 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("orderentryowa.dateAndTimeFormat", "DD-MMM-YYYY HH:mm");
         properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
 
+        // Lab Workflow OWA
+        properties.put("labworkflowowa.labResultsEncounterType","10db3139-07c0-4766-b4e5-a41b01363145");
+        properties.put("labworkflowowa.labResultsDateConcept","68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0");
+
 
         setGlobalProperties(properties);
 
