@@ -1,7 +1,6 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.GlobalProperty;
-import org.openmrs.api.ConceptService;
 import org.openmrs.module.attachments.AttachmentsConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emr.EmrConstants;
@@ -12,7 +11,6 @@ import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.ReportingConstants;
 import org.openmrs.ui.framework.UiFrameworkConstants;
@@ -25,9 +23,6 @@ import java.util.Map;
 
 @Component
 public class GlobalPropertiesBundle extends AbstractMetadataBundle {
-
-    @Autowired
-    private ConceptService conceptService;
 
     @Autowired
     private Config config;
@@ -136,8 +131,8 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
 
         // Lab Workflow OWA
-        properties.put("labworkflowowa.labResultsEncounterType", EncounterTypes.SPECIMEN_COLLECTION.uuid());
-        properties.put("labworkflowowa.labResultsDateConcept", conceptService.getConceptByMapping("Date of test results", "PIH").getUuid());
+        properties.put("labworkflowowa.labResultsEncounterType","10db3139-07c0-4766-b4e5-a41b01363145");
+        properties.put("labworkflowowa.labResultsDateConcept","68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0");
         properties.put("labworkflowowa.dateAndTimeFormat", "DD-MMM-YYYY HH:mm");
 
 

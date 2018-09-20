@@ -1,8 +1,6 @@
 package org.openmrs.module.pihcore.deploy.bundle;
 
 import org.openmrs.Concept;
-import org.openmrs.ConceptClass;
-import org.openmrs.ConceptDatatype;
 import org.openmrs.ConceptName;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
@@ -46,9 +44,6 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
         install(frequency(OrderEntryConcepts.Concepts.AT_NIGHT));
         install(frequency(OrderEntryConcepts.Concepts.WHEN_REQUIRED));
         install(frequency(OrderEntryConcepts.Concepts.IMMEDIATELY));
-
-        // used by GlobalPropertiesBundle
-        install(baseConcept("Date of test results", date, question));
     }
 
     private Concept frequency(String uuid) {
@@ -61,15 +56,6 @@ public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
 
     private Concept baseConcept(String name) {
         Concept concept = new Concept();
-        concept.addName(new ConceptName(name, Locale.ENGLISH));
-        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(pih, name).build());
-        return concept;
-    }
-
-    private Concept baseConcept(String name, ConceptDatatype datatype, ConceptClass conceptClass) {
-        Concept concept = new Concept();
-        concept.setDatatype(datatype);
-        concept.setConceptClass(conceptClass);
         concept.addName(new ConceptName(name, Locale.ENGLISH));
         concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(pih, name).build());
         return concept;
