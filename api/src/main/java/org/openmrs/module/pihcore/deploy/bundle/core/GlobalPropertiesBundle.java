@@ -132,7 +132,8 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
 
         // Lab Workflow OWA
         properties.put("labworkflowowa.labResultsEncounterType","10db3139-07c0-4766-b4e5-a41b01363145");
-        properties.put("labworkflowowa.labResultsDateConcept","68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0");
+        properties.put("labworkflowowa.labResultsDateConcept","68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0");   // PIH:Date of test results
+        properties.put("labworkflowowa.testOrderNumberConcept","393dec41-2fb5-428f-acfa-36ea85da6666");   // PIH:Test order number
         properties.put("labworkflowowa.dateAndTimeFormat", "DD-MMM-YYYY HH:mm");
 
 
