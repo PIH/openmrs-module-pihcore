@@ -114,6 +114,19 @@ angular.module("encounterTypeConfig", ["constants"])
 
         };
 
+        var mexicoClinicPlan = {
+            type: "encounter-section",
+            id: "pihcore-plan",
+            label: "pihcore.visitNote.plan",
+            icon: "icon-list-ul",
+            shortTemplate: "templates/sections/mexico/planSectionShort.page",
+            longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
+            printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
+            printTemplateUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-prescriptions-print.xml",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/section-plan.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/section-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         var ncdInitial = {
             type: "encounter-section",
             id: "pihcore-ncd",
@@ -688,7 +701,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 allergies,
                 primaryCareHistory,
                 primaryCareDx,
-                primaryCarePlan
+                mexicoClinicPlan
             ]
         };
 
@@ -702,7 +715,7 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
                 chiefComplaint,
                 primaryCareDx,
-                primaryCarePlan
+                mexicoClinicPlan
             ]
         };
 
