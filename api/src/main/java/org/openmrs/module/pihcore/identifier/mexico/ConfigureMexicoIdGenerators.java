@@ -6,18 +6,17 @@ import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
 public class ConfigureMexicoIdGenerators {
 
     public static final String CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID = "cf2b23e6-7a32-11e8-8624-54ee75ef41c2";
 
-    public static void configureGenerators(IdentifierSourceService identifierSourceService) {
+    public static void configureGenerators(IdentifierSourceService identifierSourceService, Config config) {
 
-        Location identifierLocation = MetadataUtils.existing(Location.class, MexicoLocations.JALTENANGO.uuid());
+        Location identifierLocation = MetadataUtils.existing(Location.class, MexicoLocations.CHIAPAS.uuid());
 
         SequentialIdentifierGenerator chiapasPrimaryIdentifierSource = (SequentialIdentifierGenerator)
                 identifierSourceService.getIdentifierSourceByUuid(CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID);
@@ -29,9 +28,10 @@ public class ConfigureMexicoIdGenerators {
         chiapasPrimaryIdentifierSource.setDescription("Primary Identifier Generator for Chiapas");
         chiapasPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
                 MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID.uuid()));
-        chiapasPrimaryIdentifierSource.setPrefix("W");
+        String prefixForSite = config.getPrimaryIdentifierPrefix();
+        chiapasPrimaryIdentifierSource.setPrefix(prefixForSite);
         chiapasPrimaryIdentifierSource.setMinLength(7 + chiapasPrimaryIdentifierSource.getPrefix().length());
-        chiapasPrimaryIdentifierSource.setMaxLength(8 + chiapasPrimaryIdentifierSource.getPrefix().length());
+        chiapasPrimaryIdentifierSource.setMaxLength(7 + chiapasPrimaryIdentifierSource.getPrefix().length());
         chiapasPrimaryIdentifierSource.setBaseCharacterSet("0123456789");
         chiapasPrimaryIdentifierSource.setFirstIdentifierBase("0000001");
         chiapasPrimaryIdentifierSource.setUuid(CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID);
@@ -54,5 +54,6 @@ public class ConfigureMexicoIdGenerators {
 
         identifierSourceService.saveAutoGenerationOption(autoGenerationOption);
     }
+
 
 }
