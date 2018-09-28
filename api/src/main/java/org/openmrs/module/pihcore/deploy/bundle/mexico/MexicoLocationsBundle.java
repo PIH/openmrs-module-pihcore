@@ -13,6 +13,7 @@ public class MexicoLocationsBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
+        install(MexicoLocations.CHIAPAS);
         install(MexicoLocations.JALTENANGO);
         install(MexicoLocations.CAPITAN);
         install(MexicoLocations.HONDURAS);

@@ -98,6 +98,10 @@ public class LocationTagSetup {
         allLocations.add(MexicoLocations.JALTENANGO);
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allLocations);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allLocations);
+
+        // Location CHIAPAS only exists for ID generation
+        List<LocationDescriptor> chiapas = Arrays.asList(MexicoLocations.CHIAPAS);
+        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, chiapas);
     }
 
     private static void setupLocationTagsForLiberia(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException {

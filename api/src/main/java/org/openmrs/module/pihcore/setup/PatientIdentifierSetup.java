@@ -29,7 +29,7 @@ public class PatientIdentifierSetup {
             ConfigureSierraLeoneIdGenerators.configureGenerators(identifierSourceService);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            ConfigureMexicoIdGenerators.configureGenerators(identifierSourceService);
+            ConfigureMexicoIdGenerators.configureGenerators(identifierSourceService, config);
         }
     }
 }
