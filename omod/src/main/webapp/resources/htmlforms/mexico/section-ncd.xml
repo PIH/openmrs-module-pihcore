@@ -1,0 +1,462 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http//license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+  -->
+
+<htmlform id="ncd-consult-note" class="simple-form-ui" formName="NCD" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
+          htmlformUuid="59166690-b88b-4cbd-92f7-31fb037bf2dc" formVersion="1.0">
+
+    <style type="text/css">
+
+        #who-when-where {
+        margin-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+        }
+
+        #who-when-where p {
+        display: inline-block;
+        padding-right: 20px;
+        }
+
+        #where > input[type=text] {
+        display: inline-block;
+        }
+
+        .narrow {
+        width: 200px;
+        }
+
+        .field-error {
+        color: #ff6666;
+        font-size: 1.1em;
+        display: block;
+        }
+
+        .two-columns {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        }
+
+        .simple-form-ui input {
+        min-width: 80%
+        }
+
+        form fieldset {
+        min-width: 90%;
+        display: block;
+        }
+
+        #calculated-waist-hip-ratio {
+        font-weight: bold;
+        font-size: 1.4em;
+        }
+
+        .encounter-summary-container #calculated-ratio {
+        font-size: 1em;
+        font-weight: normal;
+        }
+
+        #encounterDate input {
+        min-width: 15%
+        }
+
+        .half-size-text {
+        color: #ff6666;
+        font-size: 50%;
+        display: block;
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
+        textarea {
+        width: 95%;
+        }
+
+    </style>
+
+
+    <script type="text/javascript">
+        var calculateWaistHipRatio = function(waist, hip) {
+            var waistHipRatio = null;
+            if (waist &amp;&amp; hip) {
+                waistHipRatio = waist / hip;
+            }
+            return waistHipRatio;
+        }
+    </script>
+
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+
+            jq(function() {
+            // functions to handle updating the waist/hip ratio when in ENTER mode
+            var updateWaistHipRatio = function() {
+
+            var waist = htmlForm.getValueIfLegal('waist_cm.value');
+            var hip = htmlForm.getValueIfLegal('hip_cm.value');
+
+            var waistHipRatio = calculateWaistHipRatio(waist, hip);
+
+            if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
+            jq('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
+            }
+            else {
+            jq('#calculated-waist-hip-ratio').html("");
+            }
+            };
+
+            getField('waist_cm.value').change(updateWaistHipRatio);
+            getField('hip_cm.value').change(updateWaistHipRatio);
+
+            updateWaistHipRatio();
+
+            // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+            jq('#next').click(function() {
+            window.htmlForm.getBeforeSubmit().push(function () {
+            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-ncd");
+            return true;
+            });
+
+            window.htmlForm.submitHtmlForm();
+            })
+
+            jq('#submit').click(function() {
+            window.htmlForm.submitHtmlForm();
+            })
+
+            });
+
+        </script>
+    </ifMode>
+
+
+
+    <ifMode mode="VIEW">
+        <script type="text/javascript">
+
+            // handle displaying the waist/hip ratio when in VIEW mode
+            jq(function() {
+
+                // we have to iterate through in case there are multiple NCD forms
+                // displayed on a single page
+
+                jq('htmlform').each(function(index, form) {
+                    var waist = jq(form).find('#waist_cm').find('.value').text();
+                    var hip = jq(form).find('#hip_cm').find('.value').text();
+
+                    var waistHipRatio = calculateWaistHipRatio(waist, hip);
+
+                    if (waistHipRatio != null &amp;&amp; !isNaN(waistHipRatio)) {
+                        jq(form).find('#calculated-waist-hip-ratio').html(waistHipRatio.toFixed(2));
+                    }
+                });
+            });
+
+        </script>
+    </ifMode>
+
+    <div class="print-form-datestamps" style="display:none">
+        <p><uimessage code="created_on"/>:
+            <lookup complexExpression="$form.dateCreated"/>
+        </p>
+        <p><uimessage code="last_updated_on"/>:
+            <lookup complexExpression="$form.dateChanged"/>
+        </p>
+        <p><uimessage code="printed_on"/>:
+            <lookup complexExpression="$formGeneratedDatetime"/>
+        </p>
+    </div>
+
+    <!-- this section is not included if it is a follow-up encounter (encounter type referenced by 5cdfd6...) -->
+
+        <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
+        <div class="section-container">
+            <excludeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+                <!-- ToDo: The next 4 questions should only be included on the initial visit -->
+                <label>
+                    <uimessage code="pihcore.ncd.referral"/>
+                </label>
+                <obs conceptId="PIH:Type of referring service"
+                     answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
+                <br/>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.info.aware"/>
+                        <br/>
+                    </label>
+                    <obs conceptId="PIH:Known chronic disease before referral" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerSeparator=""/>
+                </p>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.info.prior_treatment"/>
+                        <br/>
+                    </label>
+                    <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
+                         answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
+                         answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
+                         answerSeparator=""/>
+                </p>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.info.controlled"/>
+                        <br/>
+                    </label>
+                    <obs conceptId="PIH:Chronic disease controlled during initial visit" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerSeparator=""/>
+                </p>
+            </excludeIf>
+            <!-- This should be included during initial and followup visits -->
+     <!--       <p>
+                <label>
+                    <uimessage code="pihcore.ncd.past_category"/>:
+                </label>
+                &lt;!&ndash; ToDo:  Add the previous diagnosis categories &ndash;&gt;
+                <lookup complexExpression="#foreach($category in $fn.allObs('PIH:NCD category')) $!category.valueCoded.name &lt;br/&gt;#end"/>
+            </p>-->
+
+            <label>
+                <uimessage code="pihcore.ncd.category"/>
+                <uimessage code="pihcore.ncd.category.instructions"/>
+            </label>
+
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER" showCommentField="true"
+                 commentFieldLabel=" "/>
+        </div>
+    </section>
+
+
+    <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.vitals">
+        <div class="section-container">
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.vitals.waist_cm"/>
+                    (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
+                </span>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.vitals.hip_cm"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163081" id="hip_cm" showUnits="true"/>
+                </span>
+            </p>
+
+            <p>
+                <!-- ToDo:  Calculate the ratio -->
+                <span id="calculated-ratio-wrapper">
+                    <uimessage code="pihcore.ncd.vitals.waist_hip_ratio"/>
+                    <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>:
+                    <span id='calculated-waist-hip-ratio'>
+                    </span>
+                </span>
+            </p>
+        </div>
+    </section>
+
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.heart_failure">
+        <div id="heart_failure" class="section-container">
+            <p>
+                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
+                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
+                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
+                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 4"/>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.hf.vol_status"/>
+                </label>
+                <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"/>
+            </p>
+        </div>
+    </section>
+
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.diabetes">
+        <div id="diabetes" class="section-container">
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+                </label>
+                <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no" answerSeparator=""/>
+            </p>
+        </div>
+    </section>
+
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
+        <div id="respire" class="section-container">
+            <p>
+                <label>
+                    <uimessage code="puffs_per_wk"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Puffs per week of salbutamol"/>
+                </span>
+            </p>
+            <p>
+                <!-- ToDo: Add message about number of times per week for these classifications -->
+                <label>
+                    <uimessage code="asthma_class"/>
+                </label>
+                <obs conceptId="PIH:Asthma classification"/>
+            </p>
+        </div>
+    </section>
+
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
+        <div id="epilepsy" class="section-container">
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.epilepsy.seizure_num"/>
+                </label>
+                <!-- Note: HUM form has yes/no -->
+                <span class="small">
+                    <obs conceptId="PIH:Number of seizures since last visit"/>
+                </span>
+            </p>
+        </div>
+    </section>
+
+    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.plan.title">
+        <div class="section-container">
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.appt"/>
+                </label>
+                <obs conceptId="PIH:Appearance at appointment time" style="radio"
+                     answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
+                     answerCodes="yes,no - late 1-7 days,no - late more than 7 days"
+                     answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.missing_meds"/>
+                </label>
+                <obs conceptId="PIH:10555" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
+                     answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.hospitalized"/>
+                </label>
+                <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no"  answerSeparator=""/>
+            </p>
+        </div>
+    </section>
+
+    <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
+        <div class="section-container">
+            <label>
+                <uimessage code="pihcore.ncd.meds.current_meds"/>
+            </label>
+
+            <p>
+                <label>
+                    <i>
+                        <uimessage code="pihcore.ncd.meds.tempMessage"/>
+                    </i>
+                </label>
+            </p>
+
+
+            <div class="two-columns">
+
+                <repeat with="['PIH:AMINOPHYLLINE'],['PIH:AMLODIPINE']">
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox"/>
+                </repeat>
+                <repeat with="['PIH:Anti-TB medication (generic)','Anti-TB'],['PIH:ARV medication (generic)','ARVs']">
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" answerLabel="{1}"
+                         style="checkbox"/>
+                </repeat>
+
+                <repeat with="['PIH:ASPIRIN'],['PIH:ATENOLOL'],['PIH:BECLOMETHASONE'],['PIH:CAPTOPRIL'],['PIH:CARBAMAZEPINE'],['PIH:CARVEDILOL'],['PIH:Cimetidine'],['CIEL:73602'],['PIH:DIGOXIN'],['PIH:FUROSEMIDE'],['PIH:GLIBENCLAMIDE'],['PIH:HYDRALAZINE'],['PIH:HYDROCHLOROTHIAZIDE'],['PIH:Regular insulin'],['PIH:Insulin 70/30'],['PIH:Lente insulin'],['PIH:ISOSORBIDE DINITRATE'],['PIH:LISINOPRIL'],['PIH:METFORMIN'],['PIH:METHYLDOPA'],['PIH:NIFEDIPINE'],['PIH:Omeprazole'],['PIH:PENICILLIN'],['CIEL:81730'],['PIH:PHENOBARBITAL'],['PIH:Prednisolone'],['PIH:RANITIDINE'],['PIH:SALBUTAMOL'],['CIEL:83936'],['PIH:SPIRONOLACTONE'],['PIH:WARFARIN']">
+                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox"/>
+                </repeat>
+                <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="PIH:OTHER NON-CODED"
+                     style="checkbox" showCommentField="true"
+                     commentFieldLabel=" "/>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </section>
+
+    <!-- ToDo:  Delete this section which should be completed on the plan
+    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.general.title">
+        <div class="section-container">
+            <p>
+                <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.consult.returnVisitDate"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
+                </span>
+            </p>
+        </div>
+    </section>
+-->
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>
