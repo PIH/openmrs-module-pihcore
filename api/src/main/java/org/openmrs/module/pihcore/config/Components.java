@@ -24,6 +24,7 @@ public class Components {
         public static final String MENTAL_HEALTH = "mentalHealth";
         public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";
         public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";
+        public static final String DIABETES_PROGRAM = "diabetesProgram";
         public static final String SOCIO_ECONOMICS= "socioEconomics";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
@@ -64,6 +65,5 @@ public class Components {
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String COHORT_BUILDER = "cohortBuilder";
         public static final String MEXICO_CLINIC = "mexicoClinic";
-        public static final String HYPERTENSION = "hypertension";
         public static final String CHEMOTHERAPY = "chemotherapy";
 }
