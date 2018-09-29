@@ -47,6 +47,12 @@
         -moz-column-count: 2;
         }
 
+        .three-columns {
+        column-count: 3;
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        }
+
         .simple-form-ui input {
         min-width: 80%
         }
@@ -97,7 +103,7 @@
         }
 
         textarea {
-        width: 95%;
+        width: 95%; class="small"
         }
 
     </style>
@@ -155,40 +161,44 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
         <div id="diabetes" class="section-container">
+        <div class="three-columns">
             <p>
                 <label><uimessage code="pihcore.lab.glucose"/></label>
-                <span>
+                <span class="small">
                     <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
                 </span>
             </p>
             <p>
                 <label><uimessage code="pihcore.lab.hba1c"/></label>
-                <span>
-                    <obs id="glucose" conceptId="PIH:HbA1c" showUnits="true"/>
+                <span class="small">
+                    <obs id="hba1c" conceptId="PIH:HbA1c" showUnits="true"/>
                 </span>
             </p>
+        </div>
+        <div class="three-columns">
             <p>
                 <label><uimessage code="pihcore.lab.total_chol"/></label>
-                <span>
-                    <obs id="glucose" conceptId="PIH:TOTAL CHOLESTEROL" showUnits="true"/>
+                <span class="small">
+                    <obs id="chol" conceptId="PIH:TOTAL CHOLESTEROL" showUnits="true"/>
                 </span>
             </p>
             <p>
                 <label><uimessage code="pihcore.lab.hdl"/></label>
-                <span>
-                    <obs id="glucose" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
+                <span class="small">
+                    <obs id="ldl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
                 </span>
             </p>
             <p>
                 <label><uimessage code="pihcore.lab.ldl"/></label>
-                <span>
-                    <obs id="glucose" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
+                <span class="small">
+                    <obs id="hdl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
                 </span>
             </p>
+        </div>
             <p>
                 <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
-                <span>
-                    <obs id="glucose" conceptId="PIH:URINARY ALBUMIN" showUnits="true"/>
+                <span class="small">
+                    <obs id="urinary-albumin" conceptId="PIH:URINARY ALBUMIN" showUnits="true"/>
                 </span>
             </p>
             <p>
@@ -205,7 +215,7 @@
                     <uimessage code="pihcore.ncd.diabetes.foot_findings"/>
                 </label>
                 <obs conceptId="PIH:FOOT EXAM FINDINGS"
-                     answerConceptIds="PIH:1118,PIH:NORMAL,FUNGAL INFECTION,CIEL:117447,CIEL:163411"/>
+                     answerConceptIds="PIH:NOT DONE,PIH:NORMAL,PIH:FUNGAL INFECTION,PIH:KERATODERMA,PIH:FOOT ULCER"/>
             </p>
             <p>
                 <label>
