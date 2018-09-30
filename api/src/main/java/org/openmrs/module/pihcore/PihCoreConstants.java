@@ -47,6 +47,9 @@ public class PihCoreConstants {
     public static final String RELATIONSHIP_CLINICIAN = "2fa6fcea-aa58-11e8-98d0-529269fb1459";
 
     // uuids of concepts associated with programs
+    public static final String DIABETES_PROGRAM_CONCEPT_UUID = "db80904c-d893-42ea-9b56-9c4cdf77b2fd";  // 6748
+    public static final String DIABETES_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
+
     public static final String HYPERTENSION_PROGRAM_CONCEPT_UUID = "74b896da-9583-4f5e-88c9-7f76c71e84b3";  // 6846
     public static final String HYPERTENSION_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
