@@ -6,20 +6,21 @@
     <style type="text/css">
 
         .section-header {
-        margin-top: 1.5em;
+            margin-top: 1.5em;
         }
 
         .two-columns {
-        column-count: 2;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
+            column-count: 2;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
         }
 
         p.radio > * {
-        display: inline;
-        float: none !important;
-        min-width: initial;
+            display: inline;
+            float: none !important;
+            min-width: initial;
         }
+
     </style>
 
     <ifMode mode="VIEW" include="false">
@@ -34,7 +35,6 @@
     </ifMode>
 
     <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.lab_tests.title">
-
 
         <fieldset class="multi-line-confirmation" field-separator=" ">  <!-- field separator is set as a workaround for the super-hack, see below -->
 
@@ -55,7 +55,11 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs  id="specimen-collection-date-hematology" conceptId="CIEL:159951" placeholder="Enter date" allowTime="false"/>
+                        <encounterDate id="encounterDate" default="now"  />
+                        <!-- Replace specimen collection date with encounterDate.
+                             allowTime="false" allowFutureDates="true"
+                        <obs id="specimen-collection-date-hematology" conceptId="CIEL:159951" allowTime="false"/>
+                        -->
                     </field>
                 </span>
             </p>
@@ -516,7 +520,9 @@
             <legend>When?</legend>
             <label>When?</label>
 
+            <!-- See above for specimen collection date
             <encounterDate default="now" showTime="false"/>
+            -->
         </fieldset>
 
         <fieldset>

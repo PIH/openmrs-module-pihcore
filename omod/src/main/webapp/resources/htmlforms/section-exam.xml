@@ -169,8 +169,10 @@
 
             <div class="two-columns">
                 <p>
-                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs conceptId="PIH:GENERAL EXAM FINDINGS"
+                         answerConceptId="PIH:NORMAL" style="checkbox" />
                 </p>
+
                 <p>
                     <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
                 </p>
@@ -404,16 +406,24 @@
 
             <div class="two-columns">
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                         answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                         answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                         answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                         answerConceptId="PIH:ASCITES" style="checkbox"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                         answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
                 <p class="comment-label">
@@ -422,7 +432,7 @@
 
                 <p class="comment-field">
                     <p>
-                        <obs conceptId="CIEL:160947" rows="5" cols="45" />
+                        <obs conceptId="CIEL:160947" rows="7" cols="45" />
                     </p>
                 </p>
             </div>
@@ -470,11 +480,19 @@
 
             <div class="two-columns">
                 <p>
-                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                         answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:SEIZURE" style="checkbox"/>
+                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                         answerConceptId="PIH:SEIZURE" style="checkbox"/>
                 </p>
+                <p>
+                    <!-- Hemiplegia -->
+                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                         answerConceptId="CIEL:117655" style="checkbox" />
+                </p>
+
                 <p>
                     <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED"
                          style="checkbox"  showCommentField="true" commentFieldLabel="" />
@@ -511,6 +529,10 @@
                     <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
                 </p>
                 <p>
+                    <!-- Edema -->
+                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:460" style="checkbox"/>
+                </p>
+                <p>
                     <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
@@ -520,7 +542,7 @@
 
                 <p class="comment-field">
                     <p>
-                        <obs conceptId="CIEL:163048" rows="5" cols="45" />
+                        <obs conceptId="CIEL:163048" rows="7" cols="45" />
                     </p>
                 </p>
             </div>

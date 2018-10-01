@@ -273,16 +273,24 @@
             </label>
 
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION" />
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE" style="checkbox" toggle="heart_failure"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident" answerLabel="Stroke"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES"
+                 style="checkbox" toggle="diabetes" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE"
+                 style="checkbox" toggle="heart_failure"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:RENAL FAILURE"
+                 style="checkbox" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident"
+                 answerLabel="Stroke"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Chronic respiratory disease program"
                  answerLabel="Respiratory" style="checkbox" toggle="respire"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Rehab program" answerLabel="Rehab (not stroke)"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Sickle-Cell Anemia" answerLabel="Sickle-cell"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER" showCommentField="true"
-                 commentFieldLabel=" "/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Rehab program"
+                 answerLabel="Rehab (not stroke)"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:Sickle-Cell Anemia"
+                 answerLabel="Sickle-cell"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY"
+                 style="checkbox" toggle="epilepsy"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER"
+                 showCommentField="true" commentFieldLabel=" "/>
         </div>
     </section>
 
@@ -341,6 +349,10 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
         <div id="diabetes" class="section-container">
+            <p>
+                <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142474"/>
+                <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142473"/>
+            </p>
             <p class="radio">
                 <label>
                     <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
