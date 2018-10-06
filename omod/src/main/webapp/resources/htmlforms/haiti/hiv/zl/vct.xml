@@ -363,6 +363,15 @@
                 </p>
 
                 <p>
+                    <!-- The question/concept is different here,
+                         but this seems like the right place for this-->
+                    <obs conceptId="PIH:Type of trauma"
+                         answerConceptId="CIEL:165088"
+                         answerCode="pihcore.victimGBV"
+                         style="checkbox"/>
+                </p>
+
+                <p>
                     <obs conceptId="CIEL:164082" toggle="refer"
                          answerConceptId="PIH:11521"
                          answerCode="pihcore.clientReferral"
@@ -703,19 +712,17 @@
                 </p>
 
                 <p>
-                    <obs conceptId="PIH:Type of trauma"
-                         answerConceptId="CIEL:165088"
-                         answerCode="pihcore.victimGBV"
-                         style="checkbox"/>
-                </p>
-
-                <p>
                     <label>
                         <uimessage code="pihcore.dateReferHIV"/>
                     </label>
                     <obs conceptId="PIH:11538"/>
                 </p>
-                <br/>
+
+                <p>
+                    <br/>
+                    <br/>
+                </p>
+
             </div>
 
             <p>

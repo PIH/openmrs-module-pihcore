@@ -222,7 +222,7 @@
                     </label>
                     <!-- ToDo:  Add suggested value of A01 or B01 -->
                     <span class="small">
-                        <obs conceptId="PIH:11665" />
+                        <obs conceptId="PIH:11665" required="true" />
                     </span>
                 </p>
 
@@ -267,25 +267,25 @@
                     <label>
                         <uimessage code="pihcore.mch.grava"/>
                     </label>
-                    <obs conceptId="CIEL:5624"/>
+                    <obs conceptId="CIEL:5624" required="true"/>
                 </p>
                 <p>
                     <label>
                         <uimessage code="pihcore.mch.para"/>
                     </label>
-                    <obs conceptId="CIEL:1053"/>
+                    <obs conceptId="CIEL:1053" required="true"/>
                 </p>
                 <p>
                     <label>
                         <uimessage code="pihcore.mch.abortus"/>
                     </label>
-                    <obs conceptId="CIEL:1823"/>
+                    <obs conceptId="CIEL:1823" required="true"/>
                 </p>
                 <p>
                     <label>
                         <uimessage code="pihcore.mch.living"/>
                     </label>
-                    <obs conceptId="CIEL:1825"/>
+                    <obs conceptId="CIEL:1825" required="true"/>
                 </p>
             </div>
 
@@ -318,7 +318,8 @@
                     <uimessage code="pihcore.consult.returnVisitDate" />
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"
+                         id="apptDate" required="true" />
                 </span>
             </p>
         </div>

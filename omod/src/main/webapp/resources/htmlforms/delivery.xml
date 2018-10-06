@@ -224,7 +224,8 @@
                     <label>
                         <uimessage code="pihcore.mch.deliveryType"/>
                     </label>
-                    <obs conceptId="PIH:11663" answerConceptId="CIEL:1170" style="checkbox"  />
+                    <obs conceptId="PIH:11663" answerConceptId="CIEL:162595" style="checkbox"  />
+                    <obs conceptId="PIH:11663" answerConceptId="CIEL:161631" style="checkbox"  />
                     <obs conceptId="PIH:11663" answerConceptId="CIEL:155884" style="checkbox"  />
                 </p>
 

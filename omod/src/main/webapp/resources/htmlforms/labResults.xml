@@ -9,16 +9,15 @@
             margin-top: 1.5em;
         }
 
-        .two-columns {
-            column-count: 2;
-            -webkit-column-count: 2;
-            -moz-column-count: 2;
-        }
-
         p.radio > * {
             display: inline;
             float: none !important;
             min-width: initial;
+        }
+
+        .section-container input[type="checkbox"] {
+            margin: 0px 5px; /*changed values to vertical, horizontal*/
+            top:5px; /*added to offset the checkbox position to line up*/
         }
 
     </style>
@@ -34,13 +33,17 @@
         </script>
     </ifMode>
 
-    <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.lab_tests.title">
+    <section id="labResults" sectionTag="section" headerStyle="title" headerCode="pihcore.lab.lab_results.title">
 
-        <fieldset class="multi-line-confirmation" field-separator=" ">  <!-- field separator is set as a workaround for the super-hack, see below -->
+        <fieldset class="multi-line-confirmation" field-separator=" ">
+            <!-- field separator is set as a workaround for the super-hack, see below -->
 
             <legend>
                 <uimessage code="pihcore.lab.dates"/>
             </legend>
+            <h3>
+                <uimessage code="pihcore.lab.dates"/>
+            </h3>
 
             <!-- this is a super-hack to get around the fact that if the date is first field in a form, the
                  datepicker opens immediately, AND in this case we are getting some odd interactions between this
@@ -53,24 +56,26 @@
                 <label for="specimen-collection-date-hematology">
                     <uimessage code="pihcore.lab.specimen_collection_date"/>
                 </label>
-                <span class="small">
-                    <field>
-                        <encounterDate id="encounterDate" default="now"  />
-                        <!-- Replace specimen collection date with encounterDate.
-                             allowTime="false" allowFutureDates="true"
-                        <obs id="specimen-collection-date-hematology" conceptId="CIEL:159951" allowTime="false"/>
-                        -->
-                    </field>
-                </span>
+                <field>
+                    <encounterDate id="specimen-collection-date-hematology"
+                                   default="now" />
+
+                    <div class="section-container">
+                        <obs conceptId="PIH:11781" answerConceptId="PIH:YES"
+                             style="checkbox" answerCode="pihcore.date_estimated"/>
+                    </div>
+                </field>
             </p>
 
+            <br/><br/>
             <p>
                 <label for="test-date-hematology">
                     <uimessage code="pihcore.lab.test_date"/>
                 </label>
                 <span class="small">
                     <field>
-                        <obs  id="test-date-hematology" conceptId="PIH:DATE OF LABORATORY TEST" placeholder="Enter date"/>
+                        <obs  id="test-date-hematology" conceptId="PIH:DATE OF LABORATORY TEST"
+                              placeholder="Enter date"/>
                     </field>
                 </span>
             </p>
@@ -169,7 +174,8 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="inr" conceptId="PIH:INTERNATIONAL NORMALIZED RATIO" placeholder="Enter value"/>
+                        <obs id="inr" conceptId="PIH:INTERNATIONAL NORMALIZED RATIO"
+                             placeholder="Enter value"/>
                     </field>
                 </span>
 
@@ -179,7 +185,8 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="cd4" conceptId="PIH:CD4 COUNT" placeholder="Enter value"/>
+                        <obs id="cd4" conceptId="PIH:CD4 COUNT"
+                             placeholder="Enter value"/>
                     </field>
                 </span>
 
@@ -398,18 +405,6 @@
 
         </fieldset>
 
-        <!--
-        <fieldset class="multi-line-confirmation">
-
-            <legend>
-                <uimessage code="pihcore.lab.hiv.title"/>
-            </legend>
-            <h3>
-                <uimessage code="pihcore.lab.hiv.title"/>
-            </h3>
-        </fieldset>
-        -->
-
         <fieldset class="multi-line-confirmation">
 
             <legend>
@@ -424,7 +419,8 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="malarial-smear" conceptId="PIH:MALARIAL SMEAR" placeholder="Enter value"/>
+                        <obs id="malarial-smear" conceptId="PIH:MALARIAL SMEAR"
+                             placeholder="Enter value"/>
                     </field>
                 </span>
 
@@ -433,7 +429,8 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="ldh" conceptId="PIH:LACTATE DEHYDROGENASE"  showUnits="true" placeholder="Enter value"/>
+                        <obs id="ldh" conceptId="PIH:LACTATE DEHYDROGENASE"  showUnits="true"
+                             placeholder="Enter value"/>
                     </field>
                 </span>
 
@@ -452,7 +449,8 @@
                 </label>
                 <span class="small">
                     <field>
-                        <obs id="viral-load" conceptId="PIH:HIV VIRAL LOAD"  showUnits="true" placeholder="Enter value"/>
+                        <obs id="viral-load" conceptId="PIH:HIV VIRAL LOAD"  showUnits="true"
+                             placeholder="Enter value"/>
                     </field>
                 </span>
 
@@ -516,14 +514,14 @@
 
     <!-- To Do: What to do about retrospective entry?  Check the who? when? where? -->
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+        <!-- See above for specimen collection date
         <fieldset>
             <legend>When?</legend>
             <label>When?</label>
 
-            <!-- See above for specimen collection date
             <encounterDate default="now" showTime="false"/>
-            -->
         </fieldset>
+        -->
 
         <fieldset>
             <legend>Who?</legend>

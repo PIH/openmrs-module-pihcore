@@ -213,11 +213,13 @@
 
                 <p>
                     <label>
-                        <uimessage code="pihcore.hiv.symptomSigns"/>
+                        <uimessage code="pihcore.dangerSigns"/>
                     </label>
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:460" style="checkbox"/>
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:140238" style="checkbox"/>
+                    <!-- ToDo:  Add severe headache to mds and code (CIEL:139081) -->
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:139084" style="checkbox"/>
+                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:151" style="checkbox"/>
                     <obs conceptId="CIEL:1284" answerConceptId="PIH:7102" style="checkbox"/>
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:113054" style="checkbox"/>
                     <obs conceptId="CIEL:1284" answerConceptId="CIEL:148968" style="checkbox"/>
@@ -241,7 +243,8 @@
                         <uimessage code="pihcore.consult.returnVisitDate"/>
                     </label>
                     <span class="small">
-                        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+                        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"
+                             id="apptDate" required="true" />
                     </span>
                 </p>
 
