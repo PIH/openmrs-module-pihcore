@@ -5,9 +5,6 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class DemographicsDescriptor {
 
     @JsonProperty
-    private DemographicsFieldDescriptor activeCasefinding;
-
-    @JsonProperty
     private DemographicsFieldDescriptor isImmigrant;
 
     @JsonProperty
@@ -15,14 +12,6 @@ public class DemographicsDescriptor {
 
     @JsonProperty
     private DemographicsFieldDescriptor mothersName;
-
-    public DemographicsFieldDescriptor getActiveCasefinding() {
-        return activeCasefinding;
-    }
-
-    public void setActiveCasefinding(DemographicsFieldDescriptor activeCasefinding) {
-        this.activeCasefinding = activeCasefinding;
-    }
 
     public DemographicsFieldDescriptor getIsImmigrant() {
         return isImmigrant;
