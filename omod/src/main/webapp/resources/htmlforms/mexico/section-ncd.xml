@@ -264,13 +264,52 @@
     <!-- Epilepsy -->
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
         <div id="epilepsy" class="section-container">
+            <script>
+                jq(function() {
+                    getField('epi_baseline.value').change(updatePercentReduction);
+                    getField('seizure_num.value').change(updatePercentReduction);
+                    updatePercentReduction();
+                });
+
+                function updatePercentReduction() {
+                    var baseline = parseInt(htmlForm.getValueIfLegal('epi_baseline.value'));
+                    if (isNaN(baseline)) {
+                        baseline = parseInt(document.getElementById('epi_baseline_last_obs').innerHTML.trim());
+                    }
+                    var current = parseInt(htmlForm.getValueIfLegal('seizure_num.value'));
+                    if (!(isNaN(current) || isNaN(baseline))) {
+                        var result = calculatePercentReduction(baseline, current).toString();
+                        document.getElementById('seizure_percent_reduction').innerHTML = result;
+                    }
+                }
+
+                function calculatePercentReduction(baseline, current) {
+                    return Math.round(((baseline - current)/baseline) * 100);
+                }
+            </script>
             <p>
                 <label>
-                    <uimessage code="pihcore.ncd.epilepsy.seizure_num"/>
+                    <uimessage code="pihcore.ncd.epilepsy.seizure_num_baseline"/>:
+                </label>
+                <span id="epi_baseline_last_obs" class="value">
+                    <lookup expression="fn.latestObs('PIH:Number of seizures in one month before medications').valueNumeric" />
+                </span>
+                (<uimessage code="pihcore.ncd.epilepsy.change_baseline"/>
+                <span class="small">
+                    <obs id="epi_baseline" conceptId="PIH:Number of seizures in one month before medications"/>
+                </span>)
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.epilepsy.seizure_num_1mo"/>
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:Number of seizures since last visit"/>
+                    <obs id="seizure_num" conceptId="PIH:Number of seizures in the past month"/>
                 </span>
+            </p>
+            <p>
+                <span id="seizure_percent_reduction" class="value" />
+                <uimessage code="pihcore.ncd.epilepsy.percent_reduction"/>
             </p>
         </div>
     </section>
