@@ -1,0 +1,321 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http//license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+  -->
+
+<htmlform id="ncd-consult-note" class="simple-form-ui" formName="NCD" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
+          htmlformUuid="59166690-b88b-4cbd-92f7-31fb037bf2dc" formVersion="1.0">
+
+    <style type="text/css">
+
+        #who-when-where {
+        margin-bottom: 6px;
+        border-bottom: 1px solid #ccc;
+        }
+
+        #who-when-where p {
+        display: inline-block;
+        padding-right: 20px;
+        }
+
+        #where > input[type=text] {
+        display: inline-block;
+        }
+
+        .narrow {
+        width: 200px;
+        }
+
+        .field-error {
+        color: #ff6666;
+        font-size: 1.1em;
+        display: block;
+        }
+
+        .two-columns {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        }
+
+        .three-columns {
+        column-count: 3;
+        -webkit-column-count: 3;
+        -moz-column-count: 3;
+        }
+
+        .simple-form-ui input {
+        min-width: 80%
+        }
+
+        form fieldset {
+        min-width: 90%;
+        display: block;
+        }
+
+        #calculated-waist-hip-ratio {
+        font-weight: bold;
+        font-size: 1.4em;
+        }
+
+        .encounter-summary-container #calculated-ratio {
+        font-size: 1em;
+        font-weight: normal;
+        }
+
+        #encounterDate input {
+        min-width: 15%
+        }
+
+        .half-size-text {
+        color: #ff6666;
+        font-size: 50%;
+        display: block;
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
+        textarea {
+        width: 95%; class="small"
+        }
+
+    </style>
+
+    <div class="print-form-datestamps" style="display:none">
+        <p><uimessage code="created_on"/>:
+            <lookup complexExpression="$form.dateCreated"/>
+        </p>
+        <p><uimessage code="last_updated_on"/>:
+            <lookup complexExpression="$form.dateChanged"/>
+        </p>
+        <p><uimessage code="printed_on"/>:
+            <lookup complexExpression="$formGeneratedDatetime"/>
+        </p>
+    </div>
+
+    <!-- NCD intake section -->
+    <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
+        <div class="section-container">
+            <!-- Questions to only ask at intake -->
+            <excludeIf velocityTest="$encounter.encounterType.uuid == '8ad0b7d3-2973-40ae-916c-0369f3df86c5'">
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.info.aware"/>
+                        <br/>
+                    </label>
+                    <obs conceptId="PIH:Known chronic disease before referral" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerSeparator=""/>
+                </p>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.info.prior_treatment"/>
+                        <br/>
+                    </label>
+                    <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
+                         answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
+                         answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
+                         answerSeparator=""/>
+                </p>
+            </excludeIf>
+
+            <label>
+                <uimessage code="pihcore.ncd.category"/>
+                <uimessage code="pihcore.ncd.category.instructions"/>
+            </label>
+
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
+        </div>
+    </section>
+
+    <!-- Diabetes -->
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.diabetes">
+        <div id="diabetes" class="section-container">
+        <div class="three-columns">
+            <p>
+                <label><uimessage code="pihcore.lab.glucose"/></label>
+                <span class="small">
+                    <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
+                </span>
+            </p>
+            <p>
+                <label><uimessage code="pihcore.lab.hba1c"/></label>
+                <span class="small">
+                    <obs id="hba1c" conceptId="PIH:HbA1c" showUnits="true"/>
+                </span>
+            </p>
+        </div>
+        <div class="three-columns">
+            <p>
+                <label><uimessage code="pihcore.lab.total_chol"/></label>
+                <span class="small">
+                    <obs id="chol" conceptId="PIH:TOTAL CHOLESTEROL" showUnits="true"/>
+                </span>
+            </p>
+            <p>
+                <label><uimessage code="pihcore.lab.hdl"/></label>
+                <span class="small">
+                    <obs id="ldl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
+                </span>
+            </p>
+            <p>
+                <label><uimessage code="pihcore.lab.ldl"/></label>
+                <span class="small">
+                    <obs id="hdl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
+                </span>
+            </p>
+        </div>
+            <p>
+                <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
+                <span class="small">
+                    <obs id="urinary-albumin" conceptId="PIH:URINARY ALBUMIN" showUnits="true"/>
+                </span>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.vitals.waist_cm"/>
+                    (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
+                </span>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.diabetes.foot_findings"/>
+                </label>
+                <obs conceptId="PIH:FOOT EXAM FINDINGS"
+                     answerConceptIds="PIH:NOT DONE,PIH:NORMAL,PIH:FUNGAL INFECTION,PIH:KERATODERMA,PIH:FOOT ULCER"/>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.hx_alcohol_use"/>
+                </label>
+                <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
+                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"/>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.hx_tobacco_use"/>
+                </label>
+                <obs conceptId="PIH:HISTORY OF TOBACCO USE"
+                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"/>
+            </p>
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+                </label>
+                <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no" answerSeparator=""/>
+            </p>
+        </div>
+    </section>
+
+    <!-- Asthma -->
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
+        <div id="respire" class="section-container">
+            <p>
+                <label>
+                    <uimessage code="puffs_per_wk"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Puffs per week of salbutamol"/>
+                </span>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="asthma_class"/>
+                </label>
+                <obs conceptId="PIH:Asthma classification"/>
+            </p>
+        </div>
+    </section>
+
+    <!-- Epilepsy -->
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
+        <div id="epilepsy" class="section-container">
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.epilepsy.seizure_num"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Number of seizures since last visit"/>
+                </span>
+            </p>
+        </div>
+    </section>
+
+    <!-- Plan -->
+    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.plan.title">
+        <div class="section-container">
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.appt"/>
+                </label>
+                <obs conceptId="PIH:Appearance at appointment time" style="radio"
+                     answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
+                     answerCodes="yes,no - late 1-7 days,no - late more than 7 days"
+                     answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.missing_meds"/>
+                </label>
+                <obs conceptId="PIH:10555" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
+                     answerSeparator=""/>
+            </p>
+
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.plan.hospitalized"/>
+                </label>
+                <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
+                     answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no"  answerSeparator=""/>
+            </p>
+        </div>
+    </section>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>
