@@ -259,31 +259,6 @@
 
     </section>
 
-    <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="coreapps.consult.disposition">
-
-        <div class="section-container-color">
-
-            <div id="disposition">
-                <encounterDisposition/>
-            </div>
-
-            <label>
-                <uimessage code="pihcore.comment"/>
-            </label>
-            <obs conceptId="PIH:DISPOSITION COMMENTS" style="text"/>
-
-            <p class="narrow">
-                <label>
-                    <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
-                </label>
-                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
-            </p>
-
-        </div>
-
-    </section>
-
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
             <submit submitClass="confirm right" submitCode="emr.save"/>
