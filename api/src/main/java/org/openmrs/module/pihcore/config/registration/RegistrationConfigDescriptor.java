@@ -35,9 +35,6 @@ public class RegistrationConfigDescriptor {
     private DemographicsDescriptor demographics;
 
     @JsonProperty
-    private ProgramsDescriptor programs;
-
-    @JsonProperty
     private Integer maxPatientMatchResults;
 
     public boolean isAllowUnknownPatients() {
@@ -110,14 +107,6 @@ public class RegistrationConfigDescriptor {
 
     public void setDemographics(DemographicsDescriptor demographics) {
         this.demographics = demographics;
-    }
-
-    public ProgramsDescriptor getPrograms() {
-        return programs;
-    }
-
-    public void setPrograms(ProgramsDescriptor programs) {
-        this.programs = programs;
     }
 
 }
