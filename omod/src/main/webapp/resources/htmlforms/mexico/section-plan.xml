@@ -259,6 +259,22 @@
 
     </section>
 
+    <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="coreapps.consult.disposition">
+
+        <div class="section-container-color">
+
+            <p class="narrow">
+                <label>
+                    <uimessage code="pihcore.visitNote.plan.approximateReturnVisitDate"/>
+                </label>
+                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+            </p>
+
+        </div>
+
+    </section>
+
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
             <submit submitClass="confirm right" submitCode="emr.save"/>
