@@ -698,24 +698,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        // Mexico Clinic
-        encounterTypeConfig[EncounterTypes.mexicoClinicInitialVisit.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
-            icon: "icon-stethoscope",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-                chiefComplaint,
-                allergies,
-                mexicoClinicNcd,
-                primaryCareDx,
-                mexicoClinicPlan
-            ]
-        };
-
-        encounterTypeConfig[EncounterTypes.mexicoClinicFollowupVisit.uuid] = {
+        encounterTypeConfig[EncounterTypes.mexicoClinicVisit.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
