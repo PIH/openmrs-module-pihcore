@@ -1,6 +1,6 @@
 <htmlform id="anc-followup" class="simple-form-ui"
           formUuid="819b7edc-910c-11e8-9eb6-529269fb1459"
-          formName="ANC Followup"
+          formName="Prenatal Followup"
           formEncounterType="00e5e946-90ec-11e8-9eb6-529269fb1459"
           formVersion="1.0">
 
@@ -213,22 +213,62 @@
 
                 <p>
                     <label>
-                        <uimessage code="pihcore.dangerSigns"/>
+                        <uimessage code="pihcore.mch.dangerSigns"/>
                     </label>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:460" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:140238" style="checkbox"/>
-                    <!-- ToDo:  Add severe headache to mds and code (CIEL:139081) -->
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:139084" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:151" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="PIH:7102" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:113054" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:148968" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:118938" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:122983" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:122496" style="checkbox"/>
-                    <obs conceptId="CIEL:1284" answerConceptId="CIEL:142412" style="checkbox"/>
+                    <repeat>
+                        <template>
+                            <obs conceptId="CIEL:1284" answerConceptId="{concept}" style="checkbox" />
+                        </template>
+
+                        <render concept="CIEL:460" name="edema"/>
+                        <render concept="CIEL:140238" name="fever"/>
+                        <render concept="PIH:CHILLS" name="fever with chills"/>
+                        <render concept="CIEL:141830" name="dizziness"/>
+                        <render concept="CIEL:139081" name="severe headache"/>
+                        <render concept="CIEL:113054" name="seizure"/>
+                        <render concept="CIEL:118938" name="vision problem"/>
+                        <render concept="CIEL:122983" name="vomiting"/>
+                        <render concept="CIEL:142412" name="diarrhea"/>
+                        <render concept="CIEL:118771" name="painful urination"/>
+                        <render concept="CIEL:122496" name="shortness of breathe"/>
+                        <render concept="CIEL:151" name="abdominal pain"/>
+                        <render concept="CIEL:153316" name="contractions"/>
+                        <render concept="PIH:7102" name="hemorrhage"/>
+                        <render concept="CIEL:148968" name="amniotic fluid leaking"/>
+                        <render concept="CIEL:113377" name="decreased fetal movement"/>
+                    </repeat>
                 </p>
 
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mch.riskFactors"/>
+                    </label>
+
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:130109" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:115939" style="checkbox"/>
+                    <!-- answerCodes="pihcore.mch.gbv" -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
+                         style="checkbox"/>
+                </p>
+
+                <!-- Mental Health -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.title"/>
+                    </label>
+
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:DEPRESSION"
+                         style="checkbox"/>
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:Post traumatic stress disorder"
+                         style="checkbox"/>
+                </p>
+                <br/><br/><br/><br/><br/><br/><br/><br/>
+            </div>
+
+            <br/>
+
+            <div class="two-columns">
                 <p>
                     <label>
                         <uimessage code="pihcore.pregnancy.dueDate"/>
@@ -248,9 +288,6 @@
                     </span>
                 </p>
 
-                <br/>
-                <br/>
-                <br/><br/>
             </div>
         </div>
     </div>

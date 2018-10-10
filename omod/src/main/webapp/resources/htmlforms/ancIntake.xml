@@ -1,6 +1,6 @@
 <htmlform id="anc-intake" class="simple-form-ui"
           formUuid="00e552d8-90ec-11e8-9eb6-529269fb1459"
-          formName="ANC Intake"
+          formName="Prenatal Intake"
           formEncounterType="00e5e810-90ec-11e8-9eb6-529269fb1459"
           formVersion="1.0">
 
@@ -236,7 +236,6 @@
                          answerConceptId="CIEL:1723" answerCodes="pihcore.mch.thirdTri"/>
                 </p>
 
-                <br/>
                 <!-- HIV test -->
                 <p>
                     <label>
@@ -256,6 +255,21 @@
                     <obs conceptId="CIEL:160079" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:130109" style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:115939" style="checkbox"/>
+                    <!-- answerCodes="pihcore.mch.gbv" -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
+                         style="checkbox"/>
+                </p>
+
+                <!-- Mental Health -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.title"/>
+                    </label>
+
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:DEPRESSION"
+                         style="checkbox"/>
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:Post traumatic stress disorder"
+                         style="checkbox"/>
                 </p>
 
             </div>
@@ -296,32 +310,34 @@
                 <!-- Last menstrual period (LMP or DDR) -->
                 <p>
                     <label>
-                        <uimessage code="pihcore.pregnancy.lastPeriod"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="CIEL:1427"/>
-                    </span>
-                </p>
-
-                <p>
-                    <label>
                         <uimessage code="pihcore.pregnancy.dueDate"/>
                     </label>
                     <span class="small">
                         <obs conceptId="CIEL:5596" allowFutureDates="true"/>
                     </span>
                 </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.consult.returnVisitDate" />
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"
+                             id="apptDate" required="true" />
+                    </span>
+                </p>
+
             </div>
 
             <p>
                 <label>
-                    <uimessage code="pihcore.consult.returnVisitDate" />
+                    <uimessage code="pihcore.pregnancy.lastPeriod"/>
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"
-                         id="apptDate" required="true" />
+                    <obs conceptId="CIEL:1427"/>
                 </span>
             </p>
+
         </div>
     </div>
 

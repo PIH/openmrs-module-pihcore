@@ -219,6 +219,18 @@
                     </span>
                 </p>
 
+                <!-- Mental Health -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.title"/>
+                    </label>
+
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:DEPRESSION"
+                         style="checkbox"/>
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:Post traumatic stress disorder"
+                         style="checkbox"/>
+                </p>
+
                 <!-- Delivery type -->
                 <p>
                     <label>
@@ -229,33 +241,47 @@
                     <obs conceptId="PIH:11663" answerConceptId="CIEL:155884" style="checkbox"  />
                 </p>
 
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+            </div>
 
+            <hr/>
+            <div class="two-columns">
                 <!-- Risky factors during delivery -->
                 <p>
                     <label>
                         <uimessage code="pihcore.mch.riskFactors"/>
                     </label>
 
-                    <obs conceptId="PIH:11664" answerConceptId="CIEL:162239" style="checkbox"/>
-                    <obs conceptId="PIH:11664" answerConceptId="CIEL:129211" style="checkbox"/>
-                    <obs conceptId="PIH:11664" answerConceptId="CIEL:115866" style="checkbox"/>
-                    <obs conceptId="PIH:11664" answerConceptId="CIEL:113006" style="checkbox"/>
-                    <obs conceptId="PIH:11664" answerConceptId="PIH:Eclampsia" style="checkbox"/>
-                    <obs conceptId="PIH:11664" answerConceptId="PIH:Birth Asphyxia" style="checkbox"/>
-                    <obs conceptId="PIH:11664" answerConceptId="PIH:7102" style="checkbox"/>
+                    <repeat>
+                        <template>
+                            <obs conceptId="PIH:11664" answerConceptId="{concept}" style="checkbox" />
+                        </template>
 
-                    <obs conceptId="PIH:11664" answerConceptId="CIEL:138706" style="checkbox"/>
-                    <obs conceptId="PIH:11664" answerConceptId="CIEL:112493" style="checkbox"/>
+                        <render concept="PIH:HYPERTENSION" name="hypertension"/>
+                        <render concept="CIEL:130109" name="abnormal placenta"/>
+                        <render concept="CIEL:115939" name="abnormal presentation"/>
+                        <render concept="CIEL:165088" name="gbv"/>
+                        <render concept="CIEL:162239" name="low birth weight"/>
+                        <render concept="CIEL:111523" name="Premature less than 28 weeks"/>
+                        <render concept="PIH:11789" name="Premature (28-32)"/>
+                        <render concept="PIH:11790" name="Premature (32-36)"/>
+                        <render concept="CIEL:116642" name="Fetal demise"/>
+                        <render concept="CIEL:118245" name="fetal retardation"/>
+                        <render concept="CIEL:129211" name="rupture membrane"/>
+                        <render concept="CIEL:115866" name="aspiration meconium"/>
+                        <render concept="CIEL:113006" name="pre-eclampsia"/>
+                        <render concept="PIH:Eclampsia" name="eclampsia"/>
+                        <render concept="PIH:Birth Asphyxia" name="birth asphyxia"/>
+                        <render concept="PIH:7102" name="hemorrhage"/>
+                        <render concept="CIEL:138706" name="herpes"/>
+                        <render concept="CIEL:112493" name="syphilis"/>
+                    </repeat>
                     <obs conceptId="PIH:11664" answerConceptId="PIH:174"
                          answerCode="pihcore.mch.otherSTI" style="checkbox"/>
+                    <obs conceptId="PIH:11664" answerConceptId="PIH:OTHER"
+                         showCommentField="true" commentFieldLabel="" style="checkbox" />
                 </p>
             </div>
+            <br/>
         </div>
     </div>
 
