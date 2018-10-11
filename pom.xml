@@ -82,7 +82,7 @@
         <registrationappVersion>1.12.0</registrationappVersion>
         <radiologyappVersion>1.4.0</radiologyappVersion>
         <coreappsVersion>1.20.0-SNAPSHOT</coreappsVersion>
-        <webservicesRestVersion>2.13</webservicesRestVersion>
+        <webservicesRestVersion>2.23.0-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.2</appointmentschedulinguiVersion>
         <testutilsVersion>1.7.0-SNAPSHOT</testutilsVersion>
