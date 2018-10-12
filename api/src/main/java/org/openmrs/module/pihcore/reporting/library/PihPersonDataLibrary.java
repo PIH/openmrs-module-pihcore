@@ -48,24 +48,6 @@ public class PihPersonDataLibrary extends BaseDefinitionLibrary<PersonDataDefini
         return convert("telephoneNumber.value", d, converters.getRawAttributeValue());
     }
 
-    public PersonDataDefinition getActiveCasefinding() {
-        PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
-        d.setPersonAttributeType(Metadata.lookup(PersonAttributeTypes.FOUND_THROUGH_ACTIVE_CASEFINDING));
-        return convert(d, converters.getObsValueCodedNameConverter());
-    }
-
-    public PersonDataDefinition getIsImmigrant() {
-        PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
-        d.setPersonAttributeType(Metadata.lookup(PersonAttributeTypes.IS_IMMIGRANT));
-        return convert(d, converters.getObsValueCodedNameConverter());
-    }
-
-    public PersonDataDefinition getIsIndigenous() {
-        PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
-        d.setPersonAttributeType(Metadata.lookup(PersonAttributeTypes.IS_INDIGENOUS));
-        return convert(d, converters.getObsValueCodedNameConverter());
-    }
-
     public PersonDataDefinition getMothersFirstName() {
         PersonAttributeDataDefinition d = new PersonAttributeDataDefinition();
         d.setPersonAttributeType(Metadata.lookup(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME));

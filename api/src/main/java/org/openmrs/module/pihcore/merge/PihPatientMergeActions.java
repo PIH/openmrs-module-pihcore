@@ -43,9 +43,6 @@ public class PihPatientMergeActions implements PatientMergeAction {
         // void attributes on non-preferred patient if present on preferred patient
         voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid()), preferred, nonPreferred);
         voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid()), preferred, nonPreferred);
-        voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(PersonAttributeTypes.IS_IMMIGRANT.uuid()), preferred, nonPreferred);
-        voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(PersonAttributeTypes.IS_INDIGENOUS.uuid()), preferred, nonPreferred);
-        voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(PersonAttributeTypes.FOUND_THROUGH_ACTIVE_CASEFINDING.uuid()), preferred, nonPreferred);
 
         // make sure the most recent registration encounter belongs to the preferred patient.
         voidMostRecentRegistrationIfNonPreferred(preferred, nonPreferred);

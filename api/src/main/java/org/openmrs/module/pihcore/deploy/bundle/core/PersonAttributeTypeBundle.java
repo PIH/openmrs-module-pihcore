@@ -14,9 +14,6 @@ public class PersonAttributeTypeBundle extends AbstractMetadataBundle {
 
         log.info("Installing PersonAttributeTypes");
         install(PersonAttributeTypes.PROVIDER_IDENTIFIER);
-        install(PersonAttributeTypes.FOUND_THROUGH_ACTIVE_CASEFINDING);
-        install(PersonAttributeTypes.IS_IMMIGRANT);
-        install(PersonAttributeTypes.IS_INDIGENOUS);
         this.install(HaitiPersonAttributeTypes.TELEPHONE_NUMBER);
         this.install(HaitiPersonAttributeTypes.TEST_PATIENT);
         this.install(HaitiPersonAttributeTypes.UNKNOWN_PATIENT);

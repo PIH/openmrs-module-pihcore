@@ -30,27 +30,6 @@ public class PersonAttributeTypes {
 		public double sortWeight() { return 12; }
 	};
 
-	public static PersonAttributeTypeDescriptor FOUND_THROUGH_ACTIVE_CASEFINDING = new PersonAttributeTypeDescriptor() {
-		public String uuid() { return "0104848a-7209-4b38-976b-58fa715d6e89"; }
-		public String name() { return "Found through active casefinding program"; }
-		public String description() { return "Whether the patient was found through an active casefinding program"; }
-		public double sortWeight() { return 0; }
-	};
-
-	public static PersonAttributeTypeDescriptor IS_IMMIGRANT = new PersonAttributeTypeDescriptor() {
-		public String uuid() { return "57a1d161-4466-42f7-a3a0-81b41f12441d"; }
-		public String name() { return "Is an immigrant"; }
-		public String description() { return "Whether the patient immigrated to the country of the site"; }
-		public double sortWeight() { return 0; }
-	};
-
-	public static PersonAttributeTypeDescriptor IS_INDIGENOUS = new PersonAttributeTypeDescriptor() {
-		public String uuid() { return "ffeb489f-0466-481b-bc2d-b40502595690"; }
-		public String name() { return "Is indigenous"; }
-		public String description() { return "Whether the patient is indigenous"; }
-		public double sortWeight() { return 0; }
-	};
-
 	// telephone number, test patient, unknown patient, and mother's first name are also in the Haiti Core module,
 	// but we've moved them back here because we use them in Liberia (and potentially other non-Haiti implementations)
 
