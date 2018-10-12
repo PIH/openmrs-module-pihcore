@@ -2,7 +2,7 @@ package org.openmrs.module.pihcore.config.registration;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class DemographicsFieldDescriptor {
+public class RegistrationFieldDescriptor {
 
     @JsonProperty
     private Boolean required;
