@@ -139,10 +139,10 @@ public class EncounterTypes {
 	};
 
 
-    public static EncounterTypeDescriptor LAB_RESULTS = new EncounterTypeDescriptor() {
+    public static EncounterTypeDescriptor LABS = new EncounterTypeDescriptor() {
         public String uuid() { return "4d77916a-0620-11e5-a6c0-1697f925ec7b"; }
-        public String name() { return "Laboratory Results"; }
-        public String description() { return "Laboratory Results "; }
+        public String name() { return "Labs"; }
+        public String description() { return "Labs "; }
     };
 
 	public static EncounterTypeDescriptor RADIOLOGY_ORDER  = new EncounterTypeDescriptor() {
