@@ -129,7 +129,8 @@ public class Roles {
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
                     Privileges.APP_TODAYS_VISITS,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.APP_CHW
             );}
     };
 
@@ -150,6 +151,7 @@ public class Roles {
                     Privileges.APP_REGISTRATION_REGISTER_PATIENT,
                     Privileges.APP_EMR_CHECK_IN,
                     Privileges.APP_ZL_MPI,
+                    Privileges.APP_CHW,
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_REPORTS_DATA_EXPORTS,
                     Privileges.APP_APPOINTMENTSCHEDULINGUI_HOME,
@@ -254,7 +256,8 @@ public class Roles {
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_MPI,
-                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
+                    Privileges.APP_CHW
             );}
     };
 
@@ -714,7 +717,8 @@ public class Roles {
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
                     Privileges.APP_EMR_OUTPATIENT_VITALS,
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
-                    Privileges.TASK_EMR_ENTER_SOCIO
+                    Privileges.TASK_EMR_ENTER_SOCIO,
+                    Privileges.APP_CHW
             );}
     };
 
@@ -894,7 +898,8 @@ public class Roles {
                     Privileges.APP_COREAPPS_FIND_PATIENT,
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
-                    Privileges.APP_COREAPPS_PATIENT_VISITS
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_CHW
             );}
     };
 
