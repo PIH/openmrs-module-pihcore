@@ -63,7 +63,7 @@
         <htmlformentryuiVersion>1.7.0</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
         <reportingVersion>1.16.0</reportingVersion>
-        <reportinguiVersion>1.0</reportinguiVersion>
+        <reportinguiVersion>1.6.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
         <idgenVersion>4.5.0</idgenVersion>
@@ -83,8 +83,8 @@
         <radiologyappVersion>1.4.0</radiologyappVersion>
         <coreappsVersion>1.20.0-SNAPSHOT</coreappsVersion>
         <webservicesRestVersion>2.23.0-SNAPSHOT</webservicesRestVersion>
-        <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.2</appointmentschedulinguiVersion>
+        <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
+        <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
         <testutilsVersion>1.7.0-SNAPSHOT</testutilsVersion>
         <printerVersion>1.4.0</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
