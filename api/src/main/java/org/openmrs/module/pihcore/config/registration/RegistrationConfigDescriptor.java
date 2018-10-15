@@ -32,7 +32,10 @@ public class RegistrationConfigDescriptor {
     private Map<String, Object> similarPatientsSearch;
 
     @JsonProperty
-    private DemographicsDescriptor demographics;
+    private DemographicsConfigDescriptor demographics;
+
+    @JsonProperty
+    private SocialConfigDescriptor social;
 
     @JsonProperty
     private Integer maxPatientMatchResults;
@@ -101,12 +104,20 @@ public class RegistrationConfigDescriptor {
         this.maxPatientMatchResults = maxPatientMatchResults;
     }
 
-    public DemographicsDescriptor getDemographics() {
+    public DemographicsConfigDescriptor getDemographics() {
         return demographics;
     }
 
-    public void setDemographics(DemographicsDescriptor demographics) {
+    public void setDemographics(DemographicsConfigDescriptor demographics) {
         this.demographics = demographics;
+    }
+
+    public SocialConfigDescriptor getSocial() {
+        return social;
+    }
+
+    public void setSocial(SocialConfigDescriptor social) {
+        this.social = social;
     }
 
 }
