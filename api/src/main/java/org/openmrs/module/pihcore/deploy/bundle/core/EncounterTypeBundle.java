@@ -29,7 +29,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.ADMISSION);
         install(EncounterTypes.CANCEL_ADMISSION);
         install(EncounterTypes.EXIT_FROM_CARE);
-        install(EncounterTypes.LAB_RESULTS);
+        install(EncounterTypes.LABS);
         install(EncounterTypes.DEATH_CERTIFICATE);
         install(EncounterTypes.MENTAL_HEALTH_ASSESSMENT);
         install(EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT);

@@ -11,6 +11,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.merge.PatientMergeAction;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +40,7 @@ public class PihPatientMergeActions implements PatientMergeAction {
 
     @Override
     public void beforeMergingPatients(Patient preferred, Patient nonPreferred) {
-        // void telephone number and mother's name on non-preferred patient if present on preferred patient
+        // void attributes on non-preferred patient if present on preferred patient
         voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid()), preferred, nonPreferred);
         voidNonPreferredAttribute(personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid()), preferred, nonPreferred);
 
