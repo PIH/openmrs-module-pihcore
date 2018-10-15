@@ -145,6 +145,8 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
 
         uninstall(possible(GlobalProperty.class, "labworkflowowa.specimenCollectionDateConcept"), "using encounter date instead");
 
+        uninstall(possible(GlobalProperty.class, "labworkflowowa.specimenCollectionDateConcept"), "using encounter date instead");
+
         setGlobalProperties(properties);
 
         // EMR API global properties are now set up via Metadata Mappings
