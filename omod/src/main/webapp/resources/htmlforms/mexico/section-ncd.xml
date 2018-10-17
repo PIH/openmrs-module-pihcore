@@ -314,6 +314,28 @@
         </div>
     </section>
 
+    <!-- Mental -->
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.mental">
+        <div id="mental" class="section-container">
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.mental.phq9_score"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:165137"/>
+                </span>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.mental.gad7_score"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:165185"/>
+                </span>
+            </p>
+        </div>
+    </section>
+
     <!-- Plan -->
     <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.plan.title">
