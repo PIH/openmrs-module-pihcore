@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.reporting.library;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
 import org.openmrs.module.reporting.common.Birthdate;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
