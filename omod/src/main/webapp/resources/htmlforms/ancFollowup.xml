@@ -222,8 +222,6 @@
 
                         <render concept="CIEL:460" name="edema"/>
                         <render concept="CIEL:140238" name="fever"/>
-                        <render concept="PIH:CHILLS" name="fever with chills"/>
-                        <render concept="CIEL:141830" name="dizziness"/>
                         <render concept="CIEL:139081" name="severe headache"/>
                         <render concept="CIEL:113054" name="seizure"/>
                         <render concept="CIEL:118938" name="vision problem"/>
@@ -233,7 +231,7 @@
                         <render concept="CIEL:122496" name="shortness of breathe"/>
                         <render concept="CIEL:151" name="abdominal pain"/>
                         <render concept="CIEL:153316" name="contractions"/>
-                        <render concept="PIH:7102" name="hemorrhage"/>
+                        <render concept="CIEL:228" name="antenatal hemorrhage"/>
                         <render concept="CIEL:148968" name="amniotic fluid leaking"/>
                         <render concept="CIEL:113377" name="decreased fetal movement"/>
                     </repeat>
@@ -247,7 +245,9 @@
                     <obs conceptId="CIEL:160079" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:130109" style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:115939" style="checkbox"/>
-                    <!-- answerCodes="pihcore.mch.gbv" -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:163155"
+                         answerCode="pihcore.mch.previousCSection" style="checkbox"/>
+                    <!-- answerCode="pihcore.mch.gbv" -->
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
                          style="checkbox"/>
                 </p>
@@ -263,7 +263,7 @@
                     <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:Post traumatic stress disorder"
                          style="checkbox"/>
                 </p>
-                <br/><br/><br/><br/><br/><br/><br/><br/>
+                <br/><br/><br/><br/>
             </div>
 
             <br/>

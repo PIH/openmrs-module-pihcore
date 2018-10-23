@@ -244,19 +244,20 @@
             </div>
 
             <hr/>
-            <div class="two-columns">
-                <!-- Risky factors during delivery -->
-                <p>
-                    <label>
-                        <uimessage code="pihcore.mch.riskFactors"/>
-                    </label>
+            <p>
+                <label>
+                    <uimessage code="pihcore.complications.label"/>
+                </label>
+            </p>
 
+            <div class="two-columns">
+                <!-- Risk factors during delivery -->
+                <p>
                     <repeat>
                         <template>
                             <obs conceptId="PIH:11664" answerConceptId="{concept}" style="checkbox" />
                         </template>
 
-                        <render concept="PIH:HYPERTENSION" name="hypertension"/>
                         <render concept="CIEL:130109" name="abnormal placenta"/>
                         <render concept="CIEL:115939" name="abnormal presentation"/>
                         <render concept="CIEL:165088" name="gbv"/>
@@ -264,14 +265,18 @@
                         <render concept="CIEL:111523" name="Premature less than 28 weeks"/>
                         <render concept="PIH:11789" name="Premature (28-32)"/>
                         <render concept="PIH:11790" name="Premature (32-36)"/>
+                        <render concept="CIEL:127639" name="Respiratory distress" />
+                        <render concept="PIH:Fetal distress" name="Fetal distress" />
                         <render concept="CIEL:116642" name="Fetal demise"/>
                         <render concept="CIEL:118245" name="fetal retardation"/>
+                        <render concept="CIEL:145548" name="Chorioamnionitis" />
                         <render concept="CIEL:129211" name="rupture membrane"/>
                         <render concept="CIEL:115866" name="aspiration meconium"/>
                         <render concept="CIEL:113006" name="pre-eclampsia"/>
                         <render concept="PIH:Eclampsia" name="eclampsia"/>
                         <render concept="PIH:Birth Asphyxia" name="birth asphyxia"/>
-                        <render concept="PIH:7102" name="hemorrhage"/>
+                        <render concept="PIH:POSTPARTUM HEMORRHAGE" name="postpartum hemorrhage"/>
+                        <render concept="CIEL:121856" name="Acute pulmonary edema" />
                         <render concept="CIEL:138706" name="herpes"/>
                         <render concept="CIEL:112493" name="syphilis"/>
                     </repeat>
