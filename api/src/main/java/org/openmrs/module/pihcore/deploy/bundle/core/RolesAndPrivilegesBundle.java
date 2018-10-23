@@ -150,6 +150,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PROGRAM_MANAGER);
             install(Roles.PATHOLOGY_TECHNICIAN);
             install(Roles.LABS);
+            install(Roles.VCT_COUNSELOR);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)
                 || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
