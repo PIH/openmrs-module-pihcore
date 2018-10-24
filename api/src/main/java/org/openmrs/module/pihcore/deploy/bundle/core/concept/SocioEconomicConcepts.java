@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 16;  }
+    public int getVersion() { return 17;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -739,6 +739,59 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(snomedCt, "276118004").build())
                 .build());
 
+        Concept christian = install(new ConceptBuilder("163125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("134781BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Christianity (non-Catholic)", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("b4f991f2-b860-43ff-b30a-c8a8bed9aafa", "Cristianismo (no católico)", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("136981BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Christianisme (non-catholique)", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("136982BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Kretyen (ki pa Katolik)", locale_HAITI, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("279209ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(narrowerThan).ensureTerm(snomedNp, "276116000").build())
+                .mapping(new ConceptMapBuilder("279210ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "163125").build())
+                .build());
+
+        Concept protestant = install(new ConceptBuilder("165189AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("26a22975-e17e-4810-a5ab-97035e16cd16", "Protestant", Locale.ENGLISH, null)
+                .name("01ec6db8-555e-4bbd-9b1c-242a26dd5d52", "Protestante", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("c203918b-9b43-40db-9da6-c8bc9c99de36", "Protestant religion", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("52af75c3-b411-4fdd-bc06-a9ec5d408f79").type(sameAs).ensureTerm(snomedCt, "298020003").build())
+                .mapping(new ConceptMapBuilder("111802dc-d00e-435f-b113-342186ef9f01").type(sameAs).ensureTerm(ciel, "165189").build())
+                .build());
+
+        Concept methodist = install(new ConceptBuilder("165190AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("bd1b2c9b-e7cf-42dc-a28d-a998fc279fdc", "Methodist", Locale.ENGLISH, null)
+                .name("b18ce348-c427-4090-9973-a6076ed45eb0", "Metodista", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("dcd32b85-6989-4d46-bce6-9eaa6566dcea", "Methodist religion", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("29288dc2-10ec-4fce-8c2e-7a906e5d13f8", "Methodist church", Locale.ENGLISH, null)
+                .mapping(new ConceptMapBuilder("1e85a47d-9647-4f5f-b466-22b32a2cf59a").type(sameAs).ensureTerm(snomedCt, "28554003").build())
+                .mapping(new ConceptMapBuilder("471697dc-f025-4873-89fd-d0b2feb88fe2").type(sameAs).ensureTerm(ciel, "165190").build())
+                .build());
+
+        Concept nazarine = install(new ConceptBuilder("165191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("89d6023d-c3c4-4874-a9bc-5ff2e749a73f", "Nazarine", Locale.ENGLISH, null)
+                .name("017671e0-7791-44b2-a7d0-b6a33cd9b641", "Nazarino", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("a1213acc-4fe3-4344-8378-5b5ba73972a8", "Church of the Nazarine", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("8a363793-6e2c-4fea-90c8-ae466165e6dd").type(sameAs).ensureTerm(ciel, "165191").build())
+                .mapping(new ConceptMapBuilder("a3402f9a-b173-4f86-923e-7b1f3182f322").type(sameAs).ensureTerm(snomedCt, "23663006").build())
+                .build());
+
+        Concept presbyterian = install(new ConceptBuilder("165192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("42c87139-4fae-4ac7-be95-56dea3c7170d", "Presbyterian", Locale.ENGLISH, null)
+                .name("7ec3911e-05fb-43a5-85f0-d16f1547c56f", "Presbiteriana", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("a91eee1d-ac62-44e9-8763-281d72531ad8", "Presbyterian church", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("5e37800b-6c8d-4217-959a-a2f9a63947be").type(sameAs).ensureTerm(ciel, "165192").build())
+                .mapping(new ConceptMapBuilder("12b9e1de-1e7e-4207-b03a-225002aa448b").type(sameAs).ensureTerm(snomedCt, "70475005").build())
+                .build());
+
+
         install(new ConceptBuilder(Concepts.RELIGION)
                 .datatype(coded)
                 .conceptClass(question)
@@ -752,7 +805,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(ciel, "162929").build())
                 .mapping(new ConceptMapBuilder("47714808-2ffb-4ed9-986d-b0810c6ff4a0")
                         .type(sameAs).ensureTerm(snomedCt, "160538000").build())
-                .answers(vodou, catholic, baptist, islam, pentecostal, adventist, jehovahsWitness, otherNonCoded)
+                .answers(vodou, catholic, baptist, islam, pentecostal, adventist, jehovahsWitness, christian, protestant, methodist, nazarine, presbyterian, otherNonCoded)
                 .build());
 
         // end religion question and answers

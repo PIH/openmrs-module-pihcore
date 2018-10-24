@@ -703,6 +703,26 @@ public class Roles {
             );}
     };
 
+    public static RoleDescriptor VCT_COUNSELOR = new RoleDescriptor() {
+        public String uuid() { return "fe48ee40-d70e-11e8-9f8b-f2801f1b9fd1"; }
+        public String role() { return "Application Role: vctCounselor"; }
+        public String description() { return "Application Role: vctCounselor"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_ACTIVE_VISITS,
+                    Privileges.APP_EMR_INPATIENTS,
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
+                    Privileges.APP_EMR_OUTPATIENT_VITALS,
+                    Privileges.APP_COREAPPS_AWAITING_ADMISSION,
+                    Privileges.TASK_EMR_ENTER_VCT,
+                    Privileges.TASK_EMR_ENTER_SOCIO,
+                    Privileges.APP_CHW
+            );}
+    };
+
     public static RoleDescriptor SOCIAL_WORKER = new RoleDescriptor() {
         public String uuid() { return "fd7f2150-e798-11e4-b571-0800200c9a66"; }
         public String role() { return "Application Role: socialWorker"; }

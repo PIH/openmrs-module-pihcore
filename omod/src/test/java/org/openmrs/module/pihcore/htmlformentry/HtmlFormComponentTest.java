@@ -59,6 +59,8 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
         String[] formsToTest = {
                 "patientRegistration.xml",
                 "patientRegistration-rs.xml",
+                "patientRegistration-contact.xml",
+                "patientRegistration-social.xml",
                 //"surgicalPostOpNote.xml",
                 //"vitals.xml",
                 "transferNote.xml",
@@ -76,8 +78,7 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
                 "haiti/patientRegistration-social.xml",
                 //"liberia/checkin.xml",
                 //"liberia/liveCheckin.xml",
-                "liberia/patientRegistration-contact.xml",
-                "liberia/patientRegistration-social.xml"
+
         };
 
         for (String formName : formsToTest) {
