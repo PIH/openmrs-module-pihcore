@@ -151,7 +151,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PATHOLOGY_TECHNICIAN);
             install(Roles.LABS);
             install(Roles.VCT_COUNSELOR);
-            install(Roles.PATIENT_ATTACHMENTS);
+            install(Roles.PATIENT_DOCUMENTS);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)
                 || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
