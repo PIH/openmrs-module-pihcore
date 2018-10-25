@@ -809,6 +809,15 @@ public class Roles {
             );}
     };
 
+    public static RoleDescriptor PATIENT_ATTACHMENTS = new RoleDescriptor() {
+        public String uuid() { return "643ade54-5140-43a0-bd51-5348f0196857"; }
+        public String role() { return "Application Role: patientAttachments"; }
+        public String description() { return "Gives users the ability to view and update patient attachments page"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_ATTACHMENTS_PAGE
+            );}
+    };
 
     public static RoleDescriptor LEGACY_ARCHIVIST_AIDE = new RoleDescriptor() {
         public String uuid() { return "2170e9bf-6d30-4ad9-9319-a454bf32dbf9"; }
