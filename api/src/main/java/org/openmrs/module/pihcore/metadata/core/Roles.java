@@ -809,10 +809,10 @@ public class Roles {
             );}
     };
 
-    public static RoleDescriptor PATIENT_ATTACHMENTS = new RoleDescriptor() {
+    public static RoleDescriptor PATIENT_DOCUMENTS = new RoleDescriptor() {
         public String uuid() { return "643ade54-5140-43a0-bd51-5348f0196857"; }
-        public String role() { return "Application Role: patientAttachments"; }
-        public String description() { return "Gives users the ability to view and update patient attachments page"; }
+        public String role() { return "Application Role: patientDocuments"; }
+        public String description() { return "Gives users the ability to view and update patient documents page"; }
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
                     Privileges.APP_ATTACHMENTS_PAGE
