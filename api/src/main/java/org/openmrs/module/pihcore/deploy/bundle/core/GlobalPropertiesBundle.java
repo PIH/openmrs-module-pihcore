@@ -11,6 +11,7 @@ import org.openmrs.module.namephonetics.NamePhoneticsConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AllergyConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
+import org.openmrs.module.pihcore.metadata.core.OrderTypes;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.ReportingConstants;
 import org.openmrs.ui.framework.UiFrameworkConstants;
@@ -141,7 +142,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("labworkflowowa.locationOfLaboratory", "e9732df4-971d-4a9a-9129-e2e610552468");  //PIH: 1791
         properties.put("labworkflowowa.estimatedCollectionDateQuestion", "87f506e3-4433-40ec-b16c-b3c65e402989");  //  PIH:11781
         properties.put("labworkflowowa.estimatedCollectionDateAnswer", "3cd6f600-26fe-102b-80cb-0017a47871b2");  // CIEL:1065 ("yes")
-
+        properties.put("labworkflowowa.testOrderType", OrderTypes.TEST_ORDER.uuid());
 
         uninstall(possible(GlobalProperty.class, "labworkflowowa.specimenCollectionDateConcept"), "using encounter date instead");
 
