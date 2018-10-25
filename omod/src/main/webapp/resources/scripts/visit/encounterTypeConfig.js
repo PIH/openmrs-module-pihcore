@@ -225,6 +225,39 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-state.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var ancInitial = {
+            type: "encounter-section",
+            id: "section-anc-intake",
+            label: "pihcore.ancIntake.title",
+            icon: "icon-gift",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-anc-intake.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-anc-intake.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        }
+
+        var ancFollowup = {
+            type: "encounter-section",
+            id: "section-anc-followup",
+            label: "pihcore.ancFollowup.title",
+            icon: "icon-gift",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-anc-followup.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-anc-followup.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        }
+
+        var delivery = {
+            type: "encounter-section",
+            id: "section-delivery",
+            label: "pihcore.delivery.title",
+            icon: "icon-gift",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-delivery.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-delivery.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        }
+
         var mexicoClinicPlan = {
             type: "encounter-section",
             id: "mexico-plan",
@@ -671,31 +704,42 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.ancIntake.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/ancIntake.xml",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
             icon: "icon-gift",
-            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/ancIntake.xml",
-            showOnVisitList: true
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                ancInitial,
+                vaccinations,
+                primaryCareDx
+            ]
         };
 
         encounterTypeConfig[EncounterTypes.ancFollowup.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/ancFollowup.xml",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
             icon: "icon-gift",
-            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/ancFollowup.xml",
-            showOnVisitList: true
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                ancFollowup,
+                vaccinations,
+                primaryCareDx
+            ]
         };
 
         encounterTypeConfig[EncounterTypes.delivery.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/delivery.xml",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
             icon: "icon-gift",
-            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/delivery.xml",
-            showOnVisitList: true
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                delivery,
+                primaryCareDx
+            ]
         };
 
         encounterTypeConfig[EncounterTypes.mexicoClinicVisit.uuid] = {

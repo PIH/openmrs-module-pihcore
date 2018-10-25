@@ -1,8 +1,7 @@
-<htmlform id="labor-delivery" class="simple-form-ui"
-          formUuid="819b85c6-910c-11e8-9eb6-529269fb1459"
+<htmlform formUuid="819b85c6-910c-11e8-9eb6-529269fb1459"
           formName="MCH Delivery"
           formEncounterType="00e5ebb2-90ec-11e8-9eb6-529269fb1459"
-          formVersion="1.0">
+          formVersion="1.1">
 
     <style type="text/css">
 
@@ -26,279 +25,151 @@
         display: block;
         }
 
-        .simple-form-ui input {
-        min-width: 80%
-        }
+        <ifMode mode="VIEW" include="false">
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
 
-        form fieldset {
-        min-width: 90%
-        }
+            #encounter-diagnoses-target {
+                display: inline-block;
+                width: 40%;
+                vertical-align: top;
+            }
 
-        #encounterDate input {
-        min-width: 15%
-        }
+            #encounter-diagnoses-app {
+                margin-bottom: 20px;
+            }
+        </ifMode>
 
-        textarea {
-        overflow-y: hidden; /* fixes scrollbar flash - kudos to @brettjonesdev */
-        padding-top: 1.1em; /* fixes text jump on Enter keypress */
-        }
+        <ifMode mode="EDIT">
+            #disposition small {
+                font-size: 100%;
+                display: block;
+            }
 
-        @media print {
-        .print-form-datestamps { display: block !important }
-        button.cancel, button.submit { display: none }
-        label { font-weight: bold }
-        label[for] { font-weight: normal } /* refers to the radio set label */
-        }
-
-        .section-container {
-        background: #F2F2F2;
-        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
-        padding: 10px 5px 10px 15px;
-        line-height: 1.5em; /*add this for vertical spacing between elements*/
-        }
-
-        .section-container input[type="checkbox"] {
-        margin: 0px 5px; /*changed values to vertical, horizontal*/
-        top:5px; /*added to offset the checkbox position to line up*/
-        }
-
-        .section-container label { /*new definition to override labels inside section-containers*/
-        margin: 0px;
-        }
-
-        .section {
-        width: 95%;
-        }
-
-        .two-columns {
-        column-count: 2;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-        }
+            #disposition span {
+                padding-left: 15px;
+            }
+        </ifMode>
 
     </style>
 
+    <!-- the two ifMode blocks below enable a bit of hack: when opening in ENTER mode, we just want to create the encounter,
+     we don't actually want to display the form, so we hae it hidden by default, and then automatically trigger the submit;
+     note that this will fail in the case where there isn't a default provider or date (which I don't think we have in our use cases -->
 
-    <div class="print-form-datestamps" style="display:none">
-        <p><uimessage code="pihcore.form.created_on"/>:
-            <lookup complexExpression="$form.dateCreated"/>
-        </p>
-        <p><uimessage code="pihcore.form.last_updated_on"/>:
-            <lookup complexExpression="$form.dateChanged"/>
-        </p>
-        <p><uimessage code="pihcore.form.printed_on"/>:
-            <lookup complexExpression="$formGeneratedDatetime"/>
-        </p>
-    </div>
-
-    <ifMode mode="VIEW" include="false">
-        <h2>
-            <label>
-                <uimessage code="pihcore.delivery.title"/>
-            </label>
-        </h2>
-
-        <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
-        <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
-            <div id="who-when-where">
-                <p id="who">
-                    <label>
-                        <uimessage code="emr.patientDashBoard.providerRequired"/>
-                    </label>
-                    <span>
-                        <encounterProviderAndRole default="currentUser"
-                                                  encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-                    </span>
-                </p>
-                <p id="where">
-                    <label>
-                        <uimessage code="emr.locationRequired"/>
-                    </label>
-                    <span>
-                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
-                                           tags="Consult Note Location"/>
-                    </span>
-                </p>
-                <p id="when">
-                    <label>
-                        <uimessage code="emr.patientDashBoard.date"/>
-                    </label>
-                    <span>
-                        <encounterDate id="encounterDate" default="now"/>
-                    </span>
-                </p>
-            </div>
-        </includeIf>
-        <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
-        <includeIf
-                velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
-            <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
-                                          required="true"/>
-            </div>
-
-            <div id="who-when-where">
-                <p id="who">
-                    <label>
-                        <uimessage code="emr.patientDashBoard.provider"/>
-                    </label>
-                    <span>
-                        <lookup expression="user.person.personName"/>
-                    </span>
-                </p>
-                <p id="where">
-                    <label>
-                        <uimessage code="emr.locationRequired"/>
-                    </label>
-                    <span>
-                        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"
-                                           tags="Consult Note Location"/>
-                    </span>
-                </p>
-                <p id="when">
-                    <label>
-                        <uimessage code="emr.patientDashBoard.date"/>
-                    </label>
-                    <span>
-                        <encounterDate id="encounterDate" default="now"/>
-                    </span>
-                </p>
-            </div>
-
-        </includeIf>
-        <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
-        <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
-            <div style="display:none">
-                <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
-                                          required="true"/>
-                <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-                <encounterDate id="encounterDate" default="now"/>
-            </div>
-            <div id="who-when-where">
-                <table id="who-where-when-view">
-                    <tr>
-                        <td>
-                            <label>
-                                <uimessage code="emr.patientDashBoard.provider"/>
-                            </label>
-                            <span>
-                                <lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/>
-                            </span>
-                        </td>
-                        <td>
-                            <label>
-                                <uimessage code="emr.location"/>
-                            </label>
-                            <span>
-                                <lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/>
-                            </span>
-                        </td>
-                        <td>
-                            <label>
-                                <uimessage code="emr.patientDashBoard.date"/>
-                            </label>
-                            <span>
-                                <lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </includeIf>
+    <ifMode mode="ENTER" include="true">
+        <script type="text/javascript">
+            jq(function() {
+            submitHtmlForm();
+            });
+        </script>
     </ifMode>
 
-    <div class="labor-delivery">
-        <div class="section-container">
-            <div class="two-columns">
-                <p>
-                    <label>
-                        <uimessage code="pihcore.mch.deliveryDate"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="CIEL:5596" allowFutureDates="true"/>
-                    </span>
-                </p>
+    <ifMode mode="EDIT" include="true">
+        <script type="text/javascript">
+            jq(function() {
 
-                <!-- Mental Health -->
-                <p>
-                    <label>
-                        <uimessage code="pihcore.mentalhealth.title"/>
-                    </label>
+            jq('.htmlform').show();
 
-                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:DEPRESSION"
-                         style="checkbox"/>
-                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:Post traumatic stress disorder"
-                         style="checkbox"/>
-                </p>
+            jq('#next').click(function() {
+            window.htmlForm.getBeforeSubmit().push(function () {
+            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=encounter-info");
+            return true;
+            });
 
-                <!-- Delivery type -->
-                <p>
-                    <label>
-                        <uimessage code="pihcore.mch.deliveryType"/>
-                    </label>
-                    <obs conceptId="PIH:11663" answerConceptId="CIEL:162595" style="checkbox"  />
-                    <obs conceptId="PIH:11663" answerConceptId="CIEL:161631" style="checkbox"  />
-                    <obs conceptId="PIH:11663" answerConceptId="CIEL:155884" style="checkbox"  />
-                </p>
+            window.htmlForm.submitHtmlForm();
+            })
 
-            </div>
+            jq('#submit').click(function() {
+            window.htmlForm.submitHtmlForm();
+            })
 
-            <hr/>
-            <p>
-                <label>
-                    <uimessage code="pihcore.complications.label"/>
-                </label>
-            </p>
-
-            <div class="two-columns">
-                <!-- Risk factors during delivery -->
-                <p>
-                    <repeat>
-                        <template>
-                            <obs conceptId="PIH:11664" answerConceptId="{concept}" style="checkbox" />
-                        </template>
-
-                        <render concept="CIEL:130109" name="abnormal placenta"/>
-                        <render concept="CIEL:115939" name="abnormal presentation"/>
-                        <render concept="CIEL:165088" name="gbv"/>
-                        <render concept="CIEL:162239" name="low birth weight"/>
-                        <render concept="CIEL:111523" name="Premature less than 28 weeks"/>
-                        <render concept="PIH:11789" name="Premature (28-32)"/>
-                        <render concept="PIH:11790" name="Premature (32-36)"/>
-                        <render concept="CIEL:127639" name="Respiratory distress" />
-                        <render concept="PIH:Fetal distress" name="Fetal distress" />
-                        <render concept="CIEL:116642" name="Fetal demise"/>
-                        <render concept="CIEL:118245" name="fetal retardation"/>
-                        <render concept="CIEL:145548" name="Chorioamnionitis" />
-                        <render concept="CIEL:129211" name="rupture membrane"/>
-                        <render concept="CIEL:115866" name="aspiration meconium"/>
-                        <render concept="CIEL:113006" name="pre-eclampsia"/>
-                        <render concept="PIH:Eclampsia" name="eclampsia"/>
-                        <render concept="PIH:Birth Asphyxia" name="birth asphyxia"/>
-                        <render concept="PIH:POSTPARTUM HEMORRHAGE" name="postpartum hemorrhage"/>
-                        <render concept="CIEL:121856" name="Acute pulmonary edema" />
-                        <render concept="CIEL:138706" name="herpes"/>
-                        <render concept="CIEL:112493" name="syphilis"/>
-                    </repeat>
-                    <obs conceptId="PIH:11664" answerConceptId="PIH:174"
-                         answerCode="pihcore.mch.otherSTI" style="checkbox"/>
-                    <obs conceptId="PIH:11664" answerConceptId="PIH:OTHER"
-                         showCommentField="true" commentFieldLabel="" style="checkbox" />
-                </p>
-            </div>
-            <br/>
-        </div>
-    </div>
-
-    <br/>
-
-    <ifMode mode="VIEW" include="false">
-        <div id="buttons">
-            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
-            <button type="button" class="cancel">
-                <uimessage code="emr.cancel"/>
-            </button>
-        </div>
+            });
+        </script>
     </ifMode>
+    <div class="htmlform" style="display:none">
+
+        <ifMode mode="VIEW" include="false">
+            <h2><uimessage code="ui.i18n.EncounterType.name.00e5ebb2-90ec-11e8-9eb6-529269fb1459"/></h2>
+
+            <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
+            <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+                <div id="who-when-where">
+                    <p id="who">
+                        <label><uimessage code="emr.patientDashBoard.providerRequired"/></label>
+                        <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
+                    </p>
+                    <p id="where">
+                        <label><uimessage code="emr.locationRequired"/></label>
+                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                    </p>
+                    <p id="when">
+                        <label><uimessage code="emr.patientDashBoard.date"/></label>
+                        <span><encounterDate id="encounterDate" default="now" /></span>
+                    </p>
+                </div>
+            </includeIf>
+            <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
+            <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
+                <div style="display:none">
+                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                </div>
+
+                <div id="who-when-where">
+                    <p id="who">
+                        <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                        <span><lookup expression="user.person.personName" /></span>
+                    </p>
+                    <p id="where">
+                        <label><uimessage code="emr.locationRequired"/></label>
+                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                    </p>
+                    <p id="when">
+                        <label><uimessage code="emr.patientDashBoard.date"/></label>
+                        <span><encounterDate id="encounterDate" default="now" /></span>
+                    </p>
+                </div>
+
+            </includeIf>
+            <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
+            <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
+                <div style="display:none">
+                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
+                    <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+                    <encounterDate id="encounterDate" default="now" />
+                </div>
+                <div id="who-when-where">
+                    <table id="who-where-when-view">
+                        <tr>
+                            <td>
+                                <label><uimessage code="emr.patientDashBoard.provider"/></label>
+                                <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
+                            </td>
+                            <td>
+                                <label><uimessage code="emr.location"/></label>
+                                <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
+                            </td>
+                            <td>
+                                <label><uimessage code="emr.patientDashBoard.date"/></label>
+                                <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </includeIf>
+        </ifMode>
+
+
+        <ifMode mode="VIEW" include="false">
+            <div id="buttons">
+                <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+                <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+                <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+            </div>
+        </ifMode>
+    </div>
 
 </htmlform>

@@ -1,0 +1,236 @@
+<htmlform id="section-anc-followup"
+          formUuid="14ebab9c-d7dc-11e8-9f8b-f2801f1b9fd1"
+          formName="Prenatal followup section"
+          formVersion="1.0">
+
+    <style type="text/css">
+
+        form fieldset {
+           min-width: 90%
+        }
+
+        #encounterDate input {
+        min-width: 15%
+        }
+
+        textarea {
+        overflow-y: hidden; /* fixes scrollbar flash - kudos to @brettjonesdev */
+        padding-top: 1.1em; /* fixes text jump on Enter keypress */
+        }
+
+        @media print {
+        .print-form-datestamps { display: block !important }
+        button.cancel, button.submit { display: none }
+        label { font-weight: bold }
+        label[for] { font-weight: normal } /* refers to the radio set label */
+        }
+
+        .section-container {
+        background: #F2F2F2;
+        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+        padding: 10px 5px 10px 15px;
+        line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+        margin: 0px 5px; /*changed values to vertical, horizontal*/
+        top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+        margin: 0px;
+        }
+
+        .section {
+        width: 95%;
+        }
+
+        .two-columns {
+        column-count: 2;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        }
+
+    </style>
+
+    <style type="text/css">
+        <ifMode mode="VIEW" include="true">
+
+            #section-anc-followup legend {
+            display: none;
+            }
+
+            #section-anc-followup fieldset {
+            margin: 0px;
+            border: 0px;
+            padding: 0px;
+            }
+
+            #section-anc-followup fieldset h3 {
+            font-size: 1em;
+            width: 200px;
+            display: inline-block;
+            margin: 0px;
+            margin-right: 10px;
+            color: #501d3d;
+            vertical-align: top;
+            }
+
+            #section-anc-followup fieldset p {
+            vertical-align: top;
+            display: inline-block;
+            float: none;
+            }
+
+            #section-anc-followup fieldset .left {
+            vertical-align: top;
+            display: inline-block;
+            float: none;
+            }
+
+            #section-anc-followup .title {
+            display: none;
+            }
+
+            #section-anc-followup .encounter-date {
+            display: none;
+            }
+
+            #section-anc-followup .encounter-provider {
+            display: none;
+            }
+
+            #section-anc-followup .encounter-location {
+            display: none;
+            }
+
+            #section-anc-followup .comment-label {
+            display: none;
+            }
+            #section-anc-followup .comment-field {
+            display: block;
+            margin-left: 215px;
+            }
+            #section-anc-followup br {
+            display: none;
+            }
+        </ifMode>
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=section-anc-followup");
+                        return true;
+                    });
+
+                    window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+            });
+        </script>
+    </ifMode>
+
+    <section id="anc-followup" sectionTag="fieldset" headerTag="legend"
+             headerStyle="title" headerCode="pihcore.ancFollowup.title">
+        <div class="section-container">
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mch.dangerSigns"/>
+                    </label>
+                    <repeat>
+                        <template>
+                            <obs conceptId="CIEL:1284" answerConceptId="{concept}" style="checkbox" />
+                        </template>
+
+                        <render concept="CIEL:460" name="edema"/>
+                        <render concept="CIEL:140238" name="fever"/>
+                        <render concept="CIEL:139081" name="severe headache"/>
+                        <render concept="CIEL:113054" name="seizure"/>
+                        <render concept="CIEL:118938" name="vision problem"/>
+                        <render concept="CIEL:122983" name="vomiting"/>
+                        <render concept="CIEL:142412" name="diarrhea"/>
+                        <render concept="CIEL:118771" name="painful urination"/>
+                        <render concept="CIEL:122496" name="shortness of breathe"/>
+                        <render concept="CIEL:151" name="abdominal pain"/>
+                        <render concept="CIEL:153316" name="contractions"/>
+                        <render concept="CIEL:228" name="antenatal hemorrhage"/>
+                        <render concept="CIEL:148968" name="amniotic fluid leaking"/>
+                        <render concept="CIEL:113377" name="decreased fetal movement"/>
+                    </repeat>
+                </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mch.riskFactors"/>
+                    </label>
+
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:130109" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:115939" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:163155"
+                         answerCode="pihcore.mch.previousCSection" style="checkbox"/>
+                    <!-- answerCode="pihcore.mch.gbv" -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
+                         style="checkbox"/>
+                </p>
+
+                <!-- Mental Health -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.title"/>
+                    </label>
+
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:DEPRESSION"
+                         style="checkbox"/>
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:Post traumatic stress disorder"
+                         style="checkbox"/>
+                </p>
+                <br/><br/><br/><br/>
+            </div>
+
+            <br/>
+
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.pregnancy.dueDate"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="CIEL:5596" allowFutureDates="true"/>
+                    </span>
+                </p>
+                <br/>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.consult.returnVisitDate"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"
+                             id="apptDate" required="true" />
+                    </span>
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>
