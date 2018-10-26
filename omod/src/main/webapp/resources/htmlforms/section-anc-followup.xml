@@ -152,7 +152,7 @@
                             <obs conceptId="CIEL:1284" answerConceptId="{concept}" style="checkbox" />
                         </template>
 
-                        <render concept="CIEL:460" name="edema"/>
+                        <render concept="CIEL:165193" name="edema of hands or face"/>
                         <render concept="CIEL:140238" name="fever"/>
                         <render concept="CIEL:139081" name="severe headache"/>
                         <render concept="CIEL:113054" name="seizure"/>
