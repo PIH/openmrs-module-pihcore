@@ -152,6 +152,7 @@
                 <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
 
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:ASTHMA" style="checkbox" toggle="asthma" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
         </div>
@@ -242,21 +243,50 @@
     </section>
 
     <!-- Asthma -->
-    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
-        <div id="respire" class="section-container">
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
+        <div id="asthma" class="section-container">
             <p>
                 <label>
-                    <uimessage code="puffs_per_wk"/>
+                    <uimessage code="pihcore.ncd.asthma.daytime_symptoms"/>
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:Puffs per week of salbutamol"/>
+                    <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
+                </span>
+            </p>
+            <p>
+                <obsgroup groupConceptId="CIEL:1727>
+                    <!-- Asthma night-time symptoms -->
+                    <obs conceptId="CIEL:1728" answerConceptId="CIEL:148273" />
+                    <obs conceptId="CIEL:1729" answerConceptIds="PIH:YES,PIH:NO" style="radio" />
+                </obsgroup>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.asthma.nighttime_symptoms"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:148273"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
                 </span>
             </p>
             <p>
                 <label>
-                    <uimessage code="asthma_class"/>
+                    <uimessage code="pihcore.ncd.asthma.meds_2x_wk"/>
                 </label>
-                <obs conceptId="PIH:Asthma classification"/>
+                <span class="small">
+                    <obs conceptId="PIH:Medications more that twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
+                </span>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.asthma.limitation_of_activity"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:HAVE YOU BEEN UNABLE TO DO CERTAIN KINDS OR AMOUNTS OF WORK, HOUSEWORK, OR SCHOOLWORK BECAUSE OF YOUR HEALTH?"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
+                </span>
             </p>
         </div>
     </section>
