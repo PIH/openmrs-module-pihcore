@@ -85,7 +85,7 @@
                         <div id="alternativeInsuranceCo">
                             <uimessage code="zl.registration.patient.insurance.insuranceNameOther.label"/>
                             <p>
-                                <obs conceptId="PIH:Insurance company name (text)" id="otherInsurance" answerLabel="zl.registration.patient.insurance.other.label"/>
+                                <obs conceptId="PIH:Insurance company name (text)" answerLabel="zl.registration.patient.insurance.other.label"/>
                             </p>
                         </div>
                     </div>
@@ -93,7 +93,7 @@
                     <div class="right">
                         <h3><uimessage code="zl.registration.patient.insurance.insuranceNumber.label"/></h3>
                         <p>
-                            <obs conceptId="PIH:Insurance policy number" id="insuranceNumber" showUnits="false" unitsCssClass="append-to-value" size="20" />
+                            <obs conceptId="PIH:Insurance policy number" size="20" />
                         </p>
                     </div>
 
@@ -104,19 +104,19 @@
                     <div>
                         <h3><uimessage code="zl.registration.patient.insurance.insuranceName.question"/></h3>
                         <p class="left">
-                            <obs conceptId="PIH:Mexico Insurance Coded" id="insuranceName" showUnits="false" unitsCssClass="append-to-value"/>
+                            <obs conceptId="PIH:Mexico Insurance Coded" />
                         </p>
                     </div>
                     <div>
                         <h3><uimessage code="zl.registration.patient.insurance.insuranceNameOther.label"/></h3>
                         <p class="left">
-                            <obs conceptId="PIH:Insurance company name (text)" id="otherInsuranceName" showUnits="false" unitsCssClass="append-to-value"/>
+                            <obs conceptId="PIH:Insurance company name (text)" />
                         </p>
                     </div>
                     <div>
                         <h3><uimessage code="zl.registration.patient.insurance.insuranceNumber.label"/></h3>
                         <p class="left">
-                            <obs conceptId="PIH:Insurance policy number" id="insuranceNumber" showUnits="false" unitsCssClass="append-to-value" />
+                            <obs conceptId="PIH:Insurance policy number" />
                         </p>
                     </div>
 
