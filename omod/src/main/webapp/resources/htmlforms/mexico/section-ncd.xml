@@ -254,21 +254,32 @@
                          answerConceptIds="PIH:YES,PIH:NO"/>
                 </span>
             </p>
-            <p>
-                <obsgroup groupConceptId="CIEL:1727>
-                    <!-- Asthma night-time symptoms -->
-                    <obs conceptId="CIEL:1728" answerConceptId="CIEL:148273" />
-                    <obs conceptId="CIEL:1729" answerConceptIds="PIH:YES,PIH:NO" style="radio" />
-                </obsgroup>
-            </p>
-            <p>
+            <p class="checkboxRadio">
                 <label>
                     <uimessage code="pihcore.ncd.asthma.nighttime_symptoms"/>
                 </label>
-                <span class="small">
-                    <obs conceptId="CIEL:148273"
-                         answerConceptIds="PIH:YES,PIH:NO"/>
-                </span>
+                <obsgroup groupingConceptId="CIEL:1727">
+                    <span class="two-columns">
+                    <obs conceptId="CIEL:1728" answerConceptId="CIEL:148273" />
+                    <obs conceptId="CIEL:1729" answerConceptId="CIEL:148273" />
+                    </span>
+                </obsgroup><br/>
+                <style>
+                    label[for="w54"] { font-size: 0; }
+                    label[for="w54"]:before { content: "sí"; font-size: 16px; }
+                    label[for="w56"] { font-size: 0; }
+                    label[for="w56"]:before { content: "no"; font-size: 16px; }
+                </style>
+                <script type="text/javascript">
+                    jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
+                        var that = this;
+                        jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
+                            if (jQuery(this).attr('id') != jQuery(that).attr('id')) {
+                                jQuery(this).prop("checked", false);
+                            }
+                        });
+                    });
+                </script>
             </p>
             <p>
                 <label>
