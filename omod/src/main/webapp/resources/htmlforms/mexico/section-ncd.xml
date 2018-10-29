@@ -152,6 +152,7 @@
                 <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
 
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:ASTHMA" style="checkbox" toggle="asthma" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
         </div>
@@ -242,21 +243,61 @@
     </section>
 
     <!-- Asthma -->
-    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
-        <div id="respire" class="section-container">
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
+        <div id="asthma" class="section-container">
             <p>
                 <label>
-                    <uimessage code="puffs_per_wk"/>
+                    <uimessage code="pihcore.ncd.asthma.daytime_symptoms"/>
                 </label>
                 <span class="small">
-                    <obs conceptId="PIH:Puffs per week of salbutamol"/>
+                    <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
+                </span>
+            </p>
+            <p class="checkboxRadio">
+                <label>
+                    <uimessage code="pihcore.ncd.asthma.nighttime_symptoms"/>
+                </label>
+                <obsgroup groupingConceptId="CIEL:1727">
+                    <span class="two-columns">
+                    <obs conceptId="CIEL:1728" answerConceptId="CIEL:148273" />
+                    <obs conceptId="CIEL:1729" answerConceptId="CIEL:148273" />
+                    </span>
+                </obsgroup><br/>
+                <style>
+                    label[for="w54"] { font-size: 0; }
+                    label[for="w54"]:before { content: "sí"; font-size: 16px; }
+                    label[for="w56"] { font-size: 0; }
+                    label[for="w56"]:before { content: "no"; font-size: 16px; }
+                </style>
+                <script type="text/javascript">
+                    jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
+                        var that = this;
+                        jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
+                            if (jQuery(this).attr('id') != jQuery(that).attr('id')) {
+                                jQuery(this).prop("checked", false);
+                            }
+                        });
+                    });
+                </script>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.asthma.meds_2x_wk"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Medications more that twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
                 </span>
             </p>
             <p>
                 <label>
-                    <uimessage code="asthma_class"/>
+                    <uimessage code="pihcore.ncd.asthma.limitation_of_activity"/>
                 </label>
-                <obs conceptId="PIH:Asthma classification"/>
+                <span class="small">
+                    <obs conceptId="PIH:HAVE YOU BEEN UNABLE TO DO CERTAIN KINDS OR AMOUNTS OF WORK, HOUSEWORK, OR SCHOOLWORK BECAUSE OF YOUR HEALTH?"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
+                </span>
             </p>
         </div>
     </section>
