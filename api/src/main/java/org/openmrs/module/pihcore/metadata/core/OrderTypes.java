@@ -34,4 +34,14 @@ public class OrderTypes {
 
     };
 
+    public static OrderTypeDescriptor PATHOLOGY_TEST_ORDER = new OrderTypeDescriptor() {
+
+        public String uuid() { return "65c912c2-88cf-46c2-83ae-2b03b1f97d3a"; }
+        public String name() { return "Pathology Test Order"; }
+        public String description() { return "A pathology test order"; }
+        public String javaClassName() { return "org.openmrs.TestOrder"; }
+        public OrderTypeDescriptor parent() { return TEST_ORDER; }
+
+    };
+
 }

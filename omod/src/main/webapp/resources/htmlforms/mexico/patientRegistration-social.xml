@@ -36,6 +36,20 @@ This should mirror the Social section of apps/patientregistration/SectionsMexico
                     </p>
                 </div>
 
+                <div class="left">
+                    <h3><uimessage code="zl.registration.patient.isDisabled.label"/></h3>
+                    <p class="radio">
+                        <obs conceptId="CIEL:162558" style="yes_no"/>
+                    </p>
+                </div>
+
+                <div class="right">
+                    <h3><uimessage code="zl.registration.patient.canRead.label"/></h3>
+                    <p class="radio">
+                        <obs conceptId="CIEL:159400" style="yes_no"/>
+                    </p>
+                </div>
+
                 <div>
                     <h3><uimessage code="zl.registration.patient.activeCasefinding.label"/></h3>
                     <p class="radio">
@@ -77,6 +91,18 @@ This should mirror the Social section of apps/patientregistration/SectionsMexico
                     <h3><uimessage code="zl.registration.patient.isIndigenous.label"/></h3>
                     <p class="left">
                         <obs conceptId="PIH:Indigenous" style="yes_no"/>
+                    </p>
+                </div>
+                <div>
+                    <h3><uimessage code="zl.registration.patient.isDisabled.label"/></h3>
+                    <p class="left">
+                        <obs conceptId="CIEL:162558" style="yes_no"/>
+                    </p>
+                </div>
+                <div>
+                    <h3><uimessage code="zl.registration.patient.canRead.label"/></h3>
+                    <p class="left">
+                        <obs conceptId="CIEL:159400" style="yes_no"/>
                     </p>
                 </div>
                 <div>

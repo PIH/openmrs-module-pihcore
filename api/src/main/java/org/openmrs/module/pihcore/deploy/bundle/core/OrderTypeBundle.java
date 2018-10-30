@@ -18,6 +18,7 @@ public class OrderTypeBundle extends AbstractMetadataBundle {
         install(OrderTypes.DRUG_ORDER);
         install(OrderTypes.TEST_ORDER);
         install(OrderTypes.RADIOLOGY_TEST_ORDER);
+        install(OrderTypes.PATHOLOGY_TEST_ORDER);
     }
 
     protected void install(OrderTypeDescriptor d) {
