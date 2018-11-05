@@ -484,8 +484,8 @@ angular.module('constants', [])
         delivery: {
             uuid: "00e5ebb2-90ec-11e8-9eb6-529269fb1459"
         },
-        mexicoClinicVisit: {
-            uuid: "b29cec8c-b21c-4c95-bfed-916a51db2a26"
+        mexicoConsult: {
+            uuid: "aa61d509-6e76-4036-a65d-7813c0c3b752"
         }
     })
     .value('EncounterRoles', {

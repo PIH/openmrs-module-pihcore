@@ -12,8 +12,10 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform id="ncd-consult-note" class="simple-form-ui" formName="NCD" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
-          htmlformUuid="59166690-b88b-4cbd-92f7-31fb037bf2dc" formVersion="1.0">
+<htmlform formName="Consult"
+          formUuid="b5a50e02-bc3b-4bc9-8d6f-a4decad17a97"
+          formEncounterType="aa61d509-6e76-4036-a65d-7813c0c3b752"
+          formVersion="1.0">
 
     <style type="text/css">
 
@@ -120,9 +122,25 @@
         </p>
     </div>
 
-    <!-- NCD intake section -->
-    <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
+    <!-- Chief Complaint -->
+    <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.chiefComplaint.title">
         <div class="section-container">
+            <p>
+                <obs conceptId="CIEL:160531" style="textarea" id="chief-complaint"/>
+            </p>
+        </div>
+    </section>
+
+    <!-- Objective -->
+    <ifMode mode="VIEW" include="false">
+        <h1>
+            <uimessage code="pihcore.visitNote.objective"/>
+        </h1>
+    </ifMode>
+
+    <section id="objective" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
+        <div class="section-container">
+            <!-- TODO: Fix this logic -->
             <!-- Questions to only ask at intake -->
             <excludeIf velocityTest="$encounter.encounterType.uuid == '8ad0b7d3-2973-40ae-916c-0369f3df86c5'">
                 <p class="radio">
@@ -244,62 +262,7 @@
 
     <!-- Asthma -->
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
-        <div id="asthma" class="section-container">
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.asthma.daytime_symptoms"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
-                         answerConceptIds="PIH:YES,PIH:NO"/>
-                </span>
-            </p>
-            <p class="checkboxRadio">
-                <label>
-                    <uimessage code="pihcore.ncd.asthma.nighttime_symptoms"/>
-                </label>
-                <obsgroup groupingConceptId="CIEL:1727">
-                    <span class="two-columns">
-                    <obs conceptId="CIEL:1728" answerConceptId="CIEL:148273" />
-                    <obs conceptId="CIEL:1729" answerConceptId="CIEL:148273" />
-                    </span>
-                </obsgroup><br/>
-                <style>
-                    label[for="w54"] { font-size: 0; }
-                    label[for="w54"]:before { content: "sí"; font-size: 16px; }
-                    label[for="w56"] { font-size: 0; }
-                    label[for="w56"]:before { content: "no"; font-size: 16px; }
-                </style>
-                <script type="text/javascript">
-                    jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
-                        var that = this;
-                        jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
-                            if (jQuery(this).attr('id') != jQuery(that).attr('id')) {
-                                jQuery(this).prop("checked", false);
-                            }
-                        });
-                    });
-                </script>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.asthma.meds_2x_wk"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:Medications more that twice per week"
-                         answerConceptIds="PIH:YES,PIH:NO"/>
-                </span>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.asthma.limitation_of_activity"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:HAVE YOU BEEN UNABLE TO DO CERTAIN KINDS OR AMOUNTS OF WORK, HOUSEWORK, OR SCHOOLWORK BECAUSE OF YOUR HEALTH?"
-                         answerConceptIds="PIH:YES,PIH:NO"/>
-                </span>
-            </p>
-        </div>
+        <!-- TODO: Add asthma section -->
     </section>
 
     <!-- Epilepsy -->
@@ -377,7 +340,6 @@
         </div>
     </section>
 
-    <!-- Plan -->
     <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.plan.title">
         <div class="section-container">
@@ -412,11 +374,272 @@
         </div>
     </section>
 
+    <!-- Analysis -->
+    <ifMode mode="VIEW" include="false">
+        <h1>
+            <uimessage code="pihcore.visitNote.analysis"/>
+        </h1>
+    </ifMode>
+
+    <section id="analysis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.visitNote.diagnoses">
+        <div class="section-container">
+            <div id="data-collection">
+                <encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+                <p>
+                    <label><uimessage code="emr.consult.freeTextComments"/></label>
+                    <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plan -->
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+
+            var $j = jQuery;
+
+            htmlForm.getBeforeValidation().push(function() {
+
+            var valid = true;
+
+            jq('fieldset.medication').each(function() {
+
+            // clear out any existing error messages
+            jq(this).find('.field-error').first().html('');
+
+            var medication = jq(this).find('.medication-name input').val();
+            var dose = jq(this).find('.dose input').val();
+            var doseUnits = jq(this).find('.dose-unit select').val();
+            var frequency = jq(this).find('.frequency select').val();
+            var duration = jq(this).find('.duration input').val();
+            var durationUnits = jq(this).find('.duration-unit select').val();
+            var instructions = jq(this).find('.medication-instructions input').val();
+
+            if (!medication &amp;&amp; (dose || doseUnits || frequency || duration || durationUnits || instructions)) {
+            valid = false;
+            jq(this).find('.field-error').first().append("<uimessage
+                code="pihcore.visitNote.plan.medications.error.noMedication"/>. ").show();
+            }
+
+            if (dose &amp;&amp; !doseUnits) {
+            valid = false;
+            jq(this).find('.field-error').first().append("<uimessage
+                code="pihcore.visitNote.plan.medications.error.noDoseUnits"/>. ").show();
+            }
+
+            if (!dose &amp;&amp; doseUnits) {
+            valid = false;
+            jq(this).find('.field-error').first().append("<uimessage
+                code="pihcore.visitNote.plan.medications.error.noDose"/>. ").show();
+            }
+
+            if (duration &amp;&amp; !durationUnits) {
+            valid = false;
+            jq(this).find('.field-error').first().append("<uimessage
+                code="pihcore.visitNote.plan.medications.error.noDurationUnits"/>. ").show();
+            }
+
+            if (!duration &amp;&amp; durationUnits) {
+            valid = false;
+            jq(this).find('.field-error').first().append("<uimessage
+                code="pihcore.visitNote.plan.medications.error.noDuration"/>. ").show();
+            }
+
+            })
+
+            return valid;
+
+            });
+
+            jq(function() {
+
+            var hasValue = function(element) {
+            return jq(element).find('.medication-name input').val();
+            }
+
+            var hideOtherMeds = function() {
+            jq('#medication-2').hide();
+            jq('#medication-3').hide();
+            jq('#medication-4').hide();
+            jq('#medication-5').hide();
+            jq('#medication-6').hide();
+            jq('#medication-7').hide();
+            jq('#medication-8').hide();
+            }
+
+            if (!hasValue('#medication-2') &amp;&amp; !hasValue('#medication-3') &amp;&amp; !hasValue('#medication-4')
+            &amp;&amp; !hasValue('#medication-5') &amp;&amp; !hasValue('#medication-6') &amp;&amp;
+            !hasValue('#medication-7')
+            &amp;&amp; !hasValue('#medication-8')) {
+            hideOtherMeds();
+            jq('#show-more-medications-button').show();
+            }
+
+            jq('#show-more-medications-button').click(function() {
+            jq('.medication').show();
+            jq('#show-more-medications-button').hide();
+            jq('#show-less-medications-button').show();
+            });
+
+            jq('#show-less-medications-button').click(function() {
+            hideOtherMeds();
+            jq('#show-less-medications-button').hide();
+            jq('#show-more-medications-button').show();
+            });
+
+            })
+
+        </script>
+    </ifMode>
+
+    <ifMode mode="VIEW" include="false">
+        <h1>
+            <uimessage code="pihcore.visitNote.plan"/>
+        </h1>
+    </ifMode>
+
+    <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.consult.clinicalManagementPlan">
+        <div class="section-container-color">
+            <p>
+                <obs conceptId="CIEL:162749" style="textarea" rows="5" id="clinical-management-plan"/>
+            </p>
+        </div>
+    </section>
+
+    <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.lab.lab_tests.title">
+        <div class="section-container-color">
+            <p>
+                <obs conceptId="PIH:11762" style="textarea" rows="5" id="test-orders"/>
+            </p>
+        </div>
+    </section>
+
+    <!-- Stolen from the dispensingCIEL:1727 module, but using prescription construct instead of dispensing -->
+    <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.visitNote.orders.medications">
+        <div class="section-container-color">
+            <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
+                <span id="medication-{0}" class="medication">
+                    <obsgroup groupingConceptId="PIH:Prescription construct" showIfEmpty="false">
+                        <h3>
+                            <uimessage code="pihcore.visitNote.plan.medication"/>
+                            {0}
+                        </h3>
+                        <fieldset class="medication">
+                            <p class="field-error" style="display:none"></p>
+                            <p>
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.name"/>
+                                </label>
+                                <obs id="name{0}" class="medication-name" conceptId="PIH:MEDICATION ORDERS"
+                                     answerDrugs="true"/>
+                            </p>
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.dose"/>
+                                </label>
+                                <obs id="dose{0}" class="dose doseInput" conceptId="CIEL:160856"/>
+                                <obs id="doseUnit{0}" class="dose-unit doseInput select-arrow"
+                                     conceptId="PIH:Dosing units coded"
+                                     answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
+                                     answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
+                                <!-- answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals" -->
+
+                            </p>
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.frequency"/>
+                                </label>
+
+
+                                <obs id="frequencyCoded{0}" class="frequency select-arrow"
+                                     conceptId="PIH:Drug frequency for HUM"
+                                     answerConceptIds=
+                                             "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
+                                     answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other"/>
+                            </p>
+
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.duration"/>
+                                </label>
+                                <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
+                                <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS"
+                                     answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                            </p>
+
+                            <p>
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.instructions"/>
+                                </label>
+                                <obs id="instructions{0}" class="medication-instructions"
+                                     conceptId="PIH:Prescription instructions non-coded"/>
+                            </p>
+                        </fieldset>
+                    </obsgroup>
+                </span>
+            </repeat>
+            <button id="show-more-medications-button" type="button" style="display:none">
+                <uimessage code="pihcore.showMore"/>
+            </button>
+            <button id="show-less-medications-button" type="button" style="display:none">
+                <uimessage code="pihcore.showLess"/>
+            </button>
+        </div>
+
+    </section>
+
+    <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="coreapps.consult.disposition">
+
+        <div class="section-container-color">
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.visitNote.plan.approximateReturnVisitDate"/>
+                </label>
+                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+            </p>
+
+        </div>
+
+    </section>
+
+    <div class="hidden" id="encounter-details"
+         sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+        <fieldset>
+            <legend>When?</legend>
+            <label>When?</label>
+
+            <encounterDate default="now" showTime="false"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Who?</legend>
+            <label>Who?</label>
+
+            <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                      required="true"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Where?</legend>
+            <label>Where?</label>
+
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        </fieldset>
+    </div>
+
+    <br/>
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
-            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+            <submit submitClass="confirm right" submitCode="mirebalais.save"/>
+            <button type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
         </div>
     </ifMode>
 
