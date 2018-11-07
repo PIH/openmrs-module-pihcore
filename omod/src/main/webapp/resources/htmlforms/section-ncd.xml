@@ -258,14 +258,6 @@
                          answerSeparator=""/>
                 </p>
             </excludeIf>
-            <!-- This should be included during initial and followup visits -->
-     <!--       <p>
-                <label>
-                    <uimessage code="pihcore.ncd.past_category"/>:
-                </label>
-                &lt;!&ndash; ToDo:  Add the previous diagnosis categories &ndash;&gt;
-                <lookup complexExpression="#foreach($category in $fn.allObs('PIH:NCD category')) $!category.valueCoded.name &lt;br/&gt;#end"/>
-            </p>-->
 
             <label>
                 <uimessage code="pihcore.ncd.category"/>
@@ -298,6 +290,7 @@
     <section id="ncd_vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.vitals">
         <div class="section-container">
+        <div class="two-columns">
             <p>
                 <label>
                     <uimessage code="pihcore.ncd.vitals.waist_cm"/>
@@ -307,6 +300,7 @@
                     <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
                 </span>
             </p>
+            <br/>
             <p>
                 <label>
                     <uimessage code="pihcore.ncd.vitals.hip_cm"/>
@@ -315,6 +309,7 @@
                     <obs conceptId="CIEL:163081" id="hip_cm" showUnits="true"/>
                 </span>
             </p>
+        </div>
 
             <p>
                 <!-- ToDo:  Calculate the ratio -->
@@ -331,6 +326,7 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.heart_failure">
         <div id="heart_failure" class="section-container">
+        <div class="two-columns">
             <p>
                 <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
                 <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
@@ -341,18 +337,23 @@
                 <label>
                     <uimessage code="pihcore.ncd.hf.vol_status"/>
                 </label>
-                <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"/>
+                <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"
+                     style="radio" answerSeparator="" />
             </p>
+        </div>
         </div>
     </section>
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
         <div id="diabetes" class="section-container">
+        <div class="two-columns">
             <p>
                 <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142474"/>
                 <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142473"/>
+                <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="PIH:Gestational diabetes"/>
             </p>
+
             <p class="radio">
                 <label>
                     <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
@@ -361,10 +362,12 @@
                      answerCodes="yes,no" answerSeparator=""/>
             </p>
         </div>
+        </div>
     </section>
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
         <div id="respire" class="section-container">
+        <div class="two-columns">
             <p>
                 <label>
                     <uimessage code="puffs_per_wk"/>
@@ -373,13 +376,18 @@
                     <obs conceptId="PIH:Puffs per week of salbutamol"/>
                 </span>
             </p>
+            <br/>
+            <br/>
+            <br/>
             <p>
                 <!-- ToDo: Add message about number of times per week for these classifications -->
                 <label>
                     <uimessage code="asthma_class"/>
                 </label>
-                <obs conceptId="PIH:Asthma classification"/>
+                <obs conceptId="PIH:Asthma classification"
+                     style="radio" answerSeparator=""/>
             </p>
+        </div>
         </div>
     </section>
 
@@ -467,26 +475,6 @@
             </div>
         </div>
     </section>
-
-    <!-- ToDo:  Delete this section which should be completed on the plan
-    <section id="general" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.ncd.general.title">
-        <div class="section-container">
-            <p>
-                <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
-            </p>
-
-            <p>
-                <label>
-                    <uimessage code="pihcore.consult.returnVisitDate"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
-                </span>
-            </p>
-        </div>
-    </section>
--->
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
