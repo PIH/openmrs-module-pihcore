@@ -196,7 +196,7 @@
 
     <div id="data-collection">
 
-        <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+        <encounterDiagnosesByObs required="true" selectedDiagnosesTarget="#encounter-diagnoses-target"/>
 
         <div id="disposition">
             <encounterDisposition/>

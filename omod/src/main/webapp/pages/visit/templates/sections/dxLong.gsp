@@ -37,11 +37,11 @@
             <h3 class="dx-header">${ ui.message('coreapps.clinicianfacing.diagnoses') }</h3>
         </div>
         <div class="right-column">
-            <!--
-            TODO: need to add filters by coded/non-coded diagnoses
-            -->
-            <p class="diagnosis" ng-repeat="diag in encounter.diagnoses | filter:{voided:false}">
-                {{ diag.display }} <span ng-if="diag.certainty=='CONFIRMED'">({{ diag.certainty }})</span>
+            <p class="diagnosis" ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
+                {{ diag | diagnosisLong }}
+            </p>
+            <p class="diagnosis" ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withoutCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
+                {{ diag | diagnosisLong }}
             </p>
         </div>
     </div>
