@@ -195,6 +195,7 @@
 
                             <render concept="CIEL:130109" name="abnormal placenta"/>
                             <render concept="CIEL:115939" name="abnormal presentation"/>
+                            <render concept="CIEL:145935" name="cephalopelvic distortion"/>
                             <render concept="CIEL:165088" name="gbv"/>
                             <render concept="CIEL:162239" name="low birth weight"/>
                             <render concept="CIEL:111523" name="Premature less than 28 weeks"/>
@@ -219,9 +220,9 @@
                              answerCode="pihcore.mch.otherSTI" style="checkbox"/>
                         <obs conceptId="PIH:11664" answerConceptId="PIH:OTHER"
                              showCommentField="true" commentFieldLabel="" style="checkbox" />
+                        <br/>
                     </p>
                 </div>
-                <br/>
             </div>
         </section>
 

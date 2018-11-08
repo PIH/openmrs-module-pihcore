@@ -77,7 +77,15 @@
                         <span class="small">
                             <obs conceptId="CIEL:1825"/>
                         </span>
+                    </p>
 
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.numRooms"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="CIEL:1475"/>
+                        </span>
                     </p>
 
                     <p>
@@ -100,16 +108,16 @@
 
                     <p>
                         <label>
-                            <uimessage code="pihcore.socioEconomic.numRooms"/>
+                            <uimessage code="pihcore.socioEconomic.radio"/>
                         </label>
-                        <span class="small">
-                            <obs conceptId="CIEL:1475"/>
-                        </span>
+                        <obs conceptId="CIEL:159388" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
                     </p>
 
                     <p>
                         <label>
-                            <uimessage code="pihcore.socioEconomic.radio"/>
+                            <uimessage code="pihcore.socioEconomic.tv"/>
                         </label>
                         <obs conceptId="CIEL:159388" style="radio"
                              answerConceptIds="PIH:YES,PIH:NO"

@@ -264,12 +264,15 @@
                 <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
 
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION"
+                 style="checkbox" toggle="htn"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES"
                  style="checkbox" toggle="diabetes" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE"
                  style="checkbox" toggle="heart_failure"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:RENAL FAILURE"
+                 style="checkbox" />
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:LIVER FAILURE"
                  style="checkbox" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident"
                  answerLabel="Stroke"/>
@@ -281,7 +284,9 @@
                  answerLabel="Sickle-cell"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY"
                  style="checkbox" toggle="epilepsy"/>
+            <!-- ToDo: Migrate data from other comment -->
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER"
+                 style="checkbox" toggle="other"
                  showCommentField="true" commentFieldLabel=" "/>
         </div>
     </section>
@@ -324,10 +329,59 @@
     </section>
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.htn">
+        <div id="htn" class="section-container">
+            <div class="two-columns">
+                <p>
+                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142474"/>
+                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142473"/>
+                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="PIH:Gestational diabetes"/>
+                </p>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+                    </label>
+                    <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                         answerCodes="yes,no" answerSeparator=""/>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.heart_failure">
         <div id="heart_failure" class="section-container">
         <div class="two-columns">
             <p>
+                <label>
+                    <uimessage code="pihcore.diagnosis.label"/>
+                </label>
+
+                <repeat with="['PIH:3128','idiopathic cardiomyopathy],
+                              ['PIH:3130','HIV cardiomyopathy'],
+                              ['PIH:3129','Peripartum cardiomyopathy'],
+                              ['PIH:4002','Alcoholic cardiomyopathy'],
+                              ['CIEL:139529','ischemic cardiomyopathy],
+                              ['CIEL:134082','Mitral stenosis'],
+                              ['PIH:7497','Valve disease'],
+                              ['PIH:4000','isolated right heart failure'],
+                              ['PIH:3071','Hypertensive heart disease'],
+                              ['PIH:4000','Isolated right heart failure'],
+                              ['PIH:3468','Heart failure']">
+                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
+                </repeat>
+            </p>
+
+            <p>
+                <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
+                     answerCode="pihcore.ncd.improbable"/>
+            </p>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.hf.severity"/>
+                </label>
                 <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
                 <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
                 <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
@@ -338,6 +392,7 @@
                     <uimessage code="pihcore.ncd.hf.vol_status"/>
                 </label>
                 <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"
+                     answerConceptIds="PIH:HYPERVOLEMIC,PIH:EUVOLEMIC,PIH:HYPOVOLEMIC"
                      style="radio" answerSeparator="" />
             </p>
         </div>
@@ -367,27 +422,37 @@
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
         <div id="respire" class="section-container">
-        <div class="two-columns">
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="puffs_per_wk"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="PIH:Puffs per week of salbutamol"/>
+                    </span>
+
+                    <label>
+                        <uimessage code="pihcore.ncd.inhalerEd"/>
+                    </label>
+                    <obs conceptId="PIH:7399" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                         answerCodes="yes,no" answerSeparator=""/>
+                </p>
+
+                <p>
+                    <!-- ToDo: Add message about number of times per week for these classifications -->
+                    <label>
+                        <uimessage code="asthma_class"/>
+                    </label>
+                    <obs conceptId="PIH:Asthma classification"
+                         style="radio" answerSeparator=""/>
+                </p>
+
+            </div>
+
             <p>
-                <label>
-                    <uimessage code="puffs_per_wk"/>
-                </label>
-                <span class="small">
-                    <obs conceptId="PIH:Puffs per week of salbutamol"/>
-                </span>
+                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3716"
+                     answerCode="pihcore.ncd.otherCOPD" commentFieldLabel=""/>
             </p>
-            <br/>
-            <br/>
-            <br/>
-            <p>
-                <!-- ToDo: Add message about number of times per week for these classifications -->
-                <label>
-                    <uimessage code="asthma_class"/>
-                </label>
-                <obs conceptId="PIH:Asthma classification"
-                     style="radio" answerSeparator=""/>
-            </p>
-        </div>
         </div>
     </section>
 
@@ -405,37 +470,67 @@
         </div>
     </section>
 
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.other">
+        <div id="other" class="section-container">
+            <p>
+                <!-- Deep vein thrombosis -->
+                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:119624" />
+                <!-- Pulmonary embolism -->
+                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:113504" />
+                <!-- Atrial fibrillation -->
+                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:148203" />
+                <!-- Mechanical heart valve -->
+                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3181" />
+                <!-- Hyperlipidemia -->
+                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117441" />
+                <!-- Obesity -->
+                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115115" />
+                <!-- Other -->
+                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:5622" />
+                <obs conceptId="PIH:7416" />
+            </p>
+        </div>
+    </section>
+
     <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.plan.title">
         <div class="section-container">
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.appt"/>
-                </label>
-                <obs conceptId="PIH:Appearance at appointment time" style="radio"
-                     answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
-                     answerCodes="yes,no - late 1-7 days,no - late more than 7 days"
-                     answerSeparator=""/>
-            </p>
+            <div class="two-columns">
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.plan.appt"/>
+                    </label>
+                    <obs conceptId="PIH:Appearance at appointment time" style="radio"
+                         answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
+                         answerCodes="yes,no - late 1-7 days,no - late more than 7 days"
+                         answerSeparator=""/>
+                </p>
 
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.missing_meds"/>
-                </label>
-                <obs conceptId="PIH:10555" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
-                     answerSeparator=""/>
-            </p>
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.plan.missing_meds"/>
+                    </label>
+                    <obs conceptId="PIH:10555" style="radio"
+                         answerConceptIds="PIH:YES,PIH:NO"
+                         answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
+                         answerSeparator=""/>
+                    <label>
+                        <uimessage code="pihcore.meds.reasonMissedMeds" />
+                    </label>
+                    <obs conceptId="CIEL:160582" />
+                </p>
 
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.hospitalized"/>
-                </label>
-                <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no"  answerSeparator=""/>
-            </p>
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.plan.hospitalized"/>
+                    </label>
+                    <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT"
+                         style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                         answerCodes="yes,no"  answerSeparator=""/>
+                    <obs conceptId="CIEL:162879" labelCode="pihcore.reasonHospitalized" />
+                </p>
+                <br/><br/><br/><br/>
+            </div>
         </div>
     </section>
 
