@@ -247,10 +247,10 @@ public class EncounterTypes {
 		public String description() { return "Mother's visit for delivery of baby"; }
 	};
 
-	public static EncounterTypeDescriptor MEXICO_CLINIC_VISIT =  new EncounterTypeDescriptor() {
-		public String uuid() { return "b29cec8c-b21c-4c95-bfed-916a51db2a26"; }
-		public String name() { return "Clinic Visit"; }
-		public String description() { return "A visit to one of our primary care clinics"; }
+	public static EncounterTypeDescriptor MEXICO_CONSULT =  new EncounterTypeDescriptor() {
+		public String uuid() { return "aa61d509-6e76-4036-a65d-7813c0c3b752"; }
+		public String name() { return "Consult"; }
+		public String description() { return "A doctor consult at one of our primary care clinics"; }
 	};
 
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
@@ -296,6 +296,13 @@ public class EncounterTypes {
 		public String uuid() { return "09febbd8-03f1-11e5-8418-1697f925ec7b"; }
 		public String name() { return "Diagnostic"; }
 		public String description() { return "Diagnosis, typically captured at every clinical visit"; }
+	};
+
+	@Deprecated
+	public static EncounterTypeDescriptor MEXICO_CLINIC_VISIT =  new EncounterTypeDescriptor() {
+		public String uuid() { return "b29cec8c-b21c-4c95-bfed-916a51db2a26"; }
+		public String name() { return "Clinic Visit"; }
+		public String description() { return "A visit to one of our primary care clinics"; }
 	};
 
 	@Deprecated
