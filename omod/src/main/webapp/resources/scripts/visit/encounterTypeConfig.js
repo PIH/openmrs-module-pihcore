@@ -258,30 +258,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-delivery.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
-        var mexicoClinicPlan = {
-            type: "encounter-section",
-            id: "mexico-plan",
-            label: "pihcore.visitNote.plan",
-            icon: "icon-list-ul",
-            shortTemplate: "templates/sections/mexico/planSectionShort.page",
-            longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
-            printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
-            printTemplateUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-prescriptions-print.xml",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/section-plan.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/section-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var mexicoClinicNcd = {
-            type: "encounter-section",
-            id: "mexico-ncd",
-            label: "pihcore.visitNote.ncdInitial",
-            icon: "icon-heart",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/section-ncd.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
         /* Define Encounter Types */
         var encounterTypeConfig = {
             DEFAULT: {
@@ -742,19 +718,14 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.mexicoClinicVisit.uuid] = {
-            defaultState: "short",
+        encounterTypeConfig[EncounterTypes.mexicoConsult.uuid] = {
+            defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/consult.xml",
             icon: "icon-stethoscope",
-            editUrl: hfeStandardEditUrl,
+            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mexico/consult.xml",
             showOnVisitList: true,
-            sections: [
-                chiefComplaint,
-                mexicoClinicNcd,
-                primaryCareDx,
-                mexicoClinicPlan
-            ]
         };
 
         return encounterTypeConfig;
