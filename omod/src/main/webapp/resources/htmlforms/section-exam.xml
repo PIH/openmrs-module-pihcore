@@ -41,9 +41,20 @@
             .section {
             width: 95%;
             }
+
             .section-container input[type="checkbox"] {
             margin: 0px 5px; /* changed values to vertical, horizontal */
             top:5px;         /* added to offset the checkbox position to line up */
+            }
+
+
+            form input[type="radio"], .form input[type="radio"] {
+                float: none;
+                display: inline-block;
+            }
+
+            .tanner label {
+                display: inline-block;
             }
 
             .section-container label { /*new definition to override labels inside section-containers*/
@@ -502,6 +513,13 @@
                     <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
+                <p class="tanner">
+                    <uimessage code="pihcore.exam.tannerstage"/>
+                    <obs conceptId="PIH:5310" style="radio" answerSeparator=""
+                         answerConceptIds="CIEL:160771,CIEL:160774,CIEL:160778,CIEL:160782"
+                         answerLabels="I,II,III,IV"/>
+                </p>
+                
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
@@ -511,6 +529,7 @@
                         <obs conceptId="CIEL:163047" rows="5" cols="45" />
                     </p>
                 </p>
+
             </div>
         </div>
 
