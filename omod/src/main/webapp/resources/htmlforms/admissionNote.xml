@@ -264,7 +264,7 @@
     </includeIf>
 
     <div id="data-collection">
-        <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT"/>
+        <encounterDiagnosesByObs required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT"/>
     </div>
 
     <div id="encounter-diagnoses-target">

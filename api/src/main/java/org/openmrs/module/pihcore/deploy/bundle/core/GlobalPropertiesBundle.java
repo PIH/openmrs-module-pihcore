@@ -85,6 +85,9 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("webservices.rest.maxResultsAbsolute", "1000");
         properties.put("webservices.rest.maxResultsDefault", "500");
 
+        // EMR-API
+        properties.put(EmrApiConstants.GP_USE_LEGACY_DIAGNOSIS_SERVICE, "true");
+
         // EMR
         properties.put(EmrConstants.PAYMENT_AMOUNT_CONCEPT, Concepts.PAYMENT_AMOUNT);
         properties.put(EmrConstants.PAYMENT_REASON_CONCEPT, Concepts.PAYMENT_REASON);

@@ -47,10 +47,10 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.1.3</openMRSVersion>
-        <openMRSwebVersion>2.1.3-SNAPSHOT</openMRSwebVersion>
+        <openMRSVersion>2.2.0-SNAPSHOT</openMRSVersion>
+        <openMRSwebVersion>2.2.0-SNAPSHOT</openMRSwebVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
-        <emrapiVersion>1.24.5</emrapiVersion>
+        <emrapiVersion>1.25.0-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <emrVersion>2.1.0</emrVersion>
         <uiframeworkVersion>3.13.0</uiframeworkVersion>
@@ -63,7 +63,7 @@
         <htmlformentryuiVersion>1.7.0</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
         <reportingVersion>1.16.0</reportingVersion>
-        <reportinguiVersion>1.0</reportinguiVersion>
+        <reportinguiVersion>1.6.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
         <idgenVersion>4.5.0</idgenVersion>
@@ -81,11 +81,11 @@
         <registrationcoreVersion>1.8.0</registrationcoreVersion>
         <registrationappVersion>1.12.0</registrationappVersion>
         <radiologyappVersion>1.4.0</radiologyappVersion>
-        <coreappsVersion>1.19.0</coreappsVersion>
-        <webservicesRestVersion>2.13</webservicesRestVersion>
-        <appointmentschedulingVersion>1.5</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.2</appointmentschedulinguiVersion>
-        <testutilsVersion>1.6.0</testutilsVersion>
+        <coreappsVersion>1.20.0-SNAPSHOT</coreappsVersion>
+        <webservicesRestVersion>2.23.0-SNAPSHOT</webservicesRestVersion>
+        <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
+        <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
+        <testutilsVersion>1.7.0-SNAPSHOT</testutilsVersion>
         <printerVersion>1.4.0</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
@@ -174,6 +174,13 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>emrapi-api</artifactId>
+            <version>${emrapiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>emrapi-api-2.2</artifactId>
             <version>${emrapiVersion}</version>
             <scope>provided</scope>
         </dependency>
