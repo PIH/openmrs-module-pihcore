@@ -262,7 +262,62 @@
 
     <!-- Asthma -->
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
-        <!-- TODO: Add asthma section -->
+        <div id="asthma" class="section-container">
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.asthma.daytime_symptoms"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
+                </span>
+            </p>
+            <p class="checkboxRadio">
+                <label>
+                    <uimessage code="pihcore.ncd.asthma.nighttime_symptoms"/>
+                </label>
+                <obsgroup groupingConceptId="PIH:FUNCTIONAL REVIEW OF SYMPTOMS CONSTRUCT">
+                    <span class="two-columns">
+                        <obs conceptId="PIH:SYMPTOM PRESENT" answerConceptId="CIEL:148273" />
+                        <obs conceptId="PIH:SYMPTOM ABSENT" answerConceptId="CIEL:148273" />
+                    </span>
+                </obsgroup><br/>
+                <style>
+                    label[for="w38"] { font-size: 0; }
+                    label[for="w38"]:before { content: "sí"; font-size: 16px; }
+                    label[for="w40"] { font-size: 0; }
+                    label[for="w40"]:before { content: "no"; font-size: 16px; }
+                </style>
+                <script type="text/javascript">
+                    jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
+                    var that = this;
+                    jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
+                    if (jQuery(this).attr('id') != jQuery(that).attr('id')) {
+                    jQuery(this).prop("checked", false);
+                    }
+                    });
+                    });
+                </script>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.asthma.meds_2x_wk"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Medications more that twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
+                </span>
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.asthma.limitation_of_activity"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Limitation of ability to perform main daily activities coded"
+                         answerConceptIds="PIH:YES,PIH:NO"/>
+                </span>
+            </p>
+        </div>
     </section>
 
     <!-- Epilepsy -->
@@ -601,7 +656,9 @@
                 <label>
                     <uimessage code="pihcore.visitNote.plan.approximateReturnVisitDate"/>
                 </label>
-                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+                <span class="narrow">
+                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+                </span>
             </p>
 
         </div>
