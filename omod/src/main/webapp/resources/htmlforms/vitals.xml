@@ -408,7 +408,7 @@
                     <h3><uimessage code="pihcore.details"/></h3>
 
                     <!-- don't allow editing provider if user only has "retroConsultNoteThisProviderOnly" privilege -->
-                    <includeIf velocityTest="!$user.hasPrivilege('Task: emr.retroConsultNote')">
+                    <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
                         <label>
                             <uimessage code="emr.patientDashBoard.providerRequired"/>
                         </label>
@@ -419,7 +419,7 @@
                             </field>
                         </span>
                     </includeIf>
-                    <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
+                    <includeIf velocityTest="!$user.hasPrivilege('Task: emr.retroConsultNote')">
                         <div style="display:none">
                             <encounterProviderAndRole default="currentUser" encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92"
                                                       required="true"/>
