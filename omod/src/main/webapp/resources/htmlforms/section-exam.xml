@@ -513,13 +513,6 @@
                     <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
-                <p class="tanner">
-                    <uimessage code="pihcore.exam.tannerstage"/>
-                    <obs conceptId="PIH:5310" style="radio" answerSeparator=""
-                         answerConceptIds="CIEL:160771,CIEL:160774,CIEL:160778,CIEL:160782"
-                         answerLabels="I,II,III,IV"/>
-                </p>
-                
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
@@ -725,6 +718,13 @@
             <h3 id="other">
                 <uimessage code="pihcore.exam.other_exam.title"/>
             </h3>
+
+            <p class="tanner">
+                <uimessage code="pihcore.exam.tannerstage"/>
+                <obs conceptId="PIH:5310" style="radio" answerSeparator=""
+                     answerConceptIds="CIEL:160771,CIEL:160774,CIEL:160778,CIEL:160782"
+                     answerLabels="I,II,III,IV"/>
+            </p>
 
             <p class="comment-label">
                 <uimessage code="pihcore.exam.comment"/>
