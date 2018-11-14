@@ -214,11 +214,15 @@
         </p>
     </div>
 
-    <!-- this section is not included if it is a follow-up encounter (encounter type referenced by 5cdfd6...) -->
-
-        <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
+    <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <div class="section-container">
+            <!-- this section is not included if it is a follow-up encounter (encounter type referenced by 5cdfd6...) -->
             <excludeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+
+                <!-- Program enrollment
+                     possible initial states?  stateIds="PIH:11507,PIH:11508,PIH:11509"-->
+                <enrollInProgram programId="NCD" />
+
                 <!-- ToDo: The next 4 questions should only be included on the initial visit -->
                 <label>
                     <uimessage code="pihcore.ncd.referral"/>

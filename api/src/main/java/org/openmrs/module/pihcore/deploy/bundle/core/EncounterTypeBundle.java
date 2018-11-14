@@ -21,8 +21,8 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.ONCOLOGY_CONSULT);
         install(EncounterTypes.ONCOLOGY_INITIAL_VISIT);
         install(EncounterTypes.CHEMOTHERAPY_SESSION);
-        install(EncounterTypes.NCD_ADULT_INITIAL_CONSULT);
-        install(EncounterTypes.NCD_ADULT_FOLLOWUP_CONSULT);
+        install(EncounterTypes.NCD_INITIAL_CONSULT);
+        install(EncounterTypes.NCD_FOLLOWUP_CONSULT);
         install(EncounterTypes.MEDICATION_DISPENSED);
         install(EncounterTypes.POST_OPERATIVE_NOTE);
         install(EncounterTypes.TRANSFER);

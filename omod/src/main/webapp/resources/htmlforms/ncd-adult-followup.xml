@@ -1,7 +1,7 @@
 
 <htmlform formUuid="8b0fb553-c59b-42c0-8d5d-1f90c04d1c02"
           formEncounterType="5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c"
-          formName="NCD Adult Followup" formVersion="1.0">
+          formName="NCD Followup" formVersion="1.0">
 
     <style type="text/css">
         #who-when-where {
