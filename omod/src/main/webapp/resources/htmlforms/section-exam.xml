@@ -722,8 +722,8 @@
             <p class="tanner">
                 <uimessage code="pihcore.exam.tannerstage"/>
                 <obs conceptId="PIH:5310" style="radio" answerSeparator=""
-                     answerConceptIds="CIEL:160771,CIEL:160774,CIEL:160778,CIEL:160782"
-                     answerLabels="I,II,III,IV"/>
+                     answerConceptIds="CIEL:160771,CIEL:160774,CIEL:160778,CIEL:160782,PIH:11931"
+                     answerLabels="I,II,III,IV,V"/>
             </p>
 
             <p class="comment-label">

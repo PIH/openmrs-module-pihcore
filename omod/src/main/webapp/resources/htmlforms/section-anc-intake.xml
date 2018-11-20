@@ -175,6 +175,8 @@
                         <uimessage code="pihcore.mch.trimesterAtEnrollment" />
                     </label>
                     <obs conceptId="PIH:11661"
+                         answerConceptId="CIEL:1721" answerCodes="pihcore.mch.firstTri" />
+                    <obs conceptId="PIH:11661"
                          answerConceptId="CIEL:1722" answerCodes="pihcore.mch.secondTri" />
                     <obs conceptId="PIH:11661"
                          answerConceptId="CIEL:1723" answerCodes="pihcore.mch.thirdTri"/>
@@ -190,20 +192,6 @@
                          style="checkbox" />
                 </p>
 
-                <!-- Risk factors for mother -->
-                <p>
-                    <label>
-                        <uimessage code="pihcore.mch.riskFactors"/>
-                    </label>
-
-                    <obs conceptId="CIEL:160079" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
-                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:130109" style="checkbox"/>
-                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:115939" style="checkbox"/>
-                    <!-- answerCodes="pihcore.mch.gbv" -->
-                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
-                         style="checkbox"/>
-                </p>
-
                 <!-- Mental Health -->
                 <p>
                     <label>
@@ -214,6 +202,50 @@
                          style="checkbox"/>
                     <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:Post traumatic stress disorder"
                          style="checkbox"/>
+                    <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:SCHIZOPHRENIA"
+                         style="checkbox"/>
+                </p>
+
+                <br/>
+                <!-- Risk factors for mother -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mch.riskFactors"/>
+                    </label>
+
+                    <!-- HIV -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:138405"
+                         answerCode="pihcore.lab.hiv.title" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:HEART DISEASE" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:DIABETES" style="checkbox"/>
+                    <!--
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:Unspecified abortion"
+                         answerCode="pihcore.mch.abortion" style="checkbox"/> -->
+                    <!-- Multiple gestation -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:115491" style="checkbox"/>
+                    <!-- C-section -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:163155"
+                         answerCode="pihcore.mch.previousCSection" style="checkbox"/>
+                    <!-- Placental abruption -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:130108" style="checkbox"/>
+                    <!-- Placenta previa -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:114127" style="checkbox"/>
+                    <!-- Antepartum hemorrhage -->
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:ANTEPARTUM HEMORRHAGE" style="checkbox"/>
+                    <!-- Fetal death -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:140399" style="checkbox"/>
+                    <!-- Malpresentation of fetus -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:115939" style="checkbox"/>
+                    <!-- answerCodes="pihcore.mch.gbv" -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
+                         style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:OTHER" style="checkbox"/>
+
+                    <!-- ToDo: Change to mapping PIH:11930 -->
+                    <!-- Specify other high risk factor -->
+                    <obs conceptId="CIEL:160079" answerConceptSetIds="1da49fd7-b1fe-4053-8309-061c37ea56be"
+                         style="autocomplete" />
                 </p>
 
             </div>

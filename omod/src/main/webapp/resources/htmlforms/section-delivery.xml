@@ -92,6 +92,15 @@
             display: none;
             }
 
+            form input[type="radio"], .form input[type="radio"] {
+                float: none;
+                display: inline-block;
+            }
+
+            .apgar label {
+                display: inline-block;
+            }
+
             #section-delivery .encounter-date {
             display: none;
             }
@@ -107,10 +116,12 @@
             #section-delivery .comment-label {
             display: none;
             }
+
             #section-delivery .comment-field {
             display: block;
             margin-left: 215px;
             }
+
             #section-delivery br {
             display: none;
             }
@@ -164,7 +175,10 @@
                              style="checkbox"/>
                         <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:Post traumatic stress disorder"
                              style="checkbox"/>
+                        <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:SCHIZOPHRENIA"
+                             style="checkbox"/>
                     </p>
+                    <br/><br/>
 
                     <!-- Delivery type -->
                     <p>
@@ -176,50 +190,73 @@
                         <obs conceptId="PIH:11663" answerConceptId="CIEL:155884" style="checkbox"  />
                     </p>
 
+                    <!-- APGAR -->
+                    <p class="apgar">
+                        <label>
+                            <uimessage code="pihcore.mch.apgarScore"/>
+                        </label>
+
+                        <obs conceptId="PIH:11932" answerConceptIds="PIH:11933,PIH:11934,PIH:11935"
+                             answerCodes="pihcore.mch.lessThan4,pihcore.mch.between4and8,pihcore.mch.greaterThan8"
+                             style="radio" answerSeparator=""  />
+                    </p>
                 </div>
 
                 <hr/>
                 <p>
                     <label>
-                        <uimessage code="pihcore.complications.label"/>
+                        <uimessage code="pihcore.findings.label"/>
                     </label>
                 </p>
 
                 <div class="two-columns">
-                    <!-- Risk factors during delivery -->
+                    <!-- Findings during delivery -->
                     <p>
                         <repeat>
                             <template>
-                                <obs conceptId="PIH:11664" answerConceptId="{concept}" style="checkbox" />
+                                <obsgroup groupingConceptId="CIEL:159947" >
+                                    <obs conceptId="CIEL:1284" answerConceptId="{concept}" style="checkbox" />
+                                </obsgroup>
                             </template>
 
+                            <!-- Baby -->
                             <render concept="CIEL:130109" name="abnormal placenta"/>
                             <render concept="CIEL:115939" name="abnormal presentation"/>
                             <render concept="CIEL:145935" name="cephalopelvic distortion"/>
-                            <render concept="CIEL:165088" name="gbv"/>
                             <render concept="CIEL:162239" name="low birth weight"/>
                             <render concept="CIEL:111523" name="Premature less than 28 weeks"/>
                             <render concept="PIH:11789" name="Premature (28-32)"/>
                             <render concept="PIH:11790" name="Premature (32-36)"/>
                             <render concept="CIEL:127639" name="Respiratory distress" />
+                            <render concept="PIH:Birth Asphyxia" name="birth asphyxia"/>
                             <render concept="PIH:Fetal distress" name="Fetal distress" />
                             <render concept="CIEL:116642" name="Fetal demise"/>
                             <render concept="CIEL:118245" name="fetal retardation"/>
+                            <render concept="CIEL:143849" name="Congenital malformation" />
                             <render concept="CIEL:145548" name="Chorioamnionitis" />
                             <render concept="CIEL:129211" name="rupture membrane"/>
                             <render concept="CIEL:115866" name="aspiration meconium"/>
-                            <render concept="CIEL:113006" name="pre-eclampsia"/>
+
+                            <!-- Momma -->
+                            <render concept="CIEL:165088" name="gbv"/>
+                            <render concept="CIEL:113006" name="severe pre-eclampsia"/>
                             <render concept="PIH:Eclampsia" name="eclampsia"/>
-                            <render concept="PIH:Birth Asphyxia" name="birth asphyxia"/>
                             <render concept="PIH:POSTPARTUM HEMORRHAGE" name="postpartum hemorrhage"/>
                             <render concept="CIEL:121856" name="Acute pulmonary edema" />
+                            <render concept="CIEL:130" name="Puerperal sepsis" />
                             <render concept="CIEL:138706" name="herpes"/>
                             <render concept="CIEL:112493" name="syphilis"/>
                         </repeat>
-                        <obs conceptId="PIH:11664" answerConceptId="PIH:174"
-                             answerCode="pihcore.mch.otherSTI" style="checkbox"/>
-                        <obs conceptId="PIH:11664" answerConceptId="PIH:OTHER"
-                             showCommentField="true" commentFieldLabel="" style="checkbox" />
+
+                        <obsgroup groupingConceptId="CIEL:159947" >
+                            <obs conceptId="CIEL:1284" answerConceptId="PIH:174"
+                                 answerCode="pihcore.mch.otherSTI" style="checkbox"/>
+                        </obsgroup>
+
+                        <obsgroup groupingConceptId="CIEL:159947" >
+                            <obs conceptId="CIEL:1284" answerConceptId="PIH:OTHER"
+                                 showCommentField="true" commentFieldLabel="" style="checkbox" />
+                        </obsgroup>
                         <br/>
                     </p>
                 </div>
@@ -228,9 +265,17 @@
 
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
-            <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-            <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-            <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+            <button id="next" type="button" class="submitButton confirm right">
+                <uimessage code="emr.next"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="submit" class="submitButton confirm right">
+                <uimessage code="mirebalais.save"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="cancel" type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
         </div>
     </ifMode>
 
