@@ -12,7 +12,8 @@
                 vertical-align: top;
             }
 
-            form input[type="checkbox"], form input[type="radio"], .form input[type="checkbox"], .form input[type="radio"] {
+            form input[type="checkbox"], form input[type="radio"],
+            .form input[type="checkbox"], .form input[type="radio"] {
                 float: none;
                 display: inline-block;
             }
@@ -58,7 +59,6 @@
         <section id="house" sectionTag="fieldset" headerTag="legend"
                  headerStyle="title" headerCode="pihcore.socioEconomic.housing">
             <div class="section-container">
-
                 <div class="two-columns">
                     <p>
                         <label>
@@ -90,24 +90,6 @@
 
                     <p>
                         <label>
-                            <uimessage code="pihcore.socioEconomic.toilet"/>
-                        </label>
-                        <obs conceptId="CIEL:159389" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO"
-                             answerSeparator=""/>
-                    </p>
-
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.socioEconomic.latrine"/>
-                        </label>
-                        <obs conceptId="PIH:Latrine" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO"
-                             answerSeparator=""/>
-                    </p>
-
-                    <p>
-                        <label>
                             <uimessage code="pihcore.socioEconomic.radio"/>
                         </label>
                         <obs conceptId="CIEL:159388" style="radio"
@@ -120,6 +102,43 @@
                             <uimessage code="pihcore.socioEconomic.tv"/>
                         </label>
                         <obs conceptId="CIEL:159388" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.fridge"/>
+                        </label>
+                        <obs conceptId="CIEL:159745" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
+                    </p>
+
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.bank"/>
+                        </label>
+                        <obs conceptId="PIH:11936" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.toilet"/>
+                        </label>
+                        <obs conceptId="CIEL:159389" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerSeparator=""/>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.latrine"/>
+                        </label>
+                        <obs conceptId="PIH:Latrine" style="radio"
                              answerConceptIds="PIH:YES,PIH:NO"
                              answerSeparator=""/>
                     </p>
@@ -141,6 +160,15 @@
                              answerConceptIds="PIH:1320,CIEL:1942,CIEL:1943,CIEL:5622"
                              answerSeparator="&amp;nbsp;" />
                     </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.socioEconomic.wall"/>
+                        </label>
+                        <obs conceptId="PIH:1668" style="radio"
+                             answerConceptIds="CIEL:1943,PIH:11939,PIH:2937,CIEL:159685,PIH:11938,CIEL:1944,CIEL:5622"
+                             answerSeparator="&amp;nbsp;" />
+                    </p>
                 </div>
             </div>
         </section>
@@ -160,6 +188,16 @@
                     <obs conceptId="PIH:975" style="radio"
                          answerSeparator="&amp;nbsp;"
                          answerConceptIds="PIH:WALKING,PIH:BY BICYCLE,PIH:MOTORBIKE,PIH:CAR,PIH:MINI BUS,PIH:980,PIH:STRETCHER,PIH:OTHER"/>
+                </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.socioEconomic.transportCost" />
+                    </label>
+                    <br/>
+                    <span class="small">
+                        <obs conceptId="CIEL:159470" showUnits="pihcore.socioEconomic.currency" />
+                    </span>
                 </p>
 
                 <p>
@@ -200,7 +238,7 @@
 
     <p></p>
 
-    <section id="transport" sectionTag="fieldset" headerTag="legend"
+    <section id="assistance" sectionTag="fieldset" headerTag="legend"
              headerStyle="title" headerCode="pihcore.socioEconomic.assistance">
         <table>
             <tr>
