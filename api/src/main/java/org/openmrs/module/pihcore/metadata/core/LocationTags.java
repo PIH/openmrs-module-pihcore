@@ -162,6 +162,12 @@ public class LocationTags {
 		public String description() { return "Signifies a Location where HIV consult form can be filled out"; }
 	};
 
+	public static LocationTagDescriptor PRIMARY_CARE_CONSULT_LOCATION = new LocationTagDescriptor() {
+		public String uuid() { return "fe895df1-f228-45db-9f14-d27b72f91319"; }
+		public String name() { return "Primary Care Consult Location"; }
+		public String description() { return "Signifies a Location where primary care consult form can be filled out"; }
+	};
+
 
 	public static LocationTagDescriptor LAB_RESULTS_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "5a1a98d0-0805-11e6-a837-0800200c9a66"; }

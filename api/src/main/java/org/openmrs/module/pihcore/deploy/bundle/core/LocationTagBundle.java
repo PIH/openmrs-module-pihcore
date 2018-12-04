@@ -34,6 +34,7 @@ public class LocationTagBundle extends AbstractMetadataBundle {
         install(LocationTags.CHEMOTHERAPY_LOCATION);
         install(LocationTags.NCD_CONSULT_LOCATION);
         install(LocationTags.HIV_CONSULT_LOCATION);
+        install(LocationTags.PRIMARY_CARE_CONSULT_LOCATION);
         install(LocationTags.LAB_RESULTS_LOCATION);
         install(LocationTags.ED_TRIAGE_LOCATION);
         install(LocationTags.ORDER_PATHOLOGY_LOCATION);

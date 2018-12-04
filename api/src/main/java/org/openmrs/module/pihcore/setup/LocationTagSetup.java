@@ -166,7 +166,7 @@ public class LocationTagSetup {
     private static void setStandardHaitiSingleSiteLocationTags(LocationService locationService, LocationDescriptor location) {
 
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
@@ -174,6 +174,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
 
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
@@ -201,13 +202,14 @@ public class LocationTagSetup {
                 PihHaitiLocations.VERRETTES, MirebalaisLocations.MIREBALAIS_CDI_PARENT);
 
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, allZlFacilities);
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allZlFacilities);
+        setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  allZlFacilities);
 
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
@@ -355,9 +357,7 @@ public class LocationTagSetup {
             MirebalaisLocations.CHEMOTHERAPY,
             MirebalaisLocations.REHABILITATION,
             MirebalaisLocations.FAMILY_PLANNING,
-            MirebalaisLocations.ANTEPARTUM_WARD,
-            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
-            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+            MirebalaisLocations.ANTEPARTUM_WARD
         ));
 
         setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, Arrays.asList(
@@ -387,6 +387,11 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(
                 MirebalaisLocations.OUTPATIENT_CLINIC,
                 MirebalaisLocations.WOMENS_CLINIC
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION, Arrays.asList(
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
         ));
 
         setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(
