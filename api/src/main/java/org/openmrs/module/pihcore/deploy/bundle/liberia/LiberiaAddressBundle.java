@@ -20,7 +20,7 @@ public class LiberiaAddressBundle extends AddressBundle {
     public List<AddressComponent> getAddressComponents() {
         List<AddressComponent> l = new ArrayList<AddressComponent>();
         l.add(new AddressComponent(AddressField.COUNTRY, "Country", 40, "Liberia", true));
-        l.add(new AddressComponent(AddressField.STATE_PROVINCE, "County", 40, null, false));
+        l.add(new AddressComponent(AddressField.STATE_PROVINCE, "County", 40, "Maryland", false));
         l.add(new AddressComponent(AddressField.COUNTY_DISTRICT, "District", 40, null, false));
         l.add(new AddressComponent(AddressField.CITY_VILLAGE, "Settlement", 40, null, false));
         l.add(new AddressComponent(AddressField.ADDRESS_1, "Address", 80, null, false));
