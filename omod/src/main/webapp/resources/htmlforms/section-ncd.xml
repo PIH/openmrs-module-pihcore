@@ -335,21 +335,16 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.htn">
         <div id="htn" class="section-container">
-            <div class="two-columns">
-                <p>
-                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142474"/>
-                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142473"/>
-                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="PIH:Gestational diabetes"/>
-                </p>
-
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
-                    </label>
-                    <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                         answerCodes="yes,no" answerSeparator=""/>
-                </p>
-            </div>
+            <!-- ToDo:  Add calculations/scoring for hypertension -->
+            <p>
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:1107"/>
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:140147"/>
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11941"/>
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11942"/>
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:160774"/>
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:160778"/>
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:161644"/>
+            </p>
         </div>
     </section>
 
@@ -411,6 +406,7 @@
                 <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142474"/>
                 <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142473"/>
                 <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="PIH:Gestational diabetes"/>
+                <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:138291"/>
             </p>
 
             <p class="radio">

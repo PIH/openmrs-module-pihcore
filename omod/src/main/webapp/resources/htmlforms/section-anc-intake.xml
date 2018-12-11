@@ -157,6 +157,10 @@
 
     <section id="anc-intake" sectionTag="fieldset" headerTag="legend"
              headerStyle="title" headerCode="pihcore.ancIntake.title">
+
+        <!-- Program enrollment -->
+        <enrollInProgram programId="MCH" />
+
         <div class="section-container">
 
             <div class="two-columns">
