@@ -279,7 +279,7 @@
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:LIVER FAILURE"
                  style="checkbox" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident"
-                 answerLabel="Stroke"/>
+                 style="checkbox"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Chronic respiratory disease program"
                  answerLabel="Respiratory" style="checkbox" toggle="respire"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Rehab program"
