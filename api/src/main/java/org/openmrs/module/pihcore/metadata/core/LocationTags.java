@@ -196,6 +196,12 @@ public class LocationTags {
 		public boolean retired() { return true; }
 	};
 
+	public static LocationTagDescriptor PROVIDER_MANAGEMENT_LOCATION = new LocationTagDescriptor() {
+		public String uuid() { return "3040eab2-fda0-11e8-8eb2-f2801f1b9fd1"; }
+		public String name() { return "Provider Management Location"; }
+		public String description() { return ""; }
+	};
+
 	public static LocationTagDescriptor RETIRED_OUTPATIENT_TRANSFER_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "84864264-5fda-4626-b22f-4b690b7279f3"; }
 		public String name() { return "Outpatient Transfer Location"; }

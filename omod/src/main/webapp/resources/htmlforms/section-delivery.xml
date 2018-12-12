@@ -214,9 +214,7 @@
                     <p>
                         <repeat>
                             <template>
-                                <obsgroup groupingConceptId="CIEL:159947" >
-                                    <obs conceptId="CIEL:1284" answerConceptId="{concept}" style="checkbox" />
-                                </obsgroup>
+                                    <obs conceptId="PIH:6644" answerConceptId="{concept}" style="checkbox" />
                             </template>
 
                             <!-- Baby -->
@@ -248,15 +246,11 @@
                             <render concept="CIEL:112493" name="syphilis"/>
                         </repeat>
 
-                        <obsgroup groupingConceptId="CIEL:159947" >
-                            <obs conceptId="CIEL:1284" answerConceptId="PIH:174"
+                            <obs conceptId="PIH:6644" answerConceptId="PIH:174"
                                  answerCode="pihcore.mch.otherSTI" style="checkbox"/>
-                        </obsgroup>
 
-                        <obsgroup groupingConceptId="CIEL:159947" >
-                            <obs conceptId="CIEL:1284" answerConceptId="PIH:OTHER"
+                            <obs conceptId="PIH:6644" answerConceptId="PIH:OTHER"
                                  showCommentField="true" commentFieldLabel="" style="checkbox" />
-                        </obsgroup>
                         <br/>
                     </p>
                 </div>

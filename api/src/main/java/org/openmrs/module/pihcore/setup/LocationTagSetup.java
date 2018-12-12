@@ -391,7 +391,8 @@ public class LocationTagSetup {
 
         setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION, Arrays.asList(
                 MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
-                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
+                MirebalaisLocations.WOMENS_CLINIC
         ));
 
         setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(
@@ -680,9 +681,19 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, Arrays.asList(
                 MirebalaisLocations.WOMENS_CLINIC,
                 MirebalaisLocations.LABOR_AND_DELIVERY,
-                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
-                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_A,
-                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_B,
+                MirebalaisLocations.WOMENS_TRIAGE,
+                MirebalaisLocations.FAMILY_PLANNING,
+                MirebalaisLocations.ANTEPARTUM_WARD,
+                MirebalaisLocations.POSTPARTUM_WARD,
+                MirebalaisLocations.PEDIATRICS,
+                MirebalaisLocations.PEDIATRICS_A,
+                MirebalaisLocations.PEDIATRICS_B,
+                MirebalaisLocations.NICU
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(
+                MirebalaisLocations.WOMENS_CLINIC,
+                MirebalaisLocations.LABOR_AND_DELIVERY,
                 MirebalaisLocations.WOMENS_TRIAGE,
                 MirebalaisLocations.FAMILY_PLANNING,
                 MirebalaisLocations.ANTEPARTUM_WARD,

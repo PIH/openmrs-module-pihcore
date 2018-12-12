@@ -130,8 +130,7 @@ public class Roles {
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
                     Privileges.APP_TODAYS_VISITS,
-                    Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.APP_CHW
+                    Privileges.TASK_RADIOLOGYAPP_TAB
             );}
     };
 
@@ -257,8 +256,7 @@ public class Roles {
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_MPI,
-                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.APP_CHW
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
             );}
     };
 
@@ -297,7 +295,8 @@ public class Roles {
                     Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
                     Privileges.TASK_EMR_ENTER_MCH,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.APP_CHW
             );}
     };
 
@@ -321,7 +320,33 @@ public class Roles {
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.APP_CHW
+            );}
+    };
+
+    public static RoleDescriptor NURSE_MIDWIFE = new RoleDescriptor() {
+        public String uuid() { return "1949e43c-fd80-11e8-8eb2-f2801f1b9fd1"; }
+        public String role() { return "Application Role: nurseMidwife"; }
+        public String description() { return "Application Role: nurseMidwife"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_ACTIVE_VISITS,
+                    Privileges.APP_EMR_INPATIENTS,
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
+                    Privileges.TASK_COREAPPS_CREATE_VISIT,
+                    Privileges.APP_EMR_OUTPATIENT_VITALS,
+                    Privileges.APP_COREAPPS_AWAITING_ADMISSION,
+                    Privileges.TASK_EMR_ENTER_VITALS_NOTE,
+                    Privileges.TASK_EMR_ENTER_MCH,
+                    Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.APP_CHW
             );}
     };
 
@@ -509,7 +534,8 @@ public class Roles {
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.APP_CHW
             );}
     };
 
@@ -932,8 +958,7 @@ public class Roles {
                     Privileges.APP_COREAPPS_FIND_PATIENT,
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
-                    Privileges.APP_COREAPPS_PATIENT_VISITS,
-                    Privileges.APP_CHW
+                    Privileges.APP_COREAPPS_PATIENT_VISITS
             );}
     };
 

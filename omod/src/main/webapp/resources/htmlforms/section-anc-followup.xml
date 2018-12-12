@@ -149,8 +149,10 @@
                     </label>
                     <repeat>
                         <template>
-                            <obsgroup groupingConceptId="CIEL:159947">
-                                <obs conceptId="CIEL:1284" answerConceptId="{concept}" style="checkbox" />
+                            <!-- ToDo: Switch to use the diagnosis obsgroup, but unable to get this
+                                 to work without certainty and order and unable to hide those checkboxes -->
+                            <obsgroup groupingConceptId="CIEL:1727">
+                                <obs conceptId="CIEL:1728" answerConceptId="{concept}" style="checkbox" />
                             </obsgroup>
                         </template>
 
@@ -220,12 +222,14 @@
                     <!-- answerCodes="pihcore.mch.gbv" -->
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
                          style="checkbox"/>
-                    <obs conceptId="CIEL:160079" answerConceptId="PIH:OTHER" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:OTHER"
+                         commentFieldLabel="  " style="checkbox"/>
 
                     <!-- ToDo: Change to mapping PIH:11930 -->
-                    <!-- Specify other high risk factor -->
+                    <!-- ToDo: Specify other high risk factor, but doesn't work with text that doesn't match
                     <obs conceptId="CIEL:160079" answerConceptSetIds="1da49fd7-b1fe-4053-8309-061c37ea56be"
                          style="autocomplete" />
+                         -->
                 </p>
 
                 <br/><br/>

@@ -134,6 +134,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.AUXILIARY_NURSE);
             install(Roles.NURSE);
             install(Roles.ADVANCED_PRACTICE_NURSE);
+            install(Roles.NURSE_MIDWIFE);
             install(Roles.RADIOLOGY_TECHNICIAN);
             install(Roles.PHARMACIST);
             install(Roles.PHARMACY_AIDE);
