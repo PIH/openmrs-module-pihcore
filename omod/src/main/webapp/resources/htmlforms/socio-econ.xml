@@ -101,7 +101,7 @@
                         <label>
                             <uimessage code="pihcore.socioEconomic.tv"/>
                         </label>
-                        <obs conceptId="CIEL:159388" style="radio"
+                        <obs conceptId="CIEL:159746" style="radio"
                              answerConceptIds="PIH:YES,PIH:NO"
                              answerSeparator=""/>
                     </p>
