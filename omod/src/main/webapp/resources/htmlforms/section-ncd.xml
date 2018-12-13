@@ -281,11 +281,11 @@
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident"
                  style="checkbox"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Chronic respiratory disease program"
-                 answerLabel="Respiratory" style="checkbox" toggle="respire"/>
+                 answerCode="pihcore.ncd.resp" style="checkbox" toggle="respire"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Rehab program"
-                 answerLabel="Rehab (not stroke)"/>
+                 answerCode="pihcore.ncd.rehab" style="checkbox" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Sickle-Cell Anemia"
-                 answerLabel="Sickle-cell"/>
+                 style="checkbox" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY"
                  style="checkbox" toggle="epilepsy"/>
             <!-- ToDo: Migrate data from other comment -->
@@ -337,13 +337,21 @@
         <div id="htn" class="section-container">
             <!-- ToDo:  Add calculations/scoring for hypertension -->
             <p>
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:1107"/>
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:140147"/>
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11941"/>
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11942"/>
+                <!-- None
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:1107"/> -->
+                <!-- Elevated BP
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:140147"/> -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.stageI" />
+                    </label>
+                    <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11941"/>
+                    <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11942"/>
+                </p>
                 <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:160774"/>
                 <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:160778"/>
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:161644"/>
+                <!-- HTN crisis
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:161644"/> -->
             </p>
         </div>
     </section>
