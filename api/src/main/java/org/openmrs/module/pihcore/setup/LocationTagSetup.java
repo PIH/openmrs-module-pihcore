@@ -392,12 +392,17 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION, Arrays.asList(
                 MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
                 MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
-                MirebalaisLocations.WOMENS_CLINIC
+                MirebalaisLocations.WOMENS_CLINIC,
+                MirebalaisLocations.PEDIATRICS
         ));
 
         setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(
                 MirebalaisLocations.OUTPATIENT_CLINIC,
-                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
+                MirebalaisLocations.WOMENS_CLINIC,
+                MirebalaisLocations.PEDIATRICS,
+                MirebalaisLocations.PEDIATRICS_A,
+                MirebalaisLocations.PEDIATRICS_B
         ));
 
         // TODO: update the following tags to remove unnecessary/unsupported CDI locations (has this been done already?)

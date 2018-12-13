@@ -57,11 +57,9 @@ public class Roles {
                 Privileges.APP_ED_TRIAGE_QUEUE,
                 Privileges.APP_WAITING_FOR_CONSULT,
                 Privileges.APP_TODAYS_VISITS,
-                Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.APP_LABS,
                 Privileges.APP_ATTACHMENTS_PAGE,
                 Privileges.APP_CHW,
-                Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.APP_ORDER_ENTRY_ORDER_DRUGS,
                 Privileges.APP_COHORT_BUILDER,
                 Privileges.TASK_ALLERGIES_MODIFY,
@@ -105,11 +103,11 @@ public class Roles {
                 Privileges.TASK_RADIOLOGYAPP_RETRO_ORDER,
                 Privileges.TASK_RADIOLOGYAPP_TAB,
                 Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
-                Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                 Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                 Privileges.TASK_ENROLL_IN_PROGRAM,
                 Privileges.TASK_EDIT_PATIENT_PROGRAM,
                 Privileges.TASK_DELETE_PATIENT_PROGRAM,
+                Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                 Privileges.TASK_LAB_TRACKING_UPDATE,
                 Privileges.TASK_MANAGE_CONDITIONS_LIST
@@ -130,7 +128,10 @@ public class Roles {
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
                     Privileges.APP_TODAYS_VISITS,
-                    Privileges.TASK_RADIOLOGYAPP_TAB
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_UPDATE
             );}
     };
 
@@ -294,6 +295,9 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
                     Privileges.TASK_EMR_ENTER_MCH,
+                    Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    Privileges.TASK_EMR_ENTER_SOCIO,
+                    Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.APP_CHW
@@ -317,6 +321,9 @@ public class Roles {
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
                     Privileges.TASK_EMR_ENTER_VITALS_NOTE,
                     Privileges.TASK_EMR_ENTER_MCH,
+                    Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    Privileges.TASK_EMR_ENTER_SOCIO,
+                    Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
@@ -342,10 +349,14 @@ public class Roles {
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
                     Privileges.TASK_EMR_ENTER_VITALS_NOTE,
                     Privileges.TASK_EMR_ENTER_MCH,
+                    Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    Privileges.TASK_EMR_ENTER_SOCIO,
+                    Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.APP_CHW
             );}
     };
@@ -441,7 +452,10 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_UPDATE
             );}
     };
 
@@ -484,7 +498,10 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_UPDATE
             );}
     };
 
@@ -535,7 +552,10 @@ public class Roles {
                     Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
-                    Privileges.APP_CHW
+                    Privileges.APP_CHW,
+                    Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_UPDATE
             );}
     };
 
@@ -621,7 +641,10 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
+                    Privileges.TASK_LAB_TRACKING_UPDATE
             );}
     };
 
@@ -768,6 +791,7 @@ public class Roles {
                     Privileges.APP_EMR_OUTPATIENT_VITALS,
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
                     Privileges.TASK_EMR_ENTER_SOCIO,
+                    Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.APP_CHW
             );}
     };
@@ -890,7 +914,6 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE,
-                    //Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
@@ -934,7 +957,6 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_ADMISSION_NOTE,
                     Privileges.TASK_EMR_ENTER_CONSULT_NOTE,
                     Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
-                    //Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_EMR_ENTER_ED_NOTE,
                     Privileges.TASK_EMR_ENTER_SURGICAL_NOTE,
