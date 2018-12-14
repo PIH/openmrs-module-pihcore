@@ -197,6 +197,15 @@
                             </td>
                         </tr>
                     </obsgroup>
+
+                    <tr>
+                        <td colspan="4">
+                            <label>
+                                <uimessage code="pihcore.exam.comment" />
+                            </label>
+                            <obs conceptId="PIH:6906" style="textarea" rows="2" />
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
