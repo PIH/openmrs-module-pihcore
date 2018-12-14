@@ -106,7 +106,7 @@
                     </p>
                     <p id="where">
                         <label><uimessage code="emr.locationRequired"/></label>
-                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Primary Care Consult Location"/></span>
                     </p>
                     <p id="when">
                         <label><uimessage code="emr.patientDashBoard.date"/></label>
@@ -127,7 +127,7 @@
                     </p>
                     <p id="where">
                         <label><uimessage code="emr.locationRequired"/></label>
-                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
+                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Primary Care Consult Location"/></span>
                     </p>
                     <p id="when">
                         <label><uimessage code="emr.patientDashBoard.date"/></label>
