@@ -381,11 +381,6 @@
             </p>
 
             <p>
-                <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
-                     answerCode="pihcore.ncd.improbable"/>
-            </p>
-
-            <p>
                 <label>
                     <uimessage code="pihcore.ncd.hf.severity"/>
                 </label>
@@ -401,6 +396,11 @@
                 <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"
                      answerConceptIds="PIH:HYPERVOLEMIC,PIH:EUVOLEMIC,PIH:HYPOVOLEMIC"
                      style="radio" answerSeparator="" />
+            </p>
+
+            <p>
+                <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
+                     answerCode="pihcore.ncd.improbable"/>
             </p>
         </div>
         </div>
