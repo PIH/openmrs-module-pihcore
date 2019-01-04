@@ -161,7 +161,7 @@
                             <uimessage code="pihcore.mch.deliveryDate"/>
                         </label>
                         <span class="small">
-                            <obs conceptId="CIEL:5596" allowFutureDates="true"/>
+                            <obs conceptId="CIEL:5599" allowTime="false" />
                         </span>
                     </p>
 

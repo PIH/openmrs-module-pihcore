@@ -178,12 +178,13 @@
                     <label>
                         <uimessage code="pihcore.mch.trimesterAtEnrollment" />
                     </label>
-                    <obs conceptId="PIH:11661"
-                         answerConceptId="CIEL:1721" answerCodes="pihcore.mch.firstTri" />
-                    <obs conceptId="PIH:11661"
-                         answerConceptId="CIEL:1722" answerCodes="pihcore.mch.secondTri" />
-                    <obs conceptId="PIH:11661"
-                         answerConceptId="CIEL:1723" answerCodes="pihcore.mch.thirdTri"/>
+
+                    <obs conceptId="PIH:11661" style="radio" answerSeparator=""
+                         answerConceptIds="CIEL:1721,CIEL:1722,CIEL:1723" />
+                    <!-- ToDo: Ask team if they want the time range for trimester
+                         answerCodes="pihcore.mch.firstTri,pihcore.mch.secondTri,pihcore.mch.thirdTri"
+                    -->
+
                 </p>
 
                 <!-- HIV test -->
@@ -288,7 +289,6 @@
 
             <div class="two-columns">
 
-                <!-- Last menstrual period (LMP or DDR) -->
                 <p>
                     <label>
                         <uimessage code="pihcore.pregnancy.dueDate"/>
@@ -310,6 +310,7 @@
 
             </div>
 
+            <!-- Last menstrual period (LMP or DDR) -->
             <p>
                 <label>
                     <uimessage code="pihcore.pregnancy.lastPeriod"/>
