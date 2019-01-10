@@ -121,6 +121,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(location));
 
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
