@@ -250,6 +250,54 @@
         </div>
     </section>
 
+    <!-- only show these sections if encounter type is NCD Intake -->
+    <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'" >
+        <section id="habits" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.habits">
+            <div class="section-container">
+                <!-- Tobacco use -->
+                <p class="radio">
+                    <label><uimessage code="pihcore.habits.smoking"/>:</label>
+                    <obs conceptId="CIEL:163731" answerConceptIds="CIEL:159450,CIEL:1090,CIEL:159452" style="radio"/>
+                    <br/>
+                    <label><uimessage code="pihcore.habits.packsPerYear" /></label>
+                   <obs conceptId="PIH:11949" />
+                </p>
+
+                <!-- Secondhand smoke exposure -->
+                <p class="radio">
+                    <label><uimessage code="pihcore.habits.secondhandSmoke"/>:</label>
+                    <obs conceptId="CIEL:152721" answerConceptIds="CIEL:159450,CIEL:1090,CIEL:159452" style="radio"/>
+                </p>
+            </div>
+
+            <div class="section-container">
+                <!-- Alcohol use -->
+                <p class="radio">
+                    <label><uimessage code="pihcore.habits.alcohol"/>:</label>
+                    <obs conceptId="CIEL:159449" answerConceptIds="CIEL:159450,CIEL:1090,CIEL:159452" style="radio"/>
+                    <br/>
+                    <label><uimessage code="pihcore.habits.daysPerWeek" /></label>
+                    <obs conceptId="PIH:2243" />
+                    <br/>
+                    <label><uimessage code="pihcore.habits.drinksPerDay" /></label>
+                    <obs conceptId="PIH:2246" />
+                </p>
+            </div>
+
+            <div class="section-container">
+                <!-- Drug use -->
+                <p class="radio">
+                    <label><uimessage code="pihcore.habits.drugs"/>:</label>
+                    <obs conceptId="CIEL:162556" answerConceptIds="CIEL:159450,CIEL:1090,CIEL:159452" style="radio"/>
+                    <br/>
+                    <label><uimessage code="pihcore.habits.drugName" /></label>
+                    <obs conceptId="PIH:6489" />
+                </p>
+            </div>
+        </section>
+    </includeIf>
+
     <!-- only show sexual activities if encounter type is Adult Intake or Adult Followup -->
     <includeIf velocityTest="$encounter.encounterType.uuid == '27d3a180-031b-11e6-a837-0800200c9a66' || $encounter.encounterType.uuid == '27d3a181-031b-11e6-a837-0800200c9a66'" >
         <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.sexualActivities.label">
