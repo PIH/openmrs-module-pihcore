@@ -14,6 +14,9 @@
 
 <htmlform formUuid="54E29E26-123E-4137-8F26-91D8227C1D5B" formName="Check-In"
           formEncounterType="55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b" formVersion="2.0">
+
+    <redirectOnSave url="/pihcore/router/appEndRouter.page?patientId={{patient.id}}"/>
+
     <style>
         .encounter-summary-container {
         font-size: 1em;
