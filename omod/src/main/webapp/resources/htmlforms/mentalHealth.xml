@@ -279,24 +279,53 @@
 
     <!-- The form -->
     <section id="mh_refer" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.mentalhealth.communityReferral">
+             headerCode="pihcore.mentalhealth.referral">
 
         <div class="section-container">
-            <p>
-                <label>
-                    <uimessage code="pihcore.mentalhealth.referredBy" />:
-                </label>
-            </p>
-            <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:VILLAGE HEALTH WORKER'],['PIH:Other medical service']">
+            <div class="two-columns">
                 <p>
-                    <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
-                         style="checkbox"/>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.referredBy" />:
+                    </label>
+                    <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:VILLAGE HEALTH WORKER'],['PIH:11783'],['CIEL:978'],['PIH:Other medical service']">
+                            <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
+                                 style="checkbox"/>
+                    </repeat>
+                    <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
+                        style="checkbox" commentFieldLabel=" " />
                 </p>
-            </repeat>
-            <p>
-                <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
-                    style="checkbox" commentFieldLabel=" " />
-            </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.internalReferredBy" />:
+                    </label>
+
+                    <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE	']">
+                        <obs conceptId="PIH:Type of referral role" answerConceptId="{0}"
+                                 style="checkbox"/>
+                    </repeat>
+                    <obs conceptId="PIH:Type of referral role" answerConceptId="PIH:OTHER"
+                         style="checkbox" commentFieldLabel=" " />
+                </p>
+                <br/><br/><br/>
+            </div>
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.hasCHW" />
+                    </label>
+                    <obs conceptId="PIH:PATIENT HAS ACCOMPAGNATEUR" answerConceptIds="PIH:YES,PIH:NO,PIH:NOT INDICATED"
+                         style="radio" answerSeparator=""/>
+                </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.lastCHWvisit" />
+                    </label>
+                    <obs conceptId="PIH:3316" />
+                </p>
+
+            </div>
         </div>
     </section>
 
