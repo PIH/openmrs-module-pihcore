@@ -47,7 +47,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.2.0-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>2.2.0</openMRSVersion>
         <openMRSwebVersion>2.2.0-SNAPSHOT</openMRSwebVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <emrapiVersion>1.27.0</emrapiVersion>
