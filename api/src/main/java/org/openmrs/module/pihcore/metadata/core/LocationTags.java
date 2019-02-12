@@ -189,6 +189,13 @@ public class LocationTags {
 		public String description() { return "Signifies Locations where Maternal and Child health is provided"; }
 	};
 
+	public static LocationTagDescriptor MENTAL_HEALTH_LOCATION = new LocationTagDescriptor() {
+		@Override
+		public String uuid() { return "a44acd7c-2e5d-11e9-b210-d663bd873d93"; }
+		public String name() { return "Mental Health Location"; }
+		public String description() { return "Signifies Locations where Mental Health is provided"; }
+	};
+
 	public static LocationTagDescriptor ORDER_PATHOLOGY_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "728f5f07-f748-4efa-9abe-b6df64e84c92"; }
 		public String name() { return "Order Pathology Location"; }
