@@ -223,14 +223,7 @@
                      possible initial states?  stateIds="PIH:11507,PIH:11508,PIH:11509"-->
                 <enrollInProgram programId="NCD" />
 
-                <!-- ToDo: The next 4 questions should only be included on the initial visit -->
-                <label>
-                    <uimessage code="pihcore.ncd.referral"/>
-                </label>
-                <obs conceptId="PIH:Type of referring service"
-                     answerConceptIds="PIH:HUM Inpatient,PIH:ZL inpatient,PIH:HUM outpatient,PIH:ZL outpatient,PIH:Non-ZL supported site"/>
-                <br/>
-
+                <!-- ToDo: The next 3 questions should only be included on the initial visit -->
                 <p class="radio">
                     <label>
                         <uimessage code="pihcore.ncd.info.aware"/>

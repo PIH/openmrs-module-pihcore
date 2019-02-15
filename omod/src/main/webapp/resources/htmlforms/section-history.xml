@@ -179,6 +179,69 @@
         </div>
     </section>
 
+    <!-- only show these sections if encounter type is NCD Intake -->
+    <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'" >
+        <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.refer.title">
+            <div class="section-container">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.refer.date"/>
+                    </label>
+                    <!-- ToDo:  Get concept from CIEL -->
+                    <obs conceptId="CIEL:163181" allowTime="false" />
+                </p>
+
+                <p>
+                    <!-- ToDo:  Get concept from CIEL 978 -->
+                    <obs conceptId="PIH:Type of referring service"
+                         answerConceptId="PIH:SELF-REFER"
+                         answerCode="pihcore.selfRefer"
+                         style="checkbox" />
+                </p>
+
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.refer.referBy"/>
+                    </label>
+
+                    <label>
+                        <uimessage code="pihcore.ncd.referral"/>
+                    </label>
+
+                    <repeat>
+                        <template>
+                                <obs conceptId="PIH:Type of referring service"
+                                     style="checkbox"
+                                     answerConceptId="{point}" answerCode="{message}"/>
+                        </template>
+
+                        <render point="CIEL:165018" message="pihcore.location.idClinic" comment="ID clinic"/>
+                        <render point="PIH:ANTENATAL CLINIC" message="pihcore.location.maternal" comment="Womens Health clinic"/>
+                        <render point="PIH:PRIMARY CARE CLINIC" message="pihcore.location.primary" comment="Primary care"/>
+                        <render point="CIEL:163558" message="pihcore.location.mentalHealth" comment="Mental health clinic"/>
+                        <render point="CIEL:160449" message="pihcore.location.surgery" comment="Surgery dept"/>
+                        <render point="CIEL:160448" message="pihcore.location.intMed" comment="Internal medicine"/>
+                        <render point="CIEL:165048" message="pihcore.testLocation.pedWard" comment="Pediatrics"/>
+                    </repeat>
+
+                    <obs conceptId="PIH:Type of referring service" style="checkbox"
+                         answerConceptId="PIH:OTHER" commentFieldLabel="" />
+                </p>
+
+                <p>
+                    <!-- ToDo: Check the concepts in this section; add comment -->
+                    <obs conceptId="PIH:Type of referring service" style="checkbox"
+                         answerConceptId="PIH:11956" commentFieldLabel=""/>
+                    <obs conceptId="PIH:Type of referring service" style="checkbox"
+                         answerConceptId="PIH:Non-ZL supported site" commentFieldLabel=""/>
+                </p>
+            </div>
+            </div>
+        </section>
+    </includeIf>
+
     <section id="family-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="zl.consultNote.familyHistory.title">
         <div class="section-container">
