@@ -68,8 +68,8 @@
 
             <p class="left">
                 <obs conceptId="PIH:REASON FOR VISIT" id="typeOfVisit"
-                     answerConceptIds="PIH:OUTPATIENT CONSULTATION,PIH:INPATIENT HOSPITALIZATION,PIH:ANC VISIT,PIH:Labor and delivery visit,PIH:POSTNATAL VISIT,PIH:PRE-ART VISIT,PIH:ART VISIT,PIH:PMTCT VISIT,PIH:Immunization visit,PIH:FAMILY PLANNING SERVICES,PIH:MALNUTRITION PROGRAM,PIH:MENTAL HEALTH SERVICES,PIH:TB VISIT,PIH:Leprosy visit,PIH:EMERGENCY VISIT,PIH:OTHER NON-CODED"
-                     answerLabels="Outpatient,Inpatient,ANC,Labor and Delivery,Postpartum,Pre-ART,ART,PMTCT,EPI,Family Planning,Malnutrition,Mental Health,TB,Leprosy,Emergency,Other"
+                     answerConceptIds="PIH:OUTPATIENT CONSULTATION,PIH:ANC VISIT,PIH:Labor and delivery visit,PIH:FAMILY PLANNING SERVICES,PIH:Immunization visit,PIH:MALNUTRITION PROGRAM,PIH:HIV PROGRAM,PIH:TB VISIT,PIH:Epilepsy program,PIH:Standard dental visit,CIEL:161803"
+                     answerLabels="Outpatient,ANC,Labor and Delivery,Family Planning,Immunization,Malnutrition,HIV,TB,Epilepsy,Dental,Circumcision"
                      style="dropdown" size="999">
                 </obs>
             </p>
