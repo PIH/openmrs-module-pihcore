@@ -25,11 +25,11 @@ public class ConfigureSierraLeoneIdGenerators {
         wellbodyPrimaryIdentifierSource.setName("Wellbody Primary Identifier Source");
         wellbodyPrimaryIdentifierSource.setDescription("Primary Identifier Generator for Wellbody");
         wellbodyPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class, SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid()));
-        wellbodyPrimaryIdentifierSource.setPrefix("W");
-        wellbodyPrimaryIdentifierSource.setMinLength(7 + wellbodyPrimaryIdentifierSource.getPrefix().length());
-        wellbodyPrimaryIdentifierSource.setMaxLength(8 + wellbodyPrimaryIdentifierSource.getPrefix().length());
-        wellbodyPrimaryIdentifierSource.setBaseCharacterSet("0123456789");
-        wellbodyPrimaryIdentifierSource.setFirstIdentifierBase("0000001");
+        wellbodyPrimaryIdentifierSource.setPrefix("WBA");
+        wellbodyPrimaryIdentifierSource.setMinLength(9);
+        wellbodyPrimaryIdentifierSource.setMaxLength(9);
+        wellbodyPrimaryIdentifierSource.setBaseCharacterSet("1234567890");
+        wellbodyPrimaryIdentifierSource.setFirstIdentifierBase("100001");
         wellbodyPrimaryIdentifierSource.setUuid(WELLBODY_PRIMARY_IDENTIFIER_SOURCE_UUID);
 
         identifierSourceService.saveIdentifierSource(wellbodyPrimaryIdentifierSource);
