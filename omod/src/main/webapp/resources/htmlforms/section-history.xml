@@ -206,10 +206,6 @@
                         <uimessage code="pihcore.refer.referBy"/>
                     </label>
 
-                    <label>
-                        <uimessage code="pihcore.ncd.referral"/>
-                    </label>
-
                     <repeat>
                         <template>
                                 <obs conceptId="PIH:Type of referring service"
