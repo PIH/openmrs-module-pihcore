@@ -188,12 +188,10 @@
                     <label>
                         <uimessage code="pihcore.refer.date"/>
                     </label>
-                    <!-- ToDo:  Get concept from CIEL -->
                     <obs conceptId="CIEL:163181" allowTime="false" />
                 </p>
 
                 <p>
-                    <!-- ToDo:  Get concept from CIEL 978 -->
                     <obs conceptId="PIH:Type of referring service"
                          answerConceptId="PIH:SELF-REFER"
                          answerCode="pihcore.selfRefer"
@@ -227,12 +225,25 @@
                 </p>
 
                 <p>
-                    <!-- ToDo: Check the concepts in this section; add comment -->
                     <obs conceptId="PIH:Type of referring service" style="checkbox"
                          answerConceptId="PIH:11956" commentFieldLabel=""/>
                     <obs conceptId="PIH:Type of referring service" style="checkbox"
                          answerConceptId="PIH:Non-ZL supported site" commentFieldLabel=""/>
                 </p>
+
+                <!-- ToDo: Add community -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.communityReferral"/>
+                    </label>
+
+                    <obs conceptId="PIH:Type of referring service" style="checkbox"
+                         answerConceptId="CIEL:1555" />
+                    <obs conceptId="PIH:Type of referring service" style="checkbox"
+                         answerConceptId="PIH:11965"/>
+                </p>
+
+                <br/><br/>
             </div>
             </div>
         </section>
