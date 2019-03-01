@@ -231,7 +231,6 @@
                          answerConceptId="PIH:Non-ZL supported site" commentFieldLabel=""/>
                 </p>
 
-                <!-- ToDo: Add community -->
                 <p>
                     <label>
                         <uimessage code="pihcore.mentalhealth.communityReferral"/>
@@ -303,6 +302,12 @@
                 <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/>
                 <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other" specify="true" class="medicalHistoryText patientHistory"/>
             </div>
+            <!-- only show these diseases if encounter type is NCD Intake -->
+            <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'" >
+                <pastMedicalHistoryCheckbox concept="CIEL:138405" label="VIH"/>
+                <pastMedicalHistoryCheckbox concept="CIEL:113859" />
+                <pastMedicalHistoryCheckbox concept="CIEL:117703" />
+            </includeIf>
         </div>
     </section>
 

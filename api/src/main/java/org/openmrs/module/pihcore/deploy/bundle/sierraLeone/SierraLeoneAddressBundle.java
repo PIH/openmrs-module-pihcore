@@ -20,10 +20,11 @@ public class SierraLeoneAddressBundle extends AddressBundle {
     public List<AddressComponent> getAddressComponents() {
         List<AddressComponent> l = new ArrayList<AddressComponent>();
         l.add(new AddressComponent(AddressField.COUNTRY, "Country", 40, "Sierra Leone", true));
-        l.add(new AddressComponent(AddressField.STATE_PROVINCE, "Province/Area", 40, null, true));
-        l.add(new AddressComponent(AddressField.COUNTY_DISTRICT, "District", 40, null, false));
-        l.add(new AddressComponent(AddressField.CITY_VILLAGE, "Chiefdom", 40, null, false));
-        l.add(new AddressComponent(AddressField.ADDRESS_1, "Address", 80, null, false));
+        l.add(new AddressComponent(AddressField.STATE_PROVINCE, "District", 40, null, true));
+        l.add(new AddressComponent(AddressField.COUNTY_DISTRICT, "Chiefdom", 40, null, true));
+        l.add(new AddressComponent(AddressField.CITY_VILLAGE, "Section", 40, null, false));
+        l.add(new AddressComponent(AddressField.ADDRESS_1, "Village", 40, null, false));
+        l.add(new AddressComponent(AddressField.ADDRESS_2, "Address", 80, null, false));
         return l;
     }
 
@@ -31,8 +32,10 @@ public class SierraLeoneAddressBundle extends AddressBundle {
     public List<String> getLineByLineFormat() {
         List<String> l = new ArrayList<String>();
         l.add("address1");
+        l.add("address2");
         l.add("cityVillage");
-        l.add("countyDistrict, stateProvince");
+        l.add("countyDistrict");
+        l.add("stateProvince");
         l.add("country");
         return l;
     }
