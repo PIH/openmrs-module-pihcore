@@ -31,8 +31,8 @@ public class SierraLeoneAddressBundle extends AddressBundle {
     @Override
     public List<String> getLineByLineFormat() {
         List<String> l = new ArrayList<String>();
-        l.add("address1");
         l.add("address2");
+        l.add("address1");
         l.add("cityVillage");
         l.add("countyDistrict");
         l.add("stateProvince");
