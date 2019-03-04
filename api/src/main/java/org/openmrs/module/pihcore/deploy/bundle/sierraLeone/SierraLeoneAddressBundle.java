@@ -13,7 +13,7 @@ public class SierraLeoneAddressBundle extends AddressBundle {
 
     @Override
     public int getVersion() {
-        return 2;
+        return 4;
     }
 
     @Override
