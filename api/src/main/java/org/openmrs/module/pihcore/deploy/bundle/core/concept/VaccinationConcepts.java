@@ -169,6 +169,27 @@ public class VaccinationConcepts extends VersionedPihConceptBundle{
                         .type(sameAs).ensureTerm(pih, "DIPTHERIA TETANUS BOOSTER").build())
                 .build());
 
+        install(new ConceptBuilder("781AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(drug)
+                .name("1ab00cd3-11bd-447c-a1c6-0fd896120cc3", "Diphtheria Tetanus and Pertussis vaccination", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("137802BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Vaccination contre la Diphtérie, tétanos et la coqueluche", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("137803BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "VAKSINASYON Difteri, tetanòs ak koklich", locale_HAITI, ConceptNameType.FULLY_SPECIFIED)
+                .name("7a62cdf4-621a-43d2-b676-273853973b4c", "DPT", Locale.ENGLISH, null)
+                .name("93f5ae24-07d4-102c-b5fa-0017a47871b2", "DTAP", Locale.ENGLISH, null)
+                .name("106355BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Diphtheria Tetanus and Pertussis immunization", Locale.ENGLISH, null)
+                .name("0b7b71de-15f5-102d-96e4-000c29c2a5d7", "DTAP", Locale.ENGLISH, ConceptNameType.SHORT)
+                .description("ece061bc-07fe-102c-b5fa-0017a47871b2", "Vaccination given for diphtheria, tetanus, and acellular pertussis infections", Locale.ENGLISH)
+                .description("781FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "Vaccination given for diphtheria, tetanus, and acellular pertussis infections", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("751237cc-4943-102e-96e9-000c29c2a5d7").type(sameAs).ensureTerm(pih, "DIPTHERIA TETANUS AND PERTUSSIS VACCINATION").build())
+                .mapping(new ConceptMapBuilder("132452ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(snomedCt, "399014008").build())
+                .mapping(new ConceptMapBuilder("171171ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "781").build())
+                .mapping(new ConceptMapBuilder("132453ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(narrowerThan).ensureTerm(snomedNp, "421245007").build())
+                .mapping(new ConceptMapBuilder("274393ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(imoProcedureIT, "1746307").build())
+                .mapping(new ConceptMapBuilder("134475ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ampath, "781").build())
+                .mapping(new ConceptMapBuilder("b2094ba0-4864-102e-96e9-000c29c2a5d7").type(sameAs).ensureTerm(pih, "781").build())
+                .build());
+
         // how to handle "Others" for vaccinations
     }
 }
