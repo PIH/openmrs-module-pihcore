@@ -13,7 +13,7 @@ public class SierraLeoneAddressBundle extends AddressBundle {
 
     @Override
     public int getVersion() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -42,6 +42,6 @@ public class SierraLeoneAddressBundle extends AddressBundle {
 
     @Override
     public String getAddressHierarchyEntryPath() {
-        return "addresshierarchy/sierra_leone_address_hierarchy_entries_2.csv";
+        return "addresshierarchy/sierra_leone_address_hierarchy_entries_3.csv";
     }
 }
