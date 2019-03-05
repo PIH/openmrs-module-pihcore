@@ -17,7 +17,7 @@ public class VaccinationConcepts extends VersionedPihConceptBundle{
 
     @Override
     public int getVersion() {
-        return 4;
+        return 5;
     }
 
     @Override
