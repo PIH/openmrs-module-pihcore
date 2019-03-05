@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="20190305-01" author="ball">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from global_property where property_value like '%sierra leone%' and property ='layout.address.format';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Second-time deletion of Sierra Leone address hierarchy so we can repopulate it with the correct levels.
+            (Precondition is so that it's only run in Sierra Leone)
+        </comment>
+        <sql>
+            set foreign_key_checks = 0;
+            delete from address_hierarchy_address_to_entry_map;
+            delete from address_hierarchy_entry;
+            delete from address_hierarchy_level;
+            set foreign_key_checks = 1;
+        </sql>
+
+    </changeSet>
+
+</databaseChangeLog>
+
