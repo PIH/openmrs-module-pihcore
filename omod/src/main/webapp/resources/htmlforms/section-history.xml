@@ -313,15 +313,15 @@
 
     <section id="patient-blood-type" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.lab.blood_type">
-        <div class="section-container-color">
+        <div class="section-container">
+            <p class="radio" >
             <label for="blood-type">
-                <uimessage code="pihcore.lab.blood_type"/>
+                <uimessage code="pihcore.lab.blood_type"/>:
             </label>
-            <span class="small">
-                <field>
-                    <obs id="blood-type" conceptId="PIH:BLOOD TYPING" />
-                </field>
-            </span>
+            <obs conceptId="PIH:BLOOD TYPING"
+                 answerConceptIds="CIEL:690,CIEL:692,CIEL:694,CIEL:696,CIEL:699,CIEL:701,CIEL:1230,CIEL:1231"
+                 answerCodes="A+,A-,B+,B-,O+,O-,AB+,AB-" style="radio"/>
+            </p>
         </div>
     </section>
 
