@@ -53,6 +53,8 @@ public class CleanDiagnosisConstructAction implements CustomFormSubmissionAction
                         order.setConcept(Context.getConceptService().getConceptByMapping(EmrApiConstants.CONCEPT_CODE_DIAGNOSIS_ORDER, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME));
                         order.setValueCoded(Context.getConceptService().getConceptByMapping(EmrApiConstants.CONCEPT_CODE_DIAGNOSIS_ORDER_SECONDARY, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME));
                         order.setObsDatetime(encounter.getEncounterDatetime());
+                        order.setLocation(encounter.getLocation());
+                        order.setEncounter(encounter);
                         order.setPerson(encounter.getPatient());
                         obsGroup.addGroupMember(order);
                         Context.getObsService().saveObs(obsGroup, "add diagnosis order");
