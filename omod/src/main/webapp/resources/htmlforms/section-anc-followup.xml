@@ -3,6 +3,8 @@
           formName="Prenatal followup section"
           formVersion="1.0">
 
+    <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.CleanDiagnosisConstructAction"/>
+
     <style type="text/css">
 
         form fieldset {
@@ -155,8 +157,8 @@
                                     <obs conceptId="CIEL:1284" answerConceptId="{concept}" style="checkbox" />
                                     <obs conceptId="PIH:Diagnosis order" answerConceptId="PIH:secondary"/>
                                      -->
-                            <obsgroup groupingConceptId="CIEL:1727">
-                                <obs conceptId="CIEL:1728" answerConceptId="{concept}" style="checkbox" />
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{concept}" style="checkbox" />
                             </obsgroup>
                         </template>
 

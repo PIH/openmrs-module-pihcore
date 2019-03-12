@@ -90,7 +90,7 @@
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
-        <attachmentsVersion>2.0.0</attachmentsVersion>
+        <attachmentsVersion>2.1.0</attachmentsVersion>
         <labtrackingappVersion>1.0.0</labtrackingappVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
