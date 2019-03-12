@@ -154,6 +154,32 @@
         <script type="text/javascript">
             jq(document).ready(function() {
 
+
+            jq('.normalObs').change(function(event) {
+                // get the Obs checkbox value
+                var firstCheckbox = jq(this).children(":checkbox:first").prop('checked');
+                if (firstCheckbox == true) {
+                    var parentDiv = jq(this).closest('.exam');
+                    if (parentDiv != null) {
+                      jq(parentDiv).find('.abnormalObs').each(function(index, element) {
+                            jq(this).children(":checkbox:first").prop('checked', false);
+                       });
+                    }
+                }
+            });
+
+            jq('.abnormalObs').change(function(event) {
+                var firstCheckbox = jq(this).children(":checkbox:first").prop('checked');
+                if (firstCheckbox == true) {
+                    var parentDiv = jq(this).closest('.exam');
+                    if (parentDiv != null) {
+                        jq(parentDiv).find('.normalObs').each(function(index, element) {
+                            jq(this).children(":checkbox:first").prop('checked', false);
+                        });
+                    }
+                }
+            });
+
             // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
             jq('#next').click(function() {
                 window.htmlForm.getBeforeSubmit().push(function () {
@@ -215,23 +241,23 @@
                 <uimessage code="pihcore.exam.general_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:GENERAL EXAM FINDINGS"
+                    <obs class="normalObs" conceptId="PIH:GENERAL EXAM FINDINGS"
                          answerConceptId="PIH:NORMAL" style="checkbox"
-                         toggle="{id: 'abnGenExam', style: 'dim'}" />
+                         />
                 </p>
 
                 <!-- ToDo:  UHM-3529 Add toggle for normal/abnormal symptoms
                 <div id="abnGenExam"> -->
                 <p>
-                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true" commentFieldLabel="" />
+                    <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true" commentFieldLabel="" />
                 </p>
                 <!-- </div> -->
 
@@ -254,17 +280,17 @@
                 <uimessage code="pihcore.exam.mental_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="CIEL:163043" answerConceptId="PIH:NORMAL"
+                    <obs class="normalObs" conceptId="CIEL:163043" answerConceptId="PIH:NORMAL"
                          style="checkbox" />
                 </p>
 
                 <p>
-                    <obs conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="CIEL:163043" answerConceptId="PIH:DEPRESSION" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
+                    <obs class="abnormalObs" conceptId="CIEL:163043" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
                 <br/>
 
@@ -288,18 +314,18 @@
                 <uimessage code="pihcore.exam.skin_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs class="normalObs" conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:RASH" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:RASH" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:PALLOR" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED"
+                    <obs class="abnormalObs" conceptId="PIH:SKIN EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED"
                          style="checkbox"  showCommentField="true" commentFieldLabel=""/>
                 </p>
 
@@ -322,18 +348,18 @@
                 <uimessage code="pihcore.exam.heent_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs class="normalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:PALE CONJUNCTIVA" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:PALE CONJUNCTIVA" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:GOITER" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:GOITER" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
+                    <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
                 <p class="comment-label">
@@ -355,21 +381,21 @@
                 <uimessage code="pihcore.exam.lymph_exam.title"/>
             </h3>
 
-            <div  class="two-columns">
+            <div  class="two-columns exam">
                 <p>
-                    <obs conceptId="CIEL:1121" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs class="normalObs" conceptId="CIEL:1121" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="CIEL:1121" answerConceptId="CIEL:148058" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="CIEL:1121" answerConceptId="CIEL:148058" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="CIEL:1121" answerConceptId="CIEL:145802" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="CIEL:1121" answerConceptId="CIEL:145802" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="CIEL:1121" answerConceptId="CIEL:137155" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="CIEL:1121" answerConceptId="CIEL:137155" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="CIEL:1121" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
+                    <obs class="abnormalObs" conceptId="CIEL:1121" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
                 </p>
 
                 <p class="comment-label">
@@ -392,18 +418,18 @@
                 <uimessage code="pihcore.exam.cardiac_exam.title"/>
             </h3>
 
-            <div  class="two-columns">
+            <div  class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs class="normalObs" conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:CARDIAC MURMUR" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:CARDIAC MURMUR" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:TACHYCARDIA" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
+                    <obs class="abnormalObs" conceptId="PIH:CARDIAC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel=""/>
                 </p>
 
                 <p class="comment-label">
@@ -425,18 +451,18 @@
                 <uimessage code="pihcore.exam.chest_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs class="normalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:CREPITATIONS" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:CREPITATIONS" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
+                    <obs class="abnormalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
                 <p class="comment-label">
@@ -458,25 +484,25 @@
                 <uimessage code="pihcore.exam.abdominal_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                    <obs class="normalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                          answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                    <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                          answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                    <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                          answerConceptId="PIH:HEPATOMEGALY" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                    <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                          answerConceptId="PIH:ASCITES" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                    <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                          answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
@@ -499,18 +525,18 @@
                 <uimessage code="pihcore.exam.urogenital_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs class="normalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:CANDIDIASIS" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:CANDIDIASIS" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
+                    <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
                 <p class="comment-label">
@@ -533,23 +559,23 @@
                 <uimessage code="pihcore.exam.neuro_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                    <obs class="normalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
                          answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                    <obs class="abnormalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
                          answerConceptId="PIH:SEIZURE" style="checkbox"/>
                 </p>
                 <p>
                     <!-- Hemiplegia -->
-                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                    <obs class="abnormalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
                          answerConceptId="CIEL:117655" style="checkbox" />
                 </p>
 
                 <p>
-                    <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED"
+                    <obs class="abnormalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED"
                          style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
                 <br/>
@@ -573,22 +599,22 @@
                 <uimessage code="pihcore.exam.musculoskeletal_exam.title"/>
             </h3>
 
-            <div class="two-columns">
+            <div class="two-columns exam">
                 <p>
-                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                    <obs class="normalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:MUSCLE TENDERNESS" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:MUSCLE TENDERNESS" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:118697" style="checkbox"/>
                 </p>
                 <p>
                     <!-- Edema -->
-                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:460" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:460" style="checkbox"/>
                 </p>
                 <p>
-                    <obs conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
+                    <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
                 <p class="comment-label">
@@ -614,12 +640,12 @@
                     <uimessage code="pihcore.exam.gross_motor_skills_exam.title"/>
                 </h3>
 
-                <div class="two-columns">
+                <div class="two-columns exam">
                     <p>
-                        <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                        <obs class="normalObs" conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
                     </p>
                     <p>
-                        <obs conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                        <obs class="abnormalObs" conceptId="PIH:GROSS MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
                     </p>
 
                     <br/>
@@ -640,12 +666,12 @@
                     <uimessage code="pihcore.exam.fine_motor_skills_exam.title"/>
                 </h3>
 
-                <div class="two-columns">
+                <div class="two-columns exam">
                     <p>
-                        <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                        <obs class="normalObs" conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
                     </p>
                     <p>
-                        <obs conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                        <obs class="abnormalObs" conceptId="PIH:FINE MOTOR SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
                     </p>
                     <br/>
                     <p class="comment-label">
@@ -665,12 +691,12 @@
                     <uimessage code="pihcore.exam.language_development_evaluation.title"/>
                 </h3>
 
-                <div class="two-columns">
+                <div class="two-columns exam">
                     <p>
-                        <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                        <obs class="normalObs" conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
                     </p>
                     <p>
-                        <obs conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                        <obs class="abnormalObs" conceptId="PIH:LANGUAGE DEVELOPMENT EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
                     </p>
                     <br/>
                     <p class="comment-label">
@@ -690,12 +716,12 @@
                     <uimessage code="pihcore.exam.social_skills_evaluation.title"/>
                 </h3>
 
-                <div class="two-columns">
+                <div class="two-columns exam">
                     <p>
-                        <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
+                        <obs class="normalObs" conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:NORMAL" style="checkbox"/>
                     </p>
                     <p>
-                        <obs conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
+                        <obs class="abnormalObs" conceptId="PIH:SOCIAL SKILLS EVALUATION" answerConceptId="PIH:ABNORMAL" style="checkbox"/>
                     </p>
                     <br/>
                     <p class="comment-label">
