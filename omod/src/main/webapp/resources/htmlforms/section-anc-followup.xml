@@ -151,12 +151,6 @@
                     </label>
                     <repeat>
                         <template>
-                            <!-- ToDo: Switch to use the diagnosis obsgroup, but unable to get this
-                                 to work without order and unable to hide those checkboxes
-                                 <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                    <obs conceptId="CIEL:1284" answerConceptId="{concept}" style="checkbox" />
-                                    <obs conceptId="PIH:Diagnosis order" answerConceptId="PIH:secondary"/>
-                                     -->
                             <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{concept}" style="checkbox" />
                             </obsgroup>
