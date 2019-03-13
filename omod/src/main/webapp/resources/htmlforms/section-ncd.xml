@@ -329,23 +329,95 @@
              headerCode="pihcore.ncd.htn">
         <div id="htn" class="section-container">
             <!-- ToDo:  Add calculations/scoring for hypertension -->
-            <p>
-                <!-- None
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:1107"/> -->
-                <!-- Elevated BP
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:140147"/> -->
-                <p>
+            <table>
+                <tr>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.stage.label" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.bloodPressure.label" />
+                        </label>
+                    </th>
+                    <th>Symptoms</th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.suggestedTreatment.label" />
+                        </label>
+                    </th>
+                </tr>
+                <tr>
+                <!-- ToDo: None;  Add label of 'TA normal, pas d’hypertension' -->
+                    <td>
+                        <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:1107"/>
+
+                    </td>
+                    <td>&lt;140/90</td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.none.label" />
+                        </label>
+                    </td>
+                    <td>
+                        Contre-référence
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- Elevated BP -->
+                        <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:140147"/>
+                    </td>
+                    <td>&lt;140/90</td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.none.label" />
+                        </label>
+                    </td>
+                    <td>
+                        Reprendre la TA
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
                     <label>
                         <uimessage code="pihcore.stageI" />
                     </label>
                     <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11941"/>
                     <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11942"/>
-                </p>
+
+                    </td>
+                    <td>140/90 - 159/99</td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.none.label" />
+                        </label>
+                    </td>
+                    <td>
+                        Changement des habitudes de vie. Reprendre TA dans 6-12 mois.
+                        <br/><br/>
+                        Débuter avec un antihypertenseur à la plus faible dose
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
                 <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:160774"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
                 <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:160778"/>
-                <!-- HTN crisis
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:161644"/> -->
-            </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                <!-- HTN crisis -->
+                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:161644"/>
+                    </td>
+                </tr>
+            </table>
         </div>
     </section>
 
