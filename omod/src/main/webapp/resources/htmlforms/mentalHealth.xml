@@ -326,6 +326,20 @@
                 </p>
 
             </div>
+            <hr/>
+
+            <!-- Hospitalization -->
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.plan.hospitalized"/>
+                </label>
+                <obs conceptId="CIEL:976"
+                     style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no"  answerSeparator=""/>
+
+                <obs conceptId="CIEL:162879" labelCode="pihcore.reasonHospitalized" />
+            </p>
+
         </div>
     </section>
 
@@ -491,7 +505,7 @@
     <section id="mh-interventions" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.mentalhealth.interventions">
         <div class="section-container">
-            <repeat with="['PIH:Psychotherapy'],['PIH:Psychoeducation'],['PIH:Interpersonal Therapy'],['PIH:Relaxation'],['PIH:Family Support'],['PIH:Grief counseling'],['PIH:Parenting skills'],['PIH:Behavioral activation'],['PIH:PSYCHOSOCIAL COUNSELING']">
+            <repeat with="['PIH:Psychotherapy'],['PIH:Psychoeducation'],['PIH:Interpersonal Therapy'],['PIH:Trauma intervention'],['PIH:Relaxation'],['PIH:Family Support'],['PIH:Grief counseling'],['PIH:Parenting skills'],['PIH:Behavioral activation'],['PIH:PSYCHOSOCIAL COUNSELING']">
                 <p>
                     <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
                 </p>

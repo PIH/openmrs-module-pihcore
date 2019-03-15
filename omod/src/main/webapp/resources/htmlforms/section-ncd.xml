@@ -331,7 +331,7 @@
             <!-- ToDo:  Add calculations/scoring for hypertension -->
             <table>
                 <tr>
-                    <th>
+                    <th width="33%">
                         <label>
                             <uimessage code="pihcore.stage.label" />
                         </label>
@@ -351,8 +351,8 @@
                 <tr>
                 <!-- ToDo: None;  Add label of 'TA normal, pas d’hypertension' -->
                     <td>
-                        <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:1107"/>
-
+                        <obs conceptId="PIH:Type of hypertension diagnosis"
+                             answerConceptId="CIEL:1107" answerCode="pihcore.ncd.htn.normal"/>
                     </td>
                     <td>&lt;140/90</td>
                     <td>
@@ -361,13 +361,16 @@
                         </label>
                     </td>
                     <td>
-                        Contre-référence
+                        <label>
+                            <uimessage code="pihcore.contraindicated.label" />
+                        </label>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <!-- Elevated BP -->
-                        <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:140147"/>
+                        <obs conceptId="PIH:Type of hypertension diagnosis"
+                             answerConceptId="CIEL:140147" answerCode="pihcore.ncd.htn.elevated" />
                     </td>
                     <td>&lt;140/90</td>
                     <td>
@@ -376,7 +379,9 @@
                         </label>
                     </td>
                     <td>
-                        Reprendre la TA
+                        <label>
+                            <uimessage code="pihcore.ncd.htn.repeatBP" />
+                        </label>
                     </td>
                 </tr>
                 <tr>
@@ -385,39 +390,100 @@
                     <label>
                         <uimessage code="pihcore.stageI" />
                     </label>
-                    <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11941"/>
-                    <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="PIH:11942"/>
+                    <obs conceptId="PIH:Type of hypertension diagnosis"
+                         answerConceptId="PIH:11941" />
+                    <obs conceptId="PIH:Type of hypertension diagnosis"
+                         answerConceptId="PIH:11942" />
 
                     </td>
-                    <td>140/90 - 159/99</td>
+                    <td>140/90&amp;nbsp;-
+                        <br/>
+                        159/99</td>
                     <td>
                         <label>
                             <uimessage code="pihcore.none.label" />
                         </label>
                     </td>
                     <td>
-                        Changement des habitudes de vie. Reprendre TA dans 6-12 mois.
-                        <br/><br/>
-                        Débuter avec un antihypertenseur à la plus faible dose
+                        <label>
+                            <uimessage code="pihcore.ncd.htn.changeLife" />
+                        </label>
+                        <br/>
+                        <label>
+                            <uimessage code="pihcore.ncd.htn.startLowDose" />
+                        </label>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:160774"/>
+                    <!-- Stage 2 Hypertension -->
+                    <td>
+                        <obs conceptId="PIH:Type of hypertension diagnosis"
+                             answerConceptId="CIEL:160774"/>
+                    </td>
+                    <td>160/100&amp;nbsp;-
+                        <br/>
+                        179/109</td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.none.label" />
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.ncd.htn.orderLabs" />
+                            <uimessage code="pihcore.ncd.htn.startMinDose" />
+                        </label>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:160778"/>
+                    <!-- Stage 3 Hypertension -->
+                    <td>
+                        <obs conceptId="PIH:Type of hypertension diagnosis"
+                             answerConceptId="CIEL:160778"/>
+                    </td>
+                    <td>&gt;180/110</td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.none.label" />
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.ncd.htn.orderLabs" />
+                            <uimessage code="pihcore.ncd.htn.startMinDose" />
+                        </label>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                <!-- HTN crisis -->
-                <obs conceptId="PIH:Type of hypertension diagnosis" answerConceptId="CIEL:161644"/>
+                    <td>
+                        <!-- HTN crisis -->
+                        <obs conceptId="PIH:Type of hypertension diagnosis"
+                             answerConceptId="CIEL:161644"/>
+                    </td>
+                    <td>&gt;180/110</td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.ncd.htnCrisisSymptoms.label" />
+                        </label>
+                    </td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.referEmergency" />
+                        </label>
                     </td>
                 </tr>
             </table>
+
+            <br/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.remarks"/>:
+                </label>
+            </p>
+
+            <p>
+                <obs conceptId="PIH:11971"/>
+            </p>
         </div>
     </section>
 
