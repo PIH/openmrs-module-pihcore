@@ -490,72 +490,99 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.heart_failure">
         <div id="heart_failure" class="section-container">
-        <div class="two-columns">
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.diagnosis.label"/>
+                    </label>
+
+                    <repeat with="['PIH:3128','idiopathic cardiomyopathy],
+                                  ['PIH:3130','HIV cardiomyopathy'],
+                                  ['PIH:3129','Peripartum cardiomyopathy'],
+                                  ['PIH:4002','Alcoholic cardiomyopathy'],
+                                  ['CIEL:139529','ischemic cardiomyopathy']">
+                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
+                    </repeat>
+
+                    <br/>
+
+                    <repeat with="['CIEL:134082','Mitral stenosis'],
+                                  ['PIH:7497','Valve disease'],
+                                  ['PIH:4000','isolated right heart failure'],
+                                  ['PIH:3071','Hypertensive heart disease'],
+                                  ['PIH:4000','Isolated right heart failure']">
+                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
+                    </repeat>
+                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3468"
+                        answerCode="pihcore.ncd.otherHeartFailure.label"/>
+                </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.hf.severity"/>
+                    </label>
+                    <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
+                    <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
+                    <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
+                    <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 4"/>
+                </p>
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.hf.vol_status"/>
+                    </label>
+                    <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"
+                         answerConceptIds="PIH:HYPERVOLEMIC,PIH:EUVOLEMIC,PIH:HYPOVOLEMIC"
+                         style="radio" answerSeparator="" />
+                </p>
+
+                <p>
+                    <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
+                         answerCode="pihcore.ncd.improbable"/>
+                </p>
+            </div>
+
+            <br/>
             <p>
                 <label>
-                    <uimessage code="pihcore.diagnosis.label"/>
+                    <uimessage code="pihcore.remarks"/>:
                 </label>
-
-                <repeat with="['PIH:3128','idiopathic cardiomyopathy],
-                              ['PIH:3130','HIV cardiomyopathy'],
-                              ['PIH:3129','Peripartum cardiomyopathy'],
-                              ['PIH:4002','Alcoholic cardiomyopathy'],
-                              ['CIEL:139529','ischemic cardiomyopathy],
-                              ['CIEL:134082','Mitral stenosis'],
-                              ['PIH:7497','Valve disease'],
-                              ['PIH:4000','isolated right heart failure'],
-                              ['PIH:3071','Hypertensive heart disease'],
-                              ['PIH:4000','Isolated right heart failure'],
-                              ['PIH:3468','Heart failure']">
-                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
-                </repeat>
             </p>
 
             <p>
-                <label>
-                    <uimessage code="pihcore.ncd.hf.severity"/>
-                </label>
-                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
-                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
-                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
-                <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 4"/>
+                <obs conceptId="PIH:11973"/>
             </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.hf.vol_status"/>
-                </label>
-                <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"
-                     answerConceptIds="PIH:HYPERVOLEMIC,PIH:EUVOLEMIC,PIH:HYPOVOLEMIC"
-                     style="radio" answerSeparator="" />
-            </p>
-
-            <p>
-                <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
-                     answerCode="pihcore.ncd.improbable"/>
-            </p>
-        </div>
         </div>
     </section>
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
         <div id="diabetes" class="section-container">
-        <div class="two-columns">
+            <div class="two-columns">
+                <p>
+                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142474"/>
+                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142473"/>
+                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="PIH:Gestational diabetes"/>
+                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:138291"/>
+                </p>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+                    </label>
+                    <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                         answerCodes="yes,no" answerSeparator=""/>
+                </p>
+            </div>
+            <br/>
             <p>
-                <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142474"/>
-                <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142473"/>
-                <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="PIH:Gestational diabetes"/>
-                <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:138291"/>
+                <label>
+                    <uimessage code="pihcore.remarks"/>:
+                </label>
             </p>
 
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
-                </label>
-                <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator=""/>
+            <p>
+                <obs conceptId="PIH:11974"/>
             </p>
-        </div>
         </div>
     </section>
 
@@ -591,6 +618,16 @@
             <p>
                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3716"
                      answerCode="pihcore.ncd.otherCOPD" commentFieldLabel=""/>
+            </p>
+            <br/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.remarks"/>:
+                </label>
+            </p>
+
+            <p>
+                <obs conceptId="PIH:11972"/>
             </p>
         </div>
     </section>
