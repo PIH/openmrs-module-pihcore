@@ -210,8 +210,8 @@
                     <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:SCHIZOPHRENIA"
                          style="checkbox"/>
                 </p>
-
-                <br/>
+                <br/><br/>
+                
                 <!-- Risk factors for mother -->
                 <p>
                     <label>
@@ -245,6 +245,10 @@
                     <!-- answerCodes="pihcore.mch.gbv" -->
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
                          style="checkbox"/>
+                    <!-- Syphilis -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:112493"
+                         style="checkbox"/>
+
                     <obs conceptId="CIEL:160079" answerConceptId="PIH:OTHER"
                          commentFieldLabel="  " style="checkbox"/>
 
