@@ -165,7 +165,7 @@
                         <render concept="CIEL:142412" name="diarrhea"/>
                         <render concept="CIEL:118771" name="painful urination"/>
                         <render concept="CIEL:122496" name="shortness of breathe"/>
-                        <render concept="CIEL:151" name="abdominal pain"/>
+                        <render concept="CIEL:151"    name="abdominal pain"/>
                         <render concept="CIEL:153316" name="contractions"/>
                         <render concept="CIEL:148968" name="amniotic fluid leaking"/>
                         <render concept="CIEL:113377" name="decreased fetal movement"/>

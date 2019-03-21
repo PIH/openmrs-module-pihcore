@@ -216,9 +216,6 @@
                     <p>
                         <repeat>
                             <template>
-                                <!-- Previous
-                                    <obs conceptId="PIH:6644" answerConceptId="{concept}" style="checkbox" />
-                                    -->
                                 <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                                     <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{concept}" style="checkbox" />
                                 </obsgroup>

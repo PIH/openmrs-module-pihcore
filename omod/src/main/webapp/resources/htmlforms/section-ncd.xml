@@ -722,6 +722,11 @@
                         <uimessage code="pihcore.ncd.meds.tempMessage"/>
                     </i>
                 </label>
+
+                <!-- ToDo: UHM-3782 Show the concepts entered previously in old data model -->
+                Past medications:
+                <lookup complexExpression="#foreach($med in $fn.allObs('PIH:Medications prescribed at end of visit')) $med.valueCoded.name #end"/>
+
             </p>
 
 

@@ -45,5 +45,164 @@
 
     </changeSet>
 
+    <changeSet id="20180320-migrate-mch-obs-to-diagnoses" author="ball">
+        <comment>
+            UHM-3757 Migrate (prenatal followup) danger signs to diagnoses
+        </comment>
+        <sql>
+            -- ANC followup (create a new diagnosis order obs)
+            insert into obs
+                (person_id, concept_id, value_coded, encounter_id, obs_datetime, location_id,
+                 obs_group_id, comments, creator, date_created, uuid)
+            select person_id,
+                   (select concept_id from concept_name
+                     where name like 'Diagnosis order' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   (select concept_id from concept_name
+                     where name like 'Secondary' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   encounter_id, obs_datetime, location_id, obs_group_id, 'anc inserted secondary order', creator, now(), uuid()
+              from obs
+             where concept_id =
+                (select concept_id from concept_name
+                  where name like 'Sign/Symptom name' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and voided = 0
+               and encounter_id IN
+                      (select encounter_id from encounter
+                        where encounter_type =
+                                (select encounter_type_id from encounter_type where name like 'ANC Followup'));
+
+            -- ANC followup (change the concept for the diagnosis)
+            UPDATE obs
+            set concept_id =
+                  (select concept_id from concept_name
+                    where name like 'Diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                comments = (select Concat('anc followup diagnosis updated ',sysdate()) from dual)
+            where concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Sign/Symptom name' and locale = 'en' and locale_preferred = 1 and voided = 0)
+              and voided = 0
+              and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type =
+                                (select encounter_type_id from encounter_type where name like 'ANC Followup'));
+
+            -- ANC followup (change the obsgroup for the diagnosis)
+            UPDATE obs
+            set concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Visit Diagnoses' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                comments = (select Concat('anc followup diagnosis obsgroup updated ',sysdate()) from dual)
+            where concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Signs and symptoms' and locale = 'en' and locale_preferred = 1 and voided = 0)
+              and voided = 0
+              and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type =
+                                (select encounter_type_id from encounter_type where name like 'ANC Followup'));
+        </sql>
+
+    </changeSet>
+
+    <changeSet id="20180321-migrate-delivery-findings-to-diagnoses" author="ball">
+        <comment>
+            UHM-3757 Migrate (delivery) findings to diagnoses
+        </comment>
+        <sql>
+            -- Delivery (create obsgroup and migrate data)
+            drop table if exists temp_delivery;
+            create table temp_delivery (
+                id INT not null auto_increment primary key,
+                encounter_id int(11) not NULL,
+                person_id int(11) not NULL,
+                location_id int(11) not NULL,
+                complication_obs_id int(11) not NULL,
+                obs_group_id int(11) default NULL,
+                obs_datetime datetime default NULL,
+                creator int(11) not NULL
+            );
+
+            -- Add data to temporary table
+            insert into temp_delivery
+                (complication_obs_id, encounter_id, person_id, location_id, obs_datetime, creator)
+            select obs_id, encounter_id, person_id, location_id, obs_datetime, creator
+              from obs
+             where voided = 0
+               and concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Complications at delivery set' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type =
+                                (select encounter_type_id from encounter_type where name like 'MCH Delivery'));
+
+            -- Create obsgroup; Use accession number temporarily to hold the complications obs_id
+            insert into obs
+                (encounter_id, person_id, location_id, obs_datetime, creator,
+                 concept_id, comments, accession_number, date_created, uuid)
+            select encounter_id, person_id, location_id, obs_datetime, creator,
+                   (select concept_id from concept_name
+                     where name like 'Visit Diagnoses' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   'delivery diagnosis obsgroup',
+                   obs_id, now(), uuid()
+              from obs
+             where voided = 0
+               and concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Complications at delivery set' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type =
+                                (select encounter_type_id from encounter_type where name like 'MCH Delivery'));
+
+            -- Add obsgroup id to the temporary table
+            update temp_delivery, obs
+               set temp_delivery.obs_group_id = obs.obs_id
+             where obs.voided = 0
+               and obs.comments = 'delivery diagnosis obsgroup'
+               and temp_delivery.complication_obs_id = obs.accession_number;
+
+            -- Add obsgroup id to obs table
+            update temp_delivery, obs
+               set obs.obs_group_id = temp_delivery.obs_group_id
+             where obs.voided = 0
+               and temp_delivery.complication_obs_id = obs.obs_id;
+
+            -- Delivery (create a new diagnosis order obs)
+            insert into obs
+                (person_id, concept_id, value_coded, encounter_id, obs_datetime,
+                 location_id, obs_group_id, comments, creator, date_created, uuid)
+            select person_id,
+                (select concept_id from concept_name
+                  where name like 'Diagnosis order' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                (select concept_id from concept_name
+                  where name like 'Secondary' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                encounter_id, obs_datetime, location_id, obs_group_id, 'delivery inserted secondary order', creator, now(), uuid()
+             from temp_delivery;
+
+            -- Delivery (change the concept for the diagnosis)
+            UPDATE obs
+               set concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   comments = (select Concat('delivery diagnosis updated ',sysdate()) from dual)
+            where concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Complications at delivery set' and locale = 'en' and locale_preferred = 1 and voided = 0)
+              and voided = 0
+              and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type =
+                                (select encounter_type_id from encounter_type where name like 'MCH Delivery'));
+
+            -- Cleanup temp trash for delivery obsgroups
+            update obs
+               set accession_number = NULL
+             where obs_id IN (select obs_group_id from temp_delivery);
+
+            drop table if exists temp_delivery;
+
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
