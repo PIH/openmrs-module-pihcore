@@ -47,7 +47,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.2.0-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>2.2.0</openMRSVersion>
         <openMRSwebVersion>2.2.0-SNAPSHOT</openMRSwebVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <emrapiVersion>1.27.0</emrapiVersion>
@@ -81,7 +81,7 @@
         <registrationcoreVersion>1.8.0</registrationcoreVersion>
         <registrationappVersion>1.13.0</registrationappVersion>
         <radiologyappVersion>1.4.0</radiologyappVersion>
-        <coreappsVersion>1.20.0</coreappsVersion>
+        <coreappsVersion>1.21.0</coreappsVersion>
         <webservicesRestVersion>2.23.0-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
