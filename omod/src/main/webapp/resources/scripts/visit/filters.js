@@ -465,20 +465,27 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
     })
 
     .filter('allowedWithContext', [ "SessionInfo", function(SessionInfo) {
-        return function(extensionList, visit, context) {
+        return function(extensionList, visit) {
 
             var hasMemberWithProperty = function(list, prop, val) {
-                    return _.any(list, function(it) {
-                        return it[prop] == val;
-                    });
-                }
+                return _.any(list, function(it) {
+                    return it[prop] == val;
+                });
+            };
+
+            // TODO we really should have a better place for utility functions like this
+            var patientAgeInYearsOnDate = function(date) {
+                return moment(date).diff(moment(visit.patient.person.birthdate), 'years');
+            };
 
             return _.filter(extensionList, function(it) {
+
                 if (it.requiredPrivilege) {
                     if (!SessionInfo.hasPrivilege(it.requiredPrivilege)) {
                         return false;
                     }
                 }
+
                 if (it.require) {
                     // find a cleaner way to avoid polluting scope
                     var result = (function(expr) {
@@ -491,7 +498,9 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
                         return false;
                     }
                 }
+
                 return true;
-            });
+            })
         }
     }]);
+

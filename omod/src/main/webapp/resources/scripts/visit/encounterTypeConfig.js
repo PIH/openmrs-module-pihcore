@@ -40,7 +40,8 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "include-section",
             id: "vaccinations",
             template: "templates/vaccination/vaccinations.page",
-            editUrl: ""
+            editUrl: ""//,
+            //require: "patientAgeInYearsOnDate(visit.startDatetime) < 15"
         };
 
         var primaryCareHistory = {

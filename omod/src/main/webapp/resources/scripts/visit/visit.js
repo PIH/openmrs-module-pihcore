@@ -70,8 +70,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
-    .directive("encounter", [ "Encounter", "Concepts", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce",
-        function(Encounter, Concepts, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce) {
+    .directive("encounter", [ "Encounter", "Concepts", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter",
+        function(Encounter, Concepts, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter) {
             return {
                 restrict: "E",
                 scope: {
@@ -95,7 +95,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                     $scope.icon = config ? config.icon : null;
                     $scope.primaryEncounterRoleUuid = config ? config.primaryEncounterRoleUuid : null;
-                    $scope.sections = config && config.sections ? config.sections : [];
+                    $scope.sections = config && config.sections ? $filter('allowedWithContext')(config.sections, $scope.visit) : [];
                     $scope.showSections = $scope.selected;
 
                     function loadFullEncounter() {
@@ -505,11 +505,14 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             function goToNextSection(currentSection, patientUuid, encounterUuid, visitUuid) {
 
-                // fetch the encounter so we can determine the encounter type, which we need to determine where to redirect to
-                // TODO error handling, what if not
-                Encounter.get({ uuid: encounterUuid }).
-                    $promise.then(function(encounter) {
-                        var sections = EncounterTypeConfig[encounter.encounterType.uuid].sections;
+                // fetch the visit and encounter so we add them to the context, and can determine the encounter type, which we need to determine where to redirect to (this all seems like a hack)
+                Visit.get({
+                    uuid: visitUuid,
+                    v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:default,orders:ref,voided,visit:ref,encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
+                }).
+                    $promise.then(function(visit) {
+                        var encounter = _.find(visit.encounters, function(encounter) { return encounter.uuid === encounterUuid} );
+                        var sections =  $filter('allowedWithContext')(EncounterTypeConfig[encounter.encounterType.uuid].sections, visit);
 
                         var redirectToSectionIdx = 0;
 
@@ -522,7 +525,6 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             }
                             redirectToSectionIdx = i + 1;
                         }
-
 
                         // we want to the redirect to the edit section of the *next* section
                         if (redirectToSectionIdx < sections.length && sections[redirectToSectionIdx].editUrl) {
