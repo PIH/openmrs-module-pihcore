@@ -459,6 +459,15 @@
     <!-- Stolen from the dispensing module, but using prescription construct instead of dispensing -->
     <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.visitNote.orders.medications">
+
+        <!-- UHM-3782 For NCDs only, show list of meds entered previously in old data model -->
+        <!-- ToDo: This might be confusing to show this here
+        <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171' || $encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'" >
+            Past NCD medications:
+            <lookup complexExpression="#foreach($med in $fn.allObs('PIH:Medications prescribed at end of visit')) $med.valueCoded.name,  #end"/>
+        </includeIf>
+        -->
+
         <div class="section-container-color">
             <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
                 <span id="medication-{0}" class="medication">

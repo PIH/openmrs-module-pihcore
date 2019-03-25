@@ -723,12 +723,23 @@
                     </i>
                 </label>
 
-                <!-- ToDo: UHM-3782 Show the concepts entered previously in old data model -->
-                Past medications:
-                <lookup complexExpression="#foreach($med in $fn.allObs('PIH:Medications prescribed at end of visit')) $med.valueCoded.name #end"/>
+                <!-- UHM-3441 Show the concepts entered previously in old data model -->
+                <i>
+                    <uimessage code="pihcore.ncd.meds.pastMeds" />:
+                </i>
+                <lookup complexExpression="#foreach($med in $fn.allObs('PIH:Medications prescribed at end of visit')) $med.valueCoded.name,  #end"/>
 
             </p>
 
+            <!-- ToDo: Replace dumb checkboxes with shortcuts to drugs
+            <obsgroup groupingConceptId="PIH:Prescription construct" >
+                <obs conceptId="PIH:MEDICATION ORDERS" answerConceptId="PIH:AMINOPHYLLINE"
+                    answerCode="Lisinopril, 5mg tablet" />
+                <obs conceptId="PIH:Dosing units coded"
+                     answerConceptIds="CIEL:1513"
+                     answerCodes="pihcore.visitNote.plan.medication.units.tablet"/>
+            </obsgroup>
+            -->
 
             <div class="two-columns">
 
