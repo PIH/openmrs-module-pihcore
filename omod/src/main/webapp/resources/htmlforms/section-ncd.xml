@@ -723,12 +723,13 @@
                     </i>
                 </label>
 
-                <!-- UHM-3441 Show the concepts entered previously in old data model -->
+                <!-- ToDo:  How to handle concepts entered previously in old data model? UHM-3441 -->
+                <!--
                 <i>
                     <uimessage code="pihcore.ncd.meds.pastMeds" />:
                 </i>
                 <lookup complexExpression="#foreach($med in $fn.allObs('PIH:Medications prescribed at end of visit')) $med.valueCoded.name,  #end"/>
-
+                -->
             </p>
 
             <!-- ToDo: Replace dumb checkboxes with shortcuts to drugs
