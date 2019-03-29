@@ -772,7 +772,10 @@ public class Roles {
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
                     Privileges.TASK_EMR_ENTER_VCT,
                     Privileges.TASK_EMR_ENTER_SOCIO,
-                    Privileges.APP_CHW
+                    Privileges.APP_CHW,
+                    Privileges.TASK_EMR_RETRO_CLINICAL_NOTE,
+                    Privileges.APP_REPORTINGUI_REPORTS,
+                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS
             );}
     };
 
