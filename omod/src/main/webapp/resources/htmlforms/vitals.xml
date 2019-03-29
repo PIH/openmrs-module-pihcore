@@ -13,7 +13,8 @@
   -->
 
 <htmlform id="vitals-form" formUuid="68728aa6-4985-11e2-8815-657001b58a90"
-          formName="Vitals" formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formVersion="2.1">
+          formName="Vitals" formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7"
+          formVersion="2.2">
 
     <ifMode mode="VIEW" include="true">
         <!-- a template to display the "view" version of an html form provided by the htmlfromentryui getAsHtml method
@@ -230,7 +231,7 @@
     </includeIf>
 
     <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
-    <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
+    <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime())) || $patient.gender == 'F' ">
 
         <script type="text/javascript">
             var convertCmToMm = function(muacCm) {
@@ -590,7 +591,7 @@
         </fieldset>
 
         <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
-        <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
+        <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime())) || $patient.gender == 'F' ">
             <fieldset field-separator=" or ">
                 <legend><uimessage code="mirebalais.vitals.muac.navigation.title"/></legend>
                 <h3><uimessage code="mirebalais.vitals.muac.navigation.title"/></h3>
