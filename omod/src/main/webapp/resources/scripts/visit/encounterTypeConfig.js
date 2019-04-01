@@ -36,12 +36,20 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/allergyui/allergies.page?patientId={{patient.uuid}}&returnUrl={{returnUrl}}"
         };
 
-        var vaccinations = {
+        var pedsVaccinations = {
             type: "include-section",
             id: "vaccinations",
             template: "templates/vaccination/vaccinations.page",
-            editUrl: ""//,
-            //require: "patientAgeInYearsOnDate(visit.startDatetime) < 15"
+            editUrl: "",
+            require: "patientAgeInYearsOnDate(visit.startDatetime) < 15"
+        };
+
+        var ancVaccinations = {
+            type: "include-section",
+            id: "ancVaccinations",
+            template: "templates/vaccination/vaccinations.page",
+            editUrl: "",
+            require: "patient.person.gender == 'F'"
         };
 
         var primaryCareHistory = {
@@ -312,7 +320,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 chiefComplaint,
-                vaccinations,
+                pedsVaccinations,
                 supplements,
                 //allergies,
                 primaryCareHistory,
@@ -332,7 +340,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 chiefComplaint,
-                vaccinations,
+                pedsVaccinations,
                 supplements,
                 //allergies,
                 feeding,
@@ -385,6 +393,7 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
                 primaryCareHistory,
                 primaryCareExam,
+                pedsVaccinations,
                 primaryCareDx,
                 ncdInitial,
                 primaryCarePlan
@@ -400,6 +409,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 primaryCareExam,
+                pedsVaccinations,
                 primaryCareDx,
                 ncdFollowup,
                 primaryCarePlan
@@ -420,6 +430,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 // hivSymptoms,
                 primaryCareDx,
                 primaryCareExam,
+                pedsVaccinations,
                 // labRadOrder,
                 hivOI,
                 whoHIVStages,
@@ -439,6 +450,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 hivState,
                 primaryCareDx,
                 primaryCareExam,
+                pedsVaccinations,
                 // ToDo: Modify plan for followup
                 hivIntakePlan
             ]
@@ -687,7 +699,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 ancInitial,
-                vaccinations,
+                ancVaccinations,
                 primaryCareDx
             ]
         };
@@ -701,7 +713,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 ancFollowup,
-                vaccinations,
+                ancVaccinations,
                 primaryCareDx
             ]
         };
