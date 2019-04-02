@@ -678,7 +678,7 @@
                     </label>
                     <obs conceptId="PIH:Appearance at appointment time" style="radio"
                          answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
-                         answerCodes="yes,no - late 1-7 days,no - late more than 7 days"
+                         answerCodes="yes,pihcore.meds.late1to7Days,pihcore.meds.late7orMoreDays"
                          answerSeparator=""/>
                 </p>
 
@@ -690,10 +690,6 @@
                          answerConceptIds="PIH:YES,PIH:NO"
                          answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
                          answerSeparator=""/>
-                    <label>
-                        <uimessage code="pihcore.meds.reasonMissedMeds" />
-                    </label>
-                    <obs conceptId="CIEL:160582" />
                 </p>
 
                 <p class="radio">
@@ -705,8 +701,12 @@
                          answerCodes="yes,no"  answerSeparator=""/>
                     <obs conceptId="CIEL:162879" labelCode="pihcore.reasonHospitalized" />
                 </p>
-                <br/><br/><br/><br/>
+                <br/><br/>
             </div>
+            <label>
+                <uimessage code="pihcore.meds.reasonMissedMeds" />
+            </label>
+            <obs conceptId="CIEL:160582" />
         </div>
     </section>
 
