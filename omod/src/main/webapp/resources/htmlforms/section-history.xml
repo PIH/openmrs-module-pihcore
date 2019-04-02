@@ -410,22 +410,24 @@
                          answerCode="pihcore.pregnancy.status"
                          style="checkbox"/>
 
-                    <div id="pregnant">
-                        <!-- DPA -->
-                        <p>
-                            <label>
-                                <uimessage code="pihcore.pregnancy.dueDate"/>
-                            </label>
-                        </p>
-                        <obs conceptId="CIEL:5596" allowFutureDates="true" />
+                    <div class="two-columns">
+                        <div id="pregnant">
+                            <!-- DPA -->
+                            <p>
+                                <label>
+                                    <uimessage code="pihcore.pregnancy.dueDate"/>
+                                </label>
+                            </p>
+                            <obs conceptId="CIEL:5596" allowFutureDates="true" />
 
-                        <!-- DPR? -->
-                        <p>
-                            <label>
-                                <uimessage code="pihcore.pregnancy.lastPeriod"/>
-                            </label>
-                        </p>
-                        <obs conceptId="CIEL:1427"/>
+                            <!-- DPR? -->
+                            <p>
+                                <label>
+                                    <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                                </label>
+                            </p>
+                            <obs conceptId="CIEL:1427"/>
+                        </div>
                     </div>
                 </p>
 
