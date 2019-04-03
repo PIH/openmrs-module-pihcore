@@ -298,11 +298,14 @@
                         // display muac in cm, not mm
                         jq(form).find('#muac_mm').hide();
                         var muacMm = jq(form).find('#muac_mm').find('.value').text();
-                        var muac = convertMmToCm(muacMm);
-
-                        if (muac != null &amp;&amp; !isNaN(muac)) {
-                            jq(form).find('#muac_cm_display').text(muac);
-                       }
+                        if (muacMm != null &amp;&amp; !isNaN(muacMm) &amp;&amp; muacMm.length > 0) {
+                            var muac = convertMmToCm(muacMm);
+                            if (muac != null &amp;&amp; !isNaN(muac)) {
+                                jq(form).find('#muac_cm_display').text(muac);
+                           }
+                        } else {
+                            jq(form).find('#muac_cm_display').text("____");
+                        }
                     });
 
                 });
