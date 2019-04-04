@@ -131,6 +131,51 @@
         </ifMode>
     </style>
 
+    <ifMode mode="VIEW" include="false" >
+        <script type="text/javascript">
+
+            jq(function() {
+
+                var updateEdd = function() {
+
+                    var lastPeriodDate = htmlForm.getValueIfLegal('lastPeriodDate.value');
+                    if (typeof lastPeriodDate !== "undefined" &amp;&amp; lastPeriodDate !== null &amp;&amp; (lastPeriodDate.length > 0)) {
+
+                        var today = new Date();
+                        var dateObj = getField('lastPeriodDate.value').datepicker('getDate');
+                        var newDate = new Date(dateObj);
+                        // time difference
+                        var timeDiff = Math.abs(today.getTime() - newDate.getTime());
+                        // weeks difference = gestational age
+                        var diffWeeks = Math.ceil(timeDiff / (1000 * 3600 * 24 * 7));
+
+                        // Estimated Delivery Date = (LMP - 3 months) + 12 months + 7 days
+                        newDate.setMonth(newDate.getMonth() - 3);
+                        newDate.setFullYear(newDate.getFullYear() + 1);
+                        newDate.setDate(newDate.getDate() + 7);
+
+                        var widgetDate = getField('lastPeriodDate.value').datepicker('setDate', newDate).val();
+                        getField('lastPeriodDate.value').datepicker('setDate', dateObj);
+
+                        jq('#calculated-edd-and-gestational').show();
+                        jq('#calculated-edd').text(widgetDate);
+                        jq('#calculated-gestational-age-value').text(diffWeeks + " " + '<uimessage code="pihcore.weeks"/>');
+
+                    } else {
+                        jq('#calculated-edd-and-gestational').hide();
+                    }
+                };
+
+                jq('#calculated-edd-and-gestational').hide();
+
+                jq("#lastPeriodDate input[type='hidden']").change(function() {
+                    updateEdd();
+                });
+
+                updateEdd();
+            });
+        </script>
+    </ifMode>
 
     <ifMode mode="VIEW" include="false">
 
@@ -267,7 +312,7 @@
                     <label>
                         <uimessage code="pihcore.mch.grava"/>
                     </label>
-                    <obs conceptId="CIEL:5624" required="true"/>
+                    <obs conceptId="CIEL:5624" required="true" id="gravidaInput"/>
                 </p>
                 <p>
                     <label>
@@ -290,6 +335,29 @@
             </div>
 
             <hr/>
+
+
+            <div id="calculated-edd-and-gestational" class="two-columns hidden">
+
+                <p>
+                    <span id="calculated-edd-wrapper">
+                        <span id="calculated-edd-label">
+                            <uimessage code="pihcore.calculatedEstimatedDeliveryDate"/>:&#160;
+                        </span>
+                        <span id='calculated-edd' class="value"></span>
+                    </span>
+                </p>
+
+                <p>
+                    <span id="calculated-gestational-age-wrapper">
+                        <span id="calculated-gestational-age-label">
+                            <uimessage code="pihcore.calculatedGestationalAge"/>:&#160;
+                        </span>
+                        <span id='calculated-gestational-age-value' class="value"></span>
+                    </span>
+                </p>
+
+            </div>
 
             <div class="two-columns">
 
@@ -320,7 +388,7 @@
                     <uimessage code="pihcore.pregnancy.lastPeriod"/>
                 </label>
                 <span class="small">
-                    <obs conceptId="CIEL:1427"/>
+                    <obs id="lastPeriodDate" conceptId="CIEL:1427" allowFutureDates="false"/>
                 </span>
             </p>
 
