@@ -1,5 +1,5 @@
-<htmlform formUuid="7FC98698-C733-4CCE-B082-A3BDBC8D6EC4"
-          formName="Pediatric Feeding" formVersion="1.0">
+<htmlform formUuid="c278f802-57be-11e9-8647-d663bd873d93"
+          formName="Pediatrics feeding and supplements" formVersion="1.0">
 
     <style type="text/css">
 
@@ -111,7 +111,7 @@
             // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
             jq('#next').click(function() {
                 window.htmlForm.getBeforeSubmit().push(function () {
-                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-feeding");
+                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=pihcore-peds");
                     return true;
                 });
 
@@ -125,6 +125,126 @@
             enableAgeEntries();
         });
     </script>
+
+    <script type="text/javascript">
+        jq(function() {
+
+            var validateAgeInputSupp = function(boxElement, focus) {
+                var ageInput = boxElement.closest('tr').find('input[type=text]');
+                if (typeof ageInput !== "undefined" ) {
+                    if ( boxElement.prop("checked") ) {
+                        ageInput.prop('disabled', false);
+                        if (focus) {
+                            ageInput.focus();
+                        }
+                    } else {
+                        ageInput.val("");
+                        ageInput.prop('disabled', true);
+                    }
+                }
+
+                return true;
+            }
+
+            function enableAgeEntriesSupp() {
+                jq('.supplement').find('input[type=checkbox]').each(function() {
+                    validateAgeInputSupp(jq(this), false);
+                });
+            }
+
+            jq('.supplement').find('input[type=checkbox]').change(function() {
+                validateAgeInputSupp(jq(this), true);
+
+            });
+
+            enableAgeEntriesSupp();
+        });
+    </script>
+
+    <ifMode mode="VIEW" include="false">
+        <h2><uimessage code="pihcore.supplements.history.title"/></h2>
+    </ifMode>
+
+    <section id="supplements" sectionTag="fieldset" headerTag="legend">
+        <div class="section-container">
+            <table >
+                <thead>
+                    <tr>
+                        <th><uimessage code="pihcore.supplements.history.title"/></th>
+                        <th><uimessage code="coreapps.age"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span>
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:VITAMIN A" style="checkbox" id="vitamin-a" class="supplement"/>
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" placeholder="Specify" class="ageReceived"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span>
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:FERROUS SULFATE" style="checkbox" class="supplement"/>
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" class="ageReceived" placeholder="Specify" />
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span>
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:IODINE" style="checkbox" class="supplement" />
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" placeholder="Specify" class="ageReceived"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span>
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:DEWORMING" style="checkbox" class="supplement" />
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" placeholder="Specify" class="ageReceived"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                    <obsgroup groupingConceptId="PIH:SUPPLEMENT HISTORY CONSTRUCT">
+                        <tr>
+                            <td>
+                                <span>
+                                    <obs conceptId="PIH:SUPPLEMENT RECEIVED" answerConceptId="PIH:ZINC" style="checkbox" class="supplement" />
+                                </span>
+                            </td>
+
+                            <td>
+                                <obs conceptId="PIH:AGE SUPPLEMENT RECEIVED" placeholder="Specify" class="ageReceived"/>
+                            </td>
+                        </tr>
+                    </obsgroup>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
 
     <ifMode mode="VIEW" include="false">
         <h2><uimessage code="pihcore.feeding.history.title"/></h2>

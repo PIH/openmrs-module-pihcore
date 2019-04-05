@@ -170,6 +170,15 @@
         </h1>
     </ifMode>
 
+    <section id="chiefComplaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.chiefComplaint.title">
+        <div class="section-container">
+            <p>
+                <obs conceptId="CIEL:160531" style="textarea" id="chief-complaint"/>
+            </p>
+        </div>
+    </section>
+
     <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.history.presentingHistory.title">
         <div class="section-container">

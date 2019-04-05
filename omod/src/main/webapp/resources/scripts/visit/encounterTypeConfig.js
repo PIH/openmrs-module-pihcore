@@ -76,6 +76,17 @@ angular.module("encounterTypeConfig", ["constants"])
 //          editUrl: "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var pedsFoodAndSupplements = {
+            type: "encounter-section",
+            id: "pihcore-peds",
+            label: "pihcore.foodAndSupplements.label",
+            icon: "icon-food",
+            shortTemplate: "templates/sections/pedsSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         var feeding = {
             type: "encounter-section",
             id: "pihcore-feeding",
@@ -319,12 +330,13 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                chiefComplaint,
-                pedsVaccinations,
-                supplements,
-                //allergies,
+                //chiefComplaint, moved to primaryCareHistory
                 primaryCareHistory,
-                feeding,
+                pedsVaccinations,
+                pedsFoodAndSupplements,
+                //allergies,
+                //supplements,
+                //feeding,
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan
@@ -341,9 +353,10 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
                 chiefComplaint,
                 pedsVaccinations,
-                supplements,
+                pedsFoodAndSupplements,
+                //supplements,
+                //feeding,
                 //allergies,
-                feeding,
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan
@@ -358,9 +371,9 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                chiefComplaint,
-                //allergies,
+                //chiefComplaint, moved to primaryCareHistory
                 primaryCareHistory,
+                //allergies,
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan
