@@ -21,10 +21,11 @@ public class Components {
         public static final String VCT = "vct";
         public static final String MCH = "mch";  // program
         public static final String ZIKA = "zika";  // program
-        public static final String MENTAL_HEALTH = "mentalHealth";
-        public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";
-        public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";
-        public static final String DIABETES_PROGRAM = "diabetesProgram";
+        public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
+        public static final String MENTAL_HEALTH_FORM = "mentalHealthForm";  // used by Haiti Mental Health
+        public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";  // used by Haiti and Mexico
+        public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";  // Mexico program
+        public static final String DIABETES_PROGRAM = "diabetesProgram";  // Mexico program
         public static final String SOCIO_ECONOMICS= "socioEconomics";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
@@ -39,7 +40,7 @@ public class Components {
         public static final String MY_ACCOUNT = "myAccount";
         public static final String PATIENT_REGISTRATION = "patientRegistration";
         public static final String CLINICIAN_DASHBOARD = "clinicianDashboard";
-        public static final String VISIT_NOTE = "visitNote";
+        public static final String VISIT_NOTE = "visitNote";  // get rid of the left visits bar and enable form sections
         public static final String ALLERGIES = "allergies";
         public static final String PRESCRIPTIONS = "prescriptions";
         public static final String LEGACY_MPI = "legacyMpi";
@@ -47,7 +48,7 @@ public class Components {
         public static final String ID_CARD_PRINTING = "idcardPrinting";
         public static final String CHART_SEARCH = "chartSearch";
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
-        public static final String PRIMARY_CARE = "primaryCare";
+        public static final String PRIMARY_CARE = "primaryCare";  // a set of forms for the Haiti primary care clinic
         public static final String PACS_INTEGRATION = "pacsIntegration";
         public static final String ED_TRIAGE = "edTriage";
         public static final String ED_TRIAGE_QUEUE = "edTriageQueue";
@@ -59,11 +60,11 @@ public class Components {
         public static final String RELATIONSHIPS = "relationships";
         public static final String EXPORT_PATIENTS = "exportPatients";
         public static final String IMPORT_PATIENTS = "importPatients";
-        public static final String PATIENT_DOCUMENTS = "patientDocuments";
+        public static final String PATIENT_DOCUMENTS = "patientDocuments";  // openmrs-module-attachments
         public static final String CHW_APP = "chwApp";
-        public static final String CONDITION_LIST = "conditionList";
+        public static final String CONDITION_LIST = "conditionList";  // a dashboard widget that lists "conditions"
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String COHORT_BUILDER = "cohortBuilder";
-        public static final String MEXICO_CLINIC = "mexicoClinic";
+        public static final String MEXICO_CLINIC = "mexicoClinic";  // the Mexico Consult forms
         public static final String CHEMOTHERAPY = "chemotherapy";
 }

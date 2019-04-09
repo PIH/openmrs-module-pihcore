@@ -89,6 +89,7 @@ public class LocationTagSetup {
                 MexicoLocations.SOLEDAD
         );
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allClinics);
+        setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allClinics);
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, allClinics);
