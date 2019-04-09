@@ -75,7 +75,7 @@
                     // clear out any existing error messages
                     jq(this).find('.field-error').first().html('');
 
-                    var medication = jq(this).find('.medication-name input').val();
+                    var medication = (jq(this).find('.medication-name input').val()).trim();
                     var dose = jq(this).find('.dose input').val();
                     var doseUnits = jq(this).find('.dose-unit select').val();
                     var frequency = jq(this).find('.frequency select').val();
@@ -113,8 +113,7 @@
                             code="pihcore.visitNote.plan.medications.error.noDuration"/>. ").show();
                     }
 
-                })
-
+                });
                 return valid;
 
             });
@@ -123,7 +122,7 @@
 
                 var hasValue = function(element) {
                     return jq(element).find('.medication-name input').val();
-                }
+                };
 
                 var hideOtherMeds = function() {
                     jq('#medication-2').hide();
@@ -133,7 +132,7 @@
                     jq('#medication-6').hide();
                     jq('#medication-7').hide();
                     jq('#medication-8').hide();
-                }
+                };
 
                 if (!hasValue('#medication-2') &amp;&amp; !hasValue('#medication-3') &amp;&amp; !hasValue('#medication-4')
                     &amp;&amp; !hasValue('#medication-5') &amp;&amp; !hasValue('#medication-6') &amp;&amp;
