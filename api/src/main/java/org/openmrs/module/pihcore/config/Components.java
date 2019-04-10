@@ -23,9 +23,9 @@ public class Components {
         public static final String ZIKA = "zika";  // program
         public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
         public static final String MENTAL_HEALTH_FORM = "mentalHealthForm";  // used by Haiti Mental Health
-        public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";  // used by Haiti and Mexico
-        public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";  // Mexico program
-        public static final String DIABETES_PROGRAM = "diabetesProgram";  // Mexico program
+        public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";  // needs MentalHealthProgramBundle, used by Haiti and Mexico
+        public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";  // needs HypertensionProgramBundle, used by Mexico
+        public static final String DIABETES_PROGRAM = "diabetesProgram";  // needs DiabetesProgramBundle, used by Mexico
         public static final String SOCIO_ECONOMICS= "socioEconomics";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
