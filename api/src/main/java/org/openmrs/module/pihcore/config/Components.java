@@ -21,11 +21,12 @@ public class Components {
         public static final String VCT = "vct";
         public static final String MCH = "mch";  // program
         public static final String ZIKA = "zika";  // program
+        public static final String ASTHMA_PROGRAM = "asthmaProgram";  // needs AsthmaProgramBundle, used by CES
         public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
-        public static final String MENTAL_HEALTH_FORM = "mentalHealthForm";  // used by Haiti Mental Health
-        public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";  // needs MentalHealthProgramBundle, used by Haiti and Mexico
-        public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";  // needs HypertensionProgramBundle, used by Mexico
-        public static final String DIABETES_PROGRAM = "diabetesProgram";  // needs DiabetesProgramBundle, used by Mexico
+        public static final String MENTAL_HEALTH_FORM = "mentalHealthForm";  // used by ZL
+        public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";  // needs MentalHealthProgram bundle, used by ZL and CES
+        public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";  // needs HypertensionProgram bundle, used by CES
+        public static final String DIABETES_PROGRAM = "diabetesProgram";  // needs DiabetesProgram bundle, used by CES
         public static final String SOCIO_ECONOMICS= "socioEconomics";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";

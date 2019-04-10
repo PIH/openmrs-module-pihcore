@@ -47,6 +47,9 @@ public class PihCoreConstants {
     public static final String RELATIONSHIP_CLINICIAN = "2fa6fcea-aa58-11e8-98d0-529269fb1459";
 
     // uuids of concepts associated with programs
+    public static final String ASTHMA_PROGRAM_CONCEPT_UUID = "880ee6e8-1685-41e4-9055-ba066c2cecb7";  // 6768
+    public static final String ASTHMA_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
+
     public static final String DIABETES_PROGRAM_CONCEPT_UUID = "db80904c-d893-42ea-9b56-9c4cdf77b2fd";  // 6748
     public static final String DIABETES_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
@@ -58,6 +61,13 @@ public class PihCoreConstants {
     public static final String HIV_PROGRAM_TREATMENT_STATUS_UUID = "37c7cf83-bce6-469c-acab-6a90e63264d2";
     public static final String HIV_PROGRAM_TRANSITION_UUID = "f3ebbcac-b614-4e65-becc-816079552cf5";
     public static final String HIV_PROGRAM_ON_ART_UUID = "3cdc0a8c-26fe-102b-80cb-0017a47871b2";
+
+    public static final String MCH_PROGRAM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";  // 10347
+    public static final String MCH_PROGRAM_OUTCOME_CONCEPT_UUID = "cd4e30b1-9935-4b30-9de8-b56e057c541d";  // 11728
+    public static final String GROUP_CARE_UUID = "f58e875f-de07-4cfd-8fc7-3e70b7390ecc";
+    public static final String PEDS_GROUP_CARE_UUID = "d087f783-de30-4aea-8a4d-50ec72ed656a";
+    public static final String INDIVIDUAL_CARE_UUID = "d16fc2d4-e736-4372-8cbf-99542e5dac5e";
+    public static final String TREATMENT_CARE_UUID = "f49129b7-274f-44b7-b491-1c54376b28ba";
 
     public static final String MENTAL_HEALTH_PROGRAM_CONCEPT_UUID = "d3368ded-6d96-4bfc-b590-cb663b7ec70b";  // 11574
     public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
@@ -88,11 +98,4 @@ public class PihCoreConstants {
     // ToDo: These can be removed after they have been cleaned up on all servers
     public static final String FOLLOWUP_STATE_UUID = "3ce451d8-26fe-102b-80cb-0017a47871b2";
     public static final String PALLIATIVE_ONLY_STATE_UUID = "6bd18154-242a-44e9-8952-95eb837fe3fc";
-
-    public static final String GROUP_CARE_UUID = "f58e875f-de07-4cfd-8fc7-3e70b7390ecc";
-    public static final String PEDS_GROUP_CARE_UUID = "d087f783-de30-4aea-8a4d-50ec72ed656a";
-    public static final String INDIVIDUAL_CARE_UUID = "d16fc2d4-e736-4372-8cbf-99542e5dac5e";
-    public static final String TREATMENT_CARE_UUID = "f49129b7-274f-44b7-b491-1c54376b28ba";
-    public static final String MCH_PROGRAM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    public static final String MCH_PROGRAM_OUTCOME_CONCEPT_UUID = "cd4e30b1-9935-4b30-9de8-b56e057c541d";
 }
