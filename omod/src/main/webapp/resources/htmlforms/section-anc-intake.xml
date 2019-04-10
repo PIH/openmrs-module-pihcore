@@ -334,11 +334,37 @@
                 </p>
             </div>
 
-            <hr/>
+            <div class="two-columns">
+                <!-- Last menstrual period (LMP or DDR) -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                    </label>
+                    <span class="small">
+                        <obs id="lastPeriodDate" conceptId="CIEL:1427" allowFutureDates="false"/>
+                    </span>
+                </p>
 
+                <!-- Due date (DPA) -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.pregnancy.dueDate"/>
+                    </label>
+                    <span class="small">
+                        <obs conceptId="CIEL:5596" allowFutureDates="true"/>
+                    </span>
+                </p>
+            </div>
 
             <div id="calculated-edd-and-gestational" class="two-columns hidden">
-
+                <p>
+                    <span id="calculated-gestational-age-wrapper">
+                        <span id="calculated-gestational-age-label">
+                            <uimessage code="pihcore.calculatedGestationalAge"/>:&#160;
+                        </span>
+                        <span id='calculated-gestational-age-value' class="value"></span>
+                    </span>
+                </p>
                 <p>
                     <span id="calculated-edd-wrapper">
                         <span id="calculated-edd-label">
@@ -348,47 +374,15 @@
                     </span>
                 </p>
 
-                <p>
-                    <span id="calculated-gestational-age-wrapper">
-                        <span id="calculated-gestational-age-label">
-                            <uimessage code="pihcore.calculatedGestationalAge"/>:&#160;
-                        </span>
-                        <span id='calculated-gestational-age-value' class="value"></span>
-                    </span>
-                </p>
-
             </div>
 
-            <div class="two-columns">
-
-                <p>
-                    <label>
-                        <uimessage code="pihcore.pregnancy.dueDate"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="CIEL:5596" allowFutureDates="true"/>
-                    </span>
-                </p>
-                <br/>
-                <p>
-                    <label>
-                        <uimessage code="pihcore.consult.returnVisitDate" />
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"
-                             id="apptDate" required="true" />
-                    </span>
-                </p>
-
-            </div>
-
-            <!-- Last menstrual period (LMP or DDR) -->
             <p>
                 <label>
-                    <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                    <uimessage code="pihcore.consult.returnVisitDate" />
                 </label>
                 <span class="small">
-                    <obs id="lastPeriodDate" conceptId="CIEL:1427" allowFutureDates="false"/>
+                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true"
+                         id="apptDate" required="true" />
                 </span>
             </p>
 
