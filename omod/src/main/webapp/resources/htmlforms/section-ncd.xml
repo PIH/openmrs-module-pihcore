@@ -559,23 +559,56 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
         <div id="diabetes" class="section-container">
-            <div class="two-columns">
-                <p>
-                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142474"/>
-                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:142473"/>
-                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="PIH:Gestational diabetes"/>
-                    <obs conceptId="PIH:Type of diabetes diagnosis" answerConceptId="CIEL:138291"/>
-                </p>
-
-                <p class="radio">
+            <table>
+            <tr>
+                <th>
                     <label>
-                        <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+                        <uimessage code="pihcore.ncd.diabetesType" />
                     </label>
-                    <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                         answerCodes="yes,no" answerSeparator=""/>
-                </p>
-            </div>
+                </th>
+                <th>
+                    <label>
+                        <uimessage code="pihcore.suggestedTreatment.label" />
+                    </label>
+                </th>
+            </tr>
+
+                <repeat with="['type1Dm','CIEL:142474'],
+                              ['type2DmInsulinDep','CIEL:165207'],
+                              ['type2DmNotInsulinDep','CIEL:165208'],
+                              ['gestationalDm','PIH:Gestational diabetes']">
+                    <tr>
+                        <td>
+                            <obs conceptId="PIH:Type of diabetes diagnosis"
+                                 answerConceptId="{1}" />
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.ncd.diabetes.{0}Treatment.label" />
+                            </label>
+                        </td>
+                    </tr>
+                </repeat>
+
+                <tr>
+                    <td>
+                        <obs conceptId="PIH:Type of diabetes diagnosis"
+                             answerConceptId="CIEL:138291" answerCode="pihcore.ncd.hyperglycemia.label"/>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            </table>
+
             <br/>
+            <p class="radio">
+                <label>
+                    <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+                </label>
+                <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no" answerSeparator=""/>
+            </p>
+
             <p>
                 <label>
                     <uimessage code="pihcore.remarks"/>:
@@ -715,12 +748,6 @@
     <section id="meds" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.meds">
         <div class="section-container">
             <p>
-                <!-- ToDo: UHM-3782 Replace dumb checkboxes with shortcuts to drugs -->
-                <!-- ToDo: UHM-3766 Add/change these drugs
-                     Asthma:  ['Azathioprine, 20 mg tablet','',''],  CIEL:71767
-                     Cardiac:  Aldactone = Spironolactone?  Ask Fenelon
-                     Penicillin?  Benzylpenicillin vs benzathine; 600K/ 1.2M vs 1M / 2.4M
-                -->
                 <!-- Hypertension -->
                 <label>
                     <b>
@@ -815,8 +842,7 @@
                               ['Warfarin, 5 mg tablet','tablet','1779f27f-0272-41da-a242-c6851a9aef6d'],
                               ['Clotrimazole, 1% cream','application','5e11cd96-3277-4a74-968e-1aa3d3312e6c'],
                               ['Phenoxymethylpenicillin, 250 mg, tablet','tablet','3fbb89a0-652f-4675-b087-63ce1bed098f'],
-                              ['Benzathine benzylpenicillin, 2.4 million international units, powder for injection','iu','ab912f78-2112-4e87-aca7-1ded71e8a04b'],
-                              ['Benzylpenicillin, 5 million international units, powder for injection','iu','2896a1ad-f576-4073-875e-835d40d70548']">
+                              ['Benzathine benzylpenicillin, 2.4 million international units, powder for injection','iu','ab912f78-2112-4e87-aca7-1ded71e8a04b']">
                     <obsgroup groupingConceptId="PIH:Prescription construct" >
                         <obs conceptId="PIH:MEDICATION ORDERS" answerDrugId="{2}"
                              answerCode="{0}" style="checkbox"/>
