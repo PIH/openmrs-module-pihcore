@@ -1,3 +1,6 @@
+/*
+ * An MCH Program specific to a project at Mirebalais Hospital
+ */
 package org.openmrs.module.pihcore.metadata.core.program;
 
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
