@@ -27,6 +27,7 @@ public class Components {
         public static final String MENTAL_HEALTH_PROGRAM = "mentalHealthProgram";  // needs MentalHealthProgram bundle, used by ZL and CES
         public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";  // needs HypertensionProgram bundle, used by CES
         public static final String DIABETES_PROGRAM = "diabetesProgram";  // needs DiabetesProgram bundle, used by CES
+        public static final String EPILEPSY_PROGRAM = "epilepsyProgram";  // needs EpilepsyProgramBundle, used by Mexico
         public static final String SOCIO_ECONOMICS= "socioEconomics";
         public static final String LAB_RESULTS = "labResults";
         public static final String OVERVIEW_REPORTS = "overviewReports";
