@@ -75,7 +75,12 @@
                     // clear out any existing error messages
                     jq(this).find('.field-error').first().html('');
 
-                    var medication = (jq(this).find('.medication-name input').val()).trim();
+                    //var medication = (jq(this).find('.medication-name input').val()).trim();
+
+                    // UHM-3781 we need to look for the value set by the automcomplete widget.
+                    // The value should be in the format of Drug:DRUG_ID
+                    var medication = jq(this).find('.medication-name input[type=hidden]').val();
+
                     var dose = jq(this).find('.dose input').val();
                     var doseUnits = jq(this).find('.dose-unit select').val();
                     var frequency = jq(this).find('.frequency select').val();
