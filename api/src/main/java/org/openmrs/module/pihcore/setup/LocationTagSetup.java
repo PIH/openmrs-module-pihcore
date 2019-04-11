@@ -109,16 +109,14 @@ public class LocationTagSetup {
 
         Field locationField = LiberiaLocations.class.getField(config.getSite().name().toString());
         LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
-        // Enable edTriage, edTriageQueue and edConsult for Kouka -- Harper -- JJ Dossen
-        List<LocationDescriptor> harper = Arrays.asList(LiberiaLocations.HARPER);
 
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION,  Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION,  Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
@@ -131,9 +129,6 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.CHEMOTHERAPY_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ONCOLOGY_CONSULT_LOCATION, null);
@@ -142,10 +137,11 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
 
-        // Enable edTriage, edTriageQueue and edConsult for Kouka -- Harper -- JJ Dossen
-        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, harper);
-        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, harper);
-        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, harper);
+        // Enable edTriage, edTriageQueue and edConsult for Kouka (Harper, JJ Dossen)
+        List<LocationDescriptor> locationsThatGetEdTag = location.equals(LiberiaLocations.HARPER) ? Arrays.asList(location) : null;
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, locationsThatGetEdTag);
+        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, locationsThatGetEdTag);
+        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, locationsThatGetEdTag);
     }
 
 
