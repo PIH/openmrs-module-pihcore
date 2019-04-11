@@ -6,9 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Requires({
+        AsthmaProgramBundle.class,
         DiabetesProgramBundle.class,
+        EpilepsyProgramBundle.class,
         HypertensionProgramBundle.class,
-        HIVProgramBundle.class,
+        HIVProgramBundle.class,  // requires Haiti HIV MDS package
         MentalHealthProgramBundle.class,
         MCHProgramBundle.class,
         NCDProgramBundle.class,
