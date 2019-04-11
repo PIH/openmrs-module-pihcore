@@ -109,6 +109,8 @@ public class LocationTagSetup {
 
         Field locationField = LiberiaLocations.class.getField(config.getSite().name().toString());
         LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
+        // Enable edTriage, edTriageQueue and edConsult for Kouka -- Harper -- JJ Dossen
+        List<LocationDescriptor> harper = Arrays.asList(LiberiaLocations.HARPER);
 
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
@@ -139,6 +141,11 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.ORDER_RADIOLOGY_STUDY_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
+
+        // Enable edTriage, edTriageQueue and edConsult for Kouka -- Harper -- JJ Dossen
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, harper);
+        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, harper);
+        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, harper);
     }
 
 
