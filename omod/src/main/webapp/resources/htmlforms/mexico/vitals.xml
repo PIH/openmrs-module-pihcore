@@ -76,74 +76,7 @@
 
     </ifMode>
 
-
-
-
-    <!-- only show/handle the English conversion fields if we are in 'ENTER' or 'EDIT' mode -->
-    <ifMode mode="VIEW" include="false">
-        <script type="text/javascript">
-
-            // fahrenheit to celcius converter
-
-            var fahrenheitExitHandler = {
-                handleExit: function (fieldValue) {
-                    if (fieldValue &amp;&amp; fieldValue.value()) {
-                        setValue('temperature_c.value', convertFahrenheitToCelcius(fieldValue.value()));
-                        jq('#temperature_f').val('');
-                    }
-                    return true;
-                }
-            }
-
-            ExitHandlers['fahrenheit'] = fahrenheitExitHandler;
-
-            var convertFahrenheitToCelcius = function(tempFahrenheit) {
-                return ((tempFahrenheit - 32) * 5 / 9).toFixed(1);
-            }
-
-            // lbs to kg converter
-
-            var lbsExitHandler = {
-                handleExit: function (fieldValue) {
-                    if (fieldValue &amp;&amp; fieldValue.value()) {
-                        setValue('weight_kg.value', convertLbsToKg(fieldValue.value()));
-                        getField('weight_kg.value').change() // trigger change event so BMI is updated
-                        jq('#weight_lbs').val('');
-                    }
-                    return true;
-                }
-            }
-
-            ExitHandlers['lbs'] = lbsExitHandler;
-
-            var convertLbsToKg = function(weightLbs) {
-                return (weightLbs / 2.2).toFixed(1);
-            }
-
-
-            // inches to cm converter
-
-            var inchesExitHandler = {
-                handleExit: function (fieldValue) {
-                    if (fieldValue &amp;&amp; fieldValue.value()) {
-                        setValue('height_cm.value', convertInchesToCm(fieldValue.value()));
-                        getField('height_cm.value').change()
-                        jq('#height_inches').val('');
-                    }
-                    return true;
-                }
-            }
-
-            ExitHandlers['inches'] = inchesExitHandler;
-
-            var convertInchesToCm = function(heightInches) {
-                return (heightInches * 2.54).toFixed(1);
-            }
-
-        </script>
-    </ifMode>
-
-    <!-- only show BMI if patient is more than 5 years old (on the encounterDate) -->
+    <!-- calculate BMI -->
     <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 5">
 
         <script type="text/javascript">
@@ -228,162 +161,6 @@
 
     </includeIf>
 
-    <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
-    <includeIf velocityTest="13 > $patient.getAge($encounter.getEncounterDatetime())">
-
-        <script type="text/javascript">
-            var convertCmToMm = function(muacCm) {
-                return (muacCm * 10);
-            }
-
-            var convertMmToCm = function(muacMm) {
-                return (muacMm / 10);
-            }
-        </script>
-
-
-        <ifMode mode="VIEW" include="false">
-            <script type="text/javascript">
-
-                // cm to mm ExitHandler when in edit mode
-
-                var cmExitHandler = {
-                    handleExit: function (fieldValue) {
-                        if (fieldValue &amp;&amp; fieldValue.value()) {
-                            setValue('muac_mm.value', convertCmToMm(fieldValue.value()));
-                            getField('muac_mm.value').change() // trigger change event so ratio is updated
-                        }
-                        return true;
-                    }
-                }
-
-                var mmExitHandler = {
-                    handleExit: function (fieldValue) {
-                        console.log('mm');
-                         if (fieldValue &amp;&amp; fieldValue.value()) {
-                            jq('#muac_cm').val(convertMmToCm(fieldValue.value()));
-                        }
-                        return true;
-                    }
-                }
-
-                ExitHandlers['mm'] = mmExitHandler;
-                ExitHandlers['cm'] = cmExitHandler;
-
-                // set cm field when reloading
-                jq(function() {
-                    var muac_mm = getValue('muac_mm.value');
-                    if (muac_mm) {
-                        jq('#muac_cm').val(convertMmToCm(muac_mm));
-                    }
-                });
-
-            </script>
-        </ifMode>
-
-        <!-- Convert muac to cm units on the view/dashboard -->
-        <ifMode mode="VIEW">
-            <script type="text/javascript">
-
-                // handle displaying the muac when in VIEW mode
-                jq(function() {
-
-                    // we have to iterate through in case there are multiple vitals forms
-                    // displayed on a single page
-
-                    jq('htmlform').each(function(index, form) {
-
-                        // display muac in cm, not mm
-                        jq(form).find('#muac_mm').hide();
-                        var muacMm = jq(form).find('#muac_mm').find('.value').text();
-                        var muac = convertMmToCm(muacMm);
-
-                        if (muac != null &amp;&amp; !isNaN(muac)) {
-                            jq(form).find('#muac_cm_display').text(muac);
-                       }
-                    });
-
-                });
-
-            </script>
-        </ifMode>
-    </includeIf>
-
-    <!-- only show muac to head ratio if patient is less than 3 years old (on the encounterDate) -->
-    <includeIf velocityTest="3 > $patient.getAge($encounter.getEncounterDatetime())">
-        <script type="text/javascript">
-            var calculateRatio = function(muac, hc) {
-                var ratio = null
-                if (muac &amp;&amp; hc) {
-                    ratio = (muac / 10) / hc;
-                }
-                return ratio ;
-            }
-        </script>
-
-        <ifMode mode="VIEW" include="false" >
-            <script type="text/javascript">
-
-                // functions to handle updating the muac/hc ratio when in ENTER mode
-                var updateRatio = function() {
-                    var muac = htmlForm.getValueIfLegal('muac_mm.value');
-                    var hc = htmlForm.getValueIfLegal('head_cm.value');
-
-                    var ratio = calculateRatio(muac, hc);
-
-                    if (ratio == null || isNaN(ratio)) {
-                        jq('#calculated-ratio-wrapper').hide();
-                    } else {
-                        jq('#no-calculated-ratio').hide();
-                        jq('#calculated-ratio-wrapper').show();
-                        jq('#calculated-ratio').html(ratio.toFixed(1));
-                        jq('#hidden-calculated-ratio').val(ratio.toFixed(1));
-                    }
-                };
-
-                jq(function() {
-                    jq('#calculated-ratio-wrapper').hide();
-
-                    getField('muac_mm.value').change(updateRatio)
-                    getField('head_cm.value').change(updateRatio);
-
-                    updateRatio();
-                });
-            </script>
-        </ifMode>
-
-        <ifMode mode="VIEW" >
-            <script type="text/javascript">
-
-                // handle displaying the muac/hc ratio when in VIEW mode
-                jq(function() {
-
-                    // we have to iterate through in case there are multiple vitals forms
-                    // displayed on a single page
-
-                    jq('htmlform').each(function(index, form) {
-                        jq(form).find('#calculated-ratio-continue').hide();
-                        jq(form).find('#no-calculated-ratio').hide();
-                        jq(form).find('#calculated-ratio-label').hide();
-
-                        var muac = jq(form).find('#muac_mm').find('.value').text();
-                        var hc = jq(form).find('#head_cm').find('.value').text();
-
-                        var ratio = calculateRatio(muac, hc);
-
-                        if (ratio != null &amp;&amp; !isNaN(ratio)) {
-                            jq(form).find('#calculated-ratio-wrapper').show();
-                            jq(form).find('#calculated-ratio-label').hide();
-                            jq(form).find('#calculated-ratio').html(ratio.toFixed(1));
-                            jq(form).find('#hidden-calculated-ratio').val(ratio.toFixed(1));
-                        }
-                    });
-
-                });
-            </script>
-        </ifMode>
-    </includeIf>
-
     <div class="hidden" id="encounter-details" sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
             <legend>When?</legend>
@@ -414,20 +191,6 @@
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
-            <!-- only show/handle the lbs field if we are in 'ENTER' or 'EDIT' mode -->
-            <ifMode mode="VIEW" include="false">
-                <p class='left'>
-                    <span class='obs-field'>
-                        <input type="text" id="height_inches" size="5" min="4" max="89" class="number numeric-range inches"/>
-                        <span class="append-to-value"><uimessage code="emr.units.inches"/></span>
-                        <span class="error field-error" style="display: none"></span>
-                    </span>
-                </p>
-                <p class="left">
-                    <uimessage code="mirebalais.vitals.or"/>
-                </p>
-            </ifMode>
-
             <p class="left">
                 <obs conceptId="PIH:HEIGHT (CM)" id="height_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
             </p>
@@ -437,20 +200,6 @@
         <fieldset field-separator=" ">
             <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
-
-            <!-- only show/handle the lbs field if we are in 'ENTER' or 'EDIT' mode -->
-            <ifMode mode="VIEW" include="false">
-                <p class='left'>
-                    <span class='obs-field'>
-                        <input type="text" id="weight_lbs" size="5" min="0.3" max="550" class="number numeric-range lbs"/>
-                        <span class="append-to-value"><uimessage code="emr.units.lbs"/></span>
-                        <span class="error field-error" style="display: none"></span>
-                    </span>
-                </p>
-                <p class="left">
-                    <uimessage code="mirebalais.vitals.or"/>
-                </p>
-            </ifMode>
 
             <p class="left">
                 <obs conceptId="PIH:WEIGHT (KG)" id="weight_kg" showUnits="emr.units.kilograms" unitsCssClass="append-to-value"/>
@@ -518,20 +267,6 @@
         <fieldset field-separator=" ">
             <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.temperature.title"/></h3>
-
-            <!-- only show/handle the fahrenheit field if we are in 'ENTER' or 'EDIT' mode -->
-            <ifMode mode="VIEW" include="false">
-                <p class='left'>
-                    <span class='obs-field'>
-                        <input type="text" id="temperature_f" size="5" min="77.0" max="109" class="number numeric-range fahrenheit"/>
-                        <span class="append-to-value"><uimessage code="emr.units.degreesFahrenheit"/></span>
-                        <span class="error field-error" style="display: none"></span>
-                    </span>
-                </p>
-                <p class="left">
-                    <uimessage code="mirebalais.vitals.or"/>
-                </p>
-            </ifMode>
 
             <p class="left">
                 <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius" unitsCssClass="append-to-value"/>

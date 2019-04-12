@@ -122,11 +122,11 @@
         </p>
     </div>
 
-    <!-- Chief Complaint -->
-    <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.chiefComplaint.title">
+    <!-- Subjective -->
+    <section id="subjective" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.subjective.title">
         <div class="section-container">
             <p>
-                <obs conceptId="CIEL:160531" style="textarea" id="chief-complaint"/>
+                <obs conceptId="CIEL:1390" style="textarea" id="presenting-history"/>
             </p>
         </div>
     </section>
