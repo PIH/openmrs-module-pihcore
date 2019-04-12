@@ -73,7 +73,6 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-//          editUrl: "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var pedsFoodAndSupplements = {
@@ -84,9 +83,12 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/sections/pedsSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
+            require: "patientAgeInYearsOnDate(visit.startDatetime) < 15"
         };
 
+        // ToDo: Remove this section.  It was combined with supplements
+        /*
         var feeding = {
             type: "encounter-section",
             id: "pihcore-feeding",
@@ -108,12 +110,13 @@ angular.module("encounterTypeConfig", ["constants"])
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds-supplements.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
+        */
 
         var primaryCareDx = {
             type: "encounter-section",
             id: "pihcore-diagnosis",
             label: "pihcore.diagnosis.label",
-            icon: "icon-list-ul",
+            icon: "icon-diagnosis",
             shortTemplate: "templates/sections/dxSectionShort.page",
             longTemplate: "templates/sections/dxLong.page",
             //templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-dx.xml",
@@ -134,6 +137,18 @@ angular.module("encounterTypeConfig", ["constants"])
 
         };
 
+        var ncd = {
+            type: "encounter-section",
+            id: "pihcore-ncd",
+            label: "pihcore.visitNote.ncdInitial",
+            icon: "icon-heart-empty",
+            shortTemplate: "templates/sections/defaultSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        }
+
+        // ToDo: ncdInitial and ncdFollowup are the same and replaced by ncd
         var ncdInitial = {
             type: "encounter-section",
             id: "pihcore-ncd",
@@ -144,7 +159,6 @@ angular.module("encounterTypeConfig", ["constants"])
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
-
         var ncdFollowup = {
             type: "encounter-section",
             id: "pihcore-ncd",
@@ -330,13 +344,9 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                //chiefComplaint, moved to primaryCareHistory
                 primaryCareHistory,
                 pedsVaccinations,
                 pedsFoodAndSupplements,
-                //allergies,
-                //supplements,
-                //feeding,
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan
@@ -354,9 +364,6 @@ angular.module("encounterTypeConfig", ["constants"])
                 chiefComplaint,
                 pedsVaccinations,
                 pedsFoodAndSupplements,
-                //supplements,
-                //feeding,
-                //allergies,
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan
@@ -371,9 +378,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                //chiefComplaint, moved to primaryCareHistory
                 primaryCareHistory,
-                //allergies,
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan
@@ -389,7 +394,6 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 chiefComplaint,
-                //allergies,
                 primaryCareExam,
                 primaryCareDx,
                 primaryCarePlan
@@ -399,7 +403,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.ncdInitialConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
             icon: "icon-heart",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
@@ -407,8 +411,9 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareHistory,
                 primaryCareExam,
                 pedsVaccinations,
+                pedsFoodAndSupplements,
+                ncd,
                 primaryCareDx,
-                ncdInitial,
                 primaryCarePlan
             ]
         }
@@ -416,15 +421,15 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.ncdFollowupConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
             icon: "icon-heart",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
                 primaryCareExam,
                 pedsVaccinations,
+                ncd,
                 primaryCareDx,
-                ncdFollowup,
                 primaryCarePlan
             ]
         };
