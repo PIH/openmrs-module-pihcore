@@ -6,6 +6,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.program.AsthmaProgramBundle
 import org.openmrs.module.pihcore.deploy.bundle.core.program.DiabetesProgramBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.program.EpilepsyProgramBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.program.HypertensionProgramBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.program.MCHProgramBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.program.MentalHealthProgramBundle;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,8 @@ import org.springframework.stereotype.Component;
         DiabetesProgramBundle.class,
         EpilepsyProgramBundle.class,
         HypertensionProgramBundle.class,
-        MentalHealthProgramBundle.class
+        MentalHealthProgramBundle.class,
+        MCHProgramBundle.class
 })
 public class MexicoMetadataToInstallAfterConceptsBundle extends AbstractMetadataBundle {
     @Override
