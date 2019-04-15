@@ -47,16 +47,17 @@ public class PihCoreConstants {
     public static final String RELATIONSHIP_CLINICIAN = "2fa6fcea-aa58-11e8-98d0-529269fb1459";
 
     // uuids of concepts associated with programs
-    public static final String ASTHMA_PROGRAM_CONCEPT_UUID = "880ee6e8-1685-41e4-9055-ba066c2cecb7";  // 6768
+    // Concept 11505 is the default outcomes set. Comes from the MDS package "HUM NCD".
+    public static final String ASTHMA_PROGRAM_CONCEPT_UUID = "880ee6e8-1685-41e4-9055-ba066c2cecb7";  // 6768, HUM NCD
     public static final String ASTHMA_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
-    public static final String DIABETES_PROGRAM_CONCEPT_UUID = "db80904c-d893-42ea-9b56-9c4cdf77b2fd";  // 6748
+    public static final String DIABETES_PROGRAM_CONCEPT_UUID = "db80904c-d893-42ea-9b56-9c4cdf77b2fd";  // 6748, HUM NCD
     public static final String DIABETES_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
-    public static final String EPILEPSY_PROGRAM_CONCEPT_UUID = "c1d7cd24-3d0d-4aab-ae72-5db1ec632816";  // 6851
+    public static final String EPILEPSY_PROGRAM_CONCEPT_UUID = "c1d7cd24-3d0d-4aab-ae72-5db1ec632816";  // 6851, HUM NCD
     public static final String EPILEPSY_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
-    public static final String HYPERTENSION_PROGRAM_CONCEPT_UUID = "74b896da-9583-4f5e-88c9-7f76c71e84b3";  // 6846
+    public static final String HYPERTENSION_PROGRAM_CONCEPT_UUID = "74b896da-9583-4f5e-88c9-7f76c71e84b3";  // 6846, HUM NCD
     public static final String HYPERTENSION_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
     public static final String HIV_PROGRAM_CONCEPT_UUID = "3cdb4962-26fe-102b-80cb-0017a47871b2";
@@ -65,17 +66,20 @@ public class PihCoreConstants {
     public static final String HIV_PROGRAM_TRANSITION_UUID = "f3ebbcac-b614-4e65-becc-816079552cf5";
     public static final String HIV_PROGRAM_ON_ART_UUID = "3cdc0a8c-26fe-102b-80cb-0017a47871b2";
 
-    public static final String MCH_PROGRAM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";  // 10347
-    public static final String MCH_PROGRAM_OUTCOME_CONCEPT_UUID = "cd4e30b1-9935-4b30-9de8-b56e057c541d";  // 11728
+    public static final String MALNUTRITION_PROGRAM_CONCEPT_UUID = "3ce1e560-26fe-102b-80cb-0017a47871b2";  // 2234, HUM NCD
+    public static final String MALNUTRITION_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
+
+    public static final String MCH_PROGRAM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";  // 10347, Haiti HIV, HUM Clinical Concepts, PIH Maternal Child Health, Liberia Concepts
+    public static final String MCH_PROGRAM_OUTCOME_CONCEPT_UUID = "cd4e30b1-9935-4b30-9de8-b56e057c541d";  // 11728, PIH Maternal Child Health
     public static final String GROUP_CARE_UUID = "f58e875f-de07-4cfd-8fc7-3e70b7390ecc";
     public static final String PEDS_GROUP_CARE_UUID = "d087f783-de30-4aea-8a4d-50ec72ed656a";
     public static final String INDIVIDUAL_CARE_UUID = "d16fc2d4-e736-4372-8cbf-99542e5dac5e";
     public static final String TREATMENT_CARE_UUID = "f49129b7-274f-44b7-b491-1c54376b28ba";
 
-    public static final String MENTAL_HEALTH_PROGRAM_CONCEPT_UUID = "d3368ded-6d96-4bfc-b590-cb663b7ec70b";  // 11574
+    public static final String MENTAL_HEALTH_PROGRAM_CONCEPT_UUID = "d3368ded-6d96-4bfc-b590-cb663b7ec70b";  // 11574, PIH Mental Health
     public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
-    public static final String NCD_PROGRAM_CONCEPT_UUID = "099d3ba9-b302-4565-a060-09915f3c85b5";
+    public static final String NCD_PROGRAM_CONCEPT_UUID = "099d3ba9-b302-4565-a060-09915f3c85b5";  // HUM NCD
     public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
     public static final String NCD_PROGRAM_STATUS_UUID = "83a258b8-3294-4746-acb6-f045cccd37e8";
     public static final String PROGRAM_STABLE_STATE_UUID = "df3e1542-035a-404f-84d6-8cb9b4266551";

@@ -11,8 +11,9 @@ import org.springframework.stereotype.Component;
         EpilepsyProgramBundle.class,
         HypertensionProgramBundle.class,
         HIVProgramBundle.class,  // requires Haiti HIV MDS package
+        MalnutritionProgramBundle.class,
         MentalHealthProgramBundle.class,
-        MCHProgramBundle.class,
+        MCHProgramBundle.class,  // requires PIH Maternal Child Health MDS package
         NCDProgramBundle.class,
         OncologyProgramBundle.class,
         ZikaProgramBundle.class
