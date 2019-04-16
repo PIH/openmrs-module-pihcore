@@ -12,4 +12,11 @@ public class MexicoPatientIdentifierTypes {
         public Class<? extends IdentifierValidator> validator() { return null; }
     };
 
+    public static PatientIdentifierTypeDescriptor CURP = new PatientIdentifierTypeDescriptor() {
+        public String uuid() { return "c1fe3790-915a-4f03-861f-5e477f36cec0"; }
+        public String name() { return "Mexican National ID"; }
+        public String description() { return "A unique identifier given to every Mexican citizen by the government of Mexico." ; }
+        public Class<? extends IdentifierValidator> validator() { return null; }
+    };
+
 }

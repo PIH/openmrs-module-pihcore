@@ -10,5 +10,6 @@ public class MexicoPatientIdentifierTypeBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
         install(MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID);
+        install(MexicoPatientIdentifierTypes.CURP);
     }
 }
