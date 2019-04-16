@@ -222,6 +222,9 @@
                     <!-- answerCodes="pihcore.mch.gbv" -->
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:165088"
                          style="checkbox"/>
+                    <!-- Syphilis -->
+                    <obs conceptId="CIEL:160079" answerConceptId="CIEL:112493"
+                         style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="PIH:OTHER"
                          commentFieldLabel="  " style="checkbox"/>
 
