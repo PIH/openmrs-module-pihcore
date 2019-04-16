@@ -46,11 +46,11 @@ public class MCHProgramZL {
     };
 
     public static ProgramDescriptor MCH = new ProgramDescriptor() {
-        public String name() { return "MCH"; }
-        public String description() { return "Maternal and Child Health Program"; }
-        public String conceptUuid() { return MCH_PROGRAM_CONCEPT_UUID; }   // this concept is installed via metadata package
-        @Override public String outcomesConceptUuid()  { return MCH_PROGRAM_OUTCOME_CONCEPT_UUID; }   // this concept is installed via metadata package
-        public String uuid() { return "41a2715e-8a14-11e8-9a94-a6cf71072f73"; }
+        public String name() { return MCHProgram.MCH.name(); }
+        public String description() { return MCHProgram.MCH.description(); }
+        public String conceptUuid() { return MCHProgram.MCH.conceptUuid(); }   // this concept is installed via metadata package
+        @Override public String outcomesConceptUuid()  { return MCHProgram.MCH.outcomesConceptUuid(); }   // this concept is installed via metadata package
+        public String uuid() { return MCHProgram.MCH.uuid(); }
         @Override public Set<ProgramWorkflowDescriptor> workflows() { return new HashSet<ProgramWorkflowDescriptor>(Arrays.asList(TREATMENT_CARE_WORKFLOW)); }
     };
 
