@@ -294,7 +294,7 @@
                 <pastMedicalHistoryCheckbox concept="PIH:EPILEPSY"/>
                 <pastMedicalHistoryCheckbox concept="CIEL: 117635" comment="Hemoglobinopathy" specify="true" class="medicalHistoryText patientHistory"/>
 
-                <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="HTA"/>
+                <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION"/>
                 <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="STI/IST" specify="true" class="medicalHistoryText patientHistory"/>
                 <!-- TODO explicit options for common STIs -->
                 <pastMedicalHistoryCheckbox concept="CIEL:143849" comment="Congenital malformations" specify="true" class="medicalHistoryText patientHistory"/>
