@@ -123,10 +123,15 @@
     </div>
 
     <!-- Subjective -->
-    <section id="subjective" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.subjective.title">
+    <ifMode mode="VIEW" include="false">
+        <h1>
+            <uimessage code="pihcore.subjective.title"/>
+        </h1>
+    </ifMode>
+    <section id="subjective" sectionTag="fieldset" headerTag="legend" headerStyle="title">
         <div class="section-container">
             <p>
-                <obs conceptId="CIEL:1390" style="textarea" id="presenting-history"/>
+                <obs conceptId="CIEL:1390" style="textarea" rows="6" id="presenting-history"/>
             </p>
         </div>
     </section>
@@ -436,7 +441,7 @@
         </h1>
     </ifMode>
 
-    <section id="analysis" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.visitNote.diagnoses">
+    <section id="analysis" sectionTag="fieldset" headerTag="legend" headerStyle="title">
         <div class="section-container">
             <div id="data-collection">
                 <encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
