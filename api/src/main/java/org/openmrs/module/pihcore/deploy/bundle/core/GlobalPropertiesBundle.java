@@ -87,6 +87,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
 
         // EMR-API
         properties.put(EmrApiConstants.GP_USE_LEGACY_DIAGNOSIS_SERVICE, "true");
+        properties.put(EmrApiConstants.GP_VISIT_ASSIGNMENT_HANDLER_ADJUST_ENCOUNTER_TIME_OF_DAY_IF_NECESSARY, "true");
 
         // EMR
         properties.put(EmrConstants.PAYMENT_AMOUNT_CONCEPT, Concepts.PAYMENT_AMOUNT);
