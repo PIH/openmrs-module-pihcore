@@ -224,7 +224,7 @@
                         <render point="PIH:ANTENATAL CLINIC" message="pihcore.location.maternal" comment="Womens Health clinic"/>
                         <render point="PIH:PRIMARY CARE CLINIC" message="pihcore.location.primary" comment="Primary care"/>
                         <render point="CIEL:163558" message="pihcore.location.mentalHealth" comment="Mental health clinic"/>
-                        <render point="CIEL:160449" message="pihcore.location.surgery" comment="Surgery dept"/>
+                        <render point="CIEL:160449" message="pihcore.testLocation.surgery" comment="Surgery dept"/>
                         <render point="CIEL:160448" message="pihcore.location.intMed" comment="Internal medicine"/>
                         <render point="CIEL:165048" message="pihcore.testLocation.pedWard" comment="Pediatrics"/>
                     </repeat>
@@ -261,20 +261,24 @@
              headerCode="zl.consultNote.familyHistory.title">
         <div class="section-container">
             <!-- ANTECEDENTS HEREDO-COLLATERAUX -->
-            <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
             <familyHistoryRelativeCheckboxes concept="CIEL:117635" comment="Hémoglobinopathie"
-                                             relatives="PIH:FATHER,PIH:MOTHER"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER"/>
+                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
             <br/>
-            <familyHistoryRelativeCheckboxes id="familyCancer" class="medicalHistoryText famHistory" concept="CIEL:116031" label="Cancer" relatives="PIH:FATHER,PIH:MOTHER"
+            <familyHistoryRelativeCheckboxes id="familyCancer" class="medicalHistoryText famHistory"
+                                             concept="CIEL:116031" label="Cancer"
+                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"
                                              specify="true"/>
 
             <br/>
-            <familyHistoryRelativeCheckboxes id="familyOther" class="medicalHistoryText famHistory" concept="PIH:OTHER" code="pihcore.other" relatives="PIH:FATHER,PIH:MOTHER"
+            <familyHistoryRelativeCheckboxes id="familyOther" class="medicalHistoryText famHistory"
+                                             concept="PIH:OTHER" code="pihcore.other"
+                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"
                                              specify="true"/>
         </div>
     </section>
