@@ -129,8 +129,7 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
 
         PihRadiologyOrdersMergeActions pihRadiologyOrdersMergeActions = Context.getRegisteredComponent("pihRadiologyOrdersMergeActions", PihRadiologyOrdersMergeActions.class);
         Config config = mock(Config.class);
-        runtimeProperties.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "mirebalais");
-        config = new Config(ConfigLoader.loadFromRuntimeProperties());
+        config = new Config(ConfigLoader.load("mirebalais"));
         pihRadiologyOrdersMergeActions.setConfig(config);
 
         Patient preferredPatient = patientService.getPatient(6);
@@ -161,8 +160,7 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
 
         PihRadiologyOrdersMergeActions pihRadiologyOrdersMergeActions = Context.getRegisteredComponent("pihRadiologyOrdersMergeActions", PihRadiologyOrdersMergeActions.class);
         Config config = mock(Config.class);
-        runtimeProperties.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "mirebalais");
-        config = new Config(ConfigLoader.loadFromRuntimeProperties());
+        config = new Config(ConfigLoader.load("mirebalais"));
         pihRadiologyOrdersMergeActions.setConfig(config);
 
         Patient preferredPatient = patientService.getPatient(6);

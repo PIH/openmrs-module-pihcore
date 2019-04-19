@@ -34,13 +34,6 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
     @Autowired
     private PatientService patientService;
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
-        return p;
-    }
-
     @Before
     public void setup() throws Exception {
         executeDataSet("searchTestDataset.xml");

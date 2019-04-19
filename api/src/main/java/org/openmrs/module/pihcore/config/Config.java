@@ -17,9 +17,12 @@ public class Config {
 
     private ConfigDescriptor descriptor;
 
-
     public Config() {
-        descriptor = ConfigLoader.loadFromRuntimeProperties();
+        descriptor = ConfigLoader.loadFromPihConfig();
+    }
+
+    public Config(String configFiles) {
+        descriptor = ConfigLoader.load(configFiles);
     }
 
     public void reload(ConfigDescriptor descriptor) {

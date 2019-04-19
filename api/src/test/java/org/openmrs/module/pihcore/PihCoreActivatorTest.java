@@ -61,13 +61,6 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     @Autowired
     private SchedulerService schedulerService;
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
-        return p;
-    }
-
     @Before
     public void setUp() throws Exception {
         initializeInMemoryDatabase();

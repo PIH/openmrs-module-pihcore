@@ -29,13 +29,6 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
     @Autowired
     private MetadataDeployService metadataDeployService;
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
-        return p;
-    }
-
     @Before
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();

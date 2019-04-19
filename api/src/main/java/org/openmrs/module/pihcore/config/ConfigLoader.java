@@ -20,33 +20,39 @@ import java.util.Iterator;
  */
 public class ConfigLoader {
 
-    public static final String PIH_CONFIGURATION_RUNTIME_PROPERTY = "pih.config";
+    private static final String PIH_CONFIGURATION_GLOBAL_PROPERTY = "pih.config";
 
     // allows users to specify a directory other than the application data directory to look for config files
     // helpful for developers, where you may want to point this to the appropriate directory in your local checkout
     // of our puppet project, ie: /home/mgoodrich/openmrs/modules/mirebalais-puppet/mirebalais-modules/openmrs/files/config
-    public static final String PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY = "pih.config.dir";
+    private static final String PIH_CONFIGURATION_DIR_GLOBAL_PROPERTY = "pih.config.dir";
+
+    private static String getProperty(String key, String defaultValue) {
+        return Context.getAdministrationService().getGlobalProperty(key, defaultValue);
+    }
 
     /**
      * @return the configuration based on runtime properties configuration, or based on default value if not found
      */
-    public static String getRuntimeConfiguration(String defaultValue) {
-        return Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY, defaultValue);
+    public static String getPihConfiguration(String defaultValue) {
+        return getProperty(PIH_CONFIGURATION_GLOBAL_PROPERTY, defaultValue);
     }
 
-    public static String getPihConfigurationDirRuntimeProperty(String defaultValue) {
-        return Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY, defaultValue);
+    private static String getPihConfigurationDirProperty(String defaultValue) {
+        return getProperty(PIH_CONFIGURATION_DIR_GLOBAL_PROPERTY, defaultValue);
     }
 
     /**
      * Loads Configuration based on configuration in the runtime properties file
      */
-    public static ConfigDescriptor loadFromRuntimeProperties() {
-        return load(getRuntimeConfiguration("pihcore"));
+    public static ConfigDescriptor loadFromPihConfig() {
+        return load(getPihConfiguration("pihcore"));
     }
 
     /**
      * Loads Configuration based on a comma-delimited series of configuration files that can override one another
+     *
+     * default: pihcore
      */
     public static ConfigDescriptor load(String configs) {
 
@@ -68,9 +74,9 @@ public class ConfigLoader {
                 try {
                     String configFilename = "pih-config-" + config.trim() + ".json";
 
-                    // first see if is in the .OpenMRS directory (or directory specifed in pih.config.dir runtime property)
+                    // first see if is in the .OpenMRS directory (or directory specifed in property.pih.config.dir runtime property)
                     // (any file found will override any file of the same name on the classpath)
-                    String dir = getPihConfigurationDirRuntimeProperty(OpenmrsUtil.getApplicationDataDirectory());
+                    String dir = getPihConfigurationDirProperty(OpenmrsUtil.getApplicationDataDirectory());
                     File configFile = new File(dir, configFilename);
 
                     if (configFile.exists()) {

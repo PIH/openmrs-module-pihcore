@@ -65,13 +65,6 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
 
     private PihCoreActivator activator;
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
-        return p;
-    }
-
     @Before
     public void setUp() throws Exception {
         initializeInMemoryDatabase();

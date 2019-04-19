@@ -11,14 +11,6 @@ import java.util.Properties;
 
 public class PihProviderIdentifierGeneratorComponentTest extends BaseModuleContextSensitiveTest {
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
-        return p;
-    }
-
-
     @Test
     public void shouldGenerateAppropriateIdentifierForProvider() {
         Provider provider = new Provider();
