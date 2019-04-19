@@ -218,8 +218,8 @@
 
     <section id="ncd_info" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <div class="section-container">
-            <!-- this section is not included if it is a follow-up encounter (encounter type referenced by 5cdfd6...) -->
-            <excludeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+            <!-- this section is ONLY included for NCD intake encounter -->
+            <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
 
                 <!-- Program enrollment
                      possible initial states?  stateIds="PIH:11507,PIH:11508,PIH:11509"-->
@@ -242,8 +242,8 @@
                         <br/>
                     </label>
                     <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
-                         answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
-                         answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
+                         answerConceptIds="PIH:YES,PIH:NO"
+                         answerCodes="yes,no"
                          answerSeparator=""/>
                 </p>
 
@@ -256,7 +256,7 @@
                          answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                          answerSeparator=""/>
                 </p>
-            </excludeIf>
+            </includeIf>
 
             <label>
                 <uimessage code="pihcore.ncd.category"/>
@@ -351,13 +351,15 @@
                     </th>
                 </tr>
 
+                <!-- ToDo: Removed this per Gene Kwan
+                   ['ncd.htn.stage3','CIEL:160778','&gt;180/110','none.label','ncd.htn.orderLabsAndStartDose'],
+                -->
 
                 <repeat with="['ncd.htn.normal','CIEL:1107','&lt;140/90','none.label','contraindicated.label'],
                               ['ncd.htn.elevated','CIEL:140147','&lt;140/90','none.label','ncd.htn.repeatBP'],
                               ['ncd.htn.stage1Low','PIH:11941','140/90&amp;nbsp;- 159/99','none.label','ncd.htn.changeLife'],
                               ['ncd.htn.stage1High','PIH:11942','140/90&amp;nbsp;- 159/99','none.label','ncd.htn.startLowDose'],
-                              ['ncd.htn.stage2','CIEL:160774','160/100&amp;nbsp;- 179/109','none.label','ncd.htn.orderLabsAndStartDose'],
-                              ['ncd.htn.stage3','CIEL:160778','&gt;180/110','none.label','ncd.htn.orderLabsAndStartDose'],
+                              ['ncd.htn.stage2','CIEL:160774','&gt;160/100','none.label','ncd.htn.orderLabsAndStartDose'],
                               ['ncd.htn.crisis','CIEL:161644','&gt;180/110','ncd.htnCrisisSymptoms.label','referEmergency']">
                     <tr>
                         <td>
@@ -451,7 +453,6 @@
                     <td>
                     </td>
                 </tr>
-
             </table>
 
             <br/>
@@ -553,7 +554,9 @@
 
                     <br/>
 
-                    <repeat with="['CIEL:134082','Mitral stenosis'],
+                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:134082"
+                         answerCode="pihcore.ncd.mitralStenosisOnly"/>
+                    <repeat with="['PIH:CONGENITAL HEART DISEASE','Congenital heart disease'],
                                   ['PIH:7497','Valve disease'],
                                   ['PIH:4000','isolated right heart failure'],
                                   ['PIH:3071','Hypertensive heart disease'],
@@ -568,10 +571,9 @@
                     <label>
                         <uimessage code="pihcore.ncd.hf.severity"/>
                     </label>
-                    <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 1"/>
-                    <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 2"/>
-                    <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 3"/>
-                    <obs conceptId="PIH:NYHA CLASS" answerConceptId="PIH:NYHA CLASS 4"/>
+                    <obs conceptId="PIH:NYHA CLASS"
+                         answerConceptIds="PIH:NYHA CLASS 1,PIH:NYHA CLASS 2,PIH:NYHA CLASS 3,PIH:NYHA CLASS 4"
+                         style="radio" answerSeparator="" />
                 </p>
                 <p>
                     <label>
