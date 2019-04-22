@@ -67,11 +67,13 @@ public class PihEncounterValidator implements Validator {
 
         // if there's a currently associated visit and it isn't "suitable", remove it from the encounter and call the EmrApi Assignment Handler to re-assign a viist
        if (encounter.getVisit() != null) {
-            if (!adtService.isSuitableVisit(encounter.getVisit(), encounter.getLocation(), encounter.getEncounterDatetime())) {
-
-                encounter.getVisit().getEncounters().remove(encounter);
-                encounter.setVisit(null);
-            }
+           // perhaps a hack, but if visit = null don't run the check (ie don't remove a visit just because it doesn't have a location)
+           if (encounter.getVisit().getLocation() != null) {
+               if (!adtService.isSuitableVisit(encounter.getVisit(), encounter.getLocation(), encounter.getEncounterDatetime())) {
+                   encounter.getVisit().getEncounters().remove(encounter);
+                   encounter.setVisit(null);
+               }
+           }
        }
 
        // use the visit assignment handler to assign a visit to an encounter (we do this here instead of just relying on the wired in EmrApiVisitAssignmentHandler so that it works in the edit case)
