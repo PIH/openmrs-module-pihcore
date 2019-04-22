@@ -281,6 +281,9 @@
     <section id="mh_refer" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.mentalhealth.referral">
 
+        <!-- Program enrollment -->
+        <enrollInProgram programId="Mental Health" />
+
         <div class="section-container">
             <div class="two-columns">
                 <p>
