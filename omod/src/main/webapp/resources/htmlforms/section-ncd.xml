@@ -413,21 +413,6 @@
                     </th>
                 </tr>
 
-                <tr>
-                    <td>
-                        <!-- ToDo: Show Type 2 diabetes which was selected for this observation and not on form now -->
-                        <i>
-                        <lookup complexExpression="#foreach ($dmDiag in $fn.allObs($encounter, 'PIH:Type of diabetes diagnosis'))
-                              #if ($dmDiag.valueCoded == $fn.getConcept('PIH:Type 2 diabetes'))
-                                NOTE: $dmDiag.valueCoded.name previously selected
-                              #end
-                            #end" />
-                        </i>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
-
                 <repeat with="['type1Dm','CIEL:142474'],
                               ['type2DmInsulinDep','CIEL:165207'],
                               ['type2DmNotInsulinDep','CIEL:165208'],
