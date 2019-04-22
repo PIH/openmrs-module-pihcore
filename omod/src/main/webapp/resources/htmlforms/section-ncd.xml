@@ -661,27 +661,27 @@
                         <uimessage code="pihcore.exam.cardiac_exam" />
                     </b>
                 </label>
-                <repeat with="['Hydrochlorothiazide, 25 mg tablet','tablet','ce857097-f7a1-4178-b018-a8067a5710d1'],
-                              ['Amlodipine besylate, 5 mg tablet','tablet','6620289c-cc66-4892-9b2d-ecc40c746945'],
-                              ['Nifedipine, 20 mg extended release tablet','tablet','d7937a60-a75b-42f6-9200-cd0e895606c0'],
-                              ['Lisinopril, 5mg tablet','tablet','d0876723-9087-4ea5-b26d-d46cf914835f'],
-                              ['Lisinopril, 20mg tablet','tablet','4534a926-8dc4-440b-bdf9-f9e96d282a28'],
+                <repeat with="['Amlodipine besylate, 5 mg tablet','tablet','6620289c-cc66-4892-9b2d-ecc40c746945'],
                               ['Captopril, 25 mg tablet','tablet','7134a5ba-2033-4833-a1ac-d256fd005932'],
                               ['Enalapril maleate, 5 mg tablet','tablet','4efe3f48-2656-4178-bfcd-c6d103851084'],
+                              ['Hydrochlorothiazide, 25 mg tablet','tablet','ce857097-f7a1-4178-b018-a8067a5710d1'],
+                              ['Lisinopril, 5mg tablet','tablet','d0876723-9087-4ea5-b26d-d46cf914835f'],
+                              ['Lisinopril, 20mg tablet','tablet','4534a926-8dc4-440b-bdf9-f9e96d282a28'],
+                              ['Nifedipine, 20 mg extended release tablet','tablet','d7937a60-a75b-42f6-9200-cd0e895606c0'],
 
-                              ['Furosemide, 40 mg tablet','tablet','fb5842a2-60ef-4539-b428-f99a1f76c85f'],
-                              ['Carvedilol, 12.5mg, tablet','tablet','d809f82b-7612-4da2-b075-531f586bdd7c'],
-                              ['Metoprolol succinate tartrate, 25 mg extended release tablet','tablet','819b83c0-e218-4ffe-854c-75c941feb948'],
+                              ['Acetylsalicylic acid, 100 mg tablet','tablet','8d5941e8-5f86-4289-a6ba-122320814bd5'],
                               ['Atenolol, 50 mg tablet','tablet','2f8d7a99-d4ec-4ad7-b898-1c953cb332fd'],
-                              ['Propranolol hydrochloride, 40 mg, tablet','tablet','405dfa6c-ebaa-4a51-857f-b4df3788e7dd'],
+                              ['Carvedilol, 12.5mg, tablet','tablet','d809f82b-7612-4da2-b075-531f586bdd7c'],
+                              ['Clopidogrel, 75mg, film coated tablet','tablet','8d7c8333-43f2-4e81-9923-14cdd790dcc3'],
+                              ['Furosemide, 40 mg tablet','tablet','fb5842a2-60ef-4539-b428-f99a1f76c85f'],
                               ['Hydralazine hydrochloride, 25 mg, tablet','tablet','2ff6dfce-cd7e-4a1c-9916-f398c4aaec1f'],
                               ['Isosorbide dinitrate, 20 mg extended release tablet','tablet','95518896-df94-4e7d-b233-cc5af823975a'],
                               ['Methyldopa, 250 mg film coated tablet','tablet','70123af9-a72a-4f6e-a188-140d905a84be'],
-                              ['Acetylsalicylic acid, 100 mg tablet','tablet','8d5941e8-5f86-4289-a6ba-122320814bd5'],
-                              ['Clopidogrel, 75mg, film coated tablet','tablet','8d7c8333-43f2-4e81-9923-14cdd790dcc3'],
-                              ['Warfarin, 5 mg tablet','tablet','1779f27f-0272-41da-a242-c6851a9aef6d'],
+                              ['Metoprolol succinate tartrate, 25 mg extended release tablet','tablet','819b83c0-e218-4ffe-854c-75c941feb948'],
+                              ['Propranolol hydrochloride, 40 mg, tablet','tablet','405dfa6c-ebaa-4a51-857f-b4df3788e7dd'],
+                              ['Simvastatin, 20mg tablet','tablet','01f14854-8305-4b12-8a52-3e01555fd66e'],
                               ['Spironolactone, 25 mg tablet', 'tablet','82f3e5d8-0701-4948-a511-7d6f932dc9e6'],
-                              ['Simvastatin, 20mg tablet','tablet','01f14854-8305-4b12-8a52-3e01555fd66e']">
+                              ['Warfarin, 5 mg tablet','tablet','1779f27f-0272-41da-a242-c6851a9aef6d']">
                     <obsgroup groupingConceptId="PIH:Prescription construct" >
                         <obs conceptId="PIH:MEDICATION ORDERS" answerDrugId="{2}"
                             answerCode="{0}" style="checkbox"/>
@@ -694,11 +694,11 @@
                         <uimessage code="pihcore.ncd.resp"/>
                     </b>
                 </label>
-                <repeat with="['Salbutamol, 100 microgram/dose','microgram','1420b4b9-ca35-4579-ae96-838f75b9e856'],
-                              ['Ipratropium bromide, 250 microgram/mL solution','microgram','8b6830f5-8807-4be1-9062-37388a737a0c'],
-                              ['Beclomethasone, 50 microgram/dose','microgram','0dfc00d1-394a-4dd4-9a56-8b00513fce21'],
+                <repeat with="['Beclomethasone, 50 microgram/dose','microgram','0dfc00d1-394a-4dd4-9a56-8b00513fce21'],
                               ['Beclomethasone, 250 microgram/dose','microgram','a9d56315-5c8d-4442-83ed-563ef2fa3171'],
-                              ['Montelukast sodium, 10 mg tablet','tablet','85e9b37a-b7b7-4ec9-84dc-c692b7c9187d']">
+                              ['Ipratropium bromide, 250 microgram/mL solution','microgram','8b6830f5-8807-4be1-9062-37388a737a0c'],
+                              ['Montelukast sodium, 10 mg tablet','tablet','85e9b37a-b7b7-4ec9-84dc-c692b7c9187d'],
+                              ['Salbutamol, 100 microgram/dose','microgram','1420b4b9-ca35-4579-ae96-838f75b9e856']">
                     <obsgroup groupingConceptId="PIH:Prescription construct" >
                         <obs conceptId="PIH:MEDICATION ORDERS" answerDrugId="{2}"
                              answerCode="{0}" style="checkbox"/>
@@ -711,11 +711,11 @@
                         <uimessage code="pihcore.endocrine"/>
                     </b>
                 </label>
-                <repeat with="['Metformin hydrochloride, 500 mg tablet','tablet','afd2cd78-4dc6-4e91-ac9f-51b9e094e34a'],
-                              ['Glibenclamide, 5 mg tablet','tablet','5c21704a-6268-4854-845d-55c573bed967'],
+                <repeat with="['Glibenclamide, 5 mg tablet','tablet','5c21704a-6268-4854-845d-55c573bed967'],
                               ['Insuline rapide (regular)','IU','def06cd2-c046-4afc-9a49-475d3481cbcf'],
                               ['Insuline lente (intermédiaire)','IU','568b5484-1f52-424a-a45d-3f1c9e0d92d6'],
                               ['Insuline 70/30 mixte','IU','77077171-df0f-43c8-9a6b-245914fc143b'],
+                              ['Metformin hydrochloride, 500 mg tablet','tablet','afd2cd78-4dc6-4e91-ac9f-51b9e094e34a'],
                               ['Prednisolone, 5 mg tablet','tablet','c63b13b6-210c-4575-ae5e-bbf86b5df747']">
                     <obsgroup groupingConceptId="PIH:Prescription construct" >
                         <obs conceptId="PIH:MEDICATION ORDERS" answerDrugId="{2}"
