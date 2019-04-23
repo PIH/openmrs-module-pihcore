@@ -197,7 +197,10 @@ public abstract class BaseEncounterDataSetManager {
 		for (AddressHierarchyLevel level : levels) {
 			String addressProperty = level.getAddressField().getName();
 			if (!"country".equals(addressProperty)) {
-				String columnName = MessageUtil.translate(nameMappings.get(addressProperty), Locale.ENGLISH).toLowerCase().replace(" ", "_");
+				String addressPropertyTranslated = MessageUtil.translate(nameMappings.get(addressProperty), Locale.ENGLISH);
+				String columnName = addressPropertyTranslated != null ?
+						addressPropertyTranslated.toLowerCase().replace(" ", "_") :
+						addressProperty.toLowerCase().replace(" ", "_");
 				addColumn(dsd, columnName, pihPersonData.getPreferredAddress(), converters.getAddressComponent(addressProperty));
 			}
 		}
