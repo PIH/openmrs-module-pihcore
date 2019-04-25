@@ -14,7 +14,6 @@ import java.util.Map;
 
 @Component
 @Requires({ PihCoreMetadataBundle.class,
-            MexicoAddressBundle.class,
             MexicoLocationsBundle.class,
             MexicoPatientIdentifierTypeBundle.class} )
 public class MexicoMetadataBundle extends AbstractMetadataBundle {
