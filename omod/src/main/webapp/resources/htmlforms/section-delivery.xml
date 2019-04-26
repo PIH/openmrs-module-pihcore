@@ -135,6 +135,53 @@
         <script type="text/javascript">
             jq(document).ready(function() {
 
+            // get timestamp of obs.valueDateTime
+            var lastLMP = '<lookup expression="fn.latestObs('CIEL:1427').getValueDatetime().getTime()"/>';
+            // console.log("lastLMP: " + lastLMP);
+            var currentEncounterDate = '<lookup expression="encounter.getEncounterDatetime().getTime()"/>';
+            if (typeof lastLMP !== "undefined" &amp;&amp; lastLMP !== null &amp;&amp; (lastLMP.length > 0)) {
+
+                var lastLMPDate = new Date(+lastLMP);
+
+                if ( (Object.prototype.toString.call(lastLMPDate) === "[object Date]") &amp;&amp; !isNaN(lastLMPDate.getTime())) {
+                    var today = new Date();
+                    if (typeof currentEncounterDate !== "undefined" &amp;&amp; currentEncounterDate !== null &amp;&amp; (currentEncounterDate.length > 0)) {
+                        // calculate the gestational age at the time of the encounter
+                        today = new Date(+currentEncounterDate);
+                    }
+
+                    var years = today.getFullYear() - lastLMPDate.getFullYear();  // Start with difference in calendar year
+                    var months = today.getMonth() - lastLMPDate.getMonth(); // Add or subtract the months apart
+                    var dayDiff = today.getDate() - lastLMPDate.getDate(); // Subtract a month if the day of the month is earlier
+                    var monthsBetween = years*12 + months - (dayDiff >= 0 ? 0 : 1);
+
+                    if (monthsBetween >= 1 &amp;&amp;  monthsBetween &lt;= 9) {
+                        // patient is pregnant
+
+                        // time difference
+                        var timeDiff = Math.abs(today.getTime() - lastLMPDate.getTime());
+                        // weeks difference = gestational age
+                        var diffWeeks = Math.ceil(timeDiff / (1000 * 3600 * 24 * 7));
+
+                        var estimatedDeliveryDate = new Date(+lastLMP);
+                        // Estimated Delivery Date = (LMP - 3 months) + 12 months + 7 days
+                        estimatedDeliveryDate.setMonth(estimatedDeliveryDate.getMonth() - 3);
+                        estimatedDeliveryDate.setFullYear(estimatedDeliveryDate.getFullYear() + 1);
+                        estimatedDeliveryDate.setDate(estimatedDeliveryDate.getDate() + 7);
+
+                        var widgetDate = getField('lastPeriodDate.value').datepicker('setDate', estimatedDeliveryDate).val();
+                        getField('lastPeriodDate.value').datepicker('setDate', null);
+
+                        jq('#calculated-edd-and-gestational').show();
+                        jq('#calculated-edd').text(widgetDate);
+                        jq('#calculated-gestational-age-value').text(diffWeeks + " " + '<uimessage code="pihcore.weeks"/>');
+                    }
+
+              }
+            } else {
+              jq('#calculated-edd-and-gestational').hide();
+            }
+
                 // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
                 jq('#next').click(function() {
                     window.htmlForm.getBeforeSubmit().push(function () {
@@ -143,7 +190,7 @@
                     });
 
                     window.htmlForm.submitHtmlForm();
-                })
+                });
 
                 jq('#submit').click(function() {
                     window.htmlForm.submitHtmlForm();
@@ -167,6 +214,29 @@
                         </span>
                     </p>
 
+                    <div id="calculated-edd-and-gestational" class="hidden">
+                        <p>
+                            <span id="calculated-edd-wrapper">
+                                <span id="calculated-edd-label">
+                                    <uimessage code="pihcore.calculatedEstimatedDeliveryDate"/>:&#160;
+                                </span>
+                                <span id='calculated-edd' class="value">
+                                    <lookup expression="fn.latestObs('CIEL:1427').valueDatetime"/>
+                                </span>
+                                <span class="small hidden">
+                                    <obs id="lastPeriodDate" conceptId="CIEL:1427" allowFutureDates="false"/>
+                                </span>
+                            </span>
+                        </p>
+                        <p>
+                            <span id="calculated-gestational-age-wrapper">
+                                <span id="calculated-gestational-age-label">
+                                    <uimessage code="pihcore.calculatedGestationalAge"/>:&#160;
+                                </span>
+                                <span id='calculated-gestational-age-value' class="value"></span>
+                            </span>
+                        </p>
+                    </div>
                     <!-- Mental Health -->
                     <p>
                         <label>

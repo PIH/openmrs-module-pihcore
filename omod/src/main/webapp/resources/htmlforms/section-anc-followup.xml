@@ -125,21 +125,29 @@
             jq(document).ready(function() {
                 // get timestamp of obs.valueDateTime
                 var lastLMP = '<lookup expression="fn.latestObs('CIEL:1427').getValueDatetime().getTime()"/>';
+                // console.log("lastLMP: " + lastLMP);
+
+                var currentEncounterDate = '<lookup expression="encounter.getEncounterDatetime().getTime()"/>';
+                // console.log("currentEncounterDate: " + currentEncounterDate);
 
                 if (typeof lastLMP !== "undefined" &amp;&amp; lastLMP !== null &amp;&amp; (lastLMP.length > 0)) {
 
                     var lastLMPDate = new Date(+lastLMP);
-
+            
                     if ( (Object.prototype.toString.call(lastLMPDate) === "[object Date]") &amp;&amp;
                         !isNaN(lastLMPDate.getTime())) {
                         var today = new Date();
+                        if (typeof currentEncounterDate !== "undefined" &amp;&amp; currentEncounterDate !== null &amp;&amp; (currentEncounterDate.length > 0)) {
+                          // calculate the gestational age at the time of the encounter
+                          today = new Date(+currentEncounterDate);
+                        }
 
                         var years = today.getFullYear() - lastLMPDate.getFullYear();  // Start with difference in calendar year
                         var months = today.getMonth() - lastLMPDate.getMonth(); // Add or subtract the months apart
                         var dayDiff = today.getDate() - lastLMPDate.getDate(); // Subtract a month if the day of the month is earlier
                         var monthsBetween = years*12 + months - (dayDiff >= 0 ? 0 : 1);
 
-                        if (monthsBetween > 1 &amp;&amp;  monthsBetween &lt; 9) {
+                        if (monthsBetween >= 1 &amp;&amp;  monthsBetween &lt;= 9) {
                             // patient is pregnant
 
                             // time difference
