@@ -429,6 +429,13 @@
         </div>
     </section>
 
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.exam.physicalExam.title" >
+        <div class="section-container">
+            <obs conceptId="CIEL:1391" style="textarea" rows="5"/>
+        </div>
+    </section>
+
+
     <!-- Analysis -->
     <ifMode mode="VIEW" include="false">
         <h1>
