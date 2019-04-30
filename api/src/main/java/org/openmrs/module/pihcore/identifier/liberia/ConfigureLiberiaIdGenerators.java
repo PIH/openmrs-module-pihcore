@@ -54,8 +54,8 @@ public class ConfigureLiberiaIdGenerators {
 
     private static Location getIdentifierLocation(Config config) {
         switch (config.getSite()) {
-            case JJ_DOSSEN:
-                return MetadataUtils.existing(Location.class, LiberiaLocations.JJ_DOSSEN.uuid());
+            case HARPER:
+                return MetadataUtils.existing(Location.class, LiberiaLocations.HARPER.uuid());
             case PLEEBO:
             default:
                 return MetadataUtils.existing(Location.class, LiberiaLocations.PLEEBO.uuid());
