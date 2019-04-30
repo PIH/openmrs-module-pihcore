@@ -17,6 +17,13 @@ public class LiberiaLocations {
 
     public static LocationDescriptor HARPER = new LocationDescriptor() {
         public String uuid() { return "6fa7bab5-1ca5-4b77-8c31-80c9589af952"; }
+        public String name() { return "JJ Dossen (Kouka)"; }
+        public String description() { return "JJ Dossen (Kouka)"; }
+        public List<LocationTagDescriptor> tags() { return Collections.emptyList(); }
+    };
+
+    public static LocationDescriptor JJ_DOSSEN = new LocationDescriptor() {
+        public String uuid() { return "06347c45-6a8e-11e9-824c-645d86728797"; }
         public String name() { return "JJ Dossen"; }
         public String description() { return "JJ Dossen"; }
         public List<LocationTagDescriptor> tags() { return Collections.emptyList(); }

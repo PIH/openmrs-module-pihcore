@@ -52,7 +52,7 @@ public class MetadataMappingsSetup {
             metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(LiberiaPatientIdentifierTypes.PLEEBO_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(LiberiaPatientIdentifierTypes.LIBERIA_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);

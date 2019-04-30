@@ -14,5 +14,6 @@ public class LiberiaLocationsBundle extends AbstractMetadataBundle {
     public void install() throws Exception {
         install(LiberiaLocations.PLEEBO);
         install(LiberiaLocations.HARPER);
+        install(LiberiaLocations.JJ_DOSSEN);
     }
 }
