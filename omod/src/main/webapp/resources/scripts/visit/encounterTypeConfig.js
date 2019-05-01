@@ -46,7 +46,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         var ancVaccinations = {
             type: "include-section",
-            id: "ancVaccinations",
+            id: "vaccinations",
             template: "templates/vaccination/vaccinations.page",
             editUrl: "",
             require: "patient.person.gender == 'F'"
