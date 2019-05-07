@@ -401,7 +401,7 @@
         <div id="diabetes" class="section-container">
             <table>
                 <tr>
-                    <th>
+                    <th width="40%">
                         <label>
                             <uimessage code="pihcore.ncd.diabetesType" />
                         </label>
@@ -441,7 +441,9 @@
             </table>
 
             <br/>
-            <div class="two-columns">
+
+            <!-- this section is ONLY included for NCD followup encounter -->
+            <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
                 <p class="radio">
                     <label>
                         <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
@@ -449,14 +451,16 @@
                     <obs conceptId="PIH:Hypoglycemia symptoms" style="radio"
                          answerConceptIds="PIH:YES,PIH:NO"
                          answerCodes="yes,no" answerSeparator=""/>
-
-                    <br/><br/>
-                    <label>
-                        <uimessage code="pihcore.remarks"/>:
-                    </label>
-                    <obs conceptId="PIH:11974" rows="2" />
                 </p>
-            </div>
+            </includeIf>
+
+            <p>
+                <label>
+                    <uimessage code="pihcore.remarks"/>:
+                </label>
+                <obs conceptId="PIH:11974" />
+            </p>
+
         </div>
     </section>
 
