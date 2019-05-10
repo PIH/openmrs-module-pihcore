@@ -20,6 +20,7 @@ import org.openmrs.Visit;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.layout.address.AddressSupport;
+import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
@@ -195,7 +196,10 @@ public abstract class BaseEncounterDataSetManager {
 		Map<String, String> nameMappings = AddressSupport.getInstance().getDefaultLayoutTemplate().getNameMappings();
 		List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
 		for (AddressHierarchyLevel level : levels) {
-			String addressProperty = level.getAddressField().getName();
+			if (level == null) continue;
+			AddressField addressField = level.getAddressField();
+			if (addressField == null) continue;
+			String addressProperty = addressField.getName();
 			if (!"country".equals(addressProperty)) {
 				String addressPropertyTranslated = MessageUtil.translate(nameMappings.get(addressProperty), Locale.ENGLISH);
 				String columnName = addressPropertyTranslated != null ?
