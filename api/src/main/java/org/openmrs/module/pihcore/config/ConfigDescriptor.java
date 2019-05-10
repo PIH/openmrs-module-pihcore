@@ -22,7 +22,8 @@ public class ConfigDescriptor {
     // TODO replace CHIAPAS will the proper site name we'd want to use in Mexico
     public enum Site {
         MIREBALAIS, LACOLLINE, THOMONDE, ZLTRAINING, HINCHE, CERCA_LA_SOURCE, BELLADERE,
-        PLEEBO, HARPER, CHIAPAS, OTHER, CROSS_SITE
+        PLEEBO, HARPER, CHIAPAS, OTHER, CROSS_SITE,
+        JALTENANGO, CAPITAN, HONDURAS, LAGUNA_DEL_COFRE, LETRERO, MATAZANO, MONTERREY, PLAN_DE_LA_LIBERTAD, REFORMA, SALVADOR, SOLEDAD
     }
 
     public enum Specialty {
