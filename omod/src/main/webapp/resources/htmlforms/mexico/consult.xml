@@ -318,12 +318,7 @@
                              answerCode="no" answerSeparator="" />
                     </span>
                 </obsgroup><br/>
-                <style>
-                    label[for="w38"] { font-size: 0; }
-                    label[for="w38"]:before { content: "sí"; font-size: 16px; }
-                    label[for="w40"] { font-size: 0; }
-                    label[for="w40"]:before { content: "no"; font-size: 16px; }
-                </style>
+
                 <script type="text/javascript">
                     jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
                     var that = this;
