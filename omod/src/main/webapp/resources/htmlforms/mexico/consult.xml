@@ -64,11 +64,6 @@
         display: block;
         }
 
-        #calculated-waist-hip-ratio {
-        font-weight: bold;
-        font-size: 1.4em;
-        }
-
         .encounter-summary-container #calculated-ratio {
         font-size: 1em;
         font-weight: normal;
@@ -78,9 +73,9 @@
         min-width: 15%
         }
 
-        .half-size-text {
-        color: #ff6666;
-        font-size: 50%;
+        .small-text {
+        color: #555555;
+        font-size: 80%;
         display: block;
         }
 
@@ -108,8 +103,12 @@
         width: 95%; class="small"
         }
 
-    </style>
+        /* Grey out disabled checkboxes */
+        input[type=checkbox][disabled] {
+        filter: invert(10%);
+        }
 
+    </style>
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>:
             <lookup complexExpression="$form.dateCreated"/>
@@ -120,6 +119,31 @@
         <p><uimessage code="printed_on"/>:
             <lookup complexExpression="$formGeneratedDatetime"/>
         </p>
+    </div>
+
+    <div class="hidden" id="encounter-details"
+         sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+        <fieldset>
+            <legend>When?</legend>
+            <label>When?</label>
+
+            <encounterDate default="now"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Who?</legend>
+            <label>Who?</label>
+
+            <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                      required="true"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Where?</legend>
+            <label>Where?</label>
+
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        </fieldset>
     </div>
 
     <!-- Subjective -->
@@ -145,39 +169,33 @@
 
     <section id="objective" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <div class="section-container">
-            <!-- TODO: Fix this logic -->
-            <!-- Questions to only ask at intake -->
-            <excludeIf velocityTest="$encounter.encounterType.uuid == '8ad0b7d3-2973-40ae-916c-0369f3df86c5'">
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.info.aware"/>
-                        <br/>
-                    </label>
-                    <obs conceptId="PIH:Known chronic disease before referral" style="radio"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                         answerSeparator=""/>
-                </p>
-
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.info.prior_treatment"/>
-                        <br/>
-                    </label>
-                    <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
-                         answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
-                         answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
-                         answerSeparator=""/>
-                </p>
-            </excludeIf>
-
             <label>
                 <uimessage code="pihcore.ncd.category"/>
+            </label>
+            <label class="half-size-text">
                 <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
 
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:ASTHMA" style="checkbox" toggle="asthma" />
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
+            <enrollInProgram id="asthma-enroll" programId="Asthma" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.asthma"/>
+            <br />
+            <enrollInProgram id="malnutrition-enroll" programId="Malnutrition" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.malnutrition"/>
+            <br />
+            <enrollInProgram id="diabetes-enroll" programId="Diabetes" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.diabetes"/>
+            <br />
+            <enrollInProgram id="epilepsy-enroll" programId="Epilepsy" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.epilepsy"/>
+            <br />
+            <enrollInProgram id="htn-enroll" programId="Hypertension" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.htn"/>
+            <br />
+            <enrollInProgram id="mch-enroll" programId="MCH" showCheckbox="true"/>
+            <uimessage code="pihcore.mch"/>
+            <br />
+            <enrollInProgram id="mental-enroll" programId="Mental Health" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.mental"/>
         </div>
     </section>
 
@@ -676,31 +694,6 @@
         </div>
 
     </section>
-
-    <div class="hidden" id="encounter-details"
-         sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
-        <fieldset>
-            <legend>When?</legend>
-            <label>When?</label>
-
-            <encounterDate default="now" showTime="false"/>
-        </fieldset>
-
-        <fieldset>
-            <legend>Who?</legend>
-            <label>Who?</label>
-
-            <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
-                                      required="true"/>
-        </fieldset>
-
-        <fieldset>
-            <legend>Where?</legend>
-            <label>Where?</label>
-
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-        </fieldset>
-    </div>
 
     <br/>
     <ifMode mode="VIEW" include="false">
