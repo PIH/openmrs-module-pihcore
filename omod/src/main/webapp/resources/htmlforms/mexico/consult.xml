@@ -427,46 +427,11 @@
         </div>
     </section>
 
-    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.ncd.plan.title">
-        <div class="section-container">
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.appt"/>
-                </label>
-                <obs conceptId="PIH:Appearance at appointment time" style="radio"
-                     answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
-                     answerCodes="yes,no - late 1-7 days,no - late more than 7 days"
-                     answerSeparator=""/>
-            </p>
-
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.missing_meds"/>
-                </label>
-                <obs conceptId="PIH:10555" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
-                     answerSeparator=""/>
-            </p>
-
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.hospitalized"/>
-                </label>
-                <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no"  answerSeparator=""/>
-            </p>
-        </div>
-    </section>
-
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.exam.physicalExam.title" >
         <div class="section-container">
             <obs conceptId="CIEL:1391" style="textarea" rows="5"/>
         </div>
     </section>
-
 
     <!-- Analysis -->
     <ifMode mode="VIEW" include="false">
