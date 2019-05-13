@@ -44,9 +44,9 @@
         }
 
         .two-columns {
-        column-count: 2;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
+            column-count: 2;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
         }
 
         .three-columns {
@@ -64,11 +64,6 @@
         display: block;
         }
 
-        #calculated-waist-hip-ratio {
-        font-weight: bold;
-        font-size: 1.4em;
-        }
-
         .encounter-summary-container #calculated-ratio {
         font-size: 1em;
         font-weight: normal;
@@ -78,9 +73,9 @@
         min-width: 15%
         }
 
-        .half-size-text {
-        color: #ff6666;
-        font-size: 50%;
+        .small-text {
+        color: #555555;
+        font-size: 80%;
         display: block;
         }
 
@@ -108,8 +103,12 @@
         width: 95%; class="small"
         }
 
-    </style>
+        /* Grey out disabled checkboxes */
+        input[type=checkbox][disabled] {
+        filter: invert(10%);
+        }
 
+    </style>
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>:
             <lookup complexExpression="$form.dateCreated"/>
@@ -120,6 +119,31 @@
         <p><uimessage code="printed_on"/>:
             <lookup complexExpression="$formGeneratedDatetime"/>
         </p>
+    </div>
+
+    <div class="hidden" id="encounter-details"
+         sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
+        <fieldset>
+            <legend>When?</legend>
+            <label>When?</label>
+
+            <encounterDate default="now"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Who?</legend>
+            <label>Who?</label>
+
+            <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
+                                      required="true"/>
+        </fieldset>
+
+        <fieldset>
+            <legend>Where?</legend>
+            <label>Where?</label>
+
+            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+        </fieldset>
     </div>
 
     <!-- Subjective -->
@@ -145,39 +169,33 @@
 
     <section id="objective" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.info">
         <div class="section-container">
-            <!-- TODO: Fix this logic -->
-            <!-- Questions to only ask at intake -->
-            <excludeIf velocityTest="$encounter.encounterType.uuid == '8ad0b7d3-2973-40ae-916c-0369f3df86c5'">
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.info.aware"/>
-                        <br/>
-                    </label>
-                    <obs conceptId="PIH:Known chronic disease before referral" style="radio"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                         answerSeparator=""/>
-                </p>
-
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.info.prior_treatment"/>
-                        <br/>
-                    </label>
-                    <obs conceptId="PIH:Prior treatment for chronic disease" style="radio"
-                         answerConceptIds="PIH:YES,PIH:Known diagnosis,PIH:Unaware of diagnosis"
-                         answerCodes="yes,no - although patient knew about chronic disease,no - patient did not know about chronic disease "
-                         answerSeparator=""/>
-                </p>
-            </excludeIf>
-
             <label>
                 <uimessage code="pihcore.ncd.category"/>
+            </label>
+            <label class="half-size-text">
                 <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
 
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:ASTHMA" style="checkbox" toggle="asthma" />
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox" toggle="diabetes" />
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY" style="checkbox" toggle="epilepsy"/>
+            <enrollInProgram id="asthma-enroll" programId="Asthma" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.asthma"/>
+            <br />
+            <enrollInProgram id="malnutrition-enroll" programId="Malnutrition" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.malnutrition"/>
+            <br />
+            <enrollInProgram id="diabetes-enroll" programId="Diabetes" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.diabetes"/>
+            <br />
+            <enrollInProgram id="epilepsy-enroll" programId="Epilepsy" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.epilepsy"/>
+            <br />
+            <enrollInProgram id="htn-enroll" programId="Hypertension" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.htn"/>
+            <br />
+            <enrollInProgram id="mch-enroll" programId="MCH" showCheckbox="true"/>
+            <uimessage code="pihcore.mch"/>
+            <br />
+            <enrollInProgram id="mental-enroll" programId="Mental Health" showCheckbox="true"/>
+            <uimessage code="pihcore.ncd.mental"/>
         </div>
     </section>
 
@@ -185,97 +203,108 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
         <div id="diabetes" class="section-container">
-        <div class="three-columns">
-            <p>
-                <label><uimessage code="pihcore.lab.glucose"/></label>
-                <span class="small">
-                    <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
-                </span>
-            </p>
-            <p>
-                <label><uimessage code="pihcore.lab.hba1c"/></label>
-                <span class="small">
-                    <obs id="hba1c" conceptId="PIH:HbA1c" showUnits="true"/>
-                </span>
-            </p>
-        </div>
-        <div class="three-columns">
-            <p>
-                <label><uimessage code="pihcore.lab.total_chol"/></label>
-                <span class="small">
-                    <obs id="chol" conceptId="PIH:TOTAL CHOLESTEROL" showUnits="true"/>
-                </span>
-            </p>
-            <p>
-                <label><uimessage code="pihcore.lab.hdl"/></label>
-                <span class="small">
-                    <obs id="ldl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
-                </span>
-            </p>
-            <p>
-                <label><uimessage code="pihcore.lab.ldl"/></label>
-                <span class="small">
-                    <obs id="hdl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
-                </span>
-            </p>
-        </div>
-            <p>
-                <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
-                <span class="small">
-                    <obs id="urinary-albumin" conceptId="PIH:URINARY ALBUMIN" showUnits="true"/>
-                </span>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.vitals.waist_cm"/>
-                    (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
-                </label>
-                <span class="small">
-                    <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
-                </span>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.diabetes.foot_findings"/>
-                </label>
-                <obs conceptId="PIH:FOOT EXAM FINDINGS"
-                     answerConceptIds="PIH:NOT DONE,PIH:NORMAL,PIH:FUNGAL INFECTION,PIH:KERATODERMA,PIH:FOOT ULCER"/>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.hx_alcohol_use"/>
-                </label>
-                <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
-                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"/>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.hx_tobacco_use"/>
-                </label>
-                <obs conceptId="PIH:HISTORY OF TOBACCO USE"
-                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"/>
-            </p>
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
-                </label>
-                <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator=""/>
-            </p>
+            <div class="three-columns">
+                <p>
+                    <label><uimessage code="pihcore.lab.glucose"/></label>
+                    <span class="small">
+                        <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
+                    </span>
+                </p>
+                <p>
+                    <label><uimessage code="pihcore.lab.hba1c"/></label>
+                    <span class="small">
+                        <obs id="hba1c" conceptId="PIH:HbA1c" showUnits="true"/>
+                    </span>
+                </p>
+            </div>
+            <div class="three-columns">
+                <p>
+                    <label><uimessage code="pihcore.lab.total_chol"/></label>
+                    <span class="small">
+                        <obs id="chol" conceptId="PIH:TOTAL CHOLESTEROL" showUnits="true"/>
+                    </span>
+                </p>
+                <p>
+                    <label><uimessage code="pihcore.lab.hdl"/></label>
+                    <span class="small">
+                        <obs id="ldl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
+                    </span>
+                </p>
+                <p>
+                    <label><uimessage code="pihcore.lab.ldl"/></label>
+                    <span class="small">
+                        <obs id="hdl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
+                    </span>
+                </p>
+            </div>
+
+
+                <p>
+                    <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
+                    <span class="small">
+                        <obs id="urinary-albumin" conceptId="PIH:URINARY ALBUMIN" />
+                    </span>
+                </p>
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.vitals.waist_cm"/>
+                        (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
+                    </label>
+                    <span class="small">
+                        <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
+                    </span>
+                </p>
+
+
+            <div class="two-columns">
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.diabetes.foot_findings"/>
+                    </label>
+                    <obs conceptId="PIH:FOOT EXAM FINDINGS"
+                         answerConceptIds="PIH:NOT DONE,PIH:NORMAL,PIH:FUNGAL INFECTION,PIH:KERATODERMA,PIH:FOOT ULCER"
+                         style="radio" answerSeparator=""/>
+                </p>
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+                    </label>
+                    <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                         answerCodes="yes,no" answerSeparator=""/>
+                </p>
+                <br/><br/>
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.hx_alcohol_use"/>
+                    </label>
+                    <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
+                         answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                         style="radio" answerSeparator="" />
+                </p>
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.ncd.hx_tobacco_use"/>
+                    </label>
+                    <obs conceptId="PIH:HISTORY OF TOBACCO USE"
+                         answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                         style="radio" answerSeparator="" />
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- Asthma -->
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
         <div id="asthma" class="section-container">
+            <div class="two-columns">
             <p>
                 <label>
                     <uimessage code="pihcore.ncd.asthma.daytime_symptoms"/>
                 </label>
-                <span class="small">
-                    <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
-                         answerConceptIds="PIH:YES,PIH:NO"/>
-                </span>
+
+                <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     style="radio" answerSeparator="" />
             </p>
             <p class="checkboxRadio">
                 <label>
@@ -283,8 +312,10 @@
                 </label>
                 <obsgroup groupingConceptId="PIH:FUNCTIONAL REVIEW OF SYMPTOMS CONSTRUCT">
                     <span class="two-columns">
-                        <obs conceptId="PIH:SYMPTOM PRESENT" answerConceptId="CIEL:148273" />
-                        <obs conceptId="PIH:SYMPTOM ABSENT" answerConceptId="CIEL:148273" />
+                        <obs conceptId="PIH:SYMPTOM PRESENT" answerConceptId="CIEL:148273"
+                             answerCode="yes" answerSeparator=""/>
+                        <obs conceptId="PIH:SYMPTOM ABSENT" answerConceptId="CIEL:148273"
+                             answerCode="no" answerSeparator="" />
                     </span>
                 </obsgroup><br/>
                 <style>
@@ -308,20 +339,20 @@
                 <label>
                     <uimessage code="pihcore.ncd.asthma.meds_2x_wk"/>
                 </label>
-                <span class="small">
-                    <obs conceptId="PIH:Medications more that twice per week"
-                         answerConceptIds="PIH:YES,PIH:NO"/>
-                </span>
+
+                <obs conceptId="PIH:Medications more that twice per week"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     style="radio" answerSeparator="" />
             </p>
             <p>
                 <label>
                     <uimessage code="pihcore.ncd.asthma.limitation_of_activity"/>
                 </label>
-                <span class="small">
-                    <obs conceptId="PIH:Limitation of ability to perform main daily activities coded"
-                         answerConceptIds="PIH:YES,PIH:NO"/>
-                </span>
+                <obs conceptId="PIH:Limitation of ability to perform main daily activities coded"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     style="radio" answerSeparator=""/>
             </p>
+            </div>
         </div>
     </section>
 
@@ -351,26 +382,29 @@
                     return Math.round(((baseline - current)/baseline) * 100);
                 }
             </script>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.epilepsy.seizure_num_baseline"/>:
-                </label>
-                <span id="epi_baseline_last_obs" class="value">
-                    <lookup expression="fn.latestObs('PIH:Number of seizures in one month before medications').valueNumeric" />
-                </span>
-                (<uimessage code="pihcore.ncd.epilepsy.change_baseline"/>
-                <span class="small">
-                    <obs id="epi_baseline" conceptId="PIH:Number of seizures in one month before medications"/>
-                </span>)
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.epilepsy.seizure_num_1mo"/>
-                </label>
-                <span class="small">
-                    <obs id="seizure_num" conceptId="PIH:Number of seizures in the past month"/>
-                </span>
-            </p>
+
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.epilepsy.seizure_num_baseline"/>:
+                    </label>
+                    <span id="epi_baseline_last_obs" class="value">
+                        <lookup expression="fn.latestObs('PIH:Number of seizures in one month before medications').valueNumeric" />
+                    </span>
+                    (<uimessage code="pihcore.ncd.epilepsy.change_baseline"/>
+                    <span class="small">
+                        <obs id="epi_baseline" conceptId="PIH:Number of seizures in one month before medications"/>
+                    </span>)
+                </p>
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.epilepsy.seizure_num_1mo"/>
+                    </label>
+                    <span class="small">
+                        <obs id="seizure_num" conceptId="PIH:Number of seizures in the past month"/>
+                    </span>
+                </p>
+            </div>
             <p>
                 <span id="seizure_percent_reduction" class="value" />
                 <uimessage code="pihcore.ncd.epilepsy.percent_reduction"/>
@@ -380,23 +414,21 @@
 
     <!-- Mental -->
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.mental">
-        <div id="mental" class="section-container">
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.mental.phq9_score"/>
-                </label>
-                <span class="small">
+        <div id="mental" class="section-container-color">
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.mental.phq9_score"/>
+                    </label>
                     <obs conceptId="CIEL:165137"/>
-                </span>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.mental.gad7_score"/>
-                </label>
-                <span class="small">
+                </p>
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.mental.gad7_score"/>
+                    </label>
                     <obs conceptId="CIEL:165185"/>
-                </span>
-            </p>
+                </p>
+            </div>
         </div>
     </section>
 
@@ -584,71 +616,72 @@
         </div>
     </section>
 
-    <!-- Stolen from the dispensingCIEL:1727 module, but using prescription construct instead of dispensing -->
     <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.visitNote.orders.medications">
+             headerCode="pihcore.visitNote.plan.medication">
         <div class="section-container-color">
             <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
                 <span id="medication-{0}" class="medication">
-                    <obsgroup groupingConceptId="PIH:Prescription construct" showIfEmpty="false">
+                    <obsgroup groupingConceptId="PIH:9070" showIfEmpty="false">
                         <h3>
-                            <uimessage code="pihcore.visitNote.plan.medication"/>
+                            <uimessage code="mirebalais.dispensing.medication"/>
                             {0}
                         </h3>
                         <fieldset class="medication">
                             <p class="field-error" style="display:none"></p>
                             <p>
                                 <label>
-                                    <uimessage code="pihcore.visitNote.plan.name"/>
+                                    <uimessage code="mirebalais.dispensing.medicationName"/>
                                 </label>
-                                <obs id="name{0}" class="medication-name" conceptId="PIH:MEDICATION ORDERS"
+                                <obs id="name{0}" class="medication-name" conceptId="PIH:1282"
                                      answerDrugs="true"/>
                             </p>
                             <p class="inline">
                                 <label>
-                                    <uimessage code="pihcore.visitNote.plan.dose"/>
+                                    <uimessage code="dispensing.medication.dose"/>
                                 </label>
-                                <obs id="dose{0}" class="dose doseInput" conceptId="CIEL:160856"/>
-                                <obs id="doseUnit{0}" class="dose-unit doseInput select-arrow"
-                                     conceptId="PIH:Dosing units coded"
-                                     answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
-                                     answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
-                                <!-- answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals" -->
-
+                                <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
+                                <obs id="doseUnit{0}" class="doseInput select-arrow" conceptId="PIH:9074"
+                                     answers="mg,g,mL,Application,Capsule,Tablet,Drop,microgram,Patch,Pump,Sachet,IU"
+                                     answerCodes="dispensing.units.mg,dispensing.units.g,dispensing.units.mL,dispensing.units.application,dispensing.units.capsule,dispensing.units.tablet,dispensing.units.drop,dispensing.units.mcg,dispensing.units.patch,dispensing.units.pump,dispensing.units.sachet,dispensing.units.IU"/>
                             </p>
                             <p class="inline">
                                 <label>
-                                    <uimessage code="pihcore.visitNote.plan.frequency"/>
+                                    <uimessage code="mirebalais.dispensing.medicationFrequency"/>
                                 </label>
 
 
-                                <obs id="frequencyCoded{0}" class="frequency select-arrow"
-                                     conceptId="PIH:Drug frequency for HUM"
+                                <obs id="frequencyCoded{0}" class="frequency select-arrow" conceptId="PIH:9363"
                                      answerConceptIds=
                                              "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
-                                     answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other"/>
+                                     answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,dispensing.general.other" />
                             </p>
 
                             <p class="inline">
                                 <label>
-                                    <uimessage code="pihcore.visitNote.plan.duration"/>
+                                    <uimessage code="mirebalais.dispensing.medicationDuration"  />
                                 </label>
                                 <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
-                                <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS"
+                                <obs id="durationUnit{0}" class="duration-unit select-arrow"
+                                     conceptId="CIEL:1732"
                                      answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
                             </p>
-
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="mirebalais.dispensing.medicationAmount"/>
+                                </label>
+                                <obs id="amount{0}" conceptId="PIH:9071"/>
+                            </p>
                             <p>
                                 <label>
-                                    <uimessage code="pihcore.visitNote.plan.instructions"/>
+                                    <uimessage code="mirebalais.dispensing.medicationInstructions"/>
                                 </label>
-                                <obs id="instructions{0}" class="medication-instructions"
-                                     conceptId="PIH:Prescription instructions non-coded"/>
+                                <obs id="instructions{0}" class="medication-instructions" conceptId="PIH:9072"/>
                             </p>
                         </fieldset>
                     </obsgroup>
                 </span>
             </repeat>
+
             <button id="show-more-medications-button" type="button" style="display:none">
                 <uimessage code="pihcore.showMore"/>
             </button>
@@ -676,31 +709,6 @@
         </div>
 
     </section>
-
-    <div class="hidden" id="encounter-details"
-         sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
-        <fieldset>
-            <legend>When?</legend>
-            <label>When?</label>
-
-            <encounterDate default="now" showTime="false"/>
-        </fieldset>
-
-        <fieldset>
-            <legend>Who?</legend>
-            <label>Who?</label>
-
-            <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
-                                      required="true"/>
-        </fieldset>
-
-        <fieldset>
-            <legend>Where?</legend>
-            <label>Where?</label>
-
-            <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-        </fieldset>
-    </div>
 
     <br/>
     <ifMode mode="VIEW" include="false">

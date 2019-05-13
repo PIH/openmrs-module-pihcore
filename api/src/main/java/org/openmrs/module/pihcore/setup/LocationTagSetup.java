@@ -39,7 +39,11 @@ public class LocationTagSetup {
             setupLocationTagsForSierraLeone(locationService);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            setupLocationTagsForMexico(locationService);
+            try {
+                setupLocationTagsForMexico(locationService, config);
+            } catch (Exception e) {
+                throw new APIException("Unable to set up location tags, likely issue is no location with name " + config.getSite().name().toString() + " configured");
+            }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
@@ -68,37 +72,25 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
     }
 
-    private static void setupLocationTagsForMexico(LocationService locationService) {
+    private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
+
+        Field locationField = MexicoLocations.class.getField(config.getSite().name().toString());
+        LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
 
         // Tags for our hub in Jaltenango
         List<LocationDescriptor> jalte = Arrays.asList(MexicoLocations.JALTENANGO);
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, jalte);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, jalte);
 
-        // Tags for our clinics, where visits happen
-        List<LocationDescriptor> allClinics = Arrays.asList(
-                MexicoLocations.CAPITAN,
-                MexicoLocations.HONDURAS,
-                MexicoLocations.LAGUNA_DEL_COFRE,
-                MexicoLocations.LETRERO,
-                MexicoLocations.MATAZANO,
-                MexicoLocations.MONTERREY,
-                MexicoLocations.PLAN_DE_LA_LIBERTAD,
-                MexicoLocations.REFORMA,
-                MexicoLocations.SALVADOR,
-                MexicoLocations.SOLEDAD
-        );
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, allClinics);
-        setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, allClinics);
-        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, allClinics);
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, allClinics);
-        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, allClinics);
-        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, allClinics);
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
 
-        List<LocationDescriptor> allLocations = new ArrayList<LocationDescriptor>(allClinics);
-        allLocations.add(MexicoLocations.JALTENANGO);
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, allLocations);
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, allLocations);
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
 
         // Location CHIAPAS only exists for ID generation
         List<LocationDescriptor> chiapas = Arrays.asList(MexicoLocations.CHIAPAS);
