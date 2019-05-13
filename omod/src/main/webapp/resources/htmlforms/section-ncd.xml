@@ -234,7 +234,7 @@
                                type="dropdown" />
                 </p>
 
-                <!-- ToDo: The next 3 questions should only be included on the initial visit -->
+                <!-- ToDo: The next 3 questions are included on the initial visit -->
                 <p class="radio">
                     <label>
                         <uimessage code="pihcore.ncd.info.aware"/>
@@ -327,7 +327,6 @@
         </div>
 
             <p>
-                <!-- ToDo:  Calculate the ratio -->
                 <span id="calculated-ratio-wrapper">
                     <uimessage code="pihcore.ncd.vitals.waist_hip_ratio"/>
                     <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>:
@@ -341,7 +340,7 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.htn">
         <div id="htn" class="section-container">
-            <!-- ToDo:  Add calculations/scoring for hypertension -->
+            <!-- ToDo:  Add risk calculations for hypertension -->
             <table>
                 <tr>
                     <th width="33%">
@@ -354,7 +353,11 @@
                             <uimessage code="pihcore.bloodPressure.label" />
                         </label>
                     </th>
-                    <th>Symptoms</th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.symptoms" />
+                        </label>
+                    </th>
                     <th>
                         <label>
                             <uimessage code="pihcore.suggestedTreatment.label" />
@@ -477,38 +480,124 @@
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
         <div id="respire" class="section-container">
-            <div class="two-columns">
-                <p>
-                    <label>
-                        <uimessage code="puffs_per_wk"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:Puffs per week of salbutamol"/>
-                    </span>
 
-                    <label>
-                        <uimessage code="pihcore.ncd.inhalerEd"/>
-                    </label>
-                    <obs conceptId="PIH:7399" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                         answerCodes="yes,no" answerSeparator=""/>
-                </p>
+            <table>
+                <tr>
+                    <th width="30%">
+                        <label>
+                            <uimessage code="pihcore.diagnosis.label" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.symptoms" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.nighttime_symptoms" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.suggestedTreatment.label" />
+                        </label>
+                    </th>
+                </tr>
 
-                <p>
-                    <!-- ToDo: Add message about number of times per week for these classifications -->
-                    <label>
-                        <uimessage code="asthma_class"/>
-                    </label>
-                    <obs conceptId="PIH:Asthma classification"
-                         style="radio" answerSeparator=""/>
-                </p>
+                <tr>
+                    <td colspan="4">
+                        <!-- ToDo: Use diagnosis construct (obsgroup) and probable asthma -->
+                        <obs conceptId="PIH:Diagnosis" answerConceptId="CIEL:121375"
+                             answerCode="pihcore.ncd.probablyAsthma"/>
+                    </td>
+                </tr>
 
-            </div>
+                <repeat with="['intermittent','le2xpw','no','CIEL:153753'],
+                              ['mildPersist','gt2xpw','pihcore.sympNt.12xpm.label','PIH:Mild persistent asthma'],
+                              ['modPersist','1xpd','pihcore.sympNt.34xpm.label','CIEL:134026'],
+                              ['sevPersist','gt1pd','pihcore.sympNt.gt1xpw.label','CIEL:113018'],
+                              ['sevUncontrol','crisis','pihcore.sympNt.gt1xpw.label','PIH:Severe uncontrolled asthma'],
+                              ['bronchiect','phlegm','pihcore.sympNt.blank.label','CIEL:121011']">
 
-            <p>
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3716"
-                     answerCode="pihcore.ncd.otherCOPD" commentFieldLabel=""/>
-            </p>
+                    <tr>
+                        <td>
+                            <obs conceptId="PIH:Asthma classification"
+                                 answerConceptId="{3}" />
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.symp.{1}.label" />
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="{2}" />
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.ncd.resp.{0}Treatment.label" />
+                            </label>
+                        </td>
+                    </tr>
+                </repeat>
+                <tr>
+                    <td colspan="3">
+                        <!-- ToDo: Change concept modeling -->
+                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:1295"
+                             answerCode="pihcore.ncd.otherCOPD" commentFieldLabel=""/>
+                    </td>
+                    <td>Ipratropium, Beclomethasone</td>
+                </tr>
+
+                <tr>
+                    <th colspan="4">
+                        <label>
+                            <uimessage code="pihcore.comorbidities.label" />
+                        </label>
+                    </th>
+                </tr>
+
+                <!-- ToDo:  Add CIEL:119051 -->
+                <repeat with="['Diphenhydramine','PIH:RHINITIS'],
+                              ['pihcore.gerdTreatment.label','PIH:GASTROESOPHAGEAL REFLUX']">
+                <tr>
+                    <td colspan="3">
+                        <!-- ToDo: Add obsgroup -->
+                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{1}" />
+                    </td>
+                    <td>
+                        <label>
+                            <uimessage code="{0}"/>
+                        </label>
+                    </td>
+                </tr>
+                </repeat>
+            </table>
+
             <br/>
+
+            <!-- this section is ONLY included for NCD followup encounter -->
+            <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+                <div class="two-columns">
+                    <p>
+                        <label>
+                            <uimessage code="puffs_per_wk"/>
+                        </label>
+                            <obs conceptId="PIH:Puffs per week of salbutamol"/>
+                    </p>
+                    <br/>
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.ncd.inhalerEd"/>
+                        </label>
+                        <obs conceptId="PIH:7399" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                             answerCodes="yes,no" answerSeparator=""/>
+                    </p>
+                </div>
+            </includeIf>
+
             <p>
                 <label>
                     <uimessage code="pihcore.remarks"/>:
