@@ -176,16 +176,17 @@
                 <uimessage code="pihcore.ncd.category.instructions"/>
             </label>
 
-            <enrollInProgram id="asthma-enroll" programId="Asthma" showCheckbox="true"/>
+            <!-- The ordering of these corresponds to the Spanish alphebetization -->
+            <enrollInProgram id="asthma-enroll" programId="Asthma" showCheckbox="true" toggle="asthma"/>
             <uimessage code="pihcore.ncd.asthma"/>
             <br />
             <enrollInProgram id="malnutrition-enroll" programId="Malnutrition" showCheckbox="true"/>
             <uimessage code="pihcore.ncd.malnutrition"/>
             <br />
-            <enrollInProgram id="diabetes-enroll" programId="Diabetes" showCheckbox="true"/>
+            <enrollInProgram id="diabetes-enroll" programId="Diabetes" showCheckbox="true" toggle="diabetes"/>
             <uimessage code="pihcore.ncd.diabetes"/>
             <br />
-            <enrollInProgram id="epilepsy-enroll" programId="Epilepsy" showCheckbox="true"/>
+            <enrollInProgram id="epilepsy-enroll" programId="Epilepsy" showCheckbox="true" toggle="epilepsy"/>
             <uimessage code="pihcore.ncd.epilepsy"/>
             <br />
             <enrollInProgram id="htn-enroll" programId="Hypertension" showCheckbox="true"/>
@@ -194,15 +195,73 @@
             <enrollInProgram id="mch-enroll" programId="MCH" showCheckbox="true"/>
             <uimessage code="pihcore.mch"/>
             <br />
-            <enrollInProgram id="mental-enroll" programId="Mental Health" showCheckbox="true"/>
+            <enrollInProgram id="mental-enroll" programId="Mental Health" showCheckbox="true" toggle="mental"/>
             <uimessage code="pihcore.ncd.mental"/>
         </div>
     </section>
 
+    <!-- Asthma -->
+    <section id="asthma" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
+        <div class="section-container">
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.asthma.daytime_symptoms"/>
+                    </label>
+
+                    <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         style="radio" answerSeparator="" />
+                </p>
+                <p class="checkboxRadio">
+                    <label>
+                        <uimessage code="pihcore.ncd.asthma.nighttime_symptoms"/>
+                    </label>
+                    <obsgroup groupingConceptId="PIH:FUNCTIONAL REVIEW OF SYMPTOMS CONSTRUCT">
+                        <span class="two-columns">
+                            <obs conceptId="PIH:SYMPTOM PRESENT" answerConceptId="CIEL:148273"
+                                 answerCode="yes" answerSeparator=""/>
+                            <obs conceptId="PIH:SYMPTOM ABSENT" answerConceptId="CIEL:148273"
+                                 answerCode="no" answerSeparator="" />
+                        </span>
+                    </obsgroup><br/>
+
+                    <script type="text/javascript">
+                        jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
+                        var that = this;
+                        jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
+                        if (jQuery(this).attr('id') != jQuery(that).attr('id')) {
+                        jQuery(this).prop("checked", false);
+                        }
+                        });
+                        });
+                    </script>
+                </p>
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.asthma.meds_2x_wk"/>
+                    </label>
+
+                    <obs conceptId="PIH:Medications more that twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         style="radio" answerSeparator="" />
+                </p>
+                <p>
+                    <label>
+                        <uimessage code="pihcore.ncd.asthma.limitation_of_activity"/>
+                    </label>
+                    <obs conceptId="PIH:Limitation of ability to perform main daily activities coded"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         style="radio" answerSeparator=""/>
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- Diabetes -->
-    <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
+    <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
-        <div id="diabetes" class="section-container">
+        <div class="section-container">
             <div class="three-columns">
                 <p>
                     <label><uimessage code="pihcore.lab.glucose"/></label>
@@ -293,72 +352,9 @@
         </div>
     </section>
 
-    <!-- Asthma -->
-    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
-        <div id="asthma" class="section-container">
-            <div class="two-columns">
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.asthma.daytime_symptoms"/>
-                </label>
-
-                <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     style="radio" answerSeparator="" />
-            </p>
-            <p class="checkboxRadio">
-                <label>
-                    <uimessage code="pihcore.ncd.asthma.nighttime_symptoms"/>
-                </label>
-                <obsgroup groupingConceptId="PIH:FUNCTIONAL REVIEW OF SYMPTOMS CONSTRUCT">
-                    <span class="two-columns">
-                        <obs conceptId="PIH:SYMPTOM PRESENT" answerConceptId="CIEL:148273"
-                             answerCode="yes" answerSeparator=""/>
-                        <obs conceptId="PIH:SYMPTOM ABSENT" answerConceptId="CIEL:148273"
-                             answerCode="no" answerSeparator="" />
-                    </span>
-                </obsgroup><br/>
-                <style>
-                    label[for="w38"] { font-size: 0; }
-                    label[for="w38"]:before { content: "sí"; font-size: 16px; }
-                    label[for="w40"] { font-size: 0; }
-                    label[for="w40"]:before { content: "no"; font-size: 16px; }
-                </style>
-                <script type="text/javascript">
-                    jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
-                    var that = this;
-                    jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
-                    if (jQuery(this).attr('id') != jQuery(that).attr('id')) {
-                    jQuery(this).prop("checked", false);
-                    }
-                    });
-                    });
-                </script>
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.asthma.meds_2x_wk"/>
-                </label>
-
-                <obs conceptId="PIH:Medications more that twice per week"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     style="radio" answerSeparator="" />
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.asthma.limitation_of_activity"/>
-                </label>
-                <obs conceptId="PIH:Limitation of ability to perform main daily activities coded"
-                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                     style="radio" answerSeparator=""/>
-            </p>
-            </div>
-        </div>
-    </section>
-
     <!-- Epilepsy -->
-    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
-        <div id="epilepsy" class="section-container">
+    <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
+        <div class="section-container">
             <script>
                 jq(function() {
                     getField('epi_baseline.value').change(updatePercentReduction);
@@ -413,8 +409,8 @@
     </section>
 
     <!-- Mental -->
-    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.mental">
-        <div id="mental" class="section-container-color">
+    <section id="mental" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.mental">
+        <div class="section-container-color">
             <div class="two-columns">
                 <p>
                     <label>
@@ -432,46 +428,11 @@
         </div>
     </section>
 
-    <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.ncd.plan.title">
-        <div class="section-container">
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.appt"/>
-                </label>
-                <obs conceptId="PIH:Appearance at appointment time" style="radio"
-                     answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
-                     answerCodes="yes,no - late 1-7 days,no - late more than 7 days"
-                     answerSeparator=""/>
-            </p>
-
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.missing_meds"/>
-                </label>
-                <obs conceptId="PIH:10555" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
-                     answerSeparator=""/>
-            </p>
-
-            <p class="radio">
-                <label>
-                    <uimessage code="pihcore.ncd.plan.hospitalized"/>
-                </label>
-                <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" style="radio"
-                     answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no"  answerSeparator=""/>
-            </p>
-        </div>
-    </section>
-
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.exam.physicalExam.title" >
         <div class="section-container">
             <obs conceptId="CIEL:1391" style="textarea" rows="5"/>
         </div>
     </section>
-
 
     <!-- Analysis -->
     <ifMode mode="VIEW" include="false">

@@ -425,21 +425,21 @@
 
                     <div class="two-columns">
                         <div id="pregnant">
-                            <!-- DPA -->
-                            <p>
-                                <label>
-                                    <uimessage code="pihcore.pregnancy.dueDate"/>
-                                </label>
-                            </p>
-                            <obs conceptId="CIEL:5596" allowFutureDates="true" />
-
                             <!-- DPR? -->
                             <p>
                                 <label>
                                     <uimessage code="pihcore.pregnancy.lastPeriod"/>
                                 </label>
+                                <obs conceptId="CIEL:1427"/>
                             </p>
-                            <obs conceptId="CIEL:1427"/>
+
+                            <!-- DPA -->
+                            <p>
+                                <label>
+                                    <uimessage code="pihcore.pregnancy.dueDate"/>
+                                </label>
+                                <obs conceptId="CIEL:5596" allowFutureDates="true" />
+                            </p>
                         </div>
                     </div>
                 </p>

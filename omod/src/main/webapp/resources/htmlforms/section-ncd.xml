@@ -12,9 +12,11 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform id="ncd-consult-note" class="simple-form-ui" formName="NCD" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
+<htmlform id="ncd-consult-note" class="simple-form-ui"
+          formName="NCD" formUuid="8bb13d24-e341-42e6-84ef-8fb73d1fce82"
           htmlformUuid="59166690-b88b-4cbd-92f7-31fb037bf2dc" formVersion="1.0">
 
+    <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.CleanDiagnosisConstructAction"/>
     <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.CleanPrescriptionConstructAction"/>
 
     <translations defaultLocale="fr">
@@ -25,14 +27,6 @@
         <code name="no">
             <variant locale="en" value="no"/>
             <variant locale="fr" value="non"/>
-        </code>
-        <code name="asthma_class">
-            <variant locale="en" value="Asthma classification"/>
-            <variant locale="fr" value="Classification d'asthme"/>
-        </code>
-        <code name="puffs_per_wk">
-            <variant locale="en" value="Puffs per week of salbutamol"/>
-            <variant locale="fr" value="Bouffles/semaine de salbutamol"/>
         </code>
     </translations>
 
@@ -234,7 +228,6 @@
                                type="dropdown" />
                 </p>
 
-                <!-- ToDo: The next 3 questions should only be included on the initial visit -->
                 <p class="radio">
                     <label>
                         <uimessage code="pihcore.ncd.info.aware"/>
@@ -327,7 +320,6 @@
         </div>
 
             <p>
-                <!-- ToDo:  Calculate the ratio -->
                 <span id="calculated-ratio-wrapper">
                     <uimessage code="pihcore.ncd.vitals.waist_hip_ratio"/>
                     <uimessage code="pihcore.ncd.vitals.waist_hip_ratio.comment"/>:
@@ -341,7 +333,8 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.htn">
         <div id="htn" class="section-container">
-            <!-- ToDo:  Add calculations/scoring for hypertension -->
+            <!-- ToDo:  UHM-3617 Add risk calculations for hypertension -->
+
             <table>
                 <tr>
                     <th width="33%">
@@ -354,17 +347,17 @@
                             <uimessage code="pihcore.bloodPressure.label" />
                         </label>
                     </th>
-                    <th>Symptoms</th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.symptoms" />
+                        </label>
+                    </th>
                     <th>
                         <label>
                             <uimessage code="pihcore.suggestedTreatment.label" />
                         </label>
                     </th>
                 </tr>
-
-                <!-- ToDo: Removed this per Gene Kwan
-                   ['ncd.htn.stage3','CIEL:160778','&gt;180/110','none.label','ncd.htn.orderLabsAndStartDose'],
-                -->
 
                 <repeat with="['ncd.htn.normal','CIEL:1107','&lt;140/90','none.label','contraindicated.label'],
                               ['ncd.htn.elevated','CIEL:140147','&lt;140/90','none.label','ncd.htn.repeatBP'],
@@ -477,38 +470,154 @@
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
         <div id="respire" class="section-container">
-            <div class="two-columns">
-                <p>
-                    <label>
-                        <uimessage code="puffs_per_wk"/>
-                    </label>
-                    <span class="small">
-                        <obs conceptId="PIH:Puffs per week of salbutamol"/>
-                    </span>
 
-                    <label>
-                        <uimessage code="pihcore.ncd.inhalerEd"/>
-                    </label>
-                    <obs conceptId="PIH:7399" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                         answerCodes="yes,no" answerSeparator=""/>
-                </p>
+            <table>
+                <tr>
+                    <th width="30%">
+                        <label>
+                            <uimessage code="pihcore.diagnosis.label" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.symptoms" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.nighttime_symptoms" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.suggestedTreatment.label" />
+                        </label>
+                    </th>
+                </tr>
 
-                <p>
-                    <!-- ToDo: Add message about number of times per week for these classifications -->
-                    <label>
-                        <uimessage code="asthma_class"/>
-                    </label>
-                    <obs conceptId="PIH:Asthma classification"
-                         style="radio" answerSeparator=""/>
-                </p>
+                <tr>
+                    <td colspan="4">
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121375"
+                                 answerCode="pihcore.ncd.probablyAsthma" style="checkbox" />
+                        </obsgroup>
+                    </td>
+                </tr>
 
-            </div>
+                <repeat with="['intermittent','le2xpw','no','CIEL:153753'],
+                              ['mildPersist','gt2xpw','pihcore.sympNt.12xpm.label','PIH:Mild persistent asthma'],
+                              ['modPersist','1xpd','pihcore.sympNt.34xpm.label','CIEL:134026'],
+                              ['sevPersist','gt1pd','pihcore.sympNt.gt1xpw.label','CIEL:113018'],
+                              ['sevUncontrol','crisis','pihcore.sympNt.gt1xpw.label','PIH:Severe uncontrolled asthma']">
 
-            <p>
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3716"
-                     answerCode="pihcore.ncd.otherCOPD" commentFieldLabel=""/>
-            </p>
+                    <tr>
+                        <td>
+                            <obs conceptId="PIH:Asthma classification"
+                                 answerConceptId="{3}" />
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.symp.{1}.label" />
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="{2}" />
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.ncd.resp.{0}Treatment.label" />
+                            </label>
+                        </td>
+                    </tr>
+                </repeat>
+
+                <tr>
+                    <td>
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121011"
+                                 style="checkbox" />
+                        </obsgroup>
+                    </td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.symp.phlegm.label" />
+                        </label>
+                    </td>
+                    <td></td>
+                    <td>
+                        <label>
+                            <uimessage code="pihcore.ncd.resp.bronchiectTreatment.label" />
+                        </label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:1295"
+                                 style="checkbox"
+                                 answerCode="pihcore.ncd.otherCOPD" commentFieldLabel=""/>
+                        </obsgroup>
+                    </td>
+                    <td>Ipratropium, Beclomethasone</td>
+                </tr>
+
+                <!-- ToDo: UHM-3889 Add COPD GOLD grading -->
+
+                <tr>
+                    <th colspan="4">
+                        <label>
+                            <uimessage code="pihcore.comorbidities.label" />
+                        </label>
+                    </th>
+                </tr>
+
+                <repeat with="['Diphenhydramine','PIH:RHINITIS'],
+                              ['pihcore.gerdTreatment.label','PIH:GASTROESOPHAGEAL REFLUX'],
+                              ['blank.label','CIEL:119051']">
+                <tr>
+                    <td colspan="3">
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{1}" style="checkbox" />
+                        </obsgroup>
+                    </td>
+                    <td>
+                        <label>
+                            <uimessage code="{0}"/>
+                        </label>
+                    </td>
+                </tr>
+                </repeat>
+            </table>
+
             <br/>
+
+            <!-- this section is ONLY included for NCD followup encounter -->
+            <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+                <div class="two-columns">
+                    <!-- ToDo: Change the concept to use coded -->
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.ncd.puffsPerWk"/>
+                        </label>
+                            <obs conceptId="PIH:Puffs per week of relief inhaler (coded)"
+                                 answerConceptIds="PIH:1905,PIH:2100,PIH:11992,PIH:1602"
+                                 style="radio" answerSeparator="" />
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.ncd.inhalerEd"/>
+                        </label>
+                        <obs conceptId="PIH:7399" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                             answerCodes="yes,no" answerSeparator=""/>
+                    </p>
+                    <br/>
+                </div>
+            </includeIf>
+
             <p>
                 <label>
                     <uimessage code="pihcore.remarks"/>:
@@ -759,32 +868,6 @@
                 </repeat>
             </p>
 
-            <!-- ToDo:  Do we want to try to migrate this data? How to handle concepts entered previously in old data model? UHM-3441
-            <i>
-                <uimessage code="pihcore.ncd.meds.pastMeds" />:
-            </i>
-            <lookup complexExpression="#foreach($med in $fn.allObs('PIH:Medications prescribed at end of visit')) $med.valueCoded.name,  #end"/>
-
-            <div class="two-columns">
-
-                <repeat with="['PIH:AMINOPHYLLINE'],['PIH:AMLODIPINE']">
-                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox"/>
-                </repeat>
-                <repeat with="['PIH:Anti-TB medication (generic)','Anti-TB'],['PIH:ARV medication (generic)','ARVs']">
-                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" answerLabel="{1}"
-                         style="checkbox"/>
-                </repeat>
-
-                <repeat with="['PIH:ASPIRIN'],['PIH:ATENOLOL'],['PIH:BECLOMETHASONE'],['PIH:CAPTOPRIL'],['PIH:CARBAMAZEPINE'],['PIH:CARVEDILOL'],['PIH:Cimetidine'],['CIEL:73602'],['PIH:DIGOXIN'],['PIH:FUROSEMIDE'],['PIH:GLIBENCLAMIDE'],['PIH:HYDRALAZINE'],['PIH:HYDROCHLOROTHIAZIDE'],['PIH:Regular insulin'],['PIH:Insulin 70/30'],['PIH:Lente insulin'],['PIH:ISOSORBIDE DINITRATE'],['PIH:LISINOPRIL'],['PIH:METFORMIN'],['PIH:METHYLDOPA'],['PIH:NIFEDIPINE'],['PIH:Omeprazole'],['PIH:PENICILLIN'],['CIEL:81730'],['PIH:PHENOBARBITAL'],['PIH:Prednisolone'],['PIH:RANITIDINE'],['PIH:SALBUTAMOL'],['CIEL:83936'],['PIH:SPIRONOLACTONE'],['PIH:WARFARIN']">
-                    <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="{0}" style="checkbox"/>
-                </repeat>
-                <obs conceptId="PIH:Medications prescribed at end of visit" answerConceptId="PIH:OTHER NON-CODED"
-                     style="checkbox" showCommentField="true"
-                     commentFieldLabel=" "/>
-                <br/>
-                <br/>
-            </div>
-            -->
         </div>
     </section>
 
