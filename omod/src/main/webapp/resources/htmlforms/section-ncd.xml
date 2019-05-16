@@ -745,15 +745,14 @@
                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
                     </repeat>
 
-                    <br/>
-
                     <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:134082"
                          answerCode="pihcore.ncd.mitralStenosisOnly"/>
-                    <repeat with="['PIH:CONGENITAL HEART DISEASE','Congenital heart disease'],
-                                  ['PIH:7497','Valve disease'],
+                    <repeat with="['PIH:7497','Valve disease'],
+                                  ['PIH:CONGENITAL HEART DISEASE','Congenital heart disease'],
                                   ['PIH:4000','isolated right heart failure'],
                                   ['PIH:3071','Hypertensive heart disease'],
-                                  ['PIH:4000','Isolated right heart failure']">
+                                  ['PIH:4000','Isolated right heart failure'],
+                                  ['PIH:PERICARDIAL EFFUSION','Pericardial effussion']">
                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
                     </repeat>
                     <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3468"
