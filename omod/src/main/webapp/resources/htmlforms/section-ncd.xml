@@ -458,6 +458,81 @@
                 </p>
             </includeIf>
 
+            <table>
+                <tr>
+                    <th colspan="4">
+                        <label>
+                            <uimessage code="pihcore.ncd.diabetes.footCare.title" />
+                        </label>
+                    </th>
+                </tr>
+
+                <tr>
+                   <td colspan="4">
+                       <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                           <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983"
+                                style="checkbox" />
+                       </obsgroup>
+
+                       <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                           <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:163411"
+                                style="checkbox" />
+                       </obsgroup>
+
+                   </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.risk" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.definition" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.suggestedTreatment.label" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.followUp" />
+                        </label>
+                    </th>
+                </tr>
+
+                <!-- Foot care classification -->
+                <repeat with="['0','CIEL:160769'],
+                              ['1','CIEL:160771'],
+                              ['2','CIEL:160774'],
+                              ['3','CIEL:160778']">
+                    <tr>
+                        <td>
+                            <obs conceptId="PIH:Foot care classification"
+                                 answerConceptId="{1}" style="checkbox"
+                                 answerCode="{0}" />
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pih.ncd.footRisk{0}"/>
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pih.ncd.footRisk{0}Treatment"/>
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pih.ncd.footRisk{0}Follow"/>
+                            </label>
+                        </td>
+                    </tr>
+                </repeat>
+            </table>
             <p>
                 <label>
                     <uimessage code="pihcore.remarks"/>:
@@ -511,7 +586,7 @@
                               ['mildPersist','gt2xpw','pihcore.sympNt.12xpm.label','PIH:Mild persistent asthma'],
                               ['modPersist','1xpd','pihcore.sympNt.34xpm.label','CIEL:134026'],
                               ['sevPersist','gt1pd','pihcore.sympNt.gt1xpw.label','CIEL:113018'],
-                              ['sevUncontrol','crisis','pihcore.sympNt.gt1xpw.label','CIEL:121372']">
+                              ['sevUncontrol','crisis','pihcore.sympNt.gt1xpw.label','PIH:Severe uncontrolled asthma']">
 
                     <tr>
                         <td>
