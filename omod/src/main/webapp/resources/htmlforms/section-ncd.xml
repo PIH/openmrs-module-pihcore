@@ -217,15 +217,15 @@
 
                 <!-- Program enrollment and set workflow state-->
                 <p>
-                <enrollInProgram programId="NCD" />
+                    <enrollInProgram programId="NCD" />
 
-                <!-- ToDo: HTML-689 Use message properties for state labels for translations -->
-                <!-- ToDo: If we want to use radio buttons, we need to change the styling/css or stateSeparator tag -->
-                <workflowState workflowId="51579bce-bf3a-11e7-abc4-cec278b6b50a"
-                               stateIds="51579e44-bf3a-11e7-abc4-cec278b6b50a, 51579fde-bf3a-11e7-abc4-cec278b6b50a, 5157a15a-bf3a-11e7-abc4-cec278b6b50a"
-                               labelCode="51579bce-bf3a-11e7-abc4-cec278b6b50a.custom.title"
-                               stateLabels="Contrôlé,Non contrôlé,Compliqué"
-                               type="dropdown" />
+                    <!-- ToDo: HTML-689 Use message properties for state labels for translations -->
+                    <!-- ToDo: If we want to use radio buttons, we need to change the styling/css or stateSeparator tag -->
+                    <workflowState workflowId="51579bce-bf3a-11e7-abc4-cec278b6b50a"
+                                   stateIds="51579e44-bf3a-11e7-abc4-cec278b6b50a, 51579fde-bf3a-11e7-abc4-cec278b6b50a, 5157a15a-bf3a-11e7-abc4-cec278b6b50a"
+                                   labelCode="51579bce-bf3a-11e7-abc4-cec278b6b50a.custom.title"
+                                   stateLabels="Contrôlé,Non contrôlé,Compliqué"
+                                   type="dropdown" />
                 </p>
 
                 <p class="radio">
@@ -458,6 +458,81 @@
                 </p>
             </includeIf>
 
+            <table>
+                <tr>
+                    <th colspan="4">
+                        <label>
+                            <uimessage code="pihcore.ncd.diabetes.footCare.title" />
+                        </label>
+                    </th>
+                </tr>
+
+                <tr>
+                   <td colspan="4">
+                       <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                           <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983"
+                                style="checkbox" />
+                       </obsgroup>
+
+                       <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                           <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:163411"
+                                style="checkbox" />
+                       </obsgroup>
+
+                   </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.risk" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.definition" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.suggestedTreatment.label" />
+                        </label>
+                    </th>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.followUp" />
+                        </label>
+                    </th>
+                </tr>
+
+                <!-- Foot care classification -->
+                <repeat with="['0','CIEL:160769'],
+                              ['1','CIEL:160771'],
+                              ['2','CIEL:160774'],
+                              ['3','CIEL:160778']">
+                    <tr>
+                        <td>
+                            <obs conceptId="PIH:Foot care classification"
+                                 answerConceptId="{1}" style="checkbox"
+                                 answerCode="{0}" />
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pih.ncd.footRisk{0}"/>
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pih.ncd.footRisk{0}Treatment"/>
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pih.ncd.footRisk{0}Follow"/>
+                            </label>
+                        </td>
+                    </tr>
+                </repeat>
+            </table>
             <p>
                 <label>
                     <uimessage code="pihcore.remarks"/>:
@@ -495,14 +570,17 @@
                     </th>
                 </tr>
 
-                <tr>
-                    <td colspan="4">
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121375"
-                                 answerCode="pihcore.ncd.probablyAsthma" style="checkbox" />
-                        </obsgroup>
-                    </td>
-                </tr>
+                <!-- this section is ONLY included for NCD intake encounter -->
+                <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
+                    <tr>
+                        <td colspan="4">
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121375"
+                                     answerCode="pihcore.ncd.probablyAsthma" style="checkbox" />
+                            </obsgroup>
+                        </td>
+                    </tr>
+                </includeIf>
 
                 <repeat with="['intermittent','le2xpw','no','CIEL:153753'],
                               ['mildPersist','gt2xpw','pihcore.sympNt.12xpm.label','PIH:Mild persistent asthma'],
@@ -533,63 +611,66 @@
                     </tr>
                 </repeat>
 
-                <tr>
-                    <td>
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121011"
-                                 style="checkbox" />
-                        </obsgroup>
-                    </td>
-                    <td>
-                        <label>
-                            <uimessage code="pihcore.symp.phlegm.label" />
-                        </label>
-                    </td>
-                    <td></td>
-                    <td>
-                        <label>
-                            <uimessage code="pihcore.ncd.resp.bronchiectTreatment.label" />
-                        </label>
-                    </td>
-                </tr>
+                <!-- this section is ONLY included for NCD intake encounter -->
+                <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
+                    <tr>
+                        <td>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121011"
+                                     style="checkbox" />
+                            </obsgroup>
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.symp.phlegm.label" />
+                            </label>
+                        </td>
+                        <td></td>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.ncd.resp.bronchiectTreatment.label" />
+                            </label>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td colspan="3">
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:1295"
-                                 style="checkbox"
-                                 answerCode="pihcore.ncd.otherCOPD" commentFieldLabel=""/>
-                        </obsgroup>
-                    </td>
-                    <td>Ipratropium, Beclomethasone</td>
-                </tr>
+                    <tr>
+                        <td colspan="3">
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:1295"
+                                     style="checkbox"
+                                     answerCode="pihcore.ncd.otherCOPD" commentFieldLabel=""/>
+                            </obsgroup>
+                        </td>
+                        <td>Ipratropium, Beclomethasone</td>
+                    </tr>
 
-                <!-- ToDo: UHM-3889 Add COPD GOLD grading -->
+                    <!-- ToDo: UHM-3889 Add COPD GOLD grading -->
 
-                <tr>
-                    <th colspan="4">
-                        <label>
-                            <uimessage code="pihcore.comorbidities.label" />
-                        </label>
-                    </th>
-                </tr>
+                    <tr>
+                        <th colspan="4">
+                            <label>
+                                <uimessage code="pihcore.comorbidities.label" />
+                            </label>
+                        </th>
+                    </tr>
 
-                <repeat with="['Diphenhydramine','PIH:RHINITIS'],
-                              ['pihcore.gerdTreatment.label','PIH:GASTROESOPHAGEAL REFLUX'],
-                              ['blank.label','CIEL:119051']">
-                <tr>
-                    <td colspan="3">
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{1}" style="checkbox" />
-                        </obsgroup>
-                    </td>
-                    <td>
-                        <label>
-                            <uimessage code="{0}"/>
-                        </label>
-                    </td>
-                </tr>
-                </repeat>
+                    <repeat with="['Diphenhydramine','PIH:RHINITIS'],
+                                  ['pihcore.gerdTreatment.label','PIH:GASTROESOPHAGEAL REFLUX'],
+                                  ['blank.label','CIEL:119051']">
+                        <tr>
+                            <td colspan="3">
+                                <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{1}" style="checkbox" />
+                                </obsgroup>
+                            </td>
+                            <td>
+                                <label>
+                                    <uimessage code="{0}"/>
+                                </label>
+                            </td>
+                        </tr>
+                    </repeat>
+                </includeIf>
             </table>
 
             <br/>
@@ -597,7 +678,6 @@
             <!-- this section is ONLY included for NCD followup encounter -->
             <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
                 <div class="two-columns">
-                    <!-- ToDo: Change the concept to use coded -->
                     <p>
                         <label>
                             <uimessage code="pihcore.ncd.puffsPerWk"/>
@@ -618,15 +698,19 @@
                 </div>
             </includeIf>
 
-            <p>
-                <label>
-                    <uimessage code="pihcore.remarks"/>:
-                </label>
-            </p>
-
-            <p>
-                <obs conceptId="PIH:11972"/>
-            </p>
+            <!-- this section is ONLY included for NCD intake encounter -->
+            <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.remarks"/>:
+                    </label>
+                    <obs conceptId="PIH:11972"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:Provide asthma spacer"
+                         answerConceptId="PIH:YES" answerCode="pihcore.ncd.spacer" />
+                </p>
+            </includeIf>
         </div>
     </section>
 
@@ -661,15 +745,14 @@
                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
                     </repeat>
 
-                    <br/>
-
                     <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:134082"
                          answerCode="pihcore.ncd.mitralStenosisOnly"/>
-                    <repeat with="['PIH:CONGENITAL HEART DISEASE','Congenital heart disease'],
-                                  ['PIH:7497','Valve disease'],
+                    <repeat with="['PIH:7497','Valve disease'],
+                                  ['PIH:CONGENITAL HEART DISEASE','Congenital heart disease'],
                                   ['PIH:4000','isolated right heart failure'],
                                   ['PIH:3071','Hypertensive heart disease'],
-                                  ['PIH:4000','Isolated right heart failure']">
+                                  ['PIH:4000','Isolated right heart failure'],
+                                  ['PIH:PERICARDIAL EFFUSION','Pericardial effussion']">
                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
                     </repeat>
                     <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3468"
@@ -692,7 +775,7 @@
                          answerConceptIds="PIH:HYPERVOLEMIC,PIH:EUVOLEMIC,PIH:HYPOVOLEMIC"
                          style="radio" answerSeparator="" />
                 </p>
-
+                <br/>
                 <p>
                     <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
                          answerCode="pihcore.ncd.improbable"/>
@@ -704,9 +787,6 @@
                 <label>
                     <uimessage code="pihcore.remarks"/>:
                 </label>
-            </p>
-
-            <p>
                 <obs conceptId="PIH:11973"/>
             </p>
         </div>
