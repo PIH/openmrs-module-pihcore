@@ -46,6 +46,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.ANC_INTAKE);
         install(EncounterTypes.ANC_FOLLOWUP);
         install(EncounterTypes.MCH_DELIVERY);
+        install(EncounterTypes.ECHOCARDIOGRAM);
         install(EncounterTypes.MEXICO_CONSULT);
 
         uninstall(possible(EncounterType.class, AttachmentsConstants.ENCOUNTER_TYPE_UUID), "not used");

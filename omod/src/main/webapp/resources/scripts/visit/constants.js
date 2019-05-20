@@ -436,6 +436,9 @@ angular.module('constants', [])
         ncdFollowupConsult: {
             uuid: "5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c"
         },
+        echocardiogramConsult:{
+            uuid: "fdee591e-78ba-11e9-8f9e-2a86e4085a59"
+        },
         mentalHealth: {
             uuid: "a8584ab8-cc2a-11e5-9956-625662870761"
         },
