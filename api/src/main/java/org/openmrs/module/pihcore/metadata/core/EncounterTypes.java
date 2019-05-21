@@ -247,6 +247,12 @@ public class EncounterTypes {
 		public String description() { return "Mother's visit for delivery of baby"; }
 	};
 
+	public static EncounterTypeDescriptor ECHOCARDIOGRAM  = new EncounterTypeDescriptor() {
+		public String uuid() { return "fdee591e-78ba-11e9-8f9e-2a86e4085a59"; }
+		public String name() { return "Echocardiogram"; }
+		public String description() { return "Echocardiogram consultation"; }
+	};
+
 	public static EncounterTypeDescriptor MEXICO_CONSULT =  new EncounterTypeDescriptor() {
 		public String uuid() { return "aa61d509-6e76-4036-a65d-7813c0c3b752"; }
 		public String name() { return "Consult"; }

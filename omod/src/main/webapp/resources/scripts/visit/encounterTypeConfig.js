@@ -434,6 +434,16 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
+        encounterTypeConfig[EncounterTypes.echocardiogramConsult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
+            icon: "icon-heart-empty",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true
+        };
+
         // ToDo: Replace the icon and add more sections
         encounterTypeConfig[EncounterTypes.zlHivIntake.uuid] = {
             defaultState: "short",

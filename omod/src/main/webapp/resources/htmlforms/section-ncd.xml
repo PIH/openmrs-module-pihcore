@@ -275,7 +275,8 @@
                  answerCode="pihcore.ncd.resp" style="checkbox" toggle="respire"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:EPILEPSY"
                  style="checkbox" toggle="epilepsy"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HEART FAILURE"
+            <obs conceptId="PIH:NCD category"
+                 answerConceptId="PIH:HEART FAILURE" answerCode="pihcore.ncd.heart_failure"
                  style="checkbox" toggle="heart_failure"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Cerebrovascular Accident"
                  style="checkbox"/>
@@ -487,12 +488,12 @@
                             <uimessage code="pihcore.risk" />
                         </label>
                     </th>
-                    <th>
+                    <th width="30%">
                         <label>
                             <uimessage code="pihcore.definition" />
                         </label>
                     </th>
-                    <th>
+                    <th width="40%">
                         <label>
                             <uimessage code="pihcore.suggestedTreatment.label" />
                         </label>
@@ -733,10 +734,6 @@
         <div id="heart_failure" class="section-container">
             <div class="two-columns">
                 <p>
-                    <label>
-                        <uimessage code="pihcore.diagnosis.label"/>
-                    </label>
-
                     <repeat with="['PIH:3128','idiopathic cardiomyopathy],
                                   ['PIH:3130','HIV cardiomyopathy'],
                                   ['PIH:3129','Peripartum cardiomyopathy'],
@@ -749,7 +746,6 @@
                          answerCode="pihcore.ncd.mitralStenosisOnly"/>
                     <repeat with="['PIH:7497','Valve disease'],
                                   ['PIH:CONGENITAL HEART DISEASE','Congenital heart disease'],
-                                  ['PIH:4000','isolated right heart failure'],
                                   ['PIH:3071','Hypertensive heart disease'],
                                   ['PIH:4000','Isolated right heart failure'],
                                   ['PIH:PERICARDIAL EFFUSION','Pericardial effussion']">
@@ -775,14 +771,12 @@
                          answerConceptIds="PIH:HYPERVOLEMIC,PIH:EUVOLEMIC,PIH:HYPOVOLEMIC"
                          style="radio" answerSeparator="" />
                 </p>
-                <br/>
                 <p>
                     <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
                          answerCode="pihcore.ncd.improbable"/>
                 </p>
             </div>
 
-            <br/>
             <p>
                 <label>
                     <uimessage code="pihcore.remarks"/>:
