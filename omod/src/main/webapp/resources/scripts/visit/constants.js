@@ -332,6 +332,9 @@ angular.module('constants', [])
         },
         pregnancyRiskFactor: {
             uuid: "160079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        ncdCategory: {
+            uuid: "27b30028-0ed0-4f62-a4d8-52a9c5b600e3"
         }
     })
     .value('PrimaryCareExamConcepts', {
