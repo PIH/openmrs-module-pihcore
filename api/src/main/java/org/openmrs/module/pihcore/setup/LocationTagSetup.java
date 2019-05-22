@@ -401,6 +401,10 @@ public class LocationTagSetup {
                 MirebalaisLocations.PEDIATRICS
         ));
 
+        setLocationTagsFor(locationService, LocationTags.VACCINATION_LOCATION, Arrays.asList(
+                MirebalaisLocations.COMMUNITY_HEALTH
+        ));
+
         setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(
                 MirebalaisLocations.OUTPATIENT_CLINIC,
                 MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,

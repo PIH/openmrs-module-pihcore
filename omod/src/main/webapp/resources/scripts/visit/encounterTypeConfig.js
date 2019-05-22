@@ -732,6 +732,19 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
+        encounterTypeConfig[EncounterTypes.vaccination.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "icon-umbrella",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                pedsVaccinations
+            ]
+        };
+
+
         encounterTypeConfig[EncounterTypes.ancFollowup.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -758,6 +771,8 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareDx
             ]
         };
+
+
 
         encounterTypeConfig[EncounterTypes.mexicoConsult.uuid] = {
             defaultState: "long",
