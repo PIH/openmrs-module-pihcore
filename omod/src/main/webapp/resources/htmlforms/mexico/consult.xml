@@ -241,8 +241,8 @@
             <enrollInProgram id="htn-enroll" programId="Hypertension" showCheckbox="true"/>
             <uimessage code="pihcore.ncd.htn"/>
             <br />
-            <enrollInProgram id="mch-enroll" programId="MCH" showCheckbox="true" toggle="anc"/>
-            <uimessage code="pihcore.mch"/>
+            <enrollInProgram id="anc-enroll" programId="ANC" showCheckbox="true" toggle="anc"/>
+            <uimessage code="pihcore.mch.anc"/>
             <br />
             <enrollInProgram id="mental-enroll" programId="Mental Health" showCheckbox="true" toggle="mental"/>
             <uimessage code="pihcore.ncd.mental"/>

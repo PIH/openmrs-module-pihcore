@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Requires({
+        ANCProgramBundle.class,
         AsthmaProgramBundle.class,
         DiabetesProgramBundle.class,
         EpilepsyProgramBundle.class,
