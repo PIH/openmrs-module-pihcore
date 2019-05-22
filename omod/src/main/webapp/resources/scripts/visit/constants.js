@@ -326,6 +326,12 @@ angular.module('constants', [])
         },
         testResultsDate: {
             uuid: "68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0"
+        },
+        deliveryType: {
+            uuid: "fec005b5-6d44-487f-ae34-9f0f483b4ae8"
+        },
+        pregnancyRiskFactor: {
+            uuid: "160079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         }
     })
     .value('PrimaryCareExamConcepts', {
