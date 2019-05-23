@@ -247,6 +247,12 @@ public class EncounterTypes {
 		public String description() { return "Mother's visit for delivery of baby"; }
 	};
 
+	public static EncounterTypeDescriptor VACCINATION  = new EncounterTypeDescriptor() {
+		public String uuid() { return "1e2a509c-7c9f-11e9-8f9e-2a86e4085a59"; }
+		public String name() { return "Vaccination"; }
+		public String description() { return "Vaccination form only (not within another encounter)"; }
+	};
+
 	public static EncounterTypeDescriptor ECHOCARDIOGRAM  = new EncounterTypeDescriptor() {
 		public String uuid() { return "fdee591e-78ba-11e9-8f9e-2a86e4085a59"; }
 		public String name() { return "Echocardiogram"; }

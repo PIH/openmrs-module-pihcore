@@ -189,6 +189,13 @@ public class LocationTags {
 		public String description() { return "Signifies Locations where Maternal and Child health is provided"; }
 	};
 
+	public static LocationTagDescriptor VACCINATION_LOCATION = new LocationTagDescriptor() {
+		@Override
+		public String uuid() { return "1e2a51e6-7c9f-11e9-8f9e-2a86e4085a59"; }
+		public String name() { return "Vaccination Location"; }
+		public String description() { return "Signifies Locations where Vaccinations are provided (beyond MCH, NCD, Primary care)"; }
+	};
+
 	public static LocationTagDescriptor MENTAL_HEALTH_LOCATION = new LocationTagDescriptor() {
 		@Override
 		public String uuid() { return "a44acd7c-2e5d-11e9-b210-d663bd873d93"; }

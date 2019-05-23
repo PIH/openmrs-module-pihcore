@@ -142,7 +142,7 @@ angular.module("encounterTypeConfig", ["constants"])
             id: "pihcore-ncd",
             label: "pihcore.visitNote.ncdInitial",
             icon: "icon-heart-empty",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
+            shortTemplate: "templates/sections/ncdSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
@@ -732,6 +732,19 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
+        encounterTypeConfig[EncounterTypes.vaccination.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "icon-umbrella",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                pedsVaccinations
+            ]
+        };
+
+
         encounterTypeConfig[EncounterTypes.ancFollowup.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -758,6 +771,8 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareDx
             ]
         };
+
+
 
         encounterTypeConfig[EncounterTypes.mexicoConsult.uuid] = {
             defaultState: "long",

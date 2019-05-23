@@ -332,6 +332,9 @@ angular.module('constants', [])
         },
         pregnancyRiskFactor: {
             uuid: "160079AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        ncdCategory: {
+            uuid: "27b30028-0ed0-4f62-a4d8-52a9c5b600e3"
         }
     })
     .value('PrimaryCareExamConcepts', {
@@ -492,6 +495,9 @@ angular.module('constants', [])
         },
         delivery: {
             uuid: "00e5ebb2-90ec-11e8-9eb6-529269fb1459"
+        },
+        vaccination:{
+            uuid: "1e2a509c-7c9f-11e9-8f9e-2a86e4085a59"
         },
         mexicoConsult: {
             uuid: "aa61d509-6e76-4036-a65d-7813c0c3b752"

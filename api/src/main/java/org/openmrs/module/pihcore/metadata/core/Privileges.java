@@ -342,6 +342,12 @@ public class Privileges {
         public String description() { return "Ability to enter an Maternal and Child health notes"; }
     };
 
+    public static PrivilegeDescriptor TASK_EMR_ENTER_VACCINATION = new PrivilegeDescriptor() {
+        public String uuid() { return "1443a1e4-7cc4-11e9-8f9e-2a86e4085a59"; }
+        public String privilege() { return "Task: emr.enterVax"; }
+        public String description() { return "Ability to enter a Vaccination form"; }
+    };
+
     public static PrivilegeDescriptor TASK_EMR_ENTER_MENTAL_HEALTH_NOTE = new PrivilegeDescriptor() {
         public String uuid() { return "5f520ae8-cf63-11e5-ab30-625662870761"; }
         public String privilege() { return "Task: emr.enterMentalHealthNote"; }

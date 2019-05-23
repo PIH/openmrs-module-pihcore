@@ -46,6 +46,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.ANC_INTAKE);
         install(EncounterTypes.ANC_FOLLOWUP);
         install(EncounterTypes.MCH_DELIVERY);
+        install(EncounterTypes.VACCINATION);
         install(EncounterTypes.ECHOCARDIOGRAM);
         install(EncounterTypes.MEXICO_CONSULT);
 
