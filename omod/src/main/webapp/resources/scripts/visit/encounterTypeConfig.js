@@ -36,6 +36,13 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/allergyui/allergies.page?patientId={{patient.uuid}}&returnUrl={{returnUrl}}"
         };
 
+        var vaccinations = {
+            type: "include-section",
+            id: "vaccinations",
+            template: "templates/vaccination/vaccinations.page",
+            editUrl: ""
+        };
+
         var pedsVaccinations = {
             type: "include-section",
             id: "vaccinations",
@@ -740,7 +747,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                pedsVaccinations
+                vaccinations
             ]
         };
 

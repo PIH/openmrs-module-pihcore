@@ -73,6 +73,19 @@
         min-width: 15%
         }
 
+        .small {
+          max-width: 10em;
+          display: block;
+          margin-bottom: 1em;
+        }
+
+        .small input {
+          min-width: 4em;
+          width: 4em;
+          display: inline;
+          margin-right: 0.5em;
+        }
+
         .small-text {
         color: #555555;
         font-size: 80%;
@@ -100,7 +113,7 @@
         }
 
         textarea {
-        width: 95%; class="small"
+        width: 95%;
         }
 
         /* Grey out disabled checkboxes */
@@ -276,6 +289,7 @@
                     </span>
                 </p>
             </div>
+            <br/>
             <div class="three-columns">
                 <p>
                     <label><uimessage code="pihcore.lab.total_chol"/></label>
@@ -297,23 +311,19 @@
                 </p>
             </div>
 
-
-                <p>
-                    <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
-                    <span class="small">
-                        <obs id="urinary-albumin" conceptId="PIH:URINARY ALBUMIN" />
-                    </span>
-                </p>
-                <p>
-                    <label>
-                        <uimessage code="pihcore.ncd.vitals.waist_cm"/>
-                        (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
-                    </label>
-                    <span class="small">
-                        <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
-                    </span>
-                </p>
-
+            <p>
+                <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
+                <obs id="urinary-albumin" class="small" conceptId="PIH:URINARY ALBUMIN" />
+            </p>
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.vitals.waist_cm"/>
+                    (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
+                </span>
+            </p>
 
             <div class="two-columns">
                 <p class="radio">
@@ -387,10 +397,9 @@
                     <span id="epi_baseline_last_obs" class="value">
                         <lookup expression="fn.latestObs('PIH:Number of seizures in one month before medications').valueNumeric" />
                     </span>
-                    (<uimessage code="pihcore.ncd.epilepsy.change_baseline"/>
                     <span class="small">
                         <obs id="epi_baseline" conceptId="PIH:Number of seizures in one month before medications"/>
-                    </span>)
+                    </span>
                 </p>
                 <p>
                     <label>
@@ -444,11 +453,11 @@
     <section id="analysis" sectionTag="fieldset" headerTag="legend" headerStyle="title">
         <div class="section-container">
             <div id="data-collection">
-                <encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
                 <p>
                     <label><uimessage code="emr.consult.freeTextComments"/></label>
                     <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
                 </p>
+                <encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
             </div>
         </div>
     </section>
