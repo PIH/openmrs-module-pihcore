@@ -786,7 +786,7 @@
                 <obs conceptId="PIH:11973"/>
             </p>
         </div>
-        
+
         <div id="echo" class="section-container">
             <table>
                 <tr>
@@ -808,10 +808,10 @@
                                 <uimessage code="pihcore.echo.{0}" />
                             </label>
                         </td>
-                        <td>
+                        <td width="35%">
                             <obs conceptId="{1}" answerConceptId="{2}" style="checkbox" />
                         </td>
-                        <td>
+                        <td width="35%">
                             <obs conceptId="{1}" answerConceptId="{3}" style="checkbox" />
                         </td>
                     </tr>
