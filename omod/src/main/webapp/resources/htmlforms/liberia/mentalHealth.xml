@@ -103,6 +103,26 @@
         width: 95%;
         }
 
+        span.obs-field > select {
+            min-width: 0;
+        }
+
+        .mh-intervention {
+            -webkit-column-count: 1;
+            -moz-column-count: 1;
+            column-count: 1;
+        }
+
+        .list-inline label, .list-inline input[type="radio"] {
+            display: inline-block;
+            float: none;
+        }
+
+        .list-inline label:first-child {
+            width: 220px;
+        }
+
+
     </style>
 
     <ifMode mode="VIEW" include="false">
@@ -126,6 +146,26 @@
                 getField('encounterDate.value').change(setMinReturnVisitDate);
 
                 setMinReturnVisitDate();
+
+                $('.medication-checkbox > input:checkbox').each(function(idx, it){
+                    if($(it).not(':checked')){
+                        $(it).closest("td").siblings().find(":input").each(function(i, el){
+                            $(el).attr("disabled", "disabled");
+                        });
+                    }
+
+                    $(it).change(function(){
+                        if($(this).is(':checked')){
+                            $(this).closest("td").siblings().find(":input").each(function(i, el){
+                                $(el).removeAttr("disabled");
+                            });
+                        } else {
+                            $(this).closest("td").siblings().find(":input").each(function(i, el){
+                                $(el).val('').attr("disabled", "disabled");
+                            });
+                        }
+                    });
+                });
             });
 
         </script>
@@ -263,30 +303,83 @@
     </ifMode>
 
     <!-- The form -->
+    <section id="mh_refer" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.mentalhealth.referral">
+
+        <!-- Program enrollment -->
+        <enrollInProgram programId="Mental Health"/>
+
+        <div class="section-container">
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.referredBy"/>:
+                    </label>
+                    <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:VILLAGE HEALTH WORKER'],['PIH:11783'],['CIEL:978'],['PIH:Other medical service']">
+                        <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
+                             style="checkbox"/>
+                    </repeat>
+                    <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
+                         style="checkbox" commentFieldLabel=" "/>
+                </p>
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.internalReferredBy"/>:
+                    </label>
+
+                    <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE	']">
+                        <obs conceptId="PIH:Type of referral role" answerConceptId="{0}"
+                             style="checkbox"/>
+                    </repeat>
+                    <obs conceptId="PIH:Type of referral role" answerConceptId="PIH:OTHER"
+                         style="checkbox" commentFieldLabel=" "/>
+                </p>
+                <br/>
+                <br/>
+            </div>
+        </div>
+    </section>
+
+
     <section id="mh_scores" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.mentalhealth.scores">
-
         <div class="section-container">
 
-            <p>
-                <label>
-                    PHQ-9 score:
-                </label>
+            <p class="list-inline">
+                <includeIf velocityTest="$patient.gender == 'F' ">
+                    <span style="width: 50%; float: right;">
+                        <obs labelCode="pihcore.pregnancy.status" conceptId="PIH:PATIENT PREGNANT" style="checkbox"/>
+                    </span>
+                </includeIf>
 
-                <span class="small">
-                    <!-- ToDo: Add new concept for PHQ-9 -->
-                    <obs conceptId="CIEL:163225"/>
+                <span style="width: 50%; float: left;">
+                    <label><uimessage code="pihcore.ncd.mental.phq9_score"/>:</label>
+                    <span class="small">
+                        <obs conceptId="CIEL:165137"/>
+                    </span>
                 </span>
             </p>
-        </div>
+            <br />
+            <br />
+            <p class="list-inline">
+                <label><uimessage code="pihcore.habits.alcohol"/></label>
+                <obs conceptId="PIH:HISTORY OF ALCOHOL USE" answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                     style="radio" answerSeparator="" />
+            </p>
 
-        <div class="section-container">
-            <label>
-                <uimessage code="pihcore.mentalhealth.suicideEval"/>:
-            </label>
-            <obs conceptId="PIH:Suicidal evaluation" answerConceptIds="PIH:YES,PIH:NO"
-                 style="radio" answerCodes="yes,no" answerSeparator="" />
-            <br/>
+            <p class="list-inline">
+                <label><uimessage code="pihcore.habits.drugs"/></label>
+                <obs conceptId="PIH:HISTORY OF ILLEGAL DRUGS" answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                     style="radio" answerSeparator="" />
+            </p>
+
+            <p class="list-inline">
+                <label><uimessage code="pihcore.ncd.plan.hospitalized"/></label>
+                <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" answerConceptIds="PIH:YES,PIH:NO"
+                     style="radio" answerSeparator=""/>
+            </p>
+
         </div>
     </section>
 
@@ -300,56 +393,145 @@
                 </tr>
 
                 <repeat>
-                <template>
-                    <tr>
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                            <td id="{name}-dx">
-                                <obs conceptId="PIH:DIAGNOSIS"
-                                     answerConceptId="{concept}"
-                                     style="checkbox"
-                                     toggle="{id: '{name}-dx-date', style: 'dim'}" />
-                            </td>
-                            <td id="{name}-dx-date" >
-                                <obs conceptId="PIH:Diagnosis date" />
-                            </td>
-                        </obsgroup>
-                    </tr>
-                </template>
-                    <render concept="PIH:DEPRESSION" name="Depression"/>
-                    <render concept="PIH:PSYCHOSIS" name="Psychosis" />
-                    <render concept="PIH:Bipolar disorder" name="Bipolar" />
-                    <render concept="PIH:SCHIZOPHRENIA" name="Schizophrenia" />
-                    <render concept="PIH:Psychosomatic problems" name="Psychosomatic" />
-                    <render concept="PIH:Hyperkinetic Behavior" name="ADHD" />
-                    <render concept="PIH:Conduct disorder" name="Conduct" />
-                    <render concept="PIH:Mental handicap" name="Intellect" />
-                    <render concept="PIH:DEMENTIA" name="Dementia" />
-                    <render concept="PIH:ANXIETY DISORDER" name="Anxiety" />
-                    <render concept="PIH:Post traumatic stress disorder" name="PTSD" />
-                    <render concept="CIEL:130967" name="panic" />
-                    <!-- ToDo: add more here:  anxiety,other -->
-                    <render concept="PIH:DELIRIUM" name="Delirium" />
-                    <!-- ToDo: add acute and chronic -->
-                    <render concept="CIEL:121716" name="Alcohol-induced" />
-                    <render concept="PIH:7201" name="Drug-induced" />
-                    <!-- ToDo: add mood disorder???  other -->
+                    <template>
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td id="{name}-dx">
+                                    <obs conceptId="PIH:DIAGNOSIS"
+                                         answerConceptId="{concept}"
+                                         style="checkbox"
+                                         toggle="{id: '{name}-dx-date', style: 'dim'}"/>
+                                </td>
+                                <td id="{name}-dx-date">
+                                    <obs conceptId="PIH:Diagnosis date"/>
+                                </td>
+                            </obsgroup>
+                        </tr>
+                    </template>
+
+                    <render concept="PIH:PSYCHOSIS" name="Psychosis"/>
+                    <render concept="PIH:Bipolar disorder" name="Bipolar"/>
+                    <render concept="PIH:SCHIZOPHRENIA" name="Schizophrenia"/>
+                    <render concept="PIH:Psychosomatic problems" name="Psychosomatic"/>
+                    <render concept="PIH:Hyperkinetic Behavior" name="ADHD"/>
+                    <render concept="PIH:Conduct disorder" name="Conduct"/>
+                    <render concept="PIH:Mental handicap" name="Intellect"/>
+                    <render concept="PIH:DEMENTIA" name="Dementia"/>
                 </repeat>
+
+                <!-- Anxiety Disorder -->
+                <tr>
+                    <td id="Anxiety-dx" colspan="2">
+                        <obs conceptId="PIH:DIAGNOSIS"
+                             answerConceptId="PIH:ANXIETY DISORDER"
+                             style="checkbox"
+                             toggle="{id: 'anxiety-dx-types', style: 'hide'}" />
+                        <table id="anxiety-dx-types">
+                            <tr>
+                                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                    <td id="PTSD-dx"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:Post traumatic stress disorder" style="checkbox" toggle="{id: 'PTSD-dx-date', style: 'dim'}" /></td>
+                                    <td id="PTSD-dx-date"><obs conceptId="PIH:Diagnosis date" /></td>
+                                </obsgroup>
+                            </tr>
+                            <tr>
+                                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                    <td id="Panic-dx"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:130967" style="checkbox" toggle="{id: 'Panic-dx-date', style: 'dim'}" /></td>
+                                    <td id="Panic-dx-date"><obs conceptId="PIH:Diagnosis date" /></td>
+                                </obsgroup>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <!-- Depression -->
+                <tr>
+                    <td id="Depression-dx" colspan="2">
+                        <obs conceptId="PIH:DIAGNOSIS"
+                             answerConceptId="PIH:DEPRESSION"
+                             style="checkbox"
+                             toggle="{id: 'depression-dx-types', style: 'hide'}" />
+                        <table id="depression-dx-types">
+                            <tr>
+                                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                    <td id="Manic-dx"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:Manic episode" style="checkbox" toggle="{id: 'Manic-dx-date', style: 'dim'}" /></td>
+                                    <td id="Manic-dx-date"><obs conceptId="PIH:Diagnosis date" /></td>
+                                </obsgroup>
+                            </tr>
+                            <tr>
+                                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                    <td id="Mood-dx"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:Mood disorder" style="checkbox" toggle="{id: 'Mood-dx-date', style: 'dim'}" /></td>
+                                    <td id="Mood-dx-date"><obs conceptId="PIH:Diagnosis date" /></td>
+                                </obsgroup>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:OTHER" style="checkbox" commentFieldLabel=" "/></td>
+                </tr>
             </table>
         </div>
     </section>
 
     <section id="mh-meds" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.ncd.meds">
+             headerCode="pihcore.visitNote.plan.medication">
         <div class="section-container">
+            <table>
+                <tr>
+                    <th><uimessage code="pihcore.visitNote.plan.name"/></th>
+                    <th colspan="2"><uimessage code="pihcore.visitNote.plan.dose"/></th>
+                    <th><uimessage code="pihcore.visitNote.plan.frequency"/></th>
+                    <th colspan="2"><uimessage code="pihcore.visitNote.plan.duration"/></th>
+                </tr>
 
-            <div class="two-columns">
-                <repeat with="['PIH:CHLORPROMAZINE'],['PIH:HALOPERIDOL'],['PIH:CARBAMAZEPINE'],['PIH:SODIUM VALPROATE'],['CIEL:83405'],['PIH:FLUOXETINE'],['PIH:PHENOBARBITAL'],['PIH:IMIPRAMINE'],['PIH:PHENYTOIN'],['PIH:AMITRYPTILINE'],['PIH:FLUPHENAZINE']">
-                    <p>
-                        <obs conceptId="PIH:Mental health medication" answerConceptId="{0}"
-                             style="checkbox"/>
-                    </p>
+                <repeat>
+                    <template>
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Prescription construct">
+                                <td id="{name}-rx">
+                                    <obs conceptId="PIH:Mental health medication"
+                                         answerConceptId="{concept}"
+                                         style="checkbox"
+                                         toggle="{id: '{name}-rx-dose', style: 'dim'}" class="medication-checkbox"/>
+                                </td>
+                                <td id="{name}-rx-dose">
+                                    <obs id="dose-{name}" class="doseInput" conceptId="CIEL:160856"/>
+                                </td>
+                                <td id="{name}-rx-dose-unit">
+                                    <obs id="doseUnit-{name}" class="doseInput select-arrow" conceptId="PIH:Dosing units coded"
+                                         answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
+                                         answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU" />
+                                </td>
+                                <td id="{name}-rx-frequency">
+                                    <obs id="frequencyCoded-{name}" class="frequency select-arrow" conceptId="PIH:Drug frequency for HUM"
+                                         answerConceptIds=
+                                                 "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
+                                         answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other" />
+                                </td>
+                                <td id="{name}-rx-duration">
+                                    <obs id="duration-{name}" class="duration doseInput" conceptId="CIEL:159368"/>
+                                </td>
+                                <td id="{name}-rx-duration-unit">
+                                    <obs id="durationUnit-{name}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS" answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                                </td>
+                            </obsgroup>
+                        </tr>
+                    </template>
+
+                    <render concept="PIH:CHLORPROMAZINE" name="Chlorpromazine"/>
+                    <render concept="PIH:HALOPERIDOL" name="Haloperidol"/>
+                    <render concept="PIH:CARBAMAZEPINE" name="Carbamazepine"/>
+                    <render concept="PIH:SODIUM VALPROATE" name="Sodium valproate"/>
+                    <render concept="CIEL:83405" name="Risperidone"/>
+                    <render concept="PIH:FLUOXETINE" name="Fluoxetine"/>
+                    <render concept="PIH:PHENOBARBITAL" name="Phenobarbital"/>
+                    <render concept="PIH:IMIPRAMINE" name="Imipramine"/>
+                    <render concept="PIH:PHENYTOIN" name="Phenytoin"/>
+                    <render concept="PIH:AMITRYPTILINE" name="Amitryptiline"/>
+                    <render concept="PIH:FLUPHENAZINE" name="Fluphenazine"/>
                 </repeat>
-            </div>
+            </table>
 
             <p>
                 <obs conceptId="PIH:Medication comments (text)"/>
@@ -358,14 +540,94 @@
         </div>
     </section>
 
+    <!-- mental health interventions -->
+    <section id="mh-interventions" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.mentalhealth.interventions">
+        <div class="section-container">
+            <div class="two-columns">
+                <repeat with="['PIH:Psychotherapy'],['PIH:Psychoeducation'],['PIH:Interpersonal Therapy'],['PIH:Trauma intervention'],['PIH:Relaxation'],['PIH:Family Support'],['PIH:Grief counseling'],['PIH:Parenting skills'],['PIH:Behavioral activation'],['PIH:PSYCHOSOCIAL COUNSELING']">
+                    <div class="mh-intervention"><obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/></div>
+                </repeat>
+            </div>
+
+            <p>
+                <obs conceptId="PIH:Mental health intervention" answerConceptId="PIH:OTHER"
+                     commentFieldLabel=""/>
+            </p>
+        </div>
+    </section>
+
+    <!-- socioeconomic assistance section -->
+    <section id="socioeconomic-assistance" sectionTag="fieldset" headerTag="legend"
+             headerStyle="title" headerCode="pihcore.socioEconomic.assistance">
+        <table>
+            <tr>
+                <td></td>
+                <td>
+                    <label>
+                        <uimessage code="pihcore.received"/>
+                    </label>
+                </td>
+                <td>
+                    <label>
+                        <uimessage code="pihcore.recommended"/>
+                    </label>
+                </td>
+            </tr>
+
+            <repeat>
+                <template>
+                    <tr>
+                        <td>
+                            <label>
+                                <uimessage code="{aidLabel}"/>
+                            </label>
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:2156" answerConceptId="{aid}"
+                                 answerLabel="" style="checkbox" />
+                        </td>
+                        <td>
+                            <obs conceptId="PIH:2157" answerConceptId="{aid}"
+                                 answerLabel="" style="checkbox" />
+                        </td>
+                    </tr>
+                </template>
+                <render aid="PIH:FINANCIAL AID" aidLabel="pihcore.aid.money"/>
+                <render aid="PIH:ASSISTANCE WITH TRANSPORT" aidLabel="pihcore.aid.transport"/>
+                <render aid="PIH:NUTRITIONAL AID" aidLabel="pihcore.aid.food"/>
+                <render aid="PIH:SCHOOL EXPENSES" aidLabel="pihcore.aid.school"/>
+                <render aid="PIH:HOUSING EXPENSES" aidLabel="pihcore.aid.home"/>
+            </repeat>
+
+            <tr>
+                <td>
+                    <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE NON-CODED"
+                         labelCode="zl.ifOtherSpecify"/>
+                </td>
+                <td>
+                    <obs conceptId="PIH:2156" answerConceptId="CIEL:5622"
+                         answerLabel="" style="checkbox" />
+                </td>
+                <td>
+                    <obs conceptId="PIH:2157" answerConceptId="CIEL:5622"
+                         answerLabel="" style="checkbox" />
+                </td>
+            </tr>
+
+        </table>
+
+        <p>
+            <label>
+                <uimessage code="pihcore.remarks"/>:
+            </label>
+            <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE COMMENT" style="text"/>
+        </p>
+    </section>
+
     <section id="mh-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.visitNote.plan">
         <div class="section-container">
-
-            <label>
-                <uimessage code="pihcore.comment"/>:
-            </label>
-            <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
 
             <p>
                 <label>
