@@ -218,17 +218,30 @@
         <div class="section-container">
             <div class="two-columns">
                 <p>
-                    <label>
-                        <uimessage code="pihcore.ncd.asthma.daytime_symptoms"/>
-                    </label>
+                    <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 4">
+                        <label>
+                            <uimessage code="pihcore.daytime_symptoms"/>
+                        </label>
 
-                    <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                         style="radio" answerSeparator="" />
+                        <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
+                             answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                             style="radio" answerSeparator="" />
+                    </includeIf>
+                    <excludeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 4">
+                        <label>
+                            <uimessage code="pihcore.daytime_symptoms_once"/>
+                        </label>
+
+                        <obs conceptId="PIH:Daytime asthma symptoms for more than a few minutes more than once/week"
+                             answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                             style="radio" answerSeparator="" />
+                    </excludeIf>
                 </p>
+
+
                 <p class="checkboxRadio">
                     <label>
-                        <uimessage code="pihcore.ncd.asthma.nighttime_symptoms"/>
+                        <uimessage code="pihcore.nighttime_symptoms"/>
                     </label>
                     <obsgroup groupingConceptId="PIH:FUNCTIONAL REVIEW OF SYMPTOMS CONSTRUCT">
                         <span class="two-columns">
@@ -252,7 +265,7 @@
                 </p>
                 <p>
                     <label>
-                        <uimessage code="pihcore.ncd.asthma.meds_2x_wk"/>
+                        <uimessage code="pihcore.meds_2x_wk"/>
                     </label>
 
                     <obs conceptId="PIH:Medications more that twice per week"
@@ -261,7 +274,7 @@
                 </p>
                 <p>
                     <label>
-                        <uimessage code="pihcore.ncd.asthma.limitation_of_activity"/>
+                        <uimessage code="pihcore.limitation_of_activity"/>
                     </label>
                     <obs conceptId="PIH:Limitation of ability to perform main daily activities coded"
                          answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
