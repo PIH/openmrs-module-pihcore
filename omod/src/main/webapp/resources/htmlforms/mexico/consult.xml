@@ -247,6 +247,7 @@
             <enrollInProgram id="mental-enroll" programId="Mental Health" showCheckbox="true" toggle="mental"/>
             <uimessage code="pihcore.ncd.mental"/>
         </div>
+
     </section>
 
     <!-- Asthma -->
@@ -324,21 +325,39 @@
     <!-- Diabetes -->
     <section id="diabetes" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.diabetes">
-        <div class="section-container">
-            <div class="three-columns">
-                <p>
-                    <label><uimessage code="pihcore.lab.glucose"/></label>
+        <div class="question-container">
+            <label><uimessage code="pihcore.lab.glucose"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <p>
+                        <lookup complexExpression="$fn.latestObs('PIH:SERUM GLUCOSE').obsDatetime" />
+                    </p>
+                    <p>
+                        <lookup complexExpression="$fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric" />
+                    </p>
+                    <p>
+                    <uimessage code="pihcore.lab.isFastingGlucose.title"/>:
+                    <lookup complexExpression="$fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name" />
+                    </p>
+                </div>
+                <div>
                     <span class="small">
                         <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
                     </span>
-                </p>
-                <p>
-                    <label><uimessage code="pihcore.lab.hba1c"/></label>
-                    <span class="small">
-                        <obs id="hba1c" conceptId="PIH:HbA1c" showUnits="true"/>
-                    </span>
-                </p>
+                    <label><uimessage code="pihcore.lab.isFastingGlucose.title"/></label>
+                    <obs id="fasting-for-glucose" conceptId="PIH:Fasting for blood glucose test"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         style="radio" answerSeparator="" />
+                </div>
             </div>
+        </div>
+        <div class="section-container">
+            <p>
+                <label><uimessage code="pihcore.lab.hba1c"/></label>
+                <span class="small">
+                    <obs id="hba1c" conceptId="PIH:HbA1c" showUnits="true"/>
+                </span>
+            </p>
             <br/>
             <div class="three-columns">
                 <p>
