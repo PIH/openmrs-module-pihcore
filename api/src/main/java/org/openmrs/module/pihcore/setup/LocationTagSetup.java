@@ -129,11 +129,16 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.SURGERY_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
 
-        // Enable edTriage, edTriageQueue and edConsult for Kouka (Harper, JJ Dossen)
-        List<LocationDescriptor> locationsThatGetEdTag = location.equals(LiberiaLocations.HARPER) ? Arrays.asList(location) : null;
-        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, locationsThatGetEdTag);
-        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, locationsThatGetEdTag);
-        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, locationsThatGetEdTag);
+        setupLocationTagsForHarperKouka(locationService);
+    }
+
+    private static void setupLocationTagsForHarperKouka(LocationService locationService) {
+        LocationDescriptor location = LiberiaLocations.HARPER;
+
+        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(location));
     }
 
 
