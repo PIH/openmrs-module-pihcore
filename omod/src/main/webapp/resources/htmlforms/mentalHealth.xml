@@ -310,8 +310,10 @@
                     <obs conceptId="PIH:Type of referral role" answerConceptId="PIH:OTHER"
                          style="checkbox" commentFieldLabel=" " />
                 </p>
-                <br/><br/><br/>
+                <br/><br/>
             </div>
+
+            <hr/>
             <div class="two-columns">
                 <p>
                     <label>
@@ -494,25 +496,57 @@
                 <label>
                     <uimessage code="pihcore.mentalhealth.providerType"/>:
                 </label>
+                <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST']">
+                        <obs conceptId="PIH:Type of provider" answerConceptId="{0}"
+                             style="checkbox"/>
+                </repeat>
             </p>
-            <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST']">
-                <p>
-                    <obs conceptId="PIH:Type of provider" answerConceptId="{0}"
-                         style="checkbox"/>
-                </p>
-            </repeat>
-
         </div>
     </section>
 
     <section id="mh-interventions" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.mentalhealth.interventions">
         <div class="section-container">
-            <repeat with="['PIH:Psychotherapy'],['PIH:Psychoeducation'],['PIH:Interpersonal Therapy'],['PIH:Trauma intervention'],['PIH:Relaxation'],['PIH:Family Support'],['PIH:Grief counseling'],['PIH:Parenting skills'],['PIH:Behavioral activation'],['PIH:PSYCHOSOCIAL COUNSELING']">
-                <p>
-                    <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
-                </p>
-            </repeat>
+            <obs conceptId="PIH:Mental health intervention"
+                 answerConceptId="PIH:Interpersonal Therapy"
+                 toggle="interpersonal" />
+
+            <!-- ToDo:  Indent these -->
+            <div id="interpersonal">
+                <div class="two-columns">
+                    <repeat with="['CIEL:165476','Interpersonal inventory'],
+                              ['CIEL:165477','Giving hope'],
+                              ['CIEL:165478','Giving sick role'],
+                              ['CIEL:165479','Giving the diagnosis'],
+                              ['CIEL:165480','Communications analysis'],
+                              ['CIEL:165481','Decision analysis'],
+                              ['CIEL:165482','Role play']">
+                        <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
+                    </repeat>
+                </div>
+            </div>
+
+            <br/>
+
+            <div class="two-columns">
+                <!-- ToDo:  Add HIV/AIDS counseling -->
+                <repeat with="['PIH:Behavioral activation'],
+                              ['PIH:Cognitive processing therapy'],
+                              ['CIEL:165424','Cognitive-behavior therapy'],
+                              ['PIH:Psychotherapy'],
+                              ['CIEL:165486','Supportive psychotherapy'],
+                              ['PIH:Psychoeducation'],
+                              ['PIH:PSYCHOSOCIAL COUNSELING'],
+                              ['PIH:Relaxation'],
+                              ['PIH:Family Support'],
+                              ['PIH:Grief counseling'],
+                              ['PIH:Parenting skills'],
+                              ['CIEL:165484','Deep breathing'],
+                              ['CIEL:165485','Progressive muscle relaxation'],
+                              ['PIH:Security plan']">
+                        <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
+                </repeat>
+            </div>
             <p>
                 <obs conceptId="PIH:Mental health intervention" answerConceptId="PIH:OTHER"
                      commentFieldLabel=""/>
@@ -526,10 +560,8 @@
 
             <div class="two-columns">
                 <repeat with="['PIH:FLUOXETINE'],['PIH:AMITRYPTILINE'],['PIH:PHENOBARBITAL'],['PIH:PHENYTOIN'],['CIEL:83405'],['PIH:HALOPERIDOL'],['PIH:DIAZEPAM'],['PIH:CARBAMAZEPINE'],['PIH:SODIUM VALPROATE']">
-                    <p>
                         <obs conceptId="PIH:Mental health medication" answerConceptId="{0}"
                              style="checkbox"/>
-                    </p>
                 </repeat>
             </div>
 
@@ -538,9 +570,6 @@
                 <label>
                     <uimessage code="pihcore.exam.comment"/>:
                 </label>
-            </p>
-
-            <p>
                 <obs conceptId="PIH:Medication comments (text)"/>
             </p>
 
@@ -556,9 +585,7 @@
                     <obs conceptId="PIH:Mental health intervention"
                          answerConceptId="PIH:Security plan"
                          style="checkbox"/>
-                </p>
 
-                <p>
                     <obs conceptId="PIH:TYPE OF PATIENT" answerConceptId="PIH:INPATIENT HOSPITALIZATION"
                          style="checkbox"/>
                 </p>
@@ -569,18 +596,18 @@
                     <label>
                         <uimessage code="pihcore.referredTo"/>:
                     </label>
+                    <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:VILLAGE HEALTH WORKER'],['PIH:SOCIAL WORKER SERVICE']">
+                            <obs conceptId="PIH:Type of referral role" answerConceptId="{0}" style="checkbox"/>
+                    </repeat>
                 </p>
-                <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:VILLAGE HEALTH WORKER'],['PIH:SOCIAL WORKER SERVICE']">
-                    <p>
-                        <obs conceptId="PIH:Type of referral role" answerConceptId="{0}" style="checkbox"/>
-                    </p>
-                </repeat>
             </div>
 
-            <label>
-                <uimessage code="pihcore.comment"/>:
-            </label>
-            <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
+            <p>
+                <label>
+                    <uimessage code="pihcore.comment"/>:
+                </label>
+                <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
+            </p>
 
             <p>
                 <label>
