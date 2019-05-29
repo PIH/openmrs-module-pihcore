@@ -790,7 +790,7 @@
         <div id="echo" class="section-container">
             <table>
                 <tr>
-                    <th colspan="3">
+                    <th colspan="2">
                         <label>
                             <uimessage code="pihcore.echocardiogram.title"/>
                         </label>
@@ -808,11 +808,9 @@
                                 <uimessage code="pihcore.echo.{0}" />
                             </label>
                         </td>
-                        <td width="35%">
-                            <obs conceptId="{1}" answerConceptId="{2}" style="checkbox" />
-                        </td>
-                        <td width="35%">
-                            <obs conceptId="{1}" answerConceptId="{3}" style="checkbox" />
+                        <td width="50%">
+                            <obs conceptId="{1}" answerConceptIds="{2},{3}"
+                                 style="radio" answerSeparator="" />
                         </td>
                     </tr>
                 </repeat>
@@ -824,12 +822,10 @@
                         </label>
                     </td>
                     <td>
-                        <obs conceptId="CIEL:165253" answerConceptId="PIH:SATISFACTORY"
-                             style="checkbox" answerCode="pihcore.adequate" />
-                    </td>
-                    <td>
-                        <obs conceptId="CIEL:165253" answerConceptId="PIH:UNSATISFACTORY SAMPLE"
-                             style="checkbox" answerCode="pihcore.inadequate"/>
+                        <obs conceptId="CIEL:165253" style="radio"
+                             answerConceptIds="PIH:SATISFACTORY,PIH:UNSATISFACTORY SAMPLE"
+                             answerCodes="pihcore.adequate,pihcore.inadequate"
+                             answerSeparator="" />
                     </td>
                 </tr>
                 <tr>
@@ -838,7 +834,7 @@
                             <uimessage code="pihcore.additionalComments"/>:
                         </label>
                     </td>
-                    <td colspan="2">
+                    <td>
                         <obs conceptId="PIH:3407" />
                     </td>
                 </tr>
