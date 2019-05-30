@@ -566,7 +566,9 @@
         <div class="section-container">
             <div class="two-columns">
                 <repeat with="['PIH:Psychotherapy'],['PIH:Psychoeducation'],['PIH:Relaxation'],['PIH:Family Support'],['PIH:Grief counseling'],['PIH:Parenting skills'],['PIH:Behavioral activation'],['PIH:Security plan'],['PIH:PSYCHOSOCIAL COUNSELING']">
-                    <div class="mh-intervention"><obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/></div>
+                    <div class="mh-intervention">
+                        <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
+                    </div>
                 </repeat>
             </div>
 
