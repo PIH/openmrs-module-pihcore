@@ -513,20 +513,20 @@
 
             <!-- ToDo:  Indent these -->
             <div id="interpersonal">
-                <div class="two-columns">
-                    <repeat with="['CIEL:165476','Interpersonal inventory'],
-                              ['CIEL:165477','Giving hope'],
-                              ['CIEL:165478','Giving sick role'],
-                              ['CIEL:165479','Giving the diagnosis'],
-                              ['CIEL:165480','Communications analysis'],
-                              ['CIEL:165481','Decision analysis'],
-                              ['CIEL:165482','Role play']">
-                        <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
-                    </repeat>
-                </div>
+                <blockquote>
+                    <div class="two-columns">
+                        <repeat with="['CIEL:165476','Interpersonal inventory'],
+                                  ['CIEL:165477','Giving hope'],
+                                  ['CIEL:165478','Giving sick role'],
+                                  ['CIEL:165479','Giving the diagnosis'],
+                                  ['CIEL:165480','Communications analysis'],
+                                  ['CIEL:165481','Decision analysis'],
+                                  ['CIEL:165482','Role play']">
+                            <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
+                        </repeat>
+                    </div>
+                </blockquote>
             </div>
-
-            <br/>
 
             <div class="two-columns">
                 <!-- ToDo:  Add HIV/AIDS counseling -->
