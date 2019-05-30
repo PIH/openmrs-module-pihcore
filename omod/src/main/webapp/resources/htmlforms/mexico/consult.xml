@@ -44,9 +44,14 @@
         }
 
         .two-columns {
-            column-count: 2;
-            -webkit-column-count: 2;
-            -moz-column-count: 2;
+            display: table;
+            height: 100%;
+            width: 100%;
+        }
+
+        .two-columns > div {
+            display: table-cell;
+            width: 50%;
         }
 
         .three-columns {
@@ -73,6 +78,12 @@
         min-width: 15%
         }
 
+        p.radio > * {
+        display: inline;
+        float: none !important;
+        min-width: initial;
+        }
+
         .small {
           max-width: 10em;
           display: block;
@@ -86,9 +97,22 @@
           margin-right: 0.5em;
         }
 
+        .medium {
+            max-width: 16em;
+            display: block;
+            margin-bottom: 1em;
+        }
+
+        .medium input {
+            min-width: 8em;
+            width: 8em;
+            display: inline;
+            margin-right: 0.5em;
+        }
+
         .small-text {
         color: #555555;
-        font-size: 80%;
+        font-size: 90%;
         display: block;
         }
 
@@ -106,6 +130,18 @@
 
         .section-container label { /*new definition to override labels inside section-containers*/
         margin: 0px;
+        }
+
+        .question-container {
+            background: #F2F2F2;
+            box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+            padding: 5px 5px 10px 15px;
+            margin: 5px 0;
+            line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+       .question-container label {
+          margin-top: 5px;
         }
 
         .section {
@@ -205,7 +241,7 @@
             <enrollInProgram id="htn-enroll" programId="Hypertension" showCheckbox="true"/>
             <uimessage code="pihcore.ncd.htn"/>
             <br />
-            <enrollInProgram id="mch-enroll" programId="MCH" showCheckbox="true"/>
+            <enrollInProgram id="mch-enroll" programId="MCH" showCheckbox="true" toggle="anc"/>
             <uimessage code="pihcore.mch"/>
             <br />
             <enrollInProgram id="mental-enroll" programId="Mental Health" showCheckbox="true" toggle="mental"/>
@@ -217,7 +253,7 @@
     <section id="asthma" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
         <div class="section-container">
             <div class="two-columns">
-                <p>
+                <div>
                     <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 4">
                         <label>
                             <uimessage code="pihcore.daytime_symptoms"/>
@@ -236,10 +272,9 @@
                              answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                              style="radio" answerSeparator="" />
                     </excludeIf>
-                </p>
+                </div>
 
-
-                <p class="checkboxRadio">
+                <div class="checkboxRadio">
                     <label>
                         <uimessage code="pihcore.nighttime_symptoms"/>
                     </label>
@@ -262,8 +297,10 @@
                         });
                         });
                     </script>
-                </p>
-                <p>
+                </div>
+            </div>
+            <div class="two-columns">
+                <div>
                     <label>
                         <uimessage code="pihcore.meds_2x_wk"/>
                     </label>
@@ -271,15 +308,15 @@
                     <obs conceptId="PIH:Medications more that twice per week"
                          answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                          style="radio" answerSeparator="" />
-                </p>
-                <p>
+                </div>
+                <div>
                     <label>
                         <uimessage code="pihcore.limitation_of_activity"/>
                     </label>
                     <obs conceptId="PIH:Limitation of ability to perform main daily activities coded"
                          answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                          style="radio" answerSeparator=""/>
-                </p>
+                </div>
             </div>
         </div>
     </section>
@@ -430,20 +467,351 @@
         </div>
     </section>
 
+    <!-- Maternal -->
+    <section id="anc" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.mch.anc">
+
+        <ifMode mode="VIEW" include="false" >
+            <script type="text/javascript">
+
+                jq(function() {
+
+                    var updateEdd = function() {
+                        return updateEddFromData(getCurrentDate(), getLastPeriodDate());
+                    }
+
+                    var getCurrentDate = function() {
+                        var currentEncounterDate = '<lookup expression="encounter.getEncounterDatetime().getTime()"/>';
+                        if (typeof currentEncounterDate !== "undefined" &amp;&amp; currentEncounterDate !== null &amp;&amp; (currentEncounterDate.length > 0)) {
+                            // calculate the gestational age at the time of the encounter
+                            return new Date(+currentEncounterDate);
+                        } else {
+                            return new Date();
+                        }
+                    }
+
+                    var getLastPeriodDate = function() {
+                        var datepickerValue = getField('lastPeriodDate.value').datepicker('getDate');
+                        if (datepickerValue !== null) {
+                            return datepickerValue;
+                        }
+                        var dateText = jq('#lmp-existing').text().trim();
+                        if (dateText !== null &amp;&amp; dateText !== '') {
+                            // We're going to use an absolutely evil hack to try and get a date object
+                            // from the LMP string we have, without access to Moment.js or anything
+                            // nice like that. We'll coerce the string into the input box, get the
+                            // date object out, and reset the box.
+                            // replace the slashes with spaces
+                            var dateTextFormatted = dateText.replace(/\//g, " ");
+                            // get the date object
+                            var widgetDate = getField('lastPeriodDate.value').datepicker('setDate', dateTextFormatted).val();
+                            var dateValue = new Date(getField('lastPeriodDate.value').datepicker('getDate'));
+                            // reset the input box
+                            getField('lastPeriodDate.value').datepicker('setDate', datepickerValue);
+                            return dateValue;
+                        }
+                        return null;
+                    }
+
+                    var updateEddFromData = function(today, lastPeriodDate) {
+
+                        if (typeof lastPeriodDate !== "undefined" &amp;&amp; lastPeriodDate !== null) {
+
+                            // In order to get the date object to print in a nice, locale-specific way, we
+                            // - store the current lastPeriodDate input value
+                            // - calculate the EDD
+                            // - use the lastPeriodDate box to coerce the EDD into the right format
+                            // - set the EDD text with that formatted object
+                            // - restore the lastPeriodDate to its actual value
+                            var lmpInputValue = getField('lastPeriodDate.value').datepicker('getDate');
+                            var newDate = new Date(lastPeriodDate);
+                            var timeDiff = Math.abs(today.getTime() - newDate.getTime());
+                            // weeks difference = gestational age
+                            var diffWeeks = Math.ceil(timeDiff / (1000 * 3600 * 24 * 7));
+
+                            // Estimated Delivery Date = (LMP - 3 months) + 12 months + 7 days
+                            newDate.setMonth(newDate.getMonth() - 3);
+                            newDate.setFullYear(newDate.getFullYear() + 1);
+                            newDate.setDate(newDate.getDate() + 7);
+
+                            var widgetDate = getField('lastPeriodDate.value').datepicker('setDate', newDate).val();
+                            getField('lastPeriodDate.value').datepicker('setDate', lmpInputValue);
+
+                            jq('#calculated-edd-and-gestational').show();
+                            jq('#calculated-edd').text(widgetDate);
+                            jq('#calculated-gestational-age-value').text(diffWeeks + " " + '<uimessage code="pihcore.weeks"/>');
+
+                        } else {
+                            jq('#calculated-edd-and-gestational').hide();
+                        }
+                    };
+
+                    jq('#calculated-edd-and-gestational').hide();
+
+                    jq("#lastPeriodDate input[type='hidden']").change(function() {
+                        updateEdd();
+                    });
+
+                    updateEdd();
+                });
+            </script>
+        </ifMode>
+
+
+        <!-- Last menstrual period (LMP or DDR) -->
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.pregnancy.lastPeriod"/>
+            </label>
+            <div class="two-columns">
+                <div id="lmp-existing" class="small-text">
+                    <lookup expression="fn.latestObs('CIEL:1427').valueDate"/>
+                </div>
+                <div class="medium">
+                    <obs id="lastPeriodDate" conceptId="CIEL:1427" allowFutureDates="false"/>
+                </div>
+            </div>
+        </div>
+        <!-- G, P, C, A -->
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.mch.grava"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('CIEL:5624').valueNumeric"/>
+                </div>
+                <div class="small">
+                    <obs conceptId="CIEL:5624" id="gravidaInput"/>
+                </div>
+            </div>
+        </div>
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.mch.para"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('CIEL:1053').valueNumeric"/>
+                </div>
+                <div class="small">
+                    <obs conceptId="CIEL:1053" />
+                </div>
+            </div>
+        </div>
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.mch.cesarian"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('CIEL:160081').valueNumeric"/>
+                </div>
+                <div class="small">
+                    <obs conceptId="CIEL:160081" />
+                </div>
+            </div>
+        </div>
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.mch.abortus"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('CIEL:1823').valueNumeric"/>
+                </div>
+                <div class="small">
+                    <obs conceptId="CIEL:1823" />
+                </div>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <label><uimessage code="pihcore.mch.ultrasoundResultText"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <p>
+                        <!-- This doesn't work, but I'd like it to. See https://issues.openmrs.org/browse/RC-35 -->
+                        <!-- <lookup complexExpression="#foreach($obs in $fn.allObs('PIH:7018')) $obs.obsDatetime #end"/> -->
+                        <lookup expression="fn.latestObs('PIH:7018').obsDatetime"/>
+                    </p>
+                    <p>
+                    <lookup expression="fn.latestObs('PIH:7018').valueText"/>
+                    </p>
+                </div>
+                <div>
+                    <obs conceptId="PIH:7018" style="textarea" rows="4"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- HIV & Syphalis tests -->
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.mch.hivTest"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('CIEL:163722').obsDatetime"/>
+                </div>
+                <div>
+                    <obs conceptId="CIEL:163722" answerConceptId="CIEL:1065"
+                         style="checkbox" />
+                </div>
+            </div>
+        </div>
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.lab.vdrl"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <p>
+                        <lookup expression="fn.latestObs('CIEL:299').obsDatetime"/>
+                    </p>
+                    <p>
+                        <lookup expression="fn.latestObs('CIEL:299').valueCoded.name"/>
+                    </p>
+                </div>
+                <div>
+                    <obs conceptId="CIEL:299"
+                         answerConceptIds="CIEL:1228,CIEL:1229" answerCodes="pihcore.reactive,pihcore.nonreactive"
+                         style="radio" answerSeparator="" />
+                </div>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.lab.hemoglobin"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <!-- See https://issues.openmrs.org/browse/RC-35 -->
+                    <lookup complexExpression="#foreach($obs in $fn.allObs('CIEL:21')) $obs.valueNumeric — $obs.obsDatetime #end"/>
+                </div>
+                <div>
+                    <obs class="small" conceptId="CIEL:21" showUnits="true" />
+                </div>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <p>
+                        <lookup expression="fn.latestObs('PIH:URINARY ALBUMIN').obsDatetime"/>
+                    </p>
+                    <p>
+                        <lookup expression="fn.latestObs('PIH:URINARY ALBUMIN').valueNumeric"/>
+                    </p>
+                </div>
+                <div>
+                    <obs class="small" conceptId="PIH:URINARY ALBUMIN" />
+                </div>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.lab.blood_type"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('PIH:BLOOD TYPING').valueCoded.name"/>
+                </div>
+                <div>
+                    <p class="radio" >
+                        <obs conceptId="PIH:BLOOD TYPING"
+                             answerConceptIds="CIEL:690,CIEL:692,CIEL:694,CIEL:696,CIEL:699,CIEL:701,CIEL:1230,CIEL:1231"
+                             answerCodes="A+,A-,B+,B-,O+,O-,AB+,AB-" style="radio"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.mch.dtpGiven"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <!-- See https://issues.openmrs.org/browse/RC-35 -->
+                    <lookup complexExpression="#foreach($obs in $fn.allObs('CIEL:984')) $obs.valueCoded.getShortNames() — $obs.obsDatetime #end"/>
+                </div>
+                <div>
+                    <obs conceptId="CIEL:984" answerConceptId="CIEL:781" answerCode="yes"/>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.lab.glucoseTolerance"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <!-- See https://issues.openmrs.org/browse/RC-35 -->
+                    <lookup complexExpression="#foreach($obs in $fn.allObs('PIH:12051')) $obs.valueCoded.name — $obs.obsDatetime #end"/>
+                </div>
+                <div>
+                    <obs conceptId="PIH:12051"
+                         answerConceptIds="CIEL:1228,CIEL:1229"
+                         answerCodes="pihcore.reactive,pihcore.nonreactive"
+                         style="radio" answerSeparator="" />
+                </div>
+            </div>
+        </div>
+
+        <div id="calculated-edd-and-gestational" class="question-container hidden">
+            <p>
+                <span id="calculated-gestational-age-wrapper">
+                    <span id="calculated-gestational-age-label">
+                        <uimessage code="pihcore.calculatedGestationalAge"/>:&#160;
+                    </span>
+                    <span id='calculated-gestational-age-value' class="value"></span>
+                </span>
+            </p>
+            <p>
+                <span id="calculated-edd-wrapper">
+                    <span id="calculated-edd-label">
+                        <uimessage code="pihcore.calculatedEstimatedDeliveryDate"/>:&#160;
+                    </span>
+                    <span id='calculated-edd' class="value"></span>
+                </span>
+            </p>
+
+        </div>
+
+        <div class="question-container">
+            <label><uimessage code="pihcore.mch.birthPlan"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('PIH:BIRTH PLAN').valueText" />
+                </div>
+                <div>
+                    <obs conceptId="PIH:BIRTH PLAN" style="textarea" rows="4"/>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
     <!-- Mental -->
     <section id="mental" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.mental">
-        <div class="section-container-color">
+        <div class="section-container">
             <div class="two-columns">
-                <p>
-                    <label>
-                        <uimessage code="pihcore.ncd.mental.phq9_score"/>
-                    </label>
+                <label>
+                    <uimessage code="pihcore.ncd.mental.phq9_score"/>
+                </label>
+                <p class="small">
                     <obs conceptId="CIEL:165137"/>
                 </p>
-                <p>
-                    <label>
-                        <uimessage code="pihcore.ncd.mental.gad7_score"/>
-                    </label>
+                <label>
+                    <uimessage code="pihcore.ncd.mental.gad7_score"/>
+                </label>
+                <p class="small">
                     <obs conceptId="CIEL:165185"/>
                 </p>
             </div>
@@ -583,7 +951,7 @@
 
     <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.consult.clinicalManagementPlan">
-        <div class="section-container-color">
+        <div class="section-container">
             <p>
                 <obs conceptId="CIEL:162749" style="textarea" rows="5" id="clinical-management-plan"/>
             </p>
@@ -592,7 +960,7 @@
 
     <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.lab.lab_tests.title">
-        <div class="section-container-color">
+        <div class="section-container">
             <p>
                 <obs conceptId="PIH:11762" style="textarea" rows="5" id="test-orders"/>
             </p>
@@ -601,7 +969,7 @@
 
     <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.visitNote.plan.medication">
-        <div class="section-container-color">
+        <div class="section-container">
             <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
                 <span id="medication-{0}" class="medication">
                     <obsgroup groupingConceptId="PIH:9070" showIfEmpty="false">
@@ -615,7 +983,7 @@
                                 <label>
                                     <uimessage code="mirebalais.dispensing.medicationName"/>
                                 </label>
-                                <obs id="name{0}" class="medication-name" conceptId="PIH:1282"
+                                <obs id="name{0}" class="medication-name" conceptId="CIEL:1282"
                                      answerDrugs="true"/>
                             </p>
                             <p class="inline">
@@ -678,7 +1046,7 @@
     <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="coreapps.consult.disposition">
 
-        <div class="section-container-color">
+        <div class="section-container">
 
             <p>
                 <label>
