@@ -37,9 +37,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         var vaccinations = {
-            id: "vaccinations",
-            encounterState: "long",
-            showSections: true,
+            id: "chVaccinations",
             type: "include-section",
             template: "templates/vaccination/vaccinations.page",
             editUrl: ""
@@ -745,12 +743,9 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypeConfig[EncounterTypes.vaccination.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/vaccination/chVaccinations.page",
             icon: "icon-umbrella",
-            showOnVisitList: true,
-            sections: [
-                vaccinations
-            ]
+            showOnVisitList: true
         };
 
 
