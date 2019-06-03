@@ -12,7 +12,8 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
-<htmlform id="vitals-form" formUuid="08ab34d0-0209-434d-8995-3923a76af70c" formName="Vitals" formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formVersion="2.1">
+<htmlform id="vitals-form" formUuid="08ab34d0-0209-434d-8995-3923a76af70c" formName="Vitals"
+          formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7" formVersion="2.1">
 
     <ifMode mode="VIEW" include="true">
         <!-- a template to display the "view" version of an html form provided by the htmlfromentryui getAsHtml method
@@ -261,6 +262,16 @@
             <h3><uimessage code="pihcore.lab.glucose"/></h3>
             <p>
                 <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="pihcore.lab.isFastingGlucose.title"/></legend>
+            <h3><uimessage code="pihcore.lab.isFastingGlucose"/></h3>
+            <p>
+                <obs id="fasting-for-glucose" conceptId="PIH:Fasting for blood glucose test"
+                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                     style="radio" answerSeparator="" />
             </p>
         </fieldset>
 
