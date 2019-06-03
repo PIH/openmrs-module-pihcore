@@ -21,9 +21,10 @@ public class Components {
         public static final String VCT = "vct";
         public static final String MCH = "mch";  // mchForms + mchProgram
         public static final String MCH_FORMS = "mchForms";  // used by ZL (via "mch")
-        public static final String MCH_PROGRAM = "mchProgram";  // needs MCHProgramBundle[ZL], used by ZL and CES
+        public static final String MCH_PROGRAM = "mchProgram";  // needs MCHProgramBundle[ZL], used by ZL (via "mch")
         public static final String VACCINATION_FORM = "vaccination";
         public static final String ZIKA = "zika";  // program
+        public static final String ANC_PROGRAM = "ancProgram";  // needs ANCProgramBundle, used by CES
         public static final String ASTHMA_PROGRAM = "asthmaProgram";  // needs AsthmaProgramBundle, used by CES
         public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
         public static final String MENTAL_HEALTH_FORM = "mentalHealthForm";  // used by ZL (via "mentalHealth")
