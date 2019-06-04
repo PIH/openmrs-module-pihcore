@@ -785,18 +785,13 @@
                 </label>
                 <obs conceptId="PIH:11973"/>
             </p>
-        </div>
 
-        <div id="echo" class="section-container">
+            <b>
+                <label>
+                    <uimessage code="pihcore.echocardiogram.title"/>
+                </label>
+            </b>
             <table>
-                <tr>
-                    <th colspan="2">
-                        <label>
-                            <uimessage code="pihcore.echocardiogram.title"/>
-                        </label>
-                    </th>
-                </tr>
-
                 <repeat with="['ltVentSystolic','PIH:Left ventricle systolic function','PIH:NORMAL','PIH:Very weak'],
                               ['rtVentDim','PIH:Right ventricle dimension','PIH:NORMAL','PIH:SEVERELY DILATED'],
                               ['mitralValve','PIH:MITRAL VALVE FINDINGS','PIH:NO MITRAL STENOSIS','CIEL:134082'],
