@@ -819,20 +819,58 @@
 
     <!-- Mental -->
     <section id="mental" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.mental">
-        <div class="section-container">
+        <div class="question-container">
             <div class="two-columns">
-                <label>
-                    <uimessage code="pihcore.ncd.mental.phq9_score"/>
-                </label>
-                <p class="small">
-                    <obs conceptId="CIEL:165137"/>
-                </p>
-                <label>
-                    <uimessage code="pihcore.ncd.mental.gad7_score"/>
-                </label>
-                <p class="small">
-                    <obs conceptId="CIEL:165185"/>
-                </p>
+                <div>
+                    <label>
+                        <uimessage code="pihcore.ncd.mental.phq9Score"/>
+                    </label>
+                    <br />
+                    <div class="small-text">
+                        <p>
+                            <lookup expression="fn.latestObs('CIEL:165137').obsDatetime" />
+                            <lookup complexExpression="#if($fn.latestObs('CIEL:165137')) &#8194; &#8227; &#8194; #end" />
+                            <lookup expression="fn.latestObs('CIEL:165137').valueNumeric" />
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <a href="/openmrs/ms/uiframework/resource/pihcore/files/PHQ9-2018.pdf"
+                           target="_blank" rel="noopener noreferrer">
+                            <uimessage code="pihcore.ncd.mental.phq9FormLink" />
+                        </a>
+                    </div>
+                    <div class="small">
+                        <obs conceptId="CIEL:165137"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="question-container">
+            <div class="two-columns">
+                <div>
+                    <label><uimessage code="pihcore.ncd.mental.gad7Score"/></label>
+                    <br />
+                    <div class="small-text">
+                        <p>
+                            <lookup expression="fn.latestObs('CIEL:165185').obsDatetime" />
+                            <lookup complexExpression="#if($fn.latestObs('CIEL:165185')) &#8194; &#8227; &#8194; #end" />
+                            <lookup expression="fn.latestObs('CIEL:165185').valueNumeric" />
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <a href="/openmrs/ms/uiframework/resource/pihcore/files/GAD7-CESPDF.pdf"
+                           target="_blank" rel="noopener noreferrer">
+                            <uimessage code="pihcore.ncd.mental.gad7FormLink" />
+                        </a>
+                    </div>
+                    <div class="small">
+                        <obs conceptId="CIEL:165185"/>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
