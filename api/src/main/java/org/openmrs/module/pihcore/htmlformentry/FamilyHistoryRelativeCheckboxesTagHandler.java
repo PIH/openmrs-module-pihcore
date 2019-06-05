@@ -22,6 +22,7 @@ import org.openmrs.module.htmlformentry.widget.TextFieldWidget;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
+import org.openmrs.module.reporting.common.MessageUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,9 +83,11 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
 
         boolean includeCommentField = parseBooleanAttribute(attributes.get("specify"), false);
         String label = attributes.get("label");
-        // TODO translate label
+        String translateLabel = null;
         if (label == null) {
-            label = concept.getName().getName();
+            translateLabel = concept.getName().getName();
+        } else {
+            translateLabel = MessageUtil.translate(label);
         }
 
         Concept familyHistoryConstructConcept = HtmlFormEntryUtil.getConcept(PihCoreConstants.PATIENT_FAMILY_HISTORY_LIST_CONSTRUCT);
@@ -136,7 +139,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandler extends SubstitutionTagHa
         }
         html.append("\">");
         html.append("<div class=\"label\">");
-        html.append(label);
+        html.append(translateLabel);
         if (includeCommentField) {
             html.append(messageSourceService.getMessage("zl.familyHistoryRelativeCheckboxes.specifyLabel"));
             html.append(textFieldWidget.generateHtml(context));

@@ -22,6 +22,7 @@ import org.openmrs.module.htmlformentry.widget.TextFieldWidget;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
+import org.openmrs.module.reporting.common.MessageUtil;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -67,9 +68,11 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
         }
         boolean includeCommentField = parseBooleanAttribute(attributes.get("specify"), false);
         String label = attributes.get("label");
-        // TODO translate label
+        String translateLabel = null;
         if (label == null) {
-            label = concept.getName().getName();
+            translateLabel = concept.getName().getName();
+        } else {
+            translateLabel = MessageUtil.translate(label);
         }
 
         FormEntryContext context = session.getContext();
@@ -78,7 +81,7 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
                 HtmlFormEntryUtil.getConcept(PihCoreConstants.PAST_MEDICAL_HISTORY_CONSTRUCT),
                 HtmlFormEntryUtil.getConcept(PihCoreConstants.PAST_MEDICAL_HISTORY_FINDING), concept);
 
-        CheckboxWidget checkboxWidget = new CheckboxWidget(label, PRESENT);
+        CheckboxWidget checkboxWidget = new CheckboxWidget(translateLabel, PRESENT);
         checkboxWidget.setInitialValue(existingObs);
         context.registerWidget(checkboxWidget);
 
