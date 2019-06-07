@@ -712,8 +712,8 @@
 		<p class="left">
 			<uimessage code="mirebalais.vitals.zscore.title"/>
 
-            	</p>
-                </ifMode> -->
+            	</p>-->
+                </ifMode>
             </fieldset>
         </includeIf>
         <!-- only show Head circumference if patient is less than 3 years old (on the encounterDate) -->
