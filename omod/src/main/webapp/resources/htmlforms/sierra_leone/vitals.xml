@@ -553,6 +553,7 @@
   <fieldset>
 <p>
             <legend><uimessage code="mirebalais.vitals.mobility.title"/></legend>
+<!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.mobility.title"/></h3>
 <table width="100%">
 		<tr>
@@ -562,7 +563,7 @@
 						<tr><td>Choose a category</td></tr>
 						
 						<tr>
-							<td class="checkboxGroup">
+							<td class="checkboxGroup"><!-- formatting changed from original concepts changed and translated -->
 								&#160;<obs conceptId="CIEL:162753" id="mobility_level" answerConceptIds="CIEL:162750,CIEL:162751,CIEL:162752" answerLabels="Able to walk without assistance,Able to walk with assistance,Wheelchair/Stretcher" style="radio"/>
 							</td>
 						</tr>
@@ -659,19 +660,8 @@
                             <span class="append-to-value"><uimessage code="emr.units.centimeters"/></span>
                         </span>
                     </p>
-		  
-<!--replace heart rate with z-score variable once available-->
-		<fieldset>
-            		<legend><uimessage code="mirebalais.vitals.zscore.title"/></legend>
-            			<h3><uimessage code="mirebalais.vitals.zscore.title"/></h3>
-
-            				<p>
-                				<obs conceptId="PIH:RESPIRATORY RATE" id="z_score" showUnits="emr.units.perMinute" unitsCssClass="append-to-value"/>
-            				</p>
-        	  </fieldset>
-
-                </ifMode>
-
+		   </ifMode>
+  
                 <!-- add cm field for conversion if in edit mode -->
                 <ifMode mode="VIEW" include="false">
                      <p class='left'>
@@ -684,26 +674,48 @@
                     <p class="left">
                         <uimessage code="mirebalais.vitals.or"/>
                     </p>
-<!--replace heart rate with z-score variable once available-->
-		<fieldset>
-            		<legend><uimessage code="mirebalais.vitals.zscore.title"/></legend>
-            			<h3><uimessage code="mirebalais.vitals.zscore.title"/></h3>
-
-            				<p>
-                				<obs conceptId="PIH:RESPIRATORY RATE" id="z_score" showUnits="emr.units.perMinute" unitsCssClass="append-to-value"/>
-            				</p>
-        	  </fieldset>
                 </ifMode>
-
+		
                 <!-- this will be manually hidden in view mode (we need it to be rendered because we need to pluck the mm measurement from it -->
                 <p class="mm">
                     <obs conceptId="PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)"
                          id="muac_mm" showUnits="emr.units.millimeters" unitsCssClass="append-to-value"/>
                 </p>
+		
 
             </fieldset>
         </includeIf>
+      <!-- only show z score if patient is less than 13 years old (on the encounterDate) OR female -->
+        <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime())) || $patient.gender == 'F' ">
+            <fieldset field-separator=" or ">
+                <legend><uimessage code="mirebalais.vitals.zscore.title"/></legend>
+                <h3><uimessage code="mirebalais.vitals.zscore.title"/></h3>
 
+                <!-- view mode -->
+                <ifMode mode="VIEW">
+                    <p>
+                        <span class='obs-field'>
+                            <span id="z_score" class="value"/>
+                        </span>
+                    </p>
+		   </ifMode>
+
+  
+                <!-- edit mode -->
+                <ifMode mode="VIEW" include="false">
+		<p class='left'>
+          		<span class='obs-field'>  
+				<input type='text' id="z_score" size="5" />
+			</span>
+		</p>
+	<!--REPLACE WITH RELEVANT TEXT ONCE DECIDED
+		<p class="left">
+			<uimessage code="mirebalais.vitals.zscore.title"/>
+
+            	</p>
+                </ifMode> -->
+            </fieldset>
+        </includeIf>
         <!-- only show Head circumference if patient is less than 3 years old (on the encounterDate) -->
         <includeIf velocityTest="3 > $patient.getAge($encounter.getEncounterDatetime())">
             <fieldset>
@@ -749,7 +761,7 @@
     </section>
    
  <section id="tb_screening" sectionTag="section" headerStyle="title" headerCode="pihcore.tbscreen.title">
- <!--TB screening -->
+ <!--TB screening taken from /haiti/hiv/zl/vct.xml-->
         <div class="section-container">
             <obs conceptId="PIH:11541" toggle="tbEval"
                  answerConceptId="PIH:YES"
@@ -762,7 +774,7 @@
                     <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['bloodyCough','970']">
                         <tr>
                             <td>
-                                <!-- TB symptom -->
+                                <!--Amended from TB symptom/ no sympton to YES/NO -->
                                 <obs conceptId="PIH:11563"
                                      answerConceptIds="PIH:YES,PIH:NO"
                                      answerCodes="Yes,No"
