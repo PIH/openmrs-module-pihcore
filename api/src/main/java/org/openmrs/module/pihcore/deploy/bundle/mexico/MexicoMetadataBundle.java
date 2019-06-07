@@ -1,8 +1,10 @@
 package org.openmrs.module.pihcore.deploy.bundle.mexico;
 
 import org.openmrs.module.coreapps.CoreAppsConstants;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.pihcore.deploy.bundle.core.GlobalPropertiesBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.openmrs.util.LocaleUtility;
@@ -42,6 +44,9 @@ public class MexicoMetadataBundle extends AbstractMetadataBundle {
     		setGlobalProperties(properties);
 
     		properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, ALLOWED_LOCALES);
+
+    	// Diagnoses
+        properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, GlobalPropertiesBundle.Concepts.MEXICO_DIAGNOSIS_SET_OF_SETS);
 
         // Core Apps
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MexicoLocations.JALTENANGO.uuid());
