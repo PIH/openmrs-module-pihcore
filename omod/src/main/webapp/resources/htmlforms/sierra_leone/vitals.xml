@@ -570,7 +570,6 @@
 			
 				            <td><h3>Answer yes or no</h3>
                                 <obs conceptId="PIH:11563"
-                                     width="1/5"
                                      labelText="Confused"
                                      answerConceptIds="PIH:YES,PIH:NO" answerCodes="Yes,No"/>
 							</td>
