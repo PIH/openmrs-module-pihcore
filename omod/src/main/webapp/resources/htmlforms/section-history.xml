@@ -325,6 +325,34 @@
         </div>
     </section>
 
+    <!-- only show these sections if encounter type is NCD Intake AND the patient is < 12 years old-->
+    <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171' &amp;&amp; $patient.age &lt; 12 " >
+        <section id="birth-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.birth-history" >
+            <div class="section-container">
+                <div class="two-columns" >
+                    <p>
+                        <obs conceptId="PIH:Pregnancy termination time"
+                             answerConceptIds="CIEL:1860,CIEL:1395,CIEL:113600"
+                             style="radio" answerSeparator="" />
+                    </p>
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.birthweight" />
+                        </label>
+                        <span class="small">
+                            <field>
+                                <!-- ToDo: Fix units to show on the right-side of the box - not the next line -->
+                                <obs conceptId="CIEL:5916" showUnits="false" />
+                            </field>
+                        </span>
+                    </p>
+
+                </div>
+            </div>
+        </section>
+    </includeIf>
+
     <section id="patient-blood-type" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.lab.blood_type">
         <div class="section-container">
