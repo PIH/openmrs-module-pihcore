@@ -154,10 +154,11 @@
 
         /* Grey out disabled checkboxes */
         input[type=checkbox][disabled] {
-        filter: invert(10%);
+        filter: invert(15%);
         }
 
     </style>
+
     <div class="print-form-datestamps" style="display:none">
         <p><uimessage code="created_on"/>:
             <lookup complexExpression="$form.dateCreated"/>
@@ -226,25 +227,29 @@
             </label>
 
             <!-- The ordering of these corresponds to the Spanish alphebetization -->
-            <enrollInProgram id="asthma-enroll" programId="Asthma" showCheckbox="true" toggle="asthma"/>
+            <enrollInProgram programId="Asthma" showCheckbox="true" toggle="asthma"/>
             <uimessage code="pihcore.ncd.asthma"/>
             <br />
-            <enrollInProgram id="malnutrition-enroll" programId="Malnutrition" showCheckbox="true"/>
+            <enrollInProgram programId="Malnutrition" showCheckbox="true"/>
             <uimessage code="pihcore.ncd.malnutrition"/>
             <br />
-            <enrollInProgram id="diabetes-enroll" programId="Diabetes" showCheckbox="true" toggle="diabetes"/>
+            <span id="diabetes-enroll">
+                <enrollInProgram programId="Diabetes" showCheckbox="true"/>
+            </span>
             <uimessage code="pihcore.ncd.diabetes"/>
             <br />
-            <enrollInProgram id="epilepsy-enroll" programId="Epilepsy" showCheckbox="true" toggle="epilepsy"/>
+            <enrollInProgram programId="Epilepsy" showCheckbox="true" toggle="epilepsy"/>
             <uimessage code="pihcore.ncd.epilepsy"/>
             <br />
-            <enrollInProgram id="htn-enroll" programId="Hypertension" showCheckbox="true"/>
+            <span id="htn-enroll" >
+                <enrollInProgram programId="Hypertension" showCheckbox="true"/>
+            </span>
             <uimessage code="pihcore.ncd.htn"/>
             <br />
-            <enrollInProgram id="anc-enroll" programId="ANC" showCheckbox="true" toggle="anc"/>
+            <enrollInProgram programId="ANC" showCheckbox="true" toggle="anc"/>
             <uimessage code="pihcore.mch.anc"/>
             <br />
-            <enrollInProgram id="mental-enroll" programId="Mental Health" showCheckbox="true" toggle="mental"/>
+            <enrollInProgram programId="Mental Health" showCheckbox="true" toggle="mental"/>
             <uimessage code="pihcore.ncd.mental"/>
         </div>
 
@@ -290,12 +295,12 @@
 
                     <script type="text/javascript">
                         jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
-                        var that = this;
-                        jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
-                        if (jQuery(this).attr('id') != jQuery(that).attr('id')) {
-                        jQuery(this).prop("checked", false);
-                        }
-                        });
+                            var that = this;
+                            jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
+                                if (jQuery(this).attr('id') != jQuery(that).attr('id')) {
+                                    jQuery(this).prop("checked", false);
+                                }
+                            });
                         });
                     </script>
                 </div>
@@ -359,27 +364,6 @@
                 </span>
             </p>
             <br/>
-            <div class="three-columns">
-                <p>
-                    <label><uimessage code="pihcore.lab.total_chol"/></label>
-                    <span class="small">
-                        <obs id="chol" conceptId="PIH:TOTAL CHOLESTEROL" showUnits="true"/>
-                    </span>
-                </p>
-                <p>
-                    <label><uimessage code="pihcore.lab.hdl"/></label>
-                    <span class="small">
-                        <obs id="ldl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
-                    </span>
-                </p>
-                <p>
-                    <label><uimessage code="pihcore.lab.ldl"/></label>
-                    <span class="small">
-                        <obs id="hdl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true"/>
-                    </span>
-                </p>
-            </div>
-
             <p>
                 <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
                 <obs id="urinary-albumin" class="small" conceptId="PIH:URINARY ALBUMIN" />
@@ -430,6 +414,83 @@
             </div>
         </div>
     </section>
+
+    <script>
+        /* Make the Cholesterol section show when Diabetes or Hypertension is checked */
+
+        jq(function() {
+            var dmCheckbox = jq("#diabetes-enroll > input[type='checkbox']")[0];
+            var htnCheckbox = jq("#htn-enroll > input[type='checkbox']")[0];
+            var dmSection = jq("#diabetes");
+            var cholSection = jq("#cholesterol");
+
+            var updateCholSectionVisibility = function() {
+                if (dmCheckbox.checked | htnCheckbox.checked) {
+                    cholSection.show();
+                } else {
+                    cholSection.hide();
+                }
+            };
+            var updateDmSectionVisibility = function() {
+                if (dmCheckbox.checked) {
+                    dmSection.show();
+                } else {
+                    dmSection.hide();
+                }
+            };
+            $(dmCheckbox).change(function() {
+                updateDmSectionVisibility();
+                updateCholSectionVisibility();
+            });
+            $(htnCheckbox).change(function() {
+                updateCholSectionVisibility();
+            });
+            updateDmSectionVisibility();
+            updateCholSectionVisibility();
+        });
+    </script>
+    <section id="cholesterol" headerCode="pihcore.lab.cholesterol" sectionTag="fieldset" headerTag="legend" headerStyle="title">
+        <div class="question-container">
+            <label><uimessage code="pihcore.lab.total_chol"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('PIH:TOTAL CHOLESTEROL').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('PIH:TOTAL CHOLESTEROL')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('PIH:TOTAL CHOLESTEROL').valueNumeric" />
+                </div>
+                <div>
+                    <obs id="chol" conceptId="PIH:TOTAL CHOLESTEROL" showUnits="true" class="small"/>
+                </div>
+            </div>
+        </div>
+        <div class="question-container">
+            <label><uimessage code="pihcore.lab.hdl"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL').valueNumeric" />
+                </div>
+                <div>
+                    <obs id="ldl" conceptId="PIH:HIGH-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true" class="small"/>
+                </div>
+            </div>
+        </div>
+        <div class="question-container">
+            <label><uimessage code="pihcore.lab.ldl"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL').valueNumeric" />
+                </div>
+                <div>
+                    <obs id="hdl" conceptId="PIH:LOW-DENSITY LIPOPROTEIN CHOLESTEROL" showUnits="true" class="small"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
 
     <!-- Epilepsy -->
     <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
@@ -654,7 +715,7 @@
                         <lookup expression="fn.latestObs('PIH:7018').obsDatetime"/>
                     </p>
                     <p>
-                    <lookup expression="fn.latestObs('PIH:7018').valueText"/>
+                        <lookup expression="fn.latestObs('PIH:7018').valueText"/>
                     </p>
                 </div>
                 <div>
