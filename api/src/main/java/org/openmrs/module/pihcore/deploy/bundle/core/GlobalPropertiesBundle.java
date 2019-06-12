@@ -34,6 +34,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
 
         public static final String LIBERIA_DIAGNOSIS_SET_OF_SETS = "ed97232b-1a09-4260-b06c-d193107c32a7";
         public static final String HAITI_DIAGNOSIS_SET_OF_SETS = "8fcd0b0c-f977-4a66-a1b5-ad7ce68e6770";
+        public static final String MEXICO_DIAGNOSIS_SET_OF_SETS = "7fd1dd5a-ab2d-43cd-aedb-e0d6bb81f8bf";
 
         public static final String PAYMENT_AMOUNT = "5d1bc5de-6a35-4195-8631-7322941fe528";
         public static final String PAYMENT_REASON = "36ba7721-fae0-4da4-aef2-7e476cc04bdf";
