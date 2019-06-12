@@ -1,5 +1,7 @@
 <htmlform formUuid="162091b1-0060-4e56-8c17-7015aeddf608" formName="History" formVersion="1.0">
 
+    <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.CleanDiagnosisConstructAction"/>
+
     <style type="text/css">
 
         form fieldset {
@@ -313,7 +315,6 @@
                 <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/>
                 <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="pihcore.acuteRheumaticFever.abbrev"/>
                 <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
-                <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/>
                 <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other" specify="true" class="medicalHistoryText patientHistory"/>
             </div>
             <!-- only show these diseases if encounter type is NCD Intake -->
@@ -332,10 +333,14 @@
             <div class="section-container">
                 <div class="two-columns" >
                     <p>
-                        <obs conceptId="PIH:Pregnancy termination time"
-                             answerConceptIds="CIEL:1860,CIEL:1395,CIEL:113600"
-                             style="radio" answerSeparator="" />
+                        <!-- Term of birth:  premie, at term, post date -->
+                        <obsgroup groupingConceptId="CIEL:1633" >
+                            <obs conceptId="CIEL:1628"
+                                 answerConceptIds="CIEL:1860,CIEL:1395,CIEL:113600"
+                                 style="radio" answerSeparator="" />
+                        </obsgroup>
                     </p>
+
                     <p>
                         <label>
                             <uimessage code="pihcore.birthweight" />
@@ -346,6 +351,31 @@
                                 <obs conceptId="CIEL:5916" showUnits="false" />
                             </field>
                         </span>
+                    </p>
+
+                    <br/><br/>
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.deliveryLocation" />
+                        </label>
+                        <obs conceptId="CIEL:163774" answerConceptIds="CIEL:1589,CIEL:1536,CIEL:5622"
+                             style="radio" answerSeparator="" />
+                    </p>
+
+                    <!-- ToDo: UHM-3750 Waiting for Andy to add this concept
+                    <p>
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:xxxxxx"
+                                 style="checkbox" commentFieldLabel="pihcore.birthCommentMother"/>
+                        </obsgroup>
+                    </p>
+                    -->
+
+                    <p>
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115374"
+                                 style="checkbox" commentFieldCode="pihcore.birthCommentBaby"/>
+                        </obsgroup>
                     </p>
 
                 </div>
