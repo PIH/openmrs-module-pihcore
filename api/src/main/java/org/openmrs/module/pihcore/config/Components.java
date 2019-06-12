@@ -65,10 +65,11 @@ public class Components {
         public static final String LABS = "labs";
         public static final String PROGRAMS = "programs";
         public static final String RELATIONSHIPS = "relationships";
+        public static final String PROVIDER_RELATIONSHIPS = "providerRelationships";  // the Relationships widget, configured for providers
         public static final String EXPORT_PATIENTS = "exportPatients";
         public static final String IMPORT_PATIENTS = "importPatients";
         public static final String PATIENT_DOCUMENTS = "patientDocuments";  // openmrs-module-attachments
-        public static final String CHW_APP = "chwApp";
+        public static final String CHW_APP = "chwApp";  // openmrs-module-providermanagement
         public static final String CONDITION_LIST = "conditionList";  // a dashboard widget that lists "conditions"
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String COHORT_BUILDER = "cohortBuilder";
