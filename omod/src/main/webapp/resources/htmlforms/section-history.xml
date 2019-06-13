@@ -1,6 +1,5 @@
-<htmlform formUuid="162091b1-0060-4e56-8c17-7015aeddf608" formName="History" formVersion="1.0">
-
-    <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.CleanDiagnosisConstructAction"/>
+<htmlform formUuid="162091b1-0060-4e56-8c17-7015aeddf608"
+          formName="History" formVersion="1.0">
 
     <style type="text/css">
 
@@ -79,8 +78,6 @@
         .section {
         width: 95%;
         }
-
-
     </style>
 
 
@@ -353,7 +350,6 @@
                         </span>
                     </p>
 
-                    <br/><br/>
                     <p>
                         <label>
                             <uimessage code="pihcore.deliveryLocation" />
@@ -362,20 +358,14 @@
                              style="radio" answerSeparator="" />
                     </p>
 
-                    <!-- ToDo: UHM-3750 Waiting for Andy to add this concept
                     <p>
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:xxxxxx"
-                                 style="checkbox" commentFieldLabel="pihcore.birthCommentMother"/>
-                        </obsgroup>
-                    </p>
-                    -->
-
-                    <p>
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115374"
-                                 style="checkbox" commentFieldCode="pihcore.birthCommentBaby"/>
-                        </obsgroup>
+                        <!-- ToDo: UHM-3750 Waiting for Andy to add exposure to mother's illness concept
+                        <pastMedicalHistoryCheckbox concept="CIEL:xxxxxx"
+                                                    specify="true" class="medicalHistoryText patientHistory"/>
+                                                                           -->
+                        <!-- Neonatal disease -->
+                        <pastMedicalHistoryCheckbox concept="CIEL:115374"
+                                                    specify="true" class="medicalHistoryText patientHistory"/>
                     </p>
 
                 </div>
