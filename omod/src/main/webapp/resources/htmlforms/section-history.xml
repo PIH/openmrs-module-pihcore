@@ -349,6 +349,7 @@
                             </field>
                         </span>
                     </p>
+                    <br/><br/>
 
                     <p>
                         <label>
@@ -359,10 +360,9 @@
                     </p>
 
                     <p>
-                        <!-- ToDo: UHM-3750 Waiting for Andy to add exposure to mother's illness concept
-                        <pastMedicalHistoryCheckbox concept="CIEL:xxxxxx"
+                        <!-- Mother's disease during pregnancy -->
+                        <pastMedicalHistoryCheckbox concept="CIEL:118203" label="pihcore.momDiseaseDuringPregnancy"
                                                     specify="true" class="medicalHistoryText patientHistory"/>
-                                                                           -->
                         <!-- Neonatal disease -->
                         <pastMedicalHistoryCheckbox concept="CIEL:115374"
                                                     specify="true" class="medicalHistoryText patientHistory"/>

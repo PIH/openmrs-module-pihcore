@@ -19,6 +19,7 @@
     <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.CleanDiagnosisConstructAction"/>
     <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.CleanPrescriptionConstructAction"/>
 
+    <!-- ToDo:  Use messages.properties -->
     <translations defaultLocale="fr">
         <code name="yes">
             <variant locale="en" value="yes"/>
@@ -295,7 +296,6 @@
                  answerCode="pihcore.ncd.rehab" style="checkbox" />
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:Sickle-Cell Anemia"
                  style="checkbox" />
-            <!-- ToDo: Migrate data from other comment -->
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER"
                  style="checkbox" toggle="other"
                  showCommentField="true" commentFieldLabel=" "/>
@@ -367,12 +367,13 @@
                     </th>
                 </tr>
 
+                <!-- NOTE: Not using diagnosis construct - for now -->
                 <repeat with="['ncd.htn.normal','CIEL:1107','&lt;140/90','none.label','contraindicated.label'],
-                              ['ncd.htn.elevated','CIEL:140147','&lt;140/90','none.label','ncd.htn.repeatBP'],
+                              ['ncd.htn.elevated','CIEL:140147','&lt;140/90','none.label','ncd.htn.repeatBP','diagnosis'],
                               ['ncd.htn.stage1Low','PIH:11941','140/90&amp;nbsp;- 159/99','none.label','ncd.htn.changeLife'],
                               ['ncd.htn.stage1High','PIH:11942','140/90&amp;nbsp;- 159/99','none.label','ncd.htn.startLowDose'],
-                              ['ncd.htn.stage2','CIEL:160774','&gt;160/100','none.label','ncd.htn.orderLabsAndStartDose'],
-                              ['ncd.htn.crisis','CIEL:161644','&gt;180/110','ncd.htnCrisisSymptoms.label','referEmergency']">
+                              ['ncd.htn.stage2','CIEL:160774','&gt;160/100','none.label','ncd.htn.orderLabsAndStartDose','diagnosis'],
+                              ['ncd.htn.crisis','CIEL:161644','&gt;180/110','ncd.htnCrisisSymptoms.label','referEmergency','diagnosis']">
                     <tr>
                         <td>
                             <obs conceptId="PIH:Type of hypertension diagnosis"
@@ -431,8 +432,19 @@
                               ['gestationalDm','PIH:Gestational diabetes']">
                     <tr>
                         <td>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{1}"
+                                     style="checkbox" />
+                            </obsgroup>
+
+                            <!-- ToDo: UHM-3863 Migrate from this to obsgroup
                             <obs conceptId="PIH:Type of diabetes diagnosis"
                                  answerConceptId="{1}" />
+
+                            <obs conceptId="PIH:Type of diabetes diagnosis"
+                                 answerConceptId="CIEL:138291"
+                                 answerCode="pihcore.ncd.hyperglycemia.label"/>
+                            -->
                         </td>
                         <td>
                             <label>
@@ -444,8 +456,10 @@
 
                 <tr>
                     <td>
-                        <obs conceptId="PIH:Type of diabetes diagnosis"
-                             answerConceptId="CIEL:138291" answerCode="pihcore.ncd.hyperglycemia.label"/>
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:138291"
+                                 style="checkbox" answerCode="pihcore.ncd.hyperglycemia.label" />
+                        </obsgroup>
                     </td>
                     <td>
                     </td>
@@ -598,6 +612,7 @@
 
                     <tr>
                         <td>
+                            <!-- ToDo:  Do we want to use obsgroup here? -->
                             <obs conceptId="PIH:Asthma classification"
                                  answerConceptId="{3}" />
                         </td>
@@ -622,6 +637,7 @@
                 <!-- this section is ONLY included for NCD intake encounter -->
                 <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
                     <tr>
+                        <!-- Bronchiectasis -->
                         <td>
                             <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121011"
@@ -642,6 +658,7 @@
                     </tr>
 
                     <tr>
+                        <!-- Other COPD -->
                         <td colspan="3">
                             <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:1295"
@@ -767,20 +784,49 @@
                                   ['PIH:3129','Peripartum cardiomyopathy'],
                                   ['PIH:4002','Alcoholic cardiomyopathy'],
                                   ['CIEL:139529','ischemic cardiomyopathy']">
+
+                        <!-- ToDo: Migrate to use obsgroup
                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
+                        -->
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" style="checkbox" />
+                        </obsgroup>
                     </repeat>
 
+                    <!-- ToDo: Migrate to use obsgroup
                     <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:134082"
                          answerCode="pihcore.ncd.mitralStenosisOnly"/>
+                    -->
+                    <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:134082"
+                             answerCode="pihcore.ncd.mitralStenosisOnly"
+                             style="checkbox" />
+                    </obsgroup>
+
                     <repeat with="['PIH:7497','Valve disease'],
                                   ['PIH:CONGENITAL HEART DISEASE','Congenital heart disease'],
                                   ['PIH:3071','Hypertensive heart disease'],
                                   ['PIH:4000','Isolated right heart failure'],
                                   ['PIH:PERICARDIAL EFFUSION','Pericardial effussion']">
+
+                        <!-- ToDo: Migrate to use obsgroup
                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
+                        -->
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" style="checkbox" />
+                        </obsgroup>
+
                     </repeat>
+
+                    <!-- ToDo: Migrate to use obsgroup
                     <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3468"
                          answerCode="pihcore.ncd.otherHeartFailure"/>
+                    -->
+                    <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3468"
+                             answerCode="pihcore.ncd.otherHeartFailure"
+                             style="checkbox" />
+                    </obsgroup>
                 </p>
 
                 <p>
@@ -866,19 +912,34 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.other">
         <div id="other" class="section-container">
             <p>
-                <!-- Deep vein thrombosis -->
+                <!-- ToDo: Migrate other NCD diagnoses to use obsgroup and then remove this comment
+                Deep vein thrombosis
                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:119624" />
-                <!-- Pulmonary embolism -->
+                Pulmonary embolism
                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:113504" />
-                <!-- Atrial fibrillation -->
+                Atrial fibrillation
                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:148203" />
-                <!-- Mechanical heart valve -->
+                Mechanical heart valve
                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3181" />
-                <!-- Hyperlipidemia -->
+                Hyperlipidemia
                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117441" />
-                <!-- Obesity -->
+                Obesity
                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115115" />
-                <!-- Other -->
+                -->
+
+                <repeat with="['CIEL:119624','Deep vein thrombosis'],
+                              ['CIEL:113504','Pulmonary embolism'],
+                              ['CIEL:148203','Atrial fibrillation'],
+                              ['PIH:3181','Mechanical heart valve'],
+                              ['CIEL:117441','Hyperlipidemia'],
+                              ['CIEL:115115','Obesity']">
+
+                    <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" style="checkbox" />
+                    </obsgroup>
+                </repeat>
+
+                <!-- Other diagnosis and comment -->
                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:5622" />
                 <obs conceptId="PIH:7416" />
             </p>
