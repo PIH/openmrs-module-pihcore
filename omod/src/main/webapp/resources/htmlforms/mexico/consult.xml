@@ -20,23 +20,23 @@
     <style type="text/css">
 
         #who-when-where {
-        margin-bottom: 6px;
-        border-bottom: 1px solid #ccc;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #ccc;
         }
 
         #who-when-where p {
-        display: inline-block;
-        padding-right: 20px;
+            display: inline-block;
+            padding-right: 20px;
         }
 
         #where > input[type=text] {
-        display: inline-block;
+            display: inline-block;
         }
 
         .field-error {
-        color: #ff6666;
-        font-size: 1.1em;
-        display: block;
+            color: #ff6666;
+            font-size: 1.1em;
+            display: block;
         }
 
         .two-columns {
@@ -51,46 +51,46 @@
         }
 
         .three-columns {
-        column-count: 3;
-        -webkit-column-count: 3;
-        -moz-column-count: 3;
+            column-count: 3;
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
         }
 
         .simple-form-ui input {
-        min-width: 80%
+            min-width: 80%
         }
 
         form fieldset {
-        min-width: 90%;
-        display: block;
+            min-width: 90%;
+            display: block;
         }
 
         .encounter-summary-container #calculated-ratio {
-        font-size: 1em;
-        font-weight: normal;
+            font-size: 1em;
+            font-weight: normal;
         }
 
         #encounterDate input {
-        min-width: 15%
+            min-width: 15%
         }
 
         p.radio > * {
-        display: inline;
-        float: none !important;
-        min-width: initial;
+            display: inline;
+            float: none !important;
+            min-width: initial;
         }
 
         .small {
-          max-width: 10em;
-          display: block;
-          margin-bottom: 1em;
+            max-width: 10em;
+            display: block;
+            margin-bottom: 1em;
         }
 
         .small input {
-          min-width: 4em;
-          width: 4em;
-          display: inline;
-          margin-right: 0.5em;
+            min-width: 4em;
+            width: 4em;
+            display: inline;
+            margin-right: 0.5em;
         }
 
         .medium {
@@ -107,25 +107,25 @@
         }
 
         .small-text {
-        color: #555555;
-        font-size: 90%;
-        display: block;
+            color: #555555;
+            font-size: 90%;
+            display: block;
         }
 
         .section-container {
-        background: #F2F2F2;
-        box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
-        padding: 10px 5px 10px 15px;
-        line-height: 1.5em; /*add this for vertical spacing between elements*/
+            background: #F2F2F2;
+            box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+            padding: 10px 5px 10px 15px;
+            line-height: 1.5em; /*add this for vertical spacing between elements*/
         }
 
         .section-container input[type="checkbox"] {
-        margin: 0px 5px; /*changed values to vertical, horizontal*/
-        top:5px; /*added to offset the checkbox position to line up*/
+            margin: 0px 5px; /*changed values to vertical, horizontal*/
+            top:5px; /*added to offset the checkbox position to line up*/
         }
 
         .section-container label { /*new definition to override labels inside section-containers*/
-        margin: 0px;
+            margin: 0px;
         }
 
         .question-container {
@@ -136,21 +136,21 @@
             line-height: 1.5em; /*add this for vertical spacing between elements*/
         }
 
-       .question-container label {
-          margin-top: 5px;
+        .question-container label {
+            margin-top: 5px;
         }
 
         .section {
-        width: 95%;
+            width: 95%;
         }
 
         textarea {
-        width: 95%;
+            width: 95%;
         }
 
         /* Grey out disabled checkboxes */
         input[type=checkbox][disabled] {
-        filter: invert(15%);
+            filter: invert(15%);
         }
 
         #diagnosis-lookup {
@@ -353,8 +353,8 @@
                         <lookup complexExpression="$fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric" />
                     </p>
                     <p>
-                    <uimessage code="pihcore.lab.isFastingGlucose.title"/>:
-                    <lookup complexExpression="$fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name" />
+                        <uimessage code="pihcore.lab.isFastingGlucose.title"/>:
+                        <lookup complexExpression="$fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name" />
                     </p>
                 </div>
                 <div>
@@ -564,16 +564,15 @@
 
         <ifMode mode="VIEW" include="false" >
             <script type="text/javascript">
+                jq(function () {
 
-                jq(function() {
-
-                    var updateEdd = function() {
+                    var updateEdd = function () {
                         return updateEddFromData(getCurrentDate(), getLastPeriodDate());
                     };
 
-                    var getCurrentDate = function() {
+                    var getCurrentDate = function () {
                         var currentEncounterDate = '<lookup expression="encounter.getEncounterDatetime().getTime()"/>';
-                        if (typeof currentEncounterDate !== "undefined"&amp;&amp; (currentEncounterDate.length > 0)) {
+                        if (typeof currentEncounterDate !== "undefined" &amp;&amp; (currentEncounterDate.length > 0)) {
                             // calculate the gestational age at the time of the encounter
                             return new Date(+currentEncounterDate);
                         } else {
@@ -581,7 +580,7 @@
                         }
                     };
 
-                    var getLastPeriodDate = function() {
+                    var getLastPeriodDate = function () {
                         var datepickerValue = getField('lastPeriodDate.value').datepicker('getDate');
                         if (datepickerValue !== null) {
                             return datepickerValue;
@@ -604,7 +603,7 @@
                         return null;
                     };
 
-                    var updateEddFromData = function(today, lastPeriodDate) {
+                    var updateEddFromData = function (today, lastPeriodDate) {
 
                         if (typeof lastPeriodDate !== "undefined" &amp;&amp; lastPeriodDate !== null) {
 
@@ -630,7 +629,7 @@
 
                             jq('#calculated-edd-and-gestational').show();
                             jq('#calculated-edd').text(widgetDate);
-                            jq('#calculated-gestational-age-value').text(diffWeeks + " " + '<uimessage code="pihcore.weeks"/>');
+                            jq('#calculated-gestational-age-value').text(diffWeeks + " " + <uimessage code="pihcore.weeks"/>);
 
                         } else {
                             jq('#calculated-edd-and-gestational').hide();
@@ -639,7 +638,7 @@
 
                     jq('#calculated-edd-and-gestational').hide();
 
-                    jq("#lastPeriodDate input[type='hidden']").change(function() {
+                    jq("#lastPeriodDate input[type='hidden']").change(function () {
                         updateEdd();
                     });
 
@@ -981,94 +980,99 @@
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
 
+            // I don't really understand why this assignment `$j = jq` is required, but for some
+            // reason a bunch of Javascript gets included in the page that expects `$j` to exist,
+            // but doesn't define `$j` itself. *shrug emoji*
+            var $j = jq;
+
             htmlForm.getBeforeValidation().push(function() {
 
-            var valid = true;
+                var valid = true;
 
-            jq('fieldset.medication').each(function() {
+                jq('fieldset.medication').each(function() {
 
-            // clear out any existing error messages
-            jq(this).find('.field-error').first().html('');
+                    // clear out any existing error messages
+                    jq(this).find('.field-error').first().html('');
 
-            var medication = jq(this).find('.medication-name input').val();
-            var dose = jq(this).find('.dose input').val();
-            var doseUnits = jq(this).find('.dose-unit select').val();
-            var frequency = jq(this).find('.frequency select').val();
-            var duration = jq(this).find('.duration input').val();
-            var durationUnits = jq(this).find('.duration-unit select').val();
-            var instructions = jq(this).find('.medication-instructions input').val();
+                    var medication = jq(this).find('.medication-name input').val();
+                    var dose = jq(this).find('.dose input').val();
+                    var doseUnits = jq(this).find('.dose-unit select').val();
+                    var frequency = jq(this).find('.frequency select').val();
+                    var duration = jq(this).find('.duration input').val();
+                    var durationUnits = jq(this).find('.duration-unit select').val();
+                    var instructions = jq(this).find('.medication-instructions input').val();
 
-            if (!medication &amp;&amp; (dose || doseUnits || frequency || duration || durationUnits || instructions)) {
-            valid = false;
-            jq(this).find('.field-error').first().append("<uimessage
-                code="pihcore.visitNote.plan.medications.error.noMedication"/>. ").show();
-            }
+                    if (!medication &amp;&amp; (dose || doseUnits || frequency || duration || durationUnits || instructions)) {
+                        valid = false;
+                        jq(this).find('.field-error').first().append("<uimessage
+                            code="pihcore.visitNote.plan.medications.error.noMedication"/>. ").show();
+                    }
 
-            if (dose &amp;&amp; !doseUnits) {
-            valid = false;
-            jq(this).find('.field-error').first().append("<uimessage
-                code="pihcore.visitNote.plan.medications.error.noDoseUnits"/>. ").show();
-            }
+                    if (dose &amp;&amp; !doseUnits) {
+                        valid = false;
+                        jq(this).find('.field-error').first().append("<uimessage
+                            code="pihcore.visitNote.plan.medications.error.noDoseUnits"/>. ").show();
+                    }
 
-            if (!dose &amp;&amp; doseUnits) {
-            valid = false;
-            jq(this).find('.field-error').first().append("<uimessage
-                code="pihcore.visitNote.plan.medications.error.noDose"/>. ").show();
-            }
+                    if (!dose &amp;&amp; doseUnits) {
+                        valid = false;
+                        jq(this).find('.field-error').first().append("<uimessage
+                            code="pihcore.visitNote.plan.medications.error.noDose"/>. ").show();
+                    }
 
-            if (duration &amp;&amp; !durationUnits) {
-            valid = false;
-            jq(this).find('.field-error').first().append("<uimessage
-                code="pihcore.visitNote.plan.medications.error.noDurationUnits"/>. ").show();
-            }
+                    if (duration &amp;&amp; !durationUnits) {
+                        valid = false;
+                        jq(this).find('.field-error').first().append("<uimessage
+                            code="pihcore.visitNote.plan.medications.error.noDurationUnits"/>. ").show();
+                    }
 
-            if (!duration &amp;&amp; durationUnits) {
-            valid = false;
-            jq(this).find('.field-error').first().append("<uimessage
-                code="pihcore.visitNote.plan.medications.error.noDuration"/>. ").show();
-            }
+                    if (!duration &amp;&amp; durationUnits) {
+                        valid = false;
+                        jq(this).find('.field-error').first().append("<uimessage
+                            code="pihcore.visitNote.plan.medications.error.noDuration"/>. ").show();
+                    }
 
-            })
+                });
 
-            return valid;
+                return valid;
 
             });
 
             jq(function() {
 
-            var hasValue = function(element) {
-            return jq(element).find('.medication-name input').val();
-            }
+                var hasValue = function(element) {
+                    return jq(element).find('.medication-name input').val();
+                };
 
-            var hideOtherMeds = function() {
-            jq('#medication-2').hide();
-            jq('#medication-3').hide();
-            jq('#medication-4').hide();
-            jq('#medication-5').hide();
-            jq('#medication-6').hide();
-            jq('#medication-7').hide();
-            jq('#medication-8').hide();
-            }
+                var hideOtherMeds = function() {
+                    jq('#medication-2').hide();
+                    jq('#medication-3').hide();
+                    jq('#medication-4').hide();
+                    jq('#medication-5').hide();
+                    jq('#medication-6').hide();
+                    jq('#medication-7').hide();
+                    jq('#medication-8').hide();
+                };
 
-            if (!hasValue('#medication-2') &amp;&amp; !hasValue('#medication-3') &amp;&amp; !hasValue('#medication-4')
-            &amp;&amp; !hasValue('#medication-5') &amp;&amp; !hasValue('#medication-6') &amp;&amp;
-            !hasValue('#medication-7')
-            &amp;&amp; !hasValue('#medication-8')) {
-            hideOtherMeds();
-            jq('#show-more-medications-button').show();
-            }
+                if (!hasValue('#medication-2') &amp;&amp; !hasValue('#medication-3') &amp;&amp; !hasValue('#medication-4')
+                    &amp;&amp; !hasValue('#medication-5') &amp;&amp; !hasValue('#medication-6') &amp;&amp;
+                    !hasValue('#medication-7')
+                    &amp;&amp; !hasValue('#medication-8')) {
+                    hideOtherMeds();
+                    jq('#show-more-medications-button').show();
+                }
 
-            jq('#show-more-medications-button').click(function() {
-            jq('.medication').show();
-            jq('#show-more-medications-button').hide();
-            jq('#show-less-medications-button').show();
-            });
+                jq('#show-more-medications-button').click(function() {
+                    jq('.medication').show();
+                    jq('#show-more-medications-button').hide();
+                    jq('#show-less-medications-button').show();
+                });
 
-            jq('#show-less-medications-button').click(function() {
-            hideOtherMeds();
-            jq('#show-less-medications-button').hide();
-            jq('#show-more-medications-button').show();
-            });
+                jq('#show-less-medications-button').click(function() {
+                    hideOtherMeds();
+                    jq('#show-less-medications-button').hide();
+                    jq('#show-more-medications-button').show();
+                });
 
             })
 
