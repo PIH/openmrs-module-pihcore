@@ -340,6 +340,15 @@
 
                     <p>
                         <label>
+                            <uimessage code="pihcore.deliveryLocation" />
+                        </label>
+                        <obs conceptId="CIEL:163774" answerConceptIds="CIEL:1589,CIEL:1536,CIEL:5622"
+                             style="radio" answerSeparator="" />
+                    </p>
+
+
+                    <p>
+                        <label>
                             <uimessage code="pihcore.birthweight" />
                         </label>
                         <span class="small">
@@ -348,15 +357,6 @@
                                 <obs conceptId="CIEL:5916" showUnits="false" />
                             </field>
                         </span>
-                    </p>
-                    <br/><br/>
-
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.deliveryLocation" />
-                        </label>
-                        <obs conceptId="CIEL:163774" answerConceptIds="CIEL:1589,CIEL:1536,CIEL:5622"
-                             style="radio" answerSeparator="" />
                     </p>
 
                     <p>
