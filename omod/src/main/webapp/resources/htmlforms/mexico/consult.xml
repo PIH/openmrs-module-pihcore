@@ -33,10 +33,6 @@
         display: inline-block;
         }
 
-        .narrow {
-        width: 200px;
-        }
-
         .field-error {
         color: #ff6666;
         font-size: 1.1em;
@@ -155,6 +151,22 @@
         /* Grey out disabled checkboxes */
         input[type=checkbox][disabled] {
         filter: invert(15%);
+        }
+
+        #diagnosis-lookup {
+            display: inline-block;
+            width: 50%;
+            vertical-align: top;
+        }
+
+        #encounter-diagnoses-target {
+            display: inline-block;
+            width: 40%;
+            vertical-align: top;
+        }
+
+        #encounter-diagnoses-app {
+            margin-bottom: 20px;
         }
 
     </style>
@@ -557,17 +569,17 @@
 
                     var updateEdd = function() {
                         return updateEddFromData(getCurrentDate(), getLastPeriodDate());
-                    }
+                    };
 
                     var getCurrentDate = function() {
                         var currentEncounterDate = '<lookup expression="encounter.getEncounterDatetime().getTime()"/>';
-                        if (typeof currentEncounterDate !== "undefined" &amp;&amp; currentEncounterDate !== null &amp;&amp; (currentEncounterDate.length > 0)) {
+                        if (typeof currentEncounterDate !== "undefined"&amp;&amp; (currentEncounterDate.length > 0)) {
                             // calculate the gestational age at the time of the encounter
                             return new Date(+currentEncounterDate);
                         } else {
                             return new Date();
                         }
-                    }
+                    };
 
                     var getLastPeriodDate = function() {
                         var datepickerValue = getField('lastPeriodDate.value').datepicker('getDate');
@@ -590,7 +602,7 @@
                             return dateValue;
                         }
                         return null;
-                    }
+                    };
 
                     var updateEddFromData = function(today, lastPeriodDate) {
 
@@ -949,14 +961,18 @@
         </h1>
     </ifMode>
 
-    <section id="analysis" sectionTag="fieldset" headerTag="legend" headerStyle="title">
-        <div class="section-container">
-            <div id="data-collection">
-                <p>
-                    <label><uimessage code="emr.consult.freeTextComments"/></label>
-                    <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
-                </p>
-                <encounterDiagnoses selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title">
+        <div class="question-container">
+            <p>
+                <label><uimessage code="emr.consult.freeTextComments"/></label>
+                <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
+            </p>
+        </div>
+        <div class="question-container">
+            <div id="diagnosis-lookup">
+                <encounterDiagnosesByObs selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+            </div>
+            <div id="encounter-diagnoses-target">
             </div>
         </div>
     </section>
@@ -964,8 +980,6 @@
     <!-- Plan -->
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
-
-            var $j = jQuery;
 
             htmlForm.getBeforeValidation().push(function() {
 
@@ -1170,7 +1184,7 @@
                 <label>
                     <uimessage code="pihcore.visitNote.plan.approximateReturnVisitDate"/>
                 </label>
-                <span class="narrow">
+                <span class="medium">
                     <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
                 </span>
             </p>
