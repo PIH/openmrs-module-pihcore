@@ -134,7 +134,8 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("orderentryowa.encounterType", "Test Order");
         properties.put("orderentryowa.encounterRole", "Ordering Provider");
         properties.put("orderentryowa.dateAndTimeFormat", "DD-MMM-YYYY HH:mm");
-        properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
+        // each implementation will now specify their own orderables set
+        //properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
 
         // Lab Workflow OWA
         properties.put("labworkflowowa.labResultsEncounterType","10db3139-07c0-4766-b4e5-a41b01363145"); // Specimen Collection Encounter (not Lab Results, potentially confusing)

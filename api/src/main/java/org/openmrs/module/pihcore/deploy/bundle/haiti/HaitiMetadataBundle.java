@@ -111,6 +111,10 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
         // Core Apps
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MirebalaisLocations.MIREBALAIS_CDI_PARENT.uuid());
 
+        // Order Entry OWA
+		properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
+
+
         setGlobalProperties(properties);
 
 		uninstall(possible(GlobalProperty.class, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE), "replaced by metadata mapping");
