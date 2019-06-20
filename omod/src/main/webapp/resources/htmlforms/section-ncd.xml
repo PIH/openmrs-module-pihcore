@@ -223,7 +223,7 @@
 
                 <!-- ToDo: HTML-689 Use message properties for state labels for translations -->
                 <!-- ToDo: If we want to use radio buttons, we need to change the styling/css or stateSeparator tag -->
-                <!-- ToDo: UHM-3888 Fix the workflow/states; In the meantime, this is commented out
+                <!-- ToDo: UHM-3888 Fix the workflow/states behavior; In the meantime, this is commented out
                 <workflowState workflowId="51579bce-bf3a-11e7-abc4-cec278b6b50a"
                                stateIds="51579e44-bf3a-11e7-abc4-cec278b6b50a, 51579fde-bf3a-11e7-abc4-cec278b6b50a, 5157a15a-bf3a-11e7-abc4-cec278b6b50a"
                                labelCode="51579bce-bf3a-11e7-abc4-cec278b6b50a.custom.title"
@@ -256,7 +256,7 @@
                          answerSeparator=""/>
                 </p>
 
-                <!-- ToDo: Replaced by the workflow/state? -->
+                <!-- ToDo: Replace with workflow/state? -->
                 <p class="radio">
                     <label>
                         <uimessage code="pihcore.ncd.info.controlled"/>
