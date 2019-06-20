@@ -316,12 +316,10 @@
                 </label>
             </p>
             <!-- TODO: right labels -->
-            <!-- ToDo: HTML-658 Is there a limit on the length of a URL?
-                 Temporarily removed Surgery Diagnosis set (7820) -->
             <p class="diagnosis-construct">
                 <obsgroup groupingConceptId="PIH:Visit Diagnoses">
                     <obs class="diagnosis" conceptId="PIH:DIAGNOSIS"
-                         answerConceptSetIds="PIH:7933,PIH:7934,PIH:7935,PIH:7936,PIH:7942,PIH:7957,PIH:8928,PIH:8934,PIH:8955,PIH:9662,PIH:9684,PIH:9685,PIH:9781"
+                         answerConceptSetIds="PIH:7820,PIH:7933,PIH:7934,PIH:7935,PIH:7936,PIH:7942,PIH:7957,PIH:8928,PIH:8934,PIH:8955,PIH:9662,PIH:9684,PIH:9685,PIH:9781"
                          style="autocomplete"/>
                     <obs class="diagnosis-primary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:primary" style="checkbox" answerCode="pihcore.oncologyIntake.primary" />
                     <obs class="diagnosis-secondary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:secondary" style="checkbox" answerCode="pihcore.oncologyIntake.secondary" />
@@ -333,7 +331,7 @@
             <p class="diagnosis-construct">
                 <obsgroup groupingConceptId="PIH:Visit Diagnoses">
                     <obs class="diagnosis" conceptId="PIH:DIAGNOSIS"
-                         answerConceptSetIds="PIH:7933,PIH:7934,PIH:7935,PIH:7936,PIH:7942,PIH:7957,PIH:8928,PIH:8934,PIH:8955,PIH:9662,PIH:9684,PIH:9685,PIH:9781"
+                         answerConceptSetIds="PIH:7820,PIH:7933,PIH:7934,PIH:7935,PIH:7936,PIH:7942,PIH:7957,PIH:8928,PIH:8934,PIH:8955,PIH:9662,PIH:9684,PIH:9685,PIH:9781"
                          style="autocomplete"/>
                     <obs class="diagnosis-primary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:primary" style="checkbox" answerCode="pihcore.oncologyIntake.primary" />
                     <obs class="diagnosis-secondary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:secondary" style="checkbox" answerCode="pihcore.oncologyIntake.secondary"/>
@@ -345,7 +343,7 @@
             <p class="diagnosis-construct">
                 <obsgroup groupingConceptId="PIH:Visit Diagnoses">
                     <obs class="diagnosis" conceptId="PIH:DIAGNOSIS"
-                         answerConceptSetIds="PIH:7933,PIH:7934,PIH:7935,PIH:7936,PIH:7942,PIH:7957,PIH:8928,PIH:8934,PIH:8955,PIH:9662,PIH:9684,PIH:9685,PIH:9781"
+                         answerConceptSetIds="PIH:7820,PIH:7933,PIH:7934,PIH:7935,PIH:7936,PIH:7942,PIH:7957,PIH:8928,PIH:8934,PIH:8955,PIH:9662,PIH:9684,PIH:9685,PIH:9781"
                          style="autocomplete"/>
                     <obs class="diagnosis-primary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:primary" style="checkbox" answerCode="pihcore.oncologyIntake.primary" />
                     <obs class="diagnosis-secondary" conceptId="PIH:Diagnosis order" answerConceptId="PIH:secondary" style="checkbox" answerCode="pihcore.oncologyIntake.secondary"/>
