@@ -34,9 +34,13 @@
         }
 
         .field-error {
-            color: #ff6666;
+            color: #ffc0b5;
             font-size: 1.1em;
             display: block;
+        }
+
+        .legalValue {
+            background-color: white !important;
         }
 
         .two-columns {
@@ -216,9 +220,28 @@
     </ifMode>
     <section id="subjective" sectionTag="fieldset" headerTag="legend" headerStyle="title">
         <div class="section-container">
-            <p>
-                <obs conceptId="CIEL:1390" style="textarea" rows="6" id="presenting-history"/>
-            </p>
+            <div class="two-columns">
+                <div class="small-text">
+                    <p>
+                        <uimessage code="pihcore.subjective.title"/>
+                        <lookup expression="fn.latestObs('CIEL:1390').obsDatetime" />
+                    </p>
+                    <p>
+                        <lookup expression="fn.latestObs('CIEL:1390').valueText" />
+                    </p>
+                    <br/>
+                    <p>
+                        <uimessage code="pihcore.lab.lab_tests.title"/>
+                        <lookup expression="fn.latestObs('PIH:11762').obsDatetime" />
+                    </p>
+                    <p>
+                        <lookup expression="fn.latestObs('PIH:11762').valueText" />
+                    </p>
+                </div>
+                <div>
+                    <obs conceptId="CIEL:1390" style="textarea" rows="6" id="presenting-history"/>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -269,33 +292,50 @@
 
     <!-- Asthma -->
     <section id="asthma" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.asthma">
-        <div class="section-container">
-            <div class="two-columns">
-                <div>
-                    <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 4">
-                        <label>
-                            <uimessage code="pihcore.daytime_symptoms"/>
-                        </label>
-
+        <div class="question-container">
+            <includeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 4">
+                <label>
+                    <uimessage code="pihcore.daytime_symptoms"/>
+                </label>
+                <div class="two-columns">
+                    <div>
+                        <lookup expression="fn.latestObs('PIH:Daytime asthma symptoms more than twice per week').obsDatetime" />
+                        <lookup complexExpression="#if($fn.latestObs('PIH:Daytime asthma symptoms more than twice per week')) &#8194; &#8227; &#8194; #end" />
+                        <lookup expression="fn.latestObs('PIH:Daytime asthma symptoms more than twice per week').valueCoded.name" />
+                    </div>
+                    <div>
                         <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
                              answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                              style="radio" answerSeparator="" />
-                    </includeIf>
-                    <excludeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 4">
-                        <label>
-                            <uimessage code="pihcore.daytime_symptoms_once"/>
-                        </label>
-
+                    </div>
+                </div>
+            </includeIf>
+            <excludeIf velocityTest="$patient.getAge($encounter.getEncounterDatetime()) > 4">
+                <label>
+                    <uimessage code="pihcore.daytime_symptoms_once"/>
+                </label>
+                <div class="two-columns">
+                    <div>
+                        <lookup expression="fn.latestObs('PIH:Daytime asthma symptoms for more than a few minutes more than once/week').obsDatetime" />
+                        <lookup complexExpression="#if($fn.latestObs('PIH:Daytime asthma symptoms for more than a few minutes more than once/week')) &#8194; &#8227; &#8194; #end" />
+                        <lookup expression="fn.latestObs('PIH:Daytime asthma symptoms for more than a few minutes more than once/week').valueCoded.name" />
+                    </div>
+                    <div>
                         <obs conceptId="PIH:Daytime asthma symptoms for more than a few minutes more than once/week"
                              answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                              style="radio" answerSeparator="" />
-                    </excludeIf>
+                    </div>
                 </div>
+            </excludeIf>
+        </div>
 
+        <div class="question-container">
+            <label>
+                <uimessage code="pihcore.nighttime_symptoms"/>
+            </label>
+            <div class="two-columns">
+                <div class="small-text">-</div>
                 <div class="checkboxRadio">
-                    <label>
-                        <uimessage code="pihcore.nighttime_symptoms"/>
-                    </label>
                     <obsgroup groupingConceptId="PIH:FUNCTIONAL REVIEW OF SYMPTOMS CONSTRUCT">
                         <span class="two-columns">
                             <obs conceptId="PIH:SYMPTOM PRESENT" answerConceptId="CIEL:148273"
@@ -303,9 +343,11 @@
                             <obs conceptId="PIH:SYMPTOM ABSENT" answerConceptId="CIEL:148273"
                                  answerCode="no" answerSeparator="" />
                         </span>
-                    </obsgroup><br/>
+                    </obsgroup>
+                    <br/>
 
                     <script type="text/javascript">
+                        /* Configure divs with class checkboxRadio to toggle the checkboxes as if they're radio buttons */
                         jQuery(document).on('click', ".checkboxRadio input[type$='checkbox']", function() {
                             var that = this;
                             jQuery(this).closest('.checkboxRadio').find("input[type$='checkbox']").each(function () {
@@ -317,22 +359,33 @@
                     </script>
                 </div>
             </div>
+        </div>
+        <div class="question-container">
+            <label><uimessage code="pihcore.meds_2x_wk"/></label>
             <div class="two-columns">
                 <div>
-                    <label>
-                        <uimessage code="pihcore.meds_2x_wk"/>
-                    </label>
-
-                    <obs conceptId="PIH:Medications more that twice per week"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                         style="radio" answerSeparator="" />
+                    <lookup expression="fn.latestObs('PIH:Medications more than twice per week').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('PIH:Medications more than twice per week')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('PIH:Medications more than twice per week').valueCoded.name" />
                 </div>
                 <div>
-                    <label>
-                        <uimessage code="pihcore.limitation_of_activity"/>
-                    </label>
+                    <obs conceptId="PIH:Medications more that twice per week"
+                         answerConceptIds="PIH:YES,PIH:NO"
+                         style="radio" answerSeparator="" />
+                </div>
+            </div>
+        </div>
+        <div class="question-container">
+            <label><uimessage code="pihcore.limitation_of_activity"/></label>
+            <div class="two-columns">
+                <div>
+                    <lookup expression="fn.latestObs('PIH:Limitation of ability to perform main daily activities coded').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('PIH:Limitation of ability to perform main daily activities coded')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('PIH:Limitation of ability to perform main daily activities coded').valueCoded.name" />
+                </div>
+                <div>
                     <obs conceptId="PIH:Limitation of ability to perform main daily activities coded"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                         answerConceptIds="PIH:YES,PIH:NO"
                          style="radio" answerSeparator=""/>
                 </div>
             </div>
@@ -347,14 +400,13 @@
             <div class="two-columns">
                 <div class="small-text">
                     <p>
-                        <lookup complexExpression="$fn.latestObs('PIH:SERUM GLUCOSE').obsDatetime" />
-                    </p>
-                    <p>
-                        <lookup complexExpression="$fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric" />
+                        <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').obsDatetime" />
+                        <lookup complexExpression="#if($fn.latestObs('PIH:SERUM GLUCOSE')) &#8194; &#8227; &#8194; #end" />
+                        <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric" />
                     </p>
                     <p>
                         <uimessage code="pihcore.lab.isFastingGlucose.title"/>:
-                        <lookup complexExpression="$fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name" />
+                        <lookup expression="fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name" />
                     </p>
                 </div>
                 <div>
@@ -362,64 +414,76 @@
                     <label><uimessage code="pihcore.lab.isFastingGlucose.title"/></label>
                     <div class="inline-radio">
                         <obs id="fasting-for-glucose" conceptId="PIH:Fasting for blood glucose test"
-                             answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                             answerConceptIds="PIH:YES,PIH:NO"
                              style="radio" answerSeparator="" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="section-container">
-            <p>
-                <label><uimessage code="pihcore.lab.hba1c"/></label>
-                <obs id="hba1c" class="small" conceptId="PIH:HbA1c" showUnits="true"/>
-            </p>
-            <p>
-                <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
-                <obs id="urinary-albumin" class="small" conceptId="PIH:URINARY ALBUMIN" />
-            </p>
-            <p>
-                <label>
-                    <uimessage code="pihcore.ncd.vitals.waist_cm"/>
-                    (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
-                </label>
-                <obs conceptId="CIEL:163080" id="waist_cm" class="small" showUnits="true"/>
-            </p>
-
-            <label>
-                <uimessage code="pihcore.ncd.diabetes.foot_findings"/>
-            </label>
-            <div class="inline-radio">
-                <obs conceptId="PIH:FOOT EXAM FINDINGS"
-                     answerConceptIds="PIH:NOT DONE,PIH:NORMAL,PIH:FUNGAL INFECTION,PIH:KERATODERMA,PIH:FOOT ULCER"
-                     style="radio" answerSeparator="&#8195;&#8195;"/>
-            </div>
-            <br/>
-            <label>
-                <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
-            </label>
-            <div class="inline-radio">
-                <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator="&#8195;&#8195;"/>
-            </div>
-            <br/>
-            <label>
-                <uimessage code="pihcore.ncd.hx_alcohol_use"/>
-            </label>
-            <div class="inline-radio">
-                <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
-                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                     style="radio" answerSeparator="&#8195;&#8195;" />
-            </div>
-            <br/>
-            <label>
-                <uimessage code="pihcore.ncd.hx_tobacco_use"/>
-            </label>
-            <div class="inline-radio">
-                <obs conceptId="PIH:HISTORY OF TOBACCO USE"
-                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                     style="radio" answerSeparator="&#8195;&#8195;" />
+        <repeat>
+            <template>
+                <div class="question-container">
+                    <label><uimessage code="{message}"/></label>
+                    <div class="two-columns">
+                        <div class="small-text">
+                            <lookup expression="fn.latestObs('{concept}').obsDatetime" />
+                            <lookup complexExpression="#if($fn.latestObs('{concept}')) &#8194; &#8227; &#8194; #end" />
+                            <lookup expression="fn.latestObs('{concept}').valueNumeric" />
+                        </div>
+                        <div>
+                            <obs class="small" conceptId="{concept}" showUnits="{showUnits}"/>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <render message="pihcore.lab.hba1c" concept="PIH:HbA1c" showUnits="true"/>
+            <render message="pihcore.lab.urinary_albumin" concept="PIH:URINARY ALBUMIN" showUnits="false" />
+            <render message="pihcore.ncd.vitals.waist_cm" concept="CIEL:163080" showUnits="true" />
+        </repeat>
+        <div class="question-container">
+            <label><uimessage code="pihcore.ncd.diabetes.foot_findings"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('PIH:FOOT EXAM FINDINGS').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('PIH:FOOT EXAM FINDINGS')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('PIH:FOOT EXAM FINDINGS').valueCoded.name" />
+                </div>
+                <div>
+                    <obs conceptId="PIH:FOOT EXAM FINDINGS"
+                         answerConceptIds="PIH:NOT DONE,PIH:NORMAL,PIH:FUNGAL INFECTION,PIH:KERATODERMA,PIH:FOOT ULCER" />
+               </div>
             </div>
         </div>
+        <repeat>
+            <template>
+                <div class="question-container">
+                    <label><uimessage code="{message}"/></label>
+                    <div class="two-columns">
+                        <div class="small-text">
+                            <lookup expression="fn.latestObs('{concept}').obsDatetime" />
+                            <lookup complexExpression="#if($fn.latestObs('{concept}')) &#8194; &#8227; &#8194; #end" />
+                            <lookup expression="fn.latestObs('{concept}').valueCoded.name" />
+                        </div>
+                        <div class="{obsDivClass}">
+                            <obs conceptId="{concept}" style="radio" answerConceptIds="{answerConceptIds}"
+                                 answerSeparator="{answerSeparator}"/>
+                        </div>
+                    </div>
+                </div>
+            </template>
+            <render message="pihcore.ncd.diabetes.hypoglycemia_symptoms" concept="PIH:Hypoglycemia symptoms"
+                    answerConceptIds="PIH:YES,PIH:NO"
+                    obsDivClass="inline-radio" answerSeparator="&#8195;&#8195;"
+            />
+            <render message="pihcore.ncd.hx_alcohol_use" concept="PIH:HISTORY OF ALCOHOL USE"
+                    answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                    obsDivClass="" answerSeparator=""
+            />
+            <render message="pihcore.ncd.hx_tobacco_use" concept="PIH:HISTORY OF TOBACCO USE"
+                    answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                    obsDivClass="" answerSeparator=""
+            />
+        </repeat>
     </section>
 
     <script>
@@ -501,54 +565,87 @@
 
     <!-- Epilepsy -->
     <section id="epilepsy" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
-        <div class="section-container">
-            <script>
-                jq(function() {
-                    getField('epi_baseline.value').change(updatePercentReduction);
-                    getField('seizure_num.value').change(updatePercentReduction);
-                    updatePercentReduction();
-                });
+        <script>
+            jq(function() {
+                getField('epi-baseline.value').change(updatePercentReduction);
+                getField('seizure-num.value').change(updatePercentReduction);
+                updatePercentReduction();
 
-                function updatePercentReduction() {
-                    var baseline = parseInt(htmlForm.getValueIfLegal('epi_baseline.value'));
-                    if (isNaN(baseline)) {
-                        baseline = parseInt(document.getElementById('epi_baseline_last_obs').innerHTML.trim());
-                    }
-                    var current = parseInt(htmlForm.getValueIfLegal('seizure_num.value'));
-                    if (!(isNaN(current) || isNaN(baseline))) {
-                        var result = calculatePercentReduction(baseline, current).toString();
-                        document.getElementById('seizure_percent_reduction').innerHTML = result;
-                    }
+                initializeBaseline();
+            });
+
+            function updatePercentReduction() {
+                var baseline = parseInt(htmlForm.getValueIfLegal('epi-baseline.value'));
+                if (isNaN(baseline)) {
+                    baseline = parseInt(document.getElementById('epi-baseline-last-obs').innerHTML.trim());
                 }
-
-                function calculatePercentReduction(baseline, current) {
-                    return Math.round(((baseline - current)/baseline) * 100);
+                var current = parseInt(htmlForm.getValueIfLegal('seizure-num.value'));
+                var container = jq('#seizure-percent-reduction-container');
+                if (!(isNaN(current) || isNaN(baseline))) {
+                    var result = calculatePercentReduction(baseline, current).toString();
+                    document.getElementById('seizure-percent-reduction').innerHTML = result;
+                    container.show();
+                } else {
+                    container.hide();
                 }
-            </script>
+            }
 
-            <div class="two-columns">
-                <p>
-                    <label>
-                        <uimessage code="pihcore.ncd.epilepsy.seizure_num_baseline"/>:
-                    </label>
-                    <span id="epi_baseline_last_obs" class="value">
-                        <lookup expression="fn.latestObs('PIH:Number of seizures in one month before medications').valueNumeric" />
-                    </span>
-                    <span class="small">
-                        <obs id="epi_baseline" conceptId="PIH:Number of seizures in one month before medications"/>
-                    </span>
-                </p>
-                <p>
-                    <label>
-                        <uimessage code="pihcore.ncd.epilepsy.seizure_num_1mo"/>
-                    </label>
-                    <span class="small">
-                        <obs id="seizure_num" conceptId="PIH:Number of seizures in the past month"/>
-                    </span>
-                </p>
-            </div>
+            function calculatePercentReduction(baseline, current) {
+                return Math.round(((baseline - current)/baseline) * 100);
+            }
+
+            function initializeBaseline() {
+                var baseline = parseInt(document.getElementById('epi-baseline-last-obs').innerHTML.trim());
+                var baselineInput = jq('#epi-baseline-input').hide();
+                var baselineButton = jq('#change-epi-baseline-button').show();
+                if (isNaN(baseline)) {
+                    baselineButton.hide();
+                    baselineInput.show();
+                } else {
+                    baselineInput.hide();
+                    baselineButton.show();
+                }
+                jq('#change-epi-baseline-button').click(showChangeBaseline);
+            }
+
+            function showChangeBaseline() {
+                jq('#epi-baseline-input').show();
+            }
+        </script>
+
+        <div class="question-container">
             <p>
-                <span id="seizure_percent_reduction" class="value" />
+                <uimessage code="pihcore.ncd.epilepsy.seizure_num_baseline"/>:
+                <span id="epi-baseline-last-obs" class="value">
+                    <lookup expression="fn.latestObs('PIH:Number of seizures in one month before medications').valueNumeric" />
+                </span>
+            </p>
+            <div>
+                <button id="change-epi-baseline-button" type="button">
+                    <uimessage code="pih.ncd.epilepsy.change_baseline" />
+                </button>
+            </div>
+            <div id="epi-baseline-input">
+                <obs id="epi-baseline" class="small" conceptId="PIH:Number of seizures in one month before medications"/>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <label><uimessage code="pihcore.ncd.epilepsy.seizure_num_1mo"/></label>
+            <div class="two-columns">
+                <div class="small-text">
+                    <lookup expression="fn.latestObs('PIH:Number of seizures in the past month').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('PIH:Number of seizures in the past month')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('PIH:Number of seizures in the past month').valueNumeric" />
+                </div>
+                <div>
+                    <obs id="seizure-num" class="small" conceptId="PIH:Number of seizures in the past month"/>
+                </div>
+            </div>
+        </div>
+        <div id="seizure-percent-reduction-container" class="question-container">
+            <p>
+                <span id="seizure-percent-reduction" class="value" />
                 <uimessage code="pihcore.ncd.epilepsy.percent_reduction"/>
             </p>
         </div>
@@ -624,7 +721,7 @@
 
                             jq('#calculated-edd-and-gestational').show();
                             jq('#calculated-edd').text(widgetDate);
-                            jq('#calculated-gestational-age-value').text(diffWeeks + " " + <uimessage code="pihcore.weeks"/>);
+                            jq('#calculated-gestational-age-value').text(diffWeeks + " <uimessage code="pihcore.weeks"/>");
 
                         } else {
                             jq('#calculated-edd-and-gestational').hide();
@@ -751,12 +848,9 @@
             </label>
             <div class="two-columns">
                 <div class="small-text">
-                    <p>
-                        <lookup expression="fn.latestObs('CIEL:299').obsDatetime"/>
-                    </p>
-                    <p>
-                        <lookup expression="fn.latestObs('CIEL:299').valueCoded.name"/>
-                    </p>
+                    <lookup expression="fn.latestObs('CIEL:299').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('CIEL:299')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('CIEL:299').valueCoded.name" />
                 </div>
                 <div>
                     <obs conceptId="CIEL:299"
@@ -785,12 +879,9 @@
             <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
             <div class="two-columns">
                 <div class="small-text">
-                    <p>
-                        <lookup expression="fn.latestObs('PIH:URINARY ALBUMIN').obsDatetime"/>
-                    </p>
-                    <p>
-                        <lookup expression="fn.latestObs('PIH:URINARY ALBUMIN').valueNumeric"/>
-                    </p>
+                    <lookup expression="fn.latestObs('PIH:URINARY ALBUMIN').obsDatetime" />
+                    <lookup complexExpression="#if($fn.latestObs('PIH:URINARY ALBUMIN')) &#8194; &#8227; &#8194; #end" />
+                    <lookup expression="fn.latestObs('PIH:URINARY ALBUMIN').valueNumeric" />
                 </div>
                 <div>
                     <obs class="small" conceptId="PIH:URINARY ALBUMIN" />
@@ -809,8 +900,8 @@
                 <div>
                     <div class="inline-radio" >
                         <obs conceptId="PIH:BLOOD TYPING"
-                             answerConceptIds="CIEL:690,CIEL:692,CIEL:694,CIEL:696,CIEL:699,CIEL:701,CIEL:1230,CIEL:1231"
-                             answerCodes="A+,A-,B+,B-,O+,O-,AB+,AB-" style="radio" answerSeparator="&#8195;"/>
+                             answerConceptIds="CIEL:690,CIEL:692,CIEL:694,CIEL:696,CIEL:699,CIEL:701,CIEL:1230,CIEL:1231,PIH:unknown"
+                             answerCodes="A+,A-,B+,B-,O+,O-,AB+,AB-,unknown"/>
                     </div>
                 </div>
             </div>
@@ -1033,43 +1124,52 @@
 
             });
 
+            var numMeds = 1;
+            var meds = [];
             jq(function() {
 
                 var hasValue = function(element) {
                     return jq(element).find('.medication-name input').val();
                 };
 
-                var hideOtherMeds = function() {
-                    jq('#medication-2').hide();
-                    jq('#medication-3').hide();
-                    jq('#medication-4').hide();
-                    jq('#medication-5').hide();
-                    jq('#medication-6').hide();
-                    jq('#medication-7').hide();
-                    jq('#medication-8').hide();
+                var initMeds = function() {
+                    for (var i = 1; i &lt;= 8; i++) {
+                        meds.push(jq('#medication-' + i));
+                    }
+                    for (var i = 1; i &lt; 8; i++) {
+                        if (hasValue(meds[i])) {
+                            numMeds = i + 1;
+                        }
+                    }
+                    updateShownMeds();
                 };
 
-                if (!hasValue('#medication-2') &amp;&amp; !hasValue('#medication-3') &amp;&amp; !hasValue('#medication-4')
-                    &amp;&amp; !hasValue('#medication-5') &amp;&amp; !hasValue('#medication-6') &amp;&amp;
-                    !hasValue('#medication-7')
-                    &amp;&amp; !hasValue('#medication-8')) {
-                    hideOtherMeds();
-                    jq('#show-more-medications-button').show();
-                }
+                var updateShownMeds = function() {
+                    for (var i = 0; i &lt; 8; i++) {
+                        if (i &lt; numMeds) {
+                            meds[i].show();
+                        } else {
+                            meds[i].hide();
+                        }
+                    }
+                };
 
-                jq('#show-more-medications-button').click(function() {
-                    jq('.medication').show();
-                    jq('#show-more-medications-button').hide();
-                    jq('#show-less-medications-button').show();
-                });
+                var incrementShownMeds = function() {
+                    numMeds += 1;
+                    updateShownMeds();
+                };
 
-                jq('#show-less-medications-button').click(function() {
-                    hideOtherMeds();
-                    jq('#show-less-medications-button').hide();
-                    jq('#show-more-medications-button').show();
-                });
+                var decrementShownMeds = function() {
+                    numMeds -= 1;
+                    updateShownMeds();
+                };
 
-            })
+                jq('#show-more-medications-button').click(incrementShownMeds);
+                jq('#show-less-medications-button').click(decrementShownMeds);
+
+                initMeds();
+
+            });
 
         </script>
     </ifMode>
@@ -1164,11 +1264,11 @@
                 </span>
             </repeat>
 
-            <button id="show-more-medications-button" type="button" style="display:none">
-                <uimessage code="pihcore.showMore"/>
+            <button id="show-less-medications-button" type="button">
+                -
             </button>
-            <button id="show-less-medications-button" type="button" style="display:none">
-                <uimessage code="pihcore.showLess"/>
+            <button id="show-more-medications-button" type="button">
+                +
             </button>
         </div>
 
