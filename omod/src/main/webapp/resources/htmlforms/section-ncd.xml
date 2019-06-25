@@ -426,6 +426,7 @@
                     </th>
                 </tr>
 
+                <!--
                 <repeat with="['type1Dm','CIEL:142474'],
                               ['type2DmInsulinDep','CIEL:165207'],
                               ['type2DmNotInsulinDep','CIEL:165208'],
@@ -436,7 +437,7 @@
                                 <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{1}"
                                      style="checkbox" />
                             </obsgroup>
-
+-->
                             <!-- ToDo: UHM-3863 Migrate from this to obsgroup
                             <obs conceptId="PIH:Type of diabetes diagnosis"
                                  answerConceptId="{1}" />
@@ -445,6 +446,7 @@
                                  answerConceptId="CIEL:138291"
                                  answerCode="pihcore.ncd.hyperglycemia.label"/>
                             -->
+<!--
                         </td>
                         <td>
                             <label>
@@ -462,6 +464,28 @@
                         </obsgroup>
                     </td>
                     <td>
+                    </td>
+                </tr>
+-->
+
+                <!-- UHM-xxxx Add hyperglycemia label and new treatment messages with translations -->
+                <tr>
+                    <td>
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS"
+                                 answerConceptIds="CIEL:142474,CIEL:165208,CIEL:165207,PIH:Gestational diabetes,CIEL:138291"
+                                 answerCodes="pihcore.ncd.dmType1,pihcore.ncd.dmType2nonInsulin,pihcore.ncd.dmType2reqInsulin,pihcore.ncd.diabetes.gestationalDm,pihcore.ncd.hyperglycemia.label"
+                                 style="radio" answerSeparator=""/>
+                        </obsgroup>
+                    </td>
+                    <td align="top">
+                        <repeat with="['type1Dm','CIEL:142474','Type 1'],
+                              ['type2DmNotInsulinDep','CIEL:165208','Type 2'],
+                              ['type2DmInsulinDep','CIEL:165207','Type 2'],
+                              ['gestationalDm','PIH:Gestational diabetes','Gestational']">
+                            <uimessage code="pihcore.ncd.diabetes.{0}Treatment.full" />
+                            <br/><br/>
+                        </repeat>
                     </td>
                 </tr>
             </table>

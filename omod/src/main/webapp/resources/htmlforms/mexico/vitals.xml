@@ -258,20 +258,20 @@
         </fieldset>
 
         <fieldset>
-            <legend><uimessage code="pihcore.lab.glucose"/></legend>
-            <h3><uimessage code="pihcore.lab.glucose"/></h3>
-            <p>
-                <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
-            </p>
-        </fieldset>
-
-        <fieldset>
             <legend><uimessage code="pihcore.lab.isFastingGlucose.title"/></legend>
             <h3><uimessage code="pihcore.lab.isFastingGlucose"/></h3>
             <p>
                 <obs id="fasting-for-glucose" conceptId="PIH:Fasting for blood glucose test"
                      answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
                      style="radio" answerSeparator="" />
+            </p>
+        </fieldset>
+
+        <fieldset>
+            <legend><uimessage code="pihcore.lab.glucose"/></legend>
+            <h3><uimessage code="pihcore.lab.glucose"/></h3>
+            <p>
+                <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
             </p>
         </fieldset>
 
