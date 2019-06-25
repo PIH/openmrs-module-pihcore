@@ -570,7 +570,7 @@
             </includeIf>
 
             <!-- Do not require return visit date for non-NCD encounters -->
-            <includeIf velocityTest="!($encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171' || !$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c')" >
+            <includeIf velocityTest="!($encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171' || $encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c')" >
                 <p class="narrow">
                     <label>
                         <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
