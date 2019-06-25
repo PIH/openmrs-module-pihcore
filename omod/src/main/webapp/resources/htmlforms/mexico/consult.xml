@@ -74,7 +74,7 @@
             min-width: 15%
         }
 
-        p.radio > * {
+        div.inline-radio > * {
             display: inline;
             float: none !important;
             min-width: initial;
@@ -358,24 +358,21 @@
                     </p>
                 </div>
                 <div>
-                    <span class="small">
-                        <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
-                    </span>
+                    <obs id="glucose" class="small" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
                     <label><uimessage code="pihcore.lab.isFastingGlucose.title"/></label>
-                    <obs id="fasting-for-glucose" conceptId="PIH:Fasting for blood glucose test"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
-                         style="radio" answerSeparator="" />
+                    <div class="inline-radio">
+                        <obs id="fasting-for-glucose" conceptId="PIH:Fasting for blood glucose test"
+                             answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                             style="radio" answerSeparator="" />
+                    </div>
                 </div>
             </div>
         </div>
         <div class="section-container">
             <p>
                 <label><uimessage code="pihcore.lab.hba1c"/></label>
-                <span class="small">
-                    <obs id="hba1c" conceptId="PIH:HbA1c" showUnits="true"/>
-                </span>
+                <obs id="hba1c" class="small" conceptId="PIH:HbA1c" showUnits="true"/>
             </p>
-            <br/>
             <p>
                 <label><uimessage code="pihcore.lab.urinary_albumin"/></label>
                 <obs id="urinary-albumin" class="small" conceptId="PIH:URINARY ALBUMIN" />
@@ -385,44 +382,42 @@
                     <uimessage code="pihcore.ncd.vitals.waist_cm"/>
                     (<uimessage code="pihcore.ncd.vitals.waist_cm.instructions"/>)
                 </label>
-                <span class="small">
-                    <obs conceptId="CIEL:163080" id="waist_cm" showUnits="true"/>
-                </span>
+                <obs conceptId="CIEL:163080" id="waist_cm" class="small" showUnits="true"/>
             </p>
 
-            <div class="two-columns">
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.diabetes.foot_findings"/>
-                    </label>
-                    <obs conceptId="PIH:FOOT EXAM FINDINGS"
-                         answerConceptIds="PIH:NOT DONE,PIH:NORMAL,PIH:FUNGAL INFECTION,PIH:KERATODERMA,PIH:FOOT ULCER"
-                         style="radio" answerSeparator=""/>
-                </p>
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
-                    </label>
-                    <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                         answerCodes="yes,no" answerSeparator=""/>
-                </p>
-                <br/><br/>
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.hx_alcohol_use"/>
-                    </label>
-                    <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
-                         answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                         style="radio" answerSeparator="" />
-                </p>
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.hx_tobacco_use"/>
-                    </label>
-                    <obs conceptId="PIH:HISTORY OF TOBACCO USE"
-                         answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                         style="radio" answerSeparator="" />
-                </p>
+            <label>
+                <uimessage code="pihcore.ncd.diabetes.foot_findings"/>
+            </label>
+            <div class="inline-radio">
+                <obs conceptId="PIH:FOOT EXAM FINDINGS"
+                     answerConceptIds="PIH:NOT DONE,PIH:NORMAL,PIH:FUNGAL INFECTION,PIH:KERATODERMA,PIH:FOOT ULCER"
+                     style="radio" answerSeparator="&#8195;&#8195;"/>
+            </div>
+            <br/>
+            <label>
+                <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
+            </label>
+            <div class="inline-radio">
+                <obs conceptId="PIH:Hypoglycemia symptoms" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no" answerSeparator="&#8195;&#8195;"/>
+            </div>
+            <br/>
+            <label>
+                <uimessage code="pihcore.ncd.hx_alcohol_use"/>
+            </label>
+            <div class="inline-radio">
+                <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
+                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                     style="radio" answerSeparator="&#8195;&#8195;" />
+            </div>
+            <br/>
+            <label>
+                <uimessage code="pihcore.ncd.hx_tobacco_use"/>
+            </label>
+            <div class="inline-radio">
+                <obs conceptId="PIH:HISTORY OF TOBACCO USE"
+                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                     style="radio" answerSeparator="&#8195;&#8195;" />
             </div>
         </div>
     </section>
@@ -812,11 +807,11 @@
                     <lookup expression="fn.latestObs('PIH:BLOOD TYPING').valueCoded.name"/>
                 </div>
                 <div>
-                    <p class="radio" >
+                    <div class="inline-radio" >
                         <obs conceptId="PIH:BLOOD TYPING"
                              answerConceptIds="CIEL:690,CIEL:692,CIEL:694,CIEL:696,CIEL:699,CIEL:701,CIEL:1230,CIEL:1231"
-                             answerCodes="A+,A-,B+,B-,O+,O-,AB+,AB-" style="radio"/>
-                    </p>
+                             answerCodes="A+,A-,B+,B-,O+,O-,AB+,AB-" style="radio" answerSeparator="&#8195;"/>
+                    </div>
                 </div>
             </div>
         </div>
