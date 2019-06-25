@@ -46,7 +46,7 @@ public class SierraLeoneMetadataBundle extends AbstractMetadataBundle {
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, Locations.UNKNOWN.uuid());
 
         // Order Entry OWA
-        //properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
+        properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
 
         setGlobalProperties(properties);
 
