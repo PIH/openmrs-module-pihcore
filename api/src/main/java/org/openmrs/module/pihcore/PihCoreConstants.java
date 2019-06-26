@@ -51,7 +51,7 @@ public class PihCoreConstants {
     public static final String ANC_PROGRAM_CONCEPT_UUID = "165475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";  // 12002, PIH Maternal Child Health
     public static final String ANC_PROGRAM_OUTCOME_CONCEPT_UUID = "cd4e30b1-9935-4b30-9de8-b56e057c541d";  // 11728, PIH Maternal Child Health
 
-    public static final String ASTHMA_PROGRAM_CONCEPT_UUID = "880ee6e8-1685-41e4-9055-ba066c2cecb7";  // 6768, HUM NCD
+    public static final String ASTHMA_PROGRAM_CONCEPT_UUID = "2b0b5e74-1f78-4cbc-847d-07e3e6f166b3";  // 12211, HUM NCD
     public static final String ASTHMA_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
 
     public static final String DIABETES_PROGRAM_CONCEPT_UUID = "db80904c-d893-42ea-9b56-9c4cdf77b2fd";  // 6748, HUM NCD
