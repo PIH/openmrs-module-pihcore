@@ -14,13 +14,6 @@ public class MexicoLocations {
         public String description() { return "The state of Chiapas, where CES operates"; }
     };
 
-    public static LocationDescriptor JALTENANGO = new LocationDescriptor() {
-        public String uuid() { return "8be98d12-848d-11e8-9d02-74e5f9828fde"; }
-        public String name() { return "Jaltenango"; }
-        public String description() { return "Jaltenango, the CES main office location"; }
-        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
-    };
-
     public static LocationDescriptor CAPITAN = new LocationDescriptor() {
         public String uuid() { return "6ed84a4b-848d-11e8-9d02-74e5f9828fde"; }
         public String name() { return "Capitan"; }
@@ -90,5 +83,14 @@ public class MexicoLocations {
         public String description() { return "Soledad"; }
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
     };
+
+    // UNINSTALLED
+    public static LocationDescriptor JALTENANGO = new LocationDescriptor() {
+        public String uuid() { return "8be98d12-848d-11e8-9d02-74e5f9828fde"; }
+        public String name() { return "Jaltenango"; }
+        public String description() { return "Jaltenango, the CES main office location"; }
+        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
+    };
+
 }
 

@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.deploy.bundle.mexico;
 
 
+import org.openmrs.Location;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
@@ -14,7 +15,6 @@ public class MexicoLocationsBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
         install(MexicoLocations.CHIAPAS);
-        install(MexicoLocations.JALTENANGO);
         install(MexicoLocations.CAPITAN);
         install(MexicoLocations.HONDURAS);
         install(MexicoLocations.LAGUNA_DEL_COFRE);
@@ -25,5 +25,7 @@ public class MexicoLocationsBundle extends AbstractMetadataBundle {
         install(MexicoLocations.REFORMA);
         install(MexicoLocations.SALVADOR);
         install(MexicoLocations.SOLEDAD);
+
+        uninstall(possible(Location.class, MexicoLocations.JALTENANGO.uuid()), "not used");
     }
 }

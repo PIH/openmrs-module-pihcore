@@ -74,23 +74,18 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
 
-        Field locationField = MexicoLocations.class.getField(config.getSite().name().toString());
+        // Get the current location -- each site only has one available
+        Field locationField = MexicoLocations.class.getField(config.getSite().name());
         LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
-
-        // Tags for our hub in Jaltenango
-        List<LocationDescriptor> jalte = Arrays.asList(MexicoLocations.JALTENANGO);
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, jalte);
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, jalte);
 
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
-
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(location));
 
         // Location CHIAPAS only exists for ID generation
         List<LocationDescriptor> chiapas = Arrays.asList(MexicoLocations.CHIAPAS);
