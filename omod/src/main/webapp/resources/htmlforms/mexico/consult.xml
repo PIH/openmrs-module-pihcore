@@ -1069,7 +1069,7 @@
             // I don't really understand why this assignment `$j = jq` is required, but for some
             // reason a bunch of Javascript gets included in the page that expects `$j` to exist,
             // but doesn't define `$j` itself. *shrug emoji*
-            var $j = jq;
+            var $j = jQuery;
 
             htmlForm.getBeforeValidation().push(function() {
 
@@ -1124,19 +1124,20 @@
 
             });
 
+            var MAX_MEDS = 30;  // this should match the number of items in the "repeat with=..." tag
             var numMeds = 1;
             var meds = [];
             jq(function() {
 
-                var hasValue = function(element) {
+                var hasValue = function (element) {
                     return jq(element).find('.medication-name input').val();
                 };
 
-                var initMeds = function() {
-                    for (var i = 1; i &lt;= 8; i++) {
+                var initMeds = function () {
+                    for (var i = 1; i &lt;= MAX_MEDS; i++) {
                         meds.push(jq('#medication-' + i));
                     }
-                    for (var i = 1; i &lt; 8; i++) {
+                    for (var i = 1; i &lt; MAX_MEDS; i++) {
                         if (hasValue(meds[i])) {
                             numMeds = i + 1;
                         }
@@ -1144,8 +1145,8 @@
                     updateShownMeds();
                 };
 
-                var updateShownMeds = function() {
-                    for (var i = 0; i &lt; 8; i++) {
+                var updateShownMeds = function () {
+                    for (var i = 0; i &lt; MAX_MEDS; i++) {
                         if (i &lt; numMeds) {
                             meds[i].show();
                         } else {
@@ -1154,12 +1155,12 @@
                     }
                 };
 
-                var incrementShownMeds = function() {
+                var incrementShownMeds = function () {
                     numMeds += 1;
                     updateShownMeds();
                 };
 
-                var decrementShownMeds = function() {
+                var decrementShownMeds = function () {
                     numMeds -= 1;
                     updateShownMeds();
                 };
