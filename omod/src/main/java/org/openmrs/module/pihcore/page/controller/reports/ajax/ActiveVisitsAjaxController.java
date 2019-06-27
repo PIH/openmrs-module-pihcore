@@ -6,7 +6,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.openmrs.Cohort;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.pihcore.reporting.cohort.definition.ActiveVisitsWithEncountersCohortDefinition;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.reporting.cohort.definition.VisitCohortDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientDataDefinition;
 import org.openmrs.module.reporting.dataset.DataSet;
@@ -32,6 +33,9 @@ import java.io.StringWriter;
 public class ActiveVisitsAjaxController {
 
     protected final Log log = LogFactory.getLog(getClass());
+
+    @Autowired
+    private Config config;
 
     @Autowired
     @Qualifier("reportingDataSetDefinitionService")
@@ -68,7 +72,15 @@ public class ActiveVisitsAjaxController {
         dsd.addColumn("patientId", definitionLibraries.getDefinition(PatientDataDefinition.class, "reporting.library.patientDataDefinition.builtIn.patientId"), "");
         dsd.addColumn("familyName", definitionLibraries.getDefinition(PatientDataDefinition.class, "reporting.library.patientDataDefinition.builtIn.preferredName.familyName"), "");
         dsd.addColumn("givenName", definitionLibraries.getDefinition(PatientDataDefinition.class, "reporting.library.patientDataDefinition.builtIn.preferredName.givenName"), "");
-        dsd.addColumn("zlEmrId", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.preferredZlEmrId.identifier"), "");
+
+        // TODO: change this to not have to rely on an if/then
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            dsd.addColumn("identifier", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.preferredZlEmrId.identifier"), "");
+        }
+        else {
+            dsd.addColumn("identifier", definitionLibraries.getDefinition(PatientDataDefinition.class, "reporting.library.patientDataDefinition.builtIn.preferredIdentifier.identifier"), "");
+        }
+
         dsd.addColumn("firstCheckinLocation", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.checkin.location"), "");
         dsd.addColumn("checkinDateTime", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.checkin.encounterDatetime"), "");
         dsd.addColumn("lastEncounterType", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.lastEncounter.type"), "");

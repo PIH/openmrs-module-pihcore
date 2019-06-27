@@ -140,9 +140,9 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                 headerRowHeight: 60,
                 columnDefs: [
                     {
-                        field: 'zlEmrId',
+                        field: 'identifier',
                         width: '20%',
-                        cellTemplate: "<div>{{ row.getProperty(\'zlEmrId\') }}</div>",
+                        cellTemplate: "<div>{{ row.getProperty(\'identifier\') }}</div>",
                         headerCellTemplate: "<div>{{ \'coreapps.patient.identifier\' | translate }}</div>"
                     },
                     {
