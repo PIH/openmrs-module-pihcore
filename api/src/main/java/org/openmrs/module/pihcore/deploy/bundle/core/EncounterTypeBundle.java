@@ -49,6 +49,8 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.VACCINATION);
         install(EncounterTypes.ECHOCARDIOGRAM);
         install(EncounterTypes.MEXICO_CONSULT);
+        install(EncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL);
+        install(EncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP);
 
         uninstall(possible(EncounterType.class, AttachmentsConstants.ENCOUNTER_TYPE_UUID), "not used");
         uninstall(possible(EncounterType.class, EncounterTypes.MEXICO_CLINIC_VISIT.uuid()), "replaced with Mexico Consult");

@@ -67,9 +67,11 @@ public class LocationTagSetup {
     }
 
     private static void setupLocationTagsForSierraLeone(LocationService locationService) {
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER));
+        List<LocationDescriptor> slLocations = Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER);
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, slLocations);
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION,slLocations);
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, slLocations);
+        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, slLocations);
     }
 
     private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
