@@ -204,5 +204,257 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20190625-a-migrate-diabetes2-to-diabetes2InsulinDependent" author="ball">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from concept_name
+                 where name like 'Type 2 diabetes requiring insulin'
+                   and locale = 'en'
+                   and locale_preferred = 1
+                   and voided = 0;
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            UHM-3923 Migrate Diabetes 2 to Diabetes Type 2 requiring insulin for NCD encounters
+            For Version 2, Diabetes Type 2 requiring insulin and not insulin-dependent were introduced.
+            Darius Fenelon wanted to migrate all the general Type 2 Diabetes to requiring insulin data
+            since that's more common
+
+            Only run this when this concept is available (ie. Haiti)
+        </comment>
+        <sql>
+            -- Diabetes Type 2 (change the concept to Diabetes Type 2 requiring insulin)
+            update obs
+               set concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Type 2 diabetes requiring insulin' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   comments = (select Concat('changed from type 2 diabetes',sysdate()) from dual)
+             where value_coded =
+                    (select distinct(concept_id) from concept_name
+                      where name like 'Type 2 diabetes' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and concept_id =
+                            (select distinct(concept_id) from concept_name
+                              where name like 'Type of diabetes diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and encounter_id IN
+                     (select encounter_id from encounter
+                       where encounter_type IN
+                                (select encounter_type_id from encounter_type where name like 'NCD%'))
+               and voided = 0;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190625-migrate-ncd-diabetes-obs-to-diagnoses-construct" author="ball">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from concept_name
+                 where name like 'Type of diabetes diagnosis'
+                   and locale = 'en'
+                   and locale_preferred = 1
+                   and voided = 0;
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            UHM-3863 Migrate NCD diabetes diagnoses to use diagnoses construct
+        </comment>
+        <sql>
+            -- NCD Diagnoses (create obsgroup and migrate data)
+            drop table if exists temp_ncd_dm_diagnosis;
+
+            create table temp_ncd_dm_diagnosis (
+                id INT not null auto_increment primary key,
+                encounter_id int(11) not NULL,
+                person_id int(11) not NULL,
+                location_id int(11) not NULL,
+                ncd_dx_obs_id int(11) not NULL,
+                obs_group_id int(11) default NULL,
+                obs_datetime datetime default NULL,
+                creator int(11) not NULL
+            );
+
+            -- Add diabetes dx data to temporary table
+            insert into temp_ncd_dm_diagnosis
+                (ncd_dx_obs_id, encounter_id, person_id, location_id, obs_datetime, creator)
+            select obs_id, encounter_id, person_id, location_id, obs_datetime, creator
+              from obs
+             where voided = 0
+               and concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Type of diabetes diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type IN
+                            (select encounter_type_id from encounter_type where name like 'NCD%'));
+
+            -- Create obsgroup; Use accession number temporarily to hold the ncd diagnosis obs_id
+            insert into obs
+                (encounter_id, person_id, location_id, obs_datetime, creator,
+                 concept_id, comments, accession_number, date_created, uuid)
+            select encounter_id, person_id, location_id, obs_datetime, creator,
+                   (select concept_id from concept_name
+                     where name like 'Visit Diagnoses' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   'ncd diagnosis obsgroup',
+                   obs_id, now(), uuid()
+              from obs
+             where voided = 0
+               and concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Type of diabetes diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type IN
+                                (select encounter_type_id from encounter_type where name like 'NCD%'));
+
+            -- Add obsgroup id to the temporary table
+            update temp_ncd_dm_diagnosis, obs
+               set temp_ncd_dm_diagnosis.obs_group_id = obs.obs_id
+             where obs.voided = 0
+               and obs.comments = 'ncd diagnosis obsgroup'
+               and temp_ncd_dm_diagnosis.ncd_dx_obs_id = obs.accession_number;
+
+            -- Add obsgroup id to obs table
+            update temp_ncd_dm_diagnosis, obs
+               set obs.obs_group_id = temp_ncd_dm_diagnosis.obs_group_id
+             where obs.voided = 0
+               and temp_ncd_dm_diagnosis.ncd_dx_obs_id = obs.obs_id;
+
+            -- NCD dx order (create a new diagnosis order obs)
+            insert into obs
+                (person_id, concept_id, value_coded, encounter_id, obs_datetime,
+                location_id, obs_group_id, comments, creator, date_created, uuid)
+            select person_id,
+                   (select concept_id from concept_name
+                     where name like 'Diagnosis order' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   (select concept_id from concept_name
+                     where name like 'Secondary' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   encounter_id, obs_datetime, location_id, obs_group_id, 'ncd dx inserted secondary order', creator, now(), uuid()
+              from temp_ncd_dm_diagnosis;
+
+            -- NCD dm dx (change the concept for the diagnosis)
+            update obs
+               set concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   comments = (select Concat('ncd dm diagnosis updated ',sysdate()) from dual)
+             where concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Type of diabetes diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and voided = 0
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type IN
+                                (select encounter_type_id from encounter_type where name like 'NCD%'));
+
+            -- Cleanup temp trash for ncd dm dx obsgroups
+            update obs
+               set accession_number = NULL
+             where obs_id IN (select obs_group_id from temp_ncd_dm_diagnosis);
+
+            drop table if exists temp_ncd_dm_diagnosis;
+        </sql>
+    </changeSet>
+
+    <changeSet id="20190625-a-migrate-ncd-dx-obs-to-diagnoses-construct" author="ball">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from global_property
+                 where property_value like '%haiti%'
+                   and property ='layout.address.format';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            UHM-3863 Migrate NCD diagnoses to use diagnoses construct.
+            For non-diabetes dx: Heart failure, other, and COPD.
+            These were previously stored as PIH:DIAGNOSIS but without an obsgroup.
+        </comment>
+        <sql>
+            -- NCD Diagnoses (create obsgroup and migrate data)
+            drop table if exists temp_ncd_diagnosis;
+
+            create table temp_ncd_diagnosis (
+                id INT not null auto_increment primary key,
+                encounter_id int(11) not NULL,
+                person_id int(11) not NULL,
+                location_id int(11) not NULL,
+                ncd_dx_obs_id int(11) not NULL,
+                obs_group_id int(11) default NULL,
+                obs_datetime datetime default NULL,
+                creator int(11) not NULL
+            );
+
+            -- Add dx data to temporary table
+            insert into temp_ncd_diagnosis
+                (ncd_dx_obs_id, encounter_id, person_id, location_id, obs_datetime, creator)
+            select obs_id, encounter_id, person_id, location_id, obs_datetime, creator
+              from obs
+             where voided = 0
+               and concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and obs_group_id = NULL
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type IN
+                            (select encounter_type_id from encounter_type where name like 'NCD%'));
+
+            -- Create obsgroup; Use accession number temporarily to hold the ncd diagnosis obs_id
+            insert into obs
+                (encounter_id, person_id, location_id, obs_datetime, creator,
+                 concept_id, comments, accession_number, date_created, uuid)
+            select encounter_id, person_id, location_id, obs_datetime, creator,
+                   (select concept_id from concept_name
+                     where name like 'Visit Diagnoses' and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   'ncd diagnosis obsgroup',
+                   obs_id, now(), uuid()
+              from obs
+             where voided = 0
+               and concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and obs_group_id = NULL
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type IN
+                                (select encounter_type_id from encounter_type where name like 'NCD%'));
+
+            -- Add obsgroup id to the temporary table
+            update temp_ncd_diagnosis, obs
+               set temp_ncd_diagnosis.obs_group_id = obs.obs_id
+             where obs.voided = 0
+               and obs.comments = 'ncd diagnosis obsgroup'
+               and temp_ncd_diagnosis.ncd_dx_obs_id = obs.accession_number;
+
+            -- Add obsgroup id to obs table
+            update temp_ncd_diagnosis, obs
+               set obs.obs_group_id = temp_ncd_diagnosis.obs_group_id
+             where obs.voided = 0
+               and temp_ncd_diagnosis.ncd_dx_obs_id = obs.obs_id;
+
+            -- NCD dx (change the concept for the diagnosis)
+            update obs
+               set concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Diagnosis' and locale = 'en'
+                        and locale_preferred = 1 and voided = 0),
+                   comments = (select Concat('ncd diagnosis updated ',sysdate()) from dual)
+             where concept_id =
+                    (select concept_id from concept_name
+                      where name like 'Type of diabetes diagnosis'
+                        and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and voided = 0
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type IN
+                            (select encounter_type_id from encounter_type
+                              where name like 'NCD%'));
+
+            -- Cleanup temp trash for ncd dx obsgroups
+            update obs
+               set accession_number = NULL
+             where obs_id IN (select obs_group_id from temp_ncd_diagnosis);
+
+            drop table if exists temp_ncd_diagnosis;
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
