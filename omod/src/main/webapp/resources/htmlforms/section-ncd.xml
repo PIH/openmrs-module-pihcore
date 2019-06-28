@@ -223,7 +223,7 @@
 
                 <!-- ToDo: HTML-689 Use message properties for state labels for translations -->
                 <!-- ToDo: If we want to use radio buttons, we need to change the styling/css or stateSeparator tag -->
-                <!-- ToDo: UHM-3888 Fix the workflow/states; In the meantime, this is commented out
+                <!-- ToDo: UHM-3888 Fix workflow/states before this can be used
                 <workflowState workflowId="51579bce-bf3a-11e7-abc4-cec278b6b50a"
                                stateIds="51579e44-bf3a-11e7-abc4-cec278b6b50a, 51579fde-bf3a-11e7-abc4-cec278b6b50a, 5157a15a-bf3a-11e7-abc4-cec278b6b50a"
                                labelCode="51579bce-bf3a-11e7-abc4-cec278b6b50a.custom.title"
@@ -426,49 +426,15 @@
                     </th>
                 </tr>
 
-                <!--
-                <repeat with="['type1Dm','CIEL:142474'],
-                              ['type2DmInsulinDep','CIEL:165207'],
-                              ['type2DmNotInsulinDep','CIEL:165208'],
-                              ['gestationalDm','PIH:Gestational diabetes']">
-                    <tr>
-                        <td>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{1}"
-                                     style="checkbox" />
-                            </obsgroup>
--->
-                            <!-- ToDo: UHM-3863 Migrate from this to obsgroup
-                            <obs conceptId="PIH:Type of diabetes diagnosis"
-                                 answerConceptId="{1}" />
+                <!-- ToDo: UHM-3863 Migrate from this to obsgroup
+                <obs conceptId="PIH:Type of diabetes diagnosis"
+                     answerConceptId="{1}" />
 
-                            <obs conceptId="PIH:Type of diabetes diagnosis"
-                                 answerConceptId="CIEL:138291"
-                                 answerCode="pihcore.ncd.hyperglycemia.label"/>
-                            -->
-<!--
-                        </td>
-                        <td>
-                            <label>
-                                <uimessage code="pihcore.ncd.diabetes.{0}Treatment.label" />
-                            </label>
-                        </td>
-                    </tr>
-                </repeat>
+                <obs conceptId="PIH:Type of diabetes diagnosis"
+                     answerConceptId="CIEL:138291"
+                     answerCode="pihcore.ncd.hyperglycemia.label"/>
+                -->
 
-                <tr>
-                    <td>
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:138291"
-                                 style="checkbox" answerCode="pihcore.ncd.hyperglycemia.label" />
-                        </obsgroup>
-                    </td>
-                    <td>
-                    </td>
-                </tr>
--->
-
-                <!-- UHM-xxxx Add hyperglycemia label and new treatment messages with translations -->
                 <tr>
                     <td>
                         <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
