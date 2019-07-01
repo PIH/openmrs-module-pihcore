@@ -336,7 +336,7 @@
                 </label>
                 <encounterProviderAndRole encounterRole="9b135b19-7ebe-4a51-aea2-69a53f9383af"
                                           providerRoles="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75"
-                                          required="true"/>
+                                          autocompleteProvider="true" required="true"/>
             </p>
 
             <p>
@@ -347,7 +347,7 @@
                 <span class="inline">
                     <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7"
                                               providerRoles="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75"
-                                              required="false" count="2"/>
+                                              autocompleteProvider="true" required="false" count="2"/>
                 </span>
             </p>
             <p>
@@ -366,7 +366,7 @@
                 <span class="inline">
                     <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8"
                                               providerRoles="39c28f78-6637-4c21-9bf4-db3e2398054f"
-                                              required="false" count="2"/>
+                                              autocompleteProvider="true" required="false" count="2"/>
                 </span>
             </p>
 
@@ -378,7 +378,7 @@
                 <span class="inline">
                     <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92"
                                               providerRoles="7207ba62-027f-4f9b-be67-a9f7a8a3abcc"
-                                              required="false" count="2"/>
+                                              autocompleteProvider="true" required="false" count="2"/>
                 </span>
             </p>
         </div>
