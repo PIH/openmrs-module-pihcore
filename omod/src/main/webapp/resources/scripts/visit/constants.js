@@ -501,6 +501,12 @@ angular.module('constants', [])
         },
         mexicoConsult: {
             uuid: "aa61d509-6e76-4036-a65d-7813c0c3b752"
+        },
+        sierraLeoneOutpatientInitial: {
+            uuid: "7d5853d4-67b7-4742-8492-fcf860690ed5"
+        },
+        sierraLeoneOutpatientFollowup: {
+            uuid: "d8a038b5-90d2-43dc-b94b-8338b76674f3"
         }
     })
     .value('EncounterRoles', {

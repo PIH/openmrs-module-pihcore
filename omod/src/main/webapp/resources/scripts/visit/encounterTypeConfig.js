@@ -5,11 +5,6 @@ angular.module("encounterTypeConfig", ["constants"])
         var hfeSimpleEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
         var hfeStandardEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
 
-        // if use has only "enterConsultNote", must be an active visit; retroConsultNote or retroConsultNoteThisProviderOnly required for retro visits
-        // TODO do we use this anywhere?
-        var standardConsultNoteRequire = "(user.hasPrivilege('Task: emr.enterConsultNote') && visit && !visit.stopDatetime) || (user.hasPrivilege('Task: emr.retroConsultNote') || user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly'))"
-
-
         // template model url:
         // if a template operates off an model different that the standard OpenMRS REST representation of an encounter,
         // you specify the URL of the source here; used currently for htmlFormEntry encounter templates, which
@@ -26,7 +21,7 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-chief-complaint.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-chief-complaint.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        }
+        };
 
         // we include the edit url here because the "Next" navigator functionality uses it
         var allergies = {
@@ -423,7 +418,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareDx,
                 primaryCarePlan
             ]
-        }
+        };
 
         encounterTypeConfig[EncounterTypes.ncdFollowupConsult.uuid] = {
             defaultState: "short",
@@ -776,8 +771,6 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-
-
         encounterTypeConfig[EncounterTypes.mexicoConsult.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -785,7 +778,41 @@ angular.module("encounterTypeConfig", ["constants"])
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/consult.xml",
             icon: "icon-stethoscope",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mexico/consult.xml",
+            showOnVisitList: true
+        };
+
+        encounterTypeConfig[EncounterTypes.sierraLeoneOutpatientInitial.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
+            sections: [
+                primaryCareHistory,
+                pedsVaccinations,
+                pedsFoodAndSupplements,
+                primaryCareExam,
+                primaryCareDx,
+                primaryCarePlan
+            ]
+        };
+
+        encounterTypeConfig[EncounterTypes.sierraLeoneOutpatientFollowup.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "icon-stethoscope",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                chiefComplaint,
+                pedsVaccinations,
+                pedsFoodAndSupplements,
+                primaryCareExam,
+                primaryCareDx,
+                primaryCarePlan
+            ]
         };
 
         return encounterTypeConfig;

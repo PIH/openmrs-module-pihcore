@@ -56,7 +56,7 @@ public class Components {
         public static final String ID_CARD_PRINTING = "idcardPrinting";
         public static final String CHART_SEARCH = "chartSearch";
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
-        public static final String PRIMARY_CARE = "primaryCare";  // a set of forms for the Haiti primary care clinic
+        public static final String PRIMARY_CARE = "primaryCare";  // primary care forms for Haiti, Mexico, and Sierra Leone (country-dependent)
         public static final String PACS_INTEGRATION = "pacsIntegration";
         public static final String ED_TRIAGE = "edTriage";
         public static final String ED_TRIAGE_QUEUE = "edTriageQueue";
@@ -74,6 +74,5 @@ public class Components {
         public static final String CONDITION_LIST = "conditionList";  // a dashboard widget that lists "conditions"
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String COHORT_BUILDER = "cohortBuilder";
-        public static final String MEXICO_CLINIC = "mexicoClinic";  // the Mexico Consult forms
         public static final String CHEMOTHERAPY = "chemotherapy";
 }
