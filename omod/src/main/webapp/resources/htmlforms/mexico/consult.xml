@@ -305,7 +305,7 @@
                     </div>
                     <div>
                         <obs conceptId="PIH:Daytime asthma symptoms more than twice per week"
-                             answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                             answerConceptIds="PIH:YES,PIH:NO"
                              style="radio" answerSeparator="" />
                     </div>
                 </div>
@@ -322,7 +322,7 @@
                     </div>
                     <div>
                         <obs conceptId="PIH:Daytime asthma symptoms for more than a few minutes more than once/week"
-                             answerConceptIds="PIH:YES,PIH:NO" answerCodes="yes,no"
+                             answerConceptIds="PIH:YES,PIH:NO"
                              style="radio" answerSeparator="" />
                     </div>
                 </div>
@@ -615,14 +615,14 @@
 
         <div class="question-container">
             <p>
-                <uimessage code="pihcore.ncd.epilepsy.seizure_num_baseline"/>:
+                <uimessage code="pihcore.ncd.epilepsy.seizure_num_baseline"/>
                 <span id="epi-baseline-last-obs" class="value">
                     <lookup expression="fn.latestObs('PIH:Number of seizures in one month before medications').valueNumeric" />
                 </span>
             </p>
             <div>
                 <button id="change-epi-baseline-button" type="button">
-                    <uimessage code="pih.ncd.epilepsy.change_baseline" />
+                    <uimessage code="pihcore.ncd.epilepsy.change_baseline" />
                 </button>
             </div>
             <div id="epi-baseline-input">
@@ -854,7 +854,7 @@
                 </div>
                 <div>
                     <obs conceptId="CIEL:299"
-                         answerConceptIds="CIEL:1228,CIEL:1229" answerCodes="pihcore.reactive,pihcore.nonreactive"
+                         answerConceptIds="CIEL:703,CIEL:664"
                          style="radio" answerSeparator="" />
                 </div>
             </div>
@@ -901,7 +901,7 @@
                     <div class="inline-radio" >
                         <obs conceptId="PIH:BLOOD TYPING"
                              answerConceptIds="CIEL:690,CIEL:692,CIEL:694,CIEL:696,CIEL:699,CIEL:701,CIEL:1230,CIEL:1231,PIH:unknown"
-                             answerCodes="A+,A-,B+,B-,O+,O-,AB+,AB-,unknown"/>
+                             answerCodes="A+,A-,B+,B-,O+,O-,AB+,AB-,PIH:unknown"/>
                     </div>
                 </div>
             </div>
@@ -917,7 +917,7 @@
                     <lookup complexExpression="#foreach($obs in $fn.allObs('CIEL:984')) $obs.valueCoded.getShortNames() — $obs.obsDatetime #end"/>
                 </div>
                 <div>
-                    <obs conceptId="CIEL:984" answerConceptId="CIEL:781" answerCode="yes"/>
+                    <obs conceptId="CIEL:984" answerConceptId="CIEL:781" answerCode="Sí"/>
                 </div>
             </div>
         </div>
@@ -1033,7 +1033,7 @@
         </div>
     </section>
 
-    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.exam.physicalExam.title" >
+    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.exam.title" >
         <div class="section-container">
             <obs conceptId="CIEL:1391" style="textarea" rows="5"/>
         </div>
@@ -1048,10 +1048,7 @@
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title">
         <div class="question-container">
-            <p>
-                <label><uimessage code="emr.consult.freeTextComments"/></label>
-                <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
-            </p>
+            <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
         </div>
         <div class="question-container">
             <div id="diagnosis-lookup">
@@ -1199,7 +1196,7 @@
     </section>
 
     <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.visitNote.plan.medication">
+             headerCode="pihcore.ncd.meds">
         <div class="section-container">
             <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
                 <span id="medication-{0}" class="medication">
