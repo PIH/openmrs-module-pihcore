@@ -15,7 +15,46 @@
 <htmlform id="vitals-form" formUuid="68728aa6-4985-11e2-8815-657001b58a90"
           formName="Vitals" formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7"
           formVersion="2.2">
-	
+
+
+<style>
+        .encounter-summary-container {
+        font-size: 1em;
+        font-weight: normal;
+        }
+    </style>
+
+    <style type="text/css">
+    <ifMode mode="VIEW" include="false">
+
+    #tbEval {
+    display: inline-block;
+    width: 5;
+        vertical-align: top;
+    }
+
+    form input[type="radio"], form input[type="radio"]
+    .form input[type="radio"], .form input[type="radio"] {
+    float: none;
+    display: inline-block;
+    }
+
+    form label, .form label {
+    display: inline-block;
+    }
+
+    .two-columns {
+    column-count: 2;
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    }
+
+    .section {
+    width: 95%;
+    }
+    </ifMode>
+    </style>
+
 
     <ifMode mode="VIEW" include="true">
         <!-- a template to display the "view" version of an html form provided by the htmlfromentryui getAsHtml method
@@ -81,6 +120,8 @@
             -moz-column-count: 2;
         }
 
+
+
    	.section-container {
         background: #F2F2F2;
         box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
@@ -98,7 +139,7 @@
         }
 
 
-        </style>
+</style>
 
     </ifMode>
 
