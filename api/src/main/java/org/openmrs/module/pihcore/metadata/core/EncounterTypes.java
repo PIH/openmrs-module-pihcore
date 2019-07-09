@@ -259,24 +259,6 @@ public class EncounterTypes {
 		public String description() { return "Echocardiogram consultation"; }
 	};
 
-	public static EncounterTypeDescriptor MEXICO_CONSULT =  new EncounterTypeDescriptor() {
-		public String uuid() { return "aa61d509-6e76-4036-a65d-7813c0c3b752"; }
-		public String name() { return "Consult"; }
-		public String description() { return "A doctor consult at one of our primary care clinics"; }
-	};
-
-	public static EncounterTypeDescriptor SIERRA_LEONE_OUTPATIENT_INITIAL = new EncounterTypeDescriptor() {
-		public String uuid() { return "7d5853d4-67b7-4742-8492-fcf860690ed5"; }
-		public String name() { return "Sierra Leone Outpatient Initial"; }
-		public String description() { return "The outpatient intake form for Sierra Leone"; }
-	};
-
-	public static EncounterTypeDescriptor SIERRA_LEONE_OUTPATIENT_FOLLOWUP = new EncounterTypeDescriptor() {
-		public String uuid() { return "d8a038b5-90d2-43dc-b94b-8338b76674f3"; }
-		public String name() { return "Sierra Leone Outpatient Followup"; }
-		public String description() { return "The outpatient visit form for Sierra Leone"; }
-	};
-
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 

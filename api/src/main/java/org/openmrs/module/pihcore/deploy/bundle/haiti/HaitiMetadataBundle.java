@@ -16,6 +16,7 @@ package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.EncounterType;
 import org.openmrs.GlobalProperty;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -30,6 +31,8 @@ import org.openmrs.module.pihcore.deploy.bundle.core.GlobalPropertiesBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
+import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
+import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneEncounterTypes;
 import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Component;
@@ -119,5 +122,9 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
 
 		uninstall(possible(GlobalProperty.class, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE), "replaced by metadata mapping");
 
+		// uninstall Mexico and Sierra Leone encounter types that were originally installed globally
+		uninstall(possible(EncounterType.class, MexicoEncounterTypes.MEXICO_CONSULT.uuid()), "now installed only in Mexico");
+		uninstall(possible(EncounterType.class, SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_INITIAL.uuid()), "now installed only in Sierra Leone");
+		uninstall(possible(EncounterType.class, SierraLeoneEncounterTypes.SIERRA_LEONE_OUTPATIENT_FOLLOWUP.uuid()), "now installed only in Sierra Leone");
 	}
 }
