@@ -64,9 +64,6 @@
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
 
-            // I don't really understand why this assignment `$j = jq` is required, but for some
-            // reason a bunch of Javascript gets included in the page that expects `$j` to exist,
-            // but doesn't define `$j` itself. *shrug emoji*
             var $j = jQuery;
 
             htmlForm.getBeforeValidation().push(function() {
@@ -126,53 +123,43 @@
 
             });
 
-            var MAX_MEDS = 30;  // this should match the number of items in the "repeat with=..." tag
-            var numMeds = 1;
-            var meds = [];
-            jq(function () {
+            jq(function() {
 
-                var hasValue = function (element) {
+                var hasValue = function(element) {
                     return jq(element).find('.medication-name input').val();
                 };
 
-                var initMeds = function () {
-                    for (var i = 1; i &lt;= MAX_MEDS; i++) {
-                        meds.push(jq('#medication-' + i));
-                    }
-                    for (var i = 1; i &lt; MAX_MEDS; i++) {
-                        if (hasValue(meds[i])) {
-                            numMeds = i + 1;
-                        }
-                    }
-                    updateShownMeds();
+                var hideOtherMeds = function() {
+                    jq('#medication-2').hide();
+                    jq('#medication-3').hide();
+                    jq('#medication-4').hide();
+                    jq('#medication-5').hide();
+                    jq('#medication-6').hide();
+                    jq('#medication-7').hide();
+                    jq('#medication-8').hide();
                 };
 
-                var updateShownMeds = function () {
-                    for (var i = 0; i &lt; MAX_MEDS; i++) {
-                        if (i &lt; numMeds) {
-                            meds[i].show();
-                        } else {
-                            meds[i].hide();
-                        }
-                    }
-                };
+                if (!hasValue('#medication-2') &amp;&amp; !hasValue('#medication-3') &amp;&amp; !hasValue('#medication-4')
+                    &amp;&amp; !hasValue('#medication-5') &amp;&amp; !hasValue('#medication-6') &amp;&amp;
+                    !hasValue('#medication-7')
+                    &amp;&amp; !hasValue('#medication-8')) {
+                        hideOtherMeds();
+                        jq('#show-more-medications-button').show();
+                }
 
-                var incrementShownMeds = function () {
-                    numMeds += 1;
-                    updateShownMeds();
-                };
-
-                var decrementShownMeds = function () {
-                    numMeds -= 1;
-                    updateShownMeds();
-                };
-
-                jq('#show-more-medications-button').click(incrementShownMeds);
-                jq('#show-less-medications-button').click(decrementShownMeds);
-
-                initMeds();
-
+                jq('#show-more-medications-button').click(function() {
+                jq('.medication').show();
+                jq('#show-more-medications-button').hide();
+                jq('#show-less-medications-button').show();
             });
+
+            jq('#show-less-medications-button').click(function() {
+                hideOtherMeds();
+                jq('#show-less-medications-button').hide();
+                jq('#show-more-medications-button').show();
+            });
+
+            })
 
         </script>
     </ifMode>
@@ -486,9 +473,7 @@
         -->
 
         <div class="section-container-color">
-            <!-- generate the 'with' parameter using the bash below, adjusting "30" as needed -->
-            <!-- for i in $(seq 1 30); do printf "[\'$i\'],"; done -->
-            <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8'],['9'],['10'],['11'],['12'],['13'],['14'],['15'],['16'],['17'],['18'],['19'],['20'],['21'],['22'],['23'],['24'],['25'],['26'],['27'],['28'],['29'],['30']">
+            <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
                 <span id="medication-{0}" class="medication">
                     <obsgroup groupingConceptId="PIH:Prescription construct" showIfEmpty="false">
                         <h3>
