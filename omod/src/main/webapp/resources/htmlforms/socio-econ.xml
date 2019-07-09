@@ -304,6 +304,54 @@
         </p>
     </section>
 
+    <section id="mpi" sectionTag="fieldset" headerTag="legend"
+             headerStyle="title" headerCode="pihcore.socioEconomic.mpi.title">
+        <table>
+
+            <tr>
+                <th>
+                    <label>
+                        <uimessage code="pihcore.socioEconomic.mpi.deprived.header" />
+                    </label>
+                </th>
+                <th>
+                    <label>
+                        <uimessage code="pihcore.socioEconomic.mpi.responses.header" />
+                    </label>
+                </th>
+            </tr>
+
+            <repeat>
+                <template>
+                    <tr>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.socioEconomic.mpi.{questionLabel}" />
+                            </label>
+                        </td>
+                        <td width="30%">
+                            <obs conceptId="CIEL:{cielMap}"
+                                 answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"
+                                 answerCodes="coreapps.yes,coreapps.no,pihcore.unknown"
+                                 style="radio" answerSeparator="&amp;nbsp;" />
+                        </td>
+                    </tr>
+                </template>
+                <render questionLabel="nutrition" cielMap="165491" />
+                <render questionLabel="infantMort" cielMap="165492" />
+                <render questionLabel="yrsSchool" cielMap="165493" />
+                <render questionLabel="attendSchool" cielMap="165494" />
+                <render questionLabel="cookingFuel" cielMap="165495" />
+                <render questionLabel="sanitation" cielMap="165496" />
+                <render questionLabel="water" cielMap="165497" />
+                <render questionLabel="electric" cielMap="165498" />
+                <render questionLabel="housing" cielMap="165499" />
+                <render questionLabel="assets" cielMap="165500" />
+            </repeat>
+
+        </table>
+    </section>
+
     <!-- To Do: What to do about retrospective entry?  Check the who? when? where? -->
     <div class="hidden" id="encounter-details"
          sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
