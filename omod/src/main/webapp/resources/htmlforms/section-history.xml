@@ -441,8 +441,11 @@
         <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.sexualActivities.label">
         <div class="section-container">
             <p class="radio">
-                <label><uimessage code="zl.sexuallyActive"/>:</label>
-                <obs conceptId="PIH:SEXUALLY ACTIVE" style="yes_no"/>
+                <label>
+                    <uimessage code="zl.sexuallyActive"/>:
+                </label>
+                <obs conceptId="PIH:SEXUALLY ACTIVE"
+                     answerConceptIds="PIH:YES,PIH:NO" style="radio"/>
             </p>
 
             <p class="radio">
