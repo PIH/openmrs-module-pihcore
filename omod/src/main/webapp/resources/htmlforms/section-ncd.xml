@@ -414,7 +414,7 @@
         <div id="diabetes" class="section-container">
             <table>
                 <tr>
-                    <th width="40%">
+                    <th width="60%">
                         <label>
                             <uimessage code="pihcore.ncd.diabetesType" />
                         </label>
@@ -426,28 +426,18 @@
                     </th>
                 </tr>
 
-                <!-- ToDo: UHM-3863 Migrate from this to obsgroup
-                <obs conceptId="PIH:Type of diabetes diagnosis"
-                     answerConceptId="{1}" />
-
-                <obs conceptId="PIH:Type of diabetes diagnosis"
-                     answerConceptId="CIEL:138291"
-                     answerCode="pihcore.ncd.hyperglycemia.label"/>
-                -->
-
                 <tr>
                     <td>
                         <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                             <obs conceptId="PIH:DIAGNOSIS"
-                                 answerConceptIds="CIEL:142474,CIEL:165208,CIEL:165207,PIH:Gestational diabetes,CIEL:138291"
-                                 answerCodes="pihcore.ncd.dmType1,pihcore.ncd.dmType2nonInsulin,pihcore.ncd.dmType2reqInsulin,pihcore.ncd.diabetes.gestationalDm,pihcore.ncd.hyperglycemia.label"
+                                 answerConceptIds="CIEL:142474,PIH:12227,PIH:12228,CIEL:165207,PIH:Gestational diabetes,CIEL:138291"
+                                 answerCodes="pihcore.ncd.dmType1,pihcore.ncd.dmType2noAgents,pihcore.ncd.dmType2onOral,pihcore.ncd.dmType2reqInsulin,pihcore.ncd.diabetes.gestationalDm,pihcore.ncd.hyperglycemia.label"
                                  style="radio" answerSeparator=""/>
                         </obsgroup>
                     </td>
                     <td align="top">
                         <repeat with="['type1Dm','CIEL:142474','Type 1'],
-                              ['type2DmNotInsulinDep','CIEL:165208','Type 2'],
-                              ['type2DmInsulinDep','CIEL:165207','Type 2'],
+                              ['type2Dm','CIEL:165208','Type 2'],
                               ['gestationalDm','PIH:Gestational diabetes','Gestational']">
                             <uimessage code="pihcore.ncd.diabetes.{0}Treatment.full" />
                             <br/><br/>
@@ -775,18 +765,11 @@
                                   ['PIH:4002','Alcoholic cardiomyopathy'],
                                   ['CIEL:139529','ischemic cardiomyopathy']">
 
-                        <!-- ToDo: Migrate to use obsgroup
-                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
-                        -->
                         <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                             <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" style="checkbox" />
                         </obsgroup>
                     </repeat>
 
-                    <!-- ToDo: Migrate to use obsgroup
-                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:134082"
-                         answerCode="pihcore.ncd.mitralStenosisOnly"/>
-                    -->
                     <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:134082"
                              answerCode="pihcore.ncd.mitralStenosisOnly"
@@ -799,19 +782,12 @@
                                   ['PIH:4000','Isolated right heart failure'],
                                   ['PIH:PERICARDIAL EFFUSION','Pericardial effussion']">
 
-                        <!-- ToDo: Migrate to use obsgroup
-                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" />
-                        -->
                         <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                             <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" style="checkbox" />
                         </obsgroup>
 
                     </repeat>
 
-                    <!-- ToDo: Migrate to use obsgroup
-                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3468"
-                         answerCode="pihcore.ncd.otherHeartFailure"/>
-                    -->
                     <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3468"
                              answerCode="pihcore.ncd.otherHeartFailure"
@@ -902,21 +878,6 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.other">
         <div id="other" class="section-container">
             <p>
-                <!-- ToDo: Migrate other NCD diagnoses to use obsgroup and then remove this comment
-                Deep vein thrombosis
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:119624" />
-                Pulmonary embolism
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:113504" />
-                Atrial fibrillation
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:148203" />
-                Mechanical heart valve
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3181" />
-                Hyperlipidemia
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117441" />
-                Obesity
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115115" />
-                -->
-
                 <repeat with="['CIEL:119624','Deep vein thrombosis'],
                               ['CIEL:113504','Pulmonary embolism'],
                               ['CIEL:148203','Atrial fibrillation'],
