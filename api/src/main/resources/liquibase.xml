@@ -204,5 +204,45 @@
         </sql>
     </changeSet>
 
+
+    <changeSet id="20190712-migrate-type2dm-to-type2dm-oral-agents" author="ball">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from global_property gp
+                 cross join concept_name cn
+                 where gp.property_value like '%haiti%'
+                   and gp.property ='layout.address.format'
+                   and cn.name like 'Type 2 diabetes on oral hypoglycemic agents only'
+                   and cn.locale = 'en'
+                   and cn.locale_preferred = 1
+                   and cn.voided = 0;
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            UHM-3923 Migrate NCD Diabetes Type 2 to Type 2 on oral agents
+        </comment>
+        <sql>
+            -- Diabetes Type 2 (change the concept to Diabetes Type 2 Insulin-dependent)
+            update obs
+               set value_coded =
+                    (select concept_id from concept_name
+                      where name like 'Type 2 diabetes on oral hypoglycemic agents only'
+                        and locale = 'en' and locale_preferred = 1 and voided = 0),
+                   comments = (select Concat('changed from type 2 diabetes',sysdate()) from dual)
+             where value_coded =
+                    (select distinct(concept_id) from concept_name
+                      where name like 'Type 2 diabetes' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and concept_id =
+                    (select distinct(concept_id) from concept_name
+                      where name like 'Type of diabetes diagnosis' and locale = 'en' and locale_preferred = 1 and voided = 0)
+               and encounter_id IN
+                    (select encounter_id from encounter
+                      where encounter_type IN
+                            (select encounter_type_id from encounter_type where name like 'NCD%'))
+               and voided = 0;
+        </sql>
+
+    </changeSet>
+
 </databaseChangeLog>
 
