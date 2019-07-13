@@ -266,6 +266,17 @@
         .section {
         width: 95%;
         }
+
+        .provider-grid {
+            display: inline-grid;
+            grid-template-columns: 400px 400px;
+            background-color: #F2F2F2;
+        }
+
+        .provider-grid > div {
+            padding-left: 5px;
+            border: none;
+        }
     </style>
 
     <script type="text/javascript">
@@ -344,11 +355,13 @@
                 <label>
                     <uimessage code="assistants"/>
                 </label>
-                <span class="inline">
-                    <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7"
-                                              providerRoles="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75"
-                                              autocompleteProvider="true" required="false" count="2"/>
-                </span>
+                <div class="provider-grid">
+                    <div>
+                        <encounterProviderAndRole encounterRole="6e630e03-5182-4cb3-9a82-a5b1a85c09a7"
+                                                  providerRoles="3182ee51-b895-4804-a342-5f261e995222,556ceee6-d899-43d4-a98b-7973ebc85b75"
+                                                  autocompleteProvider="true" required="false" count="2" providerWidgetSeparator="&lt;/div&gt;&lt;div&gt;"/>
+                    </div>
+                </div>
             </p>
             <p>
                 <!-- Non-coded name of assisting surgeon -->
@@ -363,11 +376,13 @@
                 <label>
                     <uimessage code="anesthesiologist"/>
                 </label>
-                <span class="inline">
-                    <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8"
-                                              providerRoles="39c28f78-6637-4c21-9bf4-db3e2398054f"
-                                              autocompleteProvider="true" required="false" count="2"/>
-                </span>
+                <div class="provider-grid">
+                    <div>
+                        <encounterProviderAndRole encounterRole="de11b25c-a641-4630-9524-5b85ece9a4f8"
+                                                  providerRoles="39c28f78-6637-4c21-9bf4-db3e2398054f"
+                                                  autocompleteProvider="true" required="false" count="2" providerWidgetSeparator="&lt;/div&gt;&lt;div&gt;"/>
+                    </div>
+                </div>
             </p>
 
             <p>
@@ -375,11 +390,13 @@
                 <label>
                     <uimessage code="nurse"/>
                 </label>
-                <span class="inline">
-                    <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92"
-                                              providerRoles="7207ba62-027f-4f9b-be67-a9f7a8a3abcc"
-                                              autocompleteProvider="true" required="false" count="2"/>
-                </span>
+                <div class="provider-grid">
+                    <div>
+                        <encounterProviderAndRole encounterRole="98bf2792-3f0a-4388-81bb-c78b29c0df92"
+                                                  providerRoles="7207ba62-027f-4f9b-be67-a9f7a8a3abcc"
+                                                  autocompleteProvider="true" required="false" count="2" providerWidgetSeparator="&lt;/div&gt;&lt;div&gt;"/>
+                    </div>
+                </div>
             </p>
         </div>
     </section>
