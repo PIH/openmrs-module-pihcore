@@ -52,7 +52,7 @@
     .section {
     width: 95%;
     }
-    </ifMode>
+    </ifMode> 
     </style>
 
 
@@ -75,7 +75,7 @@
             #vitals-form fieldset h3 {
                 font-size: 1em;
                 width: 200px;
-                display: inline-block;
+                <!-- display: inline-block; -->
                 margin: 0px;
                 margin-right: 10px;
                 color: #501d3d;
@@ -84,7 +84,7 @@
 
             #vitals-form fieldset p {
                 vertical-align: top;
-                display: inline-block;
+               <!-- > display: inline-block; -->
                 float: none;
             }
 
@@ -532,7 +532,7 @@
                     </span>
                 </p>
                 <p class="left">
-                    <uimessage code="mirebalais.vitals.or"/>
+                   <!-- > <uimessage code="mirebalais.vitals.or"/> -->
                 </p>
             </ifMode>
 
@@ -595,21 +595,26 @@
             <legend><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></h3>
-        <table width="100%">
+        <table>
 		    <tr>
-			<td width="50%" valign="TOP">
+			<td valign="TOP">
 				<section> 
 					<table>
-						<tr><td><h3>Choose a category</h3></td></tr>
-							<tr>
+                        <thead style="color:green">
+                         <tr>
+                            <th scope="col">Choose a category</th>
+                            <th scope="col">Symptom</th>
+                        </tr>
+                        </thead>
+						<tr>
 							<td class="checkboxGroup"><!-- formatting changed from original concepts changed and translated -->
-								&#160;
-                                <obs conceptId="PIH:10674" id="consciousness_level"
-                                     answerConceptIds="CIEL:160282,CIEL:162645,CIEL:162644,PIH:6784"
-                                     answerLabels="Awake (alert),Responds to voice,Responds to pain,Staring and unresponsive"
-                                     style="radio"/></td>
+                                <obs conceptId="PIH:10674" id="consciousness_level"  answerSeparator="&lt;br&gt;"
+                                    answerConceptIds="CIEL:160282,CIEL:162645,CIEL:162644,PIH:6784"
+                                    answerLabels="Awake (alert),Responds to voice,Responds to pain,Staring and unresponsive"
+                                     style="radio"/>
+                            </td>
 			
-				            <td><h3>Answer yes or no</h3>
+				            <td class="checkboxGroup">
                                 <obs conceptId="PIH:11563"
                                      labelText="Confused"
                                      answerConceptIds="PIH:YES,PIH:NO" answerCodes="Yes,No"/>
@@ -634,12 +639,15 @@
 			<td width="50%" valign="TOP">
 				<section> 
 					<table>
-						<tr><td>Choose a category</td></tr>
+						<thead style="color:green">
+                         <tr>
+                            <th scope="col">Choose a category</th>
+                        </tr>
+                        </thead>
 						
 						<tr>
 							<td class="checkboxGroup"><!-- formatting changed from original concepts changed and translated -->
-								&#160;
-								<obs conceptId="CIEL:162753" id="mobility_level" 
+								<obs conceptId="CIEL:162753" id="mobility_level" answerSeparator="&lt;br&gt;" 
 								    answerConceptIds="CIEL:162750,CIEL:162751,CIEL:162752"
 								    answerLabels="Able to walk without assistance,Able to walk with assistance,Wheelchair/Stretcher"
 								    style="radio"/>
@@ -840,14 +848,21 @@
  <section id="tb_screening" sectionTag="section" headerStyle="title" headerCode="pihcore.tbscreen.title">
  <!--TB screening taken from /haiti/hiv/zl/vct.xml-->
         <div class="section-container">
-            <obs conceptId="PIH:11541" toggle="tbEval"
+      <!--      <obs conceptId="PIH:11541" toggle="tbEval"
                  answerConceptId="PIH:YES"
                  answerCode="pihcore.lab.evaluationTB"
                  style="checkbox"/>
-
+-->
             <div id="tbEval">
                 <p></p>
                 <table>
+                    <thead style="color:green">
+                         <tr>
+                            <th scope="col">Observed</th>
+                            <th scope="col">Symptom</th>
+                        </tr>
+                    </thead>
+
                     <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['bloodyCough','970']">
                         <tr>
                             <td>
