@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 17;  }
+    public int getVersion() { return 18;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -617,6 +617,61 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Zanmi Lasante employee").build())
                 .build());
 
+        Concept cowboy = install(new ConceptBuilder("f03e4898-ab3c-4fa5-8d7f-6cbfeee79c42")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("a899d0b4-bb77-4a83-a6c0-d24e1c80119e", "Cowherd", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("b547744d-0d6c-421b-ad2a-a4aa27c3f637", "Vaquero", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("cbdfa697-9574-4122-a16a-6ff35d000a76", "Vacher", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("e2a01680-5d09-4798-be18-cc1e6af10e56", "Herdsman", Locale.ENGLISH, null)
+                .name("8433fc54-3369-4731-89d2-3e76cf3e7ac6", "Cowboy", Locale.ENGLISH, null)
+                .name("e2d3c271-e010-4f9b-b428-0d6416f0225c", "Vaquera", locale_SPANISH, null)
+                .name("dd16a007-fe47-40e6-9dbd-2795af4dbd58", "Bouvier", Locale.FRENCH, null)
+                .name("ddbd26c1-b800-4262-8fd9-f58616f1aac8", "Vachère", Locale.FRENCH, null)
+                .description("75ca51bc-f973-47b7-9743-72b91d1c9ec4", "A person who tends grazing cattle.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("74a62aa6-e304-4018-a858-b6bc52acd830").type(sameAs).ensureTerm(pih, "Cowherd").build())
+                .mapping(new ConceptMapBuilder("97a3a7c1-04e3-44f2-a37c-4cc7addc1015").type(sameAs).ensureTerm(pih, "12212").build())
+                .build());
+
+        Concept military = install(new ConceptBuilder("a82a7a36-a7a4-4462-aa1c-b00d4e7ddb78")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("56307b22-bd91-4843-a1c4-8adeabfd78eb", "Military", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("a983a469-3e9e-42e2-8421-012854a26a02", "Militar", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("b2c623cd-6c0a-4c21-9c8f-7fb1d870067e", "Militaire", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("c4bdc5e7-b01d-4c75-8885-f2c0d393d88e", "Soldier", Locale.ENGLISH, null)
+                .description("4089e4b9-813a-4e88-ac4b-22017101206f", "A person who serves in an army.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("b5349225-3d7d-4e66-b07f-498fec6e695e").type(sameAs).ensureTerm(pih, "Military").build())
+                .mapping(new ConceptMapBuilder("1b4294d8-c4cc-4fdc-ad68-edee16c1f2c0").type(sameAs).ensureTerm(pih, "12213").build())
+                .build());
+
+        Concept bikeRider = install(new ConceptBuilder("cb9da4fc-cd1e-4d30-9000-1cefa26cd323")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("f3c327fa-9795-446f-bee7-a53969702e7b", "Commercial bike rider", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("a7c6b737-4370-4e6b-8030-4f7fadcbe6d1", "Mensajero de bicicleta", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("e6ada0c6-54b4-49f9-8f8f-35c30f2d49ed", "Coursier à vélo", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("d18c7cb1-4b03-4d84-8979-9fdd60388e2b", "Bicycle messenger", Locale.ENGLISH, null)
+                .name("70297470-4f4d-4c93-a277-d2b0f2250b97", "Bicycle courier", Locale.ENGLISH, null)
+                .name("44e54ed9-c42c-4b6a-bb2b-3cf5c7eecc13", "Bike messenger", Locale.ENGLISH, null)
+                .name("40b7670b-c67d-47ab-bda7-d15bb4fa03cf", "Bike courier", Locale.ENGLISH, null)
+                .name("bd9a2cb9-f9c1-4099-96f8-0eb1be282d5a", "Cycle courier", Locale.ENGLISH, null)
+                .description("f150b65d-9acd-4f50-98d6-4d0a8f1775a5", "Occupation for people who deliver things by bicycle.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("577bfc61-ef8b-44c9-9300-cabe5af328d9").type(sameAs).ensureTerm(pih, "Commercial bike rider").build())
+                .mapping(new ConceptMapBuilder("97e9b1fa-329c-431c-8165-2dd3820eed1e").type(sameAs).ensureTerm(pih, "12214").build())
+                .build());
+
+        Concept police = install(new ConceptBuilder("a1e44baf-c82f-4d4f-ac09-232da84c8a28")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("8281322d-5616-4cc4-8439-092a5388105d", "Police", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("8da0684d-81be-46e5-a2da-43e58344821d", "Policía", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("993d6ce0-699a-4f16-8218-099b2effe4a9", "Police", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .description("54bc35fb-adaf-4d03-b471-fe9d286b8016", "A police force is a constituted body of persons empowered by the state to enforce the law, protect property, and limit civil disorder.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("e932f7a2-87d1-4caa-beda-5b66725a172b").type(sameAs).ensureTerm(pih, "Police").build())
+                .mapping(new ConceptMapBuilder("9d91a9bd-90e9-411f-a996-0b007d96024f").type(sameAs).ensureTerm(pih, "9674").build())
+                .build());
+
         install(new ConceptBuilder(Concepts.MAIN_ACTIVITY)
                 .datatype(coded)
                 .conceptClass(question)
@@ -634,6 +689,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         fruitOrVegetableSeller, miner, factoryWorker, housework, houseworkAndFieldwork,
                         driver, professional, commerce, teacher,
                         fisherman, marketVendor, civilServant, healthCareWorker, zlStaff,
+                        cowboy, military, bikeRider, police,
                         retired, student, unemployed, otherNonCoded)
                 .build());
 
