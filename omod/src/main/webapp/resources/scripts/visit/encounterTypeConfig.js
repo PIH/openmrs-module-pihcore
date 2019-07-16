@@ -5,6 +5,17 @@ angular.module("encounterTypeConfig", ["constants"])
         var hfeSimpleEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
         var hfeStandardEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
 
+        var cloneSectionAndUpdateCountryPathInUrls  = function(section, countryPath) {
+          var newSection = Object.assign({}, section);
+          newSection.templateModelUrl =
+            newSection.templateModelUrl != null ?
+            newSection.templateModelUrl.replace("pihcore:htmlforms", "pihcore:htmlforms/" + countryPath) : null;
+          newSection.editUrl =
+            newSection.editUrl != null ?
+            newSection.editUrl.replace("pihcore:htmlforms", "pihcore:htmlforms/" + countryPath) : null;
+          return newSection;
+        };
+
         // template model url:
         // if a template operates off an model different that the standard OpenMRS REST representation of an encounter,
         // you specify the URL of the source here; used currently for htmlFormEntry encounter templates, which
@@ -789,12 +800,12 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                primaryCareHistory,
+                cloneSectionAndUpdateCountryPathInUrls(primaryCareHistory, "sierra_leone"),
                 pedsVaccinations,
-                pedsFoodAndSupplements,
-                primaryCareExam,
-                primaryCareDx,
-                primaryCarePlan
+                cloneSectionAndUpdateCountryPathInUrls(pedsFoodAndSupplements,"sierra_leone"),
+                cloneSectionAndUpdateCountryPathInUrls(primaryCareExam,"sierra_leone"),
+                cloneSectionAndUpdateCountryPathInUrls(primaryCareDx,"sierra_leone"),
+                cloneSectionAndUpdateCountryPathInUrls(primaryCarePlan, "sierra_leone")
             ]
         };
 
@@ -806,12 +817,12 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                chiefComplaint,
+                cloneSectionAndUpdateCountryPathInUrls(chiefComplaint,"sierra_leone"),
                 pedsVaccinations,
-                pedsFoodAndSupplements,
-                primaryCareExam,
-                primaryCareDx,
-                primaryCarePlan
+                cloneSectionAndUpdateCountryPathInUrls(pedsFoodAndSupplements,"sierra_leone"),
+                cloneSectionAndUpdateCountryPathInUrls(primaryCareExam,"sierra_leone"),
+                cloneSectionAndUpdateCountryPathInUrls(primaryCareDx,"sierra_leone"),
+                cloneSectionAndUpdateCountryPathInUrls(primaryCarePlan, "sierra_leone")
             ]
         };
 
