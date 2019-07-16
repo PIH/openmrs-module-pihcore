@@ -43,6 +43,16 @@
     display: inline-block;
     }
 
+    .checkboxGroup {
+    padding 30px; 
+    }
+
+    .selectFromList {
+    padding-right:30px;
+    padding-left:30px;
+    width: 120px;
+    }
+
     .two-columns {
     column-count: 2;
     -webkit-column-count: 2;
@@ -614,7 +624,7 @@
                                      style="radio"/>
                             </td>
 			
-				            <td class="checkboxGroup">
+				            <td class="selectFromList">
                                 <obs conceptId="PIH:11563"
                                      labelText="Confused"
                                      answerConceptIds="PIH:YES,PIH:NO" answerCodes="Yes,No"/>
