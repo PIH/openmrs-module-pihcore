@@ -245,6 +245,7 @@
     </changeSet>
 
     <changeSet id="20190712-migrate-ncd-dm-diagnoses-to-construct" author="ball">
+        <validCheckSum>3:b224b550cafdf7f484726dff15eb583a</validCheckSum>
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="1">
                 select count(*) from global_property gp
@@ -284,10 +285,10 @@
                           where encounter_type IN
                                     (select encounter_type_id from encounter_type where name like 'NCD%'));
 
-            -- Create obsgroup; Use accession number temporarily to hold the ncd diagnosis obs_id
+            -- Create obsgroup; Use obs_group_id on the parent obs temporarily to hold the ncd diagnosis child obs_id
             insert into obs
                 (encounter_id, person_id, location_id, obs_datetime, creator,
-                 concept_id, comments, accession_number, date_created, uuid)
+                 concept_id, comments, obs_group_id, date_created, uuid)
             select encounter_id, person_id, location_id, obs_datetime, creator,
                    (select concept_id from concept_name
                      where name like 'Visit Diagnoses' and locale = 'en' and locale_preferred = 1 and voided = 0),
@@ -305,10 +306,10 @@
 
             -- Add obsgroup id to the temporary table
             update temp_ncd_diagnosis, obs
-               set temp_ncd_diagnosis.obs_group_id = obs.obs_id
+               set temp_ncd_diagnosis.obs_group_id = obs.obs_id, obs.obs_group_id = null
              where obs.voided = 0
                and obs.comments = 'ncd diagnosis obsgroup'
-               and temp_ncd_diagnosis.ncd_dx_obs_id = obs.accession_number;
+               and temp_ncd_diagnosis.ncd_dx_obs_id = obs.obs_group_id;
 
             -- Add obsgroup id to obs table
             update temp_ncd_diagnosis, obs
@@ -344,9 +345,6 @@
                                 (select encounter_type_id from encounter_type where name like 'NCD%'));
 
             -- Cleanup temp trash for ncd dx obsgroups
-            update obs
-               set accession_number = NULL
-             where obs_id IN (select obs_group_id from temp_ncd_diagnosis);
 
             drop table if exists temp_ncd_diagnosis;
         </sql>
