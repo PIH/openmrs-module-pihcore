@@ -169,14 +169,17 @@
         </h1>
     </ifMode>
 
-    <section id="chiefComplaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.chiefComplaint.title">
-        <div class="section-container">
-            <p>
-                <obs conceptId="CIEL:160531" style="textarea" id="chief-complaint"/>
-            </p>
-        </div>
-    </section>
+    <!-- Show chief complaint if encounter type is NOT NCD Intake -->
+    <includeIf velocityTest="$encounter.encounterType.uuid != 'ae06d311-1866-455b-8a64-126a9bd74171'" >
+        <section id="chiefComplaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.chiefComplaint.title">
+            <div class="section-container">
+                <p>
+                    <obs conceptId="CIEL:160531" style="textarea" id="chief-complaint"/>
+                </p>
+            </div>
+        </section>
+    </includeIf>
 
     <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.history.presentingHistory.title">
@@ -193,24 +196,24 @@
                  headerCode="pihcore.refer.title">
             <div class="section-container">
                 <p>
-                    <label>
-                        <uimessage code="pihcore.refer.date"/>
-                    </label>
-                    <obs conceptId="CIEL:163181" allowTime="false" />
-                </p>
-
-                <p>
                     <obs conceptId="PIH:Type of referring service"
                          answerConceptId="PIH:SELF-REFER"
                          answerCode="pihcore.selfRefer"
                          style="checkbox" />
                 </p>
 
-            <div class="two-columns">
                 <p>
                     <label>
-                        <uimessage code="pihcore.refer.referBy"/>
+                        <uimessage code="pihcore.refer.date"/>
                     </label>
+                    <obs conceptId="CIEL:163181" allowTime="false" />
+                </p>
+
+            <div class="two-columns">
+                <p>
+                    <strong>
+                        <uimessage code="pihcore.refer.internal"/>
+                    </strong>
 
                     <repeat>
                         <template>
@@ -226,6 +229,7 @@
                         <render point="CIEL:160449" message="pihcore.testLocation.surgery" comment="Surgery dept"/>
                         <render point="CIEL:160448" message="pihcore.location.intMed" comment="Internal medicine"/>
                         <render point="CIEL:165048" message="pihcore.testLocation.pedWard" comment="Pediatrics"/>
+                        <render point="CIEL:160473" message="pihcore.location.ed" comment="Emergency"/>
                     </repeat>
 
                     <obs conceptId="PIH:Type of referring service" style="checkbox"
@@ -233,6 +237,9 @@
                 </p>
 
                 <p>
+                    <strong>
+                        <uimessage code="pihcore.refer.external"/>
+                    </strong>
                     <obs conceptId="PIH:Type of referring service" style="checkbox"
                          answerConceptId="PIH:11956" commentFieldLabel=""/>
                     <obs conceptId="PIH:Type of referring service" style="checkbox"
@@ -240,9 +247,9 @@
                 </p>
 
                 <p>
-                    <label>
-                        <uimessage code="pihcore.mentalhealth.communityReferral"/>
-                    </label>
+                    <strong>
+                        <uimessage code="pihcore.refer.community"/>
+                    </strong>
 
                     <obs conceptId="PIH:Type of referring service" style="checkbox"
                          answerConceptId="CIEL:1555" />
@@ -260,24 +267,25 @@
              headerCode="zl.consultNote.familyHistory.title">
         <div class="section-container">
             <!-- ANTECEDENTS HEREDO-COLLATERAUX -->
-            <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:ASTHMA" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"/>
             <familyHistoryRelativeCheckboxes concept="CIEL:117635" comment="Hémoglobinopathie"
-                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
-            <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
+                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension"
+                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"/>
             <br/>
             <familyHistoryRelativeCheckboxes id="familyCancer" class="medicalHistoryText famHistory"
                                              concept="CIEL:116031" label="Cancer"
-                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"
+                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"
                                              specify="true"/>
 
             <br/>
             <familyHistoryRelativeCheckboxes id="familyOther" class="medicalHistoryText famHistory"
                                              concept="PIH:OTHER" code="pihcore.other"
-                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"
+                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING,PIH:OTHER"
                                              specify="true"/>
         </div>
     </section>
@@ -290,7 +298,7 @@
             <div class="two-columns">
                 <!-- Allergy is intentionally ommitted because it should be handled in more detail through the Allergy UI -->
                 <pastMedicalHistoryCheckbox concept="PIH:ASTHMA"/>
-                <pastMedicalHistoryCheckbox concept="PIH:HEART DISEASE"/>
+                <pastMedicalHistoryCheckbox concept="PIH:HEART DISEASE" specify="true" class="medicalHistoryText patientHistory" />
                 <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" class="medicalHistoryText patientHistory"/>
                 <pastMedicalHistoryCheckbox concept="PIH:Traumatic Injury" specify="true" class="medicalHistoryText patientHistory"/>
                 <!-- TODO paper form has Surgery/Trauma. verify splitting okay -->
@@ -298,27 +306,27 @@
                 <pastMedicalHistoryCheckbox concept="CIEL: 117635" comment="Hemoglobinopathy" specify="true"
                                             class="medicalHistoryText patientHistory"/>
                 <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension"/>
+                <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
+                <pastMedicalHistoryCheckbox concept="CIEL:138405" label="pihcore.lab.hiv.title"/>
                 <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="pihcore.medicalhistory.sti"
                                             specify="true" class="medicalHistoryText patientHistory"/>
                 <!-- TODO explicit options for common STIs -->
                 <pastMedicalHistoryCheckbox concept="CIEL:143849" comment="Congenital malformations"
                                             specify="true" class="medicalHistoryText patientHistory"/>
                 <pastMedicalHistoryCheckbox concept="PIH:MALNUTRITION"/>
-                <pastMedicalHistoryCheckbox concept="PIH:WEIGHT LOSS"/>
-                <!-- TODO paper form has Malnutrition/Weight loss, verify split okay -->
                 <pastMedicalHistoryCheckbox concept="PIH:MEASLES"/>
                 <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS"/>
                 <pastMedicalHistoryCheckbox concept="PIH:VARICELLA"/>
                 <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/>
                 <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="pihcore.acuteRheumaticFever.abbrev"/>
-                <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
+                <pastMedicalHistoryCheckbox concept="CIEL:117703" />
                 <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other" specify="true" class="medicalHistoryText patientHistory"/>
             </div>
             <!-- only show these diseases if encounter type is NCD Intake -->
-            <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'" >
-                <pastMedicalHistoryCheckbox concept="CIEL:138405" label="pihcore.lab.hiv.title"/>
-                <pastMedicalHistoryCheckbox concept="CIEL:113859" label="pihcore.ncd.gestHtn.long"/>
-                <pastMedicalHistoryCheckbox concept="CIEL:117703" />
+            <includeIf velocityTest="$patient.gender == 'F' ">
+                <pastMedicalHistoryCheckbox concept="CIEL:113859" />
+                <pastMedicalHistoryCheckbox concept="PIH:47" />
+                <pastMedicalHistoryCheckbox concept="PIH:Eclampsia" />
             </includeIf>
         </div>
     </section>
@@ -413,12 +421,6 @@
                 <p class="radio">
                     <label><uimessage code="pihcore.habits.alcohol"/>:</label>
                     <obs conceptId="CIEL:159449" answerConceptIds="CIEL:159450,CIEL:1090,CIEL:159452" style="radio"/>
-                    <br/>
-                    <label><uimessage code="pihcore.habits.daysPerWeek" /></label>
-                    <obs conceptId="PIH:2243" />
-                    <br/>
-                    <label><uimessage code="pihcore.habits.drinksPerDay" /></label>
-                    <obs conceptId="PIH:2246" />
                 </p>
             </div>
 
@@ -438,7 +440,8 @@
     <!-- ToDo: Create one family planning section.  There is one for Outpatient and another for NCD (and HIV) -->
     <!-- Show sexual activities if encounter type is Adult Intake (Followup?) -->
     <includeIf velocityTest="$encounter.encounterType.uuid == '27d3a180-031b-11e6-a837-0800200c9a66' || $encounter.encounterType.uuid == '27d3a181-031b-11e6-a837-0800200c9a66'" >
-        <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.sexualActivities.label">
+        <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.sexualReproHistory.label">
         <div class="section-container">
             <p class="radio">
                 <label>
@@ -464,50 +467,51 @@
 
     <!-- Show sexual activities/family planning - if encounter type is NCD Intake -->
     <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'" >
-        <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="zl.consultNote.sexualActivities.label">
+        <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.sexualReproHistory.label">
             <div class="section-container">
 
                 <includeIf velocityTest="$patient.gender == 'F' ">
-                <!-- Pregnant -->
-                <p>
-                    <obs conceptId="CIEL:5272" toggle="pregnant"
-                         answerConceptId="CIEL:1065"
-                         answerCode="pihcore.pregnancy.status"
-                         style="checkbox"/>
+                    <!-- Pregnant -->
+                    <p>
+                        <obs conceptId="CIEL:5272" toggle="pregnant"
+                             answerConceptId="CIEL:1065"
+                             answerCode="pihcore.pregnancy.status"
+                             style="checkbox"/>
 
-                    <div class="two-columns">
-                        <div id="pregnant">
-                            <!-- DPR? -->
-                            <p>
-                                <label>
-                                    <uimessage code="pihcore.pregnancy.lastPeriod"/>
-                                </label>
-                                <obs conceptId="CIEL:1427"/>
-                            </p>
+                        <div class="two-columns">
+                            <div id="pregnant">
+                                <!-- DPR? -->
+                                <p>
+                                    <label>
+                                        <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                                    </label>
+                                    <obs conceptId="CIEL:1427"/>
+                                </p>
 
-                            <!-- DPA -->
-                            <p>
-                                <label>
-                                    <uimessage code="pihcore.pregnancy.dueDate"/>
-                                </label>
-                                <obs conceptId="CIEL:5596" allowFutureDates="true" />
-                            </p>
+                                <!-- DPA -->
+                                <p>
+                                    <label>
+                                        <uimessage code="pihcore.pregnancy.dueDate"/>
+                                    </label>
+                                    <obs conceptId="CIEL:5596" allowFutureDates="true" />
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                </p>
 
+                        <!-- Breastfeeding -->
+                        <obs conceptId="CIEL:5632"
+                             answerConceptId="PIH:YES" answerCode="pihcore.breastfeeding"
+                             style="checkbox" />
+                    </p>
+                    <br/>
                 </includeIf>
-
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.familyPlanningHistory.title"/>
-                    </label>
-                </p>
 
                 <table>
                     <tr>
                         <th>
                             <label>
+                                <uimessage code="pihcore.familyPlanningHistory.title"/>:
                                 <uimessage code="pihcore.familyPlanning.method"/>
                             </label>
                         </th>
