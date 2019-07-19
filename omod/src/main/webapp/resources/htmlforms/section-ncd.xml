@@ -784,23 +784,21 @@
         <div id="heart_failure" class="section-container">
             <div class="two-columns">
                 <p>
-                    <label>
+                    <strong>
                         <uimessage code="pihcore.ncd.hf.categories"/>
-                    </label>
+                    </strong>
 
-                    <repeat with="['PIH:3129','Peripartum cardiomyopathy'],
-                                  ['PIH:3130','HIV cardiomyopathy'],
-                                  ['PIH:4002','Alcoholic cardiomyopathy'],
-                                  ['CIEL:139529','ischemic cardiomyopathy'],
-                                  ['CIEL:5016','other cardiomyopathy]">
-                    </repeat>
-
-                    <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                        <obs conceptId="PIH:DIAGNOSIS"
-                             answerConceptIds="CIEL:113918,CIEL:163712,CIEL:142317,CIEL:139529,CIEL:5016"
-                             answerCodes="pihcore.ncd.ppCardioMy,pihcore.ncd.hivCardioMy,pihcore.ncd.alcCardioMy,pihcore.ncd.iscCardioMy,pihcore.ncd.otherCardioMy"
-                             style="radio" answerSeparator=""/>
-                    </obsgroup>
+                    <div>
+                        <label>
+                            <uimessage code="pihcore.ncd.cardiomyopathy"/>
+                        </label>
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS"
+                                 answerConceptIds="CIEL:113918,CIEL:163712,CIEL:142317,CIEL:139529,CIEL:5016"
+                                 answerCodes="pihcore.ncd.ppCardioMy,pihcore.ncd.hivCardioMy,pihcore.ncd.alcCardioMy,pihcore.ncd.iscCardioMy,pihcore.ncd.otherCardioMy"
+                                 style="radio" answerSeparator=""/>
+                        </obsgroup>
+                    </div>
 
                     <br/>
 
@@ -811,8 +809,7 @@
                     </obsgroup>
 
                     <repeat with="['PIH:3071','Hypertensive heart disease'],
-                                  ['PIH:7497','Valve disease'],
-                                  ['PIH:CONGENITAL HEART DISEASE','Congenital heart disease'],
+                                  ['PIH:12231','Other heart valve disease/Congenital heart disease'],
                                   ['PIH:4000','Isolated right heart failure'],
                                   ['PIH:PERICARDIAL EFFUSION','Pericardial effussion']">
 
@@ -849,7 +846,7 @@
                     <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
                          answerCode="pihcore.ncd.improbable"/>
                 </p>
-                <br/>
+                <br/><br/>
             </div>
 
             <p>
