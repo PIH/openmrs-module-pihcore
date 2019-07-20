@@ -265,8 +265,7 @@
             <familyHistoryRelativeCheckboxes concept="PIH:HEART DISEASE" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
             <familyHistoryRelativeCheckboxes concept="PIH:DIABETES" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
             <familyHistoryRelativeCheckboxes concept="PIH:EPILEPSY" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
-            <familyHistoryRelativeCheckboxes concept="CIEL:117635" comment="Hémoglobinopathie"
-                                             relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
+            <familyHistoryRelativeCheckboxes concept="PIH:Sickle-Cell Anemia" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
             <familyHistoryRelativeCheckboxes concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
             <familyHistoryRelativeCheckboxes concept="PIH:TUBERCULOSIS" relatives="PIH:FATHER,PIH:MOTHER,PIH:SIBLING"/>
             <br/>
@@ -295,9 +294,9 @@
                 <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" class="medicalHistoryText patientHistory"/>
                 <pastMedicalHistoryCheckbox concept="PIH:Traumatic Injury" specify="true" class="medicalHistoryText patientHistory"/>
                 <!-- TODO paper form has Surgery/Trauma. verify splitting okay -->
+                <pastMedicalHistoryCheckbox concept="PIH:Transport Accident"/>
                 <pastMedicalHistoryCheckbox concept="PIH:EPILEPSY"/>
-                <pastMedicalHistoryCheckbox concept="CIEL: 117635" comment="Hemoglobinopathy" specify="true"
-                                            class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH: Sickle-Cell Anemia"/>
                 <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension"/>
                 <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="pihcore.medicalhistory.sti"
                                             specify="true" class="medicalHistoryText patientHistory"/>
@@ -308,12 +307,17 @@
                 <pastMedicalHistoryCheckbox concept="PIH:WEIGHT LOSS"/>
                 <!-- TODO paper form has Malnutrition/Weight loss, verify split okay -->
                 <pastMedicalHistoryCheckbox concept="PIH:MEASLES"/>
+                <pastMedicalHistoryCheckbox concept="PIH:HELMINTHIASIS"/>
+                <pastMedicalHistoryCheckbox concept="PIH:MALARIA"/> 
+                <pastMedicalHistoryCheckbox concept="PIH:TYPHOID FEVER"/>
                 <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS"/>
-                <pastMedicalHistoryCheckbox concept="PIH:VARICELLA"/>
-                <pastMedicalHistoryCheckbox concept="PIH:Diphtheria"/>
                 <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="pihcore.acuteRheumaticFever.abbrev"/>
                 <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
                 <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/>
+                <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime())) || $patient.gender == 'F' ">
+                    <pastMedicalHistoryCheckbox concept="PIH:PATIENT PREGNANT" label="Pregnant"/>
+                    <pastMedicalHistoryCheckbox concept="PIH:CURRENTLY BREASTFEEDING CHILD" label="Lactating"/>
+                </includeIf>
                 <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other" specify="true" class="medicalHistoryText patientHistory"/>
             </div>
             <!-- only show these diseases if encounter type is NCD Intake -->
