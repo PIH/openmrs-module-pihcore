@@ -314,7 +314,7 @@
                 <pastMedicalHistoryCheckbox concept="PIH:ACUTE RHEUMATIC FEVER" label="pihcore.acuteRheumaticFever.abbrev"/>
                 <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
                 <pastMedicalHistoryCheckbox concept="PIH:Premature birth of patient"/>
-                <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime())) || $patient.gender == 'F' ">
+                <includeIf velocityTest="($patient.getAge($encounter.getEncounterDatetime())>13) &amp;&amp; $patient.gender == 'F' ">
                     <pastMedicalHistoryCheckbox concept="PIH:PATIENT PREGNANT" label="Pregnant"/>
                     <pastMedicalHistoryCheckbox concept="PIH:CURRENTLY BREASTFEEDING CHILD" label="Lactating"/>
                 </includeIf>
