@@ -354,7 +354,7 @@
         <div class="section-container">
             <p>
                 <label>
-                    <uimessage code="pihcore.ncd.mental.phq9_score"/>:
+                    <uimessage code="pihcore.ncd.mental.phq9Score"/>:
                 </label>
                 <span class="small">
                     <obs conceptId="CIEL:165137"/>
