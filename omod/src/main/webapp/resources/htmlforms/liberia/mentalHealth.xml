@@ -565,7 +565,19 @@
              headerCode="pihcore.mentalhealth.interventions">
         <div class="section-container">
             <div class="two-columns">
-                <repeat with="['PIH:Psychotherapy'],['PIH:Psychoeducation'],['PIH:Relaxation'],['PIH:Family Support'],['PIH:Grief counseling'],['PIH:Parenting skills'],['PIH:Behavioral activation'],['PIH:Security plan'],['PIH:PSYCHOSOCIAL COUNSELING']">
+                <repeat with="
+                ['CIEL:165486','Supportive Psychotherapy'],
+                ['PIH:Psychotherapy'],
+                ['PIH:Psychoeducation'],
+                ['PIH:Relaxation'],
+                ['PIH:Family Support'],
+                ['PIH:Grief counseling'],
+                ['PIH:Parenting skills'],
+                ['PIH:Behavioral activation'],
+                ['PIH:Security plan'],
+                ['PIH:PSYCHOSOCIAL COUNSELING'],
+                ['CIEL:165328','HIV/AIDS counseling'],
+                ['CIEL:165479','Informing patient of diagnosis']">
                     <div class="mh-intervention">
                         <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
                     </div>
