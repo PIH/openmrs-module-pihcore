@@ -305,7 +305,7 @@
     </includeIf>
 
     <!-- only show MUAC if patient is less than 13 years old (on the encounterDate) -->
-    <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime())) || $patient.gender == 'F' ">
+    <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime()))">
 
         <script type="text/javascript">
             var convertCmToMm = function(muacCm) {
@@ -781,7 +781,7 @@
             </fieldset>
         </includeIf>
       <!-- only show z score if patient is less than 13 years old (on the encounterDate) OR female -->
-        <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime())) || $patient.gender == 'F' ">
+        <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime()))">
             <fieldset field-separator=" or ">
                 <legend><uimessage code="mirebalais.vitals.zscore.title"/></legend>
                 <h3><uimessage code="mirebalais.vitals.zscore.title"/></h3>
