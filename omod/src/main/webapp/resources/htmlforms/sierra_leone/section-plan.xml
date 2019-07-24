@@ -118,6 +118,8 @@
                             code="pihcore.visitNote.plan.medications.error.noDuration"/>. ").show();
                     }
 
+
+
                 });
                 return valid;
 
@@ -197,7 +199,7 @@
         <h3>Radiology and ultrasound orders</h3>
         <div class="section-container-color">
             <p>
-                <h3>X-ray 1 ordered</h3>
+                <h3><uimessage code="pihcore.rad_order.title"/>(1)</h3>
                 <select name="x-ray1_ordered">  
                     <option value="select">Please select</option>
                     <option value="chest_x-ray">Chest X-ray</option>
@@ -210,8 +212,8 @@
         </div>
         <div class="section-container-color">
             <p>
-                <h3>X-ray 2 ordered</h3>
-                <select name="X-ray 2 ordered">  
+                <h3><uimessage code="pihcore.rad_order.title"/>(2)</h3>
+                <select name="x-ray 2 ordered">  
                     <option value="select">Please select</option>
                     <option value="chest_x-ray">Chest X-ray</option>
                     <option value="abdominal_x-ray">Abdominal X-ray</option>
@@ -222,7 +224,7 @@
             </p>
         </div>
         <div class="section-container-color">
-            <h3>Ultrasound ordered</h3>
+            <h3><uimessage code="pihcore.ultrasound_order.title"/></h3>
             <p>
                 <select name="Ultrasound ordered">  
                     <option value="select">Please select</option>
