@@ -84,6 +84,15 @@ public class MexicoLocations {
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
     };
 
+    // Served from cloud instance //
+
+    public static LocationDescriptor SURGERY = new LocationDescriptor() {
+        public String uuid() { return "78a18ed4-c798-4f47-a0f1-7e483c89da37"; }
+        public String name() { return "Surgery"; }
+        public String description() { return "Surgery"; }
+        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
+    };
+
     // UNINSTALLED
     public static LocationDescriptor JALTENANGO = new LocationDescriptor() {
         public String uuid() { return "8be98d12-848d-11e8-9d02-74e5f9828fde"; }

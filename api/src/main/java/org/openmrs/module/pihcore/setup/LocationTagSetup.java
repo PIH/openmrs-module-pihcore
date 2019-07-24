@@ -32,7 +32,9 @@ public class LocationTagSetup {
                 setupLocationTagsForLiberia(locationService, config);
             }
             catch (Exception e) {
-                throw new APIException("Unable to set up location tags, likely issue is no location with name " + config.getSite().name().toString() + " configured");
+                throw new APIException("Unable to set up location tags, likely issue is no location with name " +
+                        config.getSite().name().toString() + " configured",
+                        e);
             }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
@@ -42,7 +44,9 @@ public class LocationTagSetup {
             try {
                 setupLocationTagsForMexico(locationService, config);
             } catch (Exception e) {
-                throw new APIException("Unable to set up location tags, likely issue is no location with name " + config.getSite().name().toString() + " configured");
+                throw new APIException("Unable to set up location tags, likely issue is no location with name " +
+                        config.getSite().name().toString() + " configured",
+                        e);
             }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
@@ -76,18 +80,30 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
 
-        // Get the current location -- each site only has one available
-        Field locationField = MexicoLocations.class.getField(config.getSite().name());
-        LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
+        if (config.getSite().equals(ConfigDescriptor.Site.CES_CLOUD)) {
+            List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.SURGERY);
+            setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, cloudLocations);
+            setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, cloudLocations);
+            setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, cloudLocations);
+            setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, cloudLocations);
+            setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, cloudLocations);
+            setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, cloudLocations);
+            setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, cloudLocations);
 
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(location));
+        } else {
+            // Get the current location -- each site only has one available
+            Field locationField = MexicoLocations.class.getField(config.getSite().name());
+            LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
+
+            setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
+            setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(location));
+            setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
+            setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
+            setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
+            setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
+            setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
+            setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(location));
+        }
 
         // Location CHIAPAS only exists for ID generation
         List<LocationDescriptor> chiapas = Arrays.asList(MexicoLocations.CHIAPAS);
