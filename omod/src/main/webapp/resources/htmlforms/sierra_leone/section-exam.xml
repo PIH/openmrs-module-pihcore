@@ -22,7 +22,7 @@
             
             #data-collection {
             display: inline-block;
-            width: 58%;
+            width: 68%;
             vertical-align: top;
             }
 
@@ -251,7 +251,7 @@
                 <!-- ToDo:  UHM-3529 Add toggle for normal/abnormal symptoms
                 <div id="abnGenExam"> -->
                 <p>
-                    <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:CACHECTIC" style="checkbox"/>
+                    <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:WEIGHT LOSS" style="checkbox"/>
                 </p>
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
@@ -359,6 +359,12 @@
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:GOITER" style="checkbox"/>
                 </p>
                 <p>
+                    <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTORRHEA" style="checkbox"/>
+                </p>
+                <p>
+                    <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:NASAL DISCHARGE" style="checkbox"/>
+                </p>
+               <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
@@ -461,7 +467,10 @@
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:WHEEZE" style="checkbox"/>
                 </p>
-                <p>
+                 <p>
+                    <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:TACHYPNEIC" style="checkbox"/>
+                </p>
+               <p>
                     <obs class="abnormalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
@@ -503,6 +512,14 @@
                 </p>
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                         answerConceptId="PIH:MASS, ABDOMINAL" style="checkbox"/>
+                </p>
+                                <p>
+                    <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                         answerConceptId="PIH:ABDOMINAL PAIN" style="checkbox"/>
+                </p>
+                <p>
+                    <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                          answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
@@ -534,6 +551,9 @@
                 </p>
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL DISCHARGE" style="checkbox"/>
+                </p>
+                <p>
+                    <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL SORES" style="checkbox"/>
                 </p>
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
@@ -614,6 +634,9 @@
                     <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:460" style="checkbox"/>
                 </p>
                 <p>
+                    <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:MUSCLE PAIN" style="checkbox"/>
+                </p>
+                 <p>
                     <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
 
@@ -740,7 +763,7 @@
 
         <p/>
 
-        <div class="section-container-color">
+     <!--   <div class="section-container-color">
             <h3 id="other">
                 <uimessage code="pihcore.exam.other_exam.title"/>
             </h3>
@@ -762,7 +785,7 @@
                 </p>
             </p>
 
-        </div>
+        </div>-->
 
     </div>
 
