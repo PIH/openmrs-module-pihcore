@@ -32,7 +32,7 @@
     <tr id="patient-${ p.id }">
         <td>
             <a href="${ ui.pageLink("htmlformentryui", "htmlform/enterHtmlFormWithSimpleUi",
-                    [   "definitionUiResource": "pihcore:htmlforms/vitals.xml",
+                    [   "definitionUiResource": formPath,
                         "visitId": patientWithCheckInEncounter.get(p).visit.id,
                         "patientId": p.id,
                         "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "vitals/vitalsList")),
@@ -46,7 +46,7 @@
         </td>
         <td>
             <a href="${ ui.pageLink("htmlformentryui", "htmlform/enterHtmlFormWithSimpleUi",
-                    [   "definitionUiResource": "pihcore:htmlforms/vitals.xml",
+                    [   "definitionUiResource": formPath,
                         "visitId": patientWithCheckInEncounter.get(p).visit.id,
                         "patientId": p.id,
                         "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "vitals/vitalsList")),
