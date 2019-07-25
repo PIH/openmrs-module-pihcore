@@ -52,7 +52,7 @@ public class MexicoMetadataBundle extends AbstractMetadataBundle {
         properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, GlobalPropertiesBundle.Concepts.MEXICO_DIAGNOSIS_SET_OF_SETS);
 
         // Core Apps
-        properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MexicoLocations.JALTENANGO.uuid());
+        properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, MexicoLocations.CHIAPAS.uuid());
 
         setGlobalProperties(properties);
 
