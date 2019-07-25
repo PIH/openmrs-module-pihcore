@@ -961,6 +961,7 @@
                     <label>
                         <uimessage code="pihcore.ncd.plan.hospitalized"/>
                     </label>
+                    <!-- ToDo: UHM-3919 Use hospitalization construct and migrate data -->
                     <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT"
                          style="radio" answerConceptIds="PIH:YES,PIH:NO"
                          answerCodes="yes,no" answerSeparator=""/>
