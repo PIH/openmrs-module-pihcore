@@ -16,7 +16,6 @@ import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -76,6 +75,9 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION,slLocations);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, slLocations);
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, slLocations);
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, slLocations);
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, slLocations);
     }
 
     private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
