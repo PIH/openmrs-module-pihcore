@@ -393,10 +393,10 @@
                           where encounter_type IN
                                     (select encounter_type_id from encounter_type where name like 'NCD%'));
 
-            -- Create obsgroup; Use accession number temporarily to hold the ncd diagnosis obs_id
+            -- Create obsgroup; Use obs_group_id temporarily to hold the ncd diagnosis obs_id
             insert into obs
                 (encounter_id, person_id, location_id, obs_datetime, creator,
-                 concept_id, comments, accession_number, date_created, uuid)
+                 concept_id, comments, obs_group_id, date_created, uuid)
             select encounter_id, person_id, location_id, obs_datetime, creator,
                    (select concept_id from concept_name
                      where name like 'Visit Diagnoses' and locale = 'en' and locale_preferred = 1 and voided = 0),
@@ -418,10 +418,10 @@
 
             -- Add obsgroup id to the temporary table
             update temp_ncd_diagnosis, obs
-               set temp_ncd_diagnosis.obs_group_id = obs.obs_id
+               set temp_ncd_diagnosis.obs_group_id = obs.obs_id, obs.obs_group_id = null
              where obs.voided = 0
                and obs.comments = 'ncd diagnosis obsgroup'
-               and temp_ncd_diagnosis.ncd_dx_obs_id = obs.accession_number;
+               and temp_ncd_diagnosis.ncd_dx_obs_id = obs.obs_group_id;
 
             -- Add obsgroup id to obs table
             update temp_ncd_diagnosis, obs
@@ -445,11 +445,6 @@
                      where name like 'Secondary' and locale = 'en' and locale_preferred = 1 and voided = 0),
                    encounter_id, obs_datetime, location_id, obs_group_id, 'ncd dx inserted secondary order', creator, now(), uuid()
              from temp_ncd_diagnosis;
-
-            -- Cleanup temp trash for ncd dx obsgroups
-            update obs
-               set accession_number = NULL
-             where obs_id IN (select obs_group_id from temp_ncd_diagnosis);
 
             drop table if exists temp_ncd_diagnosis;
         </sql>
