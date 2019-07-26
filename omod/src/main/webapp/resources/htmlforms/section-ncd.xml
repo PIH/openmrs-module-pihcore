@@ -344,7 +344,7 @@
 
             <table>
                 <tr>
-                    <th width="33%">
+                    <th width="40%">
                         <label>
                             <uimessage code="pihcore.stage.label"/>
                         </label>
@@ -470,6 +470,36 @@
                 </includeIf>
 
             </table>
+
+            <br/>
+            <div>
+                <strong>
+                    <uimessage code="pihcore.lab.glucose"/>
+                </strong>
+                <span class="small">
+                    <field>
+                        <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
+                    </field>
+                </span>
+                <br/>
+                <span class="small">
+                    <field>
+                        <obs conceptId="PIH:Fasting for blood glucose test"
+                             answerConceptId="PIH:YES" answerCode="pihcore.ncd.diabetes.fasting.comment"
+                             toggle="fasting-glucose"/>
+                    </field>
+                </span>
+                <div id="fasting-glucose">
+
+                    <uimessage code="pihcore.lab.glucose-fasting"/>
+
+                    <span class="small">
+                        <field>
+                            <obs id="glucose-fasting" conceptId="CIEL:160912" showUnits="true"/>
+                        </field>
+                    </span>
+                </div>
+            </div>
 
             <br/>
 
