@@ -351,6 +351,7 @@
     </changeSet>
 
     <changeSet id="20190715-migrate-ncd-diagnoses-to-construct" author="ball">
+        <validCheckSum>3:b47d9d18ff6b93d2539d524d751ef9ca</validCheckSum>
         <preConditions onFail="MARK_RAN">
             <sqlCheck expectedResult="1">
                 select count(*) from global_property gp
