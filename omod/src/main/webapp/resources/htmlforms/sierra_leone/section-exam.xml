@@ -256,6 +256,9 @@
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
                 </p>
+                  <p>
+                    <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:JAUNDICE" style="checkbox"/>
+                </p>
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true" commentFieldLabel="" />
                 </p>
@@ -555,6 +558,11 @@
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:GENITAL SORES" style="checkbox"/>
                 </p>
+                 <includeIf velocityTest="($patient.getAge($encounter.getEncounterDatetime())>13) &amp;&amp; $patient.gender == 'F' ">
+                <p>
+                    <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="CIEL:155579" answerLabel="Chronic pelvic pain" style="checkbox" />
+                </p>
+                </includeIf>
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
