@@ -259,9 +259,11 @@
                   <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:JAUNDICE" style="checkbox"/>
                 </p>
+          
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true" commentFieldLabel="" />
                 </p>
+                &lt;br&gt;
                 <!-- </div> -->
 
                 <p class="comment-label">
@@ -370,7 +372,8 @@
                <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                 &lt;br&gt;
+                 &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
@@ -379,6 +382,7 @@
                     <p>
                         <obs conceptId="CIEL:163045" rows="5" cols="45" />
                     </p>
+                    
                 </p>
             </div>
         </div>
@@ -476,7 +480,8 @@
                <p>
                     <obs class="abnormalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                 &lt;br&gt;
+            
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
