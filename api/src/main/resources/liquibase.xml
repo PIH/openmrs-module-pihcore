@@ -451,5 +451,34 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20190731-update-glucose-concept-name" author="ball">
+
+        <comment>
+            UHM-3974 Update the glucose concept name
+        </comment>
+
+        <sql>
+            -- Update english names
+            -- Prefer Serum Glucose
+            update concept_name
+               set locale_preferred = 1
+             where uuid = '3e12cb7a-26fe-102b-80cb-0017a47871b2';
+            -- Synonym Glucose
+            update concept_name
+               set locale_preferred = 0
+             where uuid = '7bf57a65-9d0e-4a36-a646-926c724d6ad3';
+
+            -- Update French names
+            -- Prefer Glucose serique
+            update concept_name
+               set locale_preferred = 1, concept_name_type = 'FULLY_SPECIFIED'
+             where uuid = 'f5b04bb6-d5db-102d-ad2a-000c29c2a5d7';
+            -- Synonym Glycemie
+            update concept_name
+               set locale_preferred = 0, concept_name_type = NULL
+             where uuid = '3e12ccec-26fe-102b-80cb-0017a47871b2';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
