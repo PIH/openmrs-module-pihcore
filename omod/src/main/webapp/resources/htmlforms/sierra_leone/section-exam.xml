@@ -530,11 +530,11 @@
                     <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                          answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                 &lt;br&gt;
+                 &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
-
                 <p class="comment-field">
                     <p>
                         <obs conceptId="CIEL:160947" rows="7" cols="45" />
@@ -568,6 +568,7 @@
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="CIEL:155579" answerLabel="Chronic pelvic pain" style="checkbox" />
                 </p>
                 </includeIf>
+                &lt;br&gt;
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
@@ -652,7 +653,7 @@
                  <p>
                     <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
