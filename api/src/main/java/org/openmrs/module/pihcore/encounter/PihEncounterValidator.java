@@ -43,7 +43,7 @@ import org.springframework.validation.Validator;
  *  (this Validator is prioritized to run before that one)
  */
 
-//@Handler(supports = { Encounter.class }, order = 10)
+@Handler(supports = { Encounter.class }, order = 10)
 public class PihEncounterValidator implements Validator {
 
     @Autowired
