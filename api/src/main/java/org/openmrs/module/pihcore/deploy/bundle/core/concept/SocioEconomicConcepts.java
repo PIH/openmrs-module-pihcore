@@ -157,7 +157,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("0b9565bc-15f5-102d-96e4-000c29c2a5d7", "Occupation, non-coded", Locale.ENGLISH, null)
                 .name("0b9564cc-15f5-102d-96e4-000c29c2a5d7", "Principal activity, non-coded", Locale.ENGLISH, null)
                 .name("f696981e-d5db-102d-ad2a-000c29c2a5d7", "Activité principale, non codée", Locale.FRENCH, null) // locale-preferred
-                .name("8006ed75-6a82-430b-969c-bdbdac1c39eb", "Ocupación", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("8006ed75-6a82-430b-969c-bdbdac1c39eb", "Ocupación, no codificado", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf2882e-07fe-102c-b5fa-0017a47871b2", "response if patient main activity is not one of the coded choices", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b2560486-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2452").build())
