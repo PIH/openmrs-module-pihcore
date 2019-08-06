@@ -686,6 +686,16 @@
                          answerConceptId="PIH:NORMAL" style="checkbox"/>
                 </p>
                 <p>
+                    <!-- Weakness -->
+                    <obs class="abnormalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                         answerConceptId="CIEL:5226" style="checkbox"/>
+                </p>
+                <p>
+                    <!-- Numbness -->
+                    <obs class="abnormalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                         answerConceptId="PIH:NUMBNESS" style="checkbox"/>
+                </p>
+                <p>
                     <obs class="abnormalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
                          answerConceptId="PIH:SEIZURE" style="checkbox"/>
                 </p>
@@ -696,7 +706,8 @@
                 </p>
 
                 <p>
-                    <obs class="abnormalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED"
+                    <obs class="abnormalObs" conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                         answerConceptId="PIH:OTHER NON-CODED"
                          style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
                 <br/>
@@ -733,6 +744,11 @@
                 <p>
                     <!-- Edema -->
                     <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="CIEL:460" style="checkbox"/>
+                </p>
+                <p>
+                    <!-- Lower extremity edema -->
+                    <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS"
+                         answerConceptId="CIEL:118729" style="checkbox"/>
                 </p>
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
