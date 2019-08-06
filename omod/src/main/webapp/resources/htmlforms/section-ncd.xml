@@ -603,6 +603,15 @@
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.resp">
         <div id="respire" class="section-container">
 
+            <p>
+                <label>
+                    <uimessage code="pihcore.ncd.puffsPerWk"/>
+                </label>
+                <obs conceptId="PIH:Puffs per week of relief inhaler (coded)"
+                     answerConceptIds="PIH:1905,PIH:2100,PIH:11992,PIH:1602"
+                     style="radio" answerSeparator=""/>
+            </p>
+
             <table>
                 <tr>
                     <th width="30%">
@@ -627,17 +636,14 @@
                     </th>
                 </tr>
 
-                <!-- this section is ONLY included for NCD intake encounter -->
-                <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
-                    <tr>
-                        <td colspan="4">
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121375"
-                                     answerCode="pihcore.ncd.probablyAsthma" style="checkbox"/>
-                            </obsgroup>
-                        </td>
-                    </tr>
-                </includeIf>
+                <tr>
+                    <td colspan="4">
+                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121375"
+                                 answerCode="pihcore.ncd.probablyAsthma" style="checkbox"/>
+                        </obsgroup>
+                    </td>
+                </tr>
 
                 <repeat with="['intermittent','le2xpw','no','CIEL:153753'],
                               ['mildPersist','gt2xpw','pihcore.sympNt.12xpm.label','PIH:Mild persistent asthma'],
@@ -669,8 +675,6 @@
                     </tr>
                 </repeat>
 
-                <!-- this section is ONLY included for NCD intake encounter -->
-                <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
                     <tr>
                         <!-- Bronchiectasis -->
                         <td>
@@ -727,6 +731,8 @@
                         </td>
                     </tr>
 
+                <!-- this section is ONLY included for NCD intake encounter -->
+                <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
                     <tr>
                         <th colspan="4">
                             <label>
@@ -756,42 +762,20 @@
 
             <br/>
 
-            <!-- this section is ONLY included for NCD followup encounter -->
-            <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
-                <div class="two-columns">
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.ncd.puffsPerWk"/>
-                        </label>
-                        <obs conceptId="PIH:Puffs per week of relief inhaler (coded)"
-                             answerConceptIds="PIH:1905,PIH:2100,PIH:11992,PIH:1602"
-                             style="radio" answerSeparator=""/>
-                    </p>
+            <div>
+                <label>
+                    <uimessage code="pihcore.ncd.inhalerEd"/>
+                </label>
+                <obs conceptId="PIH:7399" style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                     answerCodes="yes,no" answerSeparator=""/>
+            </div>
 
-                    <p>
-                        <label>
-                            <uimessage code="pihcore.ncd.inhalerEd"/>
-                        </label>
-                        <obs conceptId="PIH:7399" style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                             answerCodes="yes,no" answerSeparator=""/>
-                    </p>
-                    <br/>
-                </div>
-            </includeIf>
-
-            <!-- this section is ONLY included for NCD intake encounter -->
-            <includeIf velocityTest="$encounter.encounterType.uuid == 'ae06d311-1866-455b-8a64-126a9bd74171'">
-                <p>
-                    <label>
-                        <uimessage code="pihcore.remarks"/>:
-                    </label>
-                    <obs conceptId="PIH:11972"/>
-                </p>
-                <p>
-                    <obs conceptId="PIH:Provide asthma spacer"
-                         answerConceptId="PIH:YES" answerCode="pihcore.ncd.spacer"/>
-                </p>
-            </includeIf>
+            <div>
+                <label>
+                    <uimessage code="pihcore.remarks"/>:
+                </label>
+                <obs conceptId="PIH:11972"/>
+            </div>
         </div>
     </section>
 
@@ -967,15 +951,18 @@
              headerCode="pihcore.ncd.plan.title">
         <div class="section-container">
             <div class="two-columns">
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.plan.appt"/>
-                    </label>
-                    <obs conceptId="PIH:Appearance at appointment time" style="radio"
-                         answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
-                         answerCodes="yes,pihcore.meds.late1to7Days,pihcore.meds.late7orMoreDays"
-                         answerSeparator=""/>
-                </p>
+                <!-- this section is ONLY included for NCD followup encounter -->
+                <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+                    <p class="radio">
+                        <label>
+                            <uimessage code="pihcore.ncd.plan.appt"/>
+                        </label>
+                        <obs conceptId="PIH:Appearance at appointment time" style="radio"
+                             answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
+                             answerCodes="yes,pihcore.meds.late1to7Days,pihcore.meds.late7orMoreDays"
+                             answerSeparator=""/>
+                    </p>
+                </includeIf>
 
                 <p class="radio">
                     <label>
@@ -986,24 +973,29 @@
                          answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
                          answerSeparator=""/>
                 </p>
-
-                <p class="radio">
+                <div>
                     <label>
-                        <uimessage code="pihcore.ncd.plan.hospitalized"/>
+                        <uimessage code="pihcore.meds.reasonMissedMeds"/>
                     </label>
-                    <!-- ToDo: UHM-3919 Use hospitalization construct and migrate data -->
-                    <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT"
-                         style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                         answerCodes="yes,no" answerSeparator=""/>
-                    <obs conceptId="CIEL:162879" labelCode="pihcore.reasonHospitalized"/>
-                </p>
-                <br/>
-                <br/>
+                    <obs conceptId="CIEL:160582"/>
+                </div>
+
+                <!-- this section is ONLY included for NCD followup encounter -->
+                <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
+                    <p class="radio">
+                        <label>
+                            <uimessage code="pihcore.ncd.plan.hospitalized"/>
+                        </label>
+                        <!-- ToDo: UHM-3919 Use hospitalization construct and migrate data -->
+                        <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT"
+                             style="radio" answerConceptIds="PIH:YES,PIH:NO"
+                             answerCodes="yes,no" answerSeparator=""/>
+                        <obs conceptId="CIEL:162879" labelCode="pihcore.reasonHospitalized"/>
+                    </p>
+                    <br/><br/><br/><br/>
+                </includeIf>
             </div>
-            <label>
-                <uimessage code="pihcore.meds.reasonMissedMeds"/>
-            </label>
-            <obs conceptId="CIEL:160582"/>
+
         </div>
     </section>
 
