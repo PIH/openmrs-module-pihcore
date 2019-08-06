@@ -50,6 +50,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("1848BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Nurse", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("1849BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Infirmière", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("d39b5604-13c7-445e-a2a9-1da1967cdd79", "Enfermera", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("1437FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "Trained nurse personnel", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("8f123093-5759-45aa-b96f-f7d66402f995")
                         .type(sameAs).ensureTerm(pih, "9718").build())
@@ -70,6 +71,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .name("1844BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CLINICAL OFFICER/DOCTOR", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("107417BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Physician", Locale.ENGLISH, null)
                 .name("611d795d-6b27-4d26-8c61-af4a78b8388b", "Médecin", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("bb0da6be-6515-48a2-ac06-a7fd4b6afd8d", "Doctor", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("1435FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "Physician, doctor or clinical officer", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("4d1beffe-760b-4440-9a1b-54dc27200232")
                         .type(sameAs).ensureTerm(pih, "DOCTOR").build())
@@ -98,6 +100,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .name("107415BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CHN (Community Health Nurse)", Locale.ENGLISH, null)
                 .name("7049249e-6ade-4743-a33d-fb3f6d4b33cd", "Accompagnateur", Locale.FRENCH, null) // locale-preferred
                 .name("1820BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Officier de Santé du Village", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("12745844-dfe3-43fe-88c0-6766cb81fefc", "Acompañante", locale_SPANISH, null) // locale-preferred
                 .mapping(new ConceptMapBuilder("137476ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(narrowerThan).ensureTerm(snomedNp, "223366009").build())
                 .mapping(new ConceptMapBuilder("3b9816c5-9bd3-441c-a453-5912baf4cfcc")
@@ -119,6 +122,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .name("44c1416d-4de3-4cb6-8ff2-af7b5cba366a", "Domicile", Locale.FRENCH, null) // locale-preferred
                 .name("f358b82d-631b-49b4-be8e-577d345de149", "Sortie par la maison", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // TODO sketchy translation
                 .name("cd429b94-7bb0-4edd-a746-f83f682729ee", "Lakay", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("5aca6668-db70-4a11-a186-04691d4bad12", "Casa", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("988417fa-6a5a-11e2-b6f9-aa00f871a3e1")
                         .type(sameAs).ensureTerm(pih, "Home").build())
                 .mapping(new ConceptMapBuilder("98843e1a-6a5a-11e2-b6f9-aa00f871a3e1")
@@ -130,6 +134,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e215a0a-26fe-102b-80cb-0017a47871b2", "Hospital", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("dbd54ca7-747c-485e-b27b-91bdc50cf0bf", "Hôpital", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("559032c2-2b6f-4206-9263-cfb765322593", "Hospital", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecef53c0-07fe-102c-b5fa-0017a47871b2", "hospital", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75826862-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "HOSPITAL").build())
@@ -143,6 +148,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .name("f3bbedb4-91b0-46de-a166-456a6502acda", "Outside of institution", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("d8311920-93a7-4ddf-aa4c-8211451f5d87", "Not in the hospital", Locale.ENGLISH, null)
                 .name("da62bffc-ae71-4d3d-817a-05c08f5f119b", "Extra institutionnel", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("7538db0b-2046-4ee1-b8c2-2571e58ead7e", "Afuera de institución", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("0b7bd483-895b-42c6-8b1b-e282a9329ba0", "Not within the hospital, health center, or institution", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("3e83d428-773c-4285-abf3-d52979752048")
                         .type(sameAs).ensureTerm(pih, "Outside of institution").build())
@@ -172,6 +178,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("8281322d-5616-4cc4-8439-092a5388105d", "Police", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("993d6ce0-699a-4f16-8218-099b2effe4a9", "Police", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("54e40b3e-d1e8-4bfd-a82a-74db76a7fa53", "Policia", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("54bc35fb-adaf-4d03-b471-fe9d286b8016", "A police force is a constituted body of persons empowered by the state to enforce the law, protect property, and limit civil disorder.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("e932f7a2-87d1-4caa-beda-5b66725a172b")
                         .type(sameAs).ensureTerm(pih, "Police").build())
@@ -184,6 +191,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("0b928a22-15f5-102d-96e4-000c29c2a5d7", "Surgery", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("0b940cd0-15f5-102d-96e4-000c29c2a5d7", "Chirurgie", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("41796964-a0bf-4482-aaf5-d421b4b43efe", "Cirugía", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ebff68ec-d039-4bc1-83da-2d99d1924972", "An act of performing surgery may be called a surgical procedure, operation, or simply surgery. In this context, the verb operate means performing surgery.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b2ae45e2-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "6298").build())
@@ -196,6 +204,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e2259b4-26fe-102b-80cb-0017a47871b2", "Father", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("f672d7ee-d5db-102d-ad2a-000c29c2a5d7", "Père", Locale.FRENCH, null) // locale-preferred
+                .name("8b9eabc4-3f52-4604-b7cc-8b922fb6a344", "Padre", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf0be2c-07fe-102c-b5fa-0017a47871b2", "A father to another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b220bc86-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2174").build())
@@ -210,6 +219,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e225b1c-26fe-102b-80cb-0017a47871b2", "Mother", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("f673058e-d5db-102d-ad2a-000c29c2a5d7", "Mère", Locale.FRENCH, null) // locale-preferred
+                .name("4b4ae320-ccb5-4b83-b73d-37ce192ded67", "Madre", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .description("ecf0bf80-07fe-102c-b5fa-0017a47871b2", "A mother of another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75870606-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "MOTHER").build())
@@ -238,6 +248,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e225f36-26fe-102b-80cb-0017a47871b2", "Sibling", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("57063624-1e75-4529-9731-f79134c27f01", "Soeur/Frère", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("c6f22eb7-7989-4315-be09-f5efc07cd72c", "Hermano", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf0cc5a-07fe-102c-b5fa-0017a47871b2", "A sibling to another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b220c262-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2178").build())
@@ -252,6 +263,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e405a36-26fe-102b-80cb-0017a47871b2", "Partner or Spouse", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("78abf00f-360f-4fe1-92a8-2e33fa0c9fba", "Partenaire ou époux", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("424429be-d014-4738-8b6b-f74ab9e3baa2", "Esposo o Pareja", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ed191d5e-07fe-102c-b5fa-0017a47871b2", "General descriptive answer: a patient's partner or spouse.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75aa8f18-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "PARTNER OR SPOUSE").build())
@@ -310,6 +322,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("9a4b4976-8a9f-11e8-9a94-a6cf71072f73", "Nurse Accompagnateur", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("9a4b5470-8a9f-11e8-9a94-a6cf71072f73", "Infirmière Accompagnateur ", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("769d0929-6f01-447a-9253-37025bc6f593", "Acompañante Enfermera", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("9a4b55d8-8a9f-11e8-9a94-a6cf71072f73", "Nurse accompagnateur", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("9a4b570e-8a9f-11e8-9a94-a6cf71072f73")
                         .type(sameAs).ensureTerm(pih, "Nurse CHW").build())
