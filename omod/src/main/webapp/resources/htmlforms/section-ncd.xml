@@ -797,48 +797,32 @@
              headerCode="pihcore.ncd.heart_failure">
         <div id="heart_failure" class="section-container">
             <div class="two-columns">
-                <p>
+                <div>
                     <strong>
                         <uimessage code="pihcore.ncd.hf.categories"/>
                     </strong>
-
-                    <div>
-                        <label>
-                            <uimessage code="pihcore.ncd.cardiomyopathy"/>
-                        </label>
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS"
-                                 answerConceptIds="CIEL:113918,CIEL:163712,CIEL:142317,CIEL:139529,CIEL:5016"
-                                 answerCodes="pihcore.ncd.ppCardioMy,pihcore.ncd.hivCardioMy,pihcore.ncd.alcCardioMy,pihcore.ncd.iscCardioMy,pihcore.ncd.otherCardioMy"
-                                 style="radio" answerSeparator=""/>
-                        </obsgroup>
-                    </div>
-
                     <br/>
 
                     <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:134082"
-                             answerCode="pihcore.ncd.mitralStenosisOnly"
-                             style="checkbox"/>
+                        <obs conceptId="PIH:DIAGNOSIS"
+                             answerConceptIds="CIEL:5016,CIEL:134082,PIH:3071,PIH:12231,PIH:4000,CIEL:5622"
+                             style="radio" answerSeparator=""/>
                     </obsgroup>
 
-                    <repeat with="['PIH:3071','Hypertensive heart disease'],
-                                  ['PIH:12231','Other heart valve disease/Congenital heart disease'],
-                                  ['PIH:4000','Isolated right heart failure'],
-                                  ['PIH:PERICARDIAL EFFUSION','Pericardial effussion']">
+                </div>
 
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" style="checkbox"/>
-                        </obsgroup>
-
-                    </repeat>
-
+                <br/>
+                <div>
+                    <label>
+                        <uimessage code="pihcore.ncd.cardiomyopathy"/>
+                    </label>
                     <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:3468"
-                             answerCode="pihcore.other"
-                             style="checkbox"/>
+                        <obs conceptId="PIH:DIAGNOSIS"
+                             answerConceptIds="CIEL:113918,CIEL:163712,CIEL:142317,CIEL:139529,CIEL:5016"
+                             answerCodes="pihcore.ncd.ppCardioMy,pihcore.ncd.hivCardioMy,pihcore.ncd.alcCardioMy,pihcore.ncd.iscCardioMy,pihcore.ncd.otherCardioMy"
+                             style="radio" answerSeparator=""/>
                     </obsgroup>
-                </p>
+                </div>
 
                 <p>
                     <label>
