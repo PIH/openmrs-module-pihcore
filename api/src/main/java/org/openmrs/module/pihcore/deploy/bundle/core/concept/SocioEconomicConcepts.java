@@ -157,6 +157,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("0b9565bc-15f5-102d-96e4-000c29c2a5d7", "Occupation, non-coded", Locale.ENGLISH, null)
                 .name("0b9564cc-15f5-102d-96e4-000c29c2a5d7", "Principal activity, non-coded", Locale.ENGLISH, null)
                 .name("f696981e-d5db-102d-ad2a-000c29c2a5d7", "Activité principale, non codée", Locale.FRENCH, null) // locale-preferred
+                .name("8006ed75-6a82-430b-969c-bdbdac1c39eb", "Ocupación", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf2882e-07fe-102c-b5fa-0017a47871b2", "response if patient main activity is not one of the coded choices", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b2560486-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2452").build())
@@ -220,6 +221,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("3e150a5c-26fe-102b-80cb-0017a47871b2", "Divorced", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("d1c68e19-cfac-4b72-98c0-17de59bf5b23", "Divorcé(e)", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("c87991b3-02fe-45ef-9325-477787cba57f", "Divòse", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("8670e4cc-6de8-479d-ac15-f827d2a16114", "Divorciado", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ece42a0e-07fe-102c-b5fa-0017a47871b2", "Answer which describes a type of civil status.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b20d0524-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1058").build())
@@ -234,6 +236,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("0b7feb10-15f5-102d-96e4-000c29c2a5d7", "Single/Child", Locale.ENGLISH, ConceptNameType.SHORT)
                 .name("388cae77-22a6-48bc-bfbb-17908c8d61c0", "Célibataire ou un enfant", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("536981db-7436-4edc-9c9d-0eceb1461fda", "Selibatè oubyen timoun", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("14f0a977-2adb-4010-b62c-ac9e13a079b3", "Soltero", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ed244d64-07fe-102c-b5fa-0017a47871b2", "Civil status of patient.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("759eda88-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "SINGLE OR A CHILD").build())
@@ -262,6 +265,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("bf337879-0fd6-4bbb-bb4d-8b4cf68a8e52", "Veuve", Locale.FRENCH, null)
                 .name("ab6ed0a7-f146-476f-b6f7-866b44402dce", "Veuf", Locale.FRENCH, null)
                 .name("1dd94bf3-0962-4ca6-8a66-0fd1dccd0887", "Vèf", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("5090f91e-11c6-4dd1-9b0a-187776c5237f", "Viudo", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ece42bf8-07fe-102c-b5fa-0017a47871b2", "Answer which describes a type of civil status.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("7568800a-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "WIDOWED").build())
@@ -275,6 +279,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("3e150782-26fe-102b-80cb-0017a47871b2", "Separated", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("5c572211-edfc-457c-b922-8ee8a5293bf8", "Séparé(e)", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("4e1dd8d7-22ca-4fbc-9163-c1f6cbb328e6", "Separe", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("633c70d3-94d1-499e-a63e-9e052c77ffc4", "Separado", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ece42752-07fe-102c-b5fa-0017a47871b2", "Answer which describes a type of civil status.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b20d0236-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1056").build())
@@ -300,6 +305,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("3e3ffcb2-26fe-102b-80cb-0017a47871b2", "Married", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("90c02968-5164-4e97-ab01-db80aa9e0d56", "Marié(e)", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("cca6224b-3f11-4f7a-b9c8-ac1b784e6c77", "Marye", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("54a48d7a-61e4-420c-9e50-bf34ed42f34b", "Casado", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ed18a7d4-07fe-102c-b5fa-0017a47871b2", "Wedded to another person.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75a9a0ee-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "MARRIED").build())
@@ -317,6 +323,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("aeb288a7-21af-4800-b972-196adcdd3f14", "Plase", locale_HAITI, null) // locale-preferred
                 .name("80341f66-14da-4a9a-a03f-f8a0ef3e52c4", "Ap viv ak patnè", locale_HAITI, ConceptNameType.FULLY_SPECIFIED)
                 .name("6843ccc2-a24e-4671-aa07-4f89dfd49345", "Konkibinaj", locale_HAITI, null)
+                .name("1ce97f60-bb3e-48db-8343-f17c782b3d59", "Viviendo con un compañero", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .description("ece42e00-07fe-102c-b5fa-0017a47871b2", "Answer which describes a type of civil status.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b20d081c-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1060").build())
@@ -364,6 +371,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e17c01c-26fe-102b-80cb-0017a47871b2", "Commerce", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("0b8e937c-15f5-102d-96e4-000c29c2a5d7", "Commerçant", Locale.FRENCH, null) // locale-preferred
+                .name("ad11f8f5-9187-4c0d-82e9-6555dd1933fa", "Commercial", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ece769da-07fe-102c-b5fa-0017a47871b2", "Main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b21086fe-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1305").build())
@@ -376,6 +384,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e252a68-26fe-102b-80cb-0017a47871b2", "Housework/Fieldwork", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("f695e1ee-d5db-102d-ad2a-000c29c2a5d7", "Ménage/Travail de terrain", Locale.FRENCH, null) // locale-preferred
+                .name("79ea6eb5-6482-43f7-bd67-f13b6308accf", "Ama de Casa", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .description("ecf278fc-07fe-102c-b5fa-0017a47871b2", "It's very common (especially in Lesotho) for patients to respond to the main activity question with both housework and fieldwork", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75955cd8-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "HOUSEWORK/FIELDWORK").build())
@@ -388,6 +397,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e1d53f6-26fe-102b-80cb-0017a47871b2", "Factory worker", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("f6326b1e-d5db-102d-ad2a-000c29c2a5d7", "Ouvrier", Locale.FRENCH, null) // locale-preferred
+                .name("3c4e9870-4328-4292-83ee-1d1c3f2d88fa", "Obrero", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecec0c9c-07fe-102c-b5fa-0017a47871b2", "Factory profession or activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b214b972-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1683").build())
@@ -400,6 +410,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("0b76dd22-15f5-102d-96e4-000c29c2a5d7", "Professional", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("f7039220-d5db-102d-ad2a-000c29c2a5d7", "Professionnel", Locale.FRENCH, null) // locale-preferred
+                .name("351f9dbe-82f8-480e-ba54-67434ef9203f", "Profesional", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ed24d0b8-07fe-102c-b5fa-0017a47871b2", "Employment type. Examples are nurse, doctor, teacher, lawyer, or any position outside of agriculture. ", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("759f2222-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "PROFESSIONAL").build())
@@ -426,6 +437,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("9a35a067-c03a-45da-93b5-5979e8e363bf", "Professor", Locale.ENGLISH, null)
                 .name("d774632c-d77a-4181-aa08-c171f0e2afd1", "Professeur", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("84998026-5282-4b20-9f7c-a320448740ca", "Professeur d'école", Locale.FRENCH, null)
+                .name("af062acf-29e3-4dde-a1a7-c450f607779e", "Maestro", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("65f4f023-905a-491f-ab52-c136274da38c", "Main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("e1f4236c-ef7c-4be3-be0e-42a6813ce4fe")
                         .type(sameAs).ensureTerm(pih, "7098").build())
@@ -438,6 +450,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e252bd0-26fe-102b-80cb-0017a47871b2", "Retired", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("f695fd3c-d5db-102d-ad2a-000c29c2a5d7", "Retraité", Locale.FRENCH, null) // locale-preferred
+                .name("aa9bbe3f-0f45-4346-b6e6-d63c98d13cc1", "Jubilado", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf27a5a-07fe-102c-b5fa-0017a47871b2", "A main activity for someone who has retired from work", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75955e54-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "RETIRED").build())
@@ -451,6 +464,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("3e17c26a-26fe-102b-80cb-0017a47871b2", "Farmer", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("f5ff6d22-d5db-102d-ad2a-000c29c2a5d7", "Fermier", Locale.FRENCH, null) // locale-preferred
                 .name("3e17c4cc-26fe-102b-80cb-0017a47871b2", "Cultivateur", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("5c4a2849-703a-4b04-8da0-ce21a30df304", "Agricultur", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .description("ece76be2-07fe-102c-b5fa-0017a47871b2", "Main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75715ef0-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "FARMER").build())
@@ -475,6 +489,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e181328-26fe-102b-80cb-0017a47871b2", "Manual laborer", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("f6023714-d5db-102d-ad2a-000c29c2a5d7", "Main-d'œuvre", Locale.FRENCH, null) // locale-preferred
+                .name("8ea1c722-7903-4da3-8956-689afdc55dac", "Carpintero/Electrico/Albanil/Plomero/Herrero", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ece7a468-07fe-102c-b5fa-0017a47871b2", "An occupation or main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b210a81e-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1326").build())
@@ -488,6 +503,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("0b75e93a-15f5-102d-96e4-000c29c2a5d7", "Driver", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("0b829374-15f5-102d-96e4-000c29c2a5d7", "Chauffeur", Locale.ENGLISH, null)
                 .name("f6fe3eba-d5db-102d-ad2a-000c29c2a5d7", "Chauffeur", Locale.FRENCH, null) // locale-preferred
+                .name("af4c7038-1387-4a94-92a1-e4cf8b540cea", "Chofeur", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ed244954-07fe-102c-b5fa-0017a47871b2", "Employment Activity ", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b25d18a2-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "3344").build())
@@ -500,6 +516,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e17c724-26fe-102b-80cb-0017a47871b2", "Student", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("3e17c97c-26fe-102b-80cb-0017a47871b2", "Étudiant", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)  // locale-preferred
+                .name("effdc205-732d-4559-aefb-5573920ec89d", "Estudiante", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)  // locale-preferred
                 .description("ece76fc0-07fe-102c-b5fa-0017a47871b2", "Main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75716076-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "STUDENT").build())
@@ -525,6 +542,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("3e17d098-26fe-102b-80cb-0017a47871b2", "Unemployed", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("f5ffd816-d5db-102d-ad2a-000c29c2a5d7", "Sans emploi", Locale.FRENCH, null) // locale-preferred
                 .name("3e17d318-26fe-102b-80cb-0017a47871b2", "Chômage", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("842622dc-f073-49ab-9954-56b1fc519d8c", "Desempleado", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .description("ece77768-07fe-102c-b5fa-0017a47871b2", "Main activity", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("75716364-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "UNEMPLOYED").build())
@@ -562,6 +580,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("107067BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Fisherman", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("b543fde8-54a7-4a8d-ae75-c792708fc731", "Pêcheur", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("a4554e6d-44d5-4cc3-829b-b9b8a7844bfc", "Pescador", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("16315FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "occupation", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("216817ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "159674").build())
@@ -595,6 +614,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("3e1b1fdc-26fe-102b-80cb-0017a47871b2", "Health care worker", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("367d3538-9f67-45b2-ab98-34107ce442e3", "Membre du service de santé", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("3dd47072-ffe8-47c8-aa5a-7db571be4e20", "Travailleur de soins de santé", Locale.FRENCH, null)
+                .name("5fb66739-1b9b-452d-9ccb-31380cabc465", "Profesional de la Salud", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecea574e-07fe-102c-b5fa-0017a47871b2", "A person that works to provide health care. This includes but is not limited to physicians, nurses, health promoters and DOT workers.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b2133e44-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1538").build())
@@ -665,7 +685,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .datatype(notApplicable)
                 .conceptClass(misc)
                 .name("8281322d-5616-4cc4-8439-092a5388105d", "Police", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .name("8da0684d-81be-46e5-a2da-43e58344821d", "Policía", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("8da0684d-81be-46e5-a2da-43e58344821d", "Policia", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("993d6ce0-699a-4f16-8218-099b2effe4a9", "Police", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
                 .description("54bc35fb-adaf-4d03-b471-fe9d286b8016", "A police force is a constituted body of persons empowered by the state to enforce the law, protect property, and limit civil disorder.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("e932f7a2-87d1-4caa-beda-5b66725a172b").type(sameAs).ensureTerm(pih, "Police").build())
@@ -680,6 +700,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("0b9562d8-15f5-102d-96e4-000c29c2a5d7", "Principal activity", Locale.ENGLISH, null)
                 .name("0b8ec130-15f5-102d-96e4-000c29c2a5d7", "Occupation", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("0b8ec40a-15f5-102d-96e4-000c29c2a5d7", "Activité principale", Locale.FRENCH, null) // locale-preferred
+                .name("376bebc2-37bb-4ab5-bba0-2d0b1f5a280a", "Ocupación", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .description("ece767dc-07fe-102c-b5fa-0017a47871b2", "The main activity or job the patient is engaged in", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("d311dd1a-b42f-4263-b230-ae9a9b41ab60")
                         .type(sameAs).ensureTerm(pih, "Occupation").build())

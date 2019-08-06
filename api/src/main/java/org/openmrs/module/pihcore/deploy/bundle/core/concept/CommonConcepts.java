@@ -48,6 +48,7 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                 .name("3e15161e-26fe-102b-80cb-0017a47871b2", "Yes", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("0b931af0-15f5-102d-96e4-000c29c2a5d7", "Oui", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("541f1720-0abe-49dd-b4f6-7de87ce05917", "Wi", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("733469c8-435d-491a-9f8b-b3c42219b6d4", "Sí", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ece437ba-07fe-102c-b5fa-0017a47871b2", "Generic answer to a question.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("7568887a-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "YES").build())
@@ -61,6 +62,7 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                 .name("3e151786-26fe-102b-80cb-0017a47871b2", "No", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("743d14ca-dd31-4ed7-8bfb-b2e4c98a2609", "Non", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("5bcc9a17-0a17-4075-84d4-f09882cfaa18", "Non", locale_HAITI, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("44f65f8b-844d-41e8-93c8-9ffe66a3b522", "No", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("d07abafd-ea95-4edd-9c84-ee85592fc91f", "Generic answer to question.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b20d12bc-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1066").build())
@@ -75,6 +77,7 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                 .name("0b8bdd6c-15f5-102d-96e4-000c29c2a5d7", "DON'T KNOW", Locale.ENGLISH, null)
                 .name("0b8bde66-15f5-102d-96e4-000c29c2a5d7", "DO NOT KNOW", Locale.ENGLISH, null)
                 .name("0b8bdf56-15f5-102d-96e4-000c29c2a5d7", "Inconnu", Locale.FRENCH, null) // locale-preferred
+                .name("cfeddfc5-3d6d-40a7-a878-5141afe9d527", "Desconocido", locale_SPANISH, null) // locale-preferred
                 .description("ece43b8e-07fe-102c-b5fa-0017a47871b2", "Generic answer to a question.", Locale.ENGLISH)
                 .description("5a0076f0-1fc0-4c91-8d92-0541eab81216", "réponse générique à la question", Locale.FRENCH)
                 .mapping(new ConceptMapBuilder("48d452b4-2448-4b4a-ab17-5993cd2aa765")
@@ -141,6 +144,7 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e15729e-26fe-102b-80cb-0017a47871b2", "None", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("3e157424-26fe-102b-80cb-0017a47871b2", "Aucun", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("c369fba3-5a4f-47f8-9014-62b941aac8cb", "Ninguno", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ece4993a-07fe-102c-b5fa-0017a47871b2", "Generic descriptive answer.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("7568a490-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "NONE").build())
@@ -157,6 +161,7 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                 .name("0b8e7ce8-15f5-102d-96e4-000c29c2a5d7", "Sans objet", Locale.FRENCH, null) // locale-preferred
                 .name("f5dfdb38-d5db-102d-ad2a-000c29c2a5d7", "Pas valable", Locale.FRENCH, null)
                 .name("0b8e7bee-15f5-102d-96e4-000c29c2a5d7", "Ne pas applicable", Locale.FRENCH, null)
+                .name("1557bb2d-f6a0-43a8-85dd-6e90655fd351", "No aplica", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ece55cc6-07fe-102c-b5fa-0017a47871b2", "Generic response to a question.  The question doesn't directly apply to the person.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b20f276e-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1175").build())
