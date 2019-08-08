@@ -453,7 +453,7 @@
                         <td>
                             <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                                 <obs conceptId="PIH:DIAGNOSIS"
-                                     answerConceptIds="CIEL:142474,PIH:12227,PIH:12228,CIEL:165207,CIEL:138291"
+                                     answerConceptIds="CIEL:142474,PIH:12227,PIH:12228,PIH:12251,CIEL:138291"
                                      answerCodes="pihcore.ncd.dmType1,pihcore.ncd.dmType2noAgents,pihcore.ncd.dmType2onOral,pihcore.ncd.dmType2reqInsulin,pihcore.ncd.hyperglycemia.label"
                                      style="radio" answerSeparator=""/>
                             </obsgroup>
@@ -805,7 +805,7 @@
 
                     <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
                         <obs conceptId="PIH:DIAGNOSIS"
-                             answerConceptIds="CIEL:5016,CIEL:134082,PIH:3071,PIH:12231,PIH:4000,CIEL:5622"
+                             answerConceptIds="CIEL:5016,CIEL:134082,PIH:3071,PIH:12231,PIH:4000,CIEL:130562,CIEL:5622"
                              style="radio" answerSeparator=""/>
                     </obsgroup>
 
@@ -822,29 +822,33 @@
                              answerCodes="pihcore.ncd.ppCardioMy,pihcore.ncd.hivCardioMy,pihcore.ncd.alcCardioMy,pihcore.ncd.iscCardioMy,pihcore.ncd.otherCardioMy"
                              style="radio" answerSeparator=""/>
                     </obsgroup>
+                    <br/>
                 </div>
 
-                <p>
+                <div>
                     <label>
                         <uimessage code="pihcore.ncd.hf.severity"/>
                     </label>
                     <obs conceptId="PIH:NYHA CLASS"
                          answerConceptIds="PIH:NYHA CLASS 1,PIH:NYHA CLASS 2,PIH:NYHA CLASS 3,PIH:NYHA CLASS 4"
                          style="radio" answerSeparator=""/>
-                </p>
-                <p>
+                    <br/>
+                </div>
+                <div>
+
                     <label>
                         <uimessage code="pihcore.ncd.hf.vol_status"/>
                     </label>
                     <obs conceptId="PIH:PATIENTS FLUID MANAGEMENT"
                          answerConceptIds="PIH:HYPERVOLEMIC,PIH:EUVOLEMIC,PIH:HYPOVOLEMIC"
                          style="radio" answerSeparator=""/>
-                </p>
-                <p>
+                    <br/>
+                </div>
+                <div>
                     <obs conceptId="PIH:11926" answerConceptId="PIH:YES"
                          answerCode="pihcore.ncd.improbable"/>
-                </p>
-                <br/><br/>
+                </div>
+                <br/><br/><br/>
             </div>
 
             <br/>
