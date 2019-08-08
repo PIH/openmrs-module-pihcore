@@ -242,20 +242,20 @@
             </h3>
 
             <div class="two-columns exam">
-                <!--<p>
+                <p>
                     <obs class="normalObs" conceptId="PIH:GENERAL EXAM FINDINGS"
                          answerConceptId="PIH:NORMAL" style="checkbox"
                          />
-                </p>-->
+                </p>
 
                 <!-- ToDo:  UHM-3529 Add toggle for normal/abnormal symptoms
                 <div id="abnGenExam"> -->
                 
                 <p>
                 <obsgroup groupingConceptId="Ciel:1727">
-                            <obs conceptId="Ciel:1728" answerConceptId="Ciel:832" answerLabel="Weight loss"/>
-                            <obs conceptId="Ciel:1731" labelText="Duration"/>
-                            <obs conceptId="Ciel:1732" labelText="Units"/>
+                            <obs class = "abnormalObs" conceptId="Ciel:1728" answerConceptId="Ciel:832" answerLabel="Weight loss"/>
+                            <obs class = "abnormalObs" conceptId="Ciel:1731" labelText="Duration"/>
+                            <obs class = "abnormalObs" conceptId="Ciel:1732" labelText="Units"/>
                 </obsgroup> 
                 </p>
 
