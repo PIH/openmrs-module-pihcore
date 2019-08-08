@@ -524,20 +524,119 @@
         </section>
     </includeIf>
 
+   
     <section id="previous-hospital" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="zl.consultNote.previousHospitalization.title">
         <div class="section-container">
             <!-- HOSPITALISATION ANTERIEURE -->
-            <p>
-                <label>
-                    <uimessage code="pihcore.comment"/>
-                </label>
-                <!-- TODO: Code this as a table of hospitalizations? Or just do "Yes/No/Unknown, if yes cause:" as in the paper form? -->
-                <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
-            </p>
+
+            <table>
+                <tr>
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.admitDate"/>
+                        </label>
+                    </th>
+
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.dischargeDate"/>
+                        </label>
+                    </th>
+
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.hospitalName"/>
+                        </label>
+                    </th>
+
+                    <!--
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.remarks"/>
+                        </label>
+                    </th>
+                    -->
+                    <th>
+                        <label>
+                            <uimessage code="pihcore.reasonHospitalized"/>
+                        </label>
+                    </th>
+                </tr>
+
+                <tr>
+                    <obsgroup groupingConceptId="PIH:HOSPITALIZATION CONSTRUCT">
+                        <td>
+                            <obs conceptId="CIEL:1640" allowTime="false"/> <!-- Admit date -->
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:1641" allowTime="false"/> <!-- Exit date -->
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:162724"/> <!-- Health facility location -->
+                        </td>
+                        <!-- Comment
+                        <td>
+                            <obs conceptId="PIH:6899"/>
+                        </td>
+                        -->
+                        <td>
+                            <obs conceptId="CIEL:162879"/> <!-- Reason for hospitalization -->
+                        </td>
+                    </obsgroup>
+                </tr>
+                <tr>
+                    <obsgroup groupingConceptId="PIH:HOSPITALIZATION CONSTRUCT">
+                        <td>
+                            <obs conceptId="CIEL:1640" allowTime="false"/> <!-- Admit date -->
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:1641" allowTime="false"/> <!-- Exit date -->
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:162724"/> <!-- Health facility location -->
+                        </td>
+                        <!-- Comment
+                        <td>
+                            <obs conceptId="PIH:6899"/>
+                        </td>
+                        -->
+                        <td>
+                            <obs conceptId="CIEL:162879"/> <!-- Reason for hospitalization -->
+                        </td>
+                    </obsgroup>
+                </tr>
+                <tr>
+                    <obsgroup groupingConceptId="PIH:HOSPITALIZATION CONSTRUCT">
+                        <td>
+                            <obs conceptId="CIEL:1640" allowTime="false"/> <!-- Admit date -->
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:1641" allowTime="false"/> <!-- Exit date -->
+                        </td>
+                        <td>
+                            <obs conceptId="CIEL:162724"/> <!-- Health facility location -->
+                        </td>
+                        <!-- Comment
+                        <td>
+                            <obs conceptId="PIH:6899"/>
+                        </td>
+                        -->
+                        <td>
+                            <obs conceptId="CIEL:162879"/> <!-- Reason for hospitalization -->
+                        </td>
+                    </obsgroup>
+                </tr>
+            </table>
+
+            <label>
+                <uimessage code="pihcore.comment"/>
+            </label>
+            <obs conceptId="PIH:Hospitalization comment" style="textarea"/>
+
         </div>
     </section>
-
+    
     <section id="current-medications" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="zl.consultNote.currentMedications.title">
         <div class="section-container">

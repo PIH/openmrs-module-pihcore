@@ -250,18 +250,26 @@
 
                 <!-- ToDo:  UHM-3529 Add toggle for normal/abnormal symptoms
                 <div id="abnGenExam"> -->
+                
                 <p>
-                    <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:WEIGHT LOSS" style="checkbox"/>
+                <obsgroup groupingConceptId="Ciel:1727">
+                            <obs class = "abnormalObs" conceptId="Ciel:1728" answerConceptId="Ciel:832" answerLabel="Weight loss"/>
+                            <obs class = "abnormalObs" conceptId="Ciel:1731" labelText="Duration"/>
+                            <obs class = "abnormalObs" conceptId="Ciel:1732" labelText="Units"/>
+                </obsgroup> 
                 </p>
+
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="CIEL:115115" style="checkbox"/>
                 </p>
                   <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:JAUNDICE" style="checkbox"/>
                 </p>
+          
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true" commentFieldLabel="" />
                 </p>
+                
                 <!-- </div> -->
 
                 <p class="comment-label">
@@ -358,6 +366,9 @@
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:PALE CONJUNCTIVA" style="checkbox"/>
                 </p>
+                 <p>
+                    <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:DYSPHAGIA" style="checkbox"/>
+                </p>
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:GOITER" style="checkbox"/>
                 </p>
@@ -365,12 +376,16 @@
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTORRHEA" style="checkbox"/>
                 </p>
                 <p>
+                    <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="CIEL:165501" style="checkbox"/>
+                </p>
+                <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:NASAL DISCHARGE" style="checkbox"/>
                 </p>
                <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                 &lt;br&gt;
+                 &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
@@ -379,6 +394,7 @@
                     <p>
                         <obs conceptId="CIEL:163045" rows="5" cols="45" />
                     </p>
+                    
                 </p>
             </div>
         </div>
@@ -476,7 +492,8 @@
                <p>
                     <obs class="abnormalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                 &lt;br&gt;
+            
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
@@ -525,11 +542,11 @@
                     <obs class="abnormalObs" conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                          answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                 &lt;br&gt;
+                 &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
-
                 <p class="comment-field">
                     <p>
                         <obs conceptId="CIEL:160947" rows="7" cols="45" />
@@ -563,6 +580,7 @@
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="CIEL:155579" answerLabel="Chronic pelvic pain" style="checkbox" />
                 </p>
                 </includeIf>
+                &lt;br&gt;
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
@@ -647,7 +665,7 @@
                  <p>
                     <obs class="abnormalObs" conceptId="PIH:MUSCULOSKELETAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
