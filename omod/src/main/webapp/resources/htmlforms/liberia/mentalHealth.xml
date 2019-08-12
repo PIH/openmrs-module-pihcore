@@ -437,55 +437,13 @@
                     <render concept="PIH:Conduct disorder" name="Conduct"/>
                     <render concept="PIH:Mental handicap" name="Intellect"/>
                     <render concept="PIH:DEMENTIA" name="Dementia"/>
+                    <render concept="PIH:ANXIETY DISORDER" name="Anxiety"/>
+                    <render concept="PIH:Post traumatic stress disorder" name="PTSD"/>
+                    <render concept="CIEL:130967" name="Panic"/>
+                    <render concept="PIH:DEPRESSION" name="Depression"/>
+                    <render concept="PIH:Manic episode" name="Manic"/>
+                    <render concept="PIH:Mood disorder" name="Mood"/>
                 </repeat>
-
-                <!-- Anxiety Disorder -->
-                <tr>
-                    <td id="Anxiety-dx" colspan="2">
-                        <obs conceptId="PIH:DIAGNOSIS"
-                             answerConceptId="PIH:ANXIETY DISORDER"
-                             style="checkbox"
-                             toggle="{id: 'anxiety-dx-types', style: 'hide'}" />
-                        <table id="anxiety-dx-types">
-                            <tr>
-                                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                    <td id="PTSD-dx"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:Post traumatic stress disorder" style="checkbox" toggle="{id: 'PTSD-dx-date', style: 'dim'}" /></td>
-                                    <td id="PTSD-dx-date"><obs conceptId="PIH:Diagnosis date" /></td>
-                                </obsgroup>
-                            </tr>
-                            <tr>
-                                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                    <td id="Panic-dx"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:130967" style="checkbox" toggle="{id: 'Panic-dx-date', style: 'dim'}" /></td>
-                                    <td id="Panic-dx-date"><obs conceptId="PIH:Diagnosis date" /></td>
-                                </obsgroup>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
-                <!-- Depression -->
-                <tr>
-                    <td id="Depression-dx" colspan="2">
-                        <obs conceptId="PIH:DIAGNOSIS"
-                             answerConceptId="PIH:DEPRESSION"
-                             style="checkbox"
-                             toggle="{id: 'depression-dx-types', style: 'hide'}" />
-                        <table id="depression-dx-types">
-                            <tr>
-                                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                    <td id="Manic-dx"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:Manic episode" style="checkbox" toggle="{id: 'Manic-dx-date', style: 'dim'}" /></td>
-                                    <td id="Manic-dx-date"><obs conceptId="PIH:Diagnosis date" /></td>
-                                </obsgroup>
-                            </tr>
-                            <tr>
-                                <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                    <td id="Mood-dx"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:Mood disorder" style="checkbox" toggle="{id: 'Mood-dx-date', style: 'dim'}" /></td>
-                                    <td id="Mood-dx-date"><obs conceptId="PIH:Diagnosis date" /></td>
-                                </obsgroup>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
 
                 <tr>
                     <td colspan="2"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:OTHER" style="checkbox" commentFieldLabel=" "/></td>
