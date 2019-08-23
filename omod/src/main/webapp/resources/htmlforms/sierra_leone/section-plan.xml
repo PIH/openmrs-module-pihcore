@@ -185,10 +185,10 @@
              headerCode="pihcore.familyPlanning.title">
         <div class="section-container-color">
             <p>
-                <obs conceptId="PIH:FAMILY PLANNING COMMENT" 
+                <obs conceptId="CIEL:1382" 
                 labelText="Offered and accepted Family Planning information"  
-                answers="PIH:YES,PIH:NO" 
-                answerLabels="Yes,No" 
+                answers="PIH:YES,PIH:NO,PIH:unknown" 
+                answerLabels="Yes,No,Unknown"
                 style="dropdown"
                 answerSeparator=""/>
             </p>
