@@ -138,7 +138,8 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         //properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
 
         // Lab Workflow OWA
-        properties.put("labworkflowowa.labResultsEncounterType","10db3139-07c0-4766-b4e5-a41b01363145"); // Specimen Collection Encounter (not Lab Results, potentially confusing)
+        properties.put("labworkflowowa.labResultsEntryEncounterType","10db3139-07c0-4766-b4e5-a41b01363145"); // Specimen Collection Encounter (not Lab Results, potentially confusing)
+        properties.put("labworkflowowa.labResultsEncounterTypes","10db3139-07c0-4766-b4e5-a41b01363145,4d77916a-0620-11e5-a6c0-1697f925ec7b"); // Specimen Collection Encounter and Lab Results (for display)
         properties.put("labworkflowowa.labResultsEncounterRole", EncounterRoleBundle.EncounterRoles.LAB_TECHNICIAN);
         properties.put("labworkflowowa.labResultsDateConcept","68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0");   // PIH:Date of test results
         properties.put("labworkflowowa.testOrderNumberConcept","393dec41-2fb5-428f-acfa-36ea85da6666");   // PIH:Test order number
@@ -152,8 +153,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("labworkflowowa.testOrderType", OrderTypes.TEST_ORDER.uuid());
 
         uninstall(possible(GlobalProperty.class, "labworkflowowa.specimenCollectionDateConcept"), "using encounter date instead");
-
-        uninstall(possible(GlobalProperty.class, "labworkflowowa.specimenCollectionDateConcept"), "using encounter date instead");
+        uninstall(possible(GlobalProperty.class, "labworkflowowa.labResultsEncounterType"), "using new lab result entry encounter type instead");
 
         setGlobalProperties(properties);
 
