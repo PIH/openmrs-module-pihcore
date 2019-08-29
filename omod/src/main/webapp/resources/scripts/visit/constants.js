@@ -457,8 +457,11 @@ angular.module('constants', [])
         testOrder: {
             uuid: "b3a0e3ad-b80c-4f3f-9626-ace1ced7e2dd"
         },
-        specimenCollection: {
+        pathologySpecimenCollection: {
             uuid: "10db3139-07c0-4766-b4e5-a41b01363145"
+        },
+        labSpecimenCollection: {
+            uuid: "39C09928-0CAB-4DBA-8E48-39C631FA4286"
         },
         artAdherence: {
             uuid: "c45d7299-ad08-4cb5-8e5d-e0ce40532939"

@@ -199,10 +199,16 @@ public class EncounterTypes {
 		public String description() { return "Test Order - the order of test (labs, biopsy, etc)"; }
 	};
 
-	public static EncounterTypeDescriptor SPECIMEN_COLLECTION  = new EncounterTypeDescriptor() {
+	public static EncounterTypeDescriptor PATHOLOGY_SPECIMEN_COLLECTION = new EncounterTypeDescriptor() {
 		public String uuid() { return "10db3139-07c0-4766-b4e5-a41b01363145"; }
-		public String name() { return "Specimen Collection"; }
-		public String description() { return "Specimen Collection - the collection of specimen for a test (blood draw, biopsy, etc)"; }
+		public String name() { return "Pathology Specimen Collection"; }
+		public String description() { return "Pathology Specimen Collection - the collection of a pathology specimen for a test (blood draw, biopsy, etc)"; }
+	};
+
+	public static EncounterTypeDescriptor LAB_SPECIMEN_COLLECTION = new EncounterTypeDescriptor() {
+		public String uuid() { return "39C09928-0CAB-4DBA-8E48-39C631FA4286"; }
+		public String name() { return "Lab Specimen Collection"; }
+		public String description() { return "Lab Specimen Collection - the collection of a lab specimen for a test (blood draw, biopsy, etc)"; }
 	};
 
 	public static EncounterTypeDescriptor ZL_HIV_INTAKE  = new EncounterTypeDescriptor() {

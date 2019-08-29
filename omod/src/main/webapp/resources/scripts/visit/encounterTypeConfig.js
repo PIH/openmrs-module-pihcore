@@ -724,11 +724,18 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-beaker"
         };
 
-        encounterTypeConfig[EncounterTypes.specimenCollection.uuid] = {
+        encounterTypeConfig[EncounterTypes.pathologySpecimenCollection.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/specimenCollectionLong.page",
+            longTemplate: "templates/encounters/pathologySpecimenCollectionLong.page",
             icon: "icon-beaker"
+        };
+
+        encounterTypeConfig[EncounterTypes.labSpecimenCollection.uuid] = {
+          defaultState: "short",
+          shortTemplate: "templates/encounters/defaultEncounterShort.page",
+          longTemplate: "templates/encounters/defaultEncounterLong.page",
+          icon: "icon-beaker"
         };
 
         // MCH/Prenatal
