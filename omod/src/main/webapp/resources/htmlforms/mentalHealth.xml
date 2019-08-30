@@ -118,6 +118,45 @@
         width: 95%;
         }
 
+        /* line 56, ../../../compass/sass/dispensing.scss */
+        fieldset.medication2 p.inline2 select {
+        width: 100px;
+        }
+        /* line 61, ../../../compass/sass/dispensing.scss */
+        fieldset.medication2 .select-arrow2 {
+        overflow: hidden;
+        }
+        /* line 64, ../../../compass/sass/dispensing.scss */
+        fieldset.medication2 .select-arrow2:after {
+        margin-top: 0;
+        }
+        /* line 68, ../../../compass/sass/dispensing.scss */
+        fieldset.medication2 .select-arrow2 select {
+        min-width: 0;
+        min-width: 70px;
+        padding-right: 19px;
+        padding-left: 5px;
+        }
+        /* line 76, ../../../compass/sass/dispensing.scss */
+        fieldset.medication2 .doseInput2 {
+        display: inline-block;
+        vertical-align: top;
+        }
+        /* line 80, ../../../compass/sass/dispensing.scss */
+        fieldset.medication2 .doseInput2 input, fieldset.medication .doseInput2 select {
+        display: inline;
+        min-width: 0;
+        }
+        /* line 85, ../../../compass/sass/dispensing.scss */
+        fieldset.medication2 .doseInput2 input {
+        display: block;
+        width: 50px;
+        }
+        /* line 90, ../../../compass/sass/dispensing.scss */
+        fieldset.medication2 .doseInput2 select {
+        width: 70px;
+        }
+
     </style>
 
     <ifMode mode="VIEW" include="false">
@@ -555,6 +594,7 @@
         </div>
     </section>
 
+    <!-- ToDo: Remove this section
     <section id="mh-meds" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.meds">
         <div class="section-container">
@@ -565,6 +605,99 @@
                              style="checkbox"/>
                 </repeat>
             </div>
+
+        </div>
+    </section>
+    -->
+
+    <section id="mh-meds-v2" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.visitNote.plan.medication">
+        <div class="section-container">
+            <table>
+                <tr>
+                    <th>
+                        <!--
+                        <uimessage code="pihcore.visitNote.plan.name"/>
+                        -->
+                    </th>
+                    <th colspan="2">
+                        <uimessage code="pihcore.visitNote.plan.dose"/>
+                    </th>
+                    <th>
+                        <uimessage code="pihcore.visitNote.plan.frequency"/>
+                    </th>
+                    <th colspan="2">
+                        <uimessage code="pihcore.visitNote.plan.duration"/>
+                    </th>
+                </tr>
+
+                <repeat>
+                    <template>
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Prescription construct">
+                                <td id="{name}-rx">
+                                    <obs conceptId="PIH:Mental health medication"
+                                         answerDrugId="{drug}"
+                                         style="checkbox"
+                                         toggle="{id: '{name}-rx-dose', style: 'dim'}" class="medication-checkbox"/>
+                                </td>
+                                <td id="{name}-rx-dose">
+                                    <obs id="dose-{name}" class="doseInput" conceptId="CIEL:160856"/>
+                                </td>
+                                <td id="{name}-rx-dose-unit">
+                                    <obs id="doseUnit-{name}" class="doseInput select-arrow"
+                                         conceptId="PIH:Dosing units coded"
+                                         answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
+                                         answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
+                                </td>
+                                <td id="{name}-rx-frequency">
+                                    <obs id="frequencyCoded-{name}" class="frequency select-arrow"
+                                         conceptId="PIH:Drug frequency for HUM"
+                                         answerConceptIds=
+                                                 "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
+                                         answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other"/>
+                                </td>
+                                <td id="{name}-rx-duration">
+                                    <obs id="duration-{name}" class="duration doseInput" conceptId="CIEL:159368"/>
+                                </td>
+                                <td id="{name}-rx-duration-unit">
+                                    <obs id="durationUnit-{name}" class="duration-unit select-arrow"
+                                         conceptId="PIH:TIME UNITS"
+                                         answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                                </td>
+                            </obsgroup>
+                        </tr>
+                    </template>
+
+                    <render drug="4ec74967-47e6-4f6d-882b-8c2efd466a7b" name="FluoxetineHCl20mgc"/>
+                    <render drug="7f7178bd-a1f8-44dd-85a9-02e49065e56b" name="FluoxetineHCl20mgt"/>
+                    <render drug="5edb194a-70bf-4fbf-b2ca-4dce586af7f3" name="AmitryptilineHCl25t"/>
+                    <render drug="4eb3c71f-b716-4f01-beb7-394cebd6c191" name="PhenobarbAmpule"/>
+                    <render drug="34dd5905-c28d-4cf8-8ebe-0b83e5093e17" name="PhenytoinNa100t"/>
+                    <render drug="d8297181-0a3f-48fc-89c5-cc283e5a8d42" name="PhenytoinNa50a"/>
+                    <render drug="03818046-358b-4b90-a91b-24913dd32459" name="Risperidone1mgt"/>
+                    <render drug="7dffc3c0-d5f6-4887-8fe7-dcaa2a473590" name="Risperidone3mgt"/>
+                    <render drug="c1f95407-9517-4eb5-af8d-d633293f4793" name="Haloperidol1mgt"/>
+                    <render drug="23f2d94b-3072-4e86-b737-d5ccded81bc0" name="Haloperidol5mgt"/>
+                    <render drug="a8541367-1eb0-4144-9cc7-41a909902d5d" name="Haloperidol5mgmLa"/>
+                    <render drug="39d7a7ee-b0ff-48e0-a7ca-685688147c8f" name="Diazepam5mgt"/>
+                    <render drug="923e3e90-8b5c-4ae6-b17f-b6d547803437" name="Diazepam5mga"/>
+                    <render drug="29c41917-38b4-492b-8181-0945c171a72d" name="Carbamazepine100mg"/>
+                    <render drug="e371d811-d32c-4f6e-8493-2fa667b7b44c" name="Carbamazepine200mgt"/>
+                    <render drug="b2b0d66a-4865-49fa-9af8-6d898f46dc78" name="SodiumValproate200mgt"/>
+                    <render drug="fc899af0-e745-4e60-ab06-3b3375333786" name="SodiumValproate500mgt"/>
+                    <render drug="d89a847c-1e50-471d-9219-f7ad71bafa7e" name="SodiumValproateSyrup"/>
+                    <render drug="81694757-3336-4195-ac6b-ea574b9b8597" name="DiphenhydramineHCl25mgt"/>
+                    <render drug="b476d417-800f-4e2e-89ec-09de8fd07607" name="DiphenhydramineHCl50mga"/>
+                    <render drug="6a2a96d1-c01f-48d3-b3b9-2741bce4e064" name="ChlorpromazineHCl25mgt"/>
+                    <render drug="ed2ebd08-2f59-4f74-80ad-d69d123035ee" name="Carbidopa25mg-Levodopa250mgt"/>
+                    <render drug="c18e751c-1ec5-420b-8ba7-68a22c5d1acc" name="Trihexyphenidyl5mgt"/>
+                    <!-- ToDo:  Are these used?  Different name?
+                        <render concept="PIH:IMIPRAMINE" name="Imipramine"/>
+                        <render concept="PIH:FLUPHENAZINE" name="Fluphenazine"/>
+                    -->
+                </repeat>
+            </table>
 
             <br/>
             <p>
