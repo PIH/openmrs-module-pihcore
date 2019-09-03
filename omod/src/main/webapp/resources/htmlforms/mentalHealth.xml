@@ -36,13 +36,13 @@
     <style type="text/css">
 
         #who-when-where {
-        margin-bottom: 6px;
-        border-bottom: 1px solid #ccc;
+            margin-bottom: 6px;
+            border-bottom: 1px solid #ccc;
         }
 
         #who-when-where p {
-        display: inline-block;
-        padding-right: 20px;
+            display: inline-block;
+            padding-right: 20px;
         }
 
         #where > input[type=text] {
@@ -180,6 +180,26 @@
                 getField('encounterDate.value').change(setMinReturnVisitDate);
 
                 setMinReturnVisitDate();
+
+                $('.medication-checkbox > input:checkbox').each(function(idx, it){
+                    if($(it).not(':checked')){
+                        $(it).closest("td").siblings().find(":input").each(function(i, el){
+                            $(el).attr("disabled", "disabled");
+                        });
+                    }
+
+                    $(it).change(function(){
+                        if($(this).is(':checked')){
+                            $(this).closest("td").siblings().find(":input").each(function(i, el){
+                                $(el).removeAttr("disabled");
+                            });
+                        } else {
+                            $(this).closest("td").siblings().find(":input").each(function(i, el){
+                                $(el).val('').attr("disabled", "disabled");
+                            });
+                        }
+                    });
+                });
             });
 
         </script>
