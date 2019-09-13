@@ -6,6 +6,7 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.pihcore.deploy.bundle.core.GlobalPropertiesBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoEncounterTypes;
@@ -47,6 +48,10 @@ public class SierraLeoneMetadataBundle extends AbstractMetadataBundle {
         setGlobalProperties(properties);
 
         properties.put(OpenmrsConstants.GLOBAL_PROPERTY_LOCALE_ALLOWED_LIST, ALLOWED_LOCALES);
+
+        // EMR API: most global properties have been moved to metadata mappings, but not the diagnoses set(s)
+        // ToDo:  This will use the Haiti diagnoses for SL, but there should be a new set specifically for SL
+        properties.put(EmrApiConstants.GP_DIAGNOSIS_SET_OF_SETS, GlobalPropertiesBundle.Concepts.HAITI_DIAGNOSIS_SET_OF_SETS);
 
         // Core Apps
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, Locations.UNKNOWN.uuid());
