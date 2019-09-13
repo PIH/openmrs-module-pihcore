@@ -78,6 +78,8 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, slLocations);
+        setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, slLocations);
+        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, slLocations);
     }
 
     private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
