@@ -85,7 +85,7 @@ public class LocationTagSetup {
     private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
 
         if (config.getSite().equals(ConfigDescriptor.Site.CES_CLOUD)) {
-            List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.SURGERY);
+            List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.HOSPITAL);
             setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, cloudLocations);
             setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, cloudLocations);
             setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, cloudLocations);

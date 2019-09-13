@@ -86,6 +86,14 @@ public class MexicoLocations {
 
     // Served from cloud instance //
 
+    public static LocationDescriptor HOSPITAL = new LocationDescriptor() {
+        public String uuid() { return "8bb35919-daff-412f-868c-9db7a0c2bac4"; }
+        public String name() { return "Hospital"; }
+        public String description() { return "Hospital"; }
+        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
+    };
+
+    // UNINSTALLED
     public static LocationDescriptor SURGERY = new LocationDescriptor() {
         public String uuid() { return "78a18ed4-c798-4f47-a0f1-7e483c89da37"; }
         public String name() { return "Surgery"; }
@@ -93,7 +101,6 @@ public class MexicoLocations {
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
     };
 
-    // UNINSTALLED
     public static LocationDescriptor JALTENANGO = new LocationDescriptor() {
         public String uuid() { return "8be98d12-848d-11e8-9d02-74e5f9828fde"; }
         public String name() { return "Jaltenango"; }
