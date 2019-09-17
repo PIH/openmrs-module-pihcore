@@ -714,20 +714,24 @@
                             </label>
                             <obs conceptId="PIH:COPD group classification" style="radio"
                                  answerConceptIds="CIEL:165441,CIEL:165442,CIEL:165443,CIEL:165444"
-                                 answerCodes="Grade A,Grade B,Grade C,Grade D"
+                                 answerCodes="pihcore.gradeA,pihcore.gradeB,pihcore.gradeC,pihcore.gradeD"
                                  answerSeparator=""/>
                         </td>
                         <td colspan="3">
                             <dl>
                                 <repeat with="['A'],['B'],['C'],['D']">
                                     <dt>
-                                        <uimessage code="Grade {0}"/>
+                                        <uimessage code="pihcore.grade{0}"/>
                                     </dt>
                                     <dd>
                                         <uimessage code="pihcore.ncd.copdGrade{0}"/>
                                     </dd>
                                 </repeat>
                             </dl>
+                            <label>
+                                <uimessage code="pihcore.ncd.laba"/><br/>
+                                <uimessage code="pihcore.ncd.lama"/>
+                            </label>
                         </td>
                     </tr>
 
