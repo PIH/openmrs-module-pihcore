@@ -6,7 +6,7 @@
     </div>
 
     <div ng-repeat="encounter in visit.encounters | filter:{voided:false}">
-        <encounter encounter="encounter" visit="visit" selected="encounter.uuid == encounterUuid" encounter-date-format="encounterDateFormat" expand-on-load="true"></encounter>
+        <encounter encounter="encounter" visit="visit" selected="encounter.uuid == encounterUuid" encounter-date-format="encounterDateFormat" country="country" site="site"></encounter>
     </div>
 
 </span>

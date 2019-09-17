@@ -72,8 +72,10 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             .value('visitUuid', ${ visit?.uuid ? "'" + visit.uuid + "'" : null})
             .value('encounterUuid', ${ encounter?.uuid ? "'" + encounter.uuid + "'" : null})
             .value('locale', '${ locale }')
-            .value('currentSection', ${ goToNextSection ? "'" + goToNextSection + "'" : null});
-    angular.bootstrap("#visit-app", [ "visit" ])
+            .value('currentSection', ${ goToNextSection ? "'" + goToNextSection + "'" : null})
+            .value('country', '${ country }')
+            .value('site', '${ site }');
+    angular.bootstrap("#visit-app", [ "visit" ]);
 
     jq(function() {
         // make sure we reload the page if the location is changes; this custom event is emitted by by the location selector in the header
