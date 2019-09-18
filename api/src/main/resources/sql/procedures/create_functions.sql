@@ -5,9 +5,9 @@
 /*
  get concept_id from report_mapping table
 */
-DROP FUNCTION IF EXISTS concept_with_mapping;
+DROP FUNCTION IF EXISTS concept_from_mapping;
 #
-CREATE FUNCTION concept_with_mapping(
+CREATE FUNCTION concept_from_mapping(
 	_source varchar(50),
     _code varchar(255)
 )
@@ -29,7 +29,8 @@ get names from the concept_name table
 DROP FUNCTION IF EXISTS concept_name;
 #
 CREATE FUNCTION concept_name(
-    _conceptID INT
+    _conceptID INT,
+    _locale varchar(50)
 )
 	RETURNS VARCHAR(255)
     DETERMINISTIC
@@ -37,11 +38,10 @@ CREATE FUNCTION concept_name(
 BEGIN
     DECLARE conceptName varchar(255);
 
-	SELECT name INTO conceptName FROM concept_name WHERE voided = 0 AND locale = "en" AND concept_name_type
-    = "FULLY_SPECIFIED" and concept_id = _conceptID;
+	SELECT name INTO conceptName FROM concept_name WHERE voided = 0 AND concept_id = _conceptID AND locale = _locale AND concept_name_type
+    = "FULLY_SPECIFIED";
 
     RETURN conceptName;
-
 END
 #
 
@@ -103,8 +103,8 @@ CREATE FUNCTION zlemr(
 BEGIN
     DECLARE  zlEMR VARCHAR(255);
 
-	SELECT pid.identifier into zlEMR from patient_identifier pid where voided = 0 and pid.identifier_type = (select pid2.patient_identifier_type_id from patient_identifier_type pid2 where
- pid2.name = 'ZL EMR ID') and patient_id = _patient_id;
+    SELECT pid.identifier into zlEMR from patient_identifier pid where voided = 0 and pid.identifier_type = (select pid2.patient_identifier_type_id from patient_identifier_type pid2 where
+pid2.name = 'ZL EMR ID') and patient_id = _patient_id order by preferred desc limit 1;
 
     RETURN zlEMR;
 
@@ -169,7 +169,7 @@ BEGIN
     DECLARE patientAddress TEXT;
 
 	select concat(IFNULL(state_province,''), ',' ,IFNULL(city_village,''), ',', IFNULL(address3,''), ',', IFNULL(address1,''), ',',IFNULL(address2,'')) into patientAddress
-    from person_address where voided = 0 and person_id = _patient_id;
+    from person_address where voided = 0 and person_id = _patient_id order by preferred desc, date_created desc limit 1;
 
     RETURN patientAddress;
 
