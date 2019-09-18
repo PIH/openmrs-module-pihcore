@@ -79,11 +79,13 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     visit: "=",
                     selected: '=',
                     encounterDateFormat: "=",
-                    expandOnLoad: "="
+                    expandOnLoad: "=",
+                    country: "=",
+                    site: "="
                 },
                 controller: ["$scope", function($scope) {
 
-                    var config = EncounterTypeConfig[$scope.encounter.encounterType.uuid];
+                    var config = EncounterTypeConfig.get($scope.encounter.encounterType.uuid, $scope.country, $scope.site);
 
                     $scope.DatetimeFormats = DatetimeFormats;
                     $scope.Concepts = Concepts;
@@ -467,10 +469,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        "visitUuid", "patientUuid", "encounterUuid", "locale", "currentSection", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
+        "visitUuid", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, patientUuid, encounterUuid,
-                 locale, currentSection, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts) {
+                 locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts) {
 
             // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
             if (currentSection && encounterUuid) {
@@ -492,6 +494,9 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 $scope.patientUuid = patientUuid;
                 $scope.encounterUuid = encounterUuid;
 
+                $scope.country = country;
+                $scope.site = site;
+
                 $scope.printButtonDisabled = false;
                 $scope.allExpanded = false;
 
@@ -512,7 +517,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 }).
                     $promise.then(function(visit) {
                         var encounter = _.find(visit.encounters, function(encounter) { return encounter.uuid === encounterUuid} );
-                        var sections =  $filter('allowedWithContext')(EncounterTypeConfig[encounter.encounterType.uuid].sections, visit);
+                        var sections =  $filter('allowedWithContext')(EncounterTypeConfig.get(encounter.encounterType.uuid, country, site).sections, visit);
 
                         var redirectToSectionIdx = 0;
 
@@ -606,7 +611,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
 
             $rootScope.$on("request-view-encounter", function(event, encounter) {
-                var config = EncounterTypeConfig[encounter.encounterType.uuid];
+                var config = EncounterTypeConfig.get(encounter.encounterType.uuid, country, site);
                 if (config.viewUrl) {
                     var url = Handlebars.compile(config.viewUrl)({
                         patient: encounter.patient,
@@ -620,7 +625,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             });
 
             $rootScope.$on("request-edit-encounter", function(event, encounter) {
-                var config = EncounterTypeConfig[encounter.encounterType.uuid];
+                var config = EncounterTypeConfig.get(encounter.encounterType.uuid, country, site);
                 if (config.editUrl) {
                     var url = Handlebars.compile(config.editUrl)({
                         patient: encounter.patient,

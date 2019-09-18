@@ -6,6 +6,7 @@ import org.openmrs.Visit;
 import org.openmrs.api.VisitService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.ui.framework.MissingRequiredParameterException;
 import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class VisitPageController {
 
     public void get(@SpringBean("visitService") VisitService visitService,
+                    @SpringBean("config") Config config,
                     @InjectBeans PatientDomainWrapper patientDomainWrapper,
                     @RequestParam(required = false, value = "patient") Patient patient,
                     @RequestParam(required = false, value = "visit") Visit visit,
@@ -50,6 +52,8 @@ public class VisitPageController {
         model.addAttribute("visit", visit);
         model.addAttribute("encounter", encounter);
         model.addAttribute("locale", uiSessionContext.getLocale());
+        model.addAttribute("country", config.getCountry().toString().toLowerCase());
+        model.addAttribute("site", config.getSite().toString().toLowerCase());
         model.addAttribute("goToNextSection", goToNextSection);
     }
 
