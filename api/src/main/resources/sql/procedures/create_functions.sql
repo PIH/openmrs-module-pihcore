@@ -21,7 +21,7 @@ provider(patient_id)
 */
 #
 DROP FUNCTION IF EXISTS concept_from_mapping;
-
+#
 CREATE FUNCTION concept_from_mapping(
 	_source varchar(50),
     _code varchar(255)
