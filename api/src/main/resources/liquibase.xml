@@ -480,7 +480,7 @@
         </sql>
     </changeSet>
 
-    <changeSet id="pihcore-create-functions" author="jmbabazi" runAlways="true" runOnChange="true">
+    <changeSet id="20190920-pihcore-create-functions" author="jmbabazi" runAlways="true" runOnChange="true">
         <sqlFile endDelimiter="#" path="sql/procedures/create_functions.sql" stripComments="true" />
     </changeSet>
 

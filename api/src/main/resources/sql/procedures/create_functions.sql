@@ -1,12 +1,27 @@
 /*
-  This file contains common functions that are useful within the stored procedures defined in this folder
+  This file contains common functions that are useful writing reports
+*/
+
+/*
+How to use the fuctions
+concept_from_mapping('source', 'code')
+concept_name(concept_id, 'locale')
+encounter_type(patient_id)
+age_at_enc(person_id)
+zlemr(patient_id)
+unknown_patient(patient_id)
+gender(patient_id)
+person_address(patient_id)
+loc_registered(patient)
+provider(patient_id)
 */
 
 /*
  get concept_id from report_mapping table
 */
-DROP FUNCTION IF EXISTS concept_from_mapping;
 #
+DROP FUNCTION IF EXISTS concept_from_mapping;
+
 CREATE FUNCTION concept_from_mapping(
 	_source varchar(50),
     _code varchar(255)
@@ -197,5 +212,24 @@ and identifier_type = (select pid2.patient_identifier_type_id from patient_ident
 
     RETURN locRegistered;
 
+END
+#
+
+DROP FUNCTION IF EXISTS provider;
+#
+CREATE FUNCTION provider (
+    _encounter_id int
+) 
+	RETURNS varchar(255)
+    DETERMINISTIC
+BEGIN
+    DECLARE providerName varchar(255);
+
+select CONCAT(given_name, ' ', family_name) into providerName
+from person_name pn join provider pv on pn.person_id = pv.person_id AND pn.voided = 0 
+join encounter_provider ep on pv.provider_id = ep.provider_id and ep.voided = 0 and ep.encounter_id = _encounter_id;
+    
+    RETURN providerName;
+    
 END
 #
