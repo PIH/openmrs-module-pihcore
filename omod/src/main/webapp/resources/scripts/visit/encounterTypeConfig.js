@@ -100,31 +100,6 @@ angular.module("encounterTypeConfig", ["constants"])
             require: "patientAgeInYearsOnDate(visit.startDatetime) < 15"
         };
 
-        // ToDo: Remove this section.  It was combined with supplements
-        /*
-        var feeding = {
-            type: "encounter-section",
-            id: "pihcore-feeding",
-            label: "pihcore.feeding.history.label",
-            icon: "icon-food",
-            shortTemplate: "templates/sections/feedingSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds-feeding.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds-feeding.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var supplements = {
-            type: "encounter-section",
-            id: "pihcore-supplements",
-            label: "pihcore.supplements.history.label",
-            icon: "icon-asterisk",
-            shortTemplate: "templates/sections/supplementsSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds-supplements.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds-supplements.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-        */
-
         var primaryCareDx = {
             type: "encounter-section",
             id: "pihcore-diagnosis",
@@ -305,8 +280,40 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-delivery.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
-        /* Define Encounter Types */
-        var encounterTypeConfig = {
+        /**
+         * Define Encounter Types
+         * Should support all of the following formats:
+         *
+         * encounterTypes['some-uuid'] = {
+         *    // single config
+         * }
+         *
+         * encounterTypes['some-uuid'] = {
+         *    DEFAULT: {
+         *      // default config
+         *    }
+         *    SPECIFIC_COUNTRY: {
+         *      // specific country config
+         *    }
+         * }
+         *
+         *
+         * encounterTypes['some-uuid'] = {
+         *    DEFAULT: {
+         *      // default config
+         *    }
+         *    SPECIFIC_COUNTRY: {
+         *      DEFAULT: {
+         *        // specific country config
+         *      }
+         *      SPECIFIC_SITE: {
+         *        // specific site config
+         *      }
+         *    }
+         * }
+         **/
+
+        var encounterTypes = {
             DEFAULT: {
                 defaultState: "short",
                 shortTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -316,13 +323,13 @@ angular.module("encounterTypeConfig", ["constants"])
             }
         };
 
-        encounterTypeConfig[EncounterTypes.patientRegistration.uuid] = {  // should never appear on dashboard?
+        encounterTypes[EncounterTypes.patientRegistration.uuid] = {  // should never appear on dashboard?
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page"
         };
 
-        encounterTypeConfig[EncounterTypes.checkIn.uuid] = {
+        encounterTypes[EncounterTypes.checkIn.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/checkInShort.page",
             longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
@@ -331,7 +338,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeSimpleEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.vitals.uuid] = {
+        encounterTypes[EncounterTypes.vitals.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/vitalsShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -340,7 +347,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeSimpleEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.consultation.uuid] = {
+        encounterTypes[EncounterTypes.consultation.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/clinicConsultLong.page",
@@ -349,7 +356,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        encounterTypeConfig[EncounterTypes.primaryCarePedsInitialConsult.uuid] = {
+        encounterTypes[EncounterTypes.primaryCarePedsInitialConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view, instead there are individual sections
@@ -366,7 +373,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.primaryCarePedsFollowupConsult.uuid] = {
+        encounterTypes[EncounterTypes.primaryCarePedsFollowupConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
@@ -383,7 +390,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.primaryCareAdultInitialConsult.uuid] = {
+        encounterTypes[EncounterTypes.primaryCareAdultInitialConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
@@ -398,7 +405,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.primaryCareAdultFollowupConsult.uuid] = {
+        encounterTypes[EncounterTypes.primaryCareAdultFollowupConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
@@ -413,7 +420,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.ncdInitialConsult.uuid] = {
+        encounterTypes[EncounterTypes.ncdInitialConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -431,7 +438,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.ncdFollowupConsult.uuid] = {
+        encounterTypes[EncounterTypes.ncdFollowupConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -447,7 +454,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.echocardiogramConsult.uuid] = {
+        encounterTypes[EncounterTypes.echocardiogramConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -458,7 +465,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         // ToDo: Replace the icon and add more sections
-        encounterTypeConfig[EncounterTypes.zlHivIntake.uuid] = {
+        encounterTypes[EncounterTypes.zlHivIntake.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
@@ -480,7 +487,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         // ToDo: Replace the icon and add sections
-        encounterTypeConfig[EncounterTypes.zlHivFollowup.uuid] = {
+        encounterTypes[EncounterTypes.zlHivFollowup.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
@@ -497,7 +504,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.oncologyConsult.uuid] = {
+        encounterTypes[EncounterTypes.oncologyConsult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -507,7 +514,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        encounterTypeConfig[EncounterTypes.oncologyInitialVisit.uuid] = {
+        encounterTypes[EncounterTypes.oncologyInitialVisit.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -517,7 +524,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        encounterTypeConfig[EncounterTypes.chemotherapySession.uuid] = {
+        encounterTypes[EncounterTypes.chemotherapySession.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -527,7 +534,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        encounterTypeConfig[EncounterTypes.medicationDispensed.uuid] = {
+        encounterTypes[EncounterTypes.medicationDispensed.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -536,7 +543,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.postOperativeNote.uuid] = {
+        encounterTypes[EncounterTypes.postOperativeNote.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -547,7 +554,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        encounterTypeConfig[EncounterTypes.transfer.uuid] = {
+        encounterTypes[EncounterTypes.transfer.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
@@ -555,7 +562,7 @@ angular.module("encounterTypeConfig", ["constants"])
             icon: "icon-share",
             editUrl: hfeStandardEditUrl
         };
-        encounterTypeConfig[EncounterTypes.admission.uuid] = {
+        encounterTypes[EncounterTypes.admission.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/admissionLong.page",
@@ -563,7 +570,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.cancelAdmission.uuid] = {
+        encounterTypes[EncounterTypes.cancelAdmission.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -572,14 +579,14 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.exitFromCare.uuid] = {
+        encounterTypes[EncounterTypes.exitFromCare.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             icon: "icon-signout",
             editUrl: hfeStandardEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.labResults.uuid] = {
+        encounterTypes[EncounterTypes.labResults.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -588,28 +595,28 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeSimpleEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.radiologyOrder.uuid] = {
+        encounterTypes[EncounterTypes.radiologyOrder.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-x-ray"
         };
 
-        encounterTypeConfig[EncounterTypes.radiologyStudy.uuid] = {
+        encounterTypes[EncounterTypes.radiologyStudy.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-x-ray"
         };
 
-        encounterTypeConfig[EncounterTypes.radiologyReport.uuid] = {
+        encounterTypes[EncounterTypes.radiologyReport.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
             icon: "icon-x-ray"
         };
 
-        encounterTypeConfig[EncounterTypes.deathCertificate.uuid] = {
+        encounterTypes[EncounterTypes.deathCertificate.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -620,7 +627,7 @@ angular.module("encounterTypeConfig", ["constants"])
 
         // because of a bug, we manually append the defintionUiResource to the template and edit urls
         // see: https://tickets.pih-emr.org/browse/UHM-2524
-        encounterTypeConfig[EncounterTypes.mentalHealth.uuid] = {
+        encounterTypes[EncounterTypes.mentalHealth.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -632,7 +639,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         // HIV forms from MSPP and iSantePlus
-        encounterTypeConfig[EncounterTypes.artAdherence.uuid] = {
+        encounterTypes[EncounterTypes.artAdherence.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -641,7 +648,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml",
             showOnVisitList: true
         };
-        encounterTypeConfig[EncounterTypes.hivIntakeAdult.uuid] = {
+        encounterTypes[EncounterTypes.hivIntakeAdult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -650,7 +657,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml",
             showOnVisitList: true
         };
-        encounterTypeConfig[EncounterTypes.hivIntakePeds.uuid] = {
+        encounterTypes[EncounterTypes.hivIntakePeds.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -659,7 +666,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml",
             showOnVisitList: true
         };
-        encounterTypeConfig[EncounterTypes.hivFollowupAdult.uuid] = {
+        encounterTypes[EncounterTypes.hivFollowupAdult.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -668,7 +675,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml",
             showOnVisitList: true
         };
-        encounterTypeConfig[EncounterTypes.hivFollowupPeds.uuid] = {
+        encounterTypes[EncounterTypes.hivFollowupPeds.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -679,7 +686,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         // CT
-        encounterTypeConfig[EncounterTypes.vct.uuid] = {
+        encounterTypes[EncounterTypes.vct.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -690,7 +697,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         // Socio-economics (socioEcon)
-        encounterTypeConfig[EncounterTypes.socioEconomics.uuid] = {
+        encounterTypes[EncounterTypes.socioEconomics.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -700,7 +707,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        encounterTypeConfig[EncounterTypes.primaryCareVisit.uuid] = {
+        encounterTypes[EncounterTypes.primaryCareVisit.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -709,7 +716,7 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl
         };
 
-        encounterTypeConfig[EncounterTypes.edTriage.uuid] = {
+        encounterTypes[EncounterTypes.edTriage.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/edTriageShort.page",
             icon: "icon-ambulance",
@@ -717,21 +724,21 @@ angular.module("encounterTypeConfig", ["constants"])
             viewUrl: "edtriageapp/edtriageEditPatient.page?editable=false&patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-        encounterTypeConfig[EncounterTypes.testOrder.uuid] = {
+        encounterTypes[EncounterTypes.testOrder.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/testOrderLong.page",
             icon: "icon-beaker"
         };
 
-        encounterTypeConfig[EncounterTypes.pathologySpecimenCollection.uuid] = {
+        encounterTypes[EncounterTypes.pathologySpecimenCollection.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/pathologySpecimenCollectionLong.page",
             icon: "icon-beaker"
         };
 
-        encounterTypeConfig[EncounterTypes.labSpecimenCollection.uuid] = {
+        encounterTypes[EncounterTypes.labSpecimenCollection.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
           longTemplate: "templates/encounters/defaultEncounterLong.page",
@@ -739,7 +746,8 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         // MCH/Prenatal
-        encounterTypeConfig[EncounterTypes.ancIntake.uuid] = {
+        encounterTypes[EncounterTypes.ancIntake.uuid] = {
+          DEFAULT: {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -747,13 +755,27 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                ancInitial,
-                ancVaccinations,
-                primaryCareDx
+              ancInitial,
+              ancVaccinations,
+              primaryCareDx
             ]
+          },
+          'sierra_leone': {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "icon-gift",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+              cloneSectionAndUpdateCountryPathInUrls(ancInitial, "sierra_leone"),
+              ancVaccinations,
+              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone")
+            ]
+          }
         };
 
-        encounterTypeConfig[EncounterTypes.vaccination.uuid] = {
+        encounterTypes[EncounterTypes.vaccination.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/vaccination/chVaccinations.page",
@@ -762,7 +784,8 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
 
-        encounterTypeConfig[EncounterTypes.ancFollowup.uuid] = {
+        encounterTypes[EncounterTypes.ancFollowup.uuid] = {
+          DEFAULT: {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -770,13 +793,12 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                ancFollowup,
-                ancVaccinations,
-                primaryCareDx
+              ancFollowup,
+              ancVaccinations,
+              primaryCareDx
             ]
-        };
-
-        encounterTypeConfig[EncounterTypes.delivery.uuid] = {
+          },
+          'sierra_leone': {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -784,12 +806,42 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
-                delivery,
-                primaryCareDx
+              cloneSectionAndUpdateCountryPathInUrls(ancFollowup, "sierra_leone"),
+              ancVaccinations,
+              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone")
             ]
+          }
         };
 
-        encounterTypeConfig[EncounterTypes.mexicoConsult.uuid] = {
+        encounterTypes[EncounterTypes.delivery.uuid] = {
+          DEFAULT: {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "icon-gift",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+              delivery,
+              primaryCareDx
+            ]
+          },
+          'sierra_leone': {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "icon-gift",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+              cloneSectionAndUpdateCountryPathInUrls(delivery, "sierra_leone"),
+              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone")
+            ]
+          }
+        };
+
+        // TODO change Mexico and Sierra Leone consults to use standard outpatient encounter types now that we support multiple configs per encounter type?
+        encounterTypes[EncounterTypes.mexicoConsult.uuid] = {
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
@@ -799,7 +851,7 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true
         };
 
-        encounterTypeConfig[EncounterTypes.sierraLeoneOutpatientInitial.uuid] = {
+        encounterTypes[EncounterTypes.sierraLeoneOutpatientInitial.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -816,7 +868,7 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        encounterTypeConfig[EncounterTypes.sierraLeoneOutpatientFollowup.uuid] = {
+        encounterTypes[EncounterTypes.sierraLeoneOutpatientFollowup.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -833,5 +885,26 @@ angular.module("encounterTypeConfig", ["constants"])
             ]
         };
 
-        return encounterTypeConfig;
+        return {
+          get: function(uuid, country, site) {
+            var encounterType = encounterTypes[uuid];
+
+            if (encounterType == null) {
+              return null;
+            }
+
+            if (encounterType.hasOwnProperty(country)) {
+               if (encounterType[country].hasOwnProperty(site)) {
+                 return encounterType[country][site];
+               }
+               else {
+                 return encounterType[country].hasOwnProperty('DEFAULT') ?
+                   encounterType[country]['DEFAULT'] : encounterType[country];
+               }
+            }
+
+            return encounterType.hasOwnProperty(['DEFAULT']) ?
+              encounterType['DEFAULT'] : encounterType;
+          }
+        };
     }]);

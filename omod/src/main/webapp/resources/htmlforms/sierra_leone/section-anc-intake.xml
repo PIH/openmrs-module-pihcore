@@ -217,7 +217,7 @@
             <div class="two-columns">
                 <p>
                     <label>
-                        <uimessage code="pihcore.mch.mothersGroupID" />&amp;nbsp;(ie. A03, B12, etc)
+                        Wellbody <uimessage code="pihcore.mch.mothersGroupID" />&amp;nbsp;(ie. A03, B12, etc)
                     </label>
                     <!-- ToDo:  Add suggested value of A01 or B01 -->
                     <span class="small">
