@@ -56,10 +56,17 @@ public class MexicoLocations {
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
     };
 
-    public static LocationDescriptor PLAN_DE_LA_LIBERTAD = new LocationDescriptor() {
-        public String uuid() { return "aa4bb709-8535-11e8-9d02-74e5f9828fde"; }
-        public String name() { return "Plan de la Libertad"; }
-        public String description() { return "Plan de la Libertad"; }
+    public static LocationDescriptor PLAN_ALTA = new LocationDescriptor() {
+        public String uuid() { return "06109e0d-4a83-4f02-be62-8175bf04f8f0"; }
+        public String name() { return "Plan Alta"; }
+        public String description() { return "Plan de la Libertad, Alta"; }
+        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
+    };
+
+    public static LocationDescriptor PLAN_BAJA = new LocationDescriptor() {
+        public String uuid() { return "e1ae1851-1611-42c1-8b99-f4b719faedc1"; }
+        public String name() { return "Plan Baja"; }
+        public String description() { return "Plan de la Libertad, Baja"; }
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
     };
 
@@ -105,6 +112,13 @@ public class MexicoLocations {
         public String uuid() { return "8be98d12-848d-11e8-9d02-74e5f9828fde"; }
         public String name() { return "Jaltenango"; }
         public String description() { return "Jaltenango, the CES main office location"; }
+        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
+    };
+
+    public static LocationDescriptor PLAN_DE_LA_LIBERTAD = new LocationDescriptor() {
+        public String uuid() { return "aa4bb709-8535-11e8-9d02-74e5f9828fde"; }
+        public String name() { return "Plan de la Libertad"; }
+        public String description() { return "Plan de la Libertad"; }
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
     };
 

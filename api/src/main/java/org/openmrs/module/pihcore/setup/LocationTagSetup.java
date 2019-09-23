@@ -84,29 +84,32 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
 
+        List<LocationTagDescriptor> clinicalLocationTags = Arrays.asList(
+                LocationTags.CONSULT_NOTE_LOCATION,
+                LocationTags.REGISTRATION_LOCATION,
+                LocationTags.VISIT_LOCATION,
+                LocationTags.VITALS_LOCATION,
+                LocationTags.LOGIN_LOCATION,
+                LocationTags.MEDICAL_RECORD_LOCATION,
+                LocationTags.PROVIDER_MANAGEMENT_LOCATION);
+
         if (config.getSite().equals(ConfigDescriptor.Site.CES_CLOUD)) {
             List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.HOSPITAL);
-            setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, cloudLocations);
-            setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, cloudLocations);
-            setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, cloudLocations);
-            setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, cloudLocations);
-            setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, cloudLocations);
-            setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, cloudLocations);
-            setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, cloudLocations);
-
+            for (LocationTagDescriptor tag : clinicalLocationTags) {
+                setLocationTagsFor(locationService, tag, cloudLocations);
+            }
+        } else if (config.getSite().equals(ConfigDescriptor.Site.PLAN_DE_LA_LIBERTAD)) {
+            List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.PLAN_ALTA, MexicoLocations.PLAN_BAJA);
+            for (LocationTagDescriptor tag : clinicalLocationTags) {
+                setLocationTagsFor(locationService, tag, cloudLocations);
+            }
         } else {
             // Get the current location -- each site only has one available
             Field locationField = MexicoLocations.class.getField(config.getSite().name());
             LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
-
-            setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, Arrays.asList(location));
-            setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(location));
-            setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
-            setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
-            setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
-            setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(location));
-            setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(location));
-            setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(location));
+            for (LocationTagDescriptor tag : clinicalLocationTags) {
+                setLocationTagsFor(locationService, tag, Arrays.asList(location));
+            }
         }
 
         // Location CHIAPAS only exists for ID generation

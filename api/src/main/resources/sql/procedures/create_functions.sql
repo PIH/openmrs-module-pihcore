@@ -41,6 +41,7 @@ END
 /*
 get names from the concept_name table
 */
+#
 DROP FUNCTION IF EXISTS concept_name;
 #
 CREATE FUNCTION concept_name(
@@ -63,6 +64,7 @@ END
 /*
 get names from the concept_name table
 */
+#
 DROP FUNCTION IF EXISTS encounter_type;
 #
 CREATE FUNCTION encounter_type(
@@ -85,6 +87,7 @@ END
 /*
  get patient age at encounter
 */
+#
 DROP FUNCTION IF EXISTS age_at_enc;
 #
 CREATE FUNCTION age_at_enc(
@@ -107,6 +110,7 @@ END
 /*
 get patient EMR ZL
 */
+#
 DROP FUNCTION IF EXISTS zlemr;
 #
 CREATE FUNCTION zlemr(
@@ -129,6 +133,7 @@ END
 /*
 unknown patient
 */
+#
 DROP FUNCTION IF EXISTS unknown_patient;
 #
 CREATE FUNCTION unknown_patient(
@@ -151,6 +156,7 @@ END
 /*
 gender
 */
+#
 DROP FUNCTION IF EXISTS gender;
 #
 CREATE FUNCTION gender(
@@ -172,6 +178,7 @@ END
 /*
  patient address
 */
+#
 DROP FUNCTION IF EXISTS person_address;
 #
 CREATE FUNCTION person_address(
@@ -194,7 +201,7 @@ END
 /*
   ZL EMR ID location
 */
-
+#
 DROP FUNCTION IF EXISTS loc_registered;
 #
 CREATE FUNCTION loc_registered(
@@ -214,7 +221,10 @@ and identifier_type = (select pid2.patient_identifier_type_id from patient_ident
 
 END
 #
-
+/*
+Provider
+*/
+#
 DROP FUNCTION IF EXISTS provider;
 #
 CREATE FUNCTION provider (
