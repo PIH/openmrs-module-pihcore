@@ -21,7 +21,8 @@ public class MexicoLocationsBundle extends AbstractMetadataBundle {
         install(MexicoLocations.LETRERO);
         install(MexicoLocations.MATAZANO);
         install(MexicoLocations.MONTERREY);
-        install(MexicoLocations.PLAN_DE_LA_LIBERTAD);
+        install(MexicoLocations.PLAN_ALTA);
+        install(MexicoLocations.PLAN_BAJA);
         install(MexicoLocations.REFORMA);
         install(MexicoLocations.SALVADOR);
         install(MexicoLocations.SOLEDAD);
@@ -29,5 +30,6 @@ public class MexicoLocationsBundle extends AbstractMetadataBundle {
 
         uninstall(possible(Location.class, MexicoLocations.JALTENANGO.uuid()), "not used");
         uninstall(possible(Location.class, MexicoLocations.SURGERY.uuid()), "not used");
+        uninstall(possible(Location.class, MexicoLocations.PLAN_DE_LA_LIBERTAD.uuid()), "was used; split into Alta and Baja");
     }
 }
