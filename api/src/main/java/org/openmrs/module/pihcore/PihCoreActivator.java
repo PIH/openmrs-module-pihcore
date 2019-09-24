@@ -99,7 +99,7 @@ public class PihCoreActivator extends BaseModuleActivator {
         }
         catch (Exception e) {
             Module mod = ModuleFactory.getModuleById("pihcore");
-            ModuleFactory.stopModule(mod);
+            ModuleFactory.stopModule(mod, true, true);
             throw new RuntimeException("failed to setup the required modules", e);
         }
 
