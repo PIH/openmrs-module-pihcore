@@ -341,6 +341,14 @@ public class MirebalaisLocations {
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.WOMENS_TRIAGE_LOCATION_CODE); }
 	};
 
+	public static LocationDescriptor NCD_CLINIC = new LocationDescriptor() {
+		public String uuid() { return "c39c020d-2f87-4234-8074-4b13a6cd74f8"; }
+		public String name() { return "Klinik MNT"; }
+		public String description() { return "The NCD clinic at Mirebalais Hospital."; }
+		public LocationDescriptor parent() { return MirebalaisLocations.MIREBALAIS_HOSPITAL; }
+		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.NCD_CLINIC_LOCATION_CODE); }
+	};
+
 	//***** CDI LOCATIONS *****
 
 	public static LocationDescriptor CDI_KLINIK_EKSTEN_JENERAL = new LocationDescriptor() {
