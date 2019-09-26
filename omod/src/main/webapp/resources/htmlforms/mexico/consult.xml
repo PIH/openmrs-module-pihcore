@@ -1046,6 +1046,24 @@
         </h1>
     </ifMode>
 
+    <script type="text/javascript">
+        // Hack to make "Confirmado" appear as "1a vez"
+        // See https://pihemr.atlassian.net/browse/MEX-459
+
+        $('body').on('DOMNodeInserted', 'div', function () {
+            const targetText = "1a vez";
+            const confirmedLabel = jq(jq('input[data-ng-model="d.confirmed"]')[0]).parent();
+            const confirmedText = $(confirmedLabel[0])
+                    .contents()
+                    .filter(function () {
+                        return this.nodeType == 3;  // this picks out the text content of the label
+                    })[1];
+            if(confirmedText !== undefined) {
+                confirmedText.textContent = "  " + targetText;  // add a couple spaces margin
+            }
+        });
+    </script>
+
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title">
         <div class="question-container">
             <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
