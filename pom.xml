@@ -10,13 +10,12 @@
 	<description>Core metadata and configuration included in all PIH distributions</description>
 	<url>https://wiki.openmrs.org/display/docs/PIH+Core+Module+Module</url>
 
-
 	<developers>
 		<developer>
 			<name>PIH</name>
 		</developer>
 	</developers>
-	
+
 	<organization>
 		<name>PIH</name>
 		<url>http://pih.org</url>
