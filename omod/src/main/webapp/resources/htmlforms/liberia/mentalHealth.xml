@@ -515,6 +515,22 @@
                 <obs conceptId="PIH:Medication comments (text)"/>
             </p>
 
+            <p class="list-inline">
+                <label>
+                    <uimessage code="pihcore.medication.side.effects"/>
+                </label>
+
+                <obs id="med-side-effects" conceptId="CIEL:165273" answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" >
+                    <controls>
+                        <when value="PIH:YES" thenDisplay = "#side-effect-section"/>
+                    </controls>
+                </obs>
+            </p>
+
+            <p id="side-effect-section">
+                <obs  id="" conceptId="CIEL:164377" type="text"/>
+            </p>
+
         </div>
     </section>
 
