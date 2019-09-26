@@ -417,10 +417,15 @@
                         <tr>
                             <obsgroup groupingConceptId="PIH:Visit Diagnoses">
                                 <td id="{name}-dx">
-                                    <obs conceptId="PIH:DIAGNOSIS"
+                                    <obs id="{name}-id"
+                                         conceptId="PIH:DIAGNOSIS"
                                          answerConceptId="{concept}"
                                          style="checkbox"
-                                         toggle="{id: '{name}-dx-date', style: 'dim'}"/>
+                                         toggle="{id: '{name}-dx-date', style: 'dim'}">
+                                        <controls>
+                                            <when value="PIH:EPILEPSY" thenJavaScript="$('#mh-epilepsy-section').toggle()"/>
+                                        </controls>
+                                    </obs>
                                 </td>
                                 <td id="{name}-dx-date">
                                     <obs conceptId="PIH:Diagnosis date"/>
@@ -437,6 +442,7 @@
                     <render concept="PIH:Conduct disorder" name="Conduct"/>
                     <render concept="PIH:Mental handicap" name="Intellect"/>
                     <render concept="PIH:DEMENTIA" name="Dementia"/>
+                    <render concept="PIH:EPILEPSY" name="Epilepsy"/>
                     <render concept="PIH:ANXIETY DISORDER" name="Anxiety"/>
                     <render concept="PIH:Post traumatic stress disorder" name="PTSD"/>
                     <render concept="CIEL:130967" name="Panic"/>
@@ -449,6 +455,28 @@
                     <td colspan="2"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:OTHER" style="checkbox" commentFieldLabel=" "/></td>
                 </tr>
             </table>
+        </div>
+    </section>
+
+    <section id="mh-epilepsy-section" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
+        <div id="epilepsy" class="section-container">
+            <p class="two-columns">
+                <label>
+                    <uimessage code="pihcore.ncd.epilepsy.seizure_num"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Number of seizures since last visit"/>
+                </span>
+            </p>
+
+            <p class="two-columns">
+                <label>
+                    <uimessage code="pihcore.ncd.epilepsy.seizure_num_1mo"/>
+                </label>
+                <span class="small">
+                    <obs conceptId="PIH:Number of seizures in the past month"/>
+                </span>
+            </p>
         </div>
     </section>
 
