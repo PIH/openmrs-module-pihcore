@@ -60,6 +60,7 @@ public class MirebalaisLocationsBundle extends AbstractMetadataBundle {
         install(MirebalaisLocations.WOMENS_INTERNAL_MEDICINE_B);
         install(MirebalaisLocations.WOMENS_OUTPATIENT_LABORATORY);
         install(MirebalaisLocations.WOMENS_TRIAGE);
+        install(MirebalaisLocations.NCD_CLINIC);
 
         // Locations at CDI
         install(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL);

@@ -1,35 +1,34 @@
 [
   {
-    "uuid": "admitToHospital",
-    "type": "ADMIT",
-    "careSettingTypes": ["OUTPATIENT"],
-    "name": "disposition.emrapi.admitToHospital",
-    "conceptCode": "PIH:ADMIT TO HOSPITAL",
-    "actions": []
-  },
-  {
-    "uuid": "discharge",
-    "type": "DISCHARGE",
-    "name": "disposition.emrapi.discharge",
-    "conceptCode": "PIH:DISCHARGED",
+    "uuid": "edObservation",
+    "name": "disposition.mirebalais.edObservation",
+    "conceptCode": "PIH:ED Observation",
+    "keepsVisitOpen": "true",
+    "actions": [],
     "additionalObs": []
   },
   {
-    "uuid": "leftWithoutSeeingAClinician",
-    "name": "disposition.emrapi.leftWithoutSeeingAClinician",
-    "conceptCode": "PIH:Left without seeing a clinician",
-    "additionalObs": []
-  },
-  {
-    "uuid": "leftWithoutCompletionOfTreatment",
-    "name": "disposition.emrapi.leftWithoutCompletionOfTreatment",
-    "conceptCode": "PIH:Departed without medical discharge",
-    "additionalObs": []
-  },
-  {
-    "uuid": "transferOutOfHospital",
-    "name": "disposition.emrapi.transferOutOfHospital",
+    "uuid": "referToKGH",
+    "name": "disposition.emrapi.referToKGH",
     "conceptCode": "PIH:Transfer out of hospital",
+    "additionalObs": []
+  },
+  {
+    "uuid": "medsPrescribed",
+    "name": "disposition.emrapi.medsPrescribed",
+    "conceptCode": "PIH:Medications prescribed at end of visit",
+    "additionalObs": []
+  },
+  {
+    "uuid": "waitingForLabs",
+    "name": "disposition.emrapi.waitingForLabs",
+    "conceptCode": "PIH:WAITING FOR TEST RESULTS",
+    "additionalObs": []
+  },
+  {
+    "uuid": "inactiveStatus",
+    "name": "disposition.emrapi.inactive",
+    "conceptCode": "CIEL:164928",
     "additionalObs": []
   },
   {

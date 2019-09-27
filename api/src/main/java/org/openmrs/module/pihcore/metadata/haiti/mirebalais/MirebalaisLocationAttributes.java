@@ -301,6 +301,13 @@ public class MirebalaisLocationAttributes {
 		public String value() { return "M027"; }
 	};
 
+	public static LocationAttributeDescriptor NCD_CLINIC_LOCATION_CODE = new LocationAttributeDescriptor() {
+		public String uuid() { return "5acc239e-888f-4772-b027-fa9614d74ef5"; }
+		public LocationDescriptor location() { return MirebalaisLocations.NCD_CLINIC; }
+		public LocationAttributeTypeDescriptor type() { return LocationAttributeTypes.LOCATION_CODE; }
+		public String value() { return "M047"; }
+	};
+
 	//***** CDI LOCATION CODES *****
 
 	public static LocationAttributeDescriptor CDI_KLINIK_EKSTEN_JENERAL_LOCATION_CODE = new LocationAttributeDescriptor() {
