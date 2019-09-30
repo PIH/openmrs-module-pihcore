@@ -813,17 +813,22 @@
          <fieldset>
              <legend><uimessage code="pihcore.tbscreen.title"/></legend>
              <h3><uimessage code="pihcore.tbscreen.title"/></h3>
-            <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['bloodyCough','970']">
-               <p>
-                   <!-- TB symptom -->
-                   <label>
-                       <uimessage code="pihcore.tbscreen.{0}"/>
-                   </label>
-                   <obs conceptIds="PIH:11563,PIH:11564"
-                        answerConceptId="PIH:{1}" labelText=""/>
-               </p>
-            </repeat>
+            <table>
+                <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['bloodyCough','970']">
+                   <tr>
+                       <!-- TB symptom -->
+                       <td>
+                           <uimessage code="pihcore.tbscreen.{0}"/>
+                       </td>
+                       <td>
+                           <obs conceptIds="PIH:11563,PIH:11564"
+                                answerConceptId="PIH:{1}" conceptLabels="Yes, No" labelText=""/>
+                       </td>
+                   </tr>
+                </repeat>
+            </table>
          </fieldset>
     </section>
     <submit/>
 </htmlform>
+
