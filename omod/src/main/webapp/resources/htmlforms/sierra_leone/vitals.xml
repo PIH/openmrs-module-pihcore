@@ -44,7 +44,7 @@
     }
 
     .checkboxGroup {
-    padding 30px; 
+    padding 30px;
     }
 
     .selectFromList {
@@ -62,7 +62,7 @@
     .section {
     width: 95%;
     }
-    </ifMode> 
+    </ifMode>
     </style>
 
 
@@ -153,7 +153,7 @@
 
     </ifMode>
 
-	
+
 
     <!-- only show/handle the English conversion fields if we are in 'ENTER' or 'EDIT' mode -->
     <ifMode mode="VIEW" include="false">
@@ -474,7 +474,7 @@
             <encounterDate id="encounterDate" default="now"/>
         </div>
     </includeIf>
-	
+
     <section id="vitals" sectionTag="section" headerStyle="title" headerCode="mirebalais.vitals.title">
 
         <ifMode mode="VIEW" include="false">
@@ -601,104 +601,29 @@
 
         </includeIf>
         <fieldset>
-	        <p>
             <legend><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></h3>
-        <table>
-		    <tr>
-			<td valign="TOP">
-				<section> 
-                 <ifMode mode="VIEW" include="false">
-					<table>
-                        <thead style="color:green">
-                         <tr>
-                            <th scope="col">Choose a category</th>
-                            <th scope="col">Symptom</th>
-                        </tr>
-                        </thead>
-						<tr>
-							<td class="checkboxGroup"><!-- formatting changed from original concepts changed and translated -->
-                                <obs conceptId="PIH:10674" id="consciousness_level"  answerSeparator="&lt;br&gt;"
-                                    answerConceptIds="CIEL:160282,CIEL:162645,CIEL:162644,PIH:6784"
-                                    answerLabels="Awake (alert),Responds to voice,Responds to pain,Staring and unresponsive"
-                                     style="radio"/>
-                            </td>
-			
-				            <td class="selectFromList">
-                                <obs conceptId="PIH:11563"
-                                     labelText="Confused"
-                                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="Yes,No"/>
-							</td>
-						</tr>
-					
-					</table>
-				</ifMode>
-                </section>
-                <section> 
-                 <ifMode mode="VIEW">
-					<table>
-                        <thead style="color:green">
-                         <tr>
-                            <th scope="col">Choose a category</th>
-                            <th scope="col">Symptom</th>
-                        </tr>
-                        </thead>
-						<tr>
-							<td class="checkboxGroup"><!-- formatting changed from original concepts changed and translated -->
-                                <obs conceptId="PIH:10674" id="consciousness_level"  answerSeparator="&lt;br&gt;"
-                                    answerConceptIds="CIEL:160282,CIEL:162645,CIEL:162644,PIH:6784"
-                                    answerLabels="Awake (alert),Responds to voice,Responds to pain,Staring and unresponsive"
-                                     style="radio"/>
-                            </td>
-			
-				            <td class="selectFromList">
-                                <obs conceptId="PIH:11563"
-                                     labelText="Confused"
-                                     answerConceptIds="PIH:YES,PIH:NO" answerCodes="Yes,No"/>
-							</td>
-						</tr>
-					</table>
-				</ifMode>
-                </section>
-			</td>
-		    </tr>
-    	</table>
-	        </p>
+                <p>
+                    <obs conceptId="PIH:10674" id="consciousness_level"  answerSeparator="&lt;br&gt;"
+                        answerConceptIds="CIEL:160282,CIEL:162645,CIEL:162644,PIH:6784"
+                        answerLabels="Awake (alert),Responds to voice,Responds to pain,Staring and unresponsive"/>
+                </p>
+                <p>
+                    <obs conceptId="PIH:11563"
+                         labelText="Confused"
+                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="Yes,No"/>
+                </p>
         </fieldset>
-
-        <fieldset>
-	    <p>
+	    <fieldset>
             <legend><uimessage code="mirebalais.vitals.mobility.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.mobility.title"/></h3>
-        <table width="100%">
-		<tr>
-			<td width="50%" valign="TOP">
-				<section> 
-					<table>
-						<thead style="color:green">
-                         <tr>
-                            <th scope="col">Choose a category</th>
-                        </tr>
-                        </thead>
-						
-						<tr>
-							<td class="checkboxGroup"><!-- formatting changed from original concepts changed and translated -->
-								<obs conceptId="CIEL:162753" id="mobility_level" answerSeparator="&lt;br&gt;" 
-								    answerConceptIds="CIEL:162750,CIEL:162751,CIEL:162752"
-								    answerLabels="Able to walk without assistance,Able to walk with assistance,Wheelchair/Stretcher"
-								    style="radio"/>
-							</td>
-						</tr>
-					
-					</table>
-				</section>
-			</td>
-			
-		</tr>
-    	</table>
-	    </p>
+                <p class="left">
+                    <obs conceptId="CIEL:162753" id="mobility_level" answerSeparator="&lt;br&gt;"
+                        answerConceptIds="CIEL:162750,CIEL:162751,CIEL:162752"
+                        answerLabels="Able to walk without assistance,Able to walk with assistance,Wheelchair/Stretcher"/>
+                </p>
         </fieldset>
 
         <fieldset field-separator=" ">
@@ -734,7 +659,7 @@
             </p>
         </fieldset>
 
-	
+
 
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.respiratoryRate.title"/></legend>
@@ -784,7 +709,7 @@
                         </span>
                     </p>
 		   </ifMode>
-  
+
                 <!-- add cm field for conversion if in edit mode -->
                 <ifMode mode="VIEW" include="false">
                      <p class='left'>
@@ -798,13 +723,13 @@
                         <uimessage code="mirebalais.vitals.or"/>
                     </p>
                 </ifMode>
-		
+
                 <!-- this will be manually hidden in view mode (we need it to be rendered because we need to pluck the mm measurement from it -->
                 <p class="mm">
                     <obs conceptId="PIH:MIDDLE UPPER ARM CIRCUMFERENCE (MM)"
                          id="muac_mm" showUnits="emr.units.millimeters" unitsCssClass="append-to-value"/>
                 </p>
-		
+
 
             </fieldset>
         </includeIf>
@@ -823,11 +748,11 @@
                     </p>
 		   </ifMode>
 
-  
+
                 <!-- edit mode -->
                 <ifMode mode="VIEW" include="false">
 		<p class='left'>
-          		<span class='obs-field'>  
+          		<span class='obs-field'>
 				<input type='text' id="z_score" size="5" />
 			</span>
 		</p>
@@ -882,45 +807,23 @@
         </fieldset>
 
     </section>
-   
- <section id="tb_screening" sectionTag="section" headerStyle="title" headerCode="pihcore.tbscreen.title">
- <!--TB screening taken from /haiti/hiv/zl/vct.xml-->
-        <div class="section-container">
-      <!--      <obs conceptId="PIH:11541" toggle="tbEval"
-                 answerConceptId="PIH:YES"
-                 answerCode="pihcore.lab.evaluationTB"
-                 style="checkbox"/>
--->
-            <div id="tbEval">
-                <p></p>
-                <table>
-                    <thead style="color:green">
-                         <tr>
-                            <th scope="col">Observed</th>
-                            <th scope="col">Symptom</th>
-                        </tr>
-                    </thead>
 
-                    <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['bloodyCough','970']">
-                        <tr>
-                            <td>
-                                <!--Amended from TB symptom/ no sympton to YES/NO -->
-                                <obs conceptId="PIH:11563"
-                                     answerConceptIds="PIH:YES,PIH:NO"
-                                     answerCodes="Yes,No"
-                                     style="radio"
-                                     answerSeparator=""/>
-			                </td>
-                            <td>
-                                <label>
-                                    <uimessage code="pihcore.tbscreen.{0}"/>
-                                </label>
-                            </td>
-                        </tr>
-                    </repeat>
-                </table>
-            </div>
-        </div>
+    <section id="tb_screening" sectionTag="section" headerStyle="title" headerCode="pihcore.tbscreen.title">
+    <!--TB screening taken from /haiti/hiv/zl/vct.xml-->
+         <fieldset>
+             <legend><uimessage code="pihcore.tbscreen.title"/></legend>
+             <h3><uimessage code="pihcore.tbscreen.title"/></h3>
+            <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['bloodyCough','970']">
+               <p>
+                   <!-- TB symptom -->
+                   <label>
+                       <uimessage code="pihcore.tbscreen.{0}"/>
+                   </label>
+                   <obs conceptIds="PIH:11563,PIH:11564"
+                        answerConceptId="PIH:{1}" labelText=""/>
+               </p>
+            </repeat>
+         </fieldset>
     </section>
     <submit/>
 </htmlform>
