@@ -5,7 +5,7 @@
   ~ http://license.openmrs.org
   ~
   ~ Software distributed under the License is distributed on an "AS IS"
-  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See thehttps://pihemr.atlassian.net/browse/SL-133
   ~ License for the specific language governing rights and limitations
   ~ under the License.
   ~
@@ -16,6 +16,14 @@
           formName="Vitals" formEncounterType="4fb47712-34a6-40d2-8ed3-e153abbd25b7"
           formVersion="2.2">
 
+    <script type="text/javascript">
+        window.messages = window.messages || { };
+        window.messages['pihcore.vitals.sierraLeone.confused'] = '<uimessage code="pihcore.vitals.sierraLeone.confused"/>';
+        window.messages['pihcore.tbscreen.feverSweats'] = '<uimessage code="pihcore.tbscreen.feverSweats"/>';
+        window.messages['pihcore.tbscreen.wtLoss3kg'] = '<uimessage code="pihcore.tbscreen.wtLoss3kg"/>';
+        window.messages['pihcore.tbscreen.cough'] = '<uimessage code="pihcore.tbscreen.cough"/>';
+        window.messages['pihcore.tbscreen.bloodyCough'] = '<uimessage code="pihcore.tbscreen.bloodyCough"/>';
+    </script>
 
 <style>
         .encounter-summary-container {
@@ -335,7 +343,6 @@
 
                 var mmExitHandler = {
                     handleExit: function (fieldValue) {
-                        console.log('mm');
                          if (fieldValue &amp;&amp; fieldValue.value()) {
                             jq('#muac_cm').val(convertMmToCm(fieldValue.value()));
                         }
@@ -600,7 +607,7 @@
             </fieldset>
 
         </includeIf>
-        <fieldset>
+        <fieldset display-template="{{field.[0]}}{{#if field.[1]}}, {{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[1]}}{{/if}}">
             <legend><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></h3>
@@ -610,9 +617,11 @@
                         answerLabels="Awake (alert),Responds to voice,Responds to pain,Staring and unresponsive"/>
                 </p>
                 <p>
+                    <uimessage code="pihcore.vitals.sierraLeone.confused"/>:
+                </p>
+                <p>
                     <obs conceptId="PIH:11563"
-                         labelText="Confused"
-                         answerConceptIds="PIH:YES,PIH:NO" answerCodes="Yes,No"/>
+                         answerConceptIds="PIH:YES,PIH:NO" answerLabels="Yes,No"/>
                 </p>
         </fieldset>
 	    <fieldset>
@@ -810,7 +819,8 @@
 
     <section id="tb_screening" sectionTag="section" headerStyle="title" headerCode="pihcore.tbscreen.title">
     <!--TB screening taken from /haiti/hiv/zl/vct.xml-->
-         <fieldset>
+        <!-- !! make sure this fieldset template stays aligned with field order below or data with be inaccurate !! -->
+         <fieldset display-template="{{#if field.[0]}}{{ message 'pihcore.tbscreen.feverSweats' }}: {{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.tbscreen.wtLoss3kg' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.tbscreen.cough' }}: {{field.[2]}}, {{/if}}{{#if field.[3]}}{{ message 'pihcore.tbscreen.bloodyCough' }}: {{field.[3]}} {{/if}}">
              <legend><uimessage code="pihcore.tbscreen.title"/></legend>
              <h3><uimessage code="pihcore.tbscreen.title"/></h3>
             <table>
@@ -821,8 +831,10 @@
                            <uimessage code="pihcore.tbscreen.{0}"/>
                        </td>
                        <td>
-                           <obs conceptIds="PIH:11563,PIH:11564"
-                                answerConceptId="PIH:{1}" conceptLabels="Yes, No" labelText=""/>
+                           <field>
+                               <obs conceptIds="PIH:11563,PIH:11564"
+                                    answerConceptId="PIH:{1}" conceptLabels="Yes, No" labelText=""/>
+                           </field>
                        </td>
                    </tr>
                 </repeat>
