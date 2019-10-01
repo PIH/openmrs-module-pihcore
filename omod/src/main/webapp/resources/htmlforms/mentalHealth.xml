@@ -394,9 +394,8 @@
                 </p>
 
                 <p>
-                    <obs conceptId="PIH:6134"
-                         style="checkbox" answerConceptId="PIH:YES"
-                         answerCode="pihcore.currentHospitalization"  answerSeparator=""/>
+                    <obs conceptId="PIH:TYPE OF PATIENT" answerConceptId="PIH:INPATIENT HOSPITALIZATION"
+                         style="checkbox" answerCode="pihcore.currentHospitalization"  answerSeparator="" />
                 </p>
 
                 <p>
@@ -564,15 +563,6 @@
                  style="autocomplete"/>
             </p>
 
-            <p>
-                <label>
-                    <uimessage code="pihcore.mentalhealth.providerType"/>:
-                </label>
-                <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST']">
-                        <obs conceptId="PIH:Type of provider" answerConceptId="{0}"
-                             style="checkbox"/>
-                </repeat>
-            </p>
         </div>
     </section>
 
@@ -738,26 +728,65 @@
              headerCode="pihcore.visitNote.plan">
         <div class="section-container">
 
+            <includeIf velocityTest="$patient.gender == 'F' ">
+
+                    <!-- Pregnant -->
+                    <obs conceptId="CIEL:5272" toggle="pregnant"
+                         answerConceptId="CIEL:1065"
+                         answerCode="pihcore.pregnancy.status"
+                         style="checkbox"/>
+
+                    <div class="two-columns">
+                        <div id="pregnant">
+                            <p>
+                                <!-- DPR? -->
+                                <label>
+                                    <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                                </label>
+                                <obs conceptId="CIEL:1427"/>
+                            </p>
+
+                            <p>
+                                <!-- DPA -->
+                                <label>
+                                    <uimessage code="pihcore.pregnancy.dueDate"/>
+                                </label>
+                                <obs conceptId="CIEL:5596" allowFutureDates="true"/>
+                            </p>
+                        </div>
+                    </div>
+                <br/>
+            </includeIf>
+
+            <p>
+                <obs conceptId="PIH:Mental health intervention"
+                     answerConceptId="PIH:Security plan"
+                     style="checkbox"/>
+            </p>
+
             <div class="two-columns">
                 <p>
-                    <obs conceptId="PIH:Mental health intervention"
-                         answerConceptId="PIH:Security plan"
-                         style="checkbox"/>
-
-                    <obs conceptId="PIH:TYPE OF PATIENT" answerConceptId="PIH:INPATIENT HOSPITALIZATION"
-                         style="checkbox"/>
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.providerType"/>:
+                    </label>
+                    <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST']">
+                        <obs conceptId="PIH:Type of provider" answerConceptId="{0}"
+                             style="checkbox"/>
+                    </repeat>
                 </p>
-
-
 
                 <p style="-webkit-column-break-before: always;break-before:column">
                     <label>
                         <uimessage code="pihcore.referredTo"/>:
                     </label>
-                    <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:VILLAGE HEALTH WORKER'],['PIH:SOCIAL WORKER SERVICE']">
+                    <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST'],['PIH:VILLAGE HEALTH WORKER']">
                             <obs conceptId="PIH:Type of referral role" answerConceptId="{0}" style="checkbox"/>
                     </repeat>
                 </p>
+            </div>
+
+            <div id="disposition">
+                <encounterDisposition/>
             </div>
 
             <p>
@@ -775,6 +804,7 @@
                     <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
                 </span>
             </p>
+
         </div>
     </section>
 
