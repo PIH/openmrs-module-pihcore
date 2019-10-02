@@ -1,4 +1,4 @@
-<htmlform formUuid="f9655ae0-635f-11e7-907b-a6006ad3dba0"
+<htmlform formUuid="e8806b32-e546-11e9-81b4-2a2ae2dbcce4"
           formName="HIV History" formVersion="1.0">
 
     <style type="text/css">
@@ -55,7 +55,7 @@
                 // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
                 jq('#next').click(function() {
                     window.htmlForm.getBeforeSubmit().push(function () {
-                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-serology");
+                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-history");
                     return true;
                 });
 
@@ -161,6 +161,35 @@
                 </p>
             </includeIf>
 
+        </div>
+    </section>
+
+    <section id="patient-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="zl.consultNote.patientHistory.title">
+        <div class="section-container">
+            <!-- ANTECEDENTS PERSONNELS / HABITUDES -->
+            <div class="two-columns">
+                <pastMedicalHistoryCheckbox concept="PIH:PNEUMONIA" />
+                <pastMedicalHistoryCheckbox concept="PIH:HERPES ZOSTER" />
+                <pastMedicalHistoryCheckbox concept="CIEL:5334" />
+                <pastMedicalHistoryCheckbox concept="PIH:DERMATITIS" />
+                <!-- ToDo:  Add from CIEL:  Enteropathy
+                <pastMedicalHistoryCheckbox concept="CIEL:119175" />
+                -->
+                <pastMedicalHistoryCheckbox concept="PIH:DIARRHEA" />
+                <pastMedicalHistoryCheckbox concept="PIH:ANEMIA" />
+                <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="pihcore.medicalhistory.sti"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="CIEL:118983" />
+                <pastMedicalHistoryCheckbox concept="PIH:SEIZURE" />
+                <!-- ToDo:  Add Autres symptoms neurologiques -->
+                <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension"/>
+                <!-- ToDo:  Add Autres problemes cardio-vasculaires  -->
+                <pastMedicalHistoryCheckbox concept="PIH:HEPATITIS"/>
+                <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
+                <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other" specify="true" class="medicalHistoryText patientHistory"/>
+            </div>
         </div>
     </section>
 
