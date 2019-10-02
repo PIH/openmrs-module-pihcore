@@ -746,7 +746,8 @@ public class LocationTagSetup {
                 MirebalaisLocations.PEDIATRICS,
                 MirebalaisLocations.PEDIATRICS_A,
                 MirebalaisLocations.PEDIATRICS_B,
-                MirebalaisLocations.NICU
+                MirebalaisLocations.NICU,
+                MirebalaisLocations.OUTPATIENT_CLINIC
         ));
     }
 
