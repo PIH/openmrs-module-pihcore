@@ -38,6 +38,9 @@ public class RegistrationConfigDescriptor {
     private SocialConfigDescriptor social;
 
     @JsonProperty
+    private ContactInfoConfigDescriptor contactInfo;
+
+    @JsonProperty
     private Integer maxPatientMatchResults;
 
     public boolean isAllowUnknownPatients() {
@@ -120,4 +123,11 @@ public class RegistrationConfigDescriptor {
         this.social = social;
     }
 
+    public ContactInfoConfigDescriptor getContactInfo() {
+        return contactInfo;
+    }
+
+    public void setContactInfo(ContactInfoConfigDescriptor contactInfo) {
+        this.contactInfo = contactInfo;
+    }
 }
