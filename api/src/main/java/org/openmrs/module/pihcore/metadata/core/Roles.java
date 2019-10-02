@@ -724,7 +724,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.APP_CHW
             );}
     };
 
