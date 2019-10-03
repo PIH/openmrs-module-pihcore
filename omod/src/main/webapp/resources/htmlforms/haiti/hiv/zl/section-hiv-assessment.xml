@@ -1,0 +1,429 @@
+<htmlform formUuid="d6ab46c0-e61d-11e9-81b4-2a2ae2dbcce4"
+          formName="Assessment" formVersion="2.0">
+
+    <postSubmissionAction class="org.openmrs.module.pihcore.htmlformentry.action.CleanDiagnosisConstructAction"/>
+
+    <style type="text/css">
+        <ifMode mode="VIEW" include="false">
+
+            #data-collection {
+                display: inline-block;
+                width: 58%;
+                vertical-align: top;
+            }
+
+            #encounter-diagnoses-target {
+                display: inline-block;
+                width: 40%;
+                vertical-align: top;
+            }
+
+            #encounter-diagnoses-app {
+                margin-bottom: 20px;
+            }
+
+            .two-columns {
+                column-count: 2;
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+            }
+
+            form label, .form label {
+                display: inline-block;
+            }
+
+            .section-container {
+                background: #F2F2F2;
+                box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+                padding: 10px 5px 10px 15px;
+                line-height: 1.5em; /*add this for vertical spacing between elements*/
+            }
+
+            .section-container-color {
+                background: #F2F2F2;
+                box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
+                padding: 10px 5px 10px 15px;
+                line-height: 1.5em; /*add this for vertical spacing between elements*/
+            }
+
+            .section-container input[type="checkbox"] {
+                margin: 0px 5px; /*changed values to vertical, horizontal*/
+                top:5px; /*added to offset the checkbox position to line up*/
+            }
+
+            .section-container label { /*new definition to override labels inside section-containers*/
+                margin: 0px;
+            }
+
+            .section {
+                width: 95%;
+            }
+        </ifMode>
+    </style>
+
+    <ifMode mode="VIEW" include="false">
+        <h3>
+            <uimessage code="pihcore.assessment"/>
+        </h3>
+
+        <script type="text/javascript">
+            jq(document).ready(function() {
+
+                // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
+                jq('#next').click(function() {
+                    window.htmlForm.getBeforeSubmit().push(function () {
+                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-oi");
+                    return true;
+                });
+
+                window.htmlForm.submitHtmlForm();
+                })
+
+                jq('#submit').click(function() {
+                    window.htmlForm.submitHtmlForm();
+                })
+
+            });
+        </script>
+    </ifMode>
+
+    <section id="hiv-oi" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.oi.title">
+        <div class="section-container">
+                <label>
+                    <uimessage code="pihcore.hiv.enterOI"/>
+                </label>
+            <br/>
+
+            <div class="two-columns">
+                <repeat with="['One'],
+                              ['Two'],
+                              ['Three'],
+                              ['Four']">
+                    <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                        <obs conceptId="PIH:DIAGNOSIS"
+                             answerConceptSetIds="PIH:HUM opportunistic infection"
+                             style="autocomplete"/>
+                    </obsgroup>
+                </repeat>
+            </div>
+        </div>
+    </section>
+
+    <section id="hiv-who-stages" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.hiv.whoStages">
+        <div class="section-container">
+            <div class="two-columns">
+                <p>
+                    <label>
+                        <b>
+                            <uimessage code="pihcore.hiv.whoStage1"/>
+                        </b>
+                        <!-- Stade 1 de l'OMS -->
+                    </label>
+                    <br/>
+
+                    <!-- Infection à VIH asymptomatique -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5327" style="checkbox" answerSeparator=""/><br/>
+
+                    <!-- Lymphadénopathie généralisée persistante -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5328" style="checkbox" answerSeparator=""/>
+
+                    <!-- MSPP Stage 1, but not on ZL form -->
+                    <!-- Fatigue chronique
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:120655" />
+                    -->
+                </p>
+
+                <p>
+                    <label>
+                        <b>
+                            <uimessage code="pihcore.hiv.whoStage2"/>
+                        </b>
+                        <!-- Stade 2 de l'OMS -->
+                    </label>
+                    <br/>
+
+                    <!-- Perte de poids less than 10% -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5332" style="checkbox"/>
+                    <br/>
+
+                    <!-- Infections récurrentes des voies respiratoires supérieures -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:127784" style="checkbox"/>
+                    <br/>
+
+                    <!-- Zona -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:117543" style="checkbox"/>
+                    <br/>
+
+                    <!-- ZL but not iSantePlus (next 1 diagnoses) -->
+                    <!-- Perleche (CIEL:148762) -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:148762" style="checkbox"/>
+                    <br/>
+
+                    <!-- Ulcere Ulcérations buccales récurrentes (non chronique)	-->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:159912" style="checkbox"/>
+                    <br/>
+
+                    <!-- ZL but not iSantePlus (next 3 diagnoses) -->
+                    <!-- Papular pruritic eruption (CIEL:1249) -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:1249" style="checkbox"/>
+                    <br/>
+                    <!-- Seborrheic dermatitis (CIEL:113116) -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:113116" style="checkbox"/>
+                    <br/>
+
+                    <!-- Fungal nail infection (CIEL:132387) -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:132387" style="checkbox"/>
+
+                    <!-- MSPP Stage 2, but not on ZL form -->
+                    <!-- Candidose, vulvo-vaginale (non chronique)
+                            <obs conceptId="CIEL:6042" answerConceptId="CIEL:298" /> -->
+                    <!-- Manifestations cutanéomuqueuses secondaires
+                            <obs conceptId="CIEL:6042" answerConceptId="CIEL:512" /> -->
+                    <!-- Fièvre less than 1 mois
+                            <obs conceptId="CIEL:6042" answerConceptId="CIEL:163282"/> -->
+                    <!-- Diarrhée less than 1 mois
+                            <obs conceptId="CIEL:6042" answerConceptId="CIEL:1467" /> -->
+                </p>
+
+                <p>
+                    <label>
+                        <b>
+                            <uimessage code="pihcore.hiv.whoStage3"/>
+                        </b>
+                        <!-- Stade 3 de l'OMS -->
+                    </label>
+                    <br/>
+
+                    <!-- Perte de poids &#62;10% -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5339" style="checkbox"/>
+                    <br/>
+
+                    <!-- Diarrhée &#62;1 mois sans cause identifiée -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5018" style="checkbox"/>
+                    <br/>
+
+                    <!-- Fièvre &#62;1 mois sans cause identifiée -->
+                    <!-- Swapped order on iSantePlus and ZL forms -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5027" style="checkbox"/>
+                    <br/>
+
+                    <!-- ZL form show "persistent" oral candidiasis -->
+                    <obs conceptId="CIEL:6042" answerConceptId="PIH:2580" style="checkbox"/>
+                    <br/>
+
+                    <!-- Leucoplasie chevelue buccale -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5337" style="checkbox"/>
+                    <br/>
+
+                    <!-- M. tuberculosis(TB) pulmonaire (different label on ZL form) -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:42" style="checkbox"/>
+                    <br/>
+
+                    <!-- different ZL form:  Infections bactériennes graves (pneumonie, Pyo myosite) -->
+                    <!-- Pneumonie bactérienne (serious)-->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5030" style="checkbox"/>
+                    <br/>
+
+                    <!-- ZL form but not iSantePlus (next 2 diagnoses)
+                         Stomatite ulcéro-nécrotique aiguë, gingivite ou parodontite -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:149629" style="checkbox"/>
+                    <br/>
+
+                    <!-- Anémie, thrombocytopénie ou neutropénie inexpliquées -->
+                    <obs conceptId="CIEL:6042" answerConceptId="PIH:2582" style="checkbox"/>
+                    <br/>
+
+                    <!-- iSantePlus, but not ZL (next 5 diagnoses)
+                    Affections inflammatoires pelviennes
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:902" style="checkbox"/></p>
+                    Infections bactérienne, autre (septicémie incluse) (severe)
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5333" style="checkbox"/></p>
+                    Candidose, vulvo-vaginale chronique (&#62;1 mois)
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:298" style="checkbox"/></p>
+                    Méningites bactériennes
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:121255" style="checkbox"/></p>
+                    Tuberculose multirésistante
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:159355" style="checkbox"/></p>
+                    -->
+                </p>
+
+                <br/>
+
+                <p>
+                    <label>
+                        <b>
+                            <uimessage code="pihcore.hiv.whoStage4"/>
+                        </b>
+                        <!-- Stade 4 de l'OMS -->
+                    </label>
+                    <br/>
+
+                    <!-- ZL not iSantePlus: Wasting syndrome -->
+
+                        <obs conceptId="CIEL:6042" answerConceptId="CIEL:823" style="checkbox"/>
+                    <br/>
+
+                    <!-- ZL not iSantePlus: Pneumocystis carinii pneumonia -->
+
+                        <obs conceptId="CIEL:6042" answerConceptId="CIEL:882" style="checkbox"/>
+                    <br/>
+
+                    <!-- ZL not iSantePlus: Pneumonie bactérienne récurrente -->
+
+                        <obs conceptId="CIEL:6042" answerConceptId="CIEL:1215" style="checkbox"/>
+                    <br/>
+
+                    <!-- ZL not iSantePlus: Herpès simplex -->
+
+                        <obs conceptId="CIEL:6042" answerConceptId="CIEL:138706" style="checkbox"/>
+                    <br/>
+
+                    <!-- ZL only: candidose -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5340" style="checkbox" /><br/>
+
+                    <!-- Difference between ZL and iSantePlus
+                         iSantePlus:  M. tuberculosis (TB) extrapulmonaire ou disséminée (CIEL:118890)
+                         ZL: Extrapulmonary TB -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5042" style="checkbox" /><br/>
+
+                    <!-- Sarcome de Kaposi -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:507" style="checkbox" /><br/>
+
+                    <!-- ZL only: Cytomegalovirus disease -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5035" style="checkbox" /><br/>
+
+                    <!-- Toxoplasmose: CNS -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:990" style="checkbox" /><br/>
+
+                    <!-- ZL only:  HIV encephalopathy -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:160442" style="checkbox" /><br/>
+
+                    <!-- Cryptococcocus (extra pulmonaire) -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5033" style="checkbox" /><br/>
+
+                    <!-- Mycobacteriose, autre (incl. avium complex) -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5043" style="checkbox" /><br/>
+
+                    <!-- Leuco-encéphalopathie multifocale progressive -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5046" style="checkbox" /><br/>
+
+                    <!-- Cryptosporidiose -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5034" style="checkbox" /><br/>
+
+                    <!-- Difference between ZL and iSantePlus
+                         iSantePlus: Isosporose intestinale (CIEL:136458)
+                         ZL: Isosporidiose chronique -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:160520" style="checkbox" /><br/>
+
+                    <!-- ZL only:  Mycose disséminée -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:5350" style="checkbox" /><br/>
+
+                    <!-- ZL only: Septicémie récurrente -->
+                    <obs conceptId="CIEL:6042" answerConceptId="PIH:11407" style="checkbox" /><br/>
+
+                    <!-- Lymphomes, non-Hodgkins -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:115195" style="checkbox" /><br/>
+
+                    <!-- Cancer cervical invasif -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:116023" style="checkbox" /><br/>
+
+                    <!-- ZL only:
+                         Leishmaniose atypique disséminée -->
+                    <obs conceptId="CIEL:6042" answerConceptId="CIEL:159338" style="checkbox" /><br/>
+
+                    <!-- Nephropathy or cardiomyopathy symptoms -->
+                    <obs conceptId="CIEL:6042" answerConceptId="PIH:2721" style="checkbox" /><br/>
+
+                    <!-- iSantePlus but not ZL
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:1207" style="checkbox" /></p>
+                    perte de poids &#62;10% PLUS<br/>
+                    a) diarrhée &#62;1 mois sans cause identifiée OU<br/>
+                    b) fièvre &#62;1 mois sans cause identifiée
+
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5035" style="checkbox" /></p>
+                    Retinite à CMV
+
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:142963" style="checkbox" /></p>
+                    CMV viscéral <br/>(sauf rétine, ou foie, rate, ganglions lymphatiques)
+
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5033" style="checkbox" /></p>
+                    Méningites à Cryptococcose (extra pulmonaire)
+
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:1460" style="checkbox" /></p>
+                    Démence liée au VIH)
+
+                    <b>OMS Stade Clinique IV <br/>Diarrhée chronique >1 mois (dûe à): </b>
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:145443" style="checkbox" /></p>
+                    Cause inconnue
+
+                    Oesphagites avec ulcère (dûe à):
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:118510" style="checkbox" /></p>
+                    Cause inconnue
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:110516" style="checkbox" /></p>
+                    Oesophagites HSV
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:156804" style="checkbox" /></p>
+                    Oesophagites CMV
+
+                    Lésions cérébrales focales (dûe à):
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:135886" style="checkbox" /></p>
+                    Cause inconnue
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5040" style="checkbox" /></p>
+                    Lymphome primaire CNS
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5038" style="checkbox" /></p>
+                    Histoplasmoses (extra pulmonaires)
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:141488" style="checkbox" /></p>
+                    Ulcère chronique a HSV (>1 mois)
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5041" style="checkbox" /></p>
+                    Lymphomes, Hodgkins
+
+                    Pneumonie non bactérienne (dûe à):
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:114100" style="checkbox" /></p>
+                    Cause inconnue
+
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:5340" style="checkbox" /></p>
+                    Candidose
+
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:123098" style="checkbox" /></p>
+                    Infections virales (incl. HSV,CMV)
+
+                    <p><obs conceptId="CIEL:6042" answerConceptId="CIEL:882" style="checkbox" /></p>
+                    PCP
+                    -->
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="hiv-dx" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="zl.exam.clinicalImpression.title">
+        <div id="data-collection">
+            <encounterDiagnosesByObs selectedDiagnosesTarget="#encounter-diagnoses-target"/>
+            <p>
+                <label><uimessage code="emr.consult.freeTextComments"/></label>
+                <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
+            </p>
+        </div>
+
+        <div id="encounter-diagnoses-target">
+        </div>
+    </section>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button id="next" type="button" class="submitButton confirm right">
+                <uimessage code="emr.next"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="submit" class="submitButton confirm right">
+                <uimessage code="mirebalais.save"/>
+                <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
+            </button>
+            <button id="cancel" type="button" class="cancel">
+                <uimessage code="emr.cancel"/>
+            </button>
+        </div>
+    </ifMode>
+
+</htmlform>

@@ -158,20 +158,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
-        // ToDo:  Remove and replace with hivHistory
-        /*
-        var hivSero = {
-            type: "encounter-section",
-            id: "hiv-serology",
-            label: "pihcore.hiv.serology.title",
-            icon: "icon-beaker",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-serology.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-serology.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-        */
-
         var hivHistory = {
             type: "encounter-section",
             id: "hiv-history",
@@ -194,27 +180,16 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-lab-order.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-        // ToDo: Use chief complaints instead (PrimaryCareDx)
-        var hivSymptoms = {
-            type: "encounter-section",
-            id: "hiv-symptoms",
-            label: "pihcore.hiv.symptomSigns",
-            icon: "icon-asterisk",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-symptoms.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
 
-        var whoHIVStages = {
+        var hivAssessment = {
             type: "encounter-section",
-            id: "hiv-who-stages",
-            label: "pihcore.hiv.whoStages",
+            id: "hiv-assessment",
+            label: "pihcore.assessment",
             icon: "icon-th-large",
             shortTemplate: "templates/sections/hivSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-who-stages.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-assessment.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-assessment.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var familyPlanningHistory = {
@@ -237,17 +212,6 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-intake-plan.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-intake-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var hivOI = {
-            type: "encounter-section",
-            id: "hiv-oi",
-            label: "pihcore.oi.short",
-            icon: "icon-bolt",
-            shortTemplate: "templates/sections/defaultSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-oi.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-oi.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var hivState = {
@@ -488,14 +452,10 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 hivHistory,
-                // familyPlanningHistory,
-                // hivSymptoms,
                 primaryCareExam,
                 pedsVaccinations,
                 // labRadOrder,
-                hivOI,
-                whoHIVStages,
-                primaryCareDx,
+                hivAssessment,
                 hivIntakePlan
             ]
         };
@@ -510,9 +470,9 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
                 hivState,
-                primaryCareDx,
                 primaryCareExam,
                 pedsVaccinations,
+                primaryCareDx,
                 // ToDo: Modify plan for followup
                 hivIntakePlan
             ]
