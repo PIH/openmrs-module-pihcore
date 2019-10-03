@@ -167,24 +167,23 @@
     <section id="patient-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="zl.consultNote.patientHistory.title">
         <div class="section-container">
-            <!-- ANTECEDENTS PERSONNELS / HABITUDES -->
             <div class="two-columns">
                 <pastMedicalHistoryCheckbox concept="PIH:PNEUMONIA" />
                 <pastMedicalHistoryCheckbox concept="PIH:HERPES ZOSTER" />
                 <pastMedicalHistoryCheckbox concept="CIEL:5334" />
                 <pastMedicalHistoryCheckbox concept="PIH:DERMATITIS" />
-                <!-- ToDo:  Add from CIEL:  Enteropathy
                 <pastMedicalHistoryCheckbox concept="CIEL:119175" />
-                -->
                 <pastMedicalHistoryCheckbox concept="PIH:DIARRHEA" />
                 <pastMedicalHistoryCheckbox concept="PIH:ANEMIA" />
                 <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="pihcore.medicalhistory.sti"
                                             specify="true" class="medicalHistoryText patientHistory"/>
                 <pastMedicalHistoryCheckbox concept="CIEL:118983" />
                 <pastMedicalHistoryCheckbox concept="PIH:SEIZURE" />
-                <!-- ToDo:  Add Autres symptoms neurologiques -->
+                <!-- Autres symptoms neurologiques -->
+                <pastMedicalHistoryCheckbox concept="PIH:995" />
                 <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension"/>
-                <!-- ToDo:  Add Autres problemes cardio-vasculaires  -->
+                <!-- Autres problemes cardio-vasculaires -->
+                <pastMedicalHistoryCheckbox concept="CIEL:119270"/>
                 <pastMedicalHistoryCheckbox concept="PIH:HEPATITIS"/>
                 <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
                 <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" class="medicalHistoryText patientHistory"/>
