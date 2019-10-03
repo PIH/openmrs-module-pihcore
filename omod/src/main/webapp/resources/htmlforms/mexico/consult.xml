@@ -157,6 +157,10 @@
             filter: invert(15%);
         }
 
+        .section-button {
+            margin: 10px 0 0 24px;
+        }
+
         #diagnosis-lookup {
             display: inline-block;
             width: 50%;
@@ -187,7 +191,14 @@
         </p>
     </div>
 
-    <div class="hidden" id="encounter-details"
+    <div class="hidden" id="logos" style="width=100%">
+        <!-- These should appear in printed notes and prescriptions -->
+        <img src="/openmrs/ms/uiframework/resource/pihcore/files/ces-logo.png" style="width: 20%; margin: 3% 5%;"/>
+        <img src="/openmrs/ms/uiframework/resource/pihcore/files/ssa-fed-logo.jpg" style="width: 20%; margin: 0 5%;" />
+        <img src="/openmrs/ms/uiframework/resource/pihcore/files/ssa-logo.png" style="width: 20%; margin: 0 5%;"/>
+    </div>
+
+    <div class="" id="encounter-details"
          sectionTag="section" headerStyle="title" headerLabel="Encounter Details">
         <fieldset>
             <legend>When?</legend>
@@ -200,8 +211,10 @@
             <legend>Who?</legend>
             <label>Who?</label>
 
+            <span id="provider-input">
             <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
                                       required="true"/>
+            </span>
         </fieldset>
 
         <fieldset>
@@ -1078,236 +1091,323 @@
     </section>
 
     <!-- Plan -->
-    <ifMode mode="VIEW" include="false">
-        <script type="text/javascript">
+    <div id="section-plan">
+        <ifMode mode="VIEW" include="false">
+            <script type="text/javascript">
 
-            // I don't really understand why this assignment `$j = jq` is required, but for some
-            // reason a bunch of Javascript gets included in the page that expects `$j` to exist,
-            // but doesn't define `$j` itself. *shrug emoji*
-            var $j = jQuery;
+                // I don't really understand why this assignment `$j = jq` is required, but for some
+                // reason a bunch of Javascript gets included in the page that expects `$j` to exist,
+                // but doesn't define `$j` itself. *shrug emoji*
+                var $j = jQuery;
 
-            htmlForm.getBeforeValidation().push(function() {
+                htmlForm.getBeforeValidation().push(function() {
 
-                var valid = true;
+                    var valid = true;
 
-                jq('fieldset.medication').each(function() {
+                    jq('fieldset.medication').each(function() {
 
-                    // clear out any existing error messages
-                    jq(this).find('.field-error').first().html('');
+                        // clear out any existing error messages
+                        jq(this).find('.field-error').first().html('');
 
-                    var medication = jq(this).find('.medication-name input').val();
-                    var dose = jq(this).find('.dose input').val();
-                    var doseUnits = jq(this).find('.dose-unit select').val();
-                    var frequency = jq(this).find('.frequency select').val();
-                    var duration = jq(this).find('.duration input').val();
-                    var durationUnits = jq(this).find('.duration-unit select').val();
-                    var instructions = jq(this).find('.medication-instructions input').val();
+                        var medication = jq(this).find('.medication-name input').val();
+                        var dose = jq(this).find('.dose input').val();
+                        var doseUnits = jq(this).find('.dose-unit select').val();
+                        var frequency = jq(this).find('.frequency select').val();
+                        var duration = jq(this).find('.duration input').val();
+                        var durationUnits = jq(this).find('.duration-unit select').val();
+                        var instructions = jq(this).find('.medication-instructions input').val();
 
-                    if (!medication &amp;&amp; (dose || doseUnits || frequency || duration || durationUnits || instructions)) {
-                        valid = false;
-                        jq(this).find('.field-error').first().append("<uimessage
-                            code="pihcore.visitNote.plan.medications.error.noMedication"/>. ").show();
-                    }
+                        if (!medication &amp;&amp; (dose || doseUnits || frequency || duration || durationUnits || instructions)) {
+                            valid = false;
+                            jq(this).find('.field-error').first().append("<uimessage
+                                code="pihcore.visitNote.plan.medications.error.noMedication"/>. ").show();
+                        }
 
-                    if (dose &amp;&amp; !doseUnits) {
-                        valid = false;
-                        jq(this).find('.field-error').first().append("<uimessage
-                            code="pihcore.visitNote.plan.medications.error.noDoseUnits"/>. ").show();
-                    }
+                        if (dose &amp;&amp; !doseUnits) {
+                            valid = false;
+                            jq(this).find('.field-error').first().append("<uimessage
+                                code="pihcore.visitNote.plan.medications.error.noDoseUnits"/>. ").show();
+                        }
 
-                    if (!dose &amp;&amp; doseUnits) {
-                        valid = false;
-                        jq(this).find('.field-error').first().append("<uimessage
-                            code="pihcore.visitNote.plan.medications.error.noDose"/>. ").show();
-                    }
+                        if (!dose &amp;&amp; doseUnits) {
+                            valid = false;
+                            jq(this).find('.field-error').first().append("<uimessage
+                                code="pihcore.visitNote.plan.medications.error.noDose"/>. ").show();
+                        }
 
-                    if (duration &amp;&amp; !durationUnits) {
-                        valid = false;
-                        jq(this).find('.field-error').first().append("<uimessage
-                            code="pihcore.visitNote.plan.medications.error.noDurationUnits"/>. ").show();
-                    }
+                        if (duration &amp;&amp; !durationUnits) {
+                            valid = false;
+                            jq(this).find('.field-error').first().append("<uimessage
+                                code="pihcore.visitNote.plan.medications.error.noDurationUnits"/>. ").show();
+                        }
 
-                    if (!duration &amp;&amp; durationUnits) {
-                        valid = false;
-                        jq(this).find('.field-error').first().append("<uimessage
-                            code="pihcore.visitNote.plan.medications.error.noDuration"/>. ").show();
-                    }
+                        if (!duration &amp;&amp; durationUnits) {
+                            valid = false;
+                            jq(this).find('.field-error').first().append("<uimessage
+                                code="pihcore.visitNote.plan.medications.error.noDuration"/>. ").show();
+                        }
+
+                    });
+
+                    return valid;
 
                 });
 
-                return valid;
+                var MAX_MEDS = 30;  // this should match the number of items in the "repeat with=..." tag
+                var numMeds = 1;
+                var meds = [];
+                jq(function() {
 
-            });
+                    var hasValue = function (element) {
+                        return jq(element).find('.medication-name input').val();
+                    };
 
-            var MAX_MEDS = 30;  // this should match the number of items in the "repeat with=..." tag
-            var numMeds = 1;
-            var meds = [];
-            jq(function() {
-
-                var hasValue = function (element) {
-                    return jq(element).find('.medication-name input').val();
-                };
-
-                var initMeds = function () {
-                    for (var i = 1; i &lt;= MAX_MEDS; i++) {
-                        meds.push(jq('#medication-' + i));
-                    }
-                    for (var i = 1; i &lt; MAX_MEDS; i++) {
-                        if (hasValue(meds[i])) {
-                            numMeds = i + 1;
+                    var initMeds = function () {
+                        for (var i = 1; i &lt;= MAX_MEDS; i++) {
+                            meds.push(jq('#medication-' + i));
                         }
-                    }
-                    updateShownMeds();
-                };
-
-                var updateShownMeds = function () {
-                    for (var i = 0; i &lt; MAX_MEDS; i++) {
-                        if (i &lt; numMeds) {
-                            meds[i].show();
-                        } else {
-                            meds[i].hide();
+                        for (var i = 1; i &lt; MAX_MEDS; i++) {
+                            if (hasValue(meds[i])) {
+                                numMeds = i + 1;
+                            }
                         }
-                    }
-                };
+                        updateShownMeds();
+                    };
 
-                var incrementShownMeds = function () {
-                    numMeds += 1;
-                    updateShownMeds();
-                };
+                    var updateShownMeds = function () {
+                        for (var i = 0; i &lt; MAX_MEDS; i++) {
+                            if (i &lt; numMeds) {
+                                meds[i].show();
+                            } else {
+                                meds[i].hide();
+                            }
+                        }
+                    };
 
-                var decrementShownMeds = function () {
-                    numMeds -= 1;
-                    updateShownMeds();
-                };
+                    var incrementShownMeds = function () {
+                        numMeds += 1;
+                        updateShownMeds();
+                    };
 
-                jq('#show-more-medications-button').click(incrementShownMeds);
-                jq('#show-less-medications-button').click(decrementShownMeds);
+                    var decrementShownMeds = function () {
+                        numMeds -= 1;
+                        updateShownMeds();
+                    };
 
-                initMeds();
+                    jq('#show-more-medications-button').click(incrementShownMeds);
+                    jq('#show-less-medications-button').click(decrementShownMeds);
 
-            });
+                    initMeds();
 
+                });
+
+            </script>
+        </ifMode>
+
+        <ifMode mode="VIEW" include="false">
+            <h1>
+                <uimessage code="pihcore.visitNote.plan"/>
+            </h1>
+        </ifMode>
+
+        <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.consult.clinicalManagementPlan">
+            <div class="section-container">
+                <p>
+                    <obs conceptId="CIEL:162749" style="textarea" rows="5" id="clinical-management-plan"/>
+                </p>
+            </div>
+        </section>
+
+        <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.lab.lab_tests.title">
+            <div class="section-container">
+                <p>
+                    <obs conceptId="PIH:11762" style="textarea" rows="5" id="test-orders"/>
+                </p>
+            </div>
+        </section>
+
+        <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.ncd.meds">
+            <div class="section-container">
+                <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
+                    <span id="medication-{0}" class="medication">
+                        <obsgroup groupingConceptId="PIH:9070" showIfEmpty="false">
+                            <h3>
+                                <uimessage code="mirebalais.dispensing.medication"/>
+                                {0}
+                            </h3>
+                            <fieldset class="medication">
+                                <p class="field-error" style="display:none"></p>
+                                <p>
+                                    <label>
+                                        <uimessage code="mirebalais.dispensing.medicationName"/>
+                                    </label>
+                                    <obs id="name{0}" class="medication-name" conceptId="CIEL:1282"
+                                         answerDrugs="true"/>
+                                </p>
+                                <span class="med-details">
+                                <p class="inline">
+                                    <label>
+                                        <uimessage code="dispensing.medication.dose"/>
+                                    </label>
+                                    <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
+                                    <obs id="doseUnit{0}" class="doseInput select-arrow" conceptId="PIH:9074"
+                                         answers="mg,g,mL,Application,Capsule,Tablet,Drop,microgram,Patch,Pump,Sachet,IU"
+                                         answerCodes="dispensing.units.mg,dispensing.units.g,dispensing.units.mL,dispensing.units.application,dispensing.units.capsule,dispensing.units.tablet,dispensing.units.drop,dispensing.units.mcg,dispensing.units.patch,dispensing.units.pump,dispensing.units.sachet,dispensing.units.IU"/>
+                                </p>
+                                <p class="inline">
+                                    <label>
+                                        <uimessage code="mirebalais.dispensing.medicationFrequency"/>
+                                    </label>
+
+
+                                    <obs id="frequencyCoded{0}" class="frequency select-arrow" conceptId="PIH:9363"
+                                         answerConceptIds=
+                                                 "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
+                                         answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,dispensing.general.other" />
+                                </p>
+
+                                <p class="inline">
+                                    <label>
+                                        <uimessage code="mirebalais.dispensing.medicationDuration"  />
+                                    </label>
+                                    <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
+                                    <obs id="durationUnit{0}" class="duration-unit select-arrow"
+                                         conceptId="CIEL:1732"
+                                         answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                                </p>
+                                </span>
+                                <p class="inline">
+                                    <label>
+                                        <uimessage code="mirebalais.dispensing.medicationAmount"/>
+                                    </label>
+                                    <obs id="amount{0}" conceptId="PIH:9071"/>
+                                </p>
+                                <p>
+                                    <label>
+                                        <uimessage code="mirebalais.dispensing.medicationInstructions"/>
+                                    </label>
+                                    <obs id="instructions{0}" class="medication-instructions" conceptId="PIH:9072"/>
+                                </p>
+                            </fieldset>
+                        </obsgroup>
+                    </span>
+                </repeat>
+
+                <button id="show-less-medications-button" type="button">
+                    -
+                </button>
+                <button id="show-more-medications-button" type="button">
+                    +
+                </button>
+            </div>
+
+        </section>
+
+        <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="coreapps.consult.disposition">
+
+            <div class="section-container">
+
+                <p id="return-date">
+                    <label>
+                        <uimessage code="pihcore.visitNote.plan.approximateReturnVisitDate"/>
+                    </label>
+                    <span class="medium">
+                        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
+                    </span>
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>  <!-- section-plan -->
+
+    <!-- Print prescription -->
+    <div class="section-button">
+        <script type="text/javascript">
+            // @bistenes: forgive me
+            function print_prescription() {
+                const w = window.open();
+                const styleNodes = document.getElementsByTagName("style");
+                for (var i = 0; i &lt; styleNodes.length; i++) {
+                    const styleNode = styleNodes[i];
+                    w.document.write("<style>" + styleNode.innerHTML + "</style>");
+                }
+                // w.document.write("<body></body>");
+                w.document.write("<body>");
+                const dateOptions = { year: 'numeric', month: 'short', day: 'numeric' };
+                const dateString = new Date().toLocaleDateString("es", dateOptions);
+                w.document.write('&lt;div class="date"&gt;' + dateString + '&lt;/div&gt;');
+                const logos = jq(document.getElementById('logos')).clone();
+                logos.removeClass("hidden");
+                logos.appendTo(w.document.body);
+                w.document.write("<p>");
+                    const givenName = jq(document.getElementsByClassName('zl-givenName')[0]).clone();
+                    givenName.text(givenName.text() + " ");
+                    w.document.write(givenName.html());
+                    const familyName = jq(document.getElementsByClassName('zl-familyName')[0]).clone();
+                    familyName.text(familyName.text().match(/[^,]*/));
+                    w.document.write(familyName.html());
+                    w.document.write("</p>");
+                w.document.write("<p>");
+                    const gender = jq(document.getElementsByClassName('gender-age')[0].children[0]).clone();
+                    gender.text(gender.text().match(/^\w+/) + ", ");
+                    w.document.write(gender.html());
+                    const age = jq(document.getElementsByClassName('gender-age')[0].children[1]).clone();
+                    age.text(age.text().match(/\d+/));
+                    w.document.write(age.html());
+                    w.document.write("</p>");
+                w.document.write("<p>");
+                    w.document.write("Diagnosticos: ");
+                    w.document.write(jq.map(jq(".diagnosis .matched-name"), d => d.textContent).join(", "));
+                    w.document.write("</p>");
+                jq(document.getElementById('drug-orders')).clone().appendTo(w.document.body);
+                const medNames = jq(w.document).find(".medication-name");
+                for (let i = 0; i &lt; medNames.length; i++) {
+                    const medP = jq(medNames[i]).parent();
+                    medP.css("display", "inline");
+                }
+                jq(document.getElementById('clinical-management-plan')).clone().appendTo(w.document.body);
+                jq(document.getElementById('contact-info-inline')).clone().appendTo(w.document.body);
+                w.document.write("<p>");
+                    const nameLastFirst = jq("#provider-input").find("select option:selected").text();
+                    const nameFirst = nameLastFirst.match(/, (.*)$/)[1];
+                    const nameLast = nameLastFirst.match(/^(.*),/)[1];
+                    const doctorNameLine = "Doctor: " + nameFirst + " " + nameLast;
+                    w.document.write(doctorNameLine);
+                    w.document.write("</p>");
+                w.document.write("<p>");
+                    w.document.write("Próxima cita: ");
+                    w.document.write(jq("#apptDate").find(".hasDatepicker").val());
+                    w.document.write("</p>");
+                w.document.write(
+                    "&lt;style&gt;" +
+                    "h3 { display: none; }" +
+                    ".date { position: absolute; top: 5px; right: 5px; }" +
+                    ".inline { display: inline; }" +
+                    ".med-details { display: none; }" +
+                    ".zl-givenName { font-size: large; }" +
+                    ".zl-familyName { font-size: large; }" +
+                    "span[role=status] { display: none; }" +
+                    "button { display: none; }" +
+                    ".medication-name input { width: 60%; }" +
+                    ".medication-instructions input { width: 80%; }" +
+                    "&lt;/style&gt;"
+                );
+                w.document.write("</body>");
+                w.print();
+                w.close();
+            }
         </script>
-    </ifMode>
 
-    <ifMode mode="VIEW" include="false">
-        <h1>
-            <uimessage code="pihcore.visitNote.plan"/>
-        </h1>
-    </ifMode>
-
-    <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.consult.clinicalManagementPlan">
-        <div class="section-container">
-            <p>
-                <obs conceptId="CIEL:162749" style="textarea" rows="5" id="clinical-management-plan"/>
-            </p>
-        </div>
-    </section>
-
-    <section id="test-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.lab.lab_tests.title">
-        <div class="section-container">
-            <p>
-                <obs conceptId="PIH:11762" style="textarea" rows="5" id="test-orders"/>
-            </p>
-        </div>
-    </section>
-
-    <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.ncd.meds">
-        <div class="section-container">
-            <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
-                <span id="medication-{0}" class="medication">
-                    <obsgroup groupingConceptId="PIH:9070" showIfEmpty="false">
-                        <h3>
-                            <uimessage code="mirebalais.dispensing.medication"/>
-                            {0}
-                        </h3>
-                        <fieldset class="medication">
-                            <p class="field-error" style="display:none"></p>
-                            <p>
-                                <label>
-                                    <uimessage code="mirebalais.dispensing.medicationName"/>
-                                </label>
-                                <obs id="name{0}" class="medication-name" conceptId="CIEL:1282"
-                                     answerDrugs="true"/>
-                            </p>
-                            <p class="inline">
-                                <label>
-                                    <uimessage code="dispensing.medication.dose"/>
-                                </label>
-                                <obs id="dose{0}" class="doseInput" conceptId="CIEL:160856"/>
-                                <obs id="doseUnit{0}" class="doseInput select-arrow" conceptId="PIH:9074"
-                                     answers="mg,g,mL,Application,Capsule,Tablet,Drop,microgram,Patch,Pump,Sachet,IU"
-                                     answerCodes="dispensing.units.mg,dispensing.units.g,dispensing.units.mL,dispensing.units.application,dispensing.units.capsule,dispensing.units.tablet,dispensing.units.drop,dispensing.units.mcg,dispensing.units.patch,dispensing.units.pump,dispensing.units.sachet,dispensing.units.IU"/>
-                            </p>
-                            <p class="inline">
-                                <label>
-                                    <uimessage code="mirebalais.dispensing.medicationFrequency"/>
-                                </label>
-
-
-                                <obs id="frequencyCoded{0}" class="frequency select-arrow" conceptId="PIH:9363"
-                                     answerConceptIds=
-                                             "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
-                                     answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,dispensing.general.other" />
-                            </p>
-
-                            <p class="inline">
-                                <label>
-                                    <uimessage code="mirebalais.dispensing.medicationDuration"  />
-                                </label>
-                                <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
-                                <obs id="durationUnit{0}" class="duration-unit select-arrow"
-                                     conceptId="CIEL:1732"
-                                     answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
-                            </p>
-                            <p class="inline">
-                                <label>
-                                    <uimessage code="mirebalais.dispensing.medicationAmount"/>
-                                </label>
-                                <obs id="amount{0}" conceptId="PIH:9071"/>
-                            </p>
-                            <p>
-                                <label>
-                                    <uimessage code="mirebalais.dispensing.medicationInstructions"/>
-                                </label>
-                                <obs id="instructions{0}" class="medication-instructions" conceptId="PIH:9072"/>
-                            </p>
-                        </fieldset>
-                    </obsgroup>
-                </span>
-            </repeat>
-
-            <button id="show-less-medications-button" type="button">
-                -
-            </button>
-            <button id="show-more-medications-button" type="button">
-                +
-            </button>
-        </div>
-
-    </section>
-
-    <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="coreapps.consult.disposition">
-
-        <div class="section-container">
-
-            <p>
-                <label>
-                    <uimessage code="pihcore.visitNote.plan.approximateReturnVisitDate"/>
-                </label>
-                <span class="medium">
-                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"/>
-                </span>
-            </p>
-
-        </div>
-
-    </section>
-
+        <button onclick="print_prescription()" type="button">
+            <uimessage code="pihcore.visitNote.printPrescriptions" />
+        </button>
+    </div>
     <br/>
     <ifMode mode="VIEW" include="false">
         <div id="buttons">
