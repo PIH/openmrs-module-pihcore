@@ -216,6 +216,9 @@ angular.module('constants', [])
         zlLabOrders: {
             uuid: "d4d844de-50bd-4299-8575-1ce59b53908b"
         },
+        testOrderNumber: {
+            uuid: "393dec41-2fb5-428f-acfa-36ea85da6666"
+        },
         hemoglobin: {
             uuid: "3ccc7158-26fe-102b-80cb-0017a47871b2"
         },
