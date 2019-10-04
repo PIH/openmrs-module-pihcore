@@ -32,6 +32,11 @@
                 display: inline-block;
             }
 
+            form input[type="checkbox"], form input[type="radio"], .form input[type="checkbox"], .form input[type="radio"] {
+                float: none;
+                display: inline-block;
+            }
+
             .section-container {
                 background: #F2F2F2;
                 box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
@@ -72,11 +77,11 @@
                 // handle our custom functionality for triggering going to the next section when the "Next" button is clicked
                 jq('#next').click(function() {
                     window.htmlForm.getBeforeSubmit().push(function () {
-                    window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-oi");
-                    return true;
-                });
+                        window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=hiv-assessment");
+                        return true;
+                    });
 
-                window.htmlForm.submitHtmlForm();
+                    window.htmlForm.submitHtmlForm();
                 })
 
                 jq('#submit').click(function() {
@@ -86,6 +91,144 @@
             });
         </script>
     </ifMode>
+
+    <section id="hiv-adverse-event" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.adverseEvent">
+        <div class="section-container">
+            <p>
+                <label>
+                    <b>
+                        <uimessage code="pihcore.adverseEvent"/>?
+                    </b>
+                </label>
+                <obsgroup groupingConceptId="PIH:1295">
+                    <obs conceptId="PIH:1297" style="checkbox"
+                         answerConceptId="CIEL:121764"
+                         answerCode="yes" toggle="ae" />
+                </obsgroup>
+            </p>
+
+            <div id="ae">
+                <table>
+                    <tr>
+                        <th>
+                            <label>
+                                <uimessage code="pihcore.adverseEvent"/>
+                            </label>
+                        </th>
+                        <th>
+                            <label>
+                                Date
+                            </label>
+                        </th>
+                    </tr>
+
+                    <repeat>
+                        <template>
+                            <obsgroup groupingConceptId="PIH:1295">
+                                <tr>
+                                    <td id="{name}-ae">
+                                        <obs conceptId="PIH:1297"
+                                             answerConceptId="{concept}"
+                                             style="checkbox"
+                                             toggle="{id: '{name}-ae-date', style: 'dim'}" />
+                                    </td>
+                                    <td id="{name}-ae-date">
+                                        <obs conceptId="PIH:1300" />
+                                    </td>
+                                </tr>
+                            </obsgroup>
+                        </template>
+                        <render concept="CIEL:118983" name="Neuropathy"/>
+                        <render concept="CIEL:136162" name="LacticAcidosis" />
+                        <render concept="CIEL:133473" name="NauseaVomiting" />
+                        <render concept="CIEL:116986" name="Hepatitis" />
+                        <render concept="CIEL:121629" name="Anemia"/>
+                        <render concept="CIEL:136443" name="Jaundice"/>
+                        <render concept="CIEL:512"    name="Rash" />
+                    </repeat>
+                    <repeat>
+                        <template>
+                            <obsgroup groupingConceptId="PIH:1295">
+                                <tr>
+                                    <td id="{name}-ae">
+                                        <obs conceptId="PIH:1297"
+                                             answerConceptId="{concept}"
+                                             style="checkbox"
+                                             commentFieldLabel="(préciser)"
+                                             toggle="{id: '{name}-ae-date', style: 'dim'}" />
+                                    </td>
+                                    <td id="{name}-ae-date">
+                                        <obs conceptId="PIH:1300" />
+                                    </td>
+                                </tr>
+                            </obsgroup>
+                        </template>
+                        <render concept="CIEL:5622" name="Other" />
+                    </repeat>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="hiv-health-condition" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.healthCondition">
+        <div class="section-container">
+
+            <label>
+                <b>
+                    <uimessage code="pihcore.healthCondition"/>
+                </b>
+            </label>
+            <obs conceptId="CIEL:160116"
+                 answerConceptIds="PIH:GOOD,PIH:SATISFACTORY,CIEL:162679,PIH:DETERIORATION"
+                 answerSeparator="&amp;nbsp;" style="radio" />
+        </div>
+    </section>
+
+    <section id="hiv-symptoms" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.hiv.symptomSigns">
+        <div class="section-container">
+            <div class="two-columns">
+                <repeat>
+                    <template>
+                            <obsgroup groupingConceptId="CIEL:1727">
+                                <obs conceptId="CIEL:1728" answerConceptId="{symptom}"/>
+                                <!-- ToDo: Work on the formatting
+                                <obs conceptId="CIEL:1729" answerConceptIds="CIEL:1066,CIEL:1065"/>
+                                <span class="small">
+                                    <obs conceptId="CIEL:1731" />
+                                    <obs conceptId="CIEL:1732" answerConceptIds="CIEL:1072,CIEL:1073,CIEL:1074"/>
+                                </span>
+                                -->
+                            </obsgroup>
+                        <br/>
+                    </template>
+
+                    <render symptom="CIEL:141128" comment="Epigastric pain"/>
+                    <render symptom="CIEL:5978" comment="Nausea"/>
+                    <render symptom="CIEL:122983" comment="Vomiting"/>
+                    <render symptom="CIEL:136443" comment="Jaundice"/>
+                    <render symptom="CIEL:142412" comment="Diarrhea"/>
+                    <render symptom="CIEL:118789" comment="Dysphagia"/>
+                    <render symptom="CIEL:128321" comment="Prurigo nodularis"/>
+                    <render symptom="CIEL:512" comment="Rash"/> <!-- ZL form:  Other eruption -->
+                    <render symptom="CIEL:139084" comment="Headache"/>
+                    <render symptom="CIEL:118938" comment="Vision problem"/>
+                    <render symptom="CIEL:113054" comment="Seizure"/>
+                    <render symptom="CIEL:1466" comment="Déficit neurologique focal"/>
+                    <render symptom="CIEL:111525" comment="Vertigo"/>
+                    <render symptom="CIEL:120345" comment="Confusion"/>
+                    <render symptom="CIEL:6004" comment="Paresthesia"/>
+                    <render symptom="PIH:1816" comment="Genital discharge"/>
+                    <render symptom="CIEL:864" comment="Ulcérations génitales"/>
+                    <render symptom="CIEL:140238" comment="Fever"/>
+                    <render symptom="CIEL:143264" comment="Cough"/>
+
+                </repeat>
+            </div>
+        </div>
+    </section>
 
     <section id="hiv-oi" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.oi.title">
@@ -113,6 +256,18 @@
     <section id="hiv-who-stages" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.hiv.whoStages">
         <div class="section-container">
+            <p class="radio">
+                <label>
+                    <b>
+                        <uimessage code="pihcore.stage.label"/>:
+                    </b>
+                </label>
+                <obs conceptId="PIH:CURRENT WHO HIV STAGE"
+                     answerConceptIds="CIEL:1204,CIEL:1205,CIEL:1206,CIEL:1207"
+                     answerLabels="1,2,3,4"
+                     answerSeparator="&amp;nbsp;" style="radio" />
+            </p>
+
             <div class="two-columns">
                 <p>
                     <label>

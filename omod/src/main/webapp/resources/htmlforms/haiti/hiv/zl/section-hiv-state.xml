@@ -134,15 +134,15 @@
 
     <div class="stateStage">
         <p>
-            <label>
-                <b>
-                    <uimessage code="pihcore.healthCondition"/>
-                </b>
-            </label>
-            <obs conceptId="CIEL:160116"
-                 answerConceptIds="PIH:GOOD,PIH:SATISFACTORY,CIEL:162679,PIH:DETERIORATION"
-                 answerSeparator="&amp;nbsp;" style="radio" />
-        </p>
+        <label>
+            <b>
+                <uimessage code="pihcore.healthCondition"/>
+            </b>
+        </label>
+        <obs conceptId="CIEL:160116"
+             answerConceptIds="PIH:GOOD,PIH:SATISFACTORY,CIEL:162679,PIH:DETERIORATION"
+             answerSeparator="&amp;nbsp;" style="radio" />
+    </p>
 
         <p>
             <label>

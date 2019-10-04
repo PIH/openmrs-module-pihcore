@@ -307,6 +307,37 @@
         </div>
     </section>
 
+    <section id="tb-screen" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.tbscreen.title">
+        <div class="section-container">
+            <table>
+                <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['tbContact','11568'],['painfulNodes','11569']">
+                    <tr>
+                        <td>
+                            <!-- TB symptom -->
+                            <obs conceptId="PIH:11563"
+                                 answerConceptId="PIH:{1}"
+                                 answerCode="coreapps.yes"
+                                 style="checkbox" />
+                        </td>
+                        <td>
+                            <!-- No TB symptom -->
+                            <obs conceptId="PIH:11564"
+                                 answerConceptId="PIH:{1}"
+                                 answerCode="coreapps.no"
+                                 style="checkbox" />
+                        </td>
+                        <td>
+                            <label>
+                                <uimessage code="pihcore.tbscreen.{0}"/>
+                            </label>
+                        </td>
+                    </tr>
+                </repeat>
+            </table>
+        </div>
+    </section>
+
     <br/>
 
     <ifMode mode="VIEW" include="false">
