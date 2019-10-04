@@ -758,12 +758,6 @@
                 <br/>
             </includeIf>
 
-            <p>
-                <obs conceptId="PIH:Mental health intervention"
-                     answerConceptId="PIH:Security plan"
-                     style="checkbox"/>
-            </p>
-
             <div class="two-columns">
                 <p>
                     <label>
