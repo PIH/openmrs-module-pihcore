@@ -215,16 +215,8 @@
         <div class="section-container">
 
             <div class="two-columns">
-                <p>
-                    <label>
-                        Wellbody <uimessage code="pihcore.mch.mothersGroupID" />&amp;nbsp;(ie. A03, B12, etc)
-                    </label>
-                    <!-- ToDo:  Add suggested value of A01 or B01 -->
-                    <span class="small">
-                        <obs conceptId="PIH:11665" required="true" />
-                    </span>
-                </p>
-
+              
+    
                 <p>
                     <label>
                         <uimessage code="pihcore.mch.trimesterAtEnrollment" />
@@ -261,8 +253,47 @@
                     <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:SCHIZOPHRENIA"
                          style="checkbox"/>
                 </p>
-                <br/><br/>
+    
+    <section id="unhealthy_habits" sectionTag="fieldset" headerTag="legend" 
+             headerCode="pihcore.habits">
 
+            <p class="list-inline">
+                <label position = "left">
+                    <uimessage code="pihcore.habits.smoking" />
+                </label>
+                <obs conceptId="PIH:HISTORY OF TOBACCO USE"
+                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                     style="radio" answerSeparator=""/>
+            </p>
+
+             <p class="list-inline">
+                <label position = "left">
+                    <uimessage code="pihcore.habits.alcohol" /> (Consider palm wine and homolais)
+                </label>
+                <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
+                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                     style="radio" answerSeparator=""/>
+            </p>
+
+             <p class="radio">
+                    <label><uimessage code="pihcore.habits.drinksPerDay"/>
+                    </label>
+                    <obs conceptId="PIH:ALCOHOLIC DRINKS PER DAY"/>
+                    <br/>
+            </p>
+    </section>
+    <section>
+             <p class="radio">
+                    <label><uimessage code="pihcore.habits.drugs"/> (Consider tramadol and codeine)
+                    </label>
+                    <obs conceptId="CIEL:162556" 
+                    answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown" 
+                    style="radio" answerSeparator=" "/>
+                    <label><uimessage code="pihcore.habits.drugName" /></label>
+                    <obs conceptId="PIH:6489" />
+                     <br/>
+            </p>
+    </section>
                 <!-- Risk factors for mother -->
                 <p>
                     <label>
@@ -270,9 +301,10 @@
                     </label>
 
                     <!-- HIV -->
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:Eclampsia" style="checkbox"/>
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:47" style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:138405"
                          answerCode="pihcore.lab.hiv.title" style="checkbox"/>
-                    <obs conceptId="CIEL:160079" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="PIH:HEART DISEASE" style="checkbox"/>
                     <obs conceptId="CIEL:160079" answerConceptId="PIH:DIABETES" style="checkbox"/>
                     <!--
@@ -318,7 +350,7 @@
                     <label>
                         <uimessage code="pihcore.mch.grava"/>
                     </label>
-                    <obs conceptId="CIEL:5624" required="true" id="gravidaInput"/>
+                    <obs required="true" conceptId="CIEL:5624" id="gravidaInput"  />
                 </p>
                 <p>
                     <label>

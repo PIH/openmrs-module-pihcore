@@ -291,10 +291,14 @@
                                 </obsgroup>
                             </template>
 
-                            <!-- Baby -->
+                            <!--Baby -->
                             <render concept="CIEL:130109" name="abnormal placenta"/>
                             <render concept="CIEL:115939" name="abnormal presentation"/>
                             <render concept="CIEL:145935" name="cephalopelvic distortion"/>
+                            <render concept="CIEL:162217" name="low birth weight"/>
+                            <render concept="CIEL:162218" name="low birth weight"/>
+                            <render concept="CIEL:162219" name="low birth weight"/>
+                            <render concept="CIEL:162237" name="low birth weight"/>
                             <render concept="CIEL:162239" name="low birth weight"/>
                             <render concept="CIEL:111523" name="Premature less than 28 weeks"/>
                             <render concept="PIH:11789" name="Premature (28-32)"/>
@@ -309,7 +313,7 @@
                             <render concept="CIEL:129211" name="rupture membrane"/>
                             <render concept="CIEL:115866" name="aspiration meconium"/>
 
-                            <!-- Momma -->
+                            <!--Mother-->    
                             <render concept="CIEL:165088" name="gbv"/>
                             <render concept="CIEL:113006" name="severe pre-eclampsia"/>
                             <render concept="PIH:Eclampsia" name="eclampsia"/>
@@ -327,7 +331,15 @@
                                  showCommentField="true" commentFieldLabel="" style="checkbox" />
                         <br/>
                     </p>
-                </div>
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.dischargeDate"/>
+                        </label>
+                        <span class="small">
+                            <obs conceptId="PIH:3800" allowTime="false" />
+                        </span>
+                    </p>
+                 </div>
             </div>
         </section>
 

@@ -207,6 +207,8 @@
                         </template>
 
                         <render concept="CIEL:165193" name="edema of hands or face"/>
+                        <render concept="PIH:136" name="chest pain"/>
+                        <render concept="CIEL:150802" name="pv bleeding"/>
                         <render concept="CIEL:140238" name="fever"/>
                         <render concept="CIEL:139081" name="severe headache"/>
                         <render concept="CIEL:113054" name="seizure"/>
@@ -265,6 +267,8 @@
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:114127" style="checkbox"/>
                     <!-- Antepartum hemorrhage -->
                     <obs conceptId="CIEL:160079" answerConceptId="PIH:ANTEPARTUM HEMORRHAGE" style="checkbox"/>
+                    <!--Post partum hemorrhage-->
+                    <obs conceptId="CIEL:160079" answerConceptId="PIH:49" style="checkbox"/>
                     <!-- Fetal death -->
                     <obs conceptId="CIEL:160079" answerConceptId="CIEL:140399" style="checkbox"/>
                     <!-- Malpresentation of fetus -->
