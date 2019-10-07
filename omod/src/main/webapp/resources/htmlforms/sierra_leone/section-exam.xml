@@ -381,11 +381,12 @@
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:NASAL DISCHARGE" style="checkbox"/>
                 </p>
+                &lt;br&gt;
                <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-                 &lt;br&gt;
-                 &lt;br&gt;
+                
+                &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
@@ -580,11 +581,10 @@
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="CIEL:155579" answerLabel="Chronic pelvic pain" style="checkbox" />
                 </p>
                 </includeIf>
-                &lt;br&gt;
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:UROGENITAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-
+                 &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
