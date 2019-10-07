@@ -168,26 +168,43 @@
              headerCode="zl.consultNote.patientHistory.title">
         <div class="section-container">
             <div class="two-columns">
-                <pastMedicalHistoryCheckbox concept="PIH:PNEUMONIA" />
-                <pastMedicalHistoryCheckbox concept="PIH:HERPES ZOSTER" />
-                <pastMedicalHistoryCheckbox concept="CIEL:5334" />
-                <pastMedicalHistoryCheckbox concept="PIH:DERMATITIS" />
-                <pastMedicalHistoryCheckbox concept="CIEL:119175" />
-                <pastMedicalHistoryCheckbox concept="PIH:DIARRHEA" />
-                <pastMedicalHistoryCheckbox concept="PIH:ANEMIA" />
+                <pastMedicalHistoryCheckbox concept="PIH:PNEUMONIA"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:HERPES ZOSTER"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="CIEL:5334"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:DERMATITIS"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="CIEL:119175"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:DIARRHEA"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:ANEMIA"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
                 <pastMedicalHistoryCheckbox concept="PIH:SEXUALLY TRANSMITTED INFECTION" label="pihcore.medicalhistory.sti"
                                             specify="true" class="medicalHistoryText patientHistory"/>
-                <pastMedicalHistoryCheckbox concept="CIEL:118983" />
-                <pastMedicalHistoryCheckbox concept="PIH:SEIZURE" />
+                <pastMedicalHistoryCheckbox concept="CIEL:118983"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:SEIZURE"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
                 <!-- Autres symptoms neurologiques -->
-                <pastMedicalHistoryCheckbox concept="PIH:995" />
-                <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension"/>
+                <pastMedicalHistoryCheckbox concept="PIH:995"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:HYPERTENSION" label="pihcore.medicalhistory.hypertension"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
                 <!-- Autres problemes cardio-vasculaires -->
-                <pastMedicalHistoryCheckbox concept="CIEL:119270"/>
-                <pastMedicalHistoryCheckbox concept="PIH:HEPATITIS"/>
-                <pastMedicalHistoryCheckbox concept="PIH:DIABETES"/>
-                <pastMedicalHistoryCheckbox concept="PIH:SURGERY" specify="true" class="medicalHistoryText patientHistory"/>
-                <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other" specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="CIEL:119270"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:HEPATITIS"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:DIABETES"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:SURGERY"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <pastMedicalHistoryCheckbox concept="PIH:OTHER" code="pihcore.other"
+                                            specify="true" class="medicalHistoryText patientHistory"/>
+                <br/><br/>
             </div>
         </div>
     </section>
