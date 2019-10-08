@@ -16,5 +16,14 @@
 
     </p>
 
-    <div class="book-keeping" ng-include="'templates/encounters/defaultEncounterBookkeeping.page'"></div>
+    <div class="book-keeping">
+    <span>{{encounter.encounterDatetime | serverDate:encounterDateFormat}}</span>
+
+    <span>
+        * ${ ui.message("pihcore.visitNote.enteredBy") } {{ encounter.auditInfo.creator | omrsDisplay }}
+    </span>
+    <span ng-show="encounter.auditInfo.dateChanged">
+        * ${ ui.message("pihcore.visitNote.editedOn") } {{encounter.auditInfo.dateChanged | serverDate:encounterDateFormat}}
+    </span>
+    </div>
 </div>
