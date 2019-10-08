@@ -423,16 +423,15 @@
              headerCode="pihcore.mentalhealth.scores">
 
         <div class="section-container">
+            <label>
+                <uimessage code="pihcore.mentalhealth.zldsi"/>:
+            </label>
 
-            <p>
-                <label>
-                    <uimessage code="pihcore.mentalhealth.zldsi"/>:
-                </label>
+            <span class="small">
+                <obs conceptId="CIEL:163225"/>
+            </span>
 
-                <span class="small">
-                    <obs conceptId="CIEL:163225"/>
-                </span>
-            </p>
+            <div class="two-columns">
 
             <p>
                 <label>
@@ -473,10 +472,8 @@
                     <obs conceptId="CIEL:163224"/>
                 </span>
             </p>
-        </div>
+            </div>
 
-        <hr/>
-        <div class="section-container">
             <p>
                 <label>
                     <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>):
@@ -512,10 +509,7 @@
                     <obs conceptId="PIH:Days with less activity in past month"/>
                 </span>
             </p>
-        </div>
-        <hr/>
 
-        <div class="section-container">
             <label>
                 <uimessage code="pihcore.mentalhealth.aims"/>:
             </label>
@@ -532,18 +526,19 @@
                     <uimessage code="permonth"/>
                 </span>
             </obsgroup>
-            <br/>
-            <br/>
+        </div>
+    </section>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.suicideEval"/>:
-            </label>
-            <obs conceptId="PIH:Suicidal evaluation" answerConceptIds="PIH:YES,PIH:NO"
-                 style="radio" answerCodes="yes,no" answerSeparator="" />
-            <br/>
-            <obs conceptId="PIH:Mental health diagnosis" answerConceptId="CIEL:125562"
-                 style="checkbox"/>
+    <section id="mh-suicide" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.mentalhealth.suicideEval">
+        <div class="section-container">
+            <obs conceptId="PIH:Suicidal evaluation" style="checkbox"
+                 answerConceptId="PIH:YES" answerCode="pihcore.mentalhealth.evalCompleted"
+                 toggle="suicideScreening" />
 
+        <div id="suicideScreening">
+
+        </div>
         </div>
     </section>
 
