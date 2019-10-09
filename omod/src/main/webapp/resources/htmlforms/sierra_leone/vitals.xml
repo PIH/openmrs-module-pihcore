@@ -607,23 +607,28 @@
             </fieldset>
 
         </includeIf>
-        <fieldset display-template="{{field.[0]}}{{#if field.[1]}}, {{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[1]}}{{/if}}">
+        <fieldset display-template="{{#if values.[0]}}{{values.[0]}}, {{/if}}{{#if values.[1]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{values.[1]}}, {{/if}}{{#if values.[2]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{values.[2]}}, {{/if}}">
             <legend><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></h3>
-                <p>
+            <p>
+                <field>
                     <obs conceptId="PIH:10674" id="consciousness_level"  answerSeparator="&lt;br&gt;"
                         answerConceptIds="CIEL:160282,CIEL:162645,CIEL:162644,PIH:6784"
-                        answerLabels="Awake (alert),Responds to voice,Responds to pain,Staring and unresponsive"/>
-                </p>
+                        answerLabels="Awake (alert),Responds to voice,Responds to pain,Staring and unresponsive" />
+                </field>
+
                 <div class="checkboxRadio">
-                 <h3><uimessage code="pihcore.vitals.sierraLeone.confused"/></h3>
                     <obsgroup groupingConceptId="PIH:Response triage symptom">
-                            <obs conceptId="PIH:SYMPTOM PRESENT" answerConceptId="PIH:CONFUSION"
-                                 answerCode="Yes" answerSeparator=""/><br></br>
-                            <obs conceptId="PIH:SYMPTOM ABSENT" answerConceptId="PIH:CONFUSION"
-                                 answerCode="No" answerSeparator="" />
-                    </obsgroup>
+                    <h3><uimessage code="pihcore.vitals.sierraLeone.confused"/></h3>
+                    <field>
+                        <obs conceptId="PIH:SYMPTOM PRESENT" answerConceptId="PIH:CONFUSION"
+                             answerCode="Yes" answerSeparator="" labelText=""/><br></br>
+                    </field>
+                    <field>
+                        <obs conceptId="PIH:SYMPTOM ABSENT" answerConceptId="PIH:CONFUSION"
+                             answerCode="No" answerSeparator="" labelText=""/>
+                    </field>
                     <br/>
 
                     <script type="text/javascript">
@@ -637,7 +642,9 @@
                             });
                         });
                     </script>
+                    </obsgroup>
                 </div>
+            </p>
             </fieldset>
 	    <fieldset>
             <legend><uimessage code="mirebalais.vitals.mobility.title"/></legend>
@@ -835,7 +842,7 @@
     <section id="tb_screening" sectionTag="section" headerStyle="title" headerCode="pihcore.tbscreen.title">
     <!--TB screening taken from /haiti/hiv/zl/vct.xml-->
         <!-- !! make sure this fieldset template stays aligned with field order below or data with be inaccurate !! -->
-         <fieldset display-template="{{#if field.[0]}}{{ message 'pihcore.tbscreen.feverSweats' }}: {{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.tbscreen.wtLoss3kg' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.tbscreen.cough' }}: {{field.[2]}}, {{/if}}{{#if field.[3]}}{{ message 'pihcore.tbscreen.bloodyCough' }}: {{field.[3]}} {{/if}}">
+         <fieldset display-template="{{#if values.[0]}}{{ message 'pihcore.tbscreen.feverSweats' }}: {{values.[0]}}, {{/if}}{{#if values.[1]}}{{ message 'pihcore.tbscreen.wtLoss3kg' }}: {{values.[1]}}, {{/if}}{{#if values.[2]}}{{ message 'pihcore.tbscreen.cough' }}: {{values.[2]}}, {{/if}}{{#if values.[3]}}{{ message 'pihcore.tbscreen.bloodyCough' }}: {{values.[3]}} {{/if}}">
              <legend><uimessage code="pihcore.tbscreen.title"/></legend>
              <h3><uimessage code="pihcore.tbscreen.title"/></h3>
             <table>
