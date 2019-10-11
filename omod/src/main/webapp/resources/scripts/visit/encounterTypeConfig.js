@@ -77,6 +77,18 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var liberiaPrimaryCareHistory = {
+            type: "encounter-section",
+            id: "pihcore-history",
+            label: "pihcore.history.label",
+            icon: "icon-file-alt",
+            classes: "indent",
+            shortTemplate: "templates/sections/primaryCareHistorySectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-history.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         var primaryCareExam = {
             type: "encounter-section",
             id: "physical-exam",
@@ -86,6 +98,17 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+        var liberiaPrimaryCareExam = {
+            type: "encounter-section",
+            id: "physical-exam",
+            label: "pihcore.exam.label",
+            icon: "icon-stethoscope",
+            shortTemplate: "templates/sections/examSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-exam.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var pedsFoodAndSupplements = {
@@ -111,6 +134,17 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
+        var liberiaPrimaryCareDx = {
+            type: "encounter-section",
+            id: "pihcore-diagnosis",
+            label: "pihcore.diagnosis.label",
+            icon: "icon-diagnosis",
+            shortTemplate: "templates/sections/dxSectionShort.page",
+            longTemplate: "templates/sections/dxLong.page",
+            //templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-dx.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
         var primaryCarePlan = {
             type: "encounter-section",
             id: "pihcore-plan",
@@ -125,6 +159,20 @@ angular.module("encounterTypeConfig", ["constants"])
 
         };
 
+        var liberiaPrimaryCarePlan = {
+            type: "encounter-section",
+            id: "pihcore-plan",
+            label: "pihcore.visitNote.plan",
+            icon: "icon-list-ul",
+            shortTemplate: "templates/sections/primaryCarePlanSectionShort.page",
+            longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
+            printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
+            printTemplateUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-prescriptions-print.xml",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-plan.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+
+        };
+
         var ncd = {
             type: "encounter-section",
             id: "pihcore-ncd",
@@ -134,7 +182,18 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        }
+        };
+
+        var liberiaNcd = {
+            type: "encounter-section",
+            id: "pihcore-ncd",
+            label: "pihcore.visitNote.ncdInitial",
+            icon: "icon-heart-empty",
+            shortTemplate: "templates/sections/ncdSectionShort.page",
+            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-ncd.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
 
         // ToDo: ncdInitial and ncdFollowup are the same and replaced by ncd
         var ncdInitial = {
@@ -399,37 +458,73 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         encounterTypes[EncounterTypes.ncdInitialConsult.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-heart",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-                primaryCareHistory,
-                primaryCareExam,
-                pedsVaccinations,
-                pedsFoodAndSupplements,
-                ncd,
-                primaryCareDx,
-                primaryCarePlan
-            ]
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "icon-heart",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    primaryCareHistory,
+                    primaryCareExam,
+                    pedsVaccinations,
+                    pedsFoodAndSupplements,
+                    ncd,
+                    primaryCareDx,
+                    primaryCarePlan
+                ]
+            },
+            'liberia': {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "icon-heart",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    liberiaPrimaryCareHistory,
+                    liberiaPrimaryCareExam,
+                    pedsVaccinations,
+                    pedsFoodAndSupplements,
+                    liberiaNcd,
+                    liberiaPrimaryCareDx,
+                    liberiaPrimaryCarePlan
+                ]
+            }
         };
 
         encounterTypes[EncounterTypes.ncdFollowupConsult.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-heart",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-                primaryCareExam,
-                pedsVaccinations,
-                ncd,
-                primaryCareDx,
-                primaryCarePlan
-            ]
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "icon-heart",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    primaryCareExam,
+                    pedsVaccinations,
+                    ncd,
+                    primaryCareDx,
+                    primaryCarePlan
+                ]
+            },
+            'liberia': {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "icon-heart",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    liberiaPrimaryCareExam,
+                    pedsVaccinations,
+                    liberiaNcd,
+                    liberiaPrimaryCareDx,
+                    liberiaPrimaryCarePlan
+                ]
+            }
         };
 
         encounterTypes[EncounterTypes.echocardiogramConsult.uuid] = {
