@@ -65,6 +65,12 @@
         -moz-column-count: 2;
         }
 
+        .three-columns {
+            column-count: 3;
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
+        }
+
         .simple-form-ui input {
         min-width: 80%
         }
@@ -431,48 +437,47 @@
                 <obs conceptId="CIEL:163225"/>
             </span>
 
-            <div class="two-columns">
+        <div class="two-columns">
+            <label>
+                <uimessage code="pihcore.mentalhealth.cesd"/>:
+            </label>
+            <span class="small">
+                <obs conceptId="CIEL:163228"/>
+            </span>
 
-            <p>
-                <label>
-                    <uimessage code="pihcore.mentalhealth.cesd"/>:
-                </label>
+            <label>
+                <uimessage code="pihcore.mentalhealth.psc35"/>:
+            </label>
+            <!-- ToDo:  Add concept -->
+            <br/>
 
-                <span class="small">
-                    <obs conceptId="CIEL:163228"/>
-                </span>
-            </p>
+            <label>
+                <uimessage code="pihcore.mentalhealth.pcl"/>:
+            </label>
+            <!-- ToDo:  Add concept -->
+            <br/><br/>
 
-            <p>
-                <label>
-                    <uimessage code="pihcore.mentalhealth.cgis"/>:
-                </label>
+            <label>
+                <uimessage code="pihcore.mentalhealth.cgis"/>:
+            </label>
+            <span class="small">
+                <obs conceptId="CIEL:163222"/>
+            </span>
 
-                <span class="small">
-                    <obs conceptId="CIEL:163222"/>
-                </span>
-            </p>
+            <label>
+                <uimessage code="pihcore.mentalhealth.cgii"/>:
+            </label>
+            <span class="small">
+                <obs conceptId="CIEL:163223"/>
+            </span>
 
-            <p>
-                <label>
-                    <uimessage code="pihcore.mentalhealth.cgii"/>:
-                </label>
-
-                <span class="small">
-                    <obs conceptId="CIEL:163223"/>
-                </span>
-            </p>
-
-            <p>
-                <label>
-                    <uimessage code="pihcore.mentalhealth.cgie"/>:
-                </label>
-
-                <span class="small">
-                    <obs conceptId="CIEL:163224"/>
-                </span>
-            </p>
-            </div>
+            <label>
+                <uimessage code="pihcore.mentalhealth.cgie"/>:
+            </label>
+            <span class="small">
+                <obs conceptId="CIEL:163224"/>
+            </span>
+        </div>
 
             <p>
                 <label>
