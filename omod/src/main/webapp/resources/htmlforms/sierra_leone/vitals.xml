@@ -607,7 +607,7 @@
             </fieldset>
 
         </includeIf>
-        <fieldset display-template="{{#if field.[0]}}{{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[2]}} {{/if}}">
+        <fieldset display-template="{{#if field.[0]}}{{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[2]}}, {{/if}}">
             <legend><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></h3>
@@ -842,7 +842,7 @@
     <section id="tb_screening" sectionTag="section" headerStyle="title" headerCode="pihcore.tbscreen.title">
     <!--TB screening taken from /haiti/hiv/zl/vct.xml-->
         <!-- !! make sure this fieldset template stays aligned with field order below or data with be inaccurate !! -->
-         <fieldset >
+         <fieldset display-template="{{#if field.[0]}}{{ message 'pihcore.tbscreen.feverSweats' }}: {{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.tbscreen.wtLoss3kg' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.tbscreen.cough' }}: {{field.[2]}}, {{/if}}{{#if field.[3]}}{{ message 'pihcore.tbscreen.bloodyCough' }}: {{field.[3]}} {{/if}}">
              <legend><uimessage code="pihcore.tbscreen.title"/></legend>
              <h3><uimessage code="pihcore.tbscreen.title"/></h3>
             <table>
