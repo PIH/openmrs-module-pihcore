@@ -607,7 +607,7 @@
             </fieldset>
 
         </includeIf>
-        <fieldset display-template="{{#if field.[0]}}{{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[2]}}, {{/if}}">
+        <fieldset display-template="{{#if field.[0]}}{{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[2]}} {{/if}}">
             <legend><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></h3>
