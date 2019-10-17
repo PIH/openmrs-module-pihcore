@@ -243,3 +243,44 @@ join encounter_provider ep on pv.provider_id = ep.provider_id and ep.voided = 0 
     
 END
 #
+/*
+Visit date
+*/
+#
+DROP FUNCTION IF EXISTS visit_date;
+#
+CREATE FUNCTION visit_date(
+    _patient_id int
+)
+	RETURNS DATE
+    DETERMINISTIC
+
+BEGIN
+    DECLARE visitDate date;
+
+    select date(date_started) into visitDate from visit where voided = 0 and visit_id = (select visit_id from encounter where encounter_type = @encounter_type)
+and patient_id = _patient_id;
+
+    RETURN visitDate;
+
+END
+#
+/*
+Program
+*/
+#
+DROP FUNCTION IF EXISTS program;
+#
+CREATE FUNCTION program(_name varchar (255))
+	RETURNS INT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE programId int;
+
+    select program_id into programId from program where retired = 0 and name = _name;
+
+    RETURN programId;
+
+END
+#
