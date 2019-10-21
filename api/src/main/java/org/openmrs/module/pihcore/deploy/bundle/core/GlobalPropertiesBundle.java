@@ -127,7 +127,8 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(AttachmentsConstants.GP_WEBCAM_ALLOWED, "false");
         properties.put(AttachmentsConstants.GP_MAX_STORAGE_FILE_SIZE, "5.0");
         properties.put(AttachmentsConstants.GP_MAX_UPLOAD_FILE_SIZE, "5.0");
-        properties.put(AttachmentsConstants.GP_ENCOUNTER_TYPE_UUID, ""); //Upload documents outside the visits
+        properties.put(AttachmentsConstants.GP_ASSOCIATE_WITH_VISIT, "false"); //Upload documents outside the visits
+        properties.put(AttachmentsConstants.GP_ENCOUNTER_TYPE_UUID, "");
 
         // Order Entry OWA
         // TODO: can we get rid of "order.encounterType" and "order.encounterRole" GP?
