@@ -14,6 +14,14 @@ gender(patient_id)
 person_address(patient_id)
 loc_registered(patient)
 provider(patient_id)
+program(program_name)
+relationship_type(name)
+person_address_state_province(patient_id)
+person_address_city_village(patient_id)
+person_address_three(patient_id)
+person_address_two(patient_id)
+person_address_one(patient_id)
+
 */
 
 /*
@@ -241,5 +249,172 @@ join encounter_provider ep on pv.provider_id = ep.provider_id and ep.voided = 0 
     
     RETURN providerName;
     
+END
+#
+/*
+Visit date
+*/
+#
+DROP FUNCTION IF EXISTS visit_date;
+#
+CREATE FUNCTION visit_date(
+    _patient_id int
+)
+	RETURNS DATE
+    DETERMINISTIC
+
+BEGIN
+    DECLARE visitDate date;
+
+    select date(date_started) into visitDate from visit where voided = 0 and visit_id = (select visit_id from encounter where encounter_type = @encounter_type)
+and patient_id = _patient_id;
+
+    RETURN visitDate;
+
+END
+#
+/*
+Program
+*/
+#
+DROP FUNCTION IF EXISTS program;
+#
+CREATE FUNCTION program(_name varchar (255))
+	RETURNS INT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE programId int;
+
+    select program_id into programId from program where retired = 0 and name = _name;
+
+    RETURN programId;
+
+END
+#
+/*
+Relationship
+*/
+#
+DROP FUNCTION IF EXISTS relation_type;
+#
+CREATE FUNCTION relation_type(
+    _name VARCHAR(255)
+)
+	RETURNS INT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE relationshipID INT;
+
+	SELECT relationship_type_id INTO relationshipID FROM relationship_type WHERE retired = 0 AND a_is_to_b = _name;
+
+    RETURN relationshipID;
+END
+#
+
+#
+
+/*
+ patient address
+*/
+
+#
+DROP FUNCTION IF EXISTS person_address_state_province;
+#
+CREATE FUNCTION person_address_state_province(
+    _patient_id int
+)
+	RETURNS TEXT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE patientAddressStateProvince TEXT;
+
+	select state_province into patientAddressStateProvince
+    from person_address where voided = 0 and person_id = _patient_id order by preferred desc, date_created desc limit 1;
+
+    RETURN patientAddressStateProvince;
+
+END
+#
+
+#
+DROP FUNCTION IF EXISTS person_address_city_village;
+#
+CREATE FUNCTION person_address_city_village(
+    _patient_id int
+)
+	RETURNS TEXT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE patientAddressCityVillage TEXT;
+
+	select city_village into patientAddressCityVillage
+    from person_address where voided = 0 and person_id = _patient_id order by preferred desc, date_created desc limit 1;
+
+    RETURN patientAddressCityVillage;
+
+END
+#
+
+#
+DROP FUNCTION IF EXISTS person_address_three;
+#
+CREATE FUNCTION person_address_three(
+    _patient_id int
+)
+	RETURNS TEXT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE patientAddressThree TEXT;
+
+	select address3 into patientAddressThree
+    from person_address where voided = 0 and person_id = _patient_id order by preferred desc, date_created desc limit 1;
+
+    RETURN patientAddressThree;
+
+END
+#
+
+#
+DROP FUNCTION IF EXISTS person_address_one;
+#
+CREATE FUNCTION person_address_one(
+    _patient_id int
+)
+	RETURNS TEXT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE patientAddressOne TEXT;
+
+	select address1 into patientAddressOne
+    from person_address where voided = 0 and person_id = _patient_id order by preferred desc, date_created desc limit 1;
+
+    RETURN patientAddressOne;
+
+END
+#
+
+#
+DROP FUNCTION IF EXISTS person_address_two;
+#
+CREATE FUNCTION person_address_two(
+    _patient_id int
+)
+	RETURNS TEXT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE patientAddressTwo TEXT;
+
+	select address2 into patientAddressTwo
+    from person_address where voided = 0 and person_id = _patient_id order by preferred desc, date_created desc limit 1;
+
+    RETURN patientAddressTwo;
+
 END
 #
