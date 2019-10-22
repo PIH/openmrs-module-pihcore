@@ -108,4 +108,6 @@ public class PihCoreConstants {
     // ToDo: These can be removed after they have been cleaned up on all servers
     public static final String FOLLOWUP_STATE_UUID = "3ce451d8-26fe-102b-80cb-0017a47871b2";
     public static final String PALLIATIVE_ONLY_STATE_UUID = "6bd18154-242a-44e9-8952-95eb837fe3fc";
+
+    public static final String HTMLFORMENTRY_INCLUDE_SECTION_TAG_NAME = "include";
 }

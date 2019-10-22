@@ -1,0 +1,50 @@
+<div id="epilepsy" class="section-container">
+    <p class="two-columns">
+        <label>
+            <uimessage code="mirebalais.vitals.weight.title"/>
+        </label>
+        <span class="small">
+            <obs conceptId="PIH:WEIGHT (KG)" id="weight_kg" showUnits="emr.units.kilograms"
+                 unitsCssClass="append-to-value"/>
+        </span>
+    </p>
+
+    <p class="two-columns">
+        <label>
+            <uimessage code="mirebalais.vitals.height.title"/>
+        </label>
+        <span class="small">
+            <obs conceptId="PIH:HEIGHT (CM)" id="height_cm" showUnits="emr.units.centimeters"
+                 unitsCssClass="append-to-value"/>
+        </span>
+    </p>
+
+    <p class="two-columns">
+        <label>
+            <uimessage code="mirebalais.vitals.temperature.title"/>
+        </label>
+        <span class="small">
+            <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius"
+                 unitsCssClass="append-to-value"/>
+        </span>
+    </p>
+
+    <p class="two-columns">
+        <label>
+            <uimessage code="mirebalais.vitals.heartRate.title"/>
+        </label>
+        <span class="small">
+            <obs conceptId="PIH:PULSE" id="heart_rate" showUnits="emr.units.perMinute" unitsCssClass="append-to-value"/>
+        </span>
+    </p>
+
+    <p class="two-columns">
+        <label>
+            <uimessage code="mirebalais.vitals.respiratoryRate.title"/>
+        </label>
+        <span class="small">
+            <obs conceptId="PIH:RESPIRATORY RATE" id="respiratory_rate" showUnits="emr.units.perMinute"
+                 unitsCssClass="append-to-value"/>
+        </span>
+    </p>
+</div>

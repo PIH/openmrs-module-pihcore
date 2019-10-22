@@ -258,16 +258,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-delivery.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-        var epilepsy = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-epilepsy.xml",
-            icon: "icon-user",
-            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/section-epilepsy.xml",
-            showOnVisitList: true
-        };
-
         /**
          * Define Encounter Types
          * Should support all of the following formats:
@@ -628,10 +618,7 @@ angular.module("encounterTypeConfig", ["constants"])
                 templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
                 icon: "icon-user",
                 editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
-                showOnVisitList: true,
-                sections: [
-                    epilepsy
-                ]
+                showOnVisitList: true
             }
         };
 

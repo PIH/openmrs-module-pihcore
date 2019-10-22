@@ -471,6 +471,10 @@
         </div>
     </section>
 
+    <section id="test-include-section" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
+        <include provider="pihcore" form="htmlforms/liberia/section-epilepsy.xml"/>
+    </section>
+
     <section id="mh-epilepsy-section" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
         <div id="epilepsy" class="section-container">
             <p class="two-columns">
