@@ -414,6 +414,13 @@
 
                 <repeat>
                     <template>
+                        <lookup complexExpression="#foreach ($ob in $fn.allObs('PIH:DIAGNOSIS'))
+                        #foreach ($dt in $fn.allObs('PIH:Diagnosis date'))
+                            #if ($ob.valueCoded.equals($fn.getConcept('{concept}')) and $ob.obsGroup.equals($dt.obsGroup))
+                                #set ($diagnosisStartDate = $dt.valueDatetime)
+                            #end
+                        #end
+                    #end"/>
                         <tr>
                             <obsgroup groupingConceptId="PIH:Visit Diagnoses">
                                 <td id="{name}-dx">
@@ -428,10 +435,16 @@
                                     </obs>
                                 </td>
                                 <td id="{name}-dx-date">
-                                    <obs conceptId="PIH:Diagnosis date"/>
+                                    <excludeIf velocityTest = "$diagnosisStartDate">
+                                        <obs conceptId="PIH:Diagnosis date"/>
+                                    </excludeIf>
+                                    <excludeIf velocityTest = "!$diagnosisStartDate">
+                                        <span><lookup complexExpression="$diagnosisStartDate"/></span>
+                                    </excludeIf>
                                 </td>
                             </obsgroup>
                         </tr>
+                        <lookup complexExpression="#set ($diagnosisStartDate = false)"/>
                     </template>
 
                     <render concept="PIH:PSYCHOSIS" name="Psychosis"/>
@@ -568,18 +581,18 @@
         <div class="section-container">
             <div class="two-columns">
                 <repeat with="
-                ['CIEL:165486','Supportive Psychotherapy'],
-                ['PIH:Psychotherapy'],
-                ['PIH:Psychoeducation'],
-                ['PIH:Relaxation'],
-                ['PIH:Family Support'],
-                ['PIH:Grief counseling'],
-                ['PIH:Parenting skills'],
-                ['PIH:Behavioral activation'],
-                ['PIH:Security plan'],
-                ['PIH:PSYCHOSOCIAL COUNSELING'],
-                ['CIEL:165328','HIV/AIDS counseling'],
-                ['CIEL:165479','Informing patient of diagnosis']">
+            ['CIEL:165486','Supportive Psychotherapy'],
+            ['PIH:Psychotherapy'],
+            ['PIH:Psychoeducation'],
+            ['PIH:Relaxation'],
+            ['PIH:Family Support'],
+            ['PIH:Grief counseling'],
+            ['PIH:Parenting skills'],
+            ['PIH:Behavioral activation'],
+            ['PIH:Security plan'],
+            ['PIH:PSYCHOSOCIAL COUNSELING'],
+            ['CIEL:165328','HIV/AIDS counseling'],
+            ['CIEL:165479','Informing patient of diagnosis']">
                     <div class="mh-intervention">
                         <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
                     </div>
