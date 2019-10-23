@@ -155,6 +155,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("labworkflowowa.testOrderType", OrderTypes.TEST_ORDER.uuid());
         properties.put("labworkflowowa.enableLabelPrinting", "true");
         properties.put("labworkflowowa.labelPrintingEndpoint", "mirebalais/lablabelprinter");
+        properties.put("labworkflowowa.ordersBatchSize", "1000");
 
         uninstall(possible(GlobalProperty.class, "labworkflowowa.specimenCollectionDateConcept"), "using encounter date instead");
         uninstall(possible(GlobalProperty.class, "labworkflowowa.labResultsEncounterType"), "using new lab result entry encounter type instead");
