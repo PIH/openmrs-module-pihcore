@@ -844,7 +844,7 @@
         <!-- !! make sure this fieldset template stays aligned with field order below or data with be inaccurate !! -->
          <fieldset display-template="{{#if field.[0]}}{{ message 'pihcore.tbscreen.feverSweats' }}: {{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.tbscreen.wtLoss3kg' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.tbscreen.cough' }}: {{field.[2]}}, {{/if}}{{#if field.[3]}}{{ message 'pihcore.tbscreen.bloodyCough' }}: {{field.[3]}} {{/if}}">
              <legend><uimessage code="pihcore.tbscreen.title"/></legend>
-             <h3><uimessage code="pihcore.tbscreen.title"/></h3>
+             <h3><uimessage code="pihcore.tbscreen.title"/><p>If any questions answered Yes request AFB test</p></h3>
             <table>
                 <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['bloodyCough','970']">
                    <tr>
