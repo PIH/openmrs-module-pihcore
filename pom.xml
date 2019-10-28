@@ -61,7 +61,7 @@
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
         <htmlformentryuiVersion>1.9.0</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
-        <reportingVersion>1.18.0</reportingVersion>
+        <reportingVersion>1.19.0</reportingVersion>
         <reportinguiVersion>1.6.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
@@ -84,12 +84,12 @@
         <webservicesRestVersion>2.23.0-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
-        <testutilsVersion>1.7.0-SNAPSHOT</testutilsVersion>
+        <testutilsVersion>1.7.0</testutilsVersion>
         <printerVersion>1.4.0</printerVersion>
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
-        <attachmentsVersion>2.1.0</attachmentsVersion>
+        <attachmentsVersion>2.2.0-SNAPSHOT</attachmentsVersion>
         <labtrackingappVersion>1.0.0</labtrackingappVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

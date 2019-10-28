@@ -429,6 +429,18 @@
              headerCode="pihcore.mentalhealth.scores">
 
         <div class="section-container">
+
+            <obs conceptId="CIEL:165554" style="checkbox"
+                 answerConceptId="CIEL:165536"
+                 answerCode="pihcore.mentalhealth.sadOrDepressed" />
+            <obs conceptId="CIEL:165554" style="checkbox"
+                 answerConceptId="CIEL:165537"
+                 answerCode="pihcore.mentalhealth.lostInterest" />
+            <obs conceptId="CIEL:165554" style="checkbox"
+                 answerConceptId="CIEL:165538"
+                 answerCode="pihcore.mentalhealth.suspDepression" />
+
+            <br/>
             <label>
                 <uimessage code="pihcore.mentalhealth.zldsi"/>:
             </label>
@@ -448,14 +460,18 @@
             <label>
                 <uimessage code="pihcore.mentalhealth.psc35"/>:
             </label>
-            <!-- ToDo:  Add concept -->
-            <br/>
+            <span class="small">
+                <obs conceptId="CIEL:165534"/>
+            </span>
 
             <label>
                 <uimessage code="pihcore.mentalhealth.pcl"/>:
             </label>
-            <!-- ToDo:  Add concept -->
-            <br/><br/>
+            <span class="small">
+                <obs conceptId="CIEL:165535"/>
+            </span>
+
+            <br/>
 
             <label>
                 <uimessage code="pihcore.mentalhealth.cgis"/>:
@@ -479,13 +495,22 @@
             </span>
         </div>
 
+            <br/>
+            <!-- NOTE:  WHODAS required for 18+ -->
             <p>
                 <label>
                     <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>):
                 </label>
-                <span class="small">
-                    <obs conceptId="CIEL:163226" required="true"/>
-                </span>
+                <includeIf velocityTest="$patient.age &gt; 17" >
+                    <span class="small">
+                        <obs conceptId="CIEL:163226" required="true" />
+                    </span>
+                </includeIf>
+                <includeIf velocityTest="$patient.age &lt; 18" >
+                    <span class="small">
+                        <obs conceptId="CIEL:163226" />
+                    </span>
+                </includeIf>
             </p>
 
             <p>
@@ -537,13 +562,61 @@
     <section id="mh-suicide" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.mentalhealth.suicideEval">
         <div class="section-container">
+            <div class="two-columns">
+
+                <obs conceptId="CIEL:1628" style="checkbox"
+                     answerConceptId="CIEL:125562" answerCode="pihcore.mentalhealth.historySuicideThoughts"/>
+
+                <!-- History of suicide attempt -->
+                <obs conceptId="CIEL:1628" style="checkbox"
+                     answerConceptId="CIEL:148143" answerCode="pihcore.mentalhealth.historySuicideAttempt"/>
+
+            </div>
+
+            <!-- Suicide attempt -->
+            <obs conceptId="PIH:DIAGNOSIS" style="checkbox"
+                 answerConceptId="CIEL:148143" answerCode="pihcore.mentalhealth.currentSuicideAttempt"
+                 toggle="suicideAttempt"/>
+
+            <div id="suicideAttempt">
+                <!-- Date of suicide attempt -->
+                <label>
+                    <uimessage code="pihcore.mentalhealth.dateSuicideAttempt"/>
+                </label>
+                <obs conceptId="CIEL:165530"/>
+            </div>
+
+            <br/>
+            <label>
+                <uimessage code="pihcore.mentalhealth.suicideRiskEval"/>
+            </label>
+
+            <obs conceptId="PIH:12432" style="radio"
+                 answerConceptIds="PIH:YES,PIH:NO,PIH:1175" answerSeparator=""/>
+
+            <br/>
             <obs conceptId="PIH:Suicidal evaluation" style="checkbox"
                  answerConceptId="PIH:YES" answerCode="pihcore.mentalhealth.evalCompleted"
-                 toggle="suicideScreening" />
+                 toggle="suicideScreening"/>
 
-        <div id="suicideScreening">
 
-        </div>
+            <div id="suicideScreening">
+                <div class="two-columns">
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.suicideScreenResult"/>
+                    </label>
+                    <obs conceptId="PIH:12376" style="radio"
+                         answerConceptIds="CIEL:1407,CIEL:164944,CIEL:1408" answerSeparator=""/>
+
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.ifHighAnswer"/>
+                    </label>
+
+                    <obs conceptId="CIEL:165531" answerConceptId="CIEL:165532"/>
+                    <obs conceptId="CIEL:165531" answerConceptId="PIH:10646" answerCode="pihcore.mentalhealth.safetyPlan" />
+                    <obs conceptId="CIEL:165531" answerConceptId="CIEL:165533"/>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -591,7 +664,6 @@
             </div>
 
             <div class="two-columns">
-                <!-- ToDo:  Add HIV/AIDS counseling -->
                 <repeat with="['PIH:Behavioral activation'],
                               ['PIH:Cognitive processing therapy'],
                               ['CIEL:165424','Cognitive-behavior therapy'],

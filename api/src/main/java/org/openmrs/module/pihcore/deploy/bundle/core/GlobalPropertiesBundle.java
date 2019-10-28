@@ -127,7 +127,8 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(AttachmentsConstants.GP_WEBCAM_ALLOWED, "false");
         properties.put(AttachmentsConstants.GP_MAX_STORAGE_FILE_SIZE, "5.0");
         properties.put(AttachmentsConstants.GP_MAX_UPLOAD_FILE_SIZE, "5.0");
-        properties.put(AttachmentsConstants.GP_ENCOUNTER_TYPE_UUID, ""); //Upload documents outside the visits
+        properties.put(AttachmentsConstants.GP_ASSOCIATE_WITH_VISIT, "false"); //Upload documents outside the visits
+        properties.put(AttachmentsConstants.GP_ENCOUNTER_TYPE_UUID, "");
 
         // Order Entry OWA
         // TODO: can we get rid of "order.encounterType" and "order.encounterRole" GP?
@@ -153,6 +154,9 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("labworkflowowa.estimatedCollectionDateAnswer", "3cd6f600-26fe-102b-80cb-0017a47871b2");  // CIEL:1065 ("yes")
         properties.put("labworkflowowa.testOrderType", OrderTypes.TEST_ORDER.uuid());
         properties.put("labworkflowowa.orderLabTestLink", "/coreapps/findpatient/findPatient.page?app=laborders");
+        properties.put("labworkflowowa.enableLabelPrinting", "true");
+        properties.put("labworkflowowa.labelPrintingEndpoint", "mirebalais/lablabelprinter");
+        properties.put("labworkflowowa.ordersBatchSize", "1000");
 
         uninstall(possible(GlobalProperty.class, "labworkflowowa.specimenCollectionDateConcept"), "using encounter date instead");
         uninstall(possible(GlobalProperty.class, "labworkflowowa.labResultsEncounterType"), "using new lab result entry encounter type instead");
