@@ -153,6 +153,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("labworkflowowa.estimatedCollectionDateQuestion", "87f506e3-4433-40ec-b16c-b3c65e402989");  //  PIH:11781
         properties.put("labworkflowowa.estimatedCollectionDateAnswer", "3cd6f600-26fe-102b-80cb-0017a47871b2");  // CIEL:1065 ("yes")
         properties.put("labworkflowowa.testOrderType", OrderTypes.TEST_ORDER.uuid());
+        properties.put("labworkflowowa.orderLabTestLink", "/coreapps/findpatient/findPatient.page?app=laborders");
         properties.put("labworkflowowa.enableLabelPrinting", "true");
         properties.put("labworkflowowa.labelPrintingEndpoint", "mirebalais/lablabelprinter");
         properties.put("labworkflowowa.ordersBatchSize", "1000");
