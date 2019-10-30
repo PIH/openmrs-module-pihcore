@@ -193,25 +193,25 @@
         </p>
     </div>
 
-
-    <div class = "small-text section-container" style="color: #E94B3CFF;">
+<section>
+    <div class = "small-text section-container">
         <table>
         <thead>
             <tr>
 
-                <td style="font-weight:bold"> <uimessage code="Signos vitales"/> </td>
-                <td style="font-weight:bold"> <uimessage code="Fecha"/> </td>
-                <td style="font-weight:bold"> <uimessage code="Resultados"/> </td>
+                <td style="font-weight:bold"> <uimessage code="mirebalais.mostRecentVitals.label"/> </td>
+                <td style="font-weight:bold"> <uimessage code="zl.date"/> </td>
+                <td style="font-weight:bold"> <uimessage code="mirebalais.vital.results"/> </td>
             </tr>
             </thead>
         <tbody>
             <tr>
-                <td>  <uimessage code="PA (S)"/>  </td>
+                <td>  <uimessage code="mirebalais.vitals.systolic.bp.title"/>  </td>
                 <td> <p> <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').obsDatetime"/> </p> </td>
                 <td> <p> <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').valueNumeric"/> </p> </td>
             </tr>
             <tr>
-                <td>  <uimessage code="PA (D)"/>  </td>
+                <td>  <uimessage code="mirebalais.vitals.diastolic.bp.title"/>  </td>
                 <td> <p> <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').obsDatetime"/> </p> </td>
                 <td> <p> <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').valueNumeric"/> </p> </td>
             </tr>
@@ -250,9 +250,11 @@
                 <td> <p> <lookup expression="fn.latestObs('CIEL:160531').obsDatetime"/> </p> </td>
                 <td> <p> <lookup expression="fn.latestObs('CIEL:160531').valueText"/> </p> </td>
             </tr>
+
         </tbody>
         </table>
     </div>
+    </section>
 
 
 
