@@ -130,6 +130,10 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put(AttachmentsConstants.GP_ASSOCIATE_WITH_VISIT, "false"); //Upload documents outside the visits
         properties.put(AttachmentsConstants.GP_ENCOUNTER_TYPE_UUID, "");
 
+        // REST web services
+        // this is because in the Lab Workflow OWA we want to fetch batches of 3000
+        properties.put("webservices.rest.maxResultsAbsolute", "3000");
+
         // Order Entry OWA
         // TODO: can we get rid of "order.encounterType" and "order.encounterRole" GP?
         properties.put("orderentryowa.encounterType", "Test Order");
@@ -156,7 +160,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("labworkflowowa.orderLabTestLink", "/coreapps/findpatient/findPatient.page?app=laborders");
         properties.put("labworkflowowa.enableLabelPrinting", "true");
         properties.put("labworkflowowa.labelPrintingEndpoint", "mirebalais/lablabelprinter");
-        properties.put("labworkflowowa.ordersBatchSize", "1000");
+        properties.put("labworkflowowa.ordersBatchSize", "3000");
 
         uninstall(possible(GlobalProperty.class, "labworkflowowa.specimenCollectionDateConcept"), "using encounter date instead");
         uninstall(possible(GlobalProperty.class, "labworkflowowa.labResultsEncounterType"), "using new lab result entry encounter type instead");
