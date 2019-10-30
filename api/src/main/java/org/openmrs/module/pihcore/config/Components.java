@@ -48,6 +48,11 @@ public class Components {
         public static final String PATIENT_REGISTRATION = "patientRegistration";
         public static final String CLINICIAN_DASHBOARD = "clinicianDashboard";
         public static final String BMI_ON_CLINICIAN_DASHBOARD = "bmiOnClinicianDashboard";
+        public static final String WHODAS_ON_CLINICIAN_DASHBOARD = "whodasOnClinicianDashboard";
+        public static final String ZLDSI_ON_CLINICIAN_DASHBOARD = "zldsiOnClinicianDashboard";
+        public static final String SEIZUREFREQUENCY_ON_CLINICIAN_DASHBOARD = "seizureFrequencyOnClinicianDashboard";
+        public static final String PHQ9_ON_CLINICIAN_DASHBOARD = "phq9OnClinicianDashboard";
+        public static final String GAD7_ON_CLINICIAN_DASHBOARD = "gad7OnClinicianDashboard";
         public static final String VISIT_NOTE = "visitNote";  // get rid of the left visits bar and enable form sections
         public static final String ALLERGIES = "allergies";
         public static final String PRESCRIPTIONS = "prescriptions";
