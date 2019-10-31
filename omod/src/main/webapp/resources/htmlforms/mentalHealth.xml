@@ -601,13 +601,14 @@
                 <tr>
                     <th><label><uimessage code="pihcore.current.label"/></label></th>
                     <td>
-                        needed
+                        <!-- Suicidal ideation -->
+                        <obs conceptId="PIH:Mental health diagnosis" style="checkbox"
+                             answerConceptId="CIEL:125562" answerCode="" />
                     </td>
                     <td>
                         <!-- Suicide attempt -->
-                        <obs conceptId="PIH:DIAGNOSIS" style="checkbox"
-                             answerConceptId="CIEL:148143" answerCode=""
-                             toggle="suicideAttempt"/>
+                        <obs conceptId="PIH:Mental health diagnosis" style="checkbox"
+                             answerConceptId="CIEL:148143" answerCode="" />
                     </td>
                 </tr>
                 <tr>
