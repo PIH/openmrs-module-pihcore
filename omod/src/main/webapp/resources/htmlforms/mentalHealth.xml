@@ -592,7 +592,7 @@
                         <obs conceptId="CIEL:1628" style="checkbox"
                              answerConceptId="CIEL:125562" answerCode=""/>
                     </td>
-                    <td align="center">
+                    <td>
                         <!-- History of suicide attempt -->
                         <obs conceptId="CIEL:1628" style="checkbox"
                              answerConceptId="CIEL:148143" answerCode=""/>
