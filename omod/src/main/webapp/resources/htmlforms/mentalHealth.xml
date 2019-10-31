@@ -430,6 +430,10 @@
 
         <div class="section-container">
 
+            <label>
+                <uimessage code="pihcore.mentalhealth.depressionScreening"/>
+            </label>
+
             <obs conceptId="CIEL:165554" style="checkbox"
                  answerConceptId="CIEL:165536"
                  answerCode="pihcore.mentalhealth.sadOrDepressed" />
@@ -449,64 +453,69 @@
                 <obs conceptId="CIEL:163225"/>
             </span>
 
-        <div class="two-columns">
-            <label>
-                <uimessage code="pihcore.mentalhealth.cesd"/>:
-            </label>
-            <span class="small">
-                <obs conceptId="CIEL:163228"/>
-            </span>
+            <div class="two-columns">
+                <label>
+                    <uimessage code="pihcore.mentalhealth.cesd"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163228"/>
+                </span>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.psc35"/>:
-            </label>
-            <span class="small">
-                <obs conceptId="CIEL:165534"/>
-            </span>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.psc35"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:165534"/>
+                </span>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.pcl"/>:
-            </label>
-            <span class="small">
-                <obs conceptId="CIEL:165535"/>
-            </span>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.pcl"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:165535"/>
+                </span>
 
-            <br/>
+                <br/>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.cgis"/>:
-            </label>
-            <span class="small">
-                <obs conceptId="CIEL:163222"/>
-            </span>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.cgis"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163222"/>
+                </span>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.cgii"/>:
-            </label>
-            <span class="small">
-                <obs conceptId="CIEL:163223"/>
-            </span>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.cgii"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163223"/>
+                </span>
 
-            <label>
-                <uimessage code="pihcore.mentalhealth.cgie"/>:
-            </label>
-            <span class="small">
-                <obs conceptId="CIEL:163224"/>
-            </span>
+                <label>
+                    <uimessage code="pihcore.mentalhealth.cgie"/>:
+                </label>
+                <span class="small">
+                    <obs conceptId="CIEL:163224"/>
+                </span>
+            </div>
         </div>
+        <br/>
 
-            <br/>
+        <div class="section-container">
             <!-- NOTE:  WHODAS required for 18+ -->
             <p>
-                <label>
-                    <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>):
-                </label>
                 <includeIf velocityTest="$patient.age &gt; 17" >
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.whodas"/> (<uimessage code="emr.formValidation.messages.requiredField.label"/>):
+                    </label>
                     <span class="small">
                         <obs conceptId="CIEL:163226" required="true" />
                     </span>
                 </includeIf>
                 <includeIf velocityTest="$patient.age &lt; 18" >
+                    <label>
+                        <uimessage code="pihcore.mentalhealth.whodas"/>:
+                    </label>
                     <span class="small">
                         <obs conceptId="CIEL:163226" />
                     </span>
@@ -539,6 +548,10 @@
                     <obs conceptId="PIH:Days with less activity in past month"/>
                 </span>
             </p>
+        </div>
+        <br/>
+
+        <div class="section-container">
 
             <label>
                 <uimessage code="pihcore.mentalhealth.aims"/>:
@@ -611,7 +624,7 @@
                     </label>
 
                     <obs conceptId="CIEL:165531" answerConceptId="CIEL:165532"/>
-                    <obs conceptId="CIEL:165531" answerConceptId="PIH:10646" answerCode="pihcore.mentalhealth.safetyPlan" />
+                    <obs conceptId="PIH:Mental health intervention" answerConceptId="PIH:10646" answerCode="pihcore.mentalhealth.safetyPlan" />
                     <obs conceptId="CIEL:165531" answerConceptId="CIEL:165533"/>
                 </div>
             </div>
@@ -675,8 +688,7 @@
                               ['PIH:Parenting skills'],
                               ['CIEL:165484','Deep breathing'],
                               ['CIEL:165485','Progressive muscle relaxation'],
-                              ['CIEL:165328','HIV/AIDS counseling'],
-                              ['PIH:Security plan']">
+                              ['CIEL:165328','HIV/AIDS counseling']">
                         <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
                 </repeat>
             </div>
