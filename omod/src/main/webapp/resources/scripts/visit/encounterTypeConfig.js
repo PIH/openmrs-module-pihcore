@@ -125,8 +125,9 @@ angular.module("encounterTypeConfig", ["constants"])
 
         };
 
-        //SierraLeone
-          var primaryCarePlanMedication = {
+        // Sierra Leone has one Plan section used on it's Outpatient forms, and then a medication-only
+        // plans section used on other forms, so we need a separate "medication plan" section for that
+        var primaryCarePlanMedication = {
           type: "encounter-section",
           id: "pihcore-plan-medication",
           label: "pihcore.visitNote.plan",
