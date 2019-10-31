@@ -576,33 +576,55 @@
              headerCode="pihcore.mentalhealth.suicideEval">
         <div class="section-container">
 
-            <obs conceptId="CIEL:1628" style="checkbox"
-                 answerConceptId="CIEL:125562" answerCode="pihcore.mentalhealth.historySuicideThoughts"/>
+            <table>
+                <tr>
+                    <th></th>
+                    <th>
+                        <label><uimessage code="pihcore.mentalhealth.suicideIdea"/></label>
+                    </th>
+                    <th>
+                        <label><uimessage code="pihcore.mentalhealth.suicideAttempt"/></label>
+                    </th>
+                </tr>
+                <tr>
+                    <th><label><uimessage code="pihcore.history.label"/></label></th>
+                    <td>
+                        <obs conceptId="CIEL:1628" style="checkbox"
+                             answerConceptId="CIEL:125562" answerCode=""/>
+                    </td>
+                    <td align="center">
+                        <!-- History of suicide attempt -->
+                        <obs conceptId="CIEL:1628" style="checkbox"
+                             answerConceptId="CIEL:148143" answerCode=""/>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label><uimessage code="pihcore.current.label"/></label></th>
+                    <td>
+                        needed
+                    </td>
+                    <td>
+                        <!-- Suicide attempt -->
+                        <obs conceptId="PIH:DIAGNOSIS" style="checkbox"
+                             answerConceptId="CIEL:148143" answerCode=""
+                             toggle="suicideAttempt"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td>
 
-            <!-- History of suicide attempt -->
-            <obs conceptId="CIEL:1628" style="checkbox"
-                 answerConceptId="CIEL:148143" answerCode="pihcore.mentalhealth.historySuicideAttempt"/>
+                        <!-- Date of suicide attempt -->
+                        <label>
+                            <uimessage code="pihcore.mentalhealth.dateSuicideAttempt"/>
+                        </label>
+                        <obs conceptId="CIEL:165530"/>
+                    </td>
+                </tr>
 
-            <!-- Suicide attempt -->
-            <obs conceptId="PIH:DIAGNOSIS" style="checkbox"
-                 answerConceptId="CIEL:148143" answerCode="pihcore.mentalhealth.currentSuicideAttempt"
-                 toggle="suicideAttempt"/>
-
-            <div id="suicideAttempt">
-                <!-- Date of suicide attempt -->
-                <label>
-                    <uimessage code="pihcore.mentalhealth.dateSuicideAttempt"/>
-                </label>
-                <obs conceptId="CIEL:165530"/>
-            </div>
-
-            <br/>
-            <label>
-                <uimessage code="pihcore.mentalhealth.suicideRiskEval"/>
-            </label>
-
-            <obs conceptId="PIH:12432" style="radio"
-                 answerConceptIds="PIH:YES,PIH:NO,PIH:1175" answerSeparator=""/>
+            </table>
 
             <br/>
             <obs conceptId="PIH:Suicidal evaluation" style="checkbox"
