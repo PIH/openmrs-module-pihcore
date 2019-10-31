@@ -562,16 +562,13 @@
     <section id="mh-suicide" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.mentalhealth.suicideEval">
         <div class="section-container">
-            <div class="two-columns">
 
-                <obs conceptId="CIEL:1628" style="checkbox"
-                     answerConceptId="CIEL:125562" answerCode="pihcore.mentalhealth.historySuicideThoughts"/>
+            <obs conceptId="CIEL:1628" style="checkbox"
+                 answerConceptId="CIEL:125562" answerCode="pihcore.mentalhealth.historySuicideThoughts"/>
 
-                <!-- History of suicide attempt -->
-                <obs conceptId="CIEL:1628" style="checkbox"
-                     answerConceptId="CIEL:148143" answerCode="pihcore.mentalhealth.historySuicideAttempt"/>
-
-            </div>
+            <!-- History of suicide attempt -->
+            <obs conceptId="CIEL:1628" style="checkbox"
+                 answerConceptId="CIEL:148143" answerCode="pihcore.mentalhealth.historySuicideAttempt"/>
 
             <!-- Suicide attempt -->
             <obs conceptId="PIH:DIAGNOSIS" style="checkbox"
@@ -599,8 +596,8 @@
                  answerConceptId="PIH:YES" answerCode="pihcore.mentalhealth.evalCompleted"
                  toggle="suicideScreening"/>
 
-
             <div id="suicideScreening">
+                <br/>
                 <div class="two-columns">
                     <label>
                         <uimessage code="pihcore.mentalhealth.suicideScreenResult"/>
@@ -608,6 +605,7 @@
                     <obs conceptId="PIH:12376" style="radio"
                          answerConceptIds="CIEL:1407,CIEL:164944,CIEL:1408" answerSeparator=""/>
 
+                    <br/>
                     <label>
                         <uimessage code="pihcore.mentalhealth.ifHighAnswer"/>
                     </label>
