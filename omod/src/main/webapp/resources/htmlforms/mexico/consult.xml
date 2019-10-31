@@ -193,70 +193,162 @@
         </p>
     </div>
 
-<section>
-    <div class = "small-text section-container">
-        <table>
-        <thead>
-            <tr>
-
-                <td style="font-weight:bold"> <uimessage code="mirebalais.mostRecentVitals.label"/> </td>
-                <td style="font-weight:bold"> <uimessage code="zl.date"/> </td>
-                <td style="font-weight:bold"> <uimessage code="mirebalais.vital.results"/> </td>
-            </tr>
-            </thead>
-        <tbody>
-            <tr>
-                <td>  <uimessage code="mirebalais.vitals.systolic.bp.title"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').valueNumeric"/> </p> </td>
-            </tr>
-            <tr>
-                <td>  <uimessage code="mirebalais.vitals.diastolic.bp.title"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').valueNumeric"/> </p> </td>
-            </tr>
-            <tr>
-                <td>  <uimessage code="mirebalais.vitals.o2sat.title"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').valueNumeric"/> </p> </td>
-            </tr>
-            <tr>
-                <td>  <uimessage code="pihcore.lab.isFastingGlucose"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:Fasting for blood glucose test').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name"/> </p> </td>
-            </tr>
-            <tr>
-                <td>  <uimessage code="pihcore.lab.glucose"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric"/> </p> </td>
-            </tr>
-            <tr>
-                <td>  <uimessage code="mirebalais.vitals.temperature.title"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').valueNumeric"/> </p> </td>
-            </tr>
-            <tr>
-                <td>  <uimessage code="mirebalais.vitals.heartRate.title"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:PULSE').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:PULSE').valueNumeric"/> </p> </td>
-            </tr>
-            <tr>
-                <td>  <uimessage code="mirebalais.vitals.respiratoryRate.title"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').valueNumeric"/> </p> </td>
-            </tr>
-            <tr>
-                <td>  <uimessage code="mirebalais.vitals.complaint.title"/>  </td>
-                <td> <p> <lookup expression="fn.latestObs('CIEL:160531').obsDatetime"/> </p> </td>
-                <td> <p> <lookup expression="fn.latestObs('CIEL:160531').valueText"/> </p> </td>
-            </tr>
-
-        </tbody>
-        </table>
-    </div>
+    <section>
+        <div class="small-text section-container">
+            <table>
+                <thead>
+                    <tr>
+                        <td style="font-weight:bold">
+                            <uimessage code="pihcore.mostRecentVitals.label"/>
+                        </td>
+                        <td style="font-weight:bold">
+                            <uimessage code="zl.date"/>
+                        </td>
+                        <td style="font-weight:bold">
+                            <uimessage code="mirebalais.vital.results"/>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <uimessage code="pihcore.vitals.systolic.bp.title"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').valueNumeric"/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="pihcore.vitals.diastolic.bp.title"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').valueNumeric"/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.o2sat.title"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').valueNumeric"/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="pihcore.lab.isFastingGlucose"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:Fasting for blood glucose test').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name"/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="pihcore.lab.glucose"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric"/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.temperature.title"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').valueNumeric"/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.heartRate.title"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:PULSE').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:PULSE').valueNumeric"/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.respiratoryRate.title"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').valueNumeric"/>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.complaint.title"/>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('CIEL:160531').obsDatetime"/>
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                <lookup expression="fn.latestObs('CIEL:160531').valueText"/>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </section>
-
-
 
     <div class="hidden" id="logos" style="width=100%">
         <!-- These should appear in printed notes and prescriptions -->
