@@ -1,0 +1,90 @@
+<htmlform formUuid="184ADCD9-8A6A-420C-9070-5FBE687AE00B" formName="Ebola Screening" formEncounterType="873f968a-73a8-4f9c-ac78-9f4778b751b6" formVersion="1.0">
+
+    <ifMode mode="VIEW" include="false">
+
+
+        <script type="text/javascript">
+
+        </script>
+    </ifMode>
+
+    <ifMode mode="VIEW" include="false">
+        <h2><uimessage code="zl.registration.patient.ebolaScreening.label"/></h2>
+    </ifMode>
+
+    <div class="hidden">
+        <encounterProviderAndRole default="currentUser" encounterRole="cbfe0b9d-9923-404c-941b-f048adc8cdc0" required="true"/>
+        <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
+    </div>
+
+    <input id="displayEncounterDate" value="false" type="hidden" />
+
+    <section id="ebolascreening" sectionTag="section">
+
+        <fieldset>
+
+                <!-- edit Ebola screening questions -->
+                <ifMode mode="VIEW" include="false">
+                    <div class="left">
+                        <h3><uimessage code="zl.registration.patient.ebolaScreening.feverTwoDays.label"/></h3>
+                        <p class="left">
+
+                            <obs conceptId="PIH:12246" id="feverQuestion"
+                                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="coreapps.yes,coreapps.no"
+                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3"/>
+                        </p>
+                    </div>
+
+                    <div class="right">
+                        <h3><uimessage code="zl.registration.patient.ebolaScreening.bleedingSigns.label"/></h3>
+                        <p class="right">
+                            <obs conceptId="PIH:7102" id="bleedingQuestion" answerConceptIds="PIH:YES,PIH:NO" answerCodes="coreapps.yes,coreapps.no"
+                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3"/>
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3><uimessage code="zl.registration.patient.ebolaScreening.clinicalSuspicion.label"/></h3>
+                        <p class="left">
+                            <obs conceptId="CIEL:1690" id="clinicalSuspicionQuestion"
+                                 answerConceptIds="PIH:YES,PIH:NO" answerCodes="coreapps.yes,coreapps.no"
+                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3"/>
+                        </p>
+                    </div>
+
+                </ifMode>
+
+                <!-- view mode of Ebola screening questions -->
+                <ifMode mode="VIEW" include="true">
+                    <div>
+                        <h3><uimessage code="zl.registration.patient.ebolaScreening.feverTwoDays.label"/></h3>
+                        <p class="left">
+                            <obs conceptId="PIH:12246" id="feverQuestion" showUnits="false" unitsCssClass="append-to-value"/>
+                        </p>
+                    </div>
+                    <div>
+                        <h3><uimessage code="zl.registration.patient.ebolaScreening.bleedingSigns.label"/></h3>
+                        <p class="left">
+                            <obs conceptId="PIH:7102" id="bleedingQuestion" showUnits="false" unitsCssClass="append-to-value"/>
+                        </p>
+                    </div>
+                    <div>
+                        <h3><uimessage code="zl.registration.patient.ebolaScreening.clinicalSuspicion.label"/></h3>
+                        <p class="left">
+                            <obs conceptId="CIEL:1690" id="clinicalSuspicionQuestion" showUnits="false" unitsCssClass="append-to-value" />
+                        </p>
+                    </div>
+
+                </ifMode>
+
+        </fieldset>
+    </section>
+
+    <ifMode mode="VIEW" include="false">
+        <div id="buttons">
+            <button class="submitButton confirm right" onclick="submitHtmlForm()"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
+            <button type="button" class="cancel"><uimessage code="emr.cancel"/></button>
+        </div>
+    </ifMode>
+
+</htmlform>
