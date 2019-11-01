@@ -58,41 +58,8 @@
         </ifMode>
     </style>
 
-    <!-- the two ifMode blocks below enable a bit of hack: when opening in ENTER mode, we just want to create the encounter,
-        we don't actually want to display the form, so we hae it hidden by default, and then automatically trigger the submit;
-        note that this will fail in the case where there isn't a default provider or date (which I don't think we have in our use cases -->
 
-    <ifMode mode="ENTER" include="true">
-        <script type="text/javascript">
-            jq(function() {
-            submitHtmlForm();
-            });
-        </script>
-    </ifMode>
-
-    <ifMode mode="EDIT" include="true">
-        <script type="text/javascript">
-            jq(function() {
-
-            jq('.htmlform').show();
-
-            jq('#next').click(function() {
-            window.htmlForm.getBeforeSubmit().push(function () {
-            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=encounter-info");
-            return true;
-            });
-
-            window.htmlForm.submitHtmlForm();
-            })
-
-            jq('#submit').click(function() {
-            window.htmlForm.submitHtmlForm();
-            })
-
-            });
-        </script>
-    </ifMode>
-    <div class="htmlform" style="display:none">
+    <div class="htmlform">
 
         <ifMode mode="VIEW" include="false">
             <h2><uimessage code="ui.i18n.EncounterType.name.5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c"/></h2>

@@ -325,36 +325,34 @@
              headerCode="pihcore.ncd.htn">
         <div id="htn" class="section-container">
             <!-- ToDo:  UHM-3617 Add risk calculations for hypertension -->
+            <h2>
+                <uimessage code="pihcore.ncd.last.visit.label"></uimessage>
+            </h2>
+            <repeat>
+                <template>
+                    <obsgroup groupingConceptId="PIH:12389">
+                        <obs conceptId="CIEL:1728"
+                             answerConceptId="{concept}"
+                             style="checkbox"
+                             labelText="{label}"
+                             answerLabel=""
+                             toggle="{id: '{name}-dx-ynu', style: 'dim'}"/>
 
-            <strong>
-                <uimessage code=""/>
-            </strong>
-
-           <P>
-               <label>
-                   <uimessage code="pihcore.habits.smoking" />
-               </label>
-               <obs conceptId="PIH:HISTORY OF TOBACCO USE"
-                    style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                    answerCodes="yes,no" answerSeparator=""/>
-           </P>
-            <P>
-                <label>
-                    <uimessage code="pihcore.habits.alcohol" />
-                </label>
-                <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
-                     style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator=""/>
-            </P>
-
-            <P>
-                <label>
-                    <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms" />
-                </label>
-                <obs conceptId="PIH:Hypoglycemia symptoms"
-                     style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator=""/>
-            </P>
+                        <span id="{name}-dx-ynu">
+                            <obs conceptId="CIEL:1729"
+                                 answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/>
+                        </span>
+                    </obsgroup>
+                </template>
+                <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
+                <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
+                <render concept="PIH:HYPOGLYCEMIA" name="Hypoglycemia" label="Hypoglycemia"/>
+                <render concept="PIH:HEADACHE" name="Headache" label="headache"/>
+                <render concept="PIH:CHEST PAIN" name="chest-pain" label="chest pain"/>
+                <render concept="PIH:DIZZINESS" name="dizziness" label="dizziness"/>
+                <render concept="PIH:Vision problem" name="dizziness" label="vision changes"/>
+                <render concept="PIH:PERIPHERAL NEUROPATHY" name="neuropathy" label="neuropathy"/>
+            </repeat>
 
 
         </div>
@@ -364,217 +362,79 @@
              headerCode="pihcore.ncd.diabetes">
         <div id="diabetes" class="section-container">
 
-            <P>
-                <label>
-                    <uimessage code="pihcore.habits.smoking" />
-                </label>
-                <obs conceptId="PIH:HISTORY OF TOBACCO USE"
-                     style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator=""/>
-            </P>
-            <P>
-                <label>
-                    <uimessage code="pihcore.habits.alcohol" />
-                </label>
-                <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
-                     style="radio" answerConceptIds="PIH:YES,PIH:NO"
-                     answerCodes="yes,no" answerSeparator=""/>
-            </P>
+            <h2>
+                <uimessage code="pihcore.ncd.last.visit.label"></uimessage>
+            </h2>
+            <repeat>
+                <template>
+                    <obsgroup groupingConceptId="PIH:12389">
+                        <obs conceptId="CIEL:1728"
+                             answerConceptId="{concept}"
+                             style="checkbox"
+                             labelText="{label}"
+                             answerLabel=""
+                             toggle="{id: '{name}-dx-ynu', style: 'dim'}"/>
+
+                        <span id="{name}-dx-ynu">
+                            <obs conceptId="CIEL:1729"
+                                 answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/>
+                        </span>
+                    </obsgroup>
+                </template>
+                <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
+                <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
+                <render concept="PIH:HYPOGLYCEMIA" name="Hypoglycemia" label="Hypoglycemia"/>
+                <render concept="PIH:HEADACHE" name="Headache" label="headache"/>
+                <render concept="PIH:CHEST PAIN" name="chest-pain" label="chest pain"/>
+                <render concept="PIH:DIZZINESS" name="dizziness" label="dizziness"/>
+                <render concept="PIH:Vision problem" name="dizziness" label="vision changes"/>
+                <render concept="PIH:PERIPHERAL NEUROPATHY" name="neuropathy" label="neuropathy"/>
+            </repeat>
 
         </div>
     </section>
 
 
-
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.kidney_disease">
-        <div id="kidney_disease" class="section-container">
-            <table>
-                <tr>
-                    <th width="60%">
-                        <label>
-                            <uimessage code="pihcore.ncd.diabetesType"/>
-                        </label>
-                    </th>
-                    <th>
-                        <label>
-                            <uimessage code="pihcore.suggestedTreatment.label"/>
-                        </label>
-                    </th>
-                </tr>
+        <div id="kidney_disease" class="section-container"> <!-- chronic kidney disease section -->
 
+            <h2>
+                <uimessage code="pihcore.ncd.presume.etiology.label"></uimessage>
+            </h2>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION"
+                 style="checkbox"/>
+            <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES"
+                 style="checkbox"/><br></br><br></br>
 
-                <!-- Diabetes diagnoses for females and males -->
-                <includeIf velocityTest="$patient.gender == 'F' ">
-                    <tr>
-                        <td>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                                <obs conceptId="PIH:DIAGNOSIS"
-                                     answerConceptIds="CIEL:142474,PIH:12227,PIH:12228,CIEL:165207,PIH:Gestational diabetes,CIEL:138291"
-                                     answerCodes="pihcore.ncd.dmType1,pihcore.ncd.dmType2noAgents,pihcore.ncd.dmType2onOral,pihcore.ncd.dmType2reqInsulin,pihcore.ncd.diabetes.gestationalDm,pihcore.ncd.hyperglycemia.label"
-                                     style="radio" answerSeparator=""/>
-                            </obsgroup>
-                        </td>
-                        <td align="top">
-                            <repeat with="['type1Dm','CIEL:142474','Type 1'],
-                                  ['type2Dm','CIEL:165208','Type 2'],
-                                  ['gestationalDm','PIH:Gestational diabetes','Gestational']">
-                                <uimessage code="pihcore.ncd.diabetes.{0}Treatment.full"/>
-                                <br/>
-                                <br/>
-                            </repeat>
-                        </td>
-                    </tr>
-                </includeIf>
-                <includeIf velocityTest="$patient.gender != 'F' ">
-                    <tr>
-                        <td>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                                <obs conceptId="PIH:DIAGNOSIS"
-                                     answerConceptIds="CIEL:142474,PIH:12227,PIH:12228,PIH:12251,CIEL:138291"
-                                     answerCodes="pihcore.ncd.dmType1,pihcore.ncd.dmType2noAgents,pihcore.ncd.dmType2onOral,pihcore.ncd.dmType2reqInsulin,pihcore.ncd.hyperglycemia.label"
-                                     style="radio" answerSeparator=""/>
-                            </obsgroup>
-                        </td>
-                        <td align="top">
-                            <repeat with="['type1Dm','CIEL:142474','Type 1'],
-                              ['type2Dm','CIEL:165208','Type 2']">
-                                <uimessage code="pihcore.ncd.diabetes.{0}Treatment.full"/>
-                                <br/>
-                                <br/>
-                            </repeat>
-                        </td>
-                    </tr>
-                </includeIf>
+            <h2>
+                <uimessage code="pihcore.ncd.last.visit.label"></uimessage>
+            </h2>
+            <repeat>
+                <template>
+                    <obsgroup groupingConceptId="PIH:12389">
+                        <obs conceptId="CIEL:1728"
+                             answerConceptId="{concept}"
+                             style="checkbox"
+                             labelText="{label}"
+                             answerLabel=""
+                             toggle="{id: '{name}-dx-ynu', style: 'dim'}"/>
 
-            </table>
-
-            <br/>
-            <div>
-                <strong>
-                    <uimessage code="pihcore.lab.glucose"/>
-                </strong>
-                <span class="small">
-                    <field>
-                        <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" showUnits="true"/>
-                    </field>
-                </span>
-                <br/>
-                <span class="small">
-                    <field>
-                        <obs conceptId="PIH:Fasting for blood glucose test"
-                             answerConceptId="PIH:YES" answerCode="pihcore.ncd.diabetes.fasting.comment"
-                             toggle="fasting-glucose"/>
-                    </field>
-                </span>
-                <div id="fasting-glucose">
-
-                    <uimessage code="pihcore.lab.glucose-fasting"/>
-
-                    <span class="small">
-                        <field>
-                            <obs id="glucose-fasting" conceptId="CIEL:160912" showUnits="true"/>
-                        </field>
-                    </span>
-                </div>
-            </div>
-
-            <br/>
-
-            <!-- this section is ONLY included for NCD followup encounter -->
-            <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
-                <p class="radio">
-                    <label>
-                        <uimessage code="pihcore.ncd.diabetes.hypoglycemia_symptoms"/>
-                    </label>
-                    <obs conceptId="PIH:Hypoglycemia symptoms" style="radio"
-                         answerConceptIds="PIH:YES,PIH:NO"
-                         answerCodes="yes,no" answerSeparator=""/>
-                </p>
-            </includeIf>
-
-            <table>
-                <tr>
-                    <th colspan="4">
-                        <label>
-                            <uimessage code="pihcore.ncd.diabetes.footCare.title"/>
-                        </label>
-                    </th>
-                </tr>
-
-                <tr>
-                    <td colspan="4">
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983"
-                                 style="checkbox"/>
-                        </obsgroup>
-
-                        <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:163411"
-                                 style="checkbox"/>
-                        </obsgroup>
-
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <label>
-                            <uimessage code="pihcore.risk"/>
-                        </label>
-                    </th>
-                    <th width="30%">
-                        <label>
-                            <uimessage code="pihcore.definition"/>
-                        </label>
-                    </th>
-                    <th width="40%">
-                        <label>
-                            <uimessage code="pihcore.suggestedTreatment.label"/>
-                        </label>
-                    </th>
-                    <th>
-                        <label>
-                            <uimessage code="pihcore.followUp"/>
-                        </label>
-                    </th>
-                </tr>
-
-                <!-- Foot care classification -->
-                <repeat with="['0','CIEL:160769'],
-                              ['1','CIEL:160771'],
-                              ['2','CIEL:160774'],
-                              ['3','CIEL:160778']">
-                    <tr>
-                        <td>
-                            <obs conceptId="PIH:Foot care classification"
-                                 answerConceptId="{1}" style="checkbox"
-                                 answerCode="{0}"/>
-                        </td>
-                        <td>
-                            <label>
-                                <uimessage code="pih.ncd.footRisk{0}"/>
-                            </label>
-                        </td>
-                        <td>
-                            <label>
-                                <uimessage code="pih.ncd.footRisk{0}Treatment"/>
-                            </label>
-                        </td>
-                        <td>
-                            <label>
-                                <uimessage code="pih.ncd.footRisk{0}Follow"/>
-                            </label>
-                        </td>
-                    </tr>
-                </repeat>
-            </table>
-            <p>
-                <label>
-                    <uimessage code="pihcore.remarks"/>:
-                </label>
-                <obs conceptId="PIH:11974"/>
-            </p>
-
+                        <span id="{name}-dx-ynu">
+                            <obs conceptId="CIEL:1729"
+                                 answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/>
+                        </span>
+                    </obsgroup>
+                </template>
+                <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
+                <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
+                <render concept="PIH:HYPOGLYCEMIA" name="Hypoglycemia" label="Hypoglycemia"/>
+                <render concept="PIH:HEADACHE" name="Headache" label="headache"/>
+                <render concept="PIH:CHEST PAIN" name="chest-pain" label="chest pain"/>
+                <render concept="PIH:DIZZINESS" name="dizziness" label="dizziness"/>
+                <render concept="PIH:Vision problem" name="dizziness" label="vision changes"/>
+                <render concept="PIH:PERIPHERAL NEUROPATHY" name="neuropathy" label="neuropathy"/>
+            </repeat>
         </div>
     </section>
 
