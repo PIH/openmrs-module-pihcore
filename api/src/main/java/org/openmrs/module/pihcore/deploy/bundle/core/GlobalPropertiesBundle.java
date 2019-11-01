@@ -153,7 +153,7 @@ public class GlobalPropertiesBundle extends AbstractMetadataBundle {
         properties.put("labworkflowowa.didNotPerformAnswer","3cd75550-26fe-102b-80cb-0017a47871b2");   // CIEL:1118 (Not done)
         properties.put("labworkflowowa.dateAndTimeFormat", "DD-MMM-YYYY HH:mm");
         properties.put("labworkflowowa.didNotPerformReason","5dc35a2a-228c-41d0-ae19-5b1e23618eda");  // CIEL:165182
-        properties.put("labworkflowowa.locationOfLaboratory", "e9732df4-971d-4a9a-9129-e2e610552468");  //PIH: 1791
+        //properties.put("labworkflowowa.locationOfLaboratory", "e9732df4-971d-4a9a-9129-e2e610552468");  //PIH: 1791  (country-specific, so moved to country-specific bundles)
         properties.put("labworkflowowa.estimatedCollectionDateQuestion", "87f506e3-4433-40ec-b16c-b3c65e402989");  //  PIH:11781
         properties.put("labworkflowowa.estimatedCollectionDateAnswer", "3cd6f600-26fe-102b-80cb-0017a47871b2");  // CIEL:1065 ("yes")
         properties.put("labworkflowowa.testOrderType", OrderTypes.TEST_ORDER.uuid());

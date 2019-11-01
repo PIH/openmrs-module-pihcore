@@ -84,7 +84,7 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
 		log.info("Setting Global Properties");
 
 		Map<String, String> properties = new LinkedHashMap<String, String>();
-		
+
 		// OpenMRS Core
 		// (we have to do this rigamarole because of new validations in 2.x that confirms that the allowed list contains the default locale, making it a two-step process to change)
 		// (this is also a direct copy of code in LiberiaMetadataBundle, we should abstract this out)
@@ -117,8 +117,10 @@ public class HaitiMetadataBundle extends AbstractMetadataBundle {
         // Order Entry OWA
 		properties.put("orderentryowa.labOrderablesConceptSet","517d25f7-2e68-4da4-912b-76090fbfe0fd");
 
+		// Lab Workflow OWA
+		properties.put("labworkflowowa.locationOfLaboratory", "e9732df4-971d-4a9a-9129-e2e610552468");
 
-        setGlobalProperties(properties);
+		setGlobalProperties(properties);
 
 		uninstall(possible(GlobalProperty.class, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE), "replaced by metadata mapping");
 
