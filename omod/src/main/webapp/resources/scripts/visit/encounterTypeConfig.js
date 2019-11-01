@@ -159,6 +159,22 @@ angular.module("encounterTypeConfig", ["constants"])
 
         };
 
+        // Sierra Leone has one Plan section used on it's Outpatient forms, and then a medication-only
+        // plans section used on other forms, so we need a separate "medication plan" section for that
+        var primaryCarePlanMedication = {
+          type: "encounter-section",
+          id: "pihcore-plan-medication",
+          label: "pihcore.visitNote.plan",
+          icon: "icon-list-ul",
+          shortTemplate: "templates/sections/primaryCarePlanSectionShort.page",
+          longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
+          printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
+          printTemplateUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-prescriptions-print.xml",
+          templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-plan-medication.xml",
+          editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-plan-medication.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+
+        };
+
         var liberiaPrimaryCarePlan = {
             type: "encounter-section",
             id: "pihcore-plan",
@@ -849,7 +865,8 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
               cloneSectionAndUpdateCountryPathInUrls(ancInitial, "sierra_leone"),
               ancVaccinations,
-              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone")
+              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
+              cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
             ]
           }
         };
@@ -887,7 +904,8 @@ angular.module("encounterTypeConfig", ["constants"])
             sections: [
               cloneSectionAndUpdateCountryPathInUrls(ancFollowup, "sierra_leone"),
               ancVaccinations,
-              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone")
+              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
+              cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
             ]
           }
         };
@@ -914,7 +932,8 @@ angular.module("encounterTypeConfig", ["constants"])
             showOnVisitList: true,
             sections: [
               cloneSectionAndUpdateCountryPathInUrls(delivery, "sierra_leone"),
-              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone")
+              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
+              cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
             ]
           }
         };
