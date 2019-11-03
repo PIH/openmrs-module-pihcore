@@ -215,10 +215,10 @@
         <div class="section-container">
 
             <div class="two-columns">
-              
+<br/><br/><br/> 
     
                 <p>
-                    <label>
+                    <label position="left">
                         <uimessage code="pihcore.mch.trimesterAtEnrollment" />
                     </label>
 
@@ -241,7 +241,7 @@
                 </p>
 
                 <!-- Mental Health -->
-                <p>
+<!--                <p>
                     <label>
                         <uimessage code="pihcore.mentalhealth.title"/>
                     </label>
@@ -253,7 +253,7 @@
                     <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:SCHIZOPHRENIA"
                          style="checkbox"/>
                 </p>
-    
+-->    
     <section id="unhealthy_habits" sectionTag="fieldset" headerTag="legend" 
              headerCode="pihcore.habits">
 
@@ -282,6 +282,7 @@
                     <br/>
             </p>
     </section>
+    <br/><br/><br/><br/><br/><br/><br/>
     <section>
              <p class="radio">
                     <label><uimessage code="pihcore.habits.drugs"/> (Consider tramadol and codeine)
@@ -294,6 +295,7 @@
                      <br/>
             </p>
     </section>
+
                 <!-- Risk factors for mother -->
                 <p>
                     <label>
