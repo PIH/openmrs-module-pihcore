@@ -195,48 +195,7 @@
         </div>
     </section>
 
-      <section id="radiology-ultrasound-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.order.title">
-        <h3>Radiology and ultrasound orders</h3>
-        <div class="section-container-color">
-            <p>
-                <h3><uimessage code="pihcore.rad_order.title"/>(1)</h3>
-                <select name="x-ray1_ordered">  
-                    <option value="select">Please select</option>
-                    <option value="chest_x-ray">Chest X-ray</option>
-                    <option value="abdominal_x-ray">Abdominal X-ray</option>
-                    <option value="chest_x-ray">Bone X-ray</option>
-                    <option value="chest_x-ray">Skull X-ray</option>
-                    <option value="chest_x-ray">Dental X-ray</option>
-                </select>
-            </p>
-        </div>
-        <div class="section-container-color">
-            <p>
-                <h3><uimessage code="pihcore.rad_order.title"/>(2)</h3>
-                <select name="x-ray 2 ordered">  
-                    <option value="select">Please select</option>
-                    <option value="chest_x-ray">Chest X-ray</option>
-                    <option value="abdominal_x-ray">Abdominal X-ray</option>
-                    <option value="chest_x-ray">Bone X-ray</option>
-                    <option value="chest_x-ray">Skull X-ray</option>
-                    <option value="chest_x-ray">Dental X-ray</option>
-                </select>
-            </p>
-        </div>
-        <div class="section-container-color">
-            <h3><uimessage code="pihcore.ultrasound_order.title"/></h3>
-            <p>
-                <select name="Ultrasound ordered">  
-                    <option value="select">Please select</option>
-                    <option value="chest_x-ray">Abdominal ultrasound</option>
-                    <option value="abdominal_x-ray">Cardiac ultrasound</option>
-                    <option value="chest_x-ray">Obstetric ultrasound</option>
-                    <option value="chest_x-ray">FAST ultrasound</option>
-                </select>
-            </p>
-        </div>
-    </section>
-
+    
        <!-- Stolen from the dispensing module, but using prescription construct instead of dispensing -->
     <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.visitNote.orders.medications">
@@ -320,7 +279,7 @@
         </div>
 
     </section>
-
+  
     <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="coreapps.consult.disposition">
 

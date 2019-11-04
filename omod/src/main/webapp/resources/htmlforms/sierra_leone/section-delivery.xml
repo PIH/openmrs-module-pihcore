@@ -238,7 +238,7 @@
                         </p>
                     </div>
                     <!-- Mental Health -->
-                    <p>
+<!--                    <p>
                         <label>
                             <uimessage code="pihcore.mentalhealth.title"/>
                         </label>
@@ -250,24 +250,42 @@
                         <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:SCHIZOPHRENIA"
                              style="checkbox"/>
                     </p>
+-->
                     <p>
                         <label>
                             <uimessage code="pihcore.birthweight"/>
                         </label>
                         <obs conceptId="CIEL:5916" id="birthweight_kg" showUnits="emr.units.kilograms" unitsCssClass="append-to-value"/>
                     </p>
-                    <br/><br/>
-
-                    <!-- Delivery type -->
-                    <p>
+                     <p>
                         <label>
-                            <uimessage code="pihcore.mch.deliveryType"/>
+                            <h7>Estimated blood loss</h7>
                         </label>
-                        <obs conceptId="PIH:11663" answerConceptId="CIEL:162595" style="checkbox"  />
-                        <obs conceptId="PIH:11663" answerConceptId="CIEL:161631" style="checkbox"  />
-                        <obs conceptId="PIH:11663" answerConceptId="CIEL:155884" style="checkbox"  />
+                        <obs conceptId="PIH:Estimated blood loss" showUnits="liters" unitsCssClass="append-to-value"/>
                     </p>
 
+
+                    
+                    <p>
+                        <!-- Delivery type -->
+                        <obs conceptId="PIH:11663" answerConceptId="CIEL:162595" style="checkbox"  />
+                       <!-- Suture of perineum -->
+                        <obs conceptId="PIH:Outpatient procedure" answerConceptId="CIEL:164157" style="checkbox"/>
+                        <!--Perineal laceration-->
+                        <obs conceptId="PIH:Outpatient procedure" answerConceptId="PIH:7230" style="checkbox"/>
+                    </p>
+
+                    
+                    <fieldset>
+                         <p class="left">
+                          <h7>Perineal Tear</h7>
+                                <obs conceptId="CIEL:165247" id="perineal tear" answerSeparator="&lt;br&gt;"
+                                        answerConceptIds="CIEL:165521,CIEL:165522,CIEL:165523,CIEL:165524"
+                                        answerLabels="First degree,Second degree,Third degree,Fourth degree"/>
+                        </p>
+                    </fieldset>
+              
+                
                     <!-- APGAR -->
                     <p class="apgar">
                         <label>
@@ -341,6 +359,7 @@
                             <render concept="CIEL:165088" name="gbv"/>
                             <render concept="CIEL:113006" name="severe pre-eclampsia"/>
                             <render concept="PIH:Eclampsia" name="eclampsia"/>
+                            <render concept="CIEL:113602" name="Prolonged labour"/>
                             <render concept="PIH:POSTPARTUM HEMORRHAGE" name="postpartum hemorrhage"/>
                             <render concept="CIEL:121856" name="Acute pulmonary edema" />
                             <render concept="CIEL:130" name="Puerperal sepsis" />
