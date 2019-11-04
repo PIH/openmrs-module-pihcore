@@ -1183,7 +1183,19 @@
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.exam.title" >
         <div class="section-container">
-            <obs conceptId="CIEL:1391" style="textarea" rows="5"/>
+            <div class="two-columns">
+                <div class="small-text">
+                    <p>
+                        <lookup expression="fn.latestObs('CIEL:1391').obsDatetime" />
+                    </p>
+                    <p>
+                        <lookup expression="fn.latestObs('CIEL:1391').valueText" />
+                    </p>
+                </div>
+                <div>
+                    <obs conceptId="CIEL:1391" style="textarea" rows="5"/>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1195,8 +1207,20 @@
     </ifMode>
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title">
-        <div class="question-container">
-            <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
+        <div class="section-container">
+            <div class="two-columns">
+                <div class="small-text">
+                    <p>
+                        <lookup expression="fn.latestObs('PIH:CLINICAL IMPRESSION COMMENTS').obsDatetime" />
+                    </p>
+                    <p>
+                        <lookup expression="fn.latestObs('PIH:CLINICAL IMPRESSION COMMENTS').valueText" />
+                    </p>
+                </div>
+                <div>
+                    <obs conceptId="PIH:CLINICAL IMPRESSION COMMENTS" style="textarea" rows="5"/>
+                </div>
+            </div>
         </div>
         <div class="question-container">
             <div id="diagnosis-lookup">
@@ -1330,9 +1354,19 @@
         <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.consult.clinicalManagementPlan">
             <div class="section-container">
-                <p>
-                    <obs conceptId="CIEL:162749" style="textarea" rows="5" id="clinical-management-plan"/>
-                </p>
+                <div class="two-columns">
+                    <div class="small-text">
+                        <p>
+                            <lookup expression="fn.latestObs('CIEL:162749').obsDatetime" />
+                        </p>
+                        <p>
+                            <lookup expression="fn.latestObs('CIEL:162749').valueText" />
+                        </p>
+                    </div>
+                    <div>
+                        <obs conceptId="CIEL:162749" style="textarea" rows="5" id="clinical-management-plan"/>
+                    </div>
+                </div>
             </div>
         </section>
 
