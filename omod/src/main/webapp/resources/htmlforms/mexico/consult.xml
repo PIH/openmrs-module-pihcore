@@ -86,6 +86,10 @@
             min-width: initial;
         }
 
+        .light-font {
+            font-family: "OpenSansLight",sans-serif;
+        }
+
         .small {
             max-width: 10em;
             display: block;
@@ -193,51 +197,34 @@
         </p>
     </div>
 
-    <section>
-        <div class="small-text section-container">
+    <section id="vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.vitals.label">
+        <div class="section-container">
             <table>
                 <thead>
                     <tr>
                         <td style="font-weight:bold">
-                            <uimessage code="pihcore.mostRecentVitals.label"/>
+                            <uimessage code="pihcore.vitals.latest.measurement.label"/>
                         </td>
                         <td style="font-weight:bold">
                             <uimessage code="zl.date"/>
                         </td>
                         <td style="font-weight:bold">
-                            <uimessage code="mirebalais.vital.results"/>
+                            <uimessage code="pihcore.vitals.latest.results.label"/>
                         </td>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            <uimessage code="pihcore.vitals.systolic.bp.title"/>
+                            <uimessage code="mirebalais.vitals.bloodPressure.title" />
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').obsDatetime"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').obsDatetime"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').valueNumeric"/>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <uimessage code="pihcore.vitals.diastolic.bp.title"/>
-                        </td>
-                        <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').obsDatetime"/>
-                            </p>
-                        </td>
-                        <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').valueNumeric"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').valueNumeric.intValue()"/>
+                            <lookup complexExpression="#if($fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE')) / #end" />
+                            <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').valueNumeric.intValue()"/>
                         </td>
                     </tr>
                     <tr>
@@ -245,29 +232,13 @@
                             <uimessage code="mirebalais.vitals.o2sat.title"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').obsDatetime"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').obsDatetime"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').valueNumeric"/>
-                            </p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <uimessage code="pihcore.lab.isFastingGlucose"/>
-                        </td>
-                        <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:Fasting for blood glucose test').obsDatetime"/>
-                            </p>
-                        </td>
-                        <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').valueNumeric.intValue()"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:BLOOD OXYGEN SATURATION')) % #end" />
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -275,14 +246,13 @@
                             <uimessage code="pihcore.lab.glucose"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').obsDatetime"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').obsDatetime"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric.intValue()"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:Fasting for blood glucose test')) #if($fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name != 'No') (en ayuno) #else (sin ayuno) #end #end" />
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -290,14 +260,13 @@
                             <uimessage code="mirebalais.vitals.temperature.title"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').obsDatetime"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').obsDatetime"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').valueNumeric"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').valueNumeric"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:TEMPERATURE (C)')) °C #end" />
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -305,14 +274,13 @@
                             <uimessage code="mirebalais.vitals.heartRate.title"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:PULSE').obsDatetime"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:PULSE').obsDatetime"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:PULSE').valueNumeric"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:PULSE').valueNumeric.intValue()"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:PULSE')) ppm #end" />
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -320,14 +288,13 @@
                             <uimessage code="mirebalais.vitals.respiratoryRate.title"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').obsDatetime"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').obsDatetime"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').valueNumeric"/>
-                            </p>
+                            <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').valueNumeric.intValue()"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:RESPIRATORY RATE')) rpm #end" />
+                            </span>
                         </td>
                     </tr>
                     <tr>
@@ -335,14 +302,10 @@
                             <uimessage code="mirebalais.vitals.complaint.title"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('CIEL:160531').obsDatetime"/>
-                            </p>
+                            <lookup expression="fn.latestObs('CIEL:160531').obsDatetime"/>
                         </td>
                         <td>
-                            <p>
-                                <lookup expression="fn.latestObs('CIEL:160531').valueText"/>
-                            </p>
+                            <lookup expression="fn.latestObs('CIEL:160531').valueText"/>
                         </td>
                     </tr>
                 </tbody>
