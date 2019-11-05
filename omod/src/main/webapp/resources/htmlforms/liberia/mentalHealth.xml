@@ -435,12 +435,7 @@
                                          toggle="{id: '{name}-dx-date', style: 'dim'}"/>
                                 </td>
                                 <td id="{name}-dx-date">
-                                    <excludeIf velocityTest = "$diagnosisStartDate">
-                                        <obs conceptId="PIH:Diagnosis date"/>
-                                    </excludeIf>
-                                    <excludeIf velocityTest = "!$diagnosisStartDate">
-                                        <span><lookup complexExpression="$diagnosisStartDate"/></span>
-                                    </excludeIf>
+                                    <obs conceptId="PIH:Diagnosis date"/>
                                 </td>
                             </obsgroup>
                         </tr>
