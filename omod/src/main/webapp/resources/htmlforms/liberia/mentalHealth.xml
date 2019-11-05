@@ -129,6 +129,22 @@
 
     </style>
 
+    <ifMode mode="VIEW">
+        <style type="text/css">
+            .collapsible {
+                display: block !important;
+            }
+
+            .collapsible-inline {
+                display: inline-block !important;
+            }
+
+            .icon-arrow-down, .icon-arrow-up {
+                display: none;
+            }
+        </style>
+    </ifMode>
+
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
 
@@ -466,21 +482,6 @@
         </div>
     </section>
 
-    <ifMode mode="VIEW">
-        <style type="text/css">
-            .collapsible {
-                display: block !important;
-            }
-
-            .collapsible-inline {
-                display: inline-block !important;
-            }
-
-            .icon-arrow-down, .icon-arrow-up {
-                display: none;
-            }
-        </style>
-    </ifMode>
 
     <section id="mh-epilepsy-section" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
         <i class="icon-arrow-down"></i>
