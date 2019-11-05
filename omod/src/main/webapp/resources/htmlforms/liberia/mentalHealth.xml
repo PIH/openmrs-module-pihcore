@@ -45,9 +45,9 @@
         }
 
         .two-columns {
-        column-count: 2;
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
+            column-count: 2;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
         }
 
         .simple-form-ui input {
@@ -471,9 +471,25 @@
         </div>
     </section>
 
+    <ifMode mode="VIEW">
+        <style type="text/css">
+            .collapsible {
+                display: block !important;
+            }
+
+            .collapsible-inline {
+                display: inline-block !important;
+            }
+
+            .icon-arrow-down, .icon-arrow-up {
+                display: none;
+            }
+        </style>
+    </ifMode>
+
     <section id="mh-epilepsy-section" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
         <i class="icon-arrow-down"></i>
-        <div id="epilepsy" class="section-container sub-form">
+        <div id="epilepsy" class="section-container sub-form collapsible" style="display:none">
             <div class="inline" style="margin-bottom: 11px;">
                 <div style="width: 50%; float:left;">
                     <span class="inline">
@@ -487,7 +503,7 @@
 
                     <span class="inline">
                         <label class="inline">
-                            <uimessage code="Care during seizure?:"/>&amp;nbsp
+                            <uimessage code="pihcore.epilepsy.care.during.seizure"/>&amp;nbsp
                         </label>
                         <span class="list-inline">
                             <obs conceptId="PIH:12401" style="radio" answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"/>
@@ -503,7 +519,7 @@
                     </span>
 
                     <label class="inline">
-                        <uimessage code="Recogniz. Trigg. &amp; signs?:"/>&amp;nbsp
+                        <uimessage code="pihcore.epilepsy.recognized.trigger.signs"/>&amp;nbsp
                     </label>
                     <span class="list-inline">
                         <obs conceptId="PIH:12406" style="radio" answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"/>
@@ -666,7 +682,7 @@
                                         <!-- Date when the patient experienced a complication -->
                                         <span id="ep-complications-{name}-date-span" class="ep-compexp-duration-span">
                                             <label>
-                                                <uimessage code="Date of complication:"/>
+                                                <uimessage code="pihcore.epilepsy.complication.date"/>
                                             </label>
                                             <obs id="ep-complications-{name}-date" conceptId="PIH:Diagnosis date"/>
                                         </span>
@@ -703,43 +719,30 @@
                                              answerConceptIds="CIEL:159450,CIEL:159452,CIEL:1090,CIEL:1067">
                                             <controls>
                                                 <when value="CIEL:159450"
-                                                      thenDisplay="#ep-exposure-{name}-duration-span"/>
+                                                      thenJavaScript="omrs.toggleExposureDurationField(1, 'ep-exposure-{name}-duration-span')"/>
                                                 <when value="CIEL:159452"
-                                                      thenDisplay="#ep-post-exposure-{name}-duration-span"/>
+                                                      thenJavaScript="omrs.toggleExposureDurationField(1, 'ep-exposure-{name}-duration-span')"/>
+                                                <when value="CIEL:1090"
+                                                      thenJavaScript="omrs.toggleExposureDurationField(0, 'ep-exposure-{name}-duration-span')"/>
+                                                <when value="CIEL:1067"
+                                                      thenJavaScript="omrs.toggleExposureDurationField(0, 'ep-exposure-{name}-duration-span')"/>
                                             </controls>
                                         </obs>
                                     </span>
                                     <!-- This is for recording duration the patient has been practising unhealthy habits -->
-                                    <span id="ep-exposure-{name}-duration-span">
+                                    <span id="ep-exposure-{name}-duration-span" class="collapsible-inline" style="display:none;">
                                         <span class="ep-compexp-duration-span">
                                             <label>
-                                                <uimessage code="Duration:"/>
+                                                <uimessage code="pihcore.epilepsy.habits.duration"/>
                                             </label>
                                             <obs id="ep-exposure-{name}-duration" conceptId="CIEL:162603"/>
                                         </span>
 
                                         <span class="ep-compexp-duration-unit">
                                             <label>
-                                                <uimessage code="Unit:"/>
+                                                <uimessage code="pihcore.epilepsy.habits.duration.unit"/>
                                             </label>
                                             <obs id="ep-exposure-{name}-duration-time-unit" conceptId="CIEL:1732"/>
-                                        </span>
-                                    </span>
-
-                                    <!-- HACK: This is for recording duration since the patient stopped practising unhealthy habits -->
-                                    <span id="ep-post-exposure-{name}-duration-span">
-                                        <span class="ep-compexp-duration-span">
-                                            <label>
-                                                <uimessage code="Duration:"/>
-                                            </label>
-                                            <obs id="ep-post-exposure-{name}-duration" conceptId="CIEL:162603"/>
-                                        </span>
-
-                                        <span class="ep-compexp-duration-unit">
-                                            <label>
-                                                <uimessage code="Unit:"/>
-                                            </label>
-                                            <obs id="ep-post-exposure-{name}-duration-time-unit" conceptId="CIEL:1732"/>
                                         </span>
                                     </span>
                                 </div>
