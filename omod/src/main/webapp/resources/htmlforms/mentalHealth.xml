@@ -714,11 +714,12 @@
                               ['CIEL:165328','HIV/AIDS counseling']">
                         <obs conceptId="PIH:Mental health intervention" answerConceptId="{0}"/>
                 </repeat>
-            </div>
-            <p>
+                <br/>
+
                 <obs conceptId="PIH:Mental health intervention" answerConceptId="PIH:OTHER"
                      commentFieldLabel=""/>
-            </p>
+                <br/>
+            </div>
         </div>
     </section>
 
@@ -879,7 +880,7 @@
                         <uimessage code="pihcore.referredTo"/>:
                     </label>
                     <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE'],['PIH:MENTAL HEALTH SPECIALIST'],['PIH:VILLAGE HEALTH WORKER']">
-                            <obs conceptId="PIH:Type of referral role" answerConceptId="{0}" style="checkbox"/>
+                            <obs conceptId="PIH:Role of referral out provider" answerConceptId="{0}" style="checkbox"/>
                     </repeat>
                 </p>
             </div>
