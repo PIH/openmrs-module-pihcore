@@ -522,6 +522,18 @@ public class Privileges {
         public String description() { return "Able to activate/inactivate/void condition lists."; }
     };
 
+    public static PrivilegeDescriptor TASK_ORDER_LABS = new PrivilegeDescriptor() {
+        public String uuid() { return "e534c845-74da-45f8-97d5-304482c52256"; }
+        public String privilege() { return "Task: orderentry.orderLabs"; }
+        public String description() { return "Able to order lab tests via the order entry UI"; }
+    };
+
+    public static PrivilegeDescriptor TASK_VIEW_LABS = new PrivilegeDescriptor() {
+        public String uuid() { return "23e57acd-83b5-44f4-8730-109645bb4953"; }
+        public String privilege() { return "Task: labworkflow.viewLabs"; }
+        public String description() { return "Able to view lab tests via the order entry UI"; }
+    };
+
     // RETIRED PRIVILEGES
 
 

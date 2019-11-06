@@ -111,7 +111,9 @@ public class Roles {
                 Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                 Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                 Privileges.TASK_LAB_TRACKING_UPDATE,
-                Privileges.TASK_MANAGE_CONDITIONS_LIST
+                Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                Privileges.TASK_ORDER_LABS,
+                Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -132,7 +134,9 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
-                    Privileges.TASK_LAB_TRACKING_UPDATE
+                    Privileges.TASK_LAB_TRACKING_UPDATE,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -157,7 +161,9 @@ public class Roles {
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_REPORTS_DATA_EXPORTS,
                     Privileges.APP_APPOINTMENTSCHEDULINGUI_HOME,
-                    Privileges.APP_APPOINTMENTSCHEDULINGUI_VIEW_APPOINTMENTS
+                    Privileges.APP_APPOINTMENTSCHEDULINGUI_VIEW_APPOINTMENTS,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -258,7 +264,9 @@ public class Roles {
                     Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_MPI,
-                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -302,7 +310,9 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_LAB_RESULTS,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
-                    Privileges.APP_CHW
+                    Privileges.APP_CHW,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -331,7 +341,9 @@ public class Roles {
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
-                    Privileges.APP_CHW
+                    Privileges.APP_CHW,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -360,7 +372,9 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
-                    Privileges.APP_CHW
+                    Privileges.APP_CHW,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -412,7 +426,9 @@ public class Roles {
                     Privileges.APP_DISPENSING_APP_DISPENSE,
                     Privileges.TASK_DISPENSING_DISPENSE,
                     Privileges.TASK_DISPENSING_EDIT,
-                    Privileges.TASK_EMR_CHECK_IN
+                    Privileges.TASK_EMR_CHECK_IN,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -458,7 +474,9 @@ public class Roles {
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
-                    Privileges.TASK_LAB_TRACKING_UPDATE
+                    Privileges.TASK_LAB_TRACKING_UPDATE,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -505,11 +523,13 @@ public class Roles {
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
-                    Privileges.TASK_LAB_TRACKING_UPDATE
+                    Privileges.TASK_LAB_TRACKING_UPDATE,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
-    public static RoleDescriptor PHYSICIAN = new RoleDescriptor() {
+    public static RoleDescriptor CLINICIAN_OR_PHYSICIAN = new RoleDescriptor() {
         public String uuid() { return "55f0a630-e797-11e4-b571-0800200c9a66"; }
         public String role() { return "Application Role: physician"; }
         public String description() { return "Application Role: physician"; }
@@ -560,7 +580,9 @@ public class Roles {
                     Privileges.APP_CHW,
                     Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
-                    Privileges.TASK_LAB_TRACKING_UPDATE
+                    Privileges.TASK_LAB_TRACKING_UPDATE,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -606,7 +628,9 @@ public class Roles {
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -649,7 +673,9 @@ public class Roles {
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.APP_LAB_TRACKING_MONITOR_ORDERS,
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
-                    Privileges.TASK_LAB_TRACKING_UPDATE
+                    Privileges.TASK_LAB_TRACKING_UPDATE,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -688,7 +714,9 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -725,7 +753,9 @@ public class Roles {
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
-                    Privileges.APP_CHW
+                    Privileges.APP_CHW,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -758,7 +788,8 @@ public class Roles {
                     Privileges.TASK_COREAPPS_CREATE_RETRO_VISIT,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -781,7 +812,8 @@ public class Roles {
                     Privileges.APP_CHW,
                     Privileges.TASK_EMR_RETRO_CLINICAL_NOTE,
                     Privileges.APP_REPORTINGUI_REPORTS,
-                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS
+                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -801,7 +833,8 @@ public class Roles {
                     Privileges.APP_COREAPPS_AWAITING_ADMISSION,
                     Privileges.TASK_EMR_ENTER_SOCIO,
                     Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
-                    Privileges.APP_CHW
+                    Privileges.APP_CHW,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -862,10 +895,30 @@ public class Roles {
             );}
     };
 
-    public static RoleDescriptor LABS = new RoleDescriptor() {
-        public String uuid() { return "892fee60-abce-11e8-843e-54ee75ef41c2"; }
-        public String role() { return "Application Role: labs"; }
-        public String description() { return "Gives users the ability to view and update lab orders"; }
+    public static RoleDescriptor LAB_MANAGER = new RoleDescriptor() {
+        public String uuid() { return "348d8094-8fcb-4ffe-9ddc-5c590050d687"; }
+        public String role() { return "Application Role: labManager"; }
+        public String description() { return "Gives access to the Lab Workflow app, as well as to place lab orders"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_LABS,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_ACTIVE_VISITS,
+                    Privileges.APP_EMR_INPATIENTS,
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.APP_REPORTINGUI_REPORTS,
+                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS
+            );}
+    };
+
+    public static RoleDescriptor LAB_TECHNICIAN= new RoleDescriptor() {
+        public String uuid() { return "62ccd30a-ebcb-439e-89bc-0ec1e8808cdc"; }
+        public String role() { return "Application Role: labTech"; }
+        public String description() { return "Gives access to the Lab Workflow apps"; }
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
                     Privileges.APP_LABS
@@ -881,6 +934,63 @@ public class Roles {
                     Privileges.APP_ATTACHMENTS_PAGE
             );}
     };
+
+    public static RoleDescriptor TRIAGE_STAFF = new RoleDescriptor() {
+        public String uuid() { return "940aff70-446f-4d42-98cf-d5be798bb9d4"; }
+        public String role() { return "Application Role: triageStaff"; }
+        public String description() { return "Gives access to the vitals app"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_EMR_OUTPATIENT_VITALS
+            );}
+    };
+
+    public static RoleDescriptor OBSERVATION_STAFF = new RoleDescriptor() {
+        public String uuid() { return "d61e6975-ce5f-4e1d-855e-0977bce8179f"; }
+        public String role() { return "Application Role: observationStaff"; }
+        public String description() { return "Combination of Triage  and MEQ roles"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_EMR_OUTPATIENT_VITALS,
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_ACTIVE_VISITS,
+                    Privileges.APP_EMR_INPATIENTS,
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.APP_REPORTINGUI_REPORTS,
+                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS
+            );}
+    };
+
+    public static RoleDescriptor SUPPORT_STAFF = new RoleDescriptor() {
+        public String uuid() { return "ffc95719-cdab-489f-ae10-becd98797b5d"; }
+        public String role() { return "Application Role: supportStaff"; }
+        public String description() { return "Combination of Archivist/Clerk and MEQ roles"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
+                    Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
+                    Privileges.APP_COREAPPS_ACTIVE_VISITS,
+                    Privileges.APP_EMR_ARCHIVES_ROOM,
+                    Privileges.APP_REGISTRATION_REGISTER_PATIENT,
+                    Privileges.APP_EMR_CHECK_IN,
+                    Privileges.APP_TODAYS_VISITS,
+                    Privileges.TASK_EMR_PRINT_WRISTBAND,
+                    Privileges.TASK_ARCHIVES_REQUEST_PAPER_RECORDS,
+                    Privileges.APP_REPORTINGUI_REPORTS,
+                    Privileges.APP_ZL_MPI,
+                    Privileges.APP_EMR_INPATIENTS,
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.APP_REPORTINGUI_REPORTS,
+                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS
+            );}
+    };
+
 
     public static RoleDescriptor LEGACY_ARCHIVIST_AIDE = new RoleDescriptor() {
         public String uuid() { return "2170e9bf-6d30-4ad9-9319-a454bf32dbf9"; }
@@ -939,7 +1049,9 @@ public class Roles {
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_ED_TRIAGE_ENTER_NOTE,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_MANAGE_CONDITIONS_LIST
+                    Privileges.TASK_MANAGE_CONDITIONS_LIST,
+                    Privileges.TASK_ORDER_LABS,
+                    Privileges.TASK_VIEW_LABS
             );}
     };
 
@@ -1063,6 +1175,17 @@ public class Roles {
                     Privileges.APP_APPOINTMENTSCHEDULINGUI_VIEW_APPOINTMENTS
             );}
     };
+
+    public static RoleDescriptor LABS_RETIRED = new RoleDescriptor() {
+        public String uuid() { return "892fee60-abce-11e8-843e-54ee75ef41c2"; }
+        public String role() { return "Application Role: labs"; }
+        public String description() { return "Replaced by lab tech and lab manager roles"; }
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_LABS
+            );}
+    };;
+
 
     public static RoleDescriptor PRINT_LABELS = new RoleDescriptor() {
         public String uuid() { return "866fb01c-d386-11e6-bf26-cec0c932ce01"; }
