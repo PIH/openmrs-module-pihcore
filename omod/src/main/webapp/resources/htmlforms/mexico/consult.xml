@@ -12,6 +12,8 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
   -->
 
+
+
 <htmlform formName="Consult"
           formUuid="b5a50e02-bc3b-4bc9-8d6f-a4decad17a97"
           formEncounterType="aa61d509-6e76-4036-a65d-7813c0c3b752"
@@ -82,6 +84,10 @@
             display: inline;
             float: none !important;
             min-width: initial;
+        }
+
+        .light-font {
+            font-family: "OpenSansLight",sans-serif;
         }
 
         .small {
@@ -190,6 +196,122 @@
             <lookup complexExpression="$formGeneratedDatetime"/>
         </p>
     </div>
+
+    <section id="vitals" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.vitals.label">
+        <div class="section-container">
+            <table>
+                <thead>
+                    <tr>
+                        <td style="font-weight:bold">
+                            <uimessage code="pihcore.vitals.latest.measurement.label"/>
+                        </td>
+                        <td style="font-weight:bold">
+                            <uimessage code="zl.date"/>
+                        </td>
+                        <td style="font-weight:bold">
+                            <uimessage code="pihcore.vitals.latest.results.label"/>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.bloodPressure.title" />
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').obsDatetime"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE').valueNumeric.intValue()"/>
+                            <lookup complexExpression="#if($fn.latestObs('PIH:SYSTOLIC BLOOD PRESSURE')) / #end" />
+                            <lookup expression="fn.latestObs('PIH:DIASTOLIC BLOOD PRESSURE').valueNumeric.intValue()"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.o2sat.title"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').obsDatetime"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:BLOOD OXYGEN SATURATION').valueNumeric.intValue()"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:BLOOD OXYGEN SATURATION')) % #end" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="pihcore.lab.glucose"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').obsDatetime"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:SERUM GLUCOSE').valueNumeric.intValue()"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:Fasting for blood glucose test')) #if($fn.latestObs('PIH:Fasting for blood glucose test').valueCoded.name != 'No') (en ayuno) #else (sin ayuno) #end #end" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.temperature.title"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').obsDatetime"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:TEMPERATURE (C)').valueNumeric"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:TEMPERATURE (C)')) °C #end" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.heartRate.title"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:PULSE').obsDatetime"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:PULSE').valueNumeric.intValue()"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:PULSE')) ppm #end" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.respiratoryRate.title"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').obsDatetime"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('PIH:RESPIRATORY RATE').valueNumeric.intValue()"/>
+                            <span class="light-font">
+                                <lookup complexExpression="#if($fn.latestObs('PIH:RESPIRATORY RATE')) rpm #end" />
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <uimessage code="mirebalais.vitals.complaint.title"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('CIEL:160531').obsDatetime"/>
+                        </td>
+                        <td>
+                            <lookup expression="fn.latestObs('CIEL:160531').valueText"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
     <div class="hidden" id="logos" style="width=100%">
         <!-- These should appear in printed notes and prescriptions -->

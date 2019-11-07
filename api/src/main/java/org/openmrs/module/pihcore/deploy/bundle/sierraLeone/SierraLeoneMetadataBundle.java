@@ -59,6 +59,9 @@ public class SierraLeoneMetadataBundle extends AbstractMetadataBundle {
         // Order Entry OWA
         properties.put("orderentryowa.labOrderablesConceptSet","880468f0-eec0-4d70-861a-fe12d4ba5099");
 
+        // Lab Workflow OWA
+        properties.put("labworkflowowa.locationOfLaboratory", "449d5a8e-5da0-4e84-8eb7-819aaf67d824");
+
         setGlobalProperties(properties);
 
         uninstall(possible(GlobalProperty.class, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE), "replaced by metadata mapping");

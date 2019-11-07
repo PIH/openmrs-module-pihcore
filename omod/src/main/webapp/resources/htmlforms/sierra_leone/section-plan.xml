@@ -44,11 +44,20 @@
             min-width: initial;
         }
 
-        .section-container-color {
+        .section-container {
             background: #F2F2F2;
             box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.2);
             padding: 10px 5px 10px 15px;
             line-height: 1.5em; /*add this for vertical spacing between elements*/
+        }
+
+        .section-container input[type="checkbox"] {
+            margin: 0px 5px; /*changed values to vertical, horizontal*/
+            top:5px; /*added to offset the checkbox position to line up*/
+        }
+
+        .section-container label { /*new definition to override labels inside section-containers*/
+            margin: 0px;
         }
 
         .section {
@@ -174,19 +183,33 @@
 
     <section id="clinical-management-plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.consult.clinicalManagementPlan">
-        <div class="section-container-color">
+        <div class="section-container">
             <p>
                 <obs conceptId="CIEL:162749" style="textarea" rows="5" id="clinical-management-plan"/>
             </p>
         </div>
     </section>
 
+    <section id="hiv-counselling" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.vct">
+        <div class="section-container">
+            <p>
+                <obs conceptId="PIH:11381"
+                     labelText="Counselled for HIV testing"
+                     answers="PIH:YES,PIH:NO,PIH:1175"
+                     answerLabels="Yes,No,Unknown"
+                     style="dropdown"
+                     answerSeparator=""/>
+            </p>
+        </div>
+    </section>
+
     <section id="family-planning" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.familyPlanning.title">
-        <div class="section-container-color">
+        <div class="section-container">
             <p>
                 <obs conceptId="CIEL:1382" 
-                labelText="Offered and accepted Family Planning information"  
+                labelText="Offered and accepted family planning information"
                 answers="PIH:YES,PIH:NO,PIH:unknown" 
                 answerLabels="Yes,No,Unknown"
                 style="dropdown"
@@ -195,48 +218,52 @@
         </div>
     </section>
 
-      <section id="radiology-ultrasound-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.order.title">
-        <h3>Radiology and ultrasound orders</h3>
-        <div class="section-container-color">
-            <p>
-                <h3><uimessage code="pihcore.rad_order.title"/>(1)</h3>
-                <select name="x-ray1_ordered">  
-                    <option value="select">Please select</option>
-                    <option value="chest_x-ray">Chest X-ray</option>
-                    <option value="abdominal_x-ray">Abdominal X-ray</option>
-                    <option value="chest_x-ray">Bone X-ray</option>
-                    <option value="chest_x-ray">Skull X-ray</option>
-                    <option value="chest_x-ray">Dental X-ray</option>
-                </select>
-            </p>
-        </div>
-        <div class="section-container-color">
-            <p>
-                <h3><uimessage code="pihcore.rad_order.title"/>(2)</h3>
-                <select name="x-ray 2 ordered">  
-                    <option value="select">Please select</option>
-                    <option value="chest_x-ray">Chest X-ray</option>
-                    <option value="abdominal_x-ray">Abdominal X-ray</option>
-                    <option value="chest_x-ray">Bone X-ray</option>
-                    <option value="chest_x-ray">Skull X-ray</option>
-                    <option value="chest_x-ray">Dental X-ray</option>
-                </select>
-            </p>
-        </div>
-        <div class="section-container-color">
-            <h3><uimessage code="pihcore.ultrasound_order.title"/></h3>
-            <p>
-                <select name="Ultrasound ordered">  
-                    <option value="select">Please select</option>
-                    <option value="chest_x-ray">Abdominal ultrasound</option>
-                    <option value="abdominal_x-ray">Cardiac ultrasound</option>
-                    <option value="chest_x-ray">Obstetric ultrasound</option>
-                    <option value="chest_x-ray">FAST ultrasound</option>
-                </select>
-            </p>
+    <section id="radiology-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.rad_order.title">
+        <div class="section-container">
+            <div class="two-columns">
+                <strong>X-ray</strong>
+                <br/>
+
+                <repeat with="['Chest 1 view','Chest'],
+                                  ['Abdomen 1 view','Abdominal'],
+                                  ['Skull 2 views','Skull'],
+                                  ['Other bone','Other bone'],
+                                  ['Dental','Dental']">
+
+                    <obs conceptId="PIH:Radiology image ordered"
+                         answerConceptId="PIH:{0} (XRay)"
+                         answerLabel="{1}"
+                         style="checkbox"/>
+                </repeat>
+
+                <obs conceptId="PIH:Radiology image ordered"
+                     answerConceptId="PIH:Other (XRay)" answerLabel="Other (XRay)"
+                     style="checkbox"
+                     showCommentField="true" commentFieldLabel=""/>
+
+                <strong>Ultrasound</strong>
+                <br/>
+                <repeat with="['Abdomen (US)','Abdominal'],
+                                  ['Transthoracic echocardiogram','Cardiac'],
+                                  ['Obstetric (US)','Obstetric'],
+                                  ['Soft tissue (US)','Soft tissue'],
+                                  ['FAST (US)','FAST']">
+
+                    <obs conceptId="PIH:Radiology image ordered"
+                         answerConceptId="PIH:{0}"
+                         answerLabel="{1}"
+                         style="checkbox"/>
+                </repeat>
+
+                <obs conceptId="PIH:Radiology image ordered"
+                     answerConceptId="PIH:Other (US)" answerLabel="Other (XRay)"
+                     style="checkbox"
+                     showCommentField="true" commentFieldLabel=""/>
+            </div>
         </div>
     </section>
-
+    
        <!-- Stolen from the dispensing module, but using prescription construct instead of dispensing -->
     <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.visitNote.orders.medications">
@@ -249,7 +276,7 @@
         </includeIf>
         -->
 
-        <div class="section-container-color">
+        <div class="section-container">
             <repeat with="['1'],['2'],['3'],['4'],['5'],['6'],['7'],['8']">
                 <span id="medication-{0}" class="medication">
                     <obsgroup groupingConceptId="PIH:Prescription construct" showIfEmpty="false">
@@ -320,11 +347,11 @@
         </div>
 
     </section>
-
+  
     <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="coreapps.consult.disposition">
 
-        <div class="section-container-color">
+        <div class="section-container">
 
             <div id="disposition">
                 <encounterDisposition/>
