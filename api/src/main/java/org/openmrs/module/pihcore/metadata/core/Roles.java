@@ -941,7 +941,16 @@ public class Roles {
         public String description() { return "Gives access to the vitals app"; }
         public List<PrivilegeDescriptor> privileges() {
             return Arrays.asList(
-                    Privileges.APP_EMR_OUTPATIENT_VITALS
+                    Privileges.APP_EMR_OUTPATIENT_VITALS,
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_ACTIVE_VISITS,
+                    Privileges.APP_EMR_INPATIENTS,
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
+                    Privileges.TASK_RADIOLOGYAPP_TAB,
+                    Privileges.APP_REPORTINGUI_REPORTS,
+                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS
             );}
     };
 
