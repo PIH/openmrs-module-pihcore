@@ -7,7 +7,7 @@ How to use the fuctions
 concept_from_mapping('source', 'code')
 concept_name(concept_id, 'locale')
 encounter_type(patient_id)
-age_at_enc(person_id)
+age_at_enc(person_id, encounter_id)
 zlemr(patient_id)
 unknown_patient(patient_id)
 gender(patient_id)
@@ -99,7 +99,8 @@ END
 DROP FUNCTION IF EXISTS age_at_enc;
 #
 CREATE FUNCTION age_at_enc(
-    _person_id int
+    _person_id int,
+    _encounter_id int
 )
 	RETURNS DOUBLE
     DETERMINISTIC
@@ -108,7 +109,7 @@ BEGIN
     DECLARE ageAtEnc DOUBLE;
 
 	select round(datediff(encounter_datetime, birthdate)/365.25,1) into ageAtENC from encounter e join person p on patient_id = person_id and e.voided = 0
-	and p.voided = 0 and person_id = _person_id group by encounter_id LIMIT 1;
+	and p.voided = 0 and person_id = _person_id and encounter_id = _encounter_id and encounter_type = @encounter_type group by encounter_id;
 
     RETURN ageAtEnc;
 
