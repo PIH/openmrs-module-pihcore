@@ -356,17 +356,16 @@
                          showCommentField="true" commentFieldLabel="" style="checkbox"/>
 
                 </p>
-                <p>
-                    <!-- <render concept="PIH:POSTPARTUM HEMORRHAGE" name="postpartum hemorrhage"/> -->
-                    <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:POSTPARTUM HEMORRHAGE" style="checkbox"/>
-                    </obsgroup>
 
-                    <label>
-                        Blood loss (mL)
-                    </label>
-                    <obs conceptId="PIH:12555" />
-                </p>
+                <!-- <render concept="PIH:POSTPARTUM HEMORRHAGE" name="postpartum hemorrhage"/> -->
+                <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
+                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:POSTPARTUM HEMORRHAGE" style="checkbox"/>
+                </obsgroup>
+                <span style="padding-left:30px;"></span>
+                <label>
+                    Blood loss (mL)
+                </label>
+                <obs conceptId="PIH:12555" />
 
                 <br/>
                 <br/>
@@ -379,9 +378,9 @@
 
                     <repeat>
                         <template>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{concept}" style="checkbox"/>
-                            </obsgroup>
+                            <!-- problem for newborn -->
+                            <obs conceptId="PIH:12564" answerConceptId="{concept}"
+                                 showIfEmpty="false" style="checkbox"/>
                         </template>
 
                         <!--Baby -->
