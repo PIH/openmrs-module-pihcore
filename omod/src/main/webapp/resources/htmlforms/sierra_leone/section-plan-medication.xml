@@ -171,6 +171,19 @@
             <uimessage code="pihcore.visitNote.plan"/>
         </h1>
     </ifMode>
+    <section id="family-planning" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+            headerCode="pihcore.vct">
+        <div class="section-container-color">
+            <p>
+                <obs conceptId="PIH:11381" 
+                labelText="Counselled for HIV testing"  
+                answers="PIH:YES,PIH:NO,PIH:1175" 
+                answerLabels="Yes,No,Unknown"
+                style="dropdown"
+                answerSeparator=""/>
+            </p>
+        </div>
+    </section>
 
     <!-- Stolen from the dispensing module, but using prescription construct instead of dispensing -->
     <section id="drug-orders" sectionTag="fieldset" headerTag="legend" headerStyle="title"

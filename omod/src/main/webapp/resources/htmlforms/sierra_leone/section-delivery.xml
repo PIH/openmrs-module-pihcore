@@ -351,12 +351,12 @@
                             <render concept="CIEL:116642" name="Fetal demise"/>
                             <render concept="CIEL:118245" name="fetal retardation"/>
                             <render concept="CIEL:143849" name="Congenital malformation" />
-                            <render concept="CIEL:145548" name="Chorioamnionitis" />
                             <render concept="CIEL:129211" name="rupture membrane"/>
                             <render concept="CIEL:115866" name="aspiration meconium"/>
 
                             <!--Mother-->    
                             <render concept="CIEL:165088" name="gbv"/>
+                            <render concept="CIEL:145548" name="Chorioamnionitis" />
                             <render concept="CIEL:113006" name="severe pre-eclampsia"/>
                             <render concept="PIH:Eclampsia" name="eclampsia"/>
                             <render concept="CIEL:113602" name="Prolonged labour"/>

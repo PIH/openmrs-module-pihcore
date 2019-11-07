@@ -181,7 +181,23 @@
         </div>
     </section>
 
+
     <section id="family-planning" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+            headerCode="pihcore.vct">
+        <div class="section-container-color">
+            <p>
+                <obs conceptId="PIH:11381" 
+                labelText="Counselled for HIV testing"  
+                answers="PIH:YES,PIH:NO,PIH:1175" 
+                answerLabels="Yes,No,Unknown"
+                style="dropdown"
+                answerSeparator=""/>
+            </p>
+        </div>
+    </section>
+
+
+<section id="hiv-counselling" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.familyPlanning.title">
         <div class="section-container-color">
             <p>
@@ -194,6 +210,12 @@
             </p>
         </div>
     </section>
+
+
+
+
+
+
 
     
        <!-- Stolen from the dispensing module, but using prescription construct instead of dispensing -->
