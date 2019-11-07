@@ -278,10 +278,7 @@
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:LIVER FAILURE"
                  style="checkbox" toggle="liver_disease"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:SPLENOMEGALY"
-                 style="checkbox" toggle="speno"/>
-            <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER"
-                 style="checkbox" toggle="other"
-                 showCommentField="true" commentFieldLabel=" "/>
+                 style="checkbox" toggle="splenomegaly"/>
         </div>
     </section>
 
@@ -580,7 +577,7 @@
 
 
     <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.speno">
-        <div id="speno" class="section-container">
+        <div id="splenomegaly" class="section-container">
 
             <h2>
                 <uimessage code="pihcore.ncd.presume.etiology.label"></uimessage>
@@ -594,7 +591,7 @@
 
             <br/><br/>
 
-            <h2>
+            <h2 class="test">
                 <uimessage code="pihcore.ncd.last.visit.label"></uimessage>
             </h2>
             <repeat>
@@ -623,28 +620,6 @@
         </div>
     </section>
 
-
-    <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.other">
-        <div id="other" class="section-container">
-            <p>
-                <repeat with="['CIEL:119624','Deep vein thrombosis'],
-                              ['CIEL:113504','Pulmonary embolism'],
-                              ['CIEL:148203','Atrial fibrillation'],
-                              ['PIH:3181','Mechanical heart valve'],
-                              ['CIEL:117441','Hyperlipidemia'],
-                              ['CIEL:115115','Obesity']">
-
-                    <obsgroup groupingConceptId="PIH:Visit Diagnoses" showIfEmpty="false">
-                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="{0}" style="checkbox"/>
-                    </obsgroup>
-                </repeat>
-
-                <!-- Other diagnosis and comment -->
-                <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:5622"/>
-                <obs conceptId="PIH:7416"/>
-            </p>
-        </div>
-    </section>
 
     <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.ncd.plan.title">

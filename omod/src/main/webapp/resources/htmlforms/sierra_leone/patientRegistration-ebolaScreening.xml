@@ -9,7 +9,7 @@
     </ifMode>
 
     <ifMode mode="VIEW" include="false">
-        <h2><uimessage code="zl.registration.patient.ebolaScreening.label"/></h2>
+        <h2><uimessage code="zl.registration.patient.ebolaScreening.alertClinician"/></h2>
     </ifMode>
 
     <div class="hidden">
@@ -21,7 +21,7 @@
 
     <section id="ebolascreening" sectionTag="section">
 
-        <fieldset>
+        <fieldset class="required">
 
                 <!-- edit Ebola screening questions -->
                 <ifMode mode="VIEW" include="false">
@@ -31,7 +31,8 @@
 
                             <obs conceptId="PIH:12246" id="feverQuestion"
                                  answerConceptIds="PIH:YES,PIH:NO" answerCodes="coreapps.yes,coreapps.no"
-                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3"/>
+                                 defaultValue="PIH:NO"
+                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="2" required="true"/>
                         </p>
                     </div>
 
@@ -39,7 +40,8 @@
                         <h3><uimessage code="zl.registration.patient.ebolaScreening.bleedingSigns.label"/></h3>
                         <p class="right">
                             <obs conceptId="PIH:7102" id="bleedingQuestion" answerConceptIds="PIH:YES,PIH:NO" answerCodes="coreapps.yes,coreapps.no"
-                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3"/>
+                                 defaultValue="PIH:NO"
+                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="2" required="true"/>
                         </p>
                     </div>
 
@@ -48,7 +50,8 @@
                         <p class="left">
                             <obs conceptId="CIEL:1690" id="clinicalSuspicionQuestion"
                                  answerConceptIds="PIH:YES,PIH:NO" answerCodes="coreapps.yes,coreapps.no"
-                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="3"/>
+                                 defaultValue="PIH:NO"
+                                 showUnits="false" unitsCssClass="append-to-value" style="dropdown" size="2" required="true"/>
                         </p>
                     </div>
 
