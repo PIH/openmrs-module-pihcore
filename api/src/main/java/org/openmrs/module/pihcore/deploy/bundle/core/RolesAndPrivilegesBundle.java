@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.Privilege;
+import org.openmrs.Role;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -103,6 +104,8 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_EDIT_PATIENT_PROGRAM);
         install(Privileges.TASK_DELETE_PATIENT_PROGRAM);
         install(Privileges.TASK_MANAGE_CONDITIONS_LIST);
+        install(Privileges.TASK_ORDER_LABS);
+        install(Privileges.TASK_VIEW_LABS);
 
         log.info("Retiring old privileges");
 
@@ -142,7 +145,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PHARMACY_MANAGER);
             install(Roles.MEDICAL_STUDENT);
             install(Roles.RESIDENT);
-            install(Roles.PHYSICIAN);
+            install(Roles.CLINICIAN_OR_PHYSICIAN);
             install(Roles.NCD_PHYSICIAN);
             install(Roles.SURGEON);
             install(Roles.ANAESTHETIST);
@@ -152,23 +155,36 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PRINT_LABELS);
             install(Roles.PROGRAM_MANAGER);
             install(Roles.PATHOLOGY_TECHNICIAN);
-            install(Roles.LABS);
+            install(Roles.LAB_MANAGER);
+            install(Roles.LAB_TECHNICIAN);
             install(Roles.VCT_COUNSELOR);
             install(Roles.PATIENT_DOCUMENTS);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)
-                || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             install(Roles.SYSTEM_ADMINISTRATOR);
             install(Roles.ARCHIVIST_CLERK);
-            install(Roles.PHYSICIAN);
+            install(Roles.CLINICIAN_OR_PHYSICIAN);
             install(Roles.MEQ);
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            install(Roles.SYSTEM_ADMINISTRATOR);
+            install(Roles.ARCHIVIST_CLERK);
+            install(Roles.CLINICIAN_OR_PHYSICIAN);
+            install(Roles.MEQ);
+            install(Roles.PHARMACY_MANAGER);
+            install(Roles.LAB_MANAGER);
+            install(Roles.LAB_TECHNICIAN);
+            install(Roles.TRIAGE_STAFF);
+            install(Roles.OBSERVATION_STAFF);
+            install(Roles.SUPPORT_STAFF);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             install(Roles.SYSTEM_ADMINISTRATOR);
             install(Roles.ARCHIVIST_CLERK);
-            install(Roles.PHYSICIAN);
+            install(Roles.CLINICIAN_OR_PHYSICIAN);
             install(Roles.MEQ);
             install(Roles.PROGRAM_MANAGER);
+            install(Roles.LAB_TECHNICIAN);
         }
 
         // old privileges still in use at Mirebalais
@@ -185,6 +201,8 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.LEGACY_CHECK_IN);
         }
 
+        // retired roles
+        uninstall(possible(Role.class, Roles.LABS_RETIRED.uuid()), "replaced by Lab Manager and Lab Tech");
     }
 
 }
