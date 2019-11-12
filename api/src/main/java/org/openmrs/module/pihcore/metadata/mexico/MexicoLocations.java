@@ -100,6 +100,13 @@ public class MexicoLocations {
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
     };
 
+    public static LocationDescriptor OFFICE = new LocationDescriptor() {
+        public String uuid() { return "17b5962a-8145-4738-be8d-537dc5c103e7"; }
+        public String name() { return "CES Oficina"; }
+        public String description() { return "CES Oficina"; }
+        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
+    };
+
     // UNINSTALLED
     public static LocationDescriptor SURGERY = new LocationDescriptor() {
         public String uuid() { return "78a18ed4-c798-4f47-a0f1-7e483c89da37"; }
