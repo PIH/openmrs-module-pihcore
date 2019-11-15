@@ -587,7 +587,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th><label><uimessage code="pihcore.history.label"/></label></th>
+                    <th><label><uimessage code="pihcore.past.label"/></label></th>
                     <td>
                         <obs conceptId="CIEL:1628" style="checkbox"
                              answerConceptId="CIEL:125562" answerCode=""/>
