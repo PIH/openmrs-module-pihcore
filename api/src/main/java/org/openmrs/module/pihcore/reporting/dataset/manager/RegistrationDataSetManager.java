@@ -15,7 +15,6 @@
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.openmrs.EncounterType;
-import org.openmrs.Visit;
 import org.openmrs.api.ConceptService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
