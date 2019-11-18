@@ -19,6 +19,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.InsuranceConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
@@ -40,6 +41,9 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
     protected SocioEconomicConcepts socioEconomicConcepts;
 
     @Autowired
+    protected InsuranceConcepts insuranceConcepts;
+
+    @Autowired
     protected MockConcepts mockConcepts;
 
     @Before
@@ -48,6 +52,7 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
         super.setup();
         Context.setLocale(Locale.ENGLISH);
         deployService.installBundle(socioEconomicConcepts);
+        deployService.installBundle(insuranceConcepts);
         deployService.installBundle(mockConcepts);
 
     }
