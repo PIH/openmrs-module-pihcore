@@ -14,6 +14,7 @@
 
 package org.openmrs.module.pihcore.reporting.cohort.definition.evaluator;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.PersonName;
@@ -71,6 +72,7 @@ public class PersonAuditInfoCohortDefinitionEvaluatorTest extends BaseModuleCont
     }
 
     @Test
+    @Ignore
     public void testEvaluateByChangedDetails() throws Exception {
         PersonAuditInfoCohortDefinition cd = new PersonAuditInfoCohortDefinition();
         cd.setChangedOnOrAfter(DateUtil.parseDate("2008-08-18 12:25", "yyyy-MM-dd HH:mm"));
@@ -80,6 +82,7 @@ public class PersonAuditInfoCohortDefinitionEvaluatorTest extends BaseModuleCont
     }
 
     @Test
+    @Ignore
     public void testEvaluateByVoidedDetails() throws Exception {
         Date today = DateUtil.getStartOfDay(new Date());
 
