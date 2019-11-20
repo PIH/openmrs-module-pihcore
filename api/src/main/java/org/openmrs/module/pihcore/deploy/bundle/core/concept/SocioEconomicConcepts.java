@@ -19,7 +19,7 @@ import java.util.Locale;
 public class SocioEconomicConcepts extends VersionedPihConceptBundle {
 
     @Override
-    public int getVersion() { return 18;  }
+    public int getVersion() { return 20;  }
 
     public static final class Concepts {
         public static final String CIVIL_STATUS = "3cd6df26-26fe-102b-80cb-0017a47871b2";
@@ -692,6 +692,31 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("9d91a9bd-90e9-411f-a996-0b007d96024f").type(sameAs).ensureTerm(pih, "9674").build())
                 .build());
 
+        Concept selfEmployed = install(new ConceptBuilder("161382AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(finding)
+                .name("110889BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Self employed", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("123476BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Cuenta propia", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("146531ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(snomedCt, "160906004").build())
+                .mapping(new ConceptMapBuilder("218493ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "161382").build())
+                .build());
+
+        Concept cleaner = install(new ConceptBuilder("164832AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("141041BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Cleaner", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .description("18322FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "An occupation. Someone who does cleaning.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("282763ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "164832").build())
+                .mapping(new ConceptMapBuilder("282762ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(snomedCt, "159756005").build())
+                .build());
+
+        Concept childNotInSchool = install(new ConceptBuilder("0fa4b967-d901-4d3f-abfd-ecf0d5c494a7")
+                .datatype(notApplicable)
+                .conceptClass(misc)
+                .name("787ef446-bca6-4094-b9ad-65cd3ccd63a1", "Child greater than 5 years not attending school", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("af7942a6-6283-4d9b-9f92-e45c8894b968").type(sameAs).ensureTerm(pih, "12624").build())
+                .build());
+
         install(new ConceptBuilder(Concepts.MAIN_ACTIVITY)
                 .datatype(coded)
                 .conceptClass(question)
@@ -711,6 +736,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         driver, professional, commerce, teacher,
                         fisherman, marketVendor, civilServant, healthCareWorker, zlStaff,
                         cowboy, military, bikeRider, police,
+                        selfEmployed,cleaner,childNotInSchool,
                         retired, student, unemployed, otherNonCoded)
                 .build());
 
