@@ -347,6 +347,19 @@
         </fieldset>
     </div>
 
+    <section id="context" sectionTag="fieldset" headerTag="legend" headerStyle="title">
+        <div class="section-container">
+            <label>
+                <uimessage code="pihcore.referredBy"/>
+            </label>
+            <obs conceptId="PIH:6189" id="referredBy"
+                 answerConceptIds="PIH:12611,PIH:12612,PIH:12613,CIEL:1555,PIH:12614"
+                 answerCodes="pihcore.hasAppointment,pihcore.walkIn,pihcore.activeCasefinding,pihcore.chw,pihcore.mentalHealthProgramForAdolescents"
+                 style="radio" answerSeparator=""
+            />
+        </div>
+    </section>
+
     <!-- Subjective -->
     <ifMode mode="VIEW" include="false">
         <h1>
