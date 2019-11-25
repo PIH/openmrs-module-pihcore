@@ -27,6 +27,7 @@ public class MexicoLocationsBundle extends AbstractMetadataBundle {
         install(MexicoLocations.SALVADOR);
         install(MexicoLocations.SOLEDAD);
         install(MexicoLocations.HOSPITAL);
+        install(MexicoLocations.OFFICE);
 
         uninstall(possible(Location.class, MexicoLocations.JALTENANGO.uuid()), "not used");
         uninstall(possible(Location.class, MexicoLocations.SURGERY.uuid()), "not used");

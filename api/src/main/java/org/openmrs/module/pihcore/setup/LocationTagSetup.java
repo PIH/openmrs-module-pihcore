@@ -94,14 +94,14 @@ public class LocationTagSetup {
                 LocationTags.PROVIDER_MANAGEMENT_LOCATION);
 
         if (config.getSite().equals(ConfigDescriptor.Site.CES_CLOUD)) {
-            List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.HOSPITAL);
+            List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.HOSPITAL, MexicoLocations.OFFICE);
             for (LocationTagDescriptor tag : clinicalLocationTags) {
                 setLocationTagsFor(locationService, tag, cloudLocations);
             }
         } else if (config.getSite().equals(ConfigDescriptor.Site.PLAN_DE_LA_LIBERTAD)) {
-            List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.PLAN_ALTA, MexicoLocations.PLAN_BAJA);
+            List<LocationDescriptor> planLocations = Arrays.asList(MexicoLocations.PLAN_ALTA, MexicoLocations.PLAN_BAJA);
             for (LocationTagDescriptor tag : clinicalLocationTags) {
-                setLocationTagsFor(locationService, tag, cloudLocations);
+                setLocationTagsFor(locationService, tag, planLocations);
             }
         } else {
             // Get the current location -- each site only has one available

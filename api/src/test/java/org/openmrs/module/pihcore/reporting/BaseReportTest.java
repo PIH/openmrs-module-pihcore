@@ -37,7 +37,6 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -97,6 +96,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     @Before
     public void setup() throws Exception {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
+        dropNotNullConstraint("person", "creator");
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
         deployService.installBundle(encounterTypeBundle);
