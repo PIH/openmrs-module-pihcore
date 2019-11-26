@@ -122,7 +122,8 @@
             </p>
         </div>
 
-            <includeIf velocityTest="$patient.gender == 'F' ">
+            <!-- Moved pregnancy into a later section -->
+            <includeIf velocityTest="$patient.gender == 'X' ">
                 <br/>
                 <!-- Pregnant -->
                 <p>
@@ -163,6 +164,56 @@
 
         </div>
     </section>
+
+    <!-- only show these sections if the patient is < 12 years old-->
+    <includeIf velocityTest="$patient.age &lt; 12 " >
+        <section id="birth-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.birth-history" >
+            <div class="section-container">
+                <div class="two-columns" >
+                    <p>
+                        <!-- Term of birth:  premie, at term, post date -->
+                        <obsgroup groupingConceptId="CIEL:1633" >
+                            <obs conceptId="CIEL:1628"
+                                 answerConceptIds="CIEL:1860,CIEL:1395,CIEL:113600"
+                                 style="radio" answerSeparator="" />
+                        </obsgroup>
+                    </p>
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.deliveryLocation" />
+                        </label>
+                        <obs conceptId="CIEL:163774" answerConceptIds="CIEL:1589,CIEL:1536,CIEL:5622"
+                             style="radio" answerSeparator="" />
+                    </p>
+
+
+                    <p>
+                        <label>
+                            <uimessage code="pihcore.birthweight" />
+                        </label>
+                        <span class="small">
+                            <field>
+                                <!-- ToDo: Fix units to show on the right-side of the box - not the next line -->
+                                <obs conceptId="CIEL:5916" showUnits="false" />
+                            </field>
+                        </span>
+                    </p>
+
+                    <p>
+                        <!-- Mother's disease during pregnancy -->
+                        <pastMedicalHistoryCheckbox concept="CIEL:118203" label="pihcore.momDiseaseDuringPregnancy"
+                                                    specify="true" class="medicalHistoryText patientHistory"/>
+                        <!-- Neonatal disease -->
+                        <pastMedicalHistoryCheckbox concept="CIEL:115374"
+                                                    specify="true" class="medicalHistoryText patientHistory"/>
+                    </p>
+
+                </div>
+            </div>
+        </section>
+    </includeIf>
 
     <section id="patient-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="zl.consultNote.patientHistory.title">
@@ -258,13 +309,50 @@
         </div>
     </section>
 
-    <section id="fp-history" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.familyPlanningHistory.title">
+    <section id="sexual-activities" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.sexualReproHistory.label">
         <div class="section-container">
+            <includeIf velocityTest="$patient.gender == 'F' ">
+                <p>
+                    <!-- Pregnant -->
+                    <obs conceptId="CIEL:5272" toggle="pregnant"
+                         answerConceptId="CIEL:1065"
+                         answerCode="pihcore.pregnancy.status"
+                         style="checkbox"/>
+
+                    <div class="two-columns">
+                        <div id="pregnant">
+                            <p>
+                                <!-- DPR? -->
+                                <label>
+                                    <uimessage code="pihcore.pregnancy.lastPeriod"/>
+                                </label>
+                                <obs conceptId="CIEL:1427"/>
+                            </p>
+
+                            <p>
+                                <!-- DPA -->
+                                <label>
+                                    <uimessage code="pihcore.pregnancy.dueDate"/>
+                                </label>
+                                <obs conceptId="CIEL:5596" allowFutureDates="true"/>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Breastfeeding -->
+                    <obs conceptId="CIEL:5632"
+                         answerConceptId="PIH:YES" answerCode="pihcore.breastfeeding"
+                         style="checkbox"/>
+                </p>
+                <br/>
+            </includeIf>
+
             <table>
                 <tr>
                     <th>
                         <label>
+                            <uimessage code="pihcore.familyPlanningHistory.title"/>:
                             <uimessage code="pihcore.familyPlanning.method"/>
                         </label>
                     </th>
@@ -295,7 +383,7 @@
                                     <obs conceptId="CIEL:163757"/>
                                 </td>
                                 <td class="{comment}-date">
-                                    <obs conceptId="CIEL:163758" allowFutureDates="true" />
+                                    <obs conceptId="CIEL:163758" allowFutureDates="true"/>
                                 </td>
                             </tr>
                         </obsgroup>
@@ -323,7 +411,7 @@
             </table>
         </div>
     </section>
-
+    
     <section id="tb-screen" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.tbscreen.title">
         <div class="section-container">
