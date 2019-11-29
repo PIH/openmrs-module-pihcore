@@ -291,7 +291,15 @@
 
                 <br/><br/>
             </div>
+            <!-- HIV test -->
+                <p>
+                    <label>
+                        <uimessage code="pihcore.hiv.counselledTested"/>
+                    </label>
 
+                    <obs conceptId="CIEL:164401" answerConceptId="CIEL:1065"
+                         style="checkbox" />
+                </p>
             <br/>
 
             <div id="calculated-edd-and-gestational" class="two-columns hidden">
