@@ -233,7 +233,7 @@
                 <!-- HIV test -->
                 <p>
                     <label>
-                        <uimessage code="pihcore.mch.hivTest"/>
+                        <uimessage code="pihcore.hiv.counselledTested"/>
                     </label>
 
                     <obs conceptId="CIEL:164401" answerConceptId="CIEL:1065"
