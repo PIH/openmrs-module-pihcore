@@ -1,7 +1,6 @@
 package org.openmrs.module.pihcore.search;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.PersonAddress;
@@ -78,7 +77,6 @@ public class PihPatientSearchAlgorithmTest extends BaseModuleContextSensitiveTes
     }
 
     @Test
-    @Ignore
     public void shouldExcludeVoidedPatients() {
 
         Patient patientToVoid = patientService.getPatient(13);
