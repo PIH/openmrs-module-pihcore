@@ -82,7 +82,6 @@ public class PersonAuditInfoCohortDefinitionEvaluatorTest extends BaseModuleCont
     }
 
     @Test
-    @Ignore
     public void testEvaluateByVoidedDetails() throws Exception {
         Date today = DateUtil.getStartOfDay(new Date());
 
