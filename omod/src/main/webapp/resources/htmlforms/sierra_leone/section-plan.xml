@@ -305,6 +305,15 @@
                                 <!-- answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals" -->
 
                             </p>
+
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="Route" />
+                                </label>
+                                <obs id="route{0}" class="route"
+                                     conceptId="PIH:12651" answerConceptSetIds="CIEL:162394" />
+                            </p>
+
                             <p class="inline">
                                 <label>
                                     <uimessage code="pihcore.visitNote.plan.frequency"/>

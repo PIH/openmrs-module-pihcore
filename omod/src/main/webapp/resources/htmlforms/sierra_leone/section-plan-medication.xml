@@ -227,6 +227,7 @@
                                 <!-- answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals" -->
 
                             </p>
+
                             <p class="inline">
                                 <label>
                                     <uimessage code="pihcore.visitNote.plan.frequency"/>
@@ -248,7 +249,7 @@
                                 <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS"
                                      answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
                             </p>
-
+                            
                             <p>
                                 <label>
                                     <uimessage code="pihcore.visitNote.plan.instructions"/>
