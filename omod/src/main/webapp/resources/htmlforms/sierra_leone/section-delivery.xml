@@ -257,13 +257,6 @@
                     </label>
                     <obs conceptId="CIEL:5916"/>
                 </p>
-   <!--             <p>
-                    <label>
-                        <h7>Estimated blood loss</h7>
-                    </label>
-                    <obs conceptId="PIH:Estimated blood loss" showUnits="liters" unitsCssClass="append-to-value"/>
-                </p>
--->
                 <!-- Delivery type -->
                 <obs conceptId="PIH:11663" answerConceptId="CIEL:162595" style="checkbox"/>
                   <!-- HIV test -->
