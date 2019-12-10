@@ -311,7 +311,9 @@
                                     <uimessage code="Route" />
                                 </label>
                                 <obs id="route{0}" class="route"
-                                     conceptId="PIH:12651" answerConceptSetIds="CIEL:162394" />
+                                     conceptId="PIH:12651"
+                                     answerConceptIds="CIEL:160240,CIEL:160242,CIEL:160243,CIEL:160245,CIEL:162797,CIEL:165519,CIEL:162390,CIEL:165520,CIEL:162393,CIEL:162392"
+                                     answerCodes="Oral,IV,IM,SC,Topical,Sublingual,Optical,Intra-articular,Intra-rectal,Intra-vaginal" />
                             </p>
 
                             <p class="inline">
