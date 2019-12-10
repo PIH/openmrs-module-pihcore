@@ -950,7 +950,9 @@ public class Roles {
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.APP_REPORTINGUI_REPORTS,
-                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS
+                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS,
+                    Privileges.TASK_EMR_ENTER_VITALS_NOTE
+
             );}
     };
 
