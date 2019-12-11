@@ -430,6 +430,7 @@
 
         <div class="section-container">
 
+            <!-- ToDo:  Add later with UHM-4171
             <label>
                 <uimessage code="pihcore.mentalhealth.depressionScreening"/>
             </label>
@@ -445,6 +446,8 @@
                  answerCode="pihcore.mentalhealth.suspDepression" />
 
             <br/>
+            -->
+
             <label>
                 <uimessage code="pihcore.mentalhealth.zldsi"/>:
             </label>
