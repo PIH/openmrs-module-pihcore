@@ -225,7 +225,16 @@
                                      answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
                                      answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
                                 <!-- answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals" -->
+                            </p>
 
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="Route" />
+                                </label>
+                                <obs id="route{0}" class="route"
+                                     conceptId="PIH:12651"
+                                     answerConceptIds="CIEL:160240,CIEL:160242,CIEL:160243,CIEL:160245,CIEL:162797,CIEL:165519,CIEL:162390,CIEL:165520,CIEL:162393,CIEL:162392"
+                                     answerCodes="Oral,IV,IM,SC,Topical,Sublingual,Optical,Intra-articular,Intra-rectal,Intra-vaginal" />
                             </p>
 
                             <p class="inline">
