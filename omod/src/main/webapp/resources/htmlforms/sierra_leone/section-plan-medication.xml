@@ -175,13 +175,12 @@
     <section id="hiv-counselling" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.vct">
         <div class="section-container-color">
-            <p>
-                <obs conceptId="PIH:11381"
-                     labelText="Counselled for HIV testing"
-                     answers="PIH:YES,PIH:NO,PIH:1175"
+            <p class="radio">
+                <obs conceptId="PIH:11381" style="radio"
+                     labelText="Counselled for HIV testing:  "
+                     answers="PIH:YES,PIH:NO,PIH:unknown"
                      answerLabels="Yes,No,Unknown"
-                     style="dropdown"
-                     answerSeparator=""/>
+                     answerSeparator=" " />
             </p>
         </div>
     </section>
