@@ -71,6 +71,7 @@ public class PersonAuditInfoCohortDefinitionEvaluatorTest extends BaseModuleCont
         assertThat(actual, hasExactlyIds(2));
     }
 
+    // ignoring this pending resolution of: https://issues.openmrs.org/browse/TRUNK-5691
     @Test
     @Ignore
     public void testEvaluateByChangedDetails() throws Exception {

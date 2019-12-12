@@ -193,13 +193,12 @@
     <section id="hiv-counselling" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.vct">
         <div class="section-container">
-            <p>
-                <obs conceptId="PIH:11381"
-                     labelText="Counselled for HIV testing"
-                     answers="PIH:YES,PIH:NO,PIH:1175"
+            <p class="radio">
+                <obs conceptId="PIH:11381" style="radio"
+                     labelText="Counselled for HIV testing:  "
+                     answers="PIH:YES,PIH:NO,PIH:unknown"
                      answerLabels="Yes,No,Unknown"
-                     style="dropdown"
-                     answerSeparator=""/>
+                     answerSeparator=" "/>
             </p>
         </div>
     </section>
@@ -207,13 +206,12 @@
     <section id="family-planning" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.familyPlanning.title">
         <div class="section-container">
-            <p>
-                <obs conceptId="CIEL:1382" 
-                labelText="Offered and accepted family planning information"
-                answers="PIH:YES,PIH:NO,PIH:unknown" 
-                answerLabels="Yes,No,Unknown"
-                style="dropdown"
-                answerSeparator=""/>
+            <p class="radio">
+                <obs conceptId="CIEL:1382" style="radio"
+                     labelText="Offered and accepted family planning information:  "
+                     answers="PIH:YES,PIH:NO,PIH:unknown"
+                     answerLabels="Yes,No,Unknown"
+                     answerSeparator=" "/>
             </p>
         </div>
     </section>
@@ -305,6 +303,17 @@
                                 <!-- answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals" -->
 
                             </p>
+
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="Route" />
+                                </label>
+                                <obs id="route{0}" class="route"
+                                     conceptId="PIH:12651"
+                                     answerConceptIds="CIEL:160240,CIEL:160242,CIEL:160243,CIEL:160245,CIEL:162797,CIEL:165519,CIEL:162390,CIEL:165520,CIEL:162393,CIEL:162392"
+                                     answerCodes="Oral,IV,IM,SC,Topical,Sublingual,Optical,Intra-articular,Intra-rectal,Intra-vaginal" />
+                            </p>
+
                             <p class="inline">
                                 <label>
                                     <uimessage code="pihcore.visitNote.plan.frequency"/>

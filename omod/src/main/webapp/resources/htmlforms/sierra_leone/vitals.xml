@@ -690,8 +690,6 @@
             </p>
         </fieldset>
 
-
-
         <fieldset>
             <legend><uimessage code="mirebalais.vitals.respiratoryRate.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.respiratoryRate.title"/></h3>
@@ -764,37 +762,19 @@
 
             </fieldset>
         </includeIf>
-      <!-- only show z score if patient is less than 13 years old (on the encounterDate) OR female -->
-        <includeIf velocityTest="(13 > $patient.getAge($encounter.getEncounterDatetime()))">
-            <fieldset field-separator=" or ">
+
+        <!-- only show z score if patient is less than 5 years old (on the encounterDate) -->
+        <includeIf velocityTest="(5 > $patient.getAge($encounter.getEncounterDatetime()))">
+            <fieldset>
                 <legend><uimessage code="mirebalais.vitals.zscore.title"/></legend>
                 <h3><uimessage code="mirebalais.vitals.zscore.title"/></h3>
 
-                <!-- view mode -->
-                <ifMode mode="VIEW">
-                    <p>
-                        <span class='obs-field'>
-                            <span id="z_score" class="value"/>
-                        </span>
-                    </p>
-		   </ifMode>
-
-
-                <!-- edit mode -->
-                <ifMode mode="VIEW" include="false">
-		<p class='left'>
-          		<span class='obs-field'>
-				<input type='text' id="z_score" size="5" />
-			</span>
-		</p>
-	<!--REPLACE WITH RELEVANT TEXT ONCE DECIDED
-		<p class="left">
-			<uimessage code="mirebalais.vitals.zscore.title"/>
-
-            	</p>-->
-                </ifMode>
+                <p>
+                    <obs conceptId="CIEL:162584" id="z_score" />
+                </p>
             </fieldset>
         </includeIf>
+
         <!-- only show Head circumference if patient is less than 3 years old (on the encounterDate) -->
         <includeIf velocityTest="3 > $patient.getAge($encounter.getEncounterDatetime())">
             <fieldset>
@@ -802,7 +782,8 @@
                 <h3><uimessage code="mirebalais.vitals.head.title"/></h3>
 
                 <p>
-                    <obs conceptId="PIH:HEAD CIRCUMFERENCE" id="head_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
+                    <obs conceptId="PIH:HEAD CIRCUMFERENCE" id="head_cm"
+                         showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
                 </p>
             </fieldset>
 
