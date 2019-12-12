@@ -173,7 +173,7 @@
                 handleExit: function (fieldValue) {
                     if (fieldValue &amp;&amp; fieldValue.value()) {
                         setValue('temperature_c.value', convertFahrenheitToCelcius(fieldValue.value()));
-                        jq('#temperature_f').val('');
+                        // jq('#temperature_f').val('');
                     }
                     return true;
                 }
@@ -192,7 +192,7 @@
                     if (fieldValue &amp;&amp; fieldValue.value()) {
                         setValue('weight_kg.value', convertLbsToKg(fieldValue.value()));
                         getField('weight_kg.value').change() // trigger change event so BMI is updated
-                        jq('#weight_lbs').val('');
+                        // jq('#weight_lbs').val('');
                     }
                     return true;
                 }
@@ -212,7 +212,7 @@
                     if (fieldValue &amp;&amp; fieldValue.value()) {
                         setValue('height_cm.value', convertInchesToCm(fieldValue.value()));
                         getField('height_cm.value').change()
-                        jq('#height_inches').val('');
+                        // jq('#height_inches').val('');
                     }
                     return true;
                 }
