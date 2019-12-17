@@ -465,6 +465,8 @@
                 <render concept="CIEL:119866" name="confusion" label="confusion"/>
                 <render concept="PIH:Currently taking medication" name="taking-meds" label="currently taking medications"/>
                 <render concept="CIEL:165193" name="facial-edema" label="facial edema"/>
+                <render concept="CIEL:460" name="body-edema" label="body edema"/>
+                <!--<render concept="CIEL:159596" name="regular-diet" label="regular diet"/>-->
             </repeat>
 
             <obs conceptId="PIH:CONJUNCTIVA"
@@ -477,7 +479,7 @@
                  answerConceptIds="CIEL:120575, CIEL:120574, CIEL:120579, CIEL:120578, CIEL:120577"
                  style="checkbox"/>
 
-            <!--<obs conceptId="CIEL:159596"                            Regular diet obs
+            <!--<obs conceptId="CIEL:159596"
                  labelCode="pihcore.ncd.chronic.kidney.disease.stage"
                  answerConceptIds="CIEL:1132, PIH:4057"
                  style="checkbox"/>-->
@@ -564,7 +566,13 @@
                 <render concept="PIH:DEPRESSION" name="depression" label="concerns of depression"/>
                 <render concept="PIH:CRACKLES" name="crackles" label="crackles"/>
                 <render concept="CIEL:140147" name="jvd-elevated" label="jvd elevated"/>
+                <render concept="CIEL:460" name="edema" label="edema"/>
             </repeat>
+
+            <obs conceptId="PIH:3139"
+                 labelCode="pihcore.ncd.chronic.kidney.disease.stage"
+                 answerConceptIds="CIEL:120575, CIEL:120574, CIEL:120579, CIEL:120578, CIEL:120577"
+                 style="checkbox"/>
 
         </div>
     </section>
@@ -668,12 +676,17 @@
                 <!--<render concept="PIH:Malaria Treatment" name="malaria-tx" label="malaria treatment"/>-->
                 <render concept="CIEL:164377" name="meds-side-effects" label="Medication side effect"/>
                 <render concept="PIH:ASCITES" name="ascites" label="ascites"/>
+                <render concept="PIH:ICTERIC SCLERA" name="icteric-sclera" label="icteric sclera"/>
             </repeat>
 
             <obs conceptId="PIH:CONJUNCTIVA"
                  labelCode="pihcore.ncd.pale.conjunctiva"
                  answerConceptIds="PIH:NORMAL, PIH:PALE CONJUNCTIVA"
-                 style="checkbox"/>
+                 style="checkbox"/><b/><br/>
+
+            <obs conceptId="CIEL:160689"
+                 labelCode="pihcore.ncd.lung.examination"
+                 style="textbox"/>
 
         </div>
     </section>

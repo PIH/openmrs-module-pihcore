@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-
-<htmlform formUuid="4ac1c817-4f9a-4d87-872b-eb55eb5bf2b2"
-=======
 <htmlform id="liberia-ncd-initial" class="simple-form-ui"
           formUuid="4fa486f6-fb22-11e9-b949-645d86728797"
->>>>>>> upstream/master
           formEncounterType="ae06d311-1866-455b-8a64-126a9bd74171"
           formName="NCD Initial" formVersion="1.0">
 
@@ -33,8 +28,6 @@
         display: block;
         }
 
-<<<<<<< HEAD
-=======
         form fieldset {
         min-width: 95%;
         display: block;
@@ -64,7 +57,6 @@
         width: 95%;
         }
 
->>>>>>> upstream/master
         <ifMode mode="VIEW" include="false">
             #data-collection {
             display: inline-block;
@@ -95,70 +87,17 @@
         </ifMode>
     </style>
 
-<<<<<<< HEAD
-    <!-- the two ifMode blocks below enable a bit of hack: when opening in ENTER mode, we just want to create the encounter,
-        we don't actually want to display the form, so we hae it hidden by default, and then automatically trigger the submit;
-        note that this will fail in the case where there isn't a default provider or date (which I don't think we have in our use cases -->
-
-    <ifMode mode="ENTER" include="true">
-        <script type="text/javascript">
-            jq(function() {
-            submitHtmlForm();
-            });
-        </script>
-    </ifMode>
-
-    <ifMode mode="EDIT" include="true">
-        <script type="text/javascript">
-            jq(function() {
-
-            jq('.htmlform').show();
-
-            jq('#next').click(function() {
-            window.htmlForm.getBeforeSubmit().push(function () {
-            window.htmlForm.setReturnUrl(window.htmlForm.getReturnUrl() + "&amp;goToNextSection=encounter-info");
-            return true;
-            });
-
-            window.htmlForm.submitHtmlForm();
-            })
-
-            jq('#submit').click(function() {
-            window.htmlForm.submitHtmlForm();
-            })
-
-            });
-        </script>
-    </ifMode>
-    <div class="htmlform" style="display:none">
-
-        <ifMode mode="VIEW" include="false">
-            <h2><uimessage code="ui.i18n.EncounterType.name.ae06d311-1866-455b-8a64-126a9bd74171"/></h2>
-=======
     <div class="htmlform">
 
         <ifMode mode="VIEW" include="false">
             <h2>
                 <uimessage code="ui.i18n.EncounterType.name.ae06d311-1866-455b-8a64-126a9bd74171"/>
             </h2>
->>>>>>> upstream/master
 
             <!-- users with retroConsultNote privilege can edit provider, location, and date for both retro and active visits -->
             <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNote')">
                 <div id="who-when-where">
                     <p id="who">
-<<<<<<< HEAD
-                        <label><uimessage code="emr.patientDashBoard.providerRequired"/></label>
-                        <span><encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/></span>
-                    </p>
-                    <p id="where">
-                        <label><uimessage code="emr.locationRequired"/></label>
-                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
-                    </p>
-                    <p id="when">
-                        <label><uimessage code="emr.patientDashBoard.date"/></label>
-                        <span><encounterDate id="encounterDate" default="now" /></span>
-=======
                         <label>
                             <uimessage code="emr.patientDashBoard.providerRequired"/>
                         </label>
@@ -184,38 +123,19 @@
                         <span>
                             <encounterDate id="encounterDate" default="now"/>
                         </span>
->>>>>>> upstream/master
                     </p>
                 </div>
             </includeIf>
             <!-- users with retroConsultNoteThisProviderOnly can edit location and date (but not provider) for retro visits -->
-<<<<<<< HEAD
-            <includeIf velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
-                <div style="display:none">
-                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-=======
             <includeIf
                     velocityTest="$user.hasPrivilege('Task: emr.retroConsultNoteThisProviderOnly') and !($user.hasPrivilege('Task: emr.retroConsultNote')) and (!$visit.open)">
                 <div style="display:none">
                     <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
                                               required="true"/>
->>>>>>> upstream/master
                 </div>
 
                 <div id="who-when-where">
                     <p id="who">
-<<<<<<< HEAD
-                        <label><uimessage code="emr.patientDashBoard.provider"/></label>
-                        <span><lookup expression="user.person.personName" /></span>
-                    </p>
-                    <p id="where">
-                        <label><uimessage code="emr.locationRequired"/></label>
-                        <span><encounterLocation default="SessionAttribute:emrContext.sessionLocationId" tags="Consult Note Location"/></span>
-                    </p>
-                    <p id="when">
-                        <label><uimessage code="emr.patientDashBoard.date"/></label>
-                        <span><encounterDate id="encounterDate" default="now" /></span>
-=======
                         <label>
                             <uimessage code="emr.patientDashBoard.provider"/>
                         </label>
@@ -239,7 +159,6 @@
                         <span>
                             <encounterDate id="encounterDate" default="now"/>
                         </span>
->>>>>>> upstream/master
                     </p>
                 </div>
 
@@ -247,33 +166,15 @@
             <!-- all users that don't have retroConsultNote privilege cannot edit provider, location or date when active visit -->
             <includeIf velocityTest="(!$user.hasPrivilege('Task: emr.retroConsultNote')) and ($visit.open)">
                 <div style="display:none">
-<<<<<<< HEAD
-                    <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05" required="true"/>
-                    <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
-                    <encounterDate id="encounterDate" default="now" />
-=======
                     <encounterProviderAndRole default="currentUser" encounterRole="4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
                                               required="true"/>
                     <encounterLocation default="SessionAttribute:emrContext.sessionLocationId"/>
                     <encounterDate id="encounterDate" default="now"/>
->>>>>>> upstream/master
                 </div>
                 <div id="who-when-where">
                     <table id="who-where-when-view">
                         <tr>
                             <td>
-<<<<<<< HEAD
-                                <label><uimessage code="emr.patientDashBoard.provider"/></label>
-                                <span><lookup complexExpression="#if($encounter) $ui.format($encounter.provider) #else $ui.format($user.person) #end"/></span>
-                            </td>
-                            <td>
-                                <label><uimessage code="emr.location"/></label>
-                                <span><lookup complexExpression="#if($encounter) $ui.format($encounter.location) #else $ui.format($sessionContext.sessionLocation) #end"/></span>
-                            </td>
-                            <td>
-                                <label><uimessage code="emr.patientDashBoard.date"/></label>
-                                <span><lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/></span>
-=======
                                 <label>
                                     <uimessage code="emr.patientDashBoard.provider"/>
                                 </label>
@@ -296,7 +197,6 @@
                                 <span>
                                     <lookup complexExpression="#if($encounter) $ui.format($fn.startOfDay($encounter.encounterDatetime)) #else $ui.format($fn.startOfDay($formGeneratedDatetime)) #end"/>
                                 </span>
->>>>>>> upstream/master
                             </td>
                         </tr>
                     </table>
@@ -305,13 +205,6 @@
         </ifMode>
 
 
-<<<<<<< HEAD
-        <ifMode mode="VIEW" include="false">
-            <div id="buttons">
-                <button id="next" type="button" class="submitButton confirm right"><uimessage code="emr.next"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-                <button id="submit" class="submitButton confirm right"><uimessage code="mirebalais.save"/><i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i></button>
-                <button id="cancel" type="button" class="cancel"><uimessage code="emr.cancel"/></button>
-=======
         <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.referral.reason">
             <div class="section-container">
@@ -459,32 +352,32 @@
         <section id="lifestyle-questions" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.lifestyle.title">
             <div class="section-container">
-                  <table>
-                      <tbody>
-                          <tr></tr>
-                          <tr>
-                              <td>
-                                  <label class="inline">
+                <table>
+                    <tbody>
+                        <tr></tr>
+                        <tr>
+                            <td>
+                                <label class="inline">
                                     Does the patient drink alcohol?:
-                                  </label>
+                                </label>
 
-                                  <span class="list-inline">
-                                      <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
-                                           answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                                           style="radio" answerSeparator=""/>
-                                  </span>
-                                  <br />
-                                  <label>
-                                      Type?:
-                                  </label>
-                                  <span>
+                                <span class="list-inline">
+                                    <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
+                                         answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                                         style="radio" answerSeparator=""/>
+                                </span>
+                                <br />
+                                <label>
+                                    Type?:
+                                </label>
+                                <span>
 
-                                  </span>
-                              </td>
-                              <td></td>
-                          </tr>
-                      </tbody>
-                  </table>
+                                </span>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
@@ -965,10 +858,8 @@
                 <button id="cancel" type="button" class="cancel">
                     <uimessage code="emr.cancel"/>
                 </button>
->>>>>>> upstream/master
             </div>
         </ifMode>
     </div>
 
 </htmlform>
-
