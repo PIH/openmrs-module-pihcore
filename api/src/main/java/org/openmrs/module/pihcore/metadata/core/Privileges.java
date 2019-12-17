@@ -534,6 +534,12 @@ public class Privileges {
         public String description() { return "Able to view lab tests via the order entry UI"; }
     };
 
+    public static PrivilegeDescriptor TASK_VIEW_GROWTH_CHARTS = new PrivilegeDescriptor() {
+        public String uuid() { return "6C12D2F8-D8A6-4970-A814-439F1025F7F4"; }
+        public String privilege() { return "Task: growthchart.viewGrowthCharts"; }
+        public String description() { return "Able to view growth charts"; }
+    };
+
     // RETIRED PRIVILEGES
 
 
