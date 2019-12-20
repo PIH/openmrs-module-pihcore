@@ -327,6 +327,7 @@
             </h2>
             <repeat>
                 <template>
+                    <span style="display:inline-block; width:30%;">
                     <obsgroup groupingConceptId="PIH:12389">
                         <obs conceptId="CIEL:1728"
                              answerConceptId="{concept}"
@@ -340,12 +341,13 @@
                                  answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/><br/><br/>
                         </span>
                     </obsgroup>
+                    </span>
                 </template>
                 <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
                 <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                 <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                 <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="poor diet adherence"/>
-                <!--<render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/> this is only in concepts.pih-emr.org-->
+                <render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/>
                 <render concept="PIH:SHORTNESS OF BREATH WITH EXERTION" name="sob" label="shortness of breadth with exertion"/>
                 <render concept="PIH:Currently taking medication" name="taking-meds" label="currently taking medications"/>
                 <render concept="PIH:HYPOGLYCEMIA" name="Hypoglycemia" label="Hypoglycemia"/>
@@ -356,7 +358,7 @@
                 <render concept="PIH:PERIPHERAL NEUROPATHY" name="neuropathy" label="neuropathy"/>
                 <render concept="PIH:Ulcers (generic)" name="ulcers" label="ulcers"/>
             </repeat>
-
+            <br/>
             <obs conceptId="PIH:Type of hypertension diagnosis"
                  labelCode="pih.ncd.htn.diagnosis.type"
                  answerConceptIds="PIH:NONE, CIEL:140147, CIEL:160771, PIH:11941, PIH:11942, CIEL:160774, CIEL:160778, CIEL:161644"
@@ -375,6 +377,7 @@
             </h2>
             <repeat>
                 <template>
+                    <span style="display:inline-block; width:30%;">
                     <obsgroup groupingConceptId="PIH:12389">
                         <obs conceptId="CIEL:1728"
                              answerConceptId="{concept}"
@@ -388,12 +391,13 @@
                                  answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/><br/><br/>
                         </span>
                     </obsgroup>
+                    </span>
                 </template>
                 <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
                 <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                 <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                 <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="poor diet adherence"/>
-                <!--<render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/> this is only in concepts.pih-emr.org-->
+                <render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/>
                 <render concept="PIH:SHORTNESS OF BREATH WITH EXERTION" name="sob" label="shortness of breadth with exertion"/>
                 <render concept="PIH:Currently taking medication" name="taking-meds" label="currently taking medications"/>
                 <render concept="PIH:HYPOGLYCEMIA" name="Hypoglycemia" label="Hypoglycemia"/>
@@ -404,7 +408,7 @@
                 <render concept="PIH:PERIPHERAL NEUROPATHY" name="neuropathy" label="neuropathy"/>
                 <render concept="PIH:Ulcers (generic)" name="ulcers" label="ulcers"/>
             </repeat>
-
+            <br/>
             <obs conceptId="PIH:Type of diabetes diagnosis"
                  labelCode="pih.ncd.diabetes.diagnosis.type"
                  answerConceptIds="PIH:Type 1 diabetes, PIH:Type 2 diabetes, CIEL:165207, CIEL:165208, CIEL:1449, CIEL:138291"
@@ -420,6 +424,7 @@
             <h2>
                 <uimessage code="pihcore.ncd.presume.etiology.label"></uimessage>
             </h2>
+
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:DIABETES" style="checkbox"/>
             <obs conceptId="PIH:NCD category" answerConceptId="CIEL:165543" style="checkbox"/>
@@ -432,7 +437,6 @@
             <obs conceptId="PIH:NCD category" answerConceptId="CIEL:115303" style="checkbox"/>
             <obs conceptId="PIH:NCD category" answerConceptId="PIH:unknown" style="checkbox"/>
 
-
             <br/><br/>
 
             <h2>
@@ -440,6 +444,7 @@
             </h2>
             <repeat>
                 <template>
+                    <span style="display:inline-block; width:30%;">
                     <obsgroup groupingConceptId="PIH:12389">
                         <obs conceptId="CIEL:1728"
                              answerConceptId="{concept}"
@@ -453,6 +458,7 @@
                                  answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/><br/><br/>
                         </span>
                     </obsgroup>
+                    </span>
                 </template>
                 <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                 <render concept="PIH: HERBAL TRADITIONAL MEDICATIONS" name="herbs" label="traditional herbs"/>
@@ -479,10 +485,10 @@
                  answerConceptIds="CIEL:120575, CIEL:120574, CIEL:120579, CIEL:120578, CIEL:120577"
                  style="checkbox"/>
 
-            <!--<obs conceptId="CIEL:159596"
-                 labelCode="pihcore.ncd.chronic.kidney.disease.stage"
-                 answerConceptIds="CIEL:1132, PIH:4057"
-                 style="checkbox"/>-->
+            <obs conceptId="PIH:12657"
+                 labelCode="pihcore.ncd.chronic.kidney.disease.diet.intake"
+                 answerConceptIds="PIH:12658, PIH:3188, PIH:12659, PIH:12660"
+                 style="checkbox"/>
         </div>
     </section>
 
@@ -496,6 +502,7 @@
             </h2>
             <repeat>
                 <template>
+                    <span style="display:inline-block; width:30%;">
                     <obsgroup groupingConceptId="PIH:12389">
                         <obs conceptId="CIEL:1728"
                              answerConceptId="{concept}"
@@ -509,6 +516,7 @@
                                  answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/><br/><br/>
                         </span>
                     </obsgroup>
+                    </span>
                 </template>
                 <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                 <render concept="PIH:ASTHMA EXACERBATION" name="asthma-exacerbation" label="asthma exacerbation"/>
@@ -516,7 +524,7 @@
                 <render concept="PIH:CYANOSIS" name="cyanosis" label="cyanosis"/>
                 <render concept="PIH:COUGH" name="cough" label="cough"/>
                 <render concept="PIH:WHEEZE" name="wheezing" label="wheezing"/>
-                <render concept="PIH:Respiratory emergency action plan" name="resp-action-plan" label="Has respiratory emergency action plan"/>
+                <render concept="PIH:Respiratory emergency action plan" name="resp-action-plan" label="respiratory emergency action plan"/>
             </repeat>
         </div>
     </section>
@@ -545,6 +553,7 @@
             </h2>
             <repeat>
                 <template>
+                    <span style="display:inline-block; width:30%;">
                     <obsgroup groupingConceptId="PIH:12389">
                         <obs conceptId="CIEL:1728"
                              answerConceptId="{concept}"
@@ -558,6 +567,7 @@
                                  answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/><br/><br/>
                         </span>
                     </obsgroup>
+                    </span>
                 </template>
                 <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                 <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
@@ -568,10 +578,10 @@
                 <render concept="CIEL:140147" name="jvd-elevated" label="jvd elevated"/>
                 <render concept="CIEL:460" name="edema" label="edema"/>
             </repeat>
-
+            <br/>
             <obs conceptId="PIH:3139"
-                 labelCode="pihcore.ncd.chronic.kidney.disease.stage"
-                 answerConceptIds="CIEL:120575, CIEL:120574, CIEL:120579, CIEL:120578, CIEL:120577"
+                 labelCode="pihcore.ncd.heart.failure.stage"
+                 answerConceptIds="PIH:3135, PIH:3136, PIH:3137, PIH:3138"
                  style="checkbox"/>
 
         </div>
@@ -600,6 +610,7 @@
             </h2>
             <repeat>
                 <template>
+                    <span style="display:inline-block; width:30%;">
                     <obsgroup groupingConceptId="PIH:12389">
                         <obs conceptId="CIEL:1728"
                              answerConceptId="{concept}"
@@ -613,6 +624,7 @@
                                  answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/><br/><br/>
                         </span>
                     </obsgroup>
+                    </span>
                 </template>
                 <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                 <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
@@ -656,6 +668,7 @@
             </h2>
             <repeat>
                 <template>
+                    <span style="display:inline-block; width:30%;">
                     <obsgroup groupingConceptId="PIH:12389">
                         <obs conceptId="CIEL:1728"
                              answerConceptId="{concept}"
@@ -669,6 +682,7 @@
                                  answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/><br/><br/>
                         </span>
                     </obsgroup>
+                    </span>
                 </template>
                 <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                 <render concept="PIH:Pain" name="pain" label="pain"/>
