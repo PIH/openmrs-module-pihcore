@@ -76,4 +76,5 @@ public class Components {
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String COHORT_BUILDER = "cohortBuilder";
         public static final String CHEMOTHERAPY = "chemotherapy";
+        public static final String SPA = "spa";  // the Single-SPA UI
 }
