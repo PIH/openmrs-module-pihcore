@@ -772,8 +772,8 @@
                                     <td id="{name}-rx-dose-unit">
                                         <obs id="doseUnit-{name}" class="doseInput select-arrow" placeholder="unit"
                                              conceptId="PIH:Dosing units coded"
-                                             answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
-                                             answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
+                                             answerConceptIds="CIEL:1513,,CIEL:1608,CIEL:162263,CIEL:162335,CIEL:162382"
+                                             answerCodes="pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.ampule,pihcore.visitNote.plan.medication.units.vial"/>
                                     </td>
                                     <td id="{name}-rx-frequency">
                                         <obs id="frequencyCoded-{name}" class="frequency select-arrow"
