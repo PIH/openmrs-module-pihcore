@@ -80,7 +80,8 @@ public class PihCoreConstants {
     public static final String TREATMENT_CARE_UUID = "f49129b7-274f-44b7-b491-1c54376b28ba";
 
     public static final String MENTAL_HEALTH_PROGRAM_CONCEPT_UUID = "d3368ded-6d96-4bfc-b590-cb663b7ec70b";  // 11574, PIH Mental Health
-    public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505
+    // public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // 11505 for Mexico?
+    public static final String MENTAL_HEALTH_PROGRAM_OUTCOMES_CONCEPT_UUID = "fb5f05f8-85f1-4c4b-b400-86f5914ba584";  // 12719 for Haiti + Liberia
 
     public static final String NCD_PROGRAM_CONCEPT_UUID = "099d3ba9-b302-4565-a060-09915f3c85b5";  // HUM NCD
     public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "a65eb5bf-d0a5-4ce3-b3c5-b16d0df3f468";  // 11977
