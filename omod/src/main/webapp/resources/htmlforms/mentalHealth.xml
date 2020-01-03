@@ -417,8 +417,8 @@
                         <uimessage code="pihcore.ncd.plan.appt"/>
                     </label>
                     <obs conceptId="PIH:Appearance at appointment time" style="radio"
-                         answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
-                         answerCodes="yes,pihcore.meds.late1to7Days,pihcore.meds.late7orMoreDays"
+                         answerConceptIds="PIH:12718,PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
+                         answerCodes="pihcore.meds.7DaysorMoreEarly,yes,pihcore.meds.late1to7Days,pihcore.meds.late7orMoreDays"
                          answerSeparator=""/>
                 </p>
             </div>
