@@ -710,13 +710,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("282762ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(snomedCt, "159756005").build())
                 .build());
 
-        Concept childNotInSchool = install(new ConceptBuilder("0fa4b967-d901-4d3f-abfd-ecf0d5c494a7")
-                .datatype(notApplicable)
-                .conceptClass(misc)
-                .name("787ef446-bca6-4094-b9ad-65cd3ccd63a1", "Child greater than 5 years not attending school", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .mapping(new ConceptMapBuilder("af7942a6-6283-4d9b-9f92-e45c8894b968").type(sameAs).ensureTerm(pih, "12624").build())
-                .build());
-
         install(new ConceptBuilder(Concepts.MAIN_ACTIVITY)
                 .datatype(coded)
                 .conceptClass(question)
@@ -736,7 +729,7 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         driver, professional, commerce, teacher,
                         fisherman, marketVendor, civilServant, healthCareWorker, zlStaff,
                         cowboy, military, bikeRider, police,
-                        selfEmployed,cleaner,childNotInSchool,
+                        selfEmployed,cleaner,
                         retired, student, unemployed, otherNonCoded)
                 .build());
 

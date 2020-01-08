@@ -64,6 +64,7 @@ public class Components {
         public static final String TODAYS_VISITS = "todaysVisits";
         public static final String PATHOLOGY_TRACKING = "pathologyTracking";
         public static final String LABS = "labs";
+        public static final String GROWTH_CHART = "growthChart";
         public static final String PROGRAMS = "programs";
         public static final String RELATIONSHIPS = "relationships";
         public static final String PROVIDER_RELATIONSHIPS = "providerRelationships";  // the Relationships widget, configured for providers
@@ -75,4 +76,5 @@ public class Components {
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String COHORT_BUILDER = "cohortBuilder";
         public static final String CHEMOTHERAPY = "chemotherapy";
+        public static final String SPA = "spa";  // the Single-SPA UI
 }

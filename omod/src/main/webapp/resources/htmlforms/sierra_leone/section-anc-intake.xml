@@ -213,21 +213,16 @@
         <enrollInProgram programId="MCH" />
 
         <div class="section-container">
-
             <div class="two-columns">
-<br/><br/><br/> 
-    
                 <p>
                     <label position="left">
-                        <uimessage code="pihcore.mch.trimesterAtEnrollment" />
+                        <uimessage code="pihcore.mch.trimesterAtEnrollment"/>
                     </label>
-
                     <obs conceptId="PIH:11661" style="radio" answerSeparator=""
-                         answerConceptIds="CIEL:1721,CIEL:1722,CIEL:1723" />
+                         answerConceptIds="CIEL:1721,CIEL:1722,CIEL:1723"/>
                     <!-- ToDo: Ask team if they want the time range for trimester
                          answerCodes="pihcore.mch.firstTri,pihcore.mch.secondTri,pihcore.mch.thirdTri"
                     -->
-
                 </p>
 
                 <!-- HIV test -->
@@ -235,13 +230,14 @@
                     <label>
                         <uimessage code="pihcore.mch.hivTest"/>
                     </label>
-
                     <obs conceptId="CIEL:164401" answerConceptId="CIEL:1065"
-                         style="checkbox" />
+                         style="checkbox"/>
                 </p>
+                <br/><br/><br/><br/>
+                <br/><br/><br/><br/>
+                <br/><br/><br/><br/>
 
-                <!-- Mental Health -->
-<!--                <p>
+                <!-- Mental Health
                     <label>
                         <uimessage code="pihcore.mentalhealth.title"/>
                     </label>
@@ -252,50 +248,7 @@
                          style="checkbox"/>
                     <obs conceptId="PIH:Mental health diagnosis" answerConceptId="PIH:SCHIZOPHRENIA"
                          style="checkbox"/>
-                </p>
--->    
-    <section id="unhealthy_habits" sectionTag="fieldset" headerTag="legend" 
-             headerCode="pihcore.habits">
-
-            <p class="list-inline">
-                <label position = "left">
-                    <uimessage code="pihcore.habits.smoking" />
-                </label>
-                <obs conceptId="PIH:HISTORY OF TOBACCO USE"
-                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                     style="radio" answerSeparator=""/>
-            </p>
-
-             <p class="list-inline">
-                <label position = "left">
-                    <uimessage code="pihcore.habits.alcohol" /> (Consider palm wine and homolais)
-                </label>
-                <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
-                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                     style="radio" answerSeparator=""/>
-            </p>
-
-             <p class="radio">
-                    <label><uimessage code="pihcore.habits.drinksPerDay"/>
-                    </label>
-                    <obs conceptId="PIH:ALCOHOLIC DRINKS PER DAY"/>
-                    <br/>
-            </p>
-    </section>
-    <br/><br/><br/><br/><br/><br/><br/>
-    <section>
-             <p class="radio">
-                    <label><uimessage code="pihcore.habits.drugs"/> (Consider tramadol and codeine)
-                    </label>
-                    <obs conceptId="CIEL:162556" 
-                    answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown" 
-                    style="radio" answerSeparator=" "/>
-                    <label><uimessage code="pihcore.habits.drugName" /></label>
-                    <obs conceptId="PIH:6489" />
-                     <br/>
-            </p>
-    </section>
-
+                -->
                 <!-- Risk factors for mother -->
                 <p>
                     <label>
@@ -344,8 +297,6 @@
                          -->
                 </p>
             </div>
-
-            <hr/>
 
             <div class="four-columns">
                 <p>
@@ -426,6 +377,56 @@
                 </span>
             </p>
 
+        </div>
+    </section>
+
+    <section id="unhealthy_habits" sectionTag="fieldset" headerTag="legend"
+             headerStyle="title" headerCode="pihcore.habits">
+
+        <div class="section-container">
+            <p class="list-inline">
+                <label position="left">
+                    <uimessage code="pihcore.habits.smoking"/>
+                </label>
+                <obs conceptId="PIH:HISTORY OF TOBACCO USE"
+                     answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                     style="radio" answerSeparator=""/>
+            </p>
+
+            <div class="two-columns">
+                <p class="list-inline">
+                    <label position="left">
+                        <uimessage code="pihcore.habits.alcohol"/>
+                        <i>Consider palm wine and homolais</i>
+                    </label>
+                    <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
+                         answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                         style="radio" answerSeparator=""/>
+                </p>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.habits.drinksPerDay"/>
+                    </label>
+                    <obs conceptId="PIH:ALCOHOLIC DRINKS PER DAY"/>
+                </p>
+
+                <p class="radio">
+                    <label>
+                        <uimessage code="pihcore.habits.drugs"/>
+                        <i>Consider tramadol and codeine</i>
+                    </label>
+                    <obs conceptId="CIEL:162556"
+                         answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                         style="radio" answerSeparator=" "/>
+                </p>
+                <p>
+                    <label>
+                        <uimessage code="pihcore.habits.drugName"/>
+                    </label>
+                    <obs conceptId="PIH:6489"/>
+                </p>
+            </div>
         </div>
     </section>
 

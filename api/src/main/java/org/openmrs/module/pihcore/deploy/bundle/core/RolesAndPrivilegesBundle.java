@@ -106,6 +106,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_MANAGE_CONDITIONS_LIST);
         install(Privileges.TASK_ORDER_LABS);
         install(Privileges.TASK_VIEW_LABS);
+        install(Privileges.TASK_VIEW_GROWTH_CHARTS);
 
         log.info("Retiring old privileges");
 

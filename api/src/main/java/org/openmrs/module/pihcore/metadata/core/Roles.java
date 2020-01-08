@@ -113,7 +113,8 @@ public class Roles {
                 Privileges.TASK_LAB_TRACKING_UPDATE,
                 Privileges.TASK_MANAGE_CONDITIONS_LIST,
                 Privileges.TASK_ORDER_LABS,
-                Privileges.TASK_VIEW_LABS
+                Privileges.TASK_VIEW_LABS,
+                Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -136,7 +137,8 @@ public class Roles {
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                     Privileges.TASK_LAB_TRACKING_UPDATE,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -163,7 +165,8 @@ public class Roles {
                     Privileges.APP_APPOINTMENTSCHEDULINGUI_HOME,
                     Privileges.APP_APPOINTMENTSCHEDULINGUI_VIEW_APPOINTMENTS,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -266,7 +269,8 @@ public class Roles {
                     Privileges.APP_ZL_MPI,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -312,7 +316,8 @@ public class Roles {
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.APP_CHW,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -343,7 +348,8 @@ public class Roles {
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.APP_CHW,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -374,7 +380,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                     Privileges.APP_CHW,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -428,7 +435,8 @@ public class Roles {
                     Privileges.TASK_DISPENSING_EDIT,
                     Privileges.TASK_EMR_CHECK_IN,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -476,7 +484,8 @@ public class Roles {
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                     Privileges.TASK_LAB_TRACKING_UPDATE,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -525,7 +534,8 @@ public class Roles {
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                     Privileges.TASK_LAB_TRACKING_UPDATE,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -582,7 +592,8 @@ public class Roles {
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                     Privileges.TASK_LAB_TRACKING_UPDATE,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -630,7 +641,8 @@ public class Roles {
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -675,7 +687,8 @@ public class Roles {
                     Privileges.TASK_LAB_TRACKING_PLACE_ORDERS,
                     Privileges.TASK_LAB_TRACKING_UPDATE,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -716,7 +729,8 @@ public class Roles {
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -755,7 +769,8 @@ public class Roles {
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.APP_CHW,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -789,7 +804,8 @@ public class Roles {
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.TASK_ALLERGIES_MODIFY,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -813,7 +829,8 @@ public class Roles {
                     Privileges.TASK_EMR_RETRO_CLINICAL_NOTE,
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_REPORTS_DATA_EXPORTS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -834,7 +851,8 @@ public class Roles {
                     Privileges.TASK_EMR_ENTER_SOCIO,
                     Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     Privileges.APP_CHW,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 
@@ -950,7 +968,9 @@ public class Roles {
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
                     Privileges.TASK_RADIOLOGYAPP_TAB,
                     Privileges.APP_REPORTINGUI_REPORTS,
-                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS
+                    Privileges.APP_ZL_REPORTS_DATA_EXPORTS,
+                    Privileges.TASK_EMR_ENTER_VITALS_NOTE
+
             );}
     };
 
@@ -1060,7 +1080,8 @@ public class Roles {
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
                     Privileges.TASK_MANAGE_CONDITIONS_LIST,
                     Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
 

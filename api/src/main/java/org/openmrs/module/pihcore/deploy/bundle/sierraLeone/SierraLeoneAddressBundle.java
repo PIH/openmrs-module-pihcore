@@ -36,7 +36,6 @@ public class SierraLeoneAddressBundle extends AddressBundle {
         l.add("address1");
         l.add("stateProvince");
         l.add("countyDistrict");
-        l.add("country");
         return l;
     }
 

@@ -417,8 +417,8 @@
                         <uimessage code="pihcore.ncd.plan.appt"/>
                     </label>
                     <obs conceptId="PIH:Appearance at appointment time" style="radio"
-                         answerConceptIds="PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
-                         answerCodes="yes,pihcore.meds.late1to7Days,pihcore.meds.late7orMoreDays"
+                         answerConceptIds="PIH:12718,PIH:YES,PIH:Between 1 and 7,PIH:More than 7"
+                         answerCodes="pihcore.meds.7DaysorMoreEarly,yes,pihcore.meds.late1to7Days,pihcore.meds.late7orMoreDays"
                          answerSeparator=""/>
                 </p>
             </div>
@@ -430,6 +430,7 @@
 
         <div class="section-container">
 
+            <!-- ToDo:  Add later with UHM-4171
             <label>
                 <uimessage code="pihcore.mentalhealth.depressionScreening"/>
             </label>
@@ -445,6 +446,8 @@
                  answerCode="pihcore.mentalhealth.suspDepression" />
 
             <br/>
+            -->
+
             <label>
                 <uimessage code="pihcore.mentalhealth.zldsi"/>:
             </label>
@@ -742,7 +745,7 @@
                         <th colspan="2">
                             <uimessage code="pihcore.visitNote.plan.dose"/>
                         </th>
-                        <th width="80px" >
+                        <th width="100px" >
                             <uimessage code="pihcore.visitNote.plan.frequency"/>
                         </th>
                         <th colspan="2">
@@ -769,8 +772,9 @@
                                     <td id="{name}-rx-dose-unit">
                                         <obs id="doseUnit-{name}" class="doseInput select-arrow" placeholder="unit"
                                              conceptId="PIH:Dosing units coded"
-                                             answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
-                                             answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
+                                             answerConceptIds="CIEL:1513,CIEL:1608,CIEL:162335,CIEL:162353,CIEL:162382,CIEL:161553,CIEL:162263"
+                                             answerCodes="pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.ampule,pihcore.visitNote.plan.medication.units.bottle,pihcore.visitNote.plan.medication.units.vial,pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.mL"/>
+                                        <!-- tablet, capsule, ampule, bottle, vial, mg, mL -->
                                     </td>
                                     <td id="{name}-rx-frequency">
                                         <obs id="frequencyCoded-{name}" class="frequency select-arrow"
