@@ -16,6 +16,7 @@ import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
+import org.openmrs.module.pihcore.metadata.peru.PeruPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
 public class MetadataMappingsSetup {
@@ -59,6 +60,9 @@ public class MetadataMappingsSetup {
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
+            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(PeruPatientIdentifierTypes.PERU_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
         }
     }
 
