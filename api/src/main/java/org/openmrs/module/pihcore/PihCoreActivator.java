@@ -42,6 +42,7 @@ import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.peru.PeruMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
@@ -142,6 +143,9 @@ public class PihCoreActivator extends BaseModuleActivator {
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             deployService.installBundle(Context.getRegisteredComponents(MexicoMetadataBundle.class).get(0));
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
+            deployService.installBundle(Context.getRegisteredComponents(PeruMetadataBundle.class).get(0));
         }
 
     }

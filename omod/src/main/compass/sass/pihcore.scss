@@ -1,5 +1,10 @@
 @import "customVariables";
 @import "reference";
+@import "font-awesome-5/fa-brands";
+@import "font-awesome-5/fa-regular";
+@import "font-awesome-5/fa-solid";
+@import "font-awesome-5/fontawesome";
+
 @import "dispensing";
 
 
@@ -12,7 +17,7 @@
       color: lighten($link, 10%);
       text-decoration: underline;
     }
-    
+
     &:visited, &.visited {
       color: $link
     }
@@ -101,6 +106,7 @@
 #login-form {
   ul.select {
     width: 850px;
+    font-size: 0.8em;
   }
 
   p {
@@ -112,7 +118,7 @@
 
 .highlighted {
 	background-color: #EB6E1F;
-	color: $white; 
+	color: $white;
 	padding: 5px;
 	margin: 5px
 }
@@ -146,7 +152,7 @@ form p.radio-btn {
     min-width: 76%;
 
     legend {
-      text-transform: none; 
+      text-transform: none;
     }
 
     p.narrow {
@@ -171,6 +177,10 @@ form p.radio-btn {
       min-width: 70%;
     }
   }
+}
+
+#save-form {
+  color: rgb(0, 127, 255);
 }
 
 #visit-list-select {

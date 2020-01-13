@@ -322,12 +322,14 @@
         </includeIf>
     </ifMode>
 
+
+    <!-- Program enrollment -->
+    <enrollInProgram programId="Mental Health"/>
+
+
     <!-- The form -->
     <section id="mh_refer" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.mentalhealth.referral">
-
-        <!-- Program enrollment -->
-        <enrollInProgram programId="Mental Health"/>
 
         <div class="section-container">
             <div class="two-columns">
@@ -423,64 +425,15 @@
     </section>
 
 
-    <section id="mh-diagnoses" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-             headerCode="pihcore.diagnoses.label">
-        <div class="section-container">
-            <table>
-                <tr>
-                    <th>Diagnosis</th>
-                    <th>Date</th>
-                </tr>
+    <includeIf velocityTest="!$patientHasMentalHealthCondition">
+        <section id="mh-diagnoses" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.diagnoses.label">
+            <condition required="true"/>
+        </section>
 
-                <repeat>
-                    <template>
-                        <lookup complexExpression="#foreach ($ob in $fn.allObs('PIH:DIAGNOSIS'))
-                        #foreach ($dt in $fn.allObs('PIH:Diagnosis date'))
-                            #if ($ob.valueCoded.equals($fn.getConcept('{concept}')) and $ob.obsGroup.equals($dt.obsGroup))
-                                #set ($diagnosisStartDate = $dt.valueDatetime)
-                            #end
-                        #end
-                    #end"/>
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td id="{name}-dx">
-                                    <obs id="{name}-id"
-                                         conceptId="PIH:DIAGNOSIS"
-                                         answerConceptId="{concept}"
-                                         style="checkbox"
-                                         toggle="{id: '{name}-dx-date', style: 'dim'}"/>
-                                </td>
-                                <td id="{name}-dx-date">
-                                    <obs conceptId="PIH:Diagnosis date"/>
-                                </td>
-                            </obsgroup>
-                        </tr>
-                        <lookup complexExpression="#set ($diagnosisStartDate = false)"/>
-                    </template>
+        <!-- If user doesn't have MH encounter, don't display ep section -->
 
-                    <render concept="PIH:PSYCHOSIS" name="Psychosis"/>
-                    <render concept="PIH:Bipolar disorder" name="Bipolar"/>
-                    <render concept="PIH:SCHIZOPHRENIA" name="Schizophrenia"/>
-                    <render concept="PIH:Psychosomatic problems" name="Psychosomatic"/>
-                    <render concept="PIH:Hyperkinetic Behavior" name="ADHD"/>
-                    <render concept="PIH:Conduct disorder" name="Conduct"/>
-                    <render concept="PIH:Mental handicap" name="Intellect"/>
-                    <render concept="PIH:DEMENTIA" name="Dementia"/>
-                    <render concept="PIH:EPILEPSY" name="Epilepsy"/>
-                    <render concept="PIH:ANXIETY DISORDER" name="Anxiety"/>
-                    <render concept="PIH:Post traumatic stress disorder" name="PTSD"/>
-                    <render concept="CIEL:130967" name="Panic"/>
-                    <render concept="PIH:DEPRESSION" name="Depression"/>
-                    <render concept="PIH:Manic episode" name="Manic"/>
-                    <render concept="PIH:Mood disorder" name="Mood"/>
-                </repeat>
-
-                <tr>
-                    <td colspan="2"><obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:OTHER" style="checkbox" commentFieldLabel=" "/></td>
-                </tr>
-            </table>
-        </div>
-    </section>
+    </includeIf>
 
 
     <section id="mh-epilepsy-section" sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
@@ -754,6 +707,18 @@
 
         </div>
     </section>
+
+    <lookup complexExpression="#set( $latestEncounter = $fn.latestEncounter(a8584ab8-cc2a-11e5-9956-625662870761) )"/>
+    <includeIf velocityTest="$conditionListConcepts.contains($fn.getConcept('PIH:EPILEPSY'))">
+        <style>
+            #mh-epilepsy-section {display: block;}
+        </style>
+    </includeIf>
+    <includeIf velocityTest="!$conditionListConcepts.contains($fn.getConcept('PIH:EPILEPSY'))">
+        <style>
+            #mh-epilepsy-section {display: none;}
+        </style>
+    </includeIf>
 
     <section id="mh-meds" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.visitNote.plan.medication">

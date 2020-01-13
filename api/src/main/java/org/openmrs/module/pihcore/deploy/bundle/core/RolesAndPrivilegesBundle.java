@@ -187,6 +187,14 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PROGRAM_MANAGER);
             install(Roles.LAB_TECHNICIAN);
         }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
+            install(Roles.SYSTEM_ADMINISTRATOR);
+            install(Roles.ARCHIVIST_CLERK);
+            install(Roles.CLINICIAN_OR_PHYSICIAN);
+            install(Roles.MEQ);
+            install(Roles.PROGRAM_MANAGER);
+            install(Roles.LAB_TECHNICIAN);
+        }
 
         // old privileges still in use at Mirebalais
         if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {

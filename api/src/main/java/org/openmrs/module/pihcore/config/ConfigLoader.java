@@ -54,7 +54,7 @@ public class ConfigLoader {
         objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
 
         if (StringUtils.isBlank(configs)) {
-            configs = "pihcore";
+            configs = "default";
         }
 
         try {
