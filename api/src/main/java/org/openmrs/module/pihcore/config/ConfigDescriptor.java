@@ -16,14 +16,14 @@ import java.util.Map;
 public class ConfigDescriptor {
 
     public enum Country {
-        HAITI, LIBERIA, SIERRA_LEONE, MEXICO, OTHER
+        HAITI, LIBERIA, SIERRA_LEONE, MEXICO, PERU, OTHER
     }
 
     public enum Site {
         MIREBALAIS, LACOLLINE, THOMONDE, ZLTRAINING, HINCHE, CERCA_LA_SOURCE, BELLADERE,
         PLEEBO, HARPER, OTHER, CROSS_SITE,
         JALTENANGO, CAPITAN, HONDURAS, LAGUNA_DEL_COFRE, LETRERO, MATAZANO, MONTERREY, PLAN_DE_LA_LIBERTAD, REFORMA, SALVADOR, SOLEDAD,
-        CES_CLOUD
+        CES_CLOUD, PERU
     }
 
     public enum Specialty {

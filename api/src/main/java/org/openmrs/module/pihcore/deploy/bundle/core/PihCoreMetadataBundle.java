@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.*;
+import org.openmrs.module.pihcore.deploy.bundle.peru.PeruPatientIdentifierTypeBundle;
 import org.springframework.stereotype.Component;
 
 /**
