@@ -80,7 +80,7 @@
         }
 
         .section {
-        width: 95%;
+        width: 100%;
         }
 
         .two-columns {

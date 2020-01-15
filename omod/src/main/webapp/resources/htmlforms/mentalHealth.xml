@@ -116,8 +116,8 @@
         margin: 0px;
         }
 
-        .section {
-        width: 95%;
+       - .section {
+        width: 100%;
         }
 
         textarea {
@@ -737,7 +737,7 @@
                          style="checkbox"/>
                 </repeat>
             </div>
-                        <br/>         
+                        <br/>
             -->
 
             <!-- ToDo:  Introduce the new modelling in the next release -->

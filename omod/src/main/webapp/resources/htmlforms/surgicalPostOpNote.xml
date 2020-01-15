@@ -264,7 +264,7 @@
         }
 
         .section {
-        width: 95%;
+        width: 100%;
         }
 
         .provider-grid {
