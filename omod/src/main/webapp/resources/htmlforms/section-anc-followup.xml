@@ -44,7 +44,7 @@
         }
 
         .section {
-        width: 95%;
+        width: 100%;
         }
 
         .two-columns {
@@ -133,7 +133,7 @@
                 if (typeof lastLMP !== "undefined" &amp;&amp; lastLMP !== null &amp;&amp; (lastLMP.length > 0)) {
 
                     var lastLMPDate = new Date(+lastLMP);
-            
+
                     if ( (Object.prototype.toString.call(lastLMPDate) === "[object Date]") &amp;&amp;
                         !isNaN(lastLMPDate.getTime())) {
                         var today = new Date();
@@ -325,6 +325,8 @@
                         <obs conceptId="CIEL:5596" allowFutureDates="true"/>
                     </span>
                 </p>
+
+                <br/>
                 <br/>
 
                 <p>
