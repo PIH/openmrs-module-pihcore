@@ -57,6 +57,15 @@
         width: 95%;
         }
 
+        input[type='text'], input[type='text']:focus {
+            border: 0;
+            border-bottom: 1px solid #DDD;
+        }
+
+        input[type='text']:focus {
+            outline: none;
+        }
+
         <ifMode mode="VIEW" include="false">
             #data-collection {
             display: inline-block;
@@ -206,11 +215,80 @@
 
 
         <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                 headerCode="pihcore.ncd.referral.reason">
+                 headerCode="pihcore.history.presentingHistory.title">
             <div class="section-container">
                 <p>
-                    <obs conceptId="CIEL:160531" style="textarea" id="chief-complaint"/>
+                    <obs conceptId="CIEL:160531" style="textarea" id="chief-complaint"
+                         labelCode="pihcore.ncd.referral.reason"/>
                 </p>
+
+
+                <p>
+                    <fieldset>
+                        <legend>Patient referred from:</legend>
+                        <span>
+                            <span>
+                                <strong>
+                                    <uimessage code="pihcore.refer.internal"/>
+                                </strong>
+                            </span>
+                            <br/>
+
+                            <repeat>
+                                <template>
+                                    <span style="display:inline-block; width:45%;">
+                                        <obs conceptId="PIH:Type of referring service"
+                                             style="checkbox"
+                                             answerConceptId="{point}" answerCode="{message}"/>
+                                    </span>
+                                </template>
+
+                                <render point="CIEL:160542" message="pihcore.location.opd" comment="Outpatient"/>
+                                <render point="CIEL:160473" message="pihcore.location.ed" comment="Emergency"/>
+                                <render point="CIEL:160448" message="pihcore.location.med.ward" comment="Medical"/>
+                                <render point="CIEL:165048" message="pihcore.location.ped.ward" comment="Pediatrics"/>
+                                <render point="PIH:MATERNITY WARD" message="pihcore.location.ob.ward" comment="Maternity"/>
+                            </repeat>
+
+                            <span class="list-inline" style="display:inline-block; width:45%;">
+                                <obs conceptId="PIH:Type of referring service" style="checkbox"
+                                     answerConceptId="PIH:OTHER" commentFieldLabel="" class="first-label-inline"/>
+                            </span>
+                        </span>
+
+                        <br />
+
+                        <span>
+                            <span>
+                                <strong>
+                                    <uimessage code="pihcore.refer.external"/>
+                                </strong>
+                            </span>
+                            <br/>
+
+                            <span class="list-inline" style="display:inline-block; width:45%;">
+                                <obs conceptId="PIH:Type of referring service" style="checkbox"
+                                     answerConceptId="PIH:11956" commentFieldLabel="" class="first-label-inline"/>
+                            </span>
+
+                            <span style="display:inline-block; width:47%;">
+                                <obs conceptId="PIH:Type of referring service" style="checkbox"
+                                     answerConceptId="PIH:Non-ZL supported site" commentFieldLabel="" class="first-label-inline"/>
+                            </span>
+                        </span>
+
+                        <br />
+
+                        <span class="first-label-inline">
+                            <label>
+                                <uimessage code="pihcore.refer.date"/>
+                            </label>
+                            <obs conceptId="CIEL:163181" allowTime="false" placeholder="lorum ipsum"/>
+                        </span>
+                    </fieldset>
+                </p>
+
+
                 <p>
                     <label class="inline">
                         Duration of symptoms:
@@ -233,73 +311,83 @@
                         </span>
                     </obsgroup>
                 </p>
-            </div>
-        </section>
-
-
-        <!-- Referred from section -->
-        <section id="referralIn" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                 headerCode="pihcore.refer.title">
-            <i class="icon-arrow-down"></i>
-            <div class="section-container">
-
-                <div>
-                    <span>
-                        <strong>
-                            <uimessage code="pihcore.refer.internal"/>
-                        </strong>
-                    </span>
-                    <br/>
-
-                    <repeat>
-                        <template>
-                            <span style="display:inline-block; width:45%;">
-                                <obs conceptId="PIH:Type of referring service"
-                                     style="checkbox"
-                                     answerConceptId="{point}" answerCode="{message}"/>
-                            </span>
-                        </template>
-
-                        <render point="CIEL:160542" message="pihcore.location.opd" comment="Outpatient"/>
-                        <render point="CIEL:160473" message="pihcore.location.ed" comment="Emergency"/>
-                        <render point="CIEL:160448" message="pihcore.location.med.ward" comment="Medical"/>
-                        <render point="CIEL:165048" message="pihcore.location.ped.ward" comment="Pediatrics"/>
-                        <render point="PIH:MATERNITY WARD" message="pihcore.location.ob.ward" comment="Maternity"/>
-                    </repeat>
-
-                    <span class="list-inline" style="display:inline-block; width:45%;">
-                        <obs conceptId="PIH:Type of referring service" style="checkbox"
-                             answerConceptId="PIH:OTHER" commentFieldLabel="" class="first-label-inline"/>
-                    </span>
-                </div>
-
-                <div>
-                    <span>
-                        <strong>
-                            <uimessage code="pihcore.refer.external"/>
-                        </strong>
-                    </span>
-                    <br/>
-
-                    <span class="list-inline" style="display:inline-block; width:45%;">
-                        <obs conceptId="PIH:Type of referring service" style="checkbox"
-                             answerConceptId="PIH:11956" commentFieldLabel="" class="first-label-inline"/>
-                    </span>
-
-                    <span style="display:inline-block; width:45%;">
-                        <obs conceptId="PIH:Type of referring service" style="checkbox"
-                             answerConceptId="PIH:Non-ZL supported site" commentFieldLabel="" class="first-label-inline"/>
-                    </span>
-                </div>
 
                 <p>
-                    <label>
-                        <uimessage code="pihcore.refer.date"/>
+                    <label class="inline">
+                        Has the patient ever been hospitalized for these symptoms?
                     </label>
-                    <obs conceptId="CIEL:163181" allowTime="false"/>
+                    <span class="list-inline">
+                        <obs conceptId="CIEL:163403" style="radio" labelText=""
+                             answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"/>
+                    </span>
+
+                    <span class="first-label-inline">
+                        <label>
+                            Total number of hospitalizations
+                        </label>
+                        <obs conceptId="CIEL:1773" labelText=""/>
+                    </span>
+
+                    &amp;nbsp&amp;nbsp
+
+                    <span class="first-label-inline">
+                        <label>
+                            Date of last hospitalization/ER visit
+                        </label>
+                        <obs conceptId="PIH:12602" labelText=""/>
+                    </span>
+                </p>
+
+                <p>
+                    <label class="inline">
+                        Has the patient ever received medication for symptoms?
+                    </label>
+                    <span class="list-inline">
+                        <obs id="patient-ever-received-medication" conceptId="PIH:12603"
+                             answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN">
+                            <controls>
+                                <when value="PIH:YES" thenDisplay="#patient-recently-taken-medication"/>
+                            </controls>
+                        </obs>
+                    </span>
+
+                    <br />
+
+                    <span id="patient-recently-taken-medication">
+                        <label class="inline">
+                            Has the patient recently taken medication?
+                        </label>
+                        <span class="list-inline">
+                            <obs conceptId="PIH:12604" style="radio"
+                                 answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"/>
+                        </span>
+                    </span>
+                </p>
+
+                <p>
+                    <label class="inline">
+                        Has the patient ever been to the church yard or seen a traditional healer for these symptoms?
+                    </label>
+                    <span class="list-inline">
+                        <obs id="visit-to-church-yard-or-traditional-healer" conceptId="PIH:12605"
+                             answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN">
+                            <controls>
+                                <when value="PIH:YES" thenDisplay="#church-or-traditional-healer-comment"/>
+                            </controls>
+                        </obs>
+                    </span>
+                    <span id="church-or-traditional-healer-comment">
+                        <label class="inline">
+                            What was the diagnosis and treatment (describe):
+                        </label>
+                        <span class="list-inline">
+                            <obs conceptId="PIH:12606" style="textarea"/>
+                        </span>
+                    </span>
                 </p>
             </div>
         </section>
+
 
         <!-- TB Screening Questions  -->
         <section id="tb-screening-questions" sectionTag="fieldset" headerTag="legend" headerStyle="title"
@@ -414,7 +502,8 @@
                                 <label>
                                     Document any other relevant history:
                                 </label>
-                                <obs id="other-relevant-history" conceptId="CIEL:160632" answerConceptId="CIEL:160741" size="90"/>
+                                <obs id="other-relevant-history" conceptId="CIEL:160632" answerConceptId="CIEL:160741"
+                                     style="textarea"/>
                             </td>
                         </tr>
                     </tbody>
@@ -430,37 +519,28 @@
                 <table>
                     <tbody>
                         <tr>
-                            <td rowspan="2">
-                                Occupation
-                            </td>
-                            <td>
-                                <repeat>
-                                    <template>
-                                        <span class="inline">
-                                            <obs conceptId="PIH:Occupation"
-                                                 style="checkbox"
-                                                 answerConceptId="{concept}"
-                                                 labelText="{label}" answerLabel=""/>
-                                        </span>
-                                    </template>
-
-                                    <render concept="PIH:STUDENT" label="Student"/>
-                                    <render concept="PIH:RETIRED" label="Retired"/>
-                                    <render concept="CIEL:159674" label="Fisherfolk"/>
-                                    <render concept="PIH:FARMER" label="Farmer"/>
-                                    <render concept="PIH:DRIVER" label="Driver"/>
-                                    <render concept="PIH:1404" label="Housewife"/>
-                                    <render concept="PIH:PROFESSIONAL" label="Professional (teacher, nurse)"/>
-                                    <render concept="CIEL:163714" label="Small Child (-5 yr)"/>
-
-                                </repeat>
-                                <span class="inline">
-                                    <obs conceptId="PIH:Occupation" answerConceptId="PIH:OTHER" style="checkbox" commentFieldLabel=" " class="first-label-inline"/>
+                            <td colspan="2">
+                                <label class="inline">
+                                    <uimessage code="pihcore.ncd.money.source.while.sick"/>
+                                </label>
+                                <span class="list-inline">
+                                    <obs id="money-source-while-sick" conceptId="PIH:12615"
+                                         answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" labelText=""
+                                         style="radio" answerSeparator=""/>
                                 </span>
                             </td>
                         </tr>
-                        <tr></tr>
-                        <tr></tr>
+                        <tr>
+                            <td colspan="2">
+                                <label class="inline">
+                                    <uimessage code="With whom do you live? (number including patient)"/>
+                                </label>
+                                &amp;nbsp
+                                <span>
+                                    <obs conceptId="CIEL:1474" class="inline"/>
+                                </span>
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 Transportation to clinic today
@@ -498,7 +578,17 @@
                                 </span>
                             </td>
                         </tr>
-                        <tr></tr>
+                        <tr>
+                            <td colspan="2">
+                                <label class="inline">
+                                    How many times do you eat a day (not only rice but any small thing you eat to survive)?
+                                </label>
+                                &amp;nbsp
+                                <span>
+                                    <obs conceptId="CIEL:165591" class="inline"/>
+                                </span>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -513,8 +603,16 @@
                     <tr>
                         <td>General</td>
                         <td>
-                            <obs conceptId="PIH:GENERAL EXAM FINDINGS"
-                                 answerConceptId="PIH:WELL APPEARING" style="checkbox"/>
+                            <span class="inline">
+                                <obs conceptId="PIH:GENERAL EXAM FINDINGS"
+                                     answerConceptId="PIH:WELL APPEARING" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:GENERAL EXAM FINDINGS"
+                                     answerConceptId="CIEL:160282" style="checkbox" class="first-label-inline"
+                                    labelText="Alert and Oriented" answerLabel=""/>
+                            </span>
+
                         </td>
                         <td>
                             <span class="inline">
@@ -534,9 +632,25 @@
                     <tr>
                         <td>HEENT</td>
                         <td>
-
+                            <span class="inline">
+                                <obs conceptId="PIH:HEENT EXAM FINDINGS"
+                                     answerConceptId="PIH:117" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:HEENT EXAM FINDINGS"
+                                     answerConceptId="PIH:3757" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:HEENT EXAM FINDINGS"
+                                     answerConceptId="PIH:12617" style="checkbox" class="first-label-inline"/>
+                            </span>
                         </td>
                         <td>
+                            <span class="inline">
+                                <obs conceptId="PIH:HEENT EXAM FINDINGS"
+                                     answerConceptId="CIEL:127918" style="checkbox" class="first-label-inline"
+                                     labelText="JVP high" answerLabel=""/>
+                            </span>
                             <span class="inline">
                                 <obs conceptId="PIH:HEENT EXAM FINDINGS"
                                      answerConceptId="PIH:JAUNDICE" style="checkbox" class="first-label-inline"/>
@@ -558,6 +672,33 @@
                     </tr>
                     <tr>
                         <td>Lungs</td>
+                        <td>
+                            <span class="inline">
+                                <obs conceptId="PIH:CHEST EXAM FINDINGS"
+                                     answerConceptId="CIEL:1115" style="checkbox" class="first-label-inline"
+                                     labelText="Clear" answerLabel=""/>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="inline">
+                                <obs conceptId="PIH:CHEST EXAM FINDINGS"
+                                     answerConceptId="CIEL:127640" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:CHEST EXAM FINDINGS"
+                                     answerConceptId="CIEL:122863" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:CHEST EXAM FINDINGS"
+                                     answerConceptId="CIEL:125061" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span id="location-of-crackles" class="first-label-inline">
+                                <label class="inline">
+                                    Location of crackles
+                                </label>
+                                <obs conceptId="CIEL:159485"/>
+                            </span>
+                        </td>
                     </tr>
                     <tr>
                         <td>Heart</td>
@@ -605,8 +746,27 @@
                                      class="first-label-inline"/>
                             </span>
                             <span class="inline">
-                                <obs conceptId="PIH:CARDIAC EXAM FINDINGS"
-                                     answerConceptId="PIH:CARDIAC MURMUR" style="checkbox" class="first-label-inline"/>
+
+                                <repeat>
+                                    <template>
+                                        <span class="inline">
+                                            <obsgroup groupingConceptId="PIH:CARDIAC MURMUR CONSTRUCT">
+                                                <span>
+                                                    <obs conceptId="PIH:CARDIAC EXAM FINDINGS"
+                                                         answerConceptId="PIH:CARDIAC MURMUR" style="checkbox"
+                                                         class="first-label-inline" labelText="Murmur #{index}" answerLabel=""
+                                                         toggle="cardiac-murmur-{index}"/>
+                                                </span><br/>
+                                                <span id="cardiac-murmur-{index}">
+                                                    <obs id="cardiac-murmur-{index}-dx" conceptId="PIH:CARDIAC MURMUR DIAGNOSIS"/>
+                                                    <obs id="cardiac-murmur-{index}-location" conceptId="PIH:12608"/>
+                                                </span>
+                                            </obsgroup>
+                                        </span>
+                                    </template>
+                                    <render index="1"/> <!-- murmur #1-->
+                                    <render index="2"/> <!-- murmur #2-->
+                                </repeat>
                             </span>
                             <span class="inline">
                                 <obs conceptId="PIH:CARDIAC EXAM FINDINGS"
@@ -662,14 +822,25 @@
                             <span class="inline">
                                 <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
                                      answerConceptId="PIH:ABDOMINAL TENDERNESS" style="checkbox"
-                                     class="first-label-inline"/>
+                                     class="first-label-inline" toggle="tenderness-quadrant"/>
+                                &amp;nbsp
+                                <span id="tenderness-quadrant">
+                                    <obs conceptId="PIH:ABDOMINAL EXAM FINDINGS"
+                                         answerConceptIds="CIEL:124994,CIEL:124996,CIEL:124993,CIEL:124995"
+                                         answerLabels="RUQ,LUQ,RLQ,LLQ" style="checkbox"
+                                         class="first-label-inline"/>
+                                </span>
                             </span>
                         </td>
                     </tr>
                     <tr>
                         <td>Neuro</td>
                         <td>
-
+                            <span class="inline">
+                                <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                                     answerConceptId="PIH:NORMAL" style="checkbox" class="first-label-inline"
+                                     labelText="No focal deficit" answerLabel=""/>
+                            </span>
                         </td>
                         <td>
                             <span class="inline">
@@ -677,10 +848,63 @@
                                      answerConceptId="PIH:FOCAL NEUROLOGICAL DEFICIT" style="checkbox"
                                      class="first-label-inline"/>
                             </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                                     answerConceptId="CIEL:165588" style="checkbox"
+                                     class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:NEUROLOGIC EXAM FINDINGS"
+                                     answerConceptId="CIEL:165589 " style="checkbox"
+                                     class="first-label-inline"/>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td>Extremities</td>
+                        <td>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="PIH:Normal, without peripheral edema" style="checkbox"
+                                     class="first-label-inline" labelText="No peripheral edema" answerLabel=""/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="PIH:12623" style="checkbox" class="first-label-inline"
+                                     labelText="2+ normal pulses (radial and pedal)" answerLabel=""/>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="CIEL:130428" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="CIEL:130166" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="CIEL:136522" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="CIEL:124823" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="CIEL:123919" style="checkbox" class="first-label-inline"
+                                     labelText="Ulceration" answerLabel=""/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="PIH:CYANOSIS" style="checkbox" class="first-label-inline"/>
+                            </span>
+                            <span class="inline">
+                                <obs conceptId="PIH:EXTREMITY EXAM FINDINGS"
+                                     answerConceptId="CIEL:588" style="checkbox" class="first-label-inline"/>
+                            </span>
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -840,6 +1064,273 @@
                             </obsgroup>
                         </tr>
                         <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+    <!-- Clinical Impression -->
+        <section id="clinical-impression" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                 headerCode="pihcore.ncd.clinical.impression.title">
+            <div class="section-container">
+                <table>
+                    <tbody>
+                        <!-- Diabetes -->
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td id="diabetes-dx">
+                                    <obs id="diabetes-id"
+                                         conceptId="PIH:DIAGNOSIS"
+                                         answerConceptId="CIEL:119481"
+                                         style="checkbox"/>
+                                    <br/>
+                                    <obs conceptId="PIH:Diagnosis date"/>
+                                </td>
+                                <td>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:142473" style="checkbox"/>
+                                    </div>
+                                    <div>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:142474" style="checkbox"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:162941" style="checkbox" labelText="Acanthosis" answerLabel=""/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115115" style="checkbox"/>
+
+                                        <span style="display:block;">
+                                            <label class="inline">HbA1c</label>
+                                            <obs conceptId="PIH:HbA1c" absoluteMinimum="6.5" class="inline"/>
+                                            <label class="inline">% (&#x2265;6.5%)</label>
+                                        </span>
+
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:12228" style="checkbox"
+                                             labelText="Pt able to control BG on oral tabs alone" answerLabel=""/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:113257" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117868" style="checkbox"/>
+                                    </div>
+                                    <div>
+
+                                        <includeIf velocityTest="20 > $patient.age">
+                                            <span style="color: green"> <lookup expression="patient.age"/> Years</span>
+                                        </includeIf>
+                                        <includeIf velocityTest="$patient.age > 20">
+                                            <span style="color: red"> <lookup expression="patient.age"/> Years</span>
+                                        </includeIf>
+
+                                        <span style="display:block;">
+                                            <label class="inline">HbA1c</label>
+                                            <obs conceptId="PIH:HbA1c" absoluteMinimum="6.5" class="inline"/>
+                                            <label class="inline">% (&#x2265;6.5%)</label>
+                                        </span>
+
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:113257" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117868" style="checkbox"/>
+                                    </div>
+                                </td>
+                            </obsgroup>
+                        </tr>
+
+                        <!-- PIH	RENAL FAILURE	 -->
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td id="ckd-dx">
+                                    <obs id="ckd-id"
+                                         conceptId="PIH:DIAGNOSIS"
+                                         answerConceptId="PIH:RENAL FAILURE, CHRONIC"
+                                         style="checkbox" labelText="Renal Disease" answerLabel=""/>
+                                    <br/>
+
+                                    <obs conceptId="PIH:DIAGNOSIS"
+                                         answerConceptIds="CIEL:120575,CIEL:120574,CIEL:120579,CIEL:120578,CIEL:120577"
+                                         answerLabels="CKD 1,CKD 2,CKD 3,CKD 4,CKD 5" labelText=""
+                                         style="radio" answerSeparator=""/>
+                                    <br/>
+
+                                    <obs conceptId="PIH:Diagnosis date"/>
+                                </td>
+                                <td>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115303" style="checkbox"/>
+                                    </div>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115303" style="checkbox"/>
+                                    </div>
+                                    <div>
+                                        <label>DM and/or HTN related Nephropathy</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HEMATURIA" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERKALEMIA" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERTENSION" style="checkbox"/>
+                                    </div>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERKALEMIA" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:460" style="checkbox" labelText="Edema" answerLabel=""/>
+                                    </div>
+                                    <div>
+                                        <pastMedicalHistoryCheckbox concept="CIEL:123579"/>
+                                    </div>
+                                </td>
+                            </obsgroup>
+                        </tr>
+
+                        <!-- Heart Failure -->
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td id="nyha-dx">
+                                    <obs id="nyha-id"
+                                         conceptId="PIH:DIAGNOSIS"
+                                         answerConceptId="PIH:HEART FAILURE"
+                                         style="checkbox"/>
+                                    <br/>
+
+                                    <obs conceptId="PIH:DIAGNOSIS"
+                                         answerConceptIds="PIH:NYHA CLASS 1,PIH:NYHA CLASS 2,PIH:NYHA CLASS 3,PIH:NYHA CLASS 4"
+                                         answerLabels="NYHA 1,NYHA 2,NYHA 3,NYHA 4" labelText=""
+                                         style="radio" answerSeparator=""/>
+
+                                    <br/>
+
+                                    <obs conceptId="PIH:Diagnosis date"/>
+                                </td>
+                                <td>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:CARDIOMYOPATHY" style="checkbox"/>
+                                    </div>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117690" style="checkbox" labelText="Valvular" answerLabel=""/>
+                                    </div>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERTENSIVE HEART DISEASE" style="checkbox" labelText="Hypertensive" answerLabel=""/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:116364" style="checkbox" />
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:127376" style="checkbox" />
+                                    </div>
+                                    <div style="border-bottom: 1px solid gray">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:CARDIAC MURMUR"
+                                             style="checkbox" labelText="Murmur + signs of heart failure" answerLabel=""/>
+                                    </div>
+                                    <div>
+
+                                    </div>
+                                </td>
+                            </obsgroup>
+                        </tr>
+
+                        <!-- Liver Failure -->
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td id="lvr-dx">
+                                    <obs id="lvr-id"
+                                         conceptId="PIH:DIAGNOSIS"
+                                         answerConceptId="PIH:LIVER FAILURE"
+                                         style="checkbox"/>
+                                    <br/>
+                                    <obs conceptId="PIH:Diagnosis date"/>
+                                </td>
+                                <td colspan="2">
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:JAUNDICE" style="checkbox"/>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:ASCITES" style="checkbox"/>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HEPATITIS B " style="checkbox"/>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HEPATITIS C" style="checkbox"/>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121725" style="checkbox"
+                                         labelText="Heavy Alcohol use" answerLabel=""/>
+                                </td>
+                            </obsgroup>
+                        </tr>
+
+                        <!-- Patient fluid status -->
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td>
+                                    <label>
+                                        Patient fluid status
+                                    </label>
+                                </td>
+                                <td colspan="2">
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERVOLEMIC" style="checkbox"/>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:EUVOLEMIC" style="checkbox"/>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPOVOLEMIC" style="checkbox"/>
+                                </td>
+                            </obsgroup>
+                        </tr>
+
+                        <!-- Asthma/COPD -->
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td>
+                                    <div>
+                                        <div style="width: 45%; display: inline-block;">
+                                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:ASTHMA" style="checkbox"/>
+                                        </div>
+                                        <div style="width: 45%; display: inline-block;">
+                                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:CHRONIC OBSTRUCTIVE PULMONARY DISEASE" style="checkbox"/>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <obs conceptId="PIH:Diagnosis date"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width: 45%; display: inline-block;">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:122863"
+                                             labelText="Wheezing" answerLabel="" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:GASTROESOPHAGEAL REFLUX"
+                                             labelText="GERD" answerLabel="" style="checkbox"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="width: 45%; display: inline-block;">
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:145455" style="checkbox"/>
+                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:GASTROESOPHAGEAL REFLUX"
+                                             labelText="GERD" answerLabel="" style="checkbox"/>
+                                    </div>
+                                </td>
+                            </obsgroup>
+                        </tr>
+
+                        <!-- Seizure Disorder -->
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:SEIZURE" style="checkbox"/>
+                                    <br/>
+                                    <obs conceptId="PIH:Diagnosis date"/>
+                                </td>
+                                <td colspan="2">
+                                    <obs conceptId="PIH:DIAGNOSIS"
+                                         answerConceptId="PIH:Generalized Tonic-clonic seizure"
+                                         labelText="Generalized Tonic-Clonic" answerLabel="" style="checkbox"/>
+                                </td>
+                            </obsgroup>
+                        </tr>
+
+                        <!-- Sickle Cell -->
+                        <tr>
+                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
+                                <td>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:Sickle-Cell Anemia" style="checkbox"/>
+                                    <br/>
+                                    <obs conceptId="PIH:Diagnosis date"/>
+                                </td>
+                                <td colspan="2">
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:ANEMIA" style="checkbox"/>
+                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
+                                    <obs conceptId="CIEL:160225" answerConceptId="CIEL:703"
+                                         labelText="+Sickling Test" answerLabel="" style="checkbox"/>
+                                </td>
+                            </obsgroup>
+                        </tr>
                     </tbody>
                 </table>
             </div>
