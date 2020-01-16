@@ -267,7 +267,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "section-delivery",
             label: "pihcore.delivery.title",
-            icon: "icon-gift",
+            icon: "fas fa-baby",
             shortTemplate: "templates/sections/deliverySectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-delivery.xml",
@@ -463,7 +463,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
-            icon: "icon-asterisk",
+            icon: "fas fa-ribbon",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -481,7 +481,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
-            icon: "icon-asterisk",
+            icon: "fas fa-ribbon",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -644,7 +644,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml",
             showOnVisitList: true
         };
@@ -653,7 +653,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml",
             showOnVisitList: true
         };
@@ -662,7 +662,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml",
             showOnVisitList: true
         };
@@ -671,7 +671,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml",
             showOnVisitList: true
         };
@@ -680,7 +680,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml",
             showOnVisitList: true
         };
@@ -691,7 +691,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/vct.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/vct.xml",
             showOnVisitList: true
         };
@@ -820,7 +820,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-gift",
+            icon: "fas fa-baby",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
