@@ -7,6 +7,19 @@
 
 @import "dispensing";
 
+/* These have been copied from coreapps */
+.actions {
+  top: 0 !important;
+}
+
+.tab-button {
+  padding-bottom: 8px !important;
+}
+
+.tab-button-link {
+  padding-top: 2px !important;
+}
+/* end of copied from coreapps */
 
 .tabs {
   a {
