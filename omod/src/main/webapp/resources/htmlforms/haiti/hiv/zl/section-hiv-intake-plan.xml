@@ -51,8 +51,8 @@
             line-height: 1.5em; /*add this for vertical spacing between elements*/
         }
 
-        .section {
-            width: 95%;
+       - .section {
+        width: 100%;
         }
 
         label {

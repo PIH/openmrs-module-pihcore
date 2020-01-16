@@ -16,10 +16,10 @@
           formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b"
           formName="Examen physique"
           formVersion="1.0">
-    
+
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
-            
+
             #data-collection {
             display: inline-block;
             width: 58%;
@@ -38,9 +38,9 @@
             line-height: 1.5em; /*add this for vertical spacing between elements*/
             }
 
-            .section {
-            width: 95%;
-            }
+           - .section {
+        width: 100%;
+        }
 
             .section-container input[type="checkbox"] {
             margin: 0px 5px; /* changed values to vertical, horizontal */
@@ -71,7 +71,7 @@
 
     <style type="text/css">
         <ifMode mode="VIEW" include="true">
-            
+
             #primary-care-exam-form legend {
             display: none;
             }

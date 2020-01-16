@@ -67,9 +67,9 @@
     -moz-column-count: 2;
     }
 
-    .section {
-    width: 95%;
-    }
+   - .section {
+        width: 100%;
+        }
     </ifMode>
     </style>
 

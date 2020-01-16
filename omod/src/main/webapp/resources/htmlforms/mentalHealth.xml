@@ -116,8 +116,8 @@
         margin: 0px;
         }
 
-        .section {
-        width: 95%;
+       - .section {
+        width: 100%;
         }
 
         textarea {
@@ -173,6 +173,7 @@
 
     <ifMode mode="VIEW" include="false">
         <script type="text/javascript">
+            var $j = jQuery;
 
             jq(function() {
 
@@ -729,15 +730,6 @@
     <section id="mh-meds-v2" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="pihcore.visitNote.plan.medication">
         <div class="section-container">
-            <!--
-            <div class="two-columns">
-                <repeat with="['PIH:FLUOXETINE'],['PIH:AMITRYPTILINE'],['PIH:PHENOBARBITAL'],['PIH:PHENYTOIN'],['CIEL:83405'],['PIH:HALOPERIDOL'],['PIH:DIAZEPAM'],['PIH:CARBAMAZEPINE'],['PIH:SODIUM VALPROATE']">
-                    <obs conceptId="PIH:Mental health medication" answerConceptId="{0}"
-                         style="checkbox"/>
-                </repeat>
-            </div>
-                        <br/>         
-            -->
 
             <!-- ToDo:  Introduce the new modelling in the next release -->
                 <table style="table-layout:fixed">
@@ -745,11 +737,14 @@
                         <th colspan="2">
                             <uimessage code="pihcore.visitNote.plan.dose"/>
                         </th>
-                        <th width="100px" >
+                        <th>
                             <uimessage code="pihcore.visitNote.plan.frequency"/>
                         </th>
                         <th colspan="2">
                             <uimessage code="pihcore.visitNote.plan.duration"/>
+                        </th>
+                        <th>
+                            <uimessage code="pihcore.drug.route"/>
                         </th>
                     </tr>
 
@@ -758,9 +753,9 @@
                         <template>
                             <obsgroup groupingConceptId="PIH:Prescription construct">
                             <tr>
-                                <td id="{name}-rx" colspan="5">
+                                <td id="{name}-rx" colspan="6">
                                     <obs conceptId="PIH:Mental health medication"
-                                         answerDrugId="{drug}"
+                                         answerConceptId="{drug}"
                                          style="checkbox"
                                          toggle="{id: '{name}-rx-dose', style: 'dim'}" class="medication-checkbox"/>
                                 </td>
@@ -772,16 +767,16 @@
                                     <td id="{name}-rx-dose-unit">
                                         <obs id="doseUnit-{name}" class="doseInput select-arrow" placeholder="unit"
                                              conceptId="PIH:Dosing units coded"
-                                             answerConceptIds="CIEL:1513,CIEL:1608,CIEL:162335,CIEL:162353,CIEL:162382,CIEL:161553,CIEL:162263"
-                                             answerCodes="pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.ampule,pihcore.visitNote.plan.medication.units.bottle,pihcore.visitNote.plan.medication.units.vial,pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.mL"/>
+                                             answerConceptIds="CIEL:161553,CIEL:161554"
+                                             answerCodes="mg,g"/>
                                         <!-- tablet, capsule, ampule, bottle, vial, mg, mL -->
                                     </td>
                                     <td id="{name}-rx-frequency">
                                         <obs id="frequencyCoded-{name}" class="frequency select-arrow"
                                              conceptId="PIH:Drug frequency for HUM"
                                              answerConceptIds=
-                                                     "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
-                                             answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other"/>
+                                                     "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:OM,PIH:ON"
+                                             answerCodes="OD,BID,TID,QID,OM,ON"/>
                                     </td>
                                     <td id="{name}-rx-duration" align="right">
                                         <obs id="duration-{name}" class="duration doseInput" conceptId="CIEL:159368"/>
@@ -789,13 +784,32 @@
                                     <td id="{name}-rx-duration-unit">
                                         <obs id="durationUnit-{name}" class="duration-unit select-arrow"
                                              conceptId="PIH:TIME UNITS"
-                                             answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                                             answerConceptIds="PIH:Days,PIH:1073,PIH:Months"/>
+                                    </td>
+                                    <td id="{name}-rx-route">
+                                        <obs id="route-{name}" class="route select-arrow"
+                                             conceptId="PIH:12651"
+                                             answerConceptIds="CIEL:160240,CIEL:160242,CIEL:160243"/>
                                     </td>
                             </tr>
                             </obsgroup>
                         </template>
 
-                        <render drug="7f7178bd-a1f8-44dd-85a9-02e49065e56b" name="FluoxetineHCl20mgt"/>
+                    <render drug="PIH:AMITRYPTILINE" name="amitrypilineHCl" />
+                    <render drug="PIH:CARBAMAZEPINE" name="carbamaepine" />
+                    <render drug="PIH:LEVODOPA + CARBIDOPA" name="carbidLevoDopa" />
+                    <render drug="PIH:DIAZEPAM" name="diazepam" />
+                    <render drug="PIH:DIPHENHYDRAMINE" name="diphen" />
+                    <render drug="CIEL:76553" name="fluoxetineHCl" />
+                    <render drug="PIH:HALOPERIDOL" name="haloperidol" />
+                    <render drug="PIH:PHENOBARBITAL" name="phenobarb" />
+                    <render drug="PIH:PHENYTOIN" name="phenytoin" />
+                    <render drug="CIEL:83405" name="risperidone" />
+                    <render drug="PIH:SODIUM VALPROATE" name="NaValproate" />
+                    <render drug="PIH:TRIHEXYPHENIDYL" name="trihex" />
+
+                    <!-- Using concepts (class=drug), not OpenMRS drugs
+                    <render drug="7f7178bd-a1f8-44dd-85a9-02e49065e56b" name="FluoxetineHCl20mgt"/>
                         <render drug="5edb194a-70bf-4fbf-b2ca-4dce586af7f3" name="AmitryptilineHCl25t"/>
                         <render drug="9a499fca-699e-4809-8175-732ef43d5c14" name="Phenobarb50mgt" />
                         <render drug="4eb3c71f-b716-4f01-beb7-394cebd6c191" name="PhenobarbAmpule"/>
@@ -818,9 +832,6 @@
                         <render drug="6a2a96d1-c01f-48d3-b3b9-2741bce4e064" name="ChlorpromazineHCl25mgt"/>
                         <render drug="ed2ebd08-2f59-4f74-80ad-d69d123035ee" name="Carbidopa25mg-Levodopa250mgt"/>
                         <render drug="c18e751c-1ec5-420b-8ba7-68a22c5d1acc" name="Trihexyphenidyl5mgt"/>
-                        <!-- ToDo:  Are these used?  Different name?
-                            <render concept="PIH:IMIPRAMINE" name="Imipramine"/>
-                            <render concept="PIH:FLUPHENAZINE" name="Fluphenazine"/>
                         -->
                     </repeat>
                 </table>
@@ -834,78 +845,79 @@
                 <obs conceptId="PIH:Medication comments (text)"/>
             </p>
         </div>
+
+        <!-- Temporarily:  Remove other drugs
         <br/>
 
-            <div class="section-container-color">
-                <repeat with="['1'],['2'],['3']">
-                    <span id="medication-{0}" class="medication">
-                        <obsgroup groupingConceptId="PIH:Prescription construct" showIfEmpty="false">
-                            <h3>
-                                <uimessage code="pihcore.other"/>
-                                <uimessage code="pihcore.visitNote.plan.medication"/>
-                                {0}
-                            </h3>
-                            <fieldset class="medication">
-                                <p class="field-error" style="display:none"></p>
-                                <p>
-                                    <label>
-                                        <uimessage code="pihcore.visitNote.plan.name"/>
-                                    </label>
-                                    <obs id="name{0}" class="medication-name" conceptId="PIH:MEDICATION ORDERS"
-                                         answerDrugs="true"/>
-                                </p>
-                                <p class="inline">
-                                    <label>
-                                        <uimessage code="pihcore.visitNote.plan.dose"/>
-                                    </label>
-                                    <obs id="dose{0}" class="dose doseInput" conceptId="CIEL:160856"/>
-                                    <obs id="doseUnit{0}" class="dose-unit doseInput select-arrow"
-                                         conceptId="PIH:Dosing units coded"
-                                         answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
-                                         answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
-                                    <!-- answers="mg,g,mL,Application,Capsule,Comprimé,Goutte,Microgramme,Patch,Pompe,Sachet,Unités internationals" -->
-
-                                </p>
-                                <p class="inline">
-                                    <label>
-                                        <uimessage code="pihcore.visitNote.plan.frequency"/>
-                                    </label>
+        <div class="section-container-color">
+            <repeat with="['1'],['2'],['3']">
+                <span id="medication-{0}" class="medication">
+                    <obsgroup groupingConceptId="PIH:Prescription construct" showIfEmpty="false">
+                        <h3>
+                            <uimessage code="pihcore.other"/>
+                            <uimessage code="pihcore.visitNote.plan.medication"/>
+                            {0}
+                        </h3>
+                        <fieldset class="medication">
+                            <p class="field-error" style="display:none"></p>
+                            <p>
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.name"/>
+                                </label>
+                                <obs id="name{0}" class="medication-name" conceptId="PIH:MEDICATION ORDERS"
+                                     answerDrugs="true"/>
+                            </p>
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.dose"/>
+                                </label>
+                                <obs id="dose{0}" class="dose doseInput" conceptId="CIEL:160856"/>
+                                <obs id="doseUnit{0}" class="dose-unit doseInput select-arrow"
+                                     conceptId="PIH:Dosing units coded"
+                                     answerConceptIds="CIEL:161553,CIEL:161554,CIEL:162263,PIH:APPLICATION,CIEL:1608,CIEL:1513,CIEL:162356,CIEL:162366,CIEL:162370,PIH:Pump,PIH:SACHET,CIEL:162264"
+                                     answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.g,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.application,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet,pihcore.visitNote.plan.medication.units.drop,pihcore.visitNote.plan.medication.units.mcg,pihcore.visitNote.plan.medication.units.patch,pihcore.visitNote.plan.medication.units.pump,pihcore.visitNote.plan.medication.units.sachet,pihcore.visitNote.plan.medication.units.IU"/>
+                            </p>
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.frequency"/>
+                                </label>
 
 
-                                    <obs id="frequencyCoded{0}" class="frequency select-arrow"
-                                         conceptId="PIH:Drug frequency for HUM"
-                                         answerConceptIds=
-                                                 "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
-                                         answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other"/>
-                                </p>
+                                <obs id="frequencyCoded{0}" class="frequency select-arrow"
+                                     conceptId="PIH:Drug frequency for HUM"
+                                     answerConceptIds=
+                                             "PIH:OD,PIH:BID,PIH:TID,PIH:QID,PIH:5D,PIH:6D,PIH:7D,PIH:8D,PIH:9D,PIH:OM,PIH:ON,PIH:PRN,PIH:STAT,PIH:Q2H,PIH:Q3H,PIH:Q4H,PIH:Q6H,PIH:Q12H,PIH:5622"
+                                     answerCodes="OD,BID,TID,QID,5D,6D,7D,8D,9D,OM,ON,SOS,STAT,Q2H,Q3H,Q4H,Q6H,Q12H,pihcore.visitNote.plan.other"/>
+                            </p>
 
-                                <p class="inline">
-                                    <label>
-                                        <uimessage code="pihcore.visitNote.plan.duration"/>
-                                    </label>
-                                    <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
-                                    <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS"
-                                         answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
-                                </p>
+                            <p class="inline">
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.duration"/>
+                                </label>
+                                <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
+                                <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS"
+                                     answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                            </p>
 
-                                <p>
-                                    <label>
-                                        <uimessage code="pihcore.visitNote.plan.instructions"/>
-                                    </label>
-                                    <obs id="instructions{0}" class="medication-instructions"
-                                         conceptId="PIH:Prescription instructions non-coded"/>
-                                </p>
-                            </fieldset>
-                        </obsgroup>
-                    </span>
-                </repeat>
-                <button id="show-more-medications-button" type="button" style="display:none">
-                    <uimessage code="pihcore.showMore"/>
-                </button>
-                <button id="show-less-medications-button" type="button" style="display:none">
-                    <uimessage code="pihcore.showLess"/>
-                </button>
-            </div>
+                            <p>
+                                <label>
+                                    <uimessage code="pihcore.visitNote.plan.instructions"/>
+                                </label>
+                                <obs id="instructions{0}" class="medication-instructions"
+                                     conceptId="PIH:Prescription instructions non-coded"/>
+                            </p>
+                        </fieldset>
+                    </obsgroup>
+                </span>
+            </repeat>
+            <button id="show-more-medications-button" type="button" style="display:none">
+                <uimessage code="pihcore.showMore"/>
+            </button>
+            <button id="show-less-medications-button" type="button" style="display:none">
+                <uimessage code="pihcore.showLess"/>
+            </button>
+        </div>
+        -->
 
     </section>
 

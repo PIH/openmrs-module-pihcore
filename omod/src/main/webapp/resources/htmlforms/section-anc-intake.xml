@@ -50,9 +50,9 @@
     margin: 0px;
     }
 
-    .section {
-    width: 95%;
-    }
+   - .section {
+        width: 100%;
+        }
 
     .two-columns {
     column-count: 2;
