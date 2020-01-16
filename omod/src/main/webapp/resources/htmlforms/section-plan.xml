@@ -52,7 +52,7 @@
         }
 
         .section {
-            width: 95%;
+            width: 100%;
         }
 
         label {
@@ -520,7 +520,7 @@
                                 </label>
                                 <obs id="duration{0}" class="duration doseInput" conceptId="CIEL:159368"/>
                                 <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS"
-                                     answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                                     answerConceptIds="PIH:Days,PIH:1073,PIH:Months"/>
                             </p>
 
                             <p>

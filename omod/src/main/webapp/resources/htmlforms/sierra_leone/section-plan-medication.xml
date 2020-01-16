@@ -51,8 +51,8 @@
         line-height: 1.5em; /*add this for vertical spacing between elements*/
         }
 
-        .section {
-        width: 95%;
+       - .section {
+        width: 100%;
         }
 
         label {
@@ -257,7 +257,7 @@
                                 <obs id="durationUnit{0}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS"
                                      answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
                             </p>
-                            
+
                             <p>
                                 <label>
                                     <uimessage code="pihcore.visitNote.plan.instructions"/>

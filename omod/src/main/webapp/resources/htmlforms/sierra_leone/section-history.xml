@@ -74,8 +74,8 @@
         margin: 0px;
         }
 
-        .section {
-        width: 95%;
+       - .section {
+        width: 100%;
         }
 
 
@@ -310,7 +310,7 @@
                 <!-- TODO paper form has Malnutrition/Weight loss, verify split okay -->
                 <pastMedicalHistoryCheckbox concept="PIH:MEASLES"/>
                 <pastMedicalHistoryCheckbox concept="PIH:HELMINTHIASIS"/>
-                <pastMedicalHistoryCheckbox concept="PIH:MALARIA"/> 
+                <pastMedicalHistoryCheckbox concept="PIH:MALARIA"/>
                 <pastMedicalHistoryCheckbox concept="PIH:TYPHOID FEVER"/>
                 <pastMedicalHistoryCheckbox concept="PIH:TUBERCULOSIS"/>
                 <pastMedicalHistoryCheckbox concept="PIH:VARICELLA" label="Chicken pox"/>
@@ -524,7 +524,7 @@
         </section>
     </includeIf>
 
-   
+
     <section id="previous-hospital" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="zl.consultNote.previousHospitalization.title">
         <div class="section-container">
@@ -636,7 +636,7 @@
 
         </div>
     </section>
-    
+
     <section id="current-medications" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="zl.consultNote.currentMedications.title">
         <div class="section-container">

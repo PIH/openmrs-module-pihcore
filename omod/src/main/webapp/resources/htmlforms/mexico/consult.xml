@@ -150,8 +150,8 @@
             margin-top: 5px;
         }
 
-        .section {
-            width: 95%;
+       - .section {
+        width: 100%;
         }
 
         textarea {

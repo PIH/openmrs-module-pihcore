@@ -84,7 +84,7 @@
         }
 
         .section {
-        width: 95%;
+        width: 100%;
         }
 
         .diagnosis, .diagnosis-primary, .diagnosis-secondary, .diagnosis-confirmed {

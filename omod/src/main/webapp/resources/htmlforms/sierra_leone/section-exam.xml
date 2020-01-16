@@ -16,10 +16,10 @@
           formUuid="b34b71f4-03f1-11e5-8418-1697f925ec7b"
           formName="Examen physique"
           formVersion="1.0">
-    
+
     <style type="text/css">
         <ifMode mode="VIEW" include="false">
-            
+
             #data-collection {
             display: inline-block;
             width: 68%;
@@ -38,9 +38,9 @@
             line-height: 1.5em; /*add this for vertical spacing between elements*/
             }
 
-            .section {
-            width: 95%;
-            }
+           - .section {
+        width: 100%;
+        }
 
             .section-container input[type="checkbox"] {
             margin: 0px 5px; /* changed values to vertical, horizontal */
@@ -71,7 +71,7 @@
 
     <style type="text/css">
         <ifMode mode="VIEW" include="true">
-            
+
             #primary-care-exam-form legend {
             display: none;
             }
@@ -250,13 +250,13 @@
 
                 <!-- ToDo:  UHM-3529 Add toggle for normal/abnormal symptoms
                 <div id="abnGenExam"> -->
-                
+
                 <p>
                 <obsgroup groupingConceptId="Ciel:1727">
                             <obs class = "abnormalObs" conceptId="Ciel:1728" answerConceptId="Ciel:832" answerLabel="Weight loss"/>
                             <obs class = "abnormalObs" conceptId="Ciel:1731" labelText="Duration"/>
                             <obs class = "abnormalObs" conceptId="Ciel:1732" labelText="Units"/>
-                </obsgroup> 
+                </obsgroup>
                 </p>
 
                 <p>
@@ -265,11 +265,11 @@
                   <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:JAUNDICE" style="checkbox"/>
                 </p>
-          
+
                 <p>
                     <obs class="abnormalObs" conceptId="PIH:GENERAL EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox" showCommentField="true" commentFieldLabel="" />
                 </p>
-                
+
                 <!-- </div> -->
 
                 <p class="comment-label">
@@ -385,7 +385,7 @@
                <p>
                     <obs class="abnormalObs" conceptId="PIH:HEENT EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
-                
+
                 &lt;br&gt;
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
@@ -395,7 +395,7 @@
                     <p>
                         <obs conceptId="CIEL:163045" rows="5" cols="45" />
                     </p>
-                    
+
                 </p>
             </div>
         </div>
@@ -494,7 +494,7 @@
                     <obs class="abnormalObs" conceptId="PIH:CHEST EXAM FINDINGS" answerConceptId="PIH:OTHER NON-CODED" style="checkbox"  showCommentField="true" commentFieldLabel="" />
                 </p>
                  &lt;br&gt;
-            
+
                 <p class="comment-label">
                     <uimessage code="pihcore.exam.comment"/>
                 </p>
