@@ -324,7 +324,7 @@
                     <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
                     <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                     <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
-                    <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="poor diet adherence"/>
+                    <render concept="CIEL:165585" name="poor-diet-adherance" label="poor diet adherence"/>
                     <!--<render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/> this is only in concepts.pih-emr.org-->
                     <render concept="PIH:SHORTNESS OF BREATH WITH EXERTION" name="sob" label="shortness of breadth with exertion"/>
                     <render concept="PIH:Currently taking medication" name="taking-meds" label="currently taking medications"/>
@@ -344,7 +344,7 @@
 
 
             </div>
-            <condition required="true"/>
+            <!--<condition required="true"/>-->
         </section>
     </includeIf>
 
@@ -376,7 +376,7 @@
                     <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
                     <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                     <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
-                    <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="poor diet adherence"/>
+                    <render concept="CIEL:165585" name="poor-diet-adherance" label="poor diet adherence"/>
                     <!--<render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/> this is only in concepts.pih-emr.org-->
                     <render concept="PIH:SHORTNESS OF BREATH WITH EXERTION" name="sob" label="shortness of breadth with exertion"/>
                     <render concept="PIH:Currently taking medication" name="taking-meds" label="currently taking medications"/>
@@ -394,7 +394,6 @@
                      answerConceptIds="PIH:Type 1 diabetes, PIH:Type 2 diabetes, CIEL:165207, CIEL:165208, CIEL:1449, CIEL:138291"
                      style="checkbox"/>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -471,7 +470,6 @@
                      answerConceptIds="CIEL:1132, PIH:4057"
                      style="checkbox"/>-->
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -510,7 +508,6 @@
                     <render concept="PIH:Respiratory emergency action plan" name="resp-action-plan" label="Has respiratory emergency action plan"/>
                 </repeat>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -528,8 +525,7 @@
                     </span>
                 </p>
             </div>
-            <condition required="true"/>
-        </section>
+cd        </section>
     </includeIf>
 
 
@@ -560,7 +556,7 @@
                     <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                     <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                     <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
-                    <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="Poor diet adherence"/>
+                    <render concept="CIEL:165585" name="poor-diet-adherance" label="Poor diet adherence"/>
                     <render concept="PIH:DEPRESSION" name="depression" label="concerns of depression"/>
                     <render concept="PIH:CRACKLES" name="crackles" label="crackles"/>
                     <render concept="CIEL:140147" name="jvd-elevated" label="jvd elevated"/>
@@ -573,7 +569,6 @@
                      style="checkbox"/>
 
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -618,7 +613,7 @@
                     </template>
                     <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                     <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
-                    <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="Poor diet adherence"/>
+                    <render concept="CIEL:165585" name="poor-diet-adherance" label="Poor diet adherence"/>
                     <render concept="PIH: HERBAL TRADITIONAL MEDICATIONS" name="herbs" label="traditional herbs"/>
                     <render concept="PIH: Paracetamol" name="paracetamol" label="taking paracetamol"/>
                     <render concept="CIEL:162306" name="nsaids" label="NSAIDs"/>
@@ -634,7 +629,6 @@
                 </repeat>
 
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -693,7 +687,6 @@
                      style="textbox"/>
 
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
