@@ -328,7 +328,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/checkInShort.page",
             longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
             templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
-            icon: "icon-check-in",
+            icon: "fas fa-fw icon-check-in",
             editUrl: hfeSimpleEditUrl
         };
 
