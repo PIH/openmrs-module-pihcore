@@ -319,7 +319,7 @@
                     <span class="list-inline">
                         <obs conceptId="CIEL:163403" style="radio" labelText=""
                              answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"/>
-                    </span>
+                    </span> <br />
 
                     <span class="first-label-inline">
                         <label>
@@ -407,8 +407,8 @@
                                 </controls>
                             </obs>
                         </span>
-                        <span id="tb-persistent-cough-type">
-
+                        <span id="tb-persistent-cough-type" class="list-inline">
+                            <obs conceptId="PIH:11563" answerConceptIds="CIEL:5957,CIEL:138905" style="radio"/>
                         </span>
                     </div>
 
@@ -428,7 +428,15 @@
                         </span>
                         <span class="tb-symptom-name">
                             <obs id="tb-persistent-wtLoss3kg" conceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"
-                                 answerConceptId="PIH:11566" labelText=""/>
+                                 answerConceptId="PIH:11566" labelText="">
+                                <controls>
+                                    <when value="PIH:YES" thenDisplay="#tb-persistent-wtLoss3kg-type"/>
+                                </controls>
+                            </obs>
+                        </span>
+                        <span id="tb-persistent-wtLoss3kg-type" class="list-inline">
+                            <obs conceptId="PIH:11563" answerConceptIds="CIEL:140936"
+                                 answerLabels="Clothing is looser" style="radio"/>
                         </span>
                     </div>
                 </div>
@@ -442,7 +450,36 @@
             <div class="section-container">
                   <table>
                       <tbody>
-                          <tr></tr>
+                          <tr>
+                              <td>
+                                  <label class="inline">
+                                      Does the patient smoke?:
+                                  </label>
+                                  <span class="list-inline">
+                                      <obs id="patient-currently-smokes" conceptId="CIEL:163731"
+                                           answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                                           answerSeparator="">
+                                          <controls>
+                                              <when value="PIH:CURRENTLY" thenDisplay="#type-of-tobacco-product"/>
+                                          </controls>
+                                      </obs>
+                                  </span>
+                                  <br />
+                                  <span id="type-of-tobacco-product" class="list-inline">
+                                      <label>
+                                          Type of tobacco product:
+                                      </label>
+                                      <obs conceptId="CIEL:159377" style="radio"/>
+
+                                      <br />
+
+                                      <label>
+                                          How many cigs or pipes per day?
+                                      </label>
+                                      <obs conceptId="CIEL:1546" class="inline"/>
+                                  </span>
+                              </td>
+                          </tr>
                           <tr>
                               <td>
                                   <label class="inline">
@@ -450,19 +487,45 @@
                                   </label>
 
                                   <span class="list-inline">
-                                      <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
+                                      <obs id="patient-currently-drinks" conceptId="CIEL:159449"
                                            answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                                           style="radio" answerSeparator=""/>
+                                           answerSeparator="">
+                                          <controls>
+                                              <when value="PIH:CURRENTLY" thenDisplay="#num-type-of-alcohol-product"/>
+                                          </controls>
+                                      </obs>
                                   </span>
                                   <br />
-                                  <label>
-                                      Type?:
-                                  </label>
-                                  <span>
+                                  <span id="num-type-of-alcohol-product" class="list-inline">
+                                      <label>
+                                          Type of alcohol?:
+                                      </label>
+                                      <obs id="type-of-alcohol-product" conceptId="CIEL:159453">
+                                          <controls>
+                                              <when value="CIEL:159454" thenDisplay="#num-of-traditional-litres-per-day"/>
+                                              <when value="CIEL:159455" thenDisplay="#num-of-modern-bottles-per-day"/>
+                                          </controls>
+                                      </obs>
 
+                                      <br/>
+
+                                      <span id="num-of-traditional-litres-per-day" class="inline">
+                                          <label style="width: auto;">
+                                              How many traditional liters per day?
+                                          </label>
+                                          <obs conceptId="PIH:6135" class="inline"/>
+                                      </span>
+
+                                      <br/>
+
+                                      <span id="num-of-modern-bottles-per-day" class="inline">
+                                          <label  style="width: auto;">
+                                              How many modern bottles per day?
+                                          </label>
+                                          <obs conceptId="PIH:6136" class="inline"/>
+                                      </span>
                                   </span>
                               </td>
-                              <td></td>
                           </tr>
                       </tbody>
                   </table>
