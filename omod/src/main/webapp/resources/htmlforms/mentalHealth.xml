@@ -243,14 +243,10 @@
 
                 // set the encounter location to the visit location
                 // this is to prevent assigning to encounter a location different than its visit location
-                // (but we don't do this at Mirebalais, where the encounter location may be  child of the visit location)
 
                 var visitLocationId = '<lookup expression="visit.visit.location.id"/>';
-                var visitLocationUuid = '<lookup expression="visit.visit.location.uuid"/>';
-                var mirebalaisVisitLocationUuid = 'a084f714-a536-473b-94e6-ec317b152b43';
-
                 $(function() {
-                    if(visitLocationId != '' &amp;&amp; visitLocationUuiid != mirebalaisVisitLocationUuid) {
+                    if(visitLocationId != '' ) {
                         setValue('encounterLocation.value', visitLocationId);
 
                         getField('encounterLocation.value').change(function() {
