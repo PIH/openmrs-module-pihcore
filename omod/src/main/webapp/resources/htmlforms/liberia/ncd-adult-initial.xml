@@ -352,32 +352,32 @@
         <section id="lifestyle-questions" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.lifestyle.title">
             <div class="section-container">
-                <table>
-                    <tbody>
-                        <tr></tr>
-                        <tr>
-                            <td>
-                                <label class="inline">
+                  <table>
+                      <tbody>
+                          <tr></tr>
+                          <tr>
+                              <td>
+                                  <label class="inline">
                                     Does the patient drink alcohol?:
-                                </label>
+                                  </label>
 
-                                <span class="list-inline">
-                                    <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
-                                         answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
-                                         style="radio" answerSeparator=""/>
-                                </span>
-                                <br />
-                                <label>
-                                    Type?:
-                                </label>
-                                <span>
+                                  <span class="list-inline">
+                                      <obs conceptId="PIH:HISTORY OF ALCOHOL USE"
+                                           answerConceptIds="PIH:IN THE PAST,PIH:CURRENTLY,PIH:NEVER,PIH:unknown"
+                                           style="radio" answerSeparator=""/>
+                                  </span>
+                                  <br />
+                                  <label>
+                                      Type?:
+                                  </label>
+                                  <span>
 
-                                </span>
-                            </td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                                  </span>
+                              </td>
+                              <td></td>
+                          </tr>
+                      </tbody>
+                  </table>
             </div>
         </section>
 
@@ -863,3 +863,4 @@
     </div>
 
 </htmlform>
+
