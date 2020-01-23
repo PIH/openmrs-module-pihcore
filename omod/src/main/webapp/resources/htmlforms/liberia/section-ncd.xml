@@ -61,6 +61,11 @@
         column-count: 2;
         -webkit-column-count: 2;
         -moz-column-count: 2;
+        padding: 10px;
+        margin-left: 50px;
+        margin-top: 30px;
+        margin-bottom: 20px;
+        display: block;
         }
 
         .simple-form-ui input {
@@ -119,6 +124,12 @@
         ul.copd {
             list-style-position: outside;
         }
+
+        .list-inline label, .list-inline input[type="radio"], .list-inline span{
+        display: inline-block;
+        float: none;
+        }
+
     </style>
 
 
@@ -301,6 +312,7 @@
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.htn">
             <div id="htn" class="section-container">
+               <div class="two-columns">
                 <!-- ToDo:  UHM-3617 Add risk calculations for hypertension -->
                 <h2>
                     <uimessage code="pihcore.ncd.last.visit.label"></uimessage>
@@ -324,7 +336,7 @@
                     <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
                     <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                     <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
-                    <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="poor diet adherence"/>
+                    <render concept="CIEL:165585" name="poor-diet-adherance" label="poor diet adherence"/>
                     <!--<render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/> this is only in concepts.pih-emr.org-->
                     <render concept="PIH:SHORTNESS OF BREATH WITH EXERTION" name="sob" label="shortness of breadth with exertion"/>
                     <render concept="PIH:Currently taking medication" name="taking-meds" label="currently taking medications"/>
@@ -340,11 +352,10 @@
                 <obs conceptId="PIH:Type of hypertension diagnosis"
                      labelCode="pih.ncd.htn.diagnosis.type"
                      answerConceptIds="PIH:NONE, CIEL:140147, CIEL:160771, PIH:11941, PIH:11942, CIEL:160774, CIEL:160778, CIEL:161644"
-                     style="checkbox"/>
+                     style="checkbox"/><br/>
 
-
+               </div>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -353,6 +364,7 @@
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.diabetes">
             <div id="diabetes" class="section-container">
+              <div class="two-columns">
 
                 <h2>
                     <uimessage code="pihcore.ncd.last.visit.label"></uimessage>
@@ -376,7 +388,7 @@
                     <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
                     <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                     <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
-                    <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="poor diet adherence"/>
+                    <render concept="CIEL:165585" name="poor-diet-adherance" label="poor diet adherence"/>
                     <!--<render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/> this is only in concepts.pih-emr.org-->
                     <render concept="PIH:SHORTNESS OF BREATH WITH EXERTION" name="sob" label="shortness of breadth with exertion"/>
                     <render concept="PIH:Currently taking medication" name="taking-meds" label="currently taking medications"/>
@@ -392,9 +404,9 @@
                 <obs conceptId="PIH:Type of diabetes diagnosis"
                      labelCode="pih.ncd.diabetes.diagnosis.type"
                      answerConceptIds="PIH:Type 1 diabetes, PIH:Type 2 diabetes, CIEL:165207, CIEL:165208, CIEL:1449, CIEL:138291"
-                     style="checkbox"/>
+                     style="checkbox"/><br/>
+              </div>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -402,7 +414,8 @@
     <includeIf velocityTest="!$patientHasNcdCondition">
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.kidney_disease">
-            <div id="kidney_disease" class="section-container"> <!-- chronic kidney disease section -->
+            <div id="kidney_disease" class="section-container">
+               <div class="two-columns">
 
                 <h2>
                     <uimessage code="pihcore.ncd.presume.etiology.label"></uimessage>
@@ -470,8 +483,8 @@
                      labelCode="pihcore.ncd.chronic.kidney.disease.stage"
                      answerConceptIds="CIEL:1132, PIH:4057"
                      style="checkbox"/>-->
+               </div>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -480,6 +493,7 @@
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.lung_disease">
             <div id="lung_disease" class="section-container">
+               <div class="two-columns">
                 <!-- ToDo:  UHM-3617 Add risk calculations for hypertension -->
 
                 <h2>
@@ -509,8 +523,9 @@
                     <render concept="PIH:WHEEZE" name="wheezing" label="wheezing"/>
                     <render concept="PIH:Respiratory emergency action plan" name="resp-action-plan" label="Has respiratory emergency action plan"/>
                 </repeat>
+
+               </div>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -518,6 +533,7 @@
     <includeIf velocityTest="!$patientHasNcdCondition">
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.epilepsy">
             <div id="epilepsy" class="section-container">
+               <div class="two-columns">
                 <p>
                     <label>
                         <uimessage code="pihcore.ncd.epilepsy.seizure_num"/>
@@ -527,8 +543,8 @@
                         <obs conceptId="PIH:Number of seizures since last visit"/>
                     </span>
                 </p>
+               </div>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -537,6 +553,7 @@
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.heart_failure">
             <div id="heart_failure" class="section-container">
+              <div class="two-columns">
 
                 <h2>
                     <uimessage code="pihcore.ncd.last.visit.label"></uimessage>
@@ -560,7 +577,7 @@
                     <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                     <render concept="PIH:2545" name="tobacco" label="smoke tobacco"/>
                     <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
-                    <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="Poor diet adherence"/>
+                    <render concept="CIEL:165585" name="poor-diet-adherance" label="Poor diet adherence"/>
                     <render concept="PIH:DEPRESSION" name="depression" label="concerns of depression"/>
                     <render concept="PIH:CRACKLES" name="crackles" label="crackles"/>
                     <render concept="CIEL:140147" name="jvd-elevated" label="jvd elevated"/>
@@ -572,8 +589,8 @@
                      answerConceptIds="CIEL:120575, CIEL:120574, CIEL:120579, CIEL:120578, CIEL:120577"
                      style="checkbox"/>
 
+               </div>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
@@ -582,6 +599,7 @@
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.liver_disease">
             <div id="liver_disease" class="section-container">
+                <div class="two-columns">
                 <!-- ToDo:  UHM-3617 Add risk calculations for hypertension -->
 
                 <h2>
@@ -595,7 +613,7 @@
                 <obs conceptId="PIH:NCD category" answerConceptId="PIH:OTHER" style="checkbox" commentFieldLabel=""/>
 
 
-                <br/><br/>
+                <br/>
 
                 <h2>
                     <uimessage code="pihcore.ncd.last.visit.label"></uimessage>
@@ -618,7 +636,7 @@
                     </template>
                     <render concept="PIH:Disease requiring hospitalization since last visit" name="hospitalized" label="disease requiring hospitalization"/>
                     <render concept="CIEL:70468" name="alcohol" label="drink alcohol"/>
-                    <render concept="PIH:Poor diet adherance" name="poor-diet-adherance" label="Poor diet adherence"/>
+                    <render concept="CIEL:165585" name="poor-diet-adherance" label="Poor diet adherence"/>
                     <render concept="PIH: HERBAL TRADITIONAL MEDICATIONS" name="herbs" label="traditional herbs"/>
                     <render concept="PIH: Paracetamol" name="paracetamol" label="taking paracetamol"/>
                     <render concept="CIEL:162306" name="nsaids" label="NSAIDs"/>
@@ -633,14 +651,15 @@
                     <render concept="CIEL:148276" name="Asterixis" label="Asterixis"/>
                 </repeat>
 
+                </div>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
 
     <includeIf velocityTest="!$patientHasNcdCondition">
         <section sectionTag="fieldset" headerTag="legend" headerStyle="title" headerCode="pihcore.ncd.speno">
             <div id="splenomegaly" class="section-container">
+               <div class="two-columns">
 
                 <h2>
                     <uimessage code="pihcore.ncd.presume.etiology.label"></uimessage>
@@ -692,10 +711,167 @@
                      labelCode="pihcore.ncd.lung.examination"
                      style="textbox"/>
 
+               </div>
             </div>
-            <condition required="true"/>
         </section>
     </includeIf>
+
+    <section id="labs" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+             headerCode="pihcore.ncd.labs.title">
+        <div class="section-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Labs</th>
+                        <th>Results</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <obsgroup groupingConceptId="PIH:ISTAT CHEM8 PLUS CONSTRUCT">
+                            <td>
+                                <obs id="test-date-iStat" conceptId="PIH:DATE OF LABORATORY TEST"
+                                     placeholder="Enter date"/>
+                            </td>
+                            <td>
+                                i-stat
+                            </td>
+                            <td>
+                                <span class="inline">
+                                    <obs id="sodium" conceptId="PIH:SERUM SODIUM" labelCode="pihcore.lab.sodium"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="potassium" conceptId="PIH:SERUM POTASSIUM"
+                                         labelCode="pihcore.lab.potassium" answerLabel=""
+                                         class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="calcium" conceptId="PIH:SERUM CALCIUM" labelCode="pihcore.lab.calcium"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="serum-chloride" conceptId="PIH:SERUM CHLORIDE"
+                                         labelCode="pihcore.lab.chloride" answerLabel=""
+                                         class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="carbon-dioxide" conceptId="PIH:SERUM CARBON DIOXIDE"
+                                         labelCode="pihcore.lab.co2" answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="urea-bun" conceptId="PIH:BLOOD UREA NITROGEN"
+                                         labelCode="pihcore.lab.urea"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="creatinine-i-stat" conceptId="PIH:Creatinine mg per dL"
+                                         labelCode="pihcore.lab.creatinine" answerLabel=""
+                                         class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" labelCode="pihcore.lab.glucose"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="hemoglobin" conceptId="PIH:HEMOGLOBIN"
+                                         labelCode="pihcore.lab.hemoglobin"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                            </td>
+                        </obsgroup>
+                    </tr>
+                    <tr>
+                        <obsgroup groupingConceptId="PIH:LIVER FUNCTION TESTS">
+                            <td>
+                                <obs id="test-date-lft" conceptId="PIH:DATE OF LABORATORY TEST"
+                                     placeholder="Enter date"/>
+                            </td>
+                            <td>
+                                Liver
+                            </td>
+                            <td>
+                                <span class="inline">
+                                    <obs id="serum-glutamic-oxaloacetic-transaminase"
+                                         conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" labelText="AST"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="serum-glutamic-pyruvic-transaminase"
+                                         conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" labelText="ALT"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+
+                                <!-- Direct bilirubin -->
+                                <span class="inline">
+                                    <obs id="direct-bilirubin"
+                                         conceptId="CIEL:1297" labelText="Direct bilirubin" answerLabel=""
+                                         class="first-label-inline"/>
+                                </span>
+
+                                <!-- Indirect bilirubin -->
+                                <span class="inline">
+                                    <obs id="indirect-bilirubin"
+                                         conceptId="CIEL:163001" labelText="Indirect bilirubin" answerLabel=""
+                                         class="first-label-inline"/>
+                                </span>
+                            </td>
+                        </obsgroup>
+                    </tr>
+                    <tr>
+                        <obsgroup groupingConceptId="PIH:12322">
+                            <td>
+                                <obs id="test-date-ua" conceptId="PIH:DATE OF LABORATORY TEST"
+                                     placeholder="Enter date"/>
+                            </td>
+                            <td>
+                                UA
+                            </td>
+                            <td>
+                                <span class="inline">
+                                    <obs id="ua-ketona"
+                                         conceptId="CIEL:161442" labelText="Ketones"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="ua-glucose"
+                                         conceptId="CIEL:159733" labelText="Glucose"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="ua-protein"
+                                         conceptId="CIEL:1875" labelText="Protein"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="ua-blood"
+                                         conceptId="CIEL:162096" labelText="Blood"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <span class="inline">
+                                    <obs id="ua-nitrites"
+                                         conceptId="CIEL:161440" labelText="Nitrites"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                                <!--<span class="inline">
+                                    <obs id="ua-leukocytes"
+                                         conceptId="" labelText="Leukocytes"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>-->
+                                <span class="inline">
+                                    <obs id="ua-spec-grav"
+                                         conceptId="CIEL:161439" labelText="Spec Grav"
+                                         answerLabel="" class="first-label-inline"/>
+                                </span>
+                            </td>
+                        </obsgroup>
+                    </tr>
+                    <tr></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
 
     <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
