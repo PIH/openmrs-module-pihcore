@@ -6,14 +6,14 @@ angular.module("encounterTypeConfig", ["constants"])
         var hfeStandardEditUrl = "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{encounter.patient.uuid}}&encounterId={{encounter.uuid}}&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}";
 
         var cloneSectionAndUpdateCountryPathInUrls  = function(section, countryPath) {
-          var newSection = Object.assign({}, section);
-          newSection.templateModelUrl =
-            newSection.templateModelUrl != null ?
-            newSection.templateModelUrl.replace("pihcore:htmlforms", "pihcore:htmlforms/" + countryPath) : null;
-          newSection.editUrl =
-            newSection.editUrl != null ?
-            newSection.editUrl.replace("pihcore:htmlforms", "pihcore:htmlforms/" + countryPath) : null;
-          return newSection;
+            var newSection = Object.assign({}, section);
+            newSection.templateModelUrl =
+                newSection.templateModelUrl != null ?
+                    newSection.templateModelUrl.replace("pihcore:htmlforms", "pihcore:htmlforms/" + countryPath) : null;
+            newSection.editUrl =
+                newSection.editUrl != null ?
+                    newSection.editUrl.replace("pihcore:htmlforms", "pihcore:htmlforms/" + countryPath) : null;
+            return newSection;
         };
 
         // template model url:
@@ -77,18 +77,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-        var liberiaPrimaryCareHistory = {
-            type: "encounter-section",
-            id: "pihcore-history",
-            label: "pihcore.history.label",
-            icon: "icon-file-alt",
-            classes: "indent",
-            shortTemplate: "templates/sections/primaryCareHistorySectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-history.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-history.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
         var primaryCareExam = {
             type: "encounter-section",
             id: "physical-exam",
@@ -98,17 +86,6 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var liberiaPrimaryCareExam = {
-            type: "encounter-section",
-            id: "physical-exam",
-            label: "pihcore.exam.label",
-            icon: "icon-stethoscope",
-            shortTemplate: "templates/sections/examSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-exam.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-exam.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
         var pedsFoodAndSupplements = {
@@ -134,17 +111,6 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
 
-        var liberiaPrimaryCareDx = {
-            type: "encounter-section",
-            id: "pihcore-diagnosis",
-            label: "pihcore.diagnosis.label",
-            icon: "icon-diagnosis",
-            shortTemplate: "templates/sections/dxSectionShort.page",
-            longTemplate: "templates/sections/dxLong.page",
-            //templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-dx.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-dx.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
         var primaryCarePlan = {
             type: "encounter-section",
             id: "pihcore-plan",
@@ -162,30 +128,16 @@ angular.module("encounterTypeConfig", ["constants"])
         // Sierra Leone has one Plan section used on it's Outpatient forms, and then a medication-only
         // plans section used on other forms, so we need a separate "medication plan" section for that
         var primaryCarePlanMedication = {
-          type: "encounter-section",
-          id: "pihcore-plan-medication",
-          label: "pihcore.visitNote.plan",
-          icon: "fas fa-fw fa-list-ul",
-          shortTemplate: "templates/sections/primaryCarePlanSectionShort.page",
-          longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
-          printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
-          printTemplateUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-prescriptions-print.xml",
-          templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-plan-medication.xml",
-          editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-plan-medication.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-
-        };
-
-        var liberiaPrimaryCarePlan = {
             type: "encounter-section",
-            id: "pihcore-plan",
+            id: "pihcore-plan-medication",
             label: "pihcore.visitNote.plan",
-            icon: "icon-list-ul",
+            icon: "fas fa-fw fa-list-ul",
             shortTemplate: "templates/sections/primaryCarePlanSectionShort.page",
             longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
             printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
-            printTemplateUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-prescriptions-print.xml",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-plan.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-plan.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+            printTemplateUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-prescriptions-print.xml",
+            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-plan-medication.xml",
+            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-plan-medication.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
 
         };
 
@@ -198,18 +150,7 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml",
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
-
-        var liberiaNcd = {
-            type: "encounter-section",
-            id: "pihcore-ncd",
-            label: "pihcore.visitNote.ncdInitial",
-            icon: "icon-heart-empty",
-            shortTemplate: "templates/sections/ncdSectionShort.page",
-            longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-ncd.xml",
-            editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/section-ncd.xml&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
-        };
+        }
 
         // ToDo: ncdInitial and ncdFollowup are the same and replaced by ncd
         var ncdInitial = {
@@ -474,75 +415,6 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         encounterTypes[EncounterTypes.ncdInitialConsult.uuid] = {
-<<<<<<< HEAD
-            DEFAULT: {
-                defaultState: "short",
-                shortTemplate: "templates/encounters/defaultEncounterShort.page",
-                longTemplate: "templates/encounters/defaultEncounterShort.page",
-                icon: "icon-heart",
-                editUrl: hfeStandardEditUrl,
-                showOnVisitList: true,
-                sections: [
-                    primaryCareHistory,
-                    primaryCareExam,
-                    pedsVaccinations,
-                    pedsFoodAndSupplements,
-                    ncd,
-                    primaryCareDx,
-                    primaryCarePlan
-                ]
-            },
-            'liberia': {
-                defaultState: "short",
-                shortTemplate: "templates/encounters/defaultEncounterShort.page",
-                longTemplate: "templates/encounters/defaultEncounterShort.page",
-                icon: "icon-heart",
-                editUrl: hfeStandardEditUrl,
-                showOnVisitList: true,
-                sections: [
-                    liberiaPrimaryCareHistory,
-                    liberiaPrimaryCareExam,
-                    pedsVaccinations,
-                    pedsFoodAndSupplements,
-                    liberiaNcd,
-                    liberiaPrimaryCareDx,
-                    liberiaPrimaryCarePlan
-                ]
-            }
-        };
-
-        encounterTypes[EncounterTypes.ncdFollowupConsult.uuid] = {
-            DEFAULT: {
-                defaultState: "short",
-                shortTemplate: "templates/encounters/defaultEncounterShort.page",
-                longTemplate: "templates/encounters/defaultEncounterShort.page",
-                icon: "icon-heart",
-                editUrl: hfeStandardEditUrl,
-                showOnVisitList: true,
-                sections: [
-                    primaryCareExam,
-                    pedsVaccinations,
-                    ncd,
-                    primaryCareDx,
-                    primaryCarePlan
-                ]
-            },
-            'liberia': {
-                defaultState: "short",
-                shortTemplate: "templates/encounters/defaultEncounterShort.page",
-                longTemplate: "templates/encounters/defaultEncounterShort.page",
-                icon: "icon-heart",
-                editUrl: hfeStandardEditUrl,
-                showOnVisitList: true,
-                sections: [
-                    liberiaPrimaryCareExam,
-                    pedsVaccinations,
-                    liberiaNcd,
-                    liberiaPrimaryCareDx,
-                    liberiaPrimaryCarePlan
-                ]
-            }
-=======
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -574,7 +446,6 @@ angular.module("encounterTypeConfig", ["constants"])
                 primaryCareDx,
                 primaryCarePlan
             ]
->>>>>>> upstream/master
         };
 
         encounterTypes[EncounterTypes.echocardiogramConsult.uuid] = {
@@ -747,24 +618,24 @@ angular.module("encounterTypeConfig", ["constants"])
         // because of a bug, we manually append the defintionUiResource to the template and edit urls
         // see: https://tickets.pih-emr.org/browse/UHM-2524
         encounterTypes[EncounterTypes.mentalHealth.uuid] = {
-          DEFAULT: {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
-            icon: "fas fa-fw fa-user",
-            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
-            showOnVisitList: true
-          },
-          "liberia": {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
-            icon: "fas fa-fw fa-user",
-            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
-            showOnVisitList: true
-          }
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
+                icon: "fas fa-fw fa-user",
+                editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
+                showOnVisitList: true
+            },
+            "liberia": {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
+                icon: "fas fa-fw fa-user",
+                editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
+                showOnVisitList: true
+            }
         };
 
         // HIV forms from MSPP and iSantePlus
@@ -868,41 +739,41 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         encounterTypes[EncounterTypes.labSpecimenCollection.uuid] = {
-          defaultState: "short",
-          shortTemplate: "templates/encounters/defaultEncounterShort.page",
-          longTemplate: "templates/encounters/labsSpecimenEncounterLong.page",
-          icon: "fas fa-fw fa-vial"
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/labsSpecimenEncounterLong.page",
+            icon: "fas fa-fw fa-vial"
         };
 
         // MCH/Prenatal
         encounterTypes[EncounterTypes.ancIntake.uuid] = {
-          DEFAULT: {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "fas fa-fw fa-gift",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-              ancInitial,
-              ancVaccinations,
-              primaryCareDx
-            ]
-          },
-          'sierra_leone': {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "fas fa-fw fa-gift",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-              cloneSectionAndUpdateCountryPathInUrls(ancInitial, "sierra_leone"),
-              ancVaccinations,
-              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
-              cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
-            ]
-          }
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "fas fa-fw fa-gift",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    ancInitial,
+                    ancVaccinations,
+                    primaryCareDx
+                ]
+            },
+            'sierra_leone': {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "fas fa-fw fa-gift",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    cloneSectionAndUpdateCountryPathInUrls(ancInitial, "sierra_leone"),
+                    ancVaccinations,
+                    cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
+                    cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
+                ]
+            }
         };
 
         encounterTypes[EncounterTypes.vaccination.uuid] = {
@@ -915,61 +786,61 @@ angular.module("encounterTypeConfig", ["constants"])
 
 
         encounterTypes[EncounterTypes.ancFollowup.uuid] = {
-          DEFAULT: {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "fas fa-fw fa-gift",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-              ancFollowup,
-              ancVaccinations,
-              primaryCareDx
-            ]
-          },
-          'sierra_leone': {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "fas fa-fw fa-gift",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-              cloneSectionAndUpdateCountryPathInUrls(ancFollowup, "sierra_leone"),
-              ancVaccinations,
-              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
-              cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
-            ]
-          }
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "fas fa-fw fa-gift",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    ancFollowup,
+                    ancVaccinations,
+                    primaryCareDx
+                ]
+            },
+            'sierra_leone': {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "fas fa-fw fa-gift",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    cloneSectionAndUpdateCountryPathInUrls(ancFollowup, "sierra_leone"),
+                    ancVaccinations,
+                    cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
+                    cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
+                ]
+            }
         };
 
         encounterTypes[EncounterTypes.delivery.uuid] = {
-          DEFAULT: {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "fas fa-fw fa-baby",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-              delivery,
-              primaryCareDx
-            ]
-          },
-          'sierra_leone': {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "fas fa-fw fa-gift",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-              cloneSectionAndUpdateCountryPathInUrls(delivery, "sierra_leone"),
-              cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
-              cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
-            ]
-          }
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "fas fa-fw fa-baby",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    delivery,
+                    primaryCareDx
+                ]
+            },
+            'sierra_leone': {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "fas fa-fw fa-gift",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    cloneSectionAndUpdateCountryPathInUrls(delivery, "sierra_leone"),
+                    cloneSectionAndUpdateCountryPathInUrls(primaryCareDx, "sierra_leone"),
+                    cloneSectionAndUpdateCountryPathInUrls(primaryCarePlanMedication, "sierra_leone")
+                ]
+            }
         };
 
         // TODO change Mexico and Sierra Leone consults to use standard outpatient encounter types now that we support multiple configs per encounter type?
@@ -1018,25 +889,25 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         return {
-          get: function(uuid, country, site) {
-            var encounterType = encounterTypes[uuid];
+            get: function(uuid, country, site) {
+                var encounterType = encounterTypes[uuid];
 
-            if (encounterType == null) {
-              return null;
+                if (encounterType == null) {
+                    return null;
+                }
+
+                if (encounterType.hasOwnProperty(country)) {
+                    if (encounterType[country].hasOwnProperty(site)) {
+                        return encounterType[country][site];
+                    }
+                    else {
+                        return encounterType[country].hasOwnProperty('DEFAULT') ?
+                            encounterType[country]['DEFAULT'] : encounterType[country];
+                    }
+                }
+
+                return encounterType.hasOwnProperty(['DEFAULT']) ?
+                    encounterType['DEFAULT'] : encounterType;
             }
-
-            if (encounterType.hasOwnProperty(country)) {
-               if (encounterType[country].hasOwnProperty(site)) {
-                 return encounterType[country][site];
-               }
-               else {
-                 return encounterType[country].hasOwnProperty('DEFAULT') ?
-                   encounterType[country]['DEFAULT'] : encounterType[country];
-               }
-            }
-
-            return encounterType.hasOwnProperty(['DEFAULT']) ?
-              encounterType['DEFAULT'] : encounterType;
-          }
         };
     }]);
