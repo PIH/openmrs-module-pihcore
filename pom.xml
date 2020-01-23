@@ -77,7 +77,7 @@
         <appuiVersion>1.11.0</appuiVersion>
         <dispensingVersion>1.0</dispensingVersion>
         <uicommonsVersion>2.10.0</uicommonsVersion>
-        <registrationcoreVersion>1.8.0</registrationcoreVersion>
+        <registrationcoreVersion>1.9.0</registrationcoreVersion>
         <registrationappVersion>1.15.0-SNAPSHOT</registrationappVersion>
         <radiologyappVersion>1.4.0</radiologyappVersion>
         <coreappsVersion>1.25.0</coreappsVersion>
