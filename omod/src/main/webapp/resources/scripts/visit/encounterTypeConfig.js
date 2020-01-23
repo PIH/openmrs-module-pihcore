@@ -26,7 +26,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "pihcore-chief-complaint",
             label: "pihcore.chiefComplaint.title",
-            icon: "icon-list-ul",
+            icon: "fas fa-fw fa-list-ul",
             classes: "indent",
             shortTemplate: "templates/sections/chiefComplaintSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
@@ -69,7 +69,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "pihcore-history",
             label: "pihcore.history.label",
-            icon: "icon-file-alt",
+            icon: "fas fa-fw fa-history",
             classes: "indent",
             shortTemplate: "templates/sections/primaryCareHistorySectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
@@ -93,7 +93,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "physical-exam",
             label: "pihcore.exam.label",
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             shortTemplate: "templates/sections/examSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-exam.xml",
@@ -115,7 +115,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "pihcore-peds",
             label: "pihcore.foodAndSupplements.label",
-            icon: "icon-food",
+            icon: "fas fa-fw fa-utensils",
             shortTemplate: "templates/sections/pedsSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-peds.xml",
@@ -127,7 +127,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "pihcore-diagnosis",
             label: "pihcore.diagnosis.label",
-            icon: "icon-diagnosis",
+            icon: "fas fa-fw fa-diagnoses",
             shortTemplate: "templates/sections/dxSectionShort.page",
             longTemplate: "templates/sections/dxLong.page",
             //templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-dx.xml",
@@ -149,7 +149,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "pihcore-plan",
             label: "pihcore.visitNote.plan",
-            icon: "icon-list-ul",
+            icon: "fas fa-fw fa-list-ul",
             shortTemplate: "templates/sections/primaryCarePlanSectionShort.page",
             longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
             printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
@@ -165,7 +165,7 @@ angular.module("encounterTypeConfig", ["constants"])
           type: "encounter-section",
           id: "pihcore-plan-medication",
           label: "pihcore.visitNote.plan",
-          icon: "icon-list-ul",
+          icon: "fas fa-fw fa-list-ul",
           shortTemplate: "templates/sections/primaryCarePlanSectionShort.page",
           longTemplate: "templates/sections/viewPlanSectionWithHtmlFormLong.page",
           printTemplate: "templates/sections/printPrescriptionsWithHtmlFormLong.page",
@@ -193,7 +193,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "pihcore-ncd",
             label: "pihcore.visitNote.ncdInitial",
-            icon: "icon-heart-empty",
+            icon: "fas fa-fw fa-heart",
             shortTemplate: "templates/sections/ncdSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml",
@@ -216,7 +216,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "pihcore-ncd",
             label: "pihcore.visitNote.ncdInitial",
-            icon: "icon-heart",
+            icon: "fas fa-fw fa-list-heart",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml",
@@ -226,7 +226,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "pihcore-ncd",
             label: "pihcore.visitNote.ncdFollowup",
-            icon: "icon-heart",
+            icon: "fas fa-fw fa-heart",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-ncd.xml",
@@ -237,7 +237,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "hiv-history",
             label: "pihcore.history.label",
-            icon: "icon-beaker",
+            icon: "fas fa-fw fa-history",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-history.xml",
@@ -248,7 +248,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "lab-rad-order",
             label: "pihcore.order.title",
-            icon: "icon-beaker",
+            icon: "fas fa-fw fa-vial",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-lab-order.xml",
@@ -260,7 +260,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "hiv-assessment",
             label: "pihcore.assessment",
-            icon: "icon-th-large",
+            icon: "fas fa-fw fa-th-large",
             shortTemplate: "templates/sections/hivSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-assessment.xml",
@@ -271,7 +271,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "family-planning-history",
             label: "pihcore.familyPlanning.title",
-            icon: "icon-group",
+            icon: "fas fa-fw fa-users",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-family-planning.xml",
@@ -282,7 +282,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "hiv-intake-plan",
             label: "pihcore.visitNote.plan",
-            icon: "icon-list-ul",
+            icon: "fas fa-fw fa-list-ul",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-intake-plan.xml",
@@ -293,7 +293,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "hiv-state",
             label: "pihcore.hiv.clinicalState.short",
-            icon: "icon-bolt",
+            icon: "fas fa-fw fa-bolt",
             shortTemplate: "templates/sections/defaultSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/section-hiv-state.xml",
@@ -304,7 +304,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "section-anc-intake",
             label: "pihcore.ancIntake.title",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-gift",
             shortTemplate: "templates/sections/ancIntakeSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-anc-intake.xml",
@@ -315,7 +315,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "section-anc-followup",
             label: "pihcore.ancFollowup.title",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-gift",
             shortTemplate: "templates/sections/ancIntakeSectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-anc-followup.xml",
@@ -326,7 +326,7 @@ angular.module("encounterTypeConfig", ["constants"])
             type: "encounter-section",
             id: "section-delivery",
             label: "pihcore.delivery.title",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-baby",
             shortTemplate: "templates/sections/deliverySectionShort.page",
             longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/section-delivery.xml",
@@ -396,7 +396,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/vitalsShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-vitals",
+            icon: "fas fa-fw fa-heartbeat",
             editUrl: hfeSimpleEditUrl
         };
 
@@ -404,7 +404,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/clinicConsultLong.page",
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true
         };
@@ -413,7 +413,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",  // no expanded view, instead there are individual sections
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -430,7 +430,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -447,7 +447,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -462,7 +462,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -474,6 +474,7 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         encounterTypes[EncounterTypes.ncdInitialConsult.uuid] = {
+<<<<<<< HEAD
             DEFAULT: {
                 defaultState: "short",
                 shortTemplate: "templates/encounters/defaultEncounterShort.page",
@@ -541,6 +542,39 @@ angular.module("encounterTypeConfig", ["constants"])
                     liberiaPrimaryCarePlan
                 ]
             }
+=======
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "fas fa-fw fa-heart",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                primaryCareHistory,
+                primaryCareExam,
+                pedsVaccinations,
+                pedsFoodAndSupplements,
+                ncd,
+                primaryCareDx,
+                primaryCarePlan
+            ]
+        };
+
+        encounterTypes[EncounterTypes.ncdFollowupConsult.uuid] = {
+            defaultState: "short",
+            shortTemplate: "templates/encounters/defaultEncounterShort.page",
+            longTemplate: "templates/encounters/defaultEncounterShort.page",
+            icon: "fas fa-fw fa-heart",
+            editUrl: hfeStandardEditUrl,
+            showOnVisitList: true,
+            sections: [
+                primaryCareExam,
+                pedsVaccinations,
+                ncd,
+                primaryCareDx,
+                primaryCarePlan
+            ]
+>>>>>>> upstream/master
         };
 
         encounterTypes[EncounterTypes.echocardiogramConsult.uuid] = {
@@ -548,7 +582,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-heart-empty",
+            icon: "fas fa-fw fa-heartbeat",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true
         };
@@ -558,7 +592,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
-            icon: "icon-asterisk",
+            icon: "fas fa-fw fa-ribbon",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -576,7 +610,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",   // no expanded view, instead there are individual sections
-            icon: "icon-asterisk",
+            icon: "fas fa-fw fa-ribbon",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -594,7 +628,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-paste",
+            icon: "fas fa-fw fa-paste",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true
         };
@@ -604,7 +638,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-paste",
+            icon: "fas fa-fw fa-paste",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true
         };
@@ -614,7 +648,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-retweet",
+            icon: "fas fa-fw fa-retweet",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true
         };
@@ -624,7 +658,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-medicine",
+            icon: "fas fa-fw fa-pills",
             editUrl: hfeStandardEditUrl
         };
 
@@ -634,7 +668,7 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
             primaryEncounterRoleUuid: EncounterRoles.attendingSurgeon.uuid,
-            icon: "icon-paste",
+            icon: "fas fa-fw fa-paste",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true
         };
@@ -644,14 +678,14 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultHtmlFormEncounterLong.page",
             templateModelUrl: "/module/htmlformentry/encounter.json?encounter={{encounter.uuid}}",
-            icon: "icon-share",
+            icon: "fas fa-fw fa-share",
             editUrl: hfeStandardEditUrl
         };
         encounterTypes[EncounterTypes.admission.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/admissionLong.page",
-            icon: "icon-signin",
+            icon: "fas fa-fw fa-sign-in-alt",
             editUrl: hfeStandardEditUrl
         };
 
@@ -660,14 +694,14 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-ban-circle",
+            icon: "fas fa-fw fa-ban",
             editUrl: hfeStandardEditUrl
         };
 
         encounterTypes[EncounterTypes.exitFromCare.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-signout",
+            icon: "fas fa-fw fa-sign-out-alt",
             editUrl: hfeStandardEditUrl
         };
 
@@ -676,7 +710,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-beaker",
+            icon: "fas fa-fw fa-vial",
             editUrl: hfeSimpleEditUrl
         };
 
@@ -684,21 +718,21 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
-            icon: "icon-x-ray"
+            icon: "fas fa-fw fa-x-ray"
         };
 
         encounterTypes[EncounterTypes.radiologyStudy.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
-            icon: "icon-x-ray"
+            icon: "fas fa-fw fa-x-ray"
         };
 
         encounterTypes[EncounterTypes.radiologyReport.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterLong.page",
-            icon: "icon-x-ray"
+            icon: "fas fa-fw fa-x-ray"
         };
 
         encounterTypes[EncounterTypes.deathCertificate.uuid] = {
@@ -706,7 +740,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-remove-circle",
+            icon: "fas fa-fw fa-times-circle",
             editUrl: hfeStandardEditUrl
         };
 
@@ -718,7 +752,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
-            icon: "icon-user",
+            icon: "fas fa-fw fa-user",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
             showOnVisitList: true
           },
@@ -727,7 +761,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
-            icon: "icon-user",
+            icon: "fas fa-fw fa-user",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
             showOnVisitList: true
           }
@@ -739,7 +773,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-fw fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/Adherence.xml",
             showOnVisitList: true
         };
@@ -748,7 +782,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-fw fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisiteAdult.xml",
             showOnVisitList: true
         };
@@ -757,7 +791,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-fw fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml",
             showOnVisitList: true
         };
@@ -766,7 +800,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-fw fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuivi.xml",
             showOnVisitList: true
         };
@@ -775,7 +809,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-fw fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/iSantePlus/VisiteDeSuiviPediatrique.xml",
             showOnVisitList: true
         };
@@ -786,7 +820,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/vct.xml",
-            icon: "icon-asterisk",
+            icon: "fas fa-fw fa-ribbon",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/haiti/hiv/zl/vct.xml",
             showOnVisitList: true
         };
@@ -797,7 +831,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/socio-econ.xml",
-            icon: "icon-home",
+            icon: "fas fa-fw fa-home",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/socio-econ.xml",
             showOnVisitList: true
         };
@@ -807,14 +841,14 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}",
-            icon: "icon-heart",
+            icon: "fas fa-fw fa-heart",
             editUrl: hfeStandardEditUrl
         };
 
         encounterTypes[EncounterTypes.edTriage.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/edTriageShort.page",
-            icon: "icon-ambulance",
+            icon: "fas fa-fw fa-ambulance",
             editUrl: "edtriageapp/edtriageEditPatient.page?editable=true&patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}",
             viewUrl: "edtriageapp/edtriageEditPatient.page?editable=false&patientId={{patient.uuid}}&encounterId={{encounter.uuid}}&appId=edtriageapp.app.triageQueue&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         };
@@ -823,21 +857,21 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/testOrderLong.page",
-            icon: "icon-beaker"
+            icon: "fas fa-fw fa-vial"
         };
 
         encounterTypes[EncounterTypes.pathologySpecimenCollection.uuid] = {
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/pathologySpecimenCollectionLong.page",
-            icon: "icon-beaker"
+            icon: "fas fa-fw fa-microscope"
         };
 
         encounterTypes[EncounterTypes.labSpecimenCollection.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
           longTemplate: "templates/encounters/labsSpecimenEncounterLong.page",
-          icon: "icon-beaker"
+          icon: "fas fa-fw fa-vial"
         };
 
         // MCH/Prenatal
@@ -846,7 +880,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-gift",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -859,7 +893,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-gift",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -875,7 +909,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "long",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/vaccination/chVaccinations.page",
-            icon: "icon-umbrella",
+            icon: "fas fa-fw fa-umbrella",
             showOnVisitList: true
         };
 
@@ -885,7 +919,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-gift",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -898,7 +932,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-gift",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -915,7 +949,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-baby",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -927,7 +961,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-gift",
+            icon: "fas fa-fw fa-gift",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -944,7 +978,7 @@ angular.module("encounterTypeConfig", ["constants"])
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
             templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mexico/consult.xml",
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mexico/consult.xml",
             showOnVisitList: true
         };
@@ -953,7 +987,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
@@ -970,7 +1004,7 @@ angular.module("encounterTypeConfig", ["constants"])
             defaultState: "short",
             shortTemplate: "templates/encounters/defaultEncounterShort.page",
             longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "icon-stethoscope",
+            icon: "fas fa-fw fa-stethoscope",
             editUrl: hfeStandardEditUrl,
             showOnVisitList: true,
             sections: [
