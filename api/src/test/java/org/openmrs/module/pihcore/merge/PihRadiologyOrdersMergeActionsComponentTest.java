@@ -118,7 +118,7 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
         Patient nonPreferredPatient = patientService.getPatient(10001);
         adtService.mergePatients(preferredPatient, nonPreferredPatient);
 
-        assertTrue("RadiologyOrder is not present after merging the patients", orderService.getAllOrdersByPatient(preferredPatient).contains(radiologyOrder));
+        assertTrue("RadiologyOrder is present after merging the patients", orderService.getAllOrdersByPatient(preferredPatient).contains(radiologyOrder));
 
     }
 
@@ -154,7 +154,6 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
 
     // TODO un-ignore once we have the EMR API module updated
     @Test
-    @Ignore
     public void shouldMergePatientsWhenNonPreferredPatientHasRadiologyOrdersInOverlappingVisit()
             throws Exception {
 
@@ -188,8 +187,7 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
     // this restriction has been relaxed in Core 2.x  A "non-preferred" patient can now have orders as long as they aren't of the same type as those of the preferred patient
     // ignoring this test, should eventually remove but keeping it around for now
     @Test
-    @Ignore
-    public void shouldFailToMergePatientsWhenNonPreferredPatientHasDrugOrders()
+    public void shouldMergePatientsWhenNonPreferredPatientHasDrugOrders()
             throws Exception {
 
         Patient preferredPatient = patientService.getPatient(6);
@@ -214,6 +212,6 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
             Assert.assertEquals("Cannot merge patients where the not preferred patient has unvoided orders", e.getMessage());
         }
 
-        assertTrue("DrugOrder was merged", (orderService.getAllOrdersByPatient(preferredPatient).contains(nonPreferredPatientOrder) == false));
+        assertTrue("DrugOrder was merged", (orderService.getAllOrdersByPatient(preferredPatient).contains(nonPreferredPatientOrder) == true));
     }
 }
