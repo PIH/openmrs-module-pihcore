@@ -814,10 +814,6 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     var index = url.indexOf('returnUrl');
                     if (index == -1) {
                         url = url + "&returnUrl=" + returnUrl;
-                    } else {
-                        // we need to encode everything after "returnURL="
-                        var encodedReturnUrl = window.encodeURIComponent(url.substr(index + 10));
-                        url = url.substring(0, index + 10) + encodedReturnUrl;
                     }
                     emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
                 }
