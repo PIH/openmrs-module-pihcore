@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.merge;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
@@ -124,5 +125,49 @@ public class PihTestOrdersMergeActionsComponentTest extends BaseModuleContextSen
         adtService.mergePatients(preferredPatient, nonPreferredPatient);
 
         assertTrue("Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
+    }
+
+    @Test
+    public void shouldMergePatientsWhenNonPreferredPatientHasPathologyTestOrders()
+            throws Exception {
+
+        Patient preferredPatient = patientService.getPatient(6);
+        Patient nonPreferredPatient = patientService.getPatient(10006);
+        List<Encounter> encountersByPatient = encounterService.getEncountersByPatient(nonPreferredPatient);
+        // patient has 1 Test Order Encounter
+        Assert.assertEquals(1, encountersByPatient.size());
+        Assert.assertEquals("TestOrder", encountersByPatient.get(0).getEncounterType().getName());
+        Set<Order> orders = encountersByPatient.get(0).getOrders();
+        Assert.assertEquals(1, orders.size());
+        Order testOrder = orders.iterator().next();
+
+        Assert.assertEquals("PathologyOrder", testOrder.getOrderType().getName());
+        adtService.mergePatients(preferredPatient, nonPreferredPatient);
+
+        assertTrue("Pathology Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
+    }
+
+    @Test
+    public void shouldMergePatientsFailWhenBothPatientHaveOpenPathologyTestOrders()
+            throws Exception {
+
+        Patient preferredPatient = patientService.getPatient(10006);
+        Patient nonPreferredPatient = patientService.getPatient(10007);
+        List<Encounter> encountersByPatient = encounterService.getEncountersByPatient(nonPreferredPatient);
+        // patient has 1 Test Order Encounter
+        Assert.assertEquals(1, encountersByPatient.size());
+        Assert.assertEquals("TestOrder", encountersByPatient.get(0).getEncounterType().getName());
+        Set<Order> orders = encountersByPatient.get(0).getOrders();
+        Assert.assertEquals(1, orders.size());
+        Order testOrder = orders.iterator().next();
+
+        Assert.assertEquals("PathologyOrder", testOrder.getOrderType().getName());
+        try {
+            adtService.mergePatients(preferredPatient, nonPreferredPatient);
+        } catch (Exception e) {
+            Assert.assertEquals("Patient.merge.cannotHaveSameTypeActiveOrders", e.getMessage());
+        }
+
+        //assertTrue("Pathology Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
     }
 }
