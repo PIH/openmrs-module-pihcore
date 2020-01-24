@@ -6,7 +6,14 @@ import org.junit.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
 import org.openmrs.Patient;
-import org.openmrs.api.*;
+import org.openmrs.api.PatientService;
+import org.openmrs.api.ProviderService;
+import org.openmrs.api.OrderService;
+import org.openmrs.api.LocationService;
+import org.openmrs.api.ConceptService;
+import org.openmrs.api.VisitService;
+import org.openmrs.api.EncounterService;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.DispositionService;
@@ -143,7 +150,7 @@ public class PihTestOrdersMergeActionsComponentTest extends BaseModuleContextSen
     }
 
     @Test
-    public void shouldMergePatientsFailWhenBothPatientHaveOpenPathologyTestOrders()
+    public void shouldMergePatientsWhenBothPatientHaveOpenPathologyTestOrders()
             throws Exception {
 
         Patient preferredPatient = patientService.getPatient(10006);
