@@ -727,6 +727,7 @@
                 <tr>
                     <th><uimessage code="pihcore.visitNote.plan.name"/></th>
                     <th colspan="2"><uimessage code="pihcore.visitNote.plan.dose"/></th>
+                    <th><uimessage code="pihcore.drug.route"/></th>
                     <th><uimessage code="pihcore.visitNote.plan.frequency"/></th>
                     <th colspan="2"><uimessage code="pihcore.visitNote.plan.duration"/></th>
                 </tr>
@@ -746,8 +747,13 @@
                                 </td>
                                 <td id="{name}-rx-dose-unit">
                                     <obs id="doseUnit-{name}" class="doseInput select-arrow" conceptId="PIH:Dosing units coded"
-                                         answerConceptIds="CIEL:161553,CIEL:162263,CIEL:1608,CIEL:1513,CIEL:160243,PIH:INTRAVENOUS,PIH:ORAL"
+                                         answerConceptIds="CIEL:161553,CIEL:162263,CIEL:1608,CIEL:1513"
                                          answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet" />
+                                </td>
+                                <td id="{name}-rx-route">
+                                    <obs id="route-{name}" class="route select-arrow"
+                                         conceptId="PIH:12651"
+                                         answerConceptIds="CIEL:160240,CIEL:160242,CIEL:160243"/>
                                 </td>
                                 <td id="{name}-rx-frequency">
                                     <obs id="frequencyCoded-{name}" class="frequency select-arrow" conceptId="PIH:Drug frequency for HUM"
@@ -780,7 +786,11 @@
             </table>
 
             <p>
-                <obs conceptId="PIH:Medication comments (text)"/>
+                <label>
+                    <uimessage code="pihcore.exam.comment"/>:
+                </label>
+
+                <obs conceptId="PIH:Medication comments (text)" style="textarea"/>
             </p>
 
             <p class="list-inline">
@@ -796,7 +806,7 @@
             </p>
 
             <p id="side-effect-section">
-                <obs  id="" conceptId="CIEL:164377" type="text"/>
+                <obs  id="" conceptId="CIEL:164377" style="textarea"/>
             </p>
 
         </div>
@@ -900,7 +910,7 @@
                 <label>
                     <uimessage code="pihcore.remarks"/>:
                 </label>
-                <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE COMMENT" style="text"/>
+                <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE COMMENT" style="textarea"/>
             </p>
         </div>
     </section>
