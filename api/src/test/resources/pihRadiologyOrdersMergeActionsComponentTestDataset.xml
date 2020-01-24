@@ -20,6 +20,10 @@
     <patient patient_id="10004" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
     <patient_identifier patient_identifier_id="6" patient_id="10004" identifier="202-2" identifier_type="1" preferred="0" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="f0cc0456-4ee5-4bb4-95b4-83c75757e687"/>
 
+    <person person_id="10005" birthdate_estimated="0" gender="F" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="28327BBC-2CC9-4DBB-96A0-D35C3A2DA9AA"/>
+    <patient patient_id="10005" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="7" patient_id="10005" identifier="1235-1" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="E74CE89A-582A-4B5B-B400-C683C24C2C97"/>
+
     <person_attribute_type person_attribute_type_id="10" name="Unknown patient" description="Unknown patient" format="java.lang.String" searchable="false" creator="1" date_created="2008-08-15 15:53:36.0" retired="false" uuid="a0f5521c-dbbd-4c10-81b2-1b7ab18330dz" sort_weight="2"/>
     <global_property property="provider.unknownProviderUuid" property_value="" uuid="984628b0-e914-11e4-b571-0800200c9a66"/>
     <global_property property="emr.unknownProvider" property_value="" uuid="a0351a90-e914-11e4-b571-0800200c9a66"/>
@@ -57,6 +61,7 @@
     <encounter_type encounter_type_id="1004" name="DrugOrder" description="Drug Order" creator="1" date_created="2015-10-23 00:00:00.0" retired="false" uuid="645171F0-E7D2-4D42-B8AA-DFDFE641AEFD"/>
     <!-- define the metadata for the Radiology Report -->
     <encounter_type encounter_type_id="1002" name="Radiology Report" description="Radiology Report" creator="1" date_created="2005-02-24 00:00:00.0" retired="false" uuid="77ae96f4-6afe-6666-b6f8-cd4fc383cce1"/>
+    <encounter_type encounter_type_id="1005" name="TestOrder" description="Test Order - the order of test (labs, biopsy, etc)" creator="1" date_created="2015-10-23 00:00:00.0" retired="false" uuid="E1B49B22-6FDF-4AB7-9839-87CDA833F84C"/>
     <global_property property="emr.radiologyReportEncounterType" property_value="77ae96f4-6afe-6666-b6f8-cd4fc383cce1" uuid="6988b444-9776-42c6-8f03-2a0c1e9ca2a8"/>
 
     <encounter_role encounter_role_id="1002" name="Principal Results Interpreter" description="Principal Results Interpreter" creator="1" retired="false" date_created="2011-08-18 14:00:00.0" uuid="a0b03050-c99b-22e0-9572-0800123c9a66" />
@@ -83,5 +88,9 @@
     <orders order_id="1005" order_number="45648" encounter_id="1004" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10004" uuid="d5721243-c153-48bb-8be3-42fc54b82f71"/>
     <test_order order_id="1005"/>
     <emr_radiology_order order_id="1005"/>
+
+    <encounter encounter_id="1005" encounter_type="1005" patient_id="10005" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="0BC76400-66EF-403E-8483-D107E4C847E0"/>
+    <orders order_id="1006" order_number="ORD-151" encounter_id="1005" order_action="NEW" order_type_id="2" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="please test" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10005" uuid="68481B2A-3576-41BA-AD93-1544D9CC0268"/>
+    <test_order order_id="1006"/>
 
 </dataset>

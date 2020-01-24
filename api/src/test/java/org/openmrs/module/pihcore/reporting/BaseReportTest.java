@@ -96,7 +96,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     @Before
     public void setup() throws Exception {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
-        dropNotNullConstraint("person", "creator");
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
         deployService.installBundle(encounterTypeBundle);
