@@ -77,7 +77,7 @@
 
     <order_type order_type_id="1001" name="RadiologyOrder" parent="2" java_class_name="org.openmrs.module.radiologyapp.RadiologyOrder" description="Radiology Order" date_created="2008-08-15 13:49:47.0" retired="false" uuid="c303c420-e9d4-11e4-b571-0800200c9a66" creator="1" />  <!-- parent=2 references Test Order in standard test dataset -->
     <order_type order_type_id="1002" name="DrugOrder" parent="2" java_class_name="org.openmrs.DrugOrder" description="Drug Order" date_created="2008-08-15 15:49:04.0" retired="false" uuid="dd3fb1d0-ae06-22e3-a5e2-0800211c9a66" creator="1"/>
-    <order_type order_type_id="1003" name="PathologyOrder" parent="2" java_class_name="org.openmrs.TestOrder" description="A pathology test order" date_created="2008-08-15 15:49:04.0" retired="false" uuid="07BEE57A-4321-47D9-B80F-6B2788950711" creator="1"/>
+    <order_type order_type_id="1003" name="PathologyOrder" parent="2" java_class_name="org.openmrs.TestOrder" description="A pathology test order" date_created="2008-08-15 15:49:04.0" retired="false" uuid="65c912c2-88cf-46c2-83ae-2b03b1f97d3a" creator="1"/>
 
     <encounter encounter_id="1001" encounter_type="1003" patient_id="6" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="EC1C0A78-69F3-449B-8880-6A9387B37D47"/>
     <orders order_id="1002" order_number="12346" encounter_id="1001" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="6" uuid="4C4157CC-CF06-48B1-BC32-AF31B5916583"/>

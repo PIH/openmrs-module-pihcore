@@ -2,18 +2,14 @@ package org.openmrs.module.pihcore.merge;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.api.*;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.DispositionService;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 
 public class PihTestOrdersMergeActionsComponentTest extends BaseModuleContextSensitiveTest {
 
@@ -152,6 +147,14 @@ public class PihTestOrdersMergeActionsComponentTest extends BaseModuleContextSen
             throws Exception {
 
         Patient preferredPatient = patientService.getPatient(10006);
+        List<Encounter> encountersByPreferredPatient = encounterService.getEncountersByPatient(preferredPatient);
+        // patient has 1 Test Order Encounter
+        Assert.assertEquals(1, encountersByPreferredPatient.size());
+        Assert.assertEquals("TestOrder", encountersByPreferredPatient.get(0).getEncounterType().getName());
+        Set<Order> ordersByPreferredPatient = encountersByPreferredPatient.get(0).getOrders();
+        Assert.assertEquals(1, ordersByPreferredPatient.size());
+        Order testOrderOfPreferredPatient = ordersByPreferredPatient.iterator().next();
+
         Patient nonPreferredPatient = patientService.getPatient(10007);
         List<Encounter> encountersByPatient = encounterService.getEncountersByPatient(nonPreferredPatient);
         // patient has 1 Test Order Encounter
@@ -162,12 +165,9 @@ public class PihTestOrdersMergeActionsComponentTest extends BaseModuleContextSen
         Order testOrder = orders.iterator().next();
 
         Assert.assertEquals("PathologyOrder", testOrder.getOrderType().getName());
-        try {
-            adtService.mergePatients(preferredPatient, nonPreferredPatient);
-        } catch (Exception e) {
-            Assert.assertEquals("Patient.merge.cannotHaveSameTypeActiveOrders", e.getMessage());
-        }
+        adtService.mergePatients(preferredPatient, nonPreferredPatient);
 
-        //assertTrue("Pathology Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
+        assertTrue("Pathology Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrderOfPreferredPatient));
+        assertTrue("Pathology Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
     }
 }
