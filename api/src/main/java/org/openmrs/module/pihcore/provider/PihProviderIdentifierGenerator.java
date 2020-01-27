@@ -14,9 +14,9 @@ public class PihProviderIdentifierGenerator implements ProviderIdentifierGenerat
     @Autowired
     private Config config;
 
-    // this generates a 3digit base 30 identifier with an "M" prefix and a check-digit suffix
+    // this generates a 3 or 4 digit base 30 identifier with an "M" prefix and a check-digit suffix
     // the identifier is seeded on the primary key of the associated provider
-    // since 30^3 = 27000, this will start to fail if the primary key every goes above 27000
+    // since 30^4 = 27000, this will start to fail if the primary key every goes above 810000
 
     @Override
     public String generateIdentifier(Provider provider) {
@@ -29,7 +29,7 @@ public class PihProviderIdentifierGenerator implements ProviderIdentifierGenerat
         generator.setBaseCharacterSet("ACDEFGHJKLMNPRTUVWXY1234567890");
         generator.setFirstIdentifierBase("100");
         generator.setPrefix(config.getProviderIdentifierPrefix());
-        generator.setMaxLength(3 + config.getProviderIdentifierPrefix().length());
+        generator.setMaxLength(4 + config.getProviderIdentifierPrefix().length());
         generator.setMinLength(3 + config.getProviderIdentifierPrefix().length());
 
         String identifier = generator.getIdentifierForSeed(provider.getId().longValue());

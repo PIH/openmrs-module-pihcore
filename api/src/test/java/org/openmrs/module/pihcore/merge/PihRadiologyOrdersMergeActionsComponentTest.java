@@ -3,7 +3,6 @@ package org.openmrs.module.pihcore.merge;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
@@ -16,12 +15,11 @@ import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.VisitService;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.DispositionService;
+import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
 import org.openmrs.module.radiologyapp.RadiologyService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -33,6 +31,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleContextSensitiveTest {
 
@@ -92,9 +91,14 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
     @Qualifier("adminService")
     private AdministrationService administrationService;
 
+    private Config config;
+
     @Before
     public void beforeAllTests() throws Exception {
         executeDataSet("pihRadiologyOrdersMergeActionsComponentTestDataset.xml");
+        config = mock(Config.class);
+        when(config.isComponentEnabled(Components.RADIOLOGY)).thenReturn(true);
+        pihRadiologyOrdersMergeActions.setConfig(config);
         adtService.addPatientMergeAction(pihRadiologyOrdersMergeActions);
     }
 
@@ -118,20 +122,13 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
         Patient nonPreferredPatient = patientService.getPatient(10001);
         adtService.mergePatients(preferredPatient, nonPreferredPatient);
 
-        assertTrue("RadiologyOrder is not present after merging the patients", orderService.getAllOrdersByPatient(preferredPatient).contains(radiologyOrder));
+        assertTrue("RadiologyOrder is present after merging the patients", orderService.getAllOrdersByPatient(preferredPatient).contains(radiologyOrder));
 
     }
 
     @Test
     public void shouldMergePatientsWhenNonPreferredPatientHasOnlyRadiologyOrders()
             throws Exception {
-
-
-        PihRadiologyOrdersMergeActions pihRadiologyOrdersMergeActions = Context.getRegisteredComponent("pihRadiologyOrdersMergeActions", PihRadiologyOrdersMergeActions.class);
-        Config config = mock(Config.class);
-        runtimeProperties.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "mirebalais");
-        config = new Config(ConfigLoader.loadFromRuntimeProperties());
-        pihRadiologyOrdersMergeActions.setConfig(config);
 
         Patient preferredPatient = patientService.getPatient(6);
 
@@ -152,18 +149,9 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
         assertTrue("RadiologyOrder was not merged", orderService.getAllOrdersByPatient(preferredPatient).contains(radiologyOrder));
     }
 
-    // TODO un-ignore once we have the EMR API module updated
     @Test
-    @Ignore
     public void shouldMergePatientsWhenNonPreferredPatientHasRadiologyOrdersInOverlappingVisit()
             throws Exception {
-
-
-        PihRadiologyOrdersMergeActions pihRadiologyOrdersMergeActions = Context.getRegisteredComponent("pihRadiologyOrdersMergeActions", PihRadiologyOrdersMergeActions.class);
-        Config config = mock(Config.class);
-        runtimeProperties.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "mirebalais");
-        config = new Config(ConfigLoader.loadFromRuntimeProperties());
-        pihRadiologyOrdersMergeActions.setConfig(config);
 
         Patient preferredPatient = patientService.getPatient(6);
 
@@ -188,8 +176,7 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
     // this restriction has been relaxed in Core 2.x  A "non-preferred" patient can now have orders as long as they aren't of the same type as those of the preferred patient
     // ignoring this test, should eventually remove but keeping it around for now
     @Test
-    @Ignore
-    public void shouldFailToMergePatientsWhenNonPreferredPatientHasDrugOrders()
+    public void shouldMergePatientsWhenNonPreferredPatientHasDrugOrders()
             throws Exception {
 
         Patient preferredPatient = patientService.getPatient(6);
@@ -214,6 +201,6 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleConte
             Assert.assertEquals("Cannot merge patients where the not preferred patient has unvoided orders", e.getMessage());
         }
 
-        assertTrue("DrugOrder was merged", (orderService.getAllOrdersByPatient(preferredPatient).contains(nonPreferredPatientOrder) == false));
+        assertTrue("DrugOrder was merged", (orderService.getAllOrdersByPatient(preferredPatient).contains(nonPreferredPatientOrder) == true));
     }
 }

@@ -17,6 +17,7 @@ import java.util.List;
 public class PihTestOrdersMergeActions implements PatientMergeAction{
 
     public static final String LAB_TRACKING_TESTORDER_TYPE_UUID = "52a447d3-a64a-11e3-9aeb-50e549534c5e";
+    public static final String PATHOLOGY_TESTORDER_TYPE_UUID = "65c912c2-88cf-46c2-83ae-2b03b1f97d3a";
 
     @Autowired
     private OrderService orderService;
@@ -30,9 +31,10 @@ public class PihTestOrdersMergeActions implements PatientMergeAction{
         if (orders != null && orders.size() > 0) {
             this.unvoidOrders = new ArrayList<Integer>();
             for (Order order : orders) {
-                if (order.getOrderType().getUuid().equals(LAB_TRACKING_TESTORDER_TYPE_UUID) && !order.isVoided()) {
+                String orderTypeUuid = order.getOrderType().getUuid();
+                if ( (orderTypeUuid.equals(LAB_TRACKING_TESTORDER_TYPE_UUID) || orderTypeUuid.equals(PATHOLOGY_TESTORDER_TYPE_UUID) ) && !order.isVoided()) {
                     // void Lab Tracking orders so openmrs-core will allowed them to be merged
-                    orderService.voidOrder(order, "pre-merge labtracking orders");
+                    orderService.voidOrder(order, "pre-merge test orders");
                     this.unvoidOrders.add(order.getId());
                 }
             }

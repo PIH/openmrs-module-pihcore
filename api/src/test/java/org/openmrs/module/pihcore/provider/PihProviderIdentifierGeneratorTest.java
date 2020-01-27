@@ -42,9 +42,9 @@ public class PihProviderIdentifierGeneratorTest {
         when(config.getProviderIdentifierPrefix()).thenReturn("M");
 
         Provider provider = new Provider();
-        provider.setId(26000);
+        provider.setId(30000);
         String identifier = (generator).generateIdentifier(provider);
-        Assert.assertEquals("M971E", identifier);
+        Assert.assertEquals("MCEMA2", identifier);
     }
 
     @Test
@@ -68,7 +68,7 @@ public class PihProviderIdentifierGeneratorTest {
         when(config.getProviderIdentifierPrefix()).thenReturn("M");
 
         Provider provider = new Provider();
-        provider.setId(27000);
+        provider.setId(1000000);
         String identifier = (generator).generateIdentifier(provider);
     }
 }

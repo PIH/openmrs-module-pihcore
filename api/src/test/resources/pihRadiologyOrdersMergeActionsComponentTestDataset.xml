@@ -20,6 +20,18 @@
     <patient patient_id="10004" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
     <patient_identifier patient_identifier_id="6" patient_id="10004" identifier="202-2" identifier_type="1" preferred="0" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="f0cc0456-4ee5-4bb4-95b4-83c75757e687"/>
 
+    <person person_id="10005" birthdate_estimated="0" gender="F" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="28327BBC-2CC9-4DBB-96A0-D35C3A2DA9AA"/>
+    <patient patient_id="10005" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="7" patient_id="10005" identifier="1235-1" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="E74CE89A-582A-4B5B-B400-C683C24C2C97"/>
+
+    <person person_id="10006" birthdate_estimated="0" gender="M" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="3DD7E8D7-A86F-403C-A4C5-C5D9745168CD"/>
+    <patient patient_id="10006" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="8" patient_id="10006" identifier="1236-9" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="16DF35F3-33FD-47ED-A787-E6B0683E7FA9"/>
+
+    <person person_id="10007" birthdate_estimated="0" gender="F" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="9DC9C3FA-4A32-4536-8AE6-986B0155DE02"/>
+    <patient patient_id="10007" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
+    <patient_identifier patient_identifier_id="9" patient_id="10007" identifier="1237-7" identifier_type="1" preferred="1" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="5C89C023-9D10-400F-BD86-CDD606D32F86"/>
+
     <person_attribute_type person_attribute_type_id="10" name="Unknown patient" description="Unknown patient" format="java.lang.String" searchable="false" creator="1" date_created="2008-08-15 15:53:36.0" retired="false" uuid="a0f5521c-dbbd-4c10-81b2-1b7ab18330dz" sort_weight="2"/>
     <global_property property="provider.unknownProviderUuid" property_value="" uuid="984628b0-e914-11e4-b571-0800200c9a66"/>
     <global_property property="emr.unknownProvider" property_value="" uuid="a0351a90-e914-11e4-b571-0800200c9a66"/>
@@ -57,6 +69,7 @@
     <encounter_type encounter_type_id="1004" name="DrugOrder" description="Drug Order" creator="1" date_created="2015-10-23 00:00:00.0" retired="false" uuid="645171F0-E7D2-4D42-B8AA-DFDFE641AEFD"/>
     <!-- define the metadata for the Radiology Report -->
     <encounter_type encounter_type_id="1002" name="Radiology Report" description="Radiology Report" creator="1" date_created="2005-02-24 00:00:00.0" retired="false" uuid="77ae96f4-6afe-6666-b6f8-cd4fc383cce1"/>
+    <encounter_type encounter_type_id="1005" name="TestOrder" description="Test Order - the order of test (labs, biopsy, etc)" creator="1" date_created="2015-10-23 00:00:00.0" retired="false" uuid="E1B49B22-6FDF-4AB7-9839-87CDA833F84C"/>
     <global_property property="emr.radiologyReportEncounterType" property_value="77ae96f4-6afe-6666-b6f8-cd4fc383cce1" uuid="6988b444-9776-42c6-8f03-2a0c1e9ca2a8"/>
 
     <encounter_role encounter_role_id="1002" name="Principal Results Interpreter" description="Principal Results Interpreter" creator="1" retired="false" date_created="2011-08-18 14:00:00.0" uuid="a0b03050-c99b-22e0-9572-0800123c9a66" />
@@ -64,6 +77,7 @@
 
     <order_type order_type_id="1001" name="RadiologyOrder" parent="2" java_class_name="org.openmrs.module.radiologyapp.RadiologyOrder" description="Radiology Order" date_created="2008-08-15 13:49:47.0" retired="false" uuid="c303c420-e9d4-11e4-b571-0800200c9a66" creator="1" />  <!-- parent=2 references Test Order in standard test dataset -->
     <order_type order_type_id="1002" name="DrugOrder" parent="2" java_class_name="org.openmrs.DrugOrder" description="Drug Order" date_created="2008-08-15 15:49:04.0" retired="false" uuid="dd3fb1d0-ae06-22e3-a5e2-0800211c9a66" creator="1"/>
+    <order_type order_type_id="1003" name="PathologyOrder" parent="2" java_class_name="org.openmrs.TestOrder" description="A pathology test order" date_created="2008-08-15 15:49:04.0" retired="false" uuid="65c912c2-88cf-46c2-83ae-2b03b1f97d3a" creator="1"/>
 
     <encounter encounter_id="1001" encounter_type="1003" patient_id="6" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="EC1C0A78-69F3-449B-8880-6A9387B37D47"/>
     <orders order_id="1002" order_number="12346" encounter_id="1001" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="6" uuid="4C4157CC-CF06-48B1-BC32-AF31B5916583"/>
@@ -83,5 +97,17 @@
     <orders order_id="1005" order_number="45648" encounter_id="1004" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10004" uuid="d5721243-c153-48bb-8be3-42fc54b82f71"/>
     <test_order order_id="1005"/>
     <emr_radiology_order order_id="1005"/>
+
+    <encounter encounter_id="1005" encounter_type="1005" patient_id="10005" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="0BC76400-66EF-403E-8483-D107E4C847E0"/>
+    <orders order_id="1006" order_number="ORD-151" encounter_id="1005" order_action="NEW" order_type_id="2" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="please test" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10005" uuid="68481B2A-3576-41BA-AD93-1544D9CC0268"/>
+    <test_order order_id="1006"/>
+
+    <encounter encounter_id="1006" encounter_type="1005" patient_id="10006" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="438C5040-7AD5-475F-8D0B-EEAF351BBB1F"/>
+    <orders order_id="1007" order_number="ORD-152" encounter_id="1006" order_action="NEW" order_type_id="1003" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="biopsy" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10006" uuid="6FCBE172-284C-4954-BC64-9B55DB065B47"/>
+    <test_order order_id="1007"/>
+
+    <encounter encounter_id="1007" encounter_type="1005" patient_id="10007" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="E7B15491-6E59-4ED5-8101-71BA3AE23FE4"/>
+    <orders order_id="1008" order_number="ORD-153" encounter_id="1007" order_action="NEW" order_type_id="1003" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="pathology" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10007" uuid="6EA59D88-6FF7-42B8-A31D-AB0132A9FEE5"/>
+    <test_order order_id="1008"/>
 
 </dataset>
