@@ -479,10 +479,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        "visitUuid", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts",
+        "visitUuid", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, patientUuid, encounterUuid,
-                 locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts) {
+                 locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
 
             // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
             if (currentSection && encounterUuid) {
@@ -497,6 +497,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                 $rootScope.DatetimeFormats = DatetimeFormats;
                 $scope.Concepts = Concepts;
+                $scope.VisitTypes = VisitTypes;
 
                 $scope.session = SessionInfo.get();
 
@@ -594,7 +595,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
 
             function loadVisits(patientUuid) {
-                Visit.get({patient: $scope.patientUuid, v: "custom:(uuid,startDatetime,stopDatetime)"}).$promise.then(function(response) {
+                Visit.get({
+                  patient: $scope.patientUuid,
+                  visitType: $scope.VisitTypes.clinicalOrHospitalVisit.uuid,
+                  v: "custom:(uuid,startDatetime,stopDatetime)"
+                }).$promise.then(function(response) {
                     $scope.visits = response.results;
                 });
             }
