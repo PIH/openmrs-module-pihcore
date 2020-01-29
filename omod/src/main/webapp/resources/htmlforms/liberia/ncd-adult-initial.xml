@@ -689,10 +689,21 @@
                                 </repeat>
                                 <br/>
                                 <span class="inline">
-                                    <label class="inline">
-                                        Time to travel to clinic
-                                    </label>&amp;nbsp
-                                    <obs id="clinic-travel-time" conceptId="PIH:CLINIC TRAVEL TIME"/>
+                                    <obsgroup groupingConceptId="PIH:12736">
+                                        <label class="inline">
+                                            Time to travel to clinic
+                                        </label>&amp;nbsp
+
+                                        <span class="inline">
+                                            <obs id="clinic-travel-time" conceptId="CIEL:159471"/>
+                                        </span>
+
+                                        <span class="list-inline">
+                                            <obs id="clinic-travel-time-unit" conceptId="CIEL:1732"
+                                                 answerConceptIds="CIEL:1733,CIEL:1822,CIEL:1072,CIEL:1073"
+                                                 style="radio"/>
+                                        </span>
+                                    </obsgroup>
                                 </span>
                                 <br/>
                                 <span class="inline">
@@ -1207,20 +1218,6 @@
         <section id="clinical-impression" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.ncd.clinical.impression.title">
             <div class="section-container">
-                <div style="">
-                    <div style="float:left; width:25%;border:1px solid #DDD;poatition:relative;">Diabetes</div>
-                    <div style="float:right;width:75%;border:1px solid #DDD;position:relative;">
-                        <div style="border: 1px solid blue;">
-                            <div style="float:left; width:30%;border:1px solid #DDD">TYpe 2</div>
-                            <div style="float:right; width: 70%;border:1px solid #DDD">item q item 2<br/>blabla</div>
-                        </div>
-                        <div style="border: 1px solid blue;">
-                            <div style="float:left; width:30%;border:1px solid #DDD">TYpe 1</div>
-                            <div style="float:right; width: 70%;border:1px solid #DDD">item q1 item 21<br/>asaf<br/>sfdadfd</div>
-                        </div>
-                    </div>
-                    <div style="clear:both;"/>
-                </div>
 
                 <table>
                     <tbody>
@@ -1251,12 +1248,6 @@
                                              labelText="Acanthosis" answerLabel=""/>
                                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115115" style="checkbox"/>
 
-                                        <span style="display:block;">
-                                            <label class="inline">HbA1c</label>
-                                            <obs conceptId="PIH:HbA1c" absoluteMinimum="6.5" class="inline"/>
-                                            <label class="inline">% (&#x2265;6.5%)</label>
-                                        </span>
-
                                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:12228" style="checkbox"
                                              labelText="Pt able to control BG on oral tabs alone" answerLabel=""/>
                                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983" style="checkbox"/>
@@ -1264,25 +1255,6 @@
                                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117868" style="checkbox"/>
                                     </div>
                                     <div>
-
-                                        <includeIf velocityTest="20 > $patient.age">
-                                            <span style="color: green">
-                                                <lookup expression="patient.age"/>
-                                                Years
-                                            </span>
-                                        </includeIf>
-                                        <includeIf velocityTest="$patient.age > 20">
-                                            <span style="color: red">
-                                                <lookup expression="patient.age"/>
-                                                Years
-                                            </span>
-                                        </includeIf>
-
-                                        <span style="display:block;">
-                                            <label class="inline">HbA1c</label>
-                                            <obs conceptId="PIH:HbA1c" absoluteMinimum="6.5" class="inline"/>
-                                            <label class="inline">% (&#x2265;6.5%)</label>
-                                        </span>
 
                                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983" style="checkbox"/>
                                         <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:113257" style="checkbox"/>
@@ -1555,43 +1527,45 @@
         <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="coreapps.consult.disposition">
             <div class="section-container">
-                <div style="width:30%">
-                    <label>
-                        <strong>Social Welfare:</strong>
-                    </label>
+                <div style="display: inline-block;width: 100%;">
+                    <div style="width:35%;float: left;" class="inline">
+                        <label>
+                            <strong>Social Welfare:</strong>
+                        </label>
 
-                    <repeat>
-                        <template>
-                            <span>
-                                <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE RECOMMENDED"
-                                     style="checkbox"
-                                     answerConceptId="{concept}" answerLabel="{label}"/>
-                            </span>
-                        </template>
+                        <repeat>
+                            <template>
+                                <span>
+                                    <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE RECOMMENDED"
+                                         style="checkbox"
+                                         answerConceptId="{concept}" answerLabel="{label}"/>
+                                </span>
+                            </template>
 
-                        <render concept="PIH:3645" label="Request CHW assignment"/>
-                        <render concept="PIH:8883" label="Social Assistance request"/>
-                        <render concept="PIH:990" label="Transport Assistance request"/>
-                    </repeat>
-                </div>
-
-                <div style="width:30%">
-                    <div id="disposition">
-                        <encounterDisposition/>
+                            <render concept="PIH:3645" label="Request CHW assignment"/>
+                            <render concept="PIH:8883" label="Social Assistance request"/>
+                            <render concept="PIH:990" label="Transport Assistance request"/>
+                        </repeat>
                     </div>
 
-                    <label>
-                        <uimessage code="pihcore.comment"/>
-                    </label>
-                    <obs conceptId="PIH:DISPOSITION COMMENTS" style="text"/>
-                </div>
+                    <div style="width:30%;position: relative;" class="inline">
+                        <div id="disposition">
+                            <encounterDisposition/>
+                        </div>
 
-                <div style="width:30%">
-                    <label>
-                        <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
-                    </label>
-                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"
-                         required="true" />
+                        <label>
+                            <uimessage code="pihcore.comment"/>
+                        </label>
+                        <obs conceptId="PIH:DISPOSITION COMMENTS" style="text"/>
+                    </div>
+
+                    <div style="width:30%;float: right;" class="inline">
+                        <label>
+                            <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
+                        </label>
+                        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"
+                             required="true"/>
+                    </div>
                 </div>
             </div>
         </section>
