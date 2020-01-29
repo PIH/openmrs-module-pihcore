@@ -54,43 +54,53 @@ Components are chunks of PIH EMR functionality. They can be added or removed to 
   the database. Also linked from the System Administration app from the home page.
 - **labResults**: Adds labResults htmlform as a visit action. Superceded by `labs`.
 - **labs**: Adds Labs app to home page. Adds Order Labs and View Lab Results actions to pt dashboard.
-- **lacollinePatientRegistrationEncounterTypes**
-- **legacyMpi**
-- **malnutritionProgram**: needs MalnutritionProgramBundle, used by CES
-- **managePrinters**
+- **lacollinePatientRegistrationEncounterTypes**: Probably not used. Payment and Primary Care Visit encounter types.
+- **legacyMpi**: Something that was used to import patients from Lacolline to Mirebalais. Might be usable elsewhere.
+- **malnutritionProgram**: Needs MalnutritionProgramBundle, used by CES.
+- **managePrinters**: Adds Printer Administration page to System Administration page from home page. Printers
+  must be on the LAN and one of the supported printer types.
 - **mch**: mchForms + mchProgram
 - **mchForms**: used by ZL (via "mch")
 - **mchProgram**: needs MCHProgramBundle[ZL], used by ZL (via "mch")
 - **mentalHealth**: mentalHealthForm + mentalHealthProgram
 - **mentalHealthForm**: used by ZL (via "mentalHealth")
 - **mentalHealthProgram**: needs MentalHealthProgram bundle, used by ZL and CES
-- **monitoringReports**
-- **myAccount**
+- **monitoringReports**: Adds the "Monitoring" section of reports to the Reports page. Reports also must
+  be configured to the right country and site.
+- **myAccount**: Adds "My Account" button to home page which allows setting password.
 - **ncd**: program
 - **oncology**: program
 - **orderEntry**: TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
-- **overviewReports**
-- **pacsIntegration**
-- **pathologyTracking**
+- **overviewReports**: Adds "Overview" section of reports to the Reports page. Reports also must
+  be configured to the right country and site.
+- **pacsIntegration**: Custom Mirebalais "Picture Archives and Communication" system. Or maybe doesn't do anything?
+- **pathologyTracking**: Adds "Pathology Tracking" app to home page. Adds Order Pathology Test action to pt dashboard.
+  Adds Pathology Status widget to pt dashboard.
 - **patientDocuments**: openmrs-module-attachments
-- **patientRegistration**
-- **prescriptions**
-- **primaryCare**: primary care forms for Haiti, Mexico, and Sierra Leone (country-dependent)
-- **programs**
-- **providerRelationships**: the Relationships widget, configured for providers
-- **radiology**
-- **relationships**
-- **socioEconomics**
-- **spa**: the Single-SPA UI
-- **surgery**
-- **systemAdministration**
-- **todaysVisits**
-- **uhmVitals**
-- **vaccination**
-- **vct**
-- **visitManagement**
-- **visitNote**: get rid of the left visits bar and enable form sections
-- **vitals**
-- **waitingForConsult**
-- **wristbands**
+- **patientRegistration**: Adds Patient Registration app to Home Page. Configures Registration Summary page.
+- **prescriptions**: No longer used.
+- **primaryCare**: Primary care forms for Haiti, Mexico, and Sierra Leone (country-dependent).
+- **programs**: Enables the Programs widget on the pt dashboard, if there are any program components
+  enabled. *Required* for any programs to work.
+- **providerRelationships**: The Relationships widget, configured for providers.
+- **radiology**: Adds the actions for ordering X-rays, CTs, and Ultrasounds. Adds Pending Radiology Orders
+  and Radiology Results widgets to pt dashboard.
+- **relationships**: Adds relationship summary widget to pt dashboard.
+- **socioEconomics**: Adds socio-econ htmlform to visit actions. Requires Consult Note location tag.
+- **spa**: The Single-SPA UI. Accessible at `/openmrs/spa/login`. Requires some set-up.
+- **surgery**: Adds surgery htmlform visit action. Required Surgery Note location tag.
+- **systemAdministration**: Enables System Administration app from home page, and Manage Accounts,
+  Merge Patient Electronic Records, and Advanced Features. Requires privilege `emr.systemAdministration`.
+- **todaysVisits**: Adds the "Active Visits" app to the homepage. It lists the visits from that day.
+- **uhmVitals**: Custom vitals app used in Mirebalais. Don't worry about it.
+- **vaccination**: Adds htmlform called "vaccination-only" to visit actions. Requires Vaccination location tag.
+  Requires `visitNote`.
+- **vct**: Adds Voluntary Counseling and Testing (for HIV) htmlform as visit action.
+- **visitManagement**: Adds Start Visit, Add Past Visits, and Merge Visits links to general actions.
+- **visitNote**: A different UI for the visit dashboard, which supports form sections.
+- **vitals**: Enables the vitals htmlform as a visit action. Adds the cyclical Vitals app button to the
+  home page. Adds Most Recent Vitals app to pt dashboard.
+- **waitingForConsult**: Adds the Consult Queues app button to the home page. List of patients who are
+  checked in and have had their vitals taken, but have not yet had a consult. On ci.pih-emr.org
+- **wristbands**: Adds Print Wristbands to general actions.
 - **zika**: program
