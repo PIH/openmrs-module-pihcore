@@ -415,21 +415,32 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         encounterTypes[EncounterTypes.ncdInitialConsult.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "fas fa-fw fa-heart",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-                primaryCareHistory,
-                primaryCareExam,
-                pedsVaccinations,
-                pedsFoodAndSupplements,
-                ncd,
-                primaryCareDx,
-                primaryCarePlan
-            ]
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "fas fa-fw fa-heart",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    primaryCareHistory,
+                    primaryCareExam,
+                    pedsVaccinations,
+                    pedsFoodAndSupplements,
+                    ncd,
+                    primaryCareDx,
+                    primaryCarePlan
+                ]
+            },
+            "liberia": {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/ncd-adult-initial.xml",
+                icon: "fas fa-fw fa-user",
+                editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/ncd-adult-initial.xml",
+                showOnVisitList: true
+            }
         };
 
         encounterTypes[EncounterTypes.ncdFollowupConsult.uuid] = {
@@ -618,24 +629,24 @@ angular.module("encounterTypeConfig", ["constants"])
         // because of a bug, we manually append the defintionUiResource to the template and edit urls
         // see: https://tickets.pih-emr.org/browse/UHM-2524
         encounterTypes[EncounterTypes.mentalHealth.uuid] = {
-          DEFAULT: {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
-            icon: "fas fa-fw fa-user",
-            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
-            showOnVisitList: true
-          },
-          "liberia": {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-            templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
-            icon: "fas fa-fw fa-user",
-            editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
-            showOnVisitList: true
-          }
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
+                icon: "fas fa-fw fa-user",
+                editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/mentalHealth.xml",
+                showOnVisitList: true
+            },
+            "liberia": {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
+                icon: "fas fa-fw fa-user",
+                editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/mentalHealth.xml",
+                showOnVisitList: true
+            }
         };
 
         // HIV forms from MSPP and iSantePlus

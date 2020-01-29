@@ -943,11 +943,11 @@
             </p>
 
             <p>
-                <label>
+                <label class="inline">
                     <uimessage code="pihcore.consult.returnVisitDate"/>:
                 </label>
                 <span class="small">
-                    <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
+                    <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" required="true"/>
                 </span>
             </p>
         </div>

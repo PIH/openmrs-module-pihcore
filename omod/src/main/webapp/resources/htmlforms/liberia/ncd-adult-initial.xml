@@ -213,6 +213,8 @@
             </includeIf>
         </ifMode>
 
+        <!-- Program enrollment -->
+        <enrollInProgram programId="NCD"/>
 
         <section id="complaint" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.history.presentingHistory.title">
