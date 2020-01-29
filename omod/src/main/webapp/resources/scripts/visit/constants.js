@@ -530,3 +530,8 @@ angular.module('constants', [])
     .value('VisitAttributeTypes', {
 
     })
+    .value('VisitTypes', {
+        clinicalOrHospitalVisit: {
+            uuid: "f01c54cb-2225-471a-9cd5-d348552c337c"
+      }
+    });

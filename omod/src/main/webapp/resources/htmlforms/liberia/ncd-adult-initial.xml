@@ -1574,13 +1574,24 @@
                         <render concept="PIH:990" label="Transport Assistance request"/>
                     </repeat>
                 </div>
+
                 <div style="width:30%">
                     <div id="disposition">
                         <encounterDisposition/>
                     </div>
-                </div>
-                <div style="width:30%">
 
+                    <label>
+                        <uimessage code="pihcore.comment"/>
+                    </label>
+                    <obs conceptId="PIH:DISPOSITION COMMENTS" style="text"/>
+                </div>
+
+                <div style="width:30%">
+                    <label>
+                        <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
+                    </label>
+                    <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"
+                         required="true" />
                 </div>
             </div>
         </section>
