@@ -186,6 +186,23 @@
                         }
                     });
                 });
+
+                $('#phq9Score > input:text').attr('placeholder', '0-27');
+
+                $('#condition-status > input:radio').each(function(idx, it){
+                    if($(it).val() == 'active'){
+                        $(it).click();
+                        $(it).prop("checked", true);
+                        $(it).unbind('click').click(function () {
+                            $(this).prop("checked", true);
+                            return false;
+                        });
+
+                    } else {
+                        $(it).attr('disabled',true).hide();
+                        $('label[for = '+$(it).attr('id')+']').hide();
+                    }
+                });
             });
 
         </script>
@@ -332,40 +349,39 @@
              headerCode="pihcore.mentalhealth.referral">
 
         <div class="section-container">
-            <div class="two-columns">
-                <p>
+            <div class="inline">
+                <div class="referral-community">
                     <label>
                         <uimessage code="pihcore.mentalhealth.referredBy"/>:
                     </label>
-                    <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:VILLAGE HEALTH WORKER'],['PIH:11783'],['CIEL:978'],['PIH:Other medical service']">
-                        <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
-                             style="checkbox"/>
-                    </repeat>
-                    <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
-                         style="checkbox" commentFieldLabel=" "/>
-                </p>
+                    <obs id="role-of-referring-person" conceptId="PIH:Role of referring person"
+                         answerConceptIds="PIH:Teacher,PIH:TRADITIONAL HEALER,PIH:VILLAGE HEALTH WORKER,PIH:11783,CIEL:978,PIH:Other medical service"
+                         style="radio" answerSeparator=""/>
 
-                <p>
+                    <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
+                         style="checkbox" answerSeparator="" commentFieldLabel=" "/>
+                </div>
+
+                <div class="referral-internal">
                     <label>
                         <uimessage code="pihcore.mentalhealth.internalReferredBy"/>:
                     </label>
 
-                    <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE	']">
-                        <obs conceptId="PIH:Type of referral role" answerConceptId="{0}"
-                             style="checkbox"/>
-                    </repeat>
+                    <obs id="type-of-referral-role" conceptId="PIH:Type of referral role"
+                         answerConceptIds="PIH:DOCTOR,PIH:NURSE,PIH:SOCIAL WORKER SERVICE"
+                         style="radio" answerSeparator=""/>
                     <obs conceptId="PIH:Type of referral role" answerConceptId="PIH:OTHER"
                          style="checkbox" commentFieldLabel=" "/>
-                </p>
-                <br/>
-                <br/>
+                </div>
             </div>
 
-            <p class="list-inline">
+            <br/>
+
+            <div class="list-inline">
                 <label><uimessage code="pihcore.ncd.plan.hospitalized"/></label>
                 <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" answerConceptIds="PIH:YES,PIH:NO"
                      style="radio" answerSeparator=""/>
-            </p>
+            </div>
 
         </div>
     </section>
@@ -376,10 +392,10 @@
         <div class="section-container">
             <p>
                 <label>
-                    <uimessage code="pihcore.ncd.mental.phq9Score"/>:
+                    <uimessage code="pihcore.ncd.mental.phq9Score"/> (0-27):
                 </label>
                 <span class="small">
-                    <obs conceptId="CIEL:165137"/>
+                    <obs id="phq9Score" conceptId="CIEL:165137"/>
                 </span>
             </p>
         </div>
