@@ -39,7 +39,7 @@ public class ConfigurePeruIdGenerators {
         identifierSourceService.saveIdentifierSource(peruPrimaryIdentifierSource);
 
         AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(
-                peruPrimaryIdentifierSource.getIdentifierType(), identifierLocation);
+                peruPrimaryIdentifierSource.getIdentifierType());
 
         if (autoGenerationOption == null) {
             autoGenerationOption = new AutoGenerationOption();

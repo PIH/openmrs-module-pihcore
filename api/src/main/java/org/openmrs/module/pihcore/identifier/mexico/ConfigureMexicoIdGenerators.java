@@ -39,7 +39,7 @@ public class ConfigureMexicoIdGenerators {
         identifierSourceService.saveIdentifierSource(chiapasPrimaryIdentifierSource);
 
         AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(
-                chiapasPrimaryIdentifierSource.getIdentifierType(), identifierLocation);
+                chiapasPrimaryIdentifierSource.getIdentifierType());
 
         if (autoGenerationOption == null) {
             autoGenerationOption = new AutoGenerationOption();

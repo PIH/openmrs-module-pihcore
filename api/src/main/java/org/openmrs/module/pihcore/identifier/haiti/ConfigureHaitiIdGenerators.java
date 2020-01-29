@@ -31,16 +31,16 @@ public class ConfigureHaitiIdGenerators {
 
     private final IdentifierSourceService identifierSourceService;
 
-	
+
 	public ConfigureHaitiIdGenerators(
             IdentifierSourceService identifierSourceService) {
 
 		this.identifierSourceService = identifierSourceService;
-		
+
 		if (identifierSourceService == null) {
 			throw new IllegalStateException("All the dependencies are mandatory");
 		}
-		
+
 	}
 
     // TODO refactor all this to make more sense
@@ -91,7 +91,7 @@ public class ConfigureHaitiIdGenerators {
     public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource, Location location) {
 
         AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
-                .getIdentifierType(), location);
+                .getIdentifierType());
 
         if (autoGenerationOption == null) {
             autoGenerationOption = new AutoGenerationOption();
@@ -111,6 +111,7 @@ public class ConfigureHaitiIdGenerators {
 
         AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
                 .getIdentifierType());
+
         if (autoGenerationOption == null) {
             autoGenerationOption = new AutoGenerationOption();
         }
@@ -164,7 +165,7 @@ public class ConfigureHaitiIdGenerators {
         identifierSourceService.saveIdentifierSource(localZlIdentifierGenerator);
         return localZlIdentifierGenerator;
     }
-	
+
 	public RemoteIdentifierSource remoteZlIdentifierSource(PatientIdentifierType zlPatientIdentifierType) {
 		RemoteIdentifierSource remoteZlIdentifierSource;
 
@@ -190,11 +191,11 @@ public class ConfigureHaitiIdGenerators {
         remoteZlIdentifierSource.setUrl(url);
         remoteZlIdentifierSource.setUser(getRemoteZlIdentifierSourceUsername());
         remoteZlIdentifierSource.setPassword(getRemoteZlIdentifierSourcePassword());
-		
+
 		identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
 		return remoteZlIdentifierSource;
 	}
-	
+
 	public SequentialIdentifierGenerator sequentialIdentifierGeneratorForDossier(PatientIdentifierType patientIdentifierType, String prefix, String identifierSourceUuid) {
 		SequentialIdentifierGenerator dossierSequenceGenerator;
 		try {
@@ -212,7 +213,7 @@ public class ConfigureHaitiIdGenerators {
             dossierSequenceGenerator.setIdentifierType(patientIdentifierType);
 			identifierSourceService.saveIdentifierSource(dossierSequenceGenerator);
 		}
-		
+
 		return dossierSequenceGenerator;
 	}
 
