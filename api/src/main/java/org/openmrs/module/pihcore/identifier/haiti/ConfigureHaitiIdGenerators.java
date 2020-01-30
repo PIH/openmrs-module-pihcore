@@ -91,7 +91,7 @@ public class ConfigureHaitiIdGenerators {
     public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource, Location location) {
 
         AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
-                .getIdentifierType());
+                .getIdentifierType(), location);
 
         if (autoGenerationOption == null) {
             autoGenerationOption = new AutoGenerationOption();

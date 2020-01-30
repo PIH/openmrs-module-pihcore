@@ -65,7 +65,7 @@ public class ConfigLoader {
                 try {
                     String configFilename = "pih-config-" + config.trim() + ".json";
 
-                    // first see if is in the .OpenMRS directory (or directory specifed in pih.config.dir runtime property)
+                    // first see if is in the .OpenMRS directory (or directory specified in pih.config.dir runtime property)
                     // (any file found will override any file of the same name on the classpath)
                     String dir = getPihConfigurationDirRuntimeProperty(DEFAULT_PIH_CONFIGURATION_DIR);
                     File configFile = new File(dir, configFilename);
