@@ -91,15 +91,18 @@ public class ConfigLoader {
                         throw new IllegalStateException("Unable to find config file for configuration " + config);
                     }
 
-                    // Read the configuration file into a JsonNode
-                    JsonNode rootNode = objectMapper.readTree(is);
+                    // TODO: remove this null test if we remove the "site-default" hack above
+                    if (is != null) {
+                        // Read the configuration file into a JsonNode
+                        JsonNode rootNode = objectMapper.readTree(is);
 
-                    // Merge this in if this is not the first configuration file loaded
-                    if (configNode == null) {
-                        configNode = rootNode;
-                    }
-                    else {
-                        configNode = merge(configNode, rootNode);
+                        // Merge this in if this is not the first configuration file loaded
+                        if (configNode == null) {
+                            configNode = rootNode;
+                        }
+                        else {
+                            configNode = merge(configNode, rootNode);
+                        }
                     }
                 }
                 finally {
