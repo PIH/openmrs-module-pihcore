@@ -87,7 +87,7 @@ public class ConfigLoader {
                         }
                     }
 
-                    if (is == null) {
+                    if (is == null && !config.equals("site-default")) {  // bit of a hack, we don't insist that a "pih-config-site-default.json" exists
                         throw new IllegalStateException("Unable to find config file for configuration " + config);
                     }
 
