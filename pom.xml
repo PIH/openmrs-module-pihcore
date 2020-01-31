@@ -51,7 +51,7 @@
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <emrapiVersion>1.28.0-SNAPSHOT</emrapiVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
-        <emrVersion>2.1.0</emrVersion>
+        <emrVersion>2.2.0</emrVersion>
         <uiframeworkVersion>3.16.0</uiframeworkVersion>
         <appframeworkVersion>2.14.0</appframeworkVersion>
         <metadatasharingVersion>1.5.0</metadatasharingVersion>
@@ -75,7 +75,7 @@
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.11.0</appuiVersion>
-        <dispensingVersion>1.0</dispensingVersion>
+        <dispensingVersion>1.1.0</dispensingVersion>
         <uicommonsVersion>2.10.0</uicommonsVersion>
         <registrationcoreVersion>1.9.0</registrationcoreVersion>
         <registrationappVersion>1.15.0-SNAPSHOT</registrationappVersion>
@@ -90,7 +90,7 @@
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
         <attachmentsVersion>2.2.0-SNAPSHOT</attachmentsVersion>
-        <labtrackingappVersion>1.0.0</labtrackingappVersion>
+        <labtrackingappVersion>1.1.0</labtrackingappVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
