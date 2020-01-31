@@ -1,14 +1,10 @@
 package org.openmrs.module.pihcore;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.addresshierarchy.AddressField;
-import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
-import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -35,7 +31,6 @@ import java.util.Properties;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -64,7 +59,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
+        p.setProperty("pih.config", "default");
         return p;
     }
 
