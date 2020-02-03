@@ -198,7 +198,7 @@
                      labelText="Counselled for HIV testing:  "
                      answers="PIH:YES,PIH:NO,PIH:unknown"
                      answerLabels="Yes,No,Unknown"
-                     answerSeparator=" "/>
+                     answerSeparator=" " required="true"/>
             </p>
         </div>
     </section>
@@ -211,7 +211,7 @@
                      labelText="Offered and accepted family planning information:  "
                      answers="PIH:YES,PIH:NO,PIH:unknown"
                      answerLabels="Yes,No,Unknown"
-                     answerSeparator=" "/>
+                     answerSeparator=" " required="true"/>
             </p>
         </div>
     </section>
@@ -360,10 +360,10 @@
     <section id="disposition-section" sectionTag="fieldset" headerTag="legend" headerStyle="title"
              headerCode="coreapps.consult.disposition">
 
-        <div class="section-container">
+        <div class="section-container" >
 
             <div id="disposition">
-                <encounterDisposition/>
+                <encounterDisposition required="true"/>
             </div>
 
             <label>
