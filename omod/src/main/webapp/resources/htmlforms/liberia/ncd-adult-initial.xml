@@ -96,6 +96,30 @@
         </ifMode>
     </style>
 
+
+    <ifMode mode="VIEW" include="false">
+        <script type="text/javascript">
+
+            jq(function() {
+                $('#condition-status > input:radio').each(function(idx, it){
+                    if($(it).val() == 'active'){
+                        $(it).click();
+                        $(it).prop("checked", true);
+                        $(it).unbind('click').click(function () {
+                            $(this).prop("checked", true);
+                            return false;
+                        });
+                    } else {
+                        $(it).attr('disabled',true).hide();
+                        $('label[for = '+$(it).attr('id')+']').hide();
+                    }
+                });
+            });
+
+        </script>
+    </ifMode>
+
+
     <div class="htmlform">
 
         <ifMode mode="VIEW" include="false">
@@ -363,8 +387,12 @@
                             Has the patient recently taken medication?
                         </label>
                         <span class="list-inline">
-                            <obs conceptId="PIH:12604" style="radio"
-                                 answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"/>
+                            <obs id="obs-patient-recently-taken-medication" conceptId="PIH:12604"
+                                 answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN">
+                                <controls>
+                                    <when value="PIH:YES" thenDisplay="#patient-medications"/>
+                                </controls>
+                            </obs>
                         </span>
                     </span>
                 </p>
@@ -397,7 +425,7 @@
         <!-- TB Screening Questions  -->
         <section id="tb-screening-questions" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.tbscreen.title">
-            <i class="icon-arrow-down"></i>
+
             <div class="section-container">
                 <div>
                     <div class="ep-mh-section">
@@ -405,7 +433,7 @@
                             <uimessage code="pihcore.tbscreen.cough"/>
                         </span>
                         <span class="tb-symptom-name">
-                            <obs id="tb-persistent-coug" conceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"
+                            <obs id="tb-persistent-cough" conceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN"
                                  answerConceptId="PIH:11567" labelText="">
                                 <controls>
                                     <when value="PIH:YES" thenDisplay="#tb-persistent-cough-type"/>
@@ -1055,474 +1083,15 @@
         </section>
 
 
-        <!-- Labs-->
-        <section id="labs" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                 headerCode="pihcore.ncd.labs.title">
-            <div class="section-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Labs</th>
-                            <th>Results</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:ISTAT CHEM8 PLUS CONSTRUCT">
-                                <td>
-                                    <obs id="test-date-iStat" conceptId="PIH:DATE OF LABORATORY TEST"
-                                         placeholder="Enter date"/>
-                                </td>
-                                <td>
-                                    i-stat
-                                </td>
-                                <td>
-                                    <span class="inline">
-                                        <obs id="sodium" conceptId="PIH:SERUM SODIUM" labelCode="pihcore.lab.sodium"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="potassium" conceptId="PIH:SERUM POTASSIUM"
-                                             labelCode="pihcore.lab.potassium" answerLabel=""
-                                             class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="calcium" conceptId="PIH:SERUM CALCIUM" labelCode="pihcore.lab.calcium"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="serum-chloride" conceptId="PIH:SERUM CHLORIDE"
-                                             labelCode="pihcore.lab.chloride" answerLabel=""
-                                             class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="carbon-dioxide" conceptId="PIH:SERUM CARBON DIOXIDE"
-                                             labelCode="pihcore.lab.co2" answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="urea-bun" conceptId="PIH:BLOOD UREA NITROGEN"
-                                             labelCode="pihcore.lab.urea"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="creatinine-i-stat" conceptId="PIH:Creatinine mg per dL"
-                                             labelCode="pihcore.lab.creatinine" answerLabel=""
-                                             class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="glucose" conceptId="PIH:SERUM GLUCOSE" labelCode="pihcore.lab.glucose"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="hemoglobin" conceptId="PIH:HEMOGLOBIN"
-                                             labelCode="pihcore.lab.hemoglobin"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                </td>
-                            </obsgroup>
-                        </tr>
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:LIVER FUNCTION TESTS">
-                                <td>
-                                    <obs id="test-date-lft" conceptId="PIH:DATE OF LABORATORY TEST"
-                                         placeholder="Enter date"/>
-                                </td>
-                                <td>
-                                    Liver
-                                </td>
-                                <td>
-                                    <span class="inline">
-                                        <obs id="serum-glutamic-oxaloacetic-transaminase"
-                                             conceptId="PIH:SERUM GLUTAMIC-OXALOACETIC TRANSAMINASE" labelText="AST"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="serum-glutamic-pyruvic-transaminase"
-                                             conceptId="PIH:SERUM GLUTAMIC-PYRUVIC TRANSAMINASE" labelText="ALT"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-
-                                    <!-- Direct bilirubin -->
-                                    <span class="inline">
-                                        <obs id="direct-bilirubin"
-                                             conceptId="CIEL:1297" labelText="Direct bilirubin" answerLabel=""
-                                             class="first-label-inline"/>
-                                    </span>
-
-                                    <!-- Indirect bilirubin -->
-                                    <span class="inline">
-                                        <obs id="indirect-bilirubin"
-                                             conceptId="CIEL:163001" labelText="Indirect bilirubin" answerLabel=""
-                                             class="first-label-inline"/>
-                                    </span>
-                                </td>
-                            </obsgroup>
-                        </tr>
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:12322">
-                                <td>
-                                    <obs id="test-date-ua" conceptId="PIH:DATE OF LABORATORY TEST"
-                                         placeholder="Enter date"/>
-                                </td>
-                                <td>
-                                    UA
-                                </td>
-                                <td>
-                                    <span class="inline">
-                                        <obs id="ua-ketona"
-                                             conceptId="CIEL:161442" labelText="Ketones"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="ua-glucose"
-                                             conceptId="CIEL:159733" labelText="Glucose"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="ua-protein"
-                                             conceptId="CIEL:1875" labelText="Protein"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="ua-blood"
-                                             conceptId="CIEL:162096" labelText="Blood"
-                                             answerConceptIds="CIEL:664,CIEL:165527,CIEL:165528,CIEL:165526,1362AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,CIEL:1363,CIEL:1364,CIEL:1365"
-                                             answerLabels="Negative,Trace non-hemolyzed,Moderate non-hemolyzed,Trace hemolyzed,1+,++,+++,++++"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="ua-nitrites"
-                                             conceptId="CIEL:161440" labelText="Nitrites"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="ua-leukocytes"
-                                             conceptId="CIEL:163684" labelText="Leukocytes"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                    <span class="inline">
-                                        <obs id="ua-spec-grav"
-                                             conceptId="CIEL:161439" labelText="Spec Grav"
-                                             answerLabel="" class="first-label-inline"/>
-                                    </span>
-                                </td>
-                            </obsgroup>
-                        </tr>
-                        <tr></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-
         <!-- Clinical Impression -->
-        <section id="clinical-impression" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                 headerCode="pihcore.ncd.clinical.impression.title">
-            <div class="section-container">
-
-                <table>
-                    <tbody>
-                        <!-- Diabetes -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td id="diabetes-dx">
-                                    <obs id="diabetes-id"
-                                         conceptId="PIH:DIAGNOSIS"
-                                         answerConceptId="CIEL:119481"
-                                         style="checkbox" toggle="diabetes-dx-date"/>
-                                    <br/>
-                                    <span id="diabetes-dx-date">
-                                        <obs conceptId="PIH:Diagnosis date"/>
-                                    </span>
-                                </td>
-                                <td>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:142473" style="checkbox"/>
-                                    </div>
-                                    <div>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:142474" style="checkbox"/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:162941" style="checkbox"
-                                             labelText="Acanthosis" answerLabel=""/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115115" style="checkbox"/>
-
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:12228" style="checkbox"
-                                             labelText="Pt able to control BG on oral tabs alone" answerLabel=""/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983" style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:113257" style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117868" style="checkbox"/>
-                                    </div>
-                                    <div>
-
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:118983" style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:113257" style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117868" style="checkbox"/>
-                                    </div>
-                                </td>
-                            </obsgroup>
-                        </tr>
-
-
-                        <!-- HTN -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td id="htn-dx">
-                                    <obs id="htn-id"
-                                         conceptId="PIH:DIAGNOSIS"
-                                         answerConceptId="PIH:HYPERTENSION"
-                                         style="checkbox"/>
-                                    <br/>
-                                    <obs conceptId="PIH:Diagnosis date"/>
-                                </td>
-                                <td colspan="2">
-                                    <label class="inline">
-                                        HTN Stage:
-                                    </label>
-                                    <span class="inline">
-                                        <obs conceptId="CIEL:165583"
-                                             answerConceptIds="CIEL:165206,CIEL:165203,CIEL:165204,CIEL:165205"
-                                             answerLabels="Stage 1: Pre-hypertension:Elevated BP&lt;140/90 without a dx of htn,
-                                             Stage 2: Mild:BP>=140/90 but &lt;160/100,
-                                             Stage 3: Moderate:BP>=160/100 and &lt;180/110,
-                                             Stage 4: Severe:BP>180/110"/>
-                                    </span>
-                                </td>
-                            </obsgroup>
-                        </tr>
-
-                        <!-- PIH	RENAL FAILURE	 -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td id="ckd-dx">
-                                    <obs id="ckd-id"
-                                         conceptId="PIH:DIAGNOSIS"
-                                         answerConceptId="PIH:RENAL FAILURE, CHRONIC"
-                                         style="checkbox" labelText="Renal Disease" answerLabel=""/>
-                                    <br/>
-
-                                    <obs conceptId="PIH:DIAGNOSIS"
-                                         answerConceptIds="CIEL:120575,CIEL:120574,CIEL:120579,CIEL:120578,CIEL:120577"
-                                         answerLabels="CKD 1,CKD 2,CKD 3,CKD 4,CKD 5" labelText=""
-                                         style="radio" answerSeparator=""/>
-                                    <br/>
-
-                                    <obs conceptId="PIH:Diagnosis date"/>
-                                </td>
-                                <td>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115303" style="checkbox"/>
-                                    </div>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:115303" style="checkbox"/>
-                                    </div>
-                                    <div>
-                                        <label>DM and/or HTN related Nephropathy</label>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HEMATURIA"
-                                             style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERKALEMIA"
-                                             style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERTENSION"
-                                             style="checkbox"/>
-                                    </div>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERKALEMIA"
-                                             style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:460" style="checkbox"
-                                             labelText="Edema" answerLabel=""/>
-                                    </div>
-                                    <div>
-                                        <pastMedicalHistoryCheckbox concept="CIEL:123579"
-                                                                    label="History of uncontrolled DM"/>
-                                    </div>
-                                </td>
-                            </obsgroup>
-                        </tr>
-
-                        <!-- Heart Failure -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td id="nyha-dx">
-                                    <obs id="nyha-id"
-                                         conceptId="PIH:DIAGNOSIS"
-                                         answerConceptId="PIH:HEART FAILURE"
-                                         style="checkbox"/>
-                                    <br/>
-
-                                    <obs conceptId="PIH:DIAGNOSIS"
-                                         answerConceptIds="PIH:NYHA CLASS 1,PIH:NYHA CLASS 2,PIH:NYHA CLASS 3,PIH:NYHA CLASS 4"
-                                         answerLabels="NYHA 1,NYHA 2,NYHA 3,NYHA 4" labelText=""
-                                         style="radio" answerSeparator=""/>
-
-                                    <br/>
-
-                                    <obs conceptId="PIH:Diagnosis date"/>
-                                </td>
-                                <td>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:CARDIOMYOPATHY"
-                                             style="checkbox"/>
-                                    </div>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:117690" style="checkbox"
-                                             labelText="Valvular" answerLabel=""/>
-                                    </div>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERTENSIVE HEART DISEASE"
-                                             style="checkbox" labelText="Hypertensive" answerLabel=""/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:116364" style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:127376" style="checkbox"/>
-                                    </div>
-                                    <div style="border-bottom: 1px solid gray">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:CARDIAC MURMUR"
-                                             style="checkbox" labelText="Murmur + signs of heart failure"
-                                             answerLabel=""/>
-                                    </div>
-                                    <div>
-
-                                    </div>
-                                </td>
-                            </obsgroup>
-                        </tr>
-
-                        <!-- Liver Failure -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td id="lvr-dx">
-                                    <obs id="lvr-id"
-                                         conceptId="PIH:DIAGNOSIS"
-                                         answerConceptId="PIH:LIVER FAILURE"
-                                         style="checkbox"/>
-                                    <br/>
-                                    <obs conceptId="PIH:Diagnosis date"/>
-                                </td>
-                                <td colspan="2">
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:JAUNDICE" style="checkbox"/>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:ASCITES" style="checkbox"/>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HEPATITIS B " style="checkbox"/>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HEPATITIS C" style="checkbox"/>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:121725" style="checkbox"
-                                         labelText="Heavy Alcohol use" answerLabel=""/>
-                                </td>
-                            </obsgroup>
-                        </tr>
-
-                        <!-- Patient fluid status -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td>
-                                    <label>
-                                        Patient fluid status
-                                    </label>
-                                </td>
-                                <td colspan="2">
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPERVOLEMIC" style="checkbox"/>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:EUVOLEMIC" style="checkbox"/>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:HYPOVOLEMIC" style="checkbox"/>
-                                </td>
-                            </obsgroup>
-                        </tr>
-
-                        <!-- Asthma/COPD -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td>
-                                    <div>
-                                        <div style="width: 45%; display: inline-block;">
-                                            <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:ASTHMA"
-                                                 style="checkbox"/>
-                                        </div>
-                                        <div style="width: 45%; display: inline-block;">
-                                            <obs conceptId="PIH:DIAGNOSIS"
-                                                 answerConceptId="PIH:CHRONIC OBSTRUCTIVE PULMONARY DISEASE"
-                                                 style="checkbox"/>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <obs conceptId="PIH:Diagnosis date"/>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="display: inline-block;">
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:122863"
-                                             labelText="Wheezing" answerLabel="" style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:GASTROESOPHAGEAL REFLUX"
-                                             labelText="GERD" answerLabel="" style="checkbox"/>
-                                        <span class="list-inline">
-                                            <label class="inline">
-                                                Recent tx w/ Albendazole:
-                                            </label>
-                                            <span class="inline">
-                                                <obs conceptId="PIH:12626" labelText=""/>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div style="display: inline-block;">
-                                        <pastMedicalHistoryCheckbox concept="CIEL:152721" class="list-inline"
-                                                                    label="Hx of smoke exposure"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="CIEL:145455" style="checkbox"/>
-                                        <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:GASTROESOPHAGEAL REFLUX"
-                                             labelText="GERD" answerLabel="" style="checkbox"/>
-                                    </div>
-                                </td>
-                            </obsgroup>
-                        </tr>
-
-                        <!-- Seizure Disorder -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:SEIZURE" style="checkbox"/>
-                                    <br/>
-                                    <obs conceptId="PIH:Diagnosis date"/>
-                                </td>
-                                <td colspan="2">
-                                    <obs conceptId="PIH:DIAGNOSIS"
-                                         answerConceptId="CIEL:160407"
-                                         labelText="Focal with loss of consciousness" answerLabel="" style="checkbox"/>
-                                    <obs conceptId="PIH:DIAGNOSIS"
-                                         answerConceptId="PIH:Generalized Tonic-clonic seizure"
-                                         labelText="Generalized Tonic-Clonic" answerLabel="" style="checkbox"/>
-                                </td>
-                            </obsgroup>
-                        </tr>
-
-                        <!-- Sickle Cell -->
-                        <tr>
-                            <obsgroup groupingConceptId="PIH:Visit Diagnoses">
-                                <td>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:Sickle-Cell Anemia"
-                                         style="checkbox"/>
-                                    <br/>
-                                    <obs conceptId="PIH:Diagnosis date"/>
-                                </td>
-                                <td colspan="2">
-                                    <pastMedicalHistoryCheckbox concept="CIEL:165590" label="Hx of Pain crisis"/>
-                                    <pastMedicalHistoryCheckbox concept="CIEL:142954" label="Hx of Dactylitis"/>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:ANEMIA" style="checkbox"/>
-                                    <obs conceptId="PIH:DIAGNOSIS" answerConceptId="PIH:SPLENOMEGALY" style="checkbox"/>
-                                    <obs conceptId="CIEL:160225" answerConceptId="CIEL:703"
-                                         labelText="+Sickling Test" answerLabel="" style="checkbox"/>
-                                </td>
-                            </obsgroup>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        <includeIf velocityTest="!$patientHasNcdCondition">
+            <section id="clinical-impression" sectionTag="fieldset" headerTag="legend" headerStyle="title"
+                     headerCode="pihcore.ncd.clinical.impression.title">
+                <div class="section-container" data-program="NCD">
+                    <condition required="true"/>
+                </div>
+            </section>
+        </includeIf>
 
 
         <!-- Disposition -->
@@ -1562,11 +1131,13 @@
                     </div>
 
                     <div style="width:30%;float: right;" class="inline">
-                        <label>
+                        <label class="inline">
                             <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
                         </label>
-                        <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"
-                             required="true"/>
+                        <span class="small">
+                            <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"
+                                 required="true"/>
+                        </span>
                     </div>
                 </div>
             </div>

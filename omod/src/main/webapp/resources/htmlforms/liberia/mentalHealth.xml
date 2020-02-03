@@ -197,7 +197,6 @@
                             $(this).prop("checked", true);
                             return false;
                         });
-
                     } else {
                         $(it).attr('disabled',true).hide();
                         $('label[for = '+$(it).attr('id')+']').hide();
@@ -444,7 +443,9 @@
     <includeIf velocityTest="!$patientHasMentalHealthCondition">
         <section id="mh-diagnoses" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.diagnoses.label">
-            <condition required="true"/>
+            <div class="section-container" data-program="Mental Health">
+                <condition required="true"/>
+            </div>
         </section>
 
         <!-- If user doesn't have MH encounter, don't display ep section -->
