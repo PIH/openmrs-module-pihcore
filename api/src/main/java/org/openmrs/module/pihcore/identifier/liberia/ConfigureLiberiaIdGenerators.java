@@ -37,7 +37,7 @@ public class ConfigureLiberiaIdGenerators {
         identifierSourceService.saveIdentifierSource(liberiaPrimaryIdentifierSource);
 
         AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(liberiaPrimaryIdentifierSource
-                .getIdentifierType(), identifierLocation);
+                .getIdentifierType());
 
         if (autoGenerationOption == null) {
             autoGenerationOption = new AutoGenerationOption();

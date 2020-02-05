@@ -255,7 +255,7 @@
                     <label>
                         <uimessage code="pihcore.birthweight"/>
                     </label>
-                    <obs conceptId="CIEL:5916"/>
+                    <obs conceptId="CIEL:5916" required="true"/>
                 </p>
                 <p>
                     <label>
@@ -265,12 +265,11 @@
                 </p>
 
                 <!-- Delivery type -->
+                <label>Delivery Type</label>
                 <obs conceptId="PIH:11663" answerConceptId="CIEL:162595" style="checkbox"/>
-                <!-- Suture of perineum -->
-                <obs conceptId="PIH:Outpatient procedure" answerConceptId="CIEL:164157" style="checkbox"/>
-                <!--Perineal laceration-->
-                <obs conceptId="PIH:Outpatient procedure" answerConceptId="PIH:7230" style="checkbox"/>
-
+                <!-- Breech delivery -->
+                <obs conceptId="PIH:Outpatient procedure" answerConceptId="PIH:1172" style="checkbox"/>
+                
 
                 <fieldset>
                     <label>Perineal Tear</label>

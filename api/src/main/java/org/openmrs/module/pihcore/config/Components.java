@@ -50,14 +50,14 @@ public class Components {
         public static final String BMI_ON_CLINICIAN_DASHBOARD = "bmiOnClinicianDashboard";
         public static final String VISIT_NOTE = "visitNote";  // get rid of the left visits bar and enable form sections
         public static final String ALLERGIES = "allergies";
-        public static final String PRESCRIPTIONS = "prescriptions";
+        public static final String PRESCRIPTIONS = "prescriptions";  // TODO no longer used?
         public static final String LEGACY_MPI = "legacyMpi";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
         public static final String ID_CARD_PRINTING = "idcardPrinting";
         public static final String CHART_SEARCH = "chartSearch";
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
         public static final String PRIMARY_CARE = "primaryCare";  // primary care forms for Haiti, Mexico, and Sierra Leone (country-dependent)
-        public static final String PACS_INTEGRATION = "pacsIntegration";
+        public static final String PACS_INTEGRATION = "pacsIntegration";  // TODO do we actually use this?
         public static final String ED_TRIAGE = "edTriage";
         public static final String ED_TRIAGE_QUEUE = "edTriageQueue";
         public static final String BIOMETRICS_FINGERPRINTS = "biometricsFingerPrints";

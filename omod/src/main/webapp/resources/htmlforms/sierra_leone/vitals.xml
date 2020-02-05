@@ -535,23 +535,20 @@
             </includeIf>
         </ifMode>
 
-        <fieldset field-separator=" ">
+        <fieldset class="required">
+            <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
+            <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
+
+            <p>
+                <obs conceptId="CIEL:160531" id="chief_complaint"/>
+            </p>
+        </fieldset>
+
+        <fieldset class="required">
             <legend><uimessage code="mirebalais.vitals.height.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.height.title"/></h3>
 
             <!-- only show/handle the lbs field if we are in 'ENTER' or 'EDIT' mode -->
-            <ifMode mode="VIEW" include="false">
-                <p class='left'>
-                    <span class='obs-field'>
-                        <input type="text" id="height_inches" size="5" min="4" max="89" class="number numeric-range inches"/>
-                        <span class="append-to-value"><uimessage code="emr.units.inches"/></span>
-                        <span class="error field-error" style="display: none"></span>
-                    </span>
-                </p>
-                <p class="left">
-                   <!-- > <uimessage code="mirebalais.vitals.or"/> -->
-                </p>
-            </ifMode>
 
             <p class="left">
                 <obs conceptId="PIH:HEIGHT (CM)" id="height_cm" showUnits="emr.units.centimeters" unitsCssClass="append-to-value"/>
@@ -559,23 +556,11 @@
 
         </fieldset>
 
-        <fieldset field-separator=" ">
+        <fieldset class="required">
             <legend><uimessage code="mirebalais.vitals.weight.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.weight.title"/></h3>
 
             <!-- only show/handle the lbs field if we are in 'ENTER' or 'EDIT' mode -->
-            <ifMode mode="VIEW" include="false">
-                <p class='left'>
-                    <span class='obs-field'>
-                        <input type="text" id="weight_lbs" size="5" min="0.3" max="550" class="number numeric-range lbs"/>
-                        <span class="append-to-value"><uimessage code="emr.units.lbs"/></span>
-                        <span class="error field-error" style="display: none"></span>
-                    </span>
-                </p>
-                <p class="left">
-                    <uimessage code="mirebalais.vitals.or"/>
-                </p>
-            </ifMode>
 
             <p class="left">
                 <obs conceptId="PIH:WEIGHT (KG)" id="weight_kg" showUnits="emr.units.kilograms" unitsCssClass="append-to-value"/>
@@ -606,8 +591,8 @@
                 </p>
             </fieldset>
 
-        </includeIf>
-        <fieldset display-template="{{#if field.[0]}}{{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[2]}} {{/if}}">
+        </includeIf >
+        <fieldset display-template="{{#if field.[0]}}{{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.vitals.sierraLeone.confused' }}: {{field.[2]}} {{/if}}" class="required">
             <legend><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.LevelOfConsciousness.title"/></h3>
@@ -646,7 +631,7 @@
                 </div>
             </p>
             </fieldset>
-	    <fieldset>
+	    <fieldset class="required">
             <legend><uimessage code="mirebalais.vitals.mobility.title"/></legend>
             <!--taken from haiti/hiv/isanteplus VisiteDeSuivi.xml -->
             <h3><uimessage code="mirebalais.vitals.mobility.title"/></h3>
@@ -657,12 +642,12 @@
                 </p>
         </fieldset>
 
-        <fieldset field-separator=" ">
+        <fieldset field-separator=" " class="required">
             <legend><uimessage code="mirebalais.vitals.temperature.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.temperature.title"/></h3>
 
             <!-- only show/handle the fahrenheit field if we are in 'ENTER' or 'EDIT' mode -->
-            <ifMode mode="VIEW" include="false">
+           <!--<ifMode mode="VIEW" include="false">
                 <p class='left'>
                     <span class='obs-field'>
                         <input type="text" id="temperature_f" size="5" min="77.0" max="109" class="number numeric-range fahrenheit"/>
@@ -673,7 +658,7 @@
                 <p class="left">
                     <uimessage code="mirebalais.vitals.or"/>
                 </p>
-            </ifMode>
+            </ifMode>--> 
 
             <p class="left">
                 <obs conceptId="PIH:TEMPERATURE (C)" id="temperature_c" showUnits="emr.units.degreesCelsius" unitsCssClass="append-to-value"/>
@@ -681,7 +666,7 @@
 
         </fieldset>
 
-        <fieldset>
+        <fieldset class="required">
             <legend><uimessage code="mirebalais.vitals.heartRate.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.heartRate.title"/></h3>
 
@@ -690,7 +675,7 @@
             </p>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="required">
             <legend><uimessage code="mirebalais.vitals.respiratoryRate.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.respiratoryRate.title"/></h3>
 
@@ -699,7 +684,7 @@
             </p>
         </fieldset>
 
-        <fieldset field-separator=" / ">
+        <fieldset field-separator=" / " class="required">
             <legend><uimessage code="mirebalais.vitals.bloodPressure.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.bloodPressure.title"/></h3>
 
@@ -714,7 +699,7 @@
             </p>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="required">
             <legend><uimessage code="mirebalais.vitals.o2sat.title"/></legend>
             <h3><uimessage code="mirebalais.vitals.o2sat.title"/></h3>
 
@@ -765,7 +750,7 @@
 
         <!-- only show z score if patient is less than 5 years old (on the encounterDate) -->
         <includeIf velocityTest="(5 > $patient.getAge($encounter.getEncounterDatetime()))">
-            <fieldset>
+            <fieldset class="required">
                 <legend><uimessage code="mirebalais.vitals.zscore.title"/></legend>
                 <h3><uimessage code="mirebalais.vitals.zscore.title"/></h3>
 
@@ -809,29 +794,20 @@
 
         </includeIf>
 
-        <fieldset>
-            <legend><uimessage code="mirebalais.vitals.complaint.title"/></legend>
-            <h3><uimessage code="mirebalais.vitals.complaint.title"/></h3>
-
-            <p>
-                <obs conceptId="CIEL:160531" id="chief_complaint"/>
-            </p>
-        </fieldset>
-
     </section>
 
     <section id="tb_screening" sectionTag="section" headerStyle="title" headerCode="pihcore.tbscreen.title">
     <!--TB screening taken from /haiti/hiv/zl/vct.xml-->
         <!-- !! make sure this fieldset template stays aligned with field order below or data with be inaccurate !! -->
-         <fieldset display-template="{{#if field.[0]}}{{ message 'pihcore.tbscreen.feverSweats' }}: {{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.tbscreen.wtLoss3kg' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.tbscreen.cough' }}: {{field.[2]}}, {{/if}}{{#if field.[3]}}{{ message 'pihcore.tbscreen.bloodyCough' }}: {{field.[3]}} {{/if}}">
+         <fieldset display-template="{{#if field.[0]}}{{ message 'pihcore.tbscreen.feverSweats' }}: {{field.[0]}}, {{/if}}{{#if field.[1]}}{{ message 'pihcore.tbscreen.wtLoss3kg' }}: {{field.[1]}}, {{/if}}{{#if field.[2]}}{{ message 'pihcore.tbscreen.cough' }}: {{field.[2]}}, {{/if}}{{#if field.[3]}}{{ message 'pihcore.tbscreen.bloodyCough' }}: {{field.[3]}} {{/if}}" class="required">
              <legend><uimessage code="pihcore.tbscreen.title"/></legend>
              <h3><uimessage code="pihcore.tbscreen.title"/><p>If any questions answered Yes request AFB test</p></h3>
             <table>
-                <repeat with="['feverSweats','11565'],['wtLoss3kg','11566'],['cough','11567'],['bloodyCough','970']">
+                <repeat with="['Fever and night sweats > 2 weeks','11565'], ['Lost of appetite','868'], ['Weight Loss >3kg','11566'],['cough > 2 weeks','11567'],['Chest Pain','1579']">
                    <tr>
                        <!-- TB symptom -->
                        <td>
-                           <uimessage code="pihcore.tbscreen.{0}"/>
+                           <uimessage code="{0}"/>
                        </td>
                        <td>
                            <field>
@@ -846,4 +822,3 @@
     </section>
     <submit/>
 </htmlform>
-

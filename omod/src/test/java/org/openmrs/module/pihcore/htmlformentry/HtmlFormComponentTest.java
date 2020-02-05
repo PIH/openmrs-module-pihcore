@@ -32,7 +32,7 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "pihcore");
+        p.setProperty("pih.config", "default");
         return p;
     }
 
