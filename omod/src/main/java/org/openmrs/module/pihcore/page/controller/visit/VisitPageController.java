@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.page.controller.visit;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.Visit;
+import org.openmrs.VisitType;
 import org.openmrs.api.VisitService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
@@ -20,6 +21,8 @@ public class VisitPageController {
                     @InjectBeans PatientDomainWrapper patientDomainWrapper,
                     @RequestParam(required = false, value = "patient") Patient patient,
                     @RequestParam(required = false, value = "visit") Visit visit,
+                    @RequestParam(required = false, value = "visitType") VisitType visitType,
+                    @RequestParam(value="suppressActions", required = false) Boolean suppressActions,
                     @RequestParam(required = false, value = "encounter") Encounter enc,
                     @RequestParam(required = false, value = "encounterId") Encounter encounterById,  // passed by the htmformentryui module after form submission creates new encounter (really should be "encounter" for consistency)
                     @RequestParam(required = false, value = "goToNextSection") String goToNextSection,
@@ -50,6 +53,8 @@ public class VisitPageController {
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
         model.addAttribute("visit", visit);
+        model.addAttribute("visitType", visitType);
+        model.addAttribute("suppressActions", (suppressActions != null) ? suppressActions : false);
         model.addAttribute("encounter", encounter);
         model.addAttribute("locale", uiSessionContext.getLocale());
         model.addAttribute("country", config.getCountry().toString().toLowerCase());
