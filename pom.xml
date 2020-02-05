@@ -80,7 +80,7 @@
         <registrationcoreVersion>1.9.0</registrationcoreVersion>
         <registrationappVersion>1.15.0</registrationappVersion>
         <radiologyappVersion>1.5.0</radiologyappVersion>
-        <coreappsVersion>1.25.0</coreappsVersion>
+        <coreappsVersion>1.26.0</coreappsVersion>
         <webservicesRestVersion>2.27.0-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
@@ -89,7 +89,7 @@
         <allergyapiVersion>1.4</allergyapiVersion>
         <allergyuiVersion>1.5</allergyuiVersion>
         <chartsearchVersion>1.5</chartsearchVersion>
-        <attachmentsVersion>2.2.0-SNAPSHOT</attachmentsVersion>
+        <attachmentsVersion>2.2.0</attachmentsVersion>
         <labtrackingappVersion>1.1.0</labtrackingappVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
