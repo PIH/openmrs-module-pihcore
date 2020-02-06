@@ -1099,7 +1099,7 @@
                  headerCode="coreapps.consult.disposition">
             <div class="section-container">
                 <div style="display: inline-block;width: 100%;">
-                    <div style="width:35%;float: left;" class="inline">
+                    <div style="width:30%;float: left;" class="inline">
                         <label>
                             <strong>Social Welfare:</strong>
                         </label>
@@ -1119,7 +1119,7 @@
                         </repeat>
                     </div>
 
-                    <div style="width:30%;position: relative;" class="inline">
+                    <div class="inline">
                         <div id="disposition">
                             <encounterDisposition/>
                         </div>
@@ -1130,14 +1130,36 @@
                         <obs conceptId="PIH:DISPOSITION COMMENTS" style="text"/>
                     </div>
 
-                    <div style="width:30%;float: right;" class="inline">
-                        <label class="inline">
-                            <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
-                        </label>
-                        <span class="small">
-                            <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"
-                                 required="true"/>
-                        </span>
+                    <div style="width:40%;float: right;" class="inline">
+                        <p>
+                            <label class="inline">
+                                <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
+                            </label>
+                            <span class="small">
+                                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"
+                                     required="true"/>
+                            </span>
+                        </p>
+                        <p>
+                            <label class="inline">
+                                CHW: &amp;nbsp&amp;nbsp
+                            </label>
+                            <span>
+                                <obs id="chw-name" conceptId="CIEL:164141" style="person" role="Provider"/>
+                            </span>
+                        </p>
+                        <p>
+                            <label class="inline">
+                                CHW to visit: &amp;nbsp&amp;nbsp
+                            </label>
+                            <span class="inline">
+                                <obsgroup groupingConceptId="PIH:12625">
+                                    <obs id="chw-visit-frequency" conceptId="PIH:3451" class="inline"/>
+                                    <obs id="chw-visit-frequency-unit" conceptId="PIH:TIME UNITS" class="inline"
+                                         answerConceptIds="CIEL:1072,CIEL:1073,CIEL:1074"/>
+                                </obsgroup>
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1145,10 +1167,6 @@
 
         <ifMode mode="VIEW" include="false">
             <div id="buttons">
-                <button id="next" type="button" class="submitButton confirm right">
-                    <uimessage code="emr.next"/>
-                    <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>
-                </button>
                 <button id="submit" class="submitButton confirm right">
                     <uimessage code="mirebalais.save"/>
                     <i class="icon-spinner icon-spin icon-2x" style="display: none; margin-left: 10px;"></i>

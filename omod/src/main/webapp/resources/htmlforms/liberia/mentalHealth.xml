@@ -782,7 +782,9 @@
                                     <obs id="duration-{name}" class="duration doseInput" conceptId="CIEL:159368"/>
                                 </td>
                                 <td id="{name}-rx-duration-unit">
-                                    <obs id="durationUnit-{name}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS" answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                                    <obs id="durationUnit-{name}" class="duration-unit select-arrow"
+                                         conceptId="PIH:TIME UNITS"
+                                         answerConceptIds="CIEL:1822,CIEL:1072,CIEL:1073,CIEL:1074"/>
                                 </td>
                             </obsgroup>
                         </tr>

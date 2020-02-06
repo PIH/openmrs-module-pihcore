@@ -444,19 +444,30 @@ angular.module("encounterTypeConfig", ["constants"])
         };
 
         encounterTypes[EncounterTypes.ncdFollowupConsult.uuid] = {
-            defaultState: "short",
-            shortTemplate: "templates/encounters/defaultEncounterShort.page",
-            longTemplate: "templates/encounters/defaultEncounterShort.page",
-            icon: "fas fa-fw fa-heart",
-            editUrl: hfeStandardEditUrl,
-            showOnVisitList: true,
-            sections: [
-                primaryCareExam,
-                pedsVaccinations,
-                ncd,
-                primaryCareDx,
-                primaryCarePlan
-            ]
+            DEFAULT: {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/defaultEncounterShort.page",
+                icon: "fas fa-fw fa-heart",
+                editUrl: hfeStandardEditUrl,
+                showOnVisitList: true,
+                sections: [
+                    primaryCareExam,
+                    pedsVaccinations,
+                    ncd,
+                    primaryCareDx,
+                    primaryCarePlan
+                ]
+            },
+            "liberia": {
+                defaultState: "short",
+                shortTemplate: "templates/encounters/defaultEncounterShort.page",
+                longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
+                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/ncd-adult-followup.xml",
+                icon: "fas fa-fw fa-user",
+                editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/ncd-adult-followup.xml",
+                showOnVisitList: true
+            }
         };
 
         encounterTypes[EncounterTypes.echocardiogramConsult.uuid] = {
