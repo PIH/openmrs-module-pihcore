@@ -479,9 +479,9 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        "visitUuid", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
+        "visitUuid", "visitTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
-                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, patientUuid, encounterUuid,
+                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, suppressActions, patientUuid, encounterUuid,
                  locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
 
             // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
@@ -502,6 +502,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 $scope.session = SessionInfo.get();
 
                 $scope.visitUuid = visitUuid;
+                $scope.visitTypeUuid = visitTypeUuid;
+                $scope.suppressActions = suppressActions;
                 $scope.patientUuid = patientUuid;
                 $scope.encounterUuid = encounterUuid;
 
@@ -597,7 +599,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             function loadVisits(patientUuid) {
                 Visit.get({
                   patient: $scope.patientUuid,
-                  visitType: $scope.VisitTypes.clinicalOrHospitalVisit.uuid,
+                  visitType: $scope.visitTypeUuid ? visitTypeUuid : $scope.VisitTypes.clinicalOrHospitalVisit.uuid,
                   v: "custom:(uuid,startDatetime,stopDatetime)"
                 }).$promise.then(function(response) {
                     $scope.visits = response.results;
@@ -618,9 +620,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             $scope.visitIdx = $scope.getVisitIdx(visit);
                             $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
 
-                            AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function (ext) {
+                            if ($scope.suppressActions !== true) {
+                              AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function (ext) {
                                 $scope.visitActions = ext;
-                            })
+                              });
+                            }
                     });
                 }
             }
