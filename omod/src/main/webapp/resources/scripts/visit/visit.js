@@ -599,7 +599,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             function loadVisits(patientUuid) {
                 Visit.get({
                   patient: $scope.patientUuid,
-                  visitType: $scope.visitTypeUuid ? visitTypeUuid : $scope.VisitTypes.clinicalOrHospitalVisit.uuid,
+                  visitType: $scope.visitTypeUuid ? $scope.visitTypeUuid : $scope.VisitTypes.clinicalOrHospitalVisit.uuid,
                   v: "custom:(uuid,startDatetime,stopDatetime)"
                 }).$promise.then(function(response) {
                     $scope.visits = response.results;
@@ -691,6 +691,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     // TODO: this is going to grow to be *way* too big--loads every obs for a patient!
                     Visit.get({
                         patient: $scope.patientUuid,
+                        visitType: $scope.visitTypeUuid ? $scope.visitTypeUuid : $scope.VisitTypes.clinicalOrHospitalVisit.uuid,
                         v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default,voided),attributes:default)"
                     }).$promise.then(function (response) {
                         _.each(response.results, function (visit) {
