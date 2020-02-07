@@ -1227,4 +1227,36 @@ public class Roles {
             );}
     };
 
+    public static RoleDescriptor COMMUNITY_HEALTH_WORKER = new RoleDescriptor() {
+        public String uuid() {
+            return "2c4be180-49bc-11ea-b63e-645d86728797";
+        }
+
+        public String role() {
+            return "Application Role: communityHealthWorker";
+        }
+
+        public String description() {
+            return "Application Role: communityHealthWorker";
+        }
+
+        public List<PrivilegeDescriptor> privileges() {
+            return Arrays.asList(
+                    Privileges.APP_COREAPPS_FIND_PATIENT,
+                    Privileges.APP_COREAPPS_ACTIVE_VISITS,
+                    Privileges.APP_EMR_INPATIENTS,
+                    Privileges.APP_COREAPPS_PATIENT_VISITS,
+                    Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
+                    Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
+                    Privileges.APP_EMR_OUTPATIENT_VITALS,
+                    Privileges.APP_COREAPPS_AWAITING_ADMISSION,
+                    Privileges.TASK_EMR_ENTER_SOCIO,
+                    Privileges.TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    Privileges.APP_CHW,
+                    Privileges.TASK_VIEW_LABS,
+                    Privileges.TASK_VIEW_GROWTH_CHARTS
+            );
+        }
+    };
+
 }
