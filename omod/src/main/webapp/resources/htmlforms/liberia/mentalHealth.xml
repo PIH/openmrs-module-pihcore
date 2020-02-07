@@ -186,6 +186,22 @@
                         }
                     });
                 });
+
+                $('#phq9Score > input:text').attr('placeholder', '0-27');
+
+                $('#condition-status > input:radio').each(function(idx, it){
+                    if($(it).val() == 'active'){
+                        $(it).click();
+                        $(it).prop("checked", true);
+                        $(it).unbind('click').click(function () {
+                            $(this).prop("checked", true);
+                            return false;
+                        });
+                    } else {
+                        $(it).attr('disabled',true).hide();
+                        $('label[for = '+$(it).attr('id')+']').hide();
+                    }
+                });
             });
 
         </script>
@@ -332,40 +348,39 @@
              headerCode="pihcore.mentalhealth.referral">
 
         <div class="section-container">
-            <div class="two-columns">
-                <p>
+            <div class="inline">
+                <div class="referral-community">
                     <label>
                         <uimessage code="pihcore.mentalhealth.referredBy"/>:
                     </label>
-                    <repeat with="['PIH:Teacher'],['PIH:TRADITIONAL HEALER'],['PIH:VILLAGE HEALTH WORKER'],['PIH:11783'],['CIEL:978'],['PIH:Other medical service']">
-                        <obs conceptId="PIH:Role of referring person" answerConceptId="{0}"
-                             style="checkbox"/>
-                    </repeat>
-                    <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
-                         style="checkbox" commentFieldLabel=" "/>
-                </p>
+                    <obs id="role-of-referring-person" conceptId="PIH:Role of referring person"
+                         answerConceptIds="PIH:Teacher,PIH:TRADITIONAL HEALER,PIH:VILLAGE HEALTH WORKER,PIH:11783,CIEL:978,PIH:Other medical service"
+                         style="radio" answerSeparator=""/>
 
-                <p>
+                    <obs conceptId="PIH:Role of referring person" answerConceptId="PIH:OTHER"
+                         style="checkbox" answerSeparator="" commentFieldLabel=" "/>
+                </div>
+
+                <div class="referral-internal">
                     <label>
                         <uimessage code="pihcore.mentalhealth.internalReferredBy"/>:
                     </label>
 
-                    <repeat with="['PIH:DOCTOR'],['PIH:NURSE'],['PIH:SOCIAL WORKER SERVICE	']">
-                        <obs conceptId="PIH:Type of referral role" answerConceptId="{0}"
-                             style="checkbox"/>
-                    </repeat>
+                    <obs id="type-of-referral-role" conceptId="PIH:Type of referral role"
+                         answerConceptIds="PIH:DOCTOR,PIH:NURSE,PIH:SOCIAL WORKER SERVICE"
+                         style="radio" answerSeparator=""/>
                     <obs conceptId="PIH:Type of referral role" answerConceptId="PIH:OTHER"
                          style="checkbox" commentFieldLabel=" "/>
-                </p>
-                <br/>
-                <br/>
+                </div>
             </div>
 
-            <p class="list-inline">
+            <br/>
+
+            <div class="list-inline">
                 <label><uimessage code="pihcore.ncd.plan.hospitalized"/></label>
                 <obs conceptId="PIH:PATIENT HOSPITALIZED SINCE LAST VISIT" answerConceptIds="PIH:YES,PIH:NO"
                      style="radio" answerSeparator=""/>
-            </p>
+            </div>
 
         </div>
     </section>
@@ -376,10 +391,10 @@
         <div class="section-container">
             <p>
                 <label>
-                    <uimessage code="pihcore.ncd.mental.phq9Score"/>:
+                    <uimessage code="pihcore.ncd.mental.phq9Score"/> (0-27):
                 </label>
                 <span class="small">
-                    <obs conceptId="CIEL:165137"/>
+                    <obs id="phq9Score" conceptId="CIEL:165137"/>
                 </span>
             </p>
         </div>
@@ -428,7 +443,9 @@
     <includeIf velocityTest="!$patientHasMentalHealthCondition">
         <section id="mh-diagnoses" sectionTag="fieldset" headerTag="legend" headerStyle="title"
                  headerCode="pihcore.diagnoses.label">
-            <condition required="true"/>
+            <div class="section-container" data-program="Mental Health">
+                <condition required="true"/>
+            </div>
         </section>
 
         <!-- If user doesn't have MH encounter, don't display ep section -->
@@ -727,6 +744,7 @@
                 <tr>
                     <th><uimessage code="pihcore.visitNote.plan.name"/></th>
                     <th colspan="2"><uimessage code="pihcore.visitNote.plan.dose"/></th>
+                    <th><uimessage code="pihcore.drug.route"/></th>
                     <th><uimessage code="pihcore.visitNote.plan.frequency"/></th>
                     <th colspan="2"><uimessage code="pihcore.visitNote.plan.duration"/></th>
                 </tr>
@@ -746,8 +764,13 @@
                                 </td>
                                 <td id="{name}-rx-dose-unit">
                                     <obs id="doseUnit-{name}" class="doseInput select-arrow" conceptId="PIH:Dosing units coded"
-                                         answerConceptIds="CIEL:161553,CIEL:162263,CIEL:1608,CIEL:1513,CIEL:160243,PIH:INTRAVENOUS,PIH:ORAL"
+                                         answerConceptIds="CIEL:161553,CIEL:162263,CIEL:1608,CIEL:1513"
                                          answerCodes="pihcore.visitNote.plan.medication.units.mg,pihcore.visitNote.plan.medication.units.mL,pihcore.visitNote.plan.medication.units.capsule,pihcore.visitNote.plan.medication.units.tablet" />
+                                </td>
+                                <td id="{name}-rx-route">
+                                    <obs id="route-{name}" class="route select-arrow"
+                                         conceptId="PIH:12651"
+                                         answerConceptIds="CIEL:160240,CIEL:160242,CIEL:160243"/>
                                 </td>
                                 <td id="{name}-rx-frequency">
                                     <obs id="frequencyCoded-{name}" class="frequency select-arrow" conceptId="PIH:Drug frequency for HUM"
@@ -759,7 +782,9 @@
                                     <obs id="duration-{name}" class="duration doseInput" conceptId="CIEL:159368"/>
                                 </td>
                                 <td id="{name}-rx-duration-unit">
-                                    <obs id="durationUnit-{name}" class="duration-unit select-arrow" conceptId="PIH:TIME UNITS" answerConceptIds="PIH:Days,PIH:1073,PIH:Months,PIH:Hours"/>
+                                    <obs id="durationUnit-{name}" class="duration-unit select-arrow"
+                                         conceptId="PIH:TIME UNITS"
+                                         answerConceptIds="CIEL:1822,CIEL:1072,CIEL:1073,CIEL:1074"/>
                                 </td>
                             </obsgroup>
                         </tr>
@@ -780,7 +805,11 @@
             </table>
 
             <p>
-                <obs conceptId="PIH:Medication comments (text)"/>
+                <label>
+                    <uimessage code="pihcore.exam.comment"/>:
+                </label>
+
+                <obs conceptId="PIH:Medication comments (text)" style="textarea"/>
             </p>
 
             <p class="list-inline">
@@ -796,7 +825,7 @@
             </p>
 
             <p id="side-effect-section">
-                <obs  id="" conceptId="CIEL:164377" type="text"/>
+                <obs  id="" conceptId="CIEL:164377" style="textarea"/>
             </p>
 
         </div>
@@ -900,7 +929,7 @@
                 <label>
                     <uimessage code="pihcore.remarks"/>:
                 </label>
-                <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE COMMENT" style="text"/>
+                <obs conceptId="PIH:SOCIO-ECONOMIC ASSISTANCE COMMENT" style="textarea"/>
             </p>
         </div>
     </section>
@@ -917,11 +946,11 @@
             </p>
 
             <p>
-                <label>
+                <label class="inline">
                     <uimessage code="pihcore.consult.returnVisitDate"/>:
                 </label>
                 <span class="small">
-                    <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" />
+                    <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" required="true"/>
                 </span>
             </p>
         </div>
