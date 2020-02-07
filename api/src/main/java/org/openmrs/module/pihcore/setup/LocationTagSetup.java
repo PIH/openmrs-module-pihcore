@@ -9,6 +9,7 @@ import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
+import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
@@ -77,6 +78,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, slLocations);
+        setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, slLocations);
@@ -88,6 +90,7 @@ public class LocationTagSetup {
                 LocationTags.CONSULT_NOTE_LOCATION,
                 LocationTags.REGISTRATION_LOCATION,
                 LocationTags.VISIT_LOCATION,
+                LocationTags.PROGRAM_LOCATION,
                 LocationTags.VITALS_LOCATION,
                 LocationTags.LOGIN_LOCATION,
                 LocationTags.MEDICAL_RECORD_LOCATION,
@@ -131,6 +134,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, Arrays.asList(location));
@@ -261,7 +265,11 @@ public class LocationTagSetup {
     private static void setupLocationTagsForMirebalais(LocationService locationService) {
 
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(
-            MirebalaisLocations.MIREBALAIS_CDI_PARENT
+            MirebalaisLocations.MIREBALAIS_CDI_PARENT, Locations.HOME_VISIT
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION, Arrays.asList(
+                MirebalaisLocations.MIREBALAIS_CDI_PARENT
         ));
 
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(

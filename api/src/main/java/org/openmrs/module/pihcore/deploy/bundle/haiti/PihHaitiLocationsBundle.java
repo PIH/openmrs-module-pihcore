@@ -5,6 +5,7 @@ import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationAttributeTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.LocationTagBundle;
+import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.springframework.stereotype.Component;
@@ -30,6 +31,7 @@ public class PihHaitiLocationsBundle extends AbstractMetadataBundle {
         install(PihHaitiLocations.THOMONDE);
         install(PihHaitiLocations.VERRETTES);
         install(MirebalaisLocations.MIREBALAIS_CDI_PARENT);
+        install(Locations.HOME_VISIT);
 
         uninstall(possible(Location.class, PihHaitiLocations.LASCAHOBAS.uuid()), "not used");
         uninstall(possible(Location.class, PihHaitiLocations.POZ.uuid()), "not used");

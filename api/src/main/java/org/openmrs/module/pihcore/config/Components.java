@@ -47,6 +47,7 @@ public class Components {
         public static final String MY_ACCOUNT = "myAccount";
         public static final String PATIENT_REGISTRATION = "patientRegistration";
         public static final String CLINICIAN_DASHBOARD = "clinicianDashboard";
+        public static final String HOME_VISITS_ON_CLINICIAN_DASHBOARD = "homeVisitsOnClinicianDashboard";
         public static final String BMI_ON_CLINICIAN_DASHBOARD = "bmiOnClinicianDashboard";
         public static final String VISIT_NOTE = "visitNote";  // get rid of the left visits bar and enable form sections
         public static final String ALLERGIES = "allergies";
