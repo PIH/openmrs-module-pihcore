@@ -166,6 +166,20 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.ARCHIVIST_CLERK);
             install(Roles.CLINICIAN_OR_PHYSICIAN);
             install(Roles.MEQ);
+            install(Roles.COMMUNITY_HEALTH_WORKER);
+            install(Roles.SOCIAL_WORKER);
+            install(Roles.TRIAGE_STAFF);
+            install(Roles.NCD_PHYSICIAN);
+            install(Roles.PSYCHOLOGIST);
+            install(Roles.ARCHIVIST_REGISTRATION);
+            install(Roles.LAB_MANAGER);
+            install(Roles.LAB_TECHNICIAN);
+            install(Roles.NURSE);
+            install(Roles.OBSERVATION_STAFF);
+            install(Roles.PHARMACIST);
+            install(Roles.MEDICAL_STUDENT);
+            install(Roles.RESIDENT);
+            install(Roles.SURGEON);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             install(Roles.SYSTEM_ADMINISTRATOR);
