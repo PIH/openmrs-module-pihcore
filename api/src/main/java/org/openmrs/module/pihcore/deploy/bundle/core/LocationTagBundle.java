@@ -16,6 +16,7 @@ public class LocationTagBundle extends AbstractMetadataBundle {
         install(LocationTags.ARCHIVES_LOCATION);
         install(LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION);
         install(LocationTags.VISIT_LOCATION);
+        install(LocationTags.PROGRAM_LOCATION);
         install(LocationTags.ADMISSION_LOCATION);
         install(LocationTags.TRANSFER_LOCAITON);
         install(LocationTags.CONSULT_NOTE_LOCATION);

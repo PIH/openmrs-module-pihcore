@@ -49,6 +49,10 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.MCH_DELIVERY);
         install(EncounterTypes.VACCINATION);
         install(EncounterTypes.ECHOCARDIOGRAM);
+        install(EncounterTypes.PRENATAL_VISIT);
+        install(EncounterTypes.PEDIATRIC_VISIT);
+        install(EncounterTypes.POST_PARTUM_VISIT);
+        install(EncounterTypes.MATERNAL_FOLLOWUP_VISIT);
 
         uninstall(possible(EncounterType.class, AttachmentsConstants.ENCOUNTER_TYPE_UUID), "not used");
         uninstall(possible(EncounterType.class, EncounterTypes.MEXICO_CLINIC_VISIT.uuid()), "replaced with Mexico Consult");

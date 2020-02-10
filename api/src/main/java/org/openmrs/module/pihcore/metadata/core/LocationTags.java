@@ -230,4 +230,9 @@ public class LocationTags {
 		public boolean retired() { return true; }
 	};
 
+	public static LocationTagDescriptor PROGRAM_LOCATION = new LocationTagDescriptor() {
+		public String uuid() { return "C4BCB2BC-94E8-40DC-BB53-7384EAC6F1BF"; }
+		public String name() { return "Program Location"; }
+		public String description() { return "Patient programs options are limited to the locations tagged with this tag."; }
+	};
 }

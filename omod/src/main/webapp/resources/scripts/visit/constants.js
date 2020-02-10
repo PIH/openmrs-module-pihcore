@@ -513,6 +513,18 @@ angular.module('constants', [])
         },
         sierraLeoneOutpatientFollowup: {
             uuid: "d8a038b5-90d2-43dc-b94b-8338b76674f3"
+        },
+        prenatalVisit: {
+            uuid: "91DDF969-A2D4-4603-B979-F2D6F777F4AF"
+        },
+        pediatricVisit: {
+            uuid: "0CF4717A-479F-4349-AE6F-8602E2AA41D3"
+        },
+        postPartumVisit: {
+            uuid: "0E7160DF-2DD1-4728-B951-641BBE4136B8"
+        },
+        maternalFollowUpVisit: {
+            uuid: "690670E2-A0CC-452B-854D-B95E2EAB75C9"
         }
     })
     .value('EncounterRoles', {

@@ -265,6 +265,30 @@ public class EncounterTypes {
 		public String description() { return "Echocardiogram consultation"; }
 	};
 
+	public static EncounterTypeDescriptor PRENATAL_VISIT  = new EncounterTypeDescriptor() {
+		public String uuid() { return "91DDF969-A2D4-4603-B979-F2D6F777F4AF"; }
+		public String name() { return "Prenatal Visit"; }
+		public String description() { return "Prenatal visit"; }
+	};
+
+	public static EncounterTypeDescriptor PEDIATRIC_VISIT  = new EncounterTypeDescriptor() {
+		public String uuid() { return "0CF4717A-479F-4349-AE6F-8602E2AA41D3"; }
+		public String name() { return "Pediatric Visit"; }
+		public String description() { return "Pediatric visit"; }
+	};
+
+	public static EncounterTypeDescriptor POST_PARTUM_VISIT  = new EncounterTypeDescriptor() {
+		public String uuid() { return "0E7160DF-2DD1-4728-B951-641BBE4136B8"; }
+		public String name() { return "Post-partum Visit"; }
+		public String description() { return "Post-partum visit"; }
+	};
+
+	public static EncounterTypeDescriptor MATERNAL_FOLLOWUP_VISIT  = new EncounterTypeDescriptor() {
+		public String uuid() { return "690670E2-A0CC-452B-854D-B95E2EAB75C9"; }
+		public String name() { return "Maternal Follow-up Visit"; }
+		public String description() { return "Maternal follow-up visit"; }
+	};
+
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 

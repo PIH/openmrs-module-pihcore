@@ -379,9 +379,10 @@
 
 
 
-        <includeIf velocityTest="!$conditionListConcepts.contains($fn.getConcept('PIH:HYPERTENSION'))">
+        <includeIf velocityTest="!$conditionListConcepts.contains($fn.getConcept('PIH:HYPERTENSION')) ||
+        !$conditionListConcepts.contains($fn.getConcept('PIH:DIABETES'))">
             <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                     headerCode="pihcore.ncd.htn">
+                     headerCode="pihcore.ncd.htn.or.diabetes">
 
                 <i class="icon-arrow-down"></i>
                 <div id="hypertension" class="section-container sub-form collapsible" style="display:none;">
@@ -427,65 +428,11 @@
                              labelCode="pih.ncd.htn.diagnosis.type"
                              answerConceptIds="PIH:NONE, CIEL:140147, CIEL:160771, PIH:11941, PIH:11942, CIEL:160774, CIEL:160778, CIEL:161644"
                              style="checkbox"/><br/>
-
-                    </div>
-
-                    <br/>
-
-                </div>
-            </section>
-        </includeIf>
-
-
-        <includeIf velocityTest="!$conditionListConcepts.contains($fn.getConcept('PIH:DIABETES'))">
-            <section sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                     headerCode="pihcore.ncd.diabetes">
-
-                <i class="icon-arrow-down"></i>
-                <div id="diabetes" class="section-container sub-form collapsible" style="display:none">
-
-                    <div class="two-columns">
-
-                        <h2>
-                            <uimessage code="pihcore.ncd.last.visit.label"></uimessage>:
-                        </h2>
-                        <repeat>
-                            <template>
-                                <obsgroup groupingConceptId="PIH:12389">
-                                    <obs conceptId="CIEL:1728"
-                                         answerConceptId="{concept}"
-                                         style="checkbox"
-                                         labelText="{label}"
-                                         answerLabel=""
-                                         toggle="{id: '{name}-diabetes-dx-ynu', style: 'hide'}"/>
-                                    <br />
-
-                                    <span class="list-inline" id="{name}-diabetes-dx-ynu">
-                                        <obs conceptId="CIEL:1729"
-                                             answerConceptIds="PIH:YES,PIH:NO,PIH:UNKNOWN" style="radio"/><br/><br/>
-                                    </span>
-                                </obsgroup>
-                            </template>
-                            <render concept="CIEL:70468" name="alcohol" label="Drink alcohol"/>
-                            <render concept="PIH:2545" name="tobacco" label="Smoke tobacco"/>
-                            <render concept="PIH:Disease requiring hospitalization since last visit" name="Hospitalized" label="Hospitalized for DM"/>
-                            <render concept="CIEL:165585" name="poor-diet-adherance" label="Poor diet adherence"/>
-                            <!--<render concept="CIEL:165569" name="poor-physical-activity" label="poor physical activity"/> this is only in concepts.pih-emr.org-->
-                            <render concept="PIH:SHORTNESS OF BREATH WITH EXERTION" name="sob" label="Shortness of breadth with exertion"/>
-                            <render concept="PIH:Currently taking medication" name="taking-meds" label="Currently taking medications"/>
-                            <render concept="PIH:HYPOGLYCEMIA" name="Hypoglycemia" label="Hypoglycemia"/>
-                            <render concept="PIH:HEADACHE" name="Headache" label="Headache"/>
-                            <render concept="PIH:CHEST PAIN" name="chest-pain" label="Chest pain"/>
-                            <render concept="PIH:DIZZINESS" name="dizziness" label="Dizziness"/>
-                            <render concept="PIH:Vision problem" name="dizziness" label="Vision changes"/>
-                            <render concept="PIH:PERIPHERAL NEUROPATHY" name="neuropathy" label="Neuropathy"/>
-                            <render concept="PIH:Ulcers (generic)" name="ulcers" label="Ulcers"/>
-                        </repeat>
-
                         <obs conceptId="PIH:Type of diabetes diagnosis"
                              labelCode="pih.ncd.diabetes.diagnosis.type"
                              answerConceptIds="PIH:Type 1 diabetes, PIH:Type 2 diabetes, CIEL:165207, CIEL:165208, CIEL:1449, CIEL:138291"
                              style="checkbox"/><br/>
+
                     </div>
 
                     <br/>
@@ -493,6 +440,7 @@
                 </div>
             </section>
         </includeIf>
+
 
 
         <includeIf velocityTest="!$conditionListConcepts.contains($fn.getConcept('PIH:RENAL FAILURE'))">
