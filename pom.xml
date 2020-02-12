@@ -48,7 +48,7 @@
     <properties>
         <openMRSVersion>2.3.0</openMRSVersion>
         <openMRSwebVersion>2.3.0</openMRSwebVersion>
-        <haiticoreVersion>1.1.0-SNAPSHOT</haiticoreVersion>
+        <haiticoreVersion>1.0.0</haiticoreVersion>
         <emrapiVersion>1.28.0</emrapiVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <emrVersion>2.2.0</emrVersion>
