@@ -1133,15 +1133,6 @@
                     <div style="width:40%;float: right;" class="inline">
                         <p>
                             <label class="inline">
-                                <lookup expression="fn.getConcept('PIH:RETURN VISIT DATE').name"/>
-                            </label>
-                            <span class="small">
-                                <obs conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" id="apptDate"
-                                     required="true"/>
-                            </span>
-                        </p>
-                        <p>
-                            <label class="inline">
                                 CHW: &amp;nbsp&amp;nbsp
                             </label>
                             <span>
