@@ -508,10 +508,11 @@
                              answerConceptIds="PIH:NORMAL, PIH:PALE CONJUNCTIVA"
                              style="checkbox"/>
 
-                        <obs conceptId="PIH:SYMPTOM PRESENT"
+                        <obs conceptId="CIEL:165570"
                              labelCode="pihcore.ncd.ckd.stage"
-                             answerConceptIds="CIEL:120575, CIEL:120574, CIEL:120579, CIEL:120578, CIEL:120577"
-                             style="checkbox"/>
+                             answerConceptIds="CIEL:120575,CIEL:120574,CIEL:120579,CIEL:120578,CIEL:120577"
+                             answerLabels="CKD I,CKD II,CKD III,CKD IV,CKD V"
+                             style="checkbox" answerSeparator=""/>
 
                         <!--<obs conceptId="CIEL:159596"
                              labelCode="pihcore.ncd.chronic.kidney.disease.stage"
@@ -613,9 +614,10 @@
                         </repeat>
 
                         <br/>
-                        <obs conceptId="PIH:3139"
-                             labelCode="pihcore.ncd.ckd.stage"
-                             answerConceptIds="CIEL:120575, CIEL:120574, CIEL:120579, CIEL:120578, CIEL:120577"
+                        <obs conceptId="PIH:NYHA CLASS"
+                             labelCode="pihcore.ncd.hf.nyha.class"
+                             answerConceptIds="PIH:NYHA CLASS 1, PIH:NYHA CLASS 2, PIH:NYHA CLASS 3, PIH:NYHA CLASS 4"
+                             answerLabels="NYHA I, NYHA II, NYHA III, NYHA IV"
                              style="checkbox"/>
                     </div>
 
@@ -1112,6 +1114,24 @@
                     </tbody>
                 </table>
 
+                <div class="two-columns">
+                    <p class="radio">
+                        <label>
+                            <uimessage code="pihcore.ncd.plan.missing_meds"/>
+                        </label>
+                        <obs conceptId="PIH:10555" style="radio"
+                             answerConceptIds="PIH:YES,PIH:NO"
+                             answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
+                             answerSeparator=""/>
+                    </p>
+                    <div>
+                        <label>
+                            <uimessage code="pihcore.meds.reasonMissedMeds"/>
+                        </label>
+                        <obs conceptId="CIEL:160582"/>
+                    </div>
+                </div>
+
                 <p>
                     <label>
                         <uimessage code="pihcore.exam.comment"/>:
@@ -1140,8 +1160,26 @@
 
 
         <section id="ncd_plan" sectionTag="fieldset" headerTag="legend" headerStyle="title"
-                 headerCode="pihcore.ncd.plan.title">
+                 headerCode="pihcore.visitNote.plan">
             <div class="section-container">
+
+                <p>
+                    <label>
+                        <uimessage code="pihcore.comment"/>:
+                    </label>
+                    <obs conceptId="PIH:PATIENT PLAN COMMENTS" style="textarea" rows="10"/>
+                </p>
+
+                <p>
+                    <label class="inline">
+                        <uimessage code="pihcore.consult.returnVisitDate"/>:
+                    </label>
+                    <span class="small">
+                        <obs id="return-visit-date" conceptId="PIH:RETURN VISIT DATE" allowFutureDates="true" required="true"/>
+                    </span>
+                </p>
+
+
                 <div class="two-columns">
                     <!-- this section is ONLY included for NCD followup encounter -->
                     <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
@@ -1155,22 +1193,6 @@
                                  answerSeparator=""/>
                         </p>
                     </includeIf>
-
-                    <p class="radio">
-                        <label>
-                            <uimessage code="pihcore.ncd.plan.missing_meds"/>
-                        </label>
-                        <obs conceptId="PIH:10555" style="radio"
-                             answerConceptIds="PIH:YES,PIH:NO"
-                             answerCodes="pihcore.meds.goodCompliance,pihcore.meds.poorCompliance"
-                             answerSeparator=""/>
-                    </p>
-                    <div>
-                        <label>
-                            <uimessage code="pihcore.meds.reasonMissedMeds"/>
-                        </label>
-                        <obs conceptId="CIEL:160582"/>
-                    </div>
 
                     <!-- this section is ONLY included for NCD followup encounter -->
                     <includeIf velocityTest="$encounter.encounterType.uuid == '5cbfd6a2-92d9-4ad0-b526-9d29bfe1d10c'">
