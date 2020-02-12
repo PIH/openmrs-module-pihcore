@@ -453,9 +453,9 @@ angular.module("encounterTypeConfig", ["constants"])
                 defaultState: "short",
                 shortTemplate: "templates/encounters/defaultEncounterShort.page",
                 longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/ncd-adult-initial.xml",
+                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("ncd-adult-initial.xml"),
                 icon: "fas fa-fw fa-user",
-                editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/ncd-adult-initial.xml",
+                editUrl: hfeStandardEditUrl + "&definitionUiResource=" + getFormResource("ncd-adult-initial.xml"),
                 showOnVisitList: true
             }
         };
@@ -480,9 +480,9 @@ angular.module("encounterTypeConfig", ["constants"])
                 defaultState: "short",
                 shortTemplate: "templates/encounters/defaultEncounterShort.page",
                 longTemplate: "templates/encounters/viewEncounterWithHtmlFormLong.page",
-                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=pihcore:htmlforms/liberia/ncd-adult-followup.xml",
+                templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("ncd-adult-followup.xml"),
                 icon: "fas fa-fw fa-user",
-                editUrl: hfeStandardEditUrl + "&definitionUiResource=pihcore:htmlforms/liberia/ncd-adult-followup.xml",
+                editUrl: hfeStandardEditUrl + "&definitionUiResource=" + getFormResource("ncd-adult-followup.xml"),
                 showOnVisitList: true
             }
         };
