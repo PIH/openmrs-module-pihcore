@@ -13,7 +13,7 @@ public class Locations {
 
     public static LocationDescriptor HOME_VISIT = new LocationDescriptor() {
         public String uuid() { return "AF939782-898B-409A-99A4-D1653484EDBD"; }
-        public String name() { return "Home Visit"; }
+        public String name() { return "Patient Home"; }
         public String description() { return "The patient is visited at home"; }
     };
 

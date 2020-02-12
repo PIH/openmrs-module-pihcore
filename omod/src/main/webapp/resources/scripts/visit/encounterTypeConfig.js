@@ -382,25 +382,25 @@ angular.module("encounterTypeConfig", ["constants"])
             longTemplate: "templates/encounters/defaultEncounterLong.page"
         };
 
-        encounterTypes[EncounterTypes.prenatalVisit.uuid] = {
+        encounterTypes[EncounterTypes.prenatalHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
           longTemplate: "templates/encounters/defaultEncounterLong.page"
         };
 
-        encounterTypes[EncounterTypes.pediatricVisit.uuid] = {
+        encounterTypes[EncounterTypes.pediatricHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
           longTemplate: "templates/encounters/defaultEncounterLong.page"
         };
 
-        encounterTypes[EncounterTypes.postPartumVisit.uuid] = {
+        encounterTypes[EncounterTypes.maternalPostPartumHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
           longTemplate: "templates/encounters/defaultEncounterLong.page"
         };
 
-        encounterTypes[EncounterTypes.maternalFollowUpVisit.uuid] = {
+        encounterTypes[EncounterTypes.maternalFollowUpHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
           longTemplate: "templates/encounters/defaultEncounterLong.page"
