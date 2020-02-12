@@ -6,6 +6,7 @@ import org.openmrs.Patient;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
@@ -60,17 +61,7 @@ public class VitalsListPageController {
             }
         }
 
-        String formPath;
-        String country = config.getCountry() != null ? config.getCountry().toString().toLowerCase() : null;
-
-        // if there's a custom vitals form for this country, use it, otherwise use generic
-        // TODO: support looking up not just country-specific, but site-specific forms
-        if (country != null && resourceFactory.getResourceAsString("pihcore", "htmlforms/" + country + "/vitals.xml") != null) {
-            formPath = "pihcore:htmlforms/" + country + "/vitals.xml";
-        }
-        else {
-            formPath = "pihcore:htmlforms/vitals.xml";
-        }
+        String formPath = PihCoreUtil.getFormResource("vitals.xml");
 
         SimpleObject vitalsListBreadcrumb = SimpleObject.create("label", ui.message("pihcore.vitalsList.title"), "link", ui.pageLink("pihcore", "vitals/vitalsList"));
 
