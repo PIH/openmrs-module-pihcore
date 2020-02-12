@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>pihcore</artifactId>
-	<version>1.0.0</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>PIH Core Module</name>
 	<description>Core metadata and configuration included in all PIH distributions</description>
@@ -48,7 +48,7 @@
     <properties>
         <openMRSVersion>2.3.0</openMRSVersion>
         <openMRSwebVersion>2.3.0</openMRSwebVersion>
-        <haiticoreVersion>1.0.0</haiticoreVersion>
+        <haiticoreVersion>1.1.0-SNAPSHOT</haiticoreVersion>
         <emrapiVersion>1.28.0</emrapiVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <emrVersion>2.2.0</emrVersion>
