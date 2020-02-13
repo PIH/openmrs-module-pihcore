@@ -419,3 +419,34 @@ BEGIN
 
 END
 #
+
+
+-- This function accepts a patient_id, concept_id and beginDate
+-- It will return the obs_id of the most recent observation for that patient and concept_id SINCE the beginDate
+-- if null is passed in as the beginDate, it will be disregarded
+-- example: select latestObs(311450, 357, '2020-01-01') or select latestObs(311450, 357, '2020-02-12 08:59:59');
+
+#
+DROP FUNCTION IF EXISTS latestObs;
+#
+CREATE FUNCTION latestObs (patient_id_in int(11), concept_id_in int (11), beginDate datetime)
+RETURNS int(11)
+DETERMINISTIC
+
+BEGIN
+
+DECLARE obs_id_out int(11);
+
+select obs_id into obs_id_out
+from obs o
+where o.voided = 0
+and o.person_id = patient_id_in
+and o.concept_id = concept_id_in
+and (beginDate is null or o.obs_datetime >= beginDate)
+order by o.obs_datetime desc
+limit 1;
+
+RETURN obs_id_out;
+
+END
+#
