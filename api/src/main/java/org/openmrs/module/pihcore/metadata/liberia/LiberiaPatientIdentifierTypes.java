@@ -59,7 +59,7 @@ public class LiberiaPatientIdentifierTypes {
     public static PatientIdentifierTypeDescriptor MENTAL_HEALTH_MEDICAL_RECORD_NUMBER = new PatientIdentifierTypeDescriptor() {
         @Override
         public String name() {
-            return "Mental Health Medical Record Number";
+            return "Mental Health MRN";
         }
 
         @Override
