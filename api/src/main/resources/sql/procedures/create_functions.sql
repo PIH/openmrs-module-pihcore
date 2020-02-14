@@ -138,7 +138,31 @@ pid2.name = 'ZL EMR ID') and patient_id = _patient_id order by preferred desc li
 
 END
 #
+DROP FUNCTION IF EXISTS dosId;
+#
 
+CREATE FUNCTION dosId (patient_id_in int(11))
+RETURNS varchar(50)
+
+DETERMINISTIC
+
+BEGIN
+
+DECLARE dosId_out varchar(50);
+
+select identifier into dosId_out
+from patient_identifier pid
+where pid.patient_id = patient_id_in
+and pid.voided = 0
+and pid.identifier_type = 
+  (select patient_identifier_type_id from patient_identifier_type where uuid = 'e66645eb-03a8-4991-b4ce-e87318e37566')
+order by pid.preferred desc, pid.date_created asc limit 1   
+;
+
+RETURN dosId_out;
+
+END;
+#
 /*
 unknown patient
 */
