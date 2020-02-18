@@ -7,12 +7,17 @@ import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.springframework.stereotype.Component;
 
 @Component
-@Requires({ PihCoreMetadataBundle.class } )
+@Requires({PihCoreMetadataBundle.class})
 public class LiberiaLocationsBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
         install(LiberiaLocations.PLEEBO);
         install(LiberiaLocations.HARPER);
+        install(LiberiaLocations.HEALTH_FACILITY);
+        install(LiberiaLocations.RECORDS_ROOM);
+        install(LiberiaLocations.OUTPATIENT_CLINIC);
+        install(LiberiaLocations.MENTAL_HEALTH_CLINIC);
+        install(LiberiaLocations.NCD_CLINIC);
     }
 }
