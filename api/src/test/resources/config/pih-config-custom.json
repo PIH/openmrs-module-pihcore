@@ -1,10 +1,12 @@
 {
-    "welcomeMessage": "Hello custom!",
-    "site": "LACOLLINE",
-
-    "components": [
-        "someComponent",
-        "customComponent"
-    ]
-
+  "welcomeMessage": "Hello custom!",
+  "site": "LACOLLINE",
+  "components": [
+    "someComponent",
+    "customComponent"
+  ],
+  "globalProperties": {
+    "test": "test",
+    "anotherTest": "anotherTest"
+  }
 }
