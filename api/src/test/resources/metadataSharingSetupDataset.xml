@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<dataset>
+
+    <metadatasharing_imported_package
+            imported_package_id="1"
+            uuid="219d6811-e14b-4092-ae50-c27bed519a65"
+            group_uuid="05fa9aa6-017d-410b-90f9-decf407fdf65"
+            name="HUM Emergency Triage"
+            description="HUM Emergency Triage"
+            version="47"
+            import_config="<org.openmrs.module.metadatasharing.ImportConfig id=1><previous>false</previous><exactMatch>OVERWRITE_MINE</exactMatch><possibleMatch>OVERWRITE_MINE</possibleMatch><noMatch>CREATE</noMatch><confirmExactMatch>false</confirmExactMatch><confirmPossibleMatch>false</confirmPossibleMatch><confirmNoMatch>false</confirmNoMatch><skipAssessing>false</skipAssessing></org.openmrs.module.metadatasharing.ImportConfig>"
+            date_created="2004-02-02 00:00:00.0"
+            date_imported="2004-02-02 00:00:00.0"
+    />
+
+    <metadatasharing_imported_package
+            imported_package_id="1"
+            uuid="bc5fa813-bf97-41b0-925f-46117d25535c"
+            group_uuid="436cc037-074f-4253-9aa7-900c32f51ee9"
+            name="PIH Allergies"
+            description="PIH Allergies"
+            version="16"
+            import_config="test"
+            date_created="2004-02-02 00:00:00.0"
+            date_imported="2004-02-02 00:00:00.0"
+    />
+
+</dataset>

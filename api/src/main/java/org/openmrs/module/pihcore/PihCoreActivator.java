@@ -35,6 +35,11 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.metadatasharing.MetadataSharing;
+import org.openmrs.module.metadatasharing.resolver.Resolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ConceptReferenceTermResolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
@@ -50,6 +55,7 @@ import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
+import org.openmrs.module.pihcore.setup.MetadataSharingSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
@@ -83,6 +89,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             if (config == null) {  // hack to allow injecting a mock config for testing
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
+
             setDispositionConfig(config);
             installMetadataBundles(config);
             setGlobalProperties(config);
@@ -94,6 +101,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
             MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
+            MetadataSharingSetup.installMetadataPackages();
             PacIntegrationSetup.setup(config);
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
@@ -115,7 +123,10 @@ public class PihCoreActivator extends BaseModuleActivator {
     public void contextRefreshed() {
 
         setDispositionConfig(config);
+        setMetadataSharingResolvers();
+
         CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
+
         NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
         // hack: configure both name support beans, since two actually exist (?)
         NameTemplateSetup.configureNameTemplate(nameSupport);
@@ -148,6 +159,22 @@ public class PihCoreActivator extends BaseModuleActivator {
             deployService.installBundle(Context.getRegisteredComponents(PeruMetadataBundle.class).get(0));
         }
 
+    }
+
+    public void setMetadataSharingResolvers() {
+        // Since we do all MDS import programmatically, in mirror or parent-child mode, we don't want items being matched
+        // except for in specific ways. (Specifically we don't want to use ConceptByMappingResolver, but in general we
+        // want to avoid unexpected behavior.)
+        // See https://tickets.openmrs.org/browse/META-323
+        ObjectByUuidResolver byUuidResolver = Context.getRegisteredComponent("metadatasharing.ObjectByUuidResolver", ObjectByUuidResolver.class);
+        ObjectByNameResolver byNameResolver =Context.getRegisteredComponent("metadatasharing.ObjectByNameResolver", ObjectByNameResolver.class);
+        ConceptReferenceTermResolver referenceTermResolver =  Context.getRegisteredComponent("metadatasharing.ConceptReferenceTermResolver", ConceptReferenceTermResolver.class);
+
+        List<Resolver<?>> supportedResolvers = new ArrayList<Resolver<?>>();
+        supportedResolvers.add(byUuidResolver);
+        supportedResolvers.add(byNameResolver);
+        supportedResolvers.add(referenceTermResolver);
+        MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
     }
 
     // configure which disposition config to use
@@ -197,26 +224,3 @@ public class PihCoreActivator extends BaseModuleActivator {
         administrationService.saveGlobalProperty(gp);
     }
 }
-
-/* Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
-        installMetadataBundles(config);
-
-		String property = Context.getRuntimeProperties().getProperty(RUNTIME_PROPERTY_INSTALL_AT_STARTUP, "false");
-		if (Boolean.valueOf(property)) {
-			// Limit to VersionedPihMetadataBundle, in case there are other bundles in non-PIH modules
-			List<VersionedPihMetadataBundle> bundles = Context.getRegisteredComponents(VersionedPihMetadataBundle.class);
-
-			log.info("Deploying " + bundles.size() + " bundles of class VersionedPihMetadataBundle...");
-			MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
-			deployService.installBundles((List) bundles);
-			log.info("Successfully deployed bundles:");
-			for (VersionedPihMetadataBundle bundle : bundles) {
-				String template = bundle.isInstalledNewVersion() ?
-						"Installed version %d of %s" :
-						"Was already at version %d of %s";
-				log.info(String.format(template, bundle.getVersion(), bundle.getClass().getSimpleName()));
-			}
-		}
-		else {
-			log.info("Not installing metadata deploy bundles. This will be done by a distribution module that depends on this one.");
-		}*/
