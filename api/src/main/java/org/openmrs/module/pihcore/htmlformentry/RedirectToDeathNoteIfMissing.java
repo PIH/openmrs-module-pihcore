@@ -11,6 +11,7 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 
@@ -52,7 +53,7 @@ public class RedirectToDeathNoteIfMissing implements CustomFormSubmissionAction 
 
         session.setAfterSaveUrlTemplate("htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page" +
                 "?patientId={{patient.id}}" +
-                "&definitionUiResource=pihcore:htmlforms/deathCertificate.xml" +
+                "&definitionUiResource=" + PihCoreUtil.getFormResource("deathCertificate.xml") +
                 "&returnUrl=" + session.getReturnUrl());
     }
 

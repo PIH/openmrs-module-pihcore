@@ -3,7 +3,9 @@
     "components": [
         "override"
     ],
-
+    "globalProperties": {
+      "test": "override"
+    },
     "scheduleBackupReports": "true"
 
 }
