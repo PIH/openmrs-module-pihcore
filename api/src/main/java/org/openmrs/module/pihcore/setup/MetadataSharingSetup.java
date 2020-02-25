@@ -107,7 +107,7 @@ public class MetadataSharingSetup {
     }
 
 
-    protected synchronized static List<PackageImporter> sortPackageImporters(List<PackageImporter> packageImporters) {
+    protected static List<PackageImporter> sortPackageImporters(List<PackageImporter> packageImporters) {
 
         // do the actual imports
         if (packageImporters.size() > 0) {
