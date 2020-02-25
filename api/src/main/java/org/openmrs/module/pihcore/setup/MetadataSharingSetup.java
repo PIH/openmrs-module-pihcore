@@ -77,10 +77,7 @@ public class MetadataSharingSetup {
             try {
                 PackageImporter metadataImporter = MetadataSharing.getInstance().newPackageImporter();
                 metadataImporter.setImportConfig(ImportConfig.valueOf(ImportMode.MIRROR));  // currently we always do mirror mode
-
-                // TODO should be info, not error
-                log.error("...loading package: " + file.getName());
-
+                log.info("...loading package: " + file.getName());
                 metadataImporter.loadSerializedPackageStream(new BufferedInputStream(new FileInputStream(file)));
                 packageImporters.add(metadataImporter);
             }
@@ -142,12 +139,9 @@ public class MetadataSharingSetup {
 
             for (PackageImporter packageImporter : packageImporters) {
                 long timer = System.currentTimeMillis();
-
-
-                // TODO: change errors back to infos
-                log.error("Importing package: " + packageImporter.getImportedPackage().getName());
+                log.info("Importing package: " + packageImporter.getImportedPackage().getName());
                 packageImporter .importPackage();
-                log.error("Imported " + packageImporter.getImportedPackage().getName() + " in " + (System.currentTimeMillis() - timer) + "ms");
+                log.info("Imported " + packageImporter.getImportedPackage().getName() + " in " + (System.currentTimeMillis() - timer) + "ms");
             }
         }
 
