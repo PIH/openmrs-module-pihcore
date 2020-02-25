@@ -75,6 +75,9 @@ public class PihCoreActivator extends BaseModuleActivator {
 
     private Config config;
 
+    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
+    private Boolean disableInstallMetadataBundlesThatDependOnMDSPackages = false;
+
     // TODO test
 
 	@Override
@@ -168,21 +171,25 @@ public class PihCoreActivator extends BaseModuleActivator {
 
     private void installMetadataBundlesThatDependOnMDSPackages(Config config) {
 
-        MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
+	    if (!disableInstallMetadataBundlesThatDependOnMDSPackages) {
 
-        // make this more dynamic, less dependent on if-thens
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataToInstallAfterConceptsBundle.class).get(0));
+            MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
+
+            // make this more dynamic, less dependent on if-thens
+            if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+                deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataToInstallAfterConceptsBundle.class).get(0));
+            }
+            else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+                deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataToInstallAfterConceptsBundle.class).get(0));
+            }
+            else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+                deployService.installBundle(Context.getRegisteredComponents(MexicoMetadataToInstallAfterConceptsBundle.class).get(0));
+            }
+            else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+                deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataToInstallAfterConceptsBundle.class).get(0));
+            }
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataToInstallAfterConceptsBundle.class).get(0));
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            deployService.installBundle(Context.getRegisteredComponents(MexicoMetadataToInstallAfterConceptsBundle.class).get(0));
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataToInstallAfterConceptsBundle.class).get(0));
-        }
+
 
     }
 
@@ -238,6 +245,11 @@ public class PihCoreActivator extends BaseModuleActivator {
     // hack to allow injecting a mock config for testing
     public void setConfig(Config config) {
         this.config = config;
+    }
+
+    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
+    public void setDisableInstallMetadataBundlesThatDependOnMDSPackages(Boolean disableInstallMetadataBundlesThatDependOnMDSPackages) {
+        this.disableInstallMetadataBundlesThatDependOnMDSPackages = disableInstallMetadataBundlesThatDependOnMDSPackages;
     }
 
     protected void setGlobalProperty(String propertyName, String propertyValue) {
