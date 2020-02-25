@@ -70,7 +70,7 @@ public class MetadataSharingSetup {
     }
 
     protected static List<PackageImporter> loadPackageImporters(Collection<File> mdsFiles ) throws IOException{
-        List<PackageImporter> packageImporters = new ArrayList<>();
+        List<PackageImporter> packageImporters = new ArrayList<PackageImporter>();
 
         for (File file : mdsFiles) {
 
