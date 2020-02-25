@@ -44,11 +44,15 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.peru.PeruMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
@@ -101,7 +105,8 @@ public class PihCoreActivator extends BaseModuleActivator {
             MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
             MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
-            MetadataSharingSetup.installMetadataPackages();
+            MetadataSharingSetup.installMetadataSharingPackages();
+            installMetadataBundlesThatDependOnMDSPackages(config);
             PacIntegrationSetup.setup(config);
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
@@ -160,6 +165,27 @@ public class PihCoreActivator extends BaseModuleActivator {
         }
 
     }
+
+    private void installMetadataBundlesThatDependOnMDSPackages(Config config) {
+
+        MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
+
+        // make this more dynamic, less dependent on if-thens
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataToInstallAfterConceptsBundle.class).get(0));
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataToInstallAfterConceptsBundle.class).get(0));
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+            deployService.installBundle(Context.getRegisteredComponents(MexicoMetadataToInstallAfterConceptsBundle.class).get(0));
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataToInstallAfterConceptsBundle.class).get(0));
+        }
+
+    }
+
 
     public void setMetadataSharingResolvers() {
         // Since we do all MDS import programmatically, in mirror or parent-child mode, we don't want items being matched

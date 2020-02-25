@@ -32,21 +32,4 @@ public class MetadataSharingSetupTest {
         assertThat(files.size(), is(3));
     }
 
-   /* @Test
-    public void shouldParseVersionNumbers() {
-        Collection<File> files = MetadataSharingSetup.loadMdsFiles();
-        for (File file : files) {
-            Integer versionNumber = MetadataSharingSetup.determinePackageVersionNumber(file);
-            if (file.getName().startsWith("PIH_Allergies")) {
-                assertThat(versionNumber, is (17));
-            }
-            else if (file.getName().startsWith("HUM_Emergency_Triage")) {
-                assertThat(versionNumber, is(46));
-            }
-            else {
-                assertThat(versionNumber, is(2));
-            }
-        }
-    }
-*/
 }

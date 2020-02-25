@@ -9,7 +9,7 @@
             name="HUM Emergency Triage"
             description="HUM Emergency Triage"
             version="47"
-            import_config="<org.openmrs.module.metadatasharing.ImportConfig id=1><previous>false</previous><exactMatch>OVERWRITE_MINE</exactMatch><possibleMatch>OVERWRITE_MINE</possibleMatch><noMatch>CREATE</noMatch><confirmExactMatch>false</confirmExactMatch><confirmPossibleMatch>false</confirmPossibleMatch><confirmNoMatch>false</confirmNoMatch><skipAssessing>false</skipAssessing></org.openmrs.module.metadatasharing.ImportConfig>"
+            import_config="&lt;org.openmrs.module.metadatasharing.ImportConfig id=&quot;1&quot;&gt;&lt;previous&gt;false&lt;/previous&gt;&lt;exactMatch&gt;OVERWRITE_MINE&lt;/exactMatch&gt;&lt;possibleMatch&gt;OVERWRITE_MINE&lt;/possibleMatch&gt;&lt;noMatch&gt;CREATE&lt;/noMatch&gt;&lt;confirmExactMatch&gt;false&lt;/confirmExactMatch&gt;&lt;confirmPossibleMatch&gt;false&lt;/confirmPossibleMatch&gt;&lt;confirmNoMatch&gt;false&lt;/confirmNoMatch&gt;&lt;skipAssessing&gt;false&lt;/skipAssessing&gt;&lt;/org.openmrs.module.metadatasharing.ImportConfig&gt;"
             date_created="2004-02-02 00:00:00.0"
             date_imported="2004-02-02 00:00:00.0"
     />
@@ -20,8 +20,8 @@
             group_uuid="436cc037-074f-4253-9aa7-900c32f51ee9"
             name="PIH Allergies"
             description="PIH Allergies"
-            version="16"
-            import_config="test"
+            version="18"
+            import_config="&lt;org.openmrs.module.metadatasharing.ImportConfig id=&quot;1&quot;&gt;&lt;previous&gt;false&lt;/previous&gt;&lt;exactMatch&gt;OVERWRITE_MINE&lt;/exactMatch&gt;&lt;possibleMatch&gt;OVERWRITE_MINE&lt;/possibleMatch&gt;&lt;noMatch&gt;CREATE&lt;/noMatch&gt;&lt;confirmExactMatch&gt;false&lt;/confirmExactMatch&gt;&lt;confirmPossibleMatch&gt;false&lt;/confirmPossibleMatch&gt;&lt;confirmNoMatch&gt;false&lt;/confirmNoMatch&gt;&lt;skipAssessing&gt;false&lt;/skipAssessing&gt;&lt;/org.openmrs.module.metadatasharing.ImportConfig&gt;"
             date_created="2004-02-02 00:00:00.0"
             date_imported="2004-02-02 00:00:00.0"
     />

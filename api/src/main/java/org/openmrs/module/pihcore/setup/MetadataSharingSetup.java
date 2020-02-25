@@ -3,7 +3,6 @@ package org.openmrs.module.pihcore.setup;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatasharing.ImportConfig;
 import org.openmrs.module.metadatasharing.ImportMode;
@@ -28,61 +27,47 @@ public class MetadataSharingSetup {
 
     protected static final Log log = LogFactory.getLog(MetadataSharingSetup.class);
 
-    public static void installMetadataPackages() throws Exception {
+    public static void installMetadataSharingPackages() {
 
-        Collection<File> mdsFiles = loadMdsFiles();
+        try {
+            Collection<File> mdsFiles = loadMdsFiles();
 
-        if (mdsFiles == null) {
-            log.error("Unable to find any metadata sharing files");
-            return;
+            if (mdsFiles == null) {
+                log.error("Unable to find any metadata sharing files");
+                return;
+            }
+
+            List<PackageImporter> packageImporters = loadPackageImporters(mdsFiles);
+            removeAlreadyLoadedPackageImporters(packageImporters);
+            sortPackageImporters(packageImporters);
+            loadPackages(packageImporters);
+
+            Context.flushSession();
         }
-
-
-
-        // set up the concept sources first because of TRUNK-5326
-        //MetadataUtil.setupSpecificMetadata();
-
-        // make sure we load these all with one call to "setupSpecificMetadata" because that method makes sure to
-        // sort the loading by dateCreated to avoid issues with inconsistent metadata
-        //MetadataUtil.setupSpecificMetadata();
-
-
-        Context.flushSession();
+        catch(Exception e) {
+            log.error("Unable to load metadata sharing packages", e);
+        }
 
     }
 
     protected static Collection<File> loadMdsFiles() {
 
-        Collection<File> files;
+        Collection<File> files = null;
 
         try {
             File conceptsDir = new File(PihCoreUtil.getConceptsMetadataSharingDirectory());
             files = FileUtils.listFiles(conceptsDir, null, true);
         }
         catch (Exception e) {
-            throw new APIException("Unable to open MDS packages directory", e);
+            log.error("Unable to open MDS packages directory", e);
         }
 
         if (files == null || files.size() == 0) {
-            throw new APIException("No files found in MDS packages directory");
+            log.error("No files found in MDS packages directory");
         }
 
         return files;
     }
-
- /*   protected static Integer determinePackageVersionNumber(File file) {
-
-        Integer versionNumber;
-        String fileName = file.getName();
-
-        try {
-            versionNumber = Integer.valueOf(fileName.split("\\.")[0].split("-")[1]);
-        }
-        catch (Exception e) {
-            throw new APIException("Unable to parse MDS filename " + fileName, e);
-        }
-        return versionNumber;
-    }*/
 
     protected static List<PackageImporter> loadPackageImporters(Collection<File> mdsFiles ) throws IOException{
         List<PackageImporter> packageImporters = new ArrayList<>();
@@ -92,7 +77,10 @@ public class MetadataSharingSetup {
             try {
                 PackageImporter metadataImporter = MetadataSharing.getInstance().newPackageImporter();
                 metadataImporter.setImportConfig(ImportConfig.valueOf(ImportMode.MIRROR));  // currently we always do mirror mode
-                log.info("...loading package: " + file.getName());
+
+                // TODO should be info, not error
+                log.error("...loading package: " + file.getName());
+
                 metadataImporter.loadSerializedPackageStream(new BufferedInputStream(new FileInputStream(file)));
                 packageImporters.add(metadataImporter);
             }
@@ -147,25 +135,22 @@ public class MetadataSharingSetup {
         return packageImporters;
     }
 
-    protected synchronized static void loadPackages(List<PackageImporter> packageImporters) throws IOException {
+    protected synchronized static void loadPackages(List<PackageImporter> packageImporters) {
 
         // do the actual imports
         if (packageImporters.size() > 0) {
 
             for (PackageImporter packageImporter : packageImporters) {
-                //  packageImporter.getPackage().getGroupUuid()
-
                 long timer = System.currentTimeMillis();
-                log.info("Importing package: " + packageImporter.getImportedPackage().getName());
+
+
+                // TODO: change errors back to infos
+                log.error("Importing package: " + packageImporter.getImportedPackage().getName());
                 packageImporter .importPackage();
-                log.info("Imported " + packageImporter.getImportedPackage().getName() + " in " + (System.currentTimeMillis() - timer) + "ms");
+                log.error("Imported " + packageImporter.getImportedPackage().getName() + " in " + (System.currentTimeMillis() - timer) + "ms");
             }
         }
 
     }
-
-
-
-
 
 }
