@@ -9,6 +9,10 @@ import org.openmrs.module.metadatasharing.ImportMode;
 import org.openmrs.module.metadatasharing.ImportedPackage;
 import org.openmrs.module.metadatasharing.MetadataSharing;
 import org.openmrs.module.metadatasharing.api.MetadataSharingService;
+import org.openmrs.module.metadatasharing.resolver.Resolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ConceptReferenceTermResolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
+import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.pihcore.PihCoreUtil;
 
@@ -27,13 +31,29 @@ public class MetadataSharingSetup {
 
     protected static final Log log = LogFactory.getLog(MetadataSharingSetup.class);
 
+    public static void setMetadataSharingResolvers() {
+        // Since we do all MDS import programmatically, in mirror or parent-child mode, we don't want items being matched
+        // except for in specific ways. (Specifically we don't want to use ConceptByMappingResolver, but in general we
+        // want to avoid unexpected behavior.)
+        // See https://tickets.openmrs.org/browse/META-323
+        ObjectByUuidResolver byUuidResolver = Context.getRegisteredComponent("metadatasharing.ObjectByUuidResolver", ObjectByUuidResolver.class);
+        ObjectByNameResolver byNameResolver =Context.getRegisteredComponent("metadatasharing.ObjectByNameResolver", ObjectByNameResolver.class);
+        ConceptReferenceTermResolver referenceTermResolver =  Context.getRegisteredComponent("metadatasharing.ConceptReferenceTermResolver", ConceptReferenceTermResolver.class);
+
+        List<Resolver<?>> supportedResolvers = new ArrayList<Resolver<?>>();
+        supportedResolvers.add(byUuidResolver);
+        supportedResolvers.add(byNameResolver);
+        supportedResolvers.add(referenceTermResolver);
+        MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
+    }
+
+
     public static void installMetadataSharingPackages() {
 
         try {
             Collection<File> mdsFiles = loadMdsFiles();
 
             if (mdsFiles == null) {
-                log.error("Unable to find any metadata sharing files");
                 return;
             }
 

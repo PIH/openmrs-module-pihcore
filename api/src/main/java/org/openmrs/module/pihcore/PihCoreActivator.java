@@ -35,11 +35,6 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
-import org.openmrs.module.metadatasharing.MetadataSharing;
-import org.openmrs.module.metadatasharing.resolver.Resolver;
-import org.openmrs.module.metadatasharing.resolver.impl.ConceptReferenceTermResolver;
-import org.openmrs.module.metadatasharing.resolver.impl.ObjectByNameResolver;
-import org.openmrs.module.metadatasharing.resolver.impl.ObjectByUuidResolver;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
@@ -131,7 +126,7 @@ public class PihCoreActivator extends BaseModuleActivator {
     public void contextRefreshed() {
 
         setDispositionConfig(config);
-        setMetadataSharingResolvers();
+        MetadataSharingSetup.setMetadataSharingResolvers();
 
         CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
 
@@ -191,23 +186,6 @@ public class PihCoreActivator extends BaseModuleActivator {
         }
 
 
-    }
-
-
-    public void setMetadataSharingResolvers() {
-        // Since we do all MDS import programmatically, in mirror or parent-child mode, we don't want items being matched
-        // except for in specific ways. (Specifically we don't want to use ConceptByMappingResolver, but in general we
-        // want to avoid unexpected behavior.)
-        // See https://tickets.openmrs.org/browse/META-323
-        ObjectByUuidResolver byUuidResolver = Context.getRegisteredComponent("metadatasharing.ObjectByUuidResolver", ObjectByUuidResolver.class);
-        ObjectByNameResolver byNameResolver =Context.getRegisteredComponent("metadatasharing.ObjectByNameResolver", ObjectByNameResolver.class);
-        ConceptReferenceTermResolver referenceTermResolver =  Context.getRegisteredComponent("metadatasharing.ConceptReferenceTermResolver", ConceptReferenceTermResolver.class);
-
-        List<Resolver<?>> supportedResolvers = new ArrayList<Resolver<?>>();
-        supportedResolvers.add(byUuidResolver);
-        supportedResolvers.add(byNameResolver);
-        supportedResolvers.add(referenceTermResolver);
-        MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
     }
 
     // configure which disposition config to use
