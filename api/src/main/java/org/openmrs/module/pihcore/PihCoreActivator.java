@@ -39,17 +39,22 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.peru.PeruMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
+import org.openmrs.module.pihcore.setup.MetadataSharingSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
@@ -64,6 +69,9 @@ public class PihCoreActivator extends BaseModuleActivator {
 	protected Log log = LogFactory.getLog(getClass());
 
     private Config config;
+
+    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
+    private Boolean disableInstallMetadataBundlesThatDependOnMDSPackages = false;
 
     // TODO test
 
@@ -83,6 +91,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             if (config == null) {  // hack to allow injecting a mock config for testing
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
+
             setDispositionConfig(config);
             installMetadataBundles(config);
             setGlobalProperties(config);
@@ -94,6 +103,8 @@ public class PihCoreActivator extends BaseModuleActivator {
             MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
             MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
+            MetadataSharingSetup.installMetadataSharingPackages();
+            installMetadataBundlesThatDependOnMDSPackages(config);
             PacIntegrationSetup.setup(config);
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
@@ -115,7 +126,10 @@ public class PihCoreActivator extends BaseModuleActivator {
     public void contextRefreshed() {
 
         setDispositionConfig(config);
+        MetadataSharingSetup.setMetadataSharingResolvers();
+
         CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
+
         NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
         // hack: configure both name support beans, since two actually exist (?)
         NameTemplateSetup.configureNameTemplate(nameSupport);
@@ -147,6 +161,30 @@ public class PihCoreActivator extends BaseModuleActivator {
         else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
             deployService.installBundle(Context.getRegisteredComponents(PeruMetadataBundle.class).get(0));
         }
+
+    }
+
+    private void installMetadataBundlesThatDependOnMDSPackages(Config config) {
+
+	    if (!disableInstallMetadataBundlesThatDependOnMDSPackages) {
+
+            MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
+
+            // make this more dynamic, less dependent on if-thens
+            if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+                deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataToInstallAfterConceptsBundle.class).get(0));
+            }
+            else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+                deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataToInstallAfterConceptsBundle.class).get(0));
+            }
+            else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+                deployService.installBundle(Context.getRegisteredComponents(MexicoMetadataToInstallAfterConceptsBundle.class).get(0));
+            }
+            else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+                deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataToInstallAfterConceptsBundle.class).get(0));
+            }
+        }
+
 
     }
 
@@ -187,6 +225,11 @@ public class PihCoreActivator extends BaseModuleActivator {
         this.config = config;
     }
 
+    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
+    public void setDisableInstallMetadataBundlesThatDependOnMDSPackages(Boolean disableInstallMetadataBundlesThatDependOnMDSPackages) {
+        this.disableInstallMetadataBundlesThatDependOnMDSPackages = disableInstallMetadataBundlesThatDependOnMDSPackages;
+    }
+
     protected void setGlobalProperty(String propertyName, String propertyValue) {
         AdministrationService administrationService = Context.getAdministrationService();
         GlobalProperty gp = administrationService.getGlobalPropertyObject(propertyName);
@@ -197,26 +240,3 @@ public class PihCoreActivator extends BaseModuleActivator {
         administrationService.saveGlobalProperty(gp);
     }
 }
-
-/* Config config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
-        installMetadataBundles(config);
-
-		String property = Context.getRuntimeProperties().getProperty(RUNTIME_PROPERTY_INSTALL_AT_STARTUP, "false");
-		if (Boolean.valueOf(property)) {
-			// Limit to VersionedPihMetadataBundle, in case there are other bundles in non-PIH modules
-			List<VersionedPihMetadataBundle> bundles = Context.getRegisteredComponents(VersionedPihMetadataBundle.class);
-
-			log.info("Deploying " + bundles.size() + " bundles of class VersionedPihMetadataBundle...");
-			MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
-			deployService.installBundles((List) bundles);
-			log.info("Successfully deployed bundles:");
-			for (VersionedPihMetadataBundle bundle : bundles) {
-				String template = bundle.isInstalledNewVersion() ?
-						"Installed version %d of %s" :
-						"Was already at version %d of %s";
-				log.info(String.format(template, bundle.getVersion(), bundle.getClass().getSimpleName()));
-			}
-		}
-		else {
-			log.info("Not installing metadata deploy bundles. This will be done by a distribution module that depends on this one.");
-		}*/
