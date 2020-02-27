@@ -17,7 +17,12 @@ package org.openmrs.module.pihcore;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.*;
+import org.openmrs.GlobalProperty;
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.User;
+import org.openmrs.Person;
+import org.openmrs.PersonName;
+import org.openmrs.Provider;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
@@ -225,9 +230,9 @@ public class PihCoreActivator extends BaseModuleActivator {
     public User setupCommCareUser(){
 
 	    User user = null;
-        String commCareUserName = Context.getRuntimeProperties().getProperty("commcare.username", "commCareUser");
-        String commCareUserPassword = Context.getRuntimeProperties().getProperty("commcare.password", "CommCare12");
-        if (StringUtils.isNotBlank(commCareUserName)) {
+        String commCareUserName = Context.getRuntimeProperties().getProperty("commcare.username", null);
+        String commCareUserPassword = Context.getRuntimeProperties().getProperty("commcare.password", null);
+        if (StringUtils.isNotBlank(commCareUserName) && StringUtils.isNotBlank(commCareUserPassword)) {
             user = Context.getUserService().getUserByUsername(commCareUserName);
             if (user == null) {
                 // create a new user if one does not already exist
@@ -256,6 +261,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             if (providers == null || providers.size() < 1 ){
                 // if the user does not have a Provider yet then create one
                 Provider provider = new Provider();
+                provider.setUuid(PihCoreConstants.COMMCARE_PROVIDER_UUID);
                 provider.setPerson(person);
                 Context.getProviderService().saveProvider(provider);
             }
