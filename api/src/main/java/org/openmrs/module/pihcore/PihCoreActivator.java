@@ -55,6 +55,7 @@ import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataB
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
+import org.openmrs.module.pihcore.setup.DrugListSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
@@ -111,6 +112,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
             MetadataSharingSetup.installMetadataSharingPackages();
             installMetadataBundlesThatDependOnMDSPackages(config);
+            DrugListSetup.installDrugList();
             PacIntegrationSetup.setup(config);
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
