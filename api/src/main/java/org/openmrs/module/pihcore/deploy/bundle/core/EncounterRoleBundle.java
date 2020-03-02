@@ -20,6 +20,7 @@ public class EncounterRoleBundle extends AbstractMetadataBundle {
         public static final String ATTENDING_SURGEON = "9b135b19-7ebe-4a51-aea2-69a53f9383af";
         public static final String ANESTHESIOLOGIST = "de11b25c-a641-4630-9524-5b85ece9a4f8";
         public static final String ASSISTING_SURGEON = "6e630e03-5182-4cb3-9a82-a5b1a85c09a7";
+        public static final String COMMCARE_PROVIDER = "9442C03D-C539-4345-8716-F70DB4BA6458";
 
         // TODO are we actually going to use this role?
         public static final String LAB_TECHNICIAN = "781bee46-89c5-4230-a490-68fe21d61383";
@@ -68,6 +69,10 @@ public class EncounterRoleBundle extends AbstractMetadataBundle {
         install(encounterRole("Lab Technician",
                 "Staff member performing lab tests.",
                 EncounterRoles.LAB_TECHNICIAN));
+
+        install(encounterRole("CommCare Provider",
+                "CommCare integration provider",
+                EncounterRoles.COMMCARE_PROVIDER));
     }
 
 }

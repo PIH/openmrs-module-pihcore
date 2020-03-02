@@ -14,10 +14,15 @@
 package org.openmrs.module.pihcore;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.User;
+import org.openmrs.Person;
+import org.openmrs.PersonName;
+import org.openmrs.Provider;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
@@ -61,6 +66,7 @@ import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -108,6 +114,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             PacIntegrationSetup.setup(config);
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
+            setupCommCareUser();
         }
         catch (Exception e) {
             Module mod = ModuleFactory.getModuleById("pihcore");
@@ -218,6 +225,49 @@ public class PihCoreActivator extends BaseModuleActivator {
             BiometricsConfigDescriptor biometricsDescriptor = config.getBiometricsConfig();
             setGlobalProperty(RegistrationCoreConstants.GP_BIOMETRICS_IMPLEMENTATION, biometricsDescriptor.getBiometricEngine());
         }
+    }
+
+    public User setupCommCareUser(){
+
+	    User user = null;
+        String commCareUserName = Context.getRuntimeProperties().getProperty("commcare.username", null);
+        String commCareUserPassword = Context.getRuntimeProperties().getProperty("commcare.password", null);
+        if (StringUtils.isNotBlank(commCareUserName) && StringUtils.isNotBlank(commCareUserPassword)) {
+            user = Context.getUserService().getUserByUsername(commCareUserName);
+            if (user == null) {
+                // create a new user if one does not already exist
+                user = new User();
+            }
+            user.setUsername(commCareUserName);
+            Person person = user.getPerson();
+            if (person == null) {
+                person = new Person();
+                person.addName(new PersonName("CommCare", "", "Integration"));
+                person.setGender("M");
+                user.setPerson(person);
+            }
+
+            user.addRole(Context.getUserService().getRole("Authenticated"));
+            user.addRole(Context.getUserService().getRole("Privilege Level: Full"));
+            if (user.getId() == null ) {
+                // create a new record
+                user = Context.getUserService().createUser(user, commCareUserPassword);
+            } else {
+                // update an existing record
+                user = Context.getUserService().saveUser(user);
+            }
+            person = user.getPerson();
+            Collection<Provider> providers = Context.getProviderService().getProvidersByPerson(person);
+            if (providers == null || providers.size() < 1 ){
+                // if the user does not have a Provider yet then create one
+                Provider provider = new Provider();
+                provider.setUuid(PihCoreConstants.COMMCARE_PROVIDER_UUID);
+                provider.setPerson(person);
+                Context.getProviderService().saveProvider(provider);
+            }
+        }
+
+        return user;
     }
 
     // hack to allow injecting a mock config for testing
