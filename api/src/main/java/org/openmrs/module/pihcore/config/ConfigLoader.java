@@ -6,8 +6,8 @@ import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.util.OpenmrsClassLoader;
-import org.openmrs.util.OpenmrsUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,8 +25,6 @@ public class ConfigLoader {
     // helpful for developers, where you may want to point this to the appropriate directory in your local checkout
     // of our puppet project, ie: /home/mgoodrich/openmrs/modules/mirebalais-puppet/mirebalais-modules/openmrs/files/config
     public static final String PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY = "pih.config.dir";
-
-    public static final String DEFAULT_PIH_CONFIGURATION_DIR = OpenmrsUtil.getApplicationDataDirectory() + "/configuration/pih";
 
     /**
      * @return the configuration based on runtime properties configuration, or based on default value if not found
@@ -67,7 +65,7 @@ public class ConfigLoader {
 
                     // first see if is in the .OpenMRS directory (or directory specified in pih.config.dir runtime property)
                     // (any file found will override any file of the same name on the classpath)
-                    String dir = getPihConfigurationDirRuntimeProperty(DEFAULT_PIH_CONFIGURATION_DIR);
+                    String dir = getPihConfigurationDirRuntimeProperty(PihCoreUtil.getDefaultPihConfigurationDir());
                     File configFile = new File(dir, configFilename);
 
                     if (configFile.exists()) {

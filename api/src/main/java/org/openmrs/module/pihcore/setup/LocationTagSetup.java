@@ -143,8 +143,8 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, Arrays.asList(LiberiaLocations.RECORDS_ROOM));
         setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION,
                 Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC));
-
-        //setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC,
+                LiberiaLocations.NCD_CLINIC));
 
         setupLocationTagsForHarperKouka(locationService);
     }
