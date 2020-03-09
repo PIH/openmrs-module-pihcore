@@ -481,7 +481,7 @@ END
 #
 DROP FUNCTION IF EXISTS latestEnc;
 #
-CREATE FUNCTION latestEnc(patientId int(11), encounterType int(11), beginDate datetime)
+CREATE FUNCTION latestEnc(patientId int(11), encounterType varchar(255), beginDate datetime)
     RETURNS int(11)
     DETERMINISTIC
 
@@ -493,7 +493,7 @@ BEGIN
     from encounter enc
     where enc.voided = 0
     and enc.patient_id = patientId
-    and find_in_set(encounter_type, @encounterType)
+    and find_in_set(encounter_type, encounterType)
     and (beginDate is null or enc.encounter_datetime >= beginDate)
     order by enc.encounter_datetime desc
     limit 1;
