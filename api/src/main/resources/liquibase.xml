@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
@@ -482,6 +482,15 @@
 
     <changeSet id="20190920-pihcore-create-functions" author="jmbabazi" runAlways="true" runOnChange="true">
         <sqlFile endDelimiter="#" path="sql/procedures/create_functions.sql" stripComments="true" />
+    </changeSet>
+
+    <changeSet id="20200310-01" author="mgoodrich">
+        <comment>
+            Make Mirebalais Metadata module not mandatory (so we can remove it)
+        </comment>
+        <sql>
+            update global_property set property_value='false' where property='mirebalaismetadata.mandatory';
+        </sql>
     </changeSet>
 
 </databaseChangeLog>
