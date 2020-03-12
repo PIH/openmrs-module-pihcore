@@ -381,7 +381,7 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypes[EncounterTypes.prenatalHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
-          longTemplate: "templates/encounters/defaultEncounterLong.page",
+          longTemplate: "templates/encounters/defaultEncounterShort.page",
           showOnVisitList: true,
           sections: [
             mchReferral,
