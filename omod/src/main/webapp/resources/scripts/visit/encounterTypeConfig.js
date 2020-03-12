@@ -267,6 +267,62 @@ angular.module("encounterTypeConfig", ["constants"])
             editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("section-delivery.xml") + "&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
         }
 
+        var mchReferral = {
+          type: "encounter-section",
+          id: "section-mch-referral",
+          label: "pihcore.mch.referral.title",
+          shortTemplate: "templates/sections/defaultSectionShort.page",
+          longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+          templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("section-mch-referral.xml"),
+          editUrl: "/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId={{visit.patient.uuid}}&visitId={{visit.uuid}}&encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("section-mch-referral.xml") + "&returnUrl={{returnUrl}}&breadcrumbOverride={{breadcrumbOverride}}"
+        };
+
+        var maternalDangerSigns = {
+          type: "encounter-section",
+          id: "section-maternal-danger-signs",
+          label: "pihcore.mch.maternalDangerSigns.title",
+          shortTemplate: "templates/sections/defaultSectionShort.page",
+          longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+          templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("section-maternal-danger-signs.xml"),
+          editUrl:""
+        };
+
+        var maternalVitalSigns = {
+          type: "encounter-section",
+          id: "section-maternal-vital-signs",
+          label: "pihcore.mch.maternalVitalSigns.title",
+          shortTemplate: "templates/sections/defaultSectionShort.page",
+          longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+          templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("section-maternal-vital-signs.xml"),
+        };
+
+        var educationSubjects = {
+          type: "encounter-section",
+          id: "section-education-subjects",
+          label: "pihcore.mch.educationSubjects.title",
+          shortTemplate: "templates/sections/defaultSectionShort.page",
+          longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+          templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("section-education-subjects.xml"),
+        };
+
+        var comments = {
+          type: "encounter-section",
+          id: "section-comments",
+          label: "pihcore.comments.title",
+          shortTemplate: "templates/sections/defaultSectionShort.page",
+          longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+          templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("section-comments.xml"),
+        };
+
+        var returnVisitDate = {
+          type: "encounter-section",
+          id: "section-return-visit-date",
+          label: "pihcore.returnVisitDate.title",
+          shortTemplate: "templates/sections/defaultSectionShort.page",
+          longTemplate: "templates/sections/viewSectionWithHtmlFormLong.page",
+          templateModelUrl: "/htmlformentryui/htmlform/viewEncounterWithHtmlForm/getAsHtml.action?encounterId={{encounter.uuid}}&definitionUiResource=" + getFormResource("section-return-visit-date.xml"),
+        };
+
         /**
          * Define Encounter Types
          * Should support all of the following formats:
@@ -319,25 +375,37 @@ angular.module("encounterTypeConfig", ["constants"])
         encounterTypes[EncounterTypes.prenatalHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
-          longTemplate: "templates/encounters/defaultEncounterLong.page"
+          longTemplate: "templates/encounters/defaultEncounterLong.page",
+          showOnVisitList: true,
+          sections: [
+            mchReferral,
+            maternalDangerSigns,
+            maternalVitalSigns,
+            educationSubjects,
+            comments,
+            returnVisitDate
+          ],
         };
 
         encounterTypes[EncounterTypes.pediatricHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
-          longTemplate: "templates/encounters/defaultEncounterLong.page"
+          longTemplate: "templates/encounters/defaultEncounterLong.page",
+          showOnVisitList: true
         };
 
         encounterTypes[EncounterTypes.maternalPostPartumHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
-          longTemplate: "templates/encounters/defaultEncounterLong.page"
+          longTemplate: "templates/encounters/defaultEncounterLong.page",
+          showOnVisitList: true
         };
 
         encounterTypes[EncounterTypes.maternalFollowUpHomeAssessment.uuid] = {
           defaultState: "short",
           shortTemplate: "templates/encounters/defaultEncounterShort.page",
-          longTemplate: "templates/encounters/defaultEncounterLong.page"
+          longTemplate: "templates/encounters/defaultEncounterLong.page",
+          showOnVisitList: true
         };
 
         encounterTypes[EncounterTypes.checkIn.uuid] = {
