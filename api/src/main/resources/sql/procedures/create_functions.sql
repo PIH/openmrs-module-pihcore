@@ -473,3 +473,32 @@ BEGIN
 
 END
 #
+
+--- This function accepts patient_id, encounter_type and beginDate
+--- It will return the latest encounter id if the patient
+--- if null is passed in as the beginDate, it will be disregarded
+
+#
+DROP FUNCTION IF EXISTS latestEnc;
+#
+CREATE FUNCTION latestEnc(patientId int(11), encounterType varchar(255), beginDate datetime)
+    RETURNS int(11)
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE enc_id_out int(11);
+
+    select encounter_id into enc_id_out
+    from encounter enc
+    where enc.voided = 0
+    and enc.patient_id = patientId
+    and find_in_set(encounter_type, encounterType)
+    and (beginDate is null or enc.encounter_datetime >= beginDate)
+    order by enc.encounter_datetime desc
+    limit 1;
+
+    RETURN enc_id_out;
+
+END
+#
