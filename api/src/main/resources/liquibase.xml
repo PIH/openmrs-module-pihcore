@@ -210,6 +210,7 @@
     </changeSet>
 
     <changeSet id="20150430-migrate-printing-history-to-new-concept" author="mseaton">
+        <validCheckSum>3:b8dc255ebf56445e5bebb71ab6105b29</validCheckSum>
         <preConditions onFail="CONTINUE">
             <not>
                 <sqlCheck expectedResult="0">
@@ -240,6 +241,7 @@
     </changeSet>
 
     <changeSet id="20150921-migrate-printing-history-to-new-concept" author="mgoodrich">
+        <validCheckSum>3:b8dc255ebf56445e5bebb71ab6105b29</validCheckSum>
         <preConditions onFail="CONTINUE">
             <not>
                 <sqlCheck expectedResult="0">
@@ -261,6 +263,7 @@
     </changeSet>
 
     <changeSet id="20150928-migrate-printing-history-to-new-concept" author="mgoodrich">
+        <validCheckSum>3:b8dc255ebf56445e5bebb71ab6105b29</validCheckSum>
         <preConditions onFail="CONTINUE">
             <not>
                 <sqlCheck expectedResult="0">
