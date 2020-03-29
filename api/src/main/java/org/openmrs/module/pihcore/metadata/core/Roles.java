@@ -268,8 +268,6 @@ public class Roles {
                     Privileges.APP_REPORTINGUI_REPORTS,
                     Privileges.APP_ZL_MPI,
                     Privileges.TASK_COREAPPS_EDIT_RELATIONSHIPS,
-                    Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS,
                     Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
@@ -434,8 +432,6 @@ public class Roles {
                     Privileges.TASK_DISPENSING_DISPENSE,
                     Privileges.TASK_DISPENSING_EDIT,
                     Privileges.TASK_EMR_CHECK_IN,
-                    Privileges.TASK_ORDER_LABS,
-                    Privileges.TASK_VIEW_LABS,
                     Privileges.TASK_VIEW_GROWTH_CHARTS
             );}
     };
