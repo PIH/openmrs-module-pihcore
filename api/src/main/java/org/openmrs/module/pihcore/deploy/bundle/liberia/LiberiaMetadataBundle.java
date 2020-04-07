@@ -59,6 +59,12 @@ public class LiberiaMetadataBundle extends AbstractMetadataBundle {
         properties.put(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, LiberiaPatientIdentifierTypes.SAMPLE_DOSSIER_NUMBER_ID.uuid());
         properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, LiberiaLocations.PLEEBO.uuid());
 
+        // Order Entry OWA
+        properties.put("orderentryowa.labOrderablesConceptSet","d75d3f5b-6777-41cf-ad9f-dce07a577eb3");
+
+        // Lab Workflow OWA
+        properties.put("labworkflowowa.locationOfLaboratory", "76c4e6f2-d885-4d1f-8bad-f8320f20ee85");
+
         setGlobalProperties(properties);
 
         uninstall(possible(GlobalProperty.class, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE), "replaced by metadata mapping");
