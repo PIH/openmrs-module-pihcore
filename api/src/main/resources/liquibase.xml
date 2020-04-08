@@ -1099,5 +1099,20 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20200407-duplicate-name-chorioamnionitis" author="ball">
+        <comment>
+            UHM-4410 Void Chorioamnionitis duplicate names
+        </comment>
+
+        <sql>
+            update concept_name
+            set voided = 1, date_voided = now(),
+                void_reason = 'Duplicate Chorioamnionitis name',
+                voided_by = 1
+            where concept_id = (select concept_id from concept where uuid = '137298AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+              and (name like 'Chorio%' OR name like 'Corio%');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
