@@ -1,13 +1,22 @@
 package org.openmrs.module.pihcore.setup;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.FormService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.HtmlFormEntryService;
+import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.htmlformentry.CauseOfDeathListTagHandler;
 import org.openmrs.module.pihcore.htmlformentry.FamilyHistoryRelativeCheckboxesTagHandler;
 import org.openmrs.module.pihcore.htmlformentry.PastMedicalHistoryCheckboxTagHandler;
+import org.openmrs.ui.framework.resource.ResourceFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collection;
 
 public class HtmlFormSetup {
 
@@ -20,4 +29,26 @@ public class HtmlFormSetup {
         htmlFormEntryService.addHandler(PihCoreConstants.HTMLFORMENTRY_FAMILY_HISTORY_RELATIVE_CHECKBOXES_TAG_NAME, new FamilyHistoryRelativeCheckboxesTagHandler());
     }
 
+    public static void loadHtmlForms() {
+
+        ResourceFactory resourceFactory = ResourceFactory.getInstance();
+        FormService formService = Context.getFormService();
+        HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
+
+        try {
+            File htmlformDir = new File(PihCoreUtil.getFormDirectory());
+            Collection<File> files = FileUtils.listFiles(htmlformDir, null, true);
+
+            for (File file : files) {
+                try {
+                    HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, "file:" + file.getAbsolutePath());
+                } catch (IOException e) {
+                    log.error("Unable to load HTML Form at path: " + file, e);
+                }
+            }
+        }
+        catch (Exception e) {
+            log.error("Unable to load HTML forms--this error is expected when running component tests");
+        }
+    }
 }
