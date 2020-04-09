@@ -78,8 +78,8 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
 
     private DaemonToken daemonToken;
 
-    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
-    private Boolean disableInstallMetadataBundlesThatDependOnMDSPackages = false;
+    // hack that allows us to ignore some errors and installation during testing
+    private Boolean testingContext = false;
 
     @Override
     public void setDaemonToken(DaemonToken daemonToken) {
@@ -121,9 +121,9 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             setupCommCareUser();
 
             // see https://pihemr.atlassian.net/browse/UHM-4459 for details of why we do this this way
-            Runnable metadataSetupTask = new MetadataSetupTask(config, disableInstallMetadataBundlesThatDependOnMDSPackages);
+            Runnable metadataSetupTask = new MetadataSetupTask(config, testingContext);
             String runInSeparateThread = Context.getAdministrationService().getGlobalProperty(PihCoreConstants.GP_RUN_CONCEPT_SETUP_TASK_IN_SEPARATE_THREAD);
-            if (StringUtils.isNotBlank(runInSeparateThread) && runInSeparateThread.toLowerCase().equals("true")) {
+            if ("true".equalsIgnoreCase(runInSeparateThread)) {
                 Daemon.runInDaemonThread(metadataSetupTask, daemonToken);
             }
             else {
@@ -266,9 +266,9 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
         this.config = config;
     }
 
-    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
-    public void setDisableInstallMetadataBundlesThatDependOnMDSPackages(Boolean disableInstallMetadataBundlesThatDependOnMDSPackages) {
-        this.disableInstallMetadataBundlesThatDependOnMDSPackages = disableInstallMetadataBundlesThatDependOnMDSPackages;
+    //  hack that allows us to ignore some errors and installation during testing
+    public void setTestingContext(Boolean testingContext) {
+        this.testingContext = testingContext;
     }
 
     protected void setGlobalProperty(String propertyName, String propertyValue) {

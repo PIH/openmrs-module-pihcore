@@ -29,13 +29,13 @@ public class HtmlFormSetup {
         htmlFormEntryService.addHandler(PihCoreConstants.HTMLFORMENTRY_FAMILY_HISTORY_RELATIVE_CHECKBOXES_TAG_NAME, new FamilyHistoryRelativeCheckboxesTagHandler());
     }
 
-    public static void loadHtmlForms() {
-
-        ResourceFactory resourceFactory = ResourceFactory.getInstance();
-        FormService formService = Context.getFormService();
-        HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
+    public static void loadHtmlForms(Boolean testingContext) {
 
         try {
+            ResourceFactory resourceFactory = ResourceFactory.getInstance();
+            FormService formService = Context.getFormService();
+            HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
+
             File htmlformDir = new File(PihCoreUtil.getFormDirectory());
             Collection<File> files = FileUtils.listFiles(htmlformDir, null, true);
 
@@ -43,12 +43,16 @@ public class HtmlFormSetup {
                 try {
                     HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, "file:" + file.getAbsolutePath());
                 } catch (IOException e) {
-                    log.error("Unable to load HTML Form at path: " + file, e);
+                    throw new RuntimeException("Unable to load HTML Form at path: " + file, e);
                 }
             }
         }
         catch (Exception e) {
-            log.error("Unable to load HTML forms--this error is expected when running component tests");
+            if (testingContext) {
+                log.error("Unable to load HTML forms--this error is expected when running component tests");
+            } else {
+                throw e;
+            }
         }
     }
 }

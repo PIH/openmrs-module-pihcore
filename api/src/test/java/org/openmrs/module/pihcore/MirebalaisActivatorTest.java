@@ -87,7 +87,7 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
         when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
         when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         activator.setConfig(config);
-        activator.setDisableInstallMetadataBundlesThatDependOnMDSPackages(true);
+        activator.setTestingContext(true);
         activator.started();
     }
 

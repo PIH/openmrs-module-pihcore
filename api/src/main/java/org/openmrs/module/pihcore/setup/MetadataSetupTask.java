@@ -17,12 +17,11 @@ public class MetadataSetupTask implements Runnable {
 
     private Config config;
 
-    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
-    private Boolean disableInstallMetadataBundlesThatDependOnMDSPackages = false;
+    private Boolean testingContext = false;
 
-    public MetadataSetupTask(Config config, Boolean disableInstallMetadataBundlesThatDependOnMDSPackages) {
+    public MetadataSetupTask(Config config, Boolean testingContext) {
         this.config = config;
-        this.disableInstallMetadataBundlesThatDependOnMDSPackages = disableInstallMetadataBundlesThatDependOnMDSPackages;
+        this.testingContext = testingContext;
     }
 
     @Override
@@ -37,7 +36,8 @@ public class MetadataSetupTask implements Runnable {
             throw e;
         }
 
-        if (!this.disableInstallMetadataBundlesThatDependOnMDSPackages) {
+        // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
+        if (!this.testingContext) {
             try {
                 installMetadataBundlesThatDependOnMDSPackages(config);
                 log.info("Metadata bundles dependant on MDS packages loaded");
@@ -58,7 +58,7 @@ public class MetadataSetupTask implements Runnable {
         }
 
         try {
-            HtmlFormSetup.loadHtmlForms(); // this must happen *after* MDS packages are installed, so that forms defined in code/github take precedent
+            HtmlFormSetup.loadHtmlForms(testingContext); // this must happen *after* MDS packages are installed, so that forms defined in code/github take precedent
             log.info("HTML forms loaded");
         }
         catch (Exception e) {
