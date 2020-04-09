@@ -111,4 +111,15 @@
       <file>messages_es.properties</file>
   </messages>
 
+    <!-- Global Properties -->
+    <globalProperty>
+        <property>pihcore.runMetadataSetupTaskInSeparateThread</property>
+        <defaultValue>false</defaultValue>
+        <description>
+            Enables running the metadata setup task, which loads concepts, drugs, forms and other metadata, in a separate thread,
+            enabling the server to start up before concept loading is complete.  This minimizes downtime, but use
+            with caution because server will not be completely configured on startup!
+        </description>
+    </globalProperty>
+
 </module>
