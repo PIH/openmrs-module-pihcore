@@ -2,6 +2,8 @@ package org.openmrs.module.pihcore;
 
 public class PihCoreConstants {
 
+    public static final String GP_RUN_CONCEPT_SETUP_TASK_IN_SEPARATE_THREAD = "pihcore.runMetadataSetupTaskInSeparateThread";
+
     public static final String HTMLFORMENTRY_CAUSE_OF_DEATH_LIST_TAG_NAME = "causeOfDeathList";
     public static final String HTMLFORMENTRY_PAST_MEDICAL_HISTORY_CHECKBOX_TAG_NAME = "pastMedicalHistoryCheckbox";
     public static final String HTMLFORMENTRY_FAMILY_HISTORY_RELATIVE_CHECKBOXES_TAG_NAME = "familyHistoryRelativeCheckboxes";

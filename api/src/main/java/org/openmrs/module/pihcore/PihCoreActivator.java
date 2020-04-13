@@ -19,10 +19,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
 import org.openmrs.PatientIdentifierType;
-import org.openmrs.User;
 import org.openmrs.Person;
 import org.openmrs.PersonName;
 import org.openmrs.Provider;
+import org.openmrs.User;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
@@ -31,8 +31,11 @@ import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.context.Daemon;
 import org.openmrs.layout.name.NameSupport;
 import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.DaemonToken;
+import org.openmrs.module.DaemonTokenAware;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -44,22 +47,18 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.peru.PeruMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
-import org.openmrs.module.pihcore.setup.DrugListSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
+import org.openmrs.module.pihcore.setup.MetadataSetupTask;
 import org.openmrs.module.pihcore.setup.MetadataSharingSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
@@ -71,18 +70,23 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class PihCoreActivator extends BaseModuleActivator {
+public class PihCoreActivator extends BaseModuleActivator implements DaemonTokenAware {
 
 	protected Log log = LogFactory.getLog(getClass());
 
     private Config config;
 
-    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
-    private Boolean disableInstallMetadataBundlesThatDependOnMDSPackages = false;
+    private DaemonToken daemonToken;
 
-    // TODO test
+    // hack that allows us to ignore some errors and installation during testing
+    private Boolean testingContext = false;
 
-	@Override
+    @Override
+    public void setDaemonToken(DaemonToken daemonToken) {
+        this.daemonToken = daemonToken;
+    }
+
+    @Override
 	public void started() {
 
         try {
@@ -92,6 +96,7 @@ public class PihCoreActivator extends BaseModuleActivator {
             LocationService locationService = Context.getLocationService();
             EncounterService encounterService = Context.getEncounterService();
             VisitService visitService = Context.getVisitService();
+            AdministrationService administrationService = Context.getAdministrationService();
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
             ConceptService conceptService = Context.getService(ConceptService.class);
 
@@ -110,13 +115,21 @@ public class PihCoreActivator extends BaseModuleActivator {
             MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
             MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
-            MetadataSharingSetup.installMetadataSharingPackages();
-            installMetadataBundlesThatDependOnMDSPackages(config);
-            DrugListSetup.installDrugList();
             PacIntegrationSetup.setup(config);
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
             setupCommCareUser();
+
+            // see https://pihemr.atlassian.net/browse/UHM-4459 for details of why we do this this way
+            Runnable metadataSetupTask = new MetadataSetupTask(config, testingContext);
+            String runInSeparateThread = Context.getAdministrationService().getGlobalProperty(PihCoreConstants.GP_RUN_CONCEPT_SETUP_TASK_IN_SEPARATE_THREAD);
+            if ("true".equalsIgnoreCase(runInSeparateThread)) {
+                Daemon.runInDaemonThread(metadataSetupTask, daemonToken);
+            }
+            else {
+                metadataSetupTask.run();
+            }
+
         }
         catch (Exception e) {
             Module mod = ModuleFactory.getModuleById("pihcore");
@@ -170,30 +183,6 @@ public class PihCoreActivator extends BaseModuleActivator {
         else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
             deployService.installBundle(Context.getRegisteredComponents(PeruMetadataBundle.class).get(0));
         }
-
-    }
-
-    private void installMetadataBundlesThatDependOnMDSPackages(Config config) {
-
-	    if (!disableInstallMetadataBundlesThatDependOnMDSPackages) {
-
-            MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
-
-            // make this more dynamic, less dependent on if-thens
-            if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-                deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataToInstallAfterConceptsBundle.class).get(0));
-            }
-            else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-                deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataToInstallAfterConceptsBundle.class).get(0));
-            }
-            else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-                deployService.installBundle(Context.getRegisteredComponents(MexicoMetadataToInstallAfterConceptsBundle.class).get(0));
-            }
-            else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-                deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataToInstallAfterConceptsBundle.class).get(0));
-            }
-        }
-
 
     }
 
@@ -277,9 +266,9 @@ public class PihCoreActivator extends BaseModuleActivator {
         this.config = config;
     }
 
-    // hack so that we can disable this during testing, because we are not currently installing MDS packages as part of test
-    public void setDisableInstallMetadataBundlesThatDependOnMDSPackages(Boolean disableInstallMetadataBundlesThatDependOnMDSPackages) {
-        this.disableInstallMetadataBundlesThatDependOnMDSPackages = disableInstallMetadataBundlesThatDependOnMDSPackages;
+    //  hack that allows us to ignore some errors and installation during testing
+    public void setTestingContext(Boolean testingContext) {
+        this.testingContext = testingContext;
     }
 
     protected void setGlobalProperty(String propertyName, String propertyValue) {
