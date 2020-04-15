@@ -54,12 +54,12 @@
 
     <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.attendingsurgeonlabel")}</label>
-        <span class="value">{{ encounter.encounterProviders | encounterRole:EncounterRoles.attendingSurgeon.uuid | getProviderNameFromDisplayString }}</span>
+        <span class="value">{{ encounter.encounterProviders | encounterRole:EncounterRoles.attendingSurgeon.uuid | getProviderName }}</span>
     </p>
 
     <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.residentlabel")}</label>
-        <span class="value">{{ encounter.encounterProviders | encounterRole:EncounterRoles.assistingSurgeon.uuid | getProviderNameFromDisplayString }}</span>
+        <span class="value">{{ encounter.encounterProviders | encounterRole:EncounterRoles.assistingSurgeon.uuid | getProviderName }}</span>
     </p>
 
     <p class="aligned">

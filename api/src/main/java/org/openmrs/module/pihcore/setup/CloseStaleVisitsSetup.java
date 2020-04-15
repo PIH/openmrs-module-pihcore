@@ -2,8 +2,8 @@ package org.openmrs.module.pihcore.setup;
 
 import org.apache.commons.lang.time.DateUtils;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.utils.GeneralUtils;
+import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.task.PihCloseStaleVisitsTask;
 import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
@@ -16,14 +16,14 @@ public class CloseStaleVisitsSetup {
     public static void setupCloseStaleVisitsTask() {
 
         SchedulerService schedulerService = Context.getSchedulerService();
-        TaskDefinition task = schedulerService.getTaskByName(EmrConstants.TASK_CLOSE_STALE_VISITS_NAME);
+        TaskDefinition task = schedulerService.getTaskByName(PihCoreConstants.TASK_CLOSE_STALE_VISITS_NAME);
         if (task == null) {
             task = new TaskDefinition();
-            task.setName(EmrConstants.TASK_CLOSE_STALE_VISITS_NAME);
-            task.setDescription(EmrConstants.TASK_CLOSE_STALE_VISITS_DESCRIPTION);
+            task.setName(PihCoreConstants.TASK_CLOSE_STALE_VISITS_NAME);
+            task.setDescription(PihCoreConstants.TASK_CLOSE_STALE_VISITS_DESCRIPTION);
             task.setTaskClass(PihCloseStaleVisitsTask.class.getName());
             task.setStartTime(DateUtils.addMinutes(new Date(), 5));
-            task.setRepeatInterval(EmrConstants.TASK_CLOSE_STALE_VISITS_REPEAT_INTERVAL);
+            task.setRepeatInterval(PihCoreConstants.TASK_CLOSE_STALE_VISITS_REPEAT_INTERVAL);
             task.setStartOnStartup(true);
             try {
                 schedulerService.scheduleTask(task);

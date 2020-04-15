@@ -363,9 +363,13 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
-    .filter('getProviderNameFromDisplayString', function() {
+    .filter('getProviderName', function() {
         return function(input) {
-           if (input && input.display){
+           if (input && input.person) {
+              return input.person.display;
+           }
+           // TODO not sure if we need to support either of these two formats going forward; all providers should have associated people?
+           else if (input && input.display){
                //we made the assumption the display string is like "Wideline Louis Charles: Dispenser"
                // /ws/rest/v1/visit/2a767422-98b2-445d-9294-d008e17b42c5?v=custom:)
                 var name = input.display.split(": ");
@@ -380,7 +384,9 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
                     }
                 }
             }
-            return "";
+            else {
+             return "";
+           }
         }
     })
 
