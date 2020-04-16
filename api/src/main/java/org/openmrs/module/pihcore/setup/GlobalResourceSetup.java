@@ -78,7 +78,7 @@ public class GlobalResourceSetup {
         return path.replace(OpenmrsUtil.getApplicationDataDirectory(), "");
     }
 
-    protected static void addGlobalResource(String category, String providerName, String resourcePath)  {
+    protected static void addGlobalResource(String category, String providerName, String resourcePath) {
         ResourceFactory resourceFactory = ResourceFactory.getInstance();
         PageFactory pageFactory = Context.getRegisteredComponents(PageFactory.class).get(0);
         File resource = resourceFactory.getResource(providerName, resourcePath);
