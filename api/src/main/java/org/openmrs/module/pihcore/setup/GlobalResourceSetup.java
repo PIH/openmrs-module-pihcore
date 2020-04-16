@@ -38,9 +38,9 @@ public class GlobalResourceSetup {
                 addGlobalResource(Resource.CATEGORY_JS, "file", resource);
             }
         }
-        // this entire catch is a hack to get component test to pass until we find the proper way to mock this (see HtmlFormSetup where we do something similar)
+        // this entire catch is a hack to get component test to pass until we find the proper way to mock this
+        // (see HtmlFormSetup where we do something similar)
         catch (Exception e) {
-            // this is a hack to get component test to pass until we find the proper way to mock this
             if (ResourceFactory.getInstance().getResourceProviders() == null) {
                 log.error("Unable to load GlobalResourcs--this error is expected when running component tests");
             } else {
