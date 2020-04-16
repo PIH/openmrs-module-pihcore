@@ -57,7 +57,7 @@ public class GlobalResourceSetup {
         try {
             File dir = new File(path);
             if (dir.exists()) {
-                files = FileUtils.listFiles(dir, null, true);
+                files = FileUtils.listFiles(dir, /*extensions=*/ null,  /*recursive=*/ true);
             }
         }
         catch (Exception e) {
