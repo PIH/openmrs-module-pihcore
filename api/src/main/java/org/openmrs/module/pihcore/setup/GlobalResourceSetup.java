@@ -82,7 +82,7 @@ public class GlobalResourceSetup {
         ResourceFactory resourceFactory = ResourceFactory.getInstance();
         PageFactory pageFactory = Context.getRegisteredComponents(PageFactory.class).get(0);
         File resource = resourceFactory.getResource(providerName, resourcePath);
-        if (resource != null) {
+        if (resource != null && pageFactory != null) {
             GlobalResourceIncluder globalResourceIncluder = new GlobalResourceIncluder();
             int priority = -100;
             globalResourceIncluder.addResource(new Resource(category, providerName, resourcePath, priority));
