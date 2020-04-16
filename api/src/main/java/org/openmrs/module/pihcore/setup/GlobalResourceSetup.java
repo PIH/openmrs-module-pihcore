@@ -84,7 +84,8 @@ public class GlobalResourceSetup {
         File resource = resourceFactory.getResource(providerName, resourcePath);
         if (resource != null) {
             GlobalResourceIncluder globalResourceIncluder = new GlobalResourceIncluder();
-            globalResourceIncluder.addResource(new Resource(category, providerName, resourcePath, -100));
+            int priority = -100;
+            globalResourceIncluder.addResource(new Resource(category, providerName, resourcePath, priority));
             pageFactory.getModelConfigurators().add(globalResourceIncluder);
         }
     }
