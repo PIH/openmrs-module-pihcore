@@ -37,8 +37,8 @@
     ui.includeJavascript("pihcore", "visit/vaccinations.js")
     ui.includeJavascript("pihcore", "visit/visit.js")
     ui.includeJavascript("pihcore", "visit/encounterTransaction.js")
-    ui.includeJavascript("pihcore", "visit/encounterTypeConfig.js")
     ui.includeJavascript("pihcore", "services/configService.js")
+    ui.includeJavascript("file", "configuration/pih/scripts/visit/encounterTypeConfig.js", /* priority= */ null, /* pathIsRelativeToScripts= */ false)
 %>
 
 <script type="text/javascript">

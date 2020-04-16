@@ -54,6 +54,7 @@ import org.openmrs.module.pihcore.deploy.bundle.peru.PeruMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
+import org.openmrs.module.pihcore.setup.GlobalResourceSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
@@ -118,7 +119,9 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             PacIntegrationSetup.setup(config);
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
+            GlobalResourceSetup.includeGlobalResources();
             setupCommCareUser();
+
 
             // see https://pihemr.atlassian.net/browse/UHM-4459 for details of why we do this this way
             Runnable metadataSetupTask = new MetadataSetupTask(config, testingContext);
