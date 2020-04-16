@@ -75,7 +75,7 @@ public class GlobalResourceSetup {
 
     // strip the application data directory from the path, returning the path relative to that directory
     protected static String stripApplicationDataDirectory(String path) {
-        return path.replace(OpenmrsUtil.getApplicationDataDirectory(),"");
+        return path.replace(OpenmrsUtil.getApplicationDataDirectory(), "");
     }
 
     protected static void addGlobalResource(String category, String providerName, String resourcePath)  {
