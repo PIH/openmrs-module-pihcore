@@ -1116,5 +1116,30 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20200416-fix-liberia-locations" author="mgoodrich">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from location where uuid='f6f87d10-f290-11e4-b939-0800200c9a66';
+            </sqlCheck>
+        </preConditions>
+
+        <comment>
+            UHM-4501: Kouka: unable to save mental health form when visit is over 30 days ago?
+            f6f87d10-f290-11e4-b939-0800200c9a66 is Pleebo uuid, only run on existing Liberia servers
+            (this will also skip when installing new servers since locations will not yet
+            be installed)
+        </comment>
+
+        <sql>
+            set @pleebo = (select location_id from location where uuid='f6f87d10-f290-11e4-b939-0800200c9a66');
+            set @jjdossen = (select location_id from location where uuid='6fa7bab5-1ca5-4b77-8c31-80c9589af952');
+            set @health_facility = (select location_id from location where uuid='5af1ffcd-5178-11ea-a500-645d86728797');
+
+            update visit set location_id=@health_facility where location_id in (@pleebo, @jjdossen);
+            update encounter set location_id=@health_facility where location_id in (@pleebo, @jjdossen);
+            update patient_identifier set location_id=@health_facility where location_id in (@pleebo, @jjdossen);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 

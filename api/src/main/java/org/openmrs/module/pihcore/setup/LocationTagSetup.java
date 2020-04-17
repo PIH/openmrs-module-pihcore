@@ -145,18 +145,7 @@ public class LocationTagSetup {
                 Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC));
         setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC,
                 LiberiaLocations.NCD_CLINIC));
-
-        setupLocationTagsForHarperKouka(locationService);
     }
-
-    private static void setupLocationTagsForHarperKouka(LocationService locationService) {
-        LocationDescriptor location = LiberiaLocations.HARPER;
-
-        setLocationTagsFor(locationService, LocationTags.ED_NOTE_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, Arrays.asList(location));
-        setLocationTagsFor(locationService, LocationTags.ED_TRIAGE_LOCATION, Arrays.asList(location));
-    }
-
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.LACOLLINE);
