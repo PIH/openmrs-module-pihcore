@@ -57,7 +57,7 @@ public class LiberiaMetadataBundle extends AbstractMetadataBundle {
         // Core Apps
 
         properties.put(PaperRecordConstants.GP_PAPER_RECORD_IDENTIFIER_TYPE, LiberiaPatientIdentifierTypes.SAMPLE_DOSSIER_NUMBER_ID.uuid());
-        properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, LiberiaLocations.PLEEBO.uuid());
+        properties.put(CoreAppsConstants.GP_DEFAULT_PATIENT_IDENTIFIER_LOCATION, LiberiaLocations.HEALTH_FACILITY.uuid());
 
         // Order Entry OWA
         properties.put("orderentryowa.labOrderablesConceptSet","d75d3f5b-6777-41cf-ad9f-dce07a577eb3");
