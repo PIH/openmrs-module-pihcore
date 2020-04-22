@@ -19,6 +19,8 @@ import java.util.Map;
 /**
  * Represents the aspects of an address that are stored in data by
  * the addresshierarchy module.
+ *
+ * Currently only used for testing, as we have migrated to Iniz for Addresses
  */
 public abstract class AddressBundle extends VersionedMetadataBundle {
 

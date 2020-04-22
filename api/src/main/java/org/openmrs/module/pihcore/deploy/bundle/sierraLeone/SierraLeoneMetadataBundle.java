@@ -21,7 +21,6 @@ import java.util.Map;
 @Requires({ PihCoreMetadataBundle.class,
         SierraLeonePatientIdentifierTypeBundle.class,
         SierraLeoneLocationsBundle.class,
-        SierraLeoneAddressBundle.class,
         SierraLeoneEncounterTypeBundle.class } )
 public class SierraLeoneMetadataBundle extends AbstractMetadataBundle {
 
