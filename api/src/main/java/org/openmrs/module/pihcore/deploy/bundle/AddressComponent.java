@@ -4,6 +4,8 @@ import org.openmrs.module.addresshierarchy.AddressField;
 
 /**
  * Represents a component of a hierarchical address.
+ *
+ *  Currently only used for testing, as we have migrated to Iniz for Addresses
  */
 public class AddressComponent {
 

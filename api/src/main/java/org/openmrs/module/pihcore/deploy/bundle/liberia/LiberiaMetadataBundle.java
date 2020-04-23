@@ -23,8 +23,7 @@ import java.util.Map;
 @Component
 @Requires({ PihCoreMetadataBundle.class,
             LiberiaLocationsBundle.class,
-            LiberiaPatientIdentifierTypeBundle.class,
-            LiberiaAddressBundle.class } )
+            LiberiaPatientIdentifierTypeBundle.class} )
 public class LiberiaMetadataBundle extends AbstractMetadataBundle {
 
     public static final String DEFAULT_LOCALE = "en";

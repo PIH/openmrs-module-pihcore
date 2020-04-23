@@ -13,16 +13,15 @@ import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.contrib.testdata.builder.PatientBuilder;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.haiticore.metadata.AddressComponent;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
-import org.openmrs.module.haiticore.metadata.bundles.HaitiAddressBundle;
 import org.openmrs.module.haiticore.metadata.bundles.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
@@ -31,6 +30,7 @@ import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
+import org.openmrs.module.pihcore.TestAddressBundle;
 import org.openmrs.module.reporting.common.ReflectionUtil;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -67,7 +67,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     protected MetadataDeployService deployService;
 
     @Autowired
-    protected HaitiAddressBundle haitiAddressBundle;
+    protected TestAddressBundle testAddressBundle;
 
     @Autowired
     protected PihHaitiPatientIdentifierTypeBundle pihHaitiPatientIdentifierTypeBundle;
@@ -102,7 +102,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(pihHaitiPatientIdentifierTypeBundle);
         deployService.installBundle(mirebalaisLocationsBundle);
-        deployService.installBundle(haitiAddressBundle);
+        deployService.installBundle(testAddressBundle);
         createEmrApiMappingSource(metadataMappingService);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, getConfig());
@@ -139,7 +139,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.TELEPHONE_NUMBER), "555-1234");
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.UNKNOWN_PATIENT), "false");
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME), "Isabel");
-        address(pb, haitiAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
+        address(pb, testAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
         pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
         pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER), UUID.randomUUID().toString(), Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
         return pb.save();
