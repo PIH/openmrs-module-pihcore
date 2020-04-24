@@ -94,23 +94,6 @@
 	<mappingFiles>
 	</mappingFiles>
 
-	<messages>
-		<lang>en</lang>
-		<file>messages.properties</file>
-	</messages>
-	<messages>
-		<lang>fr</lang>
-		<file>messages_fr.properties</file>
-	</messages>
-  <messages>
-      <lang>ht</lang>
-      <file>messages_ht.properties</file>
-  </messages>
-	<messages>
-      <lang>es</lang>
-      <file>messages_es.properties</file>
-  </messages>
-
     <!-- Global Properties -->
     <globalProperty>
         <property>pihcore.runMetadataSetupTaskInSeparateThread</property>
