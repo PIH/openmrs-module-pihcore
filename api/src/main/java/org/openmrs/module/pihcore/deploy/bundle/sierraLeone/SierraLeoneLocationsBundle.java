@@ -12,7 +12,9 @@ public class SierraLeoneLocationsBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
-        install(SierraLeoneLocations.WELLBODY_HEALTH_CENTER);
+        install(SierraLeoneLocations.WELLBODY);
+        install(SierraLeoneLocations.WELLBODY_CLINIC);
+        install(SierraLeoneLocations.WELLBODY_MCH);
     }
 }
 

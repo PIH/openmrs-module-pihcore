@@ -15,7 +15,7 @@ public class ConfigureSierraLeoneIdGenerators {
 
     public static void configureGenerators(IdentifierSourceService identifierSourceService) {
 
-        Location identifierLocation = MetadataUtils.existing(Location.class, SierraLeoneLocations.WELLBODY_HEALTH_CENTER.uuid());
+        Location identifierLocation = MetadataUtils.existing(Location.class, SierraLeoneLocations.WELLBODY_CLINIC.uuid());
 
         SequentialIdentifierGenerator wellbodyPrimaryIdentifierSource = (SequentialIdentifierGenerator) identifierSourceService.getIdentifierSourceByUuid(WELLBODY_PRIMARY_IDENTIFIER_SOURCE_UUID);
         if (wellbodyPrimaryIdentifierSource == null) {
