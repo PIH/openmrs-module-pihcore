@@ -67,6 +67,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY));
 
         List<LocationDescriptor> slLocations = Arrays.asList(SierraLeoneLocations.WELLBODY_CLINIC, SierraLeoneLocations.WELLBODY_MCH);
+        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION,slLocations);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, slLocations);
