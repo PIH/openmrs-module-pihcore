@@ -64,13 +64,15 @@ public class LocationTagSetup {
     }
 
     private static void setupLocationTagsForSierraLeone(LocationService locationService) {
-        List<LocationDescriptor> slLocations = Arrays.asList(SierraLeoneLocations.WELLBODY_HEALTH_CENTER);
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY));
+
+        List<LocationDescriptor> slLocations = Arrays.asList(SierraLeoneLocations.WELLBODY_CLINIC, SierraLeoneLocations.WELLBODY_MCH);
+        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION,slLocations);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, slLocations);
         setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, slLocations);

@@ -20,7 +20,6 @@ import org.openmrs.EncounterType;
 import org.openmrs.GlobalProperty;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.haiticore.metadata.bundles.HaitiAddressBundle;
 import org.openmrs.module.haiticore.metadata.bundles.HaitiEncounterTypeBundle;
 import org.openmrs.module.haiticore.metadata.bundles.HaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.haiticore.metadata.bundles.HaitiPersonAttributeTypeBundle;
@@ -53,8 +52,7 @@ import java.util.Map;
  		HaitiEncounterTypeBundle.class,
 		HaitiPersonAttributeTypeBundle.class,
         PihHaitiPatientIdentifierTypeBundle.class,
-		PihHaitiLocationsBundle.class,
-		HaitiAddressBundle.class
+		PihHaitiLocationsBundle.class
 } )
 public class HaitiMetadataBundle extends AbstractMetadataBundle {
 
