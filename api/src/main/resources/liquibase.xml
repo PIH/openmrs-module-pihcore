@@ -1141,5 +1141,31 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20200430-wellbody-sl-locations" author="mgoodrich">
+        <preConditions onFail="CONTINUE">
+            <sqlCheck expectedResult="1">
+                select count(*) from location where uuid='0561303b-9868-4a1d-933d-fe52ce1b8c9f';
+            </sqlCheck>
+        </preConditions>
+
+        <comment>
+            UHM-4523 Add Wellbody MCH location to Sierra Leone
+            0561303b-9868-4a1d-933d-fe52ce1b8c9f is Wellbody uuid, only run on existing Liberia servers
+            (this will also skip when installing new servers since locations will not yet
+            be installed)
+            Note that the "onFail" is "CONTINUE"... this is because the first time this is run on Wellbody prod
+            the new "Wellbody" location will likely not have been installed, so we will need to run this
+            changeset twice
+        </comment>
+
+        <sql>
+            set @wellbody_clinic = (select location_id from location where uuid='b6733150-7426-11e5-a837-0800200c9a66');
+            set @wellbody_mch = (select location_id from location where uuid='dac348b7-2ece-47ad-b80a-140fc6788706');
+            set @wellbody = (select location_id from location where uuid='0561303b-9868-4a1d-933d-fe52ce1b8c9f');
+
+            update visit set location_id=@wellbody where location_id in (@wellbody_mch, @wellbody_clinic);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
