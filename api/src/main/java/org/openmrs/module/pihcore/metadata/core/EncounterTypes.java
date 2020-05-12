@@ -289,6 +289,24 @@ public class EncounterTypes {
 		public String description() { return "Maternal follow-up home assessment"; }
 	};
 
+	public static EncounterTypeDescriptor COVID19_INTAKE  = new EncounterTypeDescriptor() {
+		public String uuid() { return "8d50b938-dcf9-4b8e-9938-e625bd2f0a81"; }
+		public String name() { return "COVID-19 Admission"; }
+		public String description() { return "COVID-19 admission note at health facility"; }
+	};
+
+	public static EncounterTypeDescriptor COVID19_FOLLOWUP  = new EncounterTypeDescriptor() {
+		public String uuid() { return "ca65f5d3-6312-4143-ae4e-0237427f339e"; }
+		public String name() { return "COVID-19 Progress"; }
+		public String description() { return "COVID-19 follow-up/daily progress at health facility"; }
+	};
+
+	public static EncounterTypeDescriptor COVID19_DISCHARGE  = new EncounterTypeDescriptor() {
+		public String uuid() { return "5e82bea0-fd7b-47f9-858a-91be87521073"; }
+		public String name() { return "COVID-19 Discharge"; }
+		public String description() { return "COVID-19 Discharge note at health facility"; }
+	};
+
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 
