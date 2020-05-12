@@ -69,14 +69,14 @@
         <namephoneticsVersion>1.6.0</namephoneticsVersion>
         <pacsintegrationVersion>1.7.0</pacsintegrationVersion>
         <addresshierarchyVersion>2.13.0</addresshierarchyVersion>
-        <providermanagementVersion>2.10.0</providermanagementVersion>
+        <providermanagementVersion>2.11.0</providermanagementVersion>
         <eventVersion>2.5</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
         <appuiVersion>1.12.0</appuiVersion>
         <dispensingVersion>1.1.0</dispensingVersion>
-        <uicommonsVersion>2.12.0</uicommonsVersion>
+        <uicommonsVersion>2.13.0</uicommonsVersion>
         <registrationcoreVersion>1.9.0</registrationcoreVersion>
         <registrationappVersion>1.15.0</registrationappVersion>
         <radiologyappVersion>1.5.0</radiologyappVersion>
