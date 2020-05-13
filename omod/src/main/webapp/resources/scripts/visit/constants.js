@@ -525,6 +525,15 @@ angular.module('constants', [])
         },
         maternalFollowUpHomeAssessment: {
             uuid: "690670E2-A0CC-452B-854D-B95E2EAB75C9"
+        },
+        covid19Admission: {
+            uuid: "8d50b938-dcf9-4b8e-9938-e625bd2f0a81"
+        },
+        covid19Progress: {
+            uuid: "ca65f5d3-6312-4143-ae4e-0237427f339e"
+        },
+        covid19Discharge: {
+            uuid: "5e82bea0-fd7b-47f9-858a-91be87521073"
         }
     })
     .value('EncounterRoles', {

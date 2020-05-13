@@ -427,6 +427,12 @@ public class LocationTagSetup {
                 MirebalaisLocations.COMMUNITY_HEALTH
         ));
 
+        setLocationTagsFor(locationService, LocationTags.COVID_LOCATION, Arrays.asList(
+                MirebalaisLocations.OUTPATIENT_CLINIC,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
+                MirebalaisLocations.WOMENS_CLINIC
+        ));
+
         setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(
                 MirebalaisLocations.OUTPATIENT_CLINIC,
                 MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,

@@ -53,6 +53,9 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.PEDIATRIC_HOME_ASSESSMENT);
         install(EncounterTypes.MATERNAL_POST_PARTUM_HOME_ASSESSMENT);
         install(EncounterTypes.MATERNAL_FOLLOWUP_HOME_ASSESSMENT);
+        install(EncounterTypes.COVID19_INTAKE);
+        install(EncounterTypes.COVID19_FOLLOWUP);
+        install(EncounterTypes.COVID19_DISCHARGE);
 
         uninstall(possible(EncounterType.class, AttachmentsConstants.ENCOUNTER_TYPE_UUID), "not used");
         uninstall(possible(EncounterType.class, EncounterTypes.MEXICO_CLINIC_VISIT.uuid()), "replaced with Mexico Consult");

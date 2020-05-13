@@ -210,6 +210,13 @@ public class LocationTags {
 		public boolean retired() { return true; }
 	};
 
+	public static LocationTagDescriptor COVID_LOCATION = new LocationTagDescriptor() {
+		@Override
+		public String uuid() { return "035d8463-04a6-429c-8589-779d662f40d2"; }
+		public String name() { return "COVID-19 Location"; }
+		public String description() { return "Signifies Locations for COVID-19 triage, care, and treatment"; }
+	};
+
 	public static LocationTagDescriptor PROVIDER_MANAGEMENT_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "3040eab2-fda0-11e8-8eb2-f2801f1b9fd1"; }
 		public String name() { return "Provider Management Location"; }
