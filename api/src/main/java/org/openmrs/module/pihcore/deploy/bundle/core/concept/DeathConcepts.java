@@ -310,8 +310,6 @@ public class DeathConcepts extends VersionedPihConceptBundle {
                     .type(sameAs).ensureTerm(pih, "9710").build())
                 .build());
 
-        // Update Death-related Global Properties
-        setGlobalProperty("concept.causeOfDeath", causeOfDeathFromCertificate.getId().toString());
     }
 
 }
