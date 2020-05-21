@@ -512,12 +512,6 @@
                             <version>[2.2.0-SNAPSHOT,2.3.0-!)</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
-                        <!-- held because of issue here: https://issues.openmrs.org/browse/RA-452 -->
-                        <property>
-                            <name>registrationappVersion</name>
-                            <version>[1.15.0]</version>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
                     </properties>
                 </configuration>
             </plugin>
