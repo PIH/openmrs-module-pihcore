@@ -77,7 +77,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
         deployService.installBundle(haitiMetadataBundle);
 
         // test a few random concepts
-        assertThat(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES).getName().getName(), is("Oui"));
+        assertThat(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES).getName().getName(), is("Yes"));
 
         Concept mainActivity = MetadataUtils.existing(Concept.class, SocioEconomicConcepts.Concepts.MAIN_ACTIVITY);
         assertThat(mainActivity.getDatatype().getName(), is("Coded"));

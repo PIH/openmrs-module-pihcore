@@ -7,9 +7,7 @@ import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.VersionedPihConceptBundle;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedHashMap;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * A small number of very common concepts
@@ -31,13 +29,6 @@ public class CommonConcepts extends VersionedPihConceptBundle {
         public static final String FREE_TEXT_GENERAL = "160632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String NONE = "3cd743f8-26fe-102b-80cb-0017a47871b2";
         public static final String NOT_APPLICABLE = "3cd7b72a-26fe-102b-80cb-0017a47871b2";
-    }
-
-    @Override
-    protected void installEveryTime() throws Exception {
-        Map<String, String> properties = new LinkedHashMap<String, String>();
-        properties.put("concept.unknown", Concepts.UNKNOWN); // see HtmlFormEntryConstants.GP_UNKNOWN_CONCEPT
-        setGlobalProperties(properties);
     }
 
     @Override

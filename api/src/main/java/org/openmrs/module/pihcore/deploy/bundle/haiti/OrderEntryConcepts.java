@@ -5,7 +5,6 @@ import org.openmrs.api.OrderService;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.VersionedPihConceptBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
-import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -51,14 +50,6 @@ public class OrderEntryConcepts extends VersionedPihConceptBundle {
     @Override
     public int getVersion() {
         return 1;
-    }
-
-    @Override
-    protected void installEveryTime() throws Exception {
-        setGlobalProperty(OpenmrsConstants.GP_DRUG_ROUTES_CONCEPT_UUID, Concepts.ROUTES_OF_ADMINISTRATION);
-        setGlobalProperty(OpenmrsConstants.GP_DURATION_UNITS_CONCEPT_UUID, Concepts.TIME_UNITS);
-        setGlobalProperty(OpenmrsConstants.GP_DRUG_DOSING_UNITS_CONCEPT_UUID, Concepts.DOSING_UNITS);
-        setGlobalProperty(OpenmrsConstants.GP_DRUG_DISPENSING_UNITS_CONCEPT_UUID, Concepts.DISPENSING_UNITS);
     }
 
     @Override
