@@ -24,6 +24,7 @@ public class Components {
         public static final String MCH_PROGRAM = "mchProgram";  // needs MCHProgramBundle[ZL], used by ZL (via "mch")
         public static final String VACCINATION_FORM = "vaccination";
         public static final String ZIKA = "zika";  // program
+        public static final String COVID19 = "covid19";
         public static final String ANC_PROGRAM = "ancProgram";  // needs ANCProgramBundle, used by CES
         public static final String ASTHMA_PROGRAM = "asthmaProgram";  // needs AsthmaProgramBundle, used by CES
         public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
@@ -79,5 +80,4 @@ public class Components {
         public static final String CHEMOTHERAPY = "chemotherapy";
         public static final String J9 = "j9";
         public static final String SPA = "spa";  // the Single-SPA UI
-        public static final String COVID19 = "covid19";
 }

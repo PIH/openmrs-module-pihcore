@@ -113,6 +113,9 @@ public class PihCoreConstants {
     public static final String CONFIRMED_STATE_UUID = "3cd9bd04-26fe-102b-80cb-0017a47871b2";
     public static final String WAITING_STATE_UUID = "3ce1d688-26fe-102b-80cb-0017a47871b2";
 
+    public static final String COVID19_PROGRAM_CONCEPT_UUID = "60abb010-0f54-47d1-bcff-f3d3b4a631e9"; // PIH:12965
+    public static final String COVID19_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01"; // 11505
+
     public static final String ZIKA_PROGRAM_CONCEPT_UUID = "58c9ab03-9601-4d88-88b7-c4932004374e";
     public static final String ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID = "e39310c1-2936-4395-83a5-f4d49061a117";
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 @Requires({
         ANCProgramBundle.class,
         AsthmaProgramBundle.class,
+        Covid19ProgramBundle.class,
         DiabetesProgramBundle.class,
         EpilepsyProgramBundle.class,
         HypertensionProgramBundle.class,
