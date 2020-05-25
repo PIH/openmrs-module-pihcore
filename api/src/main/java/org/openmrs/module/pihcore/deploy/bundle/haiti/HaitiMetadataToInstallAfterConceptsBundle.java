@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.pihcore.deploy.bundle.core.program.Covid19ProgramBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.program.MCHProgramBundleZL;
 import org.openmrs.module.pihcore.deploy.bundle.core.program.PihProgramsBundle;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,8 @@ import org.springframework.stereotype.Component;
 @Requires( {
     OrderEntryConcepts.class,
     PihProgramsBundle.class,
-    MCHProgramBundleZL.class
+    MCHProgramBundleZL.class,
+    Covid19ProgramBundle.class
 } )
 public class HaitiMetadataToInstallAfterConceptsBundle extends AbstractMetadataBundle {
     @Override
