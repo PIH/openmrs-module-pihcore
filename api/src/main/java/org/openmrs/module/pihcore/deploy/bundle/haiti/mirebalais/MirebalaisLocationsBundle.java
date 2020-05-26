@@ -35,6 +35,8 @@ public class MirebalaisLocationsBundle extends AbstractMetadataBundle {
         install(MirebalaisLocations.FAMILY_PLANNING);
         install(MirebalaisLocations.ICU);
         install(MirebalaisLocations.ISOLATION);
+        install(MirebalaisLocations.COVID19_ISOLATION);
+        install(MirebalaisLocations.COVID19_UMI);
         install(MirebalaisLocations.LABOR_AND_DELIVERY);
         install(MirebalaisLocations.MAIN_LABORATORY);
         install(MirebalaisLocations.MENS_INTERNAL_MEDICINE);

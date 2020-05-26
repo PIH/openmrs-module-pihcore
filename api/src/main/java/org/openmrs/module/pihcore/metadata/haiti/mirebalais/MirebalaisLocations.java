@@ -407,6 +407,22 @@ public class MirebalaisLocations {
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI_LOCATION_CODE); }
 	};
 
+	public static LocationDescriptor COVID19_ISOLATION = new LocationDescriptor() {
+		public String uuid() { return "cee17408-c243-4134-8ad8-619e3b945a05"; }
+		public String name() { return "COVID-19 | Izolman"; }
+		public String description() { return "COVID-19 Isolation"; }
+		public LocationDescriptor parent() { return MirebalaisLocations.MIREBALAIS_HOSPITAL; }
+		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.COVID19_ISOLATION_LOCATION_CODE); }
+	};
+
+	public static LocationDescriptor COVID19_UMI = new LocationDescriptor() {
+		public String uuid() { return "88f74254-60fb-4d31-bfde-3e75db5f5f4c"; }
+		public String name() { return "COVID-19 | UMI"; }
+		public String description() { return "Inite maladi enfeksyon (UMI) COVID-19"; }
+		public LocationDescriptor parent() { return MirebalaisLocations.MIREBALAIS_HOSPITAL; }
+		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.COVID19_UMI_LOCATION_CODE); }
+	};
+
 	//***** RETIRED LOCATIONS *****
 
 	public static LocationDescriptor RETIRED_CDI_KLINIK_EKSTEN_JENERAL_OLD = new LocationDescriptor() {

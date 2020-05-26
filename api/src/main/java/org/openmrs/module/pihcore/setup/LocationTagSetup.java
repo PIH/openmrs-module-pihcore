@@ -296,6 +296,8 @@ public class LocationTagSetup {
             MirebalaisLocations.ICU,
             MirebalaisLocations.NICU,
             MirebalaisLocations.ISOLATION,
+            MirebalaisLocations.COVID19_ISOLATION,
+            MirebalaisLocations.COVID19_UMI,
             MirebalaisLocations.CHEMOTHERAPY,
             MirebalaisLocations.OUTPATIENT_CLINIC_PHARMACY,
             MirebalaisLocations.WOMENS_AND_CHILDRENS_PHARMACY,
@@ -323,6 +325,8 @@ public class LocationTagSetup {
             MirebalaisLocations.MENS_INTERNAL_MEDICINE,
             MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
             MirebalaisLocations.ISOLATION,
+            MirebalaisLocations.COVID19_ISOLATION,
+            MirebalaisLocations.COVID19_UMI,
             MirebalaisLocations.REHABILITATION,
             MirebalaisLocations.POST_OP_GYN,
             MirebalaisLocations.ICU
@@ -344,6 +348,8 @@ public class LocationTagSetup {
             MirebalaisLocations.MENS_INTERNAL_MEDICINE,
             MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
             MirebalaisLocations.ISOLATION,
+            MirebalaisLocations.COVID19_ISOLATION,
+            MirebalaisLocations.COVID19_UMI,
             MirebalaisLocations.REHABILITATION,
             MirebalaisLocations.POST_OP_GYN,
             MirebalaisLocations.ICU,
@@ -430,7 +436,9 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.COVID_LOCATION, Arrays.asList(
                 MirebalaisLocations.OUTPATIENT_CLINIC,
                 MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
-                MirebalaisLocations.WOMENS_CLINIC
+                MirebalaisLocations.WOMENS_CLINIC,
+                MirebalaisLocations.COVID19_ISOLATION,
+                MirebalaisLocations.COVID19_UMI
         ));
 
         setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(
@@ -439,7 +447,9 @@ public class LocationTagSetup {
                 MirebalaisLocations.WOMENS_CLINIC,
                 MirebalaisLocations.PEDIATRICS,
                 MirebalaisLocations.PEDIATRICS_A,
-                MirebalaisLocations.PEDIATRICS_B
+                MirebalaisLocations.PEDIATRICS_B,
+                MirebalaisLocations.COVID19_ISOLATION,
+                MirebalaisLocations.COVID19_UMI
         ));
 
         // TODO: update the following tags to remove unnecessary/unsupported CDI locations (has this been done already?)
@@ -536,7 +546,9 @@ public class LocationTagSetup {
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
-            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
+            MirebalaisLocations.COVID19_ISOLATION,
+            MirebalaisLocations.COVID19_UMI
         ));
 
         setLocationTagsFor(locationService, LocationTags.INPATIENTS_APP_LOCATION, Arrays.asList(
@@ -617,7 +629,9 @@ public class LocationTagSetup {
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
-            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
+            MirebalaisLocations.COVID19_ISOLATION,
+            MirebalaisLocations.COVID19_UMI
         ));
 
         setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, Arrays.asList(
@@ -646,6 +660,8 @@ public class LocationTagSetup {
             MirebalaisLocations.RADIOLOGY,
             MirebalaisLocations.EMERGENCY,
             MirebalaisLocations.ISOLATION,
+            MirebalaisLocations.COVID19_ISOLATION,
+            MirebalaisLocations.COVID19_UMI,
             MirebalaisLocations.DENTAL,
             MirebalaisLocations.MENS_INTERNAL_MEDICINE,
             MirebalaisLocations.MENS_INTERNAL_MEDICINE_A,
