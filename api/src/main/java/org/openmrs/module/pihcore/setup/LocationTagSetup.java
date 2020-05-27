@@ -614,7 +614,9 @@ public class LocationTagSetup {
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
-            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
+            MirebalaisLocations.COVID19_ISOLATION,
+            MirebalaisLocations.COVID19_UMI
         ));
 
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(
