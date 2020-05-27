@@ -75,6 +75,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_EMR_ENTER_CONSULT_NOTE);
         install(Privileges.TASK_EMR_ENTER_ED_NOTE);
         install(Privileges.TASK_EMR_ENTER_SURGICAL_NOTE);
+        install(Privileges.TASK_EMR_ENTER_COVID);
         install(Privileges.TASK_EMR_ENTER_VITALS_NOTE);
         install(Privileges.TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE);
         install(Privileges.TASK_EMR_ENTER_NCD_CONSULT_NOTE);

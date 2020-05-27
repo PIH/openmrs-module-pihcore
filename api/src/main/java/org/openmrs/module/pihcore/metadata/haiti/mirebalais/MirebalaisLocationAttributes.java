@@ -126,6 +126,20 @@ public class MirebalaisLocationAttributes {
 		public String value() { return "M017"; }
 	};
 
+	public static LocationAttributeDescriptor COVID19_ISOLATION_LOCATION_CODE = new LocationAttributeDescriptor() {
+		public String uuid() { return "7ea7d069-1e3e-4f1d-b31e-306413325806"; }
+		public LocationDescriptor location() { return MirebalaisLocations.COVID19_ISOLATION; }
+		public LocationAttributeTypeDescriptor type() { return LocationAttributeTypes.LOCATION_CODE; }
+		public String value() { return "M048"; }
+	};
+
+	public static LocationAttributeDescriptor COVID19_UMI_LOCATION_CODE = new LocationAttributeDescriptor() {
+		public String uuid() { return "3d1316c8-71d9-4579-95c7-f58c711aa175"; }
+		public LocationDescriptor location() { return MirebalaisLocations.COVID19_UMI; }
+		public LocationAttributeTypeDescriptor type() { return LocationAttributeTypes.LOCATION_CODE; }
+		public String value() { return "M049"; }
+	};
+
 	public static LocationAttributeDescriptor LABOR_AND_DELIVERY_LOCATION_CODE = new LocationAttributeDescriptor() {
 		public String uuid() { return "54750c8b-d979-4d3b-bd1d-57830009e064"; }
 		public LocationDescriptor location() { return MirebalaisLocations.LABOR_AND_DELIVERY; }
