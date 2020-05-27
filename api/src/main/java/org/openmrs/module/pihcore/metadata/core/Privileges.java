@@ -111,8 +111,8 @@ public class Privileges {
     };
 
     public static PrivilegeDescriptor APP_EMR_SYSTEM_ADMINISTRATION = new PrivilegeDescriptor() {
-        public String uuid() { return "6d01acf6-ba11-4634-866b-489eaa951681"; }
-        public String privilege() { return "App: emr.systemAdministration"; }
+        public String uuid() { return "69da2140-85ce-40d0-82ad-6ca7c188f2c6"; }
+        public String privilege() { return "App: coreapps.systemAdministration"; }
         public String description() { return "Run the System Administration app"; }
     };
 
@@ -615,6 +615,11 @@ public class Privileges {
         public String description() { return "Access the radiology.orderXray task"; }
     };
 
+    public static PrivilegeDescriptor RETIRED_APP_EMR_SYSTEM_ADMINISTRATION = new PrivilegeDescriptor() {
+        public String uuid() { return "6d01acf6-ba11-4634-866b-489eaa951681"; }
+        public String privilege() { return "App: emr.systemAdministration"; }
+        public String description() { return "Run the System Administration app"; }
+    };
 }
 
 
