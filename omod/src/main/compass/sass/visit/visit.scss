@@ -123,16 +123,16 @@ i.highlight {
 
 #visit-details {
   display: inline-block;
+  padding-bottom: 5px;
 }
 
 .visit-dates {
-  display: inline-block;
   font-size: 0.8em;
   margin-right: 10px;
+  white-space: nowrap;
 }
 
 .visit-location {
-  display: inline-block;
   font-size: 0.8em;
 }
 
@@ -161,77 +161,41 @@ i.highlight {
 
   border: 1px solid $darkerGrey;
   border-radius: 3px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 
   .date-span {
-    width: 12%;
-    display: inline-block;
     font-size: 0.8em;
     vertical-align: top;
   }
 
   .time-span {
-    width: 13%;
-    display: inline-block;
     font-size: 0.8em;
     vertical-align: top;
   }
 
   .encounter-span {
-    width: 25%;
-    display: inline-block;
     vertical-align: top;
 
     > span {
-      width: 50%;
-      display: inline-block;
       vertical-align: top;
     }
   }
 
   .obs-span {
-    width: 65%;
-    display: inline-block;
     vertical-align: top;
   }
 
   .vitals-header-span {
-    width: 40%;
-    display: inline-block;
     vertical-align: top;
   }
 
   .provider-and-location-span {
-    width: 20%;
-    display: inline-block;
     vertical-align: top;
   }
 
   .allergy-details-span {
-    width: 65%;
-    display: inline-block;
     vertical-align: top;
-  }
-
-  .one-third {
-    width: 30%;
-    display: inline-block;
-  }
-
-  .one-half {
-    width: 46%;
-    display: inline-block;
-  }
-
-  .two-thirds {
-    width: 63%;
-    display: inline-block;
-  }
-
-  .ninety-percent {
-    width: 90%;
-    display: inline-block;
   }
 
  /* .incomplete {
@@ -239,10 +203,9 @@ i.highlight {
   }*/
 
   .header {
-    padding: 3px;
+    padding: 10px;
 
     > span {
-      display: inline-block;
       vertical-align: middle;
     }
 
@@ -260,12 +223,11 @@ i.highlight {
       padding-right: 20px;
     }
 
-    .encounter-provider {
+    .encounter-card-summary {
       font-size: 0.8em;
     }
 
     .overall-actions {
-      float: right;
 
       a {
         cursor: pointer;
@@ -279,8 +241,6 @@ i.highlight {
     font-size: 0.9em;
 
     .col2 {
-      display: inline-block;
-      width: 48%;
     }
 
     .align-top {
@@ -289,8 +249,6 @@ i.highlight {
 
     p.aligned {
       label {
-        width: 200px;
-        display: inline-block;
         margin-right: 10px;
         color: #501d3d;
         vertical-align: top;
@@ -343,8 +301,6 @@ i.highlight {
 }
 
 #choose-another-visit, #visit-actions, #expand-all, #contract-all, #print-actions {
-  display: inline-block;
-  float:right;
   font-size: 0.7em;
 
   button {
