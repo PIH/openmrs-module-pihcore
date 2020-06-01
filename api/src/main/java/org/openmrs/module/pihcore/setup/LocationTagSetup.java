@@ -177,6 +177,7 @@ public class LocationTagSetup {
 
     private static void setupLocationTagsForHSN(LocationService locationService) {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.HSN_SAINT_MARC);
+        setLocationTagsFor(locationService, LocationTags.TABLET_ENTRY_LOCATION, Arrays.asList(PihHaitiLocations.HSN_SAINT_MARC));
     }
 
     private static void setStandardHaitiSingleSiteLocationTags(LocationService locationService, LocationDescriptor location) {
@@ -443,6 +444,11 @@ public class LocationTagSetup {
                 MirebalaisLocations.OUTPATIENT_CLINIC,
                 MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
                 MirebalaisLocations.WOMENS_CLINIC,
+                MirebalaisLocations.COVID19_ISOLATION,
+                MirebalaisLocations.COVID19_UMI
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.TABLET_ENTRY_LOCATION, Arrays.asList(
                 MirebalaisLocations.COVID19_ISOLATION,
                 MirebalaisLocations.COVID19_UMI
         ));

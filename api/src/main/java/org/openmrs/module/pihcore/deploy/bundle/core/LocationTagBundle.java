@@ -44,6 +44,7 @@ public class LocationTagBundle extends AbstractMetadataBundle {
         install(LocationTags.MENTAL_HEALTH_LOCATION);
         install(LocationTags.PROVIDER_MANAGEMENT_LOCATION);
         install(LocationTags.COVID_LOCATION);
+        install(LocationTags.TABLET_ENTRY_LOCATION);
 
         log.info("Retiring old LocationTags");
 
