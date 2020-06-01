@@ -1,5 +1,5 @@
 <div class="row justify-content-between">
-    <div class="encounter-type col-8">
+    <div class="encounter-type encounter-name col-8">
         <i ng-show="icon" class="{{ icon }}"></i> {{ encounter.encounterType.display }}
     </div>
     <div class="col-4 text-right">
@@ -13,7 +13,7 @@
 </div>
 <div class="row justify-content-between">
     <div class="col-8">
-        <span class="encounter-card-summary provider-and-location-span">
+        <span class="encounter-card-summary provider-and-location-span encounter-provider">
             {{ 'emr.by' | translate }}
             {{ encounter.encounterProviders | encounterRole:primaryEncounterRoleUuid | getProviderName }}
         </span>

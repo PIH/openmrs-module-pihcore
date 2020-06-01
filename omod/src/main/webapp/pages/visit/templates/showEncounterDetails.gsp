@@ -4,7 +4,7 @@
 <span class="time-span">
     <i ng-show="encounter.encounterDatetime" class="icon-time"></i>{{ encounter.encounterDatetime | serverDate:DatetimeFormats.time }}
 </span>
-<span class="encounter-card-summary provider-and-location-span">
+<span class="encounter-card-summary provider-and-location-span encounter-provider">
     <span ng-show="encounter.encounterProviders">{{ 'emr.by' | translate }}</span>
     {{ encounter.encounterProviders | encounterRole:primaryEncounterRoleUuid | getProviderName }}
 </span>

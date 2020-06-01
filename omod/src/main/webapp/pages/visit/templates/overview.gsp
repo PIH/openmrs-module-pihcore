@@ -33,12 +33,12 @@
 
         </div>
 
-        <div class="row">
-            <div ng-repeat="encounter in visit.encounters | filter:{voided:false}" class="col-12">
-                <encounter encounter="encounter" visit="visit" selected="encounter.uuid == encounterUuid" encounter-date-format="encounterDateFormat" country="country" site="site"></encounter>
-            </div>
-        </div>
+    </div>
 
+    <div class="row">
+        <div ng-repeat="encounter in visit.encounters | filter:{voided:false}" class="col-12">
+            <encounter encounter="encounter" visit="visit" selected="encounter.uuid == encounterUuid" encounter-date-format="encounterDateFormat" country="country" site="site"></encounter>
+        </div>
     </div>
 
 </div>
