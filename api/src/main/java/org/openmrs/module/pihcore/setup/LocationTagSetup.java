@@ -57,6 +57,8 @@ public class LocationTagSetup {
                 setupLocationTagsForBelladere(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.CERCA_LA_SOURCE)) {
                 setupLocationTagsForCerca(locationService);
+            } else if (config.getSite().equals(ConfigDescriptor.Site.HSN_SAINT_MARC)) {
+                setupLocationTagsForHSN(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.CROSS_SITE)) {
                 setupLocationTagsForHaitiCrossSite(locationService);
             }
@@ -173,6 +175,10 @@ public class LocationTagSetup {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.BELLADERE);
     }
 
+    private static void setupLocationTagsForHSN(LocationService locationService) {
+        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.HSN_SAINT_MARC);
+    }
+
     private static void setStandardHaitiSingleSiteLocationTags(LocationService locationService, LocationDescriptor location) {
 
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
@@ -187,7 +193,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(location));
-
+        setLocationTagsFor(locationService, LocationTags.COVID_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION, null);
@@ -222,7 +228,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION,  allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION,  allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, allZlFacilities);
-
+        setLocationTagsFor(locationService, LocationTags.COVID_LOCATION, allZlFacilities);
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.ADMISSION_NOTE_LOCATION, null);
@@ -614,7 +620,9 @@ public class LocationTagSetup {
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_FAMASI,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_LABORATWA,
             MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_RADYOGRAFI,
-            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI
+            MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
+            MirebalaisLocations.COVID19_ISOLATION,
+            MirebalaisLocations.COVID19_UMI
         ));
 
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(

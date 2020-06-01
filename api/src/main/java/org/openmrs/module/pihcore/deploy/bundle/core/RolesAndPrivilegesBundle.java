@@ -122,6 +122,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         uninstall(possible(Privilege.class, Privileges.RETIRED_ORDER_XRAY_ANOTHER.uuid()), "no longer used");
         uninstall(possible(Privilege.class, Privileges.RETIRED_TASK_EMR_PRINT_ID_CARD_LABEL.uuid()), "no longer used");
         uninstall(possible(Privilege.class, Privileges.RETIRED_TASK_EMR_PRINT_PAPER_RECORD_LABELS.uuid()), "no longer used");
+        uninstall(possible(Privilege.class, Privileges.RETIRED_APP_EMR_SYSTEM_ADMINISTRATION.uuid()), "replaced by new coreapps privilege");
 
         log.info("Installing roles");
 
