@@ -60,8 +60,8 @@ public class PihHaitiLocations {
 
     public static LocationDescriptor PETITE_RIVIERE = new LocationDescriptor() {
         public String uuid() { return "a7af173a-f623-445a-bf01-e6a64c0b2c98"; }
-        public String name() { return "Centre Médical Charles Colimon de Petite Riviere de l'Artibonite"; }
-        public String description() { return "Centre Médical Charles Colimon de Petite Riviere de l'Artibonite"; }
+        public String name() { return "Centre Médical Charles Colimon de Petite Riviere"; }
+        public String description() { return "Centre Médical Charles Colimon de Petite Riviere"; }
         public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION, LocationTags.PROGRAM_LOCATION); }
     };
 
