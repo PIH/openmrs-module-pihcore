@@ -4,10 +4,10 @@
 <span class="time-span">
     <i ng-show="encounter.encounterDatetime" class="icon-time"></i>{{ encounter.encounterDatetime | serverDate:DatetimeFormats.time }}
 </span>
-<span class="encounter-provider provider-and-location-span">
+<span class="encounter-card-summary provider-and-location-span encounter-provider">
     <span ng-show="encounter.encounterProviders">{{ 'emr.by' | translate }}</span>
     {{ encounter.encounterProviders | encounterRole:primaryEncounterRoleUuid | getProviderName }}
 </span>
-<span class="encounter-provider admission-location provider-and-location-span" ng-hide="encounter.location.uuid == encounter.visit.location.uuid">
+<span class="encounter-card-summary admission-location provider-and-location-span" ng-hide="encounter.location.uuid == encounter.visit.location.uuid">
     ${ ui.message("uicommons.at") } {{encounter.location | omrsDisplay}}
 </span>
