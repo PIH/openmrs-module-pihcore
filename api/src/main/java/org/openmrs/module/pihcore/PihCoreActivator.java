@@ -47,7 +47,8 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.hsn.HSNMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.peru.PeruMetadataBundle;
@@ -169,7 +170,10 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
         // make this more dynamic, less dependent on if-thens
 
         if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
-            deployService.installBundle(Context.getRegisteredComponents(MirebalaisBundle.class).get(0));
+            deployService.installBundle(Context.getRegisteredComponents(MirebalaisMetadataBundle.class).get(0));
+        }
+        else if (config.getSite().equals(ConfigDescriptor.Site.HSN_SAINT_MARC)) {
+            deployService.installBundle(Context.getRegisteredComponents(HSNMetadataBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
             deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
