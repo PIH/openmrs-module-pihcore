@@ -678,7 +678,7 @@ END
 #
 DROP FUNCTION IF EXISTS obs_value_text;
 #
-CREATE FUNCTION obs_value_text(_encounterId int(11), _sourceName varchar(50), _termCode varchar(255))
+CREATE FUNCTION obs_value_text(_encounterId int(11), _source varchar(50), _term varchar(255))
     RETURNS text
     DETERMINISTIC
 
@@ -690,9 +690,34 @@ BEGIN
     from        obs o
     where       o.voided = 0
     and         o.encounter_id = _encounterId
-    and         o.concept_id = concept_from_mapping(_sourceName, _termCode)
+    and         o.concept_id = concept_from_mapping(_source, _term)
     order by    o.date_created desc, o.obs_id desc
     limit 1;
+
+    RETURN ret;
+
+END
+
+#
+
+-- This function accepts encounter_id, mapping source, mapping code
+-- It will find a single, best observation that matches this, and return the value_text
+#
+DROP FUNCTION IF EXISTS obs_value_coded_list;
+#
+CREATE FUNCTION obs_value_coded_list(_encounterId int(11), _source varchar(50), _term varchar(255), _locale varchar(50))
+    RETURNS text
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE ret text;
+
+    select      group_concat(distinct concept_name(o.value_coded, _locale) separator ' | ') into ret
+    from        obs o
+    where       o.voided = 0
+      and       o.encounter_id = _encounterId
+      and       o.concept_id = concept_from_mapping(_source, _term);
 
     RETURN ret;
 
