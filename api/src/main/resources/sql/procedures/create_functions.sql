@@ -2,6 +2,9 @@
   This file contains common functions that are useful writing reports
 */
 
+-- You should uncomment this line to check syntax in IDE.  Liquibase handles this internally.
+-- DELIMITER #
+
 /*
 How to use the fuctions
 concept_from_mapping('source', 'code')
@@ -62,8 +65,12 @@ CREATE FUNCTION concept_name(
 BEGIN
     DECLARE conceptName varchar(255);
 
-	SELECT name INTO conceptName FROM concept_name WHERE voided = 0 AND concept_id = _conceptID AND locale = _locale AND concept_name_type
-    = "FULLY_SPECIFIED";
+	SELECT name INTO conceptName
+	FROM concept_name
+	WHERE voided = 0
+	  AND concept_id = _conceptID
+	  AND locale = _locale
+	  AND concept_name_type = 'FULLY_SPECIFIED';
 
     RETURN conceptName;
 END
@@ -108,11 +115,13 @@ CREATE FUNCTION age_at_enc(
 BEGIN
     DECLARE ageAtEnc DOUBLE;
 
-	select round(datediff(encounter_datetime, birthdate)/365.25,1) into ageAtENC from encounter e join person p on patient_id = person_id and e.voided = 0
-	and p.voided = 0 and person_id = _person_id and encounter_id = _encounter_id and encounter_type = @encounter_type group by encounter_id;
+	select  TIMESTAMPDIFF(YEAR, birthdate, encounter_datetime) into ageAtENC
+	from    encounter e
+	join    person p on p.person_id = e.patient_id
+	where   e.encounter_id = _encounter_id
+	and     p.person_id = _person_id;
 
     RETURN ageAtEnc;
-
 END
 #
 
@@ -185,6 +194,35 @@ person_attribute_type where name = 'Unknown patient') and voided = 0 and person_
 
 END
 #
+/*
+person_attribute_value
+*/
+#
+DROP FUNCTION IF EXISTS person_attribute_value;
+#
+CREATE FUNCTION person_attribute_value(
+    _patient_id int,
+    _att_type_name varchar(50)
+)
+    RETURNS VARCHAR(50)
+    DETERMINISTIC
+
+BEGIN
+    DECLARE  attVal VARCHAR(50);
+
+    select      a.value into attVal
+    from        person_attribute a
+    inner join  person_attribute_type pat on a.person_attribute_type_id = pat.person_attribute_type_id
+    where       pat.name = _att_type_name
+    and         a.voided = 0
+    and         a.person_id = _patient_id
+    order by    a.date_created desc
+    limit       1;
+
+    RETURN attVal;
+
+END
+#
 
 /*
 gender
@@ -227,6 +265,32 @@ BEGIN
     from person_address where voided = 0 and person_id = _patient_id order by preferred desc, date_created desc limit 1;
 
     RETURN patientAddress;
+
+END
+#
+/*
+ patient name
+*/
+#
+DROP FUNCTION IF EXISTS person_name;
+#
+CREATE FUNCTION person_name(
+    _person_id int
+)
+    RETURNS TEXT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE personName TEXT;
+
+    select      concat(given_name, ' ', family_name) into personName
+    from        person_name
+    where       voided = 0
+    and         person_id = _person_id
+    order by    preferred desc, date_created desc
+    limit       1;
+
+    RETURN personName;
 
 END
 #
@@ -274,6 +338,49 @@ join encounter_provider ep on pv.provider_id = ep.provider_id and ep.voided = 0 
     
     RETURN providerName;
     
+END
+#
+/*
+Encounter Location
+*/
+#
+DROP FUNCTION IF EXISTS encounter_location_name;
+#
+CREATE FUNCTION encounter_location_name (
+    _encounter_id int
+)
+    RETURNS varchar(255)
+    DETERMINISTIC
+BEGIN
+    DECLARE locName varchar(255);
+
+    select      l.name into locName
+    from        encounter e
+    inner join  location l on l.location_id = e.location_id
+    where       e.encounter_id = _encounter_id;
+
+    RETURN locName;
+END
+#
+/*
+Encounter Date
+*/
+#
+DROP FUNCTION IF EXISTS encounter_date;
+#
+CREATE FUNCTION encounter_date (
+    _encounter_id int
+)
+    RETURNS datetime
+    DETERMINISTIC
+BEGIN
+    DECLARE encDate datetime;
+
+    select      e.encounter_datetime into encDate
+    from        encounter e
+    where       e.encounter_id = _encounter_id;
+
+    RETURN encDate;
 END
 #
 /*
@@ -474,9 +581,9 @@ BEGIN
 END
 #
 
---- This function accepts patient_id, encounter_type and beginDate
---- It will return the latest encounter id if the patient
---- if null is passed in as the beginDate, it will be disregarded
+-- This function accepts patient_id, encounter_type and beginDate
+-- It will return the latest encounter id if the patient
+-- if null is passed in as the beginDate, it will be disregarded
 
 #
 DROP FUNCTION IF EXISTS latestEnc;
@@ -501,4 +608,94 @@ BEGIN
     RETURN enc_id_out;
 
 END
+#
+
+-- This function accepts patient_id, encounter_type, beginDate, endDate
+-- It will return the latest encounter of the specified type that it finds for the patient between the dates
+-- Null date values can be used to indicate no constraint
+
+#
+DROP FUNCTION IF EXISTS latestEncBetweenDates;
+#
+CREATE FUNCTION latestEncBetweenDates(patientId int(11), encounterType varchar(255), beginDate datetime, endDate datetime)
+    RETURNS int(11)
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE enc_id_out int(11);
+
+    select encounter_id into enc_id_out
+    from encounter enc
+    where enc.voided = 0
+      and enc.patient_id = patientId
+      and find_in_set(encounter_type, encounterType)
+      and (beginDate is null or enc.encounter_datetime >= beginDate)
+      and (endDate is null or enc.encounter_datetime <= endDate)
+    order by enc.encounter_datetime desc
+    limit 1;
+
+    RETURN enc_id_out;
+
+END
+#
+
+-- This function accepts patient_id, encounter_type and beginDate
+-- It will return the first encounter of the specified type that it finds for the patient after the passed beginDate
+-- if null is passed in as the beginDate, it will be disregarded
+
+#
+DROP FUNCTION IF EXISTS firstEnc;
+#
+CREATE FUNCTION firstEnc(patientId int(11), encounterType varchar(255), beginDate datetime)
+    RETURNS int(11)
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE enc_id_out int(11);
+
+    select encounter_id into enc_id_out
+    from encounter enc
+    where enc.voided = 0
+      and enc.patient_id = patientId
+      and find_in_set(encounter_type, encounterType)
+      and (beginDate is null or enc.encounter_datetime >= beginDate)
+    order by enc.encounter_datetime asc
+    limit 1;
+
+    RETURN enc_id_out;
+
+END
+#
+
+/**
+  FUNCTIONS TO RETRIEVE OBSERVATION VALUES FROM A GIVEN ENCOUNTER
+*/
+
+-- This function accepts encounter_id, mapping source, mapping code
+-- It will find a single, best observation that matches this, and return the value_text
+#
+DROP FUNCTION IF EXISTS obs_value_text;
+#
+CREATE FUNCTION obs_value_text(_encounterId int(11), _sourceName varchar(50), _termCode varchar(255))
+    RETURNS text
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE ret text;
+
+    select      o.value_text into ret
+    from        obs o
+    where       o.voided = 0
+    and         o.encounter_id = _encounterId
+    and         o.concept_id = concept_from_mapping(_sourceName, _termCode)
+    order by    o.date_created desc, o.obs_id desc
+    limit 1;
+
+    RETURN ret;
+
+END
+
 #
