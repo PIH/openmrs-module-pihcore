@@ -108,11 +108,13 @@ CREATE FUNCTION age_at_enc(
 BEGIN
     DECLARE ageAtEnc DOUBLE;
 
-	select round(datediff(encounter_datetime, birthdate)/365.25,1) into ageAtENC from encounter e join person p on patient_id = person_id and e.voided = 0
-	and p.voided = 0 and person_id = _person_id and encounter_id = _encounter_id and encounter_type = @encounter_type group by encounter_id;
+	select  TIMESTAMPDIFF(YEAR, birthdate, encounter_datetime) into ageAtENC
+	from    encounter e
+	join    person p on p.person_id = e.patient_id
+	where   e.encounter_id = _encounter_id
+	and     p.person_id = _person_id;
 
     RETURN ageAtEnc;
-
 END
 #
 
@@ -259,6 +261,32 @@ BEGIN
 
 END
 #
+/*
+ patient name
+*/
+#
+DROP FUNCTION IF EXISTS person_name;
+#
+CREATE FUNCTION person_name(
+    _person_id int
+)
+    RETURNS TEXT
+    DETERMINISTIC
+
+BEGIN
+    DECLARE personName TEXT;
+
+    select      concat(given_name, ' ', family_name) into personName
+    from        person_name
+    where       voided = 0
+    and         person_id = _person_id
+    order by    preferred desc, date_created desc
+    limit       1;
+
+    RETURN personName;
+
+END
+#
 
 /*
   ZL EMR ID location
@@ -325,6 +353,27 @@ BEGIN
     where       e.encounter_id = _encounter_id;
 
     RETURN locName;
+END
+#
+/*
+Encounter Date
+*/
+#
+DROP FUNCTION IF EXISTS encounter_date;
+#
+CREATE FUNCTION encounter_date (
+    _encounter_id int
+)
+    RETURNS datetime
+    DETERMINISTIC
+BEGIN
+    DECLARE encDate datetime;
+
+    select      e.encounter_datetime into encDate
+    from        encounter e
+    where       e.encounter_id = _encounter_id;
+
+    RETURN encDate;
 END
 #
 /*
@@ -547,6 +596,65 @@ BEGIN
     and find_in_set(encounter_type, encounterType)
     and (beginDate is null or enc.encounter_datetime >= beginDate)
     order by enc.encounter_datetime desc
+    limit 1;
+
+    RETURN enc_id_out;
+
+END
+#
+
+--- This function accepts patient_id, encounter_type, beginDate, endDate
+--- It will return the latest encounter of the specified type that it finds for the patient between the dates
+--- Null date values can be used to indicate no constraint
+
+#
+DROP FUNCTION IF EXISTS latestEncBetweenDates;
+#
+CREATE FUNCTION latestEncBetweenDates(patientId int(11), encounterType varchar(255), beginDate datetime, endDate datetime)
+    RETURNS int(11)
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE enc_id_out int(11);
+
+    select encounter_id into enc_id_out
+    from encounter enc
+    where enc.voided = 0
+      and enc.patient_id = patientId
+      and find_in_set(encounter_type, encounterType)
+      and (beginDate is null or enc.encounter_datetime >= beginDate)
+      and (endDate is null or enc.encounter_datetime <= endDate)
+    order by enc.encounter_datetime desc
+    limit 1;
+
+    RETURN enc_id_out;
+
+END
+#
+
+--- This function accepts patient_id, encounter_type and beginDate
+--- It will return the first encounter of the specified type that it finds for the patient after the passed beginDate
+--- if null is passed in as the beginDate, it will be disregarded
+
+#
+DROP FUNCTION IF EXISTS firstEnc;
+#
+CREATE FUNCTION firstEnc(patientId int(11), encounterType varchar(255), beginDate datetime)
+    RETURNS int(11)
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE enc_id_out int(11);
+
+    select encounter_id into enc_id_out
+    from encounter enc
+    where enc.voided = 0
+      and enc.patient_id = patientId
+      and find_in_set(encounter_type, encounterType)
+      and (beginDate is null or enc.encounter_datetime >= beginDate)
+    order by enc.encounter_datetime asc
     limit 1;
 
     RETURN enc_id_out;
