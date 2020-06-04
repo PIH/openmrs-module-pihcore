@@ -323,6 +323,9 @@ public class LocationTagSetup {
                 HSNLocations.COVID19_UMI_HSN
         ));
 
+        // just zero out some tags that may have bee set on the legacy MH latop
+        setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, null);
 
     }
 
