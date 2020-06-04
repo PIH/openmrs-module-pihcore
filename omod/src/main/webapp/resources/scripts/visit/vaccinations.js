@@ -9,8 +9,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
 
     })
 
-    .factory("VaccinationService", [ "Obs", "Concepts", "EncounterTransaction",
-        function(Obs, Concepts, EncounterTransaction) {
+    .factory("VaccinationService", [ "Obs", "Concepts", "EncounterTypes", "EncounterTransaction", "EncounterRoles", "SessionInfo",
+        function(Obs, Concepts, EncounterTypes, EncounterTransaction, EncounterRoles, SessionInfo) {
         return {
             getHistory: function(patient) {
                 // raw REST query, will return { results: [...] }
@@ -23,6 +23,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
 
                 var vaccinationDate = encounter.encounterDatetime;
                 if (date) {
+                    var obsDatetime = new Date().toISOString();
+
                     // trim time and time zone component from date before submtting
                     vaccinationDate = moment(date).format('YYYY-MM-DD');
                 }
@@ -30,7 +32,11 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     visitUuid: visit.uuid,
                     patientUuid: patient.uuid,
                     encounterUuid: encounter.uuid,
-                    // for now, we are not setting the location or the provider--will pick this up from the parent encounter
+                        // for now, we are not setting the location or the provider--will pick this up from the parent encounter
+                        //locationUuid: SessionInfo.get().sessionLocation.uuid,
+                       //providers:[ {   "uuid": SessionInfo.get().currentProvider.uuid,
+                      //  "encounterRoleUuid": EncounterRoles.consultingClinician.uuid } ],
+
                     observations: [
                         {
                             concept: Concepts.vaccinationHistoryConstruct.uuid,
@@ -90,8 +96,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
         }
     }])
 
-    .directive("vaccinationTable", [ "Concepts", "VaccinationService", "ngDialog", "groupMemberFilter", "SessionInfo", "$timeout",
-        function(Concepts, VaccinationService, ngDialog, groupMemberFilter, SessionInfo, $timeout) {
+    .directive("vaccinationTable", [ "Concepts", "VaccinationService", "ngDialog", "groupMemberFilter", "SessionInfo", "$filter", "$timeout",
+        function(Concepts, VaccinationService, ngDialog, groupMemberFilter, SessionInfo, $filter, $timeout) {
         return {
             restrict: "E",
             scope: {
