@@ -2,6 +2,9 @@
   This file contains common functions that are useful writing reports
 */
 
+-- You should uncomment this line to check syntax in IDE.  Liquibase handles this internally.
+-- DELIMITER #
+
 /*
 How to use the fuctions
 concept_from_mapping('source', 'code')
@@ -62,8 +65,12 @@ CREATE FUNCTION concept_name(
 BEGIN
     DECLARE conceptName varchar(255);
 
-	SELECT name INTO conceptName FROM concept_name WHERE voided = 0 AND concept_id = _conceptID AND locale = _locale AND concept_name_type
-    = "FULLY_SPECIFIED";
+	SELECT name INTO conceptName
+	FROM concept_name
+	WHERE voided = 0
+	  AND concept_id = _conceptID
+	  AND locale = _locale
+	  AND concept_name_type = 'FULLY_SPECIFIED';
 
     RETURN conceptName;
 END
@@ -574,9 +581,9 @@ BEGIN
 END
 #
 
---- This function accepts patient_id, encounter_type and beginDate
---- It will return the latest encounter id if the patient
---- if null is passed in as the beginDate, it will be disregarded
+-- This function accepts patient_id, encounter_type and beginDate
+-- It will return the latest encounter id if the patient
+-- if null is passed in as the beginDate, it will be disregarded
 
 #
 DROP FUNCTION IF EXISTS latestEnc;
@@ -603,9 +610,9 @@ BEGIN
 END
 #
 
---- This function accepts patient_id, encounter_type, beginDate, endDate
---- It will return the latest encounter of the specified type that it finds for the patient between the dates
---- Null date values can be used to indicate no constraint
+-- This function accepts patient_id, encounter_type, beginDate, endDate
+-- It will return the latest encounter of the specified type that it finds for the patient between the dates
+-- Null date values can be used to indicate no constraint
 
 #
 DROP FUNCTION IF EXISTS latestEncBetweenDates;
@@ -633,9 +640,9 @@ BEGIN
 END
 #
 
---- This function accepts patient_id, encounter_type and beginDate
---- It will return the first encounter of the specified type that it finds for the patient after the passed beginDate
---- if null is passed in as the beginDate, it will be disregarded
+-- This function accepts patient_id, encounter_type and beginDate
+-- It will return the first encounter of the specified type that it finds for the patient after the passed beginDate
+-- if null is passed in as the beginDate, it will be disregarded
 
 #
 DROP FUNCTION IF EXISTS firstEnc;
@@ -660,4 +667,35 @@ BEGIN
     RETURN enc_id_out;
 
 END
+#
+
+/**
+  FUNCTIONS TO RETRIEVE OBSERVATION VALUES FROM A GIVEN ENCOUNTER
+*/
+
+-- This function accepts encounter_id, mapping source, mapping code
+-- It will find a single, best observation that matches this, and return the value_text
+#
+DROP FUNCTION IF EXISTS obs_value_text;
+#
+CREATE FUNCTION obs_value_text(_encounterId int(11), _sourceName varchar(50), _termCode varchar(255))
+    RETURNS text
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE ret text;
+
+    select      o.value_text into ret
+    from        obs o
+    where       o.voided = 0
+    and         o.encounter_id = _encounterId
+    and         o.concept_id = concept_from_mapping(_sourceName, _termCode)
+    order by    o.date_created desc, o.obs_id desc
+    limit 1;
+
+    RETURN ret;
+
+END
+
 #
