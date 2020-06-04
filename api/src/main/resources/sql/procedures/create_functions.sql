@@ -185,6 +185,35 @@ person_attribute_type where name = 'Unknown patient') and voided = 0 and person_
 
 END
 #
+/*
+person_attribute_value
+*/
+#
+DROP FUNCTION IF EXISTS person_attribute_value;
+#
+CREATE FUNCTION person_attribute_value(
+    _patient_id int,
+    _att_type_name varchar(50)
+)
+    RETURNS VARCHAR(50)
+    DETERMINISTIC
+
+BEGIN
+    DECLARE  attVal VARCHAR(50);
+
+    select      a.value into attVal
+    from        person_attribute a
+    inner join  person_attribute_type pat on a.person_attribute_type_id = pat.person_attribute_type_id
+    where       pat.name = _att_type_name
+    and         a.voided = 0
+    and         a.person_id = _patient_id
+    order by    a.date_created desc
+    limit       1;
+
+    RETURN attVal;
+
+END
+#
 
 /*
 gender
@@ -274,6 +303,28 @@ join encounter_provider ep on pv.provider_id = ep.provider_id and ep.voided = 0 
     
     RETURN providerName;
     
+END
+#
+/*
+Encounter Location
+*/
+#
+DROP FUNCTION IF EXISTS encounter_location_name;
+#
+CREATE FUNCTION encounter_location_name (
+    _encounter_id int
+)
+    RETURNS varchar(255)
+    DETERMINISTIC
+BEGIN
+    DECLARE locName varchar(255);
+
+    select      l.name into locName
+    from        encounter e
+    inner join  location l on l.location_id = e.location_id
+    where       e.encounter_id = _encounter_id;
+
+    RETURN locName;
 END
 #
 /*
