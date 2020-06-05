@@ -588,7 +588,7 @@ END
 #
 DROP FUNCTION IF EXISTS latestEnc;
 #
-CREATE FUNCTION latestEnc(patientId int(11), encounterType varchar(255), beginDate datetime)
+CREATE FUNCTION latestEnc(_patientId int(11), _encounterTypes varchar(255), _beginDate datetime)
     RETURNS int(11)
     DETERMINISTIC
 
@@ -596,14 +596,14 @@ BEGIN
 
     DECLARE enc_id_out int(11);
 
-    select encounter_id into enc_id_out
-    from encounter enc
-    where enc.voided = 0
-    and enc.patient_id = patientId
-    and find_in_set(encounter_type, encounterType)
-    and (beginDate is null or enc.encounter_datetime >= beginDate)
-    order by enc.encounter_datetime desc
-    limit 1;
+    select      encounter_id into enc_id_out
+    from        encounter enc inner join encounter_type et on enc.encounter_type = et.encounter_type_id
+    where       enc.voided = 0
+    and         enc.patient_id = _patientId
+    and         find_in_set(et.name, _encounterTypes)
+    and         (_beginDate is null or enc.encounter_datetime >= _beginDate)
+    order by    enc.encounter_datetime desc
+    limit       1;
 
     RETURN enc_id_out;
 
@@ -617,7 +617,7 @@ END
 #
 DROP FUNCTION IF EXISTS latestEncBetweenDates;
 #
-CREATE FUNCTION latestEncBetweenDates(patientId int(11), encounterType varchar(255), beginDate datetime, endDate datetime)
+CREATE FUNCTION latestEncBetweenDates(_patientId int(11), _encounterTypes varchar(255), _beginDate datetime, _endDate datetime)
     RETURNS int(11)
     DETERMINISTIC
 
@@ -625,15 +625,15 @@ BEGIN
 
     DECLARE enc_id_out int(11);
 
-    select encounter_id into enc_id_out
-    from encounter enc
-    where enc.voided = 0
-      and enc.patient_id = patientId
-      and find_in_set(encounter_type, encounterType)
-      and (beginDate is null or enc.encounter_datetime >= beginDate)
-      and (endDate is null or enc.encounter_datetime <= endDate)
-    order by enc.encounter_datetime desc
-    limit 1;
+    select      encounter_id into enc_id_out
+    from        encounter enc inner join encounter_type et on enc.encounter_type = et.encounter_type_id
+    where       enc.voided = 0
+      and       enc.patient_id = _patientId
+      and       find_in_set(et.name, _encounterTypes)
+      and       (_beginDate is null or enc.encounter_datetime >= _beginDate)
+      and       (_endDate is null or enc.encounter_datetime <= _endDate)
+    order by    enc.encounter_datetime desc
+    limit       1;
 
     RETURN enc_id_out;
 
@@ -647,7 +647,7 @@ END
 #
 DROP FUNCTION IF EXISTS firstEnc;
 #
-CREATE FUNCTION firstEnc(patientId int(11), encounterType varchar(255), beginDate datetime)
+CREATE FUNCTION firstEnc(_patientId int(11), _encounterTypes varchar(255), _beginDate datetime)
     RETURNS int(11)
     DETERMINISTIC
 
@@ -655,14 +655,14 @@ BEGIN
 
     DECLARE enc_id_out int(11);
 
-    select encounter_id into enc_id_out
-    from encounter enc
-    where enc.voided = 0
-      and enc.patient_id = patientId
-      and find_in_set(encounter_type, encounterType)
-      and (beginDate is null or enc.encounter_datetime >= beginDate)
-    order by enc.encounter_datetime asc
-    limit 1;
+    select      encounter_id into enc_id_out
+    from        encounter enc inner join encounter_type et on enc.encounter_type = et.encounter_type_id
+    where       enc.voided = 0
+      and       enc.patient_id = _patientId
+      and       find_in_set(et.name, _encounterTypes)
+      and       (_beginDate is null or enc.encounter_datetime >= _beginDate)
+    order by    enc.encounter_datetime asc
+    limit       1;
 
     RETURN enc_id_out;
 
