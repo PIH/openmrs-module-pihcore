@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais;
+package org.openmrs.module.pihcore.deploy.bundle.haiti.hsn;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
@@ -6,8 +6,8 @@ import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.springframework.stereotype.Component;
 
 @Component
-@Requires({ HaitiMetadataBundle.class, MirebalaisLocationsBundle.class, MirebalaisRadiologyBundle.class })
-public class MirebalaisBundle extends AbstractMetadataBundle {
+@Requires({ HaitiMetadataBundle.class, HSNLocationsBundle.class })
+public class HSNMetadataBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
 

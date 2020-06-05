@@ -11,6 +11,7 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.core.LocationTags;
 import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
+import org.openmrs.module.pihcore.metadata.haiti.hsn.HSNLocations;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
@@ -175,10 +176,6 @@ public class LocationTagSetup {
         setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.BELLADERE);
     }
 
-    private static void setupLocationTagsForHSN(LocationService locationService) {
-        setStandardHaitiSingleSiteLocationTags(locationService, PihHaitiLocations.HSN_SAINT_MARC);
-    }
-
     private static void setStandardHaitiSingleSiteLocationTags(LocationService locationService, LocationDescriptor location) {
 
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(location));
@@ -250,6 +247,87 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, null);
     }
 
+
+    private static void setupLocationTagsForHSN(LocationService locationService) {
+
+        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(
+                PihHaitiLocations.HSN_SAINT_MARC
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION, Arrays.asList(
+                PihHaitiLocations.HSN_SAINT_MARC
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(
+                PihHaitiLocations.HSN_SAINT_MARC
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, Arrays.asList(
+                PihHaitiLocations.HSN_SAINT_MARC
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, Arrays.asList(
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN,
+                HSNLocations.SANTE_MANTAL_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.TABLET_ENTRY_LOCATION, Arrays.asList(
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.ADMISSION_LOCATION, Arrays.asList(
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.TRANSFER_LOCAITON, Arrays.asList(
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(
+                HSNLocations.SANTE_MANTAL_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.COVID_LOCATION, Arrays.asList(
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, Arrays.asList(
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(
+                HSNLocations.SANTE_MANTAL_HSN,
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(
+                HSNLocations.SANTE_MANTAL_HSN,
+                HSNLocations.COVID19_ISOLATION_HSN,
+                HSNLocations.COVID19_UMI_HSN
+        ));
+
+        // just zero out some tags that may have bee set on the legacy MH latop
+        setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION, null);
+        setLocationTagsFor(locationService, LocationTags.HIV_CONSULT_LOCATION, null);
+
+    }
 
     private static void setupLocationTagsForMirebalais(LocationService locationService) {
 
@@ -443,6 +521,11 @@ public class LocationTagSetup {
                 MirebalaisLocations.OUTPATIENT_CLINIC,
                 MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
                 MirebalaisLocations.WOMENS_CLINIC,
+                MirebalaisLocations.COVID19_ISOLATION,
+                MirebalaisLocations.COVID19_UMI
+        ));
+
+        setLocationTagsFor(locationService, LocationTags.TABLET_ENTRY_LOCATION, Arrays.asList(
                 MirebalaisLocations.COVID19_ISOLATION,
                 MirebalaisLocations.COVID19_UMI
         ));

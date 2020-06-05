@@ -223,6 +223,12 @@ public class LocationTags {
 		public String description() { return ""; }
 	};
 
+	public static LocationTagDescriptor TABLET_ENTRY_LOCATION = new LocationTagDescriptor() {
+        public String uuid() { return "71ae847e-e784-4170-84ea-a32111dea57b"; }
+        public String name() { return "Tablet Entry Location"; }
+        public String description() { return "Location where entry is done via tablet; used to enable the 'simple' registration flow"; }
+    };
+
 	public static LocationTagDescriptor RETIRED_OUTPATIENT_TRANSFER_LOCATION = new LocationTagDescriptor() {
 		public String uuid() { return "84864264-5fda-4626-b22f-4b690b7279f3"; }
 		public String name() { return "Outpatient Transfer Location"; }

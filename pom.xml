@@ -49,17 +49,17 @@
         <openMRSVersion>2.3.0</openMRSVersion>
         <openMRSwebVersion>2.3.0</openMRSwebVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
-        <emrapiVersion>1.28.0</emrapiVersion>
+        <emrapiVersion>1.29.0</emrapiVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <emrVersion>2.2.0</emrVersion>
-        <uiframeworkVersion>3.17.0</uiframeworkVersion>
-        <appframeworkVersion>2.14.0</appframeworkVersion>
+        <uiframeworkVersion>3.18.0</uiframeworkVersion>
+        <appframeworkVersion>2.15.0</appframeworkVersion>
         <metadatasharingVersion>1.6.0</metadatasharingVersion>
         <metadatamappingVersion>1.3.4</metadatamappingVersion>
         <metadatadeployVersion>1.11.0</metadatadeployVersion>
         <htmlformentryVersion>3.10.0</htmlformentryVersion>
         <htmlformentry19extVersion>1.7</htmlformentry19extVersion>
-        <htmlformentryuiVersion>1.11.1</htmlformentryuiVersion>
+        <htmlformentryuiVersion>1.11.2</htmlformentryuiVersion>
         <calculationVersion>1.2</calculationVersion>
         <reportingVersion>1.20.0</reportingVersion>
         <reportinguiVersion>1.6.0</reportinguiVersion>
@@ -74,13 +74,13 @@
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <uilibraryVersion>1.5</uilibraryVersion>
-        <appuiVersion>1.12.0</appuiVersion>
+        <appuiVersion>1.13.0</appuiVersion>
         <dispensingVersion>1.1.0</dispensingVersion>
-        <uicommonsVersion>2.14.0-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>2.14.0</uicommonsVersion>
         <registrationcoreVersion>1.9.0</registrationcoreVersion>
-        <registrationappVersion>1.18.0</registrationappVersion>
+        <registrationappVersion>1.19.0</registrationappVersion>
         <radiologyappVersion>1.5.0</radiologyappVersion>
-        <coreappsVersion>1.28.0</coreappsVersion>
+        <coreappsVersion>1.29.0</coreappsVersion>
         <webservicesRestVersion>2.27.0-SNAPSHOT</webservicesRestVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
