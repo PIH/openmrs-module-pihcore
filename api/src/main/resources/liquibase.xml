@@ -1167,5 +1167,32 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20200606-duplicate-concept-skin-exam" author="ball">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from concept
+                where uuid = '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            UHM-4626 Retire/void duplicate Skin exam
+        </comment>
+
+        <sql>
+            update concept_name
+            set voided = 1, date_voided = now(),
+                void_reason = 'Duplicate Skin examination (exam) name',
+                voided_by = 1
+            where uuid = '109850BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'
+              and name like 'Skin exam%' ;
+
+            update concept
+            set retired = 1, date_retired = now(),
+                retire_reason = 'Duplicate Skin examination (exam)',
+                retired_by = 1
+            where uuid = '160981AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
