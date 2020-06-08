@@ -724,3 +724,31 @@ BEGIN
 END
 
 #
+
+-- This function accepts encounter_id, mapping source, mapping code
+-- It will find a single, best observation that matches this, and return the value_numeric
+#
+DROP FUNCTION IF EXISTS obs_value_numeric;
+#
+CREATE FUNCTION obs_value_numeric(_encounterId int(11), _source varchar(50), _term varchar(255))
+RETURNS double
+DETERMINISTIC
+
+BEGIN
+
+DECLARE ret double;
+
+select      o.value_numeric into ret
+from        obs o
+where       o.voided = 0
+and         o.encounter_id = _encounterId
+and         o.concept_id = concept_from_mapping(_source, _term)
+order by    o.date_created desc, o.obs_id desc
+limit 1;
+
+RETURN ret;
+
+END
+
+#
+
