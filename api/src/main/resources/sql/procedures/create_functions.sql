@@ -172,6 +172,36 @@ RETURN dosId_out;
 
 END;
 #
+
+/*
+The following will return the primary patient identifier defined in the system's global properties for a given patient id 
+*/
+#
+DROP FUNCTION IF EXISTS primary_patient_id;
+#
+CREATE FUNCTION primary_patient_id(
+    _patient_id int
+)
+	RETURNS VARCHAR(255)
+    DETERMINISTIC
+
+BEGIN
+    DECLARE  id VARCHAR(255);
+
+    SELECT pid.identifier into id from patient_identifier pid 
+    INNER JOIN metadatamapping_metadata_term_mapping m on m.code='emr.primaryIdentifierType'
+    where voided = 0 
+    and pid.identifier_type = 
+      (select pid2.patient_identifier_type_id from patient_identifier_type pid2 where
+      pid2.uuid = m.metadata_uuid) 
+    and patient_id = _patient_id 
+    order by preferred desc limit 1;
+
+    RETURN id;
+
+END;
+#
+
 /*
 unknown patient
 */
