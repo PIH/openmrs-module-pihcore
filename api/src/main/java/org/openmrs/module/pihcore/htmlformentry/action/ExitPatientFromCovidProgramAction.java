@@ -20,7 +20,7 @@ import org.openmrs.module.htmlformentry.FormEntrySession;
 import java.util.Date;
 import java.util.List;
 
-public class CloseCovidProgramAction implements CustomFormSubmissionAction {
+public class ExitPatientFromCovidProgramAction implements CustomFormSubmissionAction {
 
     // TODO if we decide we want to use this pattern to other programs, would make sense to see if we can pass in
     // TODO the program uuid to this action; would probably mean expanding the PostSubmissionAction tag to accept parameters
@@ -88,6 +88,8 @@ public class CloseCovidProgramAction implements CustomFormSubmissionAction {
 
                 // set program outcome based on dispositoion
                 if (disposition != null) {
+                    // note, we set our "uuids" for dispositions to keys; this is probably preferrable, but inconsistent
+                    // with the name "uuid": https://github.com/PIH/openmrs-config-zl/blob/master/configuration/pih/pih-dispositions-haiti.json#L50
                     if (disposition.getUuid().equals(DISPOSITION_DEATH)) {
                         patientProgram.setOutcome(conceptService.getConceptByMapping(CONCEPT_DIED, "PIH"));
                     }
