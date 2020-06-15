@@ -752,3 +752,49 @@ END
 
 #
 
+/*
+ get global property value
+*/
+#
+DROP FUNCTION IF EXISTS global_property_value;
+#
+CREATE FUNCTION global_property_value(
+    _property varchar(255),
+    _defaultValue text
+)
+    RETURNS text
+    DETERMINISTIC
+BEGIN
+    DECLARE val text;
+
+    SELECT property_value into val FROM global_property where property = _property;
+    SELECT if(val is null || val = '', _defaultValue, val) into val;
+
+    return val;
+
+END
+#
+
+/*
+ get global property value
+*/
+#
+DROP FUNCTION IF EXISTS user_property_value;
+#
+CREATE FUNCTION user_property_value(
+    _userId int,
+    _property varchar(1000),
+    _defaultValue text
+)
+    RETURNS text
+    DETERMINISTIC
+BEGIN
+    DECLARE val text;
+
+    SELECT property_value into val FROM user_property where user_id = _userId and property = _property;
+    SELECT if(val is null || val = '', _defaultValue, val) into val;
+
+    return val;
+
+END
+#

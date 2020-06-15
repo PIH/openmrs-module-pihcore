@@ -519,7 +519,33 @@ public class LocationTagSetup {
 
         setLocationTagsFor(locationService, LocationTags.COVID_LOCATION, Arrays.asList(
                 MirebalaisLocations.COVID19_ISOLATION,
-                MirebalaisLocations.COVID19_UMI
+                MirebalaisLocations.COVID19_UMI,
+                MirebalaisLocations.OUTPATIENT_CLINIC,
+                MirebalaisLocations.EMERGENCY,
+                MirebalaisLocations.COMMUNITY_HEALTH,
+                MirebalaisLocations.WOMENS_CLINIC,
+                MirebalaisLocations.WOMENS_TRIAGE,
+                MirebalaisLocations.LABOR_AND_DELIVERY,
+                MirebalaisLocations.ANTEPARTUM_WARD,
+                MirebalaisLocations.POSTPARTUM_WARD,
+                MirebalaisLocations.POST_OP_GYN,
+                MirebalaisLocations.SURGICAL_WARD,
+                MirebalaisLocations.OPERATING_ROOMS,
+                MirebalaisLocations.PRE_OP_PACU,
+                MirebalaisLocations.MENS_INTERNAL_MEDICINE,
+                MirebalaisLocations.WOMENS_INTERNAL_MEDICINE,
+                MirebalaisLocations.PEDIATRICS,
+                MirebalaisLocations.ICU,
+                MirebalaisLocations.NICU,
+                MirebalaisLocations.ISOLATION,
+                MirebalaisLocations.COVID19_ISOLATION,
+                MirebalaisLocations.COVID19_UMI,
+                MirebalaisLocations.CHEMOTHERAPY,
+                MirebalaisLocations.REHABILITATION,
+                MirebalaisLocations.FAMILY_PLANNING,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL,
+                MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL_SAL_PWOSEDI,
+                MirebalaisLocations.NCD_CLINIC
         ));
 
         setLocationTagsFor(locationService, LocationTags.TABLET_ENTRY_LOCATION, Arrays.asList(
