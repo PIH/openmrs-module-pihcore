@@ -69,7 +69,8 @@ public class CloseCovidProgramAction implements CustomFormSubmissionAction {
         if (candidates != null) {
 
             if (candidates.size() > 1) {
-                log.warn("More than one COVID program enrolment for patient " + patient.getId() + " on date " + encounterDate);
+                log.warn("More than one COVID program enrollment for patient " + patient.getId() +
+                         " on date " + encounterDate + ". Now unenrolling from all of them.");
             }
 
             for (PatientProgram patientProgram : candidates) {
