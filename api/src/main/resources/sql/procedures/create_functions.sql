@@ -787,23 +787,26 @@ END
 DROP FUNCTION IF EXISTS obs_single_value_coded;
 #
 CREATE FUNCTION obs_single_value_coded(_encounterId int(11), _source varchar(50), _term varchar(255), _source1 varchar(50), _term1 varchar(255))
-RETURNS int
+RETURNS varchar(11)
 DETERMINISTIC
 
 BEGIN
 
-DECLARE ret int;
+DECLARE ret varchar(11);
 
-select      obs_id into ret
+select      IFNULL(NULL, "Yes") into ret FROM
+(
+select      obs_id
 from        obs o
 where       o.voided = 0
 and         o.encounter_id = _encounterId
 and         o.concept_id = concept_from_mapping(_source, _term)
 and         o.value_coded = concept_from_mapping(_source1, _term1)
 order by    o.date_created desc, o.obs_id desc
-limit 1;
+limit 1
+) obs_single_question_answer;
 
-RETURN IF(ret <> NULL, "Yes", NULL);
+RETURN ret;
 
 END
 
