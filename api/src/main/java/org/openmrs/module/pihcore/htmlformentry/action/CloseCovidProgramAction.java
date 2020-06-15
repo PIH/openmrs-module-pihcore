@@ -47,7 +47,10 @@ public class CloseCovidProgramAction implements CustomFormSubmissionAction {
     }
 
 
-    private void closeCovidProgram(FormEntrySession formEntrySession, ProgramWorkflowService programWorkflowService, DispositionService dispositionService, ConceptService conceptService) {
+    private void closeCovidProgram(FormEntrySession formEntrySession,
+                                   ProgramWorkflowService programWorkflowService,
+                                   DispositionService dispositionService,
+                                   ConceptService conceptService) {
         Patient patient = formEntrySession.getPatient();
         Program covid = programWorkflowService.getProgramByUuid(COVID_PROGRAM_UUID);
         Encounter encounter = formEntrySession.getEncounter();
