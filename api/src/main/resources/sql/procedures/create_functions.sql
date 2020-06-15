@@ -77,25 +77,52 @@ END
 #
 
 /*
-get names from the concept_name table
+    return encounter type id given name or uuid
 */
 #
 DROP FUNCTION IF EXISTS encounter_type;
 #
 CREATE FUNCTION encounter_type(
-    _encounter_type_name varchar(255)
+    _name_or_uuid varchar(255)
 )
 	RETURNS INT
     DETERMINISTIC
 
 BEGIN
-    DECLARE enconterType varchar(255);
+    DECLARE ret varchar(255);
 
-	SELECT encounter_type_id INTO enconterType FROM encounter_type WHERE retired = 0 and
-    name = _encounter_type_name;
+	SELECT  encounter_type_id INTO ret
+	FROM    encounter_type where name = _name_or_uuid or uuid = _name_or_uuid;
 
-    RETURN enconterType;
+    RETURN ret;
+END
+#
 
+/*
+    return patient identifier type id
+*/
+#
+DROP FUNCTION IF EXISTS patient_identifier;
+#
+CREATE FUNCTION patient_identifier(
+    _patient_id int,
+    _name_or_uuid varchar(255)
+)
+    RETURNS varchar(50)
+    DETERMINISTIC
+
+BEGIN
+    DECLARE ret varchar(50);
+
+    SELECT      i.identifier INTO ret
+    FROM        patient_identifier i
+    INNER JOIN  patient_identifier_type t on i.identifier_type = t.patient_identifier_type_id
+    WHERE       (t.name = _name_or_uuid or t.uuid = _name_or_uuid)
+    AND         i.voided = 0
+    AND         i.patient_id = _patient_id
+    ORDER BY    preferred desc, i.date_created desc limit 1;
+
+    RETURN ret;
 END
 #
 
@@ -139,14 +166,11 @@ CREATE FUNCTION zlemr(
 
 BEGIN
     DECLARE  zlEMR VARCHAR(255);
-
-    SELECT pid.identifier into zlEMR from patient_identifier pid where voided = 0 and pid.identifier_type = (select pid2.patient_identifier_type_id from patient_identifier_type pid2 where
-pid2.name = 'ZL EMR ID') and patient_id = _patient_id order by preferred desc limit 1;
-
+    SELECT patient_identifier(_patient_id, 'ZL EMR ID') into zlEMR;
     RETURN zlEMR;
-
 END
 #
+
 DROP FUNCTION IF EXISTS dosId;
 #
 
@@ -796,5 +820,30 @@ BEGIN
 
     return val;
 
+END
+#
+
+/*
+ get metadata mapping uuid
+*/
+#
+DROP FUNCTION IF EXISTS metadata_uuid;
+#
+CREATE FUNCTION metadata_uuid(
+    _sourceName varchar(255),
+    _codeName varchar(255)
+)
+    RETURNS varchar(38)
+    DETERMINISTIC
+BEGIN
+    DECLARE ret varchar(38);
+
+    select      m.metadata_uuid into ret
+    from        metadatamapping_metadata_term_mapping m
+    inner join  metadatamapping_metadata_source s on s.metadata_source_id = m.metadata_source_id
+    where       s.name = _sourceName
+    and         m.code = _codeName;
+
+    return ret;
 END
 #
