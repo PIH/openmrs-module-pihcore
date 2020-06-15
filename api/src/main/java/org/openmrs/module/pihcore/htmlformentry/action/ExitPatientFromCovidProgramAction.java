@@ -47,7 +47,10 @@ public class ExitPatientFromCovidProgramAction implements CustomFormSubmissionAc
     }
 
 
-    private void closeCovidProgram(FormEntrySession formEntrySession, ProgramWorkflowService programWorkflowService, DispositionService dispositionService, ConceptService conceptService) {
+    private void closeCovidProgram(FormEntrySession formEntrySession,
+                                   ProgramWorkflowService programWorkflowService,
+                                   DispositionService dispositionService,
+                                   ConceptService conceptService) {
         Patient patient = formEntrySession.getPatient();
         Program covid = programWorkflowService.getProgramByUuid(COVID_PROGRAM_UUID);
         Encounter encounter = formEntrySession.getEncounter();
@@ -66,7 +69,8 @@ public class ExitPatientFromCovidProgramAction implements CustomFormSubmissionAc
         if (candidates != null) {
 
             if (candidates.size() > 1) {
-                log.warn("More than one COVID program enrolment for patient " + patient.getId() + " on date " + encounterDate);
+                log.warn("More than one COVID program enrollment for patient " + patient.getId() +
+                         " on date " + encounterDate + ". Now unenrolling from all of them.");
             }
 
             for (PatientProgram patientProgram : candidates) {
