@@ -479,6 +479,10 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
                 });
             };
 
+            var hasMemberThatEvaluatesTrue = function(list, func) {
+              return list.some(func);
+            };
+
             // TODO we really should have a better place for utility functions like this
             var patientAgeInYearsOnDate = function(date) {
                 return moment(date).diff(moment(visit.patient.person.birthdate), 'years');
@@ -494,12 +498,12 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
 
                 if (it.require) {
                     // find a cleaner way to avoid polluting scope
-                    var result = (function(expr) {
+                    var result = (function(expr, visit) {
                         var sessionLocation = SessionInfo.get().sessionLocation;
                         var user = new OpenMRS.UserModel(SessionInfo.get().user);
                         var patient = visit ? visit.patient : null;
                         return eval(expr);
-                    })(it.require);
+                    })(it.require, visit);
                     if (!result) {
                         return false;
                     }
