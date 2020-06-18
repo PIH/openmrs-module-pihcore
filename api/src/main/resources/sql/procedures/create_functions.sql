@@ -847,3 +847,63 @@ BEGIN
     return ret;
 END
 #
+
+-- This function accepts encounter_id, mapping source, mapping code
+-- It will find a single, best observation that matches this, and return the value_datetime
+#
+DROP FUNCTION IF EXISTS obs_value_datetime;
+#
+CREATE FUNCTION obs_value_datetime(_encounterId int(11), _source varchar(50), _term varchar(255))
+RETURNS datetime
+DETERMINISTIC
+
+BEGIN
+
+DECLARE ret datetime;
+
+select      o.value_datetime into ret
+from        obs o
+where       o.voided = 0
+and         o.encounter_id = _encounterId
+and         o.concept_id = concept_from_mapping(_source, _term)
+order by    o.date_created desc, o.obs_id desc
+limit 1;
+
+RETURN ret;
+
+END
+
+#
+
+-- This function accepts encounter_id, mapping source, mapping code (for both the concept_id and value_coded) and returns
+-- true if the obs_id exists and
+-- null if the obs_id does not exisit
+-- This function is used on questions that also act as answers (i.e you either check it as true or your don't)
+#
+DROP FUNCTION IF EXISTS obs_single_value_coded;
+#
+CREATE FUNCTION obs_single_value_coded(_encounterId int(11), _source varchar(50), _term varchar(255), _source1 varchar(50), _term1 varchar(255))
+RETURNS varchar(11)
+DETERMINISTIC
+
+BEGIN
+
+DECLARE ret varchar(11);
+
+select      IFNULL(NULL, "Yes") into ret FROM
+(
+select      obs_id
+from        obs o
+where       o.voided = 0
+and         o.encounter_id = _encounterId
+and         o.concept_id = concept_from_mapping(_source, _term)
+and         o.value_coded = concept_from_mapping(_source1, _term1)
+order by    o.date_created desc, o.obs_id desc
+limit 1
+) obs_single_question_answer;
+
+RETURN ret;
+
+END
+
+#
