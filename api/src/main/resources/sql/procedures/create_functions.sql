@@ -775,6 +775,58 @@ RETURN ret;
 END
 
 #
+-- This function accepts visit_id, mapping source, mapping code
+-- It will find the value_coded entries that match this, separated by | 
+#
+DROP FUNCTION IF EXISTS obs_from_visit_value_coded_list;
+#
+CREATE FUNCTION obs_from_visit_value_coded_list(_visitId int(11), _source varchar(50), _term varchar(255), _locale varchar(50))
+    RETURNS text
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE ret text;
+
+    select      group_concat(distinct concept_name(o.value_coded, _locale) separator ' | ') into ret
+    from        obs o
+    inner join encounter e on o.encounter_id = e.encounter_id and e.voided = 0
+    where       o.voided = 0
+      and       e.visit_id = _visitId
+      and       o.concept_id = concept_from_mapping(_source, _term);
+
+    RETURN ret;
+
+END
+
+#
+
+-- This function accepts obs_group_id, mapping source, mapping code
+-- It will find the value_coded entries that match this, separated by | 
+
+#
+
+DROP FUNCTION IF EXISTS obs_from_group_id_value_coded_list;
+#
+CREATE FUNCTION obs_from_group_id_value_coded_list(_obsGroupId int(11), _source varchar(50), _term varchar(255), _locale varchar(50))
+    RETURNS text
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE ret text;
+
+    select      group_concat(distinct concept_name(o.value_coded, _locale) separator ' | ') into ret
+    from        obs o
+    where       o.voided = 0
+      and       o.obs_group_id= _obsGroupId
+      and       o.concept_id = concept_from_mapping(_source, _term);
+
+    RETURN ret;
+
+END
+
+#
 
 /*
  get global property value
