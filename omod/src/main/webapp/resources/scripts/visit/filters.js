@@ -479,7 +479,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
                 });
             };
 
-            var hasMemberThatEvaluatesTrue = function(list, func) {
+            var some = function(list, func) {
               return list.some(func);
             };
 
