@@ -827,7 +827,57 @@ BEGIN
 END
 
 #
+-- This function accepts obs_group_id, mapping source, mapping code
+-- It will find the value_text entry that matches this
+#
+DROP FUNCTION IF EXISTS obs_from_group_id_value_text;
+#
+CREATE FUNCTION obs_from_group_id_value_text(_obsGroupId int(11), _source varchar(50), _term varchar(255), _locale varchar(50))
+    RETURNS text
+    DETERMINISTIC
 
+BEGIN
+
+    DECLARE ret text;
+
+    select      value_text into ret
+    from        obs o
+    where       o.voided = 0
+      and       o.obs_group_id= _obsGroupId
+      and       o.concept_id = concept_from_mapping(_source, _term);
+
+    RETURN ret;
+
+END
+
+#
+   
+-- This function accepts encounter_id, mapping source, mapping code
+-- It will find the obs_id of the matching observation    
+    
+#
+DROP FUNCTION IF EXISTS obs_id;
+#
+CREATE FUNCTION obs_id(_encounterId int(11), _source varchar(50), _term varchar(255))
+RETURNS int
+DETERMINISTIC
+
+BEGIN
+
+DECLARE ret int;
+
+select      o.obs_id into ret
+from        obs o
+where       o.voided = 0
+and         o.encounter_id = _encounterId
+and         o.concept_id = concept_from_mapping(_source, _term)
+order by    o.date_created desc, o.obs_id desc
+limit 1;
+
+RETURN ret;
+
+END
+#
 /*
  get global property value
 */
