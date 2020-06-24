@@ -8,5 +8,13 @@
   "globalProperties": {
     "test": "test",
     "anotherTest": "anotherTest"
+  },
+  "locationTags": {
+    "Admission Location": [
+      "COVID Ward"
+    ],
+    "Visit Location": [
+      "Hospital"
+    ]
   }
 }

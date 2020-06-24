@@ -69,6 +69,9 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertTrue(config.shouldScheduleBackupReports());
         assertThat(config.getGlobalProperty("test"), is("override"));
         assertThat(config.getGlobalProperty("anotherTest"), is("anotherTest"));
+        assertThat(config.getLocationTags().get("Admission Location").size(), is(2));
+        assertThat(config.getLocationTags().get("Admission Location").get(0), is("Women's Ward"));
+        assertThat(config.getLocationTags().get("Visit Location").size(), is(1));
         runtimeProperties.remove(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
     }
 
