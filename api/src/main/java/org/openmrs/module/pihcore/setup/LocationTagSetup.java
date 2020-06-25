@@ -68,8 +68,10 @@ public class LocationTagSetup {
 
     private static void setLocationTagsFor(LocationService service, LocationTagDescriptor locationTag, Collection<LocationDescriptor> locationsThatGetTag) {
         List<String> locations = new ArrayList<String>();
-        for (LocationDescriptor descriptor : locationsThatGetTag) {
-            locations.add(descriptor.uuid());
+        if (locationsThatGetTag != null) {
+            for (LocationDescriptor descriptor : locationsThatGetTag) {
+                locations.add(descriptor.uuid());
+            }
         }
         setLocationTagsFor(service, locationTag.uuid(), locations);
     }
