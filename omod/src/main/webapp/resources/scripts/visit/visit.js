@@ -478,6 +478,12 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
+    .directive("visitActions", [ function() {
+      return {
+        templateUrl: 'templates/visitActions.page'
+      }
+    }])
+
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
         "visitUuid", "visitTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
