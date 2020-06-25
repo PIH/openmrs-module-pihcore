@@ -86,6 +86,10 @@ public class Config {
         return descriptor.getGlobalProperties() == null ? new HashMap<String, String>() : descriptor.getGlobalProperties();
     }
 
+    public Map<String, List<String>> getLocationTags() {
+        return descriptor.getLocationTags() == null ? new HashMap<String, List<String>>() : descriptor.getLocationTags();
+    }
+
     public Boolean shouldScheduleBackupReports() {
         return descriptor.getScheduleBackupReports() != null ? descriptor.getScheduleBackupReports() : false;
     }

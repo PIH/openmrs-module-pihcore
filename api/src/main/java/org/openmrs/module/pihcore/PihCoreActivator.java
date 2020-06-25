@@ -111,6 +111,8 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             setGlobalProperties(config);
             setExtraIdentifierTypes(metadataMappingService, patientService, config);
             MergeActionsSetup.registerMergeActions();
+            // TODO line below will be removed when we migrate location tags
+            LocationTagSetup.setupLocationTagsLegacy(locationService, config);
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
             MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);

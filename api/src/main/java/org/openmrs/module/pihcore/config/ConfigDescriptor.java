@@ -61,6 +61,9 @@ public class ConfigDescriptor {
     private Map<String, String> globalProperties;
 
     @JsonProperty
+    private Map<String, List<String>> locationTags;
+
+    @JsonProperty
     private List<String> components;
 
     @JsonProperty
@@ -165,6 +168,14 @@ public class ConfigDescriptor {
 
     public void setGlobalProperties(Map<String, String> globalProperties) {
         this.globalProperties = globalProperties;
+    }
+
+    public Map<String, List<String>> getLocationTags() {
+        return locationTags;
+    }
+
+    public void setLocationTags(Map<String, List<String>> locationTags) {
+        this.locationTags = locationTags;
     }
 
     public List<String> getComponents() {
