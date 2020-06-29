@@ -20,6 +20,16 @@
     "dossierIdentifierPrefix": "TH",
 
     "idCardLabel": "PIH Liberia Patient ID Card",
-    "idCardLocale": "en"
+    "idCardLocale": "en",
+
+    "locationTags": {
+      "Admission Location": [
+        "Women's Ward",
+        "Men's Ward"
+      ],
+      "Visit Location": [
+        "Hospital"
+      ]
+    }
 
 }

@@ -106,7 +106,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         createEmrApiMappingSource(metadataMappingService);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, getConfig());
-        LocationTagSetup.setupLocationTags(locationService, getConfig());
+        LocationTagSetup.setupLocationTagsLegacy(locationService, getConfig());
     }
 
     protected Config getConfig() {

@@ -1,11 +1,18 @@
 {
 
-    "components": [
-        "override"
-    ],
-    "globalProperties": {
-      "test": "override"
-    },
-    "scheduleBackupReports": "true"
+  "components": [
+      "override"
+  ],
+  "globalProperties": {
+    "test": "override"
+  },
+  "scheduleBackupReports": "true",
+
+  "locationTags": {
+    "Admission Location": [
+      "Women's Ward",
+      "Men's Ward"
+    ]
+  }
 
 }

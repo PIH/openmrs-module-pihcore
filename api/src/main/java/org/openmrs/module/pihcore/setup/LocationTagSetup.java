@@ -16,17 +16,68 @@ import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 public class LocationTagSetup {
 
-    // TODO make this less if-then based
-    // TODO actually, when we get rid of these, we can probably set most of the tags in the bundles?
+    private static final Logger log = LoggerFactory.getLogger(LocationTagSetup.class);
+
     public static void setupLocationTags(LocationService locationService, Config config) {
+        for (String locationTag : config.getLocationTags().keySet()) {
+            setLocationTagsFor(locationService, locationTag, config.getLocationTags().get(locationTag));
+        }
+    }
+
+    private static void setLocationTagsFor(LocationService service, String locationTag, List<String> locationsThatGetTag) {
+
+        LocationTag tag = service.getLocationTagByName(locationTag);
+        if (tag == null) {
+            tag = service.getLocationTagByUuid(locationTag);
+        }
+        if (tag == null) {
+            log.warn("Unable to find location tag: " + locationTag);
+            return;
+        }
+
+        for (Location candidate : service.getAllLocations()) {
+            boolean expected = false;
+            if (locationsThatGetTag != null) {
+                for (String location : locationsThatGetTag) {
+                    if (location != null && location.equals(candidate.getUuid()) || location.equals(candidate.getName())) {
+                        expected = true;
+                    }
+                }
+            }
+            boolean actual = candidate.hasTag(tag.getName());
+            if (actual && !expected) {
+                candidate.removeTag(tag);
+                service.saveLocation(candidate);
+            } else if (!actual && expected) {
+                candidate.addTag(tag);
+                service.saveLocation(candidate);
+            }
+        }
+    }
+
+    private static void setLocationTagsFor(LocationService service, LocationTagDescriptor locationTag, Collection<LocationDescriptor> locationsThatGetTag) {
+        List<String> locations = new ArrayList<String>();
+        if (locationsThatGetTag != null) {
+            for (LocationDescriptor descriptor : locationsThatGetTag) {
+                locations.add(descriptor.uuid());
+            }
+        }
+        setLocationTagsFor(service, locationTag.uuid(), locations);
+    }
+
+    // TODO everything below here is legacy code that we will be able to remove once we migrate to setting up location tags via config
+    public static void setupLocationTagsLegacy(LocationService locationService, Config config) {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             setupLocationTagsForLiberia(locationService);
@@ -877,29 +928,4 @@ public class LocationTagSetup {
                 MirebalaisLocations.OUTPATIENT_CLINIC
         ));
     }
-
-    private static void setLocationTagsFor(LocationService service, LocationTagDescriptor locationTag, Collection<LocationDescriptor> locationsThatGetTag) {
-
-        LocationTag tag = service.getLocationTagByUuid(locationTag.uuid());
-
-        for (Location candidate : service.getAllLocations()) {
-            boolean expected = false;
-            if (locationsThatGetTag != null) {
-                for (LocationDescriptor d : locationsThatGetTag) {
-                    if (d != null && d.uuid().equals(candidate.getUuid())) {
-                        expected = true;
-                    }
-                }
-            }
-            boolean actual = candidate.hasTag(tag.getName());
-            if (actual && !expected) {
-                candidate.removeTag(tag);
-                service.saveLocation(candidate);
-            } else if (!actual && expected) {
-                candidate.addTag(tag);
-                service.saveLocation(candidate);
-            }
-        }
-    }
-
 }
