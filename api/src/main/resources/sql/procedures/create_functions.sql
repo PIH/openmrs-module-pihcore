@@ -907,3 +907,75 @@ RETURN ret;
 END
 
 #
+
+-- This function accepts encounter_id, mapping source, mapping code, offset value
+-- It will find a single, best observation that matches this, and return the value_datetime
+-- usage obs_value_datetime_by_offset(encounter_id, 'CIEL or PIH', "1234 OR TEXT");
+#
+DROP FUNCTION IF EXISTS obs_value_datetime_by_offset;
+#
+CREATE FUNCTION obs_value_datetime_by_offset(_encounterId int(11), _source varchar(50), _term varchar(255), _offset_value int(11))
+RETURNS datetime
+DETERMINISTIC
+
+BEGIN
+
+DECLARE ret datetime;
+
+select      o.value_datetime into ret
+from        obs o
+where       o.voided = 0
+and         o.encounter_id = _encounterId
+and         o.concept_id = concept_from_mapping(_source, _term)
+order by    o.obs_id asc
+limit 1
+offset _offset_value;
+
+RETURN ret;
+
+END
+
+#
+
+
+-- This function accepts encounter_id, mapping source, mapping code
+-- It will find a single, best observation that matches this, group them by the obs_group_id and return the value_text
+-- usage obs_value_datetime_by_valuedatetime(encounter_id, 'CIEL or PIH', "1234 OR TEXT", 'en/fr', 'CIEL1 or PIH1', "1234 OR TEXT1", 0/1/2);
+-- The CIEL1 or PIH1 are should be mappings for a concept that returns a value_datetime 
+#
+DROP FUNCTION IF EXISTS obs_value_coded_list_by_valuedatetime;
+#
+CREATE FUNCTION obs_value_coded_list_by_valuedatetime(_encounterId int(11), 
+														_source varchar(50), 
+															_term varchar(255), 
+																_locale varchar(50), 
+																	_source1 varchar(50), 
+																		_term1 varchar(50), 
+																			_offset_value int(11))
+    RETURNS text
+    DETERMINISTIC
+
+BEGIN
+
+    DECLARE ret text;
+    DECLARE obs_gid int;
+
+-- return obs_group_id basing on value_datetime    
+    SELECT obs_group_id INTO obs_gid 
+    FROM obs 
+    WHERE voided = 0
+    AND encounter_id = _encounterId
+    AND DATE(value_datetime) = OBS_VALUE_DATETIME_BY_OFFSET(_encounterId, _source1, _term1, _offset_value);
+
+    SELECT      GROUP_CONCAT(DISTINCT CONCEPT_NAME(o.value_coded, _locale) SEPARATOR ' | ') INTO ret
+    FROM        obs o
+    WHERE       o.voided = 0
+      AND       o.encounter_id = _encounterId
+      AND       o.concept_id = CONCEPT_FROM_MAPPING(_source, _term)
+      AND 		obs_group_id = obs_gid;
+
+    RETURN ret;
+
+END
+
+#
