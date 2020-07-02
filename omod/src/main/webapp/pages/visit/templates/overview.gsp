@@ -41,6 +41,10 @@
         </div>
     </div>
 
+    <div class="row">
+        <visit-actions></visit-actions>
+    </div>
+
 </div>
 
 
