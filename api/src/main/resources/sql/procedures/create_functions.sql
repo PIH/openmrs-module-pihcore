@@ -858,7 +858,7 @@ END
 #
 DROP FUNCTION IF EXISTS obs_id;
 #
-CREATE FUNCTION obs_id(_encounterId int(11), _source varchar(50), _term varchar(255))
+CREATE FUNCTION obs_id(_encounterId int(11), _source varchar(50), _term varchar(255), _offset_value int)
 RETURNS int
 DETERMINISTIC
 
@@ -872,7 +872,9 @@ where       o.voided = 0
 and         o.encounter_id = _encounterId
 and         o.concept_id = concept_from_mapping(_source, _term)
 order by    o.date_created desc, o.obs_id desc
-limit 1;
+limit 1
+offset _offset_value
+;
 
 RETURN ret;
 
