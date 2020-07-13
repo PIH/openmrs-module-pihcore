@@ -109,6 +109,30 @@ public class LiberiaLocations {
         }
     };
 
+    //mch locations
+    public static LocationDescriptor MCH_CLINIC = new LocationDescriptor() {
+        @Override
+        public String name() {
+            return "MCH Clinic";
+        }
+
+        @Override
+        public String description() {
+            return "MCH clinic";
+        }
+
+        @Override
+        public String uuid() {
+            return "2e8c9500-bd41-11ea-aee0-3c6aa7c392cc";
+        } // this uuid needs to be generated.
+
+        public LocationDescriptor parent() {
+            return LiberiaLocations.HEALTH_FACILITY;
+        }
+    };
+
+
+
     // legacy, replaced by new "Health Facility" locatin
     public static LocationDescriptor PLEEBO = new LocationDescriptor() {
         public String uuid() {
