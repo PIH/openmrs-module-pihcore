@@ -592,6 +592,7 @@
     <changeSet id="20181214-delete-duplicate-radio-concept" author="ball">
         <validCheckSum>3:ad96b0433d7257b58b0540ca5a506f35</validCheckSum>
         <validCheckSum>3:faa1724e52de08eff515f3909603e94b</validCheckSum>
+        <validCheckSum>3:faa1724e52de08eff515f3909603e94b</validCheckSum>
         <preConditions onFail="CONTINUE">
             <sqlCheck expectedResult="1">
                 select count(*) from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
@@ -1017,10 +1018,6 @@
             'f75e1e90-b1be-11e3-a5e2-0800200c9a66',
             '93b4d982-d986-11e5-b5d2-0a1d41d68578');
         </sql>
-    </changeSet>
-
-    <changeSet id="20190920-pihcore-create-functions" author="jmbabazi" runAlways="true" runOnChange="true">
-        <sqlFile endDelimiter="#" path="sql/procedures/create_functions.sql" stripComments="true" />
     </changeSet>
 
     <changeSet id="20191108-retire-uric-acid-concept" author="ball">

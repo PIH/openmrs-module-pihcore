@@ -20,6 +20,14 @@ public class PihCoreUtil {
         return getDefaultPihConfigurationDir() + "/concepts/";
     }
 
+    public static  String getSQLProceduresDir() {
+        return getDefaultPihConfigurationDir() + "/reports/sql/procedures/";
+    }
+
+    public static String getSQLProceduresChangelog() {
+        return getSQLProceduresDir() + "liquibase.xml";
+    }
+
     public static String getDrugListDirectory() {
         return getDefaultPihConfigurationDir() + "/drugs/";
     }
