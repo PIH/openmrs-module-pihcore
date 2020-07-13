@@ -174,7 +174,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(LiberiaLocations.HEALTH_FACILITY));
 
         List<LocationDescriptor> liberiaFacilityLocations = Arrays.asList(LiberiaLocations.RECORDS_ROOM,
-                LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC);
+                LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC);
 
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, liberiaFacilityLocations);
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, liberiaFacilityLocations);
@@ -186,21 +186,22 @@ public class LocationTagSetup {
                 Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC));
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION,
                 Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC,
-                        LiberiaLocations.NCD_CLINIC));
+                        LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
         setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION,
-                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC));
+                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
         setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC));
         setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.NCD_CLINIC));
+        setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, Arrays.asList(LiberiaLocations.MCH_CLINIC));
         setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION,
-                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC));
+                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
         // Mental health clinic dispense medications at the clinic - TODO - include pharmacies
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC));
         setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(LiberiaLocations.RECORDS_ROOM));
         setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, Arrays.asList(LiberiaLocations.RECORDS_ROOM));
         setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION,
-                Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC));
+                Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
         setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC,
-                LiberiaLocations.NCD_CLINIC));
+                LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
     }
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {
@@ -239,6 +240,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(location));
+        setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(location));
         setLocationTagsFor(locationService, LocationTags.COVID_LOCATION, Arrays.asList(location));
