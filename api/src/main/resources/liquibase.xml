@@ -592,7 +592,6 @@
     <changeSet id="20181214-delete-duplicate-radio-concept" author="ball">
         <validCheckSum>3:ad96b0433d7257b58b0540ca5a506f35</validCheckSum>
         <validCheckSum>3:faa1724e52de08eff515f3909603e94b</validCheckSum>
-        <validCheckSum>3:faa1724e52de08eff515f3909603e94b</validCheckSum>
         <preConditions onFail="CONTINUE">
             <sqlCheck expectedResult="1">
                 select count(*) from concept where uuid='159388AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
