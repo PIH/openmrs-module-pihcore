@@ -65,6 +65,7 @@ import org.openmrs.module.pihcore.setup.MetadataSharingSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
+import org.openmrs.module.pihcore.setup.LiquibaseSetup;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 
 import java.util.ArrayList;
@@ -120,6 +121,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
             PacIntegrationSetup.setup(config);
+            LiquibaseSetup.setup();
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
             GlobalResourceSetup.includeGlobalResources();
