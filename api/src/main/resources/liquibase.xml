@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- DEPRECATED: should use new liquibase.xml in openmrs-config-pihemr for new changesets -->
+
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
@@ -587,7 +589,6 @@
         </sql>
 
     </changeSet>
-
 
     <changeSet id="20181214-delete-duplicate-radio-concept" author="ball">
         <validCheckSum>3:ad96b0433d7257b58b0540ca5a506f35</validCheckSum>
