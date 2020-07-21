@@ -261,8 +261,8 @@ public class EncounterTypes {
 
 	public static EncounterTypeDescriptor ANC_FORM  = new EncounterTypeDescriptor() {
 		public String uuid() { return "c4ed1a17-cb3d-11ea-b84d-3c6aa7c392cc"; }
-		public String name() { return "Maternal Form"; }
-		public String description() { return "General form for capturing all maternal data for Liberia"; }
+		public String name() { return "ANC Form"; }
+		public String description() { return "General form for capturing all ANC-related data for Liberia"; }
 	};
 
 	public static EncounterTypeDescriptor ECHOCARDIOGRAM  = new EncounterTypeDescriptor() {
