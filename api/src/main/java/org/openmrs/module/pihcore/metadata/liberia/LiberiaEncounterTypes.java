@@ -9,4 +9,10 @@ public class LiberiaEncounterTypes {
         public String name() { return "ANC Form"; }
         public String description() { return "General form for capturing all ANC-related data for Liberia"; }
     };
+
+    public static EncounterTypeDescriptor PEDS  = new EncounterTypeDescriptor() {
+        public String uuid() { return "fac9d9a2-d0bc-11ea-9995-3c6aa7c392cc"; }
+        public String name() { return "PEDS Form"; }
+        public String description() { return "General form for capturing all pediatric data for Liberia"; }
+    };
 }
