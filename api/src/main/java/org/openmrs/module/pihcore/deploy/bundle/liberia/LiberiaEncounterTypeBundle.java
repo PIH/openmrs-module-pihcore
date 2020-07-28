@@ -9,8 +9,7 @@ public class LiberiaEncounterTypeBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
-
         install(LiberiaEncounterTypes.ANC);
-
+        install(LiberiaEncounterTypes.PEDS);
     }
 }
