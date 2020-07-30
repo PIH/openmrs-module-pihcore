@@ -34,6 +34,15 @@ public class Config {
         return descriptor.getComponents().contains(component);
     }
 
+    public Boolean anyComponentEnabled(List<String> components) {
+        for (String component : components) {
+            if (isComponentEnabled(component)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String getWelcomeMessage() {
         return descriptor.getWelcomeMessage();
     }

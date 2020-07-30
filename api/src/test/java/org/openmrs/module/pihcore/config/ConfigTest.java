@@ -3,6 +3,8 @@ package org.openmrs.module.pihcore.config;
 import org.junit.Test;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
@@ -32,6 +34,12 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.getSite(), is(ConfigDescriptor.Site.OTHER));
         assertNull(config.getSpecialty());
         assertFalse(config.shouldScheduleBackupReports());
+
+        List<String> components = Arrays.asList("missingComponent");
+        assertThat(config.anyComponentEnabled(components), is (false));
+        components = Arrays.asList("clinicianDashboard", "patientRegistration", "missingComponent");
+        assertThat(config.anyComponentEnabled(components), is (true));
+
     }
 
     @Test
