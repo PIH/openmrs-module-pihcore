@@ -79,22 +79,7 @@ public class LocationTagSetup {
     // TODO everything below here is legacy code that we will be able to remove once we migrate to setting up location tags via config
     public static void setupLocationTagsLegacy(LocationService locationService, Config config) {
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            setupLocationTagsForLiberia(locationService);
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            setupLocationTagsForSierraLeone(locationService);
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            try {
-                setupLocationTagsForMexico(locationService, config);
-            } catch (Exception e) {
-                throw new APIException("Unable to set up location tags, likely issue is no location with name " +
-                        config.getSite().name().toString() + " configured",
-                        e);
-            }
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             if (config.getSite().equals(ConfigDescriptor.Site.LACOLLINE)) {
                 setupLocationTagsForLacolline(locationService);
             } else if (config.getSite().equals(ConfigDescriptor.Site.THOMONDE)) {
@@ -115,92 +100,6 @@ public class LocationTagSetup {
                 setupLocationTagsForHaitiCrossSite(locationService);
             }
         }
-    }
-
-    private static void setupLocationTagsForSierraLeone(LocationService locationService) {
-        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(SierraLeoneLocations.WELLBODY));
-
-        List<LocationDescriptor> slLocations = Arrays.asList(SierraLeoneLocations.WELLBODY_CLINIC, SierraLeoneLocations.WELLBODY_MCH);
-        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION,slLocations);
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, slLocations);
-        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, slLocations);
-    }
-
-    private static void setupLocationTagsForMexico(LocationService locationService, Config config) throws NoSuchFieldException, IllegalAccessException  {
-
-        List<LocationTagDescriptor> clinicalLocationTags = Arrays.asList(
-                LocationTags.CONSULT_NOTE_LOCATION,
-                LocationTags.REGISTRATION_LOCATION,
-                LocationTags.VISIT_LOCATION,
-                LocationTags.PROGRAM_LOCATION,
-                LocationTags.VITALS_LOCATION,
-                LocationTags.LOGIN_LOCATION,
-                LocationTags.MEDICAL_RECORD_LOCATION,
-                LocationTags.PROVIDER_MANAGEMENT_LOCATION);
-
-        if (config.getSite().equals(ConfigDescriptor.Site.CES_CLOUD)) {
-            List<LocationDescriptor> cloudLocations = Arrays.asList(MexicoLocations.HOSPITAL, MexicoLocations.OFFICE);
-            for (LocationTagDescriptor tag : clinicalLocationTags) {
-                setLocationTagsFor(locationService, tag, cloudLocations);
-            }
-        } else if (config.getSite().equals(ConfigDescriptor.Site.PLAN_DE_LA_LIBERTAD)) {
-            List<LocationDescriptor> planLocations = Arrays.asList(MexicoLocations.PLAN_ALTA, MexicoLocations.PLAN_BAJA);
-            for (LocationTagDescriptor tag : clinicalLocationTags) {
-                setLocationTagsFor(locationService, tag, planLocations);
-            }
-        } else {
-            // Get the current location -- each site only has one available
-            Field locationField = MexicoLocations.class.getField(config.getSite().name());
-            LocationDescriptor location = (LocationDescriptor) locationField.get(LocationDescriptor.class);
-            for (LocationTagDescriptor tag : clinicalLocationTags) {
-                setLocationTagsFor(locationService, tag, Arrays.asList(location));
-            }
-        }
-
-        // Location CHIAPAS only exists for ID generation
-        List<LocationDescriptor> chiapas = Arrays.asList(MexicoLocations.CHIAPAS);
-        setLocationTagsFor(locationService, LocationTags.IDENTIFIER_ASSIGNMENT_LOCATION, chiapas);
-    }
-
-    private static void setupLocationTagsForLiberia(LocationService locationService) {
-
-        setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(LiberiaLocations.HEALTH_FACILITY));
-
-        List<LocationDescriptor> liberiaFacilityLocations = Arrays.asList(LiberiaLocations.RECORDS_ROOM,
-                LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC, LiberiaLocations.EMERGENCY);
-
-        setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, liberiaFacilityLocations);
-        setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, liberiaFacilityLocations);
-        setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, liberiaFacilityLocations);
-        setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, liberiaFacilityLocations);
-        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, null);
-        setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION,
-                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION,
-                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC,
-                        LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.CONSULT_NOTE_LOCATION,
-                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.MENTAL_HEALTH_LOCATION, Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.NCD_CONSULT_LOCATION, Arrays.asList(LiberiaLocations.NCD_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.MCH_LOCATION, Arrays.asList(LiberiaLocations.MCH_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.PRIMARY_CARE_CONSULT_LOCATION,
-                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
-        // Mental health clinic dispense medications at the clinic - TODO - include pharmacies
-        setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(LiberiaLocations.RECORDS_ROOM, LiberiaLocations.EMERGENCY)); //this seem to be the main location for emergency registration
-        setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, Arrays.asList(LiberiaLocations.RECORDS_ROOM));
-        setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION,
-                Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.LAB_RESULTS_LOCATION, Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC,
-                LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
     }
 
     private static void setupLocationTagsForLacolline(LocationService locationService) {
