@@ -180,8 +180,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, liberiaFacilityLocations);
         setLocationTagsFor(locationService, LocationTags.REGISTRATION_LOCATION, liberiaFacilityLocations);
         setLocationTagsFor(locationService, LocationTags.VITALS_LOCATION, liberiaFacilityLocations);
-        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION,
-                Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC));
+        setLocationTagsFor(locationService, LocationTags.ED_REGISTRATION_LOCATION, null);
         setLocationTagsFor(locationService, LocationTags.PROVIDER_MANAGEMENT_LOCATION,
                 Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC));
         setLocationTagsFor(locationService, LocationTags.APPOINTMENT_LOCATION,
