@@ -109,7 +109,6 @@ public class LiberiaLocations {
         }
     };
 
-    //mch locations
     public static LocationDescriptor MCH_CLINIC = new LocationDescriptor() {
         @Override
         public String name() {
@@ -124,7 +123,28 @@ public class LiberiaLocations {
         @Override
         public String uuid() {
             return "2e8c9500-bd41-11ea-aee0-3c6aa7c392cc";
-        } // this uuid needs to be generated.
+        }
+
+        public LocationDescriptor parent() {
+            return LiberiaLocations.HEALTH_FACILITY;
+        }
+    };
+
+    public static LocationDescriptor EMERGENCY = new LocationDescriptor() {
+        @Override
+        public String name() {
+            return "Emergency";
+        }
+
+        @Override
+        public String description() {
+            return "A location for registering emergency patients";
+        }
+
+        @Override
+        public String uuid() {
+            return "9f5e452a-d323-11ea-98a0-3c6aa7c392cc";
+        }
 
         public LocationDescriptor parent() {
             return LiberiaLocations.HEALTH_FACILITY;
