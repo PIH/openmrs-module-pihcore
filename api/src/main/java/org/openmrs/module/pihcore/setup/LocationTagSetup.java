@@ -174,7 +174,7 @@ public class LocationTagSetup {
         setLocationTagsFor(locationService, LocationTags.VISIT_LOCATION, Arrays.asList(LiberiaLocations.HEALTH_FACILITY));
 
         List<LocationDescriptor> liberiaFacilityLocations = Arrays.asList(LiberiaLocations.RECORDS_ROOM,
-                LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC);
+                LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC, LiberiaLocations.EMERGENCY);
 
         setLocationTagsFor(locationService, LocationTags.LOGIN_LOCATION, liberiaFacilityLocations);
         setLocationTagsFor(locationService, LocationTags.CHECKIN_LOCATION, liberiaFacilityLocations);
@@ -195,7 +195,7 @@ public class LocationTagSetup {
                 Arrays.asList(LiberiaLocations.OUTPATIENT_CLINIC, LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
         // Mental health clinic dispense medications at the clinic - TODO - include pharmacies
         setLocationTagsFor(locationService, LocationTags.DISPENSING_LOCATION, Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC));
-        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(LiberiaLocations.RECORDS_ROOM));
+        setLocationTagsFor(locationService, LocationTags.MEDICAL_RECORD_LOCATION, Arrays.asList(LiberiaLocations.RECORDS_ROOM, LiberiaLocations.EMERGENCY)); //this seem to be the main location for emergency registration
         setLocationTagsFor(locationService, LocationTags.ARCHIVES_LOCATION, Arrays.asList(LiberiaLocations.RECORDS_ROOM));
         setLocationTagsFor(locationService, LocationTags.PROGRAM_LOCATION,
                 Arrays.asList(LiberiaLocations.MENTAL_HEALTH_CLINIC, LiberiaLocations.NCD_CLINIC, LiberiaLocations.MCH_CLINIC));
