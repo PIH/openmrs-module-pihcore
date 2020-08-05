@@ -166,10 +166,6 @@ public class LiberiaLocations {
         public String description() {
             return "Pleebo";
         }
-
-        public List<LocationTagDescriptor> tags() {
-            return Collections.emptyList();
-        }
     };
 
     public static LocationDescriptor HARPER = new LocationDescriptor() {
@@ -183,10 +179,6 @@ public class LiberiaLocations {
 
         public String description() {
             return "JJ Dossen";
-        }
-
-        public List<LocationTagDescriptor> tags() {
-            return Collections.emptyList();
         }
     };
 
