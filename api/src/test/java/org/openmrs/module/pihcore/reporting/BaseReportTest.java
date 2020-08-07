@@ -19,8 +19,8 @@ import org.openmrs.module.haiticore.metadata.bundles.HaitiPatientIdentifierTypeB
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.pihcore.TestAddressBundle;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
@@ -31,7 +31,6 @@ import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
-import org.openmrs.module.pihcore.TestAddressBundle;
 import org.openmrs.module.reporting.common.ReflectionUtil;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -96,6 +95,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
 
     @Before
     public void setup() throws Exception {
+        Config config = getConfig();
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
@@ -106,7 +106,8 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         deployService.installBundle(testAddressBundle);
         createEmrApiMappingSource(metadataMappingService);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
-        MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, getConfig());
+        MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
+        LocationTagSetup.setupLocationTags(locationService, config);
     }
 
     protected Config getConfig() {

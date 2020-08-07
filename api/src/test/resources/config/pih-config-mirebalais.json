@@ -12,6 +12,10 @@
         "legacyMpi"
     ],
 
+    "locationTags": {
+      "Visit Location": ["Hôpital Universitaire de Mirebalais", "Patient Home"]
+    },
+
     "registrationConfig": {
       "allowUnknownPatients": true,
       "allowManualEntryOfPrimaryIdentifier": true,
