@@ -21,6 +21,7 @@ import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
@@ -106,14 +107,10 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         createEmrApiMappingSource(metadataMappingService);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, getConfig());
-        LocationTagSetup.setupLocationTagsLegacy(locationService, getConfig());
     }
 
     protected Config getConfig() {
-        ConfigDescriptor d = new ConfigDescriptor();
-        d.setCountry(ConfigDescriptor.Country.HAITI);
-        d.setSite(ConfigDescriptor.Site.MIREBALAIS);
-        return new Config(d);
+        return new Config(ConfigLoader.load("mirebalais"));
     }
 
     protected void createEmrApiMappingSource(MetadataMappingService metadataMappingService) {
