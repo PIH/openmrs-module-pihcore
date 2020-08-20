@@ -107,6 +107,20 @@ public class MexicoLocations {
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
     };
 
+    public static LocationDescriptor CASA_MATERNA = new LocationDescriptor() {
+        public String uuid() { return "431f3329-3a87-48fa-a60a-255cbc328b0c"; }
+        public String name() { return "Casa Materna"; }
+        public String description() { return "Birthing center operated by CES in Jaltenango"; }
+        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
+    };
+
+    public static LocationDescriptor CER = new LocationDescriptor() {
+        public String uuid() { return "431f3329-3a87-48fa-a60a-255cbc328b0c"; }
+        public String name() { return "CER"; }
+        public String description() { return "Clínica de Enfermedades Respiratorias, the CES COVID-19 clinic"; }
+        public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
+    };
+
     // UNINSTALLED
     public static LocationDescriptor SURGERY = new LocationDescriptor() {
         public String uuid() { return "78a18ed4-c798-4f47-a0f1-7e483c89da37"; }
