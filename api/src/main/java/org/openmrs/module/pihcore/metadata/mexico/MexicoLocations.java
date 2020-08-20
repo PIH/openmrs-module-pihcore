@@ -108,7 +108,7 @@ public class MexicoLocations {
     };
 
     public static LocationDescriptor CASA_MATERNA = new LocationDescriptor() {
-        public String uuid() { return "431f3329-3a87-48fa-a60a-255cbc328b0c"; }
+        public String uuid() { return "1d7567a9-64d0-4b79-82a5-59d9e930e426"; }
         public String name() { return "Casa Materna"; }
         public String description() { return "Birthing center operated by CES in Jaltenango"; }
         public LocationDescriptor parent() { return MexicoLocations.CHIAPAS; }
