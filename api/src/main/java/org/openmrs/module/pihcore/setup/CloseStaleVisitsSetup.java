@@ -9,6 +9,7 @@ import org.openmrs.scheduler.SchedulerException;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
 
+import java.util.Collection;
 import java.util.Date;
 
 public class CloseStaleVisitsSetup {
@@ -16,7 +17,16 @@ public class CloseStaleVisitsSetup {
     public static void setupCloseStaleVisitsTask() {
 
         SchedulerService schedulerService = Context.getSchedulerService();
-        TaskDefinition task = schedulerService.getTaskByName(PihCoreConstants.TASK_CLOSE_STALE_VISITS_NAME);
+        TaskDefinition task = null;
+
+        Collection<TaskDefinition> tasks = schedulerService.getRegisteredTasks();
+        for (TaskDefinition t : tasks) {
+            if (t.getName().equals(PihCoreConstants.TASK_CLOSE_STALE_VISITS_NAME)) {
+                task = t;
+                break;
+            }
+        }
+
         if (task == null) {
             task = new TaskDefinition();
             task.setName(PihCoreConstants.TASK_CLOSE_STALE_VISITS_NAME);
