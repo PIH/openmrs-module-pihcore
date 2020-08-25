@@ -131,4 +131,8 @@ public class Config {
     public BiometricsConfigDescriptor getBiometricsConfig() {
         return descriptor.getBiometricsConfig();
     }
+
+    public Boolean shouldRebuildSearchIndex() {
+        return descriptor.getRebuildSearchIndexOnStartup() != null ? descriptor.getRebuildSearchIndexOnStartup() : false;
+    }
 }

@@ -125,6 +125,9 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             GlobalResourceSetup.includeGlobalResources();
             setupCommCareUser();
 
+            if (config.shouldRebuildSearchIndex()) {
+                Context.updateSearchIndex();
+            }
 
             // see https://pihemr.atlassian.net/browse/UHM-4459 for details of why we do this this way
             Runnable metadataSetupTask = new MetadataSetupTask(config, testingContext);

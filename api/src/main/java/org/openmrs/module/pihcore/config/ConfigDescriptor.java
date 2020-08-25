@@ -102,6 +102,9 @@ public class ConfigDescriptor {
     @JsonProperty
     private BiometricsConfigDescriptor biometricsConfig;
 
+    @JsonProperty
+    private Boolean rebuildSearchIndexOnStartup;
+
     public String getWelcomeMessage() {
         return welcomeMessage;
     }
@@ -289,5 +292,13 @@ public class ConfigDescriptor {
 
     public void setBiometrics(BiometricsConfigDescriptor biometricsConfig) {
         this.biometricsConfig = biometricsConfig;
+    }
+
+    public Boolean getRebuildSearchIndexOnStartup() {
+        return rebuildSearchIndexOnStartup;
+    }
+
+    public void setRebuildSearchIndexOnStartup(Boolean rebuildSearchIndexOnStartup) {
+        this.rebuildSearchIndexOnStartup = rebuildSearchIndexOnStartup;
     }
 }
