@@ -229,6 +229,12 @@ public class EncounterTypes {
 		public String description() { return "Voluntary counselling and testing (VCT) for HIV"; }
 	};
 
+	public static EncounterTypeDescriptor HIV_DISPENSING  = new EncounterTypeDescriptor() {
+		public String uuid() { return "cc1720c9-3e4c-4fa8-a7ec-40eeaad1958c"; }
+		public String name() { return "HIV drug dispensing"; }
+		public String description() { return "Dispensing for HIV medications"; }
+	};
+
 	public static EncounterTypeDescriptor SOCIO_ECONOMICS  = new EncounterTypeDescriptor() {
 		public String uuid() { return "de844e58-11e1-11e8-b642-0ed5f89f718b"; }
 		public String name() { return "Socio-economics"; }
