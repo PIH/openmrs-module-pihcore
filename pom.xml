@@ -66,9 +66,9 @@
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
         <idgenVersion>4.5.0</idgenVersion>
-        <namephoneticsVersion>1.6.0</namephoneticsVersion>
+        <namephoneticsVersion>1.17.0</namephoneticsVersion>
         <pacsintegrationVersion>1.7.0</pacsintegrationVersion>
-        <addresshierarchyVersion>2.14.1</addresshierarchyVersion>
+        <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
         <providermanagementVersion>2.11.0</providermanagementVersion>
         <eventVersion>2.8.0</eventVersion>
         <logicVersion>0.5.2</logicVersion>
