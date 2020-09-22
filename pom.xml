@@ -65,11 +65,11 @@
         <reportinguiVersion>1.6.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
-        <idgenVersion>4.5.0</idgenVersion>
+        <idgenVersion>4.6.0</idgenVersion>
         <namephoneticsVersion>1.17.0</namephoneticsVersion>
         <pacsintegrationVersion>1.7.0</pacsintegrationVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
-        <providermanagementVersion>2.11.0</providermanagementVersion>
+        <providermanagementVersion>2.12.0</providermanagementVersion>
         <eventVersion>2.8.0</eventVersion>
         <logicVersion>0.5.2</logicVersion>
         <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
@@ -77,8 +77,8 @@
         <appuiVersion>1.13.0</appuiVersion>
         <dispensingVersion>1.1.0</dispensingVersion>
         <uicommonsVersion>2.14.0</uicommonsVersion>
-        <registrationcoreVersion>1.9.0</registrationcoreVersion>
-        <registrationappVersion>1.19.0</registrationappVersion>
+        <registrationcoreVersion>1.10.0</registrationcoreVersion>
+        <registrationappVersion>1.20.0</registrationappVersion>
         <radiologyappVersion>1.5.0</radiologyappVersion>
         <coreappsVersion>1.29.0</coreappsVersion>
         <webservicesRestVersion>2.27.0-SNAPSHOT</webservicesRestVersion>
