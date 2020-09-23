@@ -546,6 +546,12 @@ public class Privileges {
         public String description() { return "Able to view growth charts"; }
     };
 
+    public static PrivilegeDescriptor TASK_MARK_PATIENT_DEAD = new PrivilegeDescriptor() {
+        public String uuid() { return "c5106f9e-a6fc-42b1-8bc0-9460f83430c9"; }
+        public String privilege() { return "Task: coreapps.markPatientDead"; }
+        public String description() { return "Ability to Mark a patient dead/deceased."; }
+    };
+
     // RETIRED PRIVILEGES
 
 

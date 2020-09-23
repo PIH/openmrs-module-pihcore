@@ -99,6 +99,7 @@ public class Roles {
                 Privileges.TASK_EMR_PRINT_WRISTBAND,
                 Privileges.TASK_EMR_RETRO_CLINICAL_NOTE,
                 Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY,
+                Privileges.TASK_MARK_PATIENT_DEAD,
                 Privileges.TASK_RADIOLOGYAPP_ORDER_CT,
                 Privileges.TASK_RADIOLOGYAPP_ORDER_US,
                 Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY,
@@ -895,6 +896,7 @@ public class Roles {
                     Privileges.APP_COREAPPS_FIND_PATIENT,
                     Privileges.APP_COREAPPS_PATIENT_DASHBOARD,
                     Privileges.APP_COREAPPS_SUMMARY_DASHBOARD,
+                    Privileges.TASK_MARK_PATIENT_DEAD,
                     Privileges.TASK_ENROLL_IN_PROGRAM,
                     Privileges.TASK_EDIT_PATIENT_PROGRAM,
                     Privileges.TASK_DELETE_PATIENT_PROGRAM

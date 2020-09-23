@@ -93,6 +93,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         install(Privileges.TASK_EMR_PRINT_WRISTBAND);
         install(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE);
         install(Privileges.TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY);
+        install(Privileges.TASK_MARK_PATIENT_DEAD);
         install(Privileges.TASK_RADIOLOGYAPP_ORDER_CT);
         install(Privileges.TASK_RADIOLOGYAPP_ORDER_US);
         install(Privileges.TASK_RADIOLOGYAPP_ORDER_XRAY);

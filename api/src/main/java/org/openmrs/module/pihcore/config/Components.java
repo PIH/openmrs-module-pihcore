@@ -80,4 +80,5 @@ public class Components {
         public static final String CHEMOTHERAPY = "chemotherapy";
         public static final String J9 = "j9";
         public static final String SPA = "spa";  // the Single-SPA UI
+        public static final String MARK_PATIENT_DEAD = "markPatientDead";
 }
