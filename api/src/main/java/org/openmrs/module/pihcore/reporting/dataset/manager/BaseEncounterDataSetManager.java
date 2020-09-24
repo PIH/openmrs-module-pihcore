@@ -31,6 +31,8 @@ import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.pihcore.reporting.converter.CodedObsConverter;
+import org.openmrs.module.pihcore.reporting.encounter.definition.MultipleObsForEncounterDataDefinition;
 import org.openmrs.module.pihcore.reporting.encounter.definition.RetrospectiveEncounterDataDefinition;
 import org.openmrs.module.pihcore.reporting.library.DataConverterLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihCohortDefinitionLibrary;
@@ -44,7 +46,6 @@ import org.openmrs.module.reporting.data.converter.BooleanConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
-import org.openmrs.module.reporting.data.encounter.definition.ObsForEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.PatientToEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.PersonToEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.library.BuiltInEncounterDataLibrary;
@@ -255,11 +256,20 @@ public abstract class BaseEncounterDataSetManager {
 		addColumn(dsd, columnName, pihEncounterData.getSingleObsInEncounter(concept), converters);
 	}
 
-	protected void addObsValueCodedColumn(EncounterDataSetDefinition dsd, String columnName, String questionLookup, String valueCodedLookup) {
-		ObsForEncounterDataDefinition d = new ObsForEncounterDataDefinition();
-		d.setQuestion(Metadata.getConcept(questionLookup));
-		d.setSingleObs(false);
-		DataConverter converter = converters.getObsValueCodedPresentConverter(Metadata.getConcept(valueCodedLookup));
+	protected void addSymptomPresentOrAbsentColumn(EncounterDataSetDefinition dsd, String columnName,
+			String symptomPresentQuestion, String symptomAbsentQuestion, String symptomAnswer,
+			Object valueIfPresent, Object valueIfAbsent) {
+
+		Concept presentConcept = Metadata.getConcept(symptomPresentQuestion);
+		Concept absentConcept = Metadata.getConcept(symptomAbsentQuestion);
+		Concept answerConcept = Metadata.getConcept(symptomAnswer);
+
+		MultipleObsForEncounterDataDefinition d = new MultipleObsForEncounterDataDefinition();
+		d.addQuestion(presentConcept);
+		d.addQuestion(absentConcept);
+		CodedObsConverter converter = new CodedObsConverter();
+		converter.addOption(presentConcept.getUuid(), answerConcept.getUuid(), valueIfPresent);
+		converter.addOption(absentConcept.getUuid(), answerConcept.getUuid(), valueIfAbsent);
 		addColumn(dsd, columnName, d, converter);
 	}
 }
