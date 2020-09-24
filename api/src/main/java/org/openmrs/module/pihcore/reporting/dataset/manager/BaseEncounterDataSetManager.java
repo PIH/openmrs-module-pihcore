@@ -14,6 +14,11 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
 import org.openmrs.Visit;
@@ -39,6 +44,7 @@ import org.openmrs.module.reporting.data.converter.BooleanConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.ObsForEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.PatientToEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.PersonToEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.library.BuiltInEncounterDataLibrary;
@@ -51,11 +57,6 @@ import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.query.encounter.definition.PatientEncounterQuery;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * Base implementation of a manager that produces row-per-encounter data set definitions
@@ -252,5 +253,13 @@ public abstract class BaseEncounterDataSetManager {
 	protected void addObsColumn(EncounterDataSetDefinition dsd, String columnName, String conceptLookup, DataConverter... converters) {
 		Concept concept = Metadata.getConcept(conceptLookup);
 		addColumn(dsd, columnName, pihEncounterData.getSingleObsInEncounter(concept), converters);
+	}
+
+	protected void addObsValueCodedColumn(EncounterDataSetDefinition dsd, String columnName, String questionLookup, String valueCodedLookup) {
+		ObsForEncounterDataDefinition d = new ObsForEncounterDataDefinition();
+		d.setQuestion(Metadata.getConcept(questionLookup));
+		d.setSingleObs(false);
+		DataConverter converter = converters.getObsValueCodedPresentConverter(Metadata.getConcept(valueCodedLookup));
+		addColumn(dsd, columnName, d, converter);
 	}
 }
