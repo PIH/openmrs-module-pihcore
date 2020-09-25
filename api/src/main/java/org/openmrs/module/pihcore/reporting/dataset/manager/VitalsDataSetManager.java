@@ -54,9 +54,21 @@ public class VitalsDataSetManager extends BaseEncounterDataSetManager {
         addObsColumn(dsd, "CHIEF_COMPLAINT", "CIEL:160531", converters.getObsValueTextConverter());
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            addSymptomPresentOrAbsentColumn(dsd, "tb_screening_loss_of_appetite",
-                    "PIH:TB SYMPTOM PRESENT", "PIH:TB SYMPTOM ABSENT",
-                    "PIH:LOSS APPETITE", Boolean.TRUE, Boolean.FALSE);
+            addSymptomPresentOrAbsentColumn(dsd, "TB_SCREENING_FEVER_NIGHT_SWEATS",
+                    "PIH:11563", "PIH:11564",
+                    "PIH:11565", "Yes", "No");
+            addSymptomPresentOrAbsentColumn(dsd, "TB_SCREENING_LOSS_OF_APPETITE",
+                    "PIH:11563", "PIH:11564",
+                    "PIH:ANOREXIA", "Yes", "No");
+            addSymptomPresentOrAbsentColumn(dsd, "TB_SCREENING_WEIGHT_LOSS",
+                    "PIH:11563", "PIH:11564",
+                    "PIH:11566", "Yes", "No");
+            addSymptomPresentOrAbsentColumn(dsd, "TB_SCREENING_COUGH",
+                    "PIH:11563", "PIH:11564",
+                    "PIH:COUGH LASTING GREATER THAN TWO WEEKS", "Yes", "No");
+            addSymptomPresentOrAbsentColumn(dsd, "TB_SCREENING_CHEST_PAIN",
+                    "PIH:11563", "PIH:11564",
+                    "PIH:1579", "Yes", "No");
         }
     }
 }
