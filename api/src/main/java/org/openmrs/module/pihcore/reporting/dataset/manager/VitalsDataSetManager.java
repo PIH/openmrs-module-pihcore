@@ -1,14 +1,14 @@
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.openmrs.EncounterType;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.reporting.encounter.definition.BmiEncounterDataDefinition;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
 import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class VitalsDataSetManager extends BaseEncounterDataSetManager {
@@ -51,5 +51,9 @@ public class VitalsDataSetManager extends BaseEncounterDataSetManager {
         addObsColumn(dsd, "DIA_BP", "PIH:DIASTOLIC BLOOD PRESSURE", converters.getObsValueNumericConverter());
         addObsColumn(dsd, "O2_SAT", "PIH:BLOOD OXYGEN SATURATION", converters.getObsValueNumericConverter());
         addObsColumn(dsd, "CHIEF_COMPLAINT", "CIEL:160531", converters.getObsValueTextConverter());
+
+        addSymptomPresentOrAbsentColumn(dsd, "tb_screening_loss_of_appetite",
+                "PIH:TB SYMPTOM PRESENT", "PIH:TB SYMPTOM ABSENT",
+                "PIH:LOSS APPETITE", Boolean.TRUE, Boolean.FALSE);
     }
 }
