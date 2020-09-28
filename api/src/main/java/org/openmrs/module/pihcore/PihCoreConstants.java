@@ -56,6 +56,8 @@ public class PihCoreConstants {
 
     public static final String COMMCARE_PROVIDER_UUID = "35711912-13A6-47F9-8D54-655FCAD75895";
 
+    public static final String PATIENT_DIED_CONCEPT_UUID = "3cdd446a-26fe-102b-80cb-0017a47871b2";
+
     // uuids of concepts associated with programs
     // Concept 11505 is the default outcomes set. Comes from the MDS package "HUM NCD".
     public static final String ANC_PROGRAM_CONCEPT_UUID = "165475AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";  // 12002, PIH Maternal Child Health
