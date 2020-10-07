@@ -17,6 +17,7 @@ package org.openmrs.module.pihcore.metadata.haiti;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
+import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor1_11;
 import org.openmrs.patient.IdentifierValidator;
 
 /**
@@ -64,9 +65,10 @@ public class PihHaitiPatientIdentifierTypes {
 		public String description() { return "Dental clinic dossier number"; }
 	};
 
-	public static PatientIdentifierTypeDescriptor HIV_DOSSIER_NUMBER = new PatientIdentifierTypeDescriptor() {
+	public static PatientIdentifierTypeDescriptor1_11 HIV_DOSSIER_NUMBER = new PatientIdentifierTypeDescriptor1_11() {
 		public String uuid() { return "3B954DB1-0D41-498E-A3F9-1E20CCC47323"; }
 		public String name() { return "HIV Nimewo Dosye"; }
 		public String description() { return "HIV EMR Dossier number"; }
+		public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
 	};
 }

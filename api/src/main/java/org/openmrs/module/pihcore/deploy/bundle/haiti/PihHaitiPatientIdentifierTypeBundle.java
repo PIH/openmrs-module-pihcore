@@ -1,11 +1,11 @@
 package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
-import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
+import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle1_11;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PihHaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle {
+public class PihHaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle1_11 {
 
     @Override
     public void install() throws Exception {
@@ -19,6 +19,7 @@ public class PihHaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle 
         install(PihHaitiPatientIdentifierTypes.USER_ENTERED_REF_NUMBER);
         install(PihHaitiPatientIdentifierTypes.DENTAL_DOSSIER_NUMBER);
         install(PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER);
+
     }
 
 }
