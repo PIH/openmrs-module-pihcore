@@ -19,6 +19,7 @@ import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor1_11;
 import org.openmrs.patient.IdentifierValidator;
+import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 
 /**
  * Constants for all defined patient identifier types
@@ -73,16 +74,16 @@ public class PihHaitiPatientIdentifierTypes {
 	};
 
     public static PatientIdentifierTypeDescriptor1_11 NATIONAL_IDENTIFIER_ID = new PatientIdentifierTypeDescriptor1_11() {
-        public String uuid() { return "e797face-8e8f-11e7-bb31-be2e44b06b34"; }
-        public String name() { return "Carte d'identification nationale"; }
-        public String description() { return "The Haiti national identification card is meant to replace the fiscal identity card."; }
+        public String uuid() { return HaitiPatientIdentifierTypes.CIN_ID.uuid(); }
+        public String name() { return HaitiPatientIdentifierTypes.CIN_ID.name(); }
+        public String description() { return HaitiPatientIdentifierTypes.CIN_ID.description(); }
         public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
     };
 
     public static PatientIdentifierTypeDescriptor1_11 NATIONAL_FISCAL_ID = new PatientIdentifierTypeDescriptor1_11() {
-        public String uuid() { return "e797f826-8e8f-11e7-bb31-be2e44b06b34"; }
-        public String name() { return "Numéro d'identité fiscale (NIF)"; }
-        public String description() { return "The Haiti Tax Identification Number (NIF) is issued by the Direction Générale des Impôts (DGI) since 1987.  Any Haitian natural or legal person gets this 10-digit number."; }
+        public String uuid() { return HaitiPatientIdentifierTypes.NIF_ID.uuid(); }
+        public String name() { return HaitiPatientIdentifierTypes.NIF_ID.name(); }
+        public String description() { return HaitiPatientIdentifierTypes.NIF_ID.description(); }
         public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
     };
 }
