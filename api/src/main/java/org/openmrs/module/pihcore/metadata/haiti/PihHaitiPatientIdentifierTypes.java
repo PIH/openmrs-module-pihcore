@@ -19,6 +19,7 @@ import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor1_11;
 import org.openmrs.patient.IdentifierValidator;
+import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 
 /**
  * Constants for all defined patient identifier types
@@ -71,4 +72,18 @@ public class PihHaitiPatientIdentifierTypes {
 		public String description() { return "HIV EMR Dossier number"; }
 		public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
 	};
+
+    public static PatientIdentifierTypeDescriptor1_11 NATIONAL_IDENTIFIER_ID = new PatientIdentifierTypeDescriptor1_11() {
+        public String uuid() { return HaitiPatientIdentifierTypes.CIN_ID.uuid(); }
+        public String name() { return HaitiPatientIdentifierTypes.CIN_ID.name(); }
+        public String description() { return HaitiPatientIdentifierTypes.CIN_ID.description(); }
+        public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
+    };
+
+    public static PatientIdentifierTypeDescriptor1_11 NATIONAL_FISCAL_ID = new PatientIdentifierTypeDescriptor1_11() {
+        public String uuid() { return HaitiPatientIdentifierTypes.NIF_ID.uuid(); }
+        public String name() { return HaitiPatientIdentifierTypes.NIF_ID.name(); }
+        public String description() { return HaitiPatientIdentifierTypes.NIF_ID.description(); }
+        public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
+    };
 }
