@@ -11,6 +11,7 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.PersonService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
@@ -81,7 +82,7 @@ public class WaitingForConsultPageController {
         Concept dispoConceptSet = conceptService.getConceptByMapping(EmrApiConstants.CONCEPT_CODE_DISPOSITION_CONCEPT_SET, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
         for (Obs obs : obsService.getObservations(null, null, Collections.singletonList(dispoConceptSet),
                 null, null, null, null, null, null, new DateMidnight().toDate(), null,false)) {
-            patientsWithDispositionToday.add((Patient) obs.getPerson());  // assumption: only patients have obs, not plain persio
+            patientsWithDispositionToday.add(Context.getPatientService().getPatient(obs.getPersonId()));  // assumption: only patients have obs, not plain persio
         }
 
         LinkedHashSet<Patient> patientListForToday = patientsWithVitalsToday;
@@ -129,7 +130,7 @@ public class WaitingForConsultPageController {
                 isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate(),
                 isMonday ? new DateMidnight().minusDays(2).toDate() : new DateMidnight().toDate(),
                 false)) {
-            patientsWithDispositionOnPreviousDaysOrToday.add((Patient) obs.getPerson());  // assumption: only patients have obs, not plain persio
+            patientsWithDispositionOnPreviousDaysOrToday.add(Context.getPatientService().getPatient(obs.getPersonId()));  // assumption: only patients have obs, not plain persio
         }
         // add all patiens with disposition today
         patientsWithConsultOnPreviousBusinessDayOrToday.addAll(patientsWithDispositionToday);
