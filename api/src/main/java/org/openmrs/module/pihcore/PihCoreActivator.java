@@ -174,13 +174,13 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
 
         // make this more dynamic, less dependent on if-thens
 
-        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+        if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
             deployService.installBundle(Context.getRegisteredComponents(MirebalaisMetadataBundle.class).get(0));
         }
-        else if (config.getSite().equals(ConfigDescriptor.Site.HSN_SAINT_MARC)) {
+        else if (config.getSite().equalsIgnoreCase("HSN_SAINT_MARC")) {
             deployService.installBundle(Context.getRegisteredComponents(HSNMetadataBundle.class).get(0));
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+        else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("MIREBALAIS")) {
             deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {

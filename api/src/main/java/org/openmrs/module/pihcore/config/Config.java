@@ -75,7 +75,7 @@ public class Config {
 
     public List<String> getExtraIdentifierTypes() { return descriptor.getExtraIdentifierTypes(); }
 
-    public ConfigDescriptor.Site getSite() {
+    public String getSite() {
         return descriptor.getSite();
     }
 

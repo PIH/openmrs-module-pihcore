@@ -31,7 +31,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("patientRegistration"), is(true));
         assertThat(config.isComponentEnabled("missingComponent"), is(false));
         assertThat(config.getWelcomeMessage(), is("Welcome to the PIH EMR"));
-        assertThat(config.getSite(), is(ConfigDescriptor.Site.OTHER));
+        assertThat(config.getSite(), is("OTHER"));
         assertNull(config.getSpecialty());
         assertFalse(config.shouldScheduleBackupReports());
 
@@ -46,10 +46,10 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
     public void testReloadingConfiguration() {
         config = new Config();
         assertThat(config.getWelcomeMessage(), is("Welcome to the PIH EMR"));
-        assertThat(config.getSite(), is(ConfigDescriptor.Site.OTHER));
+        assertThat(config.getSite(), is("OTHER"));
         config.reload(ConfigLoader.load("custom"));
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
-        assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));
+        assertThat(config.getSite(), is("LACOLLINE"));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("anotherComponent"), is(false));
         assertThat(config.isComponentEnabled("customComponent"), is(true));
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
-        assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));
+        assertThat(config.getSite(), is("LACOLLINE"));
         assertFalse(config.shouldScheduleBackupReports());
         runtimeProperties.remove(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
     }
@@ -73,7 +73,7 @@ public class ConfigTest extends BaseModuleContextSensitiveTest{
         assertThat(config.isComponentEnabled("someComponent"), is(false));
         assertThat(config.isComponentEnabled("customComponent"), is(false));
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
-        assertThat(config.getSite(), is(ConfigDescriptor.Site.LACOLLINE));
+        assertThat(config.getSite(), is("LACOLLINE"));
         assertTrue(config.shouldScheduleBackupReports());
         assertThat(config.getGlobalProperty("test"), is("override"));
         assertThat(config.getGlobalProperty("anotherTest"), is("anotherTest"));

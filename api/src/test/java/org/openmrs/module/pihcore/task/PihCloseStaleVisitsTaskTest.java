@@ -108,7 +108,7 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     protected Config getConfig() {
         ConfigDescriptor d = new ConfigDescriptor();
         d.setCountry(ConfigDescriptor.Country.HAITI);
-        d.setSite(ConfigDescriptor.Site.MIREBALAIS);
+        d.setSite("MIREBALAIS");
         return new Config(d);
     }
 

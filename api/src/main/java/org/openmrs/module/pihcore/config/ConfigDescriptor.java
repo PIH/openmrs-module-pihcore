@@ -19,13 +19,6 @@ public class ConfigDescriptor {
         HAITI, LIBERIA, SIERRA_LEONE, MEXICO, PERU, OTHER
     }
 
-    public enum Site {
-        MIREBALAIS, LACOLLINE, THOMONDE, BOUCANCARRE, ZLTRAINING, HINCHE, CERCA_LA_SOURCE, BELLADERE, HSN_SAINT_MARC,
-        PLEEBO, HARPER, OTHER, CROSS_SITE,
-        JALTENANGO, CAPITAN, HONDURAS, LAGUNA_DEL_COFRE, LETRERO, MATAZANO, MONTERREY, PLAN_DE_LA_LIBERTAD, REFORMA, SALVADOR, SOLEDAD,
-        CES_CLOUD, PERU
-    }
-
     public enum Specialty {
         HIV, MENTAL_HEALTH
     }
@@ -55,7 +48,7 @@ public class ConfigDescriptor {
     private Specialty specialty;
 
     @JsonProperty
-    private Site site;
+    private String site;
 
     @JsonProperty
     private Map<String, String> globalProperties;
@@ -137,11 +130,11 @@ public class ConfigDescriptor {
         this.specialty = specialty;
     }
 
-    public Site getSite() {
+    public String getSite() {
         return site;
     }
 
-    public void setSite(Site site) {
+    public void setSite(String site) {
         this.site = site;
     }
 
