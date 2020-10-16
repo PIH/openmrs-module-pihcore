@@ -74,7 +74,7 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
         activator = new PihCoreActivator();
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
-        when(config.getSite()).thenReturn(ConfigDescriptor.Site.MIREBALAIS);
+        when(config.getSite()).thenReturn("MIREBALAIS");
         when(config.getBiometricsConfig()).thenReturn(new BiometricsConfigDescriptor());
         activator.setConfig(config);
         activator.setTestingContext(true);

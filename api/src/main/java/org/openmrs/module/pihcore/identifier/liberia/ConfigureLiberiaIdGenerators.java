@@ -7,7 +7,6 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 
@@ -32,7 +31,7 @@ public class ConfigureLiberiaIdGenerators {
         liberiaPrimaryIdentifierSource.setMinLength(7 + liberiaPrimaryIdentifierSource.getPrefix().length());
         liberiaPrimaryIdentifierSource.setMaxLength(8 + liberiaPrimaryIdentifierSource.getPrefix().length());
         liberiaPrimaryIdentifierSource.setBaseCharacterSet("0123456789");
-        if (config.getSite().equals(ConfigDescriptor.Site.HARPER)) {
+        if (config.getSite().equalsIgnoreCase("HARPER")) {
             liberiaPrimaryIdentifierSource.setFirstIdentifierBase("0100000");
         } else {
             liberiaPrimaryIdentifierSource.setFirstIdentifierBase("0000001");

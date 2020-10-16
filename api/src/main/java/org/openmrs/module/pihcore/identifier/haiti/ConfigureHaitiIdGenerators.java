@@ -13,7 +13,6 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 
@@ -56,7 +55,7 @@ public class ConfigureHaitiIdGenerators {
         PatientIdentifierType dossierIdentifierType = getDossierIdentifierType();
 
         // special, legacy case for Mirebalais
-        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+        if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
 
             SequentialIdentifierGenerator sequentialIdentifierGeneratorForUHM = configureHaitiIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,

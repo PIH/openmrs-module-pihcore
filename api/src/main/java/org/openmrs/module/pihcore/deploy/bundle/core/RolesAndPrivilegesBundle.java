@@ -214,7 +214,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         }
 
         // old privileges still in use at Mirebalais
-        if (config.getSite().equals(ConfigDescriptor.Site.MIREBALAIS)) {
+        if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
             install(Roles.LEGACY_CLINICAL);
             install(Roles.LEGACY_DATA_ARCHIVES);
             install(Roles.LEGACY_RADIOLOGY);
