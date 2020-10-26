@@ -48,6 +48,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.ANC_INTAKE);
         install(EncounterTypes.ANC_FOLLOWUP);
         install(EncounterTypes.MCH_DELIVERY);
+        install(EncounterTypes.OB_GYN);
         install(EncounterTypes.VACCINATION);
         install(EncounterTypes.ECHOCARDIOGRAM);
         install(EncounterTypes.PRENATAL_HOME_ASSESSMENT);

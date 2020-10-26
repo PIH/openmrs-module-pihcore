@@ -259,6 +259,12 @@ public class EncounterTypes {
 		public String description() { return "Mother's visit for delivery of baby"; }
 	};
 
+	public static EncounterTypeDescriptor OB_GYN  = new EncounterTypeDescriptor() {
+		public String uuid() { return "d83e98fd-dc7b-420f-aa3f-36f648b4483d"; }
+		public String name() { return "OB/GYN"; }
+		public String description() { return "Obstetrics and gynecology encounter for woman"; }
+	};
+
 	public static EncounterTypeDescriptor VACCINATION  = new EncounterTypeDescriptor() {
 		public String uuid() { return "1e2a509c-7c9f-11e9-8f9e-2a86e4085a59"; }
 		public String name() { return "Vaccination"; }
