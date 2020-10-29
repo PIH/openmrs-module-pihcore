@@ -49,10 +49,10 @@ public class DrugListSetup {
             File drugsDir = new File(path);
             files = FileUtils.listFiles(drugsDir, null, true);
         } catch (Exception e) {
-            log.error("Unable to open drug list directory " + path, e);
+            log.warn("Unable to open drug list directory " + path, e);
         }
         if (files == null || files.size() == 0) {
-            log.error("No files found in drug list directory " + path);
+            log.warn("No files found in drug list directory " + path);
             return null;
         } else if (files.size() > 1) {
             log.error("More than one drug list found. Only one drug list is supported. "
