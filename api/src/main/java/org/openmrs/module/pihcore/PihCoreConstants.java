@@ -97,7 +97,7 @@ public class PihCoreConstants {
 
     public static final String NCD_PROGRAM_CONCEPT_UUID = "099d3ba9-b302-4565-a060-09915f3c85b5";  // HUM NCD
     public static final String NCD_PROGRAM_OUTCOMES_CONCEPT_UUID = "a65eb5bf-d0a5-4ce3-b3c5-b16d0df3f468";  // 11977
-    public static final String NCD_PROGRAM_STATUS_UUID = "83a258b8-3294-4746-acb6-f045cccd37e8";
+    public static final String NCD_PROGRAM_STATUS_UUID = "83a258b8-3294-4746-acb6-f045cccd37e8";  // 11506
     public static final String PROGRAM_STABLE_STATE_UUID = "df3e1542-035a-404f-84d6-8cb9b4266551";
     public static final String PROGRAM_UNSTABLE_STATE_UUID = "c799a966-e204-4d81-8bc6-31b3310ece5a";
     public static final String PROGRAM_COMPLICATED_STATE_UUID = "84d0a344-2725-437c-a9d7-e86be508c13c";
