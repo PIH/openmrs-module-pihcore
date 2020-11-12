@@ -574,8 +574,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         }
                         else {
                             // if we don't find an editurl, just open the page, passing in the id of the next section
-                            if (i + 1 < sections.length) {
-                                loadPage(sections[i + 1].id);
+                            if (redirectToSectionIdx < sections.length) {
+                                loadPage(sections[redirectToSectionIdx].id);
                             }
                             else {
                                 // if there are any errors, just continue loading the page
