@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
         MentalHealthProgramBundle.class,
         MCHProgramBundle.class,  // requires PIH Maternal Child Health MDS package
         NCDProgramBundle.class,
+        OVCProgramBundle.class,
         OncologyProgramBundle.class,
         ZikaProgramBundle.class
 })
