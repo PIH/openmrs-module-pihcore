@@ -319,6 +319,18 @@ public class EncounterTypes {
 		public String description() { return "COVID-19 Discharge note at health facility"; }
 	};
 
+	public static EncounterTypeDescriptor OVC_INTAKE  = new EncounterTypeDescriptor() {
+		public String uuid() { return "651d4359-4463-4e52-8fde-e62876f90792"; }
+		public String name() { return "OVC Intake"; }
+		public String description() { return "OVC intake form"; }
+	};
+
+	public static EncounterTypeDescriptor OVC_FOLLOWUP  = new EncounterTypeDescriptor() {
+		public String uuid() { return "f8d426fd-132a-4032-93da-1213c30e2b74"; }
+		public String name() { return "OVC Follow-up"; }
+		public String description() { return "OVC follow-up form"; }
+	};
+
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 
