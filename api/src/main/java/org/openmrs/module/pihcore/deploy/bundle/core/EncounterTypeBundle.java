@@ -58,6 +58,8 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.COVID19_INTAKE);
         install(EncounterTypes.COVID19_FOLLOWUP);
         install(EncounterTypes.COVID19_DISCHARGE);
+        install(EncounterTypes.OVC_INTAKE);
+        install(EncounterTypes.OVC_FOLLOWUP);
 
         uninstall(possible(EncounterType.class, AttachmentsConstants.ENCOUNTER_TYPE_UUID), "not used");
         uninstall(possible(EncounterType.class, EncounterTypes.MEXICO_CLINIC_VISIT.uuid()), "replaced with Mexico Consult");
