@@ -25,6 +25,7 @@ public class Components {
         public static final String VACCINATION_FORM = "vaccination";
         public static final String ZIKA = "zika";  // program
         public static final String COVID19 = "covid19";
+        public static final String OVC = "ovc";  // program and forms
         public static final String ANC_PROGRAM = "ancProgram";  // needs ANCProgramBundle, used by CES
         public static final String ASTHMA_PROGRAM = "asthmaProgram";  // needs AsthmaProgramBundle, used by CES
         public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
