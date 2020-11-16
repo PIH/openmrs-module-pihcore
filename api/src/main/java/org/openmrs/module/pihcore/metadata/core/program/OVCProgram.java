@@ -1,14 +1,9 @@
 package org.openmrs.module.pihcore.metadata.core.program;
 
 import org.openmrs.module.metadatadeploy.descriptor.ProgramDescriptor;
-import org.openmrs.module.metadatadeploy.descriptor.ProgramWorkflowDescriptor;
-import org.openmrs.module.metadatadeploy.descriptor.ProgramWorkflowStateDescriptor;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import static org.openmrs.module.pihcore.PihCoreConstants.*;
+import static org.openmrs.module.pihcore.PihCoreConstants.OVC_PROGRAM_CONCEPT_UUID;
+import static org.openmrs.module.pihcore.PihCoreConstants.OVC_PROGRAM_OUTCOMES_CONCEPT_UUID;
 
 public class OVCProgram {
 
@@ -16,7 +11,7 @@ public class OVCProgram {
         public String conceptUuid() { return OVC_PROGRAM_CONCEPT_UUID; }
         public String name() { return "OVC"; }
         public String description() { return "USAID orphans and vulnerable children program"; }
-        public String uuid() { return "b1cb1fc1-5190-4f7a-af08-48870975dafc"; }
+        public String uuid() { return "e1b2f0b5-6d56-4500-8523-0ba71e75d897"; }
 
         @Override public String outcomesConceptUuid()  { return OVC_PROGRAM_OUTCOMES_CONCEPT_UUID; }
     };
