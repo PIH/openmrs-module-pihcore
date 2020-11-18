@@ -79,7 +79,7 @@
         <registrationcoreVersion>1.10.0</registrationcoreVersion>
         <registrationappVersion>1.20.0</registrationappVersion>
         <radiologyappVersion>1.5.0</radiologyappVersion>
-        <coreappsVersion>1.30.0</coreappsVersion>
+        <coreappsVersion>1.31.0</coreappsVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
