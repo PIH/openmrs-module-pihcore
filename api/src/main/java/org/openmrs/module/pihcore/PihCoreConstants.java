@@ -84,8 +84,8 @@ public class PihCoreConstants {
     public static final String MALNUTRITION_PROGRAM_CONCEPT_UUID = "3ce1e560-26fe-102b-80cb-0017a47871b2";  // PIH:2234, HUM NCD
     public static final String MALNUTRITION_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // PIH:11505
 
-    public static final String OVC_PROGRAM_CONCEPT_UUID = "3ce1e560-26fe-102b-80cb-0017a47871b2";  // PIH:OVC PROGRAM, HUM NCD
-    public static final String OVC_PROGRAM_OUTCOMES_CONCEPT_UUID = "73eb05c2-e4be-4d82-bcad-ffec1be67d01";  // PIH:11505
+    public static final String OVC_PROGRAM_CONCEPT_UUID = "3ce1e560-26fe-102b-80cb-0017a47871b2";  // PIH:OVC PROGRAM, Haiti HIV
+    public static final String OVC_PROGRAM_OUTCOMES_CONCEPT_UUID = "306b2423-ac9b-4a50-9337-3339187fe7d9";  // OVC program outcome, Haiti HIV
 
     public static final String MCH_PROGRAM_CONCEPT_UUID = "159937AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";  // PIH:10347, Haiti HIV, HUM Clinical Concepts, PIH Maternal Child Health, Liberia Concepts
     public static final String MCH_PROGRAM_OUTCOME_CONCEPT_UUID = "cd4e30b1-9935-4b30-9de8-b56e057c541d";  // PIH:11728, PIH Maternal Child Health
