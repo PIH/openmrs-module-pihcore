@@ -1,5 +1,8 @@
 package org.openmrs.module.pihcore.config;
 
+/**
+ * See https://github.com/PIH/openmrs-config-pihemr/#existing-components for documentation of these components
+ */
 public class Components {
 
         public static final String VISIT_MANAGEMENT = "visitManagement";
@@ -17,7 +20,7 @@ public class Components {
         public static final String SURGERY = "surgery";
         public static final String ONCOLOGY = "oncology";  // program
         public static final String NCD = "ncd";  // program
-        public static final String HIV = "hiv";  // program. Needs HIVProgramBundle and Haiti HIV MDS package
+        public static final String HIV = "hiv";
         public static final String HIV_PROGRAM = "hivProgram";
         public static final String HIV_FORMS = "hivForms";
         public static final String HIV_INTAKE_FORM = "hivIntakeForm";
