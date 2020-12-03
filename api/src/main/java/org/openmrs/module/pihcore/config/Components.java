@@ -1,5 +1,8 @@
 package org.openmrs.module.pihcore.config;
 
+/**
+ * See https://github.com/PIH/openmrs-config-pihemr/#existing-components for documentation of these components
+ */
 public class Components {
 
         public static final String VISIT_MANAGEMENT = "visitManagement";
@@ -17,7 +20,10 @@ public class Components {
         public static final String SURGERY = "surgery";
         public static final String ONCOLOGY = "oncology";  // program
         public static final String NCD = "ncd";  // program
-        public static final String HIV = "hiv";  // program. Needs HIVProgramBundle and Haiti HIV MDS package
+        public static final String HIV = "hiv";
+        public static final String HIV_PROGRAM = "hivProgram";
+        public static final String HIV_FORMS = "hivForms";
+        public static final String HIV_INTAKE_FORM = "hivIntakeForm";
         public static final String VCT = "vct";
         public static final String MCH = "mch";  // mchForms + mchProgram
         public static final String MCH_FORMS = "mchForms";  // used by ZL (via "mch")
@@ -25,7 +31,9 @@ public class Components {
         public static final String VACCINATION_FORM = "vaccination";
         public static final String ZIKA = "zika";  // program
         public static final String COVID19 = "covid19";
+        public static final String COVID19_INTAKE_FORM = "covid19IntakeForm";
         public static final String OVC = "ovc";  // program and forms
+        public static final String TUBERCULOSIS = "tb";  // program and forms
         public static final String ANC_PROGRAM = "ancProgram";  // needs ANCProgramBundle, used by CES
         public static final String ASTHMA_PROGRAM = "asthmaProgram";  // needs AsthmaProgramBundle, used by CES
         public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
