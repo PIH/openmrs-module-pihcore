@@ -86,4 +86,18 @@ public class PihHaitiPatientIdentifierTypes {
         public String description() { return HaitiPatientIdentifierTypes.NIF_ID.description(); }
         public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
     };
+
+	public static PatientIdentifierTypeDescriptor1_11 HIV_EMR_V1_INFANT_ID = new PatientIdentifierTypeDescriptor1_11() {
+		public String uuid() { return "B68489FE-7B34-400B-992C-D4C1B5DD2928"; }
+		public String name() { return "HIV EMR V1 Infant ID"; }
+		public String description() { return "Internal INFANT_ID for this patient in the Haiti EMR V1 system"; }
+		public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
+	};
+
+	public static PatientIdentifierTypeDescriptor1_11 HIV_EMR_V1_INFANT_CODE = new PatientIdentifierTypeDescriptor1_11() {
+		public String uuid() { return "5FB435B4-F573-48C0-A715-FEBD42FDBB75"; }
+		public String name() { return "HIV EMR V1 Infant Code"; }
+		public String description() { return "Code referencing the HIV EMR INFANT_CODE field in the Haiti EMR V1 system"; }
+		public PatientIdentifierType.UniquenessBehavior uniquenessBehavior() { return PatientIdentifierType.UniquenessBehavior.NON_UNIQUE; }
+	};
 }

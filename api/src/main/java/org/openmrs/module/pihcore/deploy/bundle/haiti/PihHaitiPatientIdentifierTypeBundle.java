@@ -21,6 +21,8 @@ public class PihHaitiPatientIdentifierTypeBundle extends AbstractMetadataBundle1
         install(PihHaitiPatientIdentifierTypes.HIV_DOSSIER_NUMBER);
         install(PihHaitiPatientIdentifierTypes.NATIONAL_IDENTIFIER_ID);
         install(PihHaitiPatientIdentifierTypes.NATIONAL_FISCAL_ID);
+        install(PihHaitiPatientIdentifierTypes.HIV_EMR_V1_INFANT_ID);
+        install(PihHaitiPatientIdentifierTypes.HIV_EMR_V1_INFANT_CODE);
 
     }
 
