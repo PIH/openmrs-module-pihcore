@@ -6,10 +6,8 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataToInstallAfterConceptsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataToInstallAfterConceptsBundle;
-import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataToInstallAfterConceptsBundle;
-import org.openmrs.module.pihcore.deploy.bundle.mexico.MexicoMetadataToInstallAfterConceptsBundle;
-import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataToInstallAfterConceptsBundle;
 
 public class MetadataSetupTask implements Runnable {
 
@@ -69,15 +67,10 @@ public class MetadataSetupTask implements Runnable {
 
     private void installMetadataBundlesThatDependOnMDSPackages(Config config) {
         MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
+        deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataToInstallAfterConceptsBundle.class).get(0));
         // make this more dynamic, less dependent on if-thens
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
             deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataToInstallAfterConceptsBundle.class).get(0));
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            deployService.installBundle(Context.getRegisteredComponents(LiberiaMetadataToInstallAfterConceptsBundle.class).get(0));
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            deployService.installBundle(Context.getRegisteredComponents(MexicoMetadataToInstallAfterConceptsBundle.class).get(0));
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataToInstallAfterConceptsBundle.class).get(0));
         }
     }
 
