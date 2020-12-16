@@ -91,6 +91,7 @@ public class PihCoreConstants {
     public static final String MCH_PROGRAM_OUTCOME_CONCEPT_UUID = "cd4e30b1-9935-4b30-9de8-b56e057c541d";  // PIH:11728, PIH Maternal Child Health
     public static final String GROUP_CARE_UUID = "f58e875f-de07-4cfd-8fc7-3e70b7390ecc";
     public static final String PEDS_GROUP_CARE_UUID = "d087f783-de30-4aea-8a4d-50ec72ed656a";
+    public static final String PEDS_INDIVIDUAL_CARE_UUID = "59f75bbf-4a6f-42b9-92d4-9259cba548d2";
     public static final String INDIVIDUAL_CARE_UUID = "d16fc2d4-e736-4372-8cbf-99542e5dac5e";
     public static final String TREATMENT_CARE_UUID = "f49129b7-274f-44b7-b491-1c54376b28ba";
 

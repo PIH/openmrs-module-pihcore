@@ -31,6 +31,13 @@ public class MCHProgramZL {
         public String uuid() { return "2fa7008c-aa58-11e8-98d0-529269fb1459"; }
     };
 
+    public static ProgramWorkflowStateDescriptor PEDS_INDIVIDUAL_CARE = new ProgramWorkflowStateDescriptor() {
+        public String conceptUuid() { return PEDS_INDIVIDUAL_CARE_UUID; }
+        public Boolean initial() { return true; }
+        public Boolean terminal() { return false; }
+        public String uuid() { return "d31c4de9-48ac-4d60-9689-f3669bd1382d"; }
+    };
+
     public static ProgramWorkflowStateDescriptor INDIVIDUAL_CARE = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return INDIVIDUAL_CARE_UUID; }
         public Boolean initial() { return true; }
@@ -42,7 +49,7 @@ public class MCHProgramZL {
         public String conceptUuid() { return TREATMENT_CARE_UUID; }
         public String uuid() { return "41a277d0-8a14-11e8-9a94-a6cf71072f73"; }
         @Override public Set<ProgramWorkflowStateDescriptor> states()
-        { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ANC_GROUP_CARE, INDIVIDUAL_CARE, PEDS_GROUP_CARE)); }
+        { return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ANC_GROUP_CARE, INDIVIDUAL_CARE, PEDS_GROUP_CARE, PEDS_INDIVIDUAL_CARE)); }
     };
 
     public static ProgramDescriptor MCH = new ProgramDescriptor() {
