@@ -22,21 +22,18 @@ public class NameTemplateSetup {
                 nameMappings.put("givenName", "zl.givenName");
                 nameMappings.put("familyName", "zl.familyName");
                 nameMappings.put("familyName2", "zl.familyName2");
-                nameMappings.put("middleName", "zl.nickname");
                 nameTemplate.setNameMappings(nameMappings);
 
                 Map<String, String> sizeMappings = new HashMap<String, String>();
                 sizeMappings.put("givenName", "50");
                 sizeMappings.put("familyName", "50");
                 sizeMappings.put("familyName2", "50");
-                sizeMappings.put("middleName", "50");
                 nameTemplate.setSizeMappings(sizeMappings);
 
                 List<String> lineByLineFormat = new ArrayList<String>();
                 lineByLineFormat.add("familyName,");
                 lineByLineFormat.add("givenName");
                 lineByLineFormat.add("familyName2,");
-                lineByLineFormat.add("'middleName'");
 
                 nameTemplate.setLineByLineFormat(lineByLineFormat);
 
@@ -54,21 +51,18 @@ public class NameTemplateSetup {
                 Map<String, String> nameMappings = new HashMap<String, String>();
                 nameMappings.put("givenName", "zl.givenName");
                 nameMappings.put("familyName", "zl.familyName");
-                nameMappings.put("familyName2", "zl.familyName2");
                 nameMappings.put("middleName", "zl.nickname");
                 nameTemplate.setNameMappings(nameMappings);
 
                 Map<String, String> sizeMappings = new HashMap<String, String>();
                 sizeMappings.put("givenName", "50");
                 sizeMappings.put("familyName", "50");
-                sizeMappings.put("familyName2", "50");
                 sizeMappings.put("middleName", "50");
                 nameTemplate.setSizeMappings(sizeMappings);
 
                 List<String> lineByLineFormat = new ArrayList<String>();
                 lineByLineFormat.add("familyName,");
                 lineByLineFormat.add("givenName");
-                lineByLineFormat.add("familyName2,");
                 lineByLineFormat.add("'middleName'");
 
                 nameTemplate.setLineByLineFormat(lineByLineFormat);
