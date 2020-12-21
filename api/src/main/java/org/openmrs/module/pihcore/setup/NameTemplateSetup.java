@@ -12,39 +12,74 @@ import java.util.Map;
 
 public class NameTemplateSetup {
 
-    public static void configureNameTemplate(NameSupport nameSupport, Config config) {
+    public static void configureNameTemplate(NameSupport nameSupport, Config config){
+        if(config !=null){
+            if (config.getCountry() == ConfigDescriptor.Country.PERU) {
+                NameTemplate nameTemplate = new NameTemplate();
+                nameTemplate.setCodeName("short");  // we are redefining the short name template for use in our context
 
-        if (config.getCountry() == ConfigDescriptor.Country.PERU) {
-        } else {
+                Map<String, String> nameMappings = new HashMap<String, String>();
+                nameMappings.put("givenName", "zl.givenName");
+                nameMappings.put("familyName", "zl.familyName");
+                nameMappings.put("familyName2", "zl.familyName2");
+                nameMappings.put("middleName", "zl.nickname");
+                nameTemplate.setNameMappings(nameMappings);
 
-            NameTemplate nameTemplate = new NameTemplate();
-            nameTemplate.setCodeName("short");  // we are redefining the short name template for use in our context
+                Map<String, String> sizeMappings = new HashMap<String, String>();
+                sizeMappings.put("givenName", "50");
+                sizeMappings.put("familyName", "50");
+                sizeMappings.put("familyName2", "50");
+                sizeMappings.put("middleName", "50");
+                nameTemplate.setSizeMappings(sizeMappings);
 
-            Map<String, String> nameMappings = new HashMap<String, String>();
-            nameMappings.put("givenName", "zl.givenName");
-            nameMappings.put("familyName", "zl.familyName");
-            nameMappings.put("middleName", "zl.nickname");
-            nameTemplate.setNameMappings(nameMappings);
+                List<String> lineByLineFormat = new ArrayList<String>();
+                lineByLineFormat.add("familyName,");
+                lineByLineFormat.add("givenName");
+                lineByLineFormat.add("familyName2,");
+                lineByLineFormat.add("'middleName'");
 
-            Map<String, String> sizeMappings = new HashMap<String, String>();
-            sizeMappings.put("givenName", "50");
-            sizeMappings.put("familyName", "50");
-            sizeMappings.put("middleName", "50");
-            nameTemplate.setSizeMappings(sizeMappings);
+                nameTemplate.setLineByLineFormat(lineByLineFormat);
 
-            List<String> lineByLineFormat = new ArrayList<String>();
-            lineByLineFormat.add("familyName,");
-            lineByLineFormat.add("givenName");
-            lineByLineFormat.add("'middleName'");
+                List<NameTemplate> templates = new ArrayList<NameTemplate>();
+                templates.add(nameTemplate);
 
-            nameTemplate.setLineByLineFormat(lineByLineFormat);
+                // we blow away the other templates here, is that a bad thing?
+                nameSupport.setLayoutTemplates(templates);
+                nameSupport.setDefaultLayoutFormat("short");
+            } else {
 
-            List<NameTemplate> templates = new ArrayList<NameTemplate>();
-            templates.add(nameTemplate);
+                NameTemplate nameTemplate = new NameTemplate();
+                nameTemplate.setCodeName("short");  // we are redefining the short name template for use in our context
 
-            // we blow away the other templates here, is that a bad thing?
-            nameSupport.setLayoutTemplates(templates);
-            nameSupport.setDefaultLayoutFormat("short");
+                Map<String, String> nameMappings = new HashMap<String, String>();
+                nameMappings.put("givenName", "zl.givenName");
+                nameMappings.put("familyName", "zl.familyName");
+                nameMappings.put("familyName2", "zl.familyName2");
+                nameMappings.put("middleName", "zl.nickname");
+                nameTemplate.setNameMappings(nameMappings);
+
+                Map<String, String> sizeMappings = new HashMap<String, String>();
+                sizeMappings.put("givenName", "50");
+                sizeMappings.put("familyName", "50");
+                sizeMappings.put("familyName2", "50");
+                sizeMappings.put("middleName", "50");
+                nameTemplate.setSizeMappings(sizeMappings);
+
+                List<String> lineByLineFormat = new ArrayList<String>();
+                lineByLineFormat.add("familyName,");
+                lineByLineFormat.add("givenName");
+                lineByLineFormat.add("familyName2,");
+                lineByLineFormat.add("'middleName'");
+
+                nameTemplate.setLineByLineFormat(lineByLineFormat);
+
+                List<NameTemplate> templates = new ArrayList<NameTemplate>();
+                templates.add(nameTemplate);
+
+                // we blow away the other templates here, is that a bad thing?
+                nameSupport.setLayoutTemplates(templates);
+                nameSupport.setDefaultLayoutFormat("short");
+            }
         }
     }
 
