@@ -163,8 +163,8 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
 
         NameSupport nameSupport = Context.getRegisteredComponent("nameSupport", NameSupport.class);
         // hack: configure both name support beans, since two actually exist (?)
-        NameTemplateSetup.configureNameTemplate(nameSupport);
-        NameTemplateSetup.configureNameTemplate(NameSupport.getInstance());
+        NameTemplateSetup.configureNameTemplate(nameSupport, config);
+        NameTemplateSetup.configureNameTemplate(NameSupport.getInstance(), config);
 
     }
 
