@@ -103,7 +103,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
             ConceptService conceptService = Context.getService(ConceptService.class);
 
-            if (config == null) {  // hack to allow injecting a mock config for testing
+            if (config == null) {  // hack to allow injecting a mock config for testing, in a real system will always be null at this point
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
 
@@ -155,6 +155,10 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
 
     @Override
     public void contextRefreshed() {
+
+        if (config == null) {  // hack to allow injecting a mock config for testing, in a real system will always be null at this point
+            config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
+        }
 
         setDispositionConfig(config);
         MetadataSharingSetup.setMetadataSharingResolvers();
