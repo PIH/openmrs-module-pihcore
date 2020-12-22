@@ -31,9 +31,9 @@ public class NameTemplateSetup {
                 nameTemplate.setSizeMappings(sizeMappings);
 
                 List<String> lineByLineFormat = new ArrayList<String>();
-                lineByLineFormat.add("familyName,");
-                lineByLineFormat.add("givenName");
+                lineByLineFormat.add("familyName");
                 lineByLineFormat.add("familyName2,");
+                lineByLineFormat.add("givenName");
 
                 nameTemplate.setLineByLineFormat(lineByLineFormat);
 
