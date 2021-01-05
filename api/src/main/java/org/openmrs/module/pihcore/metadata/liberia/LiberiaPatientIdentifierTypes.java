@@ -73,4 +73,21 @@ public class LiberiaPatientIdentifierTypes {
         }
     };
 
+    public static PatientIdentifierTypeDescriptor NCD_MEDICAL_RECORD_NUMBER = new PatientIdentifierTypeDescriptor() {
+        @Override
+        public String name() {
+            return "NCD MRN";
+        }
+
+        @Override
+        public String description() {
+            return "A unique identifier issued to all patients in the NCD program";
+        }
+
+        @Override
+        public String uuid() {
+            return "aa81023f-400f-11eb-8334-34c93de76af3";
+        }
+    };
+
 }

@@ -46,6 +46,27 @@ public class LiberiaLocations {
         }
     };
 
+    public static LocationDescriptor PHARMACY = new LocationDescriptor() {
+        @Override
+        public String name() {
+            return "Pharmacy";
+        }
+
+        @Override
+        public String description() {
+            return "The pharmacy where drugs will be dispensed";
+        }
+
+        @Override
+        public String uuid() {
+            return "0fff0fae-ff2c-11ea-85b1-3c6aa7c392cc";
+        }
+
+        public LocationDescriptor parent() {
+            return LiberiaLocations.HEALTH_FACILITY;
+        }
+    };
+
     public static LocationDescriptor OUTPATIENT_CLINIC = new LocationDescriptor() {
         @Override
         public String name() {
