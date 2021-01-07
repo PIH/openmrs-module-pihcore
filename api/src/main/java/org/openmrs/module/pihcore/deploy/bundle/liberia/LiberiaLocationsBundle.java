@@ -20,6 +20,7 @@ public class LiberiaLocationsBundle extends AbstractMetadataBundle {
         install(LiberiaLocations.NCD_CLINIC);
         install(LiberiaLocations.MCH_CLINIC);
         install(LiberiaLocations.EMERGENCY);
+        install(LiberiaLocations.PHARMACY);
 
         uninstall(possible(Location.class, LiberiaLocations.HARPER.uuid()), "replaced by Health Facility location");
         uninstall(possible(Location.class, LiberiaLocations.PLEEBO.uuid()), "replaced by Health Facility location");

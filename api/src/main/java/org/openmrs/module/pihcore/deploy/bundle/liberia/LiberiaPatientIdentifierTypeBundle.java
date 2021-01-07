@@ -16,5 +16,6 @@ public class LiberiaPatientIdentifierTypeBundle extends AbstractMetadataBundle {
         install(LiberiaPatientIdentifierTypes.SAMPLE_DOSSIER_NUMBER_ID);
         install(LiberiaPatientIdentifierTypes.BIOMETRIC_REF_NUMBER);
         install(LiberiaPatientIdentifierTypes.MENTAL_HEALTH_MEDICAL_RECORD_NUMBER);
+        install(LiberiaPatientIdentifierTypes.NCD_MEDICAL_RECORD_NUMBER);
     }
 }
