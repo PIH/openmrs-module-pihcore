@@ -41,6 +41,9 @@
     ui.includeJavascript("file", "configuration/pih/scripts/visit/encounterTypeConfig.js", /* priority= */ null, /* pathIsRelativeToScripts= */ false)
 %>
 
+<link href="/${ contextPath }/moduleResources/htmlformentry/drugOrderWidget.css"></script>
+<script type="text/javascript" src="/${ contextPath }/moduleResources/htmlformentry/drugOrderWidget.js"></script>
+
 <script type="text/javascript">
     var breadcrumbsOverview = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
