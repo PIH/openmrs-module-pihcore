@@ -30,7 +30,7 @@ public class OVCProgram {
     public static ProgramWorkflowStateDescriptor LTFU = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return "3ceb0ed8-26fe-102b-80cb-0017a47871b2"; }  // PIH:5240
         public Boolean initial() { return false; }
-        public Boolean terminal() { return true; }
+        public Boolean terminal() { return false; }
         public String uuid() { return "84fc28a6-0450-42fc-9820-e6c2a760a7b6"; }
     };
 
