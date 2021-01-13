@@ -30,7 +30,7 @@ public class MirebalaisLocations {
 
 	public static LocationDescriptor MIREBALAIS_CDI_PARENT = new LocationDescriptor() {
 		public String uuid() { return "a084f714-a536-473b-94e6-ec317b152b43"; }
-		public String name() { return "Hôpital Universitaire de Mirebalais"; }
+		public String name() { return "Mirebalais"; }
 		public String description() { return "Mirebalais (MoH code 62101)"; }
 		public List<LocationAttributeDescriptor> attributes() { return Collections.singletonList(MirebalaisLocationAttributes.MIREBALAIS_CDI_PARENT_NAME_TO_PRINT_ON_ID_CARD); }
 	};
