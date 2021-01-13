@@ -13,7 +13,7 @@
     ],
 
     "locationTags": {
-      "Visit Location": ["Hôpital Universitaire de Mirebalais", "Patient Home"]
+      "Visit Location": ["Mirebalais", "Patient Home"]
     },
 
     "registrationConfig": {
