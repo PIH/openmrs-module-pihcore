@@ -235,6 +235,12 @@ public class EncounterTypes {
 		public String description() { return "Dispensing for HIV medications"; }
 	};
 
+	public static EncounterTypeDescriptor DRUG_ORDER_DOCUMENTATION  = new EncounterTypeDescriptor() {
+		public String uuid() { return "0b242b71-5b60-11eb-8f5a-0242ac110002"; }
+		public String name() { return "Drug Order Documentation"; }
+		public String description() { return "Documentation of drug orders for a patient, often dated retrospectively"; }
+	};
+
 	public static EncounterTypeDescriptor SOCIO_ECONOMICS  = new EncounterTypeDescriptor() {
 		public String uuid() { return "de844e58-11e1-11e8-b642-0ed5f89f718b"; }
 		public String name() { return "Socio-economics"; }
