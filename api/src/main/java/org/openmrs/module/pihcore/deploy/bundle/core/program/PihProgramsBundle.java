@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
         NCDProgramBundle.class,
         OVCProgramBundle.class,
         OncologyProgramBundle.class,
+        TBProgramBundle.class,
         ZikaProgramBundle.class
 })
 public class PihProgramsBundle extends AbstractMetadataBundle {

@@ -125,6 +125,9 @@ public class PihCoreConstants {
     public static final String ZIKA_PROGRAM_CONCEPT_UUID = "58c9ab03-9601-4d88-88b7-c4932004374e";
     public static final String ZIKA_PROGRAM_OUTCOMES_CONCEPT_UUID = "e39310c1-2936-4395-83a5-f4d49061a117";
 
+    public static final String TB_PROGRAM_CONCEPT_UUID="160541AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String TB_PROGRAM_OUTCOME_CONCEPT_UUID="73eb05c2-e4be-4d82-bcad-ffec1be67d01";
+
     // ToDo: These can be removed after they have been cleaned up on all servers
     public static final String FOLLOWUP_STATE_UUID = "3ce451d8-26fe-102b-80cb-0017a47871b2";
     public static final String PALLIATIVE_ONLY_STATE_UUID = "6bd18154-242a-44e9-8952-95eb837fe3fc";
