@@ -330,6 +330,12 @@ angular.module('constants', [])
         testResultsDate: {
             uuid: "68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0"
         },
+        visitType: {
+            uuid: "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        reasonForVisit: {
+            uuid: "86a2cf11-1ea5-4b8a-9e4b-08f4cdbe1346"
+        },
         deliveryType: {
             uuid: "fec005b5-6d44-487f-ae34-9f0f483b4ae8"
         },
