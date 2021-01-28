@@ -398,7 +398,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
 
             if (encounters) {
                 _.each(encounters, function(e) {
-                    if (EncounterTypeConfig.get(e.encounterType.uuid) && EncounterTypeConfig.get(e.encounterType.uuid).showOnVisitList
+                    if (EncounterTypeConfig.get(e) && EncounterTypeConfig.get(e).showOnVisitList
                         && encounterTypes.indexOf(e.encounterType.uuid) < 0) {
                             result = result + e.encounterType.display + ", ";
                             encounterTypes.push(e.encounterType.uuid);

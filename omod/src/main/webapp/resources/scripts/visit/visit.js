@@ -85,7 +85,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 },
                 controller: ["$scope", function($scope) {
 
-                    var config = EncounterTypeConfig.get($scope.encounter.encounterType.uuid, $scope.country, $scope.site);
+                    var config = EncounterTypeConfig.get($scope.encounter, $scope.country, $scope.site);
 
                     $scope.DatetimeFormats = DatetimeFormats;
                     $scope.Concepts = Concepts;
@@ -491,6 +491,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, suppressActions, patientUuid, encounterUuid,
                  locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
 
+          const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:ref,encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
+
             // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
             if (currentSection && encounterUuid) {
                 goToNextSection(currentSection, patientUuid, encounterUuid, visitUuid);
@@ -533,11 +535,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 // fetch the visit and encounter so we add them to the context, and can determine the encounter type, which we need to determine where to redirect to (this all seems like a hack)
                 Visit.get({
                     uuid: visitUuid,
-                    v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:default,orders:ref,voided,visit:ref,encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
+                    v: visitRef
                 }).
                     $promise.then(function(visit) {
                         var encounter = _.find(visit.encounters, function(encounter) { return encounter.uuid === encounterUuid} );
-                        var sections =  $filter('allowedWithContext')(EncounterTypeConfig.get(encounter.encounterType.uuid, country, site).sections, visit);
+                        var sections =  $filter('allowedWithContext')(EncounterTypeConfig.get(encounter, country, site).sections, visit);
 
                         var redirectToSectionIdx = 0;
 
@@ -617,7 +619,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 if (visitUuid) {
                     Visit.get({
                             uuid: visitUuid,
-                            v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:ref,encounterType:ref,obs:default,orders:ref,voided,visit:ref,encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
+                            v: visitRef
                         })
                         .$promise.then(function (visit) {
                             visit.encounters = _.reject(visit.encounters, function (it) {
@@ -637,7 +639,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
 
             $rootScope.$on("request-view-encounter", function(event, encounter) {
-                var config = EncounterTypeConfig.get(encounter.encounterType.uuid, country, site);
+                var config = EncounterTypeConfig.get(encounter, country, site);
                 if (config.viewUrl) {
                     var url = Handlebars.compile(config.viewUrl)({
                         patient: encounter.patient,
@@ -651,7 +653,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             });
 
             $rootScope.$on("request-edit-encounter", function(event, encounter) {
-                var config = EncounterTypeConfig.get(encounter.encounterType.uuid, country, site);
+                var config = EncounterTypeConfig.get(encounter, country, site);
                 if (config.editUrl) {
                     var url = Handlebars.compile(config.editUrl)({
                         patient: encounter.patient,
