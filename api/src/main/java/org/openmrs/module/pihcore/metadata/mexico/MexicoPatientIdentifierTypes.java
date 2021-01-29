@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.metadata.mexico;
 
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.patient.IdentifierValidator;
 
@@ -19,4 +20,12 @@ public class MexicoPatientIdentifierTypes {
         public Class<? extends IdentifierValidator> validator() { return null; }
     };
 
+    public static PatientIdentifierTypeDescriptor MEXICO_DOSSIER_NUMBER = new PatientIdentifierTypeDescriptor() {
+        public String uuid() { return "9124b296-d14d-4222-862d-44867e728812"; }
+        public String name() { return "Expediente"; }
+        public String description() { return "Dossier number for identifying patient documents"; }
+        public String format() { return "\\w{1,4}\\d{6}"; }
+        public String formatDescription() { return "A000001"; }
+        public PatientIdentifierType.LocationBehavior locationBehavior() { return PatientIdentifierType.LocationBehavior.REQUIRED; }
+    };
 }
