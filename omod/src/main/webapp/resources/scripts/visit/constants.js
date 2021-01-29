@@ -344,6 +344,9 @@ angular.module('constants', [])
         },
         ncdCategory: {
             uuid: "27b30028-0ed0-4f62-a4d8-52a9c5b600e3"
+        },
+        whoHIVStages: {
+            uuid: "3cebd8b8-26fe-102b-80cb-0017a47871b2"
         }
     })
     .value('PrimaryCareExamConcepts', {
