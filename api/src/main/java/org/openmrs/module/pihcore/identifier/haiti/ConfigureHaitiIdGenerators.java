@@ -25,9 +25,8 @@ public class ConfigureHaitiIdGenerators {
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY = "remote_zlidentifier_username";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD_PROPERTY = "remote_zlidentifier_password";
 
-
     private final IdentifierSourceService identifierSourceService;
-
+    private final String ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8";
 
 	public ConfigureHaitiIdGenerators(
             IdentifierSourceService identifierSourceService) {
@@ -77,7 +76,7 @@ public class ConfigureHaitiIdGenerators {
             SequentialIdentifierGenerator sequentialIdentifierGenerator = configureHaitiIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
                             config.getDossierIdentifierPrefix().toString(),
-                            "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8");
+                            ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGenerator, null);
 
