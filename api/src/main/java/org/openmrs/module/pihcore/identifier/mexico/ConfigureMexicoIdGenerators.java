@@ -2,7 +2,9 @@ package org.openmrs.module.pihcore.identifier.mexico;
 
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
+import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
@@ -12,10 +14,15 @@ import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 
 public class ConfigureMexicoIdGenerators {
 
-    public static final String CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID = "cf2b23e6-7a32-11e8-8624-54ee75ef41c2";
+    private static final String CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID = "cf2b23e6-7a32-11e8-8624-54ee75ef41c2";
+    private static final String CHIAPAS_DOSSIER_SOURCE_UUID = "28f83bda-d871-40e7-9f80-5dab0f219620";
 
     public static void configureGenerators(IdentifierSourceService identifierSourceService, Config config) {
+        createPrimaryIdentifierGenerator(identifierSourceService, config);
+        createDossierNumberGenerator(identifierSourceService, config);
+    }
 
+    private static void createPrimaryIdentifierGenerator(IdentifierSourceService identifierSourceService, Config config) {
         Location identifierLocation = MetadataUtils.existing(Location.class, MexicoLocations.CHIAPAS.uuid());
 
         SequentialIdentifierGenerator chiapasPrimaryIdentifierSource = (SequentialIdentifierGenerator)
@@ -51,6 +58,53 @@ public class ConfigureMexicoIdGenerators {
         autoGenerationOption.setAutomaticGenerationEnabled(true);
         autoGenerationOption.setManualEntryEnabled(false);
         autoGenerationOption.setLocation(identifierLocation);
+
+        identifierSourceService.saveAutoGenerationOption(autoGenerationOption);
+    }
+
+    private static void createDossierNumberGenerator(IdentifierSourceService identifierSourceService, Config config) {
+
+        PatientIdentifierType dossierIdentifierType = MetadataUtils.existing(PatientIdentifierType.class, MexicoPatientIdentifierTypes.MEXICO_DOSSIER_NUMBER.uuid());
+        String prefix = config.getDossierIdentifierPrefix();
+
+        if (prefix != null) {
+            SequentialIdentifierGenerator sequentialIdentifierGenerator = (SequentialIdentifierGenerator) Context.getService(
+                    IdentifierSourceService.class).getIdentifierSourceByUuid(
+                    CHIAPAS_DOSSIER_SOURCE_UUID);
+
+            if (sequentialIdentifierGenerator == null) {
+                sequentialIdentifierGenerator = new SequentialIdentifierGenerator();
+                sequentialIdentifierGenerator.setName("Sequential Generator for Dossier");
+                sequentialIdentifierGenerator.setUuid(CHIAPAS_DOSSIER_SOURCE_UUID);
+                sequentialIdentifierGenerator.setMaxLength(6 + prefix.length());
+                sequentialIdentifierGenerator.setMinLength(6 + prefix.length());
+                sequentialIdentifierGenerator.setPrefix(prefix);
+                sequentialIdentifierGenerator.setBaseCharacterSet("0123456789");
+                sequentialIdentifierGenerator.setFirstIdentifierBase("000001");
+                sequentialIdentifierGenerator.setIdentifierType(dossierIdentifierType);
+                identifierSourceService.saveIdentifierSource(sequentialIdentifierGenerator);
+            }
+
+            setAutoGenerationOptionsForDossierNumberGenerator(identifierSourceService, sequentialIdentifierGenerator);
+        }
+    }
+
+    // @bistenes: Is any of this actually necessary?
+    private static void setAutoGenerationOptionsForDossierNumberGenerator(
+            IdentifierSourceService identifierSourceService,
+            IdentifierSource identifierSource) {
+
+        AutoGenerationOption autoGenerationOption = identifierSourceService.getAutoGenerationOption(identifierSource
+                .getIdentifierType());
+
+        if (autoGenerationOption == null) {
+            autoGenerationOption = new AutoGenerationOption();
+        }
+
+        autoGenerationOption.setIdentifierType(identifierSource.getIdentifierType());
+        autoGenerationOption.setSource(identifierSource);
+        autoGenerationOption.setManualEntryEnabled(true);
+        autoGenerationOption.setAutomaticGenerationEnabled(true);
 
         identifierSourceService.saveAutoGenerationOption(autoGenerationOption);
     }

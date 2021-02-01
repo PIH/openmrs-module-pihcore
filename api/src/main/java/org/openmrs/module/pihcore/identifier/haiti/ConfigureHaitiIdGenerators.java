@@ -16,8 +16,6 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 
-import static org.openmrs.module.pihcore.PihCoreConstants.ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID;
-
 public class ConfigureHaitiIdGenerators {
 
     public static final String LOCAL_ZL_IDENTIFIER_GENERATOR_ENABLED = "local_zl_identifier_generator_enabled";
@@ -79,7 +77,7 @@ public class ConfigureHaitiIdGenerators {
             SequentialIdentifierGenerator sequentialIdentifierGenerator = configureHaitiIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
                             config.getDossierIdentifierPrefix().toString(),
-                            ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
+                            "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8");
 
             configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGenerator, null);
 
@@ -289,7 +287,7 @@ public class ConfigureHaitiIdGenerators {
                 identifierSourceUuid);
 
         if (sequentialIdentifierGenerator == null) {
-            throw new IllegalStateException("Sequential Identifier Generator For Dossie has not been configured");
+            throw new IllegalStateException("Sequential Identifier Generator for Dossier has not been configured");
         }
 
         return sequentialIdentifierGenerator;

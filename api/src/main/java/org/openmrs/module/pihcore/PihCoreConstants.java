@@ -23,8 +23,6 @@ public class PihCoreConstants {
     public static final String UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "cccccccc-cccc-cccc-cccc-cccccccccccc";
     public static final String UHM_DOSSIER_NUMBER_PREFIX = "A";
 
-    public static final String ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8";
-
     public static final int LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE = 1000;
     public static final int LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE = 2000;
 
