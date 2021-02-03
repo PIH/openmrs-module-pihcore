@@ -211,16 +211,16 @@ public class EncounterTypes {
 		public String description() { return "Lab Specimen Collection - the collection of a lab specimen for a test (blood draw, biopsy, etc)"; }
 	};
 
-	public static EncounterTypeDescriptor ZL_HIV_INTAKE  = new EncounterTypeDescriptor() {
+	public static EncounterTypeDescriptor HIV_INTAKE = new EncounterTypeDescriptor() {
 		public String uuid() { return "c31d306a-40c4-11e7-a919-92ebcb67fe33"; }
-		public String name() { return "ZL VIH Données de Base"; }
-		public String description() { return "ZL VIH Données de Base (HIV Intake)"; }
+		public String name() { return "HIV Intake Form"; }
+		public String description() { return "HIV Intake Form"; }
 	};
 
-	public static EncounterTypeDescriptor ZL_HIV_FOLLOWUP  = new EncounterTypeDescriptor() {
+	public static EncounterTypeDescriptor HIV_FOLLOWUP = new EncounterTypeDescriptor() {
 		public String uuid() { return "c31d3312-40c4-11e7-a919-92ebcb67fe33"; }
-		public String name() { return "ZL VIH Rendez-vous"; }
-		public String description() { return "ZL VIH Rendez-vous (HIV Followup)"; }
+		public String name() { return "HIV Followup Form"; }
+		public String description() { return "HIV Followup Form"; }
 	};
 
 	public static EncounterTypeDescriptor VCT  = new EncounterTypeDescriptor() {

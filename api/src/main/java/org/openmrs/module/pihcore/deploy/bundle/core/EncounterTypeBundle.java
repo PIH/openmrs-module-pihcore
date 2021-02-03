@@ -40,8 +40,8 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.TEST_ORDER);
         install(EncounterTypes.PATHOLOGY_SPECIMEN_COLLECTION);
         install(EncounterTypes.LAB_SPECIMEN_COLLECTION);
-        install(EncounterTypes.ZL_HIV_INTAKE);
-        install(EncounterTypes.ZL_HIV_FOLLOWUP);
+        install(EncounterTypes.HIV_INTAKE);
+        install(EncounterTypes.HIV_FOLLOWUP);
         install(EncounterTypes.VCT);
         install(EncounterTypes.HIV_DISPENSING);
         install(EncounterTypes.DRUG_ORDER_DOCUMENTATION);
