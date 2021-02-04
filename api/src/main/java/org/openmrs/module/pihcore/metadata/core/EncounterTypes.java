@@ -213,14 +213,14 @@ public class EncounterTypes {
 
 	public static EncounterTypeDescriptor HIV_INTAKE = new EncounterTypeDescriptor() {
 		public String uuid() { return "c31d306a-40c4-11e7-a919-92ebcb67fe33"; }
-		public String name() { return "HIV Intake Form"; }
-		public String description() { return "HIV Intake Form"; }
+		public String name() { return "HIV Intake"; }
+		public String description() { return "HIV Intake"; }
 	};
 
 	public static EncounterTypeDescriptor HIV_FOLLOWUP = new EncounterTypeDescriptor() {
 		public String uuid() { return "c31d3312-40c4-11e7-a919-92ebcb67fe33"; }
-		public String name() { return "HIV Followup Form"; }
-		public String description() { return "HIV Followup Form"; }
+		public String name() { return "HIV Followup"; }
+		public String description() { return "HIV Followup"; }
 	};
 
 	public static EncounterTypeDescriptor VCT  = new EncounterTypeDescriptor() {
