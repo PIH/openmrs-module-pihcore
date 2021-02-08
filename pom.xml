@@ -77,7 +77,7 @@
         <dispensingVersion>1.2.0</dispensingVersion>
         <uicommonsVersion>2.16.0</uicommonsVersion>
         <registrationcoreVersion>1.10.0</registrationcoreVersion>
-        <registrationappVersion>1.22.0-SNAPSHOT</registrationappVersion>
+        <registrationappVersion>1.22.0</registrationappVersion>
         <radiologyappVersion>1.5.0</radiologyappVersion>
         <coreappsVersion>1.32.0-SNAPSHOT</coreappsVersion>
         <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
