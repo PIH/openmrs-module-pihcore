@@ -1,5 +1,7 @@
 package org.openmrs.module.pihcore.identifier.mexico;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
@@ -13,6 +15,8 @@ import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 
 public class ConfigureMexicoIdGenerators {
+
+    protected static Log log = LogFactory.getLog(ConfigureMexicoIdGenerators.class);
 
     private static final String CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID = "cf2b23e6-7a32-11e8-8624-54ee75ef41c2";
     private static final String CHIAPAS_DOSSIER_SOURCE_UUID = "28f83bda-d871-40e7-9f80-5dab0f219620";
@@ -67,7 +71,9 @@ public class ConfigureMexicoIdGenerators {
         PatientIdentifierType dossierIdentifierType = MetadataUtils.existing(PatientIdentifierType.class, MexicoPatientIdentifierTypes.MEXICO_DOSSIER_NUMBER.uuid());
         String prefix = config.getDossierIdentifierPrefix();
 
-        if (prefix != null) {
+        if (prefix == null) {
+            log.warn("dossierIdentifierPrefix not configured; Dossier ID Generator will not be configured");
+        } else {
             SequentialIdentifierGenerator sequentialIdentifierGenerator = (SequentialIdentifierGenerator) Context.getService(
                     IdentifierSourceService.class).getIdentifierSourceByUuid(
                     CHIAPAS_DOSSIER_SOURCE_UUID);
