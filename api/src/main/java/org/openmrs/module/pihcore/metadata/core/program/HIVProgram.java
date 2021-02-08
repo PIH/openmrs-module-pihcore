@@ -31,7 +31,7 @@ public class HIVProgram {
         public String conceptUuid() { return "37c7cf83-bce6-469c-acab-6a90e63264d2"; }  // PIH:11449
         public String uuid() { return "aba55bfe-9490-4362-9841-0c476e379889"; }
         @Override public Set<ProgramWorkflowStateDescriptor> states() {
-            return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ON_ART, LTFU));
+            return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ON_ART, LTFU, TREATMENT_STOPPED, TREATMENT_REFUSED));
         }
     };
 
@@ -39,14 +39,14 @@ public class HIVProgram {
         public String conceptUuid() { return "3cdc0d7a-26fe-102b-80cb-0017a47871b2"; }  // PIH:1579
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
-        public String uuid() { return "267cb08a-a8b3-439d-a3e0-17b2341c85b6"; }
+        public String uuid() { return "2332EC51-80CF-4FB4-88E1-9B74427BAC1E"; }
     };
 
     public static ProgramWorkflowStateDescriptor TREATMENT_REFUSED = new ProgramWorkflowStateDescriptor() {
         public String conceptUuid() { return "3cdc0604-26fe-102b-80cb-0017a47871b2"; }  // PIH:1574
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
-        public String uuid() { return "b547c95e-aba9-4a44-9b04-6275c0b3ebab"; }
+        public String uuid() { return "E64A842B-E4A6-49B4-882A-4F578A94400A"; }
     };
 
     public static ProgramWorkflowStateDescriptor PATIENT_MOVED = new ProgramWorkflowStateDescriptor() {
@@ -88,7 +88,7 @@ public class HIVProgram {
         @Override public String outcomesConceptUuid()  { return HIV_PROGRAM_OUTCOMES_CONCEPT_UUID; }   // this concept is installed via metadata package
 
         @Override public Set<ProgramWorkflowDescriptor> workflows() {
-            return new HashSet<>(Arrays.asList(HIV_TREATMENT_STATUS, LTFU_STATUS_WORKFLOW, REACTIVATION_STATUS_WORKFLOW));
+            return new HashSet<>(Arrays.asList(HIV_TREATMENT_STATUS));
         }
     };
 
