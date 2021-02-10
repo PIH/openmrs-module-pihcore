@@ -41,7 +41,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                     <td>${ ui.format(drugOrder.concept) }</td>
                     <td>${ drugOrder.drug != null ? drugOrder.drug.name : (drugOrder.drugNonCoded != null ? drugOrder.drugNonCoded : "") }</td>
                     <td style="white-space: nowrap;">
-                        <a href="/module/htmlformentry/htmlFormEntry.form?encounterId=${ drugOrder.encounter.encounterId }" target="_blank">
+                        <a href="${ ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi",
+                                    [
+                                        "patientId": drugOrder.patient.uuid,
+                                        "encounterId": drugOrder.encounter.uuid,
+                                        "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "meds/drugOrders", [ "patient": drugOrder.patient.uuid] )),
+                                    ]
+                        )}" />
                             ${ ui.format(drugOrder.effectiveStartDate) }
                         </a>
                     </td>
@@ -94,7 +100,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                     <td>${ ui.format(drugOrder.concept) }</td>
                     <td>${ drugOrder.drug != null ? drugOrder.drug.name : (drugOrder.drugNonCoded != null ? drugOrder.drugNonCoded : "") }</td>
                     <td style="white-space: nowrap;">
-                        <a href="/${contextPath}/module/htmlformentry/htmlFormEntry.form?encounterId=${ drugOrder.encounter.encounterId }" target="_blank">
+                        <a href="${ ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi",
+                                [
+                                        "patientId": drugOrder.patient.uuid,
+                                        "encounterId": drugOrder.encounter.uuid,
+                                        "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "meds/drugOrders", [ "patient": drugOrder.patient.uuid] )),
+                                ]
+                        )}" />
                             ${ ui.format(drugOrder.effectiveStartDate) }
                         </a>
                     </td>
@@ -102,7 +114,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                     <% def dcOrder = ordersToDiscontinueOrders.get(drugOrder) %>
                     <td>
                         <% if (dcOrder != null) { %>
-                            <a href="/${contextPath}/module/htmlformentry/htmlFormEntry.form?encounterId=${ dcOrder.encounter.encounterId }" target="_blank">
+                            <a href="${ ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi",
+                                    [
+                                            "patientId": drugOrder.patient.uuid,
+                                            "encounterId": drugOrder.encounter.uuid,
+                                            "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "meds/drugOrders", [ "patient": drugOrder.patient.uuid] )),
+                                    ]
+                            )}" />
                         <% } %>
                             ${ ui.format(drugOrder.dateStopped) }</td>
                         <% if (dcOrder != null) { %>
