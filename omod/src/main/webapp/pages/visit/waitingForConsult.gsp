@@ -2,7 +2,6 @@
     ui.decorateWith("appui", "standardEmrPage")
 
     ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
-    ui.includeCss("pihcore", "bootstrap.css")
     ui.includeCss("pihcore", "visit/visit.css")
     ui.includeCss("pihcore", "visit/waitingForConsult.css")
 
@@ -168,7 +167,7 @@
             <a href="${ ui.pageLink("pihcore", "visit/visit", [
                     "patient": p.patient.uuid,
                     "visit": currentVisit?.visit.uuid ])}">
-                <button type="button" class="btn btn-xs btn-primary">${ ui.message("pihcore.beginConsult") }</button>
+                <button type="button" class="btn-xs">${ ui.message("pihcore.beginConsult") }</button>
             </a>
         </td>
         <% } %>
