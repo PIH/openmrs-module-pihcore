@@ -38,7 +38,7 @@ public class OVCProgram {
         public String conceptUuid() { return "95d7c044-7b20-4b52-9444-3e13e0c35c7d"; }  // PIH:13223
         public String uuid() { return "ee228c4f-f898-494a-9740-213f757cb10c"; }
         @Override public Set<ProgramWorkflowStateDescriptor> states() {
-            return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ACTIVE, GRADUATED, LTFU));
+            return new HashSet<ProgramWorkflowStateDescriptor>(Arrays.asList(ACTIVE, LTFU));
         }
     };
 
