@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.config;
 
+import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
@@ -134,5 +135,9 @@ public class Config {
 
     public Boolean shouldRebuildSearchIndex() {
         return descriptor.getRebuildSearchIndexOnStartup() != null ? descriptor.getRebuildSearchIndexOnStartup() : false;
+    }
+
+    public ArrayNode getFindPatientColumnConfig() {
+        return descriptor.getFindPatientColumnConfig();
     }
 }
