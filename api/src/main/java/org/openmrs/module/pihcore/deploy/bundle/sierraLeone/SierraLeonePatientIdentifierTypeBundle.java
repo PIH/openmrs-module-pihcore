@@ -15,6 +15,7 @@ public class SierraLeonePatientIdentifierTypeBundle extends AbstractMetadataBund
         log.info("Installing PatientIdentifierTypes");
 
         install(SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID);
+        install(SierraLeonePatientIdentifierTypes.KGH_EMR_ID);
 
     }
 

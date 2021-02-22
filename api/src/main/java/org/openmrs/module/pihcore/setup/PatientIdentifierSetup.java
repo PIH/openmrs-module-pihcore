@@ -27,7 +27,7 @@ public class PatientIdentifierSetup {
             ConfigureLiberiaIdGenerators.configureGenerators(identifierSourceService, config);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            ConfigureSierraLeoneIdGenerators.configureGenerators(identifierSourceService);
+            ConfigureSierraLeoneIdGenerators.configurePrimaryIdentifierSource(identifierSourceService, config);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             ConfigureMexicoIdGenerators.configureGenerators(identifierSourceService, config);

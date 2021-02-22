@@ -64,7 +64,7 @@
         <reportinguiVersion>1.6.0</reportinguiVersion>
         <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
         <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
-        <idgenVersion>4.6.0</idgenVersion>
+        <idgenVersion>4.7.0-SNAPSHOT</idgenVersion>
         <namephoneticsVersion>1.17.0</namephoneticsVersion>
         <pacsintegrationVersion>1.7.0</pacsintegrationVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
