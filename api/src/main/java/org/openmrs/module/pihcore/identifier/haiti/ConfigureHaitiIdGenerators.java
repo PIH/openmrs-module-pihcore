@@ -25,6 +25,8 @@ public class ConfigureHaitiIdGenerators {
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY = "remote_zlidentifier_username";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD_PROPERTY = "remote_zlidentifier_password";
     private static final String ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8";
+    private static final String HIVEMR_V1_IDENTIFIER_SOURCE_UUID = "f36ec8b2-70ca-11eb-8aa6-0242ac110002";
+    private static final String HIVEMR_V1_AUTOGENERATION_OPTION_UUID = "570fe8a7-70cd-11eb-8aa6-0242ac110002";
 
     private final IdentifierSourceService identifierSourceService;
 
@@ -83,6 +85,32 @@ public class ConfigureHaitiIdGenerators {
         }
     }
 
+    /**
+     * This is a bit of a hack to ensure that the HIV EMR v1 ID is displayed, but is not editable from the patient header
+     * Non-editable or not is determined based on the presence of an autogeneration option with manual entry disabled
+     */
+    public static void createSourceAndAutoGenerationOptionForHivEmrV1(IdentifierSourceService iss) {
+        RemoteIdentifierSource source = (RemoteIdentifierSource) iss
+                .getIdentifierSourceByUuid(HIVEMR_V1_IDENTIFIER_SOURCE_UUID);
+        if (source == null) {
+            source = new RemoteIdentifierSource();
+            source.setUrl(HIVEMR_V1_IDENTIFIER_SOURCE_UUID);
+            source.setName("Dummy Source for HIVEMR-V1");
+            source.setUrl("NO URL");
+            source.setIdentifierType(getHivEmrV1IdentifierType());
+            iss.saveIdentifierSource(source);
+        }
+        AutoGenerationOption autoGen = iss.getAutoGenerationOptionByUuid(HIVEMR_V1_AUTOGENERATION_OPTION_UUID);
+        if (autoGen == null) {
+            autoGen = new AutoGenerationOption();
+            autoGen.setUuid(HIVEMR_V1_AUTOGENERATION_OPTION_UUID);
+            autoGen.setSource(source);
+            autoGen.setIdentifierType(source.getIdentifierType());
+            autoGen.setAutomaticGenerationEnabled(false);
+            autoGen.setManualEntryEnabled(false);
+            iss.saveAutoGenerationOption(autoGen);
+        }
+    }
 
     public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource, Location location) {
 
@@ -298,5 +326,9 @@ public class ConfigureHaitiIdGenerators {
 
     public static PatientIdentifierType getDossierIdentifierType() {
         return MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
+    }
+
+    public static PatientIdentifierType getHivEmrV1IdentifierType() {
+        return MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
     }
 }

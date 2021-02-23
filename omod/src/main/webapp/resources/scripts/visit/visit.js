@@ -491,7 +491,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, suppressActions, patientUuid, encounterUuid,
                  locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
 
-          const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:ref,encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
+          const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
 
             // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
             if (currentSection && encounterUuid) {

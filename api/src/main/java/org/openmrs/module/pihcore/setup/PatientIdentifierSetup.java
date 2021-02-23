@@ -22,6 +22,9 @@ public class PatientIdentifierSetup {
             ConfigureHaitiIdGenerators configureHaitiIdGenerators = new ConfigureHaitiIdGenerators(identifierSourceService);
             ConfigureHaitiIdGenerators.createPatientIdGenerator(configureHaitiIdGenerators);
             ConfigureHaitiIdGenerators.createDossierNumberGenerator(locationService, configureHaitiIdGenerators, config);
+            if (ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {
+                ConfigureHaitiIdGenerators.createSourceAndAutoGenerationOptionForHivEmrV1(identifierSourceService);
+            }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             ConfigureLiberiaIdGenerators.configureGenerators(identifierSourceService, config);

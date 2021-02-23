@@ -182,6 +182,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PHARMACIST);
             install(Roles.MEDICAL_STUDENT);
             install(Roles.RESIDENT);
+            install(Roles.PROGRAM_MANAGER);
             install(Roles.SURGEON);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
@@ -194,6 +195,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.LAB_TECHNICIAN);
             install(Roles.TRIAGE_STAFF);
             install(Roles.OBSERVATION_STAFF);
+            install(Roles.PROGRAM_MANAGER);
             install(Roles.SUPPORT_STAFF);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {

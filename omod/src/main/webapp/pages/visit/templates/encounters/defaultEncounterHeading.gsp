@@ -13,7 +13,8 @@
 </div>
 <div class="row justify-content-between">
     <div class="col-8">
-        <span class="encounter-card-summary provider-and-location-span encounter-provider">
+        <span class="encounter-card-summary provider-and-location-span encounter-provider"
+              ng-show="encounter.encounterProviders | encounterRole:primaryEncounterRoleUuid | getProviderName">
             {{ 'emr.by' | translate }}
             {{ encounter.encounterProviders | encounterRole:primaryEncounterRoleUuid | getProviderName }}
         </span>
