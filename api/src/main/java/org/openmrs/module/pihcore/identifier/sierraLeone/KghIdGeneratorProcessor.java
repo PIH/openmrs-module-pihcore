@@ -57,8 +57,9 @@ public class KghIdGeneratorProcessor extends SequentialIdentifierGeneratorProces
 
 		// The KGH ID does not use a checksum or have any reserved identifiers, so we can bypass those features here
 
-		// Get the expected prefix based on the current date
-		String prefix = "KGH" + new SimpleDateFormat("yyMM").format(getDate());
+		// The prefix on this source should be configured with the date format we wish to use
+		String dateFormat = seq.getPrefix() == null ? "'KGH'yyMM" : seq.getPrefix();
+		String prefix = new SimpleDateFormat(dateFormat).format(getDate());
 
 		// Get the last generated identifier.  If it does not start with the expected prefix, reset the sequence
 		LogEntry mostRecentLogEntry = identifierSourceService.getMostRecentLogEntry(seq);

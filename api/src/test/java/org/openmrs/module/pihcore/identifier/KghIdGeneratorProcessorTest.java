@@ -43,6 +43,7 @@ public class KghIdGeneratorProcessorTest {
 		generator = new SequentialIdentifierGenerator();
 		generator.setName("KGH ID Identifier Generator");
 		generator.setUuid(ConfigureSierraLeoneIdGenerators.KGH_ID_IDENTIFIER_SOURCE_UUID);
+		generator.setPrefix("'KGH'yyMM");
 		generator.setMinLength(11);
 		generator.setMaxLength(12);
 		generator.setBaseCharacterSet("1234567890");

@@ -46,10 +46,10 @@ public class ConfigureSierraLeoneIdGenerators {
                     "KGH Primary Identifier Source",
                     "Primary Identifier Generator for KGH",
                     SierraLeonePatientIdentifierTypes.KGH_EMR_ID,
-                    "KGH",
+                    "'KGH'yyMM",
                     11,
                     12,
-                    "1234567890",
+                    "0123456789",
                     "0001",
                     SierraLeoneLocations.KGH
             );
