@@ -23,6 +23,8 @@ import org.openmrs.module.idgen.LogEntry;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.processor.SequentialIdentifierGeneratorProcessor;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * This extends and replaces the functionality of the SequentialIdentifierGeneratorProcessor
@@ -30,6 +32,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
  * For the KGH ID source, it determines if the next identifier's prefix differs from the last generated identifier,
  * and if it does, it first resets the sequence to the initial sequence value.
  */
+@Component
 public class KghIdGeneratorProcessor extends SequentialIdentifierGeneratorProcessor {
 
     private IdentifierSourceService identifierSourceService;
@@ -38,6 +41,7 @@ public class KghIdGeneratorProcessor extends SequentialIdentifierGeneratorProces
      * @param identifierSourceService
      */
     @Override
+    @Autowired
     public void setIdentifierSourceService(IdentifierSourceService identifierSourceService) {
         this.identifierSourceService = identifierSourceService;
         super.setIdentifierSourceService(identifierSourceService);
@@ -54,7 +58,7 @@ public class KghIdGeneratorProcessor extends SequentialIdentifierGeneratorProces
 		// The KGH ID does not use a checksum or have any reserved identifiers, so we can bypass those features here
 
 		// Get the expected prefix based on the current date
-		String prefix = getPrefix();
+		String prefix = "KGH" + new SimpleDateFormat("yyMM").format(getDate());
 
 		// Get the last generated identifier.  If it does not start with the expected prefix, reset the sequence
 		LogEntry mostRecentLogEntry = identifierSourceService.getMostRecentLogEntry(seq);
@@ -82,7 +86,10 @@ public class KghIdGeneratorProcessor extends SequentialIdentifierGeneratorProces
 		return identifiers;
 	}
 
-	public String getPrefix() {
-    	return "KGH" + new SimpleDateFormat("yyMM").format(new Date());
+	/**
+	 * @return current date.  Exists as a separate method mostly for test mocking
+	 */
+	public Date getDate() {
+    	return new Date();
 	}
 }

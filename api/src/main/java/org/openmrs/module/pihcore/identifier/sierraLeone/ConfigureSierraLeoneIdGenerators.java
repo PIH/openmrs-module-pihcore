@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.identifier.sierraLeone;
 
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
@@ -36,7 +37,8 @@ public class ConfigureSierraLeoneIdGenerators {
         else if ("KGH".equalsIgnoreCase(config.getSite())) {
 
             // First off, we need to override the Sequential Identifier Generator Processor with a custom version
-            iss.registerProcessor(SequentialIdentifierGenerator.class, new KghIdGeneratorProcessor());
+            KghIdGeneratorProcessor processor = Context.getRegisteredComponents(KghIdGeneratorProcessor.class).get(0);
+            iss.registerProcessor(SequentialIdentifierGenerator.class, processor);
 
             configurePrimaryIdentifierSource(
                     iss,
