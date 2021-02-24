@@ -27,4 +27,10 @@ public class SierraLeoneLocations {
             return SierraLeoneLocations.WELLBODY;
         }
     };
+
+    public static LocationDescriptor KGH = new LocationDescriptor() {
+        public String uuid() { return "074b2ab0-716a-11eb-8aa6-0242ac110002"; }
+        public String name() { return "KGH"; }
+        public String description() { return "KGH"; }
+    };
 }

@@ -1,11 +1,13 @@
 package org.openmrs.module.pihcore.setup;
 
 import org.openmrs.Form;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
 import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -48,22 +50,35 @@ public class MetadataMappingsSetup {
 
     }
 
-    public static void setupPrimaryIdentifierTypeBasedOnCountry(MetadataMappingService metadataMappingService, PatientService patientService, Config config) {
+    public static void setupPrimaryIdentifierTypeBasedOnCountry(MetadataMappingService mms, PatientService ps, Config config) {
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+            setupPrimaryIdentifierType(mms, ps, PihHaitiPatientIdentifierTypes.ZL_EMR_ID);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(LiberiaPatientIdentifierTypes.LIBERIA_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+            setupPrimaryIdentifierType(mms, ps, LiberiaPatientIdentifierTypes.LIBERIA_EMR_ID);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+            if ("WELLBODY".equalsIgnoreCase(config.getSite())) {
+                setupPrimaryIdentifierType(mms, ps, SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID);
+            }
+            else if ("KGH".equalsIgnoreCase(config.getSite())) {
+                setupPrimaryIdentifierType(mms, ps, SierraLeonePatientIdentifierTypes.KGH_EMR_ID);
+            }
+            else {
+                throw new IllegalStateException("Unable to setup primary identifier type for site: " + config.getSite());
+            }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+            setupPrimaryIdentifierType(mms, ps, MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            metadataMappingService.mapMetadataItem(patientService.getPatientIdentifierTypeByUuid(PeruPatientIdentifierTypes.PERU_EMR_ID.uuid()), EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+            setupPrimaryIdentifierType(mms, ps, PeruPatientIdentifierTypes.PERU_EMR_ID);
         }
+    }
+
+    public static void setupPrimaryIdentifierType(MetadataMappingService metadataMappingService, PatientService patientService, PatientIdentifierTypeDescriptor descriptor) {
+        PatientIdentifierType patientIdentifierType = patientService.getPatientIdentifierTypeByUuid(descriptor.uuid());
+        metadataMappingService.mapMetadataItem(patientIdentifierType, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
     }
 
     public static void setupFormMetadataMappings(MetadataMappingService metadataMappingService) {
