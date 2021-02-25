@@ -44,8 +44,8 @@ public class ConfigureHaitiIdGenerators {
     // TODO refactor all this to make more sense
     public static void createPatientIdGenerator(ConfigureHaitiIdGenerators configureHaitiIdGenerators) {
         PatientIdentifierType zlIdentifierType = getZlIdentifierType();
-        RemoteIdentifierSource remoteZlIdentifierSource = configureHaitiIdGenerators.remoteZlIdentifierSource(zlIdentifierType);
-        IdentifierPool localZlIdentifierPool = configureHaitiIdGenerators.localZlIdentifierSource(remoteZlIdentifierSource);
+        IdentifierSource zlIdentifierGenerator = configureHaitiIdGenerators.zlIdentifierGenerator(zlIdentifierType);
+        IdentifierPool localZlIdentifierPool = configureHaitiIdGenerators.localZlIdentifierSource(zlIdentifierGenerator);
         configureHaitiIdGenerators.setAutoGenerationOptionsForZlIdentifier(localZlIdentifierPool);
     }
 
@@ -148,7 +148,7 @@ public class ConfigureHaitiIdGenerators {
         identifierSourceService.saveAutoGenerationOption(autoGenerationOption);
     }
 
-	public IdentifierPool localZlIdentifierSource(RemoteIdentifierSource remoteZlIdentifierSource) {
+	public IdentifierPool localZlIdentifierSource(IdentifierSource zlIdentifierGenerator) {
 		IdentifierPool localZlIdentifierPool;
 		try {
 			localZlIdentifierPool = getLocalZlIdentifierPool();
@@ -157,8 +157,8 @@ public class ConfigureHaitiIdGenerators {
             localZlIdentifierPool = new IdentifierPool();
             localZlIdentifierPool.setName("Local Pool of ZL Identifiers");
             localZlIdentifierPool.setUuid(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
-            localZlIdentifierPool.setSource(remoteZlIdentifierSource);
-            localZlIdentifierPool.setIdentifierType(remoteZlIdentifierSource.getIdentifierType());
+            localZlIdentifierPool.setSource(zlIdentifierGenerator);
+            localZlIdentifierPool.setIdentifierType(zlIdentifierGenerator.getIdentifierType());
             localZlIdentifierPool.setMinPoolSize(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
             localZlIdentifierPool.setBatchSize(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
             localZlIdentifierPool.setSequential(false);
@@ -190,14 +190,12 @@ public class ConfigureHaitiIdGenerators {
         return localZlIdentifierGenerator;
     }
 
-	public RemoteIdentifierSource remoteZlIdentifierSource(PatientIdentifierType zlPatientIdentifierType) {
-		RemoteIdentifierSource remoteZlIdentifierSource;
-
-        SequentialIdentifierGenerator localGenerator = null;
+	public IdentifierSource zlIdentifierGenerator(PatientIdentifierType zlPatientIdentifierType) {
         if (getLocalZlIdentifierGeneratorEnabled()) {
-            localGenerator = localZlIdentifierGenerator(zlPatientIdentifierType);
+            return localZlIdentifierGenerator(zlPatientIdentifierType);
         }
 
+        RemoteIdentifierSource remoteZlIdentifierSource;
 		try {
 			remoteZlIdentifierSource = getRemoteZlIdentifierSource();
 		}
@@ -207,12 +205,7 @@ public class ConfigureHaitiIdGenerators {
             remoteZlIdentifierSource.setUuid(PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_UUID);
             remoteZlIdentifierSource.setIdentifierType(zlPatientIdentifierType);
 		}
-
-        String url = getRemoteZlIdentifierSourceUrl();
-        if (url != null && localGenerator != null) {
-            url = url.replace("{LOCAL_SOURCE_ID}", localGenerator.getId().toString());
-        }
-        remoteZlIdentifierSource.setUrl(url);
+        remoteZlIdentifierSource.setUrl(getRemoteZlIdentifierSourceUrl());
         remoteZlIdentifierSource.setUser(getRemoteZlIdentifierSourceUsername());
         remoteZlIdentifierSource.setPassword(getRemoteZlIdentifierSourcePassword());
 
