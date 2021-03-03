@@ -32,7 +32,7 @@
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("emr.app.systemAdministration.label")}", link: '${ui.pageLink("coreapps", "systemadministration/systemAdministration")}' },
+        { label: "${ ui.message("coreapps.app.systemAdministration.label")}", link: '${ui.pageLink("coreapps", "systemadministration/systemAdministration")}' },
         { label: "${ ui.message("pihcore.patient.import")}" }
     ];
 </script>
@@ -63,8 +63,8 @@
         <table id="list-patients" cellspacing="0" cellpadding="2">
             <thead>
             <tr>
-                <th>${ ui.message("emr.person.name")}</th>
-                <th>${ ui.message("emr.gender") }</th>
+                <th>${ ui.message("coreapps.person.name")}</th>
+                <th>${ ui.message("coreapps.gender") }</th>
                 <th>${ ui.message("coreapps.age") }</th>
             </tr>
             </thead>

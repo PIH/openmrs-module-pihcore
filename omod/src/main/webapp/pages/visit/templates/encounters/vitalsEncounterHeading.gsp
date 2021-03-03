@@ -21,7 +21,7 @@
 <div class="row justify-content-between">
     <div class="col-8">
         <span class="encounter-card-summary provider-and-location-span encounter-provider">
-            {{ 'emr.by' | translate }}
+            {{ 'coreapps.by' | translate }}
             {{ encounter.encounterProviders | encounterRole:primaryEncounterRoleUuid | getProviderName }}
         </span>
         <span class="encounter-card-summary admission-location provider-and-location-span"

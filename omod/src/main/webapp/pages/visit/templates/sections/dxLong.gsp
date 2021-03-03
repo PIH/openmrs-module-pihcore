@@ -48,7 +48,7 @@
 
     <div class="comments-div">
         <div class="left-column">
-            <h3 class="dx-header">${ ui.message('emr.consult.freeTextComments') }</h3>
+            <h3 class="dx-header">${ ui.message('coreapps.consult.freeTextComments') }</h3>
         </div>
         <div class="right-column">
             <p>
