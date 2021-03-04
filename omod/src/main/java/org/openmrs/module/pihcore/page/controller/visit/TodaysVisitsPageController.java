@@ -1,12 +1,15 @@
 package org.openmrs.module.pihcore.page.controller.visit;
 
-import org.joda.time.DateMidnight;
 import org.openmrs.Visit;
 import org.openmrs.api.VisitService;
 import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 public class TodaysVisitsPageController {
@@ -15,8 +18,12 @@ public class TodaysVisitsPageController {
                     @SpringBean("visitService") VisitService visitService,
                     @SpringBean("domainWrapperFactory")DomainWrapperFactory domainWrapperFactory) {
 
-        // all non-voided visits that started today
-        List<Visit> visits = visitService.getVisits(null, null, null, null, new DateMidnight().toDate(), null, null, null, null, true, false);
+        LocalDate todayDate = LocalDate.now();
+        Date startOfDayToday = java.sql.Timestamp.valueOf(LocalDateTime.of(todayDate, LocalTime.MIN));
+        Date endOfDayToday = java.sql.Timestamp.valueOf(LocalDateTime.of(todayDate, LocalTime.MAX));
+
+        // all non-voided visits that have been started any time today
+        List<Visit> visits = visitService.getVisits(null, null, null, null, startOfDayToday, endOfDayToday, null, null, null, true, false);
         model.addAttribute("visits", visits);
     }
 
