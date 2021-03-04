@@ -20,10 +20,10 @@ public class TodaysVisitsPageController {
 
         LocalDate todayDate = LocalDate.now();
         Date startOfDayToday = java.sql.Timestamp.valueOf(LocalDateTime.of(todayDate, LocalTime.MIN));
-        Date endOfDayTomorrow = java.sql.Timestamp.valueOf(LocalDateTime.of(todayDate.plusDays(1), LocalTime.MAX));
+        Date endOfDayToday = java.sql.Timestamp.valueOf(LocalDateTime.of(todayDate, LocalTime.MAX));
 
-        // all non-voided visits that have been started between startOfDayToday and endOfDayTomorrow
-        List<Visit> visits = visitService.getVisits(null, null, null, null, startOfDayToday, endOfDayTomorrow, null, null, null, true, false);
+        // all non-voided visits that have been started any time today
+        List<Visit> visits = visitService.getVisits(null, null, null, null, startOfDayToday, endOfDayToday, null, null, null, true, false);
         model.addAttribute("visits", visits);
     }
 
