@@ -41,8 +41,8 @@
     ui.includeJavascript("file", "configuration/pih/scripts/visit/encounterTypeConfig.js", /* priority= */ null, /* pathIsRelativeToScripts= */ false)
 %>
 
-<link href="/${ contextPath }/moduleResources/htmlformentry/drugOrderWidget.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="/${ contextPath }/moduleResources/htmlformentry/drugOrderWidget.js"></script>
+<link href="/${ contextPath }/moduleResources/htmlformentry/orderWidget.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/${ contextPath }/moduleResources/htmlformentry/orderWidget.js"></script>
 
 <script type="text/javascript">
     var breadcrumbsOverview = [
