@@ -333,8 +333,11 @@ angular.module('constants', [])
         visitType: {
             uuid: "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
-        reasonForVisit: {
+        familyPlanningVisit: {
             uuid: "86a2cf11-1ea5-4b8a-9e4b-08f4cdbe1346"
+        },
+        reasonForVisit: {
+            uuid: "e2964359-790a-419d-be53-602e828dcdb9"
         },
         deliveryType: {
             uuid: "fec005b5-6d44-487f-ae34-9f0f483b4ae8"
