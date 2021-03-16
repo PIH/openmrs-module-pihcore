@@ -46,8 +46,8 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.3.2</openMRSVersion>
-        <openMRSwebVersion>2.3.2</openMRSwebVersion>
+        <openMRSVersion>2.3.3</openMRSVersion>
+        <openMRSwebVersion>2.3.3</openMRSwebVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
         <emrapiVersion>1.30.0</emrapiVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
@@ -490,12 +490,12 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.3.2]</version>
+                            <version>[2.3.3]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[2.3.2]</version>
+                            <version>[2.3.3]</version>
                             <banSnapshots>true</banSnapshots>
                         </property>
                     </properties>
