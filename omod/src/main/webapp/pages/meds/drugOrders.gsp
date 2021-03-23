@@ -12,16 +12,16 @@
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
-<h3>Active Treatments</h3>
+<h3>${ ui.message("pihcore.drugOrders.activeTreatments") }</h3>
 
 <table id="active-orders-list" width="100%" border="1" cellspacing="0" cellpadding="2">
     <thead>
         <tr>
-            <th>Drug</th>
-            <th>Formulation</th>
-            <th>Start Date</th>
-            <th>Expire Date</th>
-            <th>Dosing</th>
+            <th>${ ui.message("pihcore.drugOrders.concept") }</th>
+            <th>${ ui.message("pihcore.drugOrders.drug") }</th>
+            <th>${ ui.message("pihcore.drugOrders.startDate") }</th>
+            <th>${ ui.message("pihcore.drugOrders.expireDate") }</th>
+            <th>${ ui.message("pihcore.drugOrders.dosing") }</th>
         </tr>
     </thead>
     <tbody>
@@ -68,19 +68,19 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     </tbody>
 </table>
 
-<br/><br/>
-<h3>Completed Treatments</h3>
+<br/>
+<h3>${ ui.message("pihcore.drugOrders.completedTreatments") }</h3>
 
 <table id="active-orders-list" width="100%" border="1" cellspacing="0" cellpadding="2">
     <thead>
     <tr>
-        <th>Drug</th>
-        <th>Formulation</th>
-        <th>Start Date</th>
-        <th>Expire Date</th>
-        <th>Discontinue Date</th>
-        <th>Discontinue Reason</th>
-        <th>Dosing</th>
+        <th>${ ui.message("pihcore.drugOrders.concept") }</th>
+        <th>${ ui.message("pihcore.drugOrders.drug") }</th>
+        <th>${ ui.message("pihcore.drugOrders.startDate") }</th>
+        <th>${ ui.message("pihcore.drugOrders.expireDate") }</th>
+        <th>${ ui.message("pihcore.drugOrders.discontinueDate") }</th>
+        <th>${ ui.message("pihcore.drugOrders.discontinueReason") }</th>
+        <th>${ ui.message("pihcore.drugOrders.dosing") }</th>
     </tr>
     </thead>
     <tbody>
@@ -106,7 +106,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                                         "encounterId": drugOrder.encounter.uuid,
                                         "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "meds/drugOrders", [ "patient": drugOrder.patient.uuid] )),
                                 ]
-                        )}" />
+                        )}">
                             ${ ui.format(drugOrder.effectiveStartDate) }
                         </a>
                     </td>
@@ -120,7 +120,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                                             "encounterId": drugOrder.encounter.uuid,
                                             "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "meds/drugOrders", [ "patient": drugOrder.patient.uuid] )),
                                     ]
-                            )}" />
+                            )}">
                         <% } %>
                             ${ ui.format(drugOrder.dateStopped) }</td>
                         <% if (dcOrder != null) { %>
@@ -146,3 +146,26 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
     </tbody>
 </table>
+
+<% if (!medicationCommentObs.isEmpty()) { %>
+    <br/>
+    <h3>${ ui.message("pihcore.drugOrders.comments") }</h3>
+    <table id="comments-list" width="100%" border="1" cellspacing="0" cellpadding="2">
+        <thead>
+        <tr>
+            <th>${ ui.message("pihcore.drugOrders.comment") }</th>
+            <th>${ ui.message("pihcore.drugOrders.enteredBy") }</th>
+            <th>${ ui.message("pihcore.drugOrders.dateEntered") }</th>
+        </tr>
+        </thead>
+    <tbody>
+        <%  medicationCommentObs.each { commentObs -> %>
+            <tr>
+                <td>${ ui.format(commentObs.valueText) }</td>
+                <td style="white-space: nowrap;">${ ui.format(commentObs.creator) }</td>
+                <td style="white-space: nowrap;">${ ui.format(commentObs.dateCreated) }</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+<% } %>
