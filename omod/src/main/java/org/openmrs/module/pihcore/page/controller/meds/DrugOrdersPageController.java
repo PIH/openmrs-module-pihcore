@@ -12,11 +12,13 @@ import java.util.Map;
 import org.apache.commons.lang.BooleanUtils;
 import org.openmrs.Concept;
 import org.openmrs.DrugOrder;
+import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.ObsService;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.db.hibernate.HibernateUtil;
@@ -37,7 +39,8 @@ public class DrugOrdersPageController {
                       @RequestParam(required = false, value = "hivemrId") String hivemrId,
                       @SpringBean("conceptService") ConceptService conceptService,
                       @SpringBean("patientService") PatientService patientService,
-                      @SpringBean("orderService") OrderService orderService) throws IOException {
+                      @SpringBean("orderService") OrderService orderService,
+                      @SpringBean("obsService") ObsService obsService) throws IOException {
 
         if (patient == null) {
             PatientIdentifierType hivemrV1 = patientService.getPatientIdentifierTypeByUuid(PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
@@ -136,6 +139,11 @@ public class DrugOrdersPageController {
             }
         }
 
+        // In the legacy HIV EMR, we supported entering notes/comments about a patient's medications.  Include those here.
+        Concept medicationComments = conceptService.getConceptByMapping("10637", "PIH");
+        List<Obs> medicationCommentObs = obsService.getObservationsByPersonAndConcept(patient, medicationComments);
+        medicationCommentObs.sort((obs, t1) -> t1.getObsDatetime().compareTo(obs.getObsDatetime()));
+
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
         model.addAttribute("drugOrders", drugOrders);
@@ -145,5 +153,6 @@ public class DrugOrdersPageController {
         model.addAttribute("activeOrdersByCategory", activeOrdersByCategory);
         model.addAttribute("completedOrdersByCategory", completedOrdersByCategory);
         model.addAttribute("ordersToDiscontinueOrders", ordersToDiscontinueOrders);
+        model.addAttribute("medicationCommentObs", medicationCommentObs);
     }
 }
