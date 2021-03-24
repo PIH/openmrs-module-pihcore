@@ -33,4 +33,13 @@ public class SierraLeoneLocations {
         public String name() { return "KGH"; }
         public String description() { return "KGH"; }
     };
+
+    public static LocationDescriptor KGH_TRIAGE = new LocationDescriptor() {
+        public String uuid() { return "2bcb9215-8cd6-11eb-b7be-0242ac110002"; }
+        public String name() { return "KGH Triage"; }
+        public String description() { return "KGH Triage"; }
+        public LocationDescriptor parent() {
+            return SierraLeoneLocations.KGH;
+        }
+    };
 }
