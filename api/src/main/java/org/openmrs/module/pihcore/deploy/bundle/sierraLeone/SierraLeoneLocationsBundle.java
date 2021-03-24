@@ -19,6 +19,7 @@ public class SierraLeoneLocationsBundle extends AbstractMetadataBundle {
         install(SierraLeoneLocations.WELLBODY_CLINIC);
         install(SierraLeoneLocations.WELLBODY_MCH);
         install(SierraLeoneLocations.KGH);
+        install(SierraLeoneLocations.KGH_TRIAGE);
 
         // the Wellbody Clinic isn't updated properly, and I can't for the life of me figure out why (some kind of lazy loading with location ID?), so
         // doing it manually here, since we will be switching to Iniz for Locations in the near future
