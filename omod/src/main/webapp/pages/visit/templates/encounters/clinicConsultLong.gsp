@@ -7,7 +7,7 @@
     width: 200px;
     margin: 0px;
     margin-right: 10px;
-    color: #501d3d;
+    color: #FF9800;
     vertical-align: top;
 }
 

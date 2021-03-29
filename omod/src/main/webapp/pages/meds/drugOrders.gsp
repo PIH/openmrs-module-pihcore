@@ -5,7 +5,7 @@
 <style>
     .category-row {
         font-weight: bold;
-        background-color: #501d3d;
+        background-color: #3E3E3E;
         color: white;
     }
 </style>
