@@ -46,12 +46,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                                         "patientId": drugOrder.patient.uuid,
                                         "encounterId": drugOrder.encounter.uuid,
                                         "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "meds/drugOrders", [ "patient": drugOrder.patient.uuid] )),
+                                        "definitionUiResource": "file:configuration/pih/htmlforms/hiv/hiv-drug-order-documentation.xml"
                                     ]
-                        )}" />
-                            ${ ui.format(drugOrder.effectiveStartDate) }
+                        )}">
+                            ${ ui.formatDatePretty(drugOrder.effectiveStartDate) }
                         </a>
                     </td>
-                    <td style="white-space: nowrap;">${ ui.format(drugOrder.autoExpireDate) }</td>
+                    <td style="white-space: nowrap;">${ drugOrder.autoExpireDate == null ? "" : ui.formatDatePretty(drugOrder.autoExpireDate) }</td>
                     <td>
                         <% if (drugOrder.getDosingType().getSimpleName().equals("FreeTextDosingInstructions")) { %>
                             ${ drugOrder.getDosingInstructions() }
@@ -105,24 +106,26 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                                         "patientId": drugOrder.patient.uuid,
                                         "encounterId": drugOrder.encounter.uuid,
                                         "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "meds/drugOrders", [ "patient": drugOrder.patient.uuid] )),
+                                        "definitionUiResource": "file:configuration/pih/htmlforms/hiv/hiv-drug-order-documentation.xml"
                                 ]
                         )}">
-                            ${ ui.format(drugOrder.effectiveStartDate) }
+                            ${ ui.formatDatePretty(drugOrder.effectiveStartDate) }
                         </a>
                     </td>
-                    <td style="white-space: nowrap;">${ ui.format(drugOrder.autoExpireDate) }</td>
+                    <td style="white-space: nowrap;">${ drugOrder.autoExpireDate == null ? "" : ui.formatDatePretty(drugOrder.autoExpireDate) }</td>
                     <% def dcOrder = ordersToDiscontinueOrders.get(drugOrder) %>
                     <td>
                         <% if (dcOrder != null) { %>
                             <a href="${ ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi",
                                     [
                                             "patientId": drugOrder.patient.uuid,
-                                            "encounterId": drugOrder.encounter.uuid,
+                                            "encounterId": dcOrder.encounter.uuid,
                                             "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "meds/drugOrders", [ "patient": drugOrder.patient.uuid] )),
+                                            "definitionUiResource": "file:configuration/pih/htmlforms/hiv/hiv-drug-order-documentation.xml"
                                     ]
                             )}">
                         <% } %>
-                            ${ ui.format(drugOrder.dateStopped) }</td>
+                        ${ drugOrder.dateStopped == null ? "" : ui.formatDatePretty(drugOrder.dateStopped) }</td>
                         <% if (dcOrder != null) { %>
                             </a>
                         <% } %>
