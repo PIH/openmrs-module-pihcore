@@ -12,6 +12,8 @@ import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 
 import java.util.List;
@@ -71,7 +73,12 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
         authenticate();
 
         System.out.println("Found " + validators.size() + " validators");
+
+        long totalValidationTime = 0;
+        int totalValidationErrors = 0;
         long fullValidationTimeExpected = 0;
+
+
         for (Validator v : validators) {
             System.out.println("------------------------");
             System.out.println("Found validator: " + v.getClass());
@@ -102,13 +109,25 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
                                 criteria.setFirstResult(numChecked).setMaxResults(BATCH_SIZE);
                                 List l = criteria.list();
                                 for (Object o : l) {
+                                    Errors errors = new BindException(o, "");
+                                    boolean errorFound = false;
                                     try {
-                                        v.validate(o, new BindException(o, ""));
+                                        v.validate(o, errors);
+                                        if (errors.hasErrors()) {
+                                            errorFound = true;
+                                            System.out.println("!!!!!!!!!!!!! ERROR FOUND on " + o);
+                                            for (ObjectError e : errors.getAllErrors()) {
+                                                System.out.println("!!!!!!!!!!!!! - " + e);
+                                            }
+                                        }
+
                                     } catch (Exception e) {
                                         System.out.println("Error: " + e);
+                                        errorFound = true;
+                                    }
+                                    numChecked++;
+                                    if (errorFound) {
                                         numErrors++;
-                                    } finally {
-                                        numChecked++;
                                     }
                                 }
                                 Context.flushSession();
@@ -127,12 +146,18 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
                             System.out.println("****************** " + numErrors + " / " + numChecked + " errors");
                             System.out.println("****************** " + formatTime(totalTime));
                             System.out.println("****************** " + formatTime(projectedTimeToValidateAll) + " to validate all");
+
+                            totalValidationTime += totalTime;
+                            totalValidationErrors += numErrors;
                         }
                     }
                 }
             }
         }
-        System.out.println("****************** VALIDATION CHECKS COMPLETE: " + formatTime(fullValidationTimeExpected) + " to validate all");
+        System.out.println("****************** VALIDATION CHECKS COMPLETE");
+        System.out.println("****************** " + formatTime(totalValidationErrors) + " errors found");
+        System.out.println("****************** " + formatTime(totalValidationTime) + " elapsed time");
+        System.out.println("****************** " + formatTime(fullValidationTimeExpected) + " projected time for a full validation");
     }
 
     String formatTime(long millis) {
