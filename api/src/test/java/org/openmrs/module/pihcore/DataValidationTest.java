@@ -155,7 +155,7 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
             }
         }
         System.out.println("****************** VALIDATION CHECKS COMPLETE");
-        System.out.println("****************** " + formatTime(totalValidationErrors) + " errors found");
+        System.out.println("****************** " + totalValidationErrors + " errors found");
         System.out.println("****************** " + formatTime(totalValidationTime) + " elapsed time");
         System.out.println("****************** " + formatTime(fullValidationTimeExpected) + " projected time for a full validation");
     }
