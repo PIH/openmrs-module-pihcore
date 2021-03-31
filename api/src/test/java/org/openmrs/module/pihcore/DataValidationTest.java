@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore;
 
+import org.apache.commons.io.FileUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.junit.Test;
@@ -16,6 +17,9 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -59,7 +63,7 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
     }
 
     @Test
-    public void testThatActivatorDoesAllSetupForMirebalais() {
+    public void validateData() {
 
         // Only run this test if it is being run alone.  This ensures this test will not run in normal build.
         if (props == null) {
@@ -78,6 +82,9 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
         int totalValidationErrors = 0;
         long fullValidationTimeExpected = 0;
 
+        String datetime = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        File errorLog = new File(OpenmrsUtil.getApplicationDataDirectory(), "validation_errors_" + datetime + ".log");
+        File summaryLog = new File(OpenmrsUtil.getApplicationDataDirectory(), "validation_summary_" + datetime + ".csv");
 
         for (Validator v : validators) {
             System.out.println("------------------------");
@@ -99,7 +106,9 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
                         }
                         else {
                             Long numRows = (Long)rowCounts.get(0);
+
                             System.out.println("OpenMRS Object. Count: " + numRows);
+
                             int numChecked = 0;
                             int numErrors = 0;
                             long totalTime = 0;
@@ -115,15 +124,12 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
                                         v.validate(o, errors);
                                         if (errors.hasErrors()) {
                                             errorFound = true;
-                                            System.out.println("!!!!!!!!!!!!! ERROR FOUND on " + o);
-                                            for (ObjectError e : errors.getAllErrors()) {
-                                                System.out.println("!!!!!!!!!!!!! - " + e);
-                                            }
+                                            logValidationError(o, errors, errorLog);
                                         }
 
                                     } catch (Exception e) {
-                                        System.out.println("Error: " + e);
                                         errorFound = true;
+                                        logValidationError(o, e.getMessage(), errorLog);
                                     }
                                     numChecked++;
                                     if (errorFound) {
@@ -146,6 +152,21 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
                             System.out.println("****************** " + numErrors + " / " + numChecked + " errors");
                             System.out.println("****************** " + formatTime(totalTime));
                             System.out.println("****************** " + formatTime(projectedTimeToValidateAll) + " to validate all");
+
+                            System.out.println("Writing summary data to file: " + summaryLog);
+                            try {
+                                StringBuilder summaryData = new StringBuilder();
+                                summaryData.append(v.getClass().getName()).append(",");
+                                summaryData.append(c.getName()).append(",");
+                                summaryData.append(numRows).append(",");
+                                summaryData.append(numChecked).append(",");
+                                summaryData.append(numErrors).append(",");
+                                summaryData.append(formatTime(totalTime)).append(",");
+                                summaryData.append(formatTime(projectedTimeToValidateAll)).append(",");
+                                summaryData.append(System.getProperty("line.separator"));
+                                FileUtils.writeStringToFile(summaryLog, summaryData.toString(), "UTF-8", true);
+                            }
+                            catch (Exception e) {}
 
                             totalValidationTime += totalTime;
                             totalValidationErrors += numErrors;
@@ -174,5 +195,28 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
             long mins = (millis/60000) - (hrs*60);
             return hrs + "h " + mins + "m";
         }
+    }
+
+    void logValidationError(Object o, Errors errors, File errorLog) {
+        StringBuilder errorMessage = new StringBuilder();
+        for (ObjectError e : errors.getAllErrors()) {
+            errorMessage.append(System.getProperty("line.separator")).append(e);
+        }
+        logValidationError(o, errorMessage.toString(), errorLog);
+    }
+
+    void logValidationError(Object o, String errorMessage, File errorLog) {
+        try {
+            System.out.println("Writing validation error to file: " + errorLog);
+            FileUtils.writeStringToFile(errorLog, System.getProperty("line.separator"), "UTF-8", true);
+            FileUtils.writeStringToFile(errorLog, "-------------------", "UTF-8", true);
+            FileUtils.writeStringToFile(errorLog, System.getProperty("line.separator"), "UTF-8", true);
+            FileUtils.writeStringToFile(errorLog, o.toString(), "UTF-8", true);
+            FileUtils.writeStringToFile(errorLog, System.getProperty("line.separator"), "UTF-8", true);
+            FileUtils.writeStringToFile(errorLog, errorMessage, "UTF-8", true);
+            FileUtils.writeStringToFile(errorLog, System.getProperty("line.separator"), "UTF-8", true);
+        }
+        catch (Exception e) {}
+        System.out.println("!!!!!!!!!!!!!!!!" + o + ": " + errorMessage);
     }
 }
