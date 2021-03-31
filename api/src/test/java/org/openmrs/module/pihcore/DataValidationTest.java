@@ -10,7 +10,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
-import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
@@ -18,6 +17,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -25,27 +25,46 @@ import java.util.Properties;
 
 /**
  * This is an integration test that connects to an existing database and runs all validators against it.
- * To execute this against an appropriate database:
- *  - Ensure you have a file at .OpenMRS/validation-runtime.properties
- *  - Ensure this has connection.url, connection.username, connection.password properties
- *  - Ensure this has junit.username and junit.password properties that point to a valid OpenMRS account
+ *
+ * To execute this against an appropriate database, ensure you have a properties file with the following settings:
+ *  -  connection.url, connection.username, connection.password properties that point to a valid DB connection
+ *  -  junit.username and junit.password properties that point to a valid OpenMRS account
+ *  -  batchSize and maxToCheck properties if desired to alter from the defaults of 1000 and 10000
+ *  -  errorLog and summaryLog that point to file locations where you want to output the log files
+ *
+ *  Configure a system property named "validation.properties" with the location of this properties file.
+ *  If you are running this test from the command line, that can be done with a -D argument like this:
+ *
+ *  mvn test -Dtest=DataValidationTest -Dvalidation.properties=/tmp/validation.properties
  */
 @SkipBaseSetup
 public class DataValidationTest extends BaseModuleContextSensitiveTest {
 
-    static Properties props = OpenmrsUtil.getRuntimeProperties("validation");
-
+    static Properties props = null;
     static int BATCH_SIZE = 1000;
     static int MAX_TO_CHECK = 10000;
 
     static {
-        if (props != null) {
+        String propFile = System.getProperty("validation.properties");
+        if (propFile != null) {
+            props = new Properties();
+            try {
+                props.load(new FileInputStream(propFile));
+            }
+            catch (Exception e) {
+                System.out.println("Error loading properties from " + propFile + ": " + e.getMessage());
+            }
+        }
+
+        if (props != null && !props.isEmpty()) {
             System.setProperty("databaseUrl", props.getProperty("connection.url"));
             System.setProperty("databaseUsername", props.getProperty("connection.username"));
             System.setProperty("databasePassword", props.getProperty("connection.password"));
             System.setProperty("databaseDriver", props.getProperty("connection.driver_class"));
             System.setProperty("databaseDialect", "org.hibernate.dialect.MySQLDialect");
             System.setProperty("useInMemoryDatabase", "false");
+            BATCH_SIZE = Integer.parseInt(props.getProperty("batchSize", "1000"));
+            MAX_TO_CHECK = Integer.parseInt(props.getProperty("maxToCheck", "10000"));
         }
     }
 
@@ -83,8 +102,8 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
         long fullValidationTimeExpected = 0;
 
         String datetime = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-        File errorLog = new File(OpenmrsUtil.getApplicationDataDirectory(), "validation_errors_" + datetime + ".log");
-        File summaryLog = new File(OpenmrsUtil.getApplicationDataDirectory(), "validation_summary_" + datetime + ".csv");
+        File errorLog = new File(props.getProperty("errorLog", "validation_errors_" + datetime + ".log"));
+        File summaryLog = new File(props.getProperty("summaryLog", "validation_summary_" + datetime + ".csv"));
 
         for (Validator v : validators) {
             System.out.println("------------------------");
