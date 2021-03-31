@@ -1,54 +1,21 @@
 package org.openmrs.module.pihcore;
 
-import org.apache.commons.lang3.time.StopWatch;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.openmrs.Concept;
-import org.openmrs.Encounter;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.annotation.Handler;
-import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
-import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
-import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
-import org.openmrs.module.metadatamapping.MetadataSource;
-import org.openmrs.module.metadatamapping.api.MetadataMappingService;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.util.OpenmrsUtil;
-import org.openmrs.validator.ValidateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.io.File;
 import java.util.List;
 import java.util.Properties;
-
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * This is an integration test that connects to an existing database and runs all validators against it.
