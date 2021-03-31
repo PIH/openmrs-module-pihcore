@@ -32,7 +32,7 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
     static Properties props = OpenmrsUtil.getRuntimeProperties("validation");
 
     static int BATCH_SIZE = 1000;
-    static int MAX_TO_CHECK = 2000;
+    static int MAX_TO_CHECK = 10000;
 
     static {
         if (props != null) {
