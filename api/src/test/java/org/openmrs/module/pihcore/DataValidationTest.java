@@ -29,7 +29,8 @@ import java.util.Properties;
  * To execute this against an appropriate database, ensure you have a properties file with the following settings:
  *  -  connection.url, connection.username, connection.password properties that point to a valid DB connection
  *  -  junit.username and junit.password properties that point to a valid OpenMRS account
- *  -  batchSize and maxToCheck properties if desired to alter from the defaults of 1000 and 10000
+ *  -  batchSize if you wish to alter from the default of 1000
+ *  -  maxToCheck if you wish to limit the maximum number of records to check for a given Validator/Object type
  *  -  errorLog and summaryLog that point to file locations where you want to output the log files
  *
  *  Configure a system property named "validation.properties" with the location of this properties file.
@@ -42,7 +43,7 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
 
     static Properties props = null;
     static int BATCH_SIZE = 1000;
-    static int MAX_TO_CHECK = 10000;
+    static int MAX_TO_CHECK = -1;
 
     static {
         String propFile = System.getProperty("validation.properties");
@@ -64,7 +65,7 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
             System.setProperty("databaseDialect", "org.hibernate.dialect.MySQLDialect");
             System.setProperty("useInMemoryDatabase", "false");
             BATCH_SIZE = Integer.parseInt(props.getProperty("batchSize", "1000"));
-            MAX_TO_CHECK = Integer.parseInt(props.getProperty("maxToCheck", "10000"));
+            MAX_TO_CHECK = Integer.parseInt(props.getProperty("maxToCheck", "-1"));
         }
     }
 
@@ -131,7 +132,7 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
                             int numChecked = 0;
                             int numErrors = 0;
                             long totalTime = 0;
-                            while (numChecked < numRows && numChecked < MAX_TO_CHECK) {
+                            while (numChecked < numRows && (MAX_TO_CHECK < 0 || numChecked < MAX_TO_CHECK)) {
                                 long startMillis = System.currentTimeMillis();
                                 Criteria criteria = sessionFactory.getCurrentSession().createCriteria(c);
                                 criteria.setFirstResult(numChecked).setMaxResults(BATCH_SIZE);
