@@ -4,7 +4,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.ui.framework.page.GlobalResourceIncluder;
 import org.openmrs.ui.framework.page.PageFactory;
 import org.openmrs.ui.framework.resource.Resource;
@@ -12,13 +11,13 @@ import org.openmrs.ui.framework.resource.ResourceFactory;
 import org.openmrs.util.OpenmrsUtil;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class GlobalResourceSetup {
 
     protected static Log log = LogFactory.getLog(GlobalResourceSetup.class);
+
+    public static final String GLOBAL_STYLES_DIR = "pih/styles/global";
+    public static final String GLOBAL_SCRIPTS_DIR = "pih/scripts/global";
 
     /**
      * Include custom styling sheets and scripts
@@ -26,16 +25,22 @@ public class GlobalResourceSetup {
     public static void includeGlobalResources() throws Exception {
 
         try {
-            List<String> styleResources = getGlobalResourcesFromFileSystemPath(PihCoreUtil.getGlobalStylesDirectory());
-
-            for (String resource : styleResources) {
-                addGlobalResource(Resource.CATEGORY_CSS, "file", resource);
+            File configDir = OpenmrsUtil.getDirectoryInApplicationDataDirectory("configuration");
+            File styleDir = new File(configDir, GLOBAL_STYLES_DIR);
+            if (styleDir.exists()) {
+                for (File cssFile : FileUtils.listFiles(styleDir,null,true)) {
+                    String relativeResourcePath = configDir.toPath().relativize(cssFile.toPath()).toString();
+                    addGlobalResource(Resource.CATEGORY_CSS, "file", relativeResourcePath);
+                    log.warn("Added global style resource: " + relativeResourcePath);
+                }
             }
-
-            List<String> scriptResources = getGlobalResourcesFromFileSystemPath(PihCoreUtil.getGlobalScriptsDirectory());
-
-            for (String resource : scriptResources) {
-                addGlobalResource(Resource.CATEGORY_JS, "file", resource);
+            File scriptDir = new File(configDir, GLOBAL_SCRIPTS_DIR);
+            if (scriptDir.exists()) {
+                for (File jsFile : FileUtils.listFiles(scriptDir,null,true)) {
+                    String relativeResourcePath = configDir.toPath().relativize(jsFile.toPath()).toString();
+                    addGlobalResource(Resource.CATEGORY_JS, "file", relativeResourcePath);
+                    log.warn("Added global script resource: " + relativeResourcePath);
+                }
             }
         }
         // this entire catch is a hack to get component test to pass until we find the proper way to mock this
@@ -47,35 +52,6 @@ public class GlobalResourceSetup {
                 throw e;
             }
         }
-    }
-
-    protected static List<String> getGlobalResourcesFromFileSystemPath(String path) {
-
-        Collection<File> files = null;
-        List<String> filePaths = new ArrayList<>();
-
-        try {
-            File dir = new File(path);
-            if (dir.exists()) {
-                files = FileUtils.listFiles(dir, /*extensions=*/ null,  /*recursive=*/ true);
-            }
-        }
-        catch (Exception e) {
-            log.error("Unable to open " + path + " directory", e);
-        }
-
-        if (files != null && files.size() > 0) {
-            for (File file : files) {
-                filePaths.add(stripApplicationDataDirectory(file.getAbsolutePath()));
-            }
-        }
-
-        return filePaths;
-    }
-
-    // strip the application data directory from the path, returning the path relative to that directory
-    protected static String stripApplicationDataDirectory(String path) {
-        return path.replace(OpenmrsUtil.getApplicationDataDirectory(), "");
     }
 
     protected static void addGlobalResource(String category, String providerName, String resourcePath) {

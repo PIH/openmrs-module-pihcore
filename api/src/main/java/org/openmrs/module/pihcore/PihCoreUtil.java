@@ -36,14 +36,6 @@ public class PihCoreUtil {
         return PihCoreUtil.getDefaultPihConfigurationChecksumDir() + "/drugs/";
     }
 
-    public static String getGlobalStylesDirectory() {
-        return getDefaultPihConfigurationDir() + "/styles/global";
-    }
-
-    public static String getGlobalScriptsDirectory() {
-        return getDefaultPihConfigurationDir() + "/scripts/global";
-    }
-
     public static String getFormResource(String formName) {
         return "file:" + getFormDirectory() + formName;
     }
