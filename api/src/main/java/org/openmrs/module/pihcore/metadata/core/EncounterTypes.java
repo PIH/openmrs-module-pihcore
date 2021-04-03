@@ -343,6 +343,12 @@ public class EncounterTypes {
 		public String description() { return "Tuberculosis (TB) intake form"; }
 	};
 
+	public static EncounterTypeDescriptor COMMENT = new EncounterTypeDescriptor() {
+		public String uuid() { return "c30d6e06-0f00-460a-8f81-3c39a1853b56"; }
+		public String name() { return "Comment"; }
+		public String description() { return "Free-text clinical impression comments"; }
+	};
+
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 
