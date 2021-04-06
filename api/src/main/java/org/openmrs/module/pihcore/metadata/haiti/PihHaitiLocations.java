@@ -75,7 +75,6 @@ public class PihHaitiLocations {
         public String description() { return "Hôpital Dumarsais Estimé de Verrettes"; }
     };
 
-
     // we are uninstalling this until we actually start to use it
     public static LocationDescriptor LASCAHOBAS = new LocationDescriptor() {
         public String uuid() { return "59326152-F3AD-42A1-AAEF-4114E6D88B81"; }
@@ -92,4 +91,51 @@ public class PihHaitiLocations {
         public List<LocationTagDescriptor> tags() { return Arrays.asList(LocationTags.VISIT_LOCATION, LocationTags.PROGRAM_LOCATION); }
     };
 
+    public static LocationDescriptor CERCA_CAVAJAL = new LocationDescriptor() {
+        public String uuid() { return "83f215e4-9644-11eb-b8a1-0242ac110002"; }
+        public String name() { return "Cerca cavajal"; }
+        public String description() { return "Cerca cavajal"; }
+    };
+
+    public static LocationDescriptor THOMASSIQUE = new LocationDescriptor() {
+        public String uuid() { return "8b23098d-9644-11eb-b8a1-0242ac110002"; }
+        public String name() { return "Thomassique"; }
+        public String description() { return "Thomassique"; }
+    };
+
+    public static LocationDescriptor SAVANETTE = new LocationDescriptor() {
+        public String uuid() { return "90d32dc3-9644-11eb-b8a1-0242ac110002"; }
+        public String name() { return "Savanette"; }
+        public String description() { return "Savanette"; }
+    };
+
+    public static LocationDescriptor BAPTISTE = new LocationDescriptor() {
+        public String uuid() { return "93ad149f-9644-11eb-b8a1-0242ac110002"; }
+        public String name() { return "Baptiste"; }
+        public String description() { return "Baptiste"; }
+    };
+
+    public static LocationDescriptor MAISSADE = new LocationDescriptor() {
+        public String uuid() { return "96f36fcb-9644-11eb-b8a1-0242ac110002"; }
+        public String name() { return "Maissade"; }
+        public String description() { return "Maissade"; }
+    };
+
+    public static LocationDescriptor TILORY = new LocationDescriptor() {
+        public String uuid() { return "99fa069e-9644-11eb-b8a1-0242ac110002"; }
+        public String name() { return "Tilory"; }
+        public String description() { return "Tilory"; }
+    };
+
+    public static LocationDescriptor DUFAILLY = new LocationDescriptor() {
+        public String uuid() { return "9c7bb4b3-9644-11eb-b8a1-0242ac110002"; }
+        public String name() { return "Dufailly"; }
+        public String description() { return "Dufailly"; }
+    };
+
+    public static LocationDescriptor JEAN_DENIS = new LocationDescriptor() {
+        public String uuid() { return "9f960dcd-9644-11eb-b8a1-0242ac110002"; }
+        public String name() { return "Jean Denis"; }
+        public String description() { return "Jean Denis"; }
+    };
 }

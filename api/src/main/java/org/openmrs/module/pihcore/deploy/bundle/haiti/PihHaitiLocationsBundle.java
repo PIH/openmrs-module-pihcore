@@ -19,6 +19,7 @@ public class PihHaitiLocationsBundle extends AbstractMetadataBundle {
 
     @Override
     public void install() throws Exception {
+        // Login Locations
         install(PihHaitiLocations.BELLADERE);
         install(PihHaitiLocations.BOUCAN_CARRE);
         install(PihHaitiLocations.CANGE);
@@ -33,6 +34,16 @@ public class PihHaitiLocationsBundle extends AbstractMetadataBundle {
         install(PihHaitiLocations.POZ);
         install(MirebalaisLocations.MIREBALAIS_CDI_PARENT);
         install(Locations.HOME_VISIT);
+
+        // Other Locations migrated from HIV EMR
+        install(PihHaitiLocations.CERCA_CAVAJAL);
+        install(PihHaitiLocations.THOMASSIQUE);
+        install(PihHaitiLocations.SAVANETTE);
+        install(PihHaitiLocations.BAPTISTE);
+        install(PihHaitiLocations.MAISSADE);
+        install(PihHaitiLocations.TILORY);
+        install(PihHaitiLocations.DUFAILLY);
+        install(PihHaitiLocations.JEAN_DENIS);
 
         uninstall(possible(Location.class, PihHaitiLocations.LASCAHOBAS.uuid()), "not used");
 
