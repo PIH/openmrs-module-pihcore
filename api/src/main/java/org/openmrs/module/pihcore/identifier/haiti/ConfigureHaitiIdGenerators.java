@@ -93,8 +93,8 @@ public class ConfigureHaitiIdGenerators {
         RemoteIdentifierSource source = (RemoteIdentifierSource) iss
                 .getIdentifierSourceByUuid(HIVEMR_V1_IDENTIFIER_SOURCE_UUID);
         if (source == null) {
-            source = new RemoteIdentifierSource();
-            source.setUrl(HIVEMR_V1_IDENTIFIER_SOURCE_UUID);
+            source = new RemoteIdentifierSource();;
+            source.setUuid(HIVEMR_V1_IDENTIFIER_SOURCE_UUID);
             source.setName("Dummy Source for HIVEMR-V1");
             source.setUrl("NO URL");
             source.setIdentifierType(getHivEmrV1IdentifierType());
