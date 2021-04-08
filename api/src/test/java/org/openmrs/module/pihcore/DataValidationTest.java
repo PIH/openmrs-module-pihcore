@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.openmrs.OpenmrsObject;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
+import org.openmrs.module.pihcore.encounter.PihEncounterValidator;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,8 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
     static Properties props = null;
     static int BATCH_SIZE = 1000;
     static int MAX_TO_CHECK = -1;
+    static String OBJECTS_TO_INCLUDE = "";
+    static String OBJECTS_TO_SKIP = "";
 
     static {
         String propFile = System.getProperty("validation.properties");
@@ -66,6 +70,8 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
             System.setProperty("useInMemoryDatabase", "false");
             BATCH_SIZE = Integer.parseInt(props.getProperty("batchSize", "1000"));
             MAX_TO_CHECK = Integer.parseInt(props.getProperty("maxToCheck", "-1"));
+            OBJECTS_TO_INCLUDE = props.getProperty("objectsToInclude", "");
+            OBJECTS_TO_SKIP = props.getProperty("objectsToSkip", "");
         }
     }
 
@@ -113,83 +119,92 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
             if (handlerAnnotation == null) {
                 System.out.println("No handler annotation found");
             }
+            else if (v instanceof PihEncounterValidator) {
+                System.out.println(v.getClass() + " is not a real validator, skipping");
+            }
             else {
                 for (Class c : handlerAnnotation.supports()) {
                     System.out.println("Validator supports: " + c);
                     if (OpenmrsObject.class.isAssignableFrom(c)) {
-                        List rowCounts = sessionFactory.getCurrentSession().createCriteria(c).setProjection(Projections.rowCount()).list();
-                        if (rowCounts == null || rowCounts.size() == 0) {
-                            System.out.println("No mapped objects found");
+                        if (OBJECTS_TO_SKIP.contains("[" + c.getName() + "]")) {
+                            System.out.println(c.getName() + " configured to be skipped");
                         }
-                        else if (rowCounts.size() > 1) {
-                            System.out.println("Multiple objects match criteria, assuming there are more specific validators, skipping");
+                        else if (StringUtils.isNotBlank(OBJECTS_TO_INCLUDE) && !OBJECTS_TO_INCLUDE.contains("[" + c.getName() + "]")) {
+                            System.out.println(c.getName() + " not configured to be included");
                         }
                         else {
-                            Long numRows = (Long)rowCounts.get(0);
+                            List rowCounts = sessionFactory.getCurrentSession().createCriteria(c).setProjection(Projections.rowCount()).list();
+                            if (rowCounts == null || rowCounts.size() == 0) {
+                                System.out.println("No mapped objects found");
+                            } else if (rowCounts.size() > 1) {
+                                System.out.println("Multiple objects match criteria, assuming there are more specific validators, skipping");
+                            } else {
+                                Long numRows = (Long) rowCounts.get(0);
 
-                            System.out.println("OpenMRS Object. Count: " + numRows);
+                                System.out.println("OpenMRS Object. Count: " + numRows);
 
-                            int numChecked = 0;
-                            int numErrors = 0;
-                            long totalTime = 0;
-                            while (numChecked < numRows && (MAX_TO_CHECK < 0 || numChecked < MAX_TO_CHECK)) {
-                                long startMillis = System.currentTimeMillis();
-                                Criteria criteria = sessionFactory.getCurrentSession().createCriteria(c);
-                                criteria.setFirstResult(numChecked).setMaxResults(BATCH_SIZE);
-                                List l = criteria.list();
-                                for (Object o : l) {
-                                    Errors errors = new BindException(o, "");
-                                    boolean errorFound = false;
-                                    try {
-                                        v.validate(o, errors);
-                                        if (errors.hasErrors()) {
+                                int numChecked = 0;
+                                int numErrors = 0;
+                                long totalTime = 0;
+                                while (numChecked < numRows && (MAX_TO_CHECK < 0 || numChecked < MAX_TO_CHECK)) {
+                                    long startMillis = System.currentTimeMillis();
+                                    Criteria criteria = sessionFactory.getCurrentSession().createCriteria(c);
+                                    criteria.setFirstResult(numChecked).setMaxResults(BATCH_SIZE);
+                                    List l = criteria.list();
+                                    for (Object o : l) {
+                                        Errors errors = new BindException(o, "");
+                                        boolean errorFound = false;
+                                        try {
+                                            v.validate(o, errors);
+                                            if (errors.hasErrors()) {
+                                                errorFound = true;
+                                                logValidationError(o, errors, errorLog);
+                                            }
+
+                                        } catch (Exception e) {
                                             errorFound = true;
-                                            logValidationError(o, errors, errorLog);
+                                            logValidationError(o, e.getMessage(), errorLog);
                                         }
-
-                                    } catch (Exception e) {
-                                        errorFound = true;
-                                        logValidationError(o, e.getMessage(), errorLog);
+                                        numChecked++;
+                                        if (errorFound) {
+                                            numErrors++;
+                                        }
                                     }
-                                    numChecked++;
-                                    if (errorFound) {
-                                        numErrors++;
-                                    }
+                                    Context.flushSession();
+                                    Context.clearSession();
+                                    long endMillis = System.currentTimeMillis();
+                                    long duration = endMillis - startMillis;
+                                    totalTime += duration;
+                                    System.out.println(numChecked + "/" + numRows + ". Num Errors: " + numErrors + ". Duration: " + duration + ". Total Time: " + formatTime(totalTime));
                                 }
-                                Context.flushSession();
-                                Context.clearSession();
-                                long endMillis = System.currentTimeMillis();
-                                long duration = endMillis - startMillis;
-                                totalTime += duration;
-                                System.out.println(numChecked + "/" + numRows + ". Num Errors: " + numErrors + ". Duration: " + duration + ". Total Time: " + formatTime(totalTime));
+
+                                long projectedTimeToValidateAll = numChecked > 0 ? (totalTime * numRows / numChecked) : 0L;
+                                fullValidationTimeExpected += projectedTimeToValidateAll;
+
+                                System.out.println("****************** " + c.getSimpleName());
+                                System.out.println("****************** " + numChecked + " / " + numRows + " validated");
+                                System.out.println("****************** " + numErrors + " / " + numChecked + " errors");
+                                System.out.println("****************** " + formatTime(totalTime));
+                                System.out.println("****************** " + formatTime(projectedTimeToValidateAll) + " to validate all");
+
+                                System.out.println("Writing summary data to file: " + summaryLog);
+                                try {
+                                    StringBuilder summaryData = new StringBuilder();
+                                    summaryData.append(v.getClass().getName()).append(",");
+                                    summaryData.append(c.getName()).append(",");
+                                    summaryData.append(numRows).append(",");
+                                    summaryData.append(numChecked).append(",");
+                                    summaryData.append(numErrors).append(",");
+                                    summaryData.append(formatTime(totalTime)).append(",");
+                                    summaryData.append(formatTime(projectedTimeToValidateAll)).append(",");
+                                    summaryData.append(System.getProperty("line.separator"));
+                                    FileUtils.writeStringToFile(summaryLog, summaryData.toString(), "UTF-8", true);
+                                } catch (Exception e) {
+                                }
+
+                                totalValidationTime += totalTime;
+                                totalValidationErrors += numErrors;
                             }
-
-                            long projectedTimeToValidateAll = numChecked > 0 ?(totalTime * numRows / numChecked) : 0L;
-                            fullValidationTimeExpected += projectedTimeToValidateAll;
-
-                            System.out.println("****************** " + c.getSimpleName());
-                            System.out.println("****************** " + numChecked + " / " + numRows + " validated");
-                            System.out.println("****************** " + numErrors + " / " + numChecked + " errors");
-                            System.out.println("****************** " + formatTime(totalTime));
-                            System.out.println("****************** " + formatTime(projectedTimeToValidateAll) + " to validate all");
-
-                            System.out.println("Writing summary data to file: " + summaryLog);
-                            try {
-                                StringBuilder summaryData = new StringBuilder();
-                                summaryData.append(v.getClass().getName()).append(",");
-                                summaryData.append(c.getName()).append(",");
-                                summaryData.append(numRows).append(",");
-                                summaryData.append(numChecked).append(",");
-                                summaryData.append(numErrors).append(",");
-                                summaryData.append(formatTime(totalTime)).append(",");
-                                summaryData.append(formatTime(projectedTimeToValidateAll)).append(",");
-                                summaryData.append(System.getProperty("line.separator"));
-                                FileUtils.writeStringToFile(summaryLog, summaryData.toString(), "UTF-8", true);
-                            }
-                            catch (Exception e) {}
-
-                            totalValidationTime += totalTime;
-                            totalValidationErrors += numErrors;
                         }
                     }
                 }
