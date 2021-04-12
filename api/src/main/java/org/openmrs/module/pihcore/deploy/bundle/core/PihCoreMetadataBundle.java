@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
         EncounterTypeBundle.class,
         LocationAttributeTypeBundle.class,
         LocationBundle.class,
-        LocationTagBundle.class,
         OrderTypeBundle.class,
         PersonAttributeTypeBundle.class,
         RolesAndPrivilegesBundle.class,
