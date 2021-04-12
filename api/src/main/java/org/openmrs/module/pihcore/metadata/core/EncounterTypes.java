@@ -349,6 +349,12 @@ public class EncounterTypes {
 		public String description() { return "Free-text clinical impression comments"; }
 	};
 
+	public static EncounterTypeDescriptor HIV_INFANT_DOCUMENTATION = new EncounterTypeDescriptor() {
+		public String uuid() { return "00DA14B9-7066-45A7-8FEC-0CAD60D1EBD1"; }
+		public String name() { return "HIV Infant Documentation"; }
+		public String description() { return "HIV Infant Documentation encounter type"; }
+	};
+
 	// the following have been deprecated and should eventually be able to be removed--they were encounter types we were developing for the new visit note
 	// but have decided to use a single encounter for the visit (with the primary care visit encounter type)
 
