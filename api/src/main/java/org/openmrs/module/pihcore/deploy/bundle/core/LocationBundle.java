@@ -6,7 +6,6 @@ import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.springframework.stereotype.Component;
 
 @Component
-@Requires({ LocationAttributeTypeBundle.class} )
 public class LocationBundle extends AbstractMetadataBundle {
 
     @Override
