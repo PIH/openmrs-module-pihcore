@@ -2,27 +2,11 @@ package org.openmrs.module.pihcore.setup;
 
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
-import org.openmrs.api.APIException;
 import org.openmrs.api.LocationService;
-import org.openmrs.module.metadatadeploy.descriptor.LocationDescriptor;
-import org.openmrs.module.metadatadeploy.descriptor.LocationTagDescriptor;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.metadata.core.LocationTags;
-import org.openmrs.module.pihcore.metadata.core.Locations;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
-import org.openmrs.module.pihcore.metadata.haiti.hsn.HSNLocations;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
-import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class LocationTagSetup {

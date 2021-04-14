@@ -7,7 +7,6 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.liberia.LiberiaLocations;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 
 public class ConfigureLiberiaIdGenerators {
@@ -57,7 +56,7 @@ public class ConfigureLiberiaIdGenerators {
     }
 
     private static Location getIdentifierLocation(Config config) {
-        return MetadataUtils.existing(Location.class, LiberiaLocations.HEALTH_FACILITY.uuid());
+        return MetadataUtils.existing(Location.class, "Health Facility");
     }
 
 }
