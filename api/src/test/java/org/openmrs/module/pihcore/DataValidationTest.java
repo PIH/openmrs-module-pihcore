@@ -243,11 +243,7 @@ public class DataValidationTest extends BaseModuleContextSensitiveTest {
     void logValidationError(Object o, String errorMessage, File errorLog) {
         try {
             System.out.println("Writing validation error to file: " + errorLog);
-            FileUtils.writeStringToFile(errorLog, System.getProperty("line.separator"), "UTF-8", true);
-            FileUtils.writeStringToFile(errorLog, "-------------------", "UTF-8", true);
-            FileUtils.writeStringToFile(errorLog, System.getProperty("line.separator"), "UTF-8", true);
-            FileUtils.writeStringToFile(errorLog, o.toString(), "UTF-8", true);
-            FileUtils.writeStringToFile(errorLog, System.getProperty("line.separator"), "UTF-8", true);
+            FileUtils.writeStringToFile(errorLog, o.toString() + ",", "UTF-8", true);
             FileUtils.writeStringToFile(errorLog, errorMessage, "UTF-8", true);
             FileUtils.writeStringToFile(errorLog, System.getProperty("line.separator"), "UTF-8", true);
         }
