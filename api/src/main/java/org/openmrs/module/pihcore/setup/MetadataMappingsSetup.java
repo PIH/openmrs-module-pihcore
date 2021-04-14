@@ -14,7 +14,6 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
@@ -34,7 +33,7 @@ public class MetadataMappingsSetup {
                                                    EncounterService encounterService,
                                                    VisitService visitService) {
 
-        metadataMappingService.mapMetadataItem(locationService.getLocationByUuid(Locations.UNKNOWN.uuid()), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_UNKNOWN_LOCATION);
+        metadataMappingService.mapMetadataItem(locationService.getLocation("Unknown Location"), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_UNKNOWN_LOCATION);
 
         metadataMappingService.mapMetadataItem(encounterService.getEncounterTypeByUuid(EncounterTypes.CONSULTATION.uuid()), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_VISIT_NOTE_ENCOUNTER_TYPE);
         metadataMappingService.mapMetadataItem(encounterService.getEncounterTypeByUuid(EncounterTypes.CHECK_IN.uuid()), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CHECK_IN_ENCOUNTER_TYPE);

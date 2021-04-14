@@ -2,7 +2,6 @@ package org.openmrs.module.pihcore.deploy.bundle.haiti;
 
 import org.openmrs.Location;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
-import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiLocations;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,7 @@ public class PihHaitiLocationsBundle extends AbstractMetadataBundle {
         install(PihHaitiLocations.VERRETTES);
         install(PihHaitiLocations.POZ);
         install(MirebalaisLocations.MIREBALAIS_CDI_PARENT);
-        install(Locations.HOME_VISIT);
+        // install(Locations.HOME_VISIT);  now comes from config-pihemr
 
         // Other Locations migrated from HIV EMR
         install(PihHaitiLocations.CERCA_CAVAJAL);

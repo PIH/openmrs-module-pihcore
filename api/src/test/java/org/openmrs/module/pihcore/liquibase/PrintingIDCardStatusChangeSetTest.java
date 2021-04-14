@@ -26,7 +26,6 @@ import org.openmrs.Patient;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.pihcore.deploy.bundle.core.LocationBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AnswerConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
@@ -69,8 +68,10 @@ public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiv
 	@Autowired
 	PihHaitiPatientIdentifierTypeBundle pihHaitiPatientIdentifierTypeBundle;
 
-	@Autowired
-    LocationBundle locationBundle;
+	// @Autowired
+    // LocationBundle locationBundle;
+	// Getting rid of this, migrating these locations to config.
+	// To get the tests running again, the Unknown Location will need to be added again. Probably.
 
 	@Autowired @Qualifier("adminService")
 	AdministrationService administrationService;
@@ -90,7 +91,7 @@ public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiv
 		answerConcepts.install();
 		administrativeConcepts.install();
 		pihHaitiPatientIdentifierTypeBundle.install();
-		locationBundle.install();
+		// locationBundle.install();
 
 		oldQuestion = testData.concept().name(Locale.US, "PrintingIDCardStatus").datatype("Text").conceptClass("Misc").save();
 	}
