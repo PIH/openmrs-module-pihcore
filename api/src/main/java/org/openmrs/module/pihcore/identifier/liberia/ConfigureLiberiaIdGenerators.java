@@ -56,7 +56,8 @@ public class ConfigureLiberiaIdGenerators {
     }
 
     private static Location getIdentifierLocation(Config config) {
-        return MetadataUtils.existing(Location.class, "Health Facility");
+        String healthFacilityUuid = "5af1ffcd-5178-11ea-a500-645d86728797";
+        return MetadataUtils.existing(Location.class, healthFacilityUuid);
     }
 
 }
