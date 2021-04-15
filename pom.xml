@@ -49,7 +49,7 @@
         <openMRSVersion>2.3.3</openMRSVersion>
         <openMRSwebVersion>2.3.3</openMRSwebVersion>
         <haiticoreVersion>1.0.0</haiticoreVersion>
-        <emrapiVersion>1.30.0</emrapiVersion>
+        <emrapiVersion>1.31.0</emrapiVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <emrVersion>2.2.0</emrVersion>
         <uiframeworkVersion>3.20.0</uiframeworkVersion>
