@@ -66,7 +66,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     @Before
     public void setUp() throws Exception {
         initializeInMemoryDatabase();
-        executeDataSet("openmrsCoreDataset.xml");
+        executeDataSet("requiredDataTestDataset.xml");
         authenticate();
     }
 

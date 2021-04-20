@@ -46,8 +46,26 @@
                              name="Name to print on ID card" description="Name to print on ID card"
                              datatype="org.openmrs.customdatatype.datatype.FreeTextDatatype" retired="0" creator="1"
                              date_created="2006-01-18 00:00:00.0" uuid="a5fb5770-409a-11e2-a25f-0800200c9a66"/>
+    <location_attribute_type location_attribute_type_id="1" name="Default Label Printer"
+                             description="The default label printer for this location"
+                             datatype="org.openmrs.module.emrapi.printer.PrinterDatatype" datatype_config="LABEL"
+                             min_occurs="0" max_occurs="1" creator="1" date_created="2014-01-09 11:00:48.0"
+                             retired="false" uuid="bd6c1c10-38d3-11e2-81c1-0800200c9a66"/>
+    <location_attribute_type location_attribute_type_id="2" name="Default ID card Printer"
+                             description="The default id card printer for this location"
+                             datatype="org.openmrs.module.emrapi.printer.PrinterDatatype" datatype_config="ID_CARD"
+                             min_occurs="0" max_occurs="1" creator="1" date_created="2014-01-09 11:00:48.0"
+                             retired="false" uuid="b48ef9a0-38d3-11e2-81c1-0800200c9a66"/>
+    <location_attribute_type location_attribute_type_id="4" name="Location Code"
+                             description="Unique identifier assigned to the location.  (Currently used as a key when exchanging information with McKesson PACS via the PACS Integration module.)"
+                             datatype="org.openmrs.customdatatype.datatype.FreeTextDatatype"
+                             min_occurs="0" max_occurs="1" creator="1" date_created="2013-02-18 09:09:38.0"
+                             retired="false" uuid="64f01c78-191d-4947-a201-7e0a7f0caf21"/>
     <location_attribute location_attribute_id="1" attribute_type_id="1001" location_id="1001" value_reference="Mark"
                         creator="1" voided="0" date_created="2006-01-18 00:00:00.0"
                         uuid="696cb3c3-1e77-42c6-8f03-2a0c1e9ca2a8"/>
-
+    <location_tag location_tag_id="1" name="Login Location" description="When a user logs in and chooses a session location, they may only choose one with this tag" creator="1" date_created="2012-11-03 14:39:44.0" retired="false" uuid="b8bbf83e-645f-451f-8efe-a0db56f09676"/>
+    <location_tag location_tag_id="2" name="Medical Record Location" description="Notes that this location is a valid identifier location for an identifier that references a paper medical record" creator="1" date_created="2012-10-09 12:01:33.0" retired="false" uuid="71c99f93-bc0c-4a44-b573-a7ac096ff636"/>
+    <location_tag location_tag_id="3" name="Visit Location" description="Visits are only allowed to happen at locations tagged with this location tag or at locations that descend from a location tagged with this tag." creator="1" date_created="2012-10-23 09:13:45.0" retired="false" uuid="0967d73d-f3c9-492b-abed-356478610a94"/>
+    <location_tag location_tag_id="4" name="Program Location" description="Location for programs" creator="1" date_created="2012-10-23 09:13:45.0" retired="false" uuid="C4BCB2BC-94E8-40DC-BB53-7384EAC6F1BF"/>
 </dataset>

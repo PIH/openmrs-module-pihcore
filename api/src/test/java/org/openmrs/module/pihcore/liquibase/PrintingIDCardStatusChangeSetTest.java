@@ -84,7 +84,7 @@ public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiv
 		database.setDatabaseChangeLogTableName("LIQUIBASECHANGELOG");
 		database.setDatabaseChangeLogLockTableName("LIQUIBASECHANGELOGLOCK");
 
-		executeDataSet("openmrsCoreDataset.xml");
+		executeDataSet("requiredDataTestDataset.xml");
 		coreConceptMetadataBundle.install();
 		commonConcepts.install();
 		answerConcepts.install();
