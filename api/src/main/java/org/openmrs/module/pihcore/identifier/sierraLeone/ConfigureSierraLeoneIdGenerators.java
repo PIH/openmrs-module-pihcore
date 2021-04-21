@@ -18,6 +18,7 @@ public class ConfigureSierraLeoneIdGenerators {
 
     public static void configurePrimaryIdentifierSource(IdentifierSourceService iss, Config config) {
         if ("WELLBODY".equalsIgnoreCase(config.getSite())) {
+            String wellbodyClinicUuid = "b6733150-7426-11e5-a837-0800200c9a66";
             configurePrimaryIdentifierSource(
                     iss,
                     WELLBODY_PRIMARY_IDENTIFIER_SOURCE_UUID,
@@ -29,7 +30,7 @@ public class ConfigureSierraLeoneIdGenerators {
                     9,
                     "1234567890",
                     "100001",
-                    "b6733150-7426-11e5-a837-0800200c9a66"
+                    wellbodyClinicUuid
                     );
         }
         else if ("KGH".equalsIgnoreCase(config.getSite())) {
@@ -38,6 +39,7 @@ public class ConfigureSierraLeoneIdGenerators {
             KghIdGeneratorProcessor processor = Context.getRegisteredComponents(KghIdGeneratorProcessor.class).get(0);
             iss.registerProcessor(SequentialIdentifierGenerator.class, processor);
 
+            String kghUuid = "074b2ab0-716a-11eb-8aa6-0242ac110002";
             configurePrimaryIdentifierSource(
                     iss,
                     KGH_ID_IDENTIFIER_SOURCE_UUID,
@@ -49,7 +51,7 @@ public class ConfigureSierraLeoneIdGenerators {
                     12,
                     "0123456789",
                     "0001",
-                    "074b2ab0-716a-11eb-8aa6-0242ac110002"
+                    kghUuid
             );
         }
         else {
