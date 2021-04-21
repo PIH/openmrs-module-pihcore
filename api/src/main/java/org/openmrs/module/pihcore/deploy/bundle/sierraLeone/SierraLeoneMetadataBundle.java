@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Requires({ PihCoreMetadataBundle.class,
         SierraLeonePatientIdentifierTypeBundle.class,
-        SierraLeoneLocationsBundle.class,
         SierraLeoneEncounterTypeBundle.class } )
 public class SierraLeoneMetadataBundle extends AbstractMetadataBundle {
 
