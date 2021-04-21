@@ -34,7 +34,7 @@ public class MetadataMappingsSetup {
                                                    EncounterService encounterService,
                                                    VisitService visitService) {
 
-        metadataMappingService.mapMetadataItem(locationService.getLocationByUuid(Locations.UNKNOWN.uuid()), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_UNKNOWN_LOCATION);
+        metadataMappingService.mapMetadataItem(locationService.getLocationByUuid("8d6c993e-c2cc-11de-8d13-0010c6dffd0f"), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_UNKNOWN_LOCATION);
 
         metadataMappingService.mapMetadataItem(encounterService.getEncounterTypeByUuid(EncounterTypes.CONSULTATION.uuid()), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_VISIT_NOTE_ENCOUNTER_TYPE);
         metadataMappingService.mapMetadataItem(encounterService.getEncounterTypeByUuid(EncounterTypes.CHECK_IN.uuid()), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CHECK_IN_ENCOUNTER_TYPE);
