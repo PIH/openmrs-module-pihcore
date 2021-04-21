@@ -7,10 +7,8 @@ import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.metadatadeploy.descriptor.LocationDescriptor;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeoneLocations;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
 public class ConfigureSierraLeoneIdGenerators {
@@ -31,7 +29,7 @@ public class ConfigureSierraLeoneIdGenerators {
                     9,
                     "1234567890",
                     "100001",
-                    SierraLeoneLocations.WELLBODY_CLINIC
+                    "b6733150-7426-11e5-a837-0800200c9a66"  // Wellbody Clinic
                     );
         }
         else if ("KGH".equalsIgnoreCase(config.getSite())) {
@@ -51,7 +49,7 @@ public class ConfigureSierraLeoneIdGenerators {
                     12,
                     "0123456789",
                     "0001",
-                    SierraLeoneLocations.KGH
+                    "074b2ab0-716a-11eb-8aa6-0242ac110002"  // KGH
             );
         }
         else {
@@ -61,11 +59,11 @@ public class ConfigureSierraLeoneIdGenerators {
 
     public static void configurePrimaryIdentifierSource(IdentifierSourceService iss, String uuid,
             String name, String description, PatientIdentifierTypeDescriptor type, String prefix,
-            int minLength, int maxLength, String baseChars, String firstBase, LocationDescriptor location) {
+            int minLength, int maxLength, String baseChars, String firstBase, String locationUuid) {
 
         // Metadata
         PatientIdentifierType identifierType = MetadataUtils.existing(PatientIdentifierType.class, type.uuid());
-        Location identifierLocation = MetadataUtils.existing(Location.class, location.uuid());
+        Location identifierLocation = MetadataUtils.existing(Location.class, locationUuid);
 
         // Generator
         SequentialIdentifierGenerator generator = (SequentialIdentifierGenerator) iss.getIdentifierSourceByUuid(uuid);

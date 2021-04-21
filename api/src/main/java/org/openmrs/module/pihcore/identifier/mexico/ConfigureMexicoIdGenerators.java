@@ -11,7 +11,6 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoLocations;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 
 public class ConfigureMexicoIdGenerators {
@@ -27,7 +26,8 @@ public class ConfigureMexicoIdGenerators {
     }
 
     private static void createPrimaryIdentifierGenerator(IdentifierSourceService identifierSourceService, Config config) {
-        Location identifierLocation = MetadataUtils.existing(Location.class, MexicoLocations.CHIAPAS.uuid());
+        String chiapasLocationUuid = "5f638ab8-87f7-48bc-8111-178000380dc9";
+        Location identifierLocation = MetadataUtils.existing(Location.class, chiapasLocationUuid);
 
         SequentialIdentifierGenerator chiapasPrimaryIdentifierSource = (SequentialIdentifierGenerator)
                 identifierSourceService.getIdentifierSourceByUuid(CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID);

@@ -62,7 +62,6 @@ public class PrintingIDCardStatusChangeSetTest extends BaseModuleContextSensitiv
 
 	@Autowired
     CommonConcepts commonConcepts;
-
 	@Autowired
     AnswerConcepts answerConcepts;
 
