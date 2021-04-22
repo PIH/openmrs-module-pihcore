@@ -82,14 +82,6 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.RESIDENT);
             install(Roles.SURGEON);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            install(Roles.PHARMACY_MANAGER);
-            install(Roles.LAB_MANAGER);
-            install(Roles.LAB_TECHNICIAN);
-            install(Roles.TRIAGE_STAFF);
-            install(Roles.OBSERVATION_STAFF);
-            install(Roles.SUPPORT_STAFF);
-        }
 
         // old privileges still in use at Mirebalais
         if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
