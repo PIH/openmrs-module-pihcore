@@ -37,15 +37,11 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
         log.info("Installing roles");
 
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            install(Roles.SYSTEM_ADMINISTRATOR);
             install(Roles.SCHEDULE_MANAGER);
             install(Roles.PHARMACIST);
             install(Roles.PHARMACY_AIDE);
             install(Roles.GENERAL_ADMINISTRATION);
             install(Roles.CLINICAL_MANAGER);
-            install(Roles.MEQ);
-            install(Roles.ARCHIVIST_CLERK);
-            install(Roles.ARCHIVIST_MANAGER);
             install(Roles.ARCHIVIST_REGISTRATION);
             install(Roles.ARCHIVIST_CHECK_IN);
             install(Roles.AUXILIARY_NURSE);
@@ -58,7 +54,6 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PHARMACY_MANAGER);
             install(Roles.MEDICAL_STUDENT);
             install(Roles.RESIDENT);
-            install(Roles.CLINICIAN_OR_PHYSICIAN);
             install(Roles.NCD_PHYSICIAN);
             install(Roles.SURGEON);
             install(Roles.ANAESTHETIST);
@@ -66,18 +61,12 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PHYSICAL_THERAPIST);
             install(Roles.SOCIAL_WORKER);
             install(Roles.PRINT_LABELS);
-            install(Roles.PROGRAM_MANAGER);
-            install(Roles.PATHOLOGY_TECHNICIAN);
             install(Roles.LAB_MANAGER);
             install(Roles.LAB_TECHNICIAN);
             install(Roles.VCT_COUNSELOR);
             install(Roles.PATIENT_DOCUMENTS);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            install(Roles.SYSTEM_ADMINISTRATOR);
-            install(Roles.ARCHIVIST_CLERK);
-            install(Roles.CLINICIAN_OR_PHYSICIAN);
-            install(Roles.MEQ);
             install(Roles.COMMUNITY_HEALTH_WORKER);
             install(Roles.SOCIAL_WORKER);
             install(Roles.TRIAGE_STAFF);
@@ -91,37 +80,15 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.PHARMACIST);
             install(Roles.MEDICAL_STUDENT);
             install(Roles.RESIDENT);
-            install(Roles.PROGRAM_MANAGER);
             install(Roles.SURGEON);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            install(Roles.SYSTEM_ADMINISTRATOR);
-            install(Roles.ARCHIVIST_CLERK);
-            install(Roles.CLINICIAN_OR_PHYSICIAN);
-            install(Roles.MEQ);
             install(Roles.PHARMACY_MANAGER);
             install(Roles.LAB_MANAGER);
             install(Roles.LAB_TECHNICIAN);
             install(Roles.TRIAGE_STAFF);
             install(Roles.OBSERVATION_STAFF);
-            install(Roles.PROGRAM_MANAGER);
             install(Roles.SUPPORT_STAFF);
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            install(Roles.SYSTEM_ADMINISTRATOR);
-            install(Roles.ARCHIVIST_CLERK);
-            install(Roles.CLINICIAN_OR_PHYSICIAN);
-            install(Roles.MEQ);
-            install(Roles.PROGRAM_MANAGER);
-            install(Roles.LAB_TECHNICIAN);
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            install(Roles.SYSTEM_ADMINISTRATOR);
-            install(Roles.ARCHIVIST_CLERK);
-            install(Roles.CLINICIAN_OR_PHYSICIAN);
-            install(Roles.MEQ);
-            install(Roles.PROGRAM_MANAGER);
-            install(Roles.LAB_TECHNICIAN);
         }
 
         // old privileges still in use at Mirebalais
