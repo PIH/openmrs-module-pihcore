@@ -10,7 +10,7 @@ import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.pihcore.metadata.core.LocationTags;
+import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.registrationapp.action.AfterPatientCreatedAction;
 import org.slf4j.Logger;
@@ -73,7 +73,7 @@ public class AssignDossierNumber implements AfterPatientCreatedAction {
         Location medicalRecordLocation = null;
 
         for (Location l : locationService.getAllLocations(false)) {
-            if (l.hasTag(LocationTags.MEDICAL_RECORD_LOCATION.name())) {
+            if (l.hasTag(PaperRecordConstants.LOCATION_TAG_MEDICAL_RECORD_LOCATION)) {
                 if (medicalRecordLocation == null) {
                     medicalRecordLocation = l;
                 }
