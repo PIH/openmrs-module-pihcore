@@ -40,6 +40,8 @@
     <concept_map_type concept_map_type_id="2" name="NARROWER-THAN" is_hidden="0" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="43ac5109-7d8c-11e1-909d-c80aa9edcf4e"/>
     <concept_map_type concept_map_type_id="3" name="BROADER-THAN" is_hidden="0" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="4b9d9421-7d8c-11e1-909d-c80aa9edcf4e"/>
 
+    <location location_id="1" name="Unknown Location" description="Unknown Location" creator="1"
+              date_created="2008-08-15 15:28:54.0" retired="false" uuid="8d6c993e-c2cc-11de-8d13-0010c6dffd0f"/>
     <location location_id="1001" name="Antepartum ward" description="Antepartum ward" creator="1"
               date_created="2008-08-15 15:28:54.0" retired="false" uuid="272bd989-a8ee-4a16-b5aa-55bad4e84f5c"/>
     <location_attribute_type location_attribute_type_id="1001" max_occurs="1" min_occurs="0"
