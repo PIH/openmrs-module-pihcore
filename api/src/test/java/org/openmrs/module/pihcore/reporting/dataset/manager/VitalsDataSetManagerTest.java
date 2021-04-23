@@ -10,7 +10,6 @@ import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.contrib.testdata.builder.VisitBuilder;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.openmrs.module.reporting.dataset.SimpleDataSet;
@@ -73,7 +72,7 @@ public class VitalsDataSetManagerTest extends EncounterDataSetManagerTest {
         EncounterBuilder eb = data.encounter();
         eb.patient(p);
         eb.encounterDatetime(new Date());
-        eb.location(Metadata.lookup(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+        eb.location(locationService.getLocation("CDI Klinik Ekstèn Jeneral"));
         eb.encounterType(Metadata.lookup(EncounterTypes.VITALS));
 
         eb.obs(Metadata.getConcept("PIH:WEIGHT (KG)"), 45.4);

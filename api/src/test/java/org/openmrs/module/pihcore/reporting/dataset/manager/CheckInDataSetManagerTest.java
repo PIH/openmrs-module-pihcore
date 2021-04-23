@@ -18,7 +18,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Patient;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.openmrs.module.reporting.dataset.SimpleDataSet;
@@ -57,7 +56,7 @@ public class CheckInDataSetManagerTest extends EncounterDataSetManagerTest {
         Assert.assertEquals(37.4, row.getColumnValue("AGE_AT_CHECK_IN"));
         Assert.assertEquals("M", row.getColumnValue("GENDER"));
         Assert.assertEquals(DateUtil.getDateTime(2015, 4, 15), row.getColumnValue("CHECK_IN_DATE"));
-        Assert.assertEquals(MirebalaisLocations.OUTPATIENT_CLINIC.name(), row.getColumnValue("CHECK_IN_LOCATION"));
+        Assert.assertEquals("Klinik Ekstèn", row.getColumnValue("CHECK_IN_LOCATION"));
         Assert.assertEquals("Malnutrition program", row.getColumnValue("TYPE_OF_VISIT"));
         Assert.assertEquals("true", row.getColumnValue("CHECK_IN_RETROSPECTIVE"));
         Assert.assertEquals("true", row.getColumnValue("BIOMETRICS_COLLECTED"));

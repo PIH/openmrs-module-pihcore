@@ -19,8 +19,6 @@ import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
-import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.reporting.BaseInpatientReportTest;
 import org.openmrs.module.pihcore.reporting.cohort.definition.LastDispositionBeforeExitCohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
@@ -49,7 +47,7 @@ public class LastDispositionBeforeExitCohortDefinitionEvaluatorTest extends Base
 
     @Test
     public void testEvaluate() throws Exception {
-        Location mensInternalMedicine = Metadata.lookup(MirebalaisLocations.MENS_INTERNAL_MEDICINE);
+        Location mensInternalMedicine = locationService.getLocation("Sal Gason");
         Date startDate = DateUtil.parseDate("2013-10-03 00:00:00", "yyyy-MM-dd HH:mm:ss");
         Date endDate = DateUtil.parseDate("2013-10-03 23:59:59", "yyyy-MM-dd HH:mm:ss");
 

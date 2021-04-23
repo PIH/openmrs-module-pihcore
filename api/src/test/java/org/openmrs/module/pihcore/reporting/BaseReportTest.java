@@ -27,7 +27,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.reporting.common.ReflectionUtil;
@@ -120,7 +119,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.name(new PersonName("John", "Smitty", "Smith"));
         pb.birthdate("1977-11-23").birthdateEstimated(false);
         pb.male();
-        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", locationService.getLocation("Mirebalais"));
         return pb.save();
     }
 
@@ -133,8 +132,8 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.UNKNOWN_PATIENT), "false");
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME), "Isabel");
         address(pb, testAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
-        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
-        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER), UUID.randomUUID().toString(), Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, locationService.getLocation("Mirebalais"));
+        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER), UUID.randomUUID().toString(), locationService.getLocation("Mirebalais"));
         return pb.save();
     }
 
