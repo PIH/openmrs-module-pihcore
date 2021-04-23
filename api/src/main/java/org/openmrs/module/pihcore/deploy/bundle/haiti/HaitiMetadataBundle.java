@@ -36,8 +36,7 @@ import org.springframework.stereotype.Component;
  		HaitiPatientIdentifierTypeBundle.class,
  		HaitiEncounterTypeBundle.class,
 		HaitiPersonAttributeTypeBundle.class,
-        PihHaitiPatientIdentifierTypeBundle.class,
-		PihHaitiLocationsBundle.class
+        PihHaitiPatientIdentifierTypeBundle.class
 } )
 public class HaitiMetadataBundle extends AbstractMetadataBundle {
 

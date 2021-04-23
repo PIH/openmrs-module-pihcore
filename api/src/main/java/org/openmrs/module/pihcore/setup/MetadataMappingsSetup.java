@@ -14,7 +14,6 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.core.Locations;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;

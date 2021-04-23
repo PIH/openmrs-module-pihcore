@@ -25,7 +25,6 @@ import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
@@ -59,9 +58,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     protected EncounterTypeBundle encounterTypeBundle;
-
-    @Autowired
-    protected MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
     protected MetadataDeployService deployService;
@@ -102,7 +98,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         deployService.installBundle(encounterTypeBundle);
         deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(pihHaitiPatientIdentifierTypeBundle);
-        deployService.installBundle(mirebalaisLocationsBundle);
         deployService.installBundle(testAddressBundle);
         createEmrApiMappingSource(metadataMappingService);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
