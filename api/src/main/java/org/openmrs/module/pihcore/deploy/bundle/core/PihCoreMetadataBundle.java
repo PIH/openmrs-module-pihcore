@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
         EncounterTypeBundle.class,
         OrderTypeBundle.class,
         PersonAttributeTypeBundle.class,
-        RolesAndPrivilegesBundle.class,
         VisitTypeBundle.class,
         VisitAttributeTypeBundle.class,
         AdministrativeConcepts.class,
