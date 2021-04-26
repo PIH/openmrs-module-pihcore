@@ -9,11 +9,11 @@ import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.VisitType;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.VisitService;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -37,6 +37,9 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
     private ConceptService conceptService;
 
     @Autowired
+    private LocationService locationService;
+
+    @Autowired
     private VisitService visitService;
 
     @Before
@@ -49,12 +52,12 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
         EncounterType exit = Metadata.lookup(EncounterTypes.EXIT_FROM_CARE);
         EncounterType consultation = Metadata.lookup(EncounterTypes.CONSULTATION);
         EncounterType postOpNote = Metadata.lookup(EncounterTypes.POST_OPERATIVE_NOTE);
-        Location visitLocation = Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT);
-        Location outpatientClinic = Metadata.lookup(MirebalaisLocations.OUTPATIENT_CLINIC);
-        Location womensInternalMedicine = Metadata.lookup(MirebalaisLocations.WOMENS_INTERNAL_MEDICINE);
-        Location mensInternalMedicine = Metadata.lookup(MirebalaisLocations.MENS_INTERNAL_MEDICINE);
-        Location surgicalWard = Metadata.lookup(MirebalaisLocations.SURGICAL_WARD);
-        Location emergencyDepartment = Metadata.lookup(MirebalaisLocations.EMERGENCY);
+        Location visitLocation = locationService.getLocation("Mirebalais");
+        Location outpatientClinic = locationService.getLocation("Klinik Ekstèn");
+        Location womensInternalMedicine = locationService.getLocation("Sal Fanm");
+        Location mensInternalMedicine = locationService.getLocation("Sal Gason");
+        Location surgicalWard = locationService.getLocation("Sal Aprè Operasyon");
+        Location emergencyDepartment = locationService.getLocation("Ijans");
         Concept dispositionConcept = conceptService.getConceptByUuid("c8b22b09-e2f2-4606-af7d-e52579996de3");
 
         // Already admitted at start of 3 Oct (Women's Internal Medicine)

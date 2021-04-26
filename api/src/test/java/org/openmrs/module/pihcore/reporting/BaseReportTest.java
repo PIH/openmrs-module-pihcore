@@ -25,10 +25,8 @@ import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisLocationsBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.reporting.common.ReflectionUtil;
@@ -59,9 +57,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     protected EncounterTypeBundle encounterTypeBundle;
-
-    @Autowired
-    protected MirebalaisLocationsBundle mirebalaisLocationsBundle;
 
     @Autowired
     protected MetadataDeployService deployService;
@@ -102,7 +97,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         deployService.installBundle(encounterTypeBundle);
         deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(pihHaitiPatientIdentifierTypeBundle);
-        deployService.installBundle(mirebalaisLocationsBundle);
         deployService.installBundle(testAddressBundle);
         createEmrApiMappingSource(metadataMappingService);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
@@ -125,7 +119,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.name(new PersonName("John", "Smitty", "Smith"));
         pb.birthdate("1977-11-23").birthdateEstimated(false);
         pb.male();
-        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", locationService.getLocation("Mirebalais"));
         return pb.save();
     }
 
@@ -138,8 +132,8 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.UNKNOWN_PATIENT), "false");
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME), "Isabel");
         address(pb, testAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
-        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
-        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER), UUID.randomUUID().toString(), Metadata.lookup(MirebalaisLocations.MIREBALAIS_CDI_PARENT));
+        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, locationService.getLocation("Mirebalais"));
+        pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER), UUID.randomUUID().toString(), locationService.getLocation("Mirebalais"));
         return pb.save();
     }
 

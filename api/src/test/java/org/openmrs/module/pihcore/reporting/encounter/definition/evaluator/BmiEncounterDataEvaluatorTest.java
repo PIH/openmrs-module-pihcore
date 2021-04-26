@@ -6,7 +6,6 @@ import org.openmrs.Encounter;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.reporting.BaseReportTest;
 import org.openmrs.module.pihcore.reporting.encounter.definition.BmiEncounterDataDefinition;
 import org.openmrs.module.reporting.common.DateUtil;
@@ -36,7 +35,7 @@ public class BmiEncounterDataEvaluatorTest extends BaseReportTest {
         EncounterBuilder eb = data.encounter();
         eb.patient(createPatient());
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
-        eb.location(Metadata.lookup(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+        eb.location(locationService.getLocation("CDI Klinik Ekstèn Jeneral"));
         eb.encounterType(Metadata.lookup(EncounterTypes.VITALS));
         eb.obs(Metadata.getConcept("PIH:WEIGHT (KG)"), 45.4);
         eb.obs(Metadata.getConcept("PIH:HEIGHT (CM)"), 152.4);
@@ -56,7 +55,7 @@ public class BmiEncounterDataEvaluatorTest extends BaseReportTest {
         EncounterBuilder eb = data.encounter();
         eb.patient(createPatient());
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
-        eb.location(Metadata.lookup(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+        eb.location(locationService.getLocation("CDI Klinik Ekstèn Jeneral"));
         eb.encounterType(Metadata.lookup(EncounterTypes.VITALS));
         eb.obs(Metadata.getConcept("PIH:WEIGHT (KG)"), 45.4);
         Encounter enc = eb.save();
@@ -75,7 +74,7 @@ public class BmiEncounterDataEvaluatorTest extends BaseReportTest {
         EncounterBuilder eb = data.encounter();
         eb.patient(createPatient());
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
-        eb.location(Metadata.lookup(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+        eb.location(locationService.getLocation("CDI Klinik Ekstèn Jeneral"));
         eb.encounterType(Metadata.lookup(EncounterTypes.VITALS));
         eb.obs(Metadata.getConcept("PIH:HEIGHT (CM)"), 152.4);
         Encounter enc = eb.save();

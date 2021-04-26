@@ -14,7 +14,6 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 
 public class ConfigureHaitiIdGenerators {
 
@@ -62,7 +61,7 @@ public class ConfigureHaitiIdGenerators {
                             PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForUHM,
-                    locationService.getLocationByUuid(MirebalaisLocations.MIREBALAIS_HOSPITAL.uuid()));
+                    locationService.getLocationByUuid("24bd1390-5959-11e4-8ed6-0800200c9a66"));  // Hôpital Universitaire de Mirebalais - Prensipal
 
             SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureHaitiIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
@@ -70,7 +69,7 @@ public class ConfigureHaitiIdGenerators {
                             PihCoreConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
 
             configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
-                    locationService.getLocationByUuid(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL.uuid()));
+                    locationService.getLocationByUuid("083e75b0-5959-11e4-8ed6-0800200c9a66"));  // CDI Klinik Ekstèn Jeneral
 
         }
         else if (config.getDossierIdentifierPrefix() != null) {

@@ -17,8 +17,6 @@ package org.openmrs.module.pihcore.reporting.cohort.definition.evaluator;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.api.LocationService;
-import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.reporting.BaseInpatientReportTest;
 import org.openmrs.module.pihcore.reporting.cohort.definition.InpatientLocationCohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
@@ -49,7 +47,7 @@ public class InpatientLocationCohortDefinitionEvaluatorTest extends BaseInpatien
         definition.addParameter(new Parameter("ward", "Ward", Location.class));
         definition.addParameter(new Parameter("effectiveDate", "Date", Date.class));
 
-        Location womensInternalMedicine = Metadata.lookup(MirebalaisLocations.WOMENS_INTERNAL_MEDICINE);
+        Location womensInternalMedicine = locationService.getLocation("Sal Fanm");
 
         EvaluationContext ec = new EvaluationContext();
         ec.addParameterValue("ward", womensInternalMedicine);
@@ -66,7 +64,7 @@ public class InpatientLocationCohortDefinitionEvaluatorTest extends BaseInpatien
         definition.addParameter(new Parameter("ward", "Ward", Location.class));
         definition.addParameter(new Parameter("effectiveDate", "Date", Date.class));
 
-        Location womensInternalMedicine = Metadata.lookup(MirebalaisLocations.WOMENS_INTERNAL_MEDICINE);
+        Location womensInternalMedicine = locationService.getLocation("Sal Fanm");
 
         EvaluationContext ec = new EvaluationContext();
         ec.addParameterValue("ward", womensInternalMedicine);

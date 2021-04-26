@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Encounter;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
-import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.reporting.BaseReportTest;
 import org.openmrs.module.pihcore.reporting.encounter.definition.RetrospectiveEncounterDataDefinition;
 import org.openmrs.module.reporting.common.DateUtil;
@@ -35,7 +33,7 @@ public class RetrospectiveEncounterDataEvaluatorTest extends BaseReportTest {
         EncounterBuilder eb = data.encounter();
         eb.patient(createPatient());
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
-        eb.location(Metadata.lookup(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+        eb.location(locationService.getLocation("CDI Klinik Ekstèn Jeneral"));
         eb.encounterType(1);
         Encounter enc = eb.save();
 
@@ -51,7 +49,7 @@ public class RetrospectiveEncounterDataEvaluatorTest extends BaseReportTest {
         EncounterBuilder eb = data.encounter();
         eb.patient(createPatient());
         eb.encounterDatetime(new Date());
-        eb.location(Metadata.lookup(MirebalaisLocations.CDI_KLINIK_EKSTEN_JENERAL));
+        eb.location(locationService.getLocation("CDI Klinik Ekstèn Jeneral"));
         eb.encounterType(1);
         Encounter enc = eb.save();
 

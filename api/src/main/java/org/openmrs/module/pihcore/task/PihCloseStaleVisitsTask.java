@@ -14,7 +14,6 @@ import org.openmrs.module.emrapi.disposition.Disposition;
 import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.scheduler.tasks.AbstractTask;
 import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
@@ -36,9 +35,10 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
     private static int ED_VISIT_EXPIRE_TIME_IN_HOURS = 168; // 7days -- All ED visits stay open for at least 7 days
     private static int ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS = 720; // 30 days (UHM-3009)
 
-    private static final List<String> ED_LOCATION_UUIDS = Arrays.asList(MirebalaisLocations.EMERGENCY.uuid(),
-            MirebalaisLocations.EMERGENCY_DEPARTMENT_RECEPTION.uuid(),
-            MirebalaisLocations.WOMENS_TRIAGE.uuid());
+    private static final List<String> ED_LOCATION_UUIDS = Arrays.asList(
+            "f3a5586e-f06c-4dfb-96b0-6f3451a35e90",  // Ijans (Emergency)
+            "afa09010-43b6-4f19-89e0-58d09941bcbd",  // Ijans Resepsyon (Emergency department reception)
+            "d65eb8cf-d781-4ea8-9d9a-2b3e03c6074c");  // "Ijans | Sante Fanm"  (Women's triage)
 
     private static final String ENCOUNTER_TYPE_ED_TRIAGE_UUID = EncounterTypes.EMERGENCY_TRIAGE.uuid();
 

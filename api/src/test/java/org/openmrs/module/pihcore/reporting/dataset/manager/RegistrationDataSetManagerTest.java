@@ -18,7 +18,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Patient;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.openmrs.module.reporting.dataset.SimpleDataSet;
@@ -67,7 +66,7 @@ public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest 
         Assert.assertNull(row.getColumnValue("HAITICORE.ADDRESS.ADDRESS2"));
         Assert.assertEquals("X3XK71", row.getColumnValue("EMR_ID"));
         Assert.assertEquals(DateUtil.getDateTime(2015, 4, 15), row.getColumnValue("REGISTRATION_DATE"));
-        Assert.assertEquals(MirebalaisLocations.CLINIC_REGISTRATION.name(), row.getColumnValue("REGISTRATION_LOCATION"));
+        Assert.assertEquals("Biwo Resepsyon", row.getColumnValue("REGISTRATION_LOCATION"));
         Assert.assertEquals("Married", row.getColumnValue("CIVIL_STATUS"));
         Assert.assertEquals("true", row.getColumnValue("REGISTRATION_RETROSPECTIVE"));
         Assert.assertEquals("true", row.getColumnValue("BIOMETRICS_COLLECTED"));

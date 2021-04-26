@@ -8,7 +8,6 @@ import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.reporting.BaseReportTest;
 import org.openmrs.module.pihcore.reporting.MockConcepts;
 import org.openmrs.module.reporting.common.DateUtil;
@@ -41,7 +40,7 @@ public abstract class ObsDataSetManagerTest extends BaseReportTest {
         EncounterBuilder eb = data.encounter();
         eb.patient(p);
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
-        eb.location(Metadata.lookup(MirebalaisLocations.OUTPATIENT_CLINIC));
+        eb.location(locationService.getLocation("Klinik Ekstèn"));
         eb.encounterType(Metadata.lookup(EncounterTypes.CONSULTATION));
         eb.obs("DIAGNOSIS", "PIH", Metadata.getConcept("PIH:ASTHMA"));
         return eb.save();

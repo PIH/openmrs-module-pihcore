@@ -30,7 +30,6 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -326,7 +325,7 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
         checkIn.setPatient(patient);
         checkIn.setEncounterType(emrApiProperties.getCheckInEncounterType());
         checkIn.setEncounterDatetime(visit.getStartDatetime());
-        checkIn.setLocation(locationService.getLocationByUuid(MirebalaisLocations.EMERGENCY.uuid()));  // we've added this to the test dataset
+        checkIn.setLocation(locationService.getLocation("Ijans"));  // we've added this to the test dataset
         encounterService.saveEncounter(checkIn);
 
         // create a another encounter within 48 hours
@@ -380,7 +379,7 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
         checkIn.setPatient(patient);
         checkIn.setEncounterType(emrApiProperties.getCheckInEncounterType());
         checkIn.setEncounterDatetime(visit.getStartDatetime());
-        checkIn.setLocation(locationService.getLocationByUuid(MirebalaisLocations.EMERGENCY.uuid()));  // we've added this to the test dataset
+        checkIn.setLocation(locationService.getLocation("Ijans"));  // we've added this to the test dataset
         encounterService.saveEncounter(checkIn);
 
         // create another encounter, but not within 48 hours

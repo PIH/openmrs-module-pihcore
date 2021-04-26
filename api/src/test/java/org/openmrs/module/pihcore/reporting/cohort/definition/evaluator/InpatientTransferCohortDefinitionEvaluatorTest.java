@@ -17,8 +17,6 @@ package org.openmrs.module.pihcore.reporting.cohort.definition.evaluator;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.api.LocationService;
-import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.haiti.mirebalais.MirebalaisLocations;
 import org.openmrs.module.pihcore.reporting.BaseInpatientReportTest;
 import org.openmrs.module.pihcore.reporting.cohort.definition.InpatientTransferCohortDefinition;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
@@ -44,7 +42,7 @@ public class InpatientTransferCohortDefinitionEvaluatorTest extends BaseInpatien
 
     @Test
     public void testEvaluateTransferOut() throws Exception {
-        Location womensInternalMedicine = Metadata.lookup(MirebalaisLocations.WOMENS_INTERNAL_MEDICINE);
+        Location womensInternalMedicine = locationService.getLocation("Sal Fanm");
         Date startDate = DateUtil.parseDate("2013-10-03 00:00:00", "yyyy-MM-dd HH:mm:ss");
         Date endDate = DateUtil.parseDate("2013-10-03 23:59:59", "yyyy-MM-dd HH:mm:ss");
 
@@ -60,7 +58,7 @@ public class InpatientTransferCohortDefinitionEvaluatorTest extends BaseInpatien
 
     @Test
     public void testEvaluateTransferIn() throws Exception {
-        Location surgicalWard = Metadata.lookup(MirebalaisLocations.SURGICAL_WARD);
+        Location surgicalWard = locationService.getLocation("Sal Aprè Operasyon");
         Date startDate = DateUtil.parseDate("2013-10-03 00:00:00", "yyyy-MM-dd HH:mm:ss");
         Date endDate = DateUtil.parseDate("2013-10-03 23:59:59", "yyyy-MM-dd HH:mm:ss");
 
