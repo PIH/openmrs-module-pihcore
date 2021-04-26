@@ -66,23 +66,7 @@ public class RolesAndPrivilegesBundle extends AbstractMetadataBundle {
             install(Roles.VCT_COUNSELOR);
             install(Roles.PATIENT_DOCUMENTS);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            install(Roles.COMMUNITY_HEALTH_WORKER);
-            install(Roles.SOCIAL_WORKER);
-            install(Roles.TRIAGE_STAFF);
-            install(Roles.NCD_PHYSICIAN);
-            install(Roles.PSYCHOLOGIST);
-            install(Roles.ARCHIVIST_REGISTRATION);
-            install(Roles.LAB_MANAGER);
-            install(Roles.LAB_TECHNICIAN);
-            install(Roles.NURSE);
-            install(Roles.OBSERVATION_STAFF);
-            install(Roles.PHARMACIST);
-            install(Roles.MEDICAL_STUDENT);
-            install(Roles.RESIDENT);
-            install(Roles.SURGEON);
-        }
-
+        
         // old privileges still in use at Mirebalais
         if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
             install(Roles.LEGACY_CLINICAL);
