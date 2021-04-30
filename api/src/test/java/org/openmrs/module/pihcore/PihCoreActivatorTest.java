@@ -33,6 +33,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.openmrs.module.pihcore.PihCoreConstants.TASK_CLOSE_STALE_VISITS_NAME;
 
 /**
  * This is an integration test that loads all metadata bundles together
@@ -118,7 +119,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
         CloseStaleVisitsSetup.setupCloseStaleVisitsTask();
 
         // verify scheduled task is started
-        TaskDefinition closeStaleVisitsTask = schedulerService.getTaskByName(EmrConstants.TASK_CLOSE_STALE_VISITS_NAME);
+        TaskDefinition closeStaleVisitsTask = schedulerService.getTaskByName(TASK_CLOSE_STALE_VISITS_NAME);
         assertThat(closeStaleVisitsTask, is(notNullValue()));
         assertThat(closeStaleVisitsTask.getStarted(), is(true));
         assertThat(closeStaleVisitsTask.getStartOnStartup(), is(true));

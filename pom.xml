@@ -46,49 +46,57 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.3.3</openMRSVersion>
-        <openMRSwebVersion>2.3.3</openMRSwebVersion>
-        <haiticoreVersion>1.0.0</haiticoreVersion>
-        <emrapiVersion>1.31.0</emrapiVersion>
-        <paperrecordVersion>1.3.0</paperrecordVersion>
-        <emrVersion>2.2.0</emrVersion>
-        <uiframeworkVersion>3.20.0</uiframeworkVersion>
-        <appframeworkVersion>2.16.0</appframeworkVersion>
-        <metadatasharingVersion>1.7.0</metadatasharingVersion>
-        <metadatamappingVersion>1.3.5</metadatamappingVersion>
-        <metadatadeployVersion>1.13.0-SNAPSHOT</metadatadeployVersion>
-        <htmlformentryVersion>4.0.0</htmlformentryVersion>
-        <htmlformentryuiVersion>1.12.0-SNAPSHOT</htmlformentryuiVersion>
-        <calculationVersion>1.2.1</calculationVersion>
-        <reportingVersion>1.21.0</reportingVersion>
-        <reportinguiVersion>1.6.0</reportinguiVersion>
-        <htmlwidgetsVersion>1.6.4</htmlwidgetsVersion>
-        <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
-        <idgenVersion>4.7.0-SNAPSHOT</idgenVersion>
-        <namephoneticsVersion>1.17.0</namephoneticsVersion>
-        <pacsintegrationVersion>1.7.0</pacsintegrationVersion>
+        <openMRSVersion>2.3.4-SNAPSHOT</openMRSVersion>
+        <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
+        <mirebalaisreportsVersion>1.2.0-SNAPSHOT</mirebalaisreportsVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
-        <providermanagementVersion>2.12.0</providermanagementVersion>
-        <eventVersion>2.8.0</eventVersion>
-        <logicVersion>0.5.2</logicVersion>
-        <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
-        <uilibraryVersion>1.5</uilibraryVersion>
+        <allergyuiVersion>1.8.3</allergyuiVersion>
+        <appframeworkVersion>2.16.0</appframeworkVersion>
+        <appointmentschedulingVersion>1.13.0</appointmentschedulingVersion>
+        <appointmentschedulinguiVersion>1.10.0-SNAPSHOT</appointmentschedulinguiVersion>
         <appuiVersion>1.13.1</appuiVersion>
-        <dispensingVersion>1.2.0</dispensingVersion>
-        <uicommonsVersion>2.17.0</uicommonsVersion>
-        <registrationcoreVersion>1.10.0</registrationcoreVersion>
-        <registrationappVersion>1.23.0-SNAPSHOT</registrationappVersion>
-        <radiologyappVersion>1.5.0</radiologyappVersion>
-        <coreappsVersion>1.32.0-SNAPSHOT</coreappsVersion>
-        <appointmentschedulingVersion>1.9.0</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.7.0</appointmentschedulinguiVersion>
-        <testutilsVersion>1.7.0</testutilsVersion>
-        <printerVersion>1.4.0</printerVersion>
-        <allergyapiVersion>1.4</allergyapiVersion>
-        <allergyuiVersion>1.5</allergyuiVersion>
-        <chartsearchVersion>1.5</chartsearchVersion>
         <attachmentsVersion>2.4.0</attachmentsVersion>
-        <labtrackingappVersion>1.1.0</labtrackingappVersion>
+        <calculationVersion>1.2.1</calculationVersion>
+        <coreappsVersion>1.32.0-SNAPSHOT</coreappsVersion>
+        <dispensingVersion>1.3.0-SNAPSHOT</dispensingVersion>
+        <edtriageappVersion>1.4.0</edtriageappVersion>
+        <emrVersion>2.3.0-SNAPSHOT</emrVersion>
+        <emrapiVersion>1.31.0</emrapiVersion>
+        <eventVersion>2.8.0</eventVersion>
+        <haiticoreVersion>1.0.0</haiticoreVersion>
+        <htmlformentryVersion>4.0.1-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryuiVersion>2.0.0-SNAPSHOT</htmlformentryuiVersion>
+        <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
+        <growthChartVersion>2.1.0</growthChartVersion>
+        <idgenVersion>4.7.0-SNAPSHOT</idgenVersion>
+        <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
+        <initializerVersion>2.1.0</initializerVersion>
+        <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
+        <labworkflowOwaVersion>1.2.0</labworkflowOwaVersion>
+        <legacyuiVersion>1.8.2</legacyuiVersion>
+        <metadatadeployVersion>1.13.0-SNAPSHOT</metadatadeployVersion>
+        <metadatamappingVersion>1.3.5</metadatamappingVersion>
+        <metadatasharingVersion>1.7.0</metadatasharingVersion>
+        <namephoneticsVersion>1.17.0</namephoneticsVersion>
+        <orderEntryOwaVersion>1.2.4</orderEntryOwaVersion>
+        <owaVersion>1.12.0</owaVersion>
+        <pacsintegrationVersion>1.7.0</pacsintegrationVersion>
+        <paperrecordVersion>1.3.0</paperrecordVersion>
+        <printerVersion>1.4.0</printerVersion>
+        <providermanagementVersion>2.12.0</providermanagementVersion>
+        <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
+        <registrationappVersion>1.23.0-SNAPSHOT</registrationappVersion>
+        <registrationcoreVersion>1.10.0</registrationcoreVersion>
+        <reportingVersion>1.21.0</reportingVersion>
+        <reportingrestVersion>1.11.0</reportingrestVersion>
+        <reportinguiVersion>1.7.0</reportinguiVersion>
+        <serializationxstreamVersion>0.2.14</serializationxstreamVersion>
+        <spaVersion>1.0.6</spaVersion>
+        <testutilsVersion>1.7.0</testutilsVersion>
+        <uicommonsVersion>2.17.0</uicommonsVersion>
+        <uiframeworkVersion>3.21.0-SNAPSHOT</uiframeworkVersion>
+        <uilibraryVersion>2.0.6</uilibraryVersion>
+        <webservicesRestVersion>2.30.0-SNAPSHOT</webservicesRestVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -399,6 +407,30 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Begin Mekom -->
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>initializer-api</artifactId>
+            <version>${initializerVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>initializer-api-2.2</artifactId>
+            <version>${initializerVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>initializer-api-2.3</artifactId>
+            <version>${initializerVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+        <!-- End Mekom -->
+
         <!-- Begin OpenMRS contrib -->
 
         <dependency>
@@ -514,6 +546,13 @@
         <repository>
             <id>rubygems-releases</id>
             <url>http://rubygems-proxy.torquebox.org/releases</url>
+        </repository>
+        <repository>  <!-- Mekom repository, for Initializer -->
+            <id>mks-nexus-public</id>
+            <url>https://nexus.mekomsolutions.net/repository/maven-public/</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
         </repository>
 	</repositories>
 
