@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.setup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -44,6 +45,18 @@ public class MetadataSetupTask implements Runnable {
                 log.error("Aborting Metadata Setup Task: error installing dependant Metadata bundles", e);
                 throw e;
             }
+        }
+
+        // We load these initializer domains here rather than in the normal iniz process, since each of these
+        // could depend upon Concepts loaded above
+        try {
+            InitializerSetup.installDomain(Domain.PROGRAMS);
+            InitializerSetup.installDomain(Domain.PROGRAM_WORKFLOWS);
+            InitializerSetup.installDomain(Domain.PROGRAM_WORKFLOW_STATES);
+        }
+        catch (Exception e) {
+            log.error("Aborting Metadata Setup Task: error installing initializer domain", e);
+            throw new RuntimeException(e);
         }
 
         try {
