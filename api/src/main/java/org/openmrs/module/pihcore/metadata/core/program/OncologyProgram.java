@@ -16,7 +16,7 @@ public class OncologyProgram {
         public String conceptUuid() { return THERAPY_STATE_UUID; }
         public Boolean initial() { return true; }
         public Boolean terminal() { return false; }
-        public String uuid() { return "45ffad1c-684e-11e8-adc0-fa7ae01bbebca"; }
+        public String uuid() { return "21727bd1-ada8-11eb-805a-0242ac110002"; }
     };
 
     public static ProgramWorkflowStateDescriptor SURVEILLANCE_STATE = new ProgramWorkflowStateDescriptor() {

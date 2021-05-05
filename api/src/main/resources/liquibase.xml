@@ -1080,5 +1080,22 @@
 
     </changeSet>
 
+    <changeSet id="20210504-UHM-5486" author="PIH">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from program_workflow_state where uuid = '45ffad1c-684e-11e8-adc0-fa7ae01bbebca';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Invalid 37 character uuid that needs to be updated to a valid 36 character uuid
+        </comment>
+        <sql>
+            update program_workflow_state
+            set uuid = '21727bd1-ada8-11eb-805a-0242ac110002'
+            where uuid = '45ffad1c-684e-11e8-adc0-fa7ae01bbebca';
+        </sql>
+
+    </changeSet>
+
 </databaseChangeLog>
 
