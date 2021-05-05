@@ -6,9 +6,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataToInstallAfterConceptsBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataToInstallAfterConceptsBundle;
 
 public class MetadataSetupTask implements Runnable {
 
@@ -81,10 +79,6 @@ public class MetadataSetupTask implements Runnable {
     private void installMetadataBundlesThatDependOnMDSPackages(Config config) {
         MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
         deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataToInstallAfterConceptsBundle.class).get(0));
-        // make this more dynamic, less dependent on if-thens
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataToInstallAfterConceptsBundle.class).get(0));
-        }
     }
 
 
