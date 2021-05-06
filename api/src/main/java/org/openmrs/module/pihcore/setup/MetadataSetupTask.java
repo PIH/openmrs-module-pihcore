@@ -51,6 +51,7 @@ public class MetadataSetupTask implements Runnable {
             InitializerSetup.installDomain(Domain.PROGRAMS);
             InitializerSetup.installDomain(Domain.PROGRAM_WORKFLOWS);
             InitializerSetup.installDomain(Domain.PROGRAM_WORKFLOW_STATES);
+            InitializerSetup.installDomain(Domain.DRUGS);
         }
         catch (Exception e) {
             log.error("Aborting Metadata Setup Task: error installing initializer domain", e);
