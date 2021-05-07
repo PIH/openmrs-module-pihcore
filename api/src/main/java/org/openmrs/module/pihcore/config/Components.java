@@ -20,11 +20,13 @@ public class Components {
         public static final String SURGERY = "surgery";
         public static final String ONCOLOGY = "oncology";  // program
         public static final String NCD = "ncd";  // program
+        public static final String ECHO = "echocardiogram" ;
         public static final String HIV = "hiv";
         public static final String HIV_PROGRAM = "hivProgram";
         public static final String HIV_FORMS = "hivForms";
         public static final String HIV_INTAKE_FORM = "hivIntakeForm";
         public static final String VCT = "vct";
+        public static final String PMTCT = "pmtct" ;
         public static final String MCH = "mch";  // mchForms + mchProgram
         public static final String MCH_FORMS = "mchForms";  // used by ZL (via "mch")
         public static final String MCH_PROGRAM = "mchProgram";  // needs MCHProgramBundle[ZL], used by ZL (via "mch")

@@ -23,6 +23,7 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.CHEMOTHERAPY_SESSION);
         install(EncounterTypes.NCD_INITIAL_CONSULT);
         install(EncounterTypes.NCD_FOLLOWUP_CONSULT);
+        install(EncounterTypes.ECHOCARDIOGRAM);
         install(EncounterTypes.MEDICATION_DISPENSED);
         install(EncounterTypes.POST_OPERATIVE_NOTE);
         install(EncounterTypes.TRANSFER);
@@ -42,6 +43,8 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.LAB_SPECIMEN_COLLECTION);
         install(EncounterTypes.HIV_INTAKE);
         install(EncounterTypes.HIV_FOLLOWUP);
+        install(EncounterTypes.PMTCT_INTAKE);
+        install(EncounterTypes.PMTCT_FOLLOWUP);
         install(EncounterTypes.VCT);
         install(EncounterTypes.HIV_DISPENSING);
         install(EncounterTypes.DRUG_ORDER_DOCUMENTATION);
@@ -51,7 +54,6 @@ public class EncounterTypeBundle extends AbstractMetadataBundle {
         install(EncounterTypes.MCH_DELIVERY);
         install(EncounterTypes.OB_GYN);
         install(EncounterTypes.VACCINATION);
-        install(EncounterTypes.ECHOCARDIOGRAM);
         install(EncounterTypes.PRENATAL_HOME_ASSESSMENT);
         install(EncounterTypes.PEDIATRIC_HOME_ASSESSMENT);
         install(EncounterTypes.MATERNAL_POST_PARTUM_HOME_ASSESSMENT);
