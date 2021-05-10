@@ -181,6 +181,12 @@ public class EncounterTypes {
 		public String description() { return "Non-communicable disease followup consult"; }
 	};
 
+	public static EncounterTypeDescriptor ECHOCARDIOGRAM  = new EncounterTypeDescriptor() {
+		public String uuid() { return "fdee591e-78ba-11e9-8f9e-2a86e4085a59"; }
+		public String name() { return "Echocardiogram"; }
+		public String description() { return "Echocardiogram consultation"; }
+	};
+
 	public static EncounterTypeDescriptor MENTAL_HEALTH_ASSESSMENT = new EncounterTypeDescriptor() {
 		public String uuid() { return "a8584ab8-cc2a-11e5-9956-625662870761"; }
 		public String name() { return "Mental Health Consult"; }
@@ -221,6 +227,18 @@ public class EncounterTypes {
 		public String uuid() { return "c31d3312-40c4-11e7-a919-92ebcb67fe33"; }
 		public String name() { return "HIV Followup"; }
 		public String description() { return "HIV Followup"; }
+	};
+
+	public static EncounterTypeDescriptor PMTCT_INTAKE = new EncounterTypeDescriptor() {
+		public String uuid() { return "584124b9-1f10-4757-ba09-91fc9075af92"; }
+		public String name() { return "PMTCT Intake"; }
+		public String description() { return "Pregnant mother to child transmission (PMTCT) Intake"; }
+	};
+
+	public static EncounterTypeDescriptor PMTCT_FOLLOWUP = new EncounterTypeDescriptor() {
+		public String uuid() { return "95e03e7d-9aeb-4a99-bd7a-94e8591ec2c5"; }
+		public String name() { return "PMTCT Followup"; }
+		public String description() { return "Pregnant mother to child transmission (PMTCT) Followup"; }
 	};
 
 	public static EncounterTypeDescriptor VCT  = new EncounterTypeDescriptor() {
@@ -275,12 +293,6 @@ public class EncounterTypes {
 		public String uuid() { return "1e2a509c-7c9f-11e9-8f9e-2a86e4085a59"; }
 		public String name() { return "Vaccination"; }
 		public String description() { return "Vaccination form only (not within another encounter)"; }
-	};
-
-	public static EncounterTypeDescriptor ECHOCARDIOGRAM  = new EncounterTypeDescriptor() {
-		public String uuid() { return "fdee591e-78ba-11e9-8f9e-2a86e4085a59"; }
-		public String name() { return "Echocardiogram"; }
-		public String description() { return "Echocardiogram consultation"; }
 	};
 
 	public static EncounterTypeDescriptor PRENATAL_HOME_ASSESSMENT = new EncounterTypeDescriptor() {

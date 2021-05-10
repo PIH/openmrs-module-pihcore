@@ -2,7 +2,6 @@ package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
-import org.openmrs.module.pihcore.deploy.bundle.core.program.PihProgramsBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.OrderEntryConcepts;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +9,7 @@ import org.springframework.stereotype.Component;
 // concepts have been installed via metadata sharing (since programs reference concepts)
 @Component
 @Requires( {
-        OrderEntryConcepts.class,
-        PihProgramsBundle.class
+        OrderEntryConcepts.class
 } )
 public class PihCoreMetadataToInstallAfterConceptsBundle extends AbstractMetadataBundle {
     @Override
