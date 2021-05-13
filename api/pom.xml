@@ -77,6 +77,20 @@
 							<className>CesConfigConstants</className>
 						</configuration>
 					</execution>
+					<execution>
+						<id>generate-ses-config-constants</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate-constants-class</goal>
+						</goals>
+						<configuration>
+							<groupId>org.pih.openmrs</groupId>
+							<artifactId>openmrs-config-ses</artifactId>
+							<version>1.0.0-SNAPSHOT</version>
+							<packageName>org.openmrs.module.pihcore</packageName>
+							<className>SesConfigConstants</className>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>

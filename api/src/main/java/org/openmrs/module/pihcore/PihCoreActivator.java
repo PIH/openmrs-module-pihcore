@@ -51,12 +51,12 @@ import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.hsn.HSNMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.liberia.LiberiaMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.peru.PeruMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.GlobalResourceSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
+import org.openmrs.module.pihcore.setup.LiquibaseSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
@@ -65,7 +65,6 @@ import org.openmrs.module.pihcore.setup.MetadataSharingSetup;
 import org.openmrs.module.pihcore.setup.NameTemplateSetup;
 import org.openmrs.module.pihcore.setup.PacIntegrationSetup;
 import org.openmrs.module.pihcore.setup.PatientIdentifierSetup;
-import org.openmrs.module.pihcore.setup.LiquibaseSetup;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 
 import java.util.ArrayList;
@@ -197,7 +196,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            deployService.installBundle(Context.getRegisteredComponents(PeruMetadataBundle.class).get(0));
+            deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
         }
 
     }
