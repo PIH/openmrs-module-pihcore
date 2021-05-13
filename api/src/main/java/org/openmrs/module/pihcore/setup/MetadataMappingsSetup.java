@@ -10,6 +10,7 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.CesConfigConstants;
+import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.SesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -17,7 +18,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
 public class MetadataMappingsSetup {
@@ -54,7 +54,7 @@ public class MetadataMappingsSetup {
             setupPrimaryIdentifierType(mms, ps, PihHaitiPatientIdentifierTypes.ZL_EMR_ID);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            setupPrimaryIdentifierType(mms, ps, LiberiaPatientIdentifierTypes.LIBERIA_EMR_ID);
+            setupPrimaryIdentifierType(mms, ps, LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             if ("WELLBODY".equalsIgnoreCase(config.getSite())) {
