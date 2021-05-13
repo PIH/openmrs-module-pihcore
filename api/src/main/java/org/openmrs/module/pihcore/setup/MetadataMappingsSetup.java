@@ -10,6 +10,7 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.CesConfigConstants;
+import org.openmrs.module.pihcore.SesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
@@ -17,7 +18,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.peru.PeruPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
 public class MetadataMappingsSetup {
@@ -71,7 +71,7 @@ public class MetadataMappingsSetup {
             setupPrimaryIdentifierType(mms, ps, CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            setupPrimaryIdentifierType(mms, ps, PeruPatientIdentifierTypes.PERU_EMR_ID);
+            setupPrimaryIdentifierType(mms, ps, SesConfigConstants.PATIENTIDENTIFIERTYPE_SESEMRID_UUID);
         }
     }
 

@@ -6,8 +6,8 @@ import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.SesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.peru.PeruPatientIdentifierTypes;
 
 public class ConfigurePeruIdGenerators {
 
@@ -27,7 +27,7 @@ public class ConfigurePeruIdGenerators {
         peruPrimaryIdentifierSource.setName("SES Primary Identifier Source");
         peruPrimaryIdentifierSource.setDescription("Primary Identifier Generator for PIH Peru / SES");
         peruPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
-                PeruPatientIdentifierTypes.PERU_EMR_ID.uuid()));
+                SesConfigConstants.PATIENTIDENTIFIERTYPE_SESEMRID_UUID));
         String prefixForSite = config.getPrimaryIdentifierPrefix();
         peruPrimaryIdentifierSource.setPrefix(prefixForSite);
         peruPrimaryIdentifierSource.setMinLength(8 + peruPrimaryIdentifierSource.getPrefix().length());
@@ -46,7 +46,7 @@ public class ConfigurePeruIdGenerators {
         }
 
         autoGenerationOption.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
-                PeruPatientIdentifierTypes.PERU_EMR_ID.uuid()));
+                SesConfigConstants.PATIENTIDENTIFIERTYPE_SESEMRID_UUID));
         autoGenerationOption.setSource(peruPrimaryIdentifierSource);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
         autoGenerationOption.setManualEntryEnabled(false);
