@@ -6,8 +6,8 @@ import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
 
 public class ConfigureLiberiaIdGenerators {
 
@@ -25,7 +25,7 @@ public class ConfigureLiberiaIdGenerators {
 
         liberiaPrimaryIdentifierSource.setName("Liberia Primary Identifier Source");
         liberiaPrimaryIdentifierSource.setDescription("Primary Identifier Generator for Liberia");
-        liberiaPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class, LiberiaPatientIdentifierTypes.LIBERIA_EMR_ID.uuid()));
+        liberiaPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class, LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID));
         liberiaPrimaryIdentifierSource.setPrefix(config.getPrimaryIdentifierPrefix());
         liberiaPrimaryIdentifierSource.setMinLength(7 + liberiaPrimaryIdentifierSource.getPrefix().length());
         liberiaPrimaryIdentifierSource.setMaxLength(8 + liberiaPrimaryIdentifierSource.getPrefix().length());
@@ -46,7 +46,7 @@ public class ConfigureLiberiaIdGenerators {
             autoGenerationOption = new AutoGenerationOption();
         }
 
-        autoGenerationOption.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class, LiberiaPatientIdentifierTypes.LIBERIA_EMR_ID.uuid()));
+        autoGenerationOption.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class, LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID));
         autoGenerationOption.setSource(liberiaPrimaryIdentifierSource);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
         autoGenerationOption.setManualEntryEnabled(false);

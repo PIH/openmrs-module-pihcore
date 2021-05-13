@@ -91,6 +91,20 @@
 							<className>SesConfigConstants</className>
 						</configuration>
 					</execution>
+					<execution>
+						<id>generate-liberia-config-constants</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate-constants-class</goal>
+						</goals>
+						<configuration>
+							<groupId>org.pih.openmrs</groupId>
+							<artifactId>openmrs-config-pihliberia</artifactId>
+							<version>1.2.1-SNAPSHOT</version>
+							<packageName>org.openmrs.module.pihcore</packageName>
+							<className>LiberiaConfigConstants</className>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
