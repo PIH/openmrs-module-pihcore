@@ -6,8 +6,7 @@ import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.springframework.stereotype.Component;
 
 @Component
-@Requires({ PihCoreMetadataBundle.class,
-            MexicoEncounterTypeBundle.class } )
+@Requires({ PihCoreMetadataBundle.class } )
 public class MexicoMetadataBundle extends AbstractMetadataBundle {
 
     @Override
