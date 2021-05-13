@@ -9,6 +9,7 @@ import org.openmrs.api.VisitService;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
@@ -16,7 +17,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.liberia.LiberiaPatientIdentifierTypes;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.peru.PeruPatientIdentifierTypes;
 import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
@@ -68,7 +68,7 @@ public class MetadataMappingsSetup {
             }
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            setupPrimaryIdentifierType(mms, ps, MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID);
+            setupPrimaryIdentifierType(mms, ps, CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
             setupPrimaryIdentifierType(mms, ps, PeruPatientIdentifierTypes.PERU_EMR_ID);
@@ -77,6 +77,11 @@ public class MetadataMappingsSetup {
 
     public static void setupPrimaryIdentifierType(MetadataMappingService metadataMappingService, PatientService patientService, PatientIdentifierTypeDescriptor descriptor) {
         PatientIdentifierType patientIdentifierType = patientService.getPatientIdentifierTypeByUuid(descriptor.uuid());
+        metadataMappingService.mapMetadataItem(patientIdentifierType, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
+    }
+
+    public static void setupPrimaryIdentifierType(MetadataMappingService metadataMappingService, PatientService patientService, String identifierTypeUuid) {
+        PatientIdentifierType patientIdentifierType = patientService.getPatientIdentifierTypeByUuid(identifierTypeUuid);
         metadataMappingService.mapMetadataItem(patientIdentifierType, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME, EmrApiConstants.PRIMARY_IDENTIFIER_TYPE);
     }
 
