@@ -10,8 +10,8 @@ import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.mexico.MexicoPatientIdentifierTypes;
 
 public class ConfigureMexicoIdGenerators {
 
@@ -38,7 +38,7 @@ public class ConfigureMexicoIdGenerators {
         chiapasPrimaryIdentifierSource.setName("Chiapas Primary Identifier Source");
         chiapasPrimaryIdentifierSource.setDescription("Primary Identifier Generator for Chiapas");
         chiapasPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
-                MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID.uuid()));
+                CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID));
         String prefixForSite = config.getPrimaryIdentifierPrefix();
         chiapasPrimaryIdentifierSource.setPrefix(prefixForSite);
         chiapasPrimaryIdentifierSource.setMinLength(7 + chiapasPrimaryIdentifierSource.getPrefix().length());
@@ -57,7 +57,7 @@ public class ConfigureMexicoIdGenerators {
         }
 
         autoGenerationOption.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
-                MexicoPatientIdentifierTypes.CHIAPAS_EMR_ID.uuid()));
+                CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID));
         autoGenerationOption.setSource(chiapasPrimaryIdentifierSource);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
         autoGenerationOption.setManualEntryEnabled(false);
@@ -68,7 +68,7 @@ public class ConfigureMexicoIdGenerators {
 
     private static void createDossierNumberGenerator(IdentifierSourceService identifierSourceService, Config config) {
 
-        PatientIdentifierType dossierIdentifierType = MetadataUtils.existing(PatientIdentifierType.class, MexicoPatientIdentifierTypes.MEXICO_DOSSIER_NUMBER.uuid());
+        PatientIdentifierType dossierIdentifierType = MetadataUtils.existing(PatientIdentifierType.class, CesConfigConstants.PATIENTIDENTIFIERTYPE_MEXICODOSSIERNUMBER_UUID);
         String prefix = config.getDossierIdentifierPrefix();
 
         if (prefix == null) {
