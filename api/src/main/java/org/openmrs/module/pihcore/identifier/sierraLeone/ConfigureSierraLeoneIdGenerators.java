@@ -7,9 +7,8 @@ import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
+import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.sierraLeone.SierraLeonePatientIdentifierTypes;
 
 public class ConfigureSierraLeoneIdGenerators {
 
@@ -23,7 +22,7 @@ public class ConfigureSierraLeoneIdGenerators {
                     WELLBODY_PRIMARY_IDENTIFIER_SOURCE_UUID,
                     "Wellbody Primary Identifier Source",
                     "Primary Identifier Generator for Wellbody",
-                    SierraLeonePatientIdentifierTypes.WELLBODY_EMR_ID,
+                    SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_WELLBODYEMRID_UUID,
                     "WBA",
                     9,
                     9,
@@ -43,7 +42,7 @@ public class ConfigureSierraLeoneIdGenerators {
                     KGH_ID_IDENTIFIER_SOURCE_UUID,
                     "KGH Primary Identifier Source",
                     "Primary Identifier Generator for KGH",
-                    SierraLeonePatientIdentifierTypes.KGH_EMR_ID,
+                    SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_KGHEMRID_UUID,
                     "'KGH'yyMM",
                     11,
                     12,
@@ -58,11 +57,11 @@ public class ConfigureSierraLeoneIdGenerators {
     }
 
     public static void configurePrimaryIdentifierSource(IdentifierSourceService iss, String uuid,
-            String name, String description, PatientIdentifierTypeDescriptor type, String prefix,
+            String name, String description, String identifierTypeUuid, String prefix,
             int minLength, int maxLength, String baseChars, String firstBase, String locationUuid) {
 
         // Metadata
-        PatientIdentifierType identifierType = MetadataUtils.existing(PatientIdentifierType.class, type.uuid());
+        PatientIdentifierType identifierType = MetadataUtils.existing(PatientIdentifierType.class, identifierTypeUuid);
         Location identifierLocation = MetadataUtils.existing(Location.class, locationUuid);
 
         // Generator
