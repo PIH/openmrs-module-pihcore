@@ -50,7 +50,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.hsn.HSNMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.GlobalResourceSetup;
@@ -189,7 +188,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataBundle.class).get(0));
+            deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
