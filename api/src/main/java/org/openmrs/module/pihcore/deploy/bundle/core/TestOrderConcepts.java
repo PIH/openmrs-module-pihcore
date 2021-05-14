@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.deploy.bundle.haiti;
+package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.api.ConceptNameType;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;

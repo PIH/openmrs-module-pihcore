@@ -5,17 +5,16 @@ import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.metadatadeploy.bundle.VersionedMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
+import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
@@ -48,7 +47,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
 
     @Autowired
-    private HaitiMetadataBundle haitiMetadataBundle;
+    private PihCoreMetadataBundle pihCoreMetadataBundle;
 
     @Autowired
     @Qualifier("adminService")
@@ -75,7 +74,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     public void testMetadataBundles() throws Exception {
 
         deployService.installBundle(conceptsFromMetadataSharing);
-        deployService.installBundle(haitiMetadataBundle);
+        deployService.installBundle(pihCoreMetadataBundle);
 
         // test a few random concepts
         assertThat(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES).getName().getName(), is("Yes"));
@@ -93,7 +92,7 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
         assertThat(construct.getConceptSets().size(), is(4));
 
         // make sure everything installed at the version we expect
-        for (Class<? extends MetadataBundle> bundleType : getExpectedBundles(haitiMetadataBundle.getClass())) {
+        for (Class<? extends MetadataBundle> bundleType : getExpectedBundles(pihCoreMetadataBundle.getClass())) {
             if (VersionedMetadataBundle.class.isAssignableFrom(bundleType)) {
                 VersionedMetadataBundle bundle = (VersionedMetadataBundle)Context.getRegisteredComponents(bundleType).get(0);
                 String gpValue = administrationService.getGlobalProperty("metadatadeploy.bundle.version." + bundle.getClass().getName());

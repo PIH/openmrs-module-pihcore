@@ -12,7 +12,7 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais;
+package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
@@ -24,7 +24,7 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.encounte
  * Radiology metadata bundle
  */
 @Component
-public class MirebalaisRadiologyBundle extends AbstractMetadataBundle {
+public class RadiologyBundle extends AbstractMetadataBundle {
 
 	public static final class EncounterRoles {
 		public static final String RADIOLOGY_TECHNICIAN = "8f4d96e2-c97c-4285-9319-e56b9ba6029c";

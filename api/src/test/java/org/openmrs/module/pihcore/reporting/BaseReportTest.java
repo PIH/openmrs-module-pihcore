@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.reporting;
 
 import org.junit.Before;
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonName;
 import org.openmrs.api.EncounterService;
@@ -16,17 +17,17 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.haiticore.metadata.bundles.HaitiPatientIdentifierTypeBundle;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.TestAddressBundle;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.PihHaitiPatientIdentifierTypeBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.module.reporting.common.ReflectionUtil;
@@ -65,9 +66,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
     protected TestAddressBundle testAddressBundle;
 
     @Autowired
-    protected PihHaitiPatientIdentifierTypeBundle pihHaitiPatientIdentifierTypeBundle;
-
-    @Autowired
     protected HaitiPatientIdentifierTypeBundle haitiPatientIdentifierTypeBundle;
 
     @Autowired
@@ -96,7 +94,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         authenticate();
         deployService.installBundle(encounterTypeBundle);
         deployService.installBundle(haitiPatientIdentifierTypeBundle);
-        deployService.installBundle(pihHaitiPatientIdentifierTypeBundle);
         deployService.installBundle(testAddressBundle);
         createEmrApiMappingSource(metadataMappingService);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
@@ -119,7 +116,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.name(new PersonName("John", "Smitty", "Smith"));
         pb.birthdate("1977-11-23").birthdateEstimated(false);
         pb.male();
-        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), "X3XK71", locationService.getLocation("Mirebalais"));
+        pb.identifier(zlEmrIdType(), "X3XK71", locationService.getLocation("Mirebalais"));
         return pb.save();
     }
 
@@ -132,7 +129,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.UNKNOWN_PATIENT), "false");
         pb.personAttribute(Metadata.lookup(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME), "Isabel");
         address(pb, testAddressBundle.getAddressComponents(), "USA", "MA", "Boston", "JP", "Pondside", "");
-        pb.identifier(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), identifier, locationService.getLocation("Mirebalais"));
+        pb.identifier(zlEmrIdType(), identifier, locationService.getLocation("Mirebalais"));
         pb.identifier(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER), UUID.randomUUID().toString(), locationService.getLocation("Mirebalais"));
         return pb.save();
     }
@@ -147,5 +144,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         return pb.address(a);
     }
 
-
+    private PatientIdentifierType zlEmrIdType() {
+        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
+    }
 }

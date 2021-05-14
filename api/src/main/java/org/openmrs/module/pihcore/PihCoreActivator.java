@@ -44,13 +44,9 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.HaitiMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.hsn.HSNMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.haiti.mirebalais.MirebalaisMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.sierraLeone.SierraLeoneMetadataBundle;
+import org.openmrs.module.pihcore.deploy.bundle.core.RadiologyBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.GlobalResourceSetup;
@@ -171,33 +167,11 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
     }
 
     private void installMetadataBundles(Config config) {
-
         MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
-
-        // make this more dynamic, less dependent on if-thens
-
         if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
-            deployService.installBundle(Context.getRegisteredComponents(MirebalaisMetadataBundle.class).get(0));
+            deployService.installBundle(Context.getRegisteredComponents(RadiologyBundle.class).get(0));
         }
-        else if (config.getSite().equalsIgnoreCase("HSN_SAINT_MARC")) {
-            deployService.installBundle(Context.getRegisteredComponents(HSNMetadataBundle.class).get(0));
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("MIREBALAIS")) {
-            deployService.installBundle(Context.getRegisteredComponents(HaitiMetadataBundle.class).get(0));
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            deployService.installBundle(Context.getRegisteredComponents(SierraLeoneMetadataBundle.class).get(0));
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
-            deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
-        }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
-        }
-
+        deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
     }
 
     // configure which disposition config to use
