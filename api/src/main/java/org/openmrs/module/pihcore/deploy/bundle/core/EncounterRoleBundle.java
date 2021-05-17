@@ -21,6 +21,8 @@ public class EncounterRoleBundle extends AbstractMetadataBundle {
         public static final String ANESTHESIOLOGIST = "de11b25c-a641-4630-9524-5b85ece9a4f8";
         public static final String ASSISTING_SURGEON = "6e630e03-5182-4cb3-9a82-a5b1a85c09a7";
         public static final String COMMCARE_PROVIDER = "9442C03D-C539-4345-8716-F70DB4BA6458";
+        public static final String RADIOLOGY_TECHNICIAN = "8f4d96e2-c97c-4285-9319-e56b9ba6029c";
+        public static final String PRINCIPAL_RESULTS_INTERPRETER = "08f73be2-9452-44b5-801b-bdf7418c2f71";
 
         // TODO are we actually going to use this role?
         public static final String LAB_TECHNICIAN = "781bee46-89c5-4230-a490-68fe21d61383";
@@ -73,6 +75,15 @@ public class EncounterRoleBundle extends AbstractMetadataBundle {
         install(encounterRole("CommCare Provider",
                 "CommCare integration provider",
                 EncounterRoles.COMMCARE_PROVIDER));
+
+        install(encounterRole("Radiology Technician",
+                "Radiology Technician - person who performs radiology studies",
+                EncounterRoles.RADIOLOGY_TECHNICIAN));
+
+        install(encounterRole("Principal Results Interpreter",
+                "Principal Results Interpreter - the provider responsible for interpreting the results of a radiology study",
+                EncounterRoles.PRINCIPAL_RESULTS_INTERPRETER));
+
     }
 
 }
