@@ -10,9 +10,10 @@ import org.openmrs.User;
 import org.openmrs.Visit;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.MappedData;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
@@ -113,30 +114,30 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
 
     @DocumentedDefinition("numberOfZlEmrIds")
     public PatientDataDefinition getNumberOfZlEmrIds() {
-        return getIdentifiersOf(Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID), new CountConverter());
+        return getIdentifiersOf(getZlEmrIdType(), new CountConverter());
     }
 
     @DocumentedDefinition("numberOfDossierNumbers")
     public PatientDataDefinition getNumberOfDossierNumbers() {
-        return getIdentifiersOf(Metadata.lookup(PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER), new CountConverter());
+        return getIdentifiersOf(getDossierNumberType(), new CountConverter());
     }
 
     @DocumentedDefinition("numberOfHivEmrIds")
     public PatientDataDefinition getNumberOfHivEmrIds() {
-        return getIdentifiersOf(Metadata.lookup(PihHaitiPatientIdentifierTypes.HIVEMR_V1), new CountConverter());
+        return getIdentifiersOf(getHivEmrV1Type(), new CountConverter());
     }
 
     @DocumentedDefinition("preferredZlEmrId.identifier")
     public PatientDataDefinition getPreferredZlEmrIdIdentifier() {
         return getPreferredIdentifierOf(
-                Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID),
+                getZlEmrIdType(),
                 new PropertyConverter(PatientIdentifier.class, "identifier"));
     }
 
     @DocumentedDefinition("mostRecentZlEmrId.location")
     public PatientDataDefinition getMostRecentZlEmrIdLocation() {
         return getMostRecentIdentifierOf(
-                Metadata.lookup(PihHaitiPatientIdentifierTypes.ZL_EMR_ID),
+                getZlEmrIdType(),
                 new PropertyConverter(PatientIdentifier.class, "location"),
                 new ObjectFormatter());
     }
@@ -144,7 +145,7 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     @DocumentedDefinition("allDossierNumbers.identifier")
     public PatientDataDefinition getAllDossierNumberIdentifiers() {
         PatientIdentifierDataDefinition pdd = new PatientIdentifierDataDefinition();
-        pdd.setTypes(Arrays.asList(Metadata.lookup(PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER)));
+        pdd.setTypes(Arrays.asList(getDossierNumberType()));
         CollectionConverter cc = new CollectionConverter(new PropertyConverter(PatientIdentifier.class, "identifier"),
                 false, new ComparableComparator());
         return new ConvertedPatientDataDefinition(pdd, cc);
@@ -153,14 +154,14 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     @DocumentedDefinition("mostRecentDossierNumber.identifier")
     public PatientDataDefinition getMostRecentDossierNumberIdentifier() {
         return getMostRecentIdentifierOf(
-                Metadata.lookup(PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER),
+                getDossierNumberType(),
                 new PropertyConverter(PatientIdentifier.class, "identifier"));
     }
 
     @DocumentedDefinition("mostRecentHivEmrId.identifier")
     public PatientDataDefinition getMostRecentHivEmrIdIdentifier() {
         return getMostRecentIdentifierOf(
-                Metadata.lookup(PihHaitiPatientIdentifierTypes.HIVEMR_V1),
+                getHivEmrV1Type(),
                 new PropertyConverter(PatientIdentifier.class, "identifier"));
     }
 
@@ -184,6 +185,17 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     private PatientDataDefinition getMostRecentIdentifierOf(PatientIdentifierType patientIdentifierType, DataConverter... converters) {
         return getIdentifiersOf(patientIdentifierType,
                 converters(new MostRecentlyCreatedConverter(PatientIdentifier.class), converters));
+    }
+
+    private PatientIdentifierType getZlEmrIdType() {
+        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
+    }
+
+    private PatientIdentifierType getDossierNumberType() {
+        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+    }
+    private PatientIdentifierType getHivEmrV1Type() {
+        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
     }
 
     // Demographics

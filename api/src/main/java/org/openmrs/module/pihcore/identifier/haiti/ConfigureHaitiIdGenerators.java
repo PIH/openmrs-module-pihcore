@@ -12,8 +12,8 @@ import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 
 public class ConfigureHaitiIdGenerators {
 
@@ -313,14 +313,14 @@ public class ConfigureHaitiIdGenerators {
     }
 
     public static PatientIdentifierType getZlIdentifierType() {
-        return MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.ZL_EMR_ID.uuid());
+        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
     }
 
     public static PatientIdentifierType getDossierIdentifierType() {
-        return MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
+        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
     }
 
     public static PatientIdentifierType getHivEmrV1IdentifierType() {
-        return MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
     }
 }

@@ -7,6 +7,7 @@ import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.ObsService;
@@ -16,8 +17,9 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -160,9 +162,11 @@ public class WaitingForConsultPageController {
             patientsListWrapped.add(domainWrapperFactory.newPatientDomainWrapper(patient));
         }
 
+        PatientIdentifierType dossierNumberType = MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+
         model.addAttribute("patientList", patientsListWrapped);
         model.addAttribute("filter", filter.toString().toLowerCase());
-        model.addAttribute("dossierIdentifierName", PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER.name());
+        model.addAttribute("dossierIdentifierName", dossierNumberType.getName());
         model.addAttribute("mothersFirstName", personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid()));
 
         return null;

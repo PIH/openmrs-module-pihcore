@@ -1,14 +1,5 @@
 package org.openmrs.module.pihcore.page.controller.meds;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.BooleanUtils;
 import org.openmrs.Concept;
 import org.openmrs.DrugOrder;
@@ -23,13 +14,22 @@ import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.db.hibernate.HibernateUtil;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.InjectBeans;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DrugOrdersPageController {
 
@@ -43,7 +43,7 @@ public class DrugOrdersPageController {
                       @SpringBean("obsService") ObsService obsService) throws IOException {
 
         if (patient == null) {
-            PatientIdentifierType hivemrV1 = patientService.getPatientIdentifierTypeByUuid(PihHaitiPatientIdentifierTypes.HIVEMR_V1.uuid());
+            PatientIdentifierType hivemrV1 = patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
             List<PatientIdentifier> idList = patientService.getPatientIdentifiers(hivemrId, Arrays.asList(hivemrV1), null, null, null);
             if (idList.isEmpty()) {
                 throw new IllegalArgumentException("No patients found with identifier: " + hivemrId);

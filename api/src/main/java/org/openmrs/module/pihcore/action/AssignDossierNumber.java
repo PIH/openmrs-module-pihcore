@@ -11,7 +11,7 @@ import org.openmrs.api.PatientService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
-import org.openmrs.module.pihcore.metadata.haiti.PihHaitiPatientIdentifierTypes;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.registrationapp.action.AfterPatientCreatedAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class AssignDossierNumber implements AfterPatientCreatedAction {
     @Override
     public synchronized void afterPatientCreated(Patient patient, Map<String, String[]> map) {
 
-        PatientIdentifierType dossierIdentifierType = MetadataUtils.existing(PatientIdentifierType.class, PihHaitiPatientIdentifierTypes.DOSSIER_NUMBER.uuid());
+        PatientIdentifierType dossierIdentifierType = MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
         Location medicalRecordLocation = getMedicalRecordLocation();
 
         String dossierId = "";

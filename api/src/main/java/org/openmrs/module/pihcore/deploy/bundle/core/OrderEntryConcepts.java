@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.deploy.bundle.haiti;
+package org.openmrs.module.pihcore.deploy.bundle.core;
 
 import org.openmrs.OrderFrequency;
 import org.openmrs.api.OrderService;
