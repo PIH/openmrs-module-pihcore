@@ -451,16 +451,6 @@
 
         <!-- End OpenMRS contrib -->
 
-        <!-- we explicitly use version 3.2.10 since 3.2.11 has a bug which was giving us issues,
-            can probably remove this after next sass release -->
-        <dependency>
-            <groupId>rubygems</groupId>
-            <artifactId>sass</artifactId>
-            <version>3.2.10</version>
-            <type>gem</type>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
 
 	<build>
@@ -542,10 +532,6 @@
             <id>openmrs-repo</id>
             <name>OpenMRS Nexus Repository</name>
             <url>https://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
-        </repository>
-        <repository>
-            <id>rubygems-releases</id>
-            <url>http://rubygems-proxy.torquebox.org/releases</url>
         </repository>
         <repository>  <!-- Mekom repository, for Initializer -->
             <id>mks-nexus-public</id>
