@@ -13,7 +13,7 @@ import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.Disposition;
 import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.scheduler.tasks.AbstractTask;
 import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
             "afa09010-43b6-4f19-89e0-58d09941bcbd",  // Ijans Resepsyon (Emergency department reception)
             "d65eb8cf-d781-4ea8-9d9a-2b3e03c6074c");  // "Ijans | Sante Fanm"  (Women's triage)
 
-    private static final String ENCOUNTER_TYPE_ED_TRIAGE_UUID = EncounterTypes.EMERGENCY_TRIAGE.uuid();
+    private static final String ENCOUNTER_TYPE_ED_TRIAGE_UUID = PihEmrConfigConstants.ENCOUNTERTYPE_EMERGENCY_TRIAGE_UUID;
 
     public void execute() {
 

@@ -11,9 +11,9 @@ import org.openmrs.Visit;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.data.MappedData;
 import org.openmrs.module.reporting.data.converter.AgeConverter;
@@ -324,28 +324,28 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
 
     private PatientDataDefinition getRegistrationEncounter(DataConverter... converters) {
         EncountersForPatientDataDefinition registrationEncounters = new EncountersForPatientDataDefinition();
-        registrationEncounters.setTypes(Arrays.asList(Metadata.lookup(EncounterTypes.PATIENT_REGISTRATION)));
+        registrationEncounters.setTypes(Arrays.asList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID)));
 
         return new ConvertedPatientDataDefinition(registrationEncounters,
                 converters(new EarliestCreatedConverter(Encounter.class), converters));
     }
     private PatientDataDefinition getAdmissionEncounter(DataConverter... converters) {
         EncountersForPatientDataDefinition admissionEncounters = new EncountersForPatientDataDefinition();
-        admissionEncounters.setTypes(Arrays.asList(Metadata.lookup(EncounterTypes.ADMISSION)));
+        admissionEncounters.setTypes(Arrays.asList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID)));
         admissionEncounters.setOnlyInActiveVisit(true);
         admissionEncounters.setWhich(TimeQualifier.FIRST);
         return new ConvertedPatientDataDefinition(admissionEncounters, converters);
     }
     private PatientDataDefinition getAdmissionOrTransferEncounter(DataConverter... converters) {
         EncountersForPatientDataDefinition adtEncounters = new EncountersForPatientDataDefinition();
-        adtEncounters.setTypes(Arrays.asList(Metadata.lookup(EncounterTypes.ADMISSION), Metadata.lookup(EncounterTypes.TRANSFER)));
+        adtEncounters.setTypes(Arrays.asList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID), Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_TRANSFER_UUID)));
         adtEncounters.setOnlyInActiveVisit(true);
         adtEncounters.setWhich(TimeQualifier.LAST);
         return new ConvertedPatientDataDefinition(adtEncounters,converters);
     }
     private PatientDataDefinition getCheckinEncounter(DataConverter... converters) {
         EncountersForPatientDataDefinition checkinEncounters = new EncountersForPatientDataDefinition();
-        checkinEncounters.setTypes(Arrays.asList(Metadata.lookup(EncounterTypes.CHECK_IN)));
+        checkinEncounters.setTypes(Arrays.asList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID)));
         checkinEncounters.setOnlyInActiveVisit(true);
         checkinEncounters.setWhich(TimeQualifier.FIRST);
         return new ConvertedPatientDataDefinition(checkinEncounters, converters);

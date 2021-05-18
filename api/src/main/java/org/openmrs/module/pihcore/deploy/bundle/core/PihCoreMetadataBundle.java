@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Requires(
         { EncounterRoleBundle.class,
-        EncounterTypeBundle.class,
         OrderTypeBundle.class,
         PersonAttributeTypeBundle.class,
         VisitTypeBundle.class,

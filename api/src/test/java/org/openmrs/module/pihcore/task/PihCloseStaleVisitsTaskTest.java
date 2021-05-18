@@ -22,13 +22,14 @@ import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.test.ContextSensitiveMetadataTestUtils;
 import org.openmrs.module.emrapi.visit.EmrVisitService;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -42,7 +43,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest {
+public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
 
     private static final String ED_TRIAGE_ENCOUNTER_TYPE_UUID = "74cef0a6-2801-11e6-b67b-9e71128cae77";
 
@@ -86,9 +87,6 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     private MetadataDeployService deployService;
 
     @Autowired
-    private EncounterTypeBundle encounterTypeBundle;
-
-    @Autowired
     private EncounterRoleBundle encounterRoleBundle;
 
     @Autowired
@@ -98,7 +96,7 @@ public class PihCloseStaleVisitsTaskTest extends BaseModuleContextSensitiveTest 
     public void setUp() throws Exception {
         executeDataSet("closeStaleVisitsTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);
-        deployService.installBundle(encounterTypeBundle);
+        loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
         deployService.installBundle(encounterRoleBundle);
         deployService.installBundle(visitTypeBundle);
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);

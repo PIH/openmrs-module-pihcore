@@ -18,8 +18,9 @@ import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,18 +57,18 @@ public class WaitingForConsultPageController {
         }
 
         List<EncounterType> primaryCareEncounterTypes = new ArrayList<EncounterType>();
-        primaryCareEncounterTypes.add(encounterService.getEncounterTypeByUuid(EncounterTypes.PRIMARY_CARE_VISIT.uuid()));
-        primaryCareEncounterTypes.add(encounterService.getEncounterTypeByUuid(EncounterTypes.PRIMARY_CARE_PEDS_INITIAL_CONSULT.uuid()));
-        primaryCareEncounterTypes.add(encounterService.getEncounterTypeByUuid(EncounterTypes.PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT.uuid()));
-        primaryCareEncounterTypes.add(encounterService.getEncounterTypeByUuid(EncounterTypes.PRIMARY_CARE_ADULT_INITIAL_CONSULT.uuid()));
-        primaryCareEncounterTypes.add(encounterService.getEncounterTypeByUuid(EncounterTypes.PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT.uuid()));
+        primaryCareEncounterTypes.add(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_VISIT_UUID));
+        primaryCareEncounterTypes.add(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID));
+        primaryCareEncounterTypes.add(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID));
+        primaryCareEncounterTypes.add(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID));
+        primaryCareEncounterTypes.add(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID));
 
         // first handle any patients with vitals taken today:
 
         // create a list of all patients that have a vitals encounter today, *ordered by time of first vitals encounter*
         LinkedHashSet<Patient> patientsWithVitalsToday = new LinkedHashSet<Patient>();
         for (Encounter encounter : encounterService.getEncounters(null, null, new DateMidnight().toDate(), null,
-                null, Collections.singletonList(encounterService.getEncounterTypeByUuid(EncounterTypes.VITALS.uuid())),
+                null, Collections.singletonList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID)),
                 null, null, null, false)) {
             patientsWithVitalsToday.add(encounter.getPatient());
         }
@@ -109,7 +110,7 @@ public class WaitingForConsultPageController {
         for (Encounter encounter : encounterService.getEncounters(null, null,
                 isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate(),
                 isMonday ? new DateMidnight().minusDays(2).toDate() : new DateMidnight().toDate(),
-                null, Collections.singletonList(encounterService.getEncounterTypeByUuid(EncounterTypes.VITALS.uuid())),
+                null, Collections.singletonList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID)),
                 null, null, null, false)) {
             patientsWithVitalsOnPreviousBusinessDay.add(encounter.getPatient());
         }

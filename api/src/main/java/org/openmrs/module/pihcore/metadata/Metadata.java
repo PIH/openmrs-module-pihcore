@@ -14,6 +14,7 @@
 package org.openmrs.module.pihcore.metadata;
 
 import org.openmrs.Concept;
+import org.openmrs.EncounterType;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
@@ -29,6 +30,13 @@ public class Metadata {
      */
     public static <T extends OpenmrsObject> T lookup(Descriptor<T> descriptor) {
         return MetadataUtils.existing(descriptor.getDescribedType(), descriptor.uuid());
+    }
+
+    /**
+     * @return the installed Object represented by the given descriptor
+     */
+    public static EncounterType lookupEncounterType(String uuid) {
+        return MetadataUtils.existing(EncounterType.class, uuid);
     }
 
     /**
