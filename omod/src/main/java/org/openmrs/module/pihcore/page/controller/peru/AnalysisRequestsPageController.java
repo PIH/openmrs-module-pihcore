@@ -3,7 +3,8 @@ package org.openmrs.module.pihcore.page.controller.peru;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.api.EncounterService;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.parameter.EncounterSearchCriteria;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -26,7 +27,7 @@ public class AnalysisRequestsPageController {
         // you also should be able to attach the debugger to this page
 
         // first we fetch the encounter type by uuid
-        EncounterType testOrderEncounterType = encounterService.getEncounterTypeByUuid(EncounterTypes.TEST_ORDER.uuid());
+        EncounterType testOrderEncounterType = Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_TEST_ORDER_UUID);
 
         // then we create a search criteria for encounters to limit to that encounter type
         // TODO: will likely want to filter by date, sort in reverse order...

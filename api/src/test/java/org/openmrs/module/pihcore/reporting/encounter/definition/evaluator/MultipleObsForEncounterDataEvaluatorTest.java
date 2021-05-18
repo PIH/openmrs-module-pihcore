@@ -1,16 +1,11 @@
 package org.openmrs.module.pihcore.reporting.encounter.definition.evaluator;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.reporting.BaseReportTest;
 import org.openmrs.module.pihcore.reporting.converter.CodedObsConverter;
 import org.openmrs.module.pihcore.reporting.encounter.definition.MultipleObsForEncounterDataDefinition;
@@ -22,6 +17,10 @@ import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinitio
 import org.openmrs.module.reporting.dataset.definition.service.DataSetDefinitionService;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 public class MultipleObsForEncounterDataEvaluatorTest extends BaseReportTest {
 
@@ -40,7 +39,7 @@ public class MultipleObsForEncounterDataEvaluatorTest extends BaseReportTest {
         eb.patient(createPatient());
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
         eb.location(locationService.getLocation("CDI Klinik Ekstèn Jeneral"));
-        eb.encounterType(Metadata.lookup(EncounterTypes.VITALS));
+        eb.encounterType(getVitalsEncounterType());
 
         // We'll simulate "symptom present" by using the diagnosis concept, "symptom absent" with "reason for visit" concept
         Concept diagnosisConcept = Metadata.getConcept("PIH:DIAGNOSIS");

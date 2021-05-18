@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.openmrs.EncounterType;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ public class ConsultationsDataSetManager extends BaseEncounterDataSetManager {
 
     @Override
     protected List<EncounterType> getEncounterTypes() {
-        return Arrays.asList(Metadata.lookup(EncounterTypes.CONSULTATION));
+        return Arrays.asList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID));
     }
 
     @Override

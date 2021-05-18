@@ -17,16 +17,17 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.haiticore.metadata.bundles.HaitiPatientIdentifierTypeBundle;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.TestAddressBundle;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.deploy.bundle.AddressComponent;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterTypeBundle;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
@@ -45,7 +46,7 @@ import java.util.UUID;
  * Sets up basic Mirebalais metadata (instead of the standardTestDataset.xml from openmrs-core)
  */
 @SkipBaseSetup
-public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
+public abstract class BaseReportTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     protected ReportDefinitionService reportDefinitionService;
@@ -55,9 +56,6 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     protected TestDataManager data;
-
-    @Autowired
-    protected EncounterTypeBundle encounterTypeBundle;
 
     @Autowired
     protected MetadataDeployService deployService;
@@ -92,7 +90,7 @@ public abstract class BaseReportTest extends BaseModuleContextSensitiveTest {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
-        deployService.installBundle(encounterTypeBundle);
+        loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
         deployService.installBundle(haitiPatientIdentifierTypeBundle);
         deployService.installBundle(testAddressBundle);
         createEmrApiMappingSource(metadataMappingService);

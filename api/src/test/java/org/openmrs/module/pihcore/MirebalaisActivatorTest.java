@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
@@ -35,7 +36,7 @@ import static org.mockito.Mockito.when;
  * This is an integration test that tests setting up the Mirebalais environment
  */
 @SkipBaseSetup
-public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
+public class MirebalaisActivatorTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private MetadataDeployService deployService;
@@ -70,6 +71,7 @@ public class MirebalaisActivatorTest extends BaseModuleContextSensitiveTest {
 
         deployService.installBundle(conceptsFromMetadataSharing);
         createEmrApiMappingSource(metadataMappingService);
+        loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
 
         activator = new PihCoreActivator();
         Config config = mock(Config.class);

@@ -10,8 +10,7 @@ import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.merge.PatientMergeAction;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
-import org.openmrs.module.pihcore.metadata.core.PersonAttributeTypes;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -68,7 +67,7 @@ public class PihPatientMergeActions implements PatientMergeAction {
 
     private void voidMostRecentRegistrationIfNonPreferred(Patient preferred, Patient nonPreferred) {
 
-        EncounterType registrationEncounterType = encounterService.getEncounterTypeByUuid(EncounterTypes.PATIENT_REGISTRATION.uuid());
+        EncounterType registrationEncounterType = encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID);
 
         // the getEncounters method returns encounters sorted by date
         List<Encounter> preferredRegistrations = encounterService.getEncounters(preferred, null, null, null, null,

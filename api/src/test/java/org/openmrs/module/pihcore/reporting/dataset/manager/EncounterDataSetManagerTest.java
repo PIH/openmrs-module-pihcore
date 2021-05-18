@@ -22,7 +22,6 @@ import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.InsuranceConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.module.pihcore.reporting.BaseReportTest;
 import org.openmrs.module.pihcore.reporting.MockConcepts;
 import org.openmrs.module.reporting.common.DateUtil;
@@ -61,7 +60,7 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
         eb.patient(p);
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
         eb.location(locationService.getLocation("Biwo Resepsyon"));
-        eb.encounterType(Metadata.lookup(EncounterTypes.PATIENT_REGISTRATION));
+        eb.encounterType(getRegistrationEncounterType());
 
         // TODO: Add More Obs to test
         eb.obs(Metadata.getConcept(SocioEconomicConcepts.Concepts.CIVIL_STATUS), Metadata.getConcept(SocioEconomicConcepts.Concepts.MARRIED));
@@ -74,7 +73,7 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
         eb.patient(p);
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
         eb.location(locationService.getLocation("Klinik Ekstèn"));
-        eb.encounterType(Metadata.lookup(EncounterTypes.CHECK_IN));
+        eb.encounterType(getCheckInEncounterType());
         eb.obs("REASON FOR VISIT", "PIH", Metadata.getConcept("PIH:MALNUTRITION PROGRAM"));
         return eb.save();
     }

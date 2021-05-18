@@ -12,8 +12,6 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.VisitService;
 import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
-import org.openmrs.module.pihcore.metadata.Metadata;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,12 +44,12 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
     public void setupDontOverrideBaseClassSetup() throws Exception {
 
         VisitType atFacility = visitService.getVisitTypeByUuid(VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT);
-        EncounterType checkIn = Metadata.lookup(EncounterTypes.CHECK_IN);
-        EncounterType admission = Metadata.lookup(EncounterTypes.ADMISSION);
-        EncounterType transfer = Metadata.lookup(EncounterTypes.TRANSFER);
-        EncounterType exit = Metadata.lookup(EncounterTypes.EXIT_FROM_CARE);
-        EncounterType consultation = Metadata.lookup(EncounterTypes.CONSULTATION);
-        EncounterType postOpNote = Metadata.lookup(EncounterTypes.POST_OPERATIVE_NOTE);
+        EncounterType checkIn = getCheckInEncounterType();
+        EncounterType admission = getAdmissionEncounterType();
+        EncounterType transfer = getTransferEncounterType();
+        EncounterType exit = getExitEncounterType();
+        EncounterType consultation = getConsultationEncounterType();
+        EncounterType postOpNote = getPostOpNoteEncounterType();
         Location visitLocation = locationService.getLocation("Mirebalais");
         Location outpatientClinic = locationService.getLocation("Klinik Ekstèn");
         Location womensInternalMedicine = locationService.getLocation("Sal Fanm");

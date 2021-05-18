@@ -9,9 +9,10 @@ import org.openmrs.api.PersonService;
 import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreUtil;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.metadata.core.EncounterTypes;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -40,11 +41,11 @@ public class VitalsListPageController {
 
         // all patients that have a check-in encounter today, but no vitals encounter
         List<Encounter> checkInEncounters = encounterService.getEncounters(null, null, new DateMidnight().toDate(), null,
-                null, Collections.singletonList(encounterService.getEncounterTypeByUuid(EncounterTypes.CHECK_IN.uuid())),
+                null, Collections.singletonList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID)),
                 null, null, null, false);
 
         List<Encounter> vitalsEncounters = encounterService.getEncounters(null, null, new DateMidnight().toDate(), null,
-                null, Collections.singletonList(encounterService.getEncounterTypeByUuid(EncounterTypes.VITALS.uuid())),
+                null, Collections.singletonList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID)),
                 null, null, null, false);
 
         for (Encounter encounter : checkInEncounters) {
