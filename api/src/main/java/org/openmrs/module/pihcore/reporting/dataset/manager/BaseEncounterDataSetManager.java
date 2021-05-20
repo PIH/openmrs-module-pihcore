@@ -28,7 +28,6 @@ import org.openmrs.layout.address.AddressSupport;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
-import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.pihcore.reporting.converter.CodedObsConverter;
@@ -164,7 +163,7 @@ public abstract class BaseEncounterDataSetManager {
 
 	protected void addOtherIdentifierColumns(EncounterDataSetDefinition dsd) {
 		// slight hack, only biometrics on systems where that identifier is present
-		if (patientService.getPatientIdentifierTypeByUuid(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER.uuid()) != null) {
+		if (Metadata.getBiometricsReferenceNumberIdentifierType() != null) {
 			addColumn(dsd, "biometrics_collected", pihPatientData.getHasBiometricsIdentifier());
 		}
 	}

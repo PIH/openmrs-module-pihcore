@@ -16,7 +16,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
@@ -168,7 +167,7 @@ public class WaitingForConsultPageController {
         model.addAttribute("patientList", patientsListWrapped);
         model.addAttribute("filter", filter.toString().toLowerCase());
         model.addAttribute("dossierIdentifierName", dossierNumberType.getName());
-        model.addAttribute("mothersFirstName", personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid()));
+        model.addAttribute("mothersFirstName", Metadata.getMothersFirstNameAttributeType());
 
         return null;
     }

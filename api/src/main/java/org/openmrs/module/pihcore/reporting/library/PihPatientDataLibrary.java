@@ -9,7 +9,6 @@ import org.openmrs.PersonAddress;
 import org.openmrs.User;
 import org.openmrs.Visit;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.haiticore.metadata.HaitiPatientIdentifierTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
@@ -95,7 +94,7 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     @DocumentedDefinition
     public PatientDataDefinition getBiometricsIdentifierObject() {
         PreferredIdentifierDataDefinition d = new PreferredIdentifierDataDefinition();
-        d.setIdentifierType(Metadata.lookup(HaitiPatientIdentifierTypes.BIOMETRIC_REF_NUMBER));
+        d.setIdentifierType(Metadata.getBiometricsReferenceNumberIdentifierType());
         return d;
     }
 

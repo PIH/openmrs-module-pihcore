@@ -1,0 +1,53 @@
+<addressConfiguration>
+    <wipe>true</wipe>
+    <addressComponents>
+        <addressComponent>
+            <field>COUNTRY</field>
+            <nameMapping>haiticore.address.country</nameMapping>
+            <sizeMapping>40</sizeMapping>
+            <elementDefault>Haiti</elementDefault>
+            <requiredInHierarchy>true</requiredInHierarchy>
+        </addressComponent>
+        <addressComponent>
+            <field>STATE_PROVINCE</field>
+            <nameMapping>haiticore.address.stateProvince</nameMapping>
+            <sizeMapping>40</sizeMapping>
+            <requiredInHierarchy>true</requiredInHierarchy>
+        </addressComponent>
+        <addressComponent>
+            <field>CITY_VILLAGE</field>
+            <nameMapping>haiticore.address.cityVillage</nameMapping>
+            <sizeMapping>40</sizeMapping>
+            <requiredInHierarchy>true</requiredInHierarchy>
+        </addressComponent>
+        <addressComponent>
+            <field>ADDRESS_3</field>
+            <nameMapping>haiticore.address.neighborhoodCell</nameMapping>
+            <sizeMapping>60</sizeMapping>
+            <requiredInHierarchy>true</requiredInHierarchy>
+        </addressComponent>
+        <addressComponent>
+            <field>ADDRESS_1</field>
+            <nameMapping>haiticore.address.address1</nameMapping>
+            <sizeMapping>60</sizeMapping>
+            <requiredInHierarchy>false</requiredInHierarchy>
+        </addressComponent>
+        <addressComponent>
+            <field>ADDRESS_2</field>
+            <nameMapping>haiticore.address.address2</nameMapping>
+            <sizeMapping>60</sizeMapping>
+            <requiredInHierarchy>false</requiredInHierarchy>
+        </addressComponent>
+    </addressComponents>
+    <lineByLineFormat>
+        <string>address2</string>
+        <string>address1</string>
+        <string>address3, cityVillage</string>
+        <string>stateProvince, country</string>
+    </lineByLineFormat>
+    <addressHierarchyFile>
+        <filename>haiti_address_hierarchy_entries.csv</filename>
+        <entryDelimiter>\|</entryDelimiter>
+        <identifierDelimiter>\^</identifierDelimiter>
+    </addressHierarchyFile>
+</addressConfiguration>

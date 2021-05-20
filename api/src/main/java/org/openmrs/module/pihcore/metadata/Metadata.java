@@ -15,10 +15,12 @@ package org.openmrs.module.pihcore.metadata;
 
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
-import org.openmrs.OpenmrsObject;
+import org.openmrs.PatientIdentifierType;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.metadatadeploy.descriptor.Descriptor;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 
 /**
  * Convenience methods for working with metadata
@@ -28,15 +30,32 @@ public class Metadata {
     /**
      * @return the installed Object represented by the given descriptor
      */
-    public static <T extends OpenmrsObject> T lookup(Descriptor<T> descriptor) {
-        return MetadataUtils.existing(descriptor.getDescribedType(), descriptor.uuid());
+    public static EncounterType lookupEncounterType(String uuid) {
+        return Context.getEncounterService().getEncounterTypeByUuid(uuid);
     }
 
-    /**
-     * @return the installed Object represented by the given descriptor
-     */
-    public static EncounterType lookupEncounterType(String uuid) {
-        return MetadataUtils.existing(EncounterType.class, uuid);
+    public static PersonAttributeType getMothersFirstNameAttributeType() {
+        return Context.getPersonService().getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID);
+    }
+
+    public static PersonAttributeType getPhoneNumberAttributeType() {
+        return Context.getPersonService().getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID);
+    }
+
+    public static PersonAttributeType getUnknownPatientAttributeType() {
+        return MetadataUtils.existing(PersonAttributeType.class, PihEmrConfigConstants.PERSONATTRIBUTETYPE_UNKNOWN_PATIENT_UUID);
+    }
+
+    public static PatientIdentifierType getNifIdentifierType() {
+        return Context.getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_NIF_UUID);
+    }
+
+    public static PatientIdentifierType getCinIdentifierType() {
+        return Context.getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_CIN_UUID);
+    }
+
+    public static PatientIdentifierType getBiometricsReferenceNumberIdentifierType() {
+        return Context.getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_BIOMETRICSREFERENCECODE_UUID);
     }
 
     /**

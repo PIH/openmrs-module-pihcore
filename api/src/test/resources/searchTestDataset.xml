@@ -176,8 +176,8 @@
     <person_address person_address_id="95" person_id="95" preferred="false" city_village="Kapkarong" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca290b-1691-11df-97a5-7038c432aabf"/>
     <person_address person_address_id="98" person_id="98" preferred="false" city_village="Esangalo" creator="1" date_created="2006-01-18 00:00:00.0" voided="false" uuid="ddca2a59-1691-11df-97a5-7038c432aabf"/>
 
-    <person_attribute_type person_attribute_type_id="10" name="Telephone Number" description="Telephone number of patient" format="java.lang.String" searchable="false" creator="1" date_created="2007-05-04 09:59:23.0" retired="false" uuid="aaa6d540-a32e-44c7-91b3-292d97667518" sort_weight="1"/>
-    <person_attribute_type person_attribute_type_id="11" name="First Name of Mother" description="Mother's First Name" format="java.lang.String" searchable="false" creator="1" date_created="2007-05-04 09:59:23.0" retired="false" uuid="bbb6d540-a32e-44c7-91b3-292d97667518" sort_weight="1"/>
+    <person_attribute_type person_attribute_type_id="10" name="Telephone Number" description="Telephone number of patient" format="java.lang.String" searchable="false" creator="1" date_created="2007-05-04 09:59:23.0" retired="false" uuid="14d4f066-15f5-102d-96e4-000c29c2a5d7" sort_weight="1"/>
+    <person_attribute_type person_attribute_type_id="11" name="First Name of Mother" description="Mother's First Name" format="java.lang.String" searchable="false" creator="1" date_created="2007-05-04 09:59:23.0" retired="false" uuid="8d871d18-c2cc-11de-8d13-0010c6dffd0f" sort_weight="1"/>
 
     <person_attribute person_attribute_id="100" person_id="13" value="Boston" person_attribute_type_id="2" creator="1" date_created="2008-08-18 12:25:57.0" voided="false" uuid="66632c97-3793-417e-a1ea-8536b00c4607"/>
     <person_attribute person_attribute_id="101" person_id="13" value="(617) 867-5309" person_attribute_type_id="10" creator="1" date_created="2008-08-18 12:25:57.0" voided="false" uuid="7732c97-3793-417e-a1ea-8536b00c4607"/>

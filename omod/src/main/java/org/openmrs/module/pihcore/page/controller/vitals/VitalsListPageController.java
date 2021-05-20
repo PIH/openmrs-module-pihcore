@@ -6,7 +6,6 @@ import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
@@ -72,7 +71,7 @@ public class VitalsListPageController {
 
         // used to determine whether or not we display a link to the patient in the results list
         model.addAttribute("patientWithCheckInEncounter", patientsWithCheckInEncounter);
-        model.addAttribute("mothersFirstName", personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid()));
+        model.addAttribute("mothersFirstName", Metadata.getMothersFirstNameAttributeType());
         model.addAttribute("dossierIdentifierName", dossierNumberType.getName());
         model.addAttribute("breadcrumbOverride", ui.toJson(Arrays.asList(vitalsListBreadcrumb)));
         model.addAttribute("formPath", formPath);
