@@ -81,9 +81,6 @@
         <require_module version="${addresshierarchyVersion}">
             org.openmrs.module.addresshierarchy
         </require_module>
-        <require_module version="${haiticoreVersion}">
-            org.openmrs.module.haiticore
-        </require_module>
         <require_module version="${attachmentsVersion}">
             org.openmrs.module.attachments
         </require_module>

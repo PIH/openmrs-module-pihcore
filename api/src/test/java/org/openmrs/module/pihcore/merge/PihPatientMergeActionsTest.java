@@ -13,7 +13,6 @@ import org.openmrs.User;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.haiticore.metadata.HaitiPersonAttributeTypes;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -58,8 +57,9 @@ public class PihPatientMergeActionsTest {
         when(Context.getAuthenticatedUser()).thenReturn(user);
 
         personService = mock(PersonService.class);
-        when(personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.TELEPHONE_NUMBER.uuid())).thenReturn(phoneNumber);
-        when(personService.getPersonAttributeTypeByUuid(HaitiPersonAttributeTypes.MOTHERS_FIRST_NAME.uuid())).thenReturn(mothersName);
+        when(Context.getPersonService()).thenReturn(personService);
+        when(personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID)).thenReturn(phoneNumber);
+        when(personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID)).thenReturn(mothersName);
 
         encounterService = mock(EncounterService.class);
         when(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID)).thenReturn(registration);
