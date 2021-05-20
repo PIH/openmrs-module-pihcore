@@ -1,0 +1,13 @@
+Uuid,Void/Retire,Name,Description,Required,Format,Format description,Validator,Location behavior,Uniqueness behavior
+${patientIdentifierType.nif.uuid},,Numéro d'identité fiscale (NIF),The Haiti Tax Identification Number (NIF) is issued by the Direction Générale des Impôts (DGI) since 1987.  Any Haitian natural or legal person gets this 10-digit number.,FALSE,,,,NOT_USED,NON_UNIQUE
+${patientIdentifierType.cin.uuid},,Carte d'identification nationale,The Haiti national identification card is meant to replace the fiscal identity card.  Created 2005.,FALSE,,,,NOT_USED,NON_UNIQUE
+${patientIdentifierType.biometricsReferenceCode.uuid},,Biometrics Reference Code,Code referencing a patient's record in an external biometrics system,FALSE,,,,NOT_USED,
+${patientIdentifierType.zlEmrId.uuid},,ZL EMR ID,"A unique identifier issued to all patients by the ZL EMR.  Blocks of this identifier are issued to each site to prevent duplication, so the identifier is unique across all sites.  The identifier uses six digits and is alphanumeric base 30, omitting the letters B, I, O, Q, S and Z as these can be confused with 8, 1, 0, 0, 5 and 2",FALSE,,,org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator,NOT_USED,
+${patientIdentifierType.dossierNumber.uuid},,Nimewo Dosye,Patient Dossier number,FALSE,"\\w{1,4}\\d{6}",A000001,,REQUIRED,
+${patientIdentifierType.externalDossierNumber.uuid},,External Nimewo Dosye,External Dossier number,FALSE,,,,NOT_USED,
+${patientIdentifierType.hivemrV1.uuid},,HIVEMR-V1,Internal EMR ID for this Patient in the Haiti EMR V1 system,FALSE,,,,NOT_USED,
+${patientIdentifierType.userEnteredRef.uuid},,User-Entered Reference Number,"Any user-entered reference number not assigned by the system; for instance, allows the user to store a dossier number not assigned by the current system",FALSE,,,,NOT_USED,
+${patientIdentifierType.dentalDossierNumber.uuid},,Dental Dossier Number,Dental clinic dossier number,FALSE,,,,NOT_USED,
+${patientIdentifierType.hivDossierNumber.uuid},,HIV Nimewo Dosye,HIV EMR Dossier number,FALSE,,,,NOT_USED,NON_UNIQUE
+${patientIdentifierType.hivemrV1InfantId.uuid},,HIV EMR V1 Infant ID,Internal INFANT_ID for this patient in the Haiti EMR V1 system,FALSE,,,,NOT_USED,NON_UNIQUE
+${patientIdentifierType.hivemrV1InfantCode.uuid},,HIV EMR V1 Infant Code,Code referencing the HIV EMR INFANT_CODE field in the Haiti EMR V1 system,FALSE,,,,NOT_USED,NON_UNIQUE
