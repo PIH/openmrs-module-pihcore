@@ -1,11 +1,26 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
 %>
-
+<style>
+    form > section > *  {
+        display: initial;
+        min-width: unset;
+    }
+</style>
 <!-- NOTE:  if you are using the OpenMRS SDK and "watching" this module, you should be able to "hot" reload this page and it should automatically pick up changes you've made -->
 
 <!-- feel free to convert this and the other text to Spanish (though ideally all would use message codes, see "ui.message" below) -->
-<h3>Test Orders</h3>
+<h3>Ordenes de Laboratorio</h3>
+
+<form method="get">
+    <section>
+        <label>Desde:</label>
+        <input type="date" name="startDate" />
+        <label>&nbsp;Hasta:</label>
+        <input type="date" name="endDate" />
+        <button>Buscar</button>
+    </section>
+</form>
 
 <!-- now we can work with the "encounters" list we added to the model in the controller -->
 <% if (encounters.isEmpty()) { %>
@@ -17,13 +32,25 @@
     <table>
         <tr>
             <th>
-                Date
+                Fecha
             </th>
             <th>
-                Patient
+                Paciente
             </th>
             <th>
-                Number of Orders
+                Numero de ordenes
+            </th>
+            <th>
+                Nombre de muestra
+            </th>
+            <th>
+                Local
+            </th>
+            <th>
+                Registrado por
+            </th>
+            <th>
+                Acción
             </th>
         </tr>
         <!-- iterate over the encounters and create a row for each -->
@@ -38,6 +65,18 @@
                 </td>
                 <td>
                    ${ encounter.orders ? encounter.orders.size() : "" }
+                </td>
+                <td>
+                    ${ ui.format(encounter.encounterType)}
+                </td>
+                <td>
+                    ${ ui.format(encounter.location)}
+                </td>
+                <td>
+                    ${ ui.format(encounter.creator)}
+                </td>
+                <td>
+                    <a href="http://localhost:8080/openmrs/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId=${encounter.patient.uuid}&encounterId=${encounter.uuid}&definitionUiResource=file:configuration/pih/htmlforms/sampleCollection.xml">Ingresar orden</a>
                 </td>
             </tr>
         <% } %>
