@@ -162,11 +162,11 @@ public class WaitingForConsultPageController {
             patientsListWrapped.add(domainWrapperFactory.newPatientDomainWrapper(patient));
         }
 
-        PatientIdentifierType dossierNumberType = MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+        PatientIdentifierType dossierNumberType = MetadataUtils.possible(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
 
         model.addAttribute("patientList", patientsListWrapped);
         model.addAttribute("filter", filter.toString().toLowerCase());
-        model.addAttribute("dossierIdentifierName", dossierNumberType.getName());
+        model.addAttribute("dossierIdentifierName", dossierNumberType == null ? null : dossierNumberType.getName());
         model.addAttribute("mothersFirstName", Metadata.getMothersFirstNameAttributeType());
 
         return null;

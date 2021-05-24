@@ -67,12 +67,12 @@ public class VitalsListPageController {
 
         SimpleObject vitalsListBreadcrumb = SimpleObject.create("label", ui.message("pihcore.vitalsList.title"), "link", ui.pageLink("pihcore", "vitals/vitalsList"));
 
-        PatientIdentifierType dossierNumberType = MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+        PatientIdentifierType dossierNumberType = MetadataUtils.possible(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
 
         // used to determine whether or not we display a link to the patient in the results list
         model.addAttribute("patientWithCheckInEncounter", patientsWithCheckInEncounter);
         model.addAttribute("mothersFirstName", Metadata.getMothersFirstNameAttributeType());
-        model.addAttribute("dossierIdentifierName", dossierNumberType.getName());
+        model.addAttribute("dossierIdentifierName", dossierNumberType == null ? null : dossierNumberType.getName());
         model.addAttribute("breadcrumbOverride", ui.toJson(Arrays.asList(vitalsListBreadcrumb)));
         model.addAttribute("formPath", formPath);
 
