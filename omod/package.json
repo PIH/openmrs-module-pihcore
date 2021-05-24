@@ -1,0 +1,11 @@
+{
+  "name": "pihcore-omod",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "sass src/main/webapp/resources/styles/ -Isrc/main/webapp/resources/styles -Isrc/main/webapp/resources/styles/lib/uicommons-scss -Inode_modules/compass-mixins/lib"
+  },
+  "dependencies": {
+    "compass-mixins": "^0.12.10",
+    "sass": "^1.32.13"
+  }
+}

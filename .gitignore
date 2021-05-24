@@ -5,10 +5,8 @@
 *.project
 *.classpath
 
-omod/.rubygems
-omod/.rubygems-provided
-omod/src/main/compass/.sass-cache
-omod/src/main/compass/sass-external
+omod/node
+omod/node_modules
 
 target
 api/target
