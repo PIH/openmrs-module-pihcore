@@ -14,11 +14,9 @@ import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,9 +49,6 @@ public class MirebalaisActivatorTest extends PihCoreContextSensitiveTest {
     @Autowired
     private List<MetadataBundle> bundles;
 
-    @Autowired
-    private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
-
     private PihCoreActivator activator;
 
     @Override
@@ -69,7 +64,6 @@ public class MirebalaisActivatorTest extends PihCoreContextSensitiveTest {
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
 
-        deployService.installBundle(conceptsFromMetadataSharing);
         createEmrApiMappingSource(metadataMappingService);
         loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
