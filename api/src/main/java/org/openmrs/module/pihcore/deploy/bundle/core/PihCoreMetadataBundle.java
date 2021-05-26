@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 @Requires(
         { EncounterRoleBundle.class,
         OrderTypeBundle.class,
-        VisitTypeBundle.class,
         VisitAttributeTypeBundle.class,
         AdministrativeConcepts.class,
         //AllergyConcepts.class,  // we are now installing all allergy concepts via MDS package
