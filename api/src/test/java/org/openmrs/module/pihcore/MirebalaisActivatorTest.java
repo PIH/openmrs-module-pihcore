@@ -72,6 +72,7 @@ public class MirebalaisActivatorTest extends PihCoreContextSensitiveTest {
         deployService.installBundle(conceptsFromMetadataSharing);
         createEmrApiMappingSource(metadataMappingService);
         loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
+        loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
 
         activator = new PihCoreActivator();
         Config config = mock(Config.class);

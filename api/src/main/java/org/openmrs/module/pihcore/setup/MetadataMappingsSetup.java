@@ -18,7 +18,6 @@ import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
 
 public class MetadataMappingsSetup {
 
@@ -45,7 +44,7 @@ public class MetadataMappingsSetup {
         metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.ORDERING_PROVIDER), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE);
         metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE);
 
-        metadataMappingService.mapMetadataItem(visitService.getVisitTypeByUuid(VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_AT_FACILITY_VISIT_TYPE);
+        metadataMappingService.mapMetadataItem(visitService.getVisitTypeByUuid(PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_AT_FACILITY_VISIT_TYPE);
 
     }
 

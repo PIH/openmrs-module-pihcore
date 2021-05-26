@@ -11,7 +11,7 @@ import org.openmrs.VisitType;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.VisitService;
-import org.openmrs.module.pihcore.deploy.bundle.core.VisitTypeBundle;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,7 +43,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
     @Before
     public void setupDontOverrideBaseClassSetup() throws Exception {
 
-        VisitType atFacility = visitService.getVisitTypeByUuid(VisitTypeBundle.VisitTypes.CLINIC_OR_HOSPITAL_VISIT);
+        VisitType atFacility = visitService.getVisitTypeByUuid(PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID);
         EncounterType checkIn = getCheckInEncounterType();
         EncounterType admission = getAdmissionEncounterType();
         EncounterType transfer = getTransferEncounterType();
