@@ -29,7 +29,6 @@ import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -84,15 +83,12 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
     @Autowired
     private MetadataDeployService deployService;
 
-    @Autowired
-    private EncounterRoleBundle encounterRoleBundle;
-
     @Before
     public void setUp() throws Exception {
         executeDataSet("closeStaleVisitsTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);
         loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
-        deployService.installBundle(encounterRoleBundle);
+        loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
         MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
     }

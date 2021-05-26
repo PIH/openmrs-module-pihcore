@@ -17,7 +17,6 @@ import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.EncounterRoleBundle;
 
 public class MetadataMappingsSetup {
 
@@ -40,9 +39,9 @@ public class MetadataMappingsSetup {
         metadataMappingService.mapMetadataItem(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_TRANSFER_UUID), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_TRANSFER_WITHIN_HOSPITAL_ENCOUNTER_TYPE);
         metadataMappingService.mapMetadataItem(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_EXIT_FROM_CARE_UUID), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_EXIT_FROM_INPATIENT_ENCOUNTER_TYPE);
 
-        metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.CONSULTING_CLINICIAN), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CLINICIAN_ENCOUNTER_ROLE);
-        metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.ORDERING_PROVIDER), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE);
-        metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(EncounterRoleBundle.EncounterRoles.ADMINISTRATIVE_CLERK), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE);
+        metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CLINICIAN_ENCOUNTER_ROLE);
+        metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(PihEmrConfigConstants.ENCOUNTERROLE_ORDERINGPROVIDER_UUID), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_ORDERING_PROVIDER_ENCOUNTER_ROLE);
+        metadataMappingService.mapMetadataItem(encounterService.getEncounterRoleByUuid(PihEmrConfigConstants.ENCOUNTERROLE_ADMINISTRATIVECLERK_UUID), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_CHECK_IN_CLERK_ENCOUNTER_ROLE);
 
         metadataMappingService.mapMetadataItem(visitService.getVisitTypeByUuid(PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID), EmrApiConstants.EMR_METADATA_SOURCE_NAME, EmrApiConstants.GP_AT_FACILITY_VISIT_TYPE);
 
