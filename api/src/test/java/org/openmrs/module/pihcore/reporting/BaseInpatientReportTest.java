@@ -41,8 +41,9 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
     private VisitService visitService;
 
     @Before
-    public void setupDontOverrideBaseClassSetup() throws Exception {
-
+    @Override
+    public void setup() throws Exception {
+        super.setup();
         VisitType atFacility = visitService.getVisitTypeByUuid(PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID);
         EncounterType checkIn = getCheckInEncounterType();
         EncounterType admission = getAdmissionEncounterType();

@@ -80,9 +80,6 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
     @Autowired
     protected FormService formService;
 
-    @Autowired
-    private MetadataDeployService deployService;
-
     @Before
     public void setUp() throws Exception {
         executeDataSet("closeStaleVisitsTestDataset.xml");
@@ -90,7 +87,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
         loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
-        MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
+        loadFromInitializer(Domain.METADATA_TERM_MAPPINGS, "metadataMappings.csv");
     }
 
     protected Config getConfig() {

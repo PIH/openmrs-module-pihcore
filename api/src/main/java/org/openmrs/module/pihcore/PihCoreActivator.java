@@ -107,9 +107,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             MergeActionsSetup.registerMergeActions();
             LocationTagSetup.setupLocationTags(locationService, config);
             HtmlFormSetup.setupHtmlFormEntryTagHandlers();
-            MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
             MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
-            MetadataMappingsSetup.setupFormMetadataMappings(metadataMappingService);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
             PacIntegrationSetup.setup(config);
             LiquibaseSetup.setup();

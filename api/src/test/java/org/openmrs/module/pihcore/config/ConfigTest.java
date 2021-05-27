@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.config;
 
 import org.junit.Test;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class ConfigTest extends BaseModuleContextSensitiveTest{
+public class ConfigTest extends PihCoreContextSensitiveTest{
 
     private Config config;
 

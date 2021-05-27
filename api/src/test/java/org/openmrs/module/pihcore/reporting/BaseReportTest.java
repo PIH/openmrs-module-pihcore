@@ -87,7 +87,7 @@ public abstract class BaseReportTest extends PihCoreContextSensitiveTest {
         loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
         deployService.installBundle(testAddressBundle);
         createEmrApiMappingSource(metadataMappingService);
-        MetadataMappingsSetup.setupGlobalMetadataMappings(metadataMappingService,locationService, encounterService, visitService);
+        loadFromInitializer(Domain.METADATA_TERM_MAPPINGS, "metadataMappings.csv");
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
         LocationTagSetup.setupLocationTags(locationService, config);
     }
