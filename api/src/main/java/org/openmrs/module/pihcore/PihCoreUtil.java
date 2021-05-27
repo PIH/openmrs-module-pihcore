@@ -2,6 +2,10 @@ package org.openmrs.module.pihcore;
 
 import org.openmrs.util.OpenmrsUtil;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class PihCoreUtil {
 
     public static final String getDefaultPihConfigurationDir() {
@@ -37,7 +41,11 @@ public class PihCoreUtil {
     }
 
     public static String getFormResource(String formName) {
-        return "file:" + getFormDirectory() + formName;
+        try {
+            return URLEncoder.encode("file:" + getFormDirectory() + formName, StandardCharsets.UTF_8.toString()).toString();
+        } catch (UnsupportedEncodingException e) {
+            return "file:" + getFormDirectory() + formName;
+        }
     }
 
 }
