@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.util.OpenmrsConstants;
 
 import java.io.File;
@@ -16,7 +16,7 @@ import java.util.Properties;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class MetadataSharingSetupComponentTest extends BaseModuleContextSensitiveTest  {
+public class MetadataSharingSetupComponentTest extends PihCoreContextSensitiveTest  {
 
     public static final String appDataTestDir = "testAppDataDir";
 

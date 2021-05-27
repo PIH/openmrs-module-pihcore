@@ -17,7 +17,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcep
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,7 +36,7 @@ import static org.openmrs.module.pihcore.PihCoreConstants.TASK_CLOSE_STALE_VISIT
  * This is an integration test that loads all metadata bundles together
  */
 @SkipBaseSetup
-public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
+public class PihCoreActivatorTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private MetadataDeployService deployService;

@@ -8,10 +8,59 @@ import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.initializer.api.loaders.Loader;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.openmrs.module.initializer.Domain.DRUGS;
+import static org.openmrs.module.initializer.Domain.HTML_FORMS;
+import static org.openmrs.module.initializer.Domain.ORDER_FREQUENCIES;
+import static org.openmrs.module.initializer.Domain.PROGRAMS;
+import static org.openmrs.module.initializer.Domain.PROGRAM_WORKFLOWS;
+import static org.openmrs.module.initializer.Domain.PROGRAM_WORKFLOW_STATES;
 
 public class InitializerSetup {
 
     protected static Log log = LogFactory.getLog(InitializerSetup.class);
+
+    public static List<Domain> getDomainsToLoadAfterConcepts() {
+        return Arrays.asList(
+                PROGRAMS,
+                PROGRAM_WORKFLOWS,
+                PROGRAM_WORKFLOW_STATES,
+                DRUGS,
+                ORDER_FREQUENCIES,
+                HTML_FORMS
+        );
+    }
+
+    public static void loadPreConceptDomains() {
+        try {
+            List<String> excludeList = new ArrayList<>();
+            for (Domain domain : getDomainsToLoadAfterConcepts()) {
+                excludeList.add(domain.getName());
+            }
+            for (Loader loader : Context.getService(InitializerService.class).getLoaders()) {
+                if (!excludeList.contains(loader.getDomainName())) {
+                    log.warn("Loading from Initializer: " + loader.getDomainName());
+                    loader.loadUnsafe(new ArrayList<>(), true);
+                }
+            }
+        }
+        catch (Exception e) {
+            throw new IllegalStateException("An error occurred while loading from initializer", e);
+        }
+    }
+
+    public static void loadPostConceptDomains() {
+        try {
+            for (Domain domain : getDomainsToLoadAfterConcepts()) {
+                installDomain(domain);
+            }
+        }
+        catch (Exception e) {
+            throw new IllegalStateException("An error occurred while loading from initializer", e);
+        }
+    }
 
     /**
      * Explicitly load from a given Domain with no exclusions, and throw an exception on failures
