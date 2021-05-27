@@ -25,11 +25,8 @@ import org.openmrs.Provider;
 import org.openmrs.User;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
-import org.openmrs.api.EncounterService;
-import org.openmrs.api.FormService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
-import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.Daemon;
 import org.openmrs.layout.name.NameSupport;
@@ -50,6 +47,7 @@ import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.GlobalResourceSetup;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
+import org.openmrs.module.pihcore.setup.InitializerSetup;
 import org.openmrs.module.pihcore.setup.LiquibaseSetup;
 import org.openmrs.module.pihcore.setup.LocationTagSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
@@ -88,17 +86,15 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
         try {
             MetadataMappingService metadataMappingService = Context.getService(MetadataMappingService.class);
             PatientService patientService = Context.getPatientService();
-            FormService formService = Context.getFormService();
             LocationService locationService = Context.getLocationService();
-            EncounterService encounterService = Context.getEncounterService();
-            VisitService visitService = Context.getVisitService();
-            AdministrationService administrationService = Context.getAdministrationService();
             IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
             ConceptService conceptService = Context.getService(ConceptService.class);
 
             if (config == null) {  // hack to allow injecting a mock config for testing, in a real system will always be null at this point
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
+
+            InitializerSetup.loadPreConceptDomains();
 
             setDispositionConfig(config);
             installMetadataBundles(config);

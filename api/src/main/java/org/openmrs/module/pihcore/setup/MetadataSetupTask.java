@@ -32,19 +32,7 @@ public class MetadataSetupTask implements Runnable {
             throw e;
         }
 
-        // We load these initializer domains here rather than in the normal iniz process, since each of these
-        // could depend upon Concepts loaded above
-        try {
-            InitializerSetup.installDomain(Domain.PROGRAMS);
-            InitializerSetup.installDomain(Domain.PROGRAM_WORKFLOWS);
-            InitializerSetup.installDomain(Domain.PROGRAM_WORKFLOW_STATES);
-            InitializerSetup.installDomain(Domain.DRUGS);
-            InitializerSetup.installDomain(Domain.ORDER_FREQUENCIES);
-        }
-        catch (Exception e) {
-            log.error("Aborting Metadata Setup Task: error installing initializer domain", e);
-            throw new RuntimeException(e);
-        }
+        InitializerSetup.loadPostConceptDomains();
 
         try {
             DrugListSetup.installDrugList();
