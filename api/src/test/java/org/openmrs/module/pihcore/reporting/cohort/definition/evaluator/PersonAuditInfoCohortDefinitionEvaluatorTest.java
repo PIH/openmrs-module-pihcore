@@ -26,7 +26,7 @@ import org.openmrs.module.reporting.cohort.EvaluatedCohort;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
@@ -35,7 +35,7 @@ import java.util.Date;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.pihcore.reporting.ReportingMatchers.hasExactlyIds;
 
-public class PersonAuditInfoCohortDefinitionEvaluatorTest extends BaseModuleContextSensitiveTest {
+public class PersonAuditInfoCohortDefinitionEvaluatorTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     PersonAuditInfoCohortDefinitionEvaluator evaluator;

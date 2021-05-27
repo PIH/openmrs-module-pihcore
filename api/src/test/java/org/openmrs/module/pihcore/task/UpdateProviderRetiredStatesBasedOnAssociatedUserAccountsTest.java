@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.openmrs.User;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.UserService;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -14,7 +14,7 @@ import java.util.Date;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extends BaseModuleContextSensitiveTest {
+public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private ProviderService providerService;

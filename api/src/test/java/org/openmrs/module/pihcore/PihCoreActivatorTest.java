@@ -10,7 +10,6 @@ import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.metadatadeploy.bundle.VersionedMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.ConceptsFromMetadataSharing;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
@@ -18,7 +17,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcep
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.scheduler.SchedulerService;
 import org.openmrs.scheduler.TaskDefinition;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -38,13 +36,10 @@ import static org.openmrs.module.pihcore.PihCoreConstants.TASK_CLOSE_STALE_VISIT
  * This is an integration test that loads all metadata bundles together
  */
 @SkipBaseSetup
-public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
+public class PihCoreActivatorTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private MetadataDeployService deployService;
-
-    @Autowired
-    private ConceptsFromMetadataSharing conceptsFromMetadataSharing;
 
     @Autowired
     private PihCoreMetadataBundle pihCoreMetadataBundle;
@@ -73,7 +68,6 @@ public class PihCoreActivatorTest extends BaseModuleContextSensitiveTest {
     @Test
     public void testMetadataBundles() throws Exception {
 
-        deployService.installBundle(conceptsFromMetadataSharing);
         deployService.installBundle(pihCoreMetadataBundle);
 
         // test a few random concepts

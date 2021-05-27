@@ -10,7 +10,6 @@ import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.pihcore.encounter.PihEncounterValidator;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
@@ -41,7 +40,7 @@ import java.util.Properties;
  *  mvn test -Dtest=DataValidationTest -Dvalidation.properties=/tmp/validation.properties
  */
 @SkipBaseSetup
-public class DataValidationTest extends BaseModuleContextSensitiveTest {
+public class DataValidationTest extends PihCoreContextSensitiveTest {
 
     static Properties props = null;
     static int BATCH_SIZE = 1000;

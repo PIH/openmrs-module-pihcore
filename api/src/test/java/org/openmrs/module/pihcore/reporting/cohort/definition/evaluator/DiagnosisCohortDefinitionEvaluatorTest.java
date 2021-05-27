@@ -30,7 +30,7 @@ import org.openmrs.module.pihcore.reporting.cohort.evaluator.DiagnosisCohortDefi
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
@@ -39,7 +39,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.pihcore.reporting.ReportingMatchers.hasExactlyIds;
 
-public class DiagnosisCohortDefinitionEvaluatorTest extends BaseModuleContextSensitiveTest {
+public class DiagnosisCohortDefinitionEvaluatorTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     EmrApiProperties emrApiProperties;

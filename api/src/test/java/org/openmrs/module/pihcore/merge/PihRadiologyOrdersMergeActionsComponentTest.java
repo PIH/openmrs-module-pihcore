@@ -22,7 +22,7 @@ import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
 import org.openmrs.module.radiologyapp.RadiologyService;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class PihRadiologyOrdersMergeActionsComponentTest extends BaseModuleContextSensitiveTest {
+public class PihRadiologyOrdersMergeActionsComponentTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     @Qualifier("radiologyService")

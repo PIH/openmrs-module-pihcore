@@ -11,7 +11,7 @@ import org.openmrs.ConceptSource;
 import org.openmrs.Drug;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.util.OpenmrsConstants;
 
 import java.io.File;
@@ -27,7 +27,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.in;
 import static org.junit.Assert.assertThat;
 
-public class DrugListSetupTest extends BaseModuleContextSensitiveTest {
+public class DrugListSetupTest extends PihCoreContextSensitiveTest {
 
     public static final String appDataTestDir = "testAppDataDir";
 

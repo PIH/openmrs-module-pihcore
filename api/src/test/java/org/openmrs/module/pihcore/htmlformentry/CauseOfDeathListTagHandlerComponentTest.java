@@ -20,7 +20,7 @@ import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.htmlformentry.RegressionTestHelper;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -33,7 +33,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
-public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleContextSensitiveTest {
+public class CauseOfDeathListTagHandlerComponentTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private TestDataManager testData;

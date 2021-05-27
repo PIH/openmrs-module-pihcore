@@ -18,7 +18,7 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -27,7 +27,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
-public class PihTestOrdersMergeActionsComponentTest extends BaseModuleContextSensitiveTest {
+public class PihTestOrdersMergeActionsComponentTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     @Qualifier("adtService")

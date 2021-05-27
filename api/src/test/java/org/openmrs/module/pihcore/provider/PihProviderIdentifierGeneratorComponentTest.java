@@ -5,11 +5,11 @@ import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.account.ProviderIdentifierGenerator;
 import org.openmrs.module.providermanagement.Provider;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
 import java.util.Properties;
 
-public class PihProviderIdentifierGeneratorComponentTest extends BaseModuleContextSensitiveTest {
+public class PihProviderIdentifierGeneratorComponentTest extends PihCoreContextSensitiveTest {
 
     @Override
     public Properties getRuntimeProperties() {

@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.openmrs.LocationTag;
 import org.openmrs.api.LocationService;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class LocationTagSetupTest extends BaseModuleContextSensitiveTest {
+public class LocationTagSetupTest extends PihCoreContextSensitiveTest {
 
     private static String ADMISSION_LOCATION_TAG_UUID = "2718d6bb-94f8-46ba-82e4-f35fcd25598e";
     private static String VISIT_LOCATION_TAG_UUID = "f4d0d8fd-adaf-4e60-b2ad-50c0b3153b37";
