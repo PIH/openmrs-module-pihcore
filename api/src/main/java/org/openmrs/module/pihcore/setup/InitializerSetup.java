@@ -54,7 +54,10 @@ public class InitializerSetup {
     public static void loadPostConceptDomains() {
         try {
             for (Domain domain : getDomainsToLoadAfterConcepts()) {
-                installDomain(domain);
+                // TODO: Remove this if check once we fix core.  See: UHM-5573
+                if (domain != ORDER_FREQUENCIES || Context.getOrderService().getOrderFrequencies(true).isEmpty()) {
+                    installDomain(domain);
+                }
             }
         }
         catch (Exception e) {
