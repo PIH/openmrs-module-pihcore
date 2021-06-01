@@ -42,9 +42,9 @@ public class PihCoreUtil {
 
     public static String getFormResource(String formName) {
         try {
-            return URLEncoder.encode("file:" + getFormDirectory() + formName, StandardCharsets.UTF_8.toString()).toString();
+            return URLEncoder.encode("file:" + getFormDirectory() + formName, StandardCharsets.UTF_8.toString());
         } catch (UnsupportedEncodingException e) {
-            return "file:" + getFormDirectory() + formName;
+            throw new IllegalArgumentException("Unable to encode: file:" + getFormDirectory() + formName, e);
         }
     }
 
