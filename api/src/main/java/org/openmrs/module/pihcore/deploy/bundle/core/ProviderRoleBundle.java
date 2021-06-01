@@ -6,6 +6,7 @@ import org.openmrs.api.PersonService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.providermanagement.ProviderRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ import static org.openmrs.module.pihcore.deploy.PihConstructors.providerRole;
  * Install CHW Provider Roles
  */
 @Component
-@Requires({ProviderAttributeTypeBundle.class, RelationshipTypeBundle.class})
+@Requires({RelationshipTypeBundle.class})
 public class ProviderRoleBundle extends AbstractMetadataBundle {
 
     @Autowired
@@ -55,12 +56,12 @@ public class ProviderRoleBundle extends AbstractMetadataBundle {
 
         Set<ProviderAttributeType> providerAttributes = new HashSet<ProviderAttributeType>();
         ProviderAttributeType providerAttributeType =
-                providerService.getProviderAttributeTypeByUuid(ProviderAttributeTypeBundle.ProviderAttributeTypes.DATE_HIRED);
+                providerService.getProviderAttributeTypeByUuid(PihEmrConfigConstants.PROVIDERATTRIBUTETYPE_DATEHIRED_UUID);
         if (providerAttributeType != null) {
             providerAttributes.add(providerAttributeType);
         }
         providerAttributeType =
-                providerService.getProviderAttributeTypeByUuid(ProviderAttributeTypeBundle.ProviderAttributeTypes.NUMBER_OF_HOUSEHOLDS);
+                providerService.getProviderAttributeTypeByUuid(PihEmrConfigConstants.PROVIDERATTRIBUTETYPE_HOUSEHOLDS_UUID);
         if (providerAttributeType != null) {
             providerAttributes.add(providerAttributeType);
         }
