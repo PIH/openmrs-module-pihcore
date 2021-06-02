@@ -16,21 +16,17 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@Requires(
-        {
+@Requires({
         AdministrativeConcepts.class,
-        //AllergyConcepts.class,  // we are now installing all allergy concepts via MDS package
         ClinicalConsultationConcepts.class,
         DeathConcepts.class,
         DiagnosisConcepts.class,
         SocioEconomicConcepts.class,
         InsuranceConcepts.class,
         VaccinationConcepts.class,
-                RelationshipTypeBundle.class,
-                ProviderAttributeTypeBundle.class,
-                ProviderRoleBundle.class
-
-        } )
+        RelationshipTypeBundle.class,
+        ProviderRoleBundle.class
+        })
 public class PihCoreMetadataBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
