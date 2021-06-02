@@ -5,7 +5,6 @@ import org.openmrs.module.metadatadeploy.bundle.VersionedMetadataBundle;
 import org.springframework.stereotype.Component;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptClass;
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
 @Component
 public class CoreConceptMetadataBundle extends VersionedMetadataBundle {
@@ -15,6 +14,8 @@ public class CoreConceptMetadataBundle extends VersionedMetadataBundle {
         return 8;
     }
 
+    // These Constants should be removed once we are no longer creating concepts in code.  If we still need to refer
+    // to them at that point, we should use constants setup in openmrs-config-pihemr
     public static final class ConceptSources {
         public static final String LOINC = "2889f378-f287-40a5-ac9c-ce77ee963ed7";
         public static final String CIEL = "21ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
@@ -85,23 +86,6 @@ public class CoreConceptMetadataBundle extends VersionedMetadataBundle {
         install(conceptClass("Test", "Acq. during patient encounter (vitals, labs, etc.)", ConceptClasses.TEST));
         install(conceptClass("Procedure", "Describes a clinical procedure", ConceptClasses.PROCEDURE));
         install(conceptClass("Frequency", "A concept used for capturing frequency information such as for medication ordering.", ConceptClasses.FREQUENCY));
-
-        install(conceptSource("PIH", "Partners In Health concept dictionary using concept ids and preferred English names", null, ConceptSources.PIH));
-        install(conceptSource("PIH Malawi", "Partners in Health Malawi concept dictionary", null, ConceptSources.PIH_MALAWI)); //
-        install(conceptSource("CIEL", "Columbia International eHealth Laboratory concept ID", null, ConceptSources.CIEL));
-        install(conceptSource("SNOMED CT", "SNOMED Preferred mapping", "SCT", ConceptSources.SNOMED_CT));
-        install(conceptSource("SNOMED MVP", "MVP Namespace Identifier extensions to SNOMED CT", null, ConceptSources.SNOMED_MVP));
-        install(conceptSource("RxNORM", "RxNORM CUI", null, ConceptSources.RX_NORM));
-        install(conceptSource("IMO ProcedureIT", "Intelligent Medical Objects, Inc. procedure/test datasource", null, ConceptSources.IMO_PROCEDURE_IT));
-        install(conceptSource("IMO ProblemIT", "Intelligent Medical Objects, Inc. problem/disease/finding datasource", null, ConceptSources.IMO_PROBLEM_IT));
-        install(conceptSource("SNOMED NP", "Non-preferred SNOMED CT mappings", null, ConceptSources.SNOMED_NP));
-        install(conceptSource("AMPATH", "AMPATH concept dictionary", null, ConceptSources.AMPATH));
-        install(conceptSource("ICD-10-WHO", "WHO ICD10 mappings", null, ConceptSources.ICD10));
-        install(conceptSource("ICD-11-WHO", "WHO ICD11 mappings", null, ConceptSources.ICD11));
-        install(conceptSource("LOINC", "A universal code system for identifying laboratory and clinical observations.", null, ConceptSources.LOINC));
-        install(conceptSource("org.openmrs.module.emrapi", "Source used to tag concepts used in the emr-api module", null, ConceptSources.EMRAPI_MODULE));
-        install(conceptSource("org.openmrs.module.mdrtb", "Concepts used with the MDR-TB module", null, ConceptSources.MDRTB_MODULE));
-        install(conceptSource("org.openmrs.module.mirebalaisreports", "Concepts used for HUM reports", null, ConceptSources.HUM_REPORTS_MODULE));
     }
 
 }
