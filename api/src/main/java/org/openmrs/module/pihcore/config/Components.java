@@ -92,6 +92,7 @@ public class Components {
         public static final String J9 = "j9";
         public static final String OBGYN = "obgyn";
         public static final String SPA = "spa";  // the Single-SPA UI
+        public static final String SPA_PREVIEW = "spaPreview";  // links to the SPA versions of existing features
         public static final String MARK_PATIENT_DEAD = "markPatientDead";
         public static final String PERU_LAB_ORDERS_ANALYSIS_REQUESTS = "peruLabOrdersAnalysisRequests";
         public static final String COMMENT_FORM = "commentForm";
