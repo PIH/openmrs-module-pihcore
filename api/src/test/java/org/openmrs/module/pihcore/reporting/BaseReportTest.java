@@ -85,6 +85,7 @@ public abstract class BaseReportTest extends PihCoreContextSensitiveTest {
         authenticate();
         loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
         loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        loadFromInitializer(Domain.CONCEPT_SOURCES, "conceptSources.csv");
         deployService.installBundle(testAddressBundle);
         createEmrApiMappingSource(metadataMappingService);
         loadFromInitializer(Domain.METADATA_TERM_MAPPINGS, "metadataMappings.csv");
