@@ -2,10 +2,16 @@
     ui.decorateWith("appui", "standardEmrPage")
 %>
 <style>
-    form > section > *  {
-        display: initial;
-        min-width: unset;
+    form > section > *:not(script)  {
+        float: left;
     }
+    form>section > button{
+        margin-top:24px;
+    }
+    table{
+        margin-top:16px;
+    }
+    
 </style>
 <!-- NOTE:  if you are using the OpenMRS SDK and "watching" this module, you should be able to "hot" reload this page and it should automatically pick up changes you've made -->
 
@@ -14,10 +20,26 @@
 
 <form method="get">
     <section>
-        <label>Desde:</label>
-        <input type="date" name="startDate" />
-        <label>&nbsp;Hasta:</label>
-        <input type="date" name="endDate" />
+        ${ui.includeFragment("uicommons", "field/datetimepicker", [
+                        label        : "Desde",
+                        formFieldName: "startDate",
+                        left         : true,
+                        defaultDate  : null,
+                        useTime      : false,
+                        showEstimated: false,
+                        initialValue : new Date(),
+                        id           : 'start-date'
+                ])}
+        ${ui.includeFragment("uicommons", "field/datetimepicker", [
+                        label        : "Hasta",
+                        formFieldName: "endDate",
+                        left         : true,
+                        defaultDate  : null,
+                        useTime      : false,
+                        showEstimated: false,
+                        initialValue : new Date(),
+                        id           : 'end-date'
+                ])}
         <button>Buscar</button>
     </section>
 </form>
@@ -75,8 +97,17 @@
                 <td>
                     ${ ui.format(encounter.creator)}
                 </td>
-                <td>
-                    <a href="http://localhost:8080/openmrs/htmlformentryui/htmlform/editHtmlFormWithStandardUi.page?patientId=${encounter.patient.uuid}&encounterId=${encounter.uuid}&definitionUiResource=file:configuration/pih/htmlforms/sampleCollection.xml">Ingresar orden</a>
+                <td style="white-space: nowrap;">
+                        <a href="${ ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi",
+                                    [
+                                        "patientId": encounter.patient.uuid,
+                                        "encounterId": encounter.uuid,
+                                        "returnUrl": ui.escapeJs(ui.pageLink("pihcore", "/openmrs/pihcore/visit/visit.page", [ "patient": encounter.patient.uuid] )),
+                                        "definitionUiResource": "file:configuration/pih/htmlforms/sampleCollection.xml"
+                                    ]
+                        )}">
+                            Ingresar Orden
+                        </a>
                 </td>
             </tr>
         <% } %>
