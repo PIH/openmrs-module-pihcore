@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
@@ -63,6 +64,7 @@ public class PihCoreActivatorTest extends PihCoreContextSensitiveTest {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
+        loadFromInitializer(Domain.CONCEPT_SOURCES, "conceptSources.csv");
     }
 
     @Test

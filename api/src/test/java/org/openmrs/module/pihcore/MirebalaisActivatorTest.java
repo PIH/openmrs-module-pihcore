@@ -68,6 +68,7 @@ public class MirebalaisActivatorTest extends PihCoreContextSensitiveTest {
         loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
         loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
+        loadFromInitializer(Domain.CONCEPT_SOURCES, "conceptSources.csv");
 
         activator = new PihCoreActivator();
         Config config = mock(Config.class);

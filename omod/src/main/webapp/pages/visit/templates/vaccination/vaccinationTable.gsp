@@ -13,7 +13,7 @@
             </span>
         </span>
     </span>
-    <span class="overall-actions">
+    <span class="float-right overall-actions">
         <a class="expand-encounter" ng-show="!showVaccinationTable" ng-click="expand()"><i class="icon-caret-right"></i></a>
         <a class="contract-encounter" ng-show="showVaccinationTable" ng-click="contract()"><i class="icon-caret-down"></i></a>
         <a><i class="icon-delete-blank"></i></a>
