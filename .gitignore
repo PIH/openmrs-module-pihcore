@@ -4,9 +4,12 @@
 *.idea
 *.project
 *.classpath
+*.rubygems-provided
+*.rubygems
 
 omod/node
 omod/node_modules
+omod/src/main/compass
 
 target
 api/target
