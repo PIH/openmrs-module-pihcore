@@ -19,7 +19,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 4;
+        return 7;
     }
 
     public static final class Concepts {
@@ -41,6 +41,10 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         public static final String GUARDIAN = "3cde7c90-26fe-102b-80cb-0017a47871b2";
         public static final String OTHER_RELATIVE = "3ce18bec-26fe-102b-80cb-0017a47871b2";
         public static final String NURSE_CHW = "9a4b471e-8a9f-11e8-9a94-a6cf71072f73";
+
+        public static final String INFECTIOUS_DISEASE = "160159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String CANCER = "116031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String UNNATURAL_DEATH = "166078AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     }
 
     @Override
@@ -132,14 +136,15 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder(Concepts.HOSPITAL)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e215a0a-26fe-102b-80cb-0017a47871b2", "Hospital", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("dbd54ca7-747c-485e-b27b-91bdc50cf0bf", "Hôpital", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("559032c2-2b6f-4206-9263-cfb765322593", "Hospital", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("3e215a0a-26fe-102b-80cb-0017a47871b2", "Hospital", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("dbd54ca7-747c-485e-b27b-91bdc50cf0bf", "Hôpital", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("43c016d8-f384-4133-9d3a-6ed749bd5fcf", "Lopital", locale_HAITI, ConceptNameType.FULLY_SPECIFIED)
                 .description("ecef53c0-07fe-102c-b5fa-0017a47871b2", "hospital", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("75826862-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "HOSPITAL").build())
-                .mapping(new ConceptMapBuilder("b21fb656-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "2070").build())
+                .mapping(new ConceptMapBuilder("ffdb5db4-b5a6-4c19-95c6-926749046c56").type(sameAs).ensureTerm(snomedCt, "22232009").build())
+                .mapping(new ConceptMapBuilder("136271ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(narrowerThan).ensureTerm(ampath, "6181").build())
+                .mapping(new ConceptMapBuilder("75826862-4943-102e-96e9-000c29c2a5d7").type(sameAs).ensureTerm(pih, "HOSPITAL").build())
+                .mapping(new ConceptMapBuilder("b21fb656-4864-102e-96e9-000c29c2a5d7").type(sameAs).ensureTerm(pih, "2070").build())
+                .mapping(new ConceptMapBuilder("93056dee-85ce-48f8-81d0-52a9dcc440c5").type(sameAs).ensureTerm(ciel, "1589").build())
                 .build());
 
         install(new ConceptBuilder(Concepts.OUTSIDE_OF_INSTITUTION)
@@ -326,6 +331,44 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .description("9a4b55d8-8a9f-11e8-9a94-a6cf71072f73", "Nurse accompagnateur", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("9a4b570e-8a9f-11e8-9a94-a6cf71072f73")
                         .type(sameAs).ensureTerm(pih, "Nurse CHW").build())
+                .build());
+
+        install(new ConceptBuilder(Concepts.INFECTIOUS_DISEASE)
+                .datatype(notApplicable)
+                .conceptClass(diagnosis)
+                .name("919ebb0f-afc9-4a2b-b788-32077be85ed1", "Infectious or parasitic disease", Locale.ENGLISH, null)
+                .name("fc56cfc8-8812-4996-8a4c-84176b0a6721", "Maladies infectueuses ou parasitaires", Locale.FRENCH, null)
+                .name("108058BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "human immunodeficiency virus disease HIV resulting in infectious or parasitic disease", Locale.ENGLISH, null)
+                .name("107977BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "HIV resulting in infectious or parasitic disease", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("3109103a-9b55-4a23-a72c-b6c7540dc20e", "VIH causant maladies infectueuses ou parasitaires", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("143868ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(narrowerThan).ensureTerm(icd10who, "B20.9").build())
+                .mapping(new ConceptMapBuilder("217295ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "160159").build())
+                .mapping(new ConceptMapBuilder("144021ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(narrowerThan).ensureTerm(snomedNp, "186708007").build())
+                .build());
+
+        install(new ConceptBuilder(Concepts.CANCER)
+                .datatype(notApplicable)
+                .conceptClass(diagnosis)
+                .name("a22420c5-67fe-41ef-8668-aa946d0ac18a", "Neoplasm/cancer", Locale.ENGLISH, null)
+                .name("124386BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Tumeur maligne", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("89d7174d-a79e-4115-81cc-fd76df94754d", "Tumeur maligne", locale_HAITI, ConceptNameType.FULLY_SPECIFIED)
+                .name("d382ffcc-41d0-4225-9f27-1019ff9ad059", "Cancer", Locale.ENGLISH, null)
+                .name("16510BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Malignant Neoplasm", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("738eb18a-8d64-42bb-bfe4-8791de437e03", "Cancer", Locale.FRENCH, null)
+                .description("4570FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "New abnormal growth of tissue. Malignant neoplasms show a greater degree of anaplasia and have the properties of invasion and metastasis, compared to benign neoplasms.", Locale.ENGLISH)
+                .mapping(new ConceptMapBuilder("73680ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(snomedCt, "363346000").build())
+                .mapping(new ConceptMapBuilder("95030ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(icd10who, "C80").build())
+                .mapping(new ConceptMapBuilder("7aeb0705-d11a-42e0-8262-acf71158949c").type(sameAs).ensureTerm(ciel, "116030").build())
+                .mapping(new ConceptMapBuilder("182672ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "116031").build())
+                .build());
+
+        install(new ConceptBuilder(Concepts.UNNATURAL_DEATH)
+                .datatype(notApplicable)
+                .conceptClass(diagnosis)
+                .name("1e835e7a-f478-4a7a-94ce-e07076cd5f62", "Unnatural death", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("f1eba9c1-8b3f-440e-a106-c67f4bcd918d", "Décès non-naturel", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .mapping(new ConceptMapBuilder("3bbf1ad7-bfc1-4735-bf91-37a67ab352af").type(sameAs).ensureTerm(ciel, "166078").build())
+                .mapping(new ConceptMapBuilder("63dccc8c-0d75-45e0-9c82-59c457fc785f").type(narrowerThan).ensureTerm(snomedNp, "419620001").build())
                 .build());
     }
 

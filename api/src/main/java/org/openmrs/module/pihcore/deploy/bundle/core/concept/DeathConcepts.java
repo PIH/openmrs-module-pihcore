@@ -20,13 +20,14 @@ public class DeathConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 3;
+        return 6;
     }
 
     @Override
     protected void installNewVersion() throws Exception {
         Concept yes = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES);
         Concept no = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.NO);
+        Concept unknown = MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.UNKNOWN);
         Concept home = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.HOME);
         Concept hospital = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.HOSPITAL);
         Concept outsideOfInstitution = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.OUTSIDE_OF_INSTITUTION);
@@ -34,6 +35,9 @@ public class DeathConcepts extends VersionedPihConceptBundle {
         Concept familyMember = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.FAMILY_MEMBER);
         Concept police = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.POLICE);
         Concept surgery = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.SURGERY);
+        Concept cancer = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.CANCER);
+        Concept unnatDeath = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.UNNATURAL_DEATH);
+        Concept infDisease = MetadataUtils.existing(Concept.class, AnswerConcepts.Concepts.INFECTIOUS_DISEASE);
 
         install(new ConceptBuilder("e2d8ea09-3c19-4574-92f3-b3ea67187986")
                 .datatype(text)
@@ -122,8 +126,8 @@ public class DeathConcepts extends VersionedPihConceptBundle {
         Concept causeOfDeathFromCertificate = install(new ConceptBuilder(CAUSE_OF_DEATH_FROM_DEATH_CERTIFICATE)
                 .datatype(coded)
                 .conceptClass(question)
-                .name("2094BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CAUSE OF DEATH FROM DEATH CERTIFICATE", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("105848BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "CAUSE DU DÉCÈS SUR CERTIFICAT DE DÉCÈS", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("2094BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Cause of death from death certificate", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("105848BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Cause du décès du certificat de décès", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .mapping(new ConceptMapBuilder("2af0667b-3a89-4aac-a873-5a2900c2240b")
                         .type(sameAs).ensureTerm(pih, "9713").build())
                 .mapping(new ConceptMapBuilder("cc260f30-e152-49a3-ac29-b85c4845e25b")
@@ -132,6 +136,7 @@ public class DeathConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(snomedMvp, "18141000105007").build())
                 .mapping(new ConceptMapBuilder("137578ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(narrowerThan).ensureTerm(snomedNp, "184305005").build())
+                .answers(unknown,cancer,unnatDeath,infDisease,otherNonCoded)
                 .build());
 
         Concept probableCauseOfDeath = install(new ConceptBuilder("160218AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
