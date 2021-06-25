@@ -19,7 +19,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {
-        return 6;
+        return 7;
     }
 
     public static final class Concepts {
@@ -136,14 +136,15 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         install(new ConceptBuilder(Concepts.HOSPITAL)
                 .datatype(notApplicable)
                 .conceptClass(misc)
-                .name("3e215a0a-26fe-102b-80cb-0017a47871b2", "Hospital", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("dbd54ca7-747c-485e-b27b-91bdc50cf0bf", "Hôpital", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("559032c2-2b6f-4206-9263-cfb765322593", "Hospital", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("3e215a0a-26fe-102b-80cb-0017a47871b2", "Hospital", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
+                .name("dbd54ca7-747c-485e-b27b-91bdc50cf0bf", "Hôpital", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
+                .name("43c016d8-f384-4133-9d3a-6ed749bd5fcf", "Lopital", locale_HAITI, ConceptNameType.FULLY_SPECIFIED)
                 .description("ecef53c0-07fe-102c-b5fa-0017a47871b2", "hospital", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("75826862-4943-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "HOSPITAL").build())
-                .mapping(new ConceptMapBuilder("b21fb656-4864-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(pih, "2070").build())
+                .mapping(new ConceptMapBuilder("ffdb5db4-b5a6-4c19-95c6-926749046c56").type(sameAs).ensureTerm(snomedCt, "22232009").build())
+                .mapping(new ConceptMapBuilder("136271ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(narrowerThan).ensureTerm(ampath, "6181").build())
+                .mapping(new ConceptMapBuilder("75826862-4943-102e-96e9-000c29c2a5d7").type(sameAs).ensureTerm(pih, "HOSPITAL").build())
+                .mapping(new ConceptMapBuilder("b21fb656-4864-102e-96e9-000c29c2a5d7").type(sameAs).ensureTerm(pih, "2070").build())
+                .mapping(new ConceptMapBuilder("93056dee-85ce-48f8-81d0-52a9dcc440c5").type(sameAs).ensureTerm(ciel, "1589").build())
                 .build());
 
         install(new ConceptBuilder(Concepts.OUTSIDE_OF_INSTITUTION)
