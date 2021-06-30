@@ -16,6 +16,10 @@ import java.util.Locale;
 @Requires(CoreConceptMetadataBundle.class)
 public class CommonConcepts extends VersionedPihConceptBundle {
 
+    /*  DANGER:  Update this file (and version) with great caution
+     *  The most current concepts are on the PIH concepts server and in mds packages
+     *  Changing the version will cause concepts to change -- included mappings on YES and NO which WILL break forms
+     * */
     @Override
     public int getVersion() {
         return 3;

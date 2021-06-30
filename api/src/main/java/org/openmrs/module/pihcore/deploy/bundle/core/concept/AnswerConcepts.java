@@ -17,6 +17,10 @@ import java.util.Locale;
 @Requires({CoreConceptMetadataBundle.class})
 public class AnswerConcepts extends VersionedPihConceptBundle {
 
+    /* Update this file (and version) with great caution
+    *  The most current concepts are on the PIH concepts server and in mds packages
+    *  Changing the version will cause concepts to change -- included mappings which can break forms and report
+    * */
     @Override
     public int getVersion() {
         return 7;
@@ -24,14 +28,10 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
 
     public static final class Concepts {
         public static final String NURSE = "1577AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        public static final String NURSE_CHW = "9a4b471e-8a9f-11e8-9a94-a6cf71072f73";
         public static final String DOCTOR = "1574AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String COMMUNITY_HEALTH_WORKER = "bf997029-a496-41a2-a7e7-7981e82d2dd0";
-        public static final String HOME = "987be8c8-6a5a-11e2-b6f9-aa00f871a3e1";
-        public static final String HOSPITAL = "3ce0d472-26fe-102b-80cb-0017a47871b2";
-        public static final String OUTSIDE_OF_INSTITUTION = "a49e7854-aed5-45eb-bd32-612f9938ef3d";
-        public static final String FAMILY_MEMBER = "7e32130b-5be8-4766-bf03-f1b909934141";
-        public static final String POLICE = "a1e44baf-c82f-4d4f-ac09-232da84c8a28";
-        public static final String SURGERY = "a2bbe648-8b69-438a-9657-8148478cf951";
+
         public static final String FATHER = "3ce18444-26fe-102b-80cb-0017a47871b2";
         public static final String MOTHER = "3ce185ca-26fe-102b-80cb-0017a47871b2";
         public static final String BROTHER = "3ce18746-26fe-102b-80cb-0017a47871b2";
@@ -40,8 +40,13 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
         public static final String PARTNER_OR_SPOUSE = "3cee77da-26fe-102b-80cb-0017a47871b2";
         public static final String GUARDIAN = "3cde7c90-26fe-102b-80cb-0017a47871b2";
         public static final String OTHER_RELATIVE = "3ce18bec-26fe-102b-80cb-0017a47871b2";
-        public static final String NURSE_CHW = "9a4b471e-8a9f-11e8-9a94-a6cf71072f73";
 
+        public static final String HOME = "987be8c8-6a5a-11e2-b6f9-aa00f871a3e1";
+        public static final String HOSPITAL = "3ce0d472-26fe-102b-80cb-0017a47871b2";
+        public static final String OUTSIDE_OF_INSTITUTION = "a49e7854-aed5-45eb-bd32-612f9938ef3d";
+        public static final String FAMILY_MEMBER = "7e32130b-5be8-4766-bf03-f1b909934141";
+        public static final String POLICE = "a1e44baf-c82f-4d4f-ac09-232da84c8a28";
+        public static final String SURGERY = "a2bbe648-8b69-438a-9657-8148478cf951";
         public static final String INFECTIOUS_DISEASE = "160159AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String CANCER = "116031AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         public static final String UNNATURAL_DEATH = "166078AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
