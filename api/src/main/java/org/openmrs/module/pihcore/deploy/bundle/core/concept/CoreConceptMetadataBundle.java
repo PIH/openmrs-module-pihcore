@@ -9,6 +9,9 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptC
 @Component
 public class CoreConceptMetadataBundle extends VersionedMetadataBundle {
 
+    /* Update this file (and version) with great caution
+     *  This metadata is in the PIH concepts server and in mds packages
+     * */
     @Override
     public int getVersion() {
         return 8;

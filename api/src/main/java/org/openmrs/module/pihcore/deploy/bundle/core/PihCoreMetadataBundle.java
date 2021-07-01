@@ -4,8 +4,6 @@ import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.DeathConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.DiagnosisConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.InsuranceConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.VaccinationConcepts;
@@ -19,8 +17,6 @@ import org.springframework.stereotype.Component;
 @Requires({
         AdministrativeConcepts.class,
         ClinicalConsultationConcepts.class,
-        DeathConcepts.class,
-        DiagnosisConcepts.class,
         SocioEconomicConcepts.class,
         InsuranceConcepts.class,
         VaccinationConcepts.class,
