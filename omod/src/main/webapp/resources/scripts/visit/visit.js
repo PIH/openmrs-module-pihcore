@@ -48,7 +48,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             scope: {
                 ngModel: '=',
                 minDate: '=',
-                maxDate: '='
+                maxDate: '=',
+                clearButton: '='
             },
             controller: function($scope) {
                 $scope.now = new Date();
@@ -58,6 +59,9 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     event.stopPropagation();
                     $scope.opened = true;
                 }
+                $scope.clear = function() {
+                  $scope.ngModel = null
+                }
                 $scope.options = { // for some reason setting this via attribute doesn't work
                     showWeeks: false
                 }
@@ -66,6 +70,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         '<input type="text" is-open="opened" ng-model="ngModel" datepicker-popup="dd-MMM-yyyy" readonly ' +
                         'datepicker-options="options" min-date="minDate" max-date="maxDate" ng-click="open($event)"/>' +
                         '<i class="icon-calendar small add-on" ng-click="open($event)" ></i>' +
+                        '<i class="icon-remove small add-on" ng-click="clear()" ng-show="clearButton" ></i>'  +
                         '</span>'
         }
     }])
@@ -777,18 +782,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
 
             $scope.nextVisitStartDatetime = function(visit) {
-                if ( $scope.visitIdx != -1) {
-                    if ($scope.visitIdx  == 0) {
-                        //this is the newest visit in the list and the upper date limit is today
-                        return new Date();  // TODO technical is should be "today" in the server's time
-                    } else {
-                        var nextVisitStartDate = new Date($filter('serverDate')($scope.visits[$scope.visitIdx -1].startDatetime));
-                        // return the day before the start date of the next visit in the list
-                        nextVisitStartDate.setDate(nextVisitStartDate.getDate() -1);
-                        return nextVisitStartDate;
-                    }
+                if ( $scope.visitIdx > 0) {
+                    // if this isn't the most recent visit, return the day before the start date of the next visit in the list
+                    var nextVisitStartDate = new Date($filter('serverDate')($scope.visits[$scope.visitIdx -1].startDatetime));
+                    nextVisitStartDate.setDate(nextVisitStartDate.getDate() -1);
+                    return nextVisitStartDate;
                 }
-                return null;
+                else {
+                  return null;
+                }
             }
 
             $scope.goToNextSection = function(currentSection) {
