@@ -22,7 +22,7 @@
             <td>${ ui.message("uicommons.end") }</td>
             <td>{{ visit.stopDatetime | serverDate }}</td>
             <td>
-                <date-with-popup type="text" size="20" ng-model="newStopDatetime" min-date="(endDateLowerLimit && (endDateLowerLimit > newStartDatetime) ? endDateLowerLimit : newStartDatetime)" max-date="endDateUpperLimit || now" clear-button="endDateUpperLimit ? false: true"></date-with-popup>
+                <date-with-popup type="text" size="20" ng-model="newStopDatetime" min-date="(endDateLowerLimit && (endDateLowerLimit > newStartDatetime) ? endDateLowerLimit : newStartDatetime)" max-date="endDateUpperLimit || now" clear-button="!endDateUpperLimit"></date-with-popup>
             </td>
         </tr>
         <tr>
