@@ -6,7 +6,6 @@ import org.openmrs.module.pihcore.deploy.bundle.core.concept.AdministrativeConce
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.InsuranceConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.VaccinationConcepts;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Component;
         ClinicalConsultationConcepts.class,
         SocioEconomicConcepts.class,
         InsuranceConcepts.class,
-        VaccinationConcepts.class,
         RelationshipTypeBundle.class,
         ProviderRoleBundle.class
         })
