@@ -23,13 +23,11 @@ import org.openmrs.module.emrapi.test.ContextSensitiveMetadataTestUtils;
 import org.openmrs.module.emrapi.visit.EmrVisitService;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.initializer.Domain;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.MetadataSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
-import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -155,6 +153,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         locationService.saveLocation(location);
 
         Visit visit = new Visit();
+        visit.setDateCreated(DateUtils.addHours(new Date(), -30));  // because recently-created visits won't be closed
         visit.setStartDatetime(DateUtils.addHours(new Date(), -14));
         visit.setPatient(patient);
         visit.setLocation(location);
@@ -209,6 +208,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         locationService.saveLocation(location);
 
         Visit visit = new Visit();
+        visit.setDateCreated(DateUtils.addHours(new Date(), -30));  // because recently-created visits won't be closed
         visit.setStartDatetime(DateUtils.addHours(new Date(), -14));
         visit.setPatient(patient);
         visit.setLocation(location);
@@ -254,6 +254,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         locationService.saveLocation(location);
 
         Visit visit = new Visit();
+        visit.setDateCreated(DateUtils.addHours(new Date(), -30));  // because recently-created visits won't be closed
         visit.setStartDatetime(DateUtils.addHours(new Date(), -14));
         visit.setPatient(patient);
         visit.setLocation(location);
@@ -301,6 +302,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         locationService.saveLocation(location);
 
         Visit visit = new Visit();
+        visit.setDateCreated(DateUtils.addHours(new Date(), -30));  // because recently-created visits won't be closed
         visit.setStartDatetime(DateUtils.addHours(new Date(), -60));
         visit.setPatient(patient);
         visit.setLocation(location);
@@ -355,6 +357,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         locationService.saveLocation(location);
 
         Visit visit = new Visit();
+        visit.setDateCreated(DateUtils.addHours(new Date(), -30));  // because recently-created visits won't be closed
         visit.setStartDatetime(DateUtils.addHours(new Date(), -60));
         visit.setPatient(patient);
         visit.setLocation(location);
@@ -408,6 +411,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         locationService.saveLocation(location);
 
         Visit visit = new Visit();
+        visit.setDateCreated(DateUtils.addHours(new Date(), -30));  // because recently-created visits won't be closed
         visit.setStartDatetime(DateUtils.addHours(new Date(), -60));
         visit.setPatient(patient);
         visit.setLocation(location);
@@ -461,6 +465,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         locationService.saveLocation(location);
 
         Visit visit = new Visit();
+        visit.setDateCreated(DateUtils.addHours(new Date(), -30));  // because recently-created visits won't be closed
         visit.setStartDatetime(DateUtils.addHours(new Date(), -60));
         visit.setPatient(patient);
         visit.setLocation(location);
@@ -512,5 +517,55 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         assertNull(activeVisit);
     }
 
+
+    @Test
+    public void test_shouldNotCloseVisitIfDateCreatedWithin24Hours() throws Exception {
+
+        ContextSensitiveMetadataTestUtils.setupDispositionDescriptor(conceptService, dispositionService);
+        ContextSensitiveMetadataTestUtils.setupAdmissionDecisionConcept(conceptService, emrApiProperties);
+        ContextSensitiveMetadataTestUtils.setupSupportsVisitLocationTag(locationService);
+
+        Location location = locationService.getLocation(1);
+        location.addTag(emrApiProperties.getSupportsVisitsLocationTag());
+        locationService.saveLocation(location);
+
+        // set the date created on this visit to now
+        Visit visit = visitService.getVisit(1);
+        visit.setDateCreated(new Date());
+
+        // sanity check
+        assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
+
+        new PihCloseStaleVisitsTask().execute();
+
+        // this visit would have been closed, except that we updated the date created
+        assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
+
+    }
+
+    @Test
+    public void test_shouldNotCloseVisitIfDateChangedWithin24Hours() throws Exception {
+
+        ContextSensitiveMetadataTestUtils.setupDispositionDescriptor(conceptService, dispositionService);
+        ContextSensitiveMetadataTestUtils.setupAdmissionDecisionConcept(conceptService, emrApiProperties);
+        ContextSensitiveMetadataTestUtils.setupSupportsVisitLocationTag(locationService);
+
+        Location location = locationService.getLocation(1);
+        location.addTag(emrApiProperties.getSupportsVisitsLocationTag());
+        locationService.saveLocation(location);
+
+        // set the date changed on this visit to now
+        Visit visit = visitService.getVisit(1);
+        visit.setDateChanged(new Date());
+
+        // sanity check
+        assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
+
+        new PihCloseStaleVisitsTask().execute();
+
+        // this visit would have been closed, except that we updated the date changed
+        assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
+
+    }
 
 }

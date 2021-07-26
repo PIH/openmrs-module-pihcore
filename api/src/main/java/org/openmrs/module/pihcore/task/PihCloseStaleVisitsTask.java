@@ -31,7 +31,7 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private static int HUM_VISIT_EXPIRE_TIME_IN_HOURS = 24;
+    private static int REGULAR_VISIT_EXPIRE_TIME_IN_HOURS = 24;
     private static int ED_VISIT_EXPIRE_TIME_IN_HOURS = 168; // 7days -- All ED visits stay open for at least 7 days
     private static int ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS = 720; // 30 days (UHM-3009)
 
@@ -54,9 +54,13 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
 
         List<Visit> openVisits = visitService.getVisits(null, null, locations, null, null, null, null, null, null, false, false);
         for (Visit visit : openVisits) {
-            if ( (isOldEDVisit(adtService.wrap(visit), ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS))
+            if (!changedOrUpdatedRecently(visit, REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) &&
+                (
+                    isOldEDVisit(adtService.wrap(visit), ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS)
                     || (adtService.shouldBeClosed(visit) && !isActiveEDVisit(adtService.wrap(visit), ED_VISIT_EXPIRE_TIME_IN_HOURS))
-                    || wasDischargedAndNotAdmitted(adtService.wrap(visit), HUM_VISIT_EXPIRE_TIME_IN_HOURS)) {
+                    || wasDischargedAndNotAdmitted(adtService.wrap(visit), REGULAR_VISIT_EXPIRE_TIME_IN_HOURS)
+                )
+            ) {
                 try {
                     adtService.closeAndSaveVisit(visit);
                 } catch (Exception ex) {
@@ -64,6 +68,11 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
                 }
             }
         }
+    }
+
+    private boolean changedOrUpdatedRecently(Visit visit, int hours) {
+        Date comparisonDate = DateUtils.addHours(new Date(), -hours);
+        return visit.getDateCreated().after(comparisonDate) || (visit.getDateChanged() != null && visit.getDateChanged().after(comparisonDate));
     }
 
     private boolean wasDischargedAndNotAdmitted(VisitDomainWrapper visit, int hours) {
