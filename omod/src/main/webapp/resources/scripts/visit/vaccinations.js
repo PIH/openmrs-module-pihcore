@@ -47,14 +47,6 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                                 {
                                     concept: Concepts.vaccinationDate.uuid,
                                     value: vaccinationDate
-                                },
-                                {
-                                    concept: Concepts.vaccineLotNumber.uuid,
-                                    value: vaccineLotNumber.concept
-                                },
-                                {
-                                    concept: Concepts.vaccineManufacturer.uuid,
-                                    value: vaccineManufacturer.concept
                                 }
                             ]
                         }
@@ -207,12 +199,6 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     return _.find(group.groupMembers, function(member) {
                         return member.concept.uuid == concept.uuid
                             && member.value == numericValue;
-                    });
-                }
-                function hasTextMember(group, concept, textValue) {
-                    return _.find(group.groupMembers, function(member) {
-                        return member.concept.uuid == concept.uuid
-                            && member.value == textValue;
                     });
                 }
 
