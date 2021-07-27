@@ -19,6 +19,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             deleteDose: function(obsGroup) {
                 return Obs.delete({uuid: obsGroup.uuid});
             },
+            // ToDo:  vaccineLotNumber, vaccineManufacturer
             saveWithEncounter: function(visit, patient, encounter, vaccination, sequence, date) {
 
                 var vaccinationDate = encounter.encounterDatetime;
@@ -46,12 +47,21 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                                 {
                                     concept: Concepts.vaccinationDate.uuid,
                                     value: vaccinationDate
+                                },
+                                {
+                                    concept: Concepts.vaccineLotNumber.uuid,
+                                    value: vaccineLotNumber.concept
+                                },
+                                {
+                                    concept: Concepts.vaccineManufacturer.uuid,
+                                    value: vaccineManufacturer.concept
                                 }
                             ]
                         }
                     ]
                 });
             },
+            // ToDo:  vaccineLotNumber, vaccineManufacturer
             saveWithoutEncounter: function(patient, vaccination, sequence, date) {
                 // this is for the scenario when they are retrospectively recording a vaccination that was not done during
                 // any visit captured in this patient record (e.g. patient brings a paper record from another clinic)
@@ -163,6 +173,11 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         label: "pihcore.concept.name." + Concepts.diptheriaTetanusVaccination.uuid,
                         concept: Concepts.diptheriaTetanusVaccination,
                         doses: [ 0, 1, 2, 3, 11, 12 ]
+                    },
+                    {
+                        label: "pihcore.concept.name." + Concepts.covidVaccination.uuid,
+                        concept: Concepts.covidVaccination,
+                        doses: [ 1, 2, 3 ]
                     }
                 ]
 
@@ -194,6 +209,12 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             && member.value == numericValue;
                     });
                 }
+                function hasTextMember(group, concept, textValue) {
+                    return _.find(group.groupMembers, function(member) {
+                        return member.concept.uuid == concept.uuid
+                            && member.value == textValue;
+                    });
+                }
 
                 $scope.existingDose = function(sequence, vaccination) {
                     return _.find($scope.history, function(it) {
@@ -219,6 +240,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 $scope.sequences = sequences;
                 $scope.vaccinations = vaccinations;
                 $scope.currentVaccinations = "";
+                // $scope.vaccineLotNumber = vaccineLotNumber;
+                // $scope.vaccineManufacturer = vaccineManufacturer;
 
                 loadHistory();
 

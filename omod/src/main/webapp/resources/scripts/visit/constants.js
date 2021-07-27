@@ -195,6 +195,15 @@ angular.module('constants', [])
         vaccinationDate: {
             uuid: "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
+        vaccineLotNumber: {
+            uuid: "1420AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        vaccineManufacturer: {
+            uuid: "1419AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        covidVaccination: {
+            uuid: "c3cd46de-21fb-475b-b76a-1c638b250378"
+        },
         bcgVaccination: {
             uuid: "3cd4e004-26fe-102b-80cb-0017a47871b2"
         },
@@ -213,6 +222,7 @@ angular.module('constants', [])
         diptheriaTetanusVaccination: {
             uuid: "3ccc6b7c-26fe-102b-80cb-0017a47871b2"
         },
+
         zlLabOrders: {
             uuid: "d4d844de-50bd-4299-8575-1ce59b53908b"
         },
