@@ -2,7 +2,6 @@
     <h3>${ ui.message("pihcore.visitNote.recordVaccination.header") }</h3>
 </div>
 
-<!-- TODO: finish translations -->
 <div class="dialog-content">
     <h4>
         {{ vaccination.label | translate }}, {{ sequence.label | translate }}
@@ -27,6 +26,21 @@
             ${ ui.message("uicommons.date") }: <date-with-popup ng-model="date" min-date="minDate" max-date="maxDate"></date-with-popup>
         </p>
         <br/>
+    </div>
+
+    <div class="spaced-paragraphs">
+        <p>
+            <label>
+                <!-- ToDo:  UHM-5674 Connect lot number data -->
+                <input type="text" id="lotnumber" />${ ui.message("pihcore.lotNo") }
+            </label>
+        </p>
+        <p>
+            <label>
+                <!-- ToDo:  UHM-5674 Connect manufacturer data -->
+                <input type="text" id="manufacturer">${ ui.message("pihcore.manufacturer") }
+            </label>
+        </p>
     </div>
     <div>
         <!-- note: vaccination-confirm is simply a helper class for smoke tests -->
