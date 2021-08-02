@@ -19,13 +19,38 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
             deleteDose: function(obsGroup) {
                 return Obs.delete({uuid: obsGroup.uuid});
             },
-            // ToDo:  vaccineLotNumber, vaccineManufacturer
-            saveWithEncounter: function(visit, patient, encounter, vaccination, sequence, date) {
+            saveWithEncounter: function(visit, patient, encounter, vaccination, sequence, manufacturer, lotNumber, date) {
 
-                var vaccinationDate = encounter.encounterDatetime;
+                const vaccinationDate = encounter.encounterDatetime;
                 if (date) {
                     // trim time and time zone component from date before submtting
                     vaccinationDate = moment(date).format('YYYY-MM-DD');
+                }
+                const groupMembers = [
+                    {
+                        concept: Concepts.vaccinationGiven.uuid,
+                        value: vaccination.concept
+                    },
+                    {
+                        concept: Concepts.vaccinationSequenceNumber.uuid,
+                        value: sequence.sequenceNumber
+                    },
+                    {
+                        concept: Concepts.vaccinationDate.uuid,
+                        value: vaccinationDate
+                    }
+                ];
+                if (manufacturer) {
+                    groupMembers.push({
+                        concept: Concepts.vaccineManufacturer.uuid,
+                        value: manufacturer
+                    })
+                }
+                if (lotNumber) {
+                    groupMembers.push({
+                        concept: Concepts.vaccineLotNumber.uuid,
+                        value: lotNumber
+                    })
                 }
                 return EncounterTransaction.save({
                     visitUuid: visit.uuid,
@@ -35,56 +60,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     observations: [
                         {
                             concept: Concepts.vaccinationHistoryConstruct.uuid,
-                            groupMembers: [
-                                {
-                                    concept: Concepts.vaccinationGiven.uuid,
-                                    value: vaccination.concept
-                                },
-                                {
-                                    concept: Concepts.vaccinationSequenceNumber.uuid,
-                                    value: sequence.sequenceNumber
-                                },
-                                {
-                                    concept: Concepts.vaccinationDate.uuid,
-                                    value: vaccinationDate
-                                }
-                            ]
-                        }
-                    ]
-                });
-            },
-            // ToDo:  vaccineLotNumber, vaccineManufacturer
-            saveWithoutEncounter: function(patient, vaccination, sequence, date) {
-                // this is for the scenario when they are retrospectively recording a vaccination that was not done during
-                // any visit captured in this patient record (e.g. patient brings a paper record from another clinic)
-
-                var obsDatetime = new Date().toISOString();
-
-                // trim time and time zone component from date before submtting
-                var formattedDate = moment(date).format('YYYY-MM-DD');
-
-                return Obs.save({
-                    person: patient.uuid,
-                    obsDatetime: obsDatetime,
-                    concept: Concepts.vaccinationHistoryConstruct.uuid,
-                    groupMembers: [
-                        {
-                            person: patient.uuid,
-                            obsDatetime: obsDatetime,
-                            concept: Concepts.vaccinationGiven.uuid,
-                            value: vaccination.concept.uuid
-                        },
-                        {
-                            person: patient.uuid,
-                            obsDatetime: obsDatetime,
-                            concept: Concepts.vaccinationSequenceNumber.uuid,
-                            value: sequence.sequenceNumber
-                        },
-                        {
-                            person: patient.uuid,
-                            obsDatetime: obsDatetime,
-                            concept: Concepts.vaccinationDate.uuid,
-                            value: formattedDate
+                            groupMembers: groupMembers
                         }
                     ]
                 });
@@ -261,6 +237,8 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                             $dialogScope.now = new Date().toISOString();
                             $dialogScope.sequence = sequence;
                             $dialogScope.vaccination = vaccination;
+                            $dialogScope.manufacturer = $scope.manufacturer;
+                            $dialogScope.lotNumber = $scope.lotNumber;
                             $dialogScope.minDate = null;
                             $dialogScope.maxDate = new Date().toISOString();
                             $dialogScope.encounter = $scope.encounter
@@ -278,10 +256,10 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         }]
                     }).then(function(opts) {
                         if (opts.when == 'encounter') {
-                            VaccinationService.saveWithEncounter($scope.visit, $scope.patient, $scope.encounter, vaccination, sequence)
+                            VaccinationService.saveWithEncounter($scope.visit, $scope.patient, $scope.encounter, vaccination, sequence, manufacturer, lotNumber)
                                 .$promise.then(loadHistory);
                         } else if (opts.when == 'no-encounter') {
-                            VaccinationService.saveWithEncounter($scope.visit, $scope.patient, $scope.encounter, vaccination, sequence, opts.date)
+                            VaccinationService.saveWithEncounter($scope.visit, $scope.patient, $scope.encounter, vaccination, sequence, manufacturer, lotNumber, opts.date)
                                 .$promise.then(loadHistory);
                         }
                     });

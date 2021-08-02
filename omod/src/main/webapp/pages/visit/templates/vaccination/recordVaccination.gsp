@@ -31,14 +31,12 @@
     <div class="spaced-paragraphs">
         <p>
             <label>
-                <!-- ToDo:  UHM-5674 Connect lot number data -->
-                <input type="text" id="lotnumber" />${ ui.message("pihcore.lotNo") }
+                <input type="text" ng-model="lotNumber" />${ ui.message("pihcore.lotNo") }
             </label>
         </p>
         <p>
             <label>
-                <!-- ToDo:  UHM-5674 Connect manufacturer data -->
-                <input type="text" id="manufacturer">${ ui.message("pihcore.manufacturer") }
+                <input type="text" ng-model="manufacturer">${ ui.message("pihcore.manufacturer") }
             </label>
         </p>
     </div>
