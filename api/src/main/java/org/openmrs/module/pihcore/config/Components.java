@@ -27,6 +27,7 @@ public class Components {
         public static final String HIV_INTAKE_FORM = "hivIntakeForm";
         public static final String VCT = "vct";
         public static final String PMTCT = "pmtct" ;
+        public static final String EXP_INFANT = "exposedInfant" ;
         public static final String MCH = "mch";  // mchForms + mchProgram
         public static final String MCH_FORMS = "mchForms";  // used by ZL (via "mch")
         public static final String MCH_PROGRAM = "mchProgram";  // needs MCHProgramBundle[ZL], used by ZL (via "mch")
