@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- patient 7 is from standard test dataset -->
+<dataset>
+
+    <visit visit_id="1001" patient_id="7" visit_type_id="1" date_started="2020-01-01 00:00:00.0" date_stopped="2020-02-01 00:00:00.0"  location_id="1" creator="1" date_created="2020-01-01 00:00:00.0" voided="0" uuid="0e378ef1-128d-481d-9d8e-1c076558e642" />
+
+    <visit visit_id="1002" patient_id="7" visit_type_id="1" date_started="2020-03-01 00:00:00.0" date_stopped="2020-04-01 00:00:00.0" location_id="1" creator="1" date_created="2020-01-01 00:00:00.0" voided="0" uuid="9ddc579c-5c22-4343-b299-014566432598" />
+
+    <!-- this visit is at a different location than the above two -->
+    <visit visit_id="1003" patient_id="7" visit_type_id="1" date_started="2020-05-01 00:00:00.0" date_stopped="2020-06-01 00:00:00.0" location_id="2" creator="1" date_created="2020-01-01 00:00:00.0" voided="0" uuid="0e7fdf4a-dd0e-426f-a230-c33e53cdd13c" />
+
+    <encounter encounter_id="1001" encounter_type="2" patient_id="7" location_id="1" form_id="1" encounter_datetime="2020-01-01 00:00:00.0" visit_id="1001" creator="1" date_created="2020-01-01 00:00:00.0" voided="false" uuid="89e7d2b7-d80f-45fa-a7fd-f24902f38076"/>
+
+    <encounter encounter_id="1002" encounter_type="1" patient_id="7" location_id="1" form_id="1" encounter_datetime="2020-03-01 00:00:00.0" visit_id="1002" creator="1" date_created="2020-01-01 00:00:00.0" voided="false" uuid="5a69c361-bdbf-4c64-82ac-09d6d45ee4a8"/>
+
+</dataset>
