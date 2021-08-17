@@ -7,14 +7,14 @@ import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ReopenVisitActionTest extends BaseModuleContextSensitiveTest {
+public class ReopenVisitActionTest extends PihCoreContextSensitiveTest {
 
     private FormEntrySession mockSession;
 
