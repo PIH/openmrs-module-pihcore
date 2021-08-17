@@ -8,7 +8,6 @@ import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,12 +31,8 @@ public class ReopenVisitAction implements CustomFormSubmissionAction {
             List<Visit> moreRecentVisits = Context.getVisitService().getVisits(null, Collections.singletonList(patient), Collections.singletonList(visit.getLocation()), null, visit.getStartDatetime(), null, null, null, null, true, false);
 
             // exclude the visit we are working with itself
-            Iterator<Visit> i = moreRecentVisits.iterator();
-            while (i.hasNext()) {
-                Visit v = i.next();
-                if (v.equals(visit)) {
-                    i.remove();
-                }
+            if (moreRecentVisits != null) {   // I suspect this isn't needed, and getVisits will at minimum return an empty list, but just to be safe
+                moreRecentVisits.remove(visit);
             }
 
             // if none, and the visit is closed, reopen
