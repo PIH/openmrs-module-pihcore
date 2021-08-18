@@ -61,7 +61,7 @@
         <dispensingVersion>1.3.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>1.4.0</edtriageappVersion>
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
-        <emrapiVersion>1.32.0</emrapiVersion>
+        <emrapiVersion>1.33.0-SNAPSHOT</emrapiVersion>
         <eventVersion>2.9.0</eventVersion>
         <htmlformentryVersion>4.1.0</htmlformentryVersion>
         <htmlformentryuiVersion>2.0.0-SNAPSHOT</htmlformentryuiVersion>

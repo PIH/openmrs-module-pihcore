@@ -1,6 +1,8 @@
 package org.openmrs.module.pihcore.task;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
@@ -15,7 +17,6 @@ import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.scheduler.tasks.AbstractTask;
-import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private static int REGULAR_VISIT_EXPIRE_TIME_IN_HOURS = 24;
+    private static int REGULAR_VISIT_EXPIRE_TIME_IN_HOURS = 12;
     private static int ED_VISIT_EXPIRE_TIME_IN_HOURS = 168; // 7days -- All ED visits stay open for at least 7 days
     private static int ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS = 720; // 30 days (UHM-3009)
 
@@ -54,13 +55,65 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
 
         List<Visit> openVisits = visitService.getVisits(null, null, locations, null, null, null, null, null, null, false, false);
         for (Visit visit : openVisits) {
-            if (!changedOrUpdatedRecently(visit, REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) &&
-                (
-                    isOldEDVisit(adtService.wrap(visit), ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS)
-                    || (adtService.shouldBeClosed(visit) && !isActiveEDVisit(adtService.wrap(visit), ED_VISIT_EXPIRE_TIME_IN_HOURS))
-                    || wasDischargedAndNotAdmitted(adtService.wrap(visit), REGULAR_VISIT_EXPIRE_TIME_IN_HOURS)
-                )
-            ) {
+
+            VisitDomainWrapper wrappedVisit = adtService.wrap(visit);
+            Boolean changedOrUpdatedRecently = changedOrUpdatedRecently(visit, REGULAR_VISIT_EXPIRE_TIME_IN_HOURS);
+
+            Disposition mostRecentDisposition = wrappedVisit.getMostRecentDisposition();
+            Long hoursSinceLastEncounter = wrappedVisit.getMostRecentEncounter() != null ?
+                    new Duration(new DateTime(wrappedVisit.getMostRecentEncounter().getEncounterDatetime()), new DateTime()).getStandardHours()
+                    : null;
+
+            // **this logic is intentionally verbose, since it can be difficult to follow**
+            Boolean closeVisit = false;
+
+            // if the patient has been discharged, close visit
+            if (wrappedVisit.hasBeenDischarged()) {
+                closeVisit = true;
+            }
+            // if the patient has been admitted, or is awaiting admission, don't close the visit
+            else if (wrappedVisit.isAdmitted() || wrappedVisit.isAwaitingAdmission()) {
+                closeVisit = false;
+            }
+            // otherwise, branch based on whether this is a "regular" visits, or a "ED Visit", with our special logic
+            else if (!isEDVisit(wrappedVisit)) {
+                // "normal" visits:
+                // if the disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") keep the visit open
+                if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen()) {
+                    closeVisit = false;
+                }
+                // otherwise, close the visit if there are no encounter, or no encounters in the last 12 hours, and the visit hasn't been updated in the last 12 hours
+                else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                    closeVisit = true;
+                }
+                // otherwise, don't close
+                else {
+                    closeVisit = false;
+                }
+            }
+            else {
+                // special logic for ED visits:
+                // if the most recent disposition is "discharge" and there are no encouters in the last 12 hours, and visit hasn't been updated in the last 12 hours, close
+                if (mostRecentDisposition != null && mostRecentDisposition.getType().equals(DispositionType.DISCHARGE) &&
+                    (hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                    closeVisit = true;
+                }
+                // if the most recent disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") and there are no encounters in the last 7 days, and visit hasn't been updated in the last 12 hours, close
+                else if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen() &&
+                    (hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                    closeVisit = true;
+                }
+                // otherwise, if there are no encounters in the last 30 days, and visit hasn't been updated in the last 12 hours, close
+                else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                    closeVisit = true;
+                }
+                // otherwise, don't close
+                else {
+                    closeVisit = false;
+                }
+            }
+
+            if (closeVisit) {
                 try {
                     adtService.closeAndSaveVisit(visit);
                 } catch (Exception ex) {
@@ -75,51 +128,8 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
         return visit.getDateCreated().after(comparisonDate) || (visit.getDateChanged() != null && visit.getDateChanged().after(comparisonDate));
     }
 
-    private boolean wasDischargedAndNotAdmitted(VisitDomainWrapper visit, int hours) {
-        boolean wasDischarged = false;
-
-        Encounter mostRecentEncounter = visit.getMostRecentEncounter();
-        if (!hasNotBeenDischarged(visit)) {
-            // if last disposition is Discharged check for any encounters in the last N hours
-            Date now = new Date();
-            Date mustHaveSomethingAfter = DateUtils.addHours(now, -hours);
-            if (visit.hasEncounters() && OpenmrsUtil.compare(mostRecentEncounter.getEncounterDatetime(), mustHaveSomethingAfter) < 0) {
-                // we check for an Admission encounter only if a given number of hours elapsed since the Discharge disposition
-                wasDischarged = !visit.isAdmitted();
-            }
-        }
-        return wasDischarged;
-    }
-
-    private boolean isOldEDVisit(VisitDomainWrapper visit, int hours) {
-        boolean oldEDVisit = false;
-        if ((hasCheckInAtEDLocation(visit) || hasEDTriageEncounter(visit))
-                && hasNotBeenDischarged(visit)
-                && !visit.isAdmitted()) {
-            Date now = new Date();
-            Date mustHaveSomethingAfter = DateUtils.addHours(now, -hours);
-            // if visit has no Encounters or has Encounters older than the given number of hours
-            if ( (!visit.hasEncounters())
-                    ||  (visit.hasEncounters() && OpenmrsUtil.compare(visit.getMostRecentEncounter().getEncounterDatetime(), mustHaveSomethingAfter) < 0)) {
-                oldEDVisit = true;
-            }
-        }
-        return oldEDVisit;
-    }
-
-    private boolean isActiveEDVisit(VisitDomainWrapper visit, int hours) {
-
-        if ((hasCheckInAtEDLocation(visit) || hasEDTriageEncounter(visit)) && hasNotBeenDischarged(visit)) {
-            Date now = new Date();
-            Date mustHaveSomethingAfter = DateUtils.addHours(now, -hours);
-            // we don't test the visit start time because we know there must be at least one encounter (the check-in encounter)
-            if (visit.hasEncounters() && OpenmrsUtil.compare(visit.getMostRecentEncounter().getEncounterDatetime(), mustHaveSomethingAfter) >= 0) {
-                    return true;
-
-            }
-        }
-
-        return false;
+    private boolean isEDVisit(VisitDomainWrapper visit) {
+        return hasCheckInAtEDLocation(visit) || hasEDTriageEncounter(visit);
     }
 
     private boolean hasCheckInAtEDLocation(VisitDomainWrapper visit) {
