@@ -547,7 +547,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // create an exit from care encounter
         Encounter exitFromCareEncounter = new Encounter();
         exitFromCareEncounter.setPatient(patient);
-        exitFromCareEncounter.setEncounterType(encounterService.getEncounterTypeByUuid("b6631959-2105-49dd-b154-e1249e0fbcd7"));
+        exitFromCareEncounter.setEncounterType(emrApiProperties.getExitFromInpatientEncounterType());
         exitFromCareEncounter.setEncounterDatetime(visit.getStartDatetime());
         encounterService.saveEncounter(exitFromCareEncounter);
 
