@@ -21,7 +21,6 @@ import static org.openmrs.module.pihcore.deploy.PihConstructors.providerRole;
  * Install CHW Provider Roles
  */
 @Component
-@Requires({RelationshipTypeBundle.class})
 public class ProviderRoleBundle extends AbstractMetadataBundle {
 
     @Autowired
@@ -46,13 +45,12 @@ public class ProviderRoleBundle extends AbstractMetadataBundle {
     @Override
     public void install() throws Exception {
 
-        RelationshipType vhwToPatient =
-                personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.CHW_TO_PATIENT);
-        RelationshipType nurseVhwToPatient =
-                personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.NURSE_CHW_PATIENT);
+        RelationshipType chwToPatient =
+                personService.getRelationshipTypeByUuid(PihEmrConfigConstants.RELATIONSHIPTYPE_CHWTOPATIENT_UUID);
+        RelationshipType nurseChwToPatient =
+                personService.getRelationshipTypeByUuid(PihEmrConfigConstants.RELATIONSHIPTYPE_NURSECHWTOPATIENT_UUID);
         RelationshipType clinicianToPatient =
-                personService.getRelationshipTypeByUuid(RelationshipTypeBundle.RelationshipTypes.CLINICIAN_PATIENT);
-
+                personService.getRelationshipTypeByUuid(PihEmrConfigConstants.RELATIONSHIPTYPE_CLINICIANTOPATIENT_UUID);
 
         Set<ProviderAttributeType> providerAttributes = new HashSet<ProviderAttributeType>();
         ProviderAttributeType providerAttributeType =
@@ -66,15 +64,15 @@ public class ProviderRoleBundle extends AbstractMetadataBundle {
             providerAttributes.add(providerAttributeType);
         }
 
-        ProviderRole vhwSupervisee = install(providerRole("CHW", null, Collections.singleton(vhwToPatient), providerAttributes, ProviderRoles.CHW));
+        ProviderRole vhwSupervisee = install(providerRole("CHW", null, Collections.singleton(chwToPatient), providerAttributes, ProviderRoles.CHW));
 
-        install(providerRole("CHW Supervisor", Collections.singleton(vhwSupervisee), Collections.singleton(vhwToPatient), providerAttributes, ProviderRoles.CHW_SUPERVISOR));
+        install(providerRole("CHW Supervisor", Collections.singleton(vhwSupervisee), Collections.singleton(chwToPatient), providerAttributes, ProviderRoles.CHW_SUPERVISOR));
 
-        install(providerRole("Nurse Accompagnateur", null, Collections.singleton(nurseVhwToPatient), providerAttributes, ProviderRoles.NURSE_ACCOMPAGNATEUR));
+        install(providerRole("Nurse Accompagnateur", null, Collections.singleton(nurseChwToPatient), providerAttributes, ProviderRoles.NURSE_ACCOMPAGNATEUR));
 
         install(providerRole("Clinician", null, Collections.singleton(clinicianToPatient), providerAttributes, ProviderRoles.CLINICIAN));
 
-        install(providerRole("MH CHW Supervisor", Collections.singleton(vhwSupervisee), Collections.singleton(vhwToPatient), providerAttributes, ProviderRoles.MH_CHW_SUPERVISOR));
+        install(providerRole("MH CHW Supervisor", Collections.singleton(vhwSupervisee), Collections.singleton(chwToPatient), providerAttributes, ProviderRoles.MH_CHW_SUPERVISOR));
     }
 
 }
