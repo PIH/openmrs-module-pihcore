@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
         ClinicalConsultationConcepts.class,
         SocioEconomicConcepts.class,
         InsuranceConcepts.class,
+        RelationshipTypeBundle.class,
         ProviderRoleBundle.class
         })
 public class PihCoreMetadataBundle extends AbstractMetadataBundle {
