@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+/**
+ * Intended to be used with "admitToSpecificLocation" disposition action so that if an admission encounter is
+ * added automatically, we also reopen the visit, if needed
+ */
 @Component("reopenVisitDispositionAction")
 public class ReopenVisitDispositionAction implements DispositionAction {
 
