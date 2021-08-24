@@ -12,7 +12,6 @@ import org.openmrs.module.initializer.api.ConfigDirUtil;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.springframework.test.annotation.DirtiesContext;
 
 import java.io.File;
 import java.io.InputStream;
@@ -22,7 +21,6 @@ import java.util.Properties;
 
 import static org.openmrs.module.initializer.api.ConfigDirUtil.CHECKSUM_FILE_EXT;
 
-@DirtiesContext
 public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensitiveTest {
 
     public PihCoreContextSensitiveTest() {
