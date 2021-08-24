@@ -65,6 +65,7 @@ public class PihCoreActivatorTest extends PihCoreContextSensitiveTest {
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
         loadFromInitializer(Domain.CONCEPT_SOURCES, "conceptSources.csv");
+        loadFromInitializer(Domain.RELATIONSHIP_TYPES, "pih.csv");
     }
 
     @Test
