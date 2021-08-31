@@ -7,6 +7,7 @@ import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescript
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -42,6 +43,10 @@ public class Config {
             }
         }
         return false;
+    }
+
+    public List<String> getEnabledComponents() {
+        return (descriptor.getComponents() == null ? new ArrayList<>() : descriptor.getComponents());
     }
 
     public String getWelcomeMessage() {
