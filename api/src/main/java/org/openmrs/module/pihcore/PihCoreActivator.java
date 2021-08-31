@@ -64,6 +64,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import static org.openmrs.module.pihcore.PihCoreConstants.GP_COMPONENT_PREFIX;
+
 public class PihCoreActivator extends BaseModuleActivator implements DaemonTokenAware {
 
 	protected Log log = LogFactory.getLog(getClass());
@@ -193,6 +195,15 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
         if (config != null) {
             BiometricsConfigDescriptor biometricsDescriptor = config.getBiometricsConfig();
             setGlobalProperty(RegistrationCoreConstants.GP_BIOMETRICS_IMPLEMENTATION, biometricsDescriptor.getBiometricEngine());
+        }
+
+        // Update global properties for any enabled components, so database queries can utilize these via SQL
+        AdministrationService adminService = Context.getAdministrationService();
+        adminService.purgeGlobalProperties(adminService.getGlobalPropertiesByPrefix(GP_COMPONENT_PREFIX));
+        if (config != null) {
+            for (String component : config.getEnabledComponents()) {
+                setGlobalProperty(GP_COMPONENT_PREFIX + component, "true");
+            }
         }
     }
 
