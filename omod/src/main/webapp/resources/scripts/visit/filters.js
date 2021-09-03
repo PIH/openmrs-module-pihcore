@@ -473,6 +473,9 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
     .filter('allowedWithContext', [ "SessionInfo", function(SessionInfo) {
         return function(extensionList, visit) {
 
+            // Note: These functions are copied over from those registered with the Nashorn context AppFrameworkServiceImpl
+            // Any new functions or changes to existing functions should be synchronized with what is there.
+
             var hasMemberWithProperty = function(list, prop, val) {
                 return _.any(list, function(it) {
                     return it[prop] == val;
@@ -483,10 +486,16 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
               return list.some(func);
             };
 
-            // TODO we really should have a better place for utility functions like this
-            var patientAgeInYearsOnDate = function(date) {
-                return moment(date).diff(moment(visit.patient.person.birthdate), 'years');
-            };
+
+            var fullMonthsBetweenDates = function(earlierDate, laterDate) {
+                var d1 = new Date(earlierDate);
+                var d2 = new Date(laterDate);
+                var monthsBetween = ((d2.getFullYear() - d1.getFullYear()) * 12) + (d2.getMonth() - d1.getMonth());
+                if (d2.getDate() < d1.getDate()) {
+                    monthsBetween = monthsBetween - 1;
+                }
+                return monthsBetween;
+            }
 
             return _.filter(extensionList, function(it) {
 
