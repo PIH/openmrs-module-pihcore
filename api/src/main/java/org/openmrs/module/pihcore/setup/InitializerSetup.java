@@ -5,8 +5,11 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.initializer.api.InitializerService;
+import org.openmrs.module.initializer.api.loaders.BaseFileLoader;
 import org.openmrs.module.initializer.api.loaders.Loader;
+import org.openmrs.module.pihcore.config.Config;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +36,7 @@ public class InitializerSetup {
         );
     }
 
-    public static void loadPreConceptDomains() {
+    public static void loadPreConceptDomains(Config config) {
         try {
             List<String> excludeList = new ArrayList<>();
             for (Domain domain : getDomainsToLoadAfterConcepts()) {
@@ -42,13 +45,35 @@ public class InitializerSetup {
             for (Loader loader : Context.getService(InitializerService.class).getLoaders()) {
                 if (!excludeList.contains(loader.getDomainName())) {
                     log.warn("Loading from Initializer: " + loader.getDomainName());
-                    loader.loadUnsafe(new ArrayList<>(), true);
+                    List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
+                    loader.loadUnsafe(exclusionsForLoader, true);
                 }
             }
         }
         catch (Exception e) {
             throw new IllegalStateException("An error occurred while loading from initializer", e);
         }
+    }
+
+    /**
+     * The purpose of this method is to determine if there are any site-specific configuration files,
+     * and if so, to exclude them if they are not intended for the specific config in use.
+     * Any config files that contain a "-", and which do not end with the site name, are excluded
+     */
+    public static List<String> getExclusionsForLoader(Loader loader, Config config) {
+        List<String> exclusions = new ArrayList<>();
+        if (loader instanceof BaseFileLoader) {
+            BaseFileLoader ll = (BaseFileLoader) loader;
+            String site = config.getSite() == null ? "" : config.getSite().toLowerCase();
+            for (File f : ll.getDirUtil().getFiles("csv")) {
+                String filename = f.getName().toLowerCase();
+                if (filename.contains("-") && !filename.endsWith("-" + site + ".csv")) {
+                    log.warn("Excluding site-specific configuration file: " + filename);
+                    exclusions.add(filename);
+                }
+            }
+        }
+        return exclusions;
     }
 
     public static void loadPostConceptDomains() {

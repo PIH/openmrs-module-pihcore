@@ -17,6 +17,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static org.openmrs.module.initializer.api.ConfigDirUtil.CHECKSUM_FILE_EXT;
@@ -40,25 +42,47 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
 
     public void loadFromInitializer(Domain domain, String file) {
         InitializerService initializerService = Context.getService(InitializerService.class);
-        File outputFile = Paths.get(initializerService.getConfigDirPath(), domain.getName(), file).toFile();
+        List<File> configFiles = new ArrayList<>();
         try {
-            Properties prop = new Properties();
-            prop.setProperty(InitializerConstants.PROPS_SKIPCHECKSUMS, "true");
-            prop.setProperty(InitializerConstants.PROPS_STARTUP_LOAD, InitializerConstants.PROPS_STARTUP_LOAD_FAIL_ON_ERROR);
-            Context.setRuntimeProperties(prop);
-
-            String inputResource = "testAppDataDir/configuration/" + domain.getName() + "/" + file;
-            InputStream in = getClass().getClassLoader().getResourceAsStream(inputResource);
-            String contents = IOUtils.toString(in, "UTF-8");
-            FileUtils.write(outputFile, contents, "UTF-8");
+            configFiles.add(addResourceToConfigurationDirectory(domain.getName(), file));
+            setupInitializerForTesting();
             initializerService.loadUnsafe(true, true);
         }
         catch (Exception e) {
             throw new RuntimeException("An error occurred while setting up initializer configuration", e);
         }
         finally {
-            ConfigDirUtil.deleteFilesByExtension(initializerService.getChecksumsDirPath(), CHECKSUM_FILE_EXT);
-            FileUtils.deleteQuietly(outputFile);
+            cleanUpConfigurationDirectory(configFiles);
+        }
+    }
+
+    public void setupInitializerForTesting() {
+        Properties prop = new Properties();
+        prop.setProperty(InitializerConstants.PROPS_SKIPCHECKSUMS, "true");
+        prop.setProperty(InitializerConstants.PROPS_STARTUP_LOAD, InitializerConstants.PROPS_STARTUP_LOAD_FAIL_ON_ERROR);
+        Context.setRuntimeProperties(prop);
+    }
+
+    public File addResourceToConfigurationDirectory(String domain, String resource) {
+        InitializerService initializerService = Context.getService(InitializerService.class);
+        File outputFile = Paths.get(initializerService.getConfigDirPath(), domain, resource).toFile();
+        try {
+            String inputResource = "testAppDataDir/configuration/" + domain + "/" + resource;
+            InputStream in = getClass().getClassLoader().getResourceAsStream(inputResource);
+            String contents = IOUtils.toString(in, "UTF-8");
+            FileUtils.write(outputFile, contents, "UTF-8");
+        }
+        catch (Exception e) {
+            throw new RuntimeException("An error occurred while copying initializer resource to configuration", e);
+        }
+        return outputFile;
+    }
+
+    public void cleanUpConfigurationDirectory(List<File> filesToDelete) {
+        InitializerService initializerService = Context.getService(InitializerService.class);
+        ConfigDirUtil.deleteFilesByExtension(initializerService.getChecksumsDirPath(), CHECKSUM_FILE_EXT);
+        for (File f : filesToDelete) {
+            FileUtils.deleteQuietly(f);
         }
     }
 

@@ -1,0 +1,49 @@
+UUID,Name,Description,Parent,_order:100
+083e75b0-5959-11e4-8ed6-0800200c9a66,CDI Klinik Ekstèn Jeneral,CDI Klinik Ekstèn Jeneral,Mirebalais
+24bd1390-5959-11e4-8ed6-0800200c9a66,Hôpital Universitaire de Mirebalais - Prensipal,Hôpital Universitaire de Mirebalais - Prensipal,Mirebalais
+11857d81-5959-11e4-8ed6-0800200c9a66,CDI Klinik Ekstèn Jeneral Achiv Santral,CDI Klinik Ekstèn Jeneral Achiv Santral,CDI Klinik Ekstèn Jeneral
+11857d80-5959-11e4-8ed6-0800200c9a66,CDI Klinik Ekstèn Jeneral Biwo Randevou,CDI Klinik Ekstèn Jeneral Biwo Randevou,CDI Klinik Ekstèn Jeneral
+9e212720-eeab-43ef-a6c0-95c3881052bc,CDI Klinik Ekstèn Jeneral Famasi,CDI Klinik Ekstèn Jeneral Famasi,CDI Klinik Ekstèn Jeneral
+730ad64b-a2cd-40f7-91ac-ecc8fabf9f3e,CDI Klinik Ekstèn Jeneral Laboratwa,CDI Klinik Ekstèn Jeneral Laboratwa,CDI Klinik Ekstèn Jeneral
+3f0e7635-1fa3-4058-9eb7-162c0043e94f,CDI Klinik Ekstèn Jeneral Radyografi,CDI Klinik Ekstèn Jeneral Radyografi,CDI Klinik Ekstèn Jeneral
+58f3e355-ff28-4151-bbf6-5be3cb06fba8,CDI Klinik Ekstèn Jeneral Sal Pwosedi,CDI Klinik Ekstèn Jeneral Sal Pwosedi,CDI Klinik Ekstèn Jeneral
+be50d584-26b2-4371-8768-2b9565742b3b,Achiv Santral,Central Archives room at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+4ed8c0d3-8aed-4f80-96e8-55648abf51af,Bank Pou San,Blood Bank at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+787a2422-a7a2-400e-bdbb-5c54b2691af5,Biwo Resepsyon,Clinic Registration at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+dc8413be-1075-48b5-9857-9bd4954686ed,Chimyoterapi,Chemotherapy at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+cee17408-c243-4134-8ad8-619e3b945a05,COVID-19 | Izolman,COVID-19 Isolation,Hôpital Universitaire de Mirebalais - Prensipal
+88f74254-60fb-4d31-bfde-3e75db5f5f4c,COVID-19 | UMI,Inite maladi enfeksyon (UMI) COVID-19,Hôpital Universitaire de Mirebalais - Prensipal
+4f2d9af1-7eec-4228-bbd6-7b0774c6c267,Dantis,Dental clinic at Mirebalais Hospital (Dental Clinic).,Hôpital Universitaire de Mirebalais - Prensipal
+f3a5586e-f06c-4dfb-96b0-6f3451a35e90,Ijans,Emergency room at Mirebalais Hospital (Ijans),Hôpital Universitaire de Mirebalais - Prensipal
+d65eb8cf-d781-4ea8-9d9a-2b3e03c6074c,Ijans | Sante Fanm,Womens Triage at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+afa09010-43b6-4f19-89e0-58d09941bcbd,Ijans Resepsyon,Emergency registration and check-in,Hôpital Universitaire de Mirebalais - Prensipal
+199e7d87-92a0-4398-a0f8-11d012178164,Klinik Ekstèn,The outpatient clinic at Mirebalais Hospital (Klinik Extern).,Hôpital Universitaire de Mirebalais - Prensipal
+79892ece-79f1-4674-abb5-a52c1898c762,Klinik Ekstèn Famasi,Outpatient Clinic Pharmacy at Mirebalais Hospital. For adults. Women with general medical conditions are also seen here.,Klinik Ekstèn
+c39c020d-2f87-4234-8074-4b13a6cd74f8,Klinik MNT,The NCD clinic at Mirebalais Hospital.,Hôpital Universitaire de Mirebalais - Prensipal
+0198d2c3-9c08-45b6-88df-cbb60446ef00,Laboratwa Ekstèn pou Fanm,Womens Outpatient Laboratory at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+53cd4959-5f4d-4ddc-9971-7fc27e0b7946,Laboratwa Prensipal,Main laboratory at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+09af1ef5-d664-4c1f-a9e3-9c8d69bd77c4,Planin Familyal,Family Planning Clinic,Hôpital Universitaire de Mirebalais - Prensipal
+cfe92278-0181-4315-ab7d-1731753120f0,Radyografi,Radiology at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+950852f3-8a96-4d82-a5f8-a68a92043164,Sal Aprè Akouchman,Postpartum ward at Mirebalais Hospital (After giving birth),Hôpital Universitaire de Mirebalais - Prensipal
+7d6cc39d-a600-496f-a320-fd4985f07f0b,Sal Aprè Operasyon,Surgical Ward at Mirebalais Hospital (Surgery),Hôpital Universitaire de Mirebalais - Prensipal
+ec9d2302-b525-45ce-bebe-42ea1d38b251,Sal Aprè Operasyon | Sante Fanm,Post-op GYN at Mirebalais Hospital (Recovery after surgery related to gynecology),Hôpital Universitaire de Mirebalais - Prensipal
+272bd989-a8ee-4a16-b5aa-55bad4e84f5c,Sal Avan Akouchman,Antepartum ward at Mirebalais Hospital (Before giving birth),Hôpital Universitaire de Mirebalais - Prensipal
+109a13a9-029d-498d-b66e-bab5eb396996,Sal Avan Operasyon | PACU,"Pre-op/PACU at Mirebalais Hospital (Before surgery, and Post-Anesthesia Care Unit)",Hôpital Universitaire de Mirebalais - Prensipal
+2c93919d-7fc6-406d-a057-c0b640104790,Sal Fanm,Womens Internal Medicine at Mirebalais Hospital (Inpatient ward for women),Hôpital Universitaire de Mirebalais - Prensipal
+8e4e930b-e801-44c5-8895-e7ef6feb6d73,Sal Fanm A,Womens Internal Medicine A at Mirebalais Hospital (1st Inpatient ward for women),Sal Fanm
+195d0af1-3887-4a28-a542-b832099fe3ee,Sal Fanm B,Womens Internal Medicine B at Mirebalais Hospital (2nd Inpatient ward for women),Sal Fanm
+e5db0599-89e8-44fa-bfa2-07e47d63546f,Sal Gason,Mens Internal Medicine at Mirebalais Hospital (Inpatient ward for men),Hôpital Universitaire de Mirebalais - Prensipal
+3b6f010b-5d44-4ded-85b3-70ea7ba79fd5,Sal Gason A,Mens Internal Medicine A at Mirebalais Hospital (1st Inpatient ward for men),Sal Gason
+a296d225-0312-4ce5-836c-cb2d8e952f47,Sal Gason B,Mens Internal Medicine B at Mirebalais Hospital (2nd Inpatient ward for men),Sal Gason
+29437276-aeae-4ea8-8219-720886cdc87f,Sal Izolman,Isolation at Mirebalais Hospital,Hôpital Universitaire de Mirebalais - Prensipal
+41736d90-12f9-4c16-b5a1-5af170b7bf2a,Sal Operasyon,Operating Rooms at Mirebalais Hospital (all six operating rooms),Hôpital Universitaire de Mirebalais - Prensipal
+5fd9a9b6-a9af-47be-b5d8-f2d4239dfdc1,Sal Reyabilitasyon,Rehabilitation Ward,Hôpital Universitaire de Mirebalais - Prensipal
+c9ab4c5c-0a8a-4375-b986-f23c163b2f69,Sal Timoun,Pediatrics at Mirebalais Hospital (Inpatient ward for children),Hôpital Universitaire de Mirebalais - Prensipal
+e4ae2d28-d57c-42ba-b7aa-f6fcac421b2c,Sal Timoun A,Pediatrics A at Mirebalais Hospital (1st Inpatient ward for children),Sal Timoun
+e752ec51-5633-489f-aef1-01f285c03f38,Sal Timoun B,Pediatrics B at Mirebalais Hospital (2nd Inpatient ward for children),Sal Timoun
+9b2066a2-7087-47f6-9b3a-b001037432a3,Sante Fanm,Women's Outpatient clinic at Mirebalais Hospital (Sante Fanm).,Hôpital Universitaire de Mirebalais - Prensipal
+de8892ff-e755-4ef0-ae0a-c27d2c1e6a74,Famasi Famn ak Ti moun,Women and Children's Pharmacy at Mirebalais Hospital.,Sante Fanm
+dce85b2e-6946-4798-9037-d00f123df7bd,Sante Kominotè,Community Health clinic at Mirebalais Hospital (Community Health clinic).,Hôpital Universitaire de Mirebalais - Prensipal
+b6fcd85f-5995-43c9-875f-3bb2299087ff,Swen Entansif,ICU at Mirebalais Hospital (Intensive Care Unit),Hôpital Universitaire de Mirebalais - Prensipal
+62a9500e-a1a5-4235-844f-3a8cc0765d53,Swen Entansif Neonatal,NICU at Mirebalais Hospital (Neonatal Intensive Care Unit),Hôpital Universitaire de Mirebalais - Prensipal
+dcfefcb7-163b-47e5-84ae-f715cf3e0e92,Travay e Akouchman,Labor and Delivery at Mirebalais Hospital (Births),Hôpital Universitaire de Mirebalais - Prensipal
