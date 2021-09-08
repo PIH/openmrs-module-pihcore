@@ -23,7 +23,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
     * */
     @Override
     public int getVersion() {
-        return 7;
+        return 9;
     }
 
     public static final class Concepts {
@@ -258,7 +258,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .conceptClass(misc)
                 .name("3e225f36-26fe-102b-80cb-0017a47871b2", "Sibling", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("57063624-1e75-4529-9731-f79134c27f01", "Soeur/Frère", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
-                .name("c6f22eb7-7989-4315-be09-f5efc07cd72c", "Hermano", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
+                .name("c6f22eb7-7989-4315-be09-f5efc07cd72c", "Hermana/Hermano", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .description("ecf0cc5a-07fe-102c-b5fa-0017a47871b2", "A sibling to another person", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b220c262-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "2178").build())
@@ -336,8 +336,11 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .description("9a4b55d8-8a9f-11e8-9a94-a6cf71072f73", "Nurse accompagnateur", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("9a4b570e-8a9f-11e8-9a94-a6cf71072f73")
                         .type(sameAs).ensureTerm(pih, "Nurse CHW").build())
+                .mapping(new ConceptMapBuilder("7cd03d22-0bf4-45ee-b1df-785988982d6d")
+                        .type(sameAs).ensureTerm(pih, "13659").build())
                 .build());
 
+        // .mapping(new ConceptMapBuilder("").type(narrowerThan).ensureTerm(pih, "13132").build())
         install(new ConceptBuilder(Concepts.INFECTIOUS_DISEASE)
                 .datatype(notApplicable)
                 .conceptClass(diagnosis)
@@ -351,6 +354,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("144021ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(narrowerThan).ensureTerm(snomedNp, "186708007").build())
                 .build());
 
+        // .mapping(new ConceptMapBuilder("").type(narrowerThan).ensureTerm(pih, "9056").build())
         install(new ConceptBuilder(Concepts.CANCER)
                 .datatype(notApplicable)
                 .conceptClass(diagnosis)
@@ -367,6 +371,7 @@ public class AnswerConcepts extends VersionedPihConceptBundle {
                 .mapping(new ConceptMapBuilder("182672ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "116031").build())
                 .build());
 
+        // .mapping(new ConceptMapBuilder("").type(narrowerThan).ensureTerm(pih, "13130").build())
         install(new ConceptBuilder(Concepts.UNNATURAL_DEATH)
                 .datatype(notApplicable)
                 .conceptClass(diagnosis)

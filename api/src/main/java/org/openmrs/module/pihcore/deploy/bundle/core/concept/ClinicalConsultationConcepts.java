@@ -24,7 +24,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
      * */
     @Override
     public int getVersion() {
-        return 5;
+        return 6;
     }
 
     // This class contains many concepts not enumerated here
@@ -81,6 +81,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                 .build());
 
         // in CIEL this is called PAST MEDICAL HISTORY ADDED, but we give it a better name
+        // .mapping(new ConceptMapBuilder("").type(narrowerThan).ensureTerm(pih, "10140").build())
         Concept pmhWhich = install(new ConceptBuilder(Concepts.PAST_MEDICAL_HISTORY_FINDING)
                 .datatype(coded)
                 .conceptClass(diagnosis)
@@ -90,6 +91,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(ciel, "1628").build())
                 .build());
 
+        // .mapping(new ConceptMapBuilder("").type(narrowerThan).ensureTerm(pih, "10141").build())
         Concept isSymptomPresent = install(new ConceptBuilder(Concepts.PAST_MEDICAL_HISTORY_PRESENCE)
                 .datatype(coded)
                 .conceptClass(diagnosis)
