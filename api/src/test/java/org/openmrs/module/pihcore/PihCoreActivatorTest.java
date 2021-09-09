@@ -12,7 +12,6 @@ import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.openmrs.module.metadatadeploy.bundle.VersionedMetadataBundle;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
@@ -79,14 +78,6 @@ public class PihCoreActivatorTest extends PihCoreContextSensitiveTest {
         Concept mainActivity = MetadataUtils.existing(Concept.class, SocioEconomicConcepts.Concepts.MAIN_ACTIVITY);
         assertThat(mainActivity.getDatatype().getName(), is("Coded"));
         assertThat(mainActivity.getAnswers().size(), greaterThan(5));
-
-        Concept construct = MetadataUtils.existing(Concept.class, ClinicalConsultationConcepts.Concepts.PAST_MEDICAL_HISTORY_CONSTRUCT);
-        assertThat(construct.getUuid(), is(ClinicalConsultationConcepts.Concepts.PAST_MEDICAL_HISTORY_CONSTRUCT));
-        assertThat(construct.getConceptSets().size(), is(3));
-
-        construct = MetadataUtils.existing(Concept.class, ClinicalConsultationConcepts.Concepts.FAMILY_HISTORY_CONSTRUCT);
-        assertThat(construct.getUuid(), is(ClinicalConsultationConcepts.Concepts.FAMILY_HISTORY_CONSTRUCT));
-        assertThat(construct.getConceptSets().size(), is(4));
 
         // make sure everything installed at the version we expect
         for (Class<? extends MetadataBundle> bundleType : getExpectedBundles(pihCoreMetadataBundle.getClass())) {
