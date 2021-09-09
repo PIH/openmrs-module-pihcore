@@ -187,7 +187,7 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                         .type(narrowerThan).ensureTerm(snomedNp, "412774003").build())
                 .build());
 
-        installSexualActivity(other, notApplicableConcept, none);
+      //  installSexualActivity(other, notApplicableConcept, none);
 
         installHospitalization();
 
