@@ -426,7 +426,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }])
 
     // this is not a reusable directive, and it does not have an isolate scope
-    .directive("visitDetails", [ "Visit", "LocationService", "ngDialog", "$filter", function(Visit, LocationService, ngDialog, $filter) {
+    .directive("visitDetails", [ "Visit", "LocationService", "ngDialog", function(Visit, LocationService, ngDialog) {
         // TODO make sure this at least gives as error message in case of failure
         return {
             restrict: 'E',
