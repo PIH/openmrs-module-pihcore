@@ -1,3 +1,13 @@
+<script type="text/javascript">
+    jq(function() {
+        jq("#newLocation select").change(function(event) {
+            const selectedLocationId = this.value;
+            const scope = angular.element(document.getElementsByClassName("ngdialog")[0]).scope();
+            scope.newLocation = selectedLocationId;
+        });
+    });
+</script>
+
 <div class="dialog-header">
     <h3> ${ ui.message("pihcore.visitNote.editVisitDetails.header") }</h3>
 </div>
@@ -28,6 +38,9 @@
         <tr>
             <td>${ ui.message("uicommons.location") }</td>
             <td>{{ visit.location | omrsDisplay }}</td>
+            <td>
+                <select ng-model="newLocation" ng-options="loc as loc.display for loc in locations track by loc.uuid"></select>
+            </td>
         </tr>
         </tbody>
     </table>
