@@ -94,7 +94,11 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
         List<Map<String, Object>> concepts = new ArrayList<>();
         System.out.println("Pulling concepts");
         int i=0;
-        for (Concept concept : Context.getConceptService().getAllConcepts("uuid", true, true)) {
+
+        List<Concept> conceptList = Context.getConceptService().getAllConcepts();
+        conceptList.sort(Comparator.comparing(t -> t.getUuid().toUpperCase()));
+
+        for (Concept concept : conceptList) {
             System.out.println(i++ + ": Pulling concept: " + concept.getUuid());
             Map<String, Object> c = new LinkedHashMap<>();
             concepts.add(c);
