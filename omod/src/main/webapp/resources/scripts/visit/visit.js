@@ -1,4 +1,4 @@
-angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitService", "encounterService", "obsService",
+angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitService", "encounterService",  "locationService", "obsService",
     "allergies", "vaccinations", "ui.bootstrap", "ui.router", "session", "ngDialog", "appFramework",
     "configService", 'pascalprecht.translate'])
 
@@ -426,43 +426,48 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }])
 
     // this is not a reusable directive, and it does not have an isolate scope
-    .directive("visitDetails", [ "Visit", "ngDialog", "$filter", function(Visit, ngDialog, $filter) {
+    .directive("visitDetails", [ "Visit", "LocationService", "ngDialog", function(Visit, LocationService, ngDialog) {
         // TODO make sure this at least gives as error message in case of failure
         return {
             restrict: 'E',
             controller: function($scope) {
                 $scope.edit = function() {
-                    ngDialog.openConfirm({
-                        showClose: true,
-                        closeByEscape: true,
-                        closeByDocument: false, // in case they accidentally click the background to close a datepicker
-                        controller: [ "$scope", function($dialogScope) {
-                            $dialogScope.now = new Date();
-                            $dialogScope.visit = $scope.visit;
-                            $dialogScope.newStartDatetime = new Date($filter('serverDate')($scope.visit.startDatetime));
-                            $dialogScope.startDateLowerLimit = $scope.previousVisitEndDatetime($scope.visit);
-                            $dialogScope.startDateUpperLimit = $scope.firstEncounterInVisitDatetime($scope.visit);
-                            $dialogScope.endDateLowerLimit = $scope.mostRecentEncounterInVisitDatetime($scope.visit);
-                            $dialogScope.endDateUpperLimit = $scope.nextVisitStartDatetime($scope.visit);
-                            $dialogScope.newStopDatetime = $scope.visit.stopDatetime ? new Date($filter('serverDate')($scope.visit.stopDatetime)) : '';
-                            $dialogScope.newLocation = $scope.visit.location;
-                        }],
-                        template: "templates/visitDetailsEdit.page"
-                    }).then(function(opts) {
-                        // we trim off the time zone, because we don't want to send it along: the server will just assume that it is in it's timezone
-                        var start = moment(opts.start).startOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
-                        var stop = (opts.stop ?
-                            moment(opts.stop).endOf('day').isBefore(moment()) ?      // set end date to end of day *unless* end of day is after current datetime (ie, end date is today)--then just set to current datetime)
-                            moment(opts.stop).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS') :
-                            moment().format('YYYY-MM-DDTHH:mm:ss.SSS') :
-                            null);
-                        new Visit({
-                            uuid: $scope.visit.uuid,
-                            startDatetime: start,
-                            stopDatetime: stop
-                        }).$save(function(v) {
+                    LocationService.getLocations({ v: "default" }).then(function(locations) {
+                        ngDialog.openConfirm({
+                            showClose: true,
+                            closeByEscape: true,
+                            closeByDocument: false, // in case they accidentally click the background to close a datepicker
+                            controller: ["$scope", function ($dialogScope) {
+                                $dialogScope.now = new Date();
+                                $dialogScope.visit = $scope.visit;
+                                $dialogScope.newStartDatetime = $scope.visit.startDatetime;
+                                $dialogScope.startDateLowerLimit = $scope.previousVisitEndDatetime($scope.visit);
+                                $dialogScope.startDateUpperLimit = $scope.firstEncounterInVisitDatetime($scope.visit);
+                                $dialogScope.endDateLowerLimit = $scope.mostRecentEncounterInVisitDatetime($scope.visit);
+                                $dialogScope.endDateUpperLimit = $scope.nextVisitStartDatetime($scope.visit);
+                                $dialogScope.newStopDatetime = $scope.visit.stopDatetime || '';
+                                $dialogScope.locations = locations.filter(l => l.tags.some(t => t.display === "Visit Location" ));
+                                $dialogScope.newLocation = $scope.visit.location;
+                            }],
+                            template: "templates/visitDetailsEdit.page"
+                        }).then(function (opts) {
+                            // we trim off the time zone, because we don't want to send it along: the server will just assume that it is in it's timezone
+                            var start = moment(opts.start).startOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                            var stop = (opts.stop ?
+                                moment(opts.stop).endOf('day').isBefore(moment()) ?      // set end date to end of day *unless* end of day is after current datetime (ie, end date is today)--then just set to current datetime)
+                                    moment(opts.stop).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS') :
+                                    moment().format('YYYY-MM-DDTHH:mm:ss.SSS') :
+                                null);
+                            // TODO: Notify with an error if this request fails
+                            new Visit({
+                                uuid: $scope.visit.uuid,
+                                startDatetime: start,
+                                stopDatetime: stop,
+                                location: opts.location
+                            }).$save(function (v) {
                                 $scope.reloadVisits();
                                 $scope.reloadVisit();
+                            });
                         });
                     });
                 }
@@ -719,7 +724,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             });
 
             $scope.$on('visit-changed', function(event, visit) {
-                if ($scope.visitUuid == visit.uuid) {
+                if ($scope.visitUuid == visit.uuid) {``
                     $scope.reloadVisit();
                 }
             });
@@ -751,7 +756,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         //this is the oldest visit in the list and the there is no lower date limit
                         return null;
                     } else {
-                        var previousVisitEndDate = new Date($filter('serverDate')($scope.visits[$scope.visitIdx + 1].stopDatetime));
+                        var previousVisitEndDate = new Date($scope.visits[$scope.visitIdx + 1].stopDatetime);
                         // return the day after the end date of the previous visit in the list
                         previousVisitEndDate.setDate(previousVisitEndDate.getDate() + 1);
                         return previousVisitEndDate;
@@ -763,7 +768,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             $scope.firstEncounterInVisitDatetime = function(visit) {
                 if (visit.encounters != null && visit.encounters.length > 0) {
                     // the visit cannot start after the date of the oldest encounter that is part of this visit
-                    return new Date($filter('serverDate')(visit.encounters[visit.encounters.length -1].encounterDatetime));
+                    return visit.encounters[visit.encounters.length -1].encounterDatetime;
                 }
                 else {
                     return null;
@@ -773,7 +778,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             $scope.mostRecentEncounterInVisitDatetime = function(visit) {
                 if (visit.encounters != null && visit.encounters.length > 0) {
                     // the visit cannot end before the date of the newest encounter that is part of this visit
-                    return new Date($filter('serverDate')(visit.encounters[0].encounterDatetime));
+                    return visit.encounters[0].encounterDatetime;
                 }
                 else {
                     return null;
@@ -784,7 +789,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             $scope.nextVisitStartDatetime = function(visit) {
                 if ( $scope.visitIdx > 0) {
                     // if this isn't the most recent visit, return the day before the start date of the next visit in the list
-                    var nextVisitStartDate = new Date($filter('serverDate')($scope.visits[$scope.visitIdx -1].startDatetime));
+                    var nextVisitStartDate = $scope.visits[$scope.visitIdx -1].startDatetime;
                     nextVisitStartDate.setDate(nextVisitStartDate.getDate() -1);
                     return nextVisitStartDate;
                 }
