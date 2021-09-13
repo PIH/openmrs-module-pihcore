@@ -38,11 +38,9 @@ import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
-import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.setup.AttachmentsSetup;
 import org.openmrs.module.pihcore.setup.CloseStaleVisitsSetup;
 import org.openmrs.module.pihcore.setup.GlobalResourceSetup;
@@ -100,7 +98,6 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             InitializerSetup.loadPreConceptDomains();
 
             setDispositionConfig(config);
-            installMetadataBundles(config);
             setGlobalProperties(config);
             setExtraIdentifierTypes(metadataMappingService, patientService, config);
             MergeActionsSetup.registerMergeActions();
@@ -160,11 +157,6 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
         NameTemplateSetup.configureNameTemplate(nameSupport, config);
         NameTemplateSetup.configureNameTemplate(NameSupport.getInstance(), config);
 
-    }
-
-    private void installMetadataBundles(Config config) {
-        MetadataDeployService deployService = Context.getService(MetadataDeployService.class);
-        deployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
     }
 
     // configure which disposition config to use

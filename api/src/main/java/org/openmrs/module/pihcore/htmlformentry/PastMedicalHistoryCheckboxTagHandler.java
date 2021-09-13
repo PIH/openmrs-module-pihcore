@@ -21,15 +21,15 @@ import org.openmrs.module.htmlformentry.widget.ErrorWidget;
 import org.openmrs.module.htmlformentry.widget.TextFieldWidget;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihCoreConstants;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.reporting.common.MessageUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Usage:
@@ -201,7 +201,7 @@ public class PastMedicalHistoryCheckboxTagHandler extends SubstitutionTagHandler
 
                     Obs presentObs = new Obs();
                     presentObs.setConcept(present);
-                    presentObs.setValueCoded(MetadataUtils.existing(Concept.class, CommonConcepts.Concepts.YES));
+                    presentObs.setValueCoded(MetadataUtils.existing(Concept.class, PihEmrConfigConstants.CONCEPT_YES_UUID));
                     group.addGroupMember(presentObs);
 
                     if (StringUtils.isNotBlank(commentsValue)) {
