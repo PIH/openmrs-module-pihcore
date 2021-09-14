@@ -1097,5 +1097,27 @@
 
     </changeSet>
 
+    <changeSet id="20210914-UHM-5771" author="PIH">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from concept c,  concept_datatype d
+                where c.uuid='3ce6c27e-26fe-102b-80cb-0017a47871b2'
+                and c.datatype_id= d.concept_datatype_id and d.name='Boolean';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Change PIH:SEXUALLY ACTIVE concept datatype from Boolean to Coded
+        </comment>
+        <sql>
+            SET @boolean_type_id = (select concept_datatype_id from concept_datatype where name='Boolean');
+            SET @coded_type_id = (select concept_datatype_id from concept_datatype where name='Coded');
+            update concept c
+            set c.datatype_id =  @coded_type_id
+            where c.uuid='3ce6c27e-26fe-102b-80cb-0017a47871b2'
+            and c.datatype_id= @boolean_type_id;
+        </sql>
+
+    </changeSet>
+
 </databaseChangeLog>
 
