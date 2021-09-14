@@ -1,15 +1,16 @@
 package org.openmrs.module.pihcore.config;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.node.ArrayNode;
+import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.node.ArrayNode;
-import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 
 /**
  * Object that encapsulates the options that can be configured on a per-installation basis
@@ -101,6 +102,9 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private ArrayNode findPatientColumnConfig;
+
+    @JsonProperty
+    private List<Extension> extensions;
 
     public String getWelcomeMessage() {
         return welcomeMessage;
@@ -305,5 +309,16 @@ public class ConfigDescriptor {
 
     public void setFindPatientColumnConfig(ArrayNode findPatientColumnConfig) {
         this.findPatientColumnConfig = findPatientColumnConfig;
+    }
+
+    public List<Extension> getExtensions() {
+        if (extensions == null) {
+            extensions = new ArrayList<>();
+        }
+        return extensions;
+    }
+
+    public void setExtensions(List<Extension> extensions) {
+        this.extensions = extensions;
     }
 }
