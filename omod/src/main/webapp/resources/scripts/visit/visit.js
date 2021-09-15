@@ -756,7 +756,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         //this is the oldest visit in the list and the there is no lower date limit
                         return null;
                     } else {
-                        var previousVisitEndDate = new Date($scope.visits[$scope.visitIdx + 1].stopDatetime);
+                        const previousVisitEndDate = new Date($scope.visits[$scope.visitIdx + 1].stopDatetime);
                         // return the day after the end date of the previous visit in the list
                         previousVisitEndDate.setDate(previousVisitEndDate.getDate() + 1);
                         return previousVisitEndDate;
@@ -789,7 +789,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             $scope.nextVisitStartDatetime = function(visit) {
                 if ( $scope.visitIdx > 0) {
                     // if this isn't the most recent visit, return the day before the start date of the next visit in the list
-                    var nextVisitStartDate = $scope.visits[$scope.visitIdx -1].startDatetime;
+                    const nextVisitStartDate = new Date($scope.visits[$scope.visitIdx -1].startDatetime);
                     nextVisitStartDate.setDate(nextVisitStartDate.getDate() -1);
                     return nextVisitStartDate;
                 }
