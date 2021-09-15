@@ -17,6 +17,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The purpose of this page controller is to provide a means to link to an existing patient dashboard
+ * page from a different EMR instance, where a patient identifier is shared between instances rather than
+ * a uuid or primary key identifier.  The initial use case is to support linking into the patients HIV dashboard
+ * in a cloud-based HIV EMR for Haiti from a facility-based primary care EMR, where the common identifier is a
+ * specific patient identifier type.
+ */
 public class PatientPageController {
 
     public Object controller(PageModel model, UiUtils ui,
