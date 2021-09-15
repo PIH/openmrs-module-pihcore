@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.config;
 
 import org.codehaus.jackson.node.ArrayNode;
+import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
@@ -144,5 +145,9 @@ public class Config {
 
     public ArrayNode getFindPatientColumnConfig() {
         return descriptor.getFindPatientColumnConfig();
+    }
+
+    public List<Extension> getExtensions() {
+        return descriptor.getExtensions();
     }
 }
