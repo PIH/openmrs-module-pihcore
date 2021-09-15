@@ -24,7 +24,7 @@ public class AdministrativeConcepts extends VersionedPihConceptBundle {
      * */
     @Override
     public int getVersion() {
-        return 3;
+        return 4;
     }
 
     public static final class Concepts {
@@ -75,6 +75,7 @@ public class AdministrativeConcepts extends VersionedPihConceptBundle {
                 .name("3fe8bbf9-e9f6-11e4-a8a3-54ee7513a7ff", "ID Card Printing Requested", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .answers(yes, no)
                 .mapping(new ConceptMapBuilder("df6b97bc-e9f6-11e4-a8a3-54ee7513a7ff").type(sameAs).ensureTerm(pih, "ID Card Printing Requested").build())
+                .mapping(new ConceptMapBuilder("97a63542-0cf1-11ec-9f8b-aa0059ea79c6").type(sameAs).ensureTerm(pih, "10655").build())
                 .build());
 
         // TODO: Concept named PrintingIDCardStatus on zanmi / lacolline / mirebalais exists. It wasn't really preferred to use this for a few reasons:
@@ -87,6 +88,7 @@ public class AdministrativeConcepts extends VersionedPihConceptBundle {
                 .name("590d36df-ee77-11e4-a257-54ee7513a7ff", "ID Card Printing Successful", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .answers(yes, no)
                 .mapping(new ConceptMapBuilder("5fc65369-ee77-11e4-a257-54ee7513a7ff").type(sameAs).ensureTerm(pih, "ID Card Printing Successful").build())
+                .mapping(new ConceptMapBuilder("97a636a5-0cf1-11ec-9f8b-aa0059ea79c6").type(sameAs).ensureTerm(pih, "10656").build())
                 .build());
     }
 }

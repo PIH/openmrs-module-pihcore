@@ -15,6 +15,7 @@
     ui.includeJavascript("uicommons", "angular-translate-loader-url.min.js")
     ui.includeJavascript("uicommons", "services/visitService.js")
     ui.includeJavascript("uicommons", "services/encounterService.js")
+    ui.includeJavascript("uicommons", "services/locationService.js")
     ui.includeJavascript("uicommons", "services/obsService.js")
     ui.includeJavascript("uicommons", "services/conceptService.js")
     ui.includeJavascript("uicommons", "services/orderService.js")
