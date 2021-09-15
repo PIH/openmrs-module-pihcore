@@ -36,9 +36,9 @@ public class InitializerSetupTest extends PihCoreContextSensitiveTest {
         executeDataSet("requiredDataTestDataset.xml");
         authenticate();
         configFiles = new ArrayList<>();
-        configFiles.add(addResourceToConfigurationDirectory("locations", "locations.csv"));
-        configFiles.add(addResourceToConfigurationDirectory("locations", "locations-hsn.csv"));
-        configFiles.add(addResourceToConfigurationDirectory("locations", "locations-mirebalais.csv"));
+        configFiles.add(addResourceToConfigurationDirectory("locations", "locations-base.csv"));
+        configFiles.add(addResourceToConfigurationDirectory("locations", "locations-site-hsn.csv"));
+        configFiles.add(addResourceToConfigurationDirectory("locations", "locations-site-mirebalais.csv"));
         setupInitializerForTesting();
         config = mock(Config.class);
     }

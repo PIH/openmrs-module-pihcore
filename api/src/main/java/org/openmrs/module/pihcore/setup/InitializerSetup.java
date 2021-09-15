@@ -58,7 +58,7 @@ public class InitializerSetup {
     /**
      * The purpose of this method is to determine if there are any site-specific configuration files,
      * and if so, to exclude them if they are not intended for the specific config in use.
-     * Any config files that contain a "-", and which do not end with the site name, are excluded
+     * Any config files that contain a "-site-", and which do not end with the site name, are excluded
      */
     public static List<String> getExclusionsForLoader(Loader loader, Config config) {
         List<String> exclusions = new ArrayList<>();
@@ -67,7 +67,7 @@ public class InitializerSetup {
             String site = config.getSite() == null ? "" : config.getSite().toLowerCase();
             for (File f : ll.getDirUtil().getFiles("csv")) {
                 String filename = f.getName().toLowerCase();
-                if (filename.contains("-") && !filename.endsWith("-" + site + ".csv")) {
+                if (filename.contains("-site-") && !filename.endsWith("-" + site + ".csv")) {
                     log.warn("Excluding site-specific configuration file: " + filename);
                     exclusions.add(filename);
                 }
