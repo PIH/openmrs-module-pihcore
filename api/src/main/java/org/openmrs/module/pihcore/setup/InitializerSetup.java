@@ -67,7 +67,7 @@ public class InitializerSetup {
             String site = config.getSite() == null ? "" : config.getSite().toLowerCase();
             for (File f : ll.getDirUtil().getFiles("csv")) {
                 String filename = f.getName().toLowerCase();
-                if (filename.contains("-site-") && !filename.endsWith("-" + site + ".csv")) {
+                if (filename.contains("-site-") && !filename.endsWith("-site-" + site + ".csv")) {
                     log.warn("Excluding site-specific configuration file: " + filename);
                     exclusions.add(filename);
                 }
@@ -76,10 +76,10 @@ public class InitializerSetup {
         return exclusions;
     }
 
-    public static void loadPostConceptDomains() {
+    public static void loadPostConceptDomains(Config config) {
         try {
             for (Domain domain : getDomainsToLoadAfterConcepts()) {
-                installDomain(domain);
+                installDomain(domain, config);
             }
         }
         catch (Exception e) {
@@ -91,11 +91,12 @@ public class InitializerSetup {
      * Explicitly load from a given Domain with no exclusions, and throw an exception on failures
      * Note:  This is _different_ from the built-in Initializer loading, which suppresses errors
      */
-    public static void installDomain(Domain domain) throws Exception {
+    public static void installDomain(Domain domain, Config config) throws Exception {
         for (Loader loader : Context.getService(InitializerService.class).getLoaders()) {
             if (loader.getDomainName().equalsIgnoreCase(domain.getName())) {
                 log.warn("Loading from Initializer: " + loader.getDomainName());
-                loader.loadUnsafe(new ArrayList<>(), true);
+				List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
+                loader.loadUnsafe(exclusionsForLoader, true);
             }
         }
     }
