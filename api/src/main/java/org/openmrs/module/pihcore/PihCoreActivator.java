@@ -95,7 +95,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
 
-            InitializerSetup.loadPreConceptDomains();
+            InitializerSetup.loadPreConceptDomains(config);
 
             setDispositionConfig(config);
             setGlobalProperties(config);

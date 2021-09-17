@@ -2,9 +2,6 @@ package org.openmrs.module.pihcore.setup;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.initializer.Domain;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.config.Config;
 
 public class MetadataSetupTask implements Runnable {
@@ -32,7 +29,7 @@ public class MetadataSetupTask implements Runnable {
             throw e;
         }
 
-        InitializerSetup.loadPostConceptDomains();
+        InitializerSetup.loadPostConceptDomains(config);
 
         try {
             DrugListSetup.installDrugList();
