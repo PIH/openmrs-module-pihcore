@@ -95,8 +95,8 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
                 config = Context.getRegisteredComponents(Config.class).get(0); // currently only one of these
             }
 
+			LiquibaseSetup.setup();
             InitializerSetup.loadPreConceptDomains(config);
-
             setDispositionConfig(config);
             setGlobalProperties(config);
             setExtraIdentifierTypes(metadataMappingService, patientService, config);
@@ -106,7 +106,6 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
             PatientIdentifierSetup.setupIdentifierGeneratorsIfNecessary(identifierSourceService, locationService, config);
             PacIntegrationSetup.setup(config);
-            LiquibaseSetup.setup();
             AttachmentsSetup.migrateAttachmentsConceptsIfNecessary(conceptService);
            // RetireProvidersSetup.setupRetireProvidersTask();
             GlobalResourceSetup.includeGlobalResources();
