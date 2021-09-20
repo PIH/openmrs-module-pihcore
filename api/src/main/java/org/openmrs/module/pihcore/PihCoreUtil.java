@@ -29,6 +29,10 @@ public class PihCoreUtil {
         return getDefaultPihConfigurationDir() + "/liquibase/";
     }
 
+    public static String getLiquibaseChangeLog() {
+        return getLiquibaseDir() + "liquibase.xml";
+    }
+
     public static String getDrugListDirectory() {
         return getDefaultPihConfigurationDir() + "/drugs/";
     }
