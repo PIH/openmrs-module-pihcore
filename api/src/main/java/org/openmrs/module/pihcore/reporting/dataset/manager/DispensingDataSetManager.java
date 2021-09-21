@@ -24,6 +24,8 @@ import org.openmrs.module.dispensing.DispensingProperties;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.reporting.library.PihObsDataLibrary;
+import org.openmrs.module.reporting.config.DataSetDescriptor;
+import org.openmrs.module.reporting.config.factory.DataSetFactory;
 import org.openmrs.module.reporting.data.converter.DateConverter;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import org.openmrs.module.reporting.data.converter.ObsValueTextAsCodedConverter;
@@ -34,19 +36,21 @@ import org.openmrs.module.reporting.data.encounter.definition.EncounterProviderD
 import org.openmrs.module.reporting.data.encounter.definition.ObsForEncounterDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.GroupMemberObsDataDefinition;
 import org.openmrs.module.reporting.data.patient.definition.PatientIdentifierDataDefinition;
+import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.ObsDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.query.obs.definition.BasicObsQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.Date;
 
 /**
  * Data Export of dispensing data.  Migrated from mirebalaisreports full data export report manager
  */
 @Component
-public class LegacyDispensingDataSetManager {
+public class DispensingDataSetManager implements DataSetFactory {
 
     @Autowired
     PihObsDataLibrary pihObsData;
@@ -71,7 +75,12 @@ public class LegacyDispensingDataSetManager {
         return new Parameter("endDate", "mirebalaisreports.parameter.endDate", Date.class);
     }
 
-    public ObsDataSetDefinition constructDataSet() {
+    public DataSetDefinition constructDataSet() {
+        return constructDataSetDefinition(null, null);
+    }
+
+    @Override
+    public DataSetDefinition constructDataSetDefinition(DataSetDescriptor dataSetDescriptor, File baseConfigDir) {
 
         ObsDataSetDefinition dsd = new ObsDataSetDefinition();
         dsd.addParameter(getStartDateParameter());

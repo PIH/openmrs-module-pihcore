@@ -22,7 +22,10 @@ import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.EncounterCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.VisitCohortDefinition;
+import org.openmrs.module.reporting.config.DataSetDescriptor;
+import org.openmrs.module.reporting.config.factory.DataSetFactory;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
+import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.PatientDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
@@ -31,13 +34,14 @@ import org.openmrs.module.reporting.evaluation.parameter.ParameterizableUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.Date;
 
 /**
  * Data Export of patient data.  Migrated from mirebalaisreports full data export report manager
  */
 @Component
-public class LegacyPatientDataSetManager {
+public class MirebalaisPatientDataSetManager implements DataSetFactory {
 
     @Autowired
     BuiltInPatientDataLibrary builtInPatientData;
@@ -53,7 +57,12 @@ public class LegacyPatientDataSetManager {
         return new Parameter("endDate", "mirebalaisreports.parameter.endDate", Date.class);
     }
 
-    public PatientDataSetDefinition constructDataSet() {
+    public DataSetDefinition constructDataSet() {
+        return constructDataSetDefinition(null, null);
+    }
+
+    @Override
+    public DataSetDefinition constructDataSetDefinition(DataSetDescriptor dataSetDescriptor, File baseConfigDir) {
 
         PatientDataSetDefinition dsd = new PatientDataSetDefinition();
         dsd.addParameter(getStartDateParameter());

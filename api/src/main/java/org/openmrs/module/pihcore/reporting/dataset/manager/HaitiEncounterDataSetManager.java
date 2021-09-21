@@ -17,6 +17,8 @@ package org.openmrs.module.pihcore.reporting.dataset.manager;
 import org.openmrs.Visit;
 import org.openmrs.module.pihcore.reporting.library.PihEncounterDataLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
+import org.openmrs.module.reporting.config.DataSetDescriptor;
+import org.openmrs.module.reporting.config.factory.DataSetFactory;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.encounter.definition.ConvertedEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
@@ -25,19 +27,21 @@ import org.openmrs.module.reporting.data.encounter.definition.PatientToEncounter
 import org.openmrs.module.reporting.data.encounter.library.BuiltInEncounterDataLibrary;
 import org.openmrs.module.reporting.data.patient.definition.PatientDataDefinition;
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
+import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.query.encounter.definition.BasicEncounterQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.Date;
 
 /**
  * Data Export of encounter data.  Migrated from mirebalaisreports full data export report manager
  */
 @Component
-public class LegacyEncounterDataSetManager {
+public class HaitiEncounterDataSetManager implements DataSetFactory {
 
     @Autowired
     BuiltInPatientDataLibrary builtInPatientData;
@@ -59,7 +63,12 @@ public class LegacyEncounterDataSetManager {
         return new Parameter("endDate", "mirebalaisreports.parameter.endDate", Date.class);
     }
 
-    public EncounterDataSetDefinition constructDataSet() {
+    public DataSetDefinition constructDataSet() {
+        return constructDataSetDefinition(null, null);
+    }
+
+    @Override
+    public DataSetDefinition constructDataSetDefinition(DataSetDescriptor dataSetDescriptor, File baseConfigDir) {
 
         EncounterDataSetDefinition dsd = new EncounterDataSetDefinition();
         dsd.addParameter(getStartDateParameter());
