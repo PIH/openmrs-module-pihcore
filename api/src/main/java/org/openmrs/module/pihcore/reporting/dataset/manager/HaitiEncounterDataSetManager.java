@@ -19,6 +19,7 @@ import org.openmrs.module.pihcore.reporting.library.PihEncounterDataLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
 import org.openmrs.module.reporting.config.DataSetDescriptor;
 import org.openmrs.module.reporting.config.factory.DataSetFactory;
+import org.openmrs.module.reporting.data.converter.AgeConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.encounter.definition.ConvertedEncounterDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDataDefinition;
@@ -81,7 +82,7 @@ public class HaitiEncounterDataSetManager implements DataSetFactory {
 
         dsd.addColumn("zlEmrId", patientData(pihPatientData.getPreferredZlEmrIdIdentifier()), null);
         dsd.addColumn("patientId", builtInEncounterData.getPatientId(), null);
-        dsd.addColumn("age", pihEncounterData.getPatientAgeAtEncounter(), null);
+        dsd.addColumn("age", pihEncounterData.getPatientAgeAtEncounter(), null, new AgeConverter(AgeConverter.YEARS_TO_ONE_DECIMAL_PLACE));
         dsd.addColumn("gender", patientData(builtInPatientData.getGender()), null);
         dsd.addColumn("visitId", builtInEncounterData.getEncounterVisit(), null, new PropertyConverter(Visit.class, "visitId"));
         dsd.addColumn("visitStart", builtInEncounterData.getEncounterVisit(), null, new PropertyConverter(Visit.class, "startDatetime"));
