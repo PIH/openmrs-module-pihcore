@@ -15,6 +15,7 @@
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.openmrs.Visit;
+import org.openmrs.module.pihcore.reporting.library.DataConverterLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihEncounterDataLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
 import org.openmrs.module.reporting.config.DataSetDescriptor;
@@ -37,6 +38,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Data Export of encounter data.  Migrated from mirebalaisreports full data export report manager
@@ -55,6 +57,9 @@ public class HaitiEncounterDataSetManager implements DataSetFactory {
 
     @Autowired
     PihEncounterDataLibrary pihEncounterData;
+
+    @Autowired
+    DataConverterLibrary converterLibrary;
 
     private Parameter getStartDateParameter() {
         return new Parameter("startDate", "mirebalaisreports.parameter.startDate", Date.class);
@@ -91,7 +96,7 @@ public class HaitiEncounterDataSetManager implements DataSetFactory {
         dsd.addColumn("encounterType", builtInEncounterData.getEncounterTypeName(), null);
         dsd.addColumn("encounterLocation", new ConvertedEncounterDataDefinition(new EncounterLocationDataDefinition(), new PropertyConverter(String.class, "name")), null);  // the "encounterLocation.name" converter is very inefficent
         dsd.addColumn("encounterDatetime", builtInEncounterData.getEncounterDatetime(), null);
-        dsd.addColumn("disposition", pihEncounterData.getDisposition(), null);
+        dsd.addColumn("disposition", pihEncounterData.getDisposition(), null, converterLibrary.getObsValueCodedNameConverterInLocale(Locale.FRENCH));
         dsd.addColumn("enteredBy", pihEncounterData.getCreatorName(), null);
         dsd.addColumn("allProviders", pihEncounterData.getAllProviders(), null);
         dsd.addColumn("numberOfProviders", pihEncounterData.getNumberOfProviders(), null);

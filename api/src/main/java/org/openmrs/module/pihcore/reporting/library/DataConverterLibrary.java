@@ -32,6 +32,8 @@ import org.openmrs.module.reporting.dataset.DataSetRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 @Component
 public class DataConverterLibrary {
 
@@ -104,6 +106,10 @@ public class DataConverterLibrary {
 
     public DataConverter getObsValueCodedNameConverter() {
         return new ChainedConverter(getObsValueCodedConverter(), getObjectFormatter());
+    }
+
+    public DataConverter getObsValueCodedNameConverterInLocale(Locale locale) {
+        return new ChainedConverter(getObsValueCodedConverter(), new ObjectFormatter(locale));
     }
 
     public DataConverter getObsValueTextConverter() {
