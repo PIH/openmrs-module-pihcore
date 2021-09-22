@@ -1,10 +1,14 @@
 package org.openmrs.module.pihcore.reporting.library;
 
 import org.openmrs.Concept;
+import org.openmrs.Visit;
 import org.openmrs.module.reporting.data.converter.DataConverter;
+import org.openmrs.module.reporting.data.converter.PropertyConverter;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterDatetimeDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterIdDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterLocationDataDefinition;
 import org.openmrs.module.reporting.data.encounter.definition.EncounterProviderDataDefinition;
+import org.openmrs.module.reporting.data.encounter.definition.EncounterVisitDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.ConvertedObsDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.EncounterToObsDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.GroupMemberObsDataDefinition;
@@ -28,6 +32,16 @@ public class PihObsDataLibrary extends BaseDefinitionLibrary<ObsDataDefinition> 
     @Override
     public String getKeyPrefix() {
         return "pihcore.obsData.";
+    }
+
+    @DocumentedDefinition
+    public ObsDataDefinition getEncounterId() {
+        return new EncounterToObsDataDefinition(new EncounterIdDataDefinition());
+    }
+
+    @DocumentedDefinition
+    public ObsDataDefinition getVisitId() {
+        return convert(new EncounterToObsDataDefinition(new EncounterVisitDataDefinition()), new PropertyConverter(Visit.class, "visitId"));
     }
 
     @DocumentedDefinition

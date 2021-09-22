@@ -14,11 +14,6 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
 import org.openmrs.Visit;
@@ -41,6 +36,8 @@ import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPersonDataLibrary;
 import org.openmrs.module.reporting.common.MessageUtil;
 import org.openmrs.module.reporting.common.ObjectUtil;
+import org.openmrs.module.reporting.config.DataSetDescriptor;
+import org.openmrs.module.reporting.config.factory.DataSetFactory;
 import org.openmrs.module.reporting.data.converter.BooleanConverter;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.converter.PropertyConverter;
@@ -58,10 +55,16 @@ import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.query.encounter.definition.PatientEncounterQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 /**
  * Base implementation of a manager that produces row-per-encounter data set definitions
  */
-public abstract class BaseEncounterDataSetManager {
+public abstract class BaseEncounterDataSetManager implements DataSetFactory {
 
 	@Autowired
 	Config config;
@@ -94,6 +97,11 @@ public abstract class BaseEncounterDataSetManager {
 	PatientService patientService;
 
 	public DataSetDefinition constructDataSet() {
+		return constructDataSetDefinition(null, null);
+	}
+
+	@Override
+	public DataSetDefinition constructDataSetDefinition(DataSetDescriptor dataSetDescriptor, File baseConfigDir) {
 
 		EncounterDataSetDefinition dsd = new EncounterDataSetDefinition();
 		dsd.addParameter(new Parameter("startDate", "mirebalaisreports.parameter.startDate", Date.class));

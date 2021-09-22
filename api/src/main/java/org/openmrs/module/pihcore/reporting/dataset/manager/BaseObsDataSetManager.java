@@ -15,6 +15,8 @@ import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPersonDataLibrary;
 import org.openmrs.module.reporting.common.MessageUtil;
 import org.openmrs.module.reporting.common.ObjectUtil;
+import org.openmrs.module.reporting.config.DataSetDescriptor;
+import org.openmrs.module.reporting.config.factory.DataSetFactory;
 import org.openmrs.module.reporting.data.converter.DataConverter;
 import org.openmrs.module.reporting.data.obs.definition.ObsDataDefinition;
 import org.openmrs.module.reporting.data.obs.definition.PatientToObsDataDefinition;
@@ -29,12 +31,13 @@ import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.query.obs.definition.PatientObsQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public abstract class BaseObsDataSetManager {
+public abstract class BaseObsDataSetManager implements DataSetFactory {
 
     @Autowired
     Config config;
@@ -60,9 +63,12 @@ public abstract class BaseObsDataSetManager {
     @Autowired
     BuiltInPatientDataLibrary builtInPatientData;
 
-
-
     public DataSetDefinition constructDataSet() {
+        return constructDataSetDefinition(null, null);
+    }
+
+    @Override
+    public DataSetDefinition constructDataSetDefinition(DataSetDescriptor dataSetDescriptor, File baseConfigDir) {
 
         ObsDataSetDefinition dsd = new ObsDataSetDefinition();
         dsd.addParameter(new Parameter("startDate", "mirebalaisreports.parameter.startDate", Date.class));
