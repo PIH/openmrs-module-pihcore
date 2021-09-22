@@ -359,6 +359,9 @@ angular.module('constants', [])
         },
         whoHIVStages: {
             uuid: "3cebd8b8-26fe-102b-80cb-0017a47871b2"
+        },
+        adverseEvent: {
+            uuid: "3cd96052-26fe-102b-80cb-0017a47871b2"
         }
     })
     .value('PrimaryCareExamConcepts', {
