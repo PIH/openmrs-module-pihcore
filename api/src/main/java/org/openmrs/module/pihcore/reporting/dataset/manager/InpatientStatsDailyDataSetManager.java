@@ -108,7 +108,7 @@ public class InpatientStatsDailyDataSetManager extends BaseDataSetManager {
         EncounterCohortDefinition edCheckIn = new EncounterCohortDefinition();
         edCheckIn.addParameter(new Parameter("onOrAfter", "On or after", Date.class));
         edCheckIn.addParameter(new Parameter("onOrBefore", "On or before", Date.class));
-        edCheckIn.addEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID));
+        edCheckIn.addEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID));
         edCheckIn.addLocation(locationService.getLocationByUuid(EMERGENCY_DEPARTMENT_UUID));
         edCheckIn.addLocation(locationService.getLocationByUuid(EMERGENCY_RECEPTION_UUID));
 
@@ -141,7 +141,7 @@ public class InpatientStatsDailyDataSetManager extends BaseDataSetManager {
             cd.addParameterMapping("location", location);
         }
         indicator.setCohortDefinition(cd);
-        dsd.addColumn(key + location.getUuid(), nameWithLocation, Mapped.map(indicator, "startDate=${day},endDate=${day+1d-1ms}"), "");
+        dsd.addColumn(key + ":" + location.getUuid(), nameWithLocation, Mapped.map(indicator, "startDate=${day},endDate=${day+1d-1ms}"), "");
     }
 
     public void addIndicator(CohortIndicatorDataSetDefinition dsd, String key, String name, Mapped<CohortDefinition> cd) {
