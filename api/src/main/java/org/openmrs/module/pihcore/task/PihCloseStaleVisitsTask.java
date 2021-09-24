@@ -94,7 +94,7 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
             else {
                 // special logic for ED visits:
                 // if the most recent disposition is "discharge" and there are no encouters in the last 12 hours, and visit hasn't been updated in the last 12 hours, close
-                if (mostRecentDisposition != null && mostRecentDisposition.getType().equals(DispositionType.DISCHARGE) &&
+                if (mostRecentDisposition != null && mostRecentDisposition.getType() != null && mostRecentDisposition.getType().equals(DispositionType.DISCHARGE) &&
                     (hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
                     closeVisit = true;
                 }
