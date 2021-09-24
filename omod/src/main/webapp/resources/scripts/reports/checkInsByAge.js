@@ -28,7 +28,7 @@ angular.module('checkInsByAge', ['ui.bootstrap'])
             $scope.data = null;
             $scope.selectedCategory = null;
 
-            $http.get(emr.fragmentActionLink('pihcore', 'checkInsByAgeReport', 'evaluate',
+            $http.get(emr.fragmentActionLink('pihcore', 'reports/checkInsByAgeReport', 'evaluate',
                 {"startDate": moment($scope.startDate).format('YYYY-MM-DD'), "endDate": moment($scope.endDate).format('YYYY-MM-DD')}))
                 .then(function(result) {
                     $scope.data = result.data;

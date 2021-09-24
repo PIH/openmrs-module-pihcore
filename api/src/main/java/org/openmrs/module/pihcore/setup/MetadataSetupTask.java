@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.setup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.reporting.config.ReportLoader;
 
 public class MetadataSetupTask implements Runnable {
 
@@ -48,5 +49,7 @@ public class MetadataSetupTask implements Runnable {
             log.error("Aborting Metadata Setup Task: error installing HTML forms", e);
             throw e;
         }
+
+        ReportLoader.loadReportsFromConfig();
     }
 }
