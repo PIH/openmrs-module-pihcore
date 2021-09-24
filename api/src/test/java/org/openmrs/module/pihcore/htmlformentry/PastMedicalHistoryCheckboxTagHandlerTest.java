@@ -1,5 +1,7 @@
 package org.openmrs.module.pihcore.htmlformentry;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Concept;
@@ -14,11 +16,11 @@ import org.openmrs.module.htmlformentry.RegressionTestHelper;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.builder.ConceptBuilder;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
-import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -29,6 +31,8 @@ import java.util.Map;
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
 public class PastMedicalHistoryCheckboxTagHandlerTest extends PihCoreContextSensitiveTest {
+
+    protected Log log = LogFactory.getLog(getClass());
 
     @Autowired
     private ConceptService conceptService;
@@ -141,7 +145,7 @@ public class PastMedicalHistoryCheckboxTagHandlerTest extends PihCoreContextSens
 
             @Override
             public void testBlankFormHtml(String html) {
-                System.out.println(html);
+                log.debug(html);
             }
 
             @Override
