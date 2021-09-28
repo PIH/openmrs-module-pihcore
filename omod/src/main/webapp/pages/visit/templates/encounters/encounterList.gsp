@@ -5,9 +5,10 @@
         <th>${ ui.message("Encounter.provider") }</th>
         <th>${ ui.message("pihcore.visitNote.clinicalNotes") }</th>
         <th>${ ui.message("uicommons.location") }</th>
+        <th></th>
     </tr>
 
-    <tr ng-repeat="e in encounters" ng-click="goToEncounter(e)" class="list-element selectable" ng-class="{ 'selected-visit': e.uuid===encounter.uuid }">
+    <tr ng-repeat="e in encounters" class="list-element selectable" ng-class="{ 'selected-visit': e.uuid===encounter.uuid }">
         <td>
             <nobr><span class="visit-list-start-date">{{ e.encounterDatetime | serverDate : 'dd-MMM-yyyy'}}</span>
             </nobr>
@@ -29,6 +30,12 @@
             <span>
                 {{e.location | omrsDisplay}}
             </span>
+        </td>
+        <td>
+            <nobr><span>
+                <a class="edit-encounter" ng-click="goToEncounter(e)"><i class="icon-pencil"></i></a>
+                <a class="delete-action" ng-click="confirmDeleteEncounter(e)"><i class="icon-remove"></i></a>
+            </span></nobr>
         </td>
     </tr>
 </table>

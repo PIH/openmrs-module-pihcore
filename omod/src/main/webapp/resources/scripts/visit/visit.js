@@ -505,7 +505,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                  locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
-          const encountersRef = "custom:(uuid,encounterDatetime,encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
+          const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
 
             // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
             if (currentSection && encounterUuid) {
@@ -826,6 +826,45 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 }
                 $state.go("overview");
             }
+
+          $scope.confirmDeleteEncounter = function(encounter) {
+            if ( encounter ) {
+                  ngDialog.openConfirm({
+                    showClose: true,
+                    closeByEscape: true,
+                    closeByDocument: true,
+                    controller: function($scope) {
+                      $timeout(function() {
+                        $(".dialog-content:visible button.confirm").focus();
+                      }, 10)
+                    },
+                    template: "templates/confirmDeleteEncounter.page"
+                  }).then(function() {
+                    Encounter.delete({uuid: encounter.uuid})
+                      .$promise.then(function() {
+                       loadEncounters($scope.patientUuid, $scope.encounterTypeUuid);
+                    });
+                  });
+            }
+          }
+
+          $scope.goToEncounter = function(encounter) {
+            if (encounter) {
+              var config = EncounterTypeConfig.get(encounter, country, site);
+              if (config.editUrl) {
+                var url = Handlebars.compile(config.editUrl)({
+                  patient: encounter.patient,
+                  encounter: encounter,
+                  breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
+                  returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH
+                    + "/pihcore/visit/visit.page?encounterType=" + encounter.encounterType.uuid
+                    + "&patient=" + encounter.patient.uuid
+                    + "#/encounterList")
+                });
+                emr.navigateTo({applicationUrl: url});
+              }
+            }
+          }
 
             $scope.goToVisitList = function() {
                 $state.go("visitList");
