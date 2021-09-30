@@ -47,7 +47,6 @@ public class MetadataSharingSetup {
         MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
     }
 
-
     public static void installMetadataSharingPackages() {
 
         try {
@@ -70,7 +69,7 @@ public class MetadataSharingSetup {
 
     }
 
-    protected static Collection<File> loadMdsFiles() {
+    public static Collection<File> loadMdsFiles() {
 
         Collection<File> files = null;
 
@@ -89,7 +88,7 @@ public class MetadataSharingSetup {
         return files;
     }
 
-    protected static List<PackageImporter> loadPackageImporters(Collection<File> mdsFiles ) throws IOException{
+    public static List<PackageImporter> loadPackageImporters(Collection<File> mdsFiles ) throws IOException{
         List<PackageImporter> packageImporters = new ArrayList<PackageImporter>();
 
         for (File file : mdsFiles) {
