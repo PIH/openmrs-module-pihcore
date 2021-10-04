@@ -14,6 +14,7 @@ public class Components {
         public static final String CONSULT = "consult";
         public static final String CONSULT_INITIAL = "consultInitial";
         public static final String ED_CONSULT = "edConsult";
+		public static final String NURSE_CONSULT = "nurseConsult";
         public static final String ADT = "adt";
         public static final String DEATH_CERTIFICATE = "deathCertificate";
         public static final String RADIOLOGY = "radiology";

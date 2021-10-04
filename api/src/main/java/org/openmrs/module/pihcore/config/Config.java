@@ -150,4 +150,8 @@ public class Config {
     public List<Extension> getExtensions() {
         return descriptor.getExtensions();
     }
+
+    public ConfigDescriptor getDescriptor() {
+        return descriptor;
+    }
 }

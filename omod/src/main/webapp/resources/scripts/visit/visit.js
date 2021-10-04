@@ -23,6 +23,9 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             .state("visitList", {
                 url: "/visitList",
                 templateUrl: "templates/visitList.page"
+            }).state("encounterList", {
+              url: "/encounterList",
+              templateUrl: "templates/encounters/encounterList.page"
             })
             .state("print", {
                 url: "/print",
@@ -496,12 +499,13 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        "visitUuid", "visitTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
+        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
-                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, suppressActions, patientUuid, encounterUuid,
+                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
                  locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
+          const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
 
             // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
             if (currentSection && encounterUuid) {
@@ -522,6 +526,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                 $scope.visitUuid = visitUuid;
                 $scope.visitTypeUuid = visitTypeUuid;
+                $scope.encounterTypeUuid = encounterTypeUuid;
                 $scope.suppressActions = suppressActions;
                 $scope.patientUuid = patientUuid;
                 $scope.encounterUuid = encounterUuid;
@@ -613,6 +618,17 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             function sameDate(d1, d2) {
                 return d1 && d2 && d1.substring(0, 10) == d2.substring(0, 10);
+            }
+
+            function loadEncounters(patientUuid, encounterTypeUuid) {
+                Encounter.get({
+                  patient: patientUuid,
+                  encounterType: encounterTypeUuid ? encounterTypeUuid : '',
+                  order: 'desc',
+                  v: encountersRef
+                }).$promise.then(function(response) {
+                  $scope.encounters = response.results;
+                });
             }
 
             function loadVisits(patientUuid) {
@@ -720,6 +736,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         })
                         $scope.visits = response.results;
                     });
+                } else if (toState.name == 'encounterList') {
+                    loadEncounters($scope.patientUuid, $scope.encounterTypeUuid);
                 }
             });
 
@@ -808,6 +826,45 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 }
                 $state.go("overview");
             }
+
+          $scope.confirmDeleteEncounter = function(encounter) {
+            if ( encounter ) {
+                  ngDialog.openConfirm({
+                    showClose: true,
+                    closeByEscape: true,
+                    closeByDocument: true,
+                    controller: function($scope) {
+                      $timeout(function() {
+                        $(".dialog-content:visible button.confirm").focus();
+                      }, 10)
+                    },
+                    template: "templates/confirmDeleteEncounter.page"
+                  }).then(function() {
+                    Encounter.delete({uuid: encounter.uuid})
+                      .$promise.then(function() {
+                       loadEncounters($scope.patientUuid, $scope.encounterTypeUuid);
+                    });
+                  });
+            }
+          }
+
+          $scope.goToEncounter = function(encounter) {
+            if (encounter) {
+              var config = EncounterTypeConfig.get(encounter, country, site);
+              if (config.editUrl) {
+                var url = Handlebars.compile(config.editUrl)({
+                  patient: encounter.patient,
+                  encounter: encounter,
+                  breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
+                  returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH
+                    + "/pihcore/visit/visit.page?encounterType=" + encounter.encounterType.uuid
+                    + "&patient=" + encounter.patient.uuid
+                    + "#/encounterList")
+                });
+                emr.navigateTo({applicationUrl: url});
+              }
+            }
+          }
 
             $scope.goToVisitList = function() {
                 $state.go("visitList");
