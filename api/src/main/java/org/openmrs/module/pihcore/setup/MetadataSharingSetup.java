@@ -158,9 +158,9 @@ public class MetadataSharingSetup {
 
             for (PackageImporter packageImporter : packageImporters) {
                 long timer = System.currentTimeMillis();
-                log.info("Importing package: " + packageImporter.getImportedPackage().getName());
-                packageImporter .importPackage();
-                log.info("Imported " + packageImporter.getImportedPackage().getName() + " in " + (System.currentTimeMillis() - timer) + "ms");
+                log.warn("Importing package: " + packageImporter.getImportedPackage().getName());
+                packageImporter.importPackage();
+                log.warn("Imported " + packageImporter.getImportedPackage().getName() + " in " + (System.currentTimeMillis() - timer) + "ms");
             }
         }
 
