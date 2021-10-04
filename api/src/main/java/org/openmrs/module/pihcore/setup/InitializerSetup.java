@@ -68,7 +68,7 @@ public class InitializerSetup {
             for (File f : ll.getDirUtil().getFiles("csv")) {
                 String filename = f.getName().toLowerCase();
                 if (filename.contains("-site-") && !filename.endsWith("-site-" + site + ".csv")) {
-                    log.warn("Excluding site-specific configuration file: " + filename);
+                    log.debug("Excluding site-specific configuration file: " + filename);
                     exclusions.add(filename);
                 }
             }
