@@ -1,7 +1,7 @@
+<div><span><h3>${ ui.message("pih.app.notes.title") }</h3></span></div>
 <table id="encounter-list">
     <tr>
-        <th>${ ui.message("Encounter.datetime") }</th>
-        <th>${ ui.message("Encounter.type") }</th>
+        <th>${ ui.message("pihcore.note.date") }</th>
         <th>${ ui.message("Encounter.provider") }</th>
         <th>${ ui.message("pihcore.visitNote.clinicalNotes") }</th>
         <th>${ ui.message("uicommons.location") }</th>
@@ -12,9 +12,6 @@
         <td>
             <nobr><span class="visit-list-start-date">{{ e.encounterDatetime | serverDate : 'dd-MMM-yyyy'}}</span>
             </nobr>
-        </td>
-        <td>
-            {{ e.encounterType.display }}
         </td>
         <td>
             <span ng-repeat="p in e.encounterProviders">
