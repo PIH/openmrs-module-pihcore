@@ -1,15 +1,20 @@
-<%
 
-%>
 <div id="hiv-alerts" class="info-section">
     <div class="info-header">
         <i class="fas fa-fw fa-exclamation-circle"></i>
-        <h3>ALERTS</h3>
+        <h3>${ ui.message("pihcore.hivAlerts.alerts") }</h3>
     </div>
     <div class="info-body">
         <% if (lateReturnVisitDateForDispensing) { %>
             <div>
-                Late for med pickup: ${ ui.format(lateReturnVisitDateForDispensing) }
+                <span  <% if (lateReturnVisitDateForDispensingHighlight) { %>class="alert-warning"<% } %>>
+                    ${ ui.message("pihcore.hivAlerts.lateForMedPickup") }: ${ ui.format(lateReturnVisitDateForDispensing) }
+                </span>
+            </div>
+        <% } %>
+        <% if (lateReturnVisitDateForAppointment) { %>
+            <div>
+                ${ ui.message("pihcore.hivAlerts.lateForAppointment") }: ${ ui.format(lateReturnVisitDateForAppointment) }
             </div>
         <% } %>
     </div>
