@@ -40,6 +40,9 @@ public class RegistrationConfigDescriptor {
     @JsonProperty
     private ContactInfoConfigDescriptor contactInfo;
 
+	@JsonProperty
+	private ContactPersonConfigDescriptor contactPerson;
+
     @JsonProperty
     private Integer maxPatientMatchResults;
 
@@ -130,4 +133,12 @@ public class RegistrationConfigDescriptor {
     public void setContactInfo(ContactInfoConfigDescriptor contactInfo) {
         this.contactInfo = contactInfo;
     }
+
+	public ContactPersonConfigDescriptor getContactPerson() {
+		return contactPerson;
+	}
+
+	public void setContactPersonConfig(ContactPersonConfigDescriptor contactPersonConfigDescriptor) {
+		this.contactPerson = contactPersonConfigDescriptor;
+	}
 }
