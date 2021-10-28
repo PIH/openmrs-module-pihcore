@@ -631,6 +631,23 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 });
             }
 
+            function loadAllPatientEncounters(patientUuid) {
+                Encounter.get({
+                    patient: patientUuid,
+                    encounterType: encounterTypeUuid ? encounterTypeUuid : '',
+                    order: 'desc',
+                    v: "custom:(encounterDatetime,encounterType:(uuid,display))"
+                }).$promise.then(function(response) {
+                    $scope.visit.allEncounters = response.results.map(function(r) {
+                        return {
+                            encounterDateTime: r.encounterDatetime,
+                            encounterTypeUuid: r.encounterType.uuid,
+                            encounterTypeName: r.encounterType.display,
+                        }
+                    });
+                });
+            }
+
             function loadVisits(patientUuid) {
                 Visit.get({
                   patient: $scope.patientUuid,
@@ -870,10 +887,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 $state.go("visitList");
             }
 
-           // TODO figure out if we can get rid of this function
             $scope.$watch('visitUuid', function(newVal, oldVal) {
                 loadVisit(newVal);
             })
+
+            $scope.$watch('visit', function(newVal, oldVal) {
+                if (newVal && !newVal.allEncounters) {
+                    loadAllPatientEncounters($scope.patientUuid);
+                }
+            });
 
 
             $scope.visitAction = function(visitAction) {
