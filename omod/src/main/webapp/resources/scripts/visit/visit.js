@@ -632,20 +632,36 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
 
             function loadAllPatientEncounters(patientUuid) {
-                Encounter.get({
+                const encounterRequestArgs = {
                     patient: patientUuid,
                     encounterType: encounterTypeUuid ? encounterTypeUuid : '',
                     order: 'desc',
                     v: "custom:(encounterDatetime,encounterType:(uuid,display))"
-                }).$promise.then(function(response) {
-                    $scope.visit.allEncounters = response.results.map(function(r) {
+                };
+                Encounter.get(encounterRequestArgs).$promise.then(function(response) {
+                    if (response.results.length === 500) {
+                        // Assume that the REST API limited to 500 results. Look up the max we can get and request that.
+                        $http.get("/openmrs/ws/rest/v1/systemsetting/webservices.rest.maxResultsAbsolute")
+                            .then(function(s) { return s.data.value })
+                            .then(function(maxPermissibleLimit) {
+                                const newEncounterRequestArgs = Object.assign({ limit: maxPermissibleLimit }, encounterRequestArgs);
+                                Encounter.get(newEncounterRequestArgs).$promise.then(function(response) {
+                                    handleEncounterData(response);
+                                });
+                            });
+                    } else {
+                       handleEncounterData(response);
+                    }
+                });
+                function handleEncounterData(response) {
+                    $scope.visit.allEncounters = response.results.map(function (r) {
                         return {
                             encounterDateTime: r.encounterDatetime,
                             encounterTypeUuid: r.encounterType.uuid,
                             encounterTypeName: r.encounterType.display,
                         }
                     });
-                });
+                }
             }
 
             function loadVisits(patientUuid) {
