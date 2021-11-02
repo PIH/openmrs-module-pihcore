@@ -631,6 +631,43 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 });
             }
 
+            function loadAllPatientEncounters(patientUuid) {
+                let encounters = [];
+                const encounterRequestArgs = {
+                    patient: patientUuid,
+                    encounterType: encounterTypeUuid ? encounterTypeUuid : '',
+                    order: 'desc',
+                    v: "custom:(encounterDatetime,encounterType:(uuid,display))"
+                };
+                Encounter.get(encounterRequestArgs).$promise.then(function(response) {
+                    encounters = transformEncounterData(response);
+                    getMoreEncountersIfPresent(response).then(function() {
+                        $scope.visit.allEncounters = encounters
+                    });
+                });
+                function getMoreEncountersIfPresent(response) {
+                    const nextLink = response.links && response.links.find(l => l.rel === "next");
+                    if (nextLink) {
+                        return $http.get(nextLink.uri).then(function(newResponse) {
+                            const data = newResponse.data;
+                            encounters = encounters.concat(transformEncounterData(data));
+                            return getMoreEncountersIfPresent(data);
+                        })
+                    } else {
+                        return Promise.resolve();
+                    }
+                }
+                function transformEncounterData(response) {
+                    return response.results.map(function (r) {
+                        return {
+                            encounterDateTime: r.encounterDatetime,
+                            encounterTypeUuid: r.encounterType.uuid,
+                            encounterTypeName: r.encounterType.display,
+                        }
+                    });
+                }
+            }
+
             function loadVisits(patientUuid) {
                 Visit.get({
                   patient: $scope.patientUuid,
@@ -870,10 +907,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 $state.go("visitList");
             }
 
-           // TODO figure out if we can get rid of this function
             $scope.$watch('visitUuid', function(newVal, oldVal) {
                 loadVisit(newVal);
             })
+
+            $scope.$watch('visit', function(newVal, oldVal) {
+                if (newVal && !newVal.allEncounters) {
+                    loadAllPatientEncounters($scope.patientUuid);
+                }
+            });
 
 
             $scope.visitAction = function(visitAction) {
