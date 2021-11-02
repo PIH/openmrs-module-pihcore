@@ -632,6 +632,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
 
             function loadAllPatientEncounters(patientUuid) {
+                let encounters = [];
                 const encounterRequestArgs = {
                     patient: patientUuid,
                     encounterType: encounterTypeUuid ? encounterTypeUuid : '',
@@ -639,22 +640,30 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     v: "custom:(encounterDatetime,encounterType:(uuid,display))"
                 };
                 Encounter.get(encounterRequestArgs).$promise.then(function(response) {
-                    if (response.results.length === 500) {
-                        // Assume that the REST API limited to 500 results. Look up the max we can get and request that.
-                        $http.get("/openmrs/ws/rest/v1/systemsetting/webservices.rest.maxResultsAbsolute")
-                            .then(function(s) { return s.data.value })
-                            .then(function(maxPermissibleLimit) {
-                                const newEncounterRequestArgs = Object.assign({ limit: maxPermissibleLimit }, encounterRequestArgs);
-                                Encounter.get(newEncounterRequestArgs).$promise.then(function(response) {
-                                    handleEncounterData(response);
-                                });
-                            });
+                    encounters = transformEncounterData(response);
+                    if (moreEncountersLink(response)) {
+                        getMoreEncountersAndSetScope(response);
                     } else {
-                       handleEncounterData(response);
+                        $scope.visit.allEncounters = encounters;
                     }
                 });
-                function handleEncounterData(response) {
-                    $scope.visit.allEncounters = response.results.map(function (r) {
+                function moreEncountersLink(response) {
+                    return response.links && response.links.find(l => l.rel === "next");
+                }
+                function getMoreEncountersAndSetScope(response) {
+                    const nextLink = moreEncountersLink(response);
+                    if (nextLink) {
+                        $http.get(nextLink.uri).then(function(newResponse) {
+                            const data = newResponse.data;
+                            encounters = encounters.concat(transformEncounterData(data));
+                            getMoreEncountersAndSetScope(data);
+                        })
+                    } else {
+                        $scope.visit.allEncounters = encounters;
+                    }
+                }
+                function transformEncounterData(response) {
+                    return response.results.map(function (r) {
                         return {
                             encounterDateTime: r.encounterDatetime,
                             encounterTypeUuid: r.encounterType.uuid,
