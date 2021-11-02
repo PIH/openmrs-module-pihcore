@@ -641,25 +641,20 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 };
                 Encounter.get(encounterRequestArgs).$promise.then(function(response) {
                     encounters = transformEncounterData(response);
-                    if (moreEncountersLink(response)) {
-                        getMoreEncountersAndSetScope(response);
-                    } else {
-                        $scope.visit.allEncounters = encounters;
-                    }
+                    getMoreEncountersIfPresent(response).then(function() {
+                        $scope.visit.allEncounters = encounters
+                    });
                 });
-                function moreEncountersLink(response) {
-                    return response.links && response.links.find(l => l.rel === "next");
-                }
-                function getMoreEncountersAndSetScope(response) {
-                    const nextLink = moreEncountersLink(response);
+                function getMoreEncountersIfPresent(response) {
+                    const nextLink = response.links && response.links.find(l => l.rel === "next");
                     if (nextLink) {
-                        $http.get(nextLink.uri).then(function(newResponse) {
+                        return $http.get(nextLink.uri).then(function(newResponse) {
                             const data = newResponse.data;
                             encounters = encounters.concat(transformEncounterData(data));
-                            getMoreEncountersAndSetScope(data);
+                            return getMoreEncountersIfPresent(data);
                         })
                     } else {
-                        $scope.visit.allEncounters = encounters;
+                        return Promise.resolve();
                     }
                 }
                 function transformEncounterData(response) {
