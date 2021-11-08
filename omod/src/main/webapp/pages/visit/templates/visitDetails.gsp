@@ -11,8 +11,8 @@
 <div class="visit-dates">
     <span>
         <i class="icon-time small"></i>
-        {{ visit.startDatetime | serverDate:DatetimeFormats.date }}
-        <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | serverDate:DatetimeFormats.date  }}</span>
+        {{ visit.startDatetime | toLocaleDateString:DatetimeFormats.dateLocalized }}
+        <span ng-show="visit.stopDatetime">- {{ visit.stopDatetime | toLocaleDateString:DatetimeFormats.dateLocalized  }}</span>
         <span ng-hide="visit.stopDatetime" class="lozenge active">
             (${ ui.message("uicommons.active") })
         </span>

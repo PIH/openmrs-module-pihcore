@@ -1,7 +1,12 @@
 angular.module('constants', [])
     .value('DatetimeFormats', {
         date: "d-MMM-yy",
+        dateLocalized: { year: 'numeric', month: 'short', day: 'numeric' },
         time: "hh:mm a",
+        // TODO: fix timeLocalized:
+        //   'hour12' override is necessary because we're using `fr` in Haiti instead of `fr_HT`.
+        //   This override will prevent time from displaying correctly in places that use a 24 hour clock.
+        timeLocalized: { hour: '2-digit', minute: '2-digit', hour12: true },
         datetime: "d-MMM-yy (hh:mm a)"
     })
 
