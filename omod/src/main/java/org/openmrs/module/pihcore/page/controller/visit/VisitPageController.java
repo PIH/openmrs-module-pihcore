@@ -66,7 +66,7 @@ public class VisitPageController {
         model.addAttribute("encounterType", encounterType);
         model.addAttribute("suppressActions", (suppressActions != null) ? suppressActions : false);
         model.addAttribute("encounter", encounter);
-        model.addAttribute("locale", uiSessionContext.getLocale());
+        model.addAttribute("locale", uiSessionContext.getLocale().getLanguage());
         model.addAttribute("country", config.getCountry().toString().toLowerCase());
         model.addAttribute("site", config.getSite().toString().toLowerCase());
         model.addAttribute("goToNextSection", goToNextSection);
