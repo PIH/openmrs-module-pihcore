@@ -631,7 +631,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 });
             }
 
-            function loadAllPatientEncounters(patientUuid) {
+            function getAllPatientEncounters(patientUuid) {
                 let encounters = [];
                 const encounterRequestArgs = {
                     patient: patientUuid,
@@ -639,10 +639,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     order: 'desc',
                     v: "custom:(encounterDatetime,encounterType:(uuid,display))"
                 };
-                Encounter.get(encounterRequestArgs).$promise.then(function(response) {
+                return Encounter.get(encounterRequestArgs).$promise.then(function(response) {
                     encounters = transformEncounterData(response);
-                    getMoreEncountersIfPresent(response).then(function() {
-                        $scope.visit.allEncounters = encounters
+                    return getMoreEncountersIfPresent(response).then(function() {
+                        return encounters;
                     });
                 });
                 function getMoreEncountersIfPresent(response) {
@@ -680,23 +680,27 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             function loadVisit(visitUuid) {
                 if (visitUuid) {
-                    Visit.get({
+                    Promise.all([
+                        getAllPatientEncounters($scope.patientUuid),
+                        Visit.get({
                             uuid: visitUuid,
                             v: visitRef
-                        })
-                        .$promise.then(function (visit) {
-                            visit.encounters = _.reject(visit.encounters, function (it) {
-                                return it.voided;
-                            });
-                            $scope.visit = new OpenMRS.VisitModel(visit);
-                            $scope.visitIdx = $scope.getVisitIdx(visit);
-                            $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
+                        }).$promise
+                    ]).then(function ([allEncounters, visit]) {
+                        visit.encounters = _.reject(visit.encounters, function (it) {
+                            return it.voided;
+                        });
+                        const scopeVisit = new OpenMRS.VisitModel(visit);
+                        scopeVisit.allEncounters = allEncounters;
+                        $scope.visit = scopeVisit;
+                        $scope.visitIdx = $scope.getVisitIdx(visit);
+                        $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
 
-                            if ($scope.suppressActions !== true) {
-                              AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function (ext) {
-                                $scope.visitActions = ext;
-                              });
-                            }
+                        if ($scope.suppressActions !== true) {
+                          AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function (ext) {
+                            $scope.visitActions = ext;
+                          });
+                        }
                     });
                 }
             }
@@ -910,13 +914,6 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             $scope.$watch('visitUuid', function(newVal, oldVal) {
                 loadVisit(newVal);
             })
-
-            $scope.$watch('visit', function(newVal, oldVal) {
-                if (newVal && !newVal.allEncounters) {
-                    loadAllPatientEncounters($scope.patientUuid);
-                }
-            });
-
 
             $scope.visitAction = function(visitAction) {
 
