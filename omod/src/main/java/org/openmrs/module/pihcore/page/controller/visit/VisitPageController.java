@@ -2,13 +2,14 @@ package org.openmrs.module.pihcore.page.controller.visit;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.Encounter;
+import org.openmrs.EncounterType;
 import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.VisitType;
-import org.openmrs.EncounterType;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.ui.framework.MissingRequiredParameterException;
@@ -30,6 +31,7 @@ public class VisitPageController {
                     @RequestParam(required = false, value = "encounterType") String encounterTypeUuid,
                     @RequestParam(required = false, value = "encounterId") Encounter encounterById,  // passed by the htmformentryui module after form submission creates new encounter (really should be "encounter" for consistency)
                     @RequestParam(required = false, value = "goToNextSection") String goToNextSection,
+					@SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties,
                     UiSessionContext uiSessionContext,
                     PageModel model) {
 
@@ -70,6 +72,7 @@ public class VisitPageController {
         model.addAttribute("country", config.getCountry().toString().toLowerCase());
         model.addAttribute("site", config.getSite().toString().toLowerCase());
         model.addAttribute("goToNextSection", goToNextSection);
+		model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
     }
 
 }

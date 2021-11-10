@@ -48,14 +48,14 @@
 <script type="text/javascript">
     var breadcrumbsOverview = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },
+        { label: "${ ui.escapeJs(patient.formattedName) }", link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.uuid ] ) }'},
         { label: "${ui.message("pihcore.visitNote.Visit")}" }
     ];
 
     var breadcrumbs = breadcrumbsOverview;
 
     var breadcrumbOverride = [
-        { label: "${ ui.escapeJs(patient.formattedName) }", link: "${ui.escapeJs(ui.pageLink("coreapps", "clinicianfacing/patient", [patientId:patient.patient.uuid, app:"pih.app.clinicianDashboard"]))}" },
+        { label: "${ ui.escapeJs(patient.formattedName) }", link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.uuid ] ) }'},
         { label: "${ui.message("pihcore.visitNote.Visit")}", link: "${visit ? ui.escapeJs(ui.pageLink("pihcore", "visit/visit", [visit:visit.uuid])) : ''}" }
     ];
 
