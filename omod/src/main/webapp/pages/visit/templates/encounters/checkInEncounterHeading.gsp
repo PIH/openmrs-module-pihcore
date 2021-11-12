@@ -4,10 +4,10 @@
     </div>
     <div class="col-4 text-right">
         <span class="date-span">
-            <i class="icon-calendar"></i>{{ encounter.encounterDatetime | serverDate:DatetimeFormats.date }}
+            <i class="icon-calendar"></i>{{ encounter.encounterDatetime | serverDateLocalized:DatetimeFormats.dateLocalized }}
         </span>
         <span class="time-span">
-            <i class="icon-time"></i>{{ encounter.encounterDatetime | serverDate:DatetimeFormats.time }}
+            <i class="icon-time"></i>{{ encounter.encounterDatetime | serverDateLocalized:DatetimeFormats.timeLocalized }}
         </span>
     </div>
 </div>
