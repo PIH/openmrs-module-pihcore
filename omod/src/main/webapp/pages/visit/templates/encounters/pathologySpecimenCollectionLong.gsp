@@ -19,7 +19,7 @@
 
     <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.sampledatelabel")}</label>
-        <span class="value">{{ encounter.encounterDatetime | serverDate:DatetimeFormats.date }}</span>
+        <span class="value">{{ encounter.encounterDatetime | serverDateLocalized:DatetimeFormats.dateLocalized }}</span>
     </p>
 
     <p class="aligned">
@@ -69,7 +69,7 @@
 
     <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.resultsdatelabel")}</label>
-        <span class="value">{{ encounter.obs | byConcept:Concepts.testResultsDate:true | obs:'value' | serverDate:DatetimeFormats.date  }}</span>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.testResultsDate:true | obs:'value' | serverDateLocalized:DatetimeFormats.dateLocalized  }}</span>
     </p>
 
     <p class="aligned">

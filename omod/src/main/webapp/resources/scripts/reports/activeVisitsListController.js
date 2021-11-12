@@ -152,12 +152,12 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                     },
                     {
                         field: 'checkinDateTime',
-                        cellTemplate:  '<div ng-if="row.getProperty(\'checkinDateTime\')"><small> {{ row.getProperty(\'firstCheckinLocation\') }} @ {{ row.getProperty(\'checkinDateTime\') | serverDate:DatetimeFormats.date }} </small><div>',
+                        cellTemplate:  '<div ng-if="row.getProperty(\'checkinDateTime\')"><small> {{ row.getProperty(\'firstCheckinLocation\') }} @ {{ row.getProperty(\'checkinDateTime\') | serverDateLocalized:DatetimeFormats.dateLocalized }} </small><div>',
                         headerCellTemplate: "<div>{{ \'coreapps.activeVisits.checkIn\' | translate }}</div>"
                     },
                     {
                         field: 'lastEncounterLocation',
-                        cellTemplate:  '<div ng-if="row.getProperty(\'lastEncounterLocation\')"> {{ row.getProperty(\'lastEncounterType\')  | translate }} <br/> <small>{{ row.getProperty(\'lastEncounterLocation\') }} @ {{ row.getProperty(\'lastEncounterDateTime\') | serverDate:DatetimeFormats.date }} </small><div>',
+                        cellTemplate:  '<div ng-if="row.getProperty(\'lastEncounterLocation\')"> {{ row.getProperty(\'lastEncounterType\')  | translate }} <br/> <small>{{ row.getProperty(\'lastEncounterLocation\') }} @ {{ row.getProperty(\'lastEncounterDateTime\') | serverDateLocalized:DatetimeFormats.dateLocalized }} </small><div>',
                         headerCellTemplate: "<div>{{ \'coreapps.activeVisits.lastSeen\' | translate }}</div>"
                     }
                 ]

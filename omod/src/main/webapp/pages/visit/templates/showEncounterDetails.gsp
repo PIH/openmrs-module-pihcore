@@ -1,8 +1,8 @@
 <span class="date-span">
-    <i ng-show="encounter.encounterDatetime" class="icon-calendar"></i>{{ encounter.encounterDatetime | serverDate:DatetimeFormats.date }}
+    <i ng-show="encounter.encounterDatetime" class="icon-calendar"></i>{{ encounter.encounterDatetime | serverDateLocalized:DatetimeFormats.dateLocalized }}
 </span>
 <span class="time-span">
-    <i ng-show="encounter.encounterDatetime" class="icon-time"></i>{{ encounter.encounterDatetime | serverDate:DatetimeFormats.time }}
+    <i ng-show="encounter.encounterDatetime" class="icon-time"></i>{{ encounter.encounterDatetime | serverDateLocalized:DatetimeFormats.timeLocalized }}
 </span>
 <span class="encounter-card-summary provider-and-location-span encounter-provider">
     <span ng-show="encounter.encounterProviders">{{ 'coreapps.by' | translate }}</span>
