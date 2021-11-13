@@ -35,7 +35,7 @@ public class ProgramDashboardPageController {
             }
         }
         if (activeEnrollments.size() == 1) {
-            // TODO: Once we have legitimate dashboards for all programs, remove this constraint on HIV program
+            // TODO: Once we have legitimate dashboards for all programs, remove this constraint on HIV program?
             String programUuid = activeEnrollments.get(0).getProgram().getUuid();
             if (programUuid.equals(PihEmrConfigConstants.PROGRAM_HIV_UUID)) {
                 queryString += "&dashboard=" + programUuid;
