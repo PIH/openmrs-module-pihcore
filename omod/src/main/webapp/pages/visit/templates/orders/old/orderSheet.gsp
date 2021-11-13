@@ -3,7 +3,7 @@
 </div>
 <ul>
     <li ng-repeat="order in orderList()">
-        {{ order.dateActivated | serverDate:DatetimeFormats.date }}
+        {{ order.dateActivated | serverDateLocalized:DatetimeFormats.dateLocalized }}
         {{ order | orderInstructions }}
     </li>
 </ul>

@@ -75,7 +75,7 @@
         </div>
         <div class="right-column">
             <p>
-                {{ encounter.obs | byConcept:Concepts.returnVisitDate:true | obs:"value" | serverDate:DatetimeFormats.date }}
+                {{ encounter.obs | byConcept:Concepts.returnVisitDate:true | obs:"value" | serverDateLocalized:DatetimeFormats.dateLocalized }}
             </p>
         </div>
     </div>
