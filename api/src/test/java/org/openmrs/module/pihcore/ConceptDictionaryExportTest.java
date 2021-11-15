@@ -6,6 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.ConceptComplex;
 import org.openmrs.ConceptDescription;
 import org.openmrs.ConceptMap;
 import org.openmrs.ConceptName;
@@ -44,6 +45,7 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
 
     static Properties props = null;
     static String EXPORT_DIR = System.getProperty("java.io.tmpdir");
+    static String EXPORT_FILENAME = "concepts.json";
 
     static {
         String propFile = System.getProperty("concept_export_properties_file");
@@ -65,6 +67,7 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             System.setProperty("databaseDialect", "org.hibernate.dialect.MySQLDialect");
             System.setProperty("useInMemoryDatabase", "false");
             EXPORT_DIR = props.getProperty("exportDir", System.getProperty("java.io.tmpdir"));
+            EXPORT_FILENAME = props.getProperty("exportFilename", "concepts.json");
         }
     }
 
@@ -78,6 +81,13 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
         return p;
     }
 
+    /**
+     * Intentional issues currently with this, in order to isolate away known issues.  These should be removed as appropriate:
+     * - Normalizes concept source name, due to known issue needed in OCL to facilitate source matching and need for pih-temp
+     * - Excludes voided concept names (which are really retired names that may have references), as these are not provided by ocl
+     * - Converts answer sort weight from null -> 1.0 if only one answer exists for the concept
+     * - Removes concept version from export (talk thread indicates not really used)
+     */
     @Test
     public void exportData() throws Exception {
 
@@ -106,7 +116,6 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             c.put("concept_class", concept.getConceptClass().getName());
             c.put("concept_datatype", concept.getDatatype().getName());
             c.put("is_set", BooleanUtils.isTrue(concept.getSet()) ? "true" : "false");
-            c.put("version", concept.getVersion());
             c.put("retired", BooleanUtils.isTrue(concept.getRetired()) ? "true" : "false");
             c.put("retireReason", concept.getRetireReason() == null ? "" : concept.getRetireReason());
             if (concept instanceof ConceptNumeric) {
@@ -121,18 +130,29 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
                 c.put("allow_decimal", BooleanUtils.isTrue(cn.getAllowDecimal()) ? "true" : "false");
                 c.put("display_precision", cn.getHiAbsolute() == null ? "" : cn.getHiAbsolute().toString());
             }
+            if (concept instanceof ConceptComplex) {
+                ConceptComplex cc = (ConceptComplex) concept;
+                c.put("handler", cc.getHandler());
+            }
 
             List<ConceptName> names = new ArrayList<>(concept.getNames(true));
-            names.sort(Comparator.comparing(ConceptName::getName));
+            names.sort(Comparator
+                    .comparing(ConceptName::getName)
+                    .thenComparing(cn -> cn.getConceptNameType() == null ? "" : cn.getConceptNameType().name())
+                    .thenComparing(cn -> cn.getLocale().toString())
+                    .thenComparing(ConceptName::getLocalePreferred));
+
             List<Map<String, Object>> nameList = new ArrayList<>();
             for (ConceptName name : names) {
-                Map<String, Object> n = new LinkedHashMap<>();
-                n.put("name", name.getName());
-                n.put("locale", name.getLocale().toString());
-                n.put("locale_preferred", BooleanUtils.isTrue(name.getLocalePreferred()) ? "true" : "false");
-                n.put("type", name.getConceptNameType() == null ? "" : name.getConceptNameType().name());
-                n.put("voided", BooleanUtils.isTrue(name.getVoided()) ? "true" : "false");
-                nameList.add(n);
+                if (BooleanUtils.isNotTrue(name.getVoided())) {
+                    Map<String, Object> n = new LinkedHashMap<>();
+                    n.put("name", name.getName());
+                    n.put("locale", name.getLocale().toString());
+                    n.put("locale_preferred", BooleanUtils.isTrue(name.getLocalePreferred()) ? "true" : "false");
+                    n.put("type", name.getConceptNameType() == null ? "" : name.getConceptNameType().name());
+                    n.put("voided", BooleanUtils.isTrue(name.getVoided()) ? "true" : "false");
+                    nameList.add(n);
+                }
             }
             c.put("names", nameList);
 
@@ -153,7 +173,7 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             for (ConceptAnswer ca : answers) {
                 Map<String, Object> n = new LinkedHashMap<>();
                 n.put("answerConcept", ca.getAnswerConcept().getUuid());
-                n.put("sortWeight", ca.getSortWeight() == null ? "" : ca.getSortWeight().toString());
+                n.put("sortWeight", ca.getSortWeight() == null ? (answers.size() == 1 ? "1.0": "") : ca.getSortWeight().toString());
                 answerList.add(n);
             }
             c.put("answers", answerList);
@@ -178,7 +198,7 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             List<Map<String, Object>> mappingList = new ArrayList<>();
             for (ConceptMap cm : mappings) {
                 Map<String, Object> n = new LinkedHashMap<>();
-                n.put("source", cm.getConceptReferenceTerm().getConceptSource().getName());
+                n.put("source", normalizeSourceName(cm.getConceptReferenceTerm().getConceptSource().getName()));
                 n.put("type", cm.getConceptMapType().getName());
                 n.put("code", cm.getConceptReferenceTerm().getCode());
                 mappingList.add(n);
@@ -186,11 +206,19 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             c.put("mappings", mappingList);
         }
 
-        File exportFile = new File(EXPORT_DIR, "concepts.json");
+        File exportFile = new File(EXPORT_DIR, EXPORT_FILENAME);
         System.out.println("Writing concepts to: " + exportFile);
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(exportFile, concepts);
         System.out.println("Concepts exported successfully");
+    }
+
+    public String normalizeSourceName(String name) {
+        return name.toUpperCase()
+                .replace(" ", "")
+                .replace("-", "")
+                .replace("_", "")
+                .replace("PIHTEMP", "PIH");
     }
 }
