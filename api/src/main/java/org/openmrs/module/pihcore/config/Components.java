@@ -66,8 +66,7 @@ public class Components {
         public static final String BMI_ON_CLINICIAN_DASHBOARD = "bmiOnClinicianDashboard";
         public static final String VISIT_NOTE = "visitNote";  // get rid of the left visits bar and enable form sections
         public static final String ALLERGIES = "allergies";
-        public static final String PRESCRIPTIONS = "prescriptions";  // TODO no longer used?
-        public static final String PRESCRIPTION="prescription"; //Used for Perú
+        public static final String PRESCRIPTION = "prescription"; //Used for Perú
         public static final String LEGACY_MPI = "legacyMpi";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
         public static final String ID_CARD_PRINTING = "idcardPrinting";
