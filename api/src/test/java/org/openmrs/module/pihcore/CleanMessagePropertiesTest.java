@@ -66,7 +66,7 @@ public class CleanMessagePropertiesTest {
                                 if (!property.startsWith("#")) {
                                     property = "# " + property;
                                 }
-                                secondaryVal = "";
+                                secondaryVal = primaryVal;
                             }
                             String newLine = property;
                             if (StringUtils.isNotEmpty(primaryVal) || StringUtils.isNotEmpty(secondaryVal)) {
