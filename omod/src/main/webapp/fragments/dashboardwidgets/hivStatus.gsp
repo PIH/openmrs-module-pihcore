@@ -2,7 +2,7 @@
 <div id="hiv-alerts" class="info-section">
     <div class="info-header">
         <i class="fas fa-fw fa-exclamation-circle"></i>
-        <h3>${ ui.message("pihcore.hivAlerts.alerts") }</h3>
+        <h3>${ ui.message("pih.app.hiv.status.title") }</h3>
     </div>
     <div class="info-body">
         <% if (lateReturnVisitDateForDispensing) { %>

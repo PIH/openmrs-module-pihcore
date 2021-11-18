@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class HivAlertsFragmentController {
+public class HivStatusFragmentController {
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
