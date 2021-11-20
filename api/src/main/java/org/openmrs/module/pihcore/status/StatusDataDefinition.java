@@ -1,6 +1,11 @@
 package org.openmrs.module.pihcore.status;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class StatusDataDefinition {
+
+    @JsonIgnore
+    private String path;
 
     private String id;
     private String labelCode;
@@ -9,6 +14,14 @@ public class StatusDataDefinition {
     private String formatExpression;
 
     public StatusDataDefinition() {}
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public String getId() {
         return id;

@@ -12,30 +12,61 @@
 
 <script type="text/javascript">
     jq(document).ready(function() {
-        jq("#evaluate-button").click(function(event) {
-            jq("#errorDetails").html("");
-            let pId = jq("#patient-selector").val();
-            let path = jq("#path-selector").val();
-            jq.get(openmrsContextPath + '/ws/rest/v1/pihcore/statusData?patientId=' + pId + "&path="+path, function(data) {
+        jq("#errorDetails").html("");
+        let pId = jq("#patient-selector").val();
+        let path = jq("#path-selector").val();
+        if (pId && pId !== '' && path && path !== '') {
+            let requestPath = openmrsContextPath + '/ws/rest/v1/pihcore/statusData?patientId=' + pId + '&path=' + path;
+            let defId = jq("#id-selector").val();
+            if (defId && defId !== '') {
+                requestPath += '&definitionId=' + defId;
+            }
+            jq.get(requestPath, function (data) {
                 var formatter = new JSONFormatter(data, 1, {});
                 jq("#configJson").html(formatter.render());
                 formatter.openAtDepth(3);
-            }).fail(function(data) {
+            }).fail(function (data) {
                 jq("#errorDetails").html(data.responseText);
             });
-        });
+        }
     });
 </script>
 
-<br/>
-<input id="patient-selector" type="text" size="50" placeholder="Enter Patient ID or UUID"/>
-<br/>
-<input id="path-selector" type="text" size="50" placeholder="Enter Path to Definition Config"/>
-<br/>
-<input id="evaluate-button" type="button" value="Evaluate For Patient"/>
-<br/>
-<hr/>
+<div>
+    <form>
+        <br/>
+        <label for="patient-selector">Patient: </label>
+        <input id="patient-selector" name="patientId" type="text" size="20" value="${patientId}" placeholder="Enter Patient ID or UUID"/>
+        <br/>
+        <div style="display: table-cell">
+            <label for="path-selector">Config File: </label>
+            <select id="path-selector" name="path">
+                <% configPaths.each{pathOption -> %>
+                    <option value="">Choose...</option>
+                    <option value="${pathOption}"<%= pathOption.equals(path) ? "selected" : "" %>>${pathOption}</option>
+                <% } %>
+            </select>
+        </div>
+        <% if (path) { %>
+            <div style="display: table-cell; padding-left: 5px;">
+                <label for="id-selector">Status Definition: </label>
+                <select id="id-selector" name="definitionId">
+                    <% definitions.each{definitionOption -> %>
+                    <option value="">All</option>
+                    <option value="${definitionOption.id}"<%= definitionOption.id.equals(definitionId) ? "selected" : "" %>>${definitionOption.id}</option>
+                    <% } %>
+                </select>
+            </div>
+        <% } %>
+        <div style="display: table-cell; padding-left: 5px;">
+            <label for="submit-button">&nbsp;</label>
+            <input id="submit-button" type="submit" value="Evaluate"/>
+        </div>
+        <br/>
+    </form>
+    <hr/>
 
-<div id="errorDetails"></div>
+    <div id="errorDetails"></div>
 
-<div id="configJson"></div>
+    <div id="configJson"></div>
+</div>

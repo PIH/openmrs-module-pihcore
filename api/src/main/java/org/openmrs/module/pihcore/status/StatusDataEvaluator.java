@@ -14,6 +14,7 @@ import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -33,7 +34,18 @@ public class StatusDataEvaluator {
 
         SqlFileDataSetDefinition dsd = new SqlFileDataSetDefinition();
         dsd.addParameter(new Parameter("patientId", "Patient ID", Integer.class));
-        dsd.setSql(definition.getStatusDataQuery());
+
+        String sql = definition.getStatusDataQuery();
+        if (sql.toLowerCase().endsWith(".sql")) {
+            File statusDataDir = StatusDataLoader.getStatusDataDirectory();
+            File statusDefFile = new File(statusDataDir, definition.getPath());
+            File sqlFile = new File(statusDefFile.getParentFile(), definition.getStatusDataQuery());
+            dsd.setSqlFile(sqlFile.getAbsolutePath());
+        }
+        else {
+            dsd.setSql(sql);
+        }
+
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("patientId", patient.getPatientId());
 
