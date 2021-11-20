@@ -1,9 +1,13 @@
 package org.openmrs.module.pihcore.status;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class StatusData {
 
     private String definitionId;
     private String label;
+    private Map<String, Object> queryData;
     private String displayValue;
     private String displayFormat;
 
@@ -25,6 +29,17 @@ public class StatusData {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public Map<String, Object> getQueryData() {
+        if (queryData == null) {
+            queryData = new HashMap<>();
+        }
+        return queryData;
+    }
+
+    public void setQueryData(Map<String, Object> queryData) {
+        this.queryData = queryData;
     }
 
     public String getDisplayValue() {

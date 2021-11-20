@@ -3,10 +3,10 @@
 - id: "gender"
   labelCode: "label.gender"
   statusDataQuery: "select gender from person where person_id = @patientId"
-  valueExpression: "#if($data.GENDER == 'F')$fn.translate('gender.female')#{elseif}($data.GENDER == 'M')$fn.translate('gender.male')#{else}#end"
-  formatExpression: "#if($data.GENDER == 'F')femaleFormat#{elseif}($data.GENDER == 'M')maleFormat#{else}#end"
+  valueExpression: "#if($GENDER == 'F')$fn.translate('gender.female')#{elseif}($GENDER == 'M')$fn.translate('gender.male')#{else}#end"
+  formatExpression: "#if($GENDER == 'F')femaleFormat#{elseif}($GENDER == 'M')maleFormat#{else}#end"
 
 - id: "age"
   labelCode: "label.age"
   statusDataQuery: "birthdate.sql"
-  valueExpression: "$fn.yearsSince($data.BIRTHDATE)"
+  valueExpression: "$fn.yearsSince($BIRTHDATE)"

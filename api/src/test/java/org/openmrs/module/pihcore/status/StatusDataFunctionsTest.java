@@ -1,7 +1,6 @@
 package org.openmrs.module.pihcore.status;
 
 import org.junit.Test;
-import org.openmrs.Patient;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -53,7 +52,7 @@ public class StatusDataFunctionsTest {
     }
 
     public void testExpression(Map<String, Object> dataValues, String expected, String expression) {
-        String actual = StatusDataFunctions.evaluateExpression(new Patient(), dataValues, expression);
+        String actual = StatusDataFunctions.evaluateExpression(dataValues, expression);
         assertThat(expected, is(actual));
     }
 }

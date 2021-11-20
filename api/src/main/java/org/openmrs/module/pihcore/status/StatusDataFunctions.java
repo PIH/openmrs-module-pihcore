@@ -16,6 +16,7 @@ import org.openmrs.module.reporting.data.converter.ObjectFormatter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 
 public class StatusDataFunctions {
@@ -37,17 +38,18 @@ public class StatusDataFunctions {
         return velocityEngine;
     }
 
-    public static VelocityContext getVelocityContext(Patient patient) {
+    public static VelocityContext getVelocityContext() {
         VelocityContext velocityContext = new VelocityContext();
-        velocityContext.put("locale", Context.getLocale());
-        velocityContext.put("patient", patient);
         velocityContext.put("fn", new StatusDataFunctions());
         return velocityContext;
     }
 
-    public static VelocityContext getVelocityContext(Patient patient, Map<String, Object> dataValues) {
-        VelocityContext velocityContext = getVelocityContext(patient);
+    public static VelocityContext getVelocityContext(Map<String, Object> dataValues) {
+        VelocityContext velocityContext = getVelocityContext();
         for (Map.Entry<String, Object> col : dataValues.entrySet()) {
+            if (velocityContext.containsKey(col.getKey())) {
+                throw new IllegalArgumentException(col.getKey() + " is a reserved key in the velocity context");
+            }
             velocityContext.put(col.getKey(), col.getValue());
         }
         return velocityContext;
@@ -64,11 +66,13 @@ public class StatusDataFunctions {
         }
     }
 
-    public static String evaluateExpression(Patient patient, Map<String, Object> dataValues, String expression) {
-        return evaluateExpression(getVelocityContext(patient, dataValues), expression);
+    public static String evaluateExpression(Map<String, Object> dataValues, String expression) {
+        return evaluateExpression(getVelocityContext(dataValues), expression);
     }
 
     public StatusDataFunctions() {}
+
+    public Locale locale() { return Context.getLocale(); }
 
     public String translate(String code) {
         return Context.getMessageSourceService().getMessage(code);
@@ -87,7 +91,7 @@ public class StatusDataFunctions {
     }
 
     public String formatDate(Date date, String format) {
-        return dateFormat(format).format(date);
+        return (date == null ? "" : dateFormat(format).format(date));
     }
 
     public String formatDate(Date date) {

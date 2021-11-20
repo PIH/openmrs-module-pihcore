@@ -6,13 +6,13 @@
 <script type="text/javascript" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "Status Data Test", link: "${ ui.pageLink("pihcore", "admin/statusData.page") }" }
+        { label: "Status Data Viewer", link: "${ ui.pageLink("pihcore", "admin/statusData.page") }" }
     ];
 </script>
 
 <script type="text/javascript">
     jq(document).ready(function() {
-        jq("#errorDetails").html("");
+        jq("#error-details").html("");
         let pId = jq("#patient-selector").val();
         let path = jq("#path-selector").val();
         if (pId && pId !== '' && path && path !== '') {
@@ -23,10 +23,10 @@
             }
             jq.get(requestPath, function (data) {
                 var formatter = new JSONFormatter(data, 1, {});
-                jq("#configJson").html(formatter.render());
-                formatter.openAtDepth(3);
+                jq("#resultsJson").html(formatter.render());
+                formatter.openAtDepth(10);
             }).fail(function (data) {
-                jq("#errorDetails").html(data.responseText);
+                jq("#error-details").html(data.responseJSON.errorMessages.join('<br/>'));
             });
         }
     });
@@ -36,7 +36,7 @@
     <form>
         <br/>
         <label for="patient-selector">Patient: </label>
-        <input id="patient-selector" name="patientId" type="text" size="20" value="${patientId}" placeholder="Enter Patient ID or UUID"/>
+        <input id="patient-selector" name="patientId" type="text" size="20" value="${patientId}" placeholder="Enter Patient ID or UUID" autocomplete="off"/>
         <br/>
         <div style="display: table-cell">
             <label for="path-selector">Config File: </label>
@@ -66,7 +66,7 @@
     </form>
     <hr/>
 
-    <div id="errorDetails"></div>
+    <div id="error-details" style="color:red;"></div>
 
-    <div id="configJson"></div>
+    <div id="resultsJson"></div>
 </div>

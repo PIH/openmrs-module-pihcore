@@ -34,7 +34,7 @@ public class StatusDataEvaluatorTest extends PihCoreContextSensitiveTest {
         StatusDataDefinition definition = new StatusDataDefinition();
         definition.setLabelCode("patient.mostRecentWeightDate");
         definition.setStatusDataQuery("select o.value_numeric as WEIGHT, o.obs_datetime as WEIGHTDATE from obs o where o.person_id = @patientId order by o.obs_datetime desc limit 1");
-        definition.setValueExpression("$data.WEIGHT on $fn.formatDate($data.WEIGHTDATE, 'yyyy-MM-dd')");
+        definition.setValueExpression("$WEIGHT on $fn.formatDate($WEIGHTDATE, 'yyyy-MM-dd')");
         definition.setFormatExpression("normalValue");
 
         StatusData statusData = evaluator.evaluate(patient, definition);
@@ -42,7 +42,7 @@ public class StatusDataEvaluatorTest extends PihCoreContextSensitiveTest {
         assertThat(statusData.getDisplayValue(), is("61.0 on 2008-08-19"));
         assertThat(statusData.getDisplayFormat(), is("normalValue"));
 
-        definition.setFormatExpression("#if($data.WEIGHT > 100)high#{elseif}($data.WEIGHT > 50)medium#{else}low#end");
+        definition.setFormatExpression("#if($WEIGHT > 100)high#{elseif}($WEIGHT > 50)medium#{else}low#end");
 
         statusData = evaluator.evaluate(patient, definition);
         assertThat(statusData.getLabel(), is("Date of most recent weight"));

@@ -47,15 +47,15 @@ public class StatusDataLoaderTest extends PihCoreContextSensitiveTest {
             assertThat(d.getId(), is("gender"));
             assertThat(d.getLabelCode(), is("label.gender"));
             assertThat(d.getStatusDataQuery(), is("select gender from person where person_id = @patientId"));
-            assertThat(d.getValueExpression(), is("#if($data.GENDER == 'F')$fn.translate('gender.female')#{elseif}($data.GENDER == 'M')$fn.translate('gender.male')#{else}#end"));
-            assertThat(d.getFormatExpression(), is("#if($data.GENDER == 'F')femaleFormat#{elseif}($data.GENDER == 'M')maleFormat#{else}#end"));
+            assertThat(d.getValueExpression(), is("#if($GENDER == 'F')$fn.translate('gender.female')#{elseif}($GENDER == 'M')$fn.translate('gender.male')#{else}#end"));
+            assertThat(d.getFormatExpression(), is("#if($GENDER == 'F')femaleFormat#{elseif}($GENDER == 'M')maleFormat#{else}#end"));
         }
         {
             StatusDataDefinition d = statusDataList.get(1);
             assertThat(d.getId(), is("age"));
             assertThat(d.getLabelCode(), is("label.age"));
             assertThat(d.getStatusDataQuery(), is("birthdate.sql"));
-            assertThat(d.getValueExpression(), is("$fn.yearsSince($data.BIRTHDATE)"));
+            assertThat(d.getValueExpression(), is("$fn.yearsSince($BIRTHDATE)"));
             assertNull(d.getFormatExpression());
         }
         teardown(filesAdded);

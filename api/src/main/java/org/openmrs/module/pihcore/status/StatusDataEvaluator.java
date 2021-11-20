@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class StatusDataEvaluator {
@@ -49,26 +50,28 @@ public class StatusDataEvaluator {
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("patientId", patient.getPatientId());
 
-        List<DataSetRow> rows = new ArrayList<>();
+        List<Map<String, Object>> queryData = new ArrayList<>();
         try {
             DataSet dataSet = dataSetDefinitionService.evaluate(dsd, context);
             for (Iterator<DataSetRow> i = dataSet.iterator(); i.hasNext();) {
-                rows.add(i.next());
+                queryData.add(i.next().getColumnValuesByKey());
             }
         }
         catch (EvaluationException e) {
-            throw new RuntimeException("An error occurred calculating " + definition.getId() + " for patient: " + patient.getPatientId(), e);
+            throw new RuntimeException(e);
+        }
+        data.getQueryData().put("data", queryData);
+        if (queryData.size() == 1) {
+            Map<String, Object> vals = queryData.get(0);
+            for (String key : vals.keySet()) {
+                if (data.getQueryData().containsKey(key)) {
+                    throw new IllegalArgumentException("Key <" + key + "> is already defined, please adjust your query column names");
+                }
+                data.getQueryData().put(key, vals.get(key));
+            }
         }
 
-        VelocityContext velocityContext = StatusDataFunctions.getVelocityContext(patient);
-        velocityContext.put("dataSize", rows.size());
-        if (rows.size() == 1) {
-            velocityContext.put("data", rows.get(0).getColumnValuesByKey());
-        }
-        else if (rows.size() > 1) {
-            velocityContext.put("data", rows);
-        }
-
+        VelocityContext velocityContext = StatusDataFunctions.getVelocityContext(data.getQueryData());
         String displayValue = StatusDataFunctions.evaluateExpression(velocityContext, definition.getValueExpression());
         data.setDisplayValue(displayValue);
         String displayFormat = "";
