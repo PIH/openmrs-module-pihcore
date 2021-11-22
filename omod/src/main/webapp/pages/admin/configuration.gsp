@@ -15,30 +15,38 @@
         width: 300px;
         margin: 5px;
     }
+    #error-details {
+        color: red;
+    }
 </style>
 
 <script type="text/javascript">
     jq(document).ready(function() {
         const spinnerImage = '<span><img class="search-spinner" src="'+emr.resourceLink('uicommons', 'images/spinner.gif')+'" /></span>';
         const reloadConfigJson = function () {
-            jq("#configJson").html(spinnerImage);
             jq.get(openmrsContextPath + '/ws/rest/v1/pihcore/config', function(data) {
                 var formatter = new JSONFormatter(data, 1, {});
                 setTimeout(() => {jq("#configJson").html(formatter.render());}, 100);
-                jq(".action-button").removeProp('disabled');
             });
         }
         reloadConfigJson();
 
         const actionInitiated = function() {
             jq(".action-button").prop('disabled', 'true');
+            jq("#error-details").html();
+            jq("#configJson").html(spinnerImage);
         }
 
         jq("#refresh-messageproperties-action").click(function() {
             actionInitiated();
-            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config/messageproperties'}).done(function() {
-                reloadConfigJson();
-            });
+            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config/messageproperties'})
+                .fail(function (data) {
+                    jq("#error-details").html('An error occurred: ' + data.responseText);
+                })
+                .always(function() {
+                    jq(".action-button").removeProp('disabled');
+                    reloadConfigJson();
+                });
         });
 
         jq("#refresh-reports-action").click(function() {
@@ -75,6 +83,7 @@
 <input id="refresh-system-action" type="button" class="action-button" value="Refresh All" />
 <br/>
 <br/>
+<div id="error-details"></div>
 
 <h3>Current System Configuration</h3>
 
