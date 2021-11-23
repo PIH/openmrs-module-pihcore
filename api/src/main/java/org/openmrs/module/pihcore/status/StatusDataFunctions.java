@@ -8,7 +8,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.joda.time.Months;
 import org.joda.time.Years;
-import org.openmrs.Patient;
+import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.module.reporting.data.converter.ObjectFormatter;
@@ -128,6 +128,13 @@ public class StatusDataFunctions {
 
     public int daysUntil(Date date) {
         return Days.daysBetween(startOfToday(), startOfDay(date)).getDays();
+    }
+
+    public Concept concept(Number conceptId) {
+        if (conceptId == null) {
+            return null;
+        }
+        return Context.getConceptService().getConcept(conceptId.intValue());
     }
 
 }

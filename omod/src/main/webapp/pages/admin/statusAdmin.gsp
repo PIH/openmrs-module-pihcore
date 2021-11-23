@@ -66,9 +66,12 @@
             }, function(data) {
                 let queryDataHtml = "";
                 for (key in data.queryData) {
-                    queryDataHtml += "<div class='query-data-key'>" + key + ":</div>";
-                    queryDataHtml += "<div class='query-data-value'>" + JSON.stringify(data.queryData[key]) + "</div>";
-                    queryDataHtml += "<br/>";
+                    let val = data.queryData[key];
+                    if (key !== 'data') {
+                        queryDataHtml += "<div class='query-data-key'>" + key + ":</div>";
+                        queryDataHtml += "<div class='query-data-value'>" + JSON.stringify(val) + "</div>";
+                        queryDataHtml += "<br/>";
+                    }
                 }
                 jq("#query-data-values").html(queryDataHtml);
                 jq("#expression-value").html(data.displayValue);
