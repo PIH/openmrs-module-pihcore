@@ -1,8 +1,8 @@
 
 <div class="info-section status-data-widget">
     <div class="info-header">
-        <i class="fas fa-fw fa-exclamation-circle"></i>
-        <h3>${ ui.message(headerLabel) }</h3>
+        <i class="${app.icon}"></i>
+        <h3>${ ui.message(app.label) }</h3>
     </div>
     <div class="info-body">
         <% statusData.each{status -> %>

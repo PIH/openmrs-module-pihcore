@@ -53,13 +53,12 @@ public class StatusDataFragmentController {
 			throw new IllegalArgumentException("No patient found in the status data fragment.  Please pass patient into the configuration");
 		}
 
+		model.put("app", app);
+
 		// Evaluate Status Data based on configFile specified in app configuration
 		String statusConfigFile = getConfigValue(app, "configFile");
 		List<StatusData> statusData = statusDataEvaluator.evaluate(patient, statusConfigFile);
 		model.put("statusData", statusData);
-
-		// Add additional attributes from configuration
-		model.put("headerLabel", getConfigValue(app,"headerLabel"));
 	}
 
 	private String getConfigValue(AppDescriptor app, String configValue) {

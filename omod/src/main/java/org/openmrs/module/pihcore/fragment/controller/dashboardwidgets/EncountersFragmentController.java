@@ -20,9 +20,10 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class EncountersFragmentController {
 
@@ -59,9 +60,35 @@ public class EncountersFragmentController {
 			throw new IllegalArgumentException("No patient found. Please pass patient into the configuration");
 		}
 
+		model.put("app", app);
+
+		Map<EncounterType, String> encounterTypeToUrlMap = new HashMap<>();
+		JsonNode node = app.getConfig().get("encounterTypes");
+		if (node == null) {
+			throw new IllegalStateException("Missing configuration encounterTypes on widget");
+		}
+		if (node instanceof ArrayNode) {
+			ArrayNode arrayNode = (ArrayNode) node;
+			for (Iterator<JsonNode> iter = arrayNode.getElements(); iter.hasNext();) {
+				JsonNode encTypeNode = iter.next();
+				try {
+					EncounterType et = encounterService.getEncounterTypeByUuid(encTypeNode.get("encounterType").asText());
+					String url = encTypeNode.get("url").asText();
+					encounterTypeToUrlMap.put(et, url);
+				}
+				catch (Exception e) {
+					throw new IllegalStateException("Invalid configuration for encounterType node", e);
+				}
+			}
+		}
+		else {
+			throw new IllegalStateException("encounterTypes is expected to be an array of objects");
+		}
+		model.put("encounterTypeToUrlMap", encounterTypeToUrlMap);
+
 		EncounterSearchCriteriaBuilder builder = new EncounterSearchCriteriaBuilder();
 		builder.setPatient(patient);
-		builder.setEncounterTypes(getEncounterTypes(app, encounterService));
+		builder.setEncounterTypes(encounterTypeToUrlMap.keySet());
 		List<Encounter> encounters = encounterService.getEncounters(builder.createEncounterSearchCriteria());
 		encounters.sort((e1, e2) -> e2.getEncounterDatetime().compareTo(e1.getEncounterDatetime()));
 
@@ -72,10 +99,6 @@ public class EncountersFragmentController {
 				encounters = encounters.subList(0, maxToDisplay);
 			}
 		}
-
-		model.put("headerLabel", getConfigValue(app,"headerLabel"));
-		model.put("listUrl", getConfigValue(app, "listUrl"));
-		model.put("detailsUrl", getConfigValue(app, "detailsUrl"));
 		model.put("encounters", encounters);
 	}
 
@@ -85,23 +108,5 @@ public class EncountersFragmentController {
 			return "";
 		}
 		return node.asText();
-	}
-
-	private List<EncounterType> getEncounterTypes(AppDescriptor app, EncounterService encounterService) {
-		List<EncounterType> ret = new ArrayList<>();
-		JsonNode node = app.getConfig().get("encounterTypes");
-		if (node == null) {
-			throw new IllegalStateException("Missing configuration encounterTypes on widget");
-		}
-		if (node instanceof ArrayNode) {
-			ArrayNode arrayNode = (ArrayNode) node;
-			for (Iterator<JsonNode> iter = arrayNode.getElements(); iter.hasNext();) {
-				ret.add(encounterService.getEncounterTypeByUuid(iter.next().asText()));
-			}
-		}
-		else {
-			ret.add(encounterService.getEncounterTypeByUuid(node.asText()));
-		}
-		return ret;
 	}
 }

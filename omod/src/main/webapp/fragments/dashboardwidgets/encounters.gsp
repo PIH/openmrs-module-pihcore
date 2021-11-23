@@ -1,9 +1,9 @@
 
 <div class="info-section encounters-by-type-widget">
     <div class="info-header">
-        <i class="icon-calendar"></i>
-        <h3>${ ui.message(headerLabel) }</h3>
-        <a href="${ ui.urlBind("/" + contextPath + listUrl, [ "patient.uuid": patient.id ]) }" class="right">
+        <i class="${app.icon}"></i>
+        <h3>${ ui.message(app.label) }</h3>
+        <a href="${ ui.urlBind("/" + contextPath + app.url, [ "patient.uuid": patient.id ]) }" class="right">
             <i class="icon-share-alt edit-action" title="Edit"></i>
         </a>
     </div>
@@ -11,7 +11,7 @@
         <% encounters.each{encounter -> %>
             <div>
                 <span class="encounter-date">
-                    <a class="visit-link" href="${ ui.urlBind("/" + contextPath + detailsUrl, [ "patient.uuid": patient.id, "visit.uuid": encounter.visit.uuid ]) }">
+                    <a class="visit-link" href="${ ui.urlBind("/" + contextPath + encounterTypeToUrlMap[encounter.encounterType], [ "patient.uuid": patient.id, "visit.uuid": encounter.visit.uuid ]) }">
                         ${ui.formatDatePretty(encounter.encounterDatetime)}
                     </a>
                 </span>
