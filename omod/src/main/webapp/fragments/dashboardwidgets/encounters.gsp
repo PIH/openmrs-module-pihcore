@@ -11,7 +11,7 @@
         <% encounters.each{encounter -> %>
             <div>
                 <span class="encounter-date">
-                    <a class="visit-link" href="${ ui.urlBind("/" + contextPath + encounterTypeToUrlMap[encounter.encounterType], [ "patient.uuid": patient.id, "visit.uuid": encounter.visit.uuid ]) }">
+                    <a class="visit-link" href="${ ui.urlBind("/" + contextPath + encounterTypeToUrlMap.get(encounter.encounterType), [ "patient.uuid": patient.id, "visit.uuid": encounter.visit.uuid ]) }">
                         ${ui.formatDatePretty(encounter.encounterDatetime)}
                     </a>
                 </span>
