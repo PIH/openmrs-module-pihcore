@@ -30,10 +30,10 @@ public class ConfigurePeruIdGenerators {
                 SesConfigConstants.PATIENTIDENTIFIERTYPE_SESEMRID_UUID));
         String prefixForSite = config.getPrimaryIdentifierPrefix();
         peruPrimaryIdentifierSource.setPrefix(prefixForSite);
-        peruPrimaryIdentifierSource.setMinLength(8 + peruPrimaryIdentifierSource.getPrefix().length());
-        peruPrimaryIdentifierSource.setMaxLength(8 + peruPrimaryIdentifierSource.getPrefix().length());
-        peruPrimaryIdentifierSource.setBaseCharacterSet("0123456789");
-        peruPrimaryIdentifierSource.setFirstIdentifierBase("00000001");
+        peruPrimaryIdentifierSource.setMinLength(4 + peruPrimaryIdentifierSource.getPrefix().length());
+        peruPrimaryIdentifierSource.setMaxLength(4 + peruPrimaryIdentifierSource.getPrefix().length());
+        peruPrimaryIdentifierSource.setBaseCharacterSet("ACDEFGHIJKLMNOPQRSTUVWXYZ");
+        peruPrimaryIdentifierSource.setFirstIdentifierBase("AAAA");
         peruPrimaryIdentifierSource.setUuid(PERU_PRIMARY_IDENTIFIER_SOURCE_UUID);
 
         identifierSourceService.saveIdentifierSource(peruPrimaryIdentifierSource);
