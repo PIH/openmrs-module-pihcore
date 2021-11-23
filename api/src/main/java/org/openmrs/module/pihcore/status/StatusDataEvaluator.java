@@ -72,6 +72,15 @@ public class StatusDataEvaluator {
         }
 
         VelocityContext velocityContext = StatusDataFunctions.getVelocityContext(data.getQueryData());
+        boolean enabled = true;
+        if (StringUtils.isNotEmpty(definition.getConditionExpression())) {
+            String conditionValue = StatusDataFunctions.evaluateExpression(velocityContext, definition.getConditionExpression());
+            if (conditionValue != null && (conditionValue.equalsIgnoreCase("false") || conditionValue.equalsIgnoreCase("0"))) {
+                enabled = false;
+            }
+        }
+        data.setEnabled(enabled);
+
         String displayValue = StatusDataFunctions.evaluateExpression(velocityContext, definition.getValueExpression());
         data.setDisplayValue(displayValue);
         String displayFormat = "";

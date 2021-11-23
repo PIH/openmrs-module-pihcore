@@ -56,16 +56,12 @@ public class StatusDataFragmentController {
 		model.put("app", app);
 
 		// Evaluate Status Data based on configFile specified in app configuration
-		String statusConfigFile = getConfigValue(app, "configFile");
-		List<StatusData> statusData = statusDataEvaluator.evaluate(patient, statusConfigFile);
-		model.put("statusData", statusData);
-	}
-
-	private String getConfigValue(AppDescriptor app, String configValue) {
-		JsonNode node = app.getConfig().get(configValue);
-		if (node == null) {
-			return "";
+		JsonNode configFileNode = app.getConfig().get("configFile");
+		if (configFileNode == null || configFileNode.asText() == null) {
+			throw new IllegalStateException("You must supply a configFile configuration to the statusData fragment");
 		}
-		return node.asText();
+		List<StatusData> statusData = statusDataEvaluator.evaluate(patient, configFileNode.asText());
+		statusData.removeIf(statusData1 -> !statusData1.isEnabled());
+		model.put("statusData", statusData);
 	}
 }

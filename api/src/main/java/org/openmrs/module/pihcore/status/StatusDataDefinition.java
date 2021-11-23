@@ -10,6 +10,7 @@ public class StatusDataDefinition {
     private String id;
     private String labelCode;
     private String statusDataQuery;
+    private String conditionExpression;
     private String valueExpression;
     private String formatExpression;
 
@@ -45,6 +46,14 @@ public class StatusDataDefinition {
 
     public void setStatusDataQuery(String statusDataQuery) {
         this.statusDataQuery = statusDataQuery;
+    }
+
+    public String getConditionExpression() {
+        return conditionExpression;
+    }
+
+    public void setConditionExpression(String conditionExpression) {
+        this.conditionExpression = conditionExpression;
     }
 
     public String getValueExpression() {

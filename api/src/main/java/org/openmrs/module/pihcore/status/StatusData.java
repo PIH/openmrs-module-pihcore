@@ -8,6 +8,7 @@ public class StatusData {
     private String definitionId;
     private String label;
     private Map<String, Object> queryData;
+    private boolean enabled;
     private String displayValue;
     private String displayFormat;
 
@@ -40,6 +41,14 @@ public class StatusData {
 
     public void setQueryData(Map<String, Object> queryData) {
         this.queryData = queryData;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getDisplayValue() {
