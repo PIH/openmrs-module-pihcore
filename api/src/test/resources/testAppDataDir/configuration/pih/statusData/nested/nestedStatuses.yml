@@ -1,0 +1,7 @@
+# Two status definitions that demonstrate in-line SQL and loading SQL from a relative file path
+
+- id: "gender2"
+  labelCode: "label.gender"
+  statusDataQuery: "select gender from person where person_id = @patientId"
+  valueExpression: "#if($GENDER == 'F')$fn.translate('gender.female')#{elseif}($GENDER == 'M')$fn.translate('gender.male')#{else}#end"
+  formatExpression: "#if($GENDER == 'F')femaleFormat#{elseif}($GENDER == 'M')maleFormat#{else}#end"
