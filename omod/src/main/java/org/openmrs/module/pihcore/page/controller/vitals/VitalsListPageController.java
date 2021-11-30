@@ -5,8 +5,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.EncounterService;
-import org.openmrs.api.PersonService;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.api.PatientService;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
@@ -29,7 +28,7 @@ public class VitalsListPageController {
 
     public String get(PageModel model, UiUtils ui,
                       @SpringBean("encounterService") EncounterService encounterService,
-                      @SpringBean("personService") PersonService personService,
+                      @SpringBean("patientService") PatientService patientService,
                       @SpringBean Config config) throws IOException {
 
         // TODO restrict by location at some point if necessary
@@ -67,7 +66,7 @@ public class VitalsListPageController {
 
         SimpleObject vitalsListBreadcrumb = SimpleObject.create("label", ui.message("pihcore.vitalsList.title"), "link", ui.pageLink("pihcore", "vitals/vitalsList"));
 
-        PatientIdentifierType dossierNumberType = MetadataUtils.possible(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+        PatientIdentifierType dossierNumberType = patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
 
         // used to determine whether or not we display a link to the patient in the results list
         model.addAttribute("patientWithCheckInEncounter", patientsWithCheckInEncounter);

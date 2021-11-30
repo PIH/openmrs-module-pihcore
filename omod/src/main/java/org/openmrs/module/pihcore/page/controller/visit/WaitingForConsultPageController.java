@@ -11,12 +11,11 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.ObsService;
-import org.openmrs.api.PersonService;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
@@ -40,7 +39,7 @@ public class WaitingForConsultPageController {
                       @SpringBean("encounterService") EncounterService encounterService,
                       @SpringBean("obsService") ObsService obsService,
                       @SpringBean("conceptService") ConceptService conceptService,
-                      @SpringBean("personService") PersonService personService,
+                      @SpringBean("patientService") PatientService patientService,
                       @SpringBean("domainWrapperFactory") DomainWrapperFactory domainWrapperFactory) {
 
 
@@ -162,7 +161,7 @@ public class WaitingForConsultPageController {
             patientsListWrapped.add(domainWrapperFactory.newPatientDomainWrapper(patient));
         }
 
-        PatientIdentifierType dossierNumberType = MetadataUtils.possible(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+        PatientIdentifierType dossierNumberType = patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
 
         model.addAttribute("patientList", patientsListWrapped);
         model.addAttribute("filter", filter.toString().toLowerCase());

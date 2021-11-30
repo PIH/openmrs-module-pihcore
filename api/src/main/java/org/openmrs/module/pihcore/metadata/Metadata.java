@@ -18,7 +18,6 @@ import org.openmrs.EncounterType;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 
@@ -43,7 +42,7 @@ public class Metadata {
     }
 
     public static PersonAttributeType getUnknownPatientAttributeType() {
-        return MetadataUtils.existing(PersonAttributeType.class, PihEmrConfigConstants.PERSONATTRIBUTETYPE_UNKNOWN_PATIENT_UUID);
+        return Context.getPersonService().getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_UNKNOWN_PATIENT_UUID);
     }
 
     public static PatientIdentifierType getNifIdentifierType() {

@@ -9,7 +9,6 @@ import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 
@@ -27,7 +26,7 @@ public class ConfigureMexicoIdGenerators {
 
     private static void createPrimaryIdentifierGenerator(IdentifierSourceService identifierSourceService, Config config) {
         String chiapasLocationUuid = "5f638ab8-87f7-48bc-8111-178000380dc9";
-        Location identifierLocation = MetadataUtils.existing(Location.class, chiapasLocationUuid);
+        Location identifierLocation = Context.getLocationService().getLocationByUuid(chiapasLocationUuid);
 
         SequentialIdentifierGenerator chiapasPrimaryIdentifierSource = (SequentialIdentifierGenerator)
                 identifierSourceService.getIdentifierSourceByUuid(CHIAPAS_PRIMARY_IDENTIFIER_SOURCE_UUID);
@@ -37,7 +36,7 @@ public class ConfigureMexicoIdGenerators {
 
         chiapasPrimaryIdentifierSource.setName("Chiapas Primary Identifier Source");
         chiapasPrimaryIdentifierSource.setDescription("Primary Identifier Generator for Chiapas");
-        chiapasPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
+        chiapasPrimaryIdentifierSource.setIdentifierType(Context.getPatientService().getPatientIdentifierTypeByUuid(
                 CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID));
         String prefixForSite = config.getPrimaryIdentifierPrefix();
         chiapasPrimaryIdentifierSource.setPrefix(prefixForSite);
@@ -56,7 +55,7 @@ public class ConfigureMexicoIdGenerators {
             autoGenerationOption = new AutoGenerationOption();
         }
 
-        autoGenerationOption.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
+        autoGenerationOption.setIdentifierType(Context.getPatientService().getPatientIdentifierTypeByUuid(
                 CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID));
         autoGenerationOption.setSource(chiapasPrimaryIdentifierSource);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
@@ -68,7 +67,7 @@ public class ConfigureMexicoIdGenerators {
 
     private static void createDossierNumberGenerator(IdentifierSourceService identifierSourceService, Config config) {
 
-        PatientIdentifierType dossierIdentifierType = MetadataUtils.existing(PatientIdentifierType.class, CesConfigConstants.PATIENTIDENTIFIERTYPE_MEXICODOSSIERNUMBER_UUID);
+        PatientIdentifierType dossierIdentifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(CesConfigConstants.PATIENTIDENTIFIERTYPE_MEXICODOSSIERNUMBER_UUID);
         String prefix = config.getDossierIdentifierPrefix();
 
         if (prefix == null) {

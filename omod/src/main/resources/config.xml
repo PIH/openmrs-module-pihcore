@@ -21,9 +21,6 @@
         <require_module version="${emrVersion}">
             org.openmrs.module.emr
         </require_module>
-        <require_module version="${metadatadeployVersion}">
-            org.openmrs.module.metadatadeploy
-        </require_module>
         <require_module version="${registrationcoreVersion}">
             org.openmrs.module.registrationcore
         </require_module>
