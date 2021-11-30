@@ -6,7 +6,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 
@@ -61,8 +60,8 @@ public class ConfigureSierraLeoneIdGenerators {
             int minLength, int maxLength, String baseChars, String firstBase, String locationUuid) {
 
         // Metadata
-        PatientIdentifierType identifierType = MetadataUtils.existing(PatientIdentifierType.class, identifierTypeUuid);
-        Location identifierLocation = MetadataUtils.existing(Location.class, locationUuid);
+        PatientIdentifierType identifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(identifierTypeUuid);
+        Location identifierLocation = Context.getLocationService().getLocationByUuid(locationUuid);
 
         // Generator
         SequentialIdentifierGenerator generator = (SequentialIdentifierGenerator) iss.getIdentifierSourceByUuid(uuid);

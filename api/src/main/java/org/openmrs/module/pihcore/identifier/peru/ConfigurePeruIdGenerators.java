@@ -2,10 +2,10 @@ package org.openmrs.module.pihcore.identifier.peru;
 
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.SesConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 
@@ -16,7 +16,7 @@ public class ConfigurePeruIdGenerators {
 
     public static void configureGenerators(IdentifierSourceService identifierSourceService, Config config) {
 
-        Location identifierLocation = MetadataUtils.existing(Location.class, PERU_ID_LOCATION_UUID);
+        Location identifierLocation = Context.getLocationService().getLocationByUuid(PERU_ID_LOCATION_UUID);
 
         SequentialIdentifierGenerator peruPrimaryIdentifierSource = (SequentialIdentifierGenerator)
                 identifierSourceService.getIdentifierSourceByUuid(PERU_PRIMARY_IDENTIFIER_SOURCE_UUID);
@@ -26,7 +26,7 @@ public class ConfigurePeruIdGenerators {
 
         peruPrimaryIdentifierSource.setName("SES Primary Identifier Source");
         peruPrimaryIdentifierSource.setDescription("Primary Identifier Generator for PIH Peru / SES");
-        peruPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
+        peruPrimaryIdentifierSource.setIdentifierType(Context.getPatientService().getPatientIdentifierTypeByUuid(
                 SesConfigConstants.PATIENTIDENTIFIERTYPE_SESEMRID_UUID));
         String prefixForSite = config.getPrimaryIdentifierPrefix();
         peruPrimaryIdentifierSource.setPrefix(prefixForSite);
@@ -45,7 +45,7 @@ public class ConfigurePeruIdGenerators {
             autoGenerationOption = new AutoGenerationOption();
         }
 
-        autoGenerationOption.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class,
+        autoGenerationOption.setIdentifierType(Context.getPatientService().getPatientIdentifierTypeByUuid(
                 SesConfigConstants.PATIENTIDENTIFIERTYPE_SESEMRID_UUID));
         autoGenerationOption.setSource(peruPrimaryIdentifierSource);
         autoGenerationOption.setAutomaticGenerationEnabled(true);

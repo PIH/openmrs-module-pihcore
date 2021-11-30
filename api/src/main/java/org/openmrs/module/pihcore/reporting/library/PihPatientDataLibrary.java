@@ -8,8 +8,8 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
 import org.openmrs.User;
 import org.openmrs.Visit;
+import org.openmrs.api.PatientService;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
@@ -43,6 +43,9 @@ import java.util.Arrays;
 
 @Component
 public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefinition> {
+
+    @Autowired
+    PatientService patientService;
 
     @Autowired
     EmrApiProperties emrApiProperties;
@@ -187,14 +190,14 @@ public class PihPatientDataLibrary extends BaseDefinitionLibrary<PatientDataDefi
     }
 
     private PatientIdentifierType getZlEmrIdType() {
-        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
+        return patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
     }
 
     private PatientIdentifierType getDossierNumberType() {
-        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
+        return patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
     }
     private PatientIdentifierType getHivEmrV1Type() {
-        return MetadataUtils.existing(PatientIdentifierType.class, ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
+        return patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
     }
 
     // Demographics

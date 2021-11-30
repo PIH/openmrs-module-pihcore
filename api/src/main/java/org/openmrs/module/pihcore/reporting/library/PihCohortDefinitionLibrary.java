@@ -14,11 +14,10 @@
 package org.openmrs.module.pihcore.reporting.library;
 
 import org.openmrs.Concept;
-import org.openmrs.EncounterType;
 import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.EncounterService;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.reporting.cohort.definition.DiagnosisCohortDefinition;
 import org.openmrs.module.pihcore.reporting.cohort.definition.DiedSoonAfterEncounterCohortDefinition;
@@ -49,6 +48,9 @@ public class PihCohortDefinitionLibrary extends BaseDefinitionLibrary<CohortDefi
 
     @Autowired
     private EmrApiProperties emrApiProperties;
+
+    @Autowired
+    private EncounterService encounterService;
 
     @Autowired
     private ConceptService conceptService;
@@ -97,7 +99,7 @@ public class PihCohortDefinitionLibrary extends BaseDefinitionLibrary<CohortDefi
         cd.addParameter(new Parameter("onOrAfter", "reporting.parameter.onOrAfter", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "reporting.parameter.onOrBefore", Date.class));
         cd.addParameter(new Parameter("locationList", "reporting.parameter.locationList", Location.class));
-        cd.addEncounterType(MetadataUtils.existing(EncounterType.class, PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID));
+        cd.addEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID));
         cd.setConcept(conceptService.getConceptByMapping("Type of HUM visit", "PIH"));
         cd.addIncludeCodedValue(conceptService.getConceptByMapping("CLINICAL", "PIH"));
 
@@ -118,7 +120,7 @@ public class PihCohortDefinitionLibrary extends BaseDefinitionLibrary<CohortDefi
         cd.addParameter(new Parameter("onOrAfter", "reporting.parameter.onOrAfter", Date.class));
         cd.addParameter(new Parameter("onOrBefore", "reporting.parameter.onOrBefore", Date.class));
         cd.addParameter(new Parameter("locationList", "reporting.parameter.location", Location.class));
-        cd.addEncounterType(MetadataUtils.existing(EncounterType.class, PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID));
+        cd.addEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID));
         return new MappedParametersCohortDefinition(cd, "onOrAfter", "startDate", "onOrBefore", "endDate", "locationList", "location");
     }
 

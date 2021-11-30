@@ -1,17 +1,11 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.openmrs.Form;
 import org.openmrs.PatientIdentifierType;
-import org.openmrs.api.EncounterService;
-import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
-import org.openmrs.api.VisitService;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.metadatadeploy.descriptor.PatientIdentifierTypeDescriptor;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.SesConfigConstants;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;

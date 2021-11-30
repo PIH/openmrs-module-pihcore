@@ -1,11 +1,10 @@
 package org.openmrs.module.pihcore.identifier.liberia;
 
 import org.openmrs.Location;
-import org.openmrs.PatientIdentifierType;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
-import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 
@@ -25,7 +24,7 @@ public class ConfigureLiberiaIdGenerators {
 
         liberiaPrimaryIdentifierSource.setName("Liberia Primary Identifier Source");
         liberiaPrimaryIdentifierSource.setDescription("Primary Identifier Generator for Liberia");
-        liberiaPrimaryIdentifierSource.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class, LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID));
+        liberiaPrimaryIdentifierSource.setIdentifierType(Context.getPatientService().getPatientIdentifierTypeByUuid(LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID));
         liberiaPrimaryIdentifierSource.setPrefix(config.getPrimaryIdentifierPrefix());
         liberiaPrimaryIdentifierSource.setMinLength(7 + liberiaPrimaryIdentifierSource.getPrefix().length());
         liberiaPrimaryIdentifierSource.setMaxLength(8 + liberiaPrimaryIdentifierSource.getPrefix().length());
@@ -46,7 +45,7 @@ public class ConfigureLiberiaIdGenerators {
             autoGenerationOption = new AutoGenerationOption();
         }
 
-        autoGenerationOption.setIdentifierType(MetadataUtils.existing(PatientIdentifierType.class, LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID));
+        autoGenerationOption.setIdentifierType(Context.getPatientService().getPatientIdentifierTypeByUuid(LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID));
         autoGenerationOption.setSource(liberiaPrimaryIdentifierSource);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
         autoGenerationOption.setManualEntryEnabled(false);
@@ -57,7 +56,7 @@ public class ConfigureLiberiaIdGenerators {
 
     private static Location getIdentifierLocation(Config config) {
         String healthFacilityUuid = "5af1ffcd-5178-11ea-a500-645d86728797";
-        return MetadataUtils.existing(Location.class, healthFacilityUuid);
+        return Context.getLocationService().getLocationByUuid(healthFacilityUuid);
     }
 
 }
