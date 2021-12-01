@@ -6,7 +6,8 @@
 <script type="text/javascript" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "Status Data Viewer", link: "${ ui.pageLink("pihcore", "admin/statusData.page") }" }
+        { label: "${ ui.message("coreapps.app.system.administration.label") }", link: "${ ui.pageLink("coreapps", "systemadministration/systemAdministration") }" },
+        { label: "${ ui.message("pih.app.admin.statusData.view") }", link: "${ ui.pageLink("pihcore", "admin/statusData") }" }
     ];
 </script>
 
