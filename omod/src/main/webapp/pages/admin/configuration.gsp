@@ -6,7 +6,8 @@
 <script type="text/javascript" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("pihcore.configuration") }", link: "${ ui.pageLink("pihcore", "admin/configuration.page") }" }
+        { label: "${ ui.message("coreapps.app.system.administration.label") }", link: "${ ui.pageLink("coreapps", "systemadministration/systemAdministration") }" },
+        { label: "${ ui.message("pih.app.admin.configuration") }", link: "${ ui.pageLink("pihcore", "admin/configuration") }" }
     ];
 </script>
 
@@ -33,7 +34,7 @@
 
         const actionInitiated = function() {
             jq(".action-button").prop('disabled', 'true');
-            jq("#error-details").html();
+            jq("#error-details").html("");
             jq("#configJson").html(spinnerImage);
         }
 
@@ -51,23 +52,38 @@
 
         jq("#refresh-reports-action").click(function() {
             actionInitiated();
-            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config/reports'}).done(function() {
-                reloadConfigJson();
-            });
+            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config/reports'})
+                .fail(function (data) {
+                    jq("#error-details").html('An error occurred: ' + data.responseText);
+                })
+                .always(function() {
+                    jq(".action-button").removeProp('disabled');
+                    reloadConfigJson();
+                });
         });
 
         jq("#refresh-apps-action").click(function() {
             actionInitiated();
-            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config/appframework'}).done(function() {
-                reloadConfigJson();
-            });
+            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config/appframework'})
+                .fail(function (data) {
+                    jq("#error-details").html('An error occurred: ' + data.responseText);
+                })
+                .always(function() {
+                    jq(".action-button").removeProp('disabled');
+                    reloadConfigJson();
+                });
         });
 
         jq("#refresh-system-action").click(function() {
             actionInitiated();
-            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config'}).done(function() {
-                reloadConfigJson();
-            });
+            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config'})
+                .fail(function (data) {
+                    jq("#error-details").html('An error occurred: ' + data.responseText);
+                })
+                .always(function() {
+                    jq(".action-button").removeProp('disabled');
+                    reloadConfigJson();
+                });
         });
     });
 </script>
@@ -80,7 +96,7 @@
 <br/>
 <input id="refresh-apps-action" type="button" class="action-button" value="Refresh Apps and Extensions" />
 <br/>
-<input id="refresh-system-action" type="button" class="action-button" value="Refresh All" />
+<input id="refresh-system-action" type="button" class="action-button" value="Refresh Entire Configuration" />
 <br/>
 <br/>
 <div id="error-details"></div>
