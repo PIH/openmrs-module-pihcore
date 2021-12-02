@@ -5,6 +5,9 @@ public class PihCoreConstants {
     public static final String GP_RUN_CONCEPT_SETUP_TASK_IN_SEPARATE_THREAD = "pihcore.runMetadataSetupTaskInSeparateThread";
     public static final String GP_COMPONENT_PREFIX = "pihcore.component.";
     public static final String GP_CONFIGURED_SITE = "pihcore.site";
+    public static final String GP_NEXT_RADIOLOGY_ORDER_NUMBER_SEED = "order.nextRadiologyOrderNumberSeed";
+
+    public static final String RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID = "order.radiologyOrderNumberGenerator";
 
     public static final String HTMLFORMENTRY_CAUSE_OF_DEATH_LIST_TAG_NAME = "causeOfDeathList";
     public static final String HTMLFORMENTRY_PAST_MEDICAL_HISTORY_CHECKBOX_TAG_NAME = "pastMedicalHistoryCheckbox";
