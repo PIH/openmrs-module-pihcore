@@ -4,4 +4,37 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
   		    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+	<bean id="pihCoreService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<bean class="org.openmrs.module.pihcore.service.PihCoreServiceImpl">
+				<property name="dao">
+					<bean class="org.openmrs.module.pihcore.service.PihCoreDAO">
+						<property name="sessionFactory">
+							<ref bean="dbSessionFactory" />
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="preInterceptors">
+			<ref bean="serviceInterceptors" />
+		</property>
+		<property name="transactionAttributeSource">
+			<ref bean="transactionAttributeSource" />
+		</property>
+	</bean>
+
+	<!-- Services accessible via Context.getService() -->
+	<bean parent="serviceContext">
+		<property name="moduleService">
+			<list merge="true">
+				<value>org.openmrs.module.pihcore.service.PihCoreService</value>
+				<ref bean="pihCoreService"/>
+			</list>
+		</property>
+	</bean>
+
 </beans>
