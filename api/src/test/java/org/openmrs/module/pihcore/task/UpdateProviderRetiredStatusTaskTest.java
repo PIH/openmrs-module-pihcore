@@ -14,7 +14,7 @@ import java.util.Date;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extends PihCoreContextSensitiveTest {
+public class UpdateProviderRetiredStatusTaskTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private ProviderService providerService;
@@ -30,7 +30,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
     @Test
     public void shouldNotRetireProviderAccountsIfUsersNotRetired() {
         // sanity check that if we haven't retired any of the users, the associated providers aren't retired
-        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().execute();
+        new UpdateProviderRetiredStatusTask().run();
 
         assertFalse(providerService.getProvider(1002).isRetired());
         assertFalse(providerService.getProvider(1003).isRetired());
@@ -46,7 +46,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
         user.setRetireReason("test");
         user.setDateRetired(new DateTime(2015,1,1,0,0,0).toDate());
 
-        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().execute();
+        new UpdateProviderRetiredStatusTask().run();
 
         assertTrue(providerService.getProvider(1003).isRetired());
         assertTrue(providerService.getProvider(1004).isRetired());
@@ -68,7 +68,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
         user.setRetireReason("test");
         user.setDateRetired(new Date());
 
-        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().execute();
+        new UpdateProviderRetiredStatusTask().run();
 
         assertFalse(providerService.getProvider(1003).isRetired());
         assertFalse(providerService.getProvider(1004).isRetired());
@@ -91,7 +91,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
         user.setRetireReason("test");
         user.setDateRetired(new DateTime(2015,1,1,0,0,0).toDate());
 
-        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().execute();
+        new UpdateProviderRetiredStatusTask().run();
         assertFalse(providerService.getProvider(1002).isRetired());
 
         // sanity check other providers (should maintain whatever retired state was set in the test dataset)
@@ -122,7 +122,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
         user.setDateRetired(new Date());
 
 
-        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().execute();
+        new UpdateProviderRetiredStatusTask().run();
         assertFalse(providerService.getProvider(1002).isRetired());
 
         // sanity check other providers (should maintain whatever retired state was set in the test dataset)
@@ -146,7 +146,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
         user.setRetireReason(null);
         user.setDateRetired(null);
 
-        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().execute();
+        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().run();
 
         assertFalse(providerService.getProvider(1006).isRetired());
 
@@ -162,7 +162,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
         user.setRetireReason(null);
         user.setDateRetired(null);
 
-        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().execute();
+        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().run();
 
         // if the provider has multiple retired accounts, only the most recent one should be unretired
         assertTrue(providerService.getProvider(1001).isRetired());
@@ -182,7 +182,7 @@ public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccountsTest extend
         Provider provider = providerService.getProvider(1001);
         provider.setRetired(false);
 
-        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().execute();
+        new UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts().run();
 
         assertFalse(providerService.getProvider(1001).isRetired());
         assertTrue(providerService.getProvider(1005).isRetired());

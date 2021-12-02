@@ -17,18 +17,27 @@ package org.openmrs.module.pihcore;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.DaemonToken;
+import org.openmrs.module.DaemonTokenAware;
+import org.openmrs.module.pihcore.task.PihCoreTimerTask;
 
-public class PihCoreActivator extends BaseModuleActivator {
+public class PihCoreActivator extends BaseModuleActivator implements DaemonTokenAware {
 
 	protected Log log = LogFactory.getLog(getClass());
 
     @Override
 	public void started() {
         log.info("PIH Core Module Started");
+        PihCoreTimerTask.setEnabled(true);
     }
 
     @Override
     public void stopped() {
         log.info("PIH Core Module Stopped");
+    }
+
+    @Override
+    public void setDaemonToken(DaemonToken daemonToken) {
+        PihCoreTimerTask.setDaemonToken(daemonToken);
     }
 }

@@ -7,7 +7,6 @@ import org.openmrs.User;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.scheduler.tasks.AbstractTask;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,12 +17,14 @@ import java.util.Set;
  *
  * Also makes sure that all persons with at least one unretired user have at least one unretired provider
  * acct (assuming there are any provider accts for that user).  This is our best-guess "undo" for the retire functionality.
+ *
+ * Not currently used.  See UHM-2225
+ * To enable, add to constructor of PihCoreScheduledTaskExecutor to run one per day (or other interval as desired)
  */
-public class UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts extends AbstractTask {
-
+public class UpdateProviderRetiredStatusTask implements Runnable {
 
     @Override
-    public void execute() {
+    public void run() {
 
         UserService userService = Context.getUserService();
         ProviderService providerService = Context.getProviderService();
