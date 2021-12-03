@@ -12,7 +12,7 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.pihcore.integration;
+package org.openmrs.module.pihcore.paperrecord;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -50,7 +50,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Context.class)
 @Ignore
-public class PaperRecordServiceIT extends BaseModuleContextSensitiveTest {
+public class PaperRecordServiceTest extends BaseModuleContextSensitiveTest {
 	
 	@Autowired
 	private IdentifierSourceService identifierSourceService;

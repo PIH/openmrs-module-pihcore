@@ -12,7 +12,7 @@
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 
-package org.openmrs.module.pihcore.integration;
+package org.openmrs.module.pihcore.radiology;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,7 +52,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-// ignoring MirthIT tests for now as there is no current good way to test this
+// ignoring Mirth tests for now as there is no current good way to test this
 // once we get a good production pipeline set up, we may want to re-enable this
 
 // NOTE: the mirebalais.properties hardcoded in this file are bamboo-specific
@@ -60,7 +60,7 @@ import java.util.Date;
 
 @SkipBaseSetup
 @Ignore
-public class MirthIT extends BaseModuleContextSensitiveTest {
+public class MirthTest extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
