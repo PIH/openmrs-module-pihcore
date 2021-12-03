@@ -148,8 +148,8 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>importpatientfromws-api</artifactId>
-            <version>${importpatientfromwsVersion}</version>
+            <artifactId>allergyui-api</artifactId>
+            <version>${allergyuiVersion}</version>
             <scope>provided</scope>
         </dependency>
 
