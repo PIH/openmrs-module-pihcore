@@ -176,6 +176,27 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>appointmentscheduling-api</artifactId>
+            <version>${appointmentschedulingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>appointmentschedulingui-api</artifactId>
+            <version>${appointmentschedulinguiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>importpatientfromws-api</artifactId>
+            <version>${importpatientfromwsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>metadatasharing-api</artifactId>
             <version>${metadatasharingVersion}</version>
             <scope>provided</scope>
