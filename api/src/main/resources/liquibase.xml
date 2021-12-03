@@ -1119,5 +1119,71 @@
 
     </changeSet>
 
+    <changeSet id="20211202-UHM-5995-1" author="PIH">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from scheduler_task_config where schedulable_class = 'org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Remove MarkAppointmentsAsMissedOrCompletedTask from scheduler task config in favor of Spring-managed tasks
+        </comment>
+        <delete tableName="scheduler_task_config">
+            <where>schedulable_class = 'org.openmrs.module.mirebalais.task.MarkAppointmentsAsMissedOrCompletedTask'</where>
+        </delete>
+    </changeSet>
+    <changeSet id="20211202-UHM-5995-2" author="PIH">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from scheduler_task_config where schedulable_class = 'org.openmrs.module.paperrecord.CloseStalePullRequestsTask';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Remove CloseStalePullRequestsTask from scheduler task config in favor of Spring-managed tasks
+        </comment>
+        <delete tableName="scheduler_task_config">
+            <where>schedulable_class = 'org.openmrs.module.paperrecord.CloseStalePullRequestsTask'</where>
+        </delete>
+    </changeSet>
+    <changeSet id="20211202-UHM-5995-3" author="PIH">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from scheduler_task_config where schedulable_class = 'org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Remove CloseStaleCreateRequestsTask from scheduler task config in favor of Spring-managed tasks
+        </comment>
+        <delete tableName="scheduler_task_config">
+            <where>schedulable_class = 'org.openmrs.module.paperrecord.CloseStaleCreateRequestsTask'</where>
+        </delete>
+    </changeSet>
+    <changeSet id="20211202-UHM-5995-4" author="PIH">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from scheduler_task_config where schedulable_class = 'org.openmrs.module.pihcore.task.PihCloseStaleVisitsTask';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Remove PihCloseStaleVisitsTask from scheduler task config in favor of Spring-managed tasks
+        </comment>
+        <delete tableName="scheduler_task_config">
+            <where>schedulable_class = 'org.openmrs.module.pihcore.task.PihCloseStaleVisitsTask'</where>
+        </delete>
+    </changeSet>
+    <changeSet id="20211202-UHM-5995-5" author="PIH">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="1">
+                select count(*) from scheduler_task_config where schedulable_class like 'org.openmrs.module.pihcore.task.UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts';
+            </sqlCheck>
+        </preConditions>
+        <comment>
+            Remove UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts from scheduler task config.  It was never used.
+        </comment>
+        <delete tableName="scheduler_task_config">
+            <where>schedulable_class = 'org.openmrs.module.pihcore.task.UpdateProviderRetiredStatesBasedOnAssociatedUserAccounts'</where>
+        </delete>
+    </changeSet>
+
 </databaseChangeLog>
 

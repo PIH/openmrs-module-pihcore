@@ -120,7 +120,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         assertThat(visitService.getVisit(5).getStopDatetime(), nullValue());
         assertThat(visitService.getVisit(6).getStopDatetime(), nullValue());
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         // only visits that have a location that is tagged "Visit Location" will be closed
         assertThat(visitService.getVisit(1).getStopDatetime(), notNullValue());
@@ -183,7 +183,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -229,7 +229,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -275,7 +275,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -332,7 +332,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -386,7 +386,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -440,7 +440,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -511,7 +511,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -559,7 +559,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -584,7 +584,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         // this visit would have been closed, except that we updated the date created
         assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
@@ -609,7 +609,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
 
-        new PihCloseStaleVisitsTask().execute();
+        new PihCloseStaleVisitsTask().run();
 
         // this visit would have been closed, except that we updated the date changed
         assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());

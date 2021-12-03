@@ -16,7 +16,6 @@ import org.openmrs.module.emrapi.disposition.Disposition;
 import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
-import org.openmrs.scheduler.tasks.AbstractTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +27,7 @@ import java.util.List;
  * Our own custom implementation to close stale visits--this does logic similar to those found in AdtService
  * closeInactiveVisits(), but contains our special logic for the ED use case
  */
-public class PihCloseStaleVisitsTask extends AbstractTask {
+public class PihCloseStaleVisitsTask implements Runnable {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -43,7 +42,9 @@ public class PihCloseStaleVisitsTask extends AbstractTask {
 
     private static final String ENCOUNTER_TYPE_ED_TRIAGE_UUID = PihEmrConfigConstants.ENCOUNTERTYPE_EMERGENCY_TRIAGE_UUID;
 
-    public void execute() {
+    @Override
+    public void run() {
+        log.info("Executing " + getClass());
 
         AdtService adtService = Context.getService(AdtService.class);
         VisitService visitService = Context.getVisitService();
