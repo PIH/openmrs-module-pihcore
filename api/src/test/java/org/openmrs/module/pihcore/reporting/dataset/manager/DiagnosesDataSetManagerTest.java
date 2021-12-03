@@ -1,7 +1,6 @@
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.module.reporting.common.DateUtil;
@@ -10,7 +9,6 @@ import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Ignore
 public class DiagnosesDataSetManagerTest extends ObsDataSetManagerTest {
 
     @Autowired

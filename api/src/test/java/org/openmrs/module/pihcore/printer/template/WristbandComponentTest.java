@@ -29,7 +29,6 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@Ignore
 public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
 
     private static Locale locale = new Locale("fr");
@@ -88,7 +87,7 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
         String output = wristbandTemplate.generateWristband(patient, location);
 
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
-        assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDHôpital Universitaire de Mirebalais " + df.format(today) + "^FS"));
+        assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDMirebalais " + df.format(today) + "^FS"));
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
         assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
         assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FDcoreapps.ageYears^FS"));   // no message source service, se we are just going to get back the message code for age years and gender

@@ -22,7 +22,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.openmrs.module.appointmentscheduling.Appointment.AppointmentStatus;
 
-@Ignore
 public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSensitiveTest {
 
     @Autowired
@@ -45,6 +44,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
         executeDataSet("appointmentTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);
         loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
+        loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
         loadFromInitializer(Domain.METADATA_TERM_MAPPINGS, "metadataMappings.csv");
     }
@@ -114,7 +114,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
                 .encounter(testDataManager.encounter()
                         .patient(appt7.getPatient())
                         .encounterDatetime(new DateTime(2005, 1, 1, 0, 0, 0).toDate())
-                        .encounterType(emrApiProperties.getVisitNoteEncounterType())
+                        .encounterType(getConsultationEncounterType())
                         .location(location1)
                         .save())
                 .save();

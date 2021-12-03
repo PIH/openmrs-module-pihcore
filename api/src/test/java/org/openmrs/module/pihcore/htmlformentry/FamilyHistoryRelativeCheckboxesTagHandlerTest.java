@@ -29,7 +29,6 @@ import java.util.Map;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
-@Ignore
 public class FamilyHistoryRelativeCheckboxesTagHandlerTest extends PihCoreContextSensitiveTest {
 
     @Autowired

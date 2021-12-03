@@ -5,13 +5,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.apploader.apps.patientregistration.PatientRegistrationApp;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -30,7 +31,7 @@ import static org.junit.Assert.assertTrue;
  */
 @SkipBaseSetup
 @Ignore
-public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
+public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     PatientRegistrationApp patientRegistrationApp;
@@ -57,6 +58,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
     public void shouldCreateAppDescriptor() throws Exception {
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
         authenticate();
+        loadFromInitializer(Domain.CONCEPT_SOURCES, "conceptSources.csv");
         deployService.installBundle(socioEconomicConcepts);
 
         AppDescriptor d = patientRegistrationApp.getAppDescriptor(new Config());
