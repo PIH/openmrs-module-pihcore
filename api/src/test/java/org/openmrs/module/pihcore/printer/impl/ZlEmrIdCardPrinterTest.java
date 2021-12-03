@@ -2,7 +2,6 @@ package org.openmrs.module.pihcore.printer.impl;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;

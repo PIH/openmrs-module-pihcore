@@ -2,7 +2,6 @@ package org.openmrs.module.pihcore.apploader.apps;
 
 import org.codehaus.jackson.JsonNode;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.initializer.Domain;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
@@ -30,7 +28,6 @@ import static org.junit.Assert.assertTrue;
  * Tests the configuration of the patient registration app
  */
 @SkipBaseSetup
-@Ignore
 public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
 
     @Autowired
@@ -42,16 +39,14 @@ public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
     @Autowired
     private SocioEconomicConcepts socioEconomicConcepts;
 
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "mirebalais");
-        return p;
-    }
-
     @Before
     public void setup() throws Exception {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
+    }
+
+    @Override
+    public String getPihConfig() {
+        return "mirebalais-registration";
     }
 
     @Test
