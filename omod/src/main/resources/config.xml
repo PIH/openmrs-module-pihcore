@@ -14,23 +14,11 @@
 	<require_version>${openMRSVersion}</require_version>
 
     <require_modules>
-        <require_module version="${appointmentschedulingVersion}">
-            org.openmrs.module.appointmentscheduling
-        </require_module>
-        <require_module version="${appointmentschedulinguiVersion}">
-            org.openmrs.module.appointmentschedulingui
-        </require_module>
         <require_module version="${emrapiVersion}">
             org.openmrs.module.emrapi
         </require_module>
         <require_module version="${emrVersion}">
             org.openmrs.module.emr
-        </require_module>
-        <require_module version="${registrationcoreVersion}">
-            org.openmrs.module.registrationcore
-        </require_module>
-        <require_module version="${registrationappVersion}">
-            org.openmrs.module.registrationapp
         </require_module>
         <require_module version="${eventVersion}">
             org.openmrs.event
@@ -50,14 +38,23 @@
         <require_module version="${htmlformentryVersion}">
             org.openmrs.module.htmlformentry
         </require_module>
+        <require_module version="${htmlformentryuiVersion}">
+            org.openmrs.module.htmlformentryui
+        </require_module>
+        <require_module version="${calculationVersion}">
+            org.openmrs.calculation
+        </require_module>
         <require_module version="${reportingVersion}">
             org.openmrs.module.reporting
         </require_module>
         <require_module version="${idgenVersion}">
             org.openmrs.module.idgen
         </require_module>
-        <require_module version="${importpatientfromwsVersion}">
-            org.openmrs.module.importpatientfromws
+        <require_module version="${registrationappVersion}">
+            org.openmrs.module.registrationapp
+        </require_module>
+        <require_module version="${registrationcoreVersion}">
+            org.openmrs.module.registrationcore
         </require_module>
         <require_module version="${namephoneticsVersion}">
             org.openmrs.module.namephonetics
@@ -68,6 +65,12 @@
         <require_module version="${providermanagementVersion}">
             org.openmrs.module.providermanagement
         </require_module>
+        <require_module version="${importpatientfromwsVersion}">
+            org.openmrs.module.importpatientfromws
+        </require_module>
+        <require_module version="${uicommonsVersion}">
+            org.openmrs.module.uicommons
+        </require_module>
         <require_module version="${radiologyappVersion}">
             org.openmrs.module.radiologyapp
         </require_module>
@@ -77,6 +80,18 @@
         <require_module version="${dispensingVersion}">
             org.openmrs.module.dispensing
         </require_module>
+        <require_module version="${appointmentschedulingVersion}">
+            org.openmrs.module.appointmentscheduling
+        </require_module>
+        <require_module version="${appointmentschedulinguiVersion}">
+            org.openmrs.module.appointmentschedulingui
+        </require_module>
+        <require_module version="${webservicesRestVersion}">
+            org.openmrs.module.webservices.rest
+        </require_module>
+        <require_module version="${reportingrestVersion}">
+            org.openmrs.module.reportingrest
+        </require_module>
         <require_module version="${paperrecordVersion}">
             org.openmrs.module.paperrecord
         </require_module>
@@ -85,6 +100,12 @@
         </require_module>
         <require_module version="${addresshierarchyVersion}">
             org.openmrs.module.addresshierarchy
+        </require_module>
+        <require_module version="${edtriageappVersion}">
+            org.openmrs.module.edtriageapp
+        </require_module>
+        <require_module version="${labtrackingappVersion}">
+            org.openmrs.module.labtrackingapp
         </require_module>
         <require_module version="${attachmentsVersion}">
             org.openmrs.module.attachments
@@ -96,10 +117,57 @@
 
     <activator>${project.parent.groupId}.${project.parent.artifactId}.PihCoreActivator</activator>
 
-	<mappingFiles>
-	</mappingFiles>
+    <filter>
+        <filter-name>RequestMonitoringFilter</filter-name>
+        <filter-class>org.openmrs.module.pihcore.RequestMonitoringFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>RequestMonitoringFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
 
     <!-- Global Properties -->
+    <globalProperty>
+        <property>mirebalais.installedAddressHierarchyVersion</property>
+        <defaultValue>0</defaultValue>
+        <description>
+            Used to track what version of the address hierarchy is installed on the system
+        </description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.checkIn.paymentAmounts</property>
+        <defaultValue>50,0</defaultValue>
+        <decscription>
+            A comma-delimited list of numeric values, which represent the available payment amounts to collect during check-in
+        </decscription>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.checkIn.paymentAmountLabels</property>
+        <defaultValue>50,Exempt</defaultValue>
+        <description>
+            A comma-delimited list of text values, which represent the display labels for the payment amounts to collect during check-in
+        </description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>mirebalais.checkIn.paymentAmountDefault</property>
+        <defaultValue>50</defaultValue>
+        <description>
+            The value within the available payment amounts that should be the default value
+        </description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>order.nextRadiologyOrderNumberSeed</property>
+        <defaultValue>1</defaultValue>
+        <description>
+            Seed used for generating radiology order numbers
+        </description>
+    </globalProperty>
+
     <globalProperty>
         <property>pihcore.runMetadataSetupTaskInSeparateThread</property>
         <defaultValue>false</defaultValue>
