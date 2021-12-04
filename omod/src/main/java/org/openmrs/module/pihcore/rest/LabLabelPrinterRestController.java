@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/rest/v1/mirebalais")
+@RequestMapping(value = "/rest/v1/pihcore")
 public class LabLabelPrinterRestController {
 
     public static final String LAB_LABEL_PRINTER = "/lablabelprinter";

@@ -75,7 +75,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         function navigateBackToSearch() {
 
             emr.navigateTo({
-                provider: "mirebalais",
+                provider: "pihcore",
                 page: "patientRegistration/appRouter",
                 query: {
                     task: "edCheckIn"

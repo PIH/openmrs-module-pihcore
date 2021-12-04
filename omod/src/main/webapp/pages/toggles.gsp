@@ -8,7 +8,7 @@
 	var breadcrumbs = [
 		{ icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
 		{ label: "${ ui.message("coreapps.app.system.administration.label") }", link: '/' + OPENMRS_CONTEXT_PATH + '/coreapps/systemadministration/systemAdministration.page' },
-		{ label: "${ ui.message("pih.app.featureToggles.label") }", link: "${ ui.pageLink("mirebalais", "toggles.page") }" }
+		{ label: "${ ui.message("pih.app.featureToggles.label") }", link: "${ ui.pageLink("pihcore", "toggles.page") }" }
 	];
 </script>
 

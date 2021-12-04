@@ -129,7 +129,7 @@ public class FindPatientPageController {
 
             }
         }
-        return "redirect:" + ui.pageLink("mirebalais/mpi", "findPatient");
+        return "redirect:" + ui.pageLink("pihcore/mpi", "findPatient");
 
     }
 }

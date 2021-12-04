@@ -44,7 +44,7 @@ public class AfterRegistrationPageController {
         if (idCardPrintingRequested(encounter)) {
             Integer locationId = encounter.getLocation().getLocationId();
             Map<String, Object> m = ObjectUtil.toMap("patientId", patient.getId(), "locationId", locationId, "returnUrl", returnUrl);
-            return "redirect:" + ui.pageLink("mirebalais", "patientRegistration/printIdCard", m);
+            return "redirect:" + ui.pageLink("pihcore", "patientRegistration/printIdCard", m);
         } else {
             return "redirect:" + returnUrl;
         }

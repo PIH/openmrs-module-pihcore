@@ -568,7 +568,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "mirebalais.outpatientVitals.title",
                     "fas fa-fw fa-heartbeat",
                     "App: mirebalais.outpatientVitals",
-                    "/mirebalais/outpatientvitals/patient.page?patientId={{patientId}}",
+                    "/pihcore/outpatientvitals/patient.page?patientId={{patientId}}",
                     null, config.getFindPatientColumnConfig()),
                     sessionLocationHasTag("Vitals Location")));
         } else {
@@ -678,7 +678,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-            extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
+            extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, "pihcore", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
             // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
             registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
@@ -697,7 +697,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-            extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, "mirebalais", "patientdashboard/encountertemplate/consultEncounterTemplate"));
+            extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, "pihcore", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
             // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
             registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
@@ -821,7 +821,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         ));
 
         extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION,
-                "mirebalais",
+                "pihcore",
                 "deathcertificate/headerLink",
                 "Task: mirebalais.enterDeathCertificate",
                 CustomAppLoaderConstants.ExtensionPoints.DEATH_INFO_HEADER,
@@ -1169,7 +1169,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // this provides the javascript the backs the print wrist action button
         extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.PRINT_WRISTBAND_ACTION_INCLUDES,
-                "mirebalais",
+                "pihcore",
                 "wristband/printWristband",
                 null,
                 CustomAppLoaderConstants.ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,
@@ -1261,7 +1261,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.FEATURE_TOGGLES,
                 "pih.app.featureToggles.label",
                 "fas fa-fw fa-toggle-on",
-                "mirebalais/toggles.page",
+                "pihcore/toggles.page",
                 3,
                 "App: coreapps.systemAdministration",
                 null)));
@@ -1473,7 +1473,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null,
                     "App: registrationapp.registerPatient",
                     null),
-                    "mirebalais",
+                    "pihcore",
                     "patientRegistration/idCardStatus"));
         }
 
@@ -1536,7 +1536,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "zl.registration.patient.idcard.label",
                     "fas fa-fw fa-barcode",
                     "link",
-                    "mirebalais/patientRegistration/printIdCard.page?patientId={{patient.patientId}}",
+                    "pihcore/patientRegistration/printIdCard.page?patientId={{patient.patientId}}",
                     "App: registrationapp.registerPatient",
                     null));
         }
@@ -1550,7 +1550,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePageWithoutUsingRouter(app(CustomAppLoaderConstants.Apps.LEGACY_MPI,
                 "mirebalais.mpi.title",
                 "fas fa-fw fa-search-plus",
-                "mirebalais/mpi/findPatient.page",
+                "pihcore/mpi/findPatient.page",
                 "App: mirebalais.mpi",
                 null)));
     }

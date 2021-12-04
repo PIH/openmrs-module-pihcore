@@ -2,5 +2,5 @@
  the javascript to call the print wristband fragment -->
 
 <%
-    ui.includeJavascript("mirebalais", "wristband/printWristband.js")
+    ui.includeJavascript("pihcore", "wristband/printWristband.js")
 %>

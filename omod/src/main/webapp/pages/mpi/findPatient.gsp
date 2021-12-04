@@ -15,7 +15,7 @@
 <script type="text/javascript" xmlns="http://www.w3.org/1999/html">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("mirebalais.mpi.title") }", link: "${ ui.pageLink("mirebalais", "mpi/findPatient") }" }
+        { label: "${ ui.message("mirebalais.mpi.title") }", link: "${ ui.pageLink("pihcore", "mpi/findPatient") }" }
     ];
 
     jq(function() {
@@ -40,7 +40,7 @@
     ${ ui.message("mirebalais.mpi.title") }
 </h1>
 
-<form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }" id="master-patient-index">
+<form action="${ ui.pageLink("pihcore", "mpi/findPatient") }" id="master-patient-index">
 
     <fieldset id="search-by-id">
         <legend>${ ui.message("mirebalais.mpi.searchById") }</legend>
@@ -78,7 +78,7 @@
 </form>
 
 <div id="mpiSpinner" style="display: none; text-align: center; padding: 20px;">
-    <img src="${ui.resourceLink("mirebalais", "images/biggerloader.gif")}">
+    <img src="${ui.resourceLink("pihcore", "images/biggerloader.gif")}">
 </div>
 
 <% if (results) { %>
@@ -123,7 +123,7 @@
             </div>
         <% if (!it.localPatient) { %>
         <div class="import-patient">
-            <form action="${ ui.pageLink("mirebalais", "mpi/findPatient") }" method="post">
+            <form action="${ ui.pageLink("pihcore", "mpi/findPatient") }" method="post">
                 <input type="hidden" name="remoteUuid" value="${ it.remoteUuid }"/>
                 <input type="submit" value="${ ui.message("mirebalais.mpi.import") }" class="proceed" />
             </form>

@@ -3,7 +3,7 @@
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "angular-common.js")
     ui.includeJavascript("uicommons", "services/encounterService.js")
-    ui.includeJavascript("mirebalais", "deathcertificate/headerLink.js")
+    ui.includeJavascript("pihcore", "deathcertificate/headerLink.js")
 %>
 <span id="death-certificate-info"
       ng-controller="DeathCertificateCtrl"

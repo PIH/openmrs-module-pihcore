@@ -32,7 +32,7 @@ public class HomepageOverrideController {
 
     @RequestMapping("/index.htm")
     public String showOurHomepage() {
-        return "forward:/mirebalais/home.page";
+        return "forward:/pihcore/home.page";
     }
 
     @RequestMapping("/login.htm")
@@ -40,7 +40,7 @@ public class HomepageOverrideController {
         if (config.isComponentEnabled(Components.SPA)) {
             return "redirect:/spa/login";
         } else {
-            return "forward:/mirebalais/login.page";
+            return "forward:/pihcore/login.page";
         }
     }
 

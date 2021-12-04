@@ -35,7 +35,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Home page for Mirebalais EMR (shows list of apps) Shows the login view instead if you are not
+ * Home page for PIH EMR (shows list of apps) Shows the login view instead if you are not
  * authenticated.
  */
 public class HomePageController {

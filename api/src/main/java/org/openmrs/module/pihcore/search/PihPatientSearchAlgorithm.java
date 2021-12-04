@@ -67,7 +67,7 @@ import java.util.Map;
  "registrationConfig": {
     "allowUnknownPatients": true,
     "allowManualEntryOfPrimaryIdentifier": true,
-    "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
+    "afterCreatedUrl": "pihcore/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
     "similarPatientsSearch": {
         "addressFields": {
             "cityVillage": "1",

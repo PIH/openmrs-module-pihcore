@@ -4,5 +4,5 @@
  <!-- TODO this is only a demo for Sierra Leone ID labe printing--clean up or remove if not used -->
 
 <%
-    ui.includeJavascript("mirebalais", "patientRegistration/printLabel.js")
+    ui.includeJavascript("pihcore", "patientRegistration/printLabel.js")
 %>

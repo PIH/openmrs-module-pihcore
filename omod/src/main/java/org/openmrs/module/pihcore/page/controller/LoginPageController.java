@@ -61,7 +61,7 @@ public class LoginPageController {
             PageRequest request) {
 
 		if (context.isAuthenticated()) {
-			return "redirect:" + ui.pageLink("mirebalais", "home");
+			return "redirect:" + ui.pageLink("pihcore", "home");
 		}
 
         pageModel.put("welcomeMessage", config.getWelcomeMessage());
@@ -115,13 +115,13 @@ public class LoginPageController {
 					// the UI shouldn't allow this, but protect against it just in case
 					httpSession.setAttribute(SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
 					        .message("mirebalais.login.error.invalidLocation"));
-					return "redirect:" + ui.pageLink("mirebalais", "login");
+					return "redirect:" + ui.pageLink("pihcore", "login");
 				}
 			}
 			if (sessionLocation == null) {
 				httpSession.setAttribute(SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
 				        .message("mirebalais.login.error.locationRequired"));
-				return "redirect:" + ui.pageLink("mirebalais", "login");
+				return "redirect:" + ui.pageLink("pihcore", "login");
 			}
 			// Set a cookie, so next time someone logs in on this machine, we can default to that same location
 			request.setCookieValue(COOKIE_NAME_LAST_SESSION_LOCATION, sessionLocationId.toString());
@@ -144,12 +144,12 @@ public class LoginPageController {
 				new CookieLocaleResolver().setDefaultLocale(userLocale);
 			}
 
-			return "redirect:" + ui.pageLink("mirebalais", "home");
+			return "redirect:" + ui.pageLink("pihcore", "home");
 		}
 		catch (ContextAuthenticationException ex) {
 			httpSession.setAttribute(SESSION_ATTRIBUTE_ERROR_MESSAGE, ui
 			        .message("mirebalais.login.error.authentication"));
-			return "redirect:" + ui.pageLink("mirebalais", "login");
+			return "redirect:" + ui.pageLink("pihcore", "login");
 		}
 	}
 

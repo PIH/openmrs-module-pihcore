@@ -5,7 +5,7 @@
     ui.includeJavascript("uicommons", "angular-resource.min.js")
     ui.includeJavascript("uicommons", "angular-common.js")
     ui.includeJavascript("uicommons", "angular-ui/ui-bootstrap-tpls-0.11.2.min.js")
-    ui.includeJavascript("mirebalais", "patientRegistration/printIdCard.js")
+    ui.includeJavascript("pihcore", "patientRegistration/printIdCard.js")
 %>
 
 <style>
@@ -74,7 +74,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
             ${ ui.message("zl.registration.patient.idcard.scanToProceed") }...
 
             <div id="scan-card-image-section">
-                <img src="${ui.resourceLink("mirebalais", "images/scanCard.png")}">
+                <img src="${ui.resourceLink("pihcore", "images/scanCard.png")}">
             </div>
 
             <input id="scan-patient-identifier" autocomplete="off" value="" autofocus="true" focus-me="focusOnScanInput" ng-model="scannedIdentifier" ng-enter="recordSuccessfulPrintAttempt()"/>

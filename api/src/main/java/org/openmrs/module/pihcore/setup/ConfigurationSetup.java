@@ -112,10 +112,6 @@ public class ConfigurationSetup {
      * We'll combine those things that are in those methods, starting out ordering with contextRefreshed prior to started, but then
      * moving around as we analyze dependencies and whether the original order was correct or not
      *
-     * This combines all of the logic found in the pihcore and mirebalais activators across these methods.
-     * For now, I'm creating this class in mirebalais since it depends on things still in mirebalais
-     * Ideally we'd move this and all of the other classees over to pihcore.
-     *
      * Regarding use of components, proposal would be to narrow the scope of these to entirely used for app/extension configuration.
      * Components are currently found to be used in the following places:
      *  1. In activators (see comments below, all of these usages should be able to be replaced or removed)

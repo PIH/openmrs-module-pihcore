@@ -1,6 +1,6 @@
 
 function printWristband() {
-    emr.getFragmentActionWithCallback('mirebalais', 'wristband', 'printWristband'
+    emr.getFragmentActionWithCallback('pihcore', 'wristband', 'printWristband'
         , { patientId: patient.id }
         , function(data) {
             if(data.success) {

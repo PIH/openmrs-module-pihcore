@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import static org.springframework.http.HttpStatus.OK;
 
-/**
- * TODO: This will ultimately go in PIH Core, but need to add it here for now due to lingering mirebalais dependencies
- */
 @Controller
 public class PihConfigRestController {
 
