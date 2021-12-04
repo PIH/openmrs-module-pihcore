@@ -49,7 +49,7 @@
         <openMRSVersion>2.3.4-SNAPSHOT</openMRSVersion>
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
-        <allergyuiVersion>1.8.3</allergyuiVersion>
+        <allergyuiVersion>1.8.4</allergyuiVersion>
         <appframeworkVersion>2.16.0</appframeworkVersion>
         <appointmentschedulingVersion>1.16.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.12.0</appointmentschedulinguiVersion>
