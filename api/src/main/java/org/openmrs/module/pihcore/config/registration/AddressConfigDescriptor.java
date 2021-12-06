@@ -6,7 +6,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
- * Contains configuration for addresses, used at runtime (in mirebalais/.../PatientRegistrationApp)
+ * Contains configuration for addresses, used at runtime (in pihcore/.../PatientRegistrationApp)
  */
 public class AddressConfigDescriptor {
 

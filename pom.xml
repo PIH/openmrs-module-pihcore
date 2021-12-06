@@ -12,12 +12,12 @@
 
 	<developers>
 		<developer>
-			<name>PIH</name>
+            <name>Partners In Health</name>
 		</developer>
 	</developers>
 
 	<organization>
-		<name>PIH</name>
+        <name>Partners In Health</name>
 		<url>http://pih.org</url>
 	</organization>
 
@@ -50,7 +50,7 @@
         <pihcoreVersion>1.1.0-SNAPSHOT</pihcoreVersion>
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
         <allergyuiVersion>1.8.4</allergyuiVersion>
-        <appframeworkVersion>2.16.0</appframeworkVersion>
+        <appframeworkVersion>2.17.0-SNAPSHOT</appframeworkVersion>
         <appointmentschedulingVersion>1.16.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.12.0</appointmentschedulinguiVersion>
         <appuiVersion>1.15.0</appuiVersion>
@@ -62,7 +62,8 @@
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.33.0-SNAPSHOT</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
-        <htmlformentryVersion>4.2.0</htmlformentryVersion>
+        <fhir2Version>1.4.0-SNAPSHOT</fhir2Version>
+        <htmlformentryVersion>4.3.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>2.1.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
         <growthChartVersion>2.1.0</growthChartVersion>
@@ -71,28 +72,28 @@
         <initializerVersion>2.2.0</initializerVersion>
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.2.0</labworkflowOwaVersion>
-        <legacyuiVersion>1.8.2</legacyuiVersion>
+        <legacyuiVersion>1.9.0</legacyuiVersion>
         <metadatamappingVersion>1.4.0</metadatamappingVersion>
         <metadatasharingVersion>1.8.0</metadatasharingVersion>
         <namephoneticsVersion>1.18.0</namephoneticsVersion>
         <orderEntryOwaVersion>1.2.4</orderEntryOwaVersion>
-        <owaVersion>1.12.0</owaVersion>
+        <owaVersion>1.13.0</owaVersion>
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
         <paperrecordVersion>1.3.0</paperrecordVersion>
         <printerVersion>1.4.0</printerVersion>
         <providermanagementVersion>2.13.0</providermanagementVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
-        <registrationappVersion>1.24.0</registrationappVersion>
+        <registrationappVersion>1.25.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.11.0</registrationcoreVersion>
         <reportingVersion>1.24.0-SNAPSHOT</reportingVersion>
-        <reportingrestVersion>1.11.0</reportingrestVersion>
-        <reportinguiVersion>1.7.0</reportinguiVersion>
+        <reportingrestVersion>1.12.0</reportingrestVersion>
+        <reportinguiVersion>1.9.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.15</serializationxstreamVersion>
-        <spaVersion>1.0.6</spaVersion>
+        <spaVersion>1.0.8-SNAPSHOT</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
-        <uicommonsVersion>2.19.0</uicommonsVersion>
+        <uicommonsVersion>2.20.0-SNAPSHOT</uicommonsVersion>
         <uiframeworkVersion>3.22.1</uiframeworkVersion>
-        <uilibraryVersion>2.0.6</uilibraryVersion>
+        <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.30.0-SNAPSHOT</webservicesRestVersion>
         <!-- Need to phase this out. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -115,12 +116,6 @@
             <version>${openMRSVersion}</version>
             <type>test-jar</type>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.web</groupId>
-            <artifactId>openmrs-web</artifactId>
-            <version>${openMRSVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -146,6 +141,15 @@
 
         <!-- End OpenMRS core -->
 
+        <!-- Begin OpenMRS modules -->
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>addresshierarchy-api</artifactId>
+            <version>${addresshierarchyVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>allergyui-api</artifactId>
@@ -155,22 +159,15 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>appointmentscheduling-api</artifactId>
-            <version>${appointmentschedulingVersion}</version>
+            <artifactId>appframework-api</artifactId>
+            <version>${appframeworkVersion}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>appointmentschedulingui-api</artifactId>
-            <version>${appointmentschedulinguiVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>importpatientfromws-api</artifactId>
-            <version>${importpatientfromwsVersion}</version>
+            <artifactId>appui-api</artifactId>
+            <version>${appuiVersion}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -190,49 +187,56 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>importpatientfromws-api</artifactId>
-            <version>${importpatientfromwsVersion}</version>
+            <artifactId>attachments-api</artifactId>
+            <version>${attachmentsVersion}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>metadatasharing-api</artifactId>
-            <version>${metadatasharingVersion}</version>
+            <artifactId>attachments-api-1.11</artifactId>
+            <version>${attachmentsVersion}</version>
             <scope>provided</scope>
         </dependency>
 
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>metadatadeploy-api</artifactId>
-			<version>1.13.0</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>attachments-api-2.0</artifactId>
+            <version>${attachmentsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>metadatamapping-api</artifactId>
-            <version>${metadatamappingVersion}</version>
+            <artifactId>calculation-api</artifactId>
+            <version>${calculationVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>coreapps-api</artifactId>
+            <version>${coreappsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>dispensing-api</artifactId>
+            <version>${dispensingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>emr-api</artifactId>
+            <version>${emrVersion}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>emrapi-api</artifactId>
-            <version>${emrapiVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>emrapi-api-2.2</artifactId>
-            <version>${emrapiVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>emrapi-api-1.12</artifactId>
             <version>${emrapiVersion}</version>
             <scope>provided</scope>
         </dependency>
@@ -247,43 +251,25 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>addresshierarchy-api</artifactId>
-            <version>${addresshierarchyVersion}</version>
+            <artifactId>emrapi-api-1.12</artifactId>
+            <version>${emrapiVersion}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>registrationcore-api</artifactId>
-            <version>${registrationcoreVersion}</version>
+            <artifactId>emrapi-api-2.2</artifactId>
+            <version>${emrapiVersion}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>registrationapp-api</artifactId>
-            <version>${registrationappVersion}</version>
+            <groupId>org.openmrs</groupId>
+            <artifactId>event-api</artifactId>
+            <version>${eventVersion}</version>
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>radiologyapp-api</artifactId>
-            <version>${radiologyappVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>providermanagement-api</artifactId>
-            <version>${providermanagementVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>emr-api</artifactId>
-            <version>${emrVersion}</version>
-            <scope>provided</scope>
-        </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>htmlformentry-api</artifactId>
@@ -302,6 +288,136 @@
             <version>${htmlformentryVersion}</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>htmlformentryui-api</artifactId>
+            <version>${htmlformentryuiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>idgen-api</artifactId>
+            <version>${idgenVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>importpatientfromws-api</artifactId>
+            <version>${importpatientfromwsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>initializer-api</artifactId>
+            <version>${initializerVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>initializer-api-2.2</artifactId>
+            <version>${initializerVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>initializer-api-2.3</artifactId>
+            <version>${initializerVersion}</version>
+            <type>jar</type>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>labtrackingapp-api</artifactId>
+            <version>${labtrackingappVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>metadatadeploy-api</artifactId>
+            <version>1.13.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>metadatamapping-api</artifactId>
+            <version>${metadatamappingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>metadatasharing-api</artifactId>
+            <version>${metadatasharingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>namephonetics-api-2.x</artifactId>
+            <version>${namephoneticsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>pacsintegration-api</artifactId>
+            <version>${pacsintegrationVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>paperrecord-api</artifactId>
+            <version>${paperrecordVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>printer-api</artifactId>
+            <version>${printerVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>providermanagement-api</artifactId>
+            <version>${providermanagementVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>radiologyapp-api</artifactId>
+            <version>${radiologyappVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>registrationapp-api</artifactId>
+            <version>${registrationappVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>registrationcore-api</artifactId>
+            <version>${registrationcoreVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>reporting-api</artifactId>
@@ -314,12 +430,7 @@
             <version>${reportingVersion}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>calculation-api</artifactId>
-            <version>${calculationVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>serialization.xstream-api</artifactId>
@@ -332,132 +443,22 @@
             <version>${serializationxstreamVersion}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>uiframework-api</artifactId>
-            <version>${uiframeworkVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>idgen-api</artifactId>
-            <version>${idgenVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>namephonetics-api-2.x</artifactId>
-            <version>${namephoneticsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>paperrecord-api</artifactId>
-            <version>${paperrecordVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>printer-api</artifactId>
-            <version>${printerVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>coreapps-api</artifactId>
-            <version>${coreappsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>pacsintegration-api</artifactId>
-            <version>${pacsintegrationVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs</groupId>
-            <artifactId>event-api</artifactId>
-            <version>${eventVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>dispensing-api</artifactId>
-            <version>${dispensingVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>appframework-api</artifactId>
-            <version>${appframeworkVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>htmlformentryui-api</artifactId>
-            <version>${htmlformentryuiVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>appui-api</artifactId>
-            <version>${appuiVersion}</version>
-            <scope>provided</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>uicommons-api</artifactId>
             <version>${uicommonsVersion}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>attachments-api</artifactId>
-            <version>${attachmentsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>attachments-api-1.11</artifactId>
-            <version>${attachmentsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>attachments-api-2.0</artifactId>
-            <version>${attachmentsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>labtrackingapp-api</artifactId>
-            <version>${labtrackingappVersion}</version>
+            <artifactId>uiframework-api</artifactId>
+            <version>${uiframeworkVersion}</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Begin Mekom -->
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>initializer-api</artifactId>
-            <version>${initializerVersion}</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>initializer-api-2.2</artifactId>
-            <version>${initializerVersion}</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>initializer-api-2.3</artifactId>
-            <version>${initializerVersion}</version>
-            <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-        <!-- End Mekom -->
+        <!-- End Openmrs Modules -->
 
         <!-- dependencies required for the Zebra ZXP Series 3 API -->
 
@@ -553,6 +554,8 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- End OpenMRS contrib -->
+
         <!-- this is necessary to use the Html Form Entry Regresstion Test Helper when running against Platform 2.1.0;
             the HFE module should probably be updated to properly utilize this -->
         <dependency>
@@ -562,7 +565,19 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- End OpenMRS contrib -->
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>1.9.13</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
@@ -574,8 +589,9 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<target>8</target>
-						<source>8</source>
+                        <target>1.8</target>
+                        <source>1.8</source>
+                        <encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -631,6 +647,11 @@
                             <name>openMRSwebVersion</name>
                             <version>[2.3.4-SNAPSHOT,2.3.4]</version>
                         </property>
+                        <property>
+                            <name>spaVersion</name>
+                            <version>[1.0.6]</version>
+                            <banSnapshots>true</banSnapshots>
+                        </property>
                     </properties>
                 </configuration>
             </plugin>
@@ -660,7 +681,7 @@
 			<name>OpenMRS Nexus Repository</name>
 			<url>https://openmrs.jfrog.io/artifactory/public</url>
 			<snapshots>
-				<enabled>false</enabled>
+                <enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>

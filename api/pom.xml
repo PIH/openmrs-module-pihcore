@@ -13,9 +13,6 @@
 	<name>PIH Core Module API</name>
 	<description>API project for PIHCore</description>
 
-	<dependencies>
-	</dependencies>
-
 	<build>
 		<resources>
 			<resource>

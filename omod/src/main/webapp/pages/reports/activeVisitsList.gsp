@@ -1,6 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
-    ui.includeCss("mirebalais", "inpatient.css")
+    ui.includeCss("pihcore", "inpatient.css")
 
     ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
 

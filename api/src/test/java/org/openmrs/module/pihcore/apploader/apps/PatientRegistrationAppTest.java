@@ -68,7 +68,7 @@ public class PatientRegistrationAppTest extends BaseModuleContextSensitiveTest {
         assertThat(d.getUrl(), is("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
         assertThat(d.getRequiredPrivilege(), is("App: registrationapp.registerPatient"));
 
-        assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
+        assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("pihcore/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
         assertThat(d.getConfig().get("patientDashboardLink").getTextValue(), is("registrationapp/registrationSummary.page?appId=registrationapp.registerPatient"));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterRole").getTextValue(), is(PihEmrConfigConstants.ENCOUNTERROLE_ADMINISTRATIVECLERK_UUID));
