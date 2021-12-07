@@ -1,6 +1,5 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.db.SerializedObjectDAO;
@@ -25,7 +24,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 @SkipBaseSetup
-@Ignore
 public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
@@ -57,7 +55,7 @@ public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {
 
         ReportDefinition reportDefinition = reportDefinitionService.getDefinitionByUuid(manager.getUuid());
         assertNotNull(reportDefinition);
-        assertThat(reportDefinition.getName(), is("mirebalaisreports.dailyRegistrations.name"));
+        assertThat(reportDefinition.getName(), is("dailyRegistrations"));
 
     }
 

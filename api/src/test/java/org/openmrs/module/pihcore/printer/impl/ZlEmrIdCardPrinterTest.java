@@ -2,7 +2,6 @@ package org.openmrs.module.pihcore.printer.impl;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
@@ -39,7 +38,6 @@ import static org.mockito.Mockito.when;
 /**
  * Test the ZL EMR ID Card Printer functionality
  */
-@Ignore
 public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
 
     @Autowired
@@ -75,7 +73,8 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
         PrinterModuleActivator printerModuleActivator = new PrinterModuleActivator();
         printerModuleActivator.started(); // Create Location Attribute Types Needed
 
-        loadFromInitializer(Domain.LOCATIONS, "locations.csv");
+        loadFromInitializer(Domain.LOCATIONS, "locations-base.csv");
+        loadFromInitializer(Domain.LOCATIONS, "locations-site-mirebalais.csv");
         loadFromInitializer(Domain.PERSON_ATTRIBUTE_TYPES, "personAttributeTypes.csv");
         loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
 
