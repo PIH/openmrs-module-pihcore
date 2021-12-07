@@ -3,18 +3,15 @@ package org.openmrs.module.pihcore.apploader;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.Extension;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -27,19 +24,6 @@ public class CustomAppLoaderComponentTest extends PihCoreContextSensitiveTest {
     @Autowired
     private CustomAppLoaderFactory factory;
 
-    @Autowired
-    private MetadataDeployService deployService;
-
-    @Autowired
-    private SocioEconomicConcepts socioEconomicConcepts;
-
-    @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "default");
-        return p;
-    }
-
     @Before
     public void setup() throws Exception {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
@@ -49,7 +33,6 @@ public class CustomAppLoaderComponentTest extends PihCoreContextSensitiveTest {
 
     @Test
     public void shouldSetUpAppsAndExtensions() throws Exception {
-        deployService.installBundle(socioEconomicConcepts);
         factory.setConfig(new Config());
         factory.getExtensions();
         factory.getAppDescriptors();
