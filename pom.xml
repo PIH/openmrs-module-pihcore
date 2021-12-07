@@ -647,11 +647,6 @@
                             <name>openMRSwebVersion</name>
                             <version>[2.3.4-SNAPSHOT,2.3.4]</version>
                         </property>
-                        <property>
-                            <name>spaVersion</name>
-                            <version>[1.0.6]</version>
-                            <banSnapshots>true</banSnapshots>
-                        </property>
                     </properties>
                 </configuration>
             </plugin>
