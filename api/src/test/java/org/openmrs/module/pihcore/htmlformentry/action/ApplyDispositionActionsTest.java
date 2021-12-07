@@ -33,6 +33,9 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+/**
+ * This is ignored because it causes lots of other tests to fail when run via surefire.  Passes on it's own though.
+ */
 @Ignore
 public class ApplyDispositionActionsTest extends AuthenticatedUserTestHelper {
 

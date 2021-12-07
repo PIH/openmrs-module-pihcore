@@ -56,8 +56,13 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         }
     }
 
+    public String getPihConfig() {
+        return "mirebalais";
+    }
+
     public void setupInitializerForTesting() {
         Properties prop = new Properties();
+        prop.setProperty("pih.config", getPihConfig());
         prop.setProperty(InitializerConstants.PROPS_SKIPCHECKSUMS, "true");
         prop.setProperty(InitializerConstants.PROPS_STARTUP_LOAD, InitializerConstants.PROPS_STARTUP_LOAD_FAIL_ON_ERROR);
         Context.setRuntimeProperties(prop);
