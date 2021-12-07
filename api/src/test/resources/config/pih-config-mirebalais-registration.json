@@ -34,7 +34,7 @@
   "registrationConfig": {
     "allowUnknownPatients": true,
     "allowManualEntryOfPrimaryIdentifier": true,
-    "afterCreatedUrl": "mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
+    "afterCreatedUrl": "pihcore/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}",
     "matchingPatientsPropertiesToDisplay" : [
       "personName", "gender", "birthdate", "personAddress", "attributeMap['First Name of Mother']", "attributeMap['Telephone Number']"
     ],
