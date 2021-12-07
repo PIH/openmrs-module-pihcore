@@ -82,6 +82,7 @@ public class CustomAppLoaderUtil {
         return app;
     }
 
+    // TODO: Re-evaluate the below now that there is no longer a mirebalais module/provider
     // there's a problem with redirecting when the provider is the same as the app name (which happens in mirebalais with the "mirebalais" provider)
     // so we have this legacy method that avoids the router
     static public AppDescriptor addToHomePageWithoutUsingRouter(AppDescriptor app, String require) {

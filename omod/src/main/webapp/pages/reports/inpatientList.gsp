@@ -1,6 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
-    ui.includeCss("mirebalais", "inpatient.css")
+    ui.includeCss("pihcore", "inpatient.css")
     def inpatientsNumber = 0;
     if (inpatientsList != null ){
         inpatientsNumber = inpatientsList.size();

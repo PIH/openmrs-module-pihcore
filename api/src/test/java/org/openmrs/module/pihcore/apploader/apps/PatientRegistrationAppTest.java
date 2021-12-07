@@ -2,6 +2,16 @@ package org.openmrs.module.pihcore.apploader.apps;
 
 import org.codehaus.jackson.JsonNode;
 import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
+import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
+import org.openmrs.module.pihcore.apploader.apps.patientregistration.PatientRegistrationApp;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.initializer.Domain;
@@ -18,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
@@ -65,7 +76,7 @@ public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
         assertThat(d.getUrl(), is("registrationapp/findPatient.page?appId=" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
         assertThat(d.getRequiredPrivilege(), is("App: registrationapp.registerPatient"));
 
-        assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("mirebalais/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
+        assertThat(d.getConfig().get("afterCreatedUrl").getTextValue(), is("pihcore/patientRegistration/afterRegistration.page?patientId={{patientId}}&encounterId={{encounterId}}"));
         assertThat(d.getConfig().get("patientDashboardLink").getTextValue(), is("registrationapp/registrationSummary.page?appId=registrationapp.registerPatient"));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterType").getTextValue(), is(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID));
         assertThat(d.getConfig().get("registrationEncounter").get("encounterRole").getTextValue(), is(PihEmrConfigConstants.ENCOUNTERROLE_ADMINISTRATIVECLERK_UUID));
