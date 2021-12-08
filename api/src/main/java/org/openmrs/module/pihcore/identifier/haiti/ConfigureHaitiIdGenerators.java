@@ -11,6 +11,7 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 
@@ -239,7 +240,7 @@ public class ConfigureHaitiIdGenerators {
      * the first identifier base will be 1000, if the prefix is two characters, the first identifier base will be 100, etc
      */
     public String getLocalZlIdentifierGeneratorPrefix() {
-        String property = Context.getRuntimeProperties().getProperty(LOCAL_ZL_IDENTIFIER_GENERATOR_PREFIX);
+        String property = PihCoreUtil.getSystemOrRuntimeProperty(LOCAL_ZL_IDENTIFIER_GENERATOR_PREFIX);
         return property != null ? property : "";
     }
 
@@ -248,7 +249,7 @@ public class ConfigureHaitiIdGenerators {
      * This is needed primarily in development environments so that the remote source can connect to it, rather than to a server in the cloud
      */
     public boolean getLocalZlIdentifierGeneratorEnabled() {
-        String property = Context.getRuntimeProperties().getProperty(LOCAL_ZL_IDENTIFIER_GENERATOR_ENABLED);
+        String property = PihCoreUtil.getSystemOrRuntimeProperty(LOCAL_ZL_IDENTIFIER_GENERATOR_ENABLED);
         return Boolean.parseBoolean(property);
     }
 
@@ -257,7 +258,7 @@ public class ConfigureHaitiIdGenerators {
      * If this is left empty, and the local zl identifier generator is enabled, it will default to connecting to localhost with that identifier source
      */
     public String getRemoteZlIdentifierSourceUrl() {
-        String property = Context.getRuntimeProperties().getProperty(REMOTE_ZL_IDENTIFIER_SOURCE_URL_PROPERTY);
+        String property = PihCoreUtil.getSystemOrRuntimeProperty(REMOTE_ZL_IDENTIFIER_SOURCE_URL_PROPERTY);
         return property != null ? property : PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL;
     }
 
@@ -265,7 +266,7 @@ public class ConfigureHaitiIdGenerators {
      * @return the username with which to connect to the remote server
      */
     public String getRemoteZlIdentifierSourceUsername() {
-        String property = Context.getRuntimeProperties().getProperty(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY);
+        String property = PihCoreUtil.getSystemOrRuntimeProperty(REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY);
         return property != null ? property : PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME;
     }
 
@@ -273,7 +274,7 @@ public class ConfigureHaitiIdGenerators {
      * @return the password with which to connect to the remote server
      */
     public String getRemoteZlIdentifierSourcePassword() {
-        String property = Context.getRuntimeProperties().getProperty(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD_PROPERTY);
+        String property = PihCoreUtil.getSystemOrRuntimeProperty(REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD_PROPERTY);
         return property != null ? property : PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD;
     }
 

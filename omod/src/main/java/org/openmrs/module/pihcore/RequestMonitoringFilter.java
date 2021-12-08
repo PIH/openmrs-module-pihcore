@@ -54,7 +54,7 @@ public class RequestMonitoringFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		try {
-			enabled = "true".equalsIgnoreCase(Context.getRuntimeProperties().getProperty(ENABLED_PROPERTY, "false"));
+			enabled = "true".equalsIgnoreCase(PihCoreUtil.getSystemOrRuntimeProperty(ENABLED_PROPERTY, "false"));
 			logger.setAdditivity(false);
 			File directory = OpenmrsUtil.getDirectoryInApplicationDataDirectory(LOG_FILE_DIR_NAME);
 			directory.mkdirs();
