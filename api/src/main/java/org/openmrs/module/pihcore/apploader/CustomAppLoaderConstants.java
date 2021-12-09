@@ -60,6 +60,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_SUMMARY = "pih.app.hiv.summary";
         public static final String HIV_NEXT_DISPENSING = "pih.app.hiv.next.dispensing";
         public static final String HIV_ALERTS = "pih.app.hiv.alerts";
+        public static final String HIV_TB_STATUS = "pih.app.hivTb.status";
         public static final String HIV_INTAKE_ENCOUNTERS = "pih.app.hiv.encounters.intake";
         public static final String HIV_FOLLOWUP_ENCOUNTERS = "pih.app.hiv.encounters.followup";
         public static final String HIV_DISPENSING_ENCOUNTERS = "pih.app.hiv.dispensing.followup";
