@@ -19,7 +19,7 @@ public class PatientIdentifierSetup {
                                                       Config config) {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-            ConfigureHaitiIdGenerators configureHaitiIdGenerators = new ConfigureHaitiIdGenerators(identifierSourceService);
+            ConfigureHaitiIdGenerators configureHaitiIdGenerators = new ConfigureHaitiIdGenerators(config, identifierSourceService);
             ConfigureHaitiIdGenerators.createPatientIdGenerator(configureHaitiIdGenerators);
             ConfigureHaitiIdGenerators.createDossierNumberGenerator(locationService, configureHaitiIdGenerators, config);
             if (ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {

@@ -17,9 +17,6 @@ import org.openmrs.module.pihcore.config.Config;
 
 public class ConfigureHaitiIdGenerators {
 
-    public static final String LOCAL_ZL_IDENTIFIER_GENERATOR_ENABLED = "local_zl_identifier_generator_enabled";
-    public static final String LOCAL_ZL_IDENTIFIER_GENERATOR_PREFIX = "local_zl_identifier_generator_prefix";
-
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL_PROPERTY = "remote_zlidentifier_url";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY = "remote_zlidentifier_username";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD_PROPERTY = "remote_zlidentifier_password";
@@ -28,16 +25,14 @@ public class ConfigureHaitiIdGenerators {
     private static final String HIVEMR_V1_AUTOGENERATION_OPTION_UUID = "570fe8a7-70cd-11eb-8aa6-0242ac110002";
 
     private final IdentifierSourceService identifierSourceService;
+    private final Config config;
 
-	public ConfigureHaitiIdGenerators(
-            IdentifierSourceService identifierSourceService) {
-
+	public ConfigureHaitiIdGenerators(Config config, IdentifierSourceService identifierSourceService) {
 		this.identifierSourceService = identifierSourceService;
-
-		if (identifierSourceService == null) {
+        this.config = config;
+		if (identifierSourceService == null || config == null) {
 			throw new IllegalStateException("All the dependencies are mandatory");
 		}
-
 	}
 
     // TODO refactor all this to make more sense
@@ -180,7 +175,7 @@ public class ConfigureHaitiIdGenerators {
             localZlIdentifierGenerator.setMaxLength(6);
             localZlIdentifierGenerator.setMinLength(6);
         }
-        String prefix = getLocalZlIdentifierGeneratorPrefix();
+        String prefix = config.getDescriptor().getLocalZlIdentifierGeneratorPrefix();
         int firstIdentifierBase = (int)Math.pow(10, (4-prefix.length()));
         localZlIdentifierGenerator.setPrefix(prefix);
         localZlIdentifierGenerator.setFirstIdentifierBase(Integer.toString(firstIdentifierBase));
@@ -190,7 +185,7 @@ public class ConfigureHaitiIdGenerators {
     }
 
 	public IdentifierSource zlIdentifierGenerator(PatientIdentifierType zlPatientIdentifierType) {
-        if (getLocalZlIdentifierGeneratorEnabled()) {
+        if (config.getDescriptor().getLocalZlIdentifierGeneratorEnabled()) {
             return localZlIdentifierGenerator(zlPatientIdentifierType);
         }
 
@@ -232,26 +227,6 @@ public class ConfigureHaitiIdGenerators {
 
 		return dossierSequenceGenerator;
 	}
-
-    /**
-     * @return the prefix which should be used by the local zl identifier generator, if it is enabled.
-     * The system will always create zl identifiers of length 6, one of which is a check-digit.  So
-     * if this prefix is empty, the first identifier base will be 10000, if the prefix is a single character,
-     * the first identifier base will be 1000, if the prefix is two characters, the first identifier base will be 100, etc
-     */
-    public String getLocalZlIdentifierGeneratorPrefix() {
-        String property = PihCoreUtil.getSystemOrRuntimeProperty(LOCAL_ZL_IDENTIFIER_GENERATOR_PREFIX);
-        return property != null ? property : "";
-    }
-
-    /**
-     * @return whether or not the system should create a local identifier generator for the ZL EMR ID
-     * This is needed primarily in development environments so that the remote source can connect to it, rather than to a server in the cloud
-     */
-    public boolean getLocalZlIdentifierGeneratorEnabled() {
-        String property = PihCoreUtil.getSystemOrRuntimeProperty(LOCAL_ZL_IDENTIFIER_GENERATOR_ENABLED);
-        return Boolean.parseBoolean(property);
-    }
 
     /**
      * @return the url of the remote zl identifier source.
