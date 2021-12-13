@@ -526,7 +526,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableCheckIn(Config config) {
 
-        // currently, this app is hard-coded to the default check-in form and requires archives room (?)
+        // circular app that redirects to registraton page, see comments in CheckInPageController
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
             apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.CHECK_IN,
                     "mirebalais.app.patientRegistration.checkin.label",
@@ -538,6 +538,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     sessionLocationHasTag("Check-In Location")));
         }
 
+		// check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_VISIT_ACTION,
                 "mirebalais.task.checkin.label",
                 "fas fa-fw icon-check-in",
@@ -546,6 +547,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag("Check-In Location")));
 
+		// check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
         extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
                 "mirebalais.task.checkin.label",
                 "fas fa-fw icon-check-in",
