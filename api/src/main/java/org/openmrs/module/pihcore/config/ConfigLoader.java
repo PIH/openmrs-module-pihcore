@@ -30,11 +30,11 @@ public class ConfigLoader {
      * @return the configuration based on runtime properties configuration, or based on default value if not found
      */
     public static String getRuntimeConfiguration(String defaultValue) {
-        return Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY, defaultValue);
+        return PihCoreUtil.getSystemOrRuntimeProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY, defaultValue);
     }
 
     public static String getPihConfigurationDirRuntimeProperty(String defaultValue) {
-        return Context.getRuntimeProperties().getProperty(PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY, defaultValue);
+        return PihCoreUtil.getSystemOrRuntimeProperty(PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY, defaultValue);
     }
 
     /**

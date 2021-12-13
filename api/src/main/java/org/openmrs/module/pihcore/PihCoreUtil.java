@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
 import org.openmrs.util.OpenmrsUtil;
@@ -8,6 +9,25 @@ import java.util.Collections;
 import java.util.List;
 
 public class PihCoreUtil {
+
+    /**
+     * @param property the system property or runtime property to lookup
+     * @return the system property value if a system property with the passed property name exists, the runtime property value otherwise
+     */
+    public static String getSystemOrRuntimeProperty(String property) {
+        if (System.getProperties().containsKey(property)) {
+            return System.getProperty(property);
+        }
+        return Context.getRuntimeProperties().getProperty(property);
+    }
+
+    public static String getSystemOrRuntimeProperty(String property, String defaultValue) {
+        String ret = getSystemOrRuntimeProperty(property);
+        if (StringUtils.isEmpty(ret)) {
+            ret = defaultValue;
+        }
+        return ret;
+    }
 
     public static final String getDefaultPihConfigurationDir() {
         return OpenmrsUtil.getApplicationDataDirectory() + "/configuration/pih";

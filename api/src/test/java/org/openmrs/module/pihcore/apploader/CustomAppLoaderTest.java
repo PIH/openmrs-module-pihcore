@@ -5,8 +5,6 @@ import org.junit.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
-import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil;
 
 import java.util.Map;
 

@@ -24,6 +24,7 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreMessageSource;
@@ -326,8 +327,8 @@ public class ConfigurationSetup {
     public User setupCommCareUser(){
 
         User user = null;
-        String commCareUserName = Context.getRuntimeProperties().getProperty("commcare.username", null);
-        String commCareUserPassword = Context.getRuntimeProperties().getProperty("commcare.password", null);
+        String commCareUserName = PihCoreUtil.getSystemOrRuntimeProperty("commcare.username", null);
+        String commCareUserPassword = PihCoreUtil.getSystemOrRuntimeProperty("commcare.password", null);
         if (StringUtils.isNotBlank(commCareUserName) && StringUtils.isNotBlank(commCareUserPassword)) {
             user = Context.getUserService().getUserByUsername(commCareUserName);
             if (user == null) {

@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.config;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.module.appframework.domain.Extension;
@@ -102,6 +103,12 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private ArrayNode findPatientColumnConfig;
+
+    @JsonProperty
+    private Boolean localZlIdentifierGeneratorEnabled;
+
+    @JsonProperty
+    private String localZlIdentifierGeneratorPrefix;
 
     @JsonProperty
     private List<Extension> extensions;
@@ -309,6 +316,22 @@ public class ConfigDescriptor {
 
     public void setFindPatientColumnConfig(ArrayNode findPatientColumnConfig) {
         this.findPatientColumnConfig = findPatientColumnConfig;
+    }
+
+    public Boolean getLocalZlIdentifierGeneratorEnabled() {
+        return BooleanUtils.isTrue(localZlIdentifierGeneratorEnabled);
+    }
+
+    public void setLocalZlIdentifierGeneratorEnabled(Boolean localZlIdentifierGeneratorEnabled) {
+        this.localZlIdentifierGeneratorEnabled = localZlIdentifierGeneratorEnabled;
+    }
+
+    public String getLocalZlIdentifierGeneratorPrefix() {
+        return localZlIdentifierGeneratorPrefix == null ? "" : localZlIdentifierGeneratorPrefix;
+    }
+
+    public void setLocalZlIdentifierGeneratorPrefix(String localZlIdentifierGeneratorPrefix) {
+        this.localZlIdentifierGeneratorPrefix = localZlIdentifierGeneratorPrefix;
     }
 
     public List<Extension> getExtensions() {

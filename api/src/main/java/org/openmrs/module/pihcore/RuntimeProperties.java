@@ -13,8 +13,6 @@
  */
 package org.openmrs.module.pihcore;
 
-import org.openmrs.api.context.Context;
-
 public class RuntimeProperties {
 
     public static final String LACOLLINE_SERVER_URL_PROPERTY = "lacolline_server_url";
@@ -22,18 +20,15 @@ public class RuntimeProperties {
     public static final String LACOLLINE_PASSWORD_PROPERTY = "lacolline_password";
 
     public String getLacollineServerUrl() {
-        String property = Context.getRuntimeProperties().getProperty(LACOLLINE_SERVER_URL_PROPERTY);
-        return property != null ? property : "lacolline-test";  // for MirebalaisHospitalActivatorITTest
+        return PihCoreUtil.getSystemOrRuntimeProperty(LACOLLINE_SERVER_URL_PROPERTY, "lacolline-test");
     }
 
     public String getLacollineUsername() {
-        String property = Context.getRuntimeProperties().getProperty(LACOLLINE_USERNAME_PROPERTY);
-        return property != null ? property : "lacolline-test";
+        return PihCoreUtil.getSystemOrRuntimeProperty(LACOLLINE_USERNAME_PROPERTY, "lacolline-test");
     }
 
     public String getLacollinePassword() {
-        String property = Context.getRuntimeProperties().getProperty(LACOLLINE_PASSWORD_PROPERTY);
-        return property != null ? property : "lacolline-test";
+        return PihCoreUtil.getSystemOrRuntimeProperty(LACOLLINE_PASSWORD_PROPERTY, "lacolline-test");
     }
 
 }
