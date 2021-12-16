@@ -71,7 +71,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
         }
         catch (Exception e) {
             Module mod = ModuleFactory.getModuleById("pihcore");
-            ModuleFactory.stopModule(mod, false, false);
+            ModuleFactory.stopModule(mod, true, true);
             throw new RuntimeException("An error occurred while starting the pihcore module", e);
         }
     }
