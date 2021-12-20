@@ -28,7 +28,7 @@ public class InitializerSetup {
 
     public static List<Domain> getDomainsToLoadAfterConcepts() {
         return Arrays.asList(
-				CONCEPTS,
+                CONCEPTS,
                 PROGRAMS,
                 PROGRAM_WORKFLOWS,
                 PROGRAM_WORKFLOW_STATES,
