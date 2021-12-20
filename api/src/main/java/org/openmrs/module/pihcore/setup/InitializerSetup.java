@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.openmrs.module.initializer.Domain.CONCEPTS;
 import static org.openmrs.module.initializer.Domain.DRUGS;
 import static org.openmrs.module.initializer.Domain.HTML_FORMS;
 import static org.openmrs.module.initializer.Domain.ORDER_FREQUENCIES;
@@ -27,6 +28,7 @@ public class InitializerSetup {
 
     public static List<Domain> getDomainsToLoadAfterConcepts() {
         return Arrays.asList(
+                CONCEPTS,
                 PROGRAMS,
                 PROGRAM_WORKFLOWS,
                 PROGRAM_WORKFLOW_STATES,
