@@ -23,12 +23,12 @@ import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
+import org.openmrs.module.initializer.InitializerMessageSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
-import org.openmrs.module.pihcore.PihCoreUtil;
-import org.openmrs.module.pihcore.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.pihcore.PihCoreConstants;
-import org.openmrs.module.pihcore.PihCoreMessageSource;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.RuntimeProperties;
+import org.openmrs.module.pihcore.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -84,7 +84,7 @@ public class ConfigurationSetup {
     CustomAppLoaderFactory customAppLoaderFactory;
 
     @Autowired
-    PihCoreMessageSource pihCoreMessageSource;
+    InitializerMessageSource initializerMessageSource;
 
     @Autowired
     MessageSourceService messageSourceService;
@@ -137,7 +137,7 @@ public class ConfigurationSetup {
         setupCommCareUser();
         removeOldPrivileges(); // TODO: This can likely be removed altogether at this point, or moved to liquibase
         ReportSetup.cleanupOldReports(); // TODO: could move this to liquibase or to a fixed scheduled task
-        messageSourceService.setActiveMessageSource(pihCoreMessageSource);
+        initializerMessageSource.addFallbackLanguage("ht", "fr");
     }
 
     // Anything in here depends on configuration settings and needs to be refreshed in a specific order,

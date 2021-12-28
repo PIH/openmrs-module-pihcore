@@ -4,7 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
-import org.openmrs.module.pihcore.PihCoreMessageSource;
+import org.openmrs.module.initializer.InitializerMessageSource;
 import org.openmrs.module.pihcore.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.config.PihConfigService;
 import org.openmrs.module.reporting.config.ReportDescriptor;
@@ -105,7 +105,7 @@ public class PihConfigRestController {
             return HttpStatus.UNAUTHORIZED;
         }
         try {
-            PihCoreMessageSource messageSource = (PihCoreMessageSource)Context.getMessageSourceService().getActiveMessageSource();
+            InitializerMessageSource messageSource = (InitializerMessageSource)Context.getMessageSourceService().getActiveMessageSource();
             messageSource.refreshCache();
             return OK;
         }

@@ -4,14 +4,17 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.openmrs.EncounterType;
 import org.openmrs.api.context.Context;
+import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.initializer.InitializerConstants;
+import org.openmrs.module.initializer.InitializerMessageSource;
 import org.openmrs.module.initializer.api.ConfigDirUtil;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.InputStream;
@@ -19,11 +22,18 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import static org.openmrs.module.initializer.api.ConfigDirUtil.CHECKSUM_FILE_EXT;
 
 public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensitiveTest {
+
+    @Autowired
+    MessageSourceService messageSourceService;
+
+    @Autowired
+    InitializerMessageSource initializerMessageSource;
 
     public PihCoreContextSensitiveTest() {
         super();
@@ -66,6 +76,14 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         prop.setProperty(InitializerConstants.PROPS_SKIPCHECKSUMS, "true");
         prop.setProperty(InitializerConstants.PROPS_STARTUP_LOAD, InitializerConstants.PROPS_STARTUP_LOAD_FAIL_ON_ERROR);
         Context.setRuntimeProperties(prop);
+        messageSourceService.setActiveMessageSource(initializerMessageSource);
+        if (initializerMessageSource.getPresentations().isEmpty()) {
+            initializerMessageSource.initialize();
+        }
+        if (!initializerMessageSource.getFallbackLanguages().containsKey("ht")) {
+            initializerMessageSource.addFallbackLanguage("ht", "fr");
+        }
+        Locale.setDefault(Locale.ENGLISH);
     }
 
     public File addResourceToConfigurationDirectory(String domain, String resource) {
