@@ -31,13 +31,13 @@ import java.util.Properties;
  * This is an integration test that connects to an existing database and exports all concepts
  *
  * To execute this against an appropriate database, ensure you have a properties file with the following settings:
- *  -  connection.url, connection.username, connection.password properties that point to a valid DB connection
- *  -  junit.username and junit.password properties that point to a valid OpenMRS account
+ * -  connection.url, connection.username, connection.password properties that point to a valid DB connection
+ * -  junit.username and junit.password properties that point to a valid OpenMRS account
  *
- *  Configure a system property named "concept_export_properties_file" with the location of this properties file.
- *  If you are running this test from the command line, that can be done with a -D argument like this:
+ * Configure a system property named "concept_export_properties_file" with the location of this properties file.
+ * If you are running this test from the command line, that can be done with a -D argument like this:
  *
- *  mvn test -Dtest=ConceptDictionaryExportTest -Dconcept_export_properties_file=/tmp/concept_export.properties
+ * mvn test -Dtest=ConceptDictionaryExportTest -Dconcept_export_properties_file=/tmp/concept_export.properties
  */
 @SkipBaseSetup
 @Ignore
@@ -53,8 +53,7 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             props = new Properties();
             try {
                 props.load(new FileInputStream(propFile));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Error loading properties from " + propFile + ": " + e.getMessage());
             }
         }
@@ -87,6 +86,7 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
      * - Excludes voided concept names (which are really retired names that may have references), as these are not provided by ocl
      * - Converts answer sort weight from null -> 1.0 if only one answer exists for the concept
      * - Removes concept version from export (talk thread indicates not really used)
+     * - Removes retire reason from export (talk thread started on this, not supported in OCL)
      */
     @Test
     public void exportData() throws Exception {
@@ -103,10 +103,13 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
 
         List<Map<String, Object>> concepts = new ArrayList<>();
         System.out.println("Pulling concepts");
-        int i=0;
+        int i = 0;
 
         List<Concept> conceptList = Context.getConceptService().getAllConcepts();
         conceptList.sort(Comparator.comparing(t -> t.getUuid().toUpperCase()));
+
+        List<Concept> conceptsToIgnore = getConceptsToIgnore();
+        conceptList.removeAll(conceptsToIgnore);
 
         for (Concept concept : conceptList) {
             System.out.println(i++ + ": Pulling concept: " + concept.getUuid());
@@ -117,7 +120,7 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             c.put("concept_datatype", concept.getDatatype().getName());
             c.put("is_set", BooleanUtils.isTrue(concept.getSet()) ? "true" : "false");
             c.put("retired", BooleanUtils.isTrue(concept.getRetired()) ? "true" : "false");
-            c.put("retireReason", concept.getRetireReason() == null ? "" : concept.getRetireReason());
+            //c.put("retireReason", concept.getRetireReason() == null ? "" : concept.getRetireReason());
             if (concept instanceof ConceptNumeric) {
                 ConceptNumeric cn = (ConceptNumeric) concept;
                 c.put("hi_absolute", cn.getHiAbsolute() == null ? "" : cn.getHiAbsolute().toString());
@@ -168,13 +171,15 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             c.put("descriptions", descriptionList);
 
             List<ConceptAnswer> answers = new ArrayList<>(concept.getAnswers(true));
-            answers.sort(Comparator.comparingDouble(ConceptAnswer::getSortWeight).thenComparing(ca -> ca.getConcept().getUuid()));
+            answers.sort(Comparator.comparingDouble(ConceptAnswer::getSortWeight).thenComparing(ca -> ca.getAnswerConcept().getUuid()));
             List<Map<String, Object>> answerList = new ArrayList<>();
             for (ConceptAnswer ca : answers) {
-                Map<String, Object> n = new LinkedHashMap<>();
-                n.put("answerConcept", ca.getAnswerConcept().getUuid());
-                n.put("sortWeight", ca.getSortWeight() == null ? (answers.size() == 1 ? "1.0": "") : ca.getSortWeight().toString());
-                answerList.add(n);
+                if (!conceptsToIgnore.contains(ca.getAnswerConcept())) {
+                    Map<String, Object> n = new LinkedHashMap<>();
+                    n.put("answerConcept", ca.getAnswerConcept().getUuid());
+                    n.put("sortWeight", ca.getSortWeight() == null ? (answers.size() == 1 ? "1.0" : "") : ca.getSortWeight().toString());
+                    answerList.add(n);
+                }
             }
             c.put("answers", answerList);
 
@@ -182,10 +187,12 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             setMembers.sort(Comparator.comparingDouble(ConceptSet::getSortWeight).thenComparing(cs -> cs.getConcept().getUuid()));
             List<Map<String, Object>> setMemberList = new ArrayList<>();
             for (ConceptSet cs : setMembers) {
-                Map<String, Object> n = new LinkedHashMap<>();
-                n.put("concept", cs.getConcept().getUuid());
-                n.put("sortWeight", cs.getSortWeight() == null ? "" : cs.getSortWeight().toString());
-                setMemberList.add(n);
+                if (!conceptsToIgnore.contains(cs.getConcept())) {
+                    Map<String, Object> n = new LinkedHashMap<>();
+                    n.put("concept", cs.getConcept().getUuid());
+                    n.put("sortWeight", cs.getSortWeight() == null ? "" : cs.getSortWeight().toString());
+                    setMemberList.add(n);
+                }
             }
             c.put("setMembers", setMemberList);
 
@@ -220,5 +227,18 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
                 .replace("-", "")
                 .replace("_", "")
                 .replace("PIHTEMP", "PIH");
+    }
+
+    public List<Concept> getConceptsToIgnore() {
+        List<Concept> l = new ArrayList<>();
+        return l;
+    }
+
+    public Concept getConcept(Integer pihMapping) {
+        Concept c = Context.getConceptService().getConceptByMapping(pihMapping.toString(), "PIH");
+        if (c == null) {
+            throw new IllegalArgumentException("Unable to find concept PIH:" + pihMapping);
+        }
+        return c;
     }
 }
