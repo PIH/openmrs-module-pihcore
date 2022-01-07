@@ -40,7 +40,7 @@ import java.util.Properties;
  * mvn test -Dtest=ConceptDictionaryExportTest -Dconcept_export_properties_file=/tmp/concept_export.properties
  */
 @SkipBaseSetup
-@Ignore
+//@Ignore
 public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest {
 
     static Properties props = null;
@@ -82,11 +82,9 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
 
     /**
      * Intentional issues currently with this, in order to isolate away known issues.  These should be removed as appropriate:
-     * - Normalizes concept source name, due to known issue needed in OCL to facilitate source matching and need for pih-temp
+     * - Normalizes concept source name, due to known issue needed in OCL to facilitate source matching
      * - Excludes voided concept names (which are really retired names that may have references), as these are not provided by ocl
      * - Converts answer sort weight from null -> 1.0 if only one answer exists for the concept
-     * - Removes concept version from export (talk thread indicates not really used)
-     * - Removes retire reason from export (talk thread started on this, not supported in OCL)
      */
     @Test
     public void exportData() throws Exception {
@@ -119,8 +117,9 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
             c.put("concept_class", concept.getConceptClass().getName());
             c.put("concept_datatype", concept.getDatatype().getName());
             c.put("is_set", BooleanUtils.isTrue(concept.getSet()) ? "true" : "false");
+            c.put("version", concept.getVersion() == null ? "" : concept.getVersion());
             c.put("retired", BooleanUtils.isTrue(concept.getRetired()) ? "true" : "false");
-            //c.put("retireReason", concept.getRetireReason() == null ? "" : concept.getRetireReason());
+            c.put("retireReason", concept.getRetireReason() == null ? "" : concept.getRetireReason());
             if (concept instanceof ConceptNumeric) {
                 ConceptNumeric cn = (ConceptNumeric) concept;
                 c.put("hi_absolute", cn.getHiAbsolute() == null ? "" : cn.getHiAbsolute().toString());
@@ -225,8 +224,7 @@ public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest 
         return name.toUpperCase()
                 .replace(" ", "")
                 .replace("-", "")
-                .replace("_", "")
-                .replace("PIHTEMP", "PIH");
+                .replace("_", "");
     }
 
     public List<Concept> getConceptsToIgnore() {
