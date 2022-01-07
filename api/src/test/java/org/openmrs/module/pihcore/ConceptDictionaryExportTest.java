@@ -40,7 +40,7 @@ import java.util.Properties;
  * mvn test -Dtest=ConceptDictionaryExportTest -Dconcept_export_properties_file=/tmp/concept_export.properties
  */
 @SkipBaseSetup
-//@Ignore
+@Ignore
 public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest {
 
     static Properties props = null;
