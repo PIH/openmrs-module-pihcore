@@ -2472,7 +2472,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),
-                        not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID)),
                         and(patientIsFemale()),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
