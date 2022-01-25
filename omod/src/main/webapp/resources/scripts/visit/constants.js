@@ -377,6 +377,12 @@ angular.module('constants', [])
         ncdCategory: {
             uuid: "27b30028-0ed0-4f62-a4d8-52a9c5b600e3"
         },
+        adverseReactionConstruct: {
+            uuid: "3cd95d5a-26fe-102b-80cb-0017a47871b2"
+        },
+        tbSite: {
+            uuid: "160040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         whoHIVStages: {
             uuid: "3cebd8b8-26fe-102b-80cb-0017a47871b2"
         },
@@ -388,14 +394,8 @@ angular.module('constants', [])
         generalExam: {
             uuid: "0adeea3a-15f5-102d-96e4-000c29c2a5d7"
         },
-        mentalStatusExam: {
-            uuid: "163043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-        },
-        skinExam: {
-            uuid: "3cd75866-26fe-102b-80cb-0017a47871b2"
-        },
-        heentExam: {
-            uuid: "3cd75b86-26fe-102b-80cb-0017a47871b2"
+        abdominalExam: {
+            uuid: "3cd76054-26fe-102b-80cb-0017a47871b2"
         },
         cardiovascularExam: {
             uuid: "3cd75e9c-26fe-102b-80cb-0017a47871b2"
@@ -403,15 +403,40 @@ angular.module('constants', [])
         chestExam: {
             uuid: "3cd75d0c-26fe-102b-80cb-0017a47871b2"
         },
-        abdominalExam: {
-            uuid: "3cd76054-26fe-102b-80cb-0017a47871b2"
+        heentExam: {
+            uuid: "3cd75b86-26fe-102b-80cb-0017a47871b2"
         },
-        urogenitalExam: {
-            uuid: "3cd761ee-26fe-102b-80cb-0017a47871b2"
+        lymphExam: {
+            uuid: "3cd759f6-26fe-102b-80cb-0017a47871b2"
+        },
+        mentalStatusExam: {
+            uuid: "163043AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         musculoskeletalExam: {
             uuid: "3cd7650e-26fe-102b-80cb-0017a47871b2"
+        },
+        neuroExam: {
+            uuid: "3cd766a8-26fe-102b-80cb-0017a47871b2"
+        },
+        gynExam: {
+            uuid: "20e66bef-d91e-4204-bd60-359dd30444de"
+        },
+        postpartumExam: {
+            uuid: "f74752c7-f490-4218-b8e8-81a65c24666f"
+        },
+        breastExam: {
+            uuid: "159780AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        skinExam: {
+            uuid: "3cd75866-26fe-102b-80cb-0017a47871b2"
+        },
+        uroExam: {
+            uuid: "ea4d0ae4-3bac-44fa-96d5-77d3f49d9e77"
+        },
+        urogenitalExam: {
+            uuid: "3cd761ee-26fe-102b-80cb-0017a47871b2"
         }
+
     })
     .value('EncounterRoles', {
         attendingSurgeon: {
