@@ -302,6 +302,12 @@ angular.module('constants', [])
         labTestOrderedNonCoded: {  // 11762
             uuid: "24102c5d-b199-406f-b49d-83ddd7ce83d5"
         },
+        hivTestConstruct: { // PIH:11522
+            uuid: "56740c9f-d86e-4240-ad59-7552385a8691"
+        },
+        hivPCRCoded: { // CIEL:1030
+            uuid: "3cd6b1fe-26fe-102b-80cb-0017a47871b2"
+        },
         prescriptionConstruct: {
             uuid: "9ab17798-1486-4d56-9218-e3578646a772"
         },
@@ -343,6 +349,15 @@ angular.module('constants', [])
         },
         testResultsDate: {
             uuid: "68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0"
+        },
+        negativeTest: {
+            uuid: "3cd28732-26fe-102b-80cb-0017a47871b2"
+        },
+        positiveTest: {
+            uuid: "3cd3a7a2-26fe-102b-80cb-0017a47871b2"
+        },
+        indeterminateTest: {
+            uuid: "3cd774d6-26fe-102b-80cb-0017a47871b2"
         },
         visitType: {
             uuid: "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
