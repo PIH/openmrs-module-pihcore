@@ -4,9 +4,5 @@
 </span> <!-- encounter-type class added for smoke tests -->
 <span class="obs-span">
 
-    <span ng-show="activeDrugOrders.\$resolved && activeDrugOrders.length > 0">
-        {{ activeOrderConcepts() | omrsDisplay }}
-    </span>
-
 </span>
 <span ng-show="showEncounterDetails" ng-include="'templates/showEncounterDetails.page'" />
