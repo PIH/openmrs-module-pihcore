@@ -6,10 +6,10 @@
 
 <span class="obs-span">
     <!-- add character between ARV and WHO stage -->
-    <span ng-show="(encounter.obs | byConcept:Concepts.estimatedDueDate).length > 0" >DPA: </span>
+    <span ng-show="(encounter.obs | byConcept:Concepts.estimatedDueDate).length > 0" >{{ 'pihcore.dpa' | translate  }}:</span>
 
     <span ng-repeat="obs in encounter.obs | byConcept:Concepts.estimatedDueDate">
-        {{ obs |  obs:"value" | serverDate : 'dd-MMM-yyyy' }}{{ \$last ? "" : "," }}
+        {{ obs |  obs:"value" | serverDateLocalized:DatetimeFormats.dateLocalized }}{{ \$last ? "" : "," }}
     </span>
 </span>
 
