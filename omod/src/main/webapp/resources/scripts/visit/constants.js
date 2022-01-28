@@ -380,8 +380,8 @@ angular.module('constants', [])
         ncdCategory: {
             uuid: "27b30028-0ed0-4f62-a4d8-52a9c5b600e3"
         },
-        adverseReactionConstruct: {
-            uuid: "3cd95d5a-26fe-102b-80cb-0017a47871b2"
+        adverseReaction: {
+            uuid: "121764AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         tbSite: {
             uuid: "160040AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
