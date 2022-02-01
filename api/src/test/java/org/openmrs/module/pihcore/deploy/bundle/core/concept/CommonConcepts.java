@@ -81,8 +81,6 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "1067").build())
                 .mapping(new ConceptMapBuilder("aef53e25-42b3-4e15-b072-773408c42fcf")
                         .type(sameAs).ensureTerm(emrapi, "Unknown Cause of Death").build())
-                .mapping(new ConceptMapBuilder("fe4792ee-5b68-102e-96e9-000c29c2a5d7")
-                        .type(sameAs).ensureTerm(mdrtb, "UNKNOWN").build())
                 .build());
 
         install(new ConceptBuilder(Concepts.OTHER_NON_CODED)
@@ -103,18 +101,8 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "OTHER NON-CODED").build())
                 .mapping(new ConceptMapBuilder("137878ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(pih, "OTHER").build())
-                .mapping(new ConceptMapBuilder("6fb13061-8e19-432e-8678-5aa415cf0320")
-                        .type(sameAs).ensureTerm(pihMalawi, "6408").build())
                 .mapping(new ConceptMapBuilder("04ef5e6c-3062-432a-ad7f-0581a6cac76d")
                         .type(sameAs).ensureTerm(ciel, "5622").build())
-                .mapping(new ConceptMapBuilder("a567d7c3-7943-41e4-80d5-6090aedcb6b6")
-                        .type(sameAs).ensureTerm(mdrtb, "OTHER").build())
-                .mapping(new ConceptMapBuilder("141670ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(snomedMvp, "56221000105001").build())
-                .mapping(new ConceptMapBuilder("137766ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(narrowerThan).ensureTerm(snomedNp, "74964007").build())
-                .mapping(new ConceptMapBuilder("4f37b2ff-7456-4db7-a8de-1d312f586ef2")
-                        .type(sameAs).ensureTerm(ampath, "5622").build())
                 .build());
 
 
@@ -124,8 +112,6 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                 .name("109086BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Free text general", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED) // locale-preferred
                 .name("109085BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Freetext general", Locale.ENGLISH, null)
                 .description("16778FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "This is a freetext field for general use.  It should be tied to another concept as a child.", Locale.ENGLISH)
-                .mapping(new ConceptMapBuilder("98a91a12-3095-4a11-9d90-a112201f6d59")
-                        .type(sameAs).ensureTerm(ampath, "1915").build())
                 .mapping(new ConceptMapBuilder("567ec656-4791-4423-8fc3-ffd215eb2eb8")
                         .type(sameAs).ensureTerm(pih, "GENERAL FREE TEXT").build())
                 .mapping(new ConceptMapBuilder("217755ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
@@ -145,8 +131,6 @@ public class CommonConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "NONE").build())
                 .mapping(new ConceptMapBuilder("b20d518c-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "1107").build())
-                .mapping(new ConceptMapBuilder("430dd060-0371-102d-b0e3-001ec94a0cc1")
-                        .type(sameAs).ensureTerm(mdrtb, "NONE").build())
                 .build());
 
         install(new ConceptBuilder(Concepts.NOT_APPLICABLE)

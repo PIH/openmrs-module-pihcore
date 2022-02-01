@@ -47,8 +47,6 @@ public class TestOrderConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "1015").build())
                 .mapping(new ConceptMapBuilder("75683d52-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "HEMATOCRIT").build())
-                .mapping(new ConceptMapBuilder("c8d1d90d-ac94-4a03-8515-664fcd1d9f89")
-                        .type(sameAs).ensureTerm(loinc, "20570-8").build())
                 .build());
 
         install(new ConceptNumericBuilder(Concepts.HEMOGLOBIN)
@@ -67,8 +65,6 @@ public class TestOrderConcepts extends VersionedPihConceptBundle {
                 .description("ecd675d0-07fe-102c-b5fa-0017a47871b2", "The iron-containing respiratory pigment in red blood cells of vertebrates, consisting of about 6 percent heme and 94 percent globin.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("b1c14288-4864-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "21").build())
-                .mapping(new ConceptMapBuilder("c3e2d313-086e-445f-9fe5-2e5715903a1e")
-                        .type(sameAs).ensureTerm(loinc, "718-7").build())
                 .mapping(new ConceptMapBuilder("73800682-4943-102e-96e9-000c29c2a5d7")
                         .type(sameAs).ensureTerm(pih, "HEMOGLOBIN").build())
                 .build());

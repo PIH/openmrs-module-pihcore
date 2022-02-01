@@ -588,10 +588,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .description("16315FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "occupation", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("216817ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "159674").build())
-                .mapping(new ConceptMapBuilder("136442ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(snomedCt, "106400003").build())
-                .mapping(new ConceptMapBuilder("136443ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(narrowerThan).ensureTerm(ampath, "6401").build())
                 .build());
 
         Concept marketVendor = install(new ConceptBuilder("162945AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -701,7 +697,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .conceptClass(finding)
                 .name("110889BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Self employed", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("123476BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Cuenta propia", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
-                .mapping(new ConceptMapBuilder("146531ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(snomedCt, "160906004").build())
                 .mapping(new ConceptMapBuilder("218493ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "161382").build())
                 .build());
 
@@ -711,7 +706,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("141041BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Cleaner", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .description("18322FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF", "An occupation. Someone who does cleaning.", Locale.ENGLISH)
                 .mapping(new ConceptMapBuilder("282763ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "164832").build())
-                .mapping(new ConceptMapBuilder("282762ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(snomedCt, "159756005").build())
                 .build());
 
         install(new ConceptBuilder(Concepts.MAIN_ACTIVITY)
@@ -749,8 +743,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Voodoo").build())
                 .mapping(new ConceptMapBuilder("21b83615-c9cb-4b93-a835-db85f473a26c")
                         .type(sameAs).ensureTerm(ciel, "162930").build())
-                .mapping(new ConceptMapBuilder("96576ffe-f61a-40e8-b9e1-9246fce7dd5f")
-                        .type(sameAs).ensureTerm(snomedCt, "44399006").build())
                 .build());
 
         Concept catholic = install(new ConceptBuilder("162931AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -763,8 +755,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Catholic").build())
                 .mapping(new ConceptMapBuilder("eda8d7a6-08de-4214-ba8b-6feedfd914c1")
                         .type(sameAs).ensureTerm(ciel, "162931").build())
-                .mapping(new ConceptMapBuilder("09f579a5-31fa-4282-accc-904ff7bc6f63")
-                        .type(sameAs).ensureTerm(snomedCt, "276120001").build())
                 .build());
 
         Concept baptist = install(new ConceptBuilder("1162932AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -777,8 +767,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Baptist").build())
                 .mapping(new ConceptMapBuilder("2b52c6ce-d16b-492d-a0fb-0782b277026f")
                         .type(sameAs).ensureTerm(ciel, "162932").build())
-                .mapping(new ConceptMapBuilder("4252ad9e-b29e-4deb-bd12-ebdf4923727a")
-                        .type(sameAs).ensureTerm(snomedCt, "32617004").build())
                 .build());
 
         Concept islam = install(new ConceptBuilder("162933AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -791,8 +779,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Islam").build())
                 .mapping(new ConceptMapBuilder("6c5a0151-b600-47e8-ab31-c4f46a009d3b")
                         .type(sameAs).ensureTerm(ciel, "162933").build())
-                .mapping(new ConceptMapBuilder("3a42c0ca-0052-434d-bd66-3a31af455012")
-                        .type(sameAs).ensureTerm(snomedCt, "271390004").build())
                 .build());
 
 
@@ -806,8 +792,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Pentecostal").build())
                 .mapping(new ConceptMapBuilder("3811e396-86e3-4fc6-a6f2-d1f24f4318b3")
                         .type(sameAs).ensureTerm(ciel, "162934").build())
-                .mapping(new ConceptMapBuilder("dbee5d5f-4915-45d4-b858-00b64ce88731")
-                        .type(sameAs).ensureTerm(snomedCt, "309862000").build())
                 .build());
 
         Concept adventist = install(new ConceptBuilder("162935AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -821,8 +805,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Seventh Day Adventist").build())
                 .mapping(new ConceptMapBuilder("b011c46f-0641-4fec-8e47-c5147daa9b92")
                         .type(sameAs).ensureTerm(ciel, "162935").build())
-                .mapping(new ConceptMapBuilder("37950a05-3d5a-4375-a676-5d7b9fa48092")
-                        .type(sameAs).ensureTerm(snomedCt, "298024007").build())
                 .build());
 
         Concept jehovahsWitness = install(new ConceptBuilder("162936AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -835,8 +817,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Jehovah's Witness").build())
                 .mapping(new ConceptMapBuilder("d98888d2-b834-4b21-a48b-14d83a798cef")
                         .type(sameAs).ensureTerm(ciel, "162936").build())
-                .mapping(new ConceptMapBuilder("66f53d55-44b1-4061-a8a1-82bf12f63fe0")
-                        .type(sameAs).ensureTerm(snomedCt, "276118004").build())
                 .build());
 
         Concept christian = install(new ConceptBuilder("163125AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -846,7 +826,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("b4f991f2-b860-43ff-b30a-c8a8bed9aafa", "Cristianismo (no católico)", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("136981BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Christianisme (non-catholique)", Locale.FRENCH, ConceptNameType.FULLY_SPECIFIED)
                 .name("136982BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Kretyen (ki pa Katolik)", locale_HAITI, ConceptNameType.FULLY_SPECIFIED)
-                .mapping(new ConceptMapBuilder("279209ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(narrowerThan).ensureTerm(snomedNp, "276116000").build())
                 .mapping(new ConceptMapBuilder("279210ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB").type(sameAs).ensureTerm(ciel, "163125").build())
                 .build());
 
@@ -856,7 +835,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("26a22975-e17e-4810-a5ab-97035e16cd16", "Protestant", Locale.ENGLISH, null)
                 .name("01ec6db8-555e-4bbd-9b1c-242a26dd5d52", "Protestante", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("c203918b-9b43-40db-9da6-c8bc9c99de36", "Protestant religion", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
-                .mapping(new ConceptMapBuilder("52af75c3-b411-4fdd-bc06-a9ec5d408f79").type(sameAs).ensureTerm(snomedCt, "298020003").build())
                 .mapping(new ConceptMapBuilder("111802dc-d00e-435f-b113-342186ef9f01").type(sameAs).ensureTerm(ciel, "165189").build())
                 .build());
 
@@ -867,7 +845,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("b18ce348-c427-4090-9973-a6076ed45eb0", "Metodista", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("dcd32b85-6989-4d46-bce6-9eaa6566dcea", "Methodist religion", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("29288dc2-10ec-4fce-8c2e-7a906e5d13f8", "Methodist church", Locale.ENGLISH, null)
-                .mapping(new ConceptMapBuilder("1e85a47d-9647-4f5f-b466-22b32a2cf59a").type(sameAs).ensureTerm(snomedCt, "28554003").build())
                 .mapping(new ConceptMapBuilder("471697dc-f025-4873-89fd-d0b2feb88fe2").type(sameAs).ensureTerm(ciel, "165190").build())
                 .build());
 
@@ -878,7 +855,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("017671e0-7791-44b2-a7d0-b6a33cd9b641", "Nazarino", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("a1213acc-4fe3-4344-8378-5b5ba73972a8", "Church of the Nazarine", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .mapping(new ConceptMapBuilder("8a363793-6e2c-4fea-90c8-ae466165e6dd").type(sameAs).ensureTerm(ciel, "165191").build())
-                .mapping(new ConceptMapBuilder("a3402f9a-b173-4f86-923e-7b1f3182f322").type(sameAs).ensureTerm(snomedCt, "23663006").build())
                 .build());
 
         Concept presbyterian = install(new ConceptBuilder("165192AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
@@ -888,7 +864,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                 .name("7ec3911e-05fb-43a5-85f0-d16f1547c56f", "Presbiteriana", locale_SPANISH, ConceptNameType.FULLY_SPECIFIED)
                 .name("a91eee1d-ac62-44e9-8763-281d72531ad8", "Presbyterian church", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .mapping(new ConceptMapBuilder("5e37800b-6c8d-4217-959a-a2f9a63947be").type(sameAs).ensureTerm(ciel, "165192").build())
-                .mapping(new ConceptMapBuilder("12b9e1de-1e7e-4207-b03a-225002aa448b").type(sameAs).ensureTerm(snomedCt, "70475005").build())
                 .build());
 
 
@@ -903,8 +878,6 @@ public class SocioEconomicConcepts extends VersionedPihConceptBundle {
                         .type(sameAs).ensureTerm(pih, "Religion").build())
                 .mapping(new ConceptMapBuilder("668e0a10-841c-42a4-a394-c706319bb341")
                         .type(sameAs).ensureTerm(ciel, "162929").build())
-                .mapping(new ConceptMapBuilder("47714808-2ffb-4ed9-986d-b0810c6ff4a0")
-                        .type(sameAs).ensureTerm(snomedCt, "160538000").build())
                 .answers(vodou, catholic, baptist, islam, pentecostal, adventist, jehovahsWitness, christian, protestant, methodist, nazarine, presbyterian, otherNonCoded)
                 .build());
 

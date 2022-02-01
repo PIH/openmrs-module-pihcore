@@ -108,8 +108,6 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                 .name("109016BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB", "Family history diagnosis", Locale.ENGLISH, ConceptNameType.FULLY_SPECIFIED)
                 .mapping(new ConceptMapBuilder("217715ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "160592").build())
-                .mapping(new ConceptMapBuilder("217715ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(snomedCt, "416471007").build())
                 .build());
 
         // CIEL:1560 (Family Member) is both a question and an answer. At PIH we have two existing concepts for this purpose.
@@ -153,8 +151,6 @@ public class ClinicalConsultationConcepts extends VersionedPihConceptBundle {
                         famHxComment)
                 .mapping(new ConceptMapBuilder("217716ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
                         .type(sameAs).ensureTerm(ciel, "160593").build())
-                .mapping(new ConceptMapBuilder("144705ABBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
-                        .type(sameAs).ensureTerm(snomedCt, "57177007").build())
                 .build());
 
     }

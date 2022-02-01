@@ -50,20 +50,8 @@ public abstract class VersionedPihConceptBundle extends VersionedMetadataBundle 
     protected ConceptMapType broaderThan;
 
     protected ConceptSource pih;
-    protected ConceptSource pihMalawi;
     protected ConceptSource ciel;
-    protected ConceptSource snomedCt;
-    protected ConceptSource snomedNp;
-    protected ConceptSource snomedMvp;
-    protected ConceptSource rxNorm;
-    protected ConceptSource imoProcedureIT;
-    protected ConceptSource imoProblemIT;
-    protected ConceptSource ampath;
     protected ConceptSource emrapi;
-    protected ConceptSource mdrtb;
-    protected ConceptSource icd10who;
-    protected ConceptSource loinc;
-    protected ConceptSource mirebalaisReport;
 
     @Override
     public void install() throws Exception {
@@ -107,20 +95,8 @@ public abstract class VersionedPihConceptBundle extends VersionedMetadataBundle 
         broaderThan = MetadataUtils.existing(ConceptMapType.class, ConceptMapTypes.BROADER_THAN);
 
         pih = MetadataUtils.existing(ConceptSource.class, ConceptSources.PIH);
-        pihMalawi = MetadataUtils.existing(ConceptSource.class, ConceptSources.PIH_MALAWI);
         ciel = MetadataUtils.existing(ConceptSource.class, ConceptSources.CIEL);
-        snomedCt = MetadataUtils.existing(ConceptSource.class, ConceptSources.SNOMED_CT);
-        snomedNp = MetadataUtils.existing(ConceptSource.class, ConceptSources.SNOMED_NP);
-        snomedMvp = MetadataUtils.existing(ConceptSource.class, ConceptSources.SNOMED_MVP);
-        rxNorm = MetadataUtils.existing(ConceptSource.class, ConceptSources.RX_NORM);
-        imoProcedureIT = MetadataUtils.existing(ConceptSource.class, ConceptSources.IMO_PROCEDURE_IT);
-        imoProblemIT = MetadataUtils.existing(ConceptSource.class, ConceptSources.IMO_PROBLEM_IT);
-        ampath = MetadataUtils.existing(ConceptSource.class, ConceptSources.AMPATH);
         emrapi = MetadataUtils.existing(ConceptSource.class, ConceptSources.EMRAPI_MODULE);
-        mdrtb = MetadataUtils.existing(ConceptSource.class, ConceptSources.MDRTB_MODULE);
-        icd10who = MetadataUtils.existing(ConceptSource.class, ConceptSources.ICD10);
-        loinc = MetadataUtils.existing(ConceptSource.class, ConceptSources.LOINC);
-        mirebalaisReport = MetadataUtils.existing(ConceptSource.class, ConceptSources.HUM_REPORTS_MODULE);
     }
 
 }
