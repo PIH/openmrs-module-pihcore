@@ -1005,9 +1005,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
                 boolean matchesComponent = (components == null || config.anyComponentEnabled(components));
                 boolean matchesCountry = (countries == null || countries.contains(config.getCountry().name()));
-                boolean matchesSite = ((countries == null && sites == null) || sites.contains(config.getSite()));
+                boolean matchesSite = (sites == null || sites.contains(config.getSite()));
 
-                if (matchesComponent && (matchesCountry || matchesSite)) {
+                if (matchesComponent && matchesCountry && matchesSite) {
                     if (category == ReportCategory.OVERVIEW) {
                         extensions.add(report(
                                 "mirebalaisreports.overview." + reportDescriptor.getKey(),
