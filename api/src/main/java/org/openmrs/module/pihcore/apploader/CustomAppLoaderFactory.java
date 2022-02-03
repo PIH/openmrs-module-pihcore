@@ -1005,7 +1005,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
                 boolean matchesComponent = (components == null || config.anyComponentEnabled(components));
                 boolean matchesCountry = (countries == null || countries.contains(config.getCountry().name()));
-                boolean matchesSite = (sites == null || sites.contains(config.getSite()));
+                boolean matchesSite = ((countries == null && sites == null) || sites.contains(config.getSite()));
 
                 if (matchesComponent && (matchesCountry || matchesSite)) {
                     if (category == ReportCategory.OVERVIEW) {
