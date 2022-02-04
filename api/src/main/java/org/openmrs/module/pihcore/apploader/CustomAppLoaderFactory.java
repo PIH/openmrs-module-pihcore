@@ -981,7 +981,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         // Next, iterate across all of the config-defined reports and add them in if enabled
-        // reports defined through Reporting Config (move to PIH Core at some point?)
+        // reports defined through Reporting Config
         for (ReportDescriptor reportDescriptor : ReportLoader.loadReportDescriptors()) {
             if (reportDescriptor.getConfig() != null) {
                 ReportCategory category = null;
@@ -1008,7 +1008,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 boolean matchesSite = (sites == null || sites.contains(config.getSite()));
 
                 if (matchesComponent && matchesCountry && matchesSite) {
-                    if (category == ReportCategory.OVERVIEW) {
+                    if (category == ReportCategory.OVERVIEW && enabledCategories.contains(ReportCategory.OVERVIEW)) {
                         extensions.add(report(
                                 "mirebalaisreports.overview." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
@@ -1021,7 +1021,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
                         );
                     }
-                    else if (category == ReportCategory.DAILY) {
+                    else if (category == ReportCategory.DAILY && enabledCategories.contains(ReportCategory.DAILY)) {
                         extensions.add(report(
                                 "mirebalaisreports.dailyReports." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
@@ -1034,7 +1034,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
                         );
                     }
-                    else if (category == ReportCategory.DATA_QUALITY) {
+                    else if (category == ReportCategory.DATA_QUALITY && enabledCategories.contains(ReportCategory.DATA_QUALITY)) {
                         extensions.add(report(
                                 "mirebalaisreports.dataQualityReports." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
@@ -1047,7 +1047,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
                         );
                     }
-                    else if (category == ReportCategory.MONITORING) {
+                    else if (category == ReportCategory.MONITORING && enabledCategories.contains(ReportCategory.MONITORING)) {
                         extensions.add(report(
                                 "mirebalaisreports.monitoring." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
@@ -1060,7 +1060,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "mirebalaisreports-" + reportDescriptor.getKey() + "-link")
                         );
                     }
-                    else if (category == ReportCategory.DATA_EXPORT) {
+                    else if (category == ReportCategory.DATA_EXPORT && enabledCategories.contains(ReportCategory.DATA_EXPORT)) {
                         extensions.add(report(
                                 "mirebalaisreports.dataExports." + reportDescriptor.getKey(),
                                 reportDescriptor.getName(),
