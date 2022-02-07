@@ -1897,7 +1897,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("obGyn.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                       PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OB_GYN_UUID),
                             and(patientIsFemale()))));
 
         }
