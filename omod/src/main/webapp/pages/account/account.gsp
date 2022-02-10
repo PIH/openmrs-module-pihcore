@@ -33,7 +33,7 @@
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("emr.app.systemAdministration.label")}", link: '${ui.pageLink("coreapps", "systemadministration/systemAdministration")}' },
         { label: "${ ui.message("emr.task.accountManagement.label")}" , link: '${ui.pageLink("pihcore", "account/manageAccounts")}'},
-        { label: "${ ui.message("emr.createAccount")}" }
+        { label: "${ createAccount ? ui.message("emr.createAccount") : ui.message("emr.editAccount")}" }
 
     ];
 </script>
@@ -86,6 +86,7 @@
             initialValue: (account.gender ?: 'M'), 
             options: genderOptions 
         ])}
+
 	</fieldset>
 	
 	<fieldset>
@@ -123,6 +124,18 @@
                 <input type="password" id="confirmPassword" name="confirmPassword" value="${ account.confirmPassword ?: '' }" autocomplete="off" />
                 ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "confirmPassword" ])}
             </p>
+
+            ${ ui.includeFragment("uicommons", "field/text", [
+                    label: ui.message("emr.person.email"),
+                    formFieldName: "email",
+                    initialValue: (account.email ?: '')
+            ])}
+
+            ${ ui.includeFragment("uicommons", "field/text", [
+                    label: ui.message("emr.person.phoneNumber"),
+                    formFieldName: "phoneNumber",
+                    initialValue: (account.phoneNumber ?: '')
+            ])}
 
             ${ ui.includeFragment("uicommons", "field/dropDown", [
                 label: ui.message("emr.user.privilegeLevel"), 
