@@ -1244,7 +1244,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.MANAGE_ACCOUNTS,
                 "coreapps.task.accountManagement.label",
                 "fas fa-fw fa-book",
-                "emr/account/manageAccounts.page",
+                "pihcore/account/manageAccounts.page",
                 1,
                 "App: coreapps.systemAdministration",
                 null)));
@@ -1327,7 +1327,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MY_ACCOUNT,
                 "emr.app.system.administration.myAccount.label",
                 "fas fa-fw fa-cog",
-                "emr/account/myAccount.page",
+                "pihcore/account/myAccount.page",
                 null, null)));
 
     }
