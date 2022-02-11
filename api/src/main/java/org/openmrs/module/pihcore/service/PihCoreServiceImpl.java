@@ -15,18 +15,24 @@ package org.openmrs.module.pihcore.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Person;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service for PIH Core
  */
-public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreService {
+public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreService, ApplicationContextAware {
 	
 	protected final Log log = LogFactory.getLog(this.getClass());
-	
+
+    private ApplicationContext applicationContext;
 	private PihCoreDAO dao;
 
     /**
@@ -35,6 +41,20 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public synchronized Long getNextRadiologyOrderNumberSeedSequenceValue() {
         return dao.getNextRadiologyOrderNumberSeedSequenceValue();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PihAccountDomainWrapper newPihAccountDomainWrapper(Person person) {
+        PihAccountDomainWrapper accountDomainWrapper = new PihAccountDomainWrapper();
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(accountDomainWrapper);
+        accountDomainWrapper.initializeWithPerson(person);
+        return accountDomainWrapper;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
     }
 
     public void setDao(PihCoreDAO dao) {

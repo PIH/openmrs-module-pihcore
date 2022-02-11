@@ -13,7 +13,9 @@
  */
 package org.openmrs.module.pihcore.service;
 
+import org.openmrs.Person;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -27,4 +29,8 @@ public interface PihCoreService extends OpenmrsService {
      */
     Long getNextRadiologyOrderNumberSeedSequenceValue();
 
+    /**
+     * @return a new bean instance of a PihAccountDomainWrapper
+     */
+    PihAccountDomainWrapper newPihAccountDomainWrapper(Person person);
 }

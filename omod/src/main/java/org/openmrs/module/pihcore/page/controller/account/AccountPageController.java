@@ -13,18 +13,22 @@
  */
 package org.openmrs.module.pihcore.page.controller.account;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.openmrs.Person;
-import org.openmrs.api.APIException;
+import org.openmrs.User;
 import org.openmrs.api.AdministrationService;
+import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
-import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.module.emrapi.account.AccountValidator;
+import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
+import org.openmrs.module.pihcore.service.PihCoreService;
 import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.ui.framework.annotation.BindParams;
 import org.openmrs.ui.framework.annotation.MethodParam;
@@ -35,31 +39,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public class AccountPageController {
 
     protected final Log log = LogFactory.getLog(getClass());
 
 
-    public AccountDomainWrapper getAccount(@RequestParam(value = "personId", required = false) Person person,
-                                           @SpringBean("accountService") AccountService accountService) {
-
-        AccountDomainWrapper account;
+    public PihAccountDomainWrapper getAccount(@RequestParam(value = "personId", required = false) Person person,
+                                              @SpringBean("pihCoreService") PihCoreService pihCoreService) {
 
         if (person == null) {
-            account = accountService.getAccountByPerson(new Person());
-        } else {
-            account = accountService.getAccountByPerson(person);
-            if (account == null)
-                throw new APIException("Failed to find user account matching person with id:" + person.getPersonId());
+            person = new Person();
         }
-
-        return account;
+        return pihCoreService.newPihAccountDomainWrapper(person);
     }
 
-    public void get(PageModel model, @MethodParam("getAccount") AccountDomainWrapper account,
+    public void get(PageModel model, @MethodParam("getAccount") PihAccountDomainWrapper account,
                     @SpringBean("accountService") AccountService accountService,
                     @SpringBean("adminService") AdministrationService administrationService,
                     @SpringBean("providerManagementService") ProviderManagementService providerManagementService) {
@@ -72,11 +69,12 @@ public class AccountPageController {
         model.addAttribute("providerRoles", providerManagementService.getAllProviderRoles(false));
     }
 
-    public String post(@MethodParam("getAccount") @BindParams AccountDomainWrapper account, BindingResult errors,
+    public String post(@MethodParam("getAccount") @BindParams PihAccountDomainWrapper account, BindingResult errors,
                        @RequestParam(value = "userEnabled", defaultValue = "false") boolean userEnabled,
                        @SpringBean("messageSource") MessageSource messageSource,
                        @SpringBean("messageSourceService") MessageSourceService messageSourceService,
                        @SpringBean("accountService") AccountService accountService,
+                       @SpringBean("userService") UserService userService,
                        @SpringBean("adminService") AdministrationService administrationService,
                        @SpringBean("providerManagementService") ProviderManagementService providerManagementService,
                        @SpringBean("accountValidator") AccountValidator accountValidator, PageModel model,
@@ -87,8 +85,22 @@ public class AccountPageController {
 
         accountValidator.validate(account, errors);
 
-        if (!errors.hasErrors()) {
+        String email = account.getEmail();
+        if (StringUtils.isNotBlank(email)) {
+            if (!EmailValidator.getInstance().isValid(email)) {
+                errors.rejectValue("email", "error.email.invalid");
+            }
+            else {
+                User existingUser = userService.getUserByUsernameOrEmail(email);
+                if (existingUser != null && !existingUser.equals(account.getUser())) {
+                    if (email.equalsIgnoreCase(existingUser.getEmail())) {
+                        errors.rejectValue("email", "emr.account.error.emailAlreadyInUse");
+                    }
+                }
+            }
+        }
 
+        if (!errors.hasErrors()) {
             try {
                 accountService.saveAccount(account);
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE,
