@@ -467,8 +467,8 @@ public class CustomAppLoaderConstants {
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
             Apps.ALLERGY_SUMMARY,
             Apps.MOST_RECENT_VITALS,
-            Apps.PATHOLOGY_SUMMARY,
             Apps.PROGRAMS_LIST,
+            Apps.PATHOLOGY_SUMMARY,
             Apps.PATIENT_DOCUMENTS,
             Apps.RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.MOST_RECENT_REGISTRATION,
