@@ -2427,15 +2427,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("HIV Consult Location")));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));
-
-        // TODO pull this out to clone existing main DASHBOARD_VISIT_INCLUDES
-        // this provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
-        extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.HIV_DASHBOARD_VISIT_INCLUDES,
-                "coreapps",
-                "patientdashboard/visitIncludes",
-                null,
-                PihEmrConfigConstants.PROGRAM_HIV_UUID + ".includeFragments",
-                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)));
     }
 
     private void enableHIVIntakeForm() {
@@ -3275,6 +3266,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             }
         }
         extensions.addAll(programExtensions);
+
+        // This provides the javascript & dialogs the backs the overall action buttons (to start/end visits, etc)
+        extensions.add(fragmentExtension(
+                "pih.extension.patientDashboard." + programKey + ".visitIncludes",
+                "coreapps",
+                "patientdashboard/visitIncludes",
+                null,
+                programUuid + ".includeFragments",
+                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)
+        ));
     }
 
     private void enableExportPatients() {
