@@ -1300,6 +1300,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "App: coreapps.systemAdministration",
                 null)));
 
+        apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.EMAIL_CONFIG_ADMIN,
+                "pih.app.admin.email.config",
+                "fas fa-fw fa-envelope",
+                "pihcore/admin/emailTest.page",
+                8,
+                "App: coreapps.systemAdministration",
+                null)));
     }
 
     private void enableManagePrinters() {

@@ -107,6 +107,7 @@ public class CustomAppLoaderConstants {
         public static final String SYSTEM_CONFIGURATION = "pih.app.admin.configuration";
         public static final String STATUS_DATA_VIEW = "pih.app.admin.statusData.view";
         public static final String STATUS_DATA_ADMIN = "pih.app.admin.statusData.admin";
+        public static final String EMAIL_CONFIG_ADMIN = "pih.app.admin.email.admin";
 
         public static final String ADDITIONAL_IDENTIFIERS = "registrationapp.additionalIdentifiers";
         public static final String MOST_RECENT_VITALS = "coreapps.mostRecentVitals";
