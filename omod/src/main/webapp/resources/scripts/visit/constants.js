@@ -221,6 +221,9 @@ angular.module('constants', [])
         rotavirusVaccination: {
             uuid: "83531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
+        pneumococcalVaccination: {
+            uuid: "82213AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         measlesRubellaVaccination: {
             uuid: "162586AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
