@@ -10,14 +10,14 @@ import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.coreapps.CoreAppsConstants;
-import org.openmrs.module.pihcore.apploader.apps.GraphFactory;
-import org.openmrs.module.pihcore.apploader.apps.patientregistration.PatientRegistrationApp;
 import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
+import org.openmrs.module.pihcore.apploader.apps.GraphFactory;
+import org.openmrs.module.pihcore.apploader.apps.patientregistration.PatientRegistrationApp;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -203,6 +203,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visitId={{visit.visitId}}";
         }
         patientEncountersPageUrl="/pihcore/visit/visit.page?patient={{patient.uuid}}#/encounterList";
+
+        extensions.add(overallAction(CustomAppLoaderConstants.Extensions.ENCOUNTER_LIST_OVERALL_ACTION,
+                "pihcore.encounterList",
+                "fas fa-fw fa-file",
+                "link",
+                "pihcore/patient/encounterList.page?patient={{patient.uuid}}",
+                null,
+                null));
 
         if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
             enableVisitManagement();

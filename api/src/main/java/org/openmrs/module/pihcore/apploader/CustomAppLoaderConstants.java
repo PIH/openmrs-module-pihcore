@@ -211,6 +211,7 @@ public class CustomAppLoaderConstants {
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
 
+        public static final String ENCOUNTER_LIST_OVERALL_ACTION = "pihcore.encounterList";
         public static final String REQUEST_PAPER_RECORD_OVERALL_ACTION = "paperrecord.requestPaperRecord";
         public static final String REQUEST_APPOINTMENT_OVERALL_ACTION = "appointmentschedulingui.requestAppointment";
         public static final String SCHEDULE_APPOINTMENT_OVERALL_ACTION = "appointmentschedulingui.scheduleAppointment";
