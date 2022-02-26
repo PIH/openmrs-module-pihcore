@@ -2,6 +2,7 @@
 <%
     ui.includeFragment("appui", "standardEmrIncludes")
     ui.includeCss("pihcore", "login.css")
+    ui.includeJavascript("pihcore", "account/login.js")
 %>
 
 <!DOCTYPE html>
@@ -97,9 +98,13 @@ ${ ui.includeFragment("appui", "header") }
         <h3>${ ui.message("mirebalais.login.cannotLogin") }</h3>
     </div>
     <div class="dialog-content">
-        <p class="dialog-instructions">${ ui.message("mirebalais.login.cannotLoginInstructions") }</p>
-
-        <button class="confirm">${ ui.message("coreapps.okay") }</button>
+        <p class="dialog-instructions">${ ui.message("mirebalais.login.usernameOrEmail") }</p>
+        <p id="password-reset-message" style="padding-bottom:10px; color:red;"></p>
+        <p style="padding-bottom: 20px;">
+            <input type="text" id="password-reset-username" size="35" autocomplete="off" data-lpignore="true"/>
+        </p>
+        <button class="cancel">${ ui.message("emr.cancel") }</button>
+        <button class="confirm">${ ui.message("mirebalais.login.requestPasswordReset") }</button>
     </div>
 </div>
 
@@ -133,7 +138,17 @@ ${ ui.includeFragment("appui", "header") }
             selector: '#cannot-login-popup',
             actions: {
                 confirm: function() {
-                    cannotLoginController.close();
+                    const username = jq("#password-reset-username").val();
+                    if (!isUsernameValid(username)) {
+                        jq("#password-reset-message").html('${ ui.message("mirebalais.login.error.invalidUsername") }');
+                    }
+                    else {
+                        jq("#password-reset-message").html('');
+                        jq.post(emr.fragmentActionLink("pihcore", "account/resetPassword", "reset", { "username": username }));
+                        emr.successMessage('${ ui.message("mirebalais.login.requestPasswordResponse") }');
+                        cannotLoginController.close();
+                        jq("#password-reset-username").val("");
+                    }
                 }
             }
         });
