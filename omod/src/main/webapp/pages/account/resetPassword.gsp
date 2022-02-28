@@ -1,4 +1,3 @@
-<!-- This is the login page -->
 <%
     ui.includeFragment("appui", "standardEmrIncludes")
     ui.includeCss("pihcore", "account.css")
