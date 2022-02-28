@@ -361,6 +361,7 @@ public class CustomAppLoaderConstants {
             Apps.FEATURE_TOGGLES);
 
     public static final List<String> OVERALL_ACTIONS_ORDER = Arrays.asList(
+            Extensions.ENCOUNTER_LIST_OVERALL_ACTION,
             Extensions.CREATE_VISIT_OVERALL_ACTION,
             Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
             Extensions.VIEW_GROWTH_CHART_ACTION,
