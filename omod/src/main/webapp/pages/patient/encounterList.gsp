@@ -123,17 +123,65 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <td colspan="5">${ ui.message("emr.none") }</td>
         </tr>
     <% } %>
-    <% encounters.each { e -> %>
+    <% encounters.each { e ->
+
+        def pageLink;
+
+        if (e.visit) {
+            pageLink = ui.pageLink("pihcore", "visit/visit", [
+                "patient": e.patient.uuid,
+                "visit": e.visit,
+                "encounter": e.uuid ]) //+ "#/encounterOverview"
+        }
+
+        %>
         <tr id="encounter-${ e.encounterId }">
-            <td class="date-column">${ ui.format(e.encounterDatetime) }</td>
-            <td class="encounterTypeColumn">${ ui.format(e.encounterType) }</td>
-            <td>
-                <% e.encounterProviders.eachWithIndex { ep, index -> %>
-                    ${ ui.format(ep.provider) }${ e.encounterProviders.size() - index > 1 ? "<br/>" : ""}
+            <td class="date-column">
+                <% if (e.visit) { %>
+                    <a href="${pageLink}">
+                <% } %>
+                    ${ ui.format(e.encounterDatetime) }</td>
+                <% if (e.visit) { %>
+                    </a>
+                <% } %>
+            <td class="encounterTypeColumn">
+                <% if (e.visit) { %>
+                    <a href="${pageLink}">
+                <% } %>
+                    ${ ui.format(e.encounterType) }
+                <% if (e.visit) { %>
+                    </a>
                 <% } %>
             </td>
-            <td>${ ui.format(e.location) }</td>
-            <td class="date-column">${ ui.format(e.dateCreated) }</td>
+            <td>
+                <% if (e.visit) { %>
+                    <a href="${pageLink}">
+                <% } %>
+                    <% e.encounterProviders.eachWithIndex { ep, index -> %>
+                        ${ ui.format(ep.provider) }${ e.encounterProviders.size() - index > 1 ? "<br/>" : ""}
+                    <% } %>
+                <% if (e.visit) { %>
+                    </a>
+                <% } %>
+            </td>
+            <td>
+                <% if (e.visit) { %>
+                    <a href="${pageLink}">
+                <% } %>
+                    ${ ui.format(e.location) }
+                <% if (e.visit) { %>
+                    </a>
+                <% } %>
+            </td>
+            <td class="date-column">
+                <% if (e.visit) { %>
+                    <a href="${pageLink}">
+                <% } %>
+                    ${ ui.format(e.dateCreated) }
+                <% if (e.visit) { %>
+                    </a>
+                <% } %>
+            </td>
         </tr>
     <% } %>
     </tbody>
