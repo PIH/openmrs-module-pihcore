@@ -135,6 +135,7 @@ public class ConfigurationSetup {
         MetadataSharingSetup.setMetadataSharingResolvers();
         PrinterSetup.registerPrintHandlers(printerService);
         setupCommCareUser();
+        UserSetup.registerUsers();
         removeOldPrivileges(); // TODO: This can likely be removed altogether at this point, or moved to liquibase
         ReportSetup.cleanupOldReports(); // TODO: could move this to liquibase or to a fixed scheduled task
         initializerMessageSource.addFallbackLanguage("ht", "fr");
