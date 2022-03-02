@@ -17,12 +17,18 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
            document.location.href = '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}';
        });
 
+      jq(".encounter-row").click(function() {
+        if (jq(this).data("href")) {
+          document.location.href = jq(this).data("href");
+        }
+      });
+
         <% if (encounters.size() > 0) { %>
 
             // Get all of the unique encounter types, ordered alphabetically, that are present in the list, and add to select list filter
             let encTypes = [];
             jq(".encounterTypeColumn").each(function() {
-                encTypes.push(this.innerHTML);
+                encTypes.push(this.innerHTML.trim());
             });
             encTypes.sort();
             let lastType = null;
@@ -75,7 +81,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         jq("#encounter-type-filter").change(function() {
            let typeName = jq(this).val();
            if (typeName !== '') {
-               typeName = '^' + typeName + '\$'; // Regex to ensure exact match (eg. "Admission" should not return "COVID-19 Admission")
+               typeName = '^(\\s*)' + typeName + '(\\s*)\$'; // Regex to ensure exact match (eg. "Admission" should not return "COVID-19 Admission")
            }
            // https://legacy.datatables.net/api
            // First parameter is regex on encounter type, to ensure only exact match is filtered
@@ -130,57 +136,29 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         if (e.visit) {
             pageLink = ui.pageLink("pihcore", "visit/visit", [
                 "patient": e.patient.uuid,
-                "visit": e.visit,
-                "encounter": e.uuid ]) //+ "#/encounterOverview"
+                "visit": e.visit.uuid,
+                "encounter": e.uuid ]) + "#/encounterOverview"
         }
 
         %>
-        <tr id="encounter-${ e.encounterId }">
+        <tr id="encounter-${ e.encounterId }" class="encounter-row" data-href="${pageLink}">
             <td class="date-column">
-                <% if (e.visit) { %>
-                    <a href="${pageLink}">
-                <% } %>
-                    ${ ui.format(e.encounterDatetime) }</td>
-                <% if (e.visit) { %>
-                    </a>
-                <% } %>
+                ${ ui.format(e.encounterDatetime) }
+            </td>
+
             <td class="encounterTypeColumn">
-                <% if (e.visit) { %>
-                    <a href="${pageLink}">
-                <% } %>
-                    ${ ui.format(e.encounterType) }
-                <% if (e.visit) { %>
-                    </a>
+                ${ ui.format(e.encounterType) }
+            </td>
+            <td>
+                <% e.encounterProviders.eachWithIndex { ep, index -> %>
+                    ${ ui.format(ep.provider) }${ e.encounterProviders.size() - index > 1 ? "<br/>" : ""}
                 <% } %>
             </td>
             <td>
-                <% if (e.visit) { %>
-                    <a href="${pageLink}">
-                <% } %>
-                    <% e.encounterProviders.eachWithIndex { ep, index -> %>
-                        ${ ui.format(ep.provider) }${ e.encounterProviders.size() - index > 1 ? "<br/>" : ""}
-                    <% } %>
-                <% if (e.visit) { %>
-                    </a>
-                <% } %>
-            </td>
-            <td>
-                <% if (e.visit) { %>
-                    <a href="${pageLink}">
-                <% } %>
-                    ${ ui.format(e.location) }
-                <% if (e.visit) { %>
-                    </a>
-                <% } %>
+                ${ ui.format(e.location) }
             </td>
             <td class="date-column">
-                <% if (e.visit) { %>
-                    <a href="${pageLink}">
-                <% } %>
-                    ${ ui.format(e.dateCreated) }
-                <% if (e.visit) { %>
-                    </a>
-                <% } %>
+                ${ ui.format(e.dateCreated) }
             </td>
         </tr>
     <% } %>
