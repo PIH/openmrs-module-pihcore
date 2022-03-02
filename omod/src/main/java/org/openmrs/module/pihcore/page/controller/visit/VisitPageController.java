@@ -30,7 +30,8 @@ public class VisitPageController {
                     @RequestParam(required = false, value = "encounter") Encounter enc,
                     @RequestParam(required = false, value = "encounterType") String encounterTypeUuid,
                     @RequestParam(required = false, value = "encounterId") Encounter encounterById,  // passed by the htmformentryui module after form submission creates new encounter (really should be "encounter" for consistency)
-                    @RequestParam(required = false, value = "goToNextSection") String goToNextSection,
+                    @RequestParam(required = false, value ="currentSection") String currentSection,
+                    @RequestParam(required = false, value = "goToNext") String goToNext,
 					@SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties,
                     UiSessionContext uiSessionContext,
                     PageModel model) {
@@ -71,7 +72,8 @@ public class VisitPageController {
         model.addAttribute("locale", uiSessionContext.getLocale().getLanguage());
         model.addAttribute("country", config.getCountry().toString().toLowerCase());
         model.addAttribute("site", config.getSite().toString().toLowerCase());
-        model.addAttribute("goToNextSection", goToNextSection);
+        model.addAttribute("goToNext", goToNext);
+        model.addAttribute("currentSection", currentSection);
 		model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
     }
 

@@ -165,5 +165,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     </tbody>
 </table>
 
-<br/>
-<input id="return-button" type="button" value="${ ui.message("pihcore.encounterList.return") }"/>
+<div>
+    <input id="return-button" type="button" class="cancel" value="${ ui.message("pihcore.encounterList.return") }"/>
+</div>
+
+

@@ -23,9 +23,14 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             .state("visitList", {
                 url: "/visitList",
                 templateUrl: "templates/visitList.page"
-            }).state("encounterList", {
+            })
+            .state("encounterList", {
               url: "/encounterList",
               templateUrl: "templates/encounters/encounterList.page"
+            })
+            .state("encounterOverview", {
+              url: "/encounterOverview",
+              templateUrl: "templates/encounters/encounterOverview.page"
             })
             .state("print", {
                 url: "/print",
@@ -231,8 +236,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
     }])
 
-    .directive("encounterSection", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout",
-        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce, $timeout) {
+    .directive("encounterSection", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout", "$state",
+        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce, $timeout, $state) {
             return {
                 restrict: "E",
                 scope: {
@@ -292,7 +297,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             visit: $scope.visit,
                             encounter: $scope.encounter,
                             patient: $scope.visit.patient,
-                            returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid + "&encounter=" + $scope.encounter.uuid)
+                            returnUrl: window.encodeURIComponent(window.location.pathname
+                              + "?visit=" + $scope.visit.uuid
+                              + "&encounter=" + $scope.encounter.uuid
+                              + "&currentSection=" + $scope.section.id
+                              + "#" + $state.current.url)
                         });
 
                         emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
@@ -499,16 +508,16 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
+        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
-                 locale, currentSection, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
+                 locale, currentSection,goToNext, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
           const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
 
-            // if we've got a "currentSection", it means we are in the "Next" workflow and should immediately redirect to the next section
-            if (currentSection && encounterUuid) {
+            // we are in the "Next" workflow and should immediately redirect to the next section
+            if (goToNext && encounterUuid) {
                 goToNextSection(currentSection, patientUuid, encounterUuid, visitUuid);
             }
             else {
@@ -558,9 +567,9 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                         var redirectToSectionIdx = 0;
 
-                        // if current section is the "encounter-info" section, we just want to jump to first "real" section (idx = 0)
+                        // if current section is null, we just want to jump to first "real" section (idx = 0)
                         // otherwise find the current section and add one
-                        if (currentSection != "encounter-info") {
+                        if (currentSection) {
                             i = 0;
                             while (i < sections.length && sections[i].id != currentSection) {
                                 i++;
@@ -584,7 +593,12 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 patient: {
                                     uuid: patientUuid
                                 },
-                                returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + visitUuid + "&encounter=" + encounterUuid)
+                                returnUrl: window.encodeURIComponent(
+                                  window.location.pathname
+                                  + "?visit=" + visitUuid
+                                  + "&encounter=" + encounterUuid
+                                  + "&currentSection=" + sections[redirectToSectionIdx].id
+                                  + "#" + $state.current.url)
                             });
 
                             emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
@@ -713,7 +727,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         visit: $scope.visit,
                         encounter: encounter,
                         breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
-                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid
+                        returnUrl: encodeURIComponent(
+                          window.location.pathname
+                          + "?visit=" + $scope.visit.uuid
+                          + "#" + $state.current.url)
                     });
                     emr.navigateTo({applicationUrl: url});
                 }
@@ -727,7 +744,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         visit: $scope.visit,
                         encounter: encounter,
                         breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
-                        returnUrl: "/" + OPENMRS_CONTEXT_PATH + "/pihcore/visit/visit.page?visit=" + $scope.visit.uuid
+                        returnUrl: encodeURIComponent(
+                            window.location.pathname
+                            + "?visit=" + $scope.visit.uuid
+                             + "#" + $state.current.url)
                     });
                     emr.navigateTo({applicationUrl: url});
                 }
@@ -900,7 +920,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                   returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH
                     + "/pihcore/visit/visit.page?encounterType=" + encounter.encounterType.uuid
                     + "&patient=" + encounter.patient.uuid
-                    + "#/encounterList")
+                    + "#" + $state.current.url)
                 });
                 emr.navigateTo({applicationUrl: url});
               }
@@ -996,4 +1016,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 window.history.back();
             };
 
+            $scope.returnToEncounterList = function() {
+              const encounterListUrl = "/pihcore/patient/encounterList.page?patient={{patient}}";
+              const url = Handlebars.compile(encounterListUrl)({
+                patient: $scope.visit.patient.uuid,
+              });
+              emr.navigateTo({applicationUrl: url});
+            };
         }]);
