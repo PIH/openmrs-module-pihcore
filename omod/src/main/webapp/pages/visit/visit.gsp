@@ -81,7 +81,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             .value('suppressActions', ${ suppressActions ? suppressActions : false})
             .value('encounterUuid', ${ encounter?.uuid ? "'" + encounter.uuid + "'" : null})
             .value('locale', '${ locale }')
-            .value('currentSection', ${ goToNextSection ? "'" + goToNextSection + "'" : null})
+            .value('currentSection', ${ currentSection ? "'" + currentSection + "'" : null})
+            .value('goToNext', ${ goToNext ? true : false})
             .value('country', '${ country }')
             .value('site', '${ site }');
     angular.bootstrap("#visit-app", [ "visit" ]);
