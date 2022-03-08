@@ -131,13 +131,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     <% } %>
     <% encounters.each { e ->
 
-        def pageLink;
+        def pageLink
 
         if (e.visit) {
             pageLink = ui.pageLink("pihcore", "visit/visit", [
                 "patient": e.patient.uuid,
                 "visit": e.visit.uuid,
-                "encounter": e.uuid ]) + "#/encounterOverview"
+                "encounter": e.uuid,
+                "initialRouterState": "encounterOverview"])
         }
 
         %>
