@@ -83,6 +83,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             .value('locale', '${ locale }')
             .value('currentSection', ${ currentSection ? "'" + currentSection + "'" : null})
             .value('goToNext', ${ goToNext ? true : false})
+            .value('initialRouterState', ${initialRouterState ? "'" + initialRouterState + "'" : null})
             .value('country', '${ country }')
             .value('site', '${ site }');
     angular.bootstrap("#visit-app", [ "visit" ]);

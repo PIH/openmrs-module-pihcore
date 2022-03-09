@@ -236,8 +236,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
     }])
 
-    .directive("encounterSection", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout", "$state",
-        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce, $timeout, $state) {
+    .directive("encounterSection", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout", "initialRouterState",
+        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce, $timeout, initialRouterState) {
             return {
                 restrict: "E",
                 scope: {
@@ -301,7 +301,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                               + "?visit=" + $scope.visit.uuid
                               + "&encounter=" + $scope.encounter.uuid
                               + "&currentSection=" + $scope.section.id
-                              + "#" + $state.current.url)
+                              +  (initialRouterState ? "&initialRouterState=" + initialRouterState : ''))
                         });
 
                         emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
@@ -508,10 +508,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
+        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
-                 locale, currentSection,goToNext, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
+                 locale, currentSection,goToNext, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
           const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
@@ -522,7 +522,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
             else {
                 // otherwise do standard loading
-               loadPage();
+               loadPage(initialRouterState);
             }
 
             function loadPage(state) {
@@ -598,13 +598,13 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                   + "?visit=" + visitUuid
                                   + "&encounter=" + encounterUuid
                                   + "&currentSection=" + sections[redirectToSectionIdx].id
-                                  + "#" + $state.current.url)
+                                  +  (initialRouterState ? "&initialRouterState=" + initialRouterState : ''))
                             });
 
                             emr.navigateTo({ applicationUrl: (url.indexOf("/") != 0 ? '/' : '') + url });
                         }
                         else {
-                            // if we don't find an editurl, just open the page, passing in the id of the next section
+                            // if we don't find an editurl, just open the page, passing in the id of the next section (which represents the router state to transition to, currently used for vaccines)
                             if (redirectToSectionIdx < sections.length) {
                                 loadPage(sections[redirectToSectionIdx].id);
                             }
@@ -730,7 +730,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         returnUrl: encodeURIComponent(
                           window.location.pathname
                           + "?visit=" + $scope.visit.uuid
-                          + "#" + $state.current.url)
+                          +  (initialRouterState ? "&initialRouterState=" + initialRouterState : ''))
                     });
                     emr.navigateTo({applicationUrl: url});
                 }
@@ -747,7 +747,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         returnUrl: encodeURIComponent(
                             window.location.pathname
                             + "?visit=" + $scope.visit.uuid
-                             + "#" + $state.current.url)
+                          +  (initialRouterState ? "&initialRouterState=" + initialRouterState : ''))
                     });
                     emr.navigateTo({applicationUrl: url});
                 }
@@ -920,7 +920,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                   returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH
                     + "/pihcore/visit/visit.page?encounterType=" + encounter.encounterType.uuid
                     + "&patient=" + encounter.patient.uuid
-                    + "#" + $state.current.url)
+                    (initialRouterState ? "&initialRouterState=" + initialRouterState : ''))
                 });
                 emr.navigateTo({applicationUrl: url});
               }
