@@ -97,6 +97,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     .date-column {
         width: 125px;
     }
+    .link {
+        cursor:pointer;
+        color:blue;
+        text-decoration:underline;
+    }
+    .pointer {
+        cursor:pointer;
+    }
     #encounter-filters {
         padding: 10px;
     }
@@ -142,12 +150,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         }
 
         %>
-        <tr id="encounter-${ e.encounterId }" class="encounter-row" data-href="${pageLink}">
+        <tr id="encounter-${ e.encounterId }" class="encounter-row${pageLink ? ' pointer' :''}" data-href="${pageLink}">
             <td class="date-column">
                 ${ ui.format(e.encounterDatetime) }
             </td>
 
-            <td class="encounterTypeColumn">
+            <td class="encounterTypeColumn${pageLink ? ' link' :''}">
                 ${ ui.format(e.encounterType) }
             </td>
             <td>
