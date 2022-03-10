@@ -3290,7 +3290,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "patientdashboard/visitIncludes",
                 null,
                 programUuid + ".includeFragments",
-                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl)
+                map("patientVisitsPage", patientVisitsPageWithSpecificVisitUrl,
+                        "visitType", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID)
         ));
     }
 
