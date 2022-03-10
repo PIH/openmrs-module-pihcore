@@ -140,12 +140,12 @@ ${ ui.includeFragment("appui", "header") }
                 confirm: function() {
                     const username = jq("#password-reset-username").val();
                     if (!isUsernameValid(username)) {
-                        jq("#password-reset-message").html('${ ui.message("mirebalais.login.error.invalidUsername") }');
+                        jq("#password-reset-message").html('${ ui.escapeJs(ui.encodeHtmlContent(ui.message("mirebalais.login.error.invalidUsername"))) }');
                     }
                     else {
                         jq("#password-reset-message").html('');
                         jq.post(emr.fragmentActionLink("pihcore", "account/resetPassword", "reset", { "username": username }));
-                        emr.successMessage('${ ui.message("mirebalais.login.requestPasswordResponse") }');
+                        emr.successMessage('${ ui.escapeJs(ui.encodeHtmlContent(ui.message("mirebalais.login.requestPasswordResponse"))) }');
                         cannotLoginController.close();
                         jq("#password-reset-username").val("");
                     }
