@@ -11,9 +11,13 @@
         <% encounters.each{encounter -> %>
             <div>
                 <span class="encounter-date">
-                    <a class="visit-link" href="${ ui.urlBind("/" + contextPath + encounterTypeToUrlMap.get(encounter.encounterType), [ "patient.uuid": patient.id, "visit.uuid": encounter.visit.uuid ]) }">
+                    <% if (encounter.visit) { %>
+                        <a class="visit-link" href="${ ui.urlBind("/" + contextPath + encounterTypeToUrlMap.get(encounter.encounterType), [ "patient.uuid": patient.id, "visit.uuid": encounter.visit.uuid ]) }">
+                            ${ui.formatDatePretty(encounter.encounterDatetime)}
+                        </a>
+                    <% } else { %>
                         ${ui.formatDatePretty(encounter.encounterDatetime)}
-                    </a>
+                    <% } %>
                 </span>
                 <div class="tag">${ui.format(encounter.location)}</div>
             </div>
