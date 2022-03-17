@@ -81,6 +81,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         jq("#encounter-type-filter").change(function() {
            let typeName = jq(this).val();
            if (typeName !== '') {
+               typeName = typeName.replace("\\(", "\\\\(");
+               typeName = typeName.replace("\\)", "\\\\)");
                typeName = '^(\\s*)' + typeName + '(\\s*)\$'; // Regex to ensure exact match (eg. "Admission" should not return "COVID-19 Admission")
            }
            // https://legacy.datatables.net/api
@@ -97,7 +99,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     .date-column {
         width: 125px;
     }
-    .link {
+    .encounter-link {
         cursor:pointer;
         color:blue;
         text-decoration:underline;
@@ -155,7 +157,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 ${ ui.format(e.encounterDatetime) }
             </td>
 
-            <td class="encounterTypeColumn${pageLink ? ' link' :''}">
+            <td class="encounterTypeColumn${pageLink ? ' encounter-link' :''}">
                 ${ ui.format(e.encounterType) }
             </td>
             <td>
