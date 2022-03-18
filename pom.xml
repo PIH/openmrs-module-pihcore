@@ -285,7 +285,7 @@
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>htmlformentry-api-2.4</artifactId>
+            <artifactId>htmlformentry-api-2.3</artifactId>
             <version>${htmlformentryVersion}</version>
             <scope>provided</scope>
         </dependency>
