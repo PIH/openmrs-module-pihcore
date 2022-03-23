@@ -19,7 +19,7 @@ public class EncounterListPageController {
 
     public void get(PageModel model, UiUtils ui,
                       @InjectBeans PatientDomainWrapper patientDomainWrapper,
-                      @RequestParam(value = "patient") Patient patient,
+                      @RequestParam(value = "patientId") Patient patient,
                       @SpringBean("encounterService") EncounterService encounterService) throws IOException {
 
         // Get all of the encounters for the patient

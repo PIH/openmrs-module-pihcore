@@ -203,7 +203,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "pihcore.encounterList",
                     "fas fa-fw fa-file",
                     "link",
-                    "pihcore/patient/encounterList.page?patient={{patient.uuid}}",
+                    "pihcore/patient/encounterList.page?patientId={{patient.uuid}}",
                     null,
                     null));
 

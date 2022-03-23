@@ -1017,7 +1017,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             };
 
             $scope.returnToEncounterList = function() {
-              const encounterListUrl = "/pihcore/patient/encounterList.page?patient={{patient}}";
+              const encounterListUrl = "/pihcore/patient/encounterList.page?patientId={{patient}}";
               const url = Handlebars.compile(encounterListUrl)({
                 patient: $scope.visit.patient.uuid,
               });

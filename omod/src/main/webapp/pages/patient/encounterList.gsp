@@ -1,6 +1,15 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
+
+    // hack, hardcode what encounter types use the simple view
+    def encounterTypesRenderedWithSimpleView = [
+            '55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b',     // Check-in (though likely never could occur outside of visit?)
+            '4d77916a-0620-11e5-a6c0-1697f925ec7b',     // Laboratory Results
+            '4fb47712-34a6-40d2-8ed3-e153abbd25b7',     // Vitals (though likely never could occur outside of visit?)
+            'e91a4139-e0e7-447f-a5dd-c4f3b92d27c9',     // Rehab (though likely never could occur outside of visit?)
+            '1545d7ff-60f1-485e-9c95-5740b8e6634b'      // Death Certificate
+    ]
 %>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
@@ -9,7 +18,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.escapeJs(ui.format(patient.patient)) }" , link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'},
-        { label: "${ ui.message("pihcore.encounterList") }" , link: '${ui.pageLink("pihcore", "patient/encounterList", ["patient": patient.id])}'}
+        { label: "${ ui.message("pihcore.encounterList") }" , link: '${ui.pageLink("pihcore", "patient/encounterList", ["patientId": patient.id])}'}
     ];
 
     jq(document).ready(function() {
@@ -149,6 +158,15 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 "visit": e.visit.uuid,
                 "encounter": e.uuid,
                 "initialRouterState": "encounterOverview"])
+        }
+        // the assumption here is that if there's an associated form, it's an HTML Form... once we start adopting O3/Ampath forms this may no longer be valid
+        else if (e.form) {
+            def uiType = encounterTypesRenderedWithSimpleView.contains(e.encounterType.uuid) ? 'Simple' : 'Standard';
+            pageLink = ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWith" + uiType + "Ui", [
+                    "patientId": e.patient.uuid,
+                    "encounterId": e.uuid,
+                    "returnProvider": "pihcore",
+                    "returnPage": "patient/encounterList"])
         }
 
         %>
