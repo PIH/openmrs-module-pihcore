@@ -45,19 +45,41 @@
 <link href="/${ contextPath }/moduleResources/htmlformentry/orderWidget.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="/${ contextPath }/moduleResources/htmlformentry/orderWidget.js"></script>
 
+
 <script type="text/javascript">
-    var breadcrumbsOverview = [
+
+  // breadcrumbs for the enconuter overview (view)
+  <% if (initialRouterState == 'encounterOverview') { %>
+      var breadcrumbsOverview = [
+        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+        { label: "${ ui.escapeJs(patient.formattedName) }", link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.uuid ] ) }'},
+        { label: "${ ui.message("pihcore.encounterList") }" , link: '${ui.pageLink("pihcore", "patient/encounterList", ["patientId": patient.id])}'},
+        { label: "${ ui.format(encounter.encounterType)}" }
+      ];
+
+      var breadcrumbOverride = [
+        { label: "${ ui.escapeJs(patient.formattedName) }", link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.uuid ] ) }'},
+        { label: "${ ui.message("pihcore.encounterList") }" , link: '${ui.pageLink("pihcore", "patient/encounterList", ["patientId": patient.id])}'},
+        { label: "${ ui.format(encounter.encounterType) }", link: "${visit ? ui.escapeJs(ui.pageLink("pihcore", "visit/visit", ["visit":visit.uuid, "initialRouterState": initialRouterState, "encounter": encounter.uuid ])) : ''}" }
+      ];
+
+  // breadcrumbs for the standard view
+  <% } else { %>
+      var breadcrumbsOverview = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.escapeJs(patient.formattedName) }", link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.uuid ] ) }'},
         { label: "${ui.message("pihcore.visitNote.Visit")}" }
-    ];
+      ];
+
+      var breadcrumbOverride = [
+        { label: "${ ui.escapeJs(patient.formattedName) }", link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.uuid ] ) }'},
+        { label: "${ui.message("pihcore.visitNote.Visit")}", link: "${visit ? ui.escapeJs(ui.pageLink("pihcore", "visit/visit", ["visit":visit.uuid, "initialRouterState": initialRouterState])) : ''}" }
+      ];
+
+  <% } %>
+
 
     var breadcrumbs = breadcrumbsOverview;
-
-    var breadcrumbOverride = [
-        { label: "${ ui.escapeJs(patient.formattedName) }", link: '${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: patient.patient.uuid ] ) }'},
-        { label: "${ui.message("pihcore.visitNote.Visit")}", link: "${visit ? ui.escapeJs(ui.pageLink("pihcore", "visit/visit", [visit:visit.uuid])) : ''}" }
-    ];
 
     emr.loadGlobalProperties(["order.drugRoutesConceptUuid", "order.drugDosingUnitsConceptUuid", "order.drugDispensingUnitsConceptUuid",
         "order.durationUnitsConceptUuid", "order.testSpecimenSourcesConceptUuid"]);

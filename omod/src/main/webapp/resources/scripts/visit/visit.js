@@ -297,6 +297,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             visit: $scope.visit,
                             encounter: $scope.encounter,
                             patient: $scope.visit.patient,
+                            breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
                             returnUrl: window.encodeURIComponent(window.location.pathname
                               + "?visit=" + $scope.visit.uuid
                               + "&encounter=" + $scope.encounter.uuid
@@ -593,6 +594,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 patient: {
                                     uuid: patientUuid
                                 },
+                                breadcrumbOverride: encodeURIComponent(JSON.stringify(breadcrumbOverride)),
                                 returnUrl: window.encodeURIComponent(
                                   window.location.pathname
                                   + "?visit=" + visitUuid
@@ -730,6 +732,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         returnUrl: encodeURIComponent(
                           window.location.pathname
                           + "?visit=" + $scope.visit.uuid
+                          + "&encounter=" + encounter.uuid
                           +  (initialRouterState ? "&initialRouterState=" + initialRouterState : ''))
                     });
                     emr.navigateTo({applicationUrl: url});
@@ -747,6 +750,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         returnUrl: encodeURIComponent(
                             window.location.pathname
                             + "?visit=" + $scope.visit.uuid
+                          + "&encounter=" + encounter.uuid
                           +  (initialRouterState ? "&initialRouterState=" + initialRouterState : ''))
                     });
                     emr.navigateTo({applicationUrl: url});
@@ -920,6 +924,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                   returnUrl: encodeURIComponent("/" + OPENMRS_CONTEXT_PATH
                     + "/pihcore/visit/visit.page?encounterType=" + encounter.encounterType.uuid
                     + "&patient=" + encounter.patient.uuid
+                    + "&encounter=" + encounter.uuid
                     (initialRouterState ? "&initialRouterState=" + initialRouterState : ''))
                 });
                 emr.navigateTo({applicationUrl: url});
