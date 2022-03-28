@@ -4,6 +4,36 @@
 <div class="content encounter-summary-long">  <!-- encounter-summary-long currently only used for Selenium tests -->
 
     <p class="aligned">
+        <label>${ui.message("labtrackingapp.orderdetails.sampledatelabel")}</label>
+        <span class="value">{{ encounter.encounterDatetime | serverDateLocalized:DatetimeFormats.dateLocalized }}</span>
+    </p>
+
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.orderdetails.locationlabel")}</label>
+        <span class="value">{{ encounter.location | omrsDisplay }}</span>
+    </p>
+
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.orderdetails.attendingsurgeonlabel")}</label>
+        <span class="value">{{ encounter.encounterProviders | encounterRole:EncounterRoles.attendingSurgeon.uuid | getProviderName }}</span>
+    </p>
+
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.orderdetails.residentlabel")}</label>
+        <span class="value">{{ encounter.encounterProviders | encounterRole:EncounterRoles.assistingSurgeon.uuid | getProviderName }}</span>
+    </p>
+
+    <p class="aligned">
+        <label> ${ui.message("labtrackingapp.orderdetails.mdtonotifylabel")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.mdToNotify:true | obs:'value' }}</span>
+    </p>
+
+    <p class="aligned">
+        <label> ${ui.message("labtrackingapp.orderdetails.phoneNumberForClinician")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.phoneNumberForClinician:true | obs:'value' }}</span>
+    </p>
+
+    <p class="aligned">
         <label>${ui.message("labtrackingapp.clinicalhistorylabel")}</label>
         <span class="value">{{ encounter.obs | byConcept:Concepts.pastMedicalHistoryComment:true | obs:"value"}}</span>
     </p>
@@ -17,15 +47,6 @@
         <span class="value">{{ obs | obs:'value' }}</span>
     </p>
 
-    <p class="aligned">
-        <label>${ui.message("labtrackingapp.orderdetails.sampledatelabel")}</label>
-        <span class="value">{{ encounter.encounterDatetime | serverDateLocalized:DatetimeFormats.dateLocalized }}</span>
-    </p>
-
-    <p class="aligned">
-        <label>${ui.message("labtrackingapp.orderdetails.locationlabel")}</label>
-        <span class="value">{{ encounter.location | omrsDisplay }}</span>
-    </p>
 
     <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.postopdiagnosislabel")}</label>
@@ -52,15 +73,7 @@
         <span class="value">4. {{ encounter.obs | byConcept:Concepts.specimenFourComment:true | obs:'value' }}</span>
     </p>
 
-    <p class="aligned">
-        <label>${ui.message("labtrackingapp.orderdetails.attendingsurgeonlabel")}</label>
-        <span class="value">{{ encounter.encounterProviders | encounterRole:EncounterRoles.attendingSurgeon.uuid | getProviderName }}</span>
-    </p>
 
-    <p class="aligned">
-        <label>${ui.message("labtrackingapp.orderdetails.residentlabel")}</label>
-        <span class="value">{{ encounter.encounterProviders | encounterRole:EncounterRoles.assistingSurgeon.uuid | getProviderName }}</span>
-    </p>
 
     <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.urgentreviewlabel")}</label>

@@ -317,6 +317,12 @@ angular.module('constants', [])
         chiefComplaint: {
             uuid: "160531AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
+        mdToNotify: {
+            uuid: "a787e577-5e32-42dc-b3a8-e4c6d5b107f5"
+        },
+        phoneNumberForClinician: {
+            uuid: "f51531c0-e3f6-4611-9a32-d709551307a7"
+        },
         procedureOrdered: {
             uuid: "d6d585b6-4887-4aac-8361-424c17b030f2"
         },
