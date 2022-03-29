@@ -63,7 +63,7 @@ public class CleanMessagePropertiesTest {
                             String primaryVal = (split.length == 2 ? split[1] : "").trim();
                             String secondaryVal = existingSecondaryProperties.getProperty(property, "").trim();
                             if (StringUtils.isEmpty(secondaryVal) || secondaryVal.equals(primaryVal)) {
-                                if (!property.startsWith("#")) {
+                                if (!property.startsWith("#") && !property.equals("_order")) {
                                     property = "# " + property;
                                 }
                                 secondaryVal = primaryVal;
