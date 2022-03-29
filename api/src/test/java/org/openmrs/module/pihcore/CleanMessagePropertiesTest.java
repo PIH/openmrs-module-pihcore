@@ -20,7 +20,7 @@ import java.util.Properties;
  */
 public class CleanMessagePropertiesTest {
 
-    public static String[] baseFileNames = {"messages", "messages_encountertypes"};
+    public static String[] baseFileNames = {"messages"};
 
     public static String primaryLocale = "en";
 
