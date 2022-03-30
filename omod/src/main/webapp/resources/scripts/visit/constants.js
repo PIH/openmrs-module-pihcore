@@ -356,6 +356,21 @@ angular.module('constants', [])
         urgentReview: {
             uuid: "9e4b6acc-ab97-4ecd-a48c-b3d67e5ef778"
         },
+        suspectedCancer: {
+            uuid: "d0718b9e-31e3-4bc8-a8d3-cfc5cc1ae2cb"
+        },
+        immunohistochemistryNeeded: {
+            uuid: "237dbbf8-b654-4fed-8c09-b130d35879ac"
+        },
+        immunohistochemistrySentToBoston: {
+            uuid: "5338c4d5-2a7b-4a37-8acc-7d8bd249d2c4"
+        },
+        processedDate: {
+            uuid: "160715AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        accessionNumber: {
+            uuid: "162086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         testResultsDate: {
             uuid: "68d6bd27-37ff-4d7a-87a0-f5e0f9c8dcc0"
         },

@@ -32,12 +32,10 @@
         <label> ${ui.message("labtrackingapp.orderdetails.phoneNumberForClinician")}</label>
         <span class="value">{{ encounter.obs | byConcept:Concepts.phoneNumberForClinician:true | obs:'value' }}</span>
     </p>
-
     <p class="aligned">
-        <label>${ui.message("labtrackingapp.clinicalhistorylabel")}</label>
-        <span class="value">{{ encounter.obs | byConcept:Concepts.pastMedicalHistoryComment:true | obs:"value"}}</span>
+        <label> ${ui.message("labtrackingapp.orderdetails.preoathologydiagnosislabel")}</label>
+        <span ng-repeat="ord in encounter.orders"><span class="value">{{ ord.orderReason.display }}</span></span>
     </p>
-
     <p ng-repeat="obs in encounter.obs | byConcepts:[Concepts.procedurePerformed, Concepts.procedurePerformedNonCoded]" class="aligned">
         <label>
             <span ng-show="\$first">
@@ -46,15 +44,35 @@
         </label>
         <span class="value">{{ obs | obs:'value' }}</span>
     </p>
-
-
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.orderdetails.suspectedCancer")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.suspectedCancer:true | obs:'value' }}</span>
+    </p>
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.orderdetails.urgentreviewlabel")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.urgentReview:true | obs:'value' }}</span>
+    </p>
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.caresettinglabel")}</label>
+        <span ng-repeat="ord in encounter.orders"><span class="value">{{ ord.careSetting.display }}</span></span>
+    </p>
     <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.postopdiagnosislabel")}</label>
         <span class="value">{{ encounter.obs | byConcept:Concepts.postPathologyDiagnosisConstruct:true | obs:'value' }}</span>
     </p>
-
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.instructionslabel")}</label>
+        <span ng-repeat="ord in encounter.orders"><span class="value">{{ ord.instructions }}</span></span>
+    </p>
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.clinicalhistorylabel")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.pastMedicalHistoryComment:true | obs:"value"}}</span>
+    </p>
     <p class="aligned">
         <label> ${ui.message("labtrackingapp.orderdetails.specimandetailslabel")}</label>
+    </p>
+    <p class="aligned">
+        <label></label>
         <span class="value">1. {{ encounter.obs | byConcept:Concepts.specimenOneComment:true | obs:'value' }}</span>
     </p>
 
@@ -73,13 +91,22 @@
         <span class="value">4. {{ encounter.obs | byConcept:Concepts.specimenFourComment:true | obs:'value' }}</span>
     </p>
 
-
-
     <p class="aligned">
-        <label>${ui.message("labtrackingapp.orderdetails.urgentreviewlabel")}</label>
-        <span class="value">{{ encounter.obs | byConcept:Concepts.urgentReview:true | obs:'value' }}</span>
+        <label>${ui.message("labtrackingapp.orderdetails.immunohistochemistryNeeded")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.immunohistochemistryNeeded:true | obs:'value' }}</span>
     </p>
-
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.orderdetails.processedDatelabel")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.processedDate:true | obs:'value' | serverDateLocalized:DatetimeFormats.dateLocalized  }}</span>
+    </p>
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.accessionNumber")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.accessionNumber:true | obs:"value"}}</span>
+    </p>
+    <p class="aligned">
+        <label>${ui.message("labtrackingapp.orderdetails.immunohistochemistrySentToBoston")}</label>
+        <span class="value">{{ encounter.obs | byConcept:Concepts.immunohistochemistrySentToBoston:true | obs:'value' }}</span>
+    </p>
     <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.resultsdatelabel")}</label>
         <span class="value">{{ encounter.obs | byConcept:Concepts.testResultsDate:true | obs:'value' | serverDateLocalized:DatetimeFormats.dateLocalized  }}</span>
