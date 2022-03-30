@@ -14,7 +14,7 @@
     <% if (context.hasPrivilege("App: labs")) { %>
         <a class="button app big" href='/${contextPath}/owa/labworkflow/index.html'>
             <i class="icon-beaker"></i>
-            ${ ui.message("pih.app.labtracking") }
+            ${ ui.message("pih.app.labs.label") }
         </a>
     <% } %>
 </div>

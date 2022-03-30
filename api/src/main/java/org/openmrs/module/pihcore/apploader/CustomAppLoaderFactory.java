@@ -2962,7 +2962,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "owa/labworkflow/index.html",
                   PihEmrConfigConstants.PRIVILEGE_APP_LABS,
                 null),
-                null));
+                sessionLocationHasTag("Labs Component Location")));
 
         // note that this is only currently accessed via the Lab Workflow "Add Order" button, and the returnUrl and afterAddOrderUrl are both hardcoded below for this
         apps.add(findPatientTemplateApp(CustomAppLoaderConstants.Apps.ORDER_LABS,
