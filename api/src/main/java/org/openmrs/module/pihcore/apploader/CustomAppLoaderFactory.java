@@ -127,6 +127,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private String patientEncountersPageUrl = "";
     private String patientVisitsPageUrl = "";
 
+    private String mentalHealthAssessmentLabel = "";
+
     private String patientVisitsPageWithSpecificVisitUrl = "";
 
     public enum ReportCategory { OVERVIEW, DAILY, DATA_EXPORT, DATA_QUALITY, MONITORING };
@@ -1949,8 +1951,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
+        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            mentalHealthAssessmentLabel = "pih.task.mentalHealthFU.label";
+        } else {
+            mentalHealthAssessmentLabel = "pih.task.mentalHealth.label";
+        }
+
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,
-                "pih.task.mentalHealth.label",
+                mentalHealthAssessmentLabel,
                 "fas fa-fw fa-user",
                 "link",
                 enterStandardHtmlFormLink(definitionUiResource),
