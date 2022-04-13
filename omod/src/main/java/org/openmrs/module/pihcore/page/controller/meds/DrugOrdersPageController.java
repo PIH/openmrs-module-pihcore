@@ -100,11 +100,13 @@ public class DrugOrdersPageController {
             we can organize them together in a single row.
          */
 
-        List<Concept> categories = new ArrayList<>();
-        categories.add(conceptService.getConceptByUuid("138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")); // HIV
-        categories.add(conceptService.getConceptByUuid("3ccca7cc-26fe-102b-80cb-0017a47871b2")); // TB
-        categories.add(conceptService.getConceptByUuid("160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")); // PTME
-        categories.add(conceptService.getConceptByUuid("1691AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")); // Prophylaxis
+        Map<Concept, String> categories = new LinkedHashMap<>();
+        categories.put(conceptService.getConceptByUuid("138405AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), ui.message("pihcore.hiv.treatment"));
+        categories.put(conceptService.getConceptByUuid("160538AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), ui.message("pihcore.pmtct"));
+        categories.put(conceptService.getConceptByUuid("163768AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), ui.message("pihcore.hiv.prophylaxis"));
+        categories.put(conceptService.getConceptByUuid("3ccca7cc-26fe-102b-80cb-0017a47871b2"), ui.message("pihcore.tbTreatment"));
+        categories.put(conceptService.getConceptByUuid("cae011d4-e3e7-4cab-9550-d85c60d903cc"), ui.message("pihcore.tbProphylaxis"));
+        categories.put(conceptService.getConceptByUuid("9508115e-54ca-4f39-a117-a33cb328cdd6"), ui.message("pihcore.stiTreatment"));
 
         List<DrugOrder> activeOrders = new ArrayList<>();
         List<DrugOrder> completedOrders = new ArrayList<>();
@@ -112,9 +114,10 @@ public class DrugOrdersPageController {
         Map<String, List<DrugOrder>> completedOrdersByCategory = new LinkedHashMap<>();
         Map<DrugOrder, DrugOrder> ordersToDiscontinueOrders = new HashMap<>();
 
-        for (Concept category : categories) {
-            activeOrdersByCategory.put(category.getDisplayString(), new ArrayList<>());
-            completedOrdersByCategory.put(category.getDisplayString(), new ArrayList<>());
+        for (Concept category : categories.keySet()) {
+            String display = categories.get(category);
+            activeOrdersByCategory.put(display, new ArrayList<>());
+            completedOrdersByCategory.put(display, new ArrayList<>());
         }
         activeOrdersByCategory.put("", new ArrayList<>());
         completedOrdersByCategory.put("", new ArrayList<>());
@@ -125,8 +128,8 @@ public class DrugOrdersPageController {
             }
             else {
                 String category = "";
-                if (d.getOrderReason() != null && categories.contains(d.getOrderReason())) {
-                    category = d.getOrderReason().getDisplayString();
+                if (d.getOrderReason() != null && categories.containsKey(d.getOrderReason())) {
+                    category = categories.get(d.getOrderReason());
                 }
                 if (d.isActive()) {
                     activeOrders.add(d);
