@@ -1,9 +1,8 @@
 package org.openmrs.module.pihcore.task;
 
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Location;
 import org.openmrs.Visit;
 import org.openmrs.api.LocationService;
@@ -18,8 +17,8 @@ import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.openmrs.module.appointmentscheduling.Appointment.AppointmentStatus;
 
 public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSensitiveTest {
@@ -39,7 +38,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
     @Autowired
     private MetadataMappingService metadataMappingService;
 
-    @Before
+    @BeforeEach
     public void before() throws Exception {
         executeDataSet("appointmentTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);

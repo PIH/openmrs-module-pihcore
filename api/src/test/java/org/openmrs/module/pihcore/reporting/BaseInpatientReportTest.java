@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.reporting;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
@@ -40,7 +40,7 @@ public abstract class BaseInpatientReportTest extends BaseReportTest {
     @Autowired
     private VisitService visitService;
 
-    @Before
+    @BeforeEach
     @Override
     public void setup() throws Exception {
         super.setup();

@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.htmlformentry.action;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatcher;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
@@ -36,7 +36,7 @@ import static org.mockito.Mockito.when;
 /**
  * This is ignored because it causes lots of other tests to fail when run via surefire.  Passes on it's own though.
  */
-@Ignore
+@Disabled
 public class ApplyDispositionActionsTest extends AuthenticatedUserTestHelper {
 
     private ApplyDispositionAction applyDispositionActions;
@@ -75,7 +75,7 @@ public class ApplyDispositionActionsTest extends AuthenticatedUserTestHelper {
 
     private DispositionAction markPatientDeadDispositionAction;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         encounter = new Encounter(1);
         encounter.setDateCreated(new Date());
@@ -143,7 +143,7 @@ public class ApplyDispositionActionsTest extends AuthenticatedUserTestHelper {
         verify(markPatientDeadDispositionAction,never()).action(argThat(new IsExpectedEncounterDomainWrapper(encounter)), eq(deathDispositionObsGroup), anyMap());
     }
 
-    private class IsExpectedEncounterDomainWrapper extends ArgumentMatcher<EncounterDomainWrapper> {
+    private class IsExpectedEncounterDomainWrapper implements ArgumentMatcher<EncounterDomainWrapper> {
 
         private Encounter expectedEncounter;
 
@@ -152,7 +152,7 @@ public class ApplyDispositionActionsTest extends AuthenticatedUserTestHelper {
         }
 
         @Override
-        public boolean matches(Object actualEncounterDomainWrapper) {
+        public boolean matches(EncounterDomainWrapper actualEncounterDomainWrapper) {
             return expectedEncounter.equals(((EncounterDomainWrapper) actualEncounterDomainWrapper).getEncounter());
         }
     }

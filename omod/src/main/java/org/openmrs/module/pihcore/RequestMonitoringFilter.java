@@ -14,13 +14,13 @@
 package org.openmrs.module.pihcore;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.DailyRollingFileAppender;
+import org.apache.log4j.Appender;
 import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
+import org.apache.log4j.RollingFileAppender;
 import org.apache.log4j.helpers.ISO8601DateFormat;
-import org.openmrs.api.context.Context;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -60,7 +60,7 @@ public class RequestMonitoringFilter implements Filter {
 			directory.mkdirs();
 			File outputFile = new File(directory, LOG_FILE_NAME);
 			Layout layout = new PatternLayout(PatternLayout.DEFAULT_CONVERSION_PATTERN);
-			DailyRollingFileAppender appender = new DailyRollingFileAppender(layout, outputFile.getAbsolutePath(), "-yyyy-MM-dd");
+			RollingFileAppender appender = new RollingFileAppender(layout, outputFile.getAbsolutePath(), true);
 			appender.setName(NAME);
 			logger.setLevel(Level.INFO);
 			logger.addAppender(appender);

@@ -6,11 +6,11 @@ import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.importpatientfromws.api.ImportPatientFromWebService;
-import org.openmrs.module.importpatientfromws.api.RemoteServerConfiguration;
 import org.openmrs.module.pihcore.RuntimeProperties;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.pihcore.mpi.ImportPatientFromWebService;
+import org.openmrs.module.pihcore.mpi.RemoteServerConfiguration;
 
 import java.util.HashMap;
 import java.util.Map;

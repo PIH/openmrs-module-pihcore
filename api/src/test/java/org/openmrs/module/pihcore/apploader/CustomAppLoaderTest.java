@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.apploader;
 
 import org.codehaus.jackson.node.ObjectNode;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appui.AppUiExtensions;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.map;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.objectNode;
 

@@ -1,11 +1,9 @@
 package org.openmrs.module.pihcore.merge;
 
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
-import org.openmrs.EncounterType;
 import org.openmrs.Patient;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
@@ -13,9 +11,9 @@ import org.openmrs.User;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.openmrs.module.initializer.Domain;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,47 +24,34 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest( { Context.class } )
-public class PihPatientMergeActionsTest {
+public class PihPatientMergeActionsTest extends PihCoreContextSensitiveTest {
 
-    private PihPatientMergeActions pihPatientMergeActions;
+    @Autowired PihPatientMergeActions pihPatientMergeActions;
+    @Autowired PersonService personService;
 
-    private PersonService personService;
+    @Autowired EncounterService encounterService;
 
-    private EncounterService encounterService;
+    PersonAttributeType phoneNumber;
 
-    private PersonAttributeType phoneNumber = new PersonAttributeType(1);
+    PersonAttributeType mothersName;
 
-    private PersonAttributeType mothersName = new PersonAttributeType(2);
+    User user;
 
-    private EncounterType registration = new EncounterType(1);
-
-    private User user = new User(1);
-
-    @Before
+    @BeforeEach
     public void setup() {
+        loadFromInitializer(Domain.LOCATIONS, "locations-base.csv");
+        loadFromInitializer(Domain.LOCATIONS, "locations-site-mirebalais.csv");
+        loadFromInitializer(Domain.PERSON_ATTRIBUTE_TYPES, "personAttributeTypes.csv");
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
 
-        mockStatic(Context.class);
-        when(Context.getAuthenticatedUser()).thenReturn(user);
-
-        personService = mock(PersonService.class);
-        when(Context.getPersonService()).thenReturn(personService);
-        when(personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID)).thenReturn(phoneNumber);
-        when(personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID)).thenReturn(mothersName);
-
-        encounterService = mock(EncounterService.class);
-        when(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID)).thenReturn(registration);
-
-        pihPatientMergeActions = new PihPatientMergeActions();
-        pihPatientMergeActions.setPersonService(personService);
-        pihPatientMergeActions.setEncounterService(encounterService);
+        phoneNumber = personService.getPersonAttributeTypeByName("Telephone Number");
+        mothersName = personService.getPersonAttributeTypeByName("First Name of Mother");
+        user = Context.getUserService().getUser(1);
     }
 
     @Test
@@ -174,11 +159,11 @@ public class PihPatientMergeActionsTest {
         Encounter nonPreferredEncounter2 = createEncounter(4, new DateTime(2012, 12, 10, 0, 0, 0).toDate());
 
         when(encounterService.getEncounters(preferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
+                Collections.singleton(getRegistrationEncounterType()), null, null, null, false))
                 .thenReturn(Arrays.asList(preferredEncounter1, preferredEncounter2));
 
         when(encounterService.getEncounters(nonPreferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
+                Collections.singleton(getRegistrationEncounterType()), null, null, null, false))
                 .thenReturn(Arrays.asList(nonPreferredEncounter1, nonPreferredEncounter2));
 
         pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
@@ -201,11 +186,11 @@ public class PihPatientMergeActionsTest {
         Encounter nonPreferredEncounter2 = createEncounter(4, new DateTime(2012, 2, 10, 0, 0, 0).toDate());
 
         when(encounterService.getEncounters(preferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
+                Collections.singleton(getRegistrationEncounterType()), null, null, null, false))
                 .thenReturn(Arrays.asList(preferredEncounter1, preferredEncounter2));
 
         when(encounterService.getEncounters(nonPreferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
+                Collections.singleton(getRegistrationEncounterType()), null, null, null, false))
                 .thenReturn(Arrays.asList(nonPreferredEncounter1, nonPreferredEncounter2));
 
         pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
@@ -223,11 +208,11 @@ public class PihPatientMergeActionsTest {
         Patient nonPreferred = new Patient(2);
 
         when(encounterService.getEncounters(preferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
+                Collections.singleton(getRegistrationEncounterType()), null, null, null, false))
                 .thenReturn(null);
 
         when(encounterService.getEncounters(nonPreferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
+                Collections.singleton(getRegistrationEncounterType()), null, null, null, false))
                 .thenReturn(Collections.singletonList(new Encounter()));
 
         pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);

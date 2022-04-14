@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.printer.template;
 
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.api.PatientService;
@@ -14,7 +14,7 @@ import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DateFormat;
@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -51,7 +51,7 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
     @Autowired
     private PatientService patientService;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         executeDataSet("wristbandTestDataset.xml");
 

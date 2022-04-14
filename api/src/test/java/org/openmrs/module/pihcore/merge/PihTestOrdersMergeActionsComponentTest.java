@@ -1,31 +1,23 @@
 package org.openmrs.module.pihcore.merge;
 
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
 import org.openmrs.Patient;
-import org.openmrs.api.PatientService;
-import org.openmrs.api.ProviderService;
-import org.openmrs.api.OrderService;
-import org.openmrs.api.LocationService;
-import org.openmrs.api.ConceptService;
-import org.openmrs.api.VisitService;
 import org.openmrs.api.EncounterService;
-import org.openmrs.api.AdministrationService;
-import org.openmrs.module.emrapi.EmrApiProperties;
+import org.openmrs.api.OrderService;
+import org.openmrs.api.PatientService;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.DispositionService;
-import org.openmrs.module.radiologyapp.RadiologyProperties;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
 
 public class PihTestOrdersMergeActionsComponentTest extends PihCoreContextSensitiveTest {
 
@@ -38,37 +30,12 @@ public class PihTestOrdersMergeActionsComponentTest extends PihCoreContextSensit
     private PatientService patientService;
 
     @Autowired
-    @Qualifier("providerService")
-    private ProviderService providerService;
-
-    @Autowired
     @Qualifier("orderService")
     private OrderService orderService;
 
     @Autowired
-    @Qualifier("conceptService")
-    private ConceptService conceptService;
-
-    @Autowired
-    @Qualifier("locationService")
-    private LocationService locationService;
-
-    @Autowired
-    @Qualifier("visitService")
-    private VisitService visitService;
-
-    @Autowired
     @Qualifier("encounterService")
     private EncounterService encounterService;
-
-
-    @Autowired
-    @Qualifier("emrApiProperties")
-    private EmrApiProperties emrApiProperties;
-
-    @Autowired
-    @Qualifier("radiologyProperties")
-    private RadiologyProperties radiologyProperties;
 
     @Autowired
     DispositionService dispositionService;
@@ -77,19 +44,14 @@ public class PihTestOrdersMergeActionsComponentTest extends PihCoreContextSensit
     @Qualifier("pihTestOrdersMergeActions")
     private PihTestOrdersMergeActions pihTestOrdersMergeActions;
 
-    @Autowired
-    @Qualifier("adminService")
-    private AdministrationService administrationService;
-
-    @Before
+    @BeforeEach
     public void beforeAllTests() throws Exception {
         executeDataSet("pihRadiologyOrdersMergeActionsComponentTestDataset.xml");
         adtService.addPatientMergeAction(pihTestOrdersMergeActions);
     }
 
     @Test
-    public void shouldMergePatientsWhenNonPreferredPatientHasNoTestOrders()
-            throws Exception {
+    public void shouldMergePatientsWhenNonPreferredPatientHasNoTestOrders() {
 
         Patient preferredPatient = patientService.getPatient(10005);
         List<Encounter> encountersByPatient = encounterService.getEncountersByPatient(preferredPatient);
@@ -105,13 +67,12 @@ public class PihTestOrdersMergeActionsComponentTest extends PihCoreContextSensit
         Patient nonPreferredPatient = patientService.getPatient(10001);
         adtService.mergePatients(preferredPatient, nonPreferredPatient);
 
-        assertTrue("TestOrder is present after merging the patients", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
+        Assertions.assertTrue(orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
 
     }
 
     @Test
-    public void shouldMergePatientsWhenNonPreferredPatientHasOnlyTestOrders()
-            throws Exception {
+    public void shouldMergePatientsWhenNonPreferredPatientHasOnlyTestOrders() {
 
         Patient preferredPatient = patientService.getPatient(6);
         Patient nonPreferredPatient = patientService.getPatient(10005);
@@ -126,12 +87,11 @@ public class PihTestOrdersMergeActionsComponentTest extends PihCoreContextSensit
         Assert.assertEquals("Test order", testOrder.getOrderType().getName());
         adtService.mergePatients(preferredPatient, nonPreferredPatient);
 
-        assertTrue("Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
+        Assertions.assertTrue(orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
     }
 
     @Test
-    public void shouldMergePatientsWhenNonPreferredPatientHasPathologyTestOrders()
-            throws Exception {
+    public void shouldMergePatientsWhenNonPreferredPatientHasPathologyTestOrders() {
 
         Patient preferredPatient = patientService.getPatient(6);
         Patient nonPreferredPatient = patientService.getPatient(10006);
@@ -146,12 +106,11 @@ public class PihTestOrdersMergeActionsComponentTest extends PihCoreContextSensit
         Assert.assertEquals("PathologyOrder", testOrder.getOrderType().getName());
         adtService.mergePatients(preferredPatient, nonPreferredPatient);
 
-        assertTrue("Pathology Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
+        Assertions.assertTrue(orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
     }
 
     @Test
-    public void shouldMergePatientsWhenBothPatientHaveOpenPathologyTestOrders()
-            throws Exception {
+    public void shouldMergePatientsWhenBothPatientHaveOpenPathologyTestOrders() {
 
         Patient preferredPatient = patientService.getPatient(10006);
         List<Encounter> encountersByPreferredPatient = encounterService.getEncountersByPatient(preferredPatient);
@@ -174,7 +133,7 @@ public class PihTestOrdersMergeActionsComponentTest extends PihCoreContextSensit
         Assert.assertEquals("PathologyOrder", testOrder.getOrderType().getName());
         adtService.mergePatients(preferredPatient, nonPreferredPatient);
 
-        assertTrue("Pathology Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrderOfPreferredPatient));
-        assertTrue("Pathology Test Order was merged", orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
+        Assertions.assertTrue(orderService.getAllOrdersByPatient(preferredPatient).contains(testOrderOfPreferredPatient));
+        Assertions.assertTrue(orderService.getAllOrdersByPatient(preferredPatient).contains(testOrder));
     }
 }

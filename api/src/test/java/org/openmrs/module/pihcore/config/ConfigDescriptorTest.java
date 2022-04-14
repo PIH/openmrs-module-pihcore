@@ -1,13 +1,13 @@
 package org.openmrs.module.pihcore.config;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.Locale;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 public class ConfigDescriptorTest {
 

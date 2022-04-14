@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.page.controller.router;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.ui.framework.page.Redirect;
@@ -9,8 +9,8 @@ import org.openmrs.ui.framework.page.Redirect;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -21,7 +21,7 @@ public class AppEntryRouterPageControllerTest {
 
     private HttpSession session;
 
-    @Before
+    @BeforeEach
     public void setup() {
         request = mock(HttpServletRequest.class);
         session = mock(HttpSession.class);

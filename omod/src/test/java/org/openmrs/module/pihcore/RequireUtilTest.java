@@ -1,9 +1,9 @@
 package org.openmrs.module.pihcore;
 
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.openmrs.Location;
 import org.openmrs.Privilege;
@@ -21,8 +21,6 @@ import org.openmrs.module.webservices.rest.web.ConversionUtil;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.ui.framework.SimpleObject;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -41,9 +39,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.userHasPrivilege;
 // TODO these tests are passing when run through IntelliJ, but failing through maven for some reason, so @Ignoring this for now
 // TODO update: looks like these tests have degraded to the point that they don't work on IntelliJ either
 
-@Ignore
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(ConversionUtil.class)
+@Disabled
 public class RequireUtilTest {
 
     private AppFrameworkServiceImpl appFrameworkService;
@@ -58,7 +54,7 @@ public class RequireUtilTest {
 
     private UiSessionContext uiSessionContext;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         appFrameworkService = new AppFrameworkServiceImpl(null, null, null, null, null, null, null, null);
 

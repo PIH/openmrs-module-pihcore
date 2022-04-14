@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.apploader;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 
 @SkipBaseSetup
@@ -24,7 +24,7 @@ public class CustomAppLoaderComponentTest extends PihCoreContextSensitiveTest {
     @Autowired
     private CustomAppLoaderFactory factory;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
         executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");

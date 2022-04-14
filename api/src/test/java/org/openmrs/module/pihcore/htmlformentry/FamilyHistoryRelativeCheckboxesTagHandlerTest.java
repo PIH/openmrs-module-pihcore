@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.htmlformentry;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
 import org.openmrs.ConceptDatatype;
@@ -32,7 +32,7 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptS
 /**
  * This is ignored because it causes lots the PastMedicalHistoryCheckboxTagHandlerTest to fail when it is enabled.  It passes when run on it's own.
  */
-@Ignore
+@Disabled
 public class FamilyHistoryRelativeCheckboxesTagHandlerTest extends PihCoreContextSensitiveTest {
 
     @Autowired
@@ -46,7 +46,7 @@ public class FamilyHistoryRelativeCheckboxesTagHandlerTest extends PihCoreContex
     private Concept father;
     private Concept yes;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         father = testData.concept().name("Father").datatype("N/A").conceptClass("Misc").uuid("3ce18444-26fe-102b-80cb-0017a47871b2").save();
         setupConcepts();

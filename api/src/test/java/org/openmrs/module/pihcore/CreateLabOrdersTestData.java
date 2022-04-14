@@ -1,10 +1,11 @@
 package org.openmrs.module.pihcore;
 
 import org.apache.commons.lang.StringUtils;
+;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.CareSetting;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
@@ -19,7 +20,6 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.test.TestUtil;
@@ -44,7 +44,7 @@ import java.util.Random;
  */
 
 @SkipBaseSetup
-@Ignore
+@Disabled
 public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
 
     public static final String TEST_ORDER_ENCOUNTER_TYPE = PihEmrConfigConstants.ENCOUNTERTYPE_TEST_ORDER_UUID;
@@ -97,7 +97,7 @@ public class CreateLabOrdersTestData extends BaseModuleContextSensitiveTest {
         return;
     }
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         authenticate();
         DEFAULT_PROVIDER = providerService.getProvider(1);

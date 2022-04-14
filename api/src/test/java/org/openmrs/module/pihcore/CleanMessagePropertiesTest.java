@@ -2,7 +2,7 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.util.OpenmrsUtil;
 
 import java.io.File;

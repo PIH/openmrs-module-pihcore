@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.ui.framework.resource.ConfigurationResourceProvider;
 import org.openmrs.util.OpenmrsConstants;
@@ -9,8 +9,8 @@ import org.openmrs.util.OpenmrsConstants;
 import java.io.File;
 import java.util.Properties;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GlobalResourceSetupTest  {
 
@@ -18,7 +18,7 @@ public class GlobalResourceSetupTest  {
 
     private String path;
 
-    @Before
+    @BeforeEach
     public void setup() {
         // configure app data dir path
         path = getClass().getClassLoader().getResource(appDataTestDir).getPath() + File.separator;

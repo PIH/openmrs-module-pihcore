@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.status;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StatusDataEvaluatorTest extends PihCoreContextSensitiveTest {
 

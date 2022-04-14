@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.api.LocationService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -30,7 +30,7 @@ public class InitializerSetupTest extends PihCoreContextSensitiveTest {
     Config config;
     List<File> configFiles;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
@@ -43,7 +43,7 @@ public class InitializerSetupTest extends PihCoreContextSensitiveTest {
         config = mock(Config.class);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         cleanUpConfigurationDirectory(configFiles);
     }

@@ -4,8 +4,8 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptName;
 import org.openmrs.ConceptSource;
@@ -18,9 +18,9 @@ import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.htmlformentry.RegressionTestHelper;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
-import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -29,9 +29,11 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
+
+;
 
 public class CauseOfDeathListTagHandlerComponentTest extends PihCoreContextSensitiveTest {
 
@@ -52,7 +54,7 @@ public class CauseOfDeathListTagHandlerComponentTest extends PihCoreContextSensi
     private Concept groupingConcept;
     private Concept unknownConcept;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
 
         ConceptSource ciel = conceptSource("CIEL", "Columbia International eHealth Laboratory concept ID", null, CoreConceptMetadataBundle.ConceptSources.CIEL);

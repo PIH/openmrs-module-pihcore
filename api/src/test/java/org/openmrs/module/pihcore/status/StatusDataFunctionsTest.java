@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.status;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

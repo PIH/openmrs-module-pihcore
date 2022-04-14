@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.reporting.cohort.definition.evaluator;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.module.pihcore.reporting.cohort.definition.AdmissionSoonAfterExitCohortDefinition;
 import org.openmrs.module.pihcore.reporting.BaseInpatientReportTest;
 import org.openmrs.module.reporting.cohort.EvaluatedCohort;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openmrs.module.pihcore.reporting.ReportingMatchers.isCohortWithExactlyIds;
 
 @SkipBaseSetup

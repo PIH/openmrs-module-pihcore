@@ -2,8 +2,8 @@ package org.openmrs.module.pihcore.merge;
 
 
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
 import org.openmrs.Patient;
@@ -18,20 +18,22 @@ import org.openmrs.api.VisitService;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.disposition.DispositionService;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
 import org.openmrs.module.radiologyapp.RadiologyService;
-import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
+
+;
 
 public class PihRadiologyOrdersMergeActionsComponentTest extends PihCoreContextSensitiveTest {
 
@@ -93,7 +95,7 @@ public class PihRadiologyOrdersMergeActionsComponentTest extends PihCoreContextS
 
     private Config config;
 
-    @Before
+    @BeforeEach
     public void beforeAllTests() throws Exception {
         executeDataSet("pihRadiologyOrdersMergeActionsComponentTestDataset.xml");
         config = mock(Config.class);

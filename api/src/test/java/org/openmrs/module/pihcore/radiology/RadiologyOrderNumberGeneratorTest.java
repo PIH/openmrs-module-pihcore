@@ -1,15 +1,15 @@
 package org.openmrs.module.pihcore.radiology;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.OrderType;
 import org.openmrs.api.OrderContext;
 import org.openmrs.api.OrderService;
 import org.openmrs.module.pihcore.service.PihCoreService;
 import org.openmrs.module.radiologyapp.RadiologyProperties;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +27,7 @@ public class RadiologyOrderNumberGeneratorTest {
 
     private OrderType otherOrderType = new OrderType();
 
-    @Before
+    @BeforeEach
     public void setup() {
         pihCoreService = mock(PihCoreService.class);
         orderService = mock(OrderService.class);

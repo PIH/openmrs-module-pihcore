@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.LocationTag;
 import org.openmrs.api.LocationService;
 import org.openmrs.module.pihcore.config.Config;
@@ -13,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -26,7 +26,7 @@ public class LocationTagSetupTest extends PihCoreContextSensitiveTest {
     @Autowired
     private LocationService locationService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         // create a couple location tags
         LocationTag admissionLocationTag = new LocationTag();

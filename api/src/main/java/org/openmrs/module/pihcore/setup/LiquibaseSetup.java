@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.setup;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.liquibase.ChangeSetExecutorCallback;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.util.DatabaseUpdater;
 
@@ -11,7 +12,7 @@ public class LiquibaseSetup {
 
     public static void setup() {
         try {
-            DatabaseUpdater.executeChangelog(PihCoreUtil.getLiquibaseChangeLog(), null);
+            DatabaseUpdater.executeChangelog(PihCoreUtil.getLiquibaseChangeLog(), (ChangeSetExecutorCallback) null);
         } catch (Exception e) {
             log.error("Unable run liquibase change sets", e);
         }

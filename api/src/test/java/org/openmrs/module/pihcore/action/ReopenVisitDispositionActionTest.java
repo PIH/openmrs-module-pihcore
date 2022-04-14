@@ -1,22 +1,22 @@
 package org.openmrs.module.pihcore.action;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.encounter.EncounterDomainWrapper;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ReopenVisitDispositionActionTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
     private ReopenVisitDispositionAction reopenVisitDispositionAction;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         executeDataSet("reopenVisitActionTestDataset.xml");
     }

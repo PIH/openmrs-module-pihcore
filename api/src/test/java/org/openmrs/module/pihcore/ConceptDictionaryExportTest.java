@@ -2,8 +2,8 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.lang.BooleanUtils;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.ConceptComplex;
@@ -14,7 +14,7 @@ import org.openmrs.ConceptNumeric;
 import org.openmrs.ConceptSet;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,7 +40,7 @@ import java.util.Properties;
  * mvn test -Dtest=ConceptDictionaryExportTest -Dconcept_export_properties_file=/tmp/concept_export.properties
  */
 @SkipBaseSetup
-@Ignore
+@Disabled
 public class ConceptDictionaryExportTest extends BaseModuleContextSensitiveTest {
 
     static Properties props = null;

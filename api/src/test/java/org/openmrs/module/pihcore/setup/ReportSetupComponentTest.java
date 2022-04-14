@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.db.SerializedObjectDAO;
 import org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition;
@@ -10,7 +10,7 @@ import org.openmrs.module.reporting.report.definition.service.ReportDefinitionSe
 import org.openmrs.module.reporting.report.manager.BaseReportManager;
 import org.openmrs.module.reporting.report.manager.ReportManagerUtil;
 import org.openmrs.module.reporting.report.service.ReportService;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,8 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @SkipBaseSetup
 public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {

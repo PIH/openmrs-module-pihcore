@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.task;
 
 import org.apache.commons.lang.time.DateUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Obs;
@@ -32,11 +32,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
 
@@ -78,7 +78,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
     @Autowired
     protected FormService formService;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         executeDataSet("closeStaleVisitsTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);

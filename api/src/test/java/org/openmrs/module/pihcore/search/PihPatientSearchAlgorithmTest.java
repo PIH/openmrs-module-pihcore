@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.search;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
@@ -18,9 +18,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
@@ -41,7 +41,7 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
         return p;
     }
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         executeDataSet("searchTestDataset.xml");
     }

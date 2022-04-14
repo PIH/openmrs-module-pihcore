@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.htmlformentry.action;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -9,8 +9,8 @@ import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,7 +22,7 @@ public class ReopenVisitActionTest extends PihCoreContextSensitiveTest {
 
     private ReopenVisitAction reopenVisitAction;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         executeDataSet("reopenVisitActionTestDataset.xml");
 
