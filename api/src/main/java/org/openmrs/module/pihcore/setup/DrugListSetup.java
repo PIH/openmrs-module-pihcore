@@ -47,7 +47,9 @@ public class DrugListSetup {
         String path = PihCoreUtil.getDrugListDirectory();
         try {
             File drugsDir = new File(path);
-            files = FileUtils.listFiles(drugsDir, null, true);
+            if (drugsDir.exists()) {
+                files = FileUtils.listFiles(drugsDir, null, true);
+            }
         } catch (Exception e) {
             log.warn("Unable to open drug list directory " + path, e);
         }
