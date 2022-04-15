@@ -1,10 +1,12 @@
 package org.openmrs.module.pihcore.setup;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.FormService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.htmlformentry.HtmlForm;
 import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.pihcore.PihCoreConstants;
@@ -41,7 +43,12 @@ public class HtmlFormSetup {
 
             for (File file : files) {
                 try {
-                    HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, "file:" + file.getAbsolutePath());
+                    HtmlForm form = HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, "file:" + file.getAbsolutePath());
+                    // If the form is not already configured and saved as published, do so here
+                    if (BooleanUtils.isNotTrue(form.getForm().getPublished())) {
+                        form.getForm().setPublished(true);
+                        htmlFormEntryService.saveHtmlForm(form);
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException("Unable to load HTML Form at path: " + file, e);
                 }
