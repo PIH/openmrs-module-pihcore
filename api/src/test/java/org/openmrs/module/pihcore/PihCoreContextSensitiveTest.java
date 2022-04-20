@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.EncounterType;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
@@ -33,7 +34,7 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     MessageSourceService messageSourceService;
 
     @Autowired
-    InitializerMessageSource initializerMessageSource;
+    protected InitializerMessageSource initializerMessageSource;
 
     public PihCoreContextSensitiveTest() {
         super();
@@ -44,10 +45,12 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         }
     }
 
+    @BeforeEach
     @Override
     public void baseSetupWithStandardDataAndAuthentication() throws SQLException {
         deleteAllData();
         super.baseSetupWithStandardDataAndAuthentication();
+        setupInitializerForTesting();
     }
 
     public void loadFromInitializer(Domain domain, String file) {
@@ -55,7 +58,6 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         List<File> configFiles = new ArrayList<>();
         try {
             configFiles.add(addResourceToConfigurationDirectory(domain.getName(), file));
-            setupInitializerForTesting();
             initializerService.loadUnsafe(true, true);
         }
         catch (Exception e) {
@@ -71,7 +73,7 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     }
 
     public void setupInitializerForTesting() {
-        Properties prop = new Properties();
+        Properties prop = getRuntimeProperties();
         prop.setProperty("pih.config", getPihConfig());
         prop.setProperty(InitializerConstants.PROPS_SKIPCHECKSUMS, "true");
         prop.setProperty(InitializerConstants.PROPS_STARTUP_LOAD, InitializerConstants.PROPS_STARTUP_LOAD_FAIL_ON_ERROR);

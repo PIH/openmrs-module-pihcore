@@ -3,7 +3,6 @@ package org.openmrs.module.pihcore.htmlformentry.action;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
-import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
@@ -30,10 +29,6 @@ public class ReopenVisitActionTest extends PihCoreContextSensitiveTest {
         mockContext = mock(FormEntryContext.class);
         when(mockSession.getContext()).thenReturn(mockContext);
         when(mockContext.getMode()).thenReturn(FormEntryContext.Mode.ENTER);
-
-        Patient patient = Context.getPatientService().getPatient(7);
-        when(mockSession.getPatient()).thenReturn(patient);
-
         reopenVisitAction = new ReopenVisitAction();
     }
 

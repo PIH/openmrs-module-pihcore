@@ -13,8 +13,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,7 +39,6 @@ public class InitializerSetupTest extends PihCoreContextSensitiveTest {
         configFiles.add(addResourceToConfigurationDirectory("locations", "locations-base.csv"));
         configFiles.add(addResourceToConfigurationDirectory("locations", "locations-site-hsn.csv"));
         configFiles.add(addResourceToConfigurationDirectory("locations", "locations-site-mirebalais.csv"));
-        setupInitializerForTesting();
         config = mock(Config.class);
     }
 

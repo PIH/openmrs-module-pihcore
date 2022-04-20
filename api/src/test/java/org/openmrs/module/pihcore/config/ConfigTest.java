@@ -5,7 +5,6 @@ import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -18,10 +17,8 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
     private Config config;
 
     @Override
-    public Properties getRuntimeProperties() {
-        Properties p = super.getRuntimeProperties();
-        p.setProperty("pih.config", "default");
-        return p;
+    public String getPihConfig() {
+        return "default";
     }
 
     @Test
@@ -54,21 +51,18 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
 
     @Test
     public void testCustomizingFilenameViaRuntimeProperties() {
-        runtimeProperties.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "custom");
-        config = new Config(ConfigLoader.loadFromRuntimeProperties());
+        config = new Config(ConfigLoader.load("custom"));
         assertThat(config.isComponentEnabled("someComponent"), is(true));
         assertThat(config.isComponentEnabled("anotherComponent"), is(false));
         assertThat(config.isComponentEnabled("customComponent"), is(true));
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
         assertThat(config.getSite(), is("LACOLLINE"));
         assertFalse(config.shouldScheduleBackupReports());
-        runtimeProperties.remove(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
     }
 
     @Test
     public void testCascadingConfigs() {
-        runtimeProperties.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "custom,override");
-        config = new Config(ConfigLoader.loadFromRuntimeProperties());
+        config = new Config(ConfigLoader.load("custom,override"));
         assertThat(config.isComponentEnabled("override"), is(true));
         assertThat(config.isComponentEnabled("someComponent"), is(false));
         assertThat(config.isComponentEnabled("customComponent"), is(false));
@@ -80,7 +74,6 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
         assertThat(config.getLocationTags().get("Admission Location").size(), is(2));
         assertThat(config.getLocationTags().get("Admission Location").get(0), is("Women's Ward"));
         assertThat(config.getLocationTags().get("Visit Location").size(), is(1));
-        runtimeProperties.remove(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
     }
 
 }

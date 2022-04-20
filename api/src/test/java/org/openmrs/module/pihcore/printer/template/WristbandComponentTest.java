@@ -7,14 +7,15 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.api.PatientService;
 import org.openmrs.contrib.testdata.TestDataManager;
+import org.openmrs.messagesource.PresentationMessage;
 import org.openmrs.module.emrapi.EmrApiActivator;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.setup.MetadataMappingsSetup;
-import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DateFormat;
@@ -27,7 +28,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
+public class WristbandComponentTest extends PihCoreContextSensitiveTest {
 
     private static Locale locale = new Locale("fr");
 
@@ -60,8 +61,11 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
 
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
-        when(config.getSite()).thenReturn("MIREBALAIS");
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
+
+        Locale fr = new Locale("fr");
+        initializerMessageSource.addPresentation(new PresentationMessage("coreapps.ageYears", fr, "{0} an(s)", "Age"));
+        initializerMessageSource.addPresentation(new PresentationMessage("coreapps.gender.M", fr, "Masculin", "Male"));
     }
 
     @Test
@@ -88,8 +92,8 @@ public class WristbandComponentTest extends BaseModuleContextSensitiveTest {
         assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDMirebalais " + df.format(today) + "^FS"));
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
         assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
-        assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FDcoreapps.ageYears^FS"));   // no message source service, se we are just going to get back the message code for age years and gender
-        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDcoreapps.gender.M  A 000005^FS"));
+        assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FD81 an(s)^FS"));
+        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDMasculin  A 000005^FS"));
         assertThat(output, containsString("^FO100,2400^AT^BY4^BC,150,N^FDX2ECEX^XZ"));
     }
 }

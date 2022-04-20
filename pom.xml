@@ -50,7 +50,7 @@
 
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
         <allergyuiVersion>1.8.4</allergyuiVersion>
-        <appframeworkVersion>2.17.0-SNAPSHOT</appframeworkVersion>
+        <appframeworkVersion>3.0.0-SNAPSHOT</appframeworkVersion>
         <appointmentschedulingVersion>1.16.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.12.0</appointmentschedulinguiVersion>
         <appuiVersion>1.15.0</appuiVersion>
@@ -91,7 +91,7 @@
         <serializationxstreamVersion>0.2.15</serializationxstreamVersion>
         <spaVersion>1.0.8</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
-        <uicommonsVersion>2.20.0-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>2.20.0</uicommonsVersion>
         <uiframeworkVersion>3.22.1</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.36.0</webservicesRestVersion>
@@ -129,6 +129,13 @@
         <!-- End OpenMRS core -->
 
         <!-- Begin OpenMRS modules -->
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>addresshierarchy-api</artifactId>
+            <version>${addresshierarchyVersion}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
@@ -393,7 +400,7 @@
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>reporting-api-2.0</artifactId>
+            <artifactId>reporting-api-2.4</artifactId>
             <version>${reportingVersion}</version>
             <scope>provided</scope>
         </dependency>
@@ -546,6 +553,20 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- This is needed for appframework testing -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
 
