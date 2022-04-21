@@ -51,7 +51,8 @@ public class LegacyMasterPatientIndexSetup {
         config.setLocationMap(locationMap);
         config.setAttributeTypeMap(attributeTypeMap);
 
-        Context.getService(ImportPatientFromWebService.class).registerRemoteServer("lacolline", config);
+        ImportPatientFromWebService ipws = Context.getRegisteredComponents(ImportPatientFromWebService.class).get(0);
+        ipws.registerRemoteServer("lacolline", config);
     }
 
 }
