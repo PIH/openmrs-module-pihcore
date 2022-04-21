@@ -582,16 +582,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- dependencies required to wire up test context -->
-
-        <!-- used and provided by Iniz, TODO: figure out why we need to manually include this here -->
-        <dependency>
-            <groupId>com.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
 	<build>
