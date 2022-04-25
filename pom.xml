@@ -68,7 +68,7 @@
         <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
         <growthChartVersion>2.1.0</growthChartVersion>
         <idgenVersion>4.7.0</idgenVersion>
-        <initializerVersion>2.3.0-SNAPSHOT</initializerVersion>
+        <initializerVersion>2.3.0</initializerVersion>
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.3.0-SNAPSHOT</labworkflowOwaVersion>
         <legacyuiVersion>1.11.0-SNAPSHOT</legacyuiVersion>
@@ -643,11 +643,11 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.3.4-SNAPSHOT,2.3.4]</version>
+                            <version>[2.5.5-SNAPSHOT,2.5.5]</version>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[2.3.4-SNAPSHOT,2.3.4]</version>
+                            <version>[2.5.5-SNAPSHOT,2.5.5]</version>
                         </property>
                     </properties>
                 </configuration>
