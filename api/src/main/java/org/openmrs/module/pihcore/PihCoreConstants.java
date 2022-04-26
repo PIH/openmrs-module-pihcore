@@ -65,4 +65,6 @@ public class PihCoreConstants {
 
     public static final String PATIENT_DIED_CONCEPT_UUID = "3cdd446a-26fe-102b-80cb-0017a47871b2";
 
+    public static final String HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY = "haiti_hiv_emr_link_url";
+
 }

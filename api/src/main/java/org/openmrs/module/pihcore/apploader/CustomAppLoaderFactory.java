@@ -16,6 +16,7 @@ import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
+import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.apploader.apps.GraphFactory;
 import org.openmrs.module.pihcore.apploader.apps.patientregistration.PatientRegistrationApp;
 import org.openmrs.module.pihcore.config.Components;
@@ -452,8 +453,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.REHAB)) {
             enableRehab();
         }
-        if(config.isComponentEnabled(Components.PRESCRIPTION)){
+        if (config.isComponentEnabled(Components.PRESCRIPTION)){
             enablePrescription();
+        }
+
+        if (PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY) != null) {
+            enableHaitiHIVLink();
         }
 
         configureAdditionalExtensions(config);
@@ -3033,6 +3038,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
+    private void enableHaitiHIVLink() {
+        extensions.add(extension(
+                CustomAppLoaderConstants.Extensions.HAITI_HIV_EMR_DASHBOARD_LINK,
+                "pihcore.hiv.viewPatientInHivEmr",
+                "icon-external-link",
+                "link",
+                PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY) + "?patientId={{identifier}}&identifierType=" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID + "&dashboard="+ PihEmrConfigConstants.PROGRAM_HIV_UUID,
+                null,
+                null,
+                "patientHeader.extraIdentifierLinks",
+                1,
+                map("identifierType", ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID)
+        ));
+    }
 
     private void enablePrograms(Config config) {
 

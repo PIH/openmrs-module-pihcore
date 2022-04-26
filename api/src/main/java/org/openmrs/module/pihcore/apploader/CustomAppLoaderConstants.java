@@ -266,6 +266,8 @@ public class CustomAppLoaderConstants {
 
         public static final String SPA_PREVIEW_PATIENT_CHART = "spa.preview.patientChart";
 
+        public static final String HAITI_HIV_EMR_DASHBOARD_LINK = "patientHeader.linkToHivEmr";
+
     }
 
     public static final class ExtensionPoints {
