@@ -3262,7 +3262,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "registrationapp.clinicalDashboard",
                 "fas fa-fw fa-stethoscope",
                 "link",
-                 config.getDashboardUrl(),
+                 config.getDashboardUrl() + "&currentDashboard=" + programUuid,
                 "App: coreapps.patientDashboard",
                 null,
                 programUuid + ".overallActions",

@@ -20,7 +20,8 @@ import java.util.List;
  */
 public class ProgramDashboardPageController {
 
-    public Redirect controller(@RequestParam(value = "patientId") Patient patient) {
+    public Redirect controller(@RequestParam(value = "patientId") Patient patient,
+                               @RequestParam(value = "currentDashboard", required = false) String currentDashboard) {
 
         String providerName = "coreapps";
         String pageName = "clinicianfacing/patient";
@@ -37,7 +38,7 @@ public class ProgramDashboardPageController {
         if (activeEnrollments.size() == 1) {
             // TODO: Once we have legitimate dashboards for all programs, remove this constraint on HIV program?
             String programUuid = activeEnrollments.get(0).getProgram().getUuid();
-            if (programUuid.equals(PihEmrConfigConstants.PROGRAM_HIV_UUID)) {
+            if (programUuid.equals(PihEmrConfigConstants.PROGRAM_HIV_UUID) && !programUuid.equals(currentDashboard)) {
                 queryString += "&dashboard=" + programUuid;
             }
         }
