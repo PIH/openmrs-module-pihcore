@@ -101,5 +101,4 @@ public class Components {
     public static final String COMMENT_FORM = "commentForm";
     public static final String REHAB = "rehab";
 
-    public static final String HAITI_HIV_EMR_DASHBOARD_LINK = "haitiHivEmrDashboardLink";
 }

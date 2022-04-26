@@ -457,8 +457,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enablePrescription();
         }
 
-        if (config.isComponentEnabled(Components.HAITI_HIV_EMR_DASHBOARD_LINK)) {
-            // enables patient header link to stand-alone Haiti HIV instance
+        if (PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY) != null) {
             enableHaitiHIVLink();
         }
 
@@ -3045,7 +3044,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.hiv.viewPatientInHivEmr",
                 "icon-external-link",
                 "link",
-                "https://haitihivtest.pih-emr.org/openmrs/pihcore/patient.page?patientId={{identifier}}&identifierType=" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID + "&dashboard="+ PihEmrConfigConstants.PROGRAM_HIV_UUID,
+                PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY) + "?patientId={{identifier}}&identifierType=" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID + "&dashboard="+ PihEmrConfigConstants.PROGRAM_HIV_UUID,
                 null,
                 null,
                 "patientHeader.extraIdentifierLinks",
