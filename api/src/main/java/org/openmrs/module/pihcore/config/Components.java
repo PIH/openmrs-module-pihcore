@@ -11,6 +11,8 @@ public class Components {
     public static final String CHECK_IN_HOMEPAGE_APP = "checkInHomepageApp";
     public static final String UHM_VITALS = "uhmVitals";
     public static final String VITALS = "vitals";
+
+    public static final String VITALS_HOMEPAGE_APP = "vitalsHomepageApp";
     public static final String CONSULT = "consult";
     public static final String CONSULT_INITIAL = "consultInitial";
     public static final String ED_CONSULT = "edConsult";
