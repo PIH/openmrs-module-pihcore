@@ -457,7 +457,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enablePrescription();
         }
 
-        if (PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY) != null) {
+        if (StringUtils.isNotBlank(PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY))) {
             enableHaitiHIVLink();
         }
 
