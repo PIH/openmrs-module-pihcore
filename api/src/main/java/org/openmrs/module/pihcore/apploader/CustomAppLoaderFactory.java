@@ -263,6 +263,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableDispensing();
         }
 
+        if (config.isComponentEnabled(Components.MEDICATION_DISPENSING)) {
+            enableMedicationDispensing();
+        }
+
         if (config.isComponentEnabled(Components.SURGERY)) {
             enableSurgery();
         }
@@ -911,6 +915,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.DEFAULT), "fas fa-fw fa-x-ray");
     }
 
+    /**
+     * This enables the legacy, form-based medication dispensing functionality
+     */
     private void enableDispensing() {
 
         // TODO change this to use the coreapps find patient app?
@@ -954,6 +961,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID,
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.DEFAULT), "fas fa-fw fa-pills", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
+    }
+
+    /**
+     * This enables the new, micro-frontend medication dispensing functionality
+     */
+    private void enableMedicationDispensing() {
+        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MEDICATION_DISPENSING,
+                        "pih.app.medicationDispensing.title",
+                        "fas fa-fw fa-pills",
+                        "spa/dispensing",
+                        "App: dispensing.app.dispense",
+                        null),
+                sessionLocationHasTag("Dispensing Location")));
     }
 
     private void enableSurgery() {

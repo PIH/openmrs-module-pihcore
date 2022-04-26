@@ -22,7 +22,8 @@ public class CustomAppLoaderConstants {
         public static final String ARCHIVES_ROOM = "paperrecord.app.archivesRoom";
         public static final String SYSTEM_ADMINISTRATION = "coreapps.app.systemAdministration";
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
-        public static final String DISPENSING = "dispensing.app";
+        public static final String DISPENSING = "dispensing.app";  // This is the legacy, form-based dispensing app
+        public static final String MEDICATION_DISPENSING = "medicationDispensing.app";  // This is the new, MFE-based dispensing app
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
         public static final String NOTES_SUMMARY = "pih.app.notes.summary";
         public static final String HIV_DISPENSING_SUMMARY = "pih.app.hiv.dispensing.summary";
@@ -326,6 +327,7 @@ public class CustomAppLoaderConstants {
             Apps.PROGRAM_SUMMARY_LIST,
             Apps.REPORTS,
             Apps.DISPENSING,
+            Apps.MEDICATION_DISPENSING,
             Apps.ED_TRIAGE,
             Apps.ED_TRIAGE_QUEUE,
             Apps.CHW_MGMT,
