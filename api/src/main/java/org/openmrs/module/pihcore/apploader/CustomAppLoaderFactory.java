@@ -582,23 +582,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableVitals() {
 
-        if (config.isComponentEnabled(Components.UHM_VITALS)) {
-            // custom vitals app used in Mirebalais
-            apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.UHM_VITALS,
-                    "mirebalais.outpatientVitals.title",
-                    "fas fa-fw fa-heartbeat",
-                    "App: mirebalais.outpatientVitals",
-                    "/pihcore/outpatientvitals/patient.page?patientId={{patientId}}",
-                    null, config.getFindPatientColumnConfig()),
-                    sessionLocationHasTag("Vitals Location")));
-        } else {
-            apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.VITALS,
-                    "pihcore.vitalsList.title",
-                    "fas fa-fw fa-heartbeat",
-                    "/pihcore/vitals/vitalsList.page",
-                    "App: mirebalais.outpatientVitals",  // TODO rename this permission to not be mirebalais-specific?
-                    null)));
+        if (config.isComponentEnabled(Components.VITALS_HOMEPAGE_APP)) {
+            if (config.isComponentEnabled(Components.UHM_VITALS)) {
+                // custom vitals app used in Mirebalais
+                apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.UHM_VITALS,
+                                "mirebalais.outpatientVitals.title",
+                                "fas fa-fw fa-heartbeat",
+                                "App: mirebalais.outpatientVitals",
+                                "/pihcore/outpatientvitals/patient.page?patientId={{patientId}}",
+                                null, config.getFindPatientColumnConfig()),
+                        sessionLocationHasTag("Vitals Location")));
+            } else {
+                apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.VITALS,
+                        "pihcore.vitalsList.title",
+                        "fas fa-fw fa-heartbeat",
+                        "/pihcore/vitals/vitalsList.page",
+                        "App: mirebalais.outpatientVitals",  // TODO rename this permission to not be mirebalais-specific?
+                        null)));
 
+            }
         }
 
         if(config.getCountry().equals(ConfigDescriptor.Country.PERU)){
