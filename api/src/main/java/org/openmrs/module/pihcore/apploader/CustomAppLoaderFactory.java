@@ -968,7 +968,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
      */
     private void enableMedicationDispensing() {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MEDICATION_DISPENSING,
-                        "mirebalais.dispensing.dispensing",
+                        "pih.app.medicationDispensing.title",
                         "fas fa-fw fa-pills",
                         "spa/dispensing",
                         "App: dispensing.app.dispense",
