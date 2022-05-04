@@ -53,6 +53,10 @@ public class PihCloseStaleVisitsTask implements Runnable {
         LocationTag visitLocationTag =  locationService.getLocationTagByName(EmrApiConstants.LOCATION_TAG_SUPPORTS_VISITS);
         List<Location> locations = locationService.getLocationsByTag(visitLocationTag);
 
+        if (locations == null || locations.size() == 0) {
+            log.error("Unable to close stale visits, no locations with Visit Location tag");
+            return;
+        }
 
         List<Visit> openVisits = visitService.getVisits(null, null, locations, null, null, null, null, null, null, false, false);
         for (Visit visit : openVisits) {
