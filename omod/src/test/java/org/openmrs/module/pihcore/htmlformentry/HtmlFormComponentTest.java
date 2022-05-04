@@ -1,10 +1,10 @@
 package org.openmrs.module.pihcore.htmlformentry;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntryContext;
@@ -15,17 +15,19 @@ import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 
 import java.io.InputStream;
 import java.util.Properties;
 
+;
+
 // TODO ignoring this for now, as this test fails after moving the HTML Forms out of here and into configuration directories
 @SkipBaseSetup
-@Ignore
+@Disabled
 public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
 
     @Autowired
@@ -38,7 +40,7 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
         return p;
     }
 
-    @Before
+    @BeforeEach
     public void beforeEachTest() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet("requiredDataTestDataset.xml");
@@ -93,7 +95,7 @@ public class HtmlFormComponentTest extends BaseModuleContextSensitiveTest {
             }
             catch (Exception ex) {
                 ex.printStackTrace();
-                Assert.fail("Failed to load " + formName + ": " + ex.getMessage());
+                Assertions.fail("Failed to load " + formName + ": " + ex.getMessage());
             }
         }
     }

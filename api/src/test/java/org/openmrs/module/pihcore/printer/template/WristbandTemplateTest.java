@@ -1,9 +1,9 @@
 package org.openmrs.module.pihcore.printer.template;
 
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
@@ -17,7 +17,6 @@ import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.paperrecord.PaperRecordProperties;
-import org.openmrs.module.pihcore.printer.template.WristbandTemplate;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterServiceImpl;
 import org.openmrs.module.printer.UnableToPrintViaSocketException;
@@ -30,10 +29,10 @@ import java.util.Locale;
 
 import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.argThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
 public class WristbandTemplateTest {
 
@@ -59,7 +58,7 @@ public class WristbandTemplateTest {
 
     private Location visitLocation = new Location();
 
-    @Before
+    @BeforeEach
     public void setup() {
 
         emrApiProperties = mock(EmrApiProperties.class);
@@ -199,7 +198,7 @@ public class WristbandTemplateTest {
     }
 
     @Test
-    @Ignore
+    @Disabled
     public void testWristbandHack() throws UnableToPrintViaSocketException {
         int i = 0;
 

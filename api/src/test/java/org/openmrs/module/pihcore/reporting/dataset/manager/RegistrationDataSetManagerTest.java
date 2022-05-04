@@ -14,9 +14,10 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
+;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.dataset.DataSetRow;
@@ -30,7 +31,7 @@ public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest 
     @Autowired
     RegistrationDataSetManager registrationDataSetManager;
 
-    @Before
+    @BeforeEach
     @Override
     public void setup() throws Exception {
         super.setup();

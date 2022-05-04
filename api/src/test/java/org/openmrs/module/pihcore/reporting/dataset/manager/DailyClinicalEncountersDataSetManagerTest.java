@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
@@ -24,7 +24,7 @@ import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openmrs.module.pihcore.reporting.ReportingMatchers.isCohortWithExactlyMembers;
 
 @SkipBaseSetup
@@ -41,7 +41,7 @@ public class DailyClinicalEncountersDataSetManagerTest extends BaseReportTest {
 
     private Patient p2, p3, p4;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         EmrApiProperties eap = emrApiProperties;
 

@@ -1,9 +1,10 @@
 package org.openmrs.module.pihcore.encounter;
 
 import org.apache.commons.lang.time.DateUtils;
+;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Patient;
@@ -22,7 +23,7 @@ public class PihEncounterValidatorTest {
 
     private PihEncounterValidator validator = new PihEncounterValidator();
 
-    @Before
+    @BeforeEach
     public void setup() {
         validator.setAdtService(new AdtServiceImpl());
         validator.setVisitAssignmentHandler(mock(EmrApiVisitAssignmentHandler.class));

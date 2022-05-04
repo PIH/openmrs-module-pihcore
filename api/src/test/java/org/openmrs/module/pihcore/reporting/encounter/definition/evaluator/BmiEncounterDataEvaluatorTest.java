@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.reporting.encounter.definition.evaluator;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.pihcore.metadata.Metadata;
@@ -15,15 +15,15 @@ import org.openmrs.module.reporting.query.encounter.EncounterIdSet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class BmiEncounterDataEvaluatorTest extends BaseReportTest {
 
     @Autowired
     EncounterDataService encounterDataService;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         super.setup();
     }

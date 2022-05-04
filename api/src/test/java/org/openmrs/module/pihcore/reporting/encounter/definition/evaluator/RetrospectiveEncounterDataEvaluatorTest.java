@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.reporting.encounter.definition.evaluator;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.pihcore.reporting.BaseReportTest;
@@ -15,15 +15,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RetrospectiveEncounterDataEvaluatorTest extends BaseReportTest {
 
     @Autowired
     EncounterDataService encounterDataService;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         super.setup();
     }

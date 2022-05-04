@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.setup;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptMap;
 import org.openmrs.ConceptName;
@@ -17,21 +17,19 @@ import org.openmrs.util.OpenmrsConstants;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.in;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DrugListSetupTest extends PihCoreContextSensitiveTest {
 
     public static final String appDataTestDir = "testAppDataDir";
 
-    @Before
+    @BeforeEach
     public void setup() {
         // configure app data dir path
         String path = getClass().getClassLoader().getResource(appDataTestDir).getPath() + File.separator;

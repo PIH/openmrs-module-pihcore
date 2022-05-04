@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.util.OpenmrsConstants;
 
@@ -10,13 +10,13 @@ import java.util.Collection;
 import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MetadataSharingSetupTest {
 
     public static final String appDataTestDir = "testAppDataDir";
 
-    @Before
+    @BeforeEach
     public void setup() {
         String path = getClass().getClassLoader().getResource(appDataTestDir).getPath() + File.separator;
 

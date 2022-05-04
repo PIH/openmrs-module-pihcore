@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>pihcore</artifactId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>PIH Core Module</name>
 	<description>Core metadata and configuration included in all PIH distributions</description>
@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.3.6-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>2.5.5-SNAPSHOT</openMRSVersion>
 
         <addresshierarchyVersion>2.14.2</addresshierarchyVersion>
         <allergyuiVersion>1.8.4</allergyuiVersion>
@@ -58,7 +58,7 @@
         <calculationVersion>1.3.0</calculationVersion>
         <coreappsVersion>1.36.0</coreappsVersion>
         <dispensingVersion>1.3.0-SNAPSHOT</dispensingVersion>
-        <edtriageappVersion>1.4.0</edtriageappVersion>
+        <edtriageappVersion>2.0.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.33.0-SNAPSHOT</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
@@ -68,7 +68,6 @@
         <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
         <growthChartVersion>2.1.0</growthChartVersion>
         <idgenVersion>4.7.0</idgenVersion>
-        <importpatientfromwsVersion>1.0</importpatientfromwsVersion>
         <initializerVersion>2.3.0</initializerVersion>
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.3.0-SNAPSHOT</labworkflowOwaVersion>
@@ -80,8 +79,8 @@
         <orderEntryOwaVersion>1.2.4</orderEntryOwaVersion>
         <owaVersion>1.13.0</owaVersion>
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
-        <paperrecordVersion>1.3.0</paperrecordVersion>
-        <printerVersion>1.4.0</printerVersion>
+        <paperrecordVersion>1.4.0-SNAPSHOT</paperrecordVersion>
+        <printerVersion>1.5.0-SNAPSHOT</printerVersion>
         <providermanagementVersion>2.13.0</providermanagementVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.25.0-SNAPSHOT</registrationappVersion>
@@ -95,7 +94,7 @@
         <uicommonsVersion>2.21.0</uicommonsVersion>
         <uiframeworkVersion>3.22.1</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
-        <webservicesRestVersion>2.30.0-SNAPSHOT</webservicesRestVersion>
+        <webservicesRestVersion>2.37.0-SNAPSHOT</webservicesRestVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -124,19 +123,6 @@
             <artifactId>openmrs-test</artifactId>
             <version>${openMRSVersion}</version>
             <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.3.173</version>
             <scope>test</scope>
         </dependency>
 
@@ -300,13 +286,6 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>importpatientfromws-api</artifactId>
-            <version>${importpatientfromwsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
             <artifactId>initializer-api</artifactId>
             <version>${initializerVersion}</version>
             <type>jar</type>
@@ -421,7 +400,7 @@
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>reporting-api-2.0</artifactId>
+            <artifactId>reporting-api-2.4</artifactId>
             <version>${reportingVersion}</version>
             <scope>provided</scope>
         </dependency>
@@ -548,6 +527,15 @@
 
         <!-- end dependencies for Zebra ZXP Series 3 API -->
 
+        <!-- Required for import patient from ws -->
+
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.17.1</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- Begin OpenMRS contrib -->
 
         <dependency>
@@ -565,6 +553,20 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- This is needed for appframework testing -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>3.0.0</version>
             <scope>test</scope>
         </dependency>
 
@@ -621,11 +623,8 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.17</version>
+                    <version>3.0.0-M5</version>
 					<configuration>
-                        <runOrder>alphabetical</runOrder>
-                        <!-- see: https://stackoverflow.com/questions/53010200/maven-surefire-could-not-find-forkedbooter-class -->
-						<argLine>-Xmx2048m -Xms2048m -XX:MaxPermSize=512m -Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
 						<includes>
 							<include>**/*Test.java</include>
 						</includes>
@@ -644,11 +643,11 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.3.4-SNAPSHOT,2.3.4]</version>
+                            <version>[2.5.5-SNAPSHOT,2.5.5]</version>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[2.3.4-SNAPSHOT,2.3.4]</version>
+                            <version>[2.5.5-SNAPSHOT,2.5.5]</version>
                         </property>
                     </properties>
                 </configuration>

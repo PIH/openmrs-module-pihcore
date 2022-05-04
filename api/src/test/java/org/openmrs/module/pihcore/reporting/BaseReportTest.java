@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.reporting;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAddress;
@@ -77,7 +77,7 @@ public abstract class BaseReportTest extends PihCoreContextSensitiveTest {
     @Autowired
     protected FormService formService;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         Config config = getConfig();
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();

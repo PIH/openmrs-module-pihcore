@@ -4,7 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
@@ -40,6 +41,7 @@ import java.util.Properties;
  *  mvn test -Dtest=DataValidationTest -Dvalidation.properties=/tmp/validation.properties
  */
 @SkipBaseSetup
+@Disabled
 public class DataValidationTest extends PihCoreContextSensitiveTest {
 
     static Properties props = null;

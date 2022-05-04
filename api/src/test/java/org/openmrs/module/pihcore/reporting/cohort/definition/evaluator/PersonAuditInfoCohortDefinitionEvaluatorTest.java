@@ -14,8 +14,8 @@
 
 package org.openmrs.module.pihcore.reporting.cohort.definition.evaluator;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
 import org.openmrs.PersonName;
 import org.openmrs.api.PatientService;
@@ -32,7 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Arrays;
 import java.util.Date;
 
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openmrs.module.pihcore.reporting.ReportingMatchers.hasExactlyIds;
 
 public class PersonAuditInfoCohortDefinitionEvaluatorTest extends PihCoreContextSensitiveTest {
@@ -73,7 +73,7 @@ public class PersonAuditInfoCohortDefinitionEvaluatorTest extends PihCoreContext
 
     // ignoring this pending resolution of: https://issues.openmrs.org/browse/TRUNK-5691
     @Test
-    @Ignore
+    @Disabled
     public void testEvaluateByChangedDetails() throws Exception {
         PersonAuditInfoCohortDefinition cd = new PersonAuditInfoCohortDefinition();
         cd.setChangedOnOrAfter(DateUtil.parseDate("2008-08-18 12:25", "yyyy-MM-dd HH:mm"));

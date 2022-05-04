@@ -1,13 +1,13 @@
 package org.openmrs.module.pihcore;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.layout.name.NameSupport;
 import org.openmrs.layout.name.NameTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class NameTemplateComponentTest {
 
@@ -17,7 +17,7 @@ public class NameTemplateComponentTest {
     private PihCoreActivator activator;
 
 
-    @Ignore
+    @Disabled
     @Test
     public void verifyNameTemplateConfigured() {
 

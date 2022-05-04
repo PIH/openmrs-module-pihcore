@@ -16,9 +16,9 @@ package org.openmrs.module.pihcore.radiology;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.AfterClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
 import org.openmrs.Patient;
@@ -37,7 +37,7 @@ import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -59,12 +59,12 @@ import java.util.Date;
 // these tests will only pass on bamboo
 
 @SkipBaseSetup
-@Ignore
+@Disabled
 public class MirthTest extends BaseModuleContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
-	@AfterClass
+	@AfterAll
 	public static void tearDown() {
 		runtimeProperties = null;
 	}

@@ -1,18 +1,8 @@
 package org.openmrs.module.pihcore.apploader.apps;
 
 import org.codehaus.jackson.JsonNode;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
-import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
-import org.openmrs.module.pihcore.apploader.apps.patientregistration.PatientRegistrationApp;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.deploy.bundle.core.concept.SocioEconomicConcepts;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
@@ -28,12 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests the configuration of the patient registration app
@@ -50,7 +39,7 @@ public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
     @Autowired
     private SocioEconomicConcepts socioEconomicConcepts;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         setAutoIncrementOnTablesWithNativeIfNotAssignedIdentityGenerator();
     }

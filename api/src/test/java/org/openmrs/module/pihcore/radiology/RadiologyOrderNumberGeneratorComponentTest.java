@@ -1,9 +1,8 @@
 package org.openmrs.module.pihcore.radiology;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Order;
 import org.openmrs.TestOrder;
 import org.openmrs.api.AdministrationService;
@@ -14,14 +13,14 @@ import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Date;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class RadiologyOrderNumberGeneratorComponentTest extends BaseModuleContextSensitiveTest {
 
@@ -44,7 +43,7 @@ public class RadiologyOrderNumberGeneratorComponentTest extends BaseModuleContex
     @Qualifier("adminService")
     private AdministrationService adminService;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         executeDataSet("radiologyOrderNumberGeneratorTestDataset.xml");
         // it appears we need to fully commit this in order for it to be properly fetched when called with LockOptions.UPGRADE
@@ -52,7 +51,7 @@ public class RadiologyOrderNumberGeneratorComponentTest extends BaseModuleContex
         getConnection().commit();
     }
 
-    @After
+    @AfterEach
     public void tearDown() throws Exception {
         deleteAllData();
     }

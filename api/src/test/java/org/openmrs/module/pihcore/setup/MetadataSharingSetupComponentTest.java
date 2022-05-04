@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatasharing.wrapper.PackageImporter;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
@@ -13,14 +13,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 public class MetadataSharingSetupComponentTest extends PihCoreContextSensitiveTest  {
 
     public static final String appDataTestDir = "testAppDataDir";
 
-    @Before
+    @BeforeEach
     public void setup() {
         String path = getClass().getClassLoader().getResource(appDataTestDir).getPath() + File.separator;
         System.setProperty("OPENMRS_APPLICATION_DATA_DIRECTORY", path);

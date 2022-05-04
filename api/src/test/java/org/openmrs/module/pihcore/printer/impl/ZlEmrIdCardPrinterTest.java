@@ -1,8 +1,9 @@
 package org.openmrs.module.pihcore.printer.impl;
 
+;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
 import org.openmrs.Patient;
@@ -64,7 +65,7 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
     @Autowired
     ZlEmrIdCardPrinter zlEmrIdCardPrinter;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
 
         EmrApiActivator emrApiActivator = new EmrApiActivator();
@@ -84,7 +85,6 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
 
         Config config = mock(Config.class);
         when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
-        when(config.getSite()).thenReturn("MIREBALAIS");
         Location location = locationService.getLocation("Biwo Resepsyon");
         LocationTag tag = new LocationTag();
         tag.setName(PaperRecordConstants.LOCATION_TAG_MEDICAL_RECORD_LOCATION);

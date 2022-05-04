@@ -1,8 +1,8 @@
 package org.openmrs.module.pihcore.task;
 
 import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.User;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.UserService;
@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UpdateProviderRetiredStatusTaskTest extends PihCoreContextSensitiveTest {
 
@@ -22,7 +22,7 @@ public class UpdateProviderRetiredStatusTaskTest extends PihCoreContextSensitive
     @Autowired
     private UserService userService;
 
-    @Before
+    @BeforeEach
     public void before() throws Exception {
         executeDataSet("updateProviderRetiredStatesDataset.xml");
     }

@@ -2,8 +2,8 @@ package org.openmrs.module.pihcore.htmlformentry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Concept;
 import org.openmrs.ConceptClass;
 import org.openmrs.ConceptDatatype;
@@ -45,7 +45,7 @@ public class PastMedicalHistoryCheckboxTagHandlerTest extends PihCoreContextSens
     private Concept sti;
     private Concept epilepsy;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         setupConcepts();
 

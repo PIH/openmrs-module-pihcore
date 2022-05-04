@@ -14,7 +14,7 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.module.pihcore.reporting.BaseInpatientReportTest;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.config.DataSetDescriptor;
@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @SkipBaseSetup
 public class InpatientStatsDailyDataSetManagerTest extends BaseInpatientReportTest {

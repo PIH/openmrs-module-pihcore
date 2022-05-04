@@ -1,89 +1,66 @@
 package org.openmrs.module.pihcore.merge;
 
-import org.joda.time.DateTime;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
-import org.openmrs.EncounterType;
 import org.openmrs.Patient;
-import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.User;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.openmrs.contrib.testdata.TestDataManager;
+import org.openmrs.module.initializer.Domain;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-
-import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest( { Context.class } )
-public class PihPatientMergeActionsTest {
+public class PihPatientMergeActionsTest extends PihCoreContextSensitiveTest {
 
-    private PihPatientMergeActions pihPatientMergeActions;
+    @Autowired PihPatientMergeActions pihPatientMergeActions;
+    @Autowired PersonService personService;
+    @Autowired EncounterService encounterService;
+    @Autowired TestDataManager tdm;
 
-    private PersonService personService;
+    PersonAttributeType phoneNumber;
 
-    private EncounterService encounterService;
+    PersonAttributeType mothersName;
 
-    private PersonAttributeType phoneNumber = new PersonAttributeType(1);
+    User user;
 
-    private PersonAttributeType mothersName = new PersonAttributeType(2);
+    Patient preferred;
 
-    private EncounterType registration = new EncounterType(1);
+    Patient nonPreferred;
 
-    private User user = new User(1);
-
-    @Before
+    @BeforeEach
     public void setup() {
+        loadFromInitializer(Domain.LOCATIONS, "locations-base.csv");
+        loadFromInitializer(Domain.LOCATIONS, "locations-site-mirebalais.csv");
+        loadFromInitializer(Domain.PERSON_ATTRIBUTE_TYPES, "personAttributeTypes.csv");
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
 
-        mockStatic(Context.class);
-        when(Context.getAuthenticatedUser()).thenReturn(user);
-
-        personService = mock(PersonService.class);
-        when(Context.getPersonService()).thenReturn(personService);
-        when(personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID)).thenReturn(phoneNumber);
-        when(personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID)).thenReturn(mothersName);
-
-        encounterService = mock(EncounterService.class);
-        when(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID)).thenReturn(registration);
-
-        pihPatientMergeActions = new PihPatientMergeActions();
-        pihPatientMergeActions.setPersonService(personService);
-        pihPatientMergeActions.setEncounterService(encounterService);
+        phoneNumber = personService.getPersonAttributeTypeByName("Telephone Number");
+        mothersName = personService.getPersonAttributeTypeByName("First Name of Mother");
+        user = Context.getUserService().getUser(1);
     }
 
     @Test
     public void shouldRemoveNonPreferredPhoneNumberAndMothersNameIfPresentOnPreferredPatient() {
 
-        Patient preferred = new Patient();
-        Patient nonPreferred = new Patient();
+        preferred = tdm.randomPatient()
+                .personAttribute(phoneNumber, "preferred")
+                .personAttribute(mothersName, "preferred")
+                .save();
 
-        PersonAttribute preferredPhoneNumber = new PersonAttribute(phoneNumber, "preferred");
-        PersonAttribute preferredMothersName = new PersonAttribute(mothersName, "preferred");
-        preferred.addAttribute(preferredPhoneNumber);
-        preferred.addAttribute(preferredMothersName);
-
-        PersonAttribute nonPreferredPhoneNumber = new PersonAttribute(phoneNumber, "non-preferred");
-        PersonAttribute nonPreferredMothersName = new PersonAttribute(mothersName, "non-preferred");
-        nonPreferred.addAttribute(nonPreferredPhoneNumber);
-        nonPreferred.addAttribute(nonPreferredMothersName);
+        nonPreferred = tdm.randomPatient()
+                .personAttribute(phoneNumber, "non-preferred")
+                .personAttribute(mothersName, "non-preferred")
+                .save();
 
         //sanity check
         assertThat(preferred.getActiveAttributes().size(), is(2));
@@ -92,20 +69,19 @@ public class PihPatientMergeActionsTest {
         pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
 
         assertThat(preferred.getActiveAttributes().size(), is(2));
-        assertThat(nonPreferred.getActiveIdentifiers().size(), is(0));
-
+        assertThat(nonPreferred.getActiveAttributes().size(), is(0));
     }
 
     @Test
     public void shouldNotRemoveNonPreferredPhoneNumberAndMothersNameIfNotPresentOnPreferredPatient() {
 
-        Patient preferred = new Patient();
-        Patient nonPreferred = new Patient();
+        preferred = tdm.randomPatient()
+                .save();
 
-        PersonAttribute nonPreferredPhoneNumber = new PersonAttribute(phoneNumber, "non-preferred");
-        PersonAttribute nonPreferredMothersName = new PersonAttribute(mothersName, "non-preferred");
-        nonPreferred.addAttribute(nonPreferredPhoneNumber);
-        nonPreferred.addAttribute(nonPreferredMothersName);
+        nonPreferred = tdm.randomPatient()
+                .personAttribute(phoneNumber, "non-preferred")
+                .personAttribute(mothersName, "non-preferred")
+                .save();
 
         //sanity check
         assertThat(preferred.getActiveAttributes().size(), is(0));
@@ -115,22 +91,19 @@ public class PihPatientMergeActionsTest {
 
         assertThat(preferred.getActiveAttributes().size(), is(0));
         assertThat(nonPreferred.getActiveAttributes().size(), is(2));
-
     }
 
     @Test
     public void shouldRemoveNonPreferredPhoneNumberButNotMothersName() {
 
-        Patient preferred = new Patient();
-        Patient nonPreferred = new Patient();
+        preferred = tdm.randomPatient()
+                .personAttribute(phoneNumber, "preferred")
+                .save();
 
-        PersonAttribute preferredPhoneNumber = new PersonAttribute(phoneNumber, "preferred");
-        preferred.addAttribute(preferredPhoneNumber);
-
-        PersonAttribute nonPreferredPhoneNumber = new PersonAttribute(phoneNumber, "non-preferred");
-        PersonAttribute nonPreferredMothersName = new PersonAttribute(mothersName, "non-preferred");
-        nonPreferred.addAttribute(nonPreferredPhoneNumber);
-        nonPreferred.addAttribute(nonPreferredMothersName);
+        nonPreferred = tdm.randomPatient()
+                .personAttribute(phoneNumber, "non-preferred")
+                .personAttribute(mothersName, "non-preferred")
+                .save();
 
         //sanity check
         assertThat(preferred.getActiveAttributes().size(), is(1));
@@ -140,106 +113,72 @@ public class PihPatientMergeActionsTest {
 
         assertThat(preferred.getActiveAttributes().size(), is(1));
         assertThat(nonPreferred.getActiveAttributes().size(), is(1));
-        assertThat(nonPreferred.getActiveAttributes(), contains(nonPreferredMothersName));
-
+        assertThat(nonPreferred.getActiveAttributes().get(0).getValue(), is("non-preferred"));
     }
 
     @Test
     public void shouldNotFailIfNonPreferredPatientDoesNotHaveAttributes() {
 
-        Patient preferred = new Patient();
-        Patient nonPreferred = new Patient();
+        preferred = tdm.randomPatient()
+                .personAttribute(phoneNumber, "preferred")
+                .personAttribute(mothersName, "preferred")
+                .save();
 
-        PersonAttribute preferredPhoneNumber = new PersonAttribute(phoneNumber, "preferred");
-        PersonAttribute preferredMothersName = new PersonAttribute(mothersName, "preferred");
-        preferred.addAttribute(preferredPhoneNumber);
-        preferred.addAttribute(preferredMothersName);
+        nonPreferred = tdm.randomPatient()
+                .save();
 
         pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
 
         assertThat(preferred.getAttributes().size(), is(2));
         assertThat(nonPreferred.getAttributes().size(), is(0));
-
     }
 
     @Test
     public void shouldVoidMostRecentRegistrationEncountersOnNonPreferredPatientIfMoreRecentThanPreferred() {
-        Patient preferred = new Patient(1);
-        Patient nonPreferred = new Patient(2);
 
-        Encounter preferredEncounter1 = createEncounter(1, new DateTime(2012, 9, 10, 0, 0, 0).toDate());
-        Encounter preferredEncounter2 = createEncounter(2, new DateTime(2012, 10, 10, 0, 0, 0).toDate());
+        preferred = tdm.randomPatient().save();
+        nonPreferred = tdm.randomPatient().save();
 
-        Encounter nonPreferredEncounter1 = createEncounter(3, new DateTime(2012, 11, 10, 0, 0, 0).toDate());
-        Encounter nonPreferredEncounter2 = createEncounter(4, new DateTime(2012, 12, 10, 0, 0, 0).toDate());
+        Encounter preferredEncounter1 = tdm.randomEncounter().patient(preferred).encounterDatetime("2012-09-10").encounterType(getRegistrationEncounterType()).save();
+        Encounter preferredEncounter2 = tdm.randomEncounter().patient(preferred).encounterDatetime("2012-10-10").encounterType(getRegistrationEncounterType()).save();
 
-        when(encounterService.getEncounters(preferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
-                .thenReturn(Arrays.asList(preferredEncounter1, preferredEncounter2));
-
-        when(encounterService.getEncounters(nonPreferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
-                .thenReturn(Arrays.asList(nonPreferredEncounter1, nonPreferredEncounter2));
+        Encounter nonPreferredEncounter1 = tdm.randomEncounter().patient(nonPreferred).encounterDatetime("2012-11-10").encounterType(getRegistrationEncounterType()).save();
+        Encounter nonPreferredEncounter2 = tdm.randomEncounter().patient(nonPreferred).encounterDatetime("2012-12-10").encounterType(getRegistrationEncounterType()).save();
 
         pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
 
-        verify(encounterService, never()).voidEncounter(eq(preferredEncounter1), anyString());
-        verify(encounterService, never()).voidEncounter(eq(preferredEncounter2), anyString());
-        verify(encounterService).voidEncounter(eq(nonPreferredEncounter1), anyString());
-        verify(encounterService).voidEncounter(eq(nonPreferredEncounter2), anyString());
+        assertFalse(encounterService.getEncounter(preferredEncounter1.getEncounterId()).getVoided());
+        assertFalse(encounterService.getEncounter(preferredEncounter2.getEncounterId()).getVoided());
+        assertTrue(encounterService.getEncounter(nonPreferredEncounter1.getEncounterId()).getVoided());
+        assertTrue(encounterService.getEncounter(nonPreferredEncounter2.getEncounterId()).getVoided());
     }
 
     @Test
     public void shouldNotVoidMostRecentRegistrationEncounterOnNonPreferredPatientIfNotMoreRecentThanPreferred() {
-        Patient preferred = new Patient(1);
-        Patient nonPreferred = new Patient(2);
 
-        Encounter preferredEncounter1 = createEncounter(1, new DateTime(2012, 10, 10, 0, 0, 0).toDate());
-        Encounter preferredEncounter2 = createEncounter(2, new DateTime(2012, 11, 10, 0, 0, 0).toDate());
+        preferred = tdm.randomPatient().save();
+        nonPreferred = tdm.randomPatient().save();
 
-        Encounter nonPreferredEncounter1 = createEncounter(3, new DateTime(2012, 1, 10, 0, 0, 0).toDate());
-        Encounter nonPreferredEncounter2 = createEncounter(4, new DateTime(2012, 2, 10, 0, 0, 0).toDate());
+        Encounter preferredEncounter1 = tdm.randomEncounter().patient(preferred).encounterDatetime("2012-10-10").encounterType(getRegistrationEncounterType()).save();
+        Encounter preferredEncounter2 = tdm.randomEncounter().patient(preferred).encounterDatetime("2012-11-10").encounterType(getRegistrationEncounterType()).save();
 
-        when(encounterService.getEncounters(preferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
-                .thenReturn(Arrays.asList(preferredEncounter1, preferredEncounter2));
-
-        when(encounterService.getEncounters(nonPreferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
-                .thenReturn(Arrays.asList(nonPreferredEncounter1, nonPreferredEncounter2));
+        Encounter nonPreferredEncounter1 = tdm.randomEncounter().patient(nonPreferred).encounterDatetime("2012-1-10").encounterType(getRegistrationEncounterType()).save();
+        Encounter nonPreferredEncounter2 = tdm.randomEncounter().patient(nonPreferred).encounterDatetime("2012-2-10").encounterType(getRegistrationEncounterType()).save();
 
         pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
 
-        verify(encounterService, never()).voidEncounter(eq(preferredEncounter1), anyString());
-        verify(encounterService, never()).voidEncounter(eq(preferredEncounter2), anyString());
-        verify(encounterService, never()).voidEncounter(eq(nonPreferredEncounter1), anyString());
-        verify(encounterService, never()).voidEncounter(eq(nonPreferredEncounter2), anyString());
+        assertFalse(encounterService.getEncounter(preferredEncounter1.getEncounterId()).getVoided());
+        assertFalse(encounterService.getEncounter(preferredEncounter2.getEncounterId()).getVoided());
+        assertFalse(encounterService.getEncounter(nonPreferredEncounter1.getEncounterId()).getVoided());
+        assertFalse(encounterService.getEncounter(nonPreferredEncounter2.getEncounterId()).getVoided());
     }
 
     @Test
     public void shouldNotFailIfNoEncounters() {
-
-        Patient preferred = new Patient(1);
-        Patient nonPreferred = new Patient(2);
-
-        when(encounterService.getEncounters(preferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
-                .thenReturn(null);
-
-        when(encounterService.getEncounters(nonPreferred, null, null, null, null,
-                Collections.singleton(registration), null, null, null, false))
-                .thenReturn(Collections.singletonList(new Encounter()));
-
+        preferred = tdm.randomPatient().save();
+        nonPreferred = tdm.randomPatient().save();
         pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
-
         // just make sure no NPE
-    }
-
-
-    private Encounter createEncounter(int id, Date date) {
-        Encounter encounter = new Encounter(id);
-        encounter.setEncounterDatetime(date);
-        return encounter;
     }
 
 }

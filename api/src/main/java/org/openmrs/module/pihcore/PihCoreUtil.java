@@ -46,7 +46,7 @@ public class PihCoreUtil {
     }
 
     public static  String getLiquibaseDir() {
-        return getDefaultPihConfigurationDir() + "/liquibase/";
+        return "configuration/pih/liquibase/";
     }
 
     public static String getLiquibaseChangeLog() {

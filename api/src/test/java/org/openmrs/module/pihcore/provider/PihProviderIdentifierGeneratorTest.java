@@ -1,11 +1,13 @@
 package org.openmrs.module.pihcore.provider;
 
+;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.providermanagement.Provider;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -15,7 +17,7 @@ public class PihProviderIdentifierGeneratorTest {
 
     private Config config;
 
-    @Before
+    @BeforeEach
     public void setup() {
         generator = new PihProviderIdentifierGenerator();
 
@@ -62,13 +64,12 @@ public class PihProviderIdentifierGeneratorTest {
     // we are generating a 3-digit base 30 number, which gives us 27000 possible combinations
     // after that, things will start to fail
 
-    @Test(expected = RuntimeException.class)
     public void shouldFailForVeryHighId() {
 
         when(config.getProviderIdentifierPrefix()).thenReturn("M");
 
         Provider provider = new Provider();
         provider.setId(1000000);
-        String identifier = (generator).generateIdentifier(provider);
+        assertThrows(RuntimeException.class, () -> generator.generateIdentifier(provider));
     }
 }

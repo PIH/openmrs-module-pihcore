@@ -14,7 +14,7 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -44,7 +44,7 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
     @Autowired
     protected MockConcepts mockConcepts;
 
-    @Before
+    @BeforeEach
     @Override
     public void setup() throws Exception {
         super.setup();

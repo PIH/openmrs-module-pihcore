@@ -15,10 +15,9 @@
 package org.openmrs.module.pihcore.paperrecord;
 
 import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
 import org.openmrs.Patient;
@@ -32,10 +31,7 @@ import org.openmrs.module.paperrecord.PaperRecordProperties;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.PaperRecordServiceImpl;
 import org.openmrs.module.paperrecord.db.PaperRecordDAO;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.openmrs.test.SkipBaseSetup;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -46,11 +42,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-@SkipBaseSetup
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Context.class)
-@Ignore
-public class PaperRecordServiceTest extends BaseModuleContextSensitiveTest {
+@Disabled
+public class PaperRecordServiceTest extends PihCoreContextSensitiveTest {
 	
 	@Autowired
 	private IdentifierSourceService identifierSourceService;
@@ -65,7 +58,7 @@ public class PaperRecordServiceTest extends BaseModuleContextSensitiveTest {
 	
 	private PaperRecordProperties paperRecordProperties;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		paperRecordService = new PaperRecordServiceImpl();
 		patientService = mock(PatientService.class);

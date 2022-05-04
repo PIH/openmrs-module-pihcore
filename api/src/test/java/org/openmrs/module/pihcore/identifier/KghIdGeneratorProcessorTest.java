@@ -1,33 +1,26 @@
 package org.openmrs.module.pihcore.identifier;
 
-import static org.hamcrest.Matchers.is;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.LogEntry;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.BaseIdentifierSourceService;
 import org.openmrs.module.pihcore.identifier.sierraLeone.ConfigureSierraLeoneIdGenerators;
 import org.openmrs.module.pihcore.identifier.sierraLeone.KghIdGeneratorProcessor;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 /**
  * test class for {@link KghIdGeneratorProcessor}
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Context.class)
 public class KghIdGeneratorProcessorTest {
 
 	SequentialIdentifierGenerator generator;
@@ -35,9 +28,8 @@ public class KghIdGeneratorProcessorTest {
 	Date testDate;
 	LogEntry lastLogEntry;
 		
-	@Before
+	@BeforeEach
 	public void setup() throws Exception {
-		mockStatic(Context.class);
 		testDate = new SimpleDateFormat("yyyy-MM-dd").parse("2020-01-31");
 
 		generator = new SequentialIdentifierGenerator();
@@ -74,24 +66,24 @@ public class KghIdGeneratorProcessorTest {
 	@Test
 	public void shouldGenerateIdentifiers() {
 		List<String> identifiers = processor.getIdentifiers(generator, 5);
-		Assert.assertThat(identifiers.size(), is(5));
+		assertThat(identifiers.size(), is(5));
 		for (int i=0; i<identifiers.size(); i++) {
-			Assert.assertThat(identifiers.get(i), is("KGH2001000" + (i+1)));
+			assertThat(identifiers.get(i), is("KGH2001000" + (i+1)));
 		}
 	}
 
 	@Test
 	public void shouldSwitchToNewPrefixAndResetSequenceOnNewDate() throws Exception {
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010001"));
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010002"));
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010003"));
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010004"));
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010005"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010001"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010002"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010003"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010004"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20010005"));
 		testDate = new SimpleDateFormat("yyyy-MM-dd").parse("2020-02-01");
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020001"));
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020002"));
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020003"));
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020004"));
-		Assert.assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020005"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020001"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020002"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020003"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020004"));
+		assertThat(processor.getIdentifiers(generator, 1).get(0), is("KGH20020005"));
 	}
 }

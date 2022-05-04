@@ -1,10 +1,9 @@
 package org.openmrs.module.pihcore.status;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
-import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.messagesource.PresentationMessage;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StatusDataEvaluatorTest extends PihCoreContextSensitiveTest {
 
@@ -24,12 +23,9 @@ public class StatusDataEvaluatorTest extends PihCoreContextSensitiveTest {
     @Autowired
     PatientService patientService;
 
-    @Autowired
-    MessageSourceService messageSourceService;
-
     @Test
     public void testEvaluateDefinition() {
-        messageSourceService.addPresentation(new PresentationMessage("patient.mostRecentWeightDate", Context.getLocale(), "Date of most recent weight", ""));
+        initializerMessageSource.addPresentation(new PresentationMessage("patient.mostRecentWeightDate", Context.getLocale(), "Date of most recent weight", ""));
         Patient patient = patientService.getPatient(7);
         StatusDataDefinition definition = new StatusDataDefinition();
         definition.setLabelCode("patient.mostRecentWeightDate");
@@ -55,10 +51,10 @@ public class StatusDataEvaluatorTest extends PihCoreContextSensitiveTest {
         List<File> filesAdded = new ArrayList<>();
         filesAdded.add(addResourceToConfigurationDirectory("pih/statusData", "birthdate.sql"));
         filesAdded.add(addResourceToConfigurationDirectory("pih/statusData", "testStatuses.yml"));
-        messageSourceService.addPresentation(new PresentationMessage("label.gender", Context.getLocale(), "Gender", ""));
-        messageSourceService.addPresentation(new PresentationMessage("label.age", Context.getLocale(), "Age", ""));
-        messageSourceService.addPresentation(new PresentationMessage("gender.female", Context.getLocale(), "Female", ""));
-        messageSourceService.addPresentation(new PresentationMessage("gender.male", Context.getLocale(), "Male", ""));
+        initializerMessageSource.addPresentation(new PresentationMessage("label.gender", Context.getLocale(), "Gender", ""));
+        initializerMessageSource.addPresentation(new PresentationMessage("label.age", Context.getLocale(), "Age", ""));
+        initializerMessageSource.addPresentation(new PresentationMessage("gender.female", Context.getLocale(), "Female", ""));
+        initializerMessageSource.addPresentation(new PresentationMessage("gender.male", Context.getLocale(), "Male", ""));
 
         Patient patient = patientService.getPatient(7);
         List<StatusData> statusDataList = evaluator.evaluate(patient, "testStatuses.yml");

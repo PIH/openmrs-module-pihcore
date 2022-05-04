@@ -14,8 +14,8 @@
 
 package org.openmrs.module.pihcore.reporting.cohort.definition.evaluator;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.api.ConceptService;
@@ -36,7 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Arrays;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.openmrs.module.pihcore.reporting.ReportingMatchers.hasExactlyIds;
 
 public class DiagnosisCohortDefinitionEvaluatorTest extends PihCoreContextSensitiveTest {
@@ -55,7 +55,7 @@ public class DiagnosisCohortDefinitionEvaluatorTest extends PihCoreContextSensit
 
     DiagnosisMetadata dmd;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         dmd = ContextSensitiveMetadataTestUtils.setupDiagnosisMetadata(conceptService, emrApiProperties);
     }

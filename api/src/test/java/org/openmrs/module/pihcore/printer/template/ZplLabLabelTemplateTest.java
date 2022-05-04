@@ -1,14 +1,13 @@
 package org.openmrs.module.pihcore.printer.template;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonName;
 import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.pihcore.printer.template.ZplLabLabelTemplate;
 import org.openmrs.module.printer.Printer;
 import org.openmrs.module.printer.PrinterServiceImpl;
 import org.openmrs.module.printer.handler.SocketPrintHandler;
@@ -19,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -29,7 +28,7 @@ public class ZplLabLabelTemplateTest {
 
     private PatientIdentifierType primaryIdentifierType;
 
-    @Before
+    @BeforeEach
     public void setup() {
 
         primaryIdentifierType = new PatientIdentifierType();
@@ -64,7 +63,7 @@ public class ZplLabLabelTemplateTest {
     }
 
     @Test
-    @Ignore // just used to print against a test printer when one is on the network
+    @Disabled // just used to print against a test printer when one is on the network
     public void shouldPrintToPrinter() throws Exception{
 
         Patient patient = new Patient();

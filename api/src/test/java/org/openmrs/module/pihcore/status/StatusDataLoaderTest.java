@@ -1,6 +1,6 @@
 package org.openmrs.module.pihcore.status;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openmrs.api.PatientService;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class StatusDataLoaderTest extends PihCoreContextSensitiveTest {
 
