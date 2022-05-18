@@ -35,7 +35,9 @@ public class PihAccountDomainWrapper extends AccountDomainWrapper {
         if (getUser() == null && StringUtils.isNotBlank(email)) {
             initializeUser();
         }
-        getUser().setEmail(email);
+        if (getUser() != null) {
+            getUser().setEmail(email);
+        }
     }
 
     public String getPhoneNumber() {
