@@ -56,6 +56,7 @@ public class Components {
         public static final String MONITORING_REPORTS = "monitoringReports";
         public static final String DATA_EXPORTS = "dataExports";  // enabled the data export section
         public static final String ALL_DATA_EXPORTS = "allDataExports"; // show all data exports, regardless of what components are actually enabled (used by Mirebalais reporting server)
+        public static final String POWER_BI_REPORTS = "powerbiReports";
         public static final String ARCHIVES = "archives";
         public static final String WRISTBANDS = "wristbands";
         public static final String APPOINTMENT_SCHEDULING = "appointmentScheduling";
