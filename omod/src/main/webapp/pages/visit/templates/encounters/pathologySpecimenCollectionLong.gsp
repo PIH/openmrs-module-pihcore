@@ -92,6 +92,26 @@
     </p>
 
     <p class="aligned">
+        <label></label>
+        <span class="value">5. {{ encounter.obs | byConcept:Concepts.specimenFiveComment:true | obs:'value' }}</span>
+    </p>
+
+    <p class="aligned">
+        <label></label>
+        <span class="value">6. {{ encounter.obs | byConcept:Concepts.specimenSixComment:true | obs:'value' }}</span>
+    </p>
+
+    <p class="aligned">
+        <label></label>
+        <span class="value">7. {{ encounter.obs | byConcept:Concepts.specimenSevenComment:true | obs:'value' }}</span>
+    </p>
+
+    <p class="aligned">
+        <label></label>
+        <span class="value">8. {{ encounter.obs | byConcept:Concepts.specimenEightComment:true | obs:'value' }}</span>
+    </p>
+
+    <p class="aligned">
         <label>${ui.message("labtrackingapp.orderdetails.immunohistochemistryNeeded")}</label>
         <span class="value">{{ encounter.obs | byConcept:Concepts.immunohistochemistryNeeded:true | obs:'value' }}</span>
     </p>

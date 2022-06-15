@@ -350,6 +350,18 @@ angular.module('constants', [])
         specimenFourComment: {
             uuid: "96010c0d-0328-4d5f-a4e4-b8bb391a3882"
         },
+        specimenFiveComment: {
+            uuid: "9c79f6ba-3331-44e9-9f64-2b951825dc06"
+        },
+        specimenSixComment: {
+            uuid: "468ef788-c7e2-4a17-9344-60989a77134c"
+        },
+        specimenSevenComment: {
+            uuid: "6ec3616f-4f0e-46f0-b479-68b28f887a52"
+        },
+        specimenEightComment: {
+            uuid: "124ca694-b184-4ada-b6d2-b575b662d9f3"
+        },
         specimenResultsComment: {
             uuid: "65a4cc8e-c27a-42d5-b9bf-e13674970d2a"
         },
