@@ -2985,7 +2985,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         /* this really represents the Labs component, that has a sub-menu linking to multiple apps*/
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.LABS,
                 "pih.app.labs.label",
-                "fas fa-fw fa-vial",
+                "fas fa-fw fa-vials",
                 "owa/labworkflow/index.html",
                   PihEmrConfigConstants.PRIVILEGE_APP_LABS,
                 null),
@@ -3008,7 +3008,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.ORDER_LABS_OVERALL_ACTION,
                 "pihcore.orderLabs.overallAction.label",
-                "fas fa-fw fa-vial",
+                "fas fa-fw fa-vials",
                 "link",
                 "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders",
                   PihEmrConfigConstants.PRIVILEGE_TASK_ORDER_LABS,
@@ -3016,7 +3016,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.VIEW_LABS_OVERALL_ACTION,
                 "pihcore.viewLabs.overallAction.label",
-                "fas fa-fw fa-vial",
+                "fas fa-fw fa-vials",
                 "link",
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                   PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_LABS,
