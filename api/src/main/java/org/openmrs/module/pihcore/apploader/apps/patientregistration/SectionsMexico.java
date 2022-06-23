@@ -164,6 +164,7 @@ public class SectionsMexico extends SectionsDefault {
         w.getConfig().addOption("PIH:HEALTH CARE WORKER", "zl.registration.patient.occupation.healthCareWorker.label");  // Profesional...
         w.getConfig().addOption("PIH:Cowherd", "zl.registration.patient.occupation.cowherd.label");  // Vaquero
         w.getConfig().addOption("PIH:RETIRED", "zl.registration.patient.occupation.retired.label");
+        w.getConfig().addOption("PIH:Sex worker", "PERTS"); //Trabajadora sexual
         w.getConfig().addOption("PIH:OTHER NON-CODED", "zl.registration.patient.occupation.other.label");
 
         w.getConfig().setExpanded(true);
