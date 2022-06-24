@@ -878,16 +878,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_ORDER_CT), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER)))));
 
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
-                "radiologyapp.task.order.US.label",
-                "fas fa-fw fa-x-ray",
-                "link",
-                "radiologyapp/orderRadiology.page?patientId={{patient.uuid}}&visitId={{visit.id}}&modality=US",
-                null,
-                and(sessionLocationHasTag("Order Radiology Study Location"),
-                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_ORDER_US), patientHasActiveVisit()),
-                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER)))));
-
         if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
             apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RADIOLOGY_ORDERS_APP,
                     "radiologyapp.app.orders",
