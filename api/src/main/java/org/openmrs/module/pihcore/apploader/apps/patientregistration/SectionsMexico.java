@@ -158,6 +158,7 @@ public class SectionsMexico extends SectionsDefault {
         w.getConfig().addOption("PIH:Teacher", "zl.registration.patient.occupation.teacher.label");  // Maestro
         w.getConfig().addOption("PIH:Military", "zl.registration.patient.occupation.military.label");  // Militar
         w.getConfig().addOption("PIH:FACTORY WORKER", "zl.registration.patient.occupation.factoryWorker.label");  // Obrero
+        w.getConfig().addOption("PIH:Sex worker", "PERTS"); //Trabajadora sexual
         w.getConfig().addOption("CIEL:159674", "zl.registration.patient.occupation.fisherman.label");  // Pescador
         w.getConfig().addOption("PIH:Police", "zl.registration.patient.occupation.police.label");  // Policia
         w.getConfig().addOption("PIH:PROFESSIONAL", "zl.registration.patient.occupation.professional.label");  // Profesional
