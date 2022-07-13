@@ -92,7 +92,8 @@ public class WristbandComponentTest extends PihCoreContextSensitiveTest {
         assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDMirebalais " + df.format(today) + "^FS"));
         assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr^FS"));
         assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07 juil. 1940^FS"));
-        assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FD81 an(s)^FS"));
+        assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FD")); // broke this out to avoid testing for patient age, which obviously changes depending on date
+        assertThat(output, containsString("an(s)^FS"));
         assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDMasculin  A 000005^FS"));
         assertThat(output, containsString("^FO100,2400^AT^BY4^BC,150,N^FDX2ECEX^XZ"));
     }
