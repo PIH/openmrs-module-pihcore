@@ -3016,7 +3016,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.VIEW_LABS_OVERALL_ACTION,
                 "pihcore.viewLabs.overallAction.label",
-                "fas fa-fw fa-vials",
+                "fas fa-fw fa-stream",
                 "link",
                 "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
                   PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_LABS,
