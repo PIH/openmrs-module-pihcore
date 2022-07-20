@@ -1,4 +1,7 @@
-<div class="header" ng-include="'templates/encounters/defaultEncounterHeader.page'">
+<div class="header">
+    <span ng-show="canExpand()==null" ng-include="'templates/encounters/pathologyEncounterHeading.page'"></span>
+    <span class="selectable" ng-show="canExpand()" ng-click="expand()" ng-include="'templates/encounters/pathologyEncounterHeading.page'"></span>
+    <span class="selectable" ng-show="canContract()" ng-click="contract()" ng-include="'templates/encounters/pathologyEncounterHeading.page'"></span>
 </div>
 
 <div class="content encounter-summary-long">  <!-- encounter-summary-long currently only used for Selenium tests -->
