@@ -460,7 +460,6 @@ public class CustomAppLoaderConstants {
             Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
             Apps.HOME_VISITS_SUMMARY,
-            Apps.COVID_LAB_RESULTS,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.RADIOLOGY_APP,
@@ -468,7 +467,8 @@ public class CustomAppLoaderConstants {
             Apps.BMI_GRAPH + ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN,
             Apps.VITALS_SUMMARY,
             Apps.DISPENSING_SUMMARY,
-            Apps.NOTES_SUMMARY
+            Apps.NOTES_SUMMARY,
+            Apps.COVID_LAB_RESULTS
     );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
