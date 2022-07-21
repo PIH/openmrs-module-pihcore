@@ -2172,14 +2172,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null,
                     sessionLocationHasTag("Consult Note Location")));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MEXICO_ULTRASOUND_ACTION,
-                    "ui.i18n.EncounterType.name.40d024d9-c7ec-4d2a-a862-68cb87543c4b",  //  Ultrasound
-                    "fas fa-fw fa-clipboard-list",
-                    "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ultrasound.xml")),
-                    null,
-                    sessionLocationHasTag("Consult Note Location")));
-
         } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,
