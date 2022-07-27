@@ -12,6 +12,7 @@
     <link rel="shortcut icon" type="image/ico" href="/${ ui.contextPath() }/images/openmrs-favicon.ico"/>
     <link rel="icon" type="image/png\" href="/${ ui.contextPath() }/images/openmrs-favicon.png"/>
     ${ ui.resourceLinks() }
+    <script src="/${ui.contextPath()}/csrfguard" type="text/javascript"></script>
 </head>
 <body>
 <script type="text/javascript">
