@@ -38,9 +38,9 @@
                     </a>
                 </td>
                  <td>
-                    <a href="${ ui.pageLink("pihcore", "visit/visit#/print", [
+                    <a href="${ ui.pageLink("pihcore", "visit/visit", [
                             "patient": visit.patient.uuid,
-                            "visit": visit.uuid ])}" target="_blank">
+                            "visit": visit.uuid ])}">
                         ${ visit.location }
                     </a>
                 </td>
