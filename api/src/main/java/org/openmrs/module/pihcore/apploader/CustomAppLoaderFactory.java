@@ -2375,6 +2375,28 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // TODO: Add ACTIVE MEDICATIONS HERE
 
+        // Viral Load History
+        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VIRAL_LOAD_HISTORY,
+                        "pih.app.hiv.viralLoadHistory.title",
+                        "fas fa-fw fa-history",
+                        null,
+                        null,
+                        objectNode(
+                                "widget", "obsacrossencounters",
+                                "icon", "fas fa-fw fa-history",
+                                "label", "pih.app.hiv.viralLoadHistory.title",
+                                "encounterTypes", CustomAppLoaderConstants.LABORATORY_RESULT_UUID,
+                                "concepts",
+                                CustomAppLoaderConstants.VIRAL_LOAD_QUALITATIVE_UUID + "," +
+                                        CustomAppLoaderConstants.VIRAL_LOAD_UUID + "," +
+                                        CustomAppLoaderConstants.VIRAL_LOAD_LLD_UUID,
+                                "headers", "pih.app.hiv.viralLoadHistory.date,pih.app.hiv.viralLoadHistory.qualitative,pih.app.hiv.viralLoadHistory.load,pih.app.hiv.viralLoadHistory.lld",
+                                "maxRecords", "5"
+                        )),
+                "coreapps", "dashboardwidgets/dashboardWidget",
+                secondColumnIndex++
+        ));
+
         // Viral Load
         apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VL_GRAPH,
                 "pih.app.hivvlGraph.title",
