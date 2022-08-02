@@ -2390,7 +2390,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 CustomAppLoaderConstants.VIRAL_LOAD_QUALITATIVE_UUID + "," +
                                         CustomAppLoaderConstants.VIRAL_LOAD_UUID + "," +
                                         CustomAppLoaderConstants.VIRAL_LOAD_LLD_UUID,
-                                "headers", "pih.app.hiv.viralLoadHistory.date,pih.app.hiv.viralLoadHistory.qualitative,pih.app.hiv.viralLoadHistory.load,pih.app.hiv.viralLoadHistory.lld",
+                                "headers", "zl.date,pihcore.status,pih.app.hiv.viralLoadHistory.load,pih.app.hiv.viralLoadHistory.lld",
                                 "maxRecords", "5"
                         )),
                 "coreapps", "dashboardwidgets/dashboardWidget",
