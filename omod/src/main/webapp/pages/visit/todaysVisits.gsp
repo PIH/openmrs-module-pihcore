@@ -10,6 +10,7 @@
         <tr>
             <th>${ ui.message("coreapps.patient.identifier") }</th>
             <th>${ ui.message("coreapps.person.name") }</th>
+            <th>${ ui.message("emr.location") }</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -34,6 +35,13 @@
                             "patient": visit.patient.uuid,
                             "visit": visit.uuid ])}">
                         ${ ui.format(visit.patient) }
+                    </a>
+                </td>
+                 <td>
+                    <a href="${ ui.pageLink("pihcore", "visit/visit", [
+                            "patient": visit.patient.uuid,
+                            "visit": visit.uuid ])}">
+                        ${ visit.location }
                     </a>
                 </td>
                 <td>
