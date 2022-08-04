@@ -11,7 +11,6 @@ import org.openmrs.LocationTag;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,14 +18,10 @@ import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Collections;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 
 public class TodaysVisitsPageController {
-
-    private final Logger log = LoggerFactory.getLogger(getClass());
-
 
     public void get(PageModel model,
                     @SpringBean("visitService") VisitService visitService,
@@ -36,20 +31,14 @@ public class TodaysVisitsPageController {
         LocalDate todayDate = LocalDate.now();
         Date startOfDayToday = java.sql.Timestamp.valueOf(LocalDateTime.of(todayDate, LocalTime.MIN));
         Date endOfDayToday = java.sql.Timestamp.valueOf(LocalDateTime.of(todayDate, LocalTime.MAX));
-        
-        Location location=uiSessionContext.getSessionLocation();
-
+       
         LocationService locationService = Context.getLocationService();
         LocationTag visitLocationTag =  locationService.getLocationTagByName(EmrApiConstants.LOCATION_TAG_SUPPORTS_VISITS);
 
-        if(location.hasTag(visitLocationTag.toString())){
-            log.error("======================================>"+visitLocationTag.toString());
+        Location location = uiSessionContext.getSessionLocation();
 
-            location=uiSessionContext.getSessionLocation();
-        }else{
-            log.error("================**********======================>"+location.getParentLocation());
-
-            location=location.getParentLocation();
+        if(!location.hasTag(visitLocationTag.toString())){
+            location = location.getParentLocation();
         }
 
         //all non-voided visits that have been started any time today at the current session location.
