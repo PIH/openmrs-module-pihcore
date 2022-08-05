@@ -37,12 +37,12 @@ public class TodaysVisitsPageController {
 
         Location location = uiSessionContext.getSessionLocation();
 
-        if(!location.hasTag(visitLocationTag.toString())){
+        while(location != null && !location.hasTag(visitLocationTag.toString())){
             location = location.getParentLocation();
         }
 
         //all non-voided visits that have been started any time today at the current session location.
-        List<Visit> visits = visitService.getVisits(null, null, Collections.singletonList(location), null, startOfDayToday, endOfDayToday, null, null, null, true, false);
+        List<Visit> visits = visitService.getVisits(null, null, location != null ? Collections.singletonList(location) : null, null, startOfDayToday, endOfDayToday, null, null, null, true, false);
         model.addAttribute("visits", visits);
     }
 
