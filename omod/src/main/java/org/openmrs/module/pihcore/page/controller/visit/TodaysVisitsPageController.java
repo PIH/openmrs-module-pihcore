@@ -37,7 +37,7 @@ public class TodaysVisitsPageController {
 
         Location location = uiSessionContext.getSessionLocation();
 
-        while(location != null && !location.hasTag(visitLocationTag.toString())){
+        while (location != null && !location.hasTag(visitLocationTag.toString())) {
             location = location.getParentLocation();
         }
 
