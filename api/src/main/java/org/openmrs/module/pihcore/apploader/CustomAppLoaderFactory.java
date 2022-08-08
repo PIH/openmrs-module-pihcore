@@ -1287,7 +1287,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.MERGE_PATIENTS,
                 "coreapps.mergePatientsLong",
-                "fas fa-fw fa-users",
+                "fas fa-users",
                 "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients",
                 2,
                 "App: coreapps.systemAdministration",
@@ -2049,7 +2049,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (findAppById(CustomAppLoaderConstants.Apps.CHW_MGMT) == null) {
             apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.CHW_MGMT,
                     "chwapp.label",
-                    "fas fa-fw fa-users",
+                    "fas fa-users",
                     "/coreapps/providermanagement/providerList.page",
                       PihEmrConfigConstants.PRIVILEGE_APP_CHW,
                     null),
@@ -2999,7 +2999,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         /* this really represents the Labs component, that has a sub-menu linking to multiple apps*/
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.LABS,
                 "pih.app.labs.label",
-                "fas fa-fw fa-vials",
+                "fas fa-vials",
                 "owa/labworkflow/index.html",
                   PihEmrConfigConstants.PRIVILEGE_APP_LABS,
                 null),
