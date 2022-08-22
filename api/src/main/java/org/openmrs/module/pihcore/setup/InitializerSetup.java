@@ -14,7 +14,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.openmrs.module.initializer.Domain.*;
+import static org.openmrs.module.initializer.Domain.CONCEPTS;
+import static org.openmrs.module.initializer.Domain.CONCEPT_SETS;
+import static org.openmrs.module.initializer.Domain.DRUGS;
+import static org.openmrs.module.initializer.Domain.HTML_FORMS;
+import static org.openmrs.module.initializer.Domain.ORDER_FREQUENCIES;
+import static org.openmrs.module.initializer.Domain.PROGRAMS;
+import static org.openmrs.module.initializer.Domain.PROGRAM_WORKFLOWS;
+import static org.openmrs.module.initializer.Domain.PROGRAM_WORKFLOW_STATES;
+
 
 public class InitializerSetup {
 
