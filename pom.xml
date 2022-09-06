@@ -62,11 +62,11 @@
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.33.0</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
-        <fhir2Version>1.4.0-SNAPSHOT</fhir2Version>
+        <fhir2Version>1.5.0</fhir2Version>
+        <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>5.1.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>2.2.0-SNAPSHOT</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.10.0</htmlwidgetsVersion>
-        <growthChartVersion>2.1.0</growthChartVersion>
         <idgenVersion>4.8.0</idgenVersion>
         <initializerVersion>2.4.0-SNAPSHOT</initializerVersion>
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
@@ -153,13 +153,6 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>appui-api</artifactId>
-            <version>${appuiVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
             <artifactId>appointmentscheduling-api</artifactId>
             <version>${appointmentschedulingVersion}</version>
             <scope>provided</scope>
@@ -169,6 +162,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>appointmentschedulingui-api</artifactId>
             <version>${appointmentschedulinguiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>appui-api</artifactId>
+            <version>${appuiVersion}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -211,6 +211,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>dispensing-api</artifactId>
             <version>${dispensingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>edtriageapp-api</artifactId>
+            <version>${edtriageappVersion}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -259,6 +266,20 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>fhir2-api</artifactId>
+            <version>${fhir2Version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>growthchart-api</artifactId>
+            <version>${growthChartVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>htmlformentry-api</artifactId>
             <version>${htmlformentryVersion}</version>
             <scope>provided</scope>
@@ -274,6 +295,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>htmlformentryui-api</artifactId>
             <version>${htmlformentryuiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>htmlwidgets-api</artifactId>
+            <version>${htmlwidgetsVersion}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -317,6 +345,13 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>legacyui-api</artifactId>
+            <version>${legacyuiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>metadatadeploy-api</artifactId>
             <version>1.13.0</version>
             <scope>test</scope>
@@ -340,6 +375,20 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>namephonetics-api</artifactId>
             <version>${namephoneticsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>openconceptlab-api</artifactId>
+            <version>${openconceptlabVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>owa-api</artifactId>
+            <version>${owaVersion}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -398,10 +447,25 @@
             <version>${reportingVersion}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>reporting-api-2.4</artifactId>
             <version>${reportingVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>reportingrest-api</artifactId>
+            <version>${reportingrestVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>reportingui-api</artifactId>
+            <version>${reportinguiVersion}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -437,6 +501,20 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>uiframework-api</artifactId>
             <version>${uiframeworkVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>uilibrary-api</artifactId>
+            <version>${uilibraryVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>webservices.rest-omod</artifactId>
+            <version>${webservicesRestVersion}</version>
             <scope>provided</scope>
         </dependency>
 
