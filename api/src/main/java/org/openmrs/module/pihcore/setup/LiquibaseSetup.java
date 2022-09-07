@@ -23,7 +23,6 @@ public class LiquibaseSetup {
         try {
             updateLiquibaseChangeLogPath();
             DatabaseUpdater.executeChangelog(PihCoreUtil.getLiquibaseChangeLog(), (ChangeSetExecutorCallback) null);
-            File file = new File(OpenmrsUtil.getApplicationDataDirectory()  + "/" + PihCoreUtil.getSiteSpecificChangeLog(config));
             if (new File(OpenmrsUtil.getApplicationDataDirectory()  + "/" + PihCoreUtil.getSiteSpecificChangeLog(config)).exists()) {
                 DatabaseUpdater.executeChangelog(PihCoreUtil.getSiteSpecificChangeLog(config), (ChangeSetExecutorCallback) null);
             }
