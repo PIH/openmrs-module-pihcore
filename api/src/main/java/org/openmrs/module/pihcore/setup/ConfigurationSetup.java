@@ -159,7 +159,7 @@ public class ConfigurationSetup {
 
         // Execute any liquibase changesets defined in the pih/liquibase domain
         setStatus("Executing liquibase scripts in configuration");
-        LiquibaseSetup.setup();
+        LiquibaseSetup.setup(config);
 
         // Setup all metadata that are before Concepts in Iniz loading order
         setStatus("Loading initializer pre-concept domains");
