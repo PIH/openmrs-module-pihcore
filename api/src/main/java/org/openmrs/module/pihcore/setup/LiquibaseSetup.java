@@ -23,8 +23,9 @@ public class LiquibaseSetup {
         try {
             updateLiquibaseChangeLogPath();
             DatabaseUpdater.executeChangelog(PihCoreUtil.getLiquibaseChangeLog(), (ChangeSetExecutorCallback) null);
-            if (new File(OpenmrsUtil.getApplicationDataDirectory()  + "/" + PihCoreUtil.getSiteSpecificChangeLog(config)).exists()) {
-                DatabaseUpdater.executeChangelog(PihCoreUtil.getSiteSpecificChangeLog(config), (ChangeSetExecutorCallback) null);
+            String siteSpecificChangeLog = PihCoreUtil.getSiteSpecificChangeLog(config);
+            if (new File(OpenmrsUtil.getApplicationDataDirectory(), siteSpecificChangeLog).exists()) {
+                DatabaseUpdater.executeChangelog(siteSpecificChangeLog, (ChangeSetExecutorCallback) null);
             }
         } catch (Exception e) {
             log.error("Unable run liquibase change sets provided by PIH EMR config", e);
