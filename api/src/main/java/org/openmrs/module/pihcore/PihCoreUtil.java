@@ -3,10 +3,12 @@ package org.openmrs.module.pihcore;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.util.OpenmrsUtil;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class PihCoreUtil {
 
@@ -51,6 +53,10 @@ public class PihCoreUtil {
 
     public static String getLiquibaseChangeLog() {
         return getLiquibaseDir() + "liquibase.xml";
+    }
+
+    public static String getSiteSpecificChangeLog(Config config) {
+        return getLiquibaseDir() + "liquibase-" + config.getCountry().toString().toLowerCase() + ".xml";
     }
 
     public static String getDrugListDirectory() {

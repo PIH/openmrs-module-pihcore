@@ -6,16 +6,27 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.liquibase.ChangeSetExecutorCallback;
 import org.openmrs.module.pihcore.PihCoreUtil;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.model.PihConfig;
 import org.openmrs.util.DatabaseUpdater;
+import org.openmrs.util.OpenmrsUtil;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class LiquibaseSetup {
 
     protected static Log log = LogFactory.getLog(LiquibaseSetup.class);
 
-    public static void setup() throws Exception {
+    public static void setup(Config config) throws Exception {
         try {
             updateLiquibaseChangeLogPath();
             DatabaseUpdater.executeChangelog(PihCoreUtil.getLiquibaseChangeLog(), (ChangeSetExecutorCallback) null);
+            String siteSpecificChangeLog = PihCoreUtil.getSiteSpecificChangeLog(config);
+            if (new File(OpenmrsUtil.getApplicationDataDirectory(), siteSpecificChangeLog).exists()) {
+                DatabaseUpdater.executeChangelog(siteSpecificChangeLog, (ChangeSetExecutorCallback) null);
+            }
         } catch (Exception e) {
             log.error("Unable run liquibase change sets provided by PIH EMR config", e);
             throw e;
