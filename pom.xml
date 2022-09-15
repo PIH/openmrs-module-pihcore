@@ -62,7 +62,7 @@
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.33.0</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
-        <fhir2Version>1.5.0</fhir2Version>
+        <fhir2Version>1.6.0-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>5.1.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>2.2.0-SNAPSHOT</htmlformentryuiVersion>
