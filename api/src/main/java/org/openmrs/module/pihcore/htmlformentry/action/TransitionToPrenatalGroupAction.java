@@ -27,7 +27,7 @@ public class TransitionToPrenatalGroupAction implements CustomFormSubmissionActi
 
         Encounter encounter = formEntrySession.getEncounter();
         for (Obs topObs : encounter.getObsAtTopLevel(false)) {
-            if (topObs.getConcept().equals(treatmentType))
+            if (topObs.getConcept().equals(treatmentType)) {
                 if (topObs.getValueCoded().equals(prenatalGroup)) {
                     addPatientToPrenatalGroup(formEntrySession, Context.getProgramWorkflowService(), prenatalGroup);
                 }
