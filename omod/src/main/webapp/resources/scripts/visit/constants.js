@@ -44,6 +44,9 @@ angular.module('constants', [])
         proceduresConstruct: {
             uuid: "c6a87394-4cd0-48b7-a8ac-c7dad55be2e6"
         },
+        referralSite: {
+            uuid: "1272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         disposition: {
             uuid: "c8b22b09-e2f2-4606-af7d-e52579996de3"
         },
