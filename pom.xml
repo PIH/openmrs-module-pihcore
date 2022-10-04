@@ -88,7 +88,7 @@
         <registrationcoreVersion>1.11.0</registrationcoreVersion>
         <reportingVersion>1.25.0</reportingVersion>
         <reportingrestVersion>1.13.0</reportingrestVersion>
-        <reportinguiVersion>1.10.0</reportinguiVersion>
+        <reportinguiVersion>1.9.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.15</serializationxstreamVersion>
         <spaVersion>1.0.8</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
@@ -751,7 +751,7 @@
                         </property>
                         <property>
                             <name>reportinguiVersion</name>
-                            <version>1.9.0</version>
+                            <version>[1.9.0]</version>
                         </property>
                     </properties>
                 </configuration>
