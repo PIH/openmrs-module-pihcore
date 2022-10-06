@@ -35,7 +35,6 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-        <!-- OpenMRS modules -->
 
         <dependency>
             <groupId>org.openmrs.test</groupId>
@@ -81,8 +80,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- end OpenMRS modules -->
-
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
@@ -111,6 +108,13 @@
             <version>${appuiVersion}</version>
             <scope>provided</scope>
         </dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>authentication-omod</artifactId>
+			<version>${authenticationVersion}</version>
+			<scope>provided</scope>
+		</dependency>
 
 	</dependencies>
 

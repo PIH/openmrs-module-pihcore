@@ -15,11 +15,16 @@ package org.openmrs.module.pihcore.metadata;
 
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
+import org.openmrs.LocationTag;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
+
+import java.util.List;
 
 /**
  * Convenience methods for working with metadata
@@ -78,5 +83,15 @@ public class Metadata {
             throw new IllegalArgumentException("Unable to find Concept using key: " + lookup);
         }
         return c;
+    }
+
+    public static List<Location> getLoginLocations() {
+        LocationService ls =  Context.getLocationService();
+        LocationTag tag = ls.getLocationTagByName("Login Location");
+        List<Location> locations = ls.getLocationsByTag(tag);
+        if (locations.size() == 0) {
+            locations = ls.getAllLocations(false);
+        }
+        return locations;
     }
 }
