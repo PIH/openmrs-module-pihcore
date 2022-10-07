@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.pihcore;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
@@ -26,6 +27,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Enumeration;
 
 /**
  * Basic servlet filter to log page requests, utilization, and performance
@@ -56,6 +58,7 @@ public class RequestMonitoringFilter implements Filter {
 					ThreadContext.put("ipAddress", httpRequest.getRemoteAddr());
 					ThreadContext.put("servletPath", httpRequest.getServletPath());
 					ThreadContext.put("requestURI", httpRequest.getRequestURI());
+					ThreadContext.put("queryParams", formatRequestParams(httpRequest));
 					logger.trace(httpRequest.getRequestURI() + ": " + totalTime + "ms");
 				} catch (Exception e) {
 					// Do nothing, we don't want this filter to cause any adverse behavior
@@ -64,6 +67,30 @@ public class RequestMonitoringFilter implements Filter {
 				}
 			}
 		}
+	}
+
+	private String formatRequestParams(HttpServletRequest request) {
+		StringBuilder ret = new StringBuilder();
+		if (request.getMethod().equalsIgnoreCase("GET")) {
+			for (Enumeration<String> e = request.getParameterNames(); e.hasMoreElements(); ) {
+				String paramName = e.nextElement();
+				String[] paramValues = request.getParameterValues(paramName);
+				if (paramValues != null) {
+					for (String paramValue : paramValues) {
+						if (StringUtils.isNotBlank(paramValue)) {
+							if (ret.length() > 0) {
+								ret.append("&");
+							}
+							if (paramName.toUpperCase().contains("PASSWORD")) {
+								paramValue = "********";
+							}
+							ret.append(paramName).append("=").append(paramValue);
+						}
+					}
+				}
+			}
+		}
+		return ret.toString();
 	}
 
 	@Override
