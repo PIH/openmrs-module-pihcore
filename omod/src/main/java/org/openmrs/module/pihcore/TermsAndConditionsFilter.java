@@ -3,12 +3,12 @@
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
  * http://license.openmrs.org
- *
+ * <p>
  * Software distributed under the License is distributed on an "AS IS"
  * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
  * License for the specific language governing rights and limitations
  * under the License.
- *
+ * <p>
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
 package org.openmrs.module.pihcore;
@@ -39,7 +39,7 @@ import static org.openmrs.module.pihcore.PihCoreConstants.TERMS_AND_CONDITIONS_E
  */
 public class TermsAndConditionsFilter implements Filter {
 
-	private static Logger log = Logger.getLogger(TermsAndConditionsFilter.class);
+	private static final Logger log = Logger.getLogger(TermsAndConditionsFilter.class);
 
 	public static final String TERMS_URI = "/" + WebConstants.CONTEXT_PATH + "/pihcore/account/termsAndConditions.page";
 

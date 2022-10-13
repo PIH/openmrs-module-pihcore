@@ -4,7 +4,12 @@
 %>
 
 <style>
-
+    ul, li {
+        list-style: disc;
+        padding-left: 20px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
 </style>
 
 <h3>${ ui.message("pihcore.termsAndConditions") }</h3>
