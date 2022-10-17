@@ -749,10 +749,6 @@
                             <name>openMRSwebVersion</name>
                             <version>[2.5.6-SNAPSHOT,2.5.6]</version>
                         </property>
-                        <property>
-                            <name>reportinguiVersion</name>
-                            <version>[1.9.0]</version>
-                        </property>
                     </properties>
                 </configuration>
             </plugin>
