@@ -19,6 +19,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.layout.name.NameSupport;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.authentication.AuthenticationConfig;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.emrapi.disposition.DispositionService;
@@ -139,6 +140,7 @@ public class ConfigurationSetup {
         removeOldPrivileges(); // TODO: This can likely be removed altogether at this point, or moved to liquibase
         ReportSetup.cleanupOldReports(); // TODO: could move this to liquibase or to a fixed scheduled task
         initializerMessageSource.addFallbackLanguage("ht", "fr");
+        AuthenticationConfig.registerClassLoader(getClass().getClassLoader());
     }
 
     // Anything in here depends on configuration settings and needs to be refreshed in a specific order,

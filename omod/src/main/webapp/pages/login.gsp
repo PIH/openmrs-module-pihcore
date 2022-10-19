@@ -59,6 +59,30 @@
                             <input id="password" type="password" name="password" placeholder="${ ui.message("mirebalais.login.password.placeholder") }"/>
                         </p>
 
+
+                        <!-- only show location selector if there are multiple locations to choose from -->
+                        <% if (locations.size > 1) { %>
+                            <p class="clear">
+                                <label for="sessionLocation">
+                                    ${ ui.message("mirebalais.login.sessionLocation") }:
+                                </label>
+                                <ul id="sessionLocation" class="select">
+                                    <% locations.sort { ui.format(it) }.each { %>
+                                        <li class="location-list-item" value="${it.id}">${ui.format(it)}</li>
+                                    <% } %>
+                                </ul>
+                            </p>
+                        <% } %>
+
+                        <input type="hidden" id="sessionLocationInput" name="sessionLocation"
+                            <% if (locations.size == 1) { %>
+                               value="${locations[0].id}"
+                            <% } %>
+                            <% if (lastSessionLocation != null) { %>
+                            value="${lastSessionLocation.id}"
+                            <% } %>
+                        />
+
                         <p>
                             <input id="login-button" class="confirm" type="submit" value="${ ui.message("mirebalais.login.button") }"/>
                         </p>
@@ -96,7 +120,28 @@
         <script type="text/javascript">
             document.getElementById('username').focus();
 
+            updateSelectedOption = function() {
+                jq('#sessionLocation li').removeClass('selected');
+                var sessionLocationVal = jq('#sessionLocationInput').val();
+
+                if(parseInt(sessionLocationVal, 10) > 0){
+                    jq('#sessionLocation li[value|=' + sessionLocationVal + ']').addClass('selected');
+                    jq('#login-button').removeClass('disabled');
+                    jq('#login-button').removeAttr('disabled');
+                }else{
+                    jq('#login-button').addClass('disabled');
+                    jq('#login-button').attr('disabled','disabled');
+                }
+            };
+
             jq(function() {
+                updateSelectedOption();
+
+                jq('#sessionLocation li').click( function() {
+                    jq('#sessionLocationInput').val(jq(this).attr("value"));
+                    updateSelectedOption();
+                });
+
                 var cannotLoginController = emr.setupConfirmationDialog({
                     selector: '#cannot-login-popup',
                     actions: {

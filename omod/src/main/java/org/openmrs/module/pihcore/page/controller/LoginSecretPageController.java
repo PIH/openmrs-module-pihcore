@@ -26,8 +26,6 @@ import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
 
-import javax.servlet.http.HttpSession;
-
 public class LoginSecretPageController {
 
 	public String get(
@@ -44,14 +42,13 @@ public class LoginSecretPageController {
 
 		pageModel.put("welcomeMessage", config.getWelcomeMessage());
 
-		HttpSession httpSession = request.getRequest().getSession();
-		AuthenticationSession authenticationSession = new AuthenticationSession(httpSession);
-		AuthenticationContext authenticationContext = authenticationSession.getAuthenticationContext();
+		AuthenticationSession session = new AuthenticationSession(request.getRequest(), request.getResponse());
+		AuthenticationContext authenticationContext = session.getAuthenticationContext();
 		User candidateUser = authenticationContext.getCandidateUser();
 
 		if (candidateUser == null) {
-			if (authenticationSession.getErrorMessage() == null) {
-				authenticationSession.setErrorMessage("mirebalais.login.error.noCandidateUser");
+			if (session.getErrorMessage() == null) {
+				session.setErrorMessage("mirebalais.login.error.noCandidateUser");
 			}
 			return "redirect:" + ui.pageLink("pihcore", "login");
 		}
@@ -59,13 +56,13 @@ public class LoginSecretPageController {
 		String question = userService.getSecretQuestion(candidateUser);
 
 		if (StringUtils.isBlank(question)) {
-			if (authenticationSession.getErrorMessage() == null) {
-				authenticationSession.setErrorMessage("mirebalais.login.error.noSecretQuestionConfigured");
+			if (session.getErrorMessage() == null) {
+				session.setErrorMessage("mirebalais.login.error.noSecretQuestionConfigured");
 			}
 			return "redirect:" + ui.pageLink("pihcore", "login");
 		}
 
-		pageModel.put("authenticationSession", authenticationSession);
+		pageModel.put("authenticationSession", session);
 		pageModel.put("question", question);
 		return null;
 	}
