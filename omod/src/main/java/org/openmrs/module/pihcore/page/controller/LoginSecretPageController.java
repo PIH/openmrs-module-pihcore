@@ -18,7 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.openmrs.User;
 import org.openmrs.api.UserService;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.authentication.AuthenticationContext;
+import org.openmrs.module.authentication.UserLogin;
 import org.openmrs.module.authentication.web.AuthenticationSession;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.ui.framework.UiUtils;
@@ -43,8 +43,8 @@ public class LoginSecretPageController {
 		pageModel.put("welcomeMessage", config.getWelcomeMessage());
 
 		AuthenticationSession session = new AuthenticationSession(request.getRequest(), request.getResponse());
-		AuthenticationContext authenticationContext = session.getAuthenticationContext();
-		User candidateUser = authenticationContext.getCandidateUser();
+		UserLogin authenticationContext = session.getUserLogin();
+		User candidateUser = authenticationContext.getUser();
 
 		if (candidateUser == null) {
 			if (session.getErrorMessage() == null) {

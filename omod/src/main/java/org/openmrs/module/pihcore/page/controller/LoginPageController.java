@@ -73,7 +73,7 @@ public class LoginPageController {
 				scheme = (WebAuthenticationScheme) AuthenticationConfig.getAuthenticationScheme(startingScheme);
 			}
 			else {
-				String schemeId = getClass().getName();
+				String schemeId = PihBasicAuthenticationScheme.class.getSimpleName();
 				String schemeTypeProperty = SCHEME_TYPE_TEMPLATE.replace(SCHEME_ID, schemeId);
 				AuthenticationConfig.setProperty(AuthenticationConfig.SCHEME, schemeId);
 				AuthenticationConfig.setProperty(schemeTypeProperty, PihBasicAuthenticationScheme.class.getName());
@@ -95,7 +95,6 @@ public class LoginPageController {
 			if (StringUtils.isBlank(startingScheme)) {
 				AuthenticationConfig.setProperty(SCHEME, startingScheme);
 			}
-			session.removeAuthenticationContext();
 		}
 	}
 }
