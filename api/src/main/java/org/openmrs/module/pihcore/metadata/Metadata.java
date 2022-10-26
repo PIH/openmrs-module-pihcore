@@ -13,13 +13,22 @@
  */
 package org.openmrs.module.pihcore.metadata;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
+import org.openmrs.LocationTag;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
+
+import java.util.List;
+
+import static org.openmrs.util.PrivilegeConstants.GET_LOCATIONS;
 
 /**
  * Convenience methods for working with metadata
@@ -78,5 +87,45 @@ public class Metadata {
             throw new IllegalArgumentException("Unable to find Concept using key: " + lookup);
         }
         return c;
+    }
+
+    /**
+     * TODO: grant GET_LOCATIONS privilege to Anonymous instead of using a proxy privilege
+     */
+    public static List<Location> getLoginLocations() {
+        try {
+            Context.addProxyPrivilege(GET_LOCATIONS);
+            LocationService ls =  Context.getLocationService();
+            LocationTag tag = ls.getLocationTagByName("Login Location");
+            List<Location> locations = ls.getLocationsByTag(tag);
+            if (locations.size() == 0) {
+                locations = ls.getAllLocations(false);
+            }
+            return locations;
+        }
+        finally {
+            Context.removeProxyPrivilege(GET_LOCATIONS);
+        }
+    }
+
+    /**
+     * TODO: grant GET_LOCATIONS privilege to Anonymous instead of using a proxy privilege
+     */
+    public static Location getLoginLocation(String locationIdStr) {
+        try {
+            Context.addProxyPrivilege(GET_LOCATIONS);
+            if (StringUtils.isNotBlank(locationIdStr)) {
+                int locationId = Integer.parseInt(locationIdStr);
+                Location location = Context.getLocationService().getLocation(locationId);
+                if (location != null && location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN)) {
+                    return location;
+                }
+            }
+        }
+        catch (Exception e) {}
+        finally {
+            Context.removeProxyPrivilege(GET_LOCATIONS);
+        }
+        return null;
     }
 }

@@ -20,6 +20,9 @@
         <require_module version="${appointmentschedulinguiVersion}">
             org.openmrs.module.appointmentschedulingui
         </require_module>
+        <require_module version="${authenticationVersion}">
+            org.openmrs.module.authentication
+        </require_module>
         <require_module version="${emrapiVersion}">
             org.openmrs.module.emrapi
         </require_module>
