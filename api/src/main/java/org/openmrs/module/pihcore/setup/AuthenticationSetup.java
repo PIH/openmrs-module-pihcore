@@ -1,11 +1,15 @@
 package org.openmrs.module.pihcore.setup;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.authentication.AuthenticationConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME;
 import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME_CONFIG_PREFIX_TEMPLATE;
@@ -14,6 +18,8 @@ import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME_TYPE
 import static org.openmrs.module.authentication.AuthenticationConfig.WHITE_LIST;
 
 public class AuthenticationSetup {
+
+    protected static Log log = LogFactory.getLog(AuthenticationSetup.class);
 
     public static final String BASIC = "basic";
     public static final String SECRET = "secret";
@@ -68,14 +74,21 @@ public class AuthenticationSetup {
         {
             String className = "org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme";
             Properties config = new Properties();
-            config.put("primaryOptions", "basic");
-            config.put("secondaryOptions", "secret");
+            config.put("primaryOptions", BASIC);
+            config.put("secondaryOptions", SECRET);
             addScheme(TWO_FACTOR, className, config);
         }
 
         // If no authentication scheme is explicitly configured, default to basic
         if (StringUtils.isBlank(AuthenticationConfig.getProperty(SCHEME))) {
             AuthenticationConfig.setProperty(SCHEME, BASIC);
+        }
+
+        log.info("Authentication Schemes Configured");
+        Properties config = AuthenticationConfig.getConfig();
+        Set<String> sortedKeys = new TreeSet<>(config.stringPropertyNames());
+        for (String key : sortedKeys) {
+            log.info(key + " = " + config.getProperty(key));
         }
     }
 
