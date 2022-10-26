@@ -14,13 +14,8 @@
 
 package org.openmrs.module.pihcore.page.controller;
 
-import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.authentication.AuthenticationConfig;
-import org.openmrs.module.authentication.AuthenticationCredentials;
 import org.openmrs.module.authentication.web.AuthenticationSession;
-import org.openmrs.module.authentication.web.WebAuthenticationScheme;
-import org.openmrs.module.pihcore.PihBasicAuthenticationScheme;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.ui.framework.UiUtils;
@@ -29,9 +24,6 @@ import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
 import org.springframework.web.bind.annotation.CookieValue;
 
-import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME;
-import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME_ID;
-import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME_TYPE_TEMPLATE;
 import static org.openmrs.module.emr.EmrConstants.COOKIE_NAME_LAST_SESSION_LOCATION;
 
 public class LoginPageController {
@@ -57,44 +49,13 @@ public class LoginPageController {
 	}
 
 	/**
-	 * NOTE: This post handler is never hit if the authentication module is configured.
-	 * For backwards-compatibility, we mimic the behavior of the authentication module here
-	 * This simulates a configuration that matches the previously existing behavior - basic auth + location selection
+	 * This post handler should never be hit, as all authentication is handled by the AuthenticationFilter
 	 */
-	public String post(
-			UiUtils ui,
-			PageRequest request) {
-
+	public String post(UiUtils ui, PageRequest request) {
 		AuthenticationSession session = new AuthenticationSession(request.getRequest(), request.getResponse());
-		String startingScheme = AuthenticationConfig.getProperty(AuthenticationConfig.SCHEME);
-		try {
-			WebAuthenticationScheme scheme;
-			if (StringUtils.isNotBlank(startingScheme)) {
-				scheme = (WebAuthenticationScheme) AuthenticationConfig.getAuthenticationScheme(startingScheme);
-			}
-			else {
-				String schemeId = PihBasicAuthenticationScheme.class.getSimpleName();
-				String schemeTypeProperty = SCHEME_TYPE_TEMPLATE.replace(SCHEME_ID, schemeId);
-				AuthenticationConfig.setProperty(AuthenticationConfig.SCHEME, schemeId);
-				AuthenticationConfig.setProperty(schemeTypeProperty, PihBasicAuthenticationScheme.class.getName());
-				scheme = (WebAuthenticationScheme) AuthenticationConfig.getAuthenticationScheme(schemeId);
-			}
-			AuthenticationCredentials credentials = scheme.getCredentials(session);
-			session.authenticate(scheme, credentials);
-			session.regenerateHttpSession();  // Guard against session fixation attacks
-			session.refreshDefaultLocale(); // Refresh context locale after authentication
-			return "redirect:" + ui.pageLink("pihcore", "home");
+		if (session.getErrorMessage() == null) {
+			session.setErrorMessage("mirebalais.login.error.authentication");
 		}
-		catch (Exception e) {
-			if (session.getErrorMessage() == null) {
-				session.setErrorMessage("mirebalais.login.error.authentication");
-			}
-			return "redirect:" + ui.pageLink("pihcore", "login");
-		}
-		finally {
-			if (StringUtils.isBlank(startingScheme)) {
-				AuthenticationConfig.setProperty(SCHEME, startingScheme);
-			}
-		}
+		return "redirect:" + ui.pageLink("pihcore", "login");
 	}
 }
