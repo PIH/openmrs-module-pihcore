@@ -50,7 +50,10 @@ public class PihBasicAuthenticationScheme extends BasicWebAuthenticationScheme {
 		super.beforeAuthentication(session);
 		Location loginLocation = getLoginLocation(session.getHttpRequest());
 		if (loginLocation == null && locationRequired) {
-			throw new ContextAuthenticationException("mirebalais.login.error.locationRequired");
+			// TODO: For now, do not require session location for authentication via header (REST/FHIR/etc)
+			if (session.getRequestHeader(AUTHORIZATION_HEADER) == null) {
+				throw new ContextAuthenticationException("mirebalais.login.error.locationRequired");
+			}
 		}
 	}
 
