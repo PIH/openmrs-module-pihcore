@@ -90,30 +90,24 @@ public class Metadata {
     }
 
     /**
-     * TODO: grant GET_LOCATIONS privilege to Anonymous instead of using a proxy privilege
+     * Returns the list of all Login Locations configured in the system
      */
     public static List<Location> getLoginLocations() {
-        try {
-            Context.addProxyPrivilege(GET_LOCATIONS);
-            LocationService ls =  Context.getLocationService();
-            LocationTag tag = ls.getLocationTagByName("Login Location");
-            List<Location> locations = ls.getLocationsByTag(tag);
-            if (locations.size() == 0) {
-                locations = ls.getAllLocations(false);
-            }
-            return locations;
+        LocationService ls =  Context.getLocationService();
+        LocationTag tag = ls.getLocationTagByName("Login Location");
+        List<Location> locations = ls.getLocationsByTag(tag);
+        if (locations.size() == 0) {
+            locations = ls.getAllLocations(false);
         }
-        finally {
-            Context.removeProxyPrivilege(GET_LOCATIONS);
-        }
+        return locations;
     }
 
     /**
-     * TODO: grant GET_LOCATIONS privilege to Anonymous instead of using a proxy privilege
+     * Returns the Login Location with the given id string.
+     * If the locationIdStr is not valid, or if the location is not a login location, return null
      */
     public static Location getLoginLocation(String locationIdStr) {
         try {
-            Context.addProxyPrivilege(GET_LOCATIONS);
             if (StringUtils.isNotBlank(locationIdStr)) {
                 int locationId = Integer.parseInt(locationIdStr);
                 Location location = Context.getLocationService().getLocation(locationId);
@@ -122,10 +116,7 @@ public class Metadata {
                 }
             }
         }
-        catch (Exception e) {}
-        finally {
-            Context.removeProxyPrivilege(GET_LOCATIONS);
-        }
+        catch (Exception ignored) {}
         return null;
     }
 }
