@@ -48,7 +48,7 @@ public class LoginSecretPageController {
 
 		if (candidateUser == null) {
 			if (session.getErrorMessage() == null) {
-				session.setErrorMessage("mirebalais.login.error.noCandidateUser");
+				session.setErrorMessage("authentication.error.candidateUserRequired");
 			}
 			return "redirect:" + ui.pageLink("pihcore", "login");
 		}
@@ -57,7 +57,7 @@ public class LoginSecretPageController {
 
 		if (StringUtils.isBlank(question)) {
 			if (session.getErrorMessage() == null) {
-				session.setErrorMessage("mirebalais.login.error.noSecretQuestionConfigured");
+				session.setErrorMessage("authentication.error.noSecretQuestionConfigured");
 			}
 			return "redirect:" + ui.pageLink("pihcore", "login");
 		}
