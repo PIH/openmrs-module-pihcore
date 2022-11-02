@@ -60,7 +60,7 @@ public class ChangePasswordPageController {
             return "account/changePassword";
         }
 
-        return "redirect:index.htm";
+        return "redirect:pihcore/account/myAccount.page";
     }
 
     private void validatePasswords(ChangePassword changePassword, BindingResult errors, MessageSourceService messageSourceService) {
