@@ -76,7 +76,7 @@
         <metadatamappingVersion>1.5.0</metadatamappingVersion>
         <metadatasharingVersion>1.8.0</metadatasharingVersion>
         <namephoneticsVersion>2.0.0-SNAPSHOT</namephoneticsVersion>
-        <openconceptlabVersion>2.0.0-SNAPSHOT</openconceptlabVersion>
+        <openconceptlabVersion>2.0.0</openconceptlabVersion>
         <orderEntryOwaVersion>1.2.4</orderEntryOwaVersion>
         <owaVersion>1.13.0</owaVersion>
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
