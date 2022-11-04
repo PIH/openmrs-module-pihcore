@@ -5,11 +5,6 @@
     def genderOptions = [ [label: ui.message("emr.gender.M"), value: 'M'],
                           [label: ui.message("emr.gender.F"), value: 'F'] ]
 
-    def currentLocaleDisplay = account.defaultLocale.getDisplayLanguage(emrContext.userContext.locale);
-    if (currentLocaleDisplay == "Haitian") {
-        currentLocaleDisplay = "Haitian Creole"
-    }
-
     def allowedLocalesOptions = []
     allowedLocales.each {
         def displayLanguage = it.getDisplayLanguage(emrContext.userContext.locale);
@@ -17,25 +12,6 @@
         allowedLocalesOptions.push([ label: displayLanguage, value: it ]);
     }
 %>
-
-<style>
-    .account-info-item {
-        display: table-row;
-    }
-    .account-info-label {
-        display: table-cell;
-        font-weight: bold;
-        padding-right: 20px;
-    }
-    .account-info-value {
-        display: table-cell;
-    }
-    .float-left {
-        float: left;
-        clear: left;
-        width: 97.91666%;
-    }
-</style>
 
 <script type="text/javascript">
     var breadcrumbs = [
@@ -47,15 +23,9 @@
 <h2>${ ui.message("emr.myAccount") }</h2>
 
 <div class="account-section">
-    <% if (mode == "editAccount") { %>
+    <% if (editMode) { %>
 
         <form method="post" id="accountForm" autocomplete="off">
-
-            ${ ui.includeFragment("uicommons", "field/text", [
-                    label: ui.message("emr.user.username"),
-                    formFieldName: "username",
-                    initialValue: (account.username ?: '')
-            ])}
 
             ${ ui.includeFragment("uicommons", "field/text", [
                     label: ui.message("emr.person.givenName"),
@@ -105,93 +75,7 @@
         </form>
 
     <% } else { %>
-        <div id="content" class="container-fluid">
-            <div class="dashboard clear row">
-                <div class="col-12 col-lg-8">
-                    <div class="row">
-                        <div class="col-12 col-lg-6">
-                            <div class="account-info-item">
-                                <span class="account-info-label">${ ui.message("emr.user.username") }: </span>
-                                <span class="account-info-value">${ account.username }</span>
-                            </div>
-
-                            <div class="account-info-item">
-                                <span class="account-info-label">${ ui.message("emr.person.givenName") }: </span>
-                                <span class="account-info-value">${ account.givenName }</span>
-                            </div>
-
-                            <div class="account-info-item">
-                                <span class="account-info-label">${ ui.message("emr.person.familyName") }: </span>
-                                <span class="account-info-value">${ account.familyName }</span>
-                            </div>
-
-                            <div class="account-info-item">
-                                <span class="account-info-label">${ ui.message("emr.gender") }: </span>
-                                <span class="account-info-value">${ ui.message("emr.gender." + account.gender) }</span>
-                            </div>
-
-                            <div class="account-info-item">
-                                <span class="account-info-label">${ ui.message("emr.person.email") }: </span>
-                                <span class="account-info-value">${ account.email ?: '' }</span>
-                            </div>
-
-                            <div class="account-info-item">
-                                <span class="account-info-label">${ ui.message("emr.person.phoneNumber") }: </span>
-                                <span class="account-info-value">${ account.phoneNumber ?: '' }</span>
-                            </div>
-
-                            <div class="account-info-item">
-                                <span class="account-info-label">${ ui.message("emr.user.defaultLocale") }: </span>
-                                <span class="account-info-value">${ currentLocaleDisplay }</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="dashboard col-12 col-lg-4 p-0">
-                    <div class="action-section">
-                        <ul class="float-left">
-                            <h3 >${ ui.message("pihcore.actions") }</h3>
-                            <li class="float-left">
-                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/myAccount", [ mode: "editAccount" ]) }">
-                                    <div class="row">
-                                        <div class="col-1 col-lg-2">
-                                            <i class="fas fa-fw fa-user"></i>
-                                        </div>
-                                        <div class="col-11 col-lg-10">
-                                            ${ ui.message("emr.editAccount") }
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="float-left">
-                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/changePassword") }">
-                                    <div class="row">
-                                        <div class="col-1 col-lg-2">
-                                            <i class="icon-book"></i>
-                                        </div>
-                                        <div class="col-11 col-lg-10">
-                                            ${ ui.message("emr.task.myAccount.changePassword.label") }
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="float-left">
-                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/changeSecurityQuestion") }">
-                                    <div class="row">
-                                        <div class="col-1 col-lg-2">
-                                            <i class="icon-book"></i>
-                                        </div>
-                                        <div class="col-11 col-lg-10">
-                                            ${ ui.message("emr.user.changeSecretQuestion") }
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        ${ ui.includeFragment("pihcore", "account/viewAccount", [ person: account.person ])}
     <% } %>
 
 </div>
