@@ -35,18 +35,33 @@
         clear: left;
         width: 97.91666%;
     }
+    .warning {
+        width: 100%;
+        background-color: yellow;
+        padding: 10px;
+    }
 </style>
 
 <% if (account.locked) { %>
     <div id="locked-warning" class="note warning">
-        <div class="icon"><i class="icon-warning-sign medium"></i></div>
-        <div class="text">
-            <p><strong>${ ui.message("emr.account.locked.title") }</strong></p>
-            <p><em>${ ui.message("emr.account.locked.description") }</em></p>
+        <span class="icon"><i class="icon-warning-sign medium"></i></span>
+        <span class="text">
+            <strong>${ ui.message("emr.account.locked.title") }</strong>
+            <em>${ ui.message("emr.account.locked.description") }</em>
             <% if (isSysAdmin && !isOwnAccount) { %>
                 <button id="unlock-button" value="${ account.person.personId }">${ ui.message("emr.account.locked.button") }</button>
             <% } %>
-        </div>
+        </span>
+    </div>
+<% } %>
+
+<% if (!account.userEnabled) { %>
+    <div id="disabled-warning" class="note warning">
+        <span class="icon"><i class="icon-warning-sign medium"></i></span>
+        <span class="text">
+            <strong>${ ui.message("emr.account.disabled.title") }</strong>
+            <em>${ ui.message("emr.account.disabled.description") }</em>
+        </span>
     </div>
 <% } %>
 
@@ -72,7 +87,7 @@
 
                             <div class="account-info-item">
                                 <span class="account-info-label">${ ui.message("emr.gender") }: </span>
-                                <span class="account-info-value">${ ui.message("emr.gender." + account.gender) }</span>
+                                <span class="account-info-value">${ account.gender ? ui.message("emr.gender." + account.gender) : "" }</span>
                             </div>
                         </div>
 
@@ -107,7 +122,7 @@
 
                                     <div class="account-info-item">
                                         <span class="account-info-label">${ ui.message("emr.user.privilegeLevel") }: </span>
-                                        <span class="account-info-value">${ account.privilegeLevel.name }</span>
+                                        <span class="account-info-value">${ ui.format(account.privilegeLevel) }</span>
                                     </div>
 
                                     <div class="account-info-item">
