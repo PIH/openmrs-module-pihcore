@@ -62,7 +62,7 @@
             </td>
 			<td>
 	            <a href="/${ contextPath }/pihcore/account/account.page?personId=${ it.person.personId }">
-	                <button>${ ui.message("emr.edit") }</button>
+	                <button>${ ui.message("general.view") }</button>
 	            </a>
         	</td>
 		</tr>
