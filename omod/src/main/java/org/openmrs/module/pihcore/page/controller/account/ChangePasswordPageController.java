@@ -54,7 +54,7 @@ public class ChangePasswordPageController {
             request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE,
                     messageSourceService.getMessage("emr.account.changePassword.success", null, Context.getLocale()));
             request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
-        } catch (DAOException e) {
+        } catch (Exception e) {
             request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
                     messageSourceService.getMessage("emr.account.changePassword.fail", new Object[]{e.getMessage()}, Context.getLocale()));
             return "account/changePassword";

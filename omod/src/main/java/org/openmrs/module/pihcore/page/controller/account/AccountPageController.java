@@ -106,7 +106,7 @@ public class AccountPageController {
                         messageSourceService.getMessage("emr.account.saved"));
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
 
-                return "redirect:/pihcore/account/manageAccounts.page";
+                return "redirect:/pihcore/account/account.page?personId="+account.getPerson().getPersonId();
             } catch (Exception e) {
                 log.warn("Some error occurred while saving account details:", e);
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,

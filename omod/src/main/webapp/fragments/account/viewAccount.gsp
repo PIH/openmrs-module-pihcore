@@ -7,10 +7,6 @@
     def editLink = isOwnAccount ?
             ui.pageLink("pihcore", "account/myAccount", [ edit: true ]) :
             ui.pageLink("pihcore", "account/account", [ personId: personId, edit: true ])
-
-    def changePasswordLink = isOwnAccount ?
-            ui.pageLink("pihcore", "account/changePassword" ) :
-            ui.pageLink("pihcore", "account/account", [ personId: personId, edit: true ])
 %>
 
 <style>
@@ -55,7 +51,7 @@
     </div>
 <% } %>
 
-<% if (!account.userEnabled) { %>
+<% if (account.user && !account.userEnabled) { %>
     <div id="disabled-warning" class="note warning">
         <span class="icon"><i class="icon-warning-sign medium"></i></span>
         <span class="text">
@@ -173,9 +169,9 @@
                                 </div>
                             </a>
                         </li>
-                        <% if (account.user) { %>
+                        <% if (isOwnAccount) { %>
                             <li class="float-left">
-                                <a class="float-left" href="${ changePasswordLink }">
+                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/changePassword") }">
                                     <div class="row">
                                         <div class="col-1 col-lg-2">
                                             <i class="icon-book"></i>

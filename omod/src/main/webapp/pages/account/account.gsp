@@ -25,7 +25,9 @@
     providerRoles. each {
         providerRolesOptions.push([ label: ui.format(it), value: it.id ])
     }
-    providerRolesOptions = providerRolesOptions.sort { it.label };
+    providerRolesOptions = providerRolesOptions.sort { it.label }
+
+    def cancelUrl = createAccount ? "pihcore/account/manageAccounts.page" : "/pihcore/account/account.page?personId=${account.person.personId}"
 %>
 
 <script type="text/javascript">
@@ -36,25 +38,6 @@
         { label: "${ createAccount ? ui.message("emr.createAccount") : ui.format(account.person) }" }
     ];
 </script>
-
-<style type="text/css">
-    #unlock-button {
-        margin-top: 1em;
-    }
-</style>
-
-<% if (account.locked) { %>
-    <div id="locked-warning" class="note warning">
-        <div class="icon"><i class="icon-warning-sign medium"></i></div>
-        <div class="text">
-            <p><strong>${ ui.message("emr.account.locked.title") }</strong></p>
-            <p><em>${ ui.message("emr.account.locked.description") }</em></p>
-
-            <button id="unlock-button" value="${ account.person.personId }">${ ui.message("emr.account.locked.button") }</button>
-
-        </div>
-    </div>
-<% } %>
 
 <h3>${ createAccount ? ui.message("emr.createAccount") : ui.format(account.person) }</h3>
 
@@ -187,22 +170,11 @@
                             options: providerRolesOptions
                     ])}
                 </p>
-
-
             </div>
-            <!-- TODO: put this back in (and hide the emr_providers div if !account.provider) once we make providers optional again -->
-            <!--
-            <div class="emr_providerDetails">
-            <% if(!account.provider) { %>
-                <button id="createProviderAccountButton" type="button" onclick="javascript:emr_createProviderAccount()">${ ui.message("emr.provider.createProviderAccount") }</button>
-            <% } %>
-            </div>
-            -->
-
         </fieldset>
 
         <div>
-            <input type="button" class="cancel" value="${ ui.message("emr.cancel") }" onclick="javascript:window.location='/${ contextPath }/pihcore/account/manageAccounts.page'" />
+            <input type="button" class="cancel" value="${ ui.message("emr.cancel") }" onclick="javascript:window.location='/${ contextPath }/${cancelUrl}'" />
             <input type="submit" class="confirm" id="save-button" value="${ ui.message("emr.save") }"  />
         </div>
 
