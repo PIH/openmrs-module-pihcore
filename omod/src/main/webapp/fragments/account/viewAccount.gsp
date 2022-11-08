@@ -113,8 +113,36 @@
                                     <span class="account-info-label">${ ui.message("emr.user.defaultLocale") }: </span>
                                     <span class="account-info-value">${ currentLocaleDisplay }</span>
                                 </div>
+                            </div>
+
+                            <% if (twoFactorAvailable) { %>
+
+                                <div class="info-section">
+                                    <div class="info-header">
+                                        <h3>${ ui.message("authentication.2fa.title") }</h3>
+                                    </div>
+
+                                    <div class="account-info-item">
+                                        <span class="account-info-label">${ ui.message("authentication.2fa.status") }: </span>
+                                        <span class="account-info-value">${ ui.message(twoFactorMethod ? "authentication.2fa.enabled" : "authentication.2fa.disabled") }</span>
+                                    </div>
+
+                                    <% if (twoFactorMethod) { %>
+                                        <div class="account-info-item">
+                                            <span class="account-info-label">${ ui.message("authentication.2fa.method") }: </span>
+                                            <span class="account-info-value">${ ui.message("authentication." + twoFactorMethod + ".name") }</span>
+                                        </div>
+                                    <% } %>
+                                </div>
+
+                            <% } %>
 
                                 <% if (isSysAdmin) { %>
+
+                                <div class="info-section">
+                                    <div class="info-header">
+                                        <h3>${ ui.message("emr.user.roleAndPrivilege.details") }</h3>
+                                    </div>
 
                                     <div class="account-info-item">
                                         <span class="account-info-label">${ ui.message("emr.user.privilegeLevel") }: </span>

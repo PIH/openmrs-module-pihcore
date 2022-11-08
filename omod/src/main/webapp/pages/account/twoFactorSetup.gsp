@@ -28,14 +28,15 @@
     ];
 
     jQuery(function() {
-        jQuery("#save-button").addClass("disabled").attr("disabled", "disabled");
-        jQuery('input[name="secondaryMethod"]').change(function() {
-            var checkedVal = jQuery('input[name="secondaryMethod"]:checked').val()
+        let nextButton = jQuery("#next-button");
+        nextButton.addClass("disabled").attr("disabled", "disabled");
+        jQuery('input[name="schemeId"]').change(function() {
+            var checkedVal = jQuery('input[name="schemeId"]:checked').val()
             if (checkedVal === '${ existingOption }') {
-                jQuery("#save-button").addClass("disabled").attr("disabled", "disabled");
+                nextButton.addClass("disabled").attr("disabled", "disabled");
             }
             else {
-                jQuery("#save-button").removeClass("disabled").removeAttr("disabled");
+                nextButton.removeClass("disabled").removeAttr("disabled");
             }
         });
     });
@@ -63,7 +64,7 @@
             <form id="options-form" method="post">
                 <div id="options-choices">
                     <div class="option-choice">
-                        <input id="empty-option" type="radio" name="secondaryMethod" value="" <%= existingOption ? "" : "checked" %> />
+                        <input id="empty-option" type="radio" name="schemeId" value="" <%= existingOption ? "" : "checked" %> />
                         <label for="empty-option">
                             ${ ui.message("authentication.2fa.noneSelected") }
                             <% if (!existingOption) { %>
@@ -74,15 +75,11 @@
                     <% secondaryOptions.eachWithIndex { option, index ->
                         def schemeId = option.schemeId %>
                         <div class="option-choice">
-                            <input id="option-${schemeId}" type="radio" name="secondaryMethod" value="${schemeId}" <%= option.currentlySelected ? "checked" : option.configurationRequired ? "disabled" : "" %> />
+                            <input id="option-${schemeId}" type="radio" name="schemeId" value="${schemeId}" <%= option.currentlySelected ? "checked" : "" %> />
                             <label for="option-${schemeId}">
                                 ${ ui.message("authentication." + schemeId + ".name") }
                                 <% if (option.currentlySelected) { %>
                                     <span class="option-info">( ${ui.message("authentication.2fa.currentlySelected")} )</span>
-                                <% } else if (option.configurationRequired) { %>
-                                    <a class="config-page-link" href="${option.configurationPage}">
-                                        <span class="option-info">${ ui.message("authentication." + schemeId + ".configurationRequiredMessage") }</span>
-                                    </a>
                                 <% } %>
                             </label>
                         </div>
@@ -90,7 +87,7 @@
                 </div>
                 <div>
                     <input type="button" class="cancel" value="${ ui.message("emr.cancel") }" onclick="window.location='/${ contextPath }/pihcore/account/myAccount.page'" />
-                    <input type="submit" class="confirm" id="save-button" value="${ ui.message("emr.save") }"  />
+                    <input type="submit" class="confirm" id="next-button" value="${ ui.message("emr.next") }"  />
                 </div>
             </form>
         </div>

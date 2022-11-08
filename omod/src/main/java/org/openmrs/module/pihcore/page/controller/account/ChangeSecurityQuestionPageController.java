@@ -1,11 +1,11 @@
 package org.openmrs.module.pihcore.page.controller.account;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.User;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
+import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.ui.framework.annotation.BindParams;
 import org.openmrs.ui.framework.annotation.MethodParam;
@@ -30,27 +30,31 @@ public class ChangeSecurityQuestionPageController {
     }
 
     public String get(PageModel model,
+                      @RequestParam(value = "schemeId", required = false) String schemeId,
                       @SpringBean("userService") UserService userService) {
         User user = Context.getAuthenticatedUser();
         String existingQuestion = userService.getSecretQuestion(user);
+        model.addAttribute("schemeId", schemeId);
         model.addAttribute("currentQuestion", existingQuestion);
         return "account/changeSecurityQuestion";
     }
 
     public String post(@MethodParam("getChangeSecurityQuestion") @BindParams ChangeSecurityQuestion securityQuestion,
                        BindingResult errors,
+                       @RequestParam(value = "schemeId", required = false) String schemeId,
                        @SpringBean("userService") UserService userService,
                        @SpringBean("messageSourceService") MessageSourceService messageSourceService,
                        @SpringBean("messageSource") MessageSource messageSource,
                        HttpServletRequest request,
                        PageModel model) {
 
+        User user = Context.getAuthenticatedUser();
         String currentQuestion = securityQuestion.getQuestion();
         if (StringUtils.isBlank(currentQuestion)) {
-            User user = Context.getAuthenticatedUser();
             currentQuestion = userService.getSecretQuestion(user);
         }
         model.addAttribute("currentQuestion", currentQuestion);
+        model.addAttribute("schemeId", schemeId);
 
         // Validate submission
         if (StringUtils.isBlank(securityQuestion.getPassword())) {
@@ -97,6 +101,10 @@ public class ChangeSecurityQuestionPageController {
         else {
             try {
                 userService.changeQuestionAnswer(securityQuestion.getPassword(), securityQuestion.getQuestion(), securityQuestion.getAnswer());
+                if (StringUtils.isNotBlank(schemeId)) {
+                    user.setUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE, schemeId);
+                    userService.saveUser(user);
+                }
                 String msg = messageSourceService.getMessage("emr.user.changeSecretQuestion.success", null, Context.getLocale());
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
@@ -118,7 +126,6 @@ public class ChangeSecurityQuestionPageController {
         private final String question;
         private final String answer;
         private final String confirmAnswer;
-
         public ChangeSecurityQuestion(String password, String question, String answer, String confirmAnswer) {
             this.password = password;
             this.question = question;

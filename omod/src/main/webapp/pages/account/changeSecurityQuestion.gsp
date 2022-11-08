@@ -37,6 +37,14 @@
 
 <h3>${ui.message("emr.user.changeSecretQuestion")}</h3>
 
+<div class="section note-container">
+    <% if (schemeId) { %>
+        <div class="note warning">
+            ${ui.message("authentication.secret.configurationMessage")}
+        </div>
+    <% } %>
+</div>
+
 <form method="post" id="changeSecurityQuestionForm">
     <fieldset>
         <p id="questionSection" class="emr_passwordDetails">

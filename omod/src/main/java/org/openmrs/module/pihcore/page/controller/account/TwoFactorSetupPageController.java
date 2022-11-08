@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.page.controller.account;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.User;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.AuthenticationScheme;
@@ -48,14 +49,31 @@ public class TwoFactorSetupPageController {
         return "account/twoFactorSetup";
     }
 
-    public String post(@RequestParam(value = "secondaryMethod", required = false) String secondaryMethod,
+    public String post(@RequestParam(value = "schemeId", required = false) String schemeId,
                        @SpringBean("userService") UserService userService,
                        @SpringBean("messageSourceService") MessageSourceService messageSourceService,
                        HttpServletRequest request) {
 
         try {
+            // If this scheme requires configuration, redirect to the configuration page
             User user = Context.getAuthenticatedUser();
-            user.setUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE, secondaryMethod);
+            if (StringUtils.isNotBlank(schemeId)) {
+                AuthenticationScheme scheme = AuthenticationConfig.getAuthenticationScheme(schemeId);
+                if (scheme instanceof WebAuthenticationScheme) {
+                    WebAuthenticationScheme webScheme = (WebAuthenticationScheme) scheme;
+                    if (StringUtils.isNotBlank(webScheme.getUserConfigurationPage())) {
+                        String url = webScheme.getUserConfigurationPage().replace("{schemeId}", schemeId);
+                        return "redirect:" + url;
+                    }
+                }
+            }
+            // Otherwise, assume no configuration is needed and set this as the two factor method
+            if (StringUtils.isBlank(schemeId)) {
+                user.removeUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE);
+            }
+            else {
+                user.setUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE, schemeId);
+            }
             userService.saveUser(user);
             String msg = messageSourceService.getMessage("authentication.2fa.success", null, Context.getLocale());
             request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
