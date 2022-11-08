@@ -174,7 +174,7 @@
                                 <a class="float-left" href="${ ui.pageLink("pihcore", "account/changePassword") }">
                                     <div class="row">
                                         <div class="col-1 col-lg-2">
-                                            <i class="icon-book"></i>
+                                            <i class="fas fa-fw fa-lock"></i>
                                         </div>
                                         <div class="col-11 col-lg-10">
                                             ${ ui.message("emr.task.myAccount.changePassword.label") }
@@ -188,10 +188,24 @@
                                 <a class="float-left" href="${ ui.pageLink("pihcore", "account/changeSecurityQuestion") }">
                                     <div class="row">
                                         <div class="col-1 col-lg-2">
-                                            <i class="icon-book"></i>
+                                            <i class="fas fa-fw fa-question"></i>
                                         </div>
                                         <div class="col-11 col-lg-10">
                                             ${ ui.message("emr.user.changeSecretQuestion") }
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        <% } %>
+                        <% if (isOwnAccount) { %>
+                            <li class="float-left">
+                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/twoFactorSetup") }">
+                                    <div class="row">
+                                        <div class="col-1 col-lg-2">
+                                            <i class="fas fa-fw fa-user-lock"></i>
+                                        </div>
+                                        <div class="col-11 col-lg-10">
+                                            ${ ui.message("authentication.2fa.title") }
                                         </div>
                                     </div>
                                 </a>

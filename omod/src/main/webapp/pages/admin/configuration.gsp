@@ -1,6 +1,5 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
-    ui.includeJavascript("pihcore", "json-formatter.umd.js")
 %>
 
 <script type="text/javascript" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
@@ -23,19 +22,10 @@
 
 <script type="text/javascript">
     jq(document).ready(function() {
-        const spinnerImage = '<span><img class="search-spinner" src="'+emr.resourceLink('uicommons', 'images/spinner.gif')+'" /></span>';
-        const reloadConfigJson = function () {
-            jq.get(openmrsContextPath + '/ws/rest/v1/pihcore/config', function(data) {
-                var formatter = new JSONFormatter(data, 1, {});
-                setTimeout(() => {jq("#configJson").html(formatter.render());}, 100);
-            });
-        }
-        reloadConfigJson();
 
         const actionInitiated = function() {
             jq(".action-button").prop('disabled', 'true');
             jq("#error-details").html("");
-            jq("#configJson").html(spinnerImage);
         }
 
         jq("#refresh-messageproperties-action").click(function() {
@@ -46,7 +36,6 @@
                 })
                 .always(function() {
                     jq(".action-button").removeProp('disabled');
-                    reloadConfigJson();
                 });
         });
 
@@ -58,7 +47,6 @@
                 })
                 .always(function() {
                     jq(".action-button").removeProp('disabled');
-                    reloadConfigJson();
                 });
         });
 
@@ -70,7 +58,6 @@
                 })
                 .always(function() {
                     jq(".action-button").removeProp('disabled');
-                    reloadConfigJson();
                 });
         });
 
@@ -82,7 +69,6 @@
                 })
                 .always(function() {
                     jq(".action-button").removeProp('disabled');
-                    reloadConfigJson();
                 });
         });
     });
@@ -100,7 +86,3 @@
 <br/>
 <br/>
 <div id="error-details"></div>
-
-<h3>Current System Configuration</h3>
-
-<div id="configJson"></div>

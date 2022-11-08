@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [ title: ui.message("emr.myaccount") ])
+    ui.decorateWith("appui", "standardEmrPage", [ title: ui.message("emr.user.changeSecretQuestion") ])
     ui.includeCss("pihcore", "account.css")
 %>
 
@@ -11,28 +11,26 @@
     ];
 
     jQuery(function() {
-        jQuery("#save-button").addClass("disabled").attr("disabled", "disabled");
-        var timer;
-        var confirmAnswerInput = jQuery("#confirmAnswer");
-
-        confirmAnswerInput.keyup(function(){
-            if (timer) {
-                clearTimeout(timer);
-            }
-            timer = setTimeout(confirmAnswerAction, 500);
-        });
-
-        function confirmAnswerAction() {
+        let saveButton = jQuery("#save-button");
+        saveButton.addClass("disabled").attr("disabled", "disabled");
+        jQuery('input').keyup(function() {
+            var question = jQuery("#question").val();
+            var password = jQuery("#password").val();
             var answer = jQuery("#answer").val();
-            var confirmAnswer = confirmAnswerInput.val();
+            var confirmAnswer = jQuery("#confirmAnswer").val();
             if (confirmAnswer.length >= 1 && (answer !== confirmAnswer)) {
                 jQuery("#confirmAnswerSection .field-error").text("${ui.message("emr.account.changePassword.newAndConfirmPassword.DoesNotMatch")}").show();
-                jQuery("#save-button").addClass("disabled").attr("disabled", "disabled");
-            } else if (answer && answer === confirmAnswer) {
-                jQuery("#confirmAnswerSection .field-error").text("").hide();
-                jQuery("#save-button").removeClass("disabled").removeAttr("disabled");
             }
-        }
+            else {
+                jQuery("#confirmAnswerSection .field-error").text("").hide();
+            }
+            if (question && password && answer && answer === confirmAnswer) {
+                saveButton.removeClass("disabled").removeAttr("disabled");
+            }
+            else {
+                saveButton.addClass("disabled").attr("disabled", "disabled");
+            }
+        });
     });
 
 </script>
@@ -41,14 +39,9 @@
 
 <form method="post" id="changeSecurityQuestionForm">
     <fieldset>
-        <p id="passwordSection" class="emr_passwordDetails">
-            <label class="form-header" for="password">${ ui.message("emr.user.password") }</label>
-            <input type="password" id="password" name="password" autocomplete="off"/>
-            ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "password" ])}
-        </p>
         <p id="questionSection" class="emr_passwordDetails">
             <label class="form-header" for="question">${ ui.message("emr.user.secretQuestion") }</label>
-            <input type="text" id="question" name="question" autocomplete="off"/>
+            <input type="text" id="question" name="question" autocomplete="off" value="${currentQuestion ? currentQuestion : ""}"/>
             ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "question" ])}
         </p>
         <p id="answerSection" class="emr_passwordDetails">
@@ -60,6 +53,11 @@
             <label class="form-header" for="confirmAnswer">${ ui.message("emr.user.secretAnswerConfirmation") }</label>
             <input type="password" id="confirmAnswer" name="confirmAnswer" autocomplete="off"/>
             ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "confirmAnswer" ])}
+        </p>
+        <p id="passwordSection" class="emr_passwordDetails">
+            <label class="form-header" for="password">${ ui.message("emr.user.secretAnswerPassword") }</label>
+            <input type="password" id="password" name="password" autocomplete="off"/>
+            ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "password" ])}
         </p>
     </fieldset>
 

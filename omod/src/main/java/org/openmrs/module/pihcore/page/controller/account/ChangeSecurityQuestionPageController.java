@@ -45,6 +45,13 @@ public class ChangeSecurityQuestionPageController {
                        HttpServletRequest request,
                        PageModel model) {
 
+        String currentQuestion = securityQuestion.getQuestion();
+        if (StringUtils.isBlank(currentQuestion)) {
+            User user = Context.getAuthenticatedUser();
+            currentQuestion = userService.getSecretQuestion(user);
+        }
+        model.addAttribute("currentQuestion", currentQuestion);
+
         // Validate submission
         if (StringUtils.isBlank(securityQuestion.getPassword())) {
             errors.rejectValue("password", "emr.user.password.required",

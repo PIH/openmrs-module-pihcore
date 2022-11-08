@@ -67,6 +67,7 @@ public class AuthenticationSetup {
             String className = "org.openmrs.module.authentication.web.SecretQuestionAuthenticationScheme";
             Properties config = new Properties();
             config.put("loginPage", "/pihcore/loginSecret.page");
+            config.put("configurationPage", "/pihcore/account/changeSecurityQuestion.page");
             addScheme(SECRET, className, config);
         }
 
