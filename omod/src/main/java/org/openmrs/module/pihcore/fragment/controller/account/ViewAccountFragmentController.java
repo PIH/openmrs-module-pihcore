@@ -23,7 +23,6 @@ public class ViewAccountFragmentController {
 		boolean isSysAdmin = currentUser.hasPrivilege(PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION);
 		boolean isOwnAccount = currentUser.getPerson().equals(person);
 		boolean twoFactorAvailable = AuthenticationConfig.getAuthenticationScheme() instanceof TwoFactorAuthenticationScheme;
-		String twoFactorMethod = currentUser.getUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE);
 
 		model.put("currentUser", currentUser);
 		model.put("personId", person.getPersonId());
@@ -31,6 +30,5 @@ public class ViewAccountFragmentController {
 		model.put("isSysAdmin", isSysAdmin);
 		model.put("isOwnAccount", isOwnAccount);
 		model.addAttribute("twoFactorAvailable", twoFactorAvailable);
-		model.addAttribute("twoFactorMethod", twoFactorMethod);
 	}
 }

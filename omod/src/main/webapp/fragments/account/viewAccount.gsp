@@ -124,13 +124,13 @@
 
                                     <div class="account-info-item">
                                         <span class="account-info-label">${ ui.message("authentication.2fa.status") }: </span>
-                                        <span class="account-info-value">${ ui.message(twoFactorMethod ? "authentication.2fa.enabled" : "authentication.2fa.disabled") }</span>
+                                        <span class="account-info-value">${ ui.message(account.twoFactorAuthenticationMethod ? "authentication.2fa.enabled" : "authentication.2fa.disabled") }</span>
                                     </div>
 
-                                    <% if (twoFactorMethod) { %>
+                                    <% if (account.twoFactorAuthenticationMethod) { %>
                                         <div class="account-info-item">
                                             <span class="account-info-label">${ ui.message("authentication.2fa.method") }: </span>
-                                            <span class="account-info-value">${ ui.message("authentication." + twoFactorMethod + ".name") }</span>
+                                            <span class="account-info-value">${ ui.message("authentication." + account.twoFactorAuthenticationMethod + ".name") }</span>
                                         </div>
                                     <% } %>
                                 </div>
