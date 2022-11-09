@@ -18,12 +18,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ArrayNode;
+import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.authentication.AuthenticationConfig;
+import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
@@ -50,6 +53,11 @@ public class HomePageController {
 	                       @SpringBean("appFrameworkService") AppFrameworkService appFrameworkService) {
 		
 		sessionContext.requireAuthentication();
+
+		User currentUser = Context.getAuthenticatedUser();
+		boolean twoFactorEnabled = AuthenticationConfig.getAuthenticationScheme() instanceof TwoFactorAuthenticationScheme;
+		String secondaryType = currentUser.getUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE);
+		model.addAttribute("showTwoFactorAlert", twoFactorEnabled && StringUtils.isBlank(secondaryType));
 
         AppContextModel appContextModel = sessionContext.generateAppContextModel();
 
