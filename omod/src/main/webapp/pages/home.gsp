@@ -20,7 +20,18 @@
     });
 </script>
 
+<% if (showTwoFactorAlert) { %>
 
+    <div class="note-container">
+        <div class="note warning" style="width: 100%;">
+            <div class="text">
+                <i class="fas fa-fw fa-lock" style="vertical-align: middle;"></i>
+                <a href="/pihcore/account/twoFactorSetup.page">${ ui.message("authentication.2fa.enableMessage") }</a>
+            </div>
+        </div>
+    </div>
+
+<% } %>
 
 <div id="home-container">
 
