@@ -7,6 +7,8 @@
     def editLink = isOwnAccount ?
             ui.pageLink("pihcore", "account/myAccount", [ edit: true ]) :
             ui.pageLink("pihcore", "account/account", [ personId: personId, edit: true ])
+
+    def userArgs = isOwnAccount ? [:] : [ userId: account.user.userId ]
 %>
 
 <style>
@@ -137,7 +139,7 @@
 
                             <% } %>
 
-                                <% if (isSysAdmin) { %>
+                            <% if (isSysAdmin) { %>
 
                                 <div class="info-section">
                                     <div class="info-header">
@@ -157,10 +159,9 @@
                                             <% } %>
                                         </span>
                                     </div>
+                                </div>
 
-                                <% } %>
-
-                            </div>
+                            <% } %>
 
                         <% } %>
 
@@ -211,9 +212,9 @@
                                 </a>
                             </li>
                         <% } %>
-                        <% if (isOwnAccount) { %>
+                        <% if (isOwnAccount || isSysAdmin) { %>
                             <li class="float-left">
-                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/changeSecurityQuestion") }">
+                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/changeSecurityQuestion", userArgs) }">
                                     <div class="row">
                                         <div class="col-1 col-lg-2">
                                             <i class="fas fa-fw fa-question"></i>
@@ -225,9 +226,9 @@
                                 </a>
                             </li>
                         <% } %>
-                        <% if (isOwnAccount) { %>
+                        <% if (isOwnAccount || isSysAdmin) { %>
                             <li class="float-left">
-                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/twoFactorSetup") }">
+                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/twoFactorSetup", userArgs) }">
                                     <div class="row">
                                         <div class="col-1 col-lg-2">
                                             <i class="fas fa-fw fa-user-lock"></i>

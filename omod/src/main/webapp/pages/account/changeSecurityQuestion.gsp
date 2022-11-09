@@ -1,14 +1,20 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [ title: ui.message("emr.user.changeSecretQuestion") ])
     ui.includeCss("pihcore", "account.css")
+    def returnUrl = isOwnAccount ? "myAccount.page" : "account.page?personId=" + userToSetup.person.personId;
 %>
 
 <script type="text/javascript">
-    var breadcrumbs = [
-        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("emr.app.system.administration.myAccount.label")}", link: '${ui.pageLink("pihcore", "account/myAccount")}' },
-        { label: "${ ui.message("emr.user.changeSecretQuestion")}" }
-    ];
+    var breadcrumbs = [];
+    breadcrumbs.push({ icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' });
+    <% if (isOwnAccount) { %>
+        breadcrumbs.push({ label: "${ ui.message("emr.app.system.administration.myAccount.label")}", link: '${ui.pageLink("pihcore", "account/myAccount")}' });
+    <% } else { %>
+        breadcrumbs.push({ label: "${ ui.message("emr.app.systemAdministration.label")}", link: '${ui.pageLink("coreapps", "systemadministration/systemAdministration")}' });
+        breadcrumbs.push({ label: "${ ui.message("emr.task.accountManagement.label")}" , link: '${ui.pageLink("pihcore", "account/manageAccounts")}'});
+        breadcrumbs.push({ label: "${ ui.format(userToSetup.person) }", link: '${ui.pageLink("pihcore", "account/account", [personId: userToSetup.person.personId])}' });
+    <% } %>
+    breadcrumbs.push({ label: "${ ui.message("emr.user.changeSecretQuestion")}" });
 
     jQuery(function() {
         let saveButton = jQuery("#save-button");
@@ -24,7 +30,7 @@
             else {
                 jQuery("#confirmAnswerSection .field-error").text("").hide();
             }
-            if (question && password && answer && answer === confirmAnswer) {
+            if (question && (password || <%= !isOwnAccount %>) && answer && answer === confirmAnswer) {
                 saveButton.removeClass("disabled").removeAttr("disabled");
             }
             else {
@@ -62,15 +68,19 @@
             <input type="password" id="confirmAnswer" name="confirmAnswer" autocomplete="off"/>
             ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "confirmAnswer" ])}
         </p>
-        <p id="passwordSection" class="emr_passwordDetails">
-            <label class="form-header" for="password">${ ui.message("emr.user.secretAnswerPassword") }</label>
-            <input type="password" id="password" name="password" autocomplete="off"/>
-            ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "password" ])}
-        </p>
+        <% if (isOwnAccount) { %>
+            <p id="passwordSection" class="emr_passwordDetails">
+                <label class="form-header" for="password">${ ui.message("emr.user.secretAnswerPassword") }</label>
+                <input type="password" id="password" name="password" autocomplete="off"/>
+                ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "password" ])}
+            </p>
+        <% } else { %>
+            <input type="hidden" name="userId" value="${userToSetup.userId}"/>
+        <% } %>
     </fieldset>
 
     <div>
-        <input type="button" class="cancel" value="${ ui.message("emr.cancel") }" onclick="window.location='/${ contextPath }/pihcore/account/myAccount.page'" />
+        <input type="button" class="cancel" value="${ ui.message("emr.cancel") }" onclick="window.location='/${ contextPath }/pihcore/account/${returnUrl}'" />
         <input type="submit" class="confirm" id="save-button" value="${ ui.message("emr.save") }"  />
     </div>
 

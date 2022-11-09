@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage", [ title: ui.message("authentication.2fa.title") ])
+    def returnUrl = isOwnAccount ? "myAccount.page" : "account.page?personId=" + userToSetup.person.personId;
 %>
 
 <style>
@@ -21,11 +22,16 @@
 </style>
 
 <script type="text/javascript">
-    var breadcrumbs = [
-        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.message("emr.app.system.administration.myAccount.label")}", link: '${ui.pageLink("pihcore", "account/myAccount")}' },
-        { label: "${ ui.message("authentication.2fa.title")}" }
-    ];
+    var breadcrumbs = [];
+    breadcrumbs.push({ icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' });
+    <% if (isOwnAccount) { %>
+        breadcrumbs.push({ label: "${ ui.message("emr.app.system.administration.myAccount.label")}", link: '${ui.pageLink("pihcore", "account/myAccount")}' });
+    <% } else { %>
+        breadcrumbs.push({ label: "${ ui.message("emr.app.systemAdministration.label")}", link: '${ui.pageLink("coreapps", "systemadministration/systemAdministration")}' });
+        breadcrumbs.push({ label: "${ ui.message("emr.task.accountManagement.label")}" , link: '${ui.pageLink("pihcore", "account/manageAccounts")}'});
+        breadcrumbs.push({ label: "${ ui.format(userToSetup.person) }", link: '${ui.pageLink("pihcore", "account/account", [personId: userToSetup.person.personId])}' });
+    <% } %>
+    breadcrumbs.push({ label: "${ ui.message("authentication.2fa.title")}" });
 
     jQuery(function() {
         let nextButton = jQuery("#next-button");
@@ -62,6 +68,9 @@
                 ${ui.message("authentication.2fa.changeMethod")}
             </div>
             <form id="options-form" method="post">
+                <% if (!isOwnAccount) { %>
+                    <input type="hidden" name="userId" value="${userToSetup.userId}"/>
+                <% } %>
                 <div id="options-choices">
                     <div class="option-choice">
                         <input id="empty-option" type="radio" name="schemeId" value="" <%= existingOption ? "" : "checked" %> />
@@ -86,7 +95,7 @@
                     <% } %>
                 </div>
                 <div>
-                    <input type="button" class="cancel" value="${ ui.message("emr.cancel") }" onclick="window.location='/${ contextPath }/pihcore/account/myAccount.page'" />
+                    <input type="button" class="cancel" value="${ ui.message("emr.cancel") }" onclick="window.location='/${ contextPath }/pihcore/account/${ returnUrl }'" />
                     <input type="submit" class="confirm" id="next-button" value="${ ui.message("emr.next") }"  />
                 </div>
             </form>
