@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("appui", "standardEmrPage", [ title: ui.message("emr.myaccount") ])
+    ui.decorateWith("appui", "standardEmrPage", [ title: ui.message("emr.task.myAccount.changePassword.label") ])
     ui.includeCss("pihcore", "account.css")
     ui.includeJavascript("pihcore", "account/changePassword.js")
 %>
