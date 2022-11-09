@@ -167,6 +167,15 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("obsValueDateLocalized", ["serverDateLocalizedFilter", "DatetimeFormats", function (serverDateLocalizedFilter, DatetimeFormats) {
+        return function(obs) {
+            if (!obs) {
+                return null;
+            }
+            return serverDateLocalizedFilter(obs.value, DatetimeFormats.dateLocalized);
+        }
+    }])
+
     .filter("dispositionShort", ["omrsDisplayFilter", "Concepts", function (displayFilter, Concepts) {
         return function(group) {
             if (!group) {

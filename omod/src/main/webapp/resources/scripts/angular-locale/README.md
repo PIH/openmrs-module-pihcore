@@ -1,0 +1,2 @@
+The Angular JS datepicker is not able to be localized dynamically, but the bindings to the various constants are set by including a particular locale js file.
+This directory has a French and Spanish locale file downloaded from here:  https://code.angularjs.org/1.0.2/i18n/.  The Kreyol file is a copy of the French file which has been changed to reflect the appropriate translations.  On page reload, we will load the appropriate locale javascript file into the page based on the currently selected locale.

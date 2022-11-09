@@ -33,7 +33,7 @@
                 <th>{{ vaccination.label | translate }}</th>
                 <td nowrap ng-repeat="sequence in sequences" ng-class="{ impossible: !isDoseValidForVaccination(sequence, vaccination) }">
                     <span ng-show="existingDose(sequence, vaccination)" ng-class="{'bold': existingDoseInEncounter(sequence, vaccination)}">
-                        {{ existingDose(sequence, vaccination) | groupMember:Concepts.vaccinationDate | obs:"value" | serverDate : 'dd-MMM-yyyy' }}
+                        {{ existingDose(sequence, vaccination) | groupMember:Concepts.vaccinationDate | obsValueDateLocalized }}
                         <a class="delete-action" ng-show="canDelete(sequence, vaccination)" ng-click="confirmDelete(sequence, vaccination)"><i class="icon-remove"></i></a>
                     </span>
                     <span ng-show="canEdit(sequence, vaccination) && !existingDose(sequence, vaccination) && isDoseValidForVaccination(sequence, vaccination)">
