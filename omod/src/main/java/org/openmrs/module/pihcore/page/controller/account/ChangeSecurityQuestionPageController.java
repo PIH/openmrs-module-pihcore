@@ -1,12 +1,13 @@
 package org.openmrs.module.pihcore.page.controller.account;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.User;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
+import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
 import org.openmrs.module.emr.EmrConstants;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.ui.framework.annotation.BindParams;
 import org.openmrs.ui.framework.annotation.MethodParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -30,23 +31,70 @@ public class ChangeSecurityQuestionPageController {
     }
 
     public String get(PageModel model,
-                      @SpringBean("userService") UserService userService) {
-        User user = Context.getAuthenticatedUser();
-        String existingQuestion = userService.getSecretQuestion(user);
-        model.addAttribute("currentQuestion", existingQuestion);
+                      @RequestParam(value = "userId", required = false) Integer userId,
+                      @RequestParam(value = "schemeId", required = false) String schemeId,
+                      @SpringBean("userService") UserService userService,
+                      @SpringBean("messageSourceService") MessageSourceService messageSourceService,
+                      HttpServletRequest request) {
+
+        User currentUser = Context.getAuthenticatedUser();
+        User userToSetup = currentUser;
+        boolean isOwnAccount = true;
+        if (userId != null) {
+            if (currentUser.hasPrivilege(PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION)) {
+                userToSetup = userService.getUser(userId);
+                isOwnAccount = false;
+            }
+            else {
+                String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
+                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                return "redirect:index.htm";
+            }
+        }
+        model.addAttribute("isOwnAccount", isOwnAccount);
+        model.addAttribute("userToSetup", userToSetup);
+        model.addAttribute("schemeId", schemeId);
+        model.addAttribute("currentQuestion", userService.getSecretQuestion(userToSetup));
         return "account/changeSecurityQuestion";
     }
 
     public String post(@MethodParam("getChangeSecurityQuestion") @BindParams ChangeSecurityQuestion securityQuestion,
                        BindingResult errors,
+                       @RequestParam(value = "userId", required = false) Integer userId,
+                       @RequestParam(value = "schemeId", required = false) String schemeId,
                        @SpringBean("userService") UserService userService,
                        @SpringBean("messageSourceService") MessageSourceService messageSourceService,
                        @SpringBean("messageSource") MessageSource messageSource,
                        HttpServletRequest request,
                        PageModel model) {
 
+        // First ensure that if someone is editing someone elses account, that they are authorized
+        User currentUser = Context.getAuthenticatedUser();
+        User userToSetup = currentUser;
+        boolean isOwnAccount = true;
+        if (userId != null) {
+            if (currentUser.hasPrivilege(PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION)) {
+                userToSetup = userService.getUser(userId);
+                isOwnAccount = false;
+            }
+            else {
+                String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
+                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                return "redirect:index.htm";
+            }
+        }
+
+        String currentQuestion = securityQuestion.getQuestion();
+        if (StringUtils.isBlank(currentQuestion)) {
+            currentQuestion = userService.getSecretQuestion(userToSetup);
+        }
+        model.addAttribute("isOwnAccount", isOwnAccount);
+        model.addAttribute("userToSetup", userToSetup);
+        model.addAttribute("currentQuestion", currentQuestion);
+        model.addAttribute("schemeId", schemeId);
+
         // Validate submission
-        if (StringUtils.isBlank(securityQuestion.getPassword())) {
+        if (StringUtils.isBlank(securityQuestion.getPassword()) && isOwnAccount) {
             errors.rejectValue("password", "emr.user.password.required",
                     new Object[]{messageSourceService.getMessage("emr.user.password.required")}, null);
         }
@@ -89,7 +137,16 @@ public class ChangeSecurityQuestionPageController {
         }
         else {
             try {
-                userService.changeQuestionAnswer(securityQuestion.getPassword(), securityQuestion.getQuestion(), securityQuestion.getAnswer());
+                if (isOwnAccount) {
+                    userService.changeQuestionAnswer(securityQuestion.getPassword(), securityQuestion.getQuestion(), securityQuestion.getAnswer());
+                }
+                else {
+                    userService.changeQuestionAnswer(userToSetup, securityQuestion.getQuestion(), securityQuestion.getAnswer());
+                }
+                if (StringUtils.isNotBlank(schemeId)) {
+                    userToSetup.setUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE, schemeId);
+                    userService.saveUser(userToSetup);
+                }
                 String msg = messageSourceService.getMessage("emr.user.changeSecretQuestion.success", null, Context.getLocale());
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
@@ -100,7 +157,8 @@ public class ChangeSecurityQuestionPageController {
                 return "account/changeSecurityQuestion";
             }
 
-            return "redirect:pihcore/account/myAccount.page";
+            String returnUrl = (isOwnAccount ? "myAccount.page" : "account.page?personId=" + userToSetup.getPerson().getPersonId());
+            return "redirect:pihcore/account/" + returnUrl;
         }
 
     }
@@ -111,7 +169,6 @@ public class ChangeSecurityQuestionPageController {
         private final String question;
         private final String answer;
         private final String confirmAnswer;
-
         public ChangeSecurityQuestion(String password, String question, String answer, String confirmAnswer) {
             this.password = password;
             this.question = question;

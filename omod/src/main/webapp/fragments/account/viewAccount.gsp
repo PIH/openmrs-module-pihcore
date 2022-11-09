@@ -7,6 +7,8 @@
     def editLink = isOwnAccount ?
             ui.pageLink("pihcore", "account/myAccount", [ edit: true ]) :
             ui.pageLink("pihcore", "account/account", [ personId: personId, edit: true ])
+
+    def userArgs = isOwnAccount ? [:] : [ userId: account.user.userId ]
 %>
 
 <style>
@@ -113,8 +115,36 @@
                                     <span class="account-info-label">${ ui.message("emr.user.defaultLocale") }: </span>
                                     <span class="account-info-value">${ currentLocaleDisplay }</span>
                                 </div>
+                            </div>
 
-                                <% if (isSysAdmin) { %>
+                            <% if (twoFactorAvailable) { %>
+
+                                <div class="info-section">
+                                    <div class="info-header">
+                                        <h3>${ ui.message("authentication.2fa.title") }</h3>
+                                    </div>
+
+                                    <div class="account-info-item">
+                                        <span class="account-info-label">${ ui.message("authentication.2fa.status") }: </span>
+                                        <span class="account-info-value">${ ui.message(account.twoFactorAuthenticationMethod ? "authentication.2fa.enabled" : "authentication.2fa.disabled") }</span>
+                                    </div>
+
+                                    <% if (account.twoFactorAuthenticationMethod) { %>
+                                        <div class="account-info-item">
+                                            <span class="account-info-label">${ ui.message("authentication.2fa.method") }: </span>
+                                            <span class="account-info-value">${ ui.message("authentication." + account.twoFactorAuthenticationMethod + ".name") }</span>
+                                        </div>
+                                    <% } %>
+                                </div>
+
+                            <% } %>
+
+                            <% if (isSysAdmin) { %>
+
+                                <div class="info-section">
+                                    <div class="info-header">
+                                        <h3>${ ui.message("emr.user.roleAndPrivilege.details") }</h3>
+                                    </div>
 
                                     <div class="account-info-item">
                                         <span class="account-info-label">${ ui.message("emr.user.privilegeLevel") }: </span>
@@ -129,10 +159,9 @@
                                             <% } %>
                                         </span>
                                     </div>
+                                </div>
 
-                                <% } %>
-
-                            </div>
+                            <% } %>
 
                         <% } %>
 
@@ -174,7 +203,7 @@
                                 <a class="float-left" href="${ ui.pageLink("pihcore", "account/changePassword") }">
                                     <div class="row">
                                         <div class="col-1 col-lg-2">
-                                            <i class="icon-book"></i>
+                                            <i class="fas fa-fw fa-lock"></i>
                                         </div>
                                         <div class="col-11 col-lg-10">
                                             ${ ui.message("emr.task.myAccount.changePassword.label") }
@@ -183,15 +212,29 @@
                                 </a>
                             </li>
                         <% } %>
-                        <% if (isOwnAccount) { %>
+                        <% if (isOwnAccount || isSysAdmin) { %>
                             <li class="float-left">
-                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/changeSecurityQuestion") }">
+                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/changeSecurityQuestion", userArgs) }">
                                     <div class="row">
                                         <div class="col-1 col-lg-2">
-                                            <i class="icon-book"></i>
+                                            <i class="fas fa-fw fa-question"></i>
                                         </div>
                                         <div class="col-11 col-lg-10">
                                             ${ ui.message("emr.user.changeSecretQuestion") }
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                        <% } %>
+                        <% if (isOwnAccount || isSysAdmin) { %>
+                            <li class="float-left">
+                                <a class="float-left" href="${ ui.pageLink("pihcore", "account/twoFactorSetup", userArgs) }">
+                                    <div class="row">
+                                        <div class="col-1 col-lg-2">
+                                            <i class="fas fa-fw fa-user-lock"></i>
+                                        </div>
+                                        <div class="col-11 col-lg-10">
+                                            ${ ui.message("authentication.2fa.title") }
                                         </div>
                                     </div>
                                 </a>
