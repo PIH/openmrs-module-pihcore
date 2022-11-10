@@ -40,6 +40,10 @@
     ui.includeJavascript("pihcore", "visit/encounterTransaction.js")
     ui.includeJavascript("pihcore", "services/configService.js")
     ui.includeJavascript("file", "configuration/pih/scripts/visit/encounterTypeConfig.js", /* priority= */ null, /* pathIsRelativeToScripts= */ false)
+
+    if (locale != "en") {
+        ui.includeJavascript("pihcore", "angular-locale/angular-locale_" + locale + ".js")
+    }
 %>
 
 <link href="/${ contextPath }/moduleResources/htmlformentry/orderWidget.css" type="text/css" rel="stylesheet" />
