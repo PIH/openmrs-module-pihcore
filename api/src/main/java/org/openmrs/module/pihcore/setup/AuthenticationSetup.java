@@ -23,6 +23,7 @@ public class AuthenticationSetup {
 
     public static final String BASIC = "basic";
     public static final String SECRET = "secret";
+    public static final String TOTP = "totp";
     public static final String TWO_FACTOR = "2fa";
 
     /**
@@ -39,6 +40,7 @@ public class AuthenticationSetup {
             whitelist.add("/login.htm");
             whitelist.add("/pihcore/login.page");
             whitelist.add("/pihcore/loginSecret.page");
+            whitelist.add("/pihcore/account/loginTotp.page");
             whitelist.add("/appui/session/getLoginLocations.action");
             whitelist.add("/csrfguard");
             whitelist.add("*.js");
@@ -71,12 +73,21 @@ public class AuthenticationSetup {
             addScheme(SECRET, className, config);
         }
 
+        // Totp Authentication Scheme.  This is an available 2nd factor
+        {
+            String className = "org.openmrs.module.pihcore.TotpAuthenticationScheme";
+            Properties config = new Properties();
+            config.put("loginPage", "/pihcore/account/loginTotp.page");
+            config.put("configurationPage", "/pihcore/account/configureTotp.page?schemeId={schemeId}&userId={userId}");
+            addScheme(TOTP, className, config);
+        }
+
         // Two-Factor Authentication Scheme.
         {
             String className = "org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme";
             Properties config = new Properties();
             config.put("primaryOptions", BASIC);
-            config.put("secondaryOptions", SECRET);
+            config.put("secondaryOptions", SECRET + "," + TOTP);
             addScheme(TWO_FACTOR, className, config);
         }
 
