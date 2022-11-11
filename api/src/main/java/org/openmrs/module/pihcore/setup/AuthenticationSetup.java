@@ -4,8 +4,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.authentication.AuthenticationConfig;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -22,102 +23,40 @@ public class AuthenticationSetup {
     protected static Log log = LogFactory.getLog(AuthenticationSetup.class);
 
     public static final String BASIC = "basic";
-    public static final String SECRET = "secret";
-    public static final String TOTP = "totp";
-    public static final String TWO_FACTOR = "2fa";
 
     /**
      * Setup Authentication Configuration and Schemes
      */
-    public static void setup() {
+    public static void setup(Config config) {
 
         // Needed to ensure the authentication module can load custom PIH Authentication Scheme
         AuthenticationConfig.registerClassLoader(AuthenticationSetup.class.getClassLoader());
 
-        // Setup default white-list if not configured already
-        if (StringUtils.isBlank(AuthenticationConfig.getProperty(WHITE_LIST))) {
-            List<String> whitelist = new ArrayList<>();
-            whitelist.add("/login.htm");
-            whitelist.add("/pihcore/login.page");
-            whitelist.add("/pihcore/loginSecret.page");
-            whitelist.add("/pihcore/account/loginTotp.page");
-            whitelist.add("/appui/session/getLoginLocations.action");
-            whitelist.add("/csrfguard");
-            whitelist.add("*.js");
-            whitelist.add("*.css");
-            whitelist.add("*.gif");
-            whitelist.add("*.jpg");
-            whitelist.add("*.png");
-            whitelist.add("*.ico");
-            whitelist.add("*.ttf");
-            whitelist.add("*.woff");
-            AuthenticationConfig.setProperty(WHITE_LIST, String.join(",", whitelist));
-        }
-
-        // Basic Authentication Scheme.  This provides basic auth + session location selection
-        {
-            String className = "org.openmrs.module.pihcore.PihBasicAuthenticationScheme";
-            Properties config = new Properties();
-            config.put("loginPage", "/login.htm");
-            config.put("usernameParam", "username");
-            config.put("passwordParam", "password");
-            addScheme(BASIC, className, config);
-        }
-
-        // Secret Question Authentication Scheme.  This is an available 2nd factor
-        {
-            String className = "org.openmrs.module.authentication.web.SecretQuestionAuthenticationScheme";
-            Properties config = new Properties();
-            config.put("loginPage", "/pihcore/loginSecret.page");
-            config.put("configurationPage", "/pihcore/account/changeSecurityQuestion.page?schemeId={schemeId}&userId={userId}");
-            addScheme(SECRET, className, config);
-        }
-
-        // Totp Authentication Scheme.  This is an available 2nd factor
-        {
-            String className = "org.openmrs.module.pihcore.TotpAuthenticationScheme";
-            Properties config = new Properties();
-            config.put("loginPage", "/pihcore/account/loginTotp.page");
-            config.put("configurationPage", "/pihcore/account/configureTotp.page?schemeId={schemeId}&userId={userId}");
-            addScheme(TOTP, className, config);
-        }
-
-        // Two-Factor Authentication Scheme.
-        {
-            String className = "org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme";
-            Properties config = new Properties();
-            config.put("primaryOptions", BASIC);
-            config.put("secondaryOptions", SECRET + "," + TOTP);
-            addScheme(TWO_FACTOR, className, config);
-        }
+        AuthenticationConfigDescriptor cd = config.getAuthenticationConfig();
 
         // If no authentication scheme is explicitly configured, default to basic
-        if (StringUtils.isBlank(AuthenticationConfig.getProperty(SCHEME))) {
-            AuthenticationConfig.setProperty(SCHEME, BASIC);
-        }
+        AuthenticationConfig.setProperty(SCHEME, StringUtils.isBlank(cd.getScheme()) ? BASIC : cd.getScheme());
 
-        log.info("Authentication Schemes Configured");
-        Properties config = AuthenticationConfig.getConfig();
-        Set<String> sortedKeys = new TreeSet<>(config.stringPropertyNames());
-        for (String key : sortedKeys) {
-            log.info(key + " = " + config.getProperty(key));
-        }
-    }
-
-    /**
-     * Add configuration for a scheme with the given schemeId, if a scheme with this schemeId is not already configured
-     */
-    protected static void addScheme(String schemeId, String className, Properties config) {
-        String schemeTypeProperty = SCHEME_TYPE_TEMPLATE.replace(SCHEME_ID, schemeId);
-        if (StringUtils.isBlank(AuthenticationConfig.getProperty(schemeTypeProperty))) {
-            AuthenticationConfig.setProperty(schemeTypeProperty, className);
-            if (config != null) {
-                for (String propertyName : config.stringPropertyNames()) {
-                    String key = SCHEME_CONFIG_PREFIX_TEMPLATE.replace(SCHEME_ID, schemeId) + propertyName;
-                    String value = config.getProperty(propertyName);
-                    AuthenticationConfig.setProperty(key, value);
+        List<String> whiteList = cd.getWhitelist();
+        for (String schemeId : cd.getSchemes().keySet()) {
+            AuthenticationConfigDescriptor.SchemeDescriptor sd = cd.getSchemes().get(schemeId);
+            AuthenticationConfig.setProperty(SCHEME_TYPE_TEMPLATE.replace(SCHEME_ID, schemeId), sd.getType());
+            for (String property : sd.getConfig().keySet()) {
+                String propertyName = SCHEME_CONFIG_PREFIX_TEMPLATE.replace(SCHEME_ID, schemeId) + property;
+                String propertyVal = sd.getConfig().get(property);
+                AuthenticationConfig.setProperty(propertyName, propertyVal);
+                if (property.equalsIgnoreCase("loginPage")) {
+                    whiteList.add(propertyVal);
                 }
             }
+        }
+        AuthenticationConfig.setProperty(WHITE_LIST, String.join(",", cd.getWhitelist()));
+
+        log.info("Authentication Schemes Configured");
+        Properties p = AuthenticationConfig.getConfig();
+        Set<String> sortedKeys = new TreeSet<>(p.stringPropertyNames());
+        for (String key : sortedKeys) {
+            log.info(key + " = " + p.getProperty(key));
         }
     }
 }
