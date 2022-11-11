@@ -35,6 +35,8 @@ public class Components {
         public static final String MCH = "mch";  // mchForms + mchProgram
         public static final String MCH_FORMS = "mchForms";  // used by ZL (via "mch")
         public static final String MCH_PROGRAM = "mchProgram";  // needs MCHProgramBundle[ZL], used by ZL (via "mch")
+        public static final String MCH_GAIN_MATERNAL = "mchGAINMaternal"; // used by SL GAIN (nursing) project
+        public static final String MCH_GAIN_NEWBORN = "mchGAINNewborn";   // used by SL GAIN (nursing) project
         public static final String VACCINATION_FORM = "vaccination";
         public static final String ZIKA = "zika";  // program
         public static final String COVID19 = "covid19";

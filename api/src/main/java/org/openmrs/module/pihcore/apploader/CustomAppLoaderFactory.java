@@ -422,6 +422,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableJ9();
         }
 
+        if (config.isComponentEnabled(Components.MCH_GAIN_MATERNAL)) {
+            enableMCHGainMaternal();
+        }
+
+        if (config.isComponentEnabled(Components.MCH_GAIN_NEWBORN)) {
+            enableMCHGainNewborn();
+        }
+
         if (config.isComponentEnabled(Components.COVID19)) {
             enableCovid19();
         }
@@ -1944,6 +1952,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         }
 
+    }
+
+    private void enableMCHGainMaternal() {
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            // Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION
+        }
+    }
+
+    private void enableMCHGainNewborn() {
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            // Extensions.MCH_GAIN_SCBU_REGISTER_ACTION
+        }
     }
 
     private void enableANCProgram() {
