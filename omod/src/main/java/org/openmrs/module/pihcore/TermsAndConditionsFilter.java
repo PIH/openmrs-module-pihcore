@@ -44,7 +44,7 @@ public class TermsAndConditionsFilter implements Filter {
 	public static final String TERMS_URI = "/" + WebConstants.CONTEXT_PATH + "/pihcore/account/termsAndConditions.page";
 
 	public static final List<String> EXCLUSION_EXTENSIONS = Arrays.asList(
-		"js", "css", "gif", "jpg", "jpeg", "png", ".ttf", ".woff", ".action"
+		"js", "css", "gif", "jpg", "jpeg", "png", ".ttf", ".woff", ".action", "/csrfguard"
 	);
 
 	private boolean enabled = false;
