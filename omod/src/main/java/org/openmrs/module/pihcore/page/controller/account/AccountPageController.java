@@ -120,6 +120,7 @@ public class AccountPageController {
         // reload page on error
         // TODO: show password fields toggle should work better
 
+        model.addAttribute("editMode", true);
         model.addAttribute("errors", errors);
         model.addAttribute("account", account);
         model.addAttribute("capabilities", accountService.getAllCapabilities());

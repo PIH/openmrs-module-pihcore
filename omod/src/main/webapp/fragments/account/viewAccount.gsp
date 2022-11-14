@@ -8,7 +8,7 @@
             ui.pageLink("pihcore", "account/myAccount", [ edit: true ]) :
             ui.pageLink("pihcore", "account/account", [ personId: personId, edit: true ])
 
-    def userArgs = isOwnAccount ? [:] : [ userId: account.user.userId ]
+    def userArgs = isOwnAccount || !account.user ? [:] : [ userId: account.user.userId ]
 %>
 
 <style>
