@@ -34,6 +34,7 @@ import org.openmrs.module.authentication.AuthenticationUtil;
 import org.openmrs.module.authentication.UserLogin;
 import org.openmrs.module.authentication.web.AuthenticationSession;
 import org.openmrs.module.authentication.web.WebAuthenticationScheme;
+import org.openmrs.util.Security;
 
 import java.util.Properties;
 
@@ -103,7 +104,8 @@ public class TotpAuthenticationScheme extends WebAuthenticationScheme {
 		if (StringUtils.isBlank(userSecret)) {
 			throw new ContextAuthenticationException("authentication.totp.noSecretConfiguredForUser");
 		}
-		if (!verifyCode(userSecret, c.code)) {
+		String decodedSecret = Security.decrypt(userSecret);
+		if (!verifyCode(decodedSecret, c.code)) {
 			throw new ContextAuthenticationException("authentication.error.invalidCredentials");
 		}
 

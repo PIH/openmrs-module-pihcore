@@ -12,6 +12,7 @@ import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.TotpAuthenticationScheme;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
+import org.openmrs.util.Security;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +92,7 @@ public class ConfigureTotpPageController {
             if (!isValidCode) {
                 throw new RuntimeException("authentication.totp.code.invalid");
             }
-            userService.setUserProperty(userToSetup, scheme.getSecretUserPropertyName(), secret);
+            userService.setUserProperty(userToSetup, scheme.getSecretUserPropertyName(), Security.encrypt(secret));
             userToSetup.setUserProperty(TwoFactorAuthenticationScheme.USER_PROPERTY_SECONDARY_TYPE, schemeId);
             userService.saveUser(userToSetup);
 
