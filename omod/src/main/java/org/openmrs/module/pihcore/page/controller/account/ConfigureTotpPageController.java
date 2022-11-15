@@ -108,7 +108,7 @@ public class ConfigureTotpPageController {
             secret = scheme.generateSecret();
             model.addAttribute("secret", secret);
             model.addAttribute("qrCodeUri", scheme.generateQrCodeUriForSecret(secret, userToSetup.getUsername()));
-            return "account/changeSecurityQuestion";
+            return "account/configureTotp";
         }
 
         String returnUrl = (isOwnAccount ? "myAccount.page" : "account.page?personId=" + userToSetup.getPerson().getPersonId());
