@@ -1956,13 +1956,29 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMCHGainMaternal() {
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            // Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION,
+                    "pih.task.maternalDeliveryRegister",
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("gainMaternalRegister.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            and(patientIsFemale()))));
         }
     }
 
     private void enableMCHGainNewborn() {
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            // Extensions.MCH_GAIN_SCBU_REGISTER_ACTION
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,
+                    "pih.task.sbcuRegister",
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("gainNewbornRegister.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            and(patientIsFemale()))));
         }
     }
 
