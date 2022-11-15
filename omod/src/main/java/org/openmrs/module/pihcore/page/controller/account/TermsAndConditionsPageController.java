@@ -37,10 +37,11 @@ public class TermsAndConditionsPageController {
                        @SpringBean("userService") UserService userService) {
 
         if (termsAndConditionsAccepted) {
-            User currentUser = Context.getAuthenticatedUser();
+            User currentUser = userService.getUser(Context.getAuthenticatedUser().getUserId());
             String acceptanceDate = new ISO8601DateFormat().format(new Date());
             currentUser.setUserProperty(PihCoreConstants.USER_PROPERTY_TERMS_AND_CONDITIONS_ACCEPTED_DATE, acceptanceDate);
             userService.saveUser(currentUser);
+            Context.refreshAuthenticatedUser();
         }
         return "redirect:/pihcore/home.page";
     }
