@@ -130,7 +130,6 @@ public class ConfigurationSetup {
     // nor is it changeable by any configuration settings
 
     public void setupBase() throws Exception {
-        AuthenticationSetup.setup();
         MergeActionsSetup.registerMergeActions();
         HtmlFormSetup.setupHtmlFormEntryTagHandlers();
         MetadataSharingSetup.setMetadataSharingResolvers();
@@ -151,6 +150,9 @@ public class ConfigurationSetup {
         // Load in PIH Config
         setStatus("Loading pih.config descriptor");
         config.reload(ConfigLoader.loadFromRuntimeProperties());
+
+        // Configure authentication settings
+        AuthenticationSetup.setup(config);
 
         // Configure the Name Template based on the config (TODO: Move this to config / configure outside of Java code)
         // hack: configure both name support beans, since two actually exist (?)

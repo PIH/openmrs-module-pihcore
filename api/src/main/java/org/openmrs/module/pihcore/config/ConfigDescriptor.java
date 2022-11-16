@@ -4,6 +4,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
@@ -97,6 +98,9 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private BiometricsConfigDescriptor biometricsConfig;
+
+    @JsonProperty
+    private AuthenticationConfigDescriptor authenticationConfig;
 
     @JsonProperty
     private Boolean rebuildSearchIndexOnStartup;
@@ -300,6 +304,17 @@ public class ConfigDescriptor {
 
     public void setBiometrics(BiometricsConfigDescriptor biometricsConfig) {
         this.biometricsConfig = biometricsConfig;
+    }
+
+    public AuthenticationConfigDescriptor getAuthenticationConfig() {
+        if (authenticationConfig == null) {
+            authenticationConfig = new AuthenticationConfigDescriptor();
+        }
+        return authenticationConfig;
+    }
+
+    public void setAuthenticationConfig(AuthenticationConfigDescriptor authenticationConfig) {
+        this.authenticationConfig = authenticationConfig;
     }
 
     public Boolean getRebuildSearchIndexOnStartup() {

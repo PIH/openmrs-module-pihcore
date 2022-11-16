@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.config;
 
 import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
@@ -138,6 +139,8 @@ public class Config {
     public BiometricsConfigDescriptor getBiometricsConfig() {
         return descriptor.getBiometricsConfig();
     }
+
+    public AuthenticationConfigDescriptor getAuthenticationConfig() { return descriptor.getAuthenticationConfig(); }
 
     public Boolean shouldRebuildSearchIndex() {
         return descriptor.getRebuildSearchIndexOnStartup() != null ? descriptor.getRebuildSearchIndexOnStartup() : false;
