@@ -1694,7 +1694,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyConsult.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
                 and(sessionLocationHasTag("Oncology Consult Location"),
-                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
@@ -1705,21 +1705,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true,
                 null, PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID);
 
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
-                "pih.task.oncologyInitialConsult.label",
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_TREATMENT_PLAN_ACTION,
+                "pih.task.oncologyTreatmentPlan.label",
                 "fas fa-fw fa-paste",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyIntake.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
                 and(sessionLocationHasTag("Oncology Consult Location"),
-                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // will we need this template after we stop using old patient visits view?
-        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_VISIT_UUID,
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID,
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.DEFAULT), "fas fa-fw fa-paste", true, true,
                 null, PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID);
 
@@ -1743,7 +1743,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}/#physicianDashboard",
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
-                and(sessionLocationHasTag("Consult Note Location"),
+                and(sessionLocationHasTag("Chemotherapy Location"),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
@@ -1756,7 +1756,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "owa/openmrs-owa-oncology/index.html?patientId={{patient.uuid}}&visitId={{visit.uuid}}/#nurseDashboard",
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
-                and(sessionLocationHasTag("Consult Note Location"),
+                and(sessionLocationHasTag("Chemotherapy Location"),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));

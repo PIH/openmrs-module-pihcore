@@ -153,6 +153,7 @@ public class CustomAppLoaderConstants {
         public static final String SURGICAL_NOTE_VISIT_ACTION = "pih.form.surgicalNote";
         public static final String ONCOLOGY_CONSULT_NOTE_VISIT_ACTION = "pih.form.oncologyNote";
         public static final String ONCOLOGY_INITIAL_VISIT_ACTION = "pih.form.oncologyIntake";
+        public static final String ONCOLOGY_TREATMENT_PLAN_ACTION = "pih.form.oncologyTreatmentPlan";
         public static final String CHEMOTHERAPY_VISIT_ACTION = "pih.form.chemotherapy";
         public static final String LAB_RESULTS_OVERALL_ACTION = "pih.form.labResults";
         public static final String NCD_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
@@ -431,7 +432,7 @@ public class CustomAppLoaderConstants {
             Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,
             Extensions.EID_FOLLOWUP_VISIT_ACTION,
             Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
-            Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
+            Extensions.ONCOLOGY_TREATMENT_PLAN_ACTION,
             Extensions.CHEMOTHERAPY_VISIT_ACTION,
             Extensions.CHEMO_RECORDING_VISIT_ACTION,
             Extensions.COVID19_INITIAL_VISIT_ACTION,
