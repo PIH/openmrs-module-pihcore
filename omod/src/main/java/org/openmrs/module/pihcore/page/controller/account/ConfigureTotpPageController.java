@@ -9,7 +9,7 @@ import org.openmrs.module.authentication.AuthenticationConfig;
 import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
 import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
-import org.openmrs.module.pihcore.TotpAuthenticationScheme;
+import org.openmrs.module.authentication.web.TotpAuthenticationScheme;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.util.Security;

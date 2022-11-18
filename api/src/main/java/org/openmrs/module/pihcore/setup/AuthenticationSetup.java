@@ -81,8 +81,9 @@ public class AuthenticationSetup {
 
         // Totp Authentication Scheme.  This is an available 2nd factor
         {
-            String className = "org.openmrs.module.pihcore.TotpAuthenticationScheme";
+            String className = "org.openmrs.module.authentication.web.TotpAuthenticationScheme";
             Properties p = new Properties();
+            p.put("qrCodeIssuer", "PIHEMR");
             p.put("loginPage", "/pihcore/account/loginTotp.page");
             p.put("configurationPage", "/pihcore/account/configureTotp.page?schemeId={schemeId}&userId={userId}");
             addScheme(TOTP, className, p, whitelist);
