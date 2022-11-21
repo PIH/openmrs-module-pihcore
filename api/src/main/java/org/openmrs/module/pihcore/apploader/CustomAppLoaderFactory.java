@@ -1689,7 +1689,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
                 "pih.task.oncologyConsultNote.label",
-                "fas fa-fw fa-paste",
+                "fas fa-fw fa-hand-holding-heart",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyConsult.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
@@ -1707,7 +1707,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_TREATMENT_PLAN_ACTION,
                 "pih.task.oncologyTreatmentPlan.label",
-                "fas fa-fw fa-paste",
+                "fas fa-fw fa-hand-holding-heart",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyIntake.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
