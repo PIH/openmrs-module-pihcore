@@ -9,11 +9,6 @@
     def genderOptions = [ [label: ui.message("emr.gender.M"), value: 'M'],
                           [label: ui.message("emr.gender.F"), value: 'F'] ]
 
-    def privilegeLevelOptions = []
-    privilegeLevels.each {
-        privilegeLevelOptions.push([ label: ui.format(it), value: it.name ])
-    }
-
     def allowedLocalesOptions = []
     allowedLocales.each {
         def displayLanguage = it.getDisplayLanguage(emrContext.userContext.locale);
@@ -118,14 +113,6 @@
                         label: ui.message("emr.person.phoneNumber"),
                         formFieldName: "phoneNumber",
                         initialValue: (account.phoneNumber ?: '')
-                ])}
-
-                ${ ui.includeFragment("uicommons", "field/dropDown", [
-                    label: ui.message("emr.user.privilegeLevel"),
-                    emptyOptionLabel: ui.message("emr.chooseOne"),
-                    formFieldName: "privilegeLevel",
-                    initialValue: (account.privilegeLevel ? account.privilegeLevel.getName() : ''),
-                    options: privilegeLevelOptions
                 ])}
 
                 <p>

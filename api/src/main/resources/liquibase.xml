@@ -1185,5 +1185,25 @@
         </delete>
     </changeSet>
 
+    <changeSet id="20221114-UHM-6717-1" author="PIH">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sqlCheck expectedResult="0">
+                    select count(*) from user_role where role = 'Privilege Level: Full';
+                </sqlCheck>
+            </not>
+        </preConditions>
+        <comment>
+            Remove use of Privilege Level: Full in favor of Privilege Level: High for all users
+        </comment>
+        <sql>
+            create temporary table temp_priv_high_users as select user_id from user_role where role = 'Privilege Level: High';
+            update user_role set role = 'Privilege Level: High' where role = 'Privilege Level: Full' and user_id not in (
+                select user_id from temp_priv_high_users
+            );
+            delete from user_role where role = 'Privilege Level: Full';
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
