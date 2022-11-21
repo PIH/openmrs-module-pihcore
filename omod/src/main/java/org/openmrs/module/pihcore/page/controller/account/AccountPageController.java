@@ -65,7 +65,6 @@ public class AccountPageController {
         model.addAttribute("account", account);
         model.addAttribute("editMode", edit == Boolean.TRUE || account.getPerson().getPersonId() == null);
         model.addAttribute("capabilities", accountService.getAllCapabilities());
-        model.addAttribute("privilegeLevels", accountService.getAllPrivilegeLevels());
         model.addAttribute("rolePrefix", EmrApiConstants.ROLE_PREFIX_CAPABILITY);
         model.addAttribute("allowedLocales", administrationService.getAllowedLocales());
         model.addAttribute("providerRoles", providerManagementService.getAllProviderRoles(false));
@@ -90,6 +89,9 @@ public class AccountPageController {
 
         // manually bind userEnabled (since checkboxes don't submit anything if unchecked));
         account.setUserEnabled(userEnabled);
+
+        // we only support Privilege Level: High, so set this explicitly.  see UHM-6717
+        account.setPrivilegeLevel(userService.getRole(EmrApiConstants.PRIVILEGE_LEVEL_HIGH_ROLE));
 
         pihAccountValidator.validate(account, errors);
 

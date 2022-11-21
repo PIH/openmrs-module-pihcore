@@ -147,11 +147,6 @@
                                     </div>
 
                                     <div class="account-info-item">
-                                        <span class="account-info-label">${ ui.message("emr.user.privilegeLevel") }: </span>
-                                        <span class="account-info-value">${ ui.format(account.privilegeLevel) }</span>
-                                    </div>
-
-                                    <div class="account-info-item">
                                         <span class="account-info-label">${ ui.message("emr.user.Capabilities") }: </span>
                                         <span class="account-info-value">
                                             <% account.capabilities.sort { ui.format(it).toLowerCase() }.each { %>
