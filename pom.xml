@@ -51,7 +51,7 @@
         <addresshierarchyVersion>2.15.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.4</allergyuiVersion>
         <appframeworkVersion>2.17.0-SNAPSHOT</appframeworkVersion>
-        <appointmentschedulingVersion>1.17.0-SNAPSHOT</appointmentschedulingVersion>
+        <appointmentschedulingVersion>1.17.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.12.0</appointmentschedulinguiVersion>
         <appuiVersion>1.16.0</appuiVersion>
         <attachmentsVersion>2.6.0</attachmentsVersion>
@@ -82,7 +82,7 @@
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
         <paperrecordVersion>1.4.0-SNAPSHOT</paperrecordVersion>
         <printerVersion>1.5.0-SNAPSHOT</printerVersion>
-        <providermanagementVersion>2.13.0</providermanagementVersion>
+        <providermanagementVersion>2.14.0</providermanagementVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.25.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.11.0</registrationcoreVersion>
@@ -92,7 +92,7 @@
         <serializationxstreamVersion>0.2.15</serializationxstreamVersion>
         <spaVersion>1.0.8</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
-        <uicommonsVersion>2.23.0-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>2.23.0</uicommonsVersion>
         <uiframeworkVersion>3.22.1</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.37.0-SNAPSHOT</webservicesRestVersion>
