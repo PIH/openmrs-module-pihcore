@@ -50,7 +50,7 @@
 
         <addresshierarchyVersion>2.15.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.4</allergyuiVersion>
-        <appframeworkVersion>2.17.0-SNAPSHOT</appframeworkVersion>
+        <appframeworkVersion>2.17.0</appframeworkVersion>
         <appointmentschedulingVersion>1.17.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>1.12.0</appointmentschedulinguiVersion>
         <appuiVersion>1.16.0</appuiVersion>
@@ -63,7 +63,7 @@
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
         <emrapiVersion>1.33.0</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
-        <fhir2Version>1.7.0-SNAPSHOT</fhir2Version>
+        <fhir2Version>1.7.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>5.1.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>2.2.0</htmlformentryuiVersion>
