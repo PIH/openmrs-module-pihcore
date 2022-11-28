@@ -1355,7 +1355,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.ACTIVE_USERS_ADMIN,
                 "pihcore.activeUsers.title",
                 "fas fa-fw fa-users",
-                "pihcore/admin/activeUsers.page",
+                "authenticationui/admin/activeUsers.page",
                 9,
                 "App: coreapps.systemAdministration",
                 null)));

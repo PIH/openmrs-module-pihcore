@@ -1,7 +1,28 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
-    ui.includeJavascript("pihcore", "account/termsAndConditions.js")
 %>
+
+<script type="text/javascript">
+    $(function() {
+        disableSubmitButton();
+
+        $("#termsAcceptCheckbox-field").click(function() {
+            if ($(this).is(':checked')) {
+                enableSubmitButton();
+            } else {
+                disableSubmitButton();
+            }
+        });
+
+        function disableSubmitButton(){
+            $("#save-button").addClass("disabled").attr("disabled", "disabled");
+        }
+
+        function enableSubmitButton(){
+            $("#save-button").removeClass("disabled").removeAttr("disabled");
+        }
+    });
+</script>
 
 <style>
     ul, li {

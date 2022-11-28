@@ -136,6 +136,7 @@ public class AuthenticationSetup {
         AuthenticationUiModuleConfig.setLoginWelcomeMessage(config.getWelcomeMessage());
         AuthenticationUiModuleConfig.setLoginWarningIfNotChrome(config.getBrowserWarning());
         AuthenticationUiModuleConfig.setAllowPasswordReset(true);
+        AuthenticationUiModuleConfig.setAccountAdminPrivilege("App: coreapps.systemAdministration");
     }
 
     /**
