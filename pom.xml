@@ -73,7 +73,7 @@
         <labtrackingappVersion>1.2.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.3.0-SNAPSHOT</labworkflowOwaVersion>
         <legacyuiVersion>1.13.0</legacyuiVersion>
-        <metadatamappingVersion>1.5.0</metadatamappingVersion>
+        <metadatamappingVersion>1.6.0</metadatamappingVersion>
         <metadatasharingVersion>1.8.0</metadatasharingVersion>
         <namephoneticsVersion>2.0.0-SNAPSHOT</namephoneticsVersion>
         <openconceptlabVersion>2.0.0</openconceptlabVersion>
