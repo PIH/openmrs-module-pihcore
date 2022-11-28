@@ -9,7 +9,7 @@ import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.authentication.AuthenticationConfig;
 import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
 import org.openmrs.module.authentication.web.WebAuthenticationScheme;
-import org.openmrs.module.emr.EmrConstants;
+import org.openmrs.module.uicommons.UiCommonsConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -37,7 +37,7 @@ public class TwoFactorSetupPageController {
             }
             else {
                 String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
                 return "redirect:index.htm";
             }
         }
@@ -87,7 +87,7 @@ public class TwoFactorSetupPageController {
             }
             else {
                 String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
                 return "redirect:index.htm";
             }
         }
@@ -104,7 +104,7 @@ public class TwoFactorSetupPageController {
                         if (userId != null) {
                             if (!url.contains("{userId}")) {
                                 String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
-                                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
                                 return "redirect:pihcore/account/twoFactorSetup.page?userId=" + userId;
                             }
                             else {
@@ -127,14 +127,14 @@ public class TwoFactorSetupPageController {
             }
             userService.saveUser(userToSetup);
             String msg = messageSourceService.getMessage("authentication.2fa.success", null, Context.getLocale());
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
             String returnPage = (isOwnAccount ? "myAccount.page" : "account.page?personId=" + userToSetup.getPerson().getPersonId());
             return "redirect:pihcore/account/" + returnPage;
         }
         catch (Exception e) {
             String msg = messageSourceService.getMessage("authentication.2fa.error", new Object[]{e.getMessage()}, Context.getLocale());
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
             return "redirect:pihcore/account/twoFactorSetup.page";
         }
     }

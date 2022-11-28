@@ -4,9 +4,8 @@ package org.openmrs.module.pihcore.page.controller.account;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
-import org.openmrs.api.db.DAOException;
 import org.openmrs.messagesource.MessageSourceService;
-import org.openmrs.module.emr.EmrConstants;
+import org.openmrs.module.uicommons.UiCommonsConstants;
 import org.openmrs.ui.framework.annotation.BindParams;
 import org.openmrs.ui.framework.annotation.MethodParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -51,11 +50,11 @@ public class ChangePasswordPageController {
     private String changePasswords(ChangePassword changePassword, UserService userService, MessageSourceService messageSourceService, HttpServletRequest request) {
         try {
             userService.changePassword(changePassword.getOldPassword(), changePassword.getNewPassword());
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE,
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_INFO_MESSAGE,
                     messageSourceService.getMessage("emr.account.changePassword.success", null, Context.getLocale()));
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
         } catch (Exception e) {
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
                     messageSourceService.getMessage("emr.account.changePassword.fail", new Object[]{e.getMessage()}, Context.getLocale()));
             return "account/changePassword";
         }
@@ -84,7 +83,7 @@ public class ChangePasswordPageController {
     private void sendErrorMessage(BindingResult errors, MessageSource messageSource, HttpServletRequest request) {
         List<ObjectError> allErrors = errors.getAllErrors();
         String message = getMessageErrors(messageSource, allErrors);
-        request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
+        request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
                 message);
     }
 

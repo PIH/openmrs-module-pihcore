@@ -9,7 +9,7 @@ import org.openmrs.api.InvalidActivationKeyException;
 import org.openmrs.api.UserService;
 import org.openmrs.api.ValidationException;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.emr.EmrConstants;
+import org.openmrs.module.uicommons.UiCommonsConstants;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -31,7 +31,7 @@ public class ResetPasswordPageController {
             Context.addProxyPrivilege(GET_USERS);
             User user = userService.getUserByActivationKey(activationKey);
             if (user == null) {
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
                         ui.message("activation.key.not.correct", null, Context.getLocale()));
                 return "redirect:index.htm";
             }
@@ -69,12 +69,12 @@ public class ResetPasswordPageController {
                 throw new ValidationException(ui.message("emr.account.changePassword.newAndConfirmPassword.DoesNotMatch"));
             }
             userService.changePasswordUsingActivationKey(activationKey, newPassword);
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, ui.message("emr.account.changePassword.success"));
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, ui.message("emr.account.changePassword.success"));
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
         }
         catch (Exception e) {
             request.getSession().setAttribute(
-                    EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
+                    UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
                     ui.message("emr.account.changePassword.fail", new Object[]{e.getMessage()}, Context.getLocale())
             );
             log.warn("An error occurred while trying to reset password", e);

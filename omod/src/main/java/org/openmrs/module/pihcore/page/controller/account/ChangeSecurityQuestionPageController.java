@@ -6,8 +6,8 @@ import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
-import org.openmrs.module.emr.EmrConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.uicommons.UiCommonsConstants;
 import org.openmrs.ui.framework.annotation.BindParams;
 import org.openmrs.ui.framework.annotation.MethodParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -47,7 +47,7 @@ public class ChangeSecurityQuestionPageController {
             }
             else {
                 String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
                 return "redirect:index.htm";
             }
         }
@@ -79,7 +79,7 @@ public class ChangeSecurityQuestionPageController {
             }
             else {
                 String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
                 return "redirect:index.htm";
             }
         }
@@ -132,7 +132,7 @@ public class ChangeSecurityQuestionPageController {
                     message = message.concat(errorMessage.concat("<br>"));
                 }
             }
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, message);
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, message);
             return "account/changeSecurityQuestion";
         }
         else {
@@ -148,12 +148,12 @@ public class ChangeSecurityQuestionPageController {
                     userService.saveUser(userToSetup);
                 }
                 String msg = messageSourceService.getMessage("emr.user.changeSecretQuestion.success", null, Context.getLocale());
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
             }
             catch (Exception e) {
                 String msg = messageSourceService.getMessage("emr.user.changeSecretQuestion.fail", new Object[]{e.getMessage()}, Context.getLocale());
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
                 return "account/changeSecurityQuestion";
             }
 

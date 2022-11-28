@@ -6,10 +6,10 @@ import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.authentication.AuthenticationConfig;
-import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
-import org.openmrs.module.emr.EmrConstants;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.authentication.web.TotpAuthenticationScheme;
+import org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.uicommons.UiCommonsConstants;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.util.Security;
@@ -36,7 +36,7 @@ public class ConfigureTotpPageController {
             }
             else {
                 String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
                 return "redirect:index.htm";
             }
         }
@@ -74,7 +74,7 @@ public class ConfigureTotpPageController {
             }
             else {
                 String msg = messageSourceService.getMessage("emr.user.unauthorizedPageError");
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
+                request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg);
                 return "redirect:index.htm";
             }
         }
@@ -97,13 +97,13 @@ public class ConfigureTotpPageController {
             userService.saveUser(userToSetup);
 
             String msg = messageSourceService.getMessage("authentication.totp.setup.success", null, Context.getLocale());
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_INFO_MESSAGE, msg);
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
         }
         catch (Exception e) {
             String msg = messageSourceService.getMessage("authentication.totp.setup.fail");
             String reason =messageSourceService.getMessage(e.getMessage());
-            request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg + ": " + reason);
+            request.getSession().setAttribute(UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, msg + ": " + reason);
 
             secret = scheme.generateSecret();
             model.addAttribute("secret", secret);
