@@ -5,6 +5,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.authentication.AuthenticationConfig;
 import org.openmrs.module.authenticationui.AuthenticationUiModuleConfig;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 
@@ -81,7 +82,7 @@ public class AuthenticationSetup {
             String className = "org.openmrs.module.authentication.web.SecretQuestionAuthenticationScheme";
             Properties p = new Properties();
             p.put("loginPage", "/authenticationui/login/loginSecret.page");
-            p.put("configurationPage", "/pihcore/account/changeSecurityQuestion.page?schemeId={schemeId}&userId={userId}");
+            p.put("configurationPage", "/authenticationui/account/changeSecurityQuestion.page?schemeId={schemeId}&userId={userId}");
             addScheme(SECRET, className, p, whitelist);
         }
 
@@ -91,7 +92,7 @@ public class AuthenticationSetup {
             Properties p = new Properties();
             p.put("qrCodeIssuer", "PIHEMR");
             p.put("loginPage", "/authenticationui/login/loginTotp.page");
-            p.put("configurationPage", "/pihcore/account/configureTotp.page?schemeId={schemeId}&userId={userId}");
+            p.put("configurationPage", "/authenticationui/account/configureTotp.page?schemeId={schemeId}&userId={userId}");
             addScheme(TOTP, className, p, whitelist);
         }
 
@@ -137,6 +138,8 @@ public class AuthenticationSetup {
         AuthenticationUiModuleConfig.setLoginWarningIfNotChrome(config.getBrowserWarning());
         AuthenticationUiModuleConfig.setAllowPasswordReset(true);
         AuthenticationUiModuleConfig.setAccountAdminPrivilege("App: coreapps.systemAdministration");
+        AuthenticationUiModuleConfig.setPhoneNumberPersonAttributeType(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID);
+        AuthenticationUiModuleConfig.setDefaultLocationUserProperty(null);
     }
 
     /**

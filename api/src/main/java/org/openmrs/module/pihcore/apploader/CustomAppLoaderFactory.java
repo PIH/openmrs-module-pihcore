@@ -1353,7 +1353,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null)));
 
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.ACTIVE_USERS_ADMIN,
-                "pihcore.activeUsers.title",
+                "authenticationui.activeUsers.title",
                 "fas fa-fw fa-users",
                 "authenticationui/admin/activeUsers.page",
                 9,
@@ -1384,9 +1384,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableMyAccount() {
 
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MY_ACCOUNT,
-                "emr.app.system.administration.myAccount.label",
+                "authenticationui.myAccount.title",
                 "fas fa-fw fa-cog",
-                "pihcore/account/myAccount.page",
+                "authenticationui/account/myAccount.page",
                 null, null)));
 
     }
