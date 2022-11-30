@@ -48,14 +48,7 @@ public class LoginPageController {
 		return null;
 	}
 
-	/**
-	 * This post handler should never be hit, as all authentication is handled by the AuthenticationFilter
-	 */
-	public String post(UiUtils ui, PageRequest request) {
-		AuthenticationSession session = new AuthenticationSession(request.getRequest(), request.getResponse());
-		if (session.getErrorMessage() == null) {
-			session.setErrorMessage("mirebalais.login.error.authentication");
-		}
-		return "redirect:" + ui.pageLink("pihcore", "login");
+	public String post(UiUtils ui) {
+		return "redirect:" + ui.pageLink("pihcore", "home");
 	}
 }

@@ -66,4 +66,8 @@ public class LoginSecretPageController {
 		pageModel.put("question", question);
 		return null;
 	}
+
+	public String post(UiUtils ui) {
+		return "redirect:" + ui.pageLink("pihcore", "home");
+	}
 }
