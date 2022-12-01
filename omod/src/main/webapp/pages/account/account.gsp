@@ -48,7 +48,7 @@
 
         jq('#unlock-button').click(function(e) {
 
-            jq.post(emr.fragmentActionLink("pihcore", "account/account", "unlock", { personId: jq(this).val() }), function (data) {
+            jq.post(emr.fragmentActionLink("authenticationui", "accountAction", "unlock", { userId: ${account.user.id} }), function (data) {
                 emr.successMessage(data.message);
                 jq('#locked-warning').hide();
             }, 'json').error(function(xhr) {

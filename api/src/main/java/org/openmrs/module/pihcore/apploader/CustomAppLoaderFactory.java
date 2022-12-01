@@ -1386,7 +1386,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MY_ACCOUNT,
                 "authenticationui.myAccount.title",
                 "fas fa-fw fa-cog",
-                "authenticationui/account/account.page",
+                "authenticationui/account/userAccount.page",
                 null, null)));
 
     }

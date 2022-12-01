@@ -45,7 +45,7 @@
 			</td>
 			<td>
 				<% if(it.username && it.username != '') {%>
-					<a href="/${ contextPath }/authenticationui/account/account.page?userId=${ it.user.id }">
+					<a href="/${ contextPath }/authenticationui/account/userAccount.page?userId=${ it.user.id }">
 						${ ui.format(it.username) }
 					</a>
 				<% } %>
