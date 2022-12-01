@@ -130,16 +130,16 @@ public class AuthenticationSetup {
             log.info(key + " = " + p.getProperty(key));
         }
 
-        AuthenticationUiModuleConfig.setHeaderLogoUrlProvider("file");
-        AuthenticationUiModuleConfig.setHeaderLogoUrlResource("configuration/pih/logo/logo.png");
-        AuthenticationUiModuleConfig.setHomePageProvider("pihcore");
-        AuthenticationUiModuleConfig.setHomePageResource("home");
+        AuthenticationUiModuleConfig.setHeaderLogoUrl("file:configuration/pih/logo/logo.png");
+        AuthenticationUiModuleConfig.setHomePageUrl("pihcore:home");
         AuthenticationUiModuleConfig.setLoginWelcomeMessage(config.getWelcomeMessage());
         AuthenticationUiModuleConfig.setLoginWarningIfNotChrome(config.getBrowserWarning());
         AuthenticationUiModuleConfig.setAllowPasswordReset(true);
         AuthenticationUiModuleConfig.setAccountAdminPrivilege("App: coreapps.systemAdministration");
         AuthenticationUiModuleConfig.setPhoneNumberPersonAttributeType(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID);
         AuthenticationUiModuleConfig.setDefaultLocationUserProperty(null);
+        AuthenticationUiModuleConfig.addAccountBreadcrumb("emr.app.systemAdministration.label", "coreapps:systemadministration/systemAdministration");
+        AuthenticationUiModuleConfig.addAccountBreadcrumb("emr.task.accountManagement.label", "pihcore:account/manageAccounts");
     }
 
     /**
