@@ -53,13 +53,6 @@ public class PihAccountDomainWrapper extends AccountDomainWrapper {
         return personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID);
     }
 
-    public String getTwoFactorAuthenticationMethod() {
-        if (getUser() != null) {
-            return getUser().getUserProperty("authentication.secondaryType");
-        }
-        return null;
-    }
-
     private void initializeUser() {
         super.setDefaultLocale(Context.getLocale()); // This has the effect of initializing a new user, little hack
     }
