@@ -3,11 +3,11 @@
 %>
 
 <script type="text/javascript">
-    $(function() {
+    jq(function() {
         disableSubmitButton();
 
-        $("#termsAcceptCheckbox-field").click(function() {
-            if ($(this).is(':checked')) {
+        jq("#termsAcceptCheckbox-field").click(function() {
+            if (jq(this).is(':checked')) {
                 enableSubmitButton();
             } else {
                 disableSubmitButton();
@@ -15,11 +15,11 @@
         });
 
         function disableSubmitButton(){
-            $("#save-button").addClass("disabled").attr("disabled", "disabled");
+            jq("#save-button").addClass("disabled").attr("disabled", "disabled");
         }
 
         function enableSubmitButton(){
-            $("#save-button").removeClass("disabled").removeAttr("disabled");
+            jq("#save-button").removeClass("disabled").removeAttr("disabled");
         }
     });
 </script>
