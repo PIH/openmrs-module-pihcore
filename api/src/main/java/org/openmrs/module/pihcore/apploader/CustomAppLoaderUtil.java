@@ -412,6 +412,10 @@ public class CustomAppLoaderUtil {
         return new Extension(id, null, AppUiExtensions.HEADER_CONFIG_EXTENSION, "config", null, null, 0, null, configs);
     }
 
+    static public Extension configExtension(String id, String extensionPointId, Map<String, Object> configs) {
+        return new Extension(id, null, extensionPointId, "config", null, null, 0, null, configs);
+    }
+
     static public Extension fragmentExtension(String id, String provider, String fragment, String privilege, String extensionPoint, Map<String, Object> config) {
         return new Extension(id, null, extensionPoint, "include-fragment", null, null, 0,
                 privilege, map("provider", provider, "fragment", fragment, "fragmentConfig", config));

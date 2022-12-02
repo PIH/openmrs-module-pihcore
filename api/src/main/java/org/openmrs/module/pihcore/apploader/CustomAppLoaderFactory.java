@@ -9,6 +9,7 @@ import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
 import org.openmrs.module.appframework.feature.FeatureToggleProperties;
+import org.openmrs.module.authenticationui.AuthenticationUiConfig;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
@@ -40,6 +41,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants.Extensions.PIH_AUTH_ADMIN_EXTENSION;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants.Extensions.PIH_AUTH_LOGIN_EXTENSION;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToAsthmaDashboardFirstColumn;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
@@ -69,6 +72,7 @@ import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsHi
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsOncologyOverallAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsOncologyVisitAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.configExtension;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.containsExtension;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.dashboardTab;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
@@ -193,6 +197,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void loadAppsAndExtensions() throws UnsupportedEncodingException {
 
         configureHeader(config);
+        configureAuthenticationUi(config);
         setupDefaultEncounterTemplates();
 
         //  whether we are using the new visit note
@@ -480,6 +485,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void configureHeader(Config config) {
         extensions.add(header(CustomAppLoaderConstants.Extensions.PIH_HEADER_EXTENSION, "/ms/uiframework/resource/file/configuration/pih/logo/logo.png"));
+    }
+
+    private void configureAuthenticationUi(Config config) {
+        extensions.add(configExtension(PIH_AUTH_ADMIN_EXTENSION, AuthenticationUiConfig.ADMIN_EXTENSION, map(
+                AuthenticationUiConfig.ADMIN_PAGE_URL, "coreapps:systemadministration/systemAdministration",
+                AuthenticationUiConfig.ADMIN_MANAGE_USERS_PAGE_URL, "pihcore:account/manageAccounts",
+                AuthenticationUiConfig.ADMIN_REQUIRED_PRIVILEGE, "App: coreapps.systemAdministration",
+                AuthenticationUiConfig.ADMIN_PHONE_ATTRIBUTE_TYPE, PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID,
+                AuthenticationUiConfig.ADMIN_DEFAULT_LOCATION_USER_PROPERTY, null
+        )));
+        extensions.add(configExtension(PIH_AUTH_LOGIN_EXTENSION, AuthenticationUiConfig.LOGIN_PAGE_EXTENSION, map(
+                AuthenticationUiConfig.LOGIN_SHOW_LOCATIONS, true,
+                AuthenticationUiConfig.LOGIN_REQUIRE_LOCATION, true,
+                AuthenticationUiConfig.LOGIN_LOCATION_TAG_NAME, "Login Location",
+                AuthenticationUiConfig.LOGIN_LAST_LOCATION_COOKIE_NAME, "emr.lastSessionLocation",
+                AuthenticationUiConfig.LOGIN_WELCOME_MESSAGE, config.getWelcomeMessage(),
+                AuthenticationUiConfig.LOGIN_WARNING_IF_NOT_CHROME, config.getBrowserWarning(),
+                AuthenticationUiConfig.LOGIN_ALLOW_PASSWORD_RESET, true
+        )));
     }
 
     // TODO will these be needed/used after we switch to the visit note view?

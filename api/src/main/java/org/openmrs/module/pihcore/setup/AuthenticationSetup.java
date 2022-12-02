@@ -4,8 +4,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.authentication.AuthenticationConfig;
-import org.openmrs.module.authenticationui.AuthenticationUiModuleConfig;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 
@@ -129,17 +127,6 @@ public class AuthenticationSetup {
         for (String key : sortedKeys) {
             log.info(key + " = " + p.getProperty(key));
         }
-
-        AuthenticationUiModuleConfig.setHeaderLogoUrl("file:configuration/pih/logo/logo.png");
-        AuthenticationUiModuleConfig.setHomePageUrl("pihcore:home");
-        AuthenticationUiModuleConfig.setAdminPageUrl("coreapps:systemadministration/systemAdministration");
-        AuthenticationUiModuleConfig.setManageUsersUrl("pihcore:account/manageAccounts");
-        AuthenticationUiModuleConfig.setLoginWelcomeMessage(config.getWelcomeMessage());
-        AuthenticationUiModuleConfig.setLoginWarningIfNotChrome(config.getBrowserWarning());
-        AuthenticationUiModuleConfig.setAllowPasswordReset(true);
-        AuthenticationUiModuleConfig.setAccountAdminPrivilege("App: coreapps.systemAdministration");
-        AuthenticationUiModuleConfig.setPhoneNumberPersonAttributeType(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID);
-        AuthenticationUiModuleConfig.setDefaultLocationUserProperty(null);
     }
 
     /**
