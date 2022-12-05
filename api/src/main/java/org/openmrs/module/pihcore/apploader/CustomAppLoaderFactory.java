@@ -493,7 +493,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 AuthenticationUiConfig.ADMIN_MANAGE_USERS_PAGE_URL, "pihcore:account/manageAccounts",
                 AuthenticationUiConfig.ADMIN_REQUIRED_PRIVILEGE, "App: coreapps.systemAdministration",
                 AuthenticationUiConfig.ADMIN_PHONE_ATTRIBUTE_TYPE, PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID,
-                AuthenticationUiConfig.ADMIN_DEFAULT_LOCATION_USER_PROPERTY, null
+                AuthenticationUiConfig.ADMIN_DEFAULT_LOCATION_USER_PROPERTY, ""
         )));
         extensions.add(configExtension(PIH_AUTH_LOGIN_EXTENSION, AuthenticationUiConfig.LOGIN_PAGE_EXTENSION, map(
                 AuthenticationUiConfig.LOGIN_SHOW_LOCATIONS, true,
