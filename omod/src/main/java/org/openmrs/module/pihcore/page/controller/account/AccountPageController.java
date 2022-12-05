@@ -55,15 +55,12 @@ public class AccountPageController {
         return pihCoreService.newPihAccountDomainWrapper(person);
     }
 
-    public String get(PageModel model,
-                    @MethodParam("getAccount") PihAccountDomainWrapper account,
-                    @RequestParam(value = "edit", required = false) Boolean edit,
+    public String get(PageModel model, @MethodParam("getAccount") PihAccountDomainWrapper account,
                     @SpringBean("accountService") AccountService accountService,
                     @SpringBean("adminService") AdministrationService administrationService,
                     @SpringBean("providerManagementService") ProviderManagementService providerManagementService) {
 
         model.addAttribute("account", account);
-        model.addAttribute("editMode", edit == Boolean.TRUE || account.getPerson().getPersonId() == null);
         model.addAttribute("capabilities", accountService.getAllCapabilities());
         model.addAttribute("rolePrefix", EmrApiConstants.ROLE_PREFIX_CAPABILITY);
         model.addAttribute("allowedLocales", administrationService.getAllowedLocales());
@@ -108,21 +105,19 @@ public class AccountPageController {
                         messageSourceService.getMessage("emr.account.saved"));
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
 
-                return "redirect:/pihcore/account/account.page?personId="+account.getPerson().getPersonId();
+                return "redirect:/pihcore/account/manageAccounts.page";
             } catch (Exception e) {
                 log.warn("Some error occurred while saving account details:", e);
                 request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
                         messageSourceService.getMessage("emr.account.error.save.fail", new Object[]{e.getMessage()}, Context.getLocale()));
             }
-        }
-        else {
+        } else {
             sendErrorMessage(errors, messageSource, request);
         }
 
         // reload page on error
         // TODO: show password fields toggle should work better
 
-        model.addAttribute("editMode", true);
         model.addAttribute("errors", errors);
         model.addAttribute("account", account);
         model.addAttribute("capabilities", accountService.getAllCapabilities());
@@ -135,10 +130,12 @@ public class AccountPageController {
 
     }
 
+
     private void sendErrorMessage(BindingResult errors, MessageSource messageSource, HttpServletRequest request) {
         List<ObjectError> allErrors = errors.getAllErrors();
         String message = getMessageErrors(messageSource, allErrors);
-        request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, message);
+        request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
+                message);
     }
 
     private String getMessageErrors(MessageSource messageSource, List<ObjectError> allErrors) {

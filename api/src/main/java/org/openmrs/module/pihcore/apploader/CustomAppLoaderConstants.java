@@ -254,6 +254,9 @@ public class CustomAppLoaderConstants {
 
         public static final String PIH_HEADER_EXTENSION = "pih.header";
 
+        public static final String PIH_AUTH_ADMIN_EXTENSION = "pih.authenticationui.admin";
+        public static final String PIH_AUTH_LOGIN_EXTENSION = "pih.authenticationui.login";
+
         public static final String DEATH_CERTIFICATE_HEADER_EXTENSION = "pih.header.deathCertificate";
 
         public static final String REPORTING_AD_HOC_ANALYSIS = "reportingui.dataExports.adHoc";

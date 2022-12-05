@@ -45,7 +45,7 @@ public class AuthenticationSetup {
 
         Set<String> whitelist = new TreeSet<>(cd.getWhitelist());
         whitelist.add("/login.htm");
-        whitelist.add("/pihcore/login.page");
+        whitelist.add("/authenticationui/login/login.page");
         whitelist.add("/appui/session/getLoginLocations.action");
         whitelist.add("/csrfguard");
         whitelist.add("*.js");
@@ -62,11 +62,16 @@ public class AuthenticationSetup {
 
         // Basic Authentication Scheme.  This provides basic auth + session location selection
         {
-            String className = "org.openmrs.module.pihcore.PihBasicAuthenticationScheme";
+            String className = "org.openmrs.module.authentication.web.BasicWithLocationAuthenticationScheme";
             Properties p = new Properties();
-            p.put("loginPage", "/login.htm");
+            p.put("loginPage", "/authenticationui/login/login.page");
             p.put("usernameParam", "username");
             p.put("passwordParam", "password");
+            p.put("locationParamName", "sessionLocation");
+            p.put("locationRequired", "true");
+            p.put("onlyLocationsWithTag", "Login Location");
+            p.put("locationSessionAttributeName", "emrContext.sessionLocationId");
+            p.put("lastLocationCookieName", "emr.lastSessionLocation");
             addScheme(BASIC, className, p, whitelist);
         }
 
@@ -74,8 +79,8 @@ public class AuthenticationSetup {
         {
             String className = "org.openmrs.module.authentication.web.SecretQuestionAuthenticationScheme";
             Properties p = new Properties();
-            p.put("loginPage", "/pihcore/loginSecret.page");
-            p.put("configurationPage", "/pihcore/account/changeSecurityQuestion.page?schemeId={schemeId}&userId={userId}");
+            p.put("loginPage", "/authenticationui/login/loginSecret.page");
+            p.put("configurationPage", "/authenticationui/account/changeSecurityQuestion.page?schemeId={schemeId}&userId={userId}");
             addScheme(SECRET, className, p, whitelist);
         }
 
@@ -84,8 +89,8 @@ public class AuthenticationSetup {
             String className = "org.openmrs.module.authentication.web.TotpAuthenticationScheme";
             Properties p = new Properties();
             p.put("qrCodeIssuer", "PIHEMR");
-            p.put("loginPage", "/pihcore/account/loginTotp.page");
-            p.put("configurationPage", "/pihcore/account/configureTotp.page?schemeId={schemeId}&userId={userId}");
+            p.put("loginPage", "/authenticationui/login/loginTotp.page");
+            p.put("configurationPage", "/authenticationui/account/configureTotp.page?schemeId={schemeId}&userId={userId}");
             addScheme(TOTP, className, p, whitelist);
         }
 

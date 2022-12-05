@@ -13,22 +13,13 @@
  */
 package org.openmrs.module.pihcore.metadata;
 
-import org.apache.commons.lang.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
-import org.openmrs.Location;
-import org.openmrs.LocationTag;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.PersonAttributeType;
-import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
-
-import java.util.List;
-
-import static org.openmrs.util.PrivilegeConstants.GET_LOCATIONS;
 
 /**
  * Convenience methods for working with metadata
@@ -87,36 +78,5 @@ public class Metadata {
             throw new IllegalArgumentException("Unable to find Concept using key: " + lookup);
         }
         return c;
-    }
-
-    /**
-     * Returns the list of all Login Locations configured in the system
-     */
-    public static List<Location> getLoginLocations() {
-        LocationService ls =  Context.getLocationService();
-        LocationTag tag = ls.getLocationTagByName("Login Location");
-        List<Location> locations = ls.getLocationsByTag(tag);
-        if (locations.size() == 0) {
-            locations = ls.getAllLocations(false);
-        }
-        return locations;
-    }
-
-    /**
-     * Returns the Login Location with the given id string.
-     * If the locationIdStr is not valid, or if the location is not a login location, return null
-     */
-    public static Location getLoginLocation(String locationIdStr) {
-        try {
-            if (StringUtils.isNotBlank(locationIdStr)) {
-                int locationId = Integer.parseInt(locationIdStr);
-                Location location = Context.getLocationService().getLocation(locationId);
-                if (location != null && location.hasTag(EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN)) {
-                    return location;
-                }
-            }
-        }
-        catch (Exception ignored) {}
-        return null;
     }
 }

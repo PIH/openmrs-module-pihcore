@@ -45,7 +45,9 @@
 			</td>
 			<td>
 				<% if(it.username && it.username != '') {%>
-					${ ui.format(it.username) }
+					<a href="/${ contextPath }/authenticationui/account/userAccount.page?userId=${ it.user.id }">
+						${ ui.format(it.username) }
+					</a>
 				<% } %>
 			</td>
 			<td>
@@ -62,7 +64,7 @@
             </td>
 			<td>
 	            <a href="/${ contextPath }/pihcore/account/account.page?personId=${ it.person.personId }">
-	                <button>${ ui.message("general.view") }</button>
+	                <button>${ ui.message("emr.edit") }</button>
 	            </a>
         	</td>
 		</tr>

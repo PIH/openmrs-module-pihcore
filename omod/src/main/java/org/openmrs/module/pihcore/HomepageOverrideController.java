@@ -40,7 +40,7 @@ public class HomepageOverrideController {
         if (config.isComponentEnabled(Components.SPA)) {
             return "redirect:/spa/login";
         } else {
-            return "forward:/pihcore/login.page";
+            return "forward:/authenticationui/login/login.page";
         }
     }
 
