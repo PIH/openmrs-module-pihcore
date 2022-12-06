@@ -16,7 +16,7 @@
     }
 
     def providerRolesOptions = []
-    providerRoles. each {
+    providerRoles.each {
         providerRolesOptions.push([ label: ui.format(it), value: it.id ])
     }
     providerRolesOptions = providerRolesOptions.sort { it.label };
@@ -46,15 +46,18 @@
 
         jq("input.confirm").removeAttr("disabled");
 
-        jq('#unlock-button').click(function(e) {
 
-            jq.post(emr.fragmentActionLink("authenticationui", "accountAction", "unlock", { userId: ${account.user.id} }), function (data) {
-                emr.successMessage(data.message);
-                jq('#locked-warning').hide();
-            }, 'json').error(function(xhr) {
-                emr.handleError(xhr);
-            }       );
-        });
+        <% if (account.user) { %>
+            jq('#unlock-button').click(function(e) {
+
+                jq.post(emr.fragmentActionLink("authenticationui", "accountAction", "unlock", { userId: ${account.user.id} }), function (data) {
+                    emr.successMessage(data.message);
+                    jq('#locked-warning').hide();
+                }, 'json').error(function(xhr) {
+                    emr.handleError(xhr);
+                }       );
+            });
+        <% } %>
 
         jq('input.confirm').click(function(){
 
