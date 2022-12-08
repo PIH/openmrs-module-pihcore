@@ -52,7 +52,7 @@
         <allergyuiVersion>1.8.5</allergyuiVersion>
         <appframeworkVersion>2.17.0</appframeworkVersion>
         <appointmentschedulingVersion>1.17.0</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.13.0</appointmentschedulinguiVersion>
+        <appointmentschedulinguiVersion>1.14.0-SNAPSHOT</appointmentschedulinguiVersion>
         <appuiVersion>1.16.0</appuiVersion>
         <attachmentsVersion>2.7.0</attachmentsVersion>
         <authenticationVersion>1.0.0-SNAPSHOT</authenticationVersion>
@@ -66,7 +66,7 @@
         <eventVersion>2.10.0</eventVersion>
         <fhir2Version>1.8.0-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
-        <htmlformentryVersion>5.1.0-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>5.1.0</htmlformentryVersion>
         <htmlformentryuiVersion>2.2.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.11.0</htmlwidgetsVersion>
         <idgenVersion>4.9.0</idgenVersion>
@@ -85,10 +85,10 @@
         <printerVersion>1.5.0-SNAPSHOT</printerVersion>
         <providermanagementVersion>2.14.0</providermanagementVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
-        <registrationappVersion>1.25.0-SNAPSHOT</registrationappVersion>
-        <registrationcoreVersion>1.11.0</registrationcoreVersion>
+        <registrationappVersion>1.25.0</registrationappVersion>
+        <registrationcoreVersion>1.12.0</registrationcoreVersion>
         <reportingVersion>1.25.0</reportingVersion>
-        <reportingrestVersion>1.13.0</reportingrestVersion>
+        <reportingrestVersion>1.14.0</reportingrestVersion>
         <reportinguiVersion>1.11.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.16</serializationxstreamVersion>
         <spaVersion>1.0.9</spaVersion>
