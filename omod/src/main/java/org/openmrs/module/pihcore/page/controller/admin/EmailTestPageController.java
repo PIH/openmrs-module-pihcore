@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -61,7 +62,7 @@ public class EmailTestPageController {
                        @RequestParam(value = "subject", required = true) String subject,
                        @RequestParam(value = "message", required = true) String message,
                        @SpringBean("messageService") MessageService messageService,
-                       UiUtils ui, UiSessionContext context, PageRequest request) {
+                       UiUtils ui, UiSessionContext context, HttpServletRequest request) {
 
         if (Context.hasPrivilege(REQUIRED_PRIVILEGE)) {
             try {
@@ -90,7 +91,9 @@ public class EmailTestPageController {
             }
             catch (Exception e) {
                 log.error("Unable to send email", e);
-                request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, e.getMessage());
+                if (request.isRequestedSessionIdValid()) {
+                    request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE, e.getMessage());
+                }
             }
         }
         else {
