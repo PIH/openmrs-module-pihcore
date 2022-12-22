@@ -60,6 +60,17 @@ public class PihProviderIdentifierGeneratorTest {
         Assert.assertEquals("PL971Y", identifier);
     }
 
+    @Test
+    public void shouldReturnWithoutCheckDigitIfPrefixHasNonLuhmCharacter() {
+
+        when(config.getProviderIdentifierPrefix()).thenReturn("SOL");
+
+        Provider provider = new Provider();
+        provider.setId(26000);
+        String identifier = (generator).generateIdentifier(provider);
+        Assert.assertEquals("SOL971", identifier);
+    }
+
 
     // we are generating a 3-digit base 30 number, which gives us 27000 possible combinations
     // after that, things will start to fail

@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.provider;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.module.emrapi.account.ProviderIdentifierGenerator;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component   /// this is autowired in the DomainWrapperFactory (which injects it into Account Domain Wrapper instances)
 public class PihProviderIdentifierGenerator implements ProviderIdentifierGenerator {
+
+    private static String BASE_CHARACTER_SET = "ACDEFGHJKLMNPRTUVWXY1234567890";
 
     @Autowired
     private Config config;
@@ -25,17 +28,39 @@ public class PihProviderIdentifierGenerator implements ProviderIdentifierGenerat
             throw new IllegalStateException("Cannot generate identifier for provider without primary key");
         }
 
-        SequentialIdentifierGenerator generator = new SequentialIdentifierGenerator();
-        generator.setBaseCharacterSet("ACDEFGHJKLMNPRTUVWXY1234567890");
-        generator.setFirstIdentifierBase("100");
-        generator.setPrefix(config.getProviderIdentifierPrefix());
-        generator.setMaxLength(4 + config.getProviderIdentifierPrefix().length());
-        generator.setMinLength(3 + config.getProviderIdentifierPrefix().length());
+        if (StringUtils.isNotBlank(config.getProviderIdentifierPrefix())) {
+            SequentialIdentifierGenerator generator = new SequentialIdentifierGenerator();
+            generator.setBaseCharacterSet(BASE_CHARACTER_SET);
+            generator.setFirstIdentifierBase("100");
+            generator.setPrefix(config.getProviderIdentifierPrefix());
+            generator.setMaxLength(4 + config.getProviderIdentifierPrefix().length());
+            generator.setMinLength(3 + config.getProviderIdentifierPrefix().length());
 
-        String identifier = generator.getIdentifierForSeed(provider.getId().longValue());
+            String identifier = generator.getIdentifierForSeed(provider.getId().longValue());
 
-        return new LuhnMod30IdentifierValidator().getValidIdentifier(identifier);
+            // just don't generate a check digit if prefix is invalid, see: UHM-6927
+            if (isValidPrefix(config.getProviderIdentifierPrefix())) {
+                return new LuhnMod30IdentifierValidator().getValidIdentifier(identifier);
+            }
+            else {
+                return identifier;
+            }
+        }
+        else {
+            return null;
+        }
+
     }
+
+    private Boolean isValidPrefix(String prefix) {
+        for (char c:prefix.toCharArray()) {
+            if (new LuhnMod30IdentifierValidator().getBaseCharacters().indexOf(c) == -1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     // for mocking
     public void setConfig(Config config) {
