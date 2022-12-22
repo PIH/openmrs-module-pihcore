@@ -1759,6 +1759,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
+    private void enableOncology22() {
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
+                "pihcore.oncologyIntake.title",
+                "fas fa-fw fa-hand-holding-heart",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("oncologyIntakeV2.xml")),
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,
+                and(sessionLocationHasTag("Oncology Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+    }
+
     public void enableChemotherapy() {
 
         Extension chemoOrdering = overallAction(CustomAppLoaderConstants.Extensions.CHEMO_ORDERING_VISIT_ACTION,
@@ -3255,6 +3271,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
             supportedPrograms.add(PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID);
             enableOncology();
+        }
+
+        // ToDo:  Temporary component to migrate into ONCOLOGY
+        if (config.isComponentEnabled(Components.ONCOLOGY_2022)) {
+            enableOncology22();
         }
 
         if (config.isComponentEnabled(Components.MCH)) {

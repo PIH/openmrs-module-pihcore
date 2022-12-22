@@ -434,6 +434,7 @@ public class CustomAppLoaderConstants {
             Extensions.PMTCT_INITIAL_VISIT_ACTION,
             Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,
             Extensions.EID_FOLLOWUP_VISIT_ACTION,
+            Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,
             Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
             Extensions.ONCOLOGY_TREATMENT_PLAN_ACTION,
             Extensions.CHEMOTHERAPY_VISIT_ACTION,
