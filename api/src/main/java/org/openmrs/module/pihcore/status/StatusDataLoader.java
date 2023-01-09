@@ -35,9 +35,11 @@ public class StatusDataLoader {
     public static List<String> getStatusDataConfigurationPaths() {
         List<String> ret = new ArrayList<>();
         File dir = getStatusDataDirectory();
-        Collection<File> files = FileUtils.listFiles(dir, FileFilterUtils.suffixFileFilter("yml"), TrueFileFilter.INSTANCE);
-        for (File file : files) {
-            ret.add(dir.toPath().relativize(file.toPath()).toString());
+        if (dir.exists()) {
+            Collection<File> files = FileUtils.listFiles(dir, FileFilterUtils.suffixFileFilter("yml"), TrueFileFilter.INSTANCE);
+            for (File file : files) {
+                ret.add(dir.toPath().relativize(file.toPath()).toString());
+            }
         }
         return ret;
     }
