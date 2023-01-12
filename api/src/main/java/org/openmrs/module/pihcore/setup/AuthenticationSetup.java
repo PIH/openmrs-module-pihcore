@@ -58,6 +58,7 @@ public class AuthenticationSetup {
         whitelist.add("*.ico");
         whitelist.add("*.ttf");
         whitelist.add("*.woff");
+        whitelist.add("*.json");
 
         // Set up all the supported authentication schemes with default values.
         // Allow overriding with values from the config
