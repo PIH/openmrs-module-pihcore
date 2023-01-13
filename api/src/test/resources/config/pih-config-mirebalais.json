@@ -8,8 +8,7 @@
         "anotherComponent",
         "archives",
         "appointmentScheduling",
-        "radiology",
-        "legacyMpi"
+        "radiology"
     ],
 
     "locationTags": {

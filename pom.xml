@@ -635,15 +635,6 @@
 
         <!-- end dependencies for Zebra ZXP Series 3 API -->
 
-        <!-- Required for import patient from ws -->
-
-        <dependency>
-            <groupId>com.sun.jersey</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>1.17.1</version>
-            <scope>compile</scope>
-        </dependency>
-
         <!-- Begin OpenMRS contrib -->
 
         <dependency>
