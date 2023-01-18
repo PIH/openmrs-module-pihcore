@@ -27,7 +27,6 @@ import org.openmrs.module.initializer.InitializerMessageSource;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
-import org.openmrs.module.pihcore.RuntimeProperties;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderFactory;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
@@ -230,16 +229,6 @@ public class ConfigurationSetup {
         if (config.shouldRebuildSearchIndex()) {
             setStatus("Rebuilding search index");
             Context.updateSearchIndex();
-        }
-
-        // TODO: This depends on specific metadata to exist, so needs to go in here
-        // TODO: But we should consider if
-        //  a) this is still actually needed/used, and
-        //  b) we probably don't need the component check at all, as this is only setup if the lacolline runtime properties are found
-        //  c) if it's used, we could likely try to make it more entirely configurable from config
-        if (config.isComponentEnabled(Components.LEGACY_MPI)) {
-            setStatus("Setting up connection to Legacy MPI");
-            LegacyMasterPatientIndexSetup.setupConnectionToMasterPatientIndex(new RuntimeProperties());
         }
 
         if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {

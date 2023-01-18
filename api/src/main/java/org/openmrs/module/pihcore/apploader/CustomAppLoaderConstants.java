@@ -126,8 +126,6 @@ public class CustomAppLoaderConstants {
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
         public static final String BIOMETRICS_SUMMARY = "registrationapp.biometricsSummary";
 
-        public static final String LEGACY_MPI = "mirebalais.mpi";
-
         public static final String RADIOLOGY_APP = "radiology.app";
         public static final String RADIOLOGY_ORDERS_APP = "radiology.orders.app";
 
@@ -340,7 +338,6 @@ public class CustomAppLoaderConstants {
             Apps.CHW_MGMT,
             Apps.COHORT_BUILDER_APP,
             Apps.J9_REFERRALS,
-            Apps.LEGACY_MPI,
             Apps.MY_ACCOUNT,
             Apps.SYSTEM_ADMINISTRATION,
             Apps.SPA_PREVIEW_HOME);

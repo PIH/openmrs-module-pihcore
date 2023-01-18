@@ -53,7 +53,6 @@ import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToEpil
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToHivDashboardFirstColumn;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToHivDashboardSecondColumn;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToHomePage;
-import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToHomePageWithoutUsingRouter;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToHypertensionDashboardFirstColumn;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToHypertensionDashboardSecondColumn;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToMalnutritionDashboardSecondColumn;
@@ -312,10 +311,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.PATIENT_REGISTRATION)) {
             enablePatientRegistration();
-        }
-
-        if (config.isComponentEnabled(Components.LEGACY_MPI)) {
-            enableLegacyMPI();
         }
 
         if (config.isComponentEnabled(Components.LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES)) {
@@ -1628,16 +1623,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         addPaperRecordActionsIncludesIfNeeded();
 
-    }
-
-    // legacy MPI used in Mirebalais to connect to Lacolline
-    private void enableLegacyMPI() {
-        apps.add(addToHomePageWithoutUsingRouter(app(CustomAppLoaderConstants.Apps.LEGACY_MPI,
-                "mirebalais.mpi.title",
-                "fas fa-fw fa-search-plus",
-                "pihcore/mpi/findPatient.page",
-                "App: mirebalais.mpi",
-                null)));
     }
 
     private void enableClinicianDashboard() {
