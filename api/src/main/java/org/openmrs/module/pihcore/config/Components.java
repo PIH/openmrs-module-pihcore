@@ -23,7 +23,6 @@ public class Components {
         public static final String MEDICATION_DISPENSING = "medicationDispensing"; // This is for the new dispensing MFE
         public static final String SURGERY = "surgery";
         public static final String ONCOLOGY = "oncology";  // program
-        public static final String ONCOLOGY_2022 = "oncology22"; // Temporary
         public static final String NCD = "ncd";  // program
         public static final String ECHO = "echocardiogram" ;
         public static final String HIV = "hiv";
