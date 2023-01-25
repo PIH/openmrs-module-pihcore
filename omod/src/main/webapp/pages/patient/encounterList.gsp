@@ -89,7 +89,6 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
         jq("#encounter-type-filter").change(function() {
            let typeName = jq(this).val();
-            console.log(jq(this).val());
            if (typeName !== '') {
                typeName = typeName.replace("\\(", "\\\\(");
                typeName = typeName.replace("\\)", "\\\\)");
