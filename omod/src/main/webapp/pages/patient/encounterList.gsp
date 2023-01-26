@@ -43,7 +43,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             let lastType = null;
             encTypes.forEach(function(typeName) {
                 if (lastType === null || lastType !== typeName) {
-                    jq("#encounter-type-filter").append("<option value='" + typeName + "'>" + typeName + "</option>");
+                    jq("#encounter-type-filter").append('<option value="' + typeName + '">' + typeName + '</option>');
                 }
                 lastType = typeName;
             });
@@ -98,6 +98,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
            // First parameter is regex on encounter type, to ensure only exact match is filtered
            // Second parameter is the 0-indexed column number to filter on with encounter type
            // Third parameter is true to indicate that a regex-based search should be used
+
            encTable.fnFilter(typeName, 1, true);
         });
 
