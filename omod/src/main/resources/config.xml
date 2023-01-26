@@ -26,6 +26,9 @@
         <require_module version="${authenticationuiVersion}">
             org.openmrs.module.authenticationui
         </require_module>
+        <require_module version="${dbeventVersion}">
+            org.openmrs.module.dbevent
+        </require_module>
         <require_module version="${emrapiVersion}">
             org.openmrs.module.emrapi
         </require_module>
