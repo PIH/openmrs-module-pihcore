@@ -101,13 +101,13 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                 SqlBuilder sql = new SqlBuilder();
                 sql.select("p.patient_id").from("patient", "p");
                 if (keyTable.equals("person")) {
-                    sql.innerJoin(event.getTable(), "t", key, "p", "patient_id");
+                    sql.where("p.patient_id = ?");
                 }
                 else {
-                    sql.innerJoin(keyTable, "x", key, "p", "patient_id");
-                    sql.innerJoin(event.getTable(), "t", key, "x", key);
+                    sql.innerJoin(keyTable, "x", "patient_id", "p", "patient_id");
+                    sql.where("x.").append(keyTable).append(" = ").append("?");
                 }
-                Integer patientId = database.executeQuery(sql.toString(), new ScalarHandler<>(1));
+                Integer patientId = database.executeQuery(sql.toString(), new ScalarHandler<>(1), value);
                 if (patientId == null) {
                     if (!keyTable.equals("person")) {
                         throw new RuntimeException("Unable to retrieve patient_id for: " + event);
