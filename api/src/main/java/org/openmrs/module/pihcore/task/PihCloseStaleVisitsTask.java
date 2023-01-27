@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.task;
 
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.lang.time.StopWatch;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.openmrs.Encounter;
@@ -42,89 +43,108 @@ public class PihCloseStaleVisitsTask implements Runnable {
 
     private static final String ENCOUNTER_TYPE_ED_TRIAGE_UUID = PihEmrConfigConstants.ENCOUNTERTYPE_EMERGENCY_TRIAGE_UUID;
 
+    private static boolean isExecuting = false;
+
     @Override
     public void run() {
-        log.info("Executing " + getClass());
-
-        AdtService adtService = Context.getService(AdtService.class);
-        VisitService visitService = Context.getVisitService();
-        LocationService locationService = Context.getLocationService();
-
-        LocationTag visitLocationTag =  locationService.getLocationTagByName(EmrApiConstants.LOCATION_TAG_SUPPORTS_VISITS);
-        List<Location> locations = locationService.getLocationsByTag(visitLocationTag);
-
-        if (locations == null || locations.size() == 0) {
-            log.error("Unable to close stale visits, no locations with Visit Location tag");
+        if (isExecuting) {
+            log.info(getClass() + " is still executing, not running again");
             return;
         }
+        isExecuting = true;
+        try {
+            log.info("Executing " + getClass());
+            StopWatch sw = new StopWatch();
+            sw.start();
 
-        List<Visit> openVisits = visitService.getVisits(null, null, locations, null, null, null, null, null, null, false, false);
-        for (Visit visit : openVisits) {
+            AdtService adtService = Context.getService(AdtService.class);
+            VisitService visitService = Context.getVisitService();
+            LocationService locationService = Context.getLocationService();
 
-            VisitDomainWrapper wrappedVisit = adtService.wrap(visit);
-            Boolean changedOrUpdatedRecently = changedOrUpdatedRecently(visit, REGULAR_VISIT_EXPIRE_TIME_IN_HOURS);
+            LocationTag visitLocationTag = locationService.getLocationTagByName(EmrApiConstants.LOCATION_TAG_SUPPORTS_VISITS);
+            List<Location> locations = locationService.getLocationsByTag(visitLocationTag);
 
-            Disposition mostRecentDisposition = wrappedVisit.getMostRecentDisposition();
-            Long hoursSinceLastEncounter = wrappedVisit.getMostRecentEncounter() != null ?
-                    new Duration(new DateTime(wrappedVisit.getMostRecentEncounter().getEncounterDatetime()), new DateTime()).getStandardHours()
-                    : null;
-
-            // **this logic is intentionally verbose, since it can be difficult to follow**
-            Boolean closeVisit = false;
-
-            // if the patient has been discharged, close visit
-            if (wrappedVisit.hasBeenDischarged()) {
-                closeVisit = true;
+            if (locations == null || locations.size() == 0) {
+                log.error("Unable to close stale visits, no locations with Visit Location tag");
+                return;
             }
-            // if the patient has been admitted, or is awaiting admission, don't close the visit
-            else if (wrappedVisit.isAdmitted() || wrappedVisit.isAwaitingAdmission()) {
-                closeVisit = false;
-            }
-            // otherwise, branch based on whether this is a "regular" visits, or a "ED Visit", with our special logic
-            else if (!isEDVisit(wrappedVisit)) {
-                // "normal" visits:
-                // if the disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") keep the visit open
-                if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen()) {
+
+            List<Visit> openVisits = visitService.getVisits(null, null, locations, null, null, null, null, null, null, false, false);
+            log.info("Found " + openVisits.size() + " open visits");
+            int numVisitsClosed = 0;
+            for (Visit visit : openVisits) {
+
+                VisitDomainWrapper wrappedVisit = adtService.wrap(visit);
+                Boolean changedOrUpdatedRecently = changedOrUpdatedRecently(visit, REGULAR_VISIT_EXPIRE_TIME_IN_HOURS);
+
+                Disposition mostRecentDisposition = wrappedVisit.getMostRecentDisposition();
+                Long hoursSinceLastEncounter = wrappedVisit.getMostRecentEncounter() != null ?
+                        new Duration(new DateTime(wrappedVisit.getMostRecentEncounter().getEncounterDatetime()), new DateTime()).getStandardHours()
+                        : null;
+
+                // **this logic is intentionally verbose, since it can be difficult to follow**
+                Boolean closeVisit = false;
+
+                // if the patient has been discharged, close visit
+                if (wrappedVisit.hasBeenDischarged()) {
+                    closeVisit = true;
+                }
+                // if the patient has been admitted, or is awaiting admission, don't close the visit
+                else if (wrappedVisit.isAdmitted() || wrappedVisit.isAwaitingAdmission()) {
                     closeVisit = false;
                 }
-                // otherwise, close the visit if there are no encounter, or no encounters in the last 12 hours, and the visit hasn't been updated in the last 12 hours
-                else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
-                    closeVisit = true;
+                // otherwise, branch based on whether this is a "regular" visits, or a "ED Visit", with our special logic
+                else if (!isEDVisit(wrappedVisit)) {
+                    // "normal" visits:
+                    // if the disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") keep the visit open
+                    if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen()) {
+                        closeVisit = false;
+                    }
+                    // otherwise, close the visit if there are no encounter, or no encounters in the last 12 hours, and the visit hasn't been updated in the last 12 hours
+                    else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                        closeVisit = true;
+                    }
+                    // otherwise, don't close
+                    else {
+                        closeVisit = false;
+                    }
+                } else {
+                    // special logic for ED visits:
+                    // if the most recent disposition is "discharge" and there are no encouters in the last 12 hours, and visit hasn't been updated in the last 12 hours, close
+                    if (mostRecentDisposition != null && mostRecentDisposition.getType() != null && mostRecentDisposition.getType().equals(DispositionType.DISCHARGE) &&
+                            (hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                        closeVisit = true;
+                    }
+                    // if the most recent disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") and there are no encounters in the last 7 days, and visit hasn't been updated in the last 12 hours, close
+                    else if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen() &&
+                            (hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                        closeVisit = true;
+                    }
+                    // otherwise, if there are no encounters in the last 30 days, and visit hasn't been updated in the last 12 hours, close
+                    else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                        closeVisit = true;
+                    }
+                    // otherwise, don't close
+                    else {
+                        closeVisit = false;
+                    }
                 }
-                // otherwise, don't close
-                else {
-                    closeVisit = false;
-                }
-            }
-            else {
-                // special logic for ED visits:
-                // if the most recent disposition is "discharge" and there are no encouters in the last 12 hours, and visit hasn't been updated in the last 12 hours, close
-                if (mostRecentDisposition != null && mostRecentDisposition.getType() != null && mostRecentDisposition.getType().equals(DispositionType.DISCHARGE) &&
-                    (hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
-                    closeVisit = true;
-                }
-                // if the most recent disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") and there are no encounters in the last 7 days, and visit hasn't been updated in the last 12 hours, close
-                else if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen() &&
-                    (hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
-                    closeVisit = true;
-                }
-                // otherwise, if there are no encounters in the last 30 days, and visit hasn't been updated in the last 12 hours, close
-                else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
-                    closeVisit = true;
-                }
-                // otherwise, don't close
-                else {
-                    closeVisit = false;
-                }
-            }
 
-            if (closeVisit) {
-                try {
-                    adtService.closeAndSaveVisit(visit);
-                } catch (Exception ex) {
-                    log.warn("Failed to close inactive visit " + visit, ex);
+                if (closeVisit) {
+                    try {
+                        adtService.closeAndSaveVisit(visit);
+                        numVisitsClosed++;
+                    } catch (Exception ex) {
+                        log.warn("Failed to close inactive visit " + visit, ex);
+                    }
                 }
             }
+            sw.stop();
+            log.info("Getting open visits completed.");
+            log.info(getClass() + " Completed in " + sw + " - " + numVisitsClosed + " Visits Closed");
+        }
+        finally {
+            isExecuting = false;
         }
     }
 

@@ -78,7 +78,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         }
         Set<Integer> patientIds = getPatientIdsForEvent(event);
         if (patientIds.isEmpty()) {
-            log.warn("Not handling event as not mapped to patient: " + event.getTable());
+            log.warn("Not handling event as not mapped to patient: " + event);
         }
         else {
             for (Integer patientId : patientIds) {
@@ -131,7 +131,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
      */
     public void handlePatientEvent(Integer patientId, DbEvent event) {
         if (log.isDebugEnabled()) {
-            log.debug("Patient Event: " + patientId + " - " + event);
+            log.debug("Patient Event: (patient_id=" + patientId + ") - " + event);
         }
         Timestamp lastUpdated = new Timestamp(event.getTimestamp());
         String sql = "insert into dbevent_patient (patient_id, last_updated) values (?, ?) on duplicate key update last_updated = ?";
