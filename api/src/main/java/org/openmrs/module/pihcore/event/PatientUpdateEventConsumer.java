@@ -41,7 +41,6 @@ public class PatientUpdateEventConsumer implements EventConsumer {
     public PatientUpdateEventConsumer(DbEventSourceConfig config) {
         this.config = config;
         this.database = config.getContext().getDatabase();
-        patientKeys.put("patient_id", "patient");
         patientKeys.put("person_id", "person");
         patientKeys.put("person_a", "person");
         patientKeys.put("person_b", "person");
@@ -94,29 +93,33 @@ public class PatientUpdateEventConsumer implements EventConsumer {
      */
     public Set<Integer> getPatientIdsForEvent(DbEvent event) {
         Set<Integer> ret = new HashSet<>();
-        for (String key : patientKeys.keySet()) {
-            String keyTable = patientKeys.get(key);
-            Integer value = event.getValues().getInteger(key);
-            if (value != null) {
-                SqlBuilder sql = new SqlBuilder();
-                sql.select("p.patient_id").from("patient", "p");
-                if (keyTable.equals("person")) {
-                    sql.where("p.patient_id = ?");
-                }
-                else {
-                    sql.innerJoin(keyTable, "x", "patient_id", "p", "patient_id");
-                    sql.where("x.").append(keyTable).append(" = ").append("?");
-                }
-                Integer patientId = database.executeQuery(sql.toString(), new ScalarHandler<>(1), value);
-                if (patientId == null) {
-                    if (!keyTable.equals("person")) {
-                        throw new RuntimeException("Unable to retrieve patient_id for: " + event);
+        Integer patientId = event.getValues().getInteger("patient_id");
+        if (patientId != null) {
+            ret.add(patientId);
+        }
+        else {
+            for (String key : patientKeys.keySet()) {
+                String keyTable = patientKeys.get(key);
+                Integer value = event.getValues().getInteger(key);
+                if (value != null) {
+                    SqlBuilder sql = new SqlBuilder();
+                    sql.select("p.patient_id").from("patient", "p");
+                    if (keyTable.equals("person")) {
+                        sql.where("p.patient_id = ?");
+                    } else {
+                        sql.innerJoin(keyTable, "x", "patient_id", "p", "patient_id");
+                        sql.where("x." + key + " = ?");
                     }
-                }
-                else {
-                    ret.add(patientId);
-                    if (!event.getTable().equals("relationship") || ret.size() == 2) {
-                        break;
+                    patientId = database.executeQuery(sql.toString(), new ScalarHandler<>(1), value);
+                    if (patientId == null) {
+                        if (!keyTable.equals("person")) {
+                            throw new RuntimeException("Unable to retrieve patient_id for: " + event);
+                        }
+                    } else {
+                        ret.add(patientId);
+                        if (!event.getTable().equals("relationship") || ret.size() == 2) {
+                            break;
+                        }
                     }
                 }
             }
@@ -184,7 +187,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                                 String keyTable = patientKeys.get(key);
                                 SqlBuilder sql = new SqlBuilder();
                                 sql.append("update dbevent_patient p");
-                                if (keyTable.equals("patient") || keyTable.equals("person")) {
+                                if (keyTable.equals("person")) {
                                     sql.innerJoin(tableName, "t", key, "p", "patient_id");
                                 } else {
                                     sql.innerJoin(keyTable, "x", "patient_id", "p", "patient_id");
