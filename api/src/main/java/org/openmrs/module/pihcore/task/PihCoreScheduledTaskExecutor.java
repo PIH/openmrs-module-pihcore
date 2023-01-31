@@ -25,7 +25,7 @@ public class PihCoreScheduledTaskExecutor extends ScheduledExecutorFactoryBean {
                 task(fiveMinutes, fourHours, MarkAppointmentsAsMissedOrCompletedTask.class),
                 task(fiveMinutes, oneHour, PihCloseStalePullRequestsTask.class),
                 task(fiveMinutes, oneHour, PihCloseStaleCreateRequestsTask.class),
-                task(fiveMinutes, fiveMinutes, PihCloseStaleVisitsTask.class)
+                task(fiveMinutes, oneHour, PihCloseStaleVisitsTask.class)
         );
     }
 
