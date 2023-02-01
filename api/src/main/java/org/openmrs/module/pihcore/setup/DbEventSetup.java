@@ -5,6 +5,8 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.dbevent.DbEventSource;
 import org.openmrs.module.dbevent.DbEventSourceConfig;
 import org.openmrs.module.dbevent.EventContext;
+import org.openmrs.module.pihcore.config.Components;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.event.PatientUpdateEventConsumer;
 
 import java.util.Set;
@@ -16,19 +18,22 @@ public class DbEventSetup {
     /**
      * Setup debezium event sources and consumers
      */
-    public static void setup() {
-        EventContext ctx = new EventContext();
-        DbEventSourceConfig config = new DbEventSourceConfig(100002,"PatientChangeSource", ctx);
+    public static void setup(Config config) {
+        if (config.isComponentEnabled(Components.DB_EVENT)) {
+            EventContext ctx = new EventContext();
+            String sourceName = "PatientChangeSource";
+            DbEventSourceConfig eventSourceConfig = new DbEventSourceConfig(100002, sourceName, ctx);
 
-        // This configures no initial data snapshot to occur, as this is done as a part of the consumer startup
-        config.setProperty("snapshot.mode", "schema_only");
+            // This configures no initial data snapshot to occur, as this is done as a part of the consumer startup
+            eventSourceConfig.setProperty("snapshot.mode", "schema_only");
 
-        // Configure this source to monitor all patient-related tables
-        Set<String> patientTables = ctx.getDatabase().getMetadata().getPatientTableNames();
-        config.configureTablesToInclude(patientTables);
+            // Configure this source to monitor all patient-related tables
+            Set<String> patientTables = ctx.getDatabase().getMetadata().getPatientTableNames();
+            eventSourceConfig.configureTablesToInclude(patientTables);
 
-        DbEventSource eventSource = new DbEventSource(config);
-        eventSource.setEventConsumer(new PatientUpdateEventConsumer(config));
-        eventSource.start();
+            DbEventSource eventSource = new DbEventSource(eventSourceConfig);
+            eventSource.setEventConsumer(new PatientUpdateEventConsumer(eventSourceConfig));
+            eventSource.start();
+        }
     }
 }

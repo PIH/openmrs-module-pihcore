@@ -57,6 +57,11 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         try {
             statusDb = new Rocks(new File(config.getContext().getModuleDataDir(), "status.db"));
             snapshotInitialized = BooleanUtils.isTrue(statusDb.get("snapshotInitialized"));
+            if (!snapshotInitialized) {
+                performInitialSnapshot();
+                statusDb.put("snapshotInitialized", Boolean.TRUE);
+                snapshotInitialized = true;
+            }
         }
         catch (Exception e) {
             throw new RuntimeException("An error occurred starting up", e);
@@ -70,14 +75,9 @@ public class PatientUpdateEventConsumer implements EventConsumer {
 
     @Override
     public void accept(DbEvent event) {
-        if (!snapshotInitialized) {
-            performInitialSnapshot();
-            statusDb.put("snapshotInitialized", Boolean.TRUE);
-            snapshotInitialized = true;
-        }
         Set<Integer> patientIds = getPatientIdsForEvent(event);
         if (patientIds.isEmpty()) {
-            log.warn("Not handling event as not mapped to patient: " + event);
+            log.debug("Not handling event as not mapped to patient: " + event);
         }
         else {
             for (Integer patientId : patientIds) {

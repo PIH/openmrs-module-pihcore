@@ -25,7 +25,6 @@ import org.openmrs.module.DaemonTokenAware;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.pihcore.setup.ConfigurationSetup;
-import org.openmrs.module.pihcore.setup.DbEventSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.task.PihCoreTimerTask;
 
@@ -68,7 +67,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             else {
                 configurationSetup.configureConceptDependencies();
             }
-            DbEventSetup.setup();
+            configurationSetup.setupDbEventConsumers();
             log.info("Distribution startup complete.");
         }
         catch (Exception e) {

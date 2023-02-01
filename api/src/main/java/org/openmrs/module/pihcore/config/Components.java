@@ -104,4 +104,5 @@ public class Components {
         public static final String PERU_LAB_ORDERS_ANALYSIS_REQUESTS = "peruLabOrdersAnalysisRequests";
         public static final String COMMENT_FORM = "commentForm";
         public static final String REHAB = "rehab";
+        public static final String DB_EVENT = "dbevent";
 }
