@@ -104,6 +104,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientNotDead;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationHasTag;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationDoesNotHaveTag;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.visitDoesNotHaveEncounterOfType;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.visitHasEncounterOfType;
@@ -2067,6 +2068,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/vct.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
                 and(sessionLocationHasTag("Consult Note Location"),
+                        sessionLocationDoesNotHaveTag("Oncology Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VCT_UUID))));
     }
 
@@ -2720,6 +2722,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("retired/physicalRehab.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
                 and(sessionLocationHasTag("Consult Note Location"),
+                        sessionLocationDoesNotHaveTag("Oncology Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_REHAB_EVAL_UUID))));
     }
 
