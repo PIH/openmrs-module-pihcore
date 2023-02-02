@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.openmrs.module.dbevent.Database;
 import org.openmrs.module.dbevent.DatabaseTable;
 import org.openmrs.module.dbevent.DbEvent;
+import org.openmrs.module.dbevent.DbEventLog;
 import org.openmrs.module.dbevent.DbEventSourceConfig;
 import org.openmrs.module.dbevent.EventConsumer;
 import org.openmrs.module.dbevent.Operation;
@@ -21,6 +22,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Consumes patient-related events
@@ -57,12 +60,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         try {
             log.warn(getClass().getSimpleName() + ": startup initiated");
             statusDb = new Rocks(new File(config.getContext().getModuleDataDir(), "status.db"));
-            snapshotInitialized = BooleanUtils.isTrue(statusDb.get("snapshotInitialized"));
-            if (!snapshotInitialized) {
-                performInitialSnapshot();
-                statusDb.put("snapshotInitialized", Boolean.TRUE);
-                snapshotInitialized = true;
-            }
+            performInitialSnapshot();
             log.warn(getClass().getSimpleName() + ": startup completed");
         }
         catch (Exception e) {
@@ -77,6 +75,13 @@ public class PatientUpdateEventConsumer implements EventConsumer {
 
     @Override
     public void accept(DbEvent event) {
+        while (!snapshotInitialized) {
+            log.warn("Waiting to accept streaming events until snapshot is initialized...");
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            }
+            catch (Exception e) {}
+        }
         Set<Integer> patientIds = getPatientIdsForEvent(event);
         if (patientIds.isEmpty()) {
             log.debug("Not handling event as not mapped to patient: " + event);
@@ -159,56 +164,76 @@ public class PatientUpdateEventConsumer implements EventConsumer {
      * This method performs this operation, and returns the max last_updated in the database
      */
     protected synchronized void performInitialSnapshot() {
+        snapshotInitialized = BooleanUtils.isTrue(statusDb.get("snapshotInitialized"));
         if (!snapshotInitialized) {
-            log.warn("Performing initial snapshot into dbevent_patient from patient");
-            database.executeUpdate(
-                    "insert ignore into dbevent_patient (patient_id, last_updated, deleted) " +
-                            "select patient_id, greatest(date_created, ifnull(date_changed, date_created), ifnull(date_voided, date_created)), voided from patient"
-            );
-            for (DatabaseTable table : config.getMonitoredTables()) {
-                String tableName = table.getTableName();
-                if (config.isIncluded(table) && !tableName.equals("patient")) {
-                    Set<String> columns = table.getColumns().keySet();
-
-                    List<String> dateCols = new ArrayList<>();
-                    if (columns.contains("date_created")) {
-                        dateCols.add("ifnull(t.date_created, p.last_updated)");
+            log.warn("Snapshot has not yet been initialized, will perform initial snapshot");
+            Executors.newSingleThreadExecutor().execute(() -> {
+                while (!isConnectedToBinlog()) {
+                    log.warn("Waiting until consumer is connected to the binlog...");
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
                     }
-                    if (columns.contains("date_changed")) {
-                        dateCols.add("ifnull(t.date_changed, p.last_updated)");
-                    }
-                    if (columns.contains("date_voided")) {
-                        dateCols.add("ifnull(t.date_voided, p.last_updated)");
-                    }
+                    catch (Exception e) {}
+                }
+                log.warn("Consumer is connected to binlog, executing snapshot queries");
+                log.warn("Snapshotting from patient table");
+                database.executeUpdate(
+                        "insert ignore into dbevent_patient (patient_id, last_updated, deleted) " +
+                                "select patient_id, greatest(date_created, ifnull(date_changed, date_created), ifnull(date_voided, date_created)), voided from patient"
+                );
+                for (DatabaseTable table : config.getMonitoredTables()) {
+                    String tableName = table.getTableName();
+                    if (config.isIncluded(table) && !tableName.equals("patient")) {
+                        Set<String> columns = table.getColumns().keySet();
 
-                    if (dateCols.isEmpty()) {
-                        log.warn("Skipping initial snapshot into dbevent_patient from " + tableName + " as no date columns found");
-                    } else {
-                        for (String key : patientKeys.keySet()) {
-                            if (columns.contains(key)) {
-                                String keyTable = patientKeys.get(key);
-                                SqlBuilder sql = new SqlBuilder();
-                                sql.append("update dbevent_patient p");
-                                if (keyTable.equals("person")) {
-                                    sql.innerJoin(tableName, "t", key, "p", "patient_id");
-                                } else {
-                                    sql.innerJoin(keyTable, "x", "patient_id", "p", "patient_id");
-                                    sql.innerJoin(tableName, "t", key, "x", key);
-                                }
-                                sql.append(" set p.last_updated = greatest(p.last_updated, ").append(String.join(",", dateCols)).append(")");
+                        List<String> dateCols = new ArrayList<>();
+                        if (columns.contains("date_created")) {
+                            dateCols.add("ifnull(t.date_created, p.last_updated)");
+                        }
+                        if (columns.contains("date_changed")) {
+                            dateCols.add("ifnull(t.date_changed, p.last_updated)");
+                        }
+                        if (columns.contains("date_voided")) {
+                            dateCols.add("ifnull(t.date_voided, p.last_updated)");
+                        }
 
-                                log.warn("Performing initial snapshot into dbevent_patient from: " + tableName + "." + key);
-                                database.executeUpdate(sql.toString());
+                        if (dateCols.isEmpty()) {
+                            log.warn("Omitting snapshot: " + tableName + " (no date columns)");
+                        } else {
+                            for (String key : patientKeys.keySet()) {
+                                if (columns.contains(key)) {
+                                    String keyTable = patientKeys.get(key);
+                                    SqlBuilder sql = new SqlBuilder();
+                                    sql.append("update dbevent_patient p");
+                                    if (keyTable.equals("person")) {
+                                        sql.innerJoin(tableName, "t", key, "p", "patient_id");
+                                    } else {
+                                        sql.innerJoin(keyTable, "x", "patient_id", "p", "patient_id");
+                                        sql.innerJoin(tableName, "t", key, "x", key);
+                                    }
+                                    sql.append(" set p.last_updated = greatest(p.last_updated, ").append(String.join(",", dateCols)).append(")");
 
-                                // Once we find a match, break, except for relationship table
-                                if (!tableName.equals("relationship") || key.equals("person_b")) {
-                                    break;
+                                    log.warn("Snapshotting: " + tableName);
+                                    database.executeUpdate(sql.toString());
+
+                                    // Once we find a match, break, except for relationship table
+                                    if (!tableName.equals("relationship") || key.equals("person_b")) {
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
+                statusDb.put("snapshotInitialized", Boolean.TRUE);
+                snapshotInitialized = true;
+            });
         }
+    }
+
+    protected boolean isConnectedToBinlog() {
+        Map<String, Object> attributes = DbEventLog.getStreamingMonitoringAttributes(config.getSourceName());
+        Boolean value = (Boolean)attributes.get("Connected");
+        return BooleanUtils.isTrue(value);
     }
 }

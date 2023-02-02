@@ -68,15 +68,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
                 configurationSetup.configureConceptDependencies();
             }
 
-            Daemon.runInDaemonThread(() -> {
-                try {
-                    configurationSetup.setupDbEventConsumers();
-                }
-                catch (Exception e) {
-                    log.error("Setup of DbEvent Consumers failed", e);
-                    throw new RuntimeException(e);
-                }
-            }, daemonToken);
+            configurationSetup.setupDbEventConsumers();
 
             log.info("Distribution startup complete.");
         }
