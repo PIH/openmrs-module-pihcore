@@ -55,6 +55,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
     @Override
     public void startup() {
         try {
+            log.warn(getClass().getSimpleName() + ": startup initiated");
             statusDb = new Rocks(new File(config.getContext().getModuleDataDir(), "status.db"));
             snapshotInitialized = BooleanUtils.isTrue(statusDb.get("snapshotInitialized"));
             if (!snapshotInitialized) {
@@ -62,6 +63,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                 statusDb.put("snapshotInitialized", Boolean.TRUE);
                 snapshotInitialized = true;
             }
+            log.warn(getClass().getSimpleName() + ": startup completed");
         }
         catch (Exception e) {
             throw new RuntimeException("An error occurred starting up", e);
