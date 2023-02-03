@@ -20,20 +20,24 @@ public class DbEventSetup {
      */
     public static void setup(Config config) {
         if (config.isComponentEnabled(Components.DB_EVENT)) {
-            EventContext ctx = new EventContext();
-            String sourceName = "PatientChangeSource";
-            DbEventSourceConfig eventSourceConfig = new DbEventSourceConfig(100002, sourceName, ctx);
-
-            // This configures no initial data snapshot to occur, as this is done as a part of the consumer startup
-            eventSourceConfig.setProperty("snapshot.mode", "schema_only");
-
-            // Configure this source to monitor all patient-related tables
-            Set<String> patientTables = ctx.getDatabase().getMetadata().getPatientTableNames();
-            eventSourceConfig.configureTablesToInclude(patientTables);
-
-            DbEventSource eventSource = new DbEventSource(eventSourceConfig);
-            eventSource.setEventConsumer(new PatientUpdateEventConsumer(eventSourceConfig));
+            DbEventSource eventSource = getEventSource(new EventContext());
             eventSource.start();
         }
+    }
+
+    public static DbEventSource getEventSource(EventContext eventContext) {
+        String sourceName = "PatientChangeSource";
+        DbEventSourceConfig eventSourceConfig = new DbEventSourceConfig(100002, sourceName, eventContext);
+
+        // This configures no initial data snapshot to occur, as this is done as a part of the consumer startup
+        eventSourceConfig.setProperty("snapshot.mode", "schema_only");
+
+        // Configure this source to monitor all patient-related tables
+        Set<String> patientTables = eventContext.getDatabase().getMetadata().getPatientTableNames();
+        eventSourceConfig.configureTablesToInclude(patientTables);
+
+        DbEventSource eventSource = new DbEventSource(eventSourceConfig);
+        eventSource.setEventConsumer(new PatientUpdateEventConsumer(eventSourceConfig));
+        return eventSource;
     }
 }

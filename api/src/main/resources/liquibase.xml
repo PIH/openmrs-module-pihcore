@@ -1214,8 +1214,8 @@
             <column autoIncrement="false" name="patient_id" type="int">
                 <constraints nullable="false" primaryKey="true"/>
             </column>
-            <column name="last_updated" type="datetime"/>
-            <column name="deleted" type="boolean"/>
+            <column name="last_updated" type="datetime(3)"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
         </createTable>
     </changeSet>
 

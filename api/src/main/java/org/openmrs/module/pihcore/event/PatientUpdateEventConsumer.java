@@ -231,7 +231,17 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         }
     }
 
-    protected boolean isConnectedToBinlog() {
+    /**
+     * @return true if the snapshot has been initialized
+     */
+    public boolean isSnapshotInitialized() {
+        return snapshotInitialized;
+    }
+
+    /**
+     * @return true if the consumer is connected to the binlog
+     */
+    public boolean isConnectedToBinlog() {
         Map<String, Object> attributes = DbEventLog.getStreamingMonitoringAttributes(config.getSourceName());
         Boolean value = (Boolean)attributes.get("Connected");
         return BooleanUtils.isTrue(value);
