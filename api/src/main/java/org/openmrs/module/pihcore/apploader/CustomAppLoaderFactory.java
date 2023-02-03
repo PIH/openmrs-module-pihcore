@@ -1697,6 +1697,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID);
 
+        /* Removed Feb 2023 per Lormil.  This form is no longer used
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
                 "pih.task.oncologyConsultNote.label",
                 "fas fa-fw fa-hand-holding-heart",
@@ -1709,6 +1710,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+        */
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID,
