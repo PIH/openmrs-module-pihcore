@@ -104,6 +104,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientNotDead;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationHasTag;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationDoesNotHaveTag;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.visitDoesNotHaveEncounterOfType;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.visitHasEncounterOfType;
@@ -1696,6 +1697,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID);
 
+        /* Removed Feb 2023 per Lormil.  This form is no longer used
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,
                 "pih.task.oncologyConsultNote.label",
                 "fas fa-fw fa-hand-holding-heart",
@@ -1708,6 +1710,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+        */
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID,
@@ -2067,6 +2070,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/vct.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
                 and(sessionLocationHasTag("Consult Note Location"),
+                        sessionLocationDoesNotHaveTag("Oncology Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VCT_UUID))));
     }
 
@@ -2720,6 +2724,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("retired/physicalRehab.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
                 and(sessionLocationHasTag("Consult Note Location"),
+                        sessionLocationDoesNotHaveTag("Oncology Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_REHAB_EVAL_UUID))));
     }
 
