@@ -98,17 +98,6 @@ public class PatientEventConsumerTest {
         return p;
     }
 
-    public void assertLastEvent(Integer patientId, String table, boolean expectedDeleted) throws Exception {
-        DbEventStatus status = waitForNextEvent(eventSource);
-        List<Map<String, Object>> results = db.executeQuery("select * from dbevent_patient where patient_id = ?", new MapListHandler(), patientId);
-        assertThat(results.size(), equalTo(1));
-        assertTrue(status.isProcessed());
-        assertThat(status.getEvent().getTable(), equalTo(table));
-        assertThat(results.get(0).get("patient_id"), equalTo(patientId));
-        assertThat(results.get(0).get("last_updated"), equalTo(localDateTime(status.getEvent().getTimestamp())));
-        assertThat(results.get(0).get("deleted"), equalTo(expectedDeleted));
-    }
-
     @Test
     public void shouldTrackPatientChanges() throws Exception {
 
@@ -186,7 +175,7 @@ public class PatientEventConsumerTest {
 
         Integer diagnosisAttType = data.insertAttributeType("diagnosis", "Comments");
         data.insertDiagnosisAttribute(diagnosisId, diagnosisAttType, "Severe");
-        //TODO assertLastEvent(pId, "diagnosis_attribute", false);
+        assertLastEvent(pId, "diagnosis_attribute", false);
 
         Integer obsId = data.insertObs(encounterId, visitDate, 1, "Weight (kg)", 80d);
         assertLastEvent(pId, "obs", false);
@@ -198,7 +187,7 @@ public class PatientEventConsumerTest {
         assertLastEvent(pId, "note", false);
 
         data.insertNote(null, null, obsId, "Obs Note");
-        //TODO assertLastEvent(pId, "note", false);
+        assertLastEvent(pId, "note", false);
 
         Integer drugOrderId = data.insertOrder(encounterId, 2, "Aspirin", visitDate);
         assertLastEvent(pId, "orders", false);
@@ -230,7 +219,7 @@ public class PatientEventConsumerTest {
 
         Integer orderGroupAttType = data.insertAttributeType("order_group", "Comments");
         data.insertOrderGroupAttribute(orderGroupId, orderGroupAttType, "Additional comment");
-        //TODO assertLastEvent(pId, "order_group_attribute", false);
+        assertLastEvent(pId, "order_group_attribute", false);
 
         Integer cohortId = data.insertCohort("Test Cohort");
         data.insertCohortMember(pId, cohortId);
@@ -273,63 +262,58 @@ public class PatientEventConsumerTest {
 
         // Test streaming updates
 
-        testUpdate("person", pId, "update person set gender = 'F' where person_id = ?", pId);
-        testUpdate("patient", pId, "update patient set allergy_status = 'None' where patient_id = ?", pId);
-        testUpdate("person_name", pId, "update person_name set middle_name = 'Q' where person_id = ?", pId);
-        testUpdate("person_address", pId, "update person_address set address1 = '11 Main Street' where person_id = ?", pId);
-        testUpdate("person_attribute", pId, "update person_attribute set value = '1234-5678' where person_id = ?", pId);
-        testUpdate("relationship", pId, "update relationship set relationship = 2 where person_a = ?", pId);
-        testUpdate("relationship", pId, "update relationship set relationship = 2 where person_b = ?", pId);
-        testUpdate("patient_identifier", pId, "update patient_identifier set identifier = 'XYZ456' where patient_id = ?", pId);
-        testUpdate("allergy", pId, "update allergy set comments = 'Mild' where patient_id = ?", pId);
-        testUpdate("allergy_reaction", pId, "update allergy_reaction set reaction_concept_id = ? where allergy_id = ?", conceptId( "Hives"), allergyId);
-        testUpdate("conditions", pId, "update conditions set condition_non_coded = 'Very confused' where patient_id = ?", pId);
-        testUpdate("patient_program", pId, "update patient_program set location_id = 1 where patient_program_id = ?", patientProgramId);
-        testUpdate("patient_state", pId, "update patient_state set end_date = ? where patient_program_id = ?", visitDate, patientProgramId);
-        testUpdate("patient_program_attribute", pId, "update patient_program_attribute set value_reference = 'Extra Info' where patient_program_id = ?", patientProgramId);
-        testUpdate("visit", pId, "update visit set date_stopped = ? where patient_id = ?", date("2022-07-15"), pId);
-        testUpdate("visit_attribute", pId, "update visit_attribute set value_reference = 'Upcoming' where visit_id = ?", visitId);
-        testUpdate("encounter", pId, "update encounter set location_id = 42 where encounter_id = ?", encounterId);
-        testUpdate("encounter_provider", pId, "update encounter_provider set encounter_role_id = 3 where encounter_id = ?", encounterId);
-        testUpdate("encounter_diagnosis", pId, "update encounter_diagnosis set certainty = 'CONFIRMED' where diagnosis_id = ?", diagnosisId);
-        /*
-        TODO: Investigate
-        testUpdate("diagnosis_attribute", pId, "update diagnosis_attribute set value_reference = 'MODERATE' where diagnosis_id = ?", diagnosisId);
-        */
-        testUpdate("obs", pId, "update obs set value_numeric = 85 where obs_id = ?", obsId);
-        testUpdate("note", pId, "update note set text = 'Updated note' where patient_id = ?", pId);
-        testUpdate("note", pId, "update note set text = 'Updated note' where encounter_id = ?", encounterId);
-        // TODO: testUpdate("note", pId, "update note set text = 'Updated note' where obs-id = ?", obsId);
-        testUpdate("orders", pId, "update orders set instructions = 'As directed' where order_id = ?", drugOrderId);
-        testUpdate("drug_order", pId, "update drug_order set as_needed = 1 where order_id = ?", drugOrderId);
-        testUpdate("referral_order", pId, "update referral_order set clinical_history = 'Never' where order_id = ?", referralOrderId);
-        testUpdate("test_order", pId, "update test_order set clinical_history = 'None' where order_id = ?", radiologyOrderId);
-        testUpdate("emr_radiology_order", pId, "update emr_radiology_order set exam_location = 1 where order_id = ?", radiologyOrderId);
-        testUpdate("order_attribute", pId, "update order_attribute set value_reference = 'Modified comment' where order_id = ?", drugOrderId);
-        testUpdate("order_group", pId, "update order_group set order_group_reason = ? where order_group_id = ?", conceptId( "Asthma"), orderGroupId);
-        // TODO: testUpdate("order_group_attribute", pId, "update order_group_attribute set value_reference = 'Modified comment' where order_group_id = ?", orderGroupId);
-        testUpdate("cohort_member", pId, "update cohort_member set start_date = now() where patient_id = ?", pId);
-
-        data.updateTable("appointmentscheduling_appointment", "status", "RESCHEDULED", "appointment_id", appointmentId);
-        assertLastEvent(pId, "appointmentscheduling_appointment", false);
-
-        data.updateTable("appointmentscheduling_appointment_status_history", "start_date", visitDate, "appointment_status_history_id", appointmentStatusId);
-        assertLastEvent(pId, "appointmentscheduling_appointment_status_history", false);
-
-        data.updateTable("appointmentscheduling_appointment_request", "status", "ON HOLD", "appointment_request_id", appointmentRequestId);
-        assertLastEvent(pId, "appointmentscheduling_appointment_request", false);
+        testUpdate(pId, "person", "update person set gender = 'F' where person_id = ?", pId);
+        testUpdate(pId, "patient", "update patient set allergy_status = 'None' where patient_id = ?", pId);
+        testUpdate(pId, "person_name", "update person_name set middle_name = 'Q' where person_id = ?", pId);
+        testUpdate(pId, "person_address", "update person_address set address1 = '11 Main Street' where person_id = ?", pId);
+        testUpdate(pId, "person_attribute", "update person_attribute set value = '1234-5678' where person_id = ?", pId);
+        testUpdate(pId, "relationship", "update relationship set relationship = 2 where person_a = ?", pId);
+        testUpdate(pId, "relationship", "update relationship set relationship = 2 where person_b = ?", pId);
+        testUpdate(pId, "patient_identifier", "update patient_identifier set identifier = 'XYZ456' where patient_id = ?", pId);
+        testUpdate(pId, "allergy", "update allergy set comments = 'Mild' where patient_id = ?", pId);
+        testUpdate(pId, "allergy_reaction", "update allergy_reaction set reaction_concept_id = ? where allergy_id = ?", conceptId( "Hives"), allergyId);
+        testUpdate(pId, "conditions", "update conditions set condition_non_coded = 'Very confused' where patient_id = ?", pId);
+        testUpdate(pId, "patient_program", "update patient_program set location_id = 1 where patient_program_id = ?", patientProgramId);
+        testUpdate(pId, "patient_state", "update patient_state set end_date = ? where patient_program_id = ?", visitDate, patientProgramId);
+        testUpdate(pId, "patient_program_attribute", "update patient_program_attribute set value_reference = 'Extra Info' where patient_program_id = ?", patientProgramId);
+        testUpdate(pId, "visit", "update visit set date_stopped = ? where patient_id = ?", date("2022-07-15"), pId);
+        testUpdate(pId, "visit_attribute", "update visit_attribute set value_reference = 'Upcoming' where visit_id = ?", visitId);
+        testUpdate(pId, "encounter", "update encounter set location_id = 42 where encounter_id = ?", encounterId);
+        testUpdate(pId, "encounter_provider", "update encounter_provider set encounter_role_id = 3 where encounter_id = ?", encounterId);
+        testUpdate(pId, "encounter_diagnosis", "update encounter_diagnosis set certainty = 'CONFIRMED' where diagnosis_id = ?", diagnosisId);
+        testUpdate(pId, "diagnosis_attribute", "update diagnosis_attribute set value_reference = 'MODERATE' where diagnosis_id = ?", diagnosisId);
+        testUpdate(pId, "obs", "update obs set value_numeric = 85 where obs_id = ?", obsId);
+        testUpdate(pId, "note", "update note set text = 'Updated note' where patient_id = ?", pId);
+        testUpdate(pId, "note", "update note set text = 'Updated note' where encounter_id = ?", encounterId);
+        testUpdate(pId, "note", "update note set text = 'Updated note' where obs_id = ?", obsId);
+        testUpdate(pId, "orders", "update orders set instructions = 'As directed' where order_id = ?", drugOrderId);
+        testUpdate(pId, "drug_order", "update drug_order set as_needed = 1 where order_id = ?", drugOrderId);
+        testUpdate(pId, "referral_order", "update referral_order set clinical_history = 'Never' where order_id = ?", referralOrderId);
+        testUpdate(pId, "test_order", "update test_order set clinical_history = 'None' where order_id = ?", radiologyOrderId);
+        testUpdate(pId, "emr_radiology_order", "update emr_radiology_order set exam_location = 1 where order_id = ?", radiologyOrderId);
+        testUpdate(pId, "order_attribute", "update order_attribute set value_reference = 'Modified comment' where order_id = ?", drugOrderId);
+        testUpdate(pId, "order_group", "update order_group set order_group_reason = ? where order_group_id = ?", conceptId( "Asthma"), orderGroupId);
+        testUpdate(pId, "order_group_attribute", "update order_group_attribute set value_reference = 'Modified comment' where order_group_id = ?", orderGroupId);
+        testUpdate(pId, "cohort_member", "update cohort_member set start_date = now() where patient_id = ?", pId);
+        testUpdate(pId, "appointmentscheduling_appointment", "update appointmentscheduling_appointment set status = 'RESCHEDULED' where appointment_id = ?", appointmentId);
+        testUpdate(pId, "appointmentscheduling_appointment_status_history", "update appointmentscheduling_appointment_status_history set start_date = ? where appointment_status_history_id = ?", visitDate, appointmentStatusId);
+        testUpdate(pId, "appointmentscheduling_appointment_request", "update appointmentscheduling_appointment_request set status = 'ON HOLD' where appointment_request_id = ?", appointmentRequestId);
     }
 
-    public static void testUpdate(String table, Integer patientId, String statement, Object... args) throws Exception {
-        db.executeUpdate(statement, args);
+    public void assertLastEvent(Integer patientId, String table, boolean expectedDeleted) throws Exception {
         DbEventStatus status = waitForNextEvent(eventSource);
-        List<Map<String, Object>>results = db.executeQuery("select * from dbevent_patient where patient_id = ?", new MapListHandler(), patientId);
+        List<Map<String, Object>> results = db.executeQuery("select * from dbevent_patient where patient_id = ?", new MapListHandler(), patientId);
         assertThat(results.size(), equalTo(1));
         assertTrue(status.isProcessed());
         assertThat(status.getEvent().getTable(), equalTo(table));
         assertThat(results.get(0).get("patient_id"), equalTo(patientId));
         assertThat(results.get(0).get("last_updated"), equalTo(localDateTime(status.getEvent().getTimestamp())));
-        assertFalse((Boolean)results.get(0).get("deleted"));
+        assertThat(results.get(0).get("deleted"), equalTo(expectedDeleted));
+    }
+
+    public void testUpdate(Integer patientId, String table, String statement, Object... args) throws Exception {
+        db.executeUpdate(statement, args);
+        assertLastEvent(patientId, table, false);
     }
 
     protected static void waitForSnapshotToComplete(DbEventSource eventSource) throws Exception {

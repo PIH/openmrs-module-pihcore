@@ -52,6 +52,9 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         patientKeys.put("encounter_id", "encounter");
         patientKeys.put("visit_id", "visit");
         patientKeys.put("allergy_id", "allergy");
+        patientKeys.put("diagnosis_id", "encounter_diagnosis");
+        patientKeys.put("order_group_id", "order_group");
+        patientKeys.put("obs_id", "obs");
         patientKeys.put("appointment_id", "appointmentscheduling_appointment");
     }
 
@@ -114,7 +117,8 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                     if (keyTable.equals("person")) {
                         sql.where("p.patient_id = ?");
                     } else {
-                        sql.innerJoin(keyTable, "x", "patient_id", "p", "patient_id");
+                        String fromColumn = (keyTable.equals("obs") ? "person_id" : "patient_id");
+                        sql.innerJoin(keyTable, "x", fromColumn, "p", "patient_id");
                         sql.where("x." + key + " = ?");
                     }
                     patientId = database.executeQuery(sql.toString(), new ScalarHandler<>(1), value);
@@ -208,7 +212,8 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                                     if (keyTable.equals("person")) {
                                         sql.innerJoin(tableName, "t", key, "p", "patient_id");
                                     } else {
-                                        sql.innerJoin(keyTable, "x", "patient_id", "p", "patient_id");
+                                        String fromColumn = (keyTable.equals("obs") ? "person_id" : "patient_id");
+                                        sql.innerJoin(keyTable, "x", fromColumn, "p", "patient_id");
                                         sql.innerJoin(tableName, "t", key, "x", key);
                                     }
                                     sql.append(" set p.last_updated = greatest(p.last_updated, ").append(String.join(",", dateCols)).append(")");
