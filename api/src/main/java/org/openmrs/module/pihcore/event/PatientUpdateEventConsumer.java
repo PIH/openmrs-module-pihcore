@@ -30,6 +30,21 @@ import java.util.concurrent.TimeUnit;
  * For performance reasons on larger databases, this does not use a Debezium-generated snapshot, but rather
  * computes a custom snapshot that is then updated as needed from change events.
  * When used, this should be configured with "snapshot.mode = schema_only"
+ * The following tables have references to patient in some way but are not handled
+ * <br/>
+ * address_hierarchy_address_to_entry_map (references person_address)
+ * paperrecord_paper_record (references patient_identifier)
+ * paperrecord_paper_record_request (references paperrecord_paper_record)
+ * paperrecord_paper_record_merge_request (references paperrecord_paper_record x 2)
+ * fhir_diagnostic_report (references patient (subject_id) and/or encounter)
+ * fhir_diagnostic_report_performers (references fhir_diagnostic_report)
+ * fhir_diagnostic_report_results (references fhir_diagnostic_report)
+ * person_merge_log (references person x 2 - winner_person_id, loser_person_id)
+ * name_phonetics (references person_name)
+ * logic_rule_token (references person via creator)
+ * logic_rule_token_tag (references logic_rule_token)
+ * concept_proposal (references encounter and/or obs)
+ * concept_proposal_tag_map (references concept_proposal)
  */
 public class PatientUpdateEventConsumer implements EventConsumer {
 
@@ -44,6 +59,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
     public PatientUpdateEventConsumer(DbEventSourceConfig config) {
         this.config = config;
         this.database = config.getContext().getDatabase();
+        patientKeys.put("patient_id", "patient");
         patientKeys.put("person_id", "person");
         patientKeys.put("person_a", "person");
         patientKeys.put("person_b", "person");
@@ -104,16 +120,16 @@ public class PatientUpdateEventConsumer implements EventConsumer {
     public Set<Integer> getPatientIdsForEvent(DbEvent event) {
         Set<Integer> ret = new HashSet<>();
         Integer patientId = event.getValues().getInteger("patient_id");
-        if (patientId != null) {
-            ret.add(patientId);
+            if (patientId != null) {
+                ret.add(patientId);
         }
         else {
             for (String key : patientKeys.keySet()) {
                 String keyTable = patientKeys.get(key);
-                Integer value = event.getValues().getInteger(key);
-                if (value != null) {
-                    SqlBuilder sql = new SqlBuilder();
-                    sql.select("p.patient_id").from("patient", "p");
+            Integer value = event.getValues().getInteger(key);
+            if (value != null) {
+                        SqlBuilder sql = new SqlBuilder();
+                        sql.select("p.patient_id").from("patient", "p");
                     if (keyTable.equals("person")) {
                         sql.where("p.patient_id = ?");
                     } else {
@@ -122,7 +138,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                         sql.where("x." + key + " = ?");
                     }
                     patientId = database.executeQuery(sql.toString(), new ScalarHandler<>(1), value);
-                    if (patientId == null) {
+                        if (patientId == null) {
                         if (!keyTable.equals("person")) {
                             throw new RuntimeException("Unable to retrieve patient_id for: " + event);
                         }
@@ -130,9 +146,9 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                         ret.add(patientId);
                         if (!event.getTable().equals("relationship") || ret.size() == 2) {
                             break;
-                        }
                     }
                 }
+            }
             }
         }
         return ret;

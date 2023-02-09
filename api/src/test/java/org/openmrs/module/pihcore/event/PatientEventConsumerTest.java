@@ -238,28 +238,6 @@ public class PatientEventConsumerTest {
         Integer appointmentRequestId = data.insertAppointmentRequest(pId, apptType, now, "REQUESTED");
         assertLastEvent(pId, "appointmentscheduling_appointment_request", false);
 
-
-        /*
-        TODO Remaining:
-
-            "paperrecord_paper_record"
-            "paperrecord_paper_record_merge_request"
-            "paperrecord_paper_record_request",
-            "address_hierarchy_address_to_entry_map"
-            "fhir_diagnostic_report"
-            "fhir_diagnostic_report_performers"
-            "fhir_diagnostic_report_results"
-            "person_merge_log"
-            "logic_rule_token"
-            "logic_rule_token_tag"
-            "name_phonetics"
-            "concept_proposal"
-            "concept_proposal_tag_map"
-
-         Additional test to confirm remaining tables are explicitly not handled, and fail if any unknown tables found
-         */
-
-
         // Test streaming updates
 
         testUpdate(pId, "person", "update person set gender = 'F' where person_id = ?", pId);
