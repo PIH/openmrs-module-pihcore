@@ -4,7 +4,10 @@ import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmrs.module.dbevent.Database;
 import org.openmrs.module.dbevent.DbEvent;
@@ -14,10 +17,12 @@ import org.openmrs.module.dbevent.DbEventStatus;
 import org.openmrs.module.dbevent.EventContext;
 import org.openmrs.module.dbevent.test.TestEventContext;
 import org.openmrs.module.pihcore.setup.DbEventSetup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.images.builder.ImageFromDockerfile;
 
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -37,330 +42,285 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PatientEventConsumerTest {
 
-    private DbEvent lastEvent = null;
+    private static final Logger log = LoggerFactory.getLogger(PatientEventConsumerTest.class);
+
+    static DbEvent lastEvent = null;
+    static GenericContainer<?> container = null;
+    static EventContext ctx = null;
+    static Database db = null;
+    static DbEventSource eventSource = null;
+    static Date dateCreated = null;
+    static Date dateChanged = null;
+    static DataBuilder data = null;
+
+    static Date now = new Date();
+    static Date visitDate = date("2022-07-13");
+
+    @BeforeAll
+    public static void setupDb() throws Exception {
+        container = new GenericContainer<>(new ImageFromDockerfile()
+                .withFileFromClasspath("Dockerfile", "event/Dockerfile")
+                .withFileFromClasspath("my.cnf", "event/my.cnf")
+                .withFileFromClasspath("openmrs.sql", "event/openmrs.sql")
+        ).withExposedPorts(3306).withLogConsumer(new Slf4jLogConsumer(log));
+        container.start();
+        ctx = new TestEventContext(getConnectionProperties());
+        db = ctx.getDatabase();
+        eventSource = DbEventSetup.getEventSource(ctx);
+        dateCreated = datetime("2021-10-25 14:23:42.123");
+        dateChanged = datetime("2022-07-19 08:12:33.789");
+        data = new DataBuilder(db, dateCreated);
+    }
+
+    @AfterAll
+    public static void teardown() {
+        container.stop();
+    }
+
+    @BeforeEach
+    public void startSource() throws Exception {
+        eventSource.reset();
+        eventSource.start();
+        waitForSnapshotToComplete(eventSource);
+    }
+
+    @AfterEach
+    public void stopSource() {
+        eventSource.stop();
+        eventSource.reset();
+    }
+
+    public static Properties getConnectionProperties() {
+        Properties p = new Properties();
+        p.setProperty("connection.username", "root");
+        p.setProperty("connection.password", "test");
+        p.setProperty("connection.url", "jdbc:mysql://" + container.getHost() + ":" + container.getMappedPort(3306) + "/openmrs");
+        return p;
+    }
+
+    public void assertLastEvent(Integer patientId, String table, boolean expectedDeleted) throws Exception {
+        DbEventStatus status = waitForNextEvent(eventSource);
+        List<Map<String, Object>> results = db.executeQuery("select * from dbevent_patient where patient_id = ?", new MapListHandler(), patientId);
+        assertThat(results.size(), equalTo(1));
+        assertTrue(status.isProcessed());
+        assertThat(status.getEvent().getTable(), equalTo(table));
+        assertThat(results.get(0).get("patient_id"), equalTo(patientId));
+        assertThat(results.get(0).get("last_updated"), equalTo(localDateTime(status.getEvent().getTimestamp())));
+        assertThat(results.get(0).get("deleted"), equalTo(expectedDeleted));
+    }
 
     @Test
     public void shouldTrackPatientChanges() throws Exception {
-        Properties mysqlProperties = getMysqlProperties();
-        if (mysqlProperties.isEmpty()) {
-            System.out.println("***** SKIPPING " + getClass().getName() + ".  To execute, pass mysql connection properties in");
-            return;
+
+        // Test initial snapshot
+        List<Integer> voidedPatients = db.executeQuery("select patient_id from patient where voided = 1", new ColumnListHandler<>());
+        List<Map<String, Object>> snapshotPatients = db.executeQuery("select * from dbevent_patient", new MapListHandler());
+        System.out.println("Found " + snapshotPatients.size() + " patients to test in initial snapshot");
+        assertFalse(snapshotPatients.isEmpty());
+        for (Map<String, Object> row : snapshotPatients) {
+            Integer patientId = (Integer)row.get("patient_id");
+            LocalDateTime lastUpdated = (LocalDateTime) row.get("last_updated");
+            Boolean deleted = (Boolean) row.get("deleted");
+            assertNotNull(patientId);
+            assertNotNull(lastUpdated);
+            assertThat(voidedPatients.contains(patientId), equalTo(BooleanUtils.isTrue(deleted)));
         }
-        EventContext ctx = new TestEventContext(mysqlProperties);
-        Database db = ctx.getDatabase();
-        DbEventSource eventSource = DbEventSetup.getEventSource(ctx);
+        System.out.println("Successfully tested " + snapshotPatients.size() + " patients to test in initial snapshot");
 
-        try {
-            eventSource.start();
+        Integer pId = data.insertPatient("M", date("1982-10-19"));
+        assertLastEvent(pId, "patient", false);
 
-            // Test initial snapshot
-            waitForSnapshotToComplete(eventSource);
-            List<Integer> voidedPatients = db.executeQuery("select patient_id from patient where voided = 1", new ColumnListHandler<>());
-            List<Map<String, Object>> snapshotPatients = db.executeQuery("select * from dbevent_patient", new MapListHandler());
-            System.out.println("Found " + snapshotPatients.size() + " patients to test in initial snapshot");
-            assertFalse(snapshotPatients.isEmpty());
-            for (Map<String, Object> row : snapshotPatients) {
-                Integer patientId = (Integer)row.get("patient_id");
-                LocalDateTime lastUpdated = (LocalDateTime) row.get("last_updated");
-                Boolean deleted = (Boolean) row.get("deleted");
-                assertNotNull(patientId);
-                assertNotNull(lastUpdated);
-                assertThat(voidedPatients.contains(patientId), equalTo(BooleanUtils.isTrue(deleted)));
-            }
-            System.out.println("Successfully tested " + snapshotPatients.size() + " patients to test in initial snapshot");
+        data.insertPersonName(pId, "TestFirst", "TestLast");
+        assertLastEvent(pId, "person_name", false);
 
-            String personUuid = uuid();
-            String otherPersonUuid = uuid();
-            Date now = new Date();
-            Date visitDate = date("2022-07-13");
+        data.insertPersonAddress(pId, "My Home Address");
+        assertLastEvent(pId, "person_address", false);
 
-            db.executeUpdate(
-                    "insert into person (uuid, gender, birthdate, creator, date_created) values (?,?,?,?,?)",
-                    personUuid, "M", date("1985-02-17"), 1, now
-            );
-            db.executeUpdate(
-                    "insert into person (uuid, gender, birthdate, creator, date_created) values (?,?,?,?,?)",
-                    otherPersonUuid, "F", date("1988-09-02"), 1, now
-            );
-            waitForNextEvent(eventSource);
+        data.insertPersonAttribute(pId,8, "5555-4433");
+        assertLastEvent(pId, "person_attribute", false);
 
-            Integer pId = db.executeQuery("select person_id from person where uuid = ?", new ScalarHandler<>(), personUuid);
-            Integer otherPersonId = db.executeQuery("select person_id from person where uuid = ?", new ScalarHandler<>(), otherPersonUuid);
+        Integer otherPersonId = data.insertPerson("F", date("2022-01-06"));
+        data.insertRelationshipToPersonB(pId,6, otherPersonId);
+        assertLastEvent(pId, "relationship", false);
 
-            // Test streaming inserts
+        data.insertRelationshipToPersonA(pId,6, otherPersonId);
+        assertLastEvent(pId, "relationship", false);
 
-            testUpdate(eventSource, db, "patient", pId,
-                    "insert into patient (patient_id, creator, date_created) values (?,?,?)",
-                    pId, 1, now
-            );
+        data.insertPatientIdentifier(pId,4,"ABC123", 1);
+        assertLastEvent(pId, "patient_identifier", false);
 
-            testUpdate(eventSource, db, "person_name", pId,
-                    "insert into person_name (person_id, uuid, given_name, family_name, preferred, creator, date_created) values (?,?,?,?,?,?,?)",
-                    pId, uuid(), "TestFirst", "TestLast", 1, 1, now
-            );
+        Integer allergyId = data.insertAllergy(pId,"Penicillin","DRUG");
+        assertLastEvent(pId, "allergy", false);
 
-            testUpdate(eventSource, db, "person_address", pId,
-                    "insert into person_address (person_id, uuid, address1, preferred, creator, date_created) values (?,?,?,?,?,?)",
-                    pId, uuid(), "My Home Address", 1, 1, now
-            );
+        data.insertAllergyReaction(allergyId,"Unknown");
+        assertLastEvent(pId, "allergy_reaction", false);
 
-            testUpdate(eventSource, db, "person_attribute", pId,
-                    "insert into person_attribute (person_id, uuid, person_attribute_type_id, value, creator, date_created) values (?,?,?,?,?,?)",
-                    pId, uuid(), 8, "5555-4433", 1, now
-            );
+        data.insertCondition(pId,"Confused", "ACTIVE");
+        assertLastEvent(pId, "conditions", false);
 
-            testUpdate(eventSource, db, "relationship", pId,
-                    "insert into relationship (uuid, relationship, person_a, person_b, creator, date_created) values (?,?,?,?,?,?)",
-                    uuid(), 6, pId, otherPersonId, 1, now
-            );
+        Integer patientProgramId = data.insertPatientProgram(pId, "HIV", visitDate);
+        assertLastEvent(pId, "patient_program", false);
 
-            testUpdate(eventSource, db, "relationship", pId,
-                    "insert into relationship (uuid, relationship, person_a, person_b, creator, date_created) values (?,?,?,?,?,?)",
-                    uuid(), 6, otherPersonId, pId, 1, now
-            );
+        data.insertPatientState(patientProgramId, "872c529c-a5a4-47c7-9584-bd15fa5bb0a9", visitDate);
+        assertLastEvent(pId, "patient_state", false);
 
-            testUpdate(eventSource, db, "patient_identifier", pId,
-                    "insert into patient_identifier (patient_id, uuid, identifier_type, identifier, location_id, preferred, creator, date_created) values (?,?,?,?,?,?,?,?)",
-                    pId, uuid(), 4, "ABC123", 1, 1, 1, now
-            );
+        Integer programAttType = data.insertAttributeType("program", "Comments");
+        data.insertPatientProgramAttribute(patientProgramId, programAttType, "Extra Program Info");
+        assertLastEvent(pId, "patient_program_attribute", false);
 
-            testUpdate(eventSource, db, "allergy", pId,
-                    "insert into allergy (patient_id, uuid, coded_allergen, allergen_type, creator, date_created) values (?,?,?,?,?,?)",
-                    pId, uuid(), conceptId(db,"Penicillin"), "DRUG", 1, now
-            );
+        Integer visitId = data.insertVisit(pId, 1, visitDate, 1);
+        assertLastEvent(pId, "visit", false);
 
-            Integer allergyId = db.executeQuery("select allergy_id from allergy where patient_id = ?", new ScalarHandler<>(), pId);
+        Integer visitAttType = data.insertAttributeType("visit", "Comments");
+        data.insertVisitAttribute(visitId, visitAttType, "Last Minute Visit");
+        assertLastEvent(pId, "visit_attribute", false);
 
-            testUpdate(eventSource, db, "allergy_reaction", pId,
-                    "insert into allergy_reaction (allergy_id, uuid, reaction_concept_id) values (?,?,?)",
-                    allergyId, uuid(), conceptId(db, "Unknown")
-            );
+        Integer encounterId = data.insertEncounter(pId, 2, visitDate, 1);
+        assertLastEvent(pId, "encounter", false);
 
-            testUpdate(eventSource, db, "conditions", pId,
-                    "insert into conditions (patient_id, uuid, condition_non_coded, clinical_status, creator, date_created) values (?,?,?,?,?,?)",
-                    pId, uuid(), "Confused", "ACTIVE", 1, now
-            );
+        data.insertEncounterProvider(encounterId, 1, 6);
+        assertLastEvent(pId, "encounter_provider", false);
 
-            Integer programId = db.executeQuery("select program_id from program where name = 'HIV'", new ScalarHandler<>());
-            Integer stateId = db.executeQuery("select program_workflow_state_id from program_workflow_state where uuid = '872c529c-a5a4-47c7-9584-bd15fa5bb0a9'", new ScalarHandler<>());
+        Integer diagnosisId = data.insertEncounterDiagnosis(encounterId, "Pneumonia", "PROVISIONAL");
+        assertLastEvent(pId, "encounter_diagnosis", false);
 
-            testUpdate(eventSource, db, "patient_program", pId,
-                    "insert into patient_program (patient_id, uuid, program_id, date_enrolled, creator, date_created) values (?,?,?,?,?,?)",
-                    pId, uuid(), programId, visitDate, 1, now
-            );
+        Integer diagnosisAttType = data.insertAttributeType("diagnosis", "Comments");
+        data.insertDiagnosisAttribute(diagnosisId, diagnosisAttType, "Severe");
+        //TODO assertLastEvent(pId, "diagnosis_attribute", false);
 
-            Integer ppId = db.executeQuery("select patient_program_id from patient_program where patient_id = ?", new ScalarHandler<>(), pId);
+        Integer obsId = data.insertObs(encounterId, visitDate, 1, "Weight (kg)", 80d);
+        assertLastEvent(pId, "obs", false);
 
-            testUpdate(eventSource, db, "patient_state", pId,
-                    "insert into patient_state (patient_program_id, uuid, state, start_date, creator, date_created) values (?,?,?,?,?,?)",
-                    ppId, uuid(), stateId, visitDate, 1, now
-            );
+        data.insertNote(pId, null, null, "Patient Note");
+        assertLastEvent(pId, "note", false);
 
-            db.executeUpdate(
-                    "insert ignore into program_attribute_type (program_attribute_type_id, uuid, name, min_occurs, creator, date_created) values (?,?,?,?,?,?)",
-                    1, uuid(), "Comments", 0, 1, now
-            );
+        data.insertNote(null, encounterId, null, "Encounter Note");
+        assertLastEvent(pId, "note", false);
 
-            testUpdate(eventSource, db, "patient_program_attribute", pId,
-                    "insert into patient_program_attribute (patient_program_id, uuid, attribute_type_id, value_reference, creator, date_created) values (?,?,?,?,?,?)",
-                    ppId, uuid(), 1, "Extra Program Info", 1, now
-            );
+        data.insertNote(null, null, obsId, "Obs Note");
+        //TODO assertLastEvent(pId, "note", false);
 
-            testUpdate(eventSource, db, "visit", pId,
-                    "insert into visit (patient_id, uuid, visit_type_id, date_started, location_id, creator, date_created) values (?,?,?,?,?,?,?)",
-                    pId, uuid(), 1, visitDate, 1, 1, now
-            );
+        Integer drugOrderId = data.insertOrder(encounterId, 2, "Aspirin", visitDate);
+        assertLastEvent(pId, "orders", false);
 
-            Integer visitId = db.executeQuery("select visit_id from visit where patient_id = ?", new ScalarHandler<>(), pId);
+        data.insertDrugOrder(drugOrderId, 1);
+        assertLastEvent(pId, "drug_order", false);
 
-            db.executeUpdate(
-                    "insert ignore into visit_attribute_type (visit_attribute_type_id, uuid, name, min_occurs, creator, date_created) values (?,?,?,?,?,?)",
-                    1, uuid(), "Comments", 0, 1, now
-            );
+        Integer referralOrderId = data.insertOrder(encounterId, 4, "Biopsy", visitDate);
+        assertLastEvent(pId, "orders", false);
 
-            testUpdate(eventSource, db, "visit_attribute", pId,
-                    "insert into visit_attribute (visit_id, uuid, attribute_type_id, value_reference, creator, date_created) values (?,?,?,?,?,?)",
-                    visitId, uuid(), 1, "Last Minute Visit", 1, now
-            );
+        data.insertReferralOrder(referralOrderId);
+        assertLastEvent(pId, "referral_order", false);
 
-            testUpdate(eventSource, db, "encounter", pId,
-                    "insert into encounter (patient_id, uuid, encounter_type, encounter_datetime, location_id, creator, date_created) values (?,?,?,?,?,?,?)",
-                    pId, uuid(), 2, visitDate, 1, 1, now
-            );
+        Integer radiologyOrderId = data.insertOrder(encounterId, 5, "Chest, 2 views (X-ray)", visitDate);
+        assertLastEvent(pId, "orders", false);
 
-            Integer encId = db.executeQuery("select encounter_id from encounter where patient_id = ?", new ScalarHandler<>(), pId);
+        data.insertTestOrder(radiologyOrderId);
+        assertLastEvent(pId, "test_order", false);
 
-            testUpdate(eventSource, db, "encounter_provider", pId,
-                    "insert into encounter_provider (encounter_id, uuid, provider_id, encounter_role_id, creator, date_created) values (?,?,?,?,?,?)",
-                    encId, uuid(), 1, 6, 1, now
-            );
+        data.insertRadiologyOrder(radiologyOrderId);
+        assertLastEvent(pId, "emr_radiology_order", false);
 
-            testUpdate(eventSource, db, "encounter_diagnosis", pId,
-                    "insert into encounter_diagnosis (patient_id, encounter_id, uuid, diagnosis_coded, certainty, creator, date_created) values (?,?,?,?,?,?,?)",
-                    pId, encId, uuid(), conceptId(db, "Pneumonia"), "PROVISIONAL", 1, now
-            );
+        Integer orderAttType = data.insertAttributeType("order", "Comments");
+        data.insertOrderAttribute(drugOrderId, orderAttType, "Additional comment");
+        assertLastEvent(pId, "order_attribute", false);
 
-            Integer diagnosisId = db.executeQuery("select diagnosis_id from encounter_diagnosis where encounter_id = ?", new ScalarHandler<>(), encId);
+        Integer orderGroupId = data.insertOrderGroup(encounterId);
+        assertLastEvent(pId, "order_group", false);
 
-            db.executeUpdate(
-                    "insert ignore into diagnosis_attribute_type (diagnosis_attribute_type_id, uuid, name, min_occurs, creator, date_created) values (?,?,?,?,?,?)",
-                    1, uuid(), "Comments", 0, 1, now
-            );
+        Integer orderGroupAttType = data.insertAttributeType("order_group", "Comments");
+        data.insertOrderGroupAttribute(orderGroupId, orderGroupAttType, "Additional comment");
+        //TODO assertLastEvent(pId, "order_group_attribute", false);
 
-            /*
-            TODO: Investigate
-            testUpdate(eventSource, db, "diagnosis_attribute", pId,
-                    "insert into diagnosis_attribute (diagnosis_id, uuid, attribute_type_id, value_reference, creator, date_created) values (?,?,?,?,?,?)",
-                    diagnosisId, uuid(), 1, "Severe", 1, now
-            );
-             */
+        Integer cohortId = data.insertCohort("Test Cohort");
+        data.insertCohortMember(pId, cohortId);
+        assertLastEvent(pId, "cohort_member", false);
 
-            testUpdate(eventSource, db, "obs", pId,
-                    "insert into obs (person_id, uuid, encounter_id, obs_datetime, concept_id, value_numeric, location_id, status, creator, date_created) values (?,?,?,?,?,?,?,?,?,?)",
-                    pId, uuid(), encId, visitDate, conceptId(db, "Weight (kg)"), 80, 1, "FINAL", 1, now
-            );
+        Integer apptType = data.insertAppointmentType("Test Appointment", 60);
+        Integer apptBlock = data.insertAppointmentBlock(visitDate, now, 1);
+        Integer apptSlot = data.insertAppointmentTimeSlot(apptBlock, visitDate, now);
 
-            Integer obsId = db.executeQuery("select obs_id from obs where encounter_id = ?", new ScalarHandler<>(), encId);
+        Integer appointmentId = data.insertAppointment(pId, apptSlot, apptType, "SCHEDULED");
+        assertLastEvent(pId, "appointmentscheduling_appointment", false);
 
-            Integer maxNoteId = db.executeQuery("select max(note_id) from note", new ScalarHandler<>());
-            Integer nextNoteId = (maxNoteId == null ? 1 : maxNoteId + 1);
-            testUpdate(eventSource, db, "note", pId,
-                    "insert into note (note_id, uuid, patient_id, text, creator, date_created) values (?,?,?,?,?,?)",
-                    nextNoteId++, uuid(), pId, "Patient Note", 1, now
-            );
-            testUpdate(eventSource, db, "note", pId,
-                    "insert into note (note_id, uuid, encounter_id, text, creator, date_created) values (?,?,?,?,?,?)",
-                    nextNoteId++, uuid(), encId, "Encounter Note", 1, now
-            );
-            /*
-            TODO: Need to join on obs_id
-            testUpdate(eventSource, db, "note", pId,
-                    "insert into note (note_id, uuid, obs_id, text, creator, date_created) values (?,?,?,?,?,?)",
-                    nextNoteId++, uuid(), obsId, "Obs Note", 1, now
-            );
-             */
+        Integer appointmentStatusId = data.insertAppointmentStatusHistory(appointmentId, "CANCELLED", now, now);
+        assertLastEvent(pId, "appointmentscheduling_appointment_status_history", false);
 
-            testUpdate(eventSource, db, "orders", pId,
-                    "insert into orders (uuid, patient_id, encounter_id, order_type_id, order_action, concept_id, date_activated, order_number, care_setting, orderer, creator, date_created) values (?,?,?,?,?,?,?,?,?,?,?,?)",
-                    uuid(), pId, encId, 2, "NEW", conceptId(db, "Aspirin"), visitDate, uuid(), 1, 1, 1, now
-            );
-            testUpdate(eventSource, db, "orders", pId,
-                    "insert into orders (uuid, patient_id, encounter_id, order_type_id, order_action, concept_id, date_activated, order_number, care_setting, orderer, creator, date_created) values (?,?,?,?,?,?,?,?,?,?,?,?)",
-                    uuid(), pId, encId, 4, "NEW", conceptId(db, "Biopsy"), visitDate, uuid(), 1, 1, 1, now
-            );
-            testUpdate(eventSource, db, "orders", pId,
-                    "insert into orders (uuid, patient_id, encounter_id, order_type_id, order_action, concept_id, date_activated, order_number, care_setting, orderer, creator, date_created) values (?,?,?,?,?,?,?,?,?,?,?,?)",
-                    uuid(), pId, encId, 5, "NEW", conceptId(db, "Chest, 2 views (X-ray)"), visitDate, uuid(), 1, 1, 1, now
-            );
-
-            Integer drugOrderId = db.executeQuery("select order_id from orders where order_type_id = 2 and patient_id = ?", new ScalarHandler<>(), pId);
-            Integer referralOrderId = db.executeQuery("select order_id from orders where order_type_id = 4 and patient_id = ?", new ScalarHandler<>(), pId);
-            Integer radiologyOrderId = db.executeQuery("select order_id from orders where order_type_id = 5 and patient_id = ?", new ScalarHandler<>(), pId);
-
-            testUpdate(eventSource, db, "drug_order", pId, "insert into drug_order (order_id, drug_inventory_id) values (?, ?)", drugOrderId, 1);
-            testUpdate(eventSource, db, "referral_order", pId, "insert into referral_order (order_id) values (?)", referralOrderId);
-            testUpdate(eventSource, db, "test_order", pId, "insert into test_order (order_id) values (?)", radiologyOrderId);
-            testUpdate(eventSource, db, "emr_radiology_order", pId, "insert into emr_radiology_order (order_id) values (?)", radiologyOrderId);
-
-            db.executeUpdate(
-                    "insert ignore order_attribute_type (order_attribute_type_id, uuid, name, min_occurs, creator, date_created) values (?,?,?,?,?,?)",
-                    1, uuid(), "Comments", 0, 1, now
-            );
-
-            testUpdate(eventSource, db, "order_attribute", pId,
-                    "insert into order_attribute (order_id, uuid, attribute_type_id, value_reference, creator, date_created) values (?,?,?,?,?,?)",
-                    drugOrderId, uuid(), 1, "Additional comment", 1, now
-            );
-
-            testUpdate(eventSource, db, "order_group", pId,
-                    "insert into order_group (uuid, patient_id, encounter_id, creator, date_created) values (?,?,?,?,?)",
-                    uuid(), pId, encId, 1, now
-            );
-
-            Integer orderGroupId = db.executeQuery("select order_group_id from order_group where patient_id = ?", new ScalarHandler<>(), pId);
-
-            db.executeUpdate(
-                    "insert ignore order_group_attribute_type (order_group_attribute_type_id, uuid, name, min_occurs, creator, date_created) values (?,?,?,?,?,?)",
-                    1, uuid(), "Comments", 0, 1, now
-            );
-
-            /*
-            TODO
-            testUpdate(eventSource, db, "order_group_attribute", pId,
-                    "insert into order_group_attribute (order_group_id, uuid, attribute_type_id, value_reference, creator, date_created) values (?,?,?,?,?,?)",
-                    orderGroupId, uuid(), 1, "Additional comment", 1, now
-            );
-
-             */
-
-            /*
-            TODO Remaining:
-                "appointmentscheduling_appointment"
-                "appointmentscheduling_appointment_request"
-                "appointmentscheduling_appointment_status_history"
-                "paperrecord_paper_record"
-                "paperrecord_paper_record_merge_request"
-                "paperrecord_paper_record_request",
-                "cohort_member"
-                "address_hierarchy_address_to_entry_map"
-                "fhir_diagnostic_report"
-                "fhir_diagnostic_report_performers"
-                "fhir_diagnostic_report_results"
-                "person_merge_log"
-                "logic_rule_token"
-                "logic_rule_token_tag"
-                "name_phonetics"
-                "concept_proposal"
-                "concept_proposal_tag_map"
-
-             Additional test to confirm remaining tables are explicitly not handled, and fail if any unknown tables found
-             */
+        Integer appointmentRequestId = data.insertAppointmentRequest(pId, apptType, now, "REQUESTED");
+        assertLastEvent(pId, "appointmentscheduling_appointment_request", false);
 
 
-            // Test streaming updates
+        /*
+        TODO Remaining:
 
-            testUpdate(eventSource, db, "person", pId, "update person set gender = 'F' where person_id = ?", pId);
-            testUpdate(eventSource, db, "patient", pId, "update patient set allergy_status = 'None' where patient_id = ?", pId);
-            testUpdate(eventSource, db, "person_name", pId, "update person_name set middle_name = 'Q' where person_id = ?", pId);
-            testUpdate(eventSource, db, "person_address", pId, "update person_address set address1 = '11 Main Street' where person_id = ?", pId);
-            testUpdate(eventSource, db, "person_attribute", pId, "update person_attribute set value = '1234-5678' where person_id = ?", pId);
-            testUpdate(eventSource, db, "relationship", pId, "update relationship set relationship = 2 where person_a = ?", pId);
-            testUpdate(eventSource, db, "relationship", pId, "update relationship set relationship = 2 where person_b = ?", pId);
-            testUpdate(eventSource, db, "patient_identifier", pId, "update patient_identifier set identifier = 'XYZ456' where patient_id = ?", pId);
-            testUpdate(eventSource, db, "allergy", pId, "update allergy set comments = 'Mild' where patient_id = ?", pId);
-            testUpdate(eventSource, db, "allergy_reaction", pId, "update allergy_reaction set reaction_concept_id = ? where allergy_id = ?", conceptId(db, "Hives"), allergyId);
-            testUpdate(eventSource, db, "conditions", pId, "update conditions set condition_non_coded = 'Very confused' where patient_id = ?", pId);
-            testUpdate(eventSource, db, "patient_program", pId, "update patient_program set location_id = 1 where patient_program_id = ?", ppId);
-            testUpdate(eventSource, db, "patient_state", pId, "update patient_state set end_date = ? where patient_program_id = ?", visitDate, ppId);
-            testUpdate(eventSource, db, "patient_program_attribute", pId, "update patient_program_attribute set value_reference = 'Extra Info' where patient_program_id = ?", ppId);
-            testUpdate(eventSource, db, "visit", pId, "update visit set date_stopped = ? where patient_id = ?", date("2022-07-15"), pId);
-            testUpdate(eventSource, db, "visit_attribute", pId, "update visit_attribute set value_reference = 'Upcoming' where visit_id = ?", visitId);
-            testUpdate(eventSource, db, "encounter", pId, "update encounter set location_id = 42 where encounter_id = ?", encId);
-            testUpdate(eventSource, db, "encounter_provider", pId, "update encounter_provider set encounter_role_id = 3 where encounter_id = ?", encId);
-            testUpdate(eventSource, db, "encounter_diagnosis", pId, "update encounter_diagnosis set certainty = 'CONFIRMED' where diagnosis_id = ?", diagnosisId);
-            /*
-            TODO: Investigate
-            testUpdate(eventSource, db, "diagnosis_attribute", pId, "update diagnosis_attribute set value_reference = 'MODERATE' where diagnosis_id = ?", diagnosisId);
-            */
-            testUpdate(eventSource, db, "obs", pId, "update obs set value_numeric = 85 where obs_id = ?", obsId);
-            testUpdate(eventSource, db, "note", pId, "update note set text = 'Updated note' where patient_id = ?", pId);
-            testUpdate(eventSource, db, "note", pId, "update note set text = 'Updated note' where encounter_id = ?", encId);
-            // TODO: testUpdate(eventSource, db, "note", pId, "update note set text = 'Updated note' where obs-id = ?", obsId);
-            testUpdate(eventSource, db, "orders", pId, "update orders set instructions = 'As directed' where order_id = ?", drugOrderId);
-            testUpdate(eventSource, db, "drug_order", pId, "update drug_order set as_needed = 1 where order_id = ?", drugOrderId);
-            testUpdate(eventSource, db, "referral_order", pId, "update referral_order set clinical_history = 'Never' where order_id = ?", referralOrderId);
-            testUpdate(eventSource, db, "test_order", pId, "update test_order set clinical_history = 'None' where order_id = ?", radiologyOrderId);
-            testUpdate(eventSource, db, "emr_radiology_order", pId, "update emr_radiology_order set exam_location = 1 where order_id = ?", radiologyOrderId);
-            testUpdate(eventSource, db, "order_attribute", pId, "update order_attribute set value_reference = 'Modified comment' where order_id = ?", drugOrderId);
-            testUpdate(eventSource, db, "order_group", pId, "update order_group set order_group_reason = ? where order_group_id = ?", conceptId(db, "Asthma"), orderGroupId);
-            // TODO: testUpdate(eventSource, db, "order_group_attribute", pId, "update order_group_attribute set value_reference = 'Modified comment' where order_group_id = ?", orderGroupId);
-        }
-        finally {
-            eventSource.stop();
-        }
+            "paperrecord_paper_record"
+            "paperrecord_paper_record_merge_request"
+            "paperrecord_paper_record_request",
+            "address_hierarchy_address_to_entry_map"
+            "fhir_diagnostic_report"
+            "fhir_diagnostic_report_performers"
+            "fhir_diagnostic_report_results"
+            "person_merge_log"
+            "logic_rule_token"
+            "logic_rule_token_tag"
+            "name_phonetics"
+            "concept_proposal"
+            "concept_proposal_tag_map"
+
+         Additional test to confirm remaining tables are explicitly not handled, and fail if any unknown tables found
+         */
+
+
+        // Test streaming updates
+
+        testUpdate("person", pId, "update person set gender = 'F' where person_id = ?", pId);
+        testUpdate("patient", pId, "update patient set allergy_status = 'None' where patient_id = ?", pId);
+        testUpdate("person_name", pId, "update person_name set middle_name = 'Q' where person_id = ?", pId);
+        testUpdate("person_address", pId, "update person_address set address1 = '11 Main Street' where person_id = ?", pId);
+        testUpdate("person_attribute", pId, "update person_attribute set value = '1234-5678' where person_id = ?", pId);
+        testUpdate("relationship", pId, "update relationship set relationship = 2 where person_a = ?", pId);
+        testUpdate("relationship", pId, "update relationship set relationship = 2 where person_b = ?", pId);
+        testUpdate("patient_identifier", pId, "update patient_identifier set identifier = 'XYZ456' where patient_id = ?", pId);
+        testUpdate("allergy", pId, "update allergy set comments = 'Mild' where patient_id = ?", pId);
+        testUpdate("allergy_reaction", pId, "update allergy_reaction set reaction_concept_id = ? where allergy_id = ?", conceptId( "Hives"), allergyId);
+        testUpdate("conditions", pId, "update conditions set condition_non_coded = 'Very confused' where patient_id = ?", pId);
+        testUpdate("patient_program", pId, "update patient_program set location_id = 1 where patient_program_id = ?", patientProgramId);
+        testUpdate("patient_state", pId, "update patient_state set end_date = ? where patient_program_id = ?", visitDate, patientProgramId);
+        testUpdate("patient_program_attribute", pId, "update patient_program_attribute set value_reference = 'Extra Info' where patient_program_id = ?", patientProgramId);
+        testUpdate("visit", pId, "update visit set date_stopped = ? where patient_id = ?", date("2022-07-15"), pId);
+        testUpdate("visit_attribute", pId, "update visit_attribute set value_reference = 'Upcoming' where visit_id = ?", visitId);
+        testUpdate("encounter", pId, "update encounter set location_id = 42 where encounter_id = ?", encounterId);
+        testUpdate("encounter_provider", pId, "update encounter_provider set encounter_role_id = 3 where encounter_id = ?", encounterId);
+        testUpdate("encounter_diagnosis", pId, "update encounter_diagnosis set certainty = 'CONFIRMED' where diagnosis_id = ?", diagnosisId);
+        /*
+        TODO: Investigate
+        testUpdate("diagnosis_attribute", pId, "update diagnosis_attribute set value_reference = 'MODERATE' where diagnosis_id = ?", diagnosisId);
+        */
+        testUpdate("obs", pId, "update obs set value_numeric = 85 where obs_id = ?", obsId);
+        testUpdate("note", pId, "update note set text = 'Updated note' where patient_id = ?", pId);
+        testUpdate("note", pId, "update note set text = 'Updated note' where encounter_id = ?", encounterId);
+        // TODO: testUpdate("note", pId, "update note set text = 'Updated note' where obs-id = ?", obsId);
+        testUpdate("orders", pId, "update orders set instructions = 'As directed' where order_id = ?", drugOrderId);
+        testUpdate("drug_order", pId, "update drug_order set as_needed = 1 where order_id = ?", drugOrderId);
+        testUpdate("referral_order", pId, "update referral_order set clinical_history = 'Never' where order_id = ?", referralOrderId);
+        testUpdate("test_order", pId, "update test_order set clinical_history = 'None' where order_id = ?", radiologyOrderId);
+        testUpdate("emr_radiology_order", pId, "update emr_radiology_order set exam_location = 1 where order_id = ?", radiologyOrderId);
+        testUpdate("order_attribute", pId, "update order_attribute set value_reference = 'Modified comment' where order_id = ?", drugOrderId);
+        testUpdate("order_group", pId, "update order_group set order_group_reason = ? where order_group_id = ?", conceptId( "Asthma"), orderGroupId);
+        // TODO: testUpdate("order_group_attribute", pId, "update order_group_attribute set value_reference = 'Modified comment' where order_group_id = ?", orderGroupId);
+        testUpdate("cohort_member", pId, "update cohort_member set start_date = now() where patient_id = ?", pId);
+
+        data.updateTable("appointmentscheduling_appointment", "status", "RESCHEDULED", "appointment_id", appointmentId);
+        assertLastEvent(pId, "appointmentscheduling_appointment", false);
+
+        data.updateTable("appointmentscheduling_appointment_status_history", "start_date", visitDate, "appointment_status_history_id", appointmentStatusId);
+        assertLastEvent(pId, "appointmentscheduling_appointment_status_history", false);
+
+        data.updateTable("appointmentscheduling_appointment_request", "status", "ON HOLD", "appointment_request_id", appointmentRequestId);
+        assertLastEvent(pId, "appointmentscheduling_appointment_request", false);
     }
 
-    public void testUpdate(DbEventSource eventSource, Database db, String table, Integer patientId, String statement, Object... args) throws Exception {
+    public static void testUpdate(String table, Integer patientId, String statement, Object... args) throws Exception {
         db.executeUpdate(statement, args);
         DbEventStatus status = waitForNextEvent(eventSource);
         List<Map<String, Object>>results = db.executeQuery("select * from dbevent_patient where patient_id = ?", new MapListHandler(), patientId);
@@ -372,14 +332,14 @@ public class PatientEventConsumerTest {
         assertFalse((Boolean)results.get(0).get("deleted"));
     }
 
-    protected void waitForSnapshotToComplete(DbEventSource eventSource) throws Exception {
+    protected static void waitForSnapshotToComplete(DbEventSource eventSource) throws Exception {
         PatientUpdateEventConsumer consumer = (PatientUpdateEventConsumer) eventSource.getEventConsumer();
         while (!consumer.isSnapshotInitialized()) {
             TimeUnit.SECONDS.sleep(1);
         }
     }
 
-    protected DbEventStatus waitForNextEvent(DbEventSource eventSource) throws Exception {
+    protected static DbEventStatus waitForNextEvent(DbEventSource eventSource) throws Exception {
         DbEventStatus status = DbEventLog.getLatestEventStatus(eventSource.getConfig().getSourceName());
         while (status == null || (status.getEvent().equals(lastEvent) || !status.isProcessed())) {
             TimeUnit.MILLISECONDS.sleep(100);
@@ -389,35 +349,32 @@ public class PatientEventConsumerTest {
         return status;
     }
 
-    private LocalDateTime localDateTime(String datetime) throws Exception {
-        Date lastUpdatedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(datetime);
+    private static LocalDateTime localDateTime(String datetime) throws Exception {
+        Date lastUpdatedDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(datetime);
         return localDateTime(lastUpdatedDate.getTime());
     }
 
-    private LocalDateTime localDateTime(long millis) {
+    private static Date datetime(String datetime) throws Exception {
+        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(datetime);
+    }
+
+    private static LocalDateTime localDateTime(long millis) {
         return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
-    private Date date(String dateStr) throws Exception {
-        return new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+    private static Date date(String dateStr) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private String uuid() {
+    private static String uuid() {
         return UUID.randomUUID().toString();
     }
 
-    private Integer conceptId(Database db, String name) {
+    private static Integer conceptId(String name) {
         return db.executeQuery("select concept_id from concept_name where name = ?", new ScalarHandler<>(), name);
-    }
-
-    protected Properties getMysqlProperties() throws Exception {
-        Properties p = new Properties();
-        String propertiesFile = System.getProperty("MYSQL_PROPERTIES_FILE");
-        if (StringUtils.isNotBlank(propertiesFile)) {
-            try (InputStream is = Files.newInputStream(Paths.get(propertiesFile))) {
-                p.load(is);
-            }
-        }
-        return p;
     }
 }
