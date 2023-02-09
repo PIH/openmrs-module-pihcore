@@ -76,6 +76,24 @@ public class DataBuilder {
         return db.executeQuery("select relationship_id from relationship where uuid = ?", new ScalarHandler<>(), uuid);
     }
 
+    public Integer insertPersonMergeLogAsWinner(Integer patientId, Integer loser) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into person_merge_log (uuid, winner_person_id, loser_person_id, merged_data, creator, date_created, voided) values (?,?,?,?,?,?,?)",
+                uuid, patientId, loser, "Merged As Winner", 1, dateCreated, 0
+        );
+        return db.executeQuery("select person_merge_log_id from person_merge_log where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
+    public Integer insertPersonMergeLogAsLoser(Integer patientId, Integer winner) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into person_merge_log (uuid, winner_person_id, loser_person_id, merged_data, creator, date_created, voided) values (?,?,?,?,?,?,?)",
+                uuid, winner, patientId, "Merged As Loser", 1, dateCreated, 0
+        );
+        return db.executeQuery("select person_merge_log_id from person_merge_log where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
     public Integer insertPatientIdentifier(Integer patientId, Integer type, String identifier, Integer location) {
         String uuid = uuid();
         db.executeUpdate(
@@ -341,6 +359,29 @@ public class DataBuilder {
                 patientId, uuid, typeId, status, requestedOn, 1, dateCreated
         );
         return db.executeQuery("select appointment_request_id from appointmentscheduling_appointment_request where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
+    public Integer insertFhirDiagnosticReport(Integer patientId, Integer encounterId, String status) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into fhir_diagnostic_report (uuid, subject_id, encounter_id, status, creator, date_created) values (?,?,?,?,?,?)",
+                uuid, patientId, encounterId, status, 1, dateCreated
+        );
+        return db.executeQuery("select diagnostic_report_id from fhir_diagnostic_report where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
+    public void insertFhirDiagnosticReportPerformer(Integer diagnosticReportId, Integer providerId) {
+        db.executeUpdate(
+                "insert into fhir_diagnostic_report_performers (diagnostic_report_id, provider_id) values (?,?)",
+                diagnosticReportId, providerId
+        );
+    }
+
+    public void insertFhirDiagnosticReportResults(Integer diagnosticReportId, Integer obsId) {
+        db.executeUpdate(
+                "insert into fhir_diagnostic_report_results (diagnostic_report_id, obs_id) values (?,?)",
+                diagnosticReportId, obsId
+        );
     }
 
     public Integer insertAttributeType(String domain, String name) {

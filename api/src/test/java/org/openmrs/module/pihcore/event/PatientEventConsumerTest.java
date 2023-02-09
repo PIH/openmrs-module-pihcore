@@ -135,6 +135,12 @@ public class PatientEventConsumerTest {
         data.insertRelationshipToPersonA(pId,6, otherPersonId);
         assertLastEvent(pId, "relationship", false);
 
+        data.insertPersonMergeLogAsWinner(pId, otherPersonId);
+        assertLastEvent(pId, "person_merge_log", false);
+
+        data.insertPersonMergeLogAsLoser(pId, otherPersonId);
+        assertLastEvent(pId, "person_merge_log", false);
+
         data.insertPatientIdentifier(pId,4,"ABC123", 1);
         assertLastEvent(pId, "patient_identifier", false);
 
@@ -238,6 +244,20 @@ public class PatientEventConsumerTest {
         Integer appointmentRequestId = data.insertAppointmentRequest(pId, apptType, now, "REQUESTED");
         assertLastEvent(pId, "appointmentscheduling_appointment_request", false);
 
+        Integer fhirDiagnosticReportId = data.insertFhirDiagnosticReport(pId, null, "PATIENT");
+        assertLastEvent(pId, "fhir_diagnostic_report", false);
+
+        data.insertFhirDiagnosticReportPerformer(fhirDiagnosticReportId, 1);
+        assertLastEvent(pId, "fhir_diagnostic_report_performers", false);
+
+        data.insertFhirDiagnosticReport(null, encounterId, "ENCOUNTER");
+        assertLastEvent(pId, "fhir_diagnostic_report", false);
+
+        Integer fhirDiagnosticReportWithObs = data.insertFhirDiagnosticReport(null, null, "OBS");
+        Integer diagnosticObs = data.insertObs(encounterId, visitDate, 1, "Height (cm)", 100d);
+        data.insertFhirDiagnosticReportResults(fhirDiagnosticReportWithObs, diagnosticObs);
+        assertLastEvent(pId, "fhir_diagnostic_report_results", false);
+
         // Test streaming updates
 
         testUpdate(pId, "person", "update person set gender = 'F' where person_id = ?", pId);
@@ -247,6 +267,8 @@ public class PatientEventConsumerTest {
         testUpdate(pId, "person_attribute", "update person_attribute set value = '1234-5678' where person_id = ?", pId);
         testUpdate(pId, "relationship", "update relationship set relationship = 2 where person_a = ?", pId);
         testUpdate(pId, "relationship", "update relationship set relationship = 2 where person_b = ?", pId);
+        testUpdate(pId, "person_merge_log", "update person_merge_log set merged_data = 'Updated winner' where winner_person_id = ?", pId);
+        testUpdate(pId, "person_merge_log", "update person_merge_log set merged_data = 'Updated loser' where loser_person_id = ?", pId);
         testUpdate(pId, "patient_identifier", "update patient_identifier set identifier = 'XYZ456' where patient_id = ?", pId);
         testUpdate(pId, "allergy", "update allergy set comments = 'Mild' where patient_id = ?", pId);
         testUpdate(pId, "allergy_reaction", "update allergy_reaction set reaction_concept_id = ? where allergy_id = ?", conceptId( "Hives"), allergyId);
@@ -276,6 +298,9 @@ public class PatientEventConsumerTest {
         testUpdate(pId, "appointmentscheduling_appointment", "update appointmentscheduling_appointment set status = 'RESCHEDULED' where appointment_id = ?", appointmentId);
         testUpdate(pId, "appointmentscheduling_appointment_status_history", "update appointmentscheduling_appointment_status_history set start_date = ? where appointment_status_history_id = ?", visitDate, appointmentStatusId);
         testUpdate(pId, "appointmentscheduling_appointment_request", "update appointmentscheduling_appointment_request set status = 'ON HOLD' where appointment_request_id = ?", appointmentRequestId);
+        testUpdate(pId, "fhir_diagnostic_report", "update fhir_diagnostic_report set status = 'UPDATED' where diagnostic_report_id = ?", fhirDiagnosticReportId);
+        testUpdate(pId, "fhir_diagnostic_report_performers", "update fhir_diagnostic_report_performers set provider_id = 2 where diagnostic_report_id = ?", fhirDiagnosticReportId);
+        testUpdate(pId, "fhir_diagnostic_report_results", "update fhir_diagnostic_report_results set obs_id = ? where diagnostic_report_id = ?", obsId, fhirDiagnosticReportWithObs);
     }
 
     public void assertLastEvent(Integer patientId, String table, boolean expectedDeleted) throws Exception {
@@ -303,7 +328,8 @@ public class PatientEventConsumerTest {
 
     protected static DbEventStatus waitForNextEvent(DbEventSource eventSource) throws Exception {
         DbEventStatus status = DbEventLog.getLatestEventStatus(eventSource.getConfig().getSourceName());
-        while (status == null || (status.getEvent().equals(lastEvent) || !status.isProcessed())) {
+        int numIterations = 0;
+        while (numIterations++ < 10 && (status == null || (status.getEvent().equals(lastEvent) || !status.isProcessed()))) {
             TimeUnit.MILLISECONDS.sleep(100);
             status = DbEventLog.getLatestEventStatus(eventSource.getConfig().getSourceName());
         }

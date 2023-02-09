@@ -17,6 +17,7 @@ import org.openmrs.module.dbevent.SqlBuilder;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -36,10 +37,6 @@ import java.util.concurrent.TimeUnit;
  * paperrecord_paper_record (references patient_identifier)
  * paperrecord_paper_record_request (references paperrecord_paper_record)
  * paperrecord_paper_record_merge_request (references paperrecord_paper_record x 2)
- * fhir_diagnostic_report (references patient (subject_id) and/or encounter)
- * fhir_diagnostic_report_performers (references fhir_diagnostic_report)
- * fhir_diagnostic_report_results (references fhir_diagnostic_report)
- * person_merge_log (references person x 2 - winner_person_id, loser_person_id)
  * name_phonetics (references person_name)
  * logic_rule_token (references person via creator)
  * logic_rule_token_tag (references logic_rule_token)
@@ -53,6 +50,8 @@ public class PatientUpdateEventConsumer implements EventConsumer {
     private final DbEventSourceConfig config;
     private final Database database;
     private final Map<String, String> patientKeys = new LinkedHashMap<>();
+    private final Map<String, String> nonStandardKeys = new HashMap<>();
+    private final Map<String, Integer> multipleColumnTables = new HashMap<>();
     private Rocks statusDb;
     private boolean snapshotInitialized = false;
 
@@ -63,6 +62,8 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         patientKeys.put("person_id", "person");
         patientKeys.put("person_a", "person");
         patientKeys.put("person_b", "person");
+        patientKeys.put("winner_person_id", "person");
+        patientKeys.put("loser_person_id", "person");
         patientKeys.put("order_id", "orders");
         patientKeys.put("patient_program_id", "patient_program");
         patientKeys.put("encounter_id", "encounter");
@@ -72,6 +73,11 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         patientKeys.put("order_group_id", "order_group");
         patientKeys.put("obs_id", "obs");
         patientKeys.put("appointment_id", "appointmentscheduling_appointment");
+        patientKeys.put("diagnostic_report_id", "fhir_diagnostic_report");
+        nonStandardKeys.put("obs", "person_id");
+        nonStandardKeys.put("fhir_diagnostic_report", "subject_id");
+        multipleColumnTables.put("relationship", 2);
+        multipleColumnTables.put("person_merge_log", 2);
     }
 
     @Override
@@ -81,8 +87,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
             statusDb = new Rocks(new File(config.getContext().getModuleDataDir(), "status.db"));
             performInitialSnapshot();
             log.warn(getClass().getSimpleName() + ": startup completed");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException("An error occurred starting up", e);
         }
     }
@@ -120,35 +125,33 @@ public class PatientUpdateEventConsumer implements EventConsumer {
     public Set<Integer> getPatientIdsForEvent(DbEvent event) {
         Set<Integer> ret = new HashSet<>();
         Integer patientId = event.getValues().getInteger("patient_id");
-            if (patientId != null) {
-                ret.add(patientId);
+        if (patientId != null) {
+            ret.add(patientId);
         }
         else {
             for (String key : patientKeys.keySet()) {
-                String keyTable = patientKeys.get(key);
-            Integer value = event.getValues().getInteger(key);
-            if (value != null) {
-                        SqlBuilder sql = new SqlBuilder();
-                        sql.select("p.patient_id").from("patient", "p");
+                Integer value = event.getValues().getInteger(key);
+                if (value != null) {
+                    String keyTable = patientKeys.get(key);
+                    SqlBuilder sql = new SqlBuilder();
+                    sql.select("p.patient_id").from("patient", "p");
                     if (keyTable.equals("person")) {
                         sql.where("p.patient_id = ?");
-                    } else {
-                        String fromColumn = (keyTable.equals("obs") ? "person_id" : "patient_id");
+                    }
+                    else {
+                        String fromColumn = nonStandardKeys.getOrDefault(keyTable, "patient_id");
                         sql.innerJoin(keyTable, "x", fromColumn, "p", "patient_id");
                         sql.where("x." + key + " = ?");
                     }
                     patientId = database.executeQuery(sql.toString(), new ScalarHandler<>(1), value);
-                        if (patientId == null) {
-                        if (!keyTable.equals("person")) {
-                            throw new RuntimeException("Unable to retrieve patient_id for: " + event);
-                        }
-                    } else {
+                    if (patientId != null) {
                         ret.add(patientId);
-                        if (!event.getTable().equals("relationship") || ret.size() == 2) {
+                        int numExpected = multipleColumnTables.getOrDefault(event.getTable(), 1);
+                        if (numExpected == ret.size()) {
                             break;
+                        }
                     }
                 }
-            }
             }
         }
         return ret;
@@ -228,7 +231,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                                     if (keyTable.equals("person")) {
                                         sql.innerJoin(tableName, "t", key, "p", "patient_id");
                                     } else {
-                                        String fromColumn = (keyTable.equals("obs") ? "person_id" : "patient_id");
+                                        String fromColumn = nonStandardKeys.getOrDefault(keyTable, "patient_id");
                                         sql.innerJoin(keyTable, "x", fromColumn, "p", "patient_id");
                                         sql.innerJoin(tableName, "t", key, "x", key);
                                     }
@@ -264,7 +267,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
      */
     public boolean isConnectedToBinlog() {
         Map<String, Object> attributes = DbEventLog.getStreamingMonitoringAttributes(config.getSourceName());
-        Boolean value = (Boolean)attributes.get("Connected");
+        Boolean value = (Boolean) attributes.get("Connected");
         return BooleanUtils.isTrue(value);
     }
 }
