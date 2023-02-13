@@ -119,10 +119,10 @@ public class PatientEventConsumerTest {
         Integer pId = data.insertPatient("M", date("1982-10-19"));
         assertLastEvent(pId, "patient", false);
 
-        data.insertPersonName(pId, "TestFirst", "TestLast");
+        Integer personNameId = data.insertPersonName(pId, "TestFirst", "TestLast");
         assertLastEvent(pId, "person_name", false);
 
-        data.insertPersonAddress(pId, "My Home Address");
+        Integer personAddressId = data.insertPersonAddress(pId, "My Home Address");
         assertLastEvent(pId, "person_address", false);
 
         data.insertPersonAttribute(pId,8, "5555-4433");
@@ -258,6 +258,18 @@ public class PatientEventConsumerTest {
         data.insertFhirDiagnosticReportResults(fhirDiagnosticReportWithObs, diagnosticObs);
         assertLastEvent(pId, "fhir_diagnostic_report_results", false);
 
+        Integer conceptProposalId = data.insertConceptProposal(encounterId, null, "Proposal linked to encounter");
+        assertLastEvent(pId, "concept_proposal", false);
+
+        data.insertConceptProposal(null, obsId, "Proposal linked to obs");
+        assertLastEvent(pId, "concept_proposal", false);
+
+        Integer namePhoneticId = data.insertNamePhonetic(personNameId, 1,"PKS");
+        assertLastEvent(pId, "name_phonetics", false);
+
+        Integer addressHierarchyEntryId = data.insertAddressHierarcyAddressToEntryMap(personAddressId, 1);
+        assertLastEvent(pId, "address_hierarchy_address_to_entry_map", false);
+
         // Test streaming updates
 
         testUpdate(pId, "person", "update person set gender = 'F' where person_id = ?", pId);
@@ -301,6 +313,9 @@ public class PatientEventConsumerTest {
         testUpdate(pId, "fhir_diagnostic_report", "update fhir_diagnostic_report set status = 'UPDATED' where diagnostic_report_id = ?", fhirDiagnosticReportId);
         testUpdate(pId, "fhir_diagnostic_report_performers", "update fhir_diagnostic_report_performers set provider_id = 2 where diagnostic_report_id = ?", fhirDiagnosticReportId);
         testUpdate(pId, "fhir_diagnostic_report_results", "update fhir_diagnostic_report_results set obs_id = ? where diagnostic_report_id = ?", obsId, fhirDiagnosticReportWithObs);
+        testUpdate(pId, "concept_proposal", "update concept_proposal set original_text = 'New original text' where concept_proposal_id = ?", conceptProposalId);
+        testUpdate(pId, "name_phonetics", "update name_phonetics set field = 2 where name_phonetics_id = ?", namePhoneticId);
+        testUpdate(pId, "address_hierarchy_address_to_entry_map", "update address_hierarchy_address_to_entry_map set entry_id = 2 where address_to_entry_map_id = ?", addressHierarchyEntryId);
     }
 
     public void assertLastEvent(Integer patientId, String table, boolean expectedDeleted) throws Exception {

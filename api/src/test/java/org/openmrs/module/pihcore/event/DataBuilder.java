@@ -35,7 +35,7 @@ public class DataBuilder {
         String uuid = uuid();
         db.executeUpdate(
                 "insert into person_name (person_id, uuid, given_name, family_name, preferred, creator, date_created) values (?,?,?,?,?,?,?)",
-                patientId, uuid(), givenName, familyName, 1, 1, dateCreated
+                patientId, uuid, givenName, familyName, 1, 1, dateCreated
         );
         return db.executeQuery("select person_name_id from person_name where uuid = ?", new ScalarHandler<>(), uuid);
     }
@@ -384,6 +384,40 @@ public class DataBuilder {
         );
     }
 
+    public Integer insertConceptProposal(Integer encounterId, Integer obsId, String originalText) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into concept_proposal (uuid, encounter_id, obs_id, original_text, creator, date_created) values (?,?,?,?,?,?)",
+                uuid, encounterId, obsId, originalText, 1, dateCreated
+        );
+        return db.executeQuery("select concept_proposal_id from concept_proposal where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
+    public void insertConceptProposalTagMap(Integer conceptProposalId, Integer conceptNameTagId) {
+        db.executeUpdate(
+                "insert into concept_proposal_tag_map (concept_proposal_id, concept_name_tag_id) values (?,?)",
+                conceptProposalId, conceptNameTagId
+        );
+    }
+
+    public Integer insertNamePhonetic(Integer personNameId, int field, String renderedString) {
+        db.executeUpdate(
+                "insert into name_phonetics (person_name_id, field, rendered_string, renderer_class_name) values (?,?,?,?)",
+                personNameId, field, renderedString, "org.openmrs.module.namephonetics.phoneticsalgorithm.DoubleMetaphoneAlternate"
+        );
+        return db.executeQuery("select name_phonetics_id from name_phonetics where person_name_id = ? and field = ?",
+                new ScalarHandler<>(), personNameId, field);
+    }
+
+    public Integer insertAddressHierarcyAddressToEntryMap(Integer addressId, Integer entryId) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into address_hierarchy_address_to_entry_map (uuid, address_id, entry_id) values (?,?,?)",
+                uuid, addressId, entryId
+        );
+        return db.executeQuery("select address_to_entry_map_id from address_hierarchy_address_to_entry_map where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
     public Integer insertAttributeType(String domain, String name) {
         String uuid = uuid();
         String table = domain + "_attribute_type";
@@ -393,6 +427,16 @@ public class DataBuilder {
                 uuid, name, 0, 1, dateCreated
         );
         return db.executeQuery("select " + id + " from " + table + " where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
+    public Integer insertConceptNameTag(String tag) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into concept_name_tag (uuid, tag, creator, date_created) values (?,?,?,?)",
+                uuid, tag, 1, dateCreated
+        );
+        return db.executeQuery("select concept_name_tag_id from concept_name_tag where uuid = ?", new ScalarHandler<>(), uuid);
+
     }
 
     public void updateTable(String table, String column, Object value, String idColumn, Integer idValue) {
