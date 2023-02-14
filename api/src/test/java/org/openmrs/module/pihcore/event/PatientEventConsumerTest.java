@@ -141,7 +141,7 @@ public class PatientEventConsumerTest {
         data.insertPersonMergeLogAsLoser(pId, otherPersonId);
         assertLastEvent(pId, "person_merge_log", false);
 
-        data.insertPatientIdentifier(pId,4,"ABC123", 1);
+        Integer patientIdentifierId = data.insertPatientIdentifier(pId,4,"ABC123", 1);
         assertLastEvent(pId, "patient_identifier", false);
 
         Integer allergyId = data.insertAllergy(pId,"Penicillin","DRUG");
@@ -261,6 +261,11 @@ public class PatientEventConsumerTest {
         Integer conceptProposalId = data.insertConceptProposal(encounterId, null, "Proposal linked to encounter");
         assertLastEvent(pId, "concept_proposal", false);
 
+        Integer tag1 = data.insertConceptNameTag("Tag 1");
+        Integer tag2 = data.insertConceptNameTag("Tag 2");
+        data.insertConceptProposalTagMap(conceptProposalId, tag1);
+        assertLastEvent(pId, "concept_proposal_tag_map", false);
+
         data.insertConceptProposal(null, obsId, "Proposal linked to obs");
         assertLastEvent(pId, "concept_proposal", false);
 
@@ -269,6 +274,16 @@ public class PatientEventConsumerTest {
 
         Integer addressHierarchyEntryId = data.insertAddressHierarcyAddressToEntryMap(personAddressId, 1);
         assertLastEvent(pId, "address_hierarchy_address_to_entry_map", false);
+
+        Integer paperRecordId = data.insertPaperRecord(patientIdentifierId, 1);
+        assertLastEvent(pId, "paperrecord_paper_record", false);
+
+        data.insertPaperRecordRequest(paperRecordId, 1);
+        assertLastEvent(pId, "paperrecord_paper_record_request", false);
+
+        Integer otherPaperRecordId = data.insertPaperRecord(patientIdentifierId, 1);
+        data.insertPaperRecordMergeRequest(paperRecordId, otherPaperRecordId);
+        assertLastEvent(pId, "paperrecord_paper_record_merge_request", false);
 
         // Test streaming updates
 
@@ -314,8 +329,12 @@ public class PatientEventConsumerTest {
         testUpdate(pId, "fhir_diagnostic_report_performers", "update fhir_diagnostic_report_performers set provider_id = 2 where diagnostic_report_id = ?", fhirDiagnosticReportId);
         testUpdate(pId, "fhir_diagnostic_report_results", "update fhir_diagnostic_report_results set obs_id = ? where diagnostic_report_id = ?", obsId, fhirDiagnosticReportWithObs);
         testUpdate(pId, "concept_proposal", "update concept_proposal set original_text = 'New original text' where concept_proposal_id = ?", conceptProposalId);
+        testUpdate(pId, "concept_proposal_tag_map", "update concept_proposal_tag_map set concept_name_tag_id = ? where concept_proposal_id = ?", tag2, conceptProposalId);
         testUpdate(pId, "name_phonetics", "update name_phonetics set field = 2 where name_phonetics_id = ?", namePhoneticId);
         testUpdate(pId, "address_hierarchy_address_to_entry_map", "update address_hierarchy_address_to_entry_map set entry_id = 2 where address_to_entry_map_id = ?", addressHierarchyEntryId);
+        testUpdate(pId, "paperrecord_paper_record", "update paperrecord_paper_record set status = 'ASSIGNED' where record_id = ?", paperRecordId);
+        testUpdate(pId, "paperrecord_paper_record_request", "update paperrecord_paper_record_request set status = 'ASSIGNED' where record_id = ?", paperRecordId);
+        testUpdate(pId, "paperrecord_paper_record_merge_request", "update paperrecord_paper_record_merge_request set status = 'ASSIGNED' where preferred_paper_record = ?", paperRecordId);
     }
 
     public void assertLastEvent(Integer patientId, String table, boolean expectedDeleted) throws Exception {

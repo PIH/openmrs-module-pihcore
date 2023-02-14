@@ -31,17 +31,6 @@ import java.util.concurrent.TimeUnit;
  * For performance reasons on larger databases, this does not use a Debezium-generated snapshot, but rather
  * computes a custom snapshot that is then updated as needed from change events.
  * When used, this should be configured with "snapshot.mode = schema_only"
- * The following tables have references to patient in some way but are not handled
- * <br/>
- * address_hierarchy_address_to_entry_map (references person_address)
- * paperrecord_paper_record (references patient_identifier)
- * paperrecord_paper_record_request (references paperrecord_paper_record)
- * paperrecord_paper_record_merge_request (references paperrecord_paper_record x 2)
- * name_phonetics (references person_name)
- * logic_rule_token (references person via creator)
- * logic_rule_token_tag (references logic_rule_token)
- * concept_proposal (references encounter and/or obs)
- * concept_proposal_tag_map (references concept_proposal)
  */
 public class PatientUpdateEventConsumer implements EventConsumer {
 
@@ -74,7 +63,12 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         patientKeys.put("obs_id", "obs");
         patientKeys.put("appointment_id", "appointmentscheduling_appointment");
         patientKeys.put("diagnostic_report_id", "fhir_diagnostic_report");
+        patientKeys.put("person_name_id", "person_name");
+        patientKeys.put("person_address_id", "person_address");
+        patientKeys.put("patient_identifier_id", "patient_identifier");
         nonStandardKeys.put("obs", "person_id");
+        nonStandardKeys.put("person_name", "person_id");
+        nonStandardKeys.put("person_address", "person_id");
         nonStandardKeys.put("fhir_diagnostic_report", "subject_id");
         multipleColumnTables.put("relationship", 2);
         multipleColumnTables.put("person_merge_log", 2);

@@ -418,6 +418,33 @@ public class DataBuilder {
         return db.executeQuery("select address_to_entry_map_id from address_hierarchy_address_to_entry_map where uuid = ?", new ScalarHandler<>(), uuid);
     }
 
+    public Integer insertPaperRecord(Integer patientIdentifierId, Integer recordLocation) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into paperrecord_paper_record (uuid, patient_identifier, record_location, creator, date_created) values (?,?,?,?,?)",
+                uuid, patientIdentifierId, recordLocation, 1, dateCreated
+        );
+        return db.executeQuery("select record_id from paperrecord_paper_record where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
+    public Integer insertPaperRecordRequest(Integer recordId, Integer requestLocation) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into paperrecord_paper_record_request (uuid, paper_record, request_location, creator, date_created) values (?,?,?,?,?)",
+                uuid, recordId, requestLocation, 1, dateCreated
+        );
+        return db.executeQuery("select request_id from paperrecord_paper_record_request where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
+    public Integer insertPaperRecordMergeRequest(Integer preferredId, Integer notPreferredId) {
+        String uuid = uuid();
+        db.executeUpdate(
+                "insert into paperrecord_paper_record_merge_request (uuid, preferred_paper_record, not_preferred_paper_record, creator, date_created) values (?,?,?,?,?)",
+                uuid, preferredId, notPreferredId, 1, dateCreated
+        );
+        return db.executeQuery("select merge_request_id from paperrecord_paper_record_merge_request where uuid = ?", new ScalarHandler<>(), uuid);
+    }
+
     public Integer insertAttributeType(String domain, String name) {
         String uuid = uuid();
         String table = domain + "_attribute_type";
@@ -436,7 +463,6 @@ public class DataBuilder {
                 uuid, tag, 1, dateCreated
         );
         return db.executeQuery("select concept_name_tag_id from concept_name_tag where uuid = ?", new ScalarHandler<>(), uuid);
-
     }
 
     public void updateTable(String table, String column, Object value, String idColumn, Integer idValue) {
