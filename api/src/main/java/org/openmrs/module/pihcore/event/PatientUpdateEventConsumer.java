@@ -190,7 +190,9 @@ public class PatientUpdateEventConsumer implements EventConsumer {
         DatabaseColumn personId = database.getMetadata().getTable("person").getColumn("person_id");
         List<String> tableExclusions = Arrays.asList("users", "provider", "logic_rule_token");
         for (DatabaseTable table : database.getMetadata().getTables().values()) {
-            ret.put(table.getTableName(), database.getMetadata().getPathsToColumn(table, personId, tableExclusions));
+            if (!tableExclusions.contains(table.getTableName())) {
+                ret.put(table.getTableName(), database.getMetadata().getPathsToColumn(table, personId, tableExclusions));
+            }
         }
         return ret;
     }
