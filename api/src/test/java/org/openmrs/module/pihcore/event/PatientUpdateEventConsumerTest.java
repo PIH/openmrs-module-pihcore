@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -39,9 +38,16 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class PatientEventConsumerTest {
+/**
+ * Tests the PatientUpdateEventConsumer
+ * Periodically, the underlying database used for this test should be updated to reflect the latest distribution,
+ * to make sure all tables are being appropriately captured and tested.
+ * To do this, create a new SDK instance, add in a single patient with data that covers as many domains as possible, and export
+ * The resulting sql file should replace the one in resources/event/openmrs.sql
+ */
+public class PatientUpdateEventConsumerTest {
 
-    private static final Logger log = LoggerFactory.getLogger(PatientEventConsumerTest.class);
+    private static final Logger log = LoggerFactory.getLogger(PatientUpdateEventConsumerTest.class);
 
     static DbEvent lastEvent = null;
     static GenericContainer<?> container = null;
@@ -88,11 +94,68 @@ public class PatientEventConsumerTest {
     public void shouldGetSnapshotStatements() {
         PatientUpdateEventConsumer consumer = (PatientUpdateEventConsumer) eventSource.getEventConsumer();
         Map<String, List<String>> snapshotStatements = consumer.getSnapshotStatements();
-        for (String tableName : snapshotStatements.keySet()) {
-            log.warn("Snapshotting table: " + tableName);
-            for (String statement : snapshotStatements.get(tableName)) {
-                log.warn(statement);
-            }
+        int totalNum = 0;
+        for (List<String> statements : snapshotStatements.values()) {
+            totalNum += statements.size();
+        }
+        assertThat(totalNum, equalTo(41));
+        assertSnapshot(snapshotStatements, "patient", 0, "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "person", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "allergy", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "appointmentscheduling_appointment", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "appointmentscheduling_appointment_request", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "cohort_member", 0, "p.last_updated", "date_created", "date_voided"); // No date_changed
+        assertSnapshot(snapshotStatements, "concept_proposal", 0, "encounter_id", "p.last_updated", "date_created", "date_changed");  // No date_voided
+        assertSnapshot(snapshotStatements, "concept_proposal", 1, "obs_id", "p.last_updated", "date_created", "date_changed"); // No date_voided
+        assertSnapshot(snapshotStatements, "conditions", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "diagnosis_attribute", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "encounter", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "encounter_diagnosis", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "encounter_provider", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "fhir_diagnostic_report", 0, "subject_id", "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "fhir_diagnostic_report", 1, "encounter_id", "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "note", 0, "patient_id", "p.last_updated", "date_created", "date_changed"); // No date_voided
+        assertSnapshot(snapshotStatements, "note", 1, "obs_id", "p.last_updated", "date_created", "date_changed"); // No date_voided
+        assertSnapshot(snapshotStatements, "note", 2, "encounter_id", "p.last_updated", "date_created", "date_changed"); // No date_voided
+        assertSnapshot(snapshotStatements, "obs", 0, "p.last_updated", "date_created", "date_voided"); // No date_changed
+        assertSnapshot(snapshotStatements, "order_attribute", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "order_group", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "order_group_attribute", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "orders", 0, "p.last_updated", "date_created", "date_voided"); // No date_changed
+        assertSnapshot(snapshotStatements, "paperrecord_paper_record", 0, "p.last_updated", "date_created", "date_status_changed"); // Non-standard
+        assertSnapshot(snapshotStatements, "paperrecord_paper_record_merge_request", 0,  "preferred_paper_record", "p.last_updated", "date_created"); // Non-standard
+        assertSnapshot(snapshotStatements, "paperrecord_paper_record_merge_request", 1, "not_preferred_paper_record", "p.last_updated", "date_created"); // Non-standard
+        assertSnapshot(snapshotStatements, "paperrecord_paper_record_request", 0, "assignee", "p.last_updated", "date_created", "date_status_changed"); // Non-standard
+        assertSnapshot(snapshotStatements, "paperrecord_paper_record_request", 1, "patient_identifier_id", "p.last_updated", "date_created", "date_status_changed"); // Non-standard
+        assertSnapshot(snapshotStatements, "patient_identifier", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "patient_program", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "patient_program_attribute", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "patient_state", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "person_address", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "person_attribute", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "person_merge_log", 0, "winner_person_id", "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "person_merge_log", 1, "loser_person_id", "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "person_name", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "relationship", 0, "person_a", "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "relationship", 1, "person_b", "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "visit", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+        assertSnapshot(snapshotStatements, "visit_attribute", 0, "p.last_updated", "date_created", "date_changed", "date_voided");
+    }
+
+    private void assertSnapshot(Map<String, List<String>> snapshots, String table, int index, String... textToMatch) {
+        List<String> statements = snapshots.get(table);
+        assertNotNull(statements);
+        assertTrue(index < statements.size());
+        String statement = statements.get(index);
+        if (table.equals("patient")) {
+            assertTrue(statement.contains("insert ignore into dbevent_patient"));
+        }
+        else {
+            assertTrue(statement.contains("update dbevent_patient"));
+            assertTrue(statement.contains("inner join " + table + " " + table));
+        }
+        for (String m : textToMatch) {
+            assertTrue(statement.contains(m));
         }
     }
 
@@ -100,14 +163,75 @@ public class PatientEventConsumerTest {
     public void shouldGetStreamingQueries() {
         PatientUpdateEventConsumer consumer = (PatientUpdateEventConsumer) eventSource.getEventConsumer();
         Map<String, List<DatabaseQuery>> patientQueries = consumer.getPatientQueries();
-        for (String table : patientQueries.keySet()) {
-            List<DatabaseQuery> queries = patientQueries.get(table);
-            if (!queries.isEmpty()) {
-                log.warn("Table: " + table);
-                for (DatabaseQuery query : patientQueries.get(table)) {
-                    log.warn(query.toString());
-                }
-            }
+        int totalNum = 0;
+        for (List<DatabaseQuery> queries : patientQueries.values()) {
+            totalNum += queries.size();
+        }
+        assertThat(totalNum, equalTo(53));
+        assertQuery(patientQueries, "address_hierarchy_address_to_entry_map", 0, "person_address_id", "address_to_entry_map_id");
+        assertQuery(patientQueries, "allergy", 0, "allergy_id");
+        assertQuery(patientQueries, "allergy_reaction", 0, "allergy_id", "allergy_reaction_id");
+        assertQuery(patientQueries, "appointmentscheduling_appointment", 0, "appointment_id");
+        assertQuery(patientQueries, "appointmentscheduling_appointment_request", 0, "appointment_request_id");
+        assertQuery(patientQueries, "appointmentscheduling_appointment_status_history", 0, "appointmentscheduling_appointment", "appointmentscheduling_appointment_status_history", "appointment_status_history_id");
+        assertQuery(patientQueries, "cohort_member", 0, "cohort_member_id");
+        assertQuery(patientQueries, "concept_proposal", 0, "encounter_id", "concept_proposal_id");
+        assertQuery(patientQueries, "concept_proposal", 1, "obs_id", "concept_proposal_id");
+        assertQuery(patientQueries, "concept_proposal_tag_map", 0, "encounter_id", "concept_proposal_id", "concept_name_tag_id");
+        assertQuery(patientQueries, "concept_proposal_tag_map", 1, "obs_id", "concept_proposal_id", "concept_name_tag_id");
+        assertQuery(patientQueries, "conditions", 0, "condition_id");
+        assertQuery(patientQueries, "diagnosis_attribute", 0, "diagnosis_id", "diagnosis_attribute_id");
+        assertQuery(patientQueries, "drug_order", 0, "order_id");
+        assertQuery(patientQueries, "emr_radiology_order", 0, "order_id");
+        assertQuery(patientQueries, "encounter", 0, "encounter_id");
+        assertQuery(patientQueries, "encounter_diagnosis", 0, "diagnosis_id");
+        assertQuery(patientQueries, "encounter_provider", 0, "encounter_id", "encounter_provider_id");
+        assertQuery(patientQueries, "fhir_diagnostic_report", 0, "subject_id", "diagnostic_report_id");
+        assertQuery(patientQueries, "fhir_diagnostic_report", 1, "encounter_id", "diagnostic_report_id");
+        assertQuery(patientQueries, "fhir_diagnostic_report_performers", 0, "subject_id", "diagnostic_report_id");
+        assertQuery(patientQueries, "fhir_diagnostic_report_performers", 1, "encounter_id", "diagnostic_report_id");
+        assertQuery(patientQueries, "fhir_diagnostic_report_results", 0, "obs_id", "diagnostic_report_id");
+        assertQuery(patientQueries, "name_phonetics", 0, "person_name_id", "name_phonetics_id");
+        assertQuery(patientQueries, "note", 0, "patient_id", "note_id");
+        assertQuery(patientQueries, "note", 1, "obs_id", "note_id");
+        assertQuery(patientQueries, "note", 2, "encounter_id", "note_id");
+        assertQuery(patientQueries, "obs", 0, "person_id", "obs_id");
+        assertQuery(patientQueries, "order_attribute", 0, "order_id", "order_attribute_id");
+        assertQuery(patientQueries, "order_group", 0, "order_group_id");
+        assertQuery(patientQueries, "order_group_attribute", 0, "order_group_id", "order_group_attribute_id");
+        assertQuery(patientQueries, "orders", 0, "order_id");
+        assertQuery(patientQueries, "paperrecord_paper_record", 0, "patient_identifier_id", "record_id");
+        assertQuery(patientQueries, "paperrecord_paper_record_merge_request", 0, "patient_identifier_id", "preferred_paper_record", "merge_request_id");
+        assertQuery(patientQueries, "paperrecord_paper_record_merge_request", 1, "patient_identifier_id", "not_preferred_paper_record", "merge_request_id");
+        assertQuery(patientQueries, "paperrecord_paper_record_request", 0, "assignee", "request_id");
+        assertQuery(patientQueries, "paperrecord_paper_record_request", 1, "patient_identifier_id", "request_id");
+        assertQuery(patientQueries, "patient_identifier", 0, "patient_identifier_id");
+        assertQuery(patientQueries, "patient_program", 0, "patient_program_id");
+        assertQuery(patientQueries, "patient_program_attribute", 0, "patient_program_id", "patient_program_attribute_id");
+        assertQuery(patientQueries, "patient_state", 0, "patient_program_id", "patient_state_id");
+        assertQuery(patientQueries, "person", 0, "person_id");
+        assertQuery(patientQueries, "person_address", 0, "person_id", "person_address_id");
+        assertQuery(patientQueries, "person_attribute", 0, "person_id", "person_attribute_id");
+        assertQuery(patientQueries, "person_merge_log", 0, "winner_person_id", "person_merge_log_id");
+        assertQuery(patientQueries, "person_merge_log", 1, "loser_person_id", "person_merge_log_id");
+        assertQuery(patientQueries, "person_name", 0, "person_id", "person_name_id");
+        assertQuery(patientQueries, "referral_order", 0, "order_id");
+        assertQuery(patientQueries, "relationship", 0, "person_a", "relationship_id");
+        assertQuery(patientQueries, "relationship", 1, "person_b", "relationship_id");
+        assertQuery(patientQueries, "test_order", 0, "order_id");
+        assertQuery(patientQueries, "visit", 0, "visit_id");
+        assertQuery(patientQueries, "visit_attribute", 0, "visit_id", "visit_attribute_id");
+    }
+
+    private void assertQuery(Map<String, List<DatabaseQuery>> queries, String table, int index, String... textToMatch) {
+        List<DatabaseQuery> queriesForTable = queries.get(table);
+        assertNotNull(queriesForTable);
+        assertTrue(index < queriesForTable.size());
+        DatabaseQuery query = queriesForTable.get(index);
+        assertNotNull(query);
+        assertTrue(query.getSql().startsWith("select p.patient_id from patient p"));
+        for (String m : textToMatch) {
+            assertTrue(query.getSql().contains(m) || query.getParameterNames().contains(m));
         }
     }
 
@@ -413,10 +537,6 @@ public class PatientEventConsumerTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private static String uuid() {
-        return UUID.randomUUID().toString();
     }
 
     private static Integer conceptId(String name) {

@@ -41,6 +41,10 @@ public class PatientUpdateEventConsumer implements EventConsumer {
 
     private static final Logger log = LogManager.getLogger(PatientUpdateEventConsumer.class);
 
+    public static final String[] DATE_CHANGED_COLUMNS = {
+            "date_created", "date_changed", "date_voided", "date_status_changed"  // date_status_changed is found on the paperrecord tables
+    };
+
     private final DbEventSourceConfig config;
     private final Database database;
     private Rocks statusDb;
@@ -199,21 +203,21 @@ public class PatientUpdateEventConsumer implements EventConsumer {
 
     /**
      * @param tableName the name of the table
-     * @param alias the alias for that table in the columns returned
      * @param defaultColumn the default column to be used if the table column is null
      * @return the columns from the given table to use in the initial snapshot query for that table
      */
-    public Set<String> getColumnsForTable(String tableName, String alias, String defaultColumn) {
-        Set<String> dateCols = new HashSet<>();
+    public List<String> getColumnsForTable(String tableName, String defaultColumn) {
+        List<String> dateCols = new ArrayList<>();
         Set<String> columns = database.getMetadata().getTable(tableName).getColumns().keySet();
-        if (columns.contains("date_created")) {
-            dateCols.add("ifnull(" + alias + ".date_created, " + defaultColumn + ")");
-        }
-        if (columns.contains("date_changed")) {
-            dateCols.add("ifnull(" + alias + ".date_changed, " + defaultColumn + ")");
-        }
-        if (columns.contains("date_voided")) {
-            dateCols.add("ifnull(" + alias + ".date_voided, " + defaultColumn + ")");
+        for (String col : DATE_CHANGED_COLUMNS) {
+            if (columns.contains(col)) {
+                if (defaultColumn.equals(tableName + "." + col)) {
+                    dateCols.add(defaultColumn);
+                }
+                else {
+                    dateCols.add("ifnull(" + tableName + "." + col + ", " + defaultColumn + ")");
+                }
+            }
         }
         return dateCols;
     }
@@ -227,15 +231,15 @@ public class PatientUpdateEventConsumer implements EventConsumer {
 
         SqlBuilder sb = new SqlBuilder();
         sb.append("insert ignore into dbevent_patient (patient_id, last_updated, deleted)");
-        sb.append("select p.patient_id, greatest(");
-        sb.append(String.join(", ", getColumnsForTable("patient", "p", "date_created")));
-        sb.append("), p.voided from patient p");
+        sb.append("select patient.patient_id, greatest(");
+        sb.append(String.join(", ", getColumnsForTable("patient", "patient.date_created")));
+        sb.append("), patient.voided from patient patient");
         ret.put("patient", Collections.singletonList(sb.toString()));
 
         sb = new SqlBuilder();
-        sb.append("update dbevent_patient p inner join person n on p.patient_id = n.person_id");
+        sb.append("update dbevent_patient p inner join person person on p.patient_id = person.person_id");
         sb.append("set p.last_updated = greatest( p.last_updated,");
-        sb.append(String.join(", ", getColumnsForTable("person", "n", "p.last_updated")));
+        sb.append(String.join(", ", getColumnsForTable("person", "p.last_updated")));
         sb.append(")");
         ret.put("person", Collections.singletonList(sb.toString()));
 
@@ -247,7 +251,7 @@ public class PatientUpdateEventConsumer implements EventConsumer {
             }
 
             List<String> statementsForTable = new ArrayList<>();
-            Set<String> dateCols = getColumnsForTable(tableName, tableName, "p.last_updated");
+            List<String> dateCols = getColumnsForTable(tableName, "p.last_updated");
             if (!dateCols.isEmpty()) {
                 List<DatabaseJoinPath> tableJoinPaths = paths.get(tableName);
                 for (DatabaseJoinPath joinPath : tableJoinPaths) {
