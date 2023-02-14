@@ -45,9 +45,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * To do this, create a new SDK instance, add in a single patient with data that covers as many domains as possible, and export
  * The resulting sql file should replace the one in resources/event/openmrs.sql
  */
-public class PatientUpdateEventConsumerTest {
+public class PatientUpdateEventConsumerDockerTest {
 
-    private static final Logger log = LoggerFactory.getLogger(PatientUpdateEventConsumerTest.class);
+    private static final Logger log = LoggerFactory.getLogger(PatientUpdateEventConsumerDockerTest.class);
 
     static DbEvent lastEvent = null;
     static GenericContainer<?> container = null;
