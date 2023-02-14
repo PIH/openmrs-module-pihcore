@@ -140,6 +140,10 @@ public class ConfigurationSetup {
         initializerMessageSource.addFallbackLanguage("ht", "fr");
      }
 
+     public void setupDbEventConsumers() {
+        DbEventSetup.setup(config);
+     }
+
     // Anything in here depends on configuration settings and needs to be refreshed in a specific order,
     // as some configurations depend on settings or metadata setup in previous configurations.
     // Ideally we will get rid of this non-concept vs concept dependencies.  Just need to speed up the concept loading component.

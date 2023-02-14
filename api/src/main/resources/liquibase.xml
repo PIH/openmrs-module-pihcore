@@ -1205,5 +1205,19 @@
         </sql>
     </changeSet>
 
+    <changeSet id="20230131-add-dbevent-patient" author="mseaton">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="dbevent_patient"/></not>
+        </preConditions>
+        <comment>Table to track most recent update date of each patient</comment>
+        <createTable tableName="dbevent_patient">
+            <column autoIncrement="false" name="patient_id" type="int">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="last_updated" type="datetime(3)"/>
+            <column name="deleted" type="boolean" defaultValueBoolean="false"/>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
 

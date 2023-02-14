@@ -30,6 +30,18 @@ To see local changes in a config repo reflected in pihcore in your IDE:
 - Reimport Maven projects in your IDE
 - Run `mvn generate-sources` in this project
 
+### Integration Tests
+
+By convention, all integration tests end with "IT".  Currently, these integration tests are used to run test executions
+that rely on MySQL and utilize the testcontainers library to orchestrate Docker container startup, shutdown, and cleanup
+needed for test execution.  By default, these tests will not run during a standard build.
+
+In order to run the Integration Tests during the build, one should use the "integration-test" profile:
+
+```shell
+mvn clean install -Pintegration-test
+```
+
 ### HTMLFormEntry Features
 
 This module also defines a few HTML Form Entry features.

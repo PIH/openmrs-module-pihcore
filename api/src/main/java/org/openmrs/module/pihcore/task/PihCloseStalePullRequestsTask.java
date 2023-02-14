@@ -18,5 +18,6 @@ public class PihCloseStalePullRequestsTask implements Runnable {
         CloseStalePullRequestsTask task = new CloseStalePullRequestsTask();
         task.initialize(new TaskDefinition());
         task.execute();
+        log.info(getClass() + " Execution Completed");
     }
 }

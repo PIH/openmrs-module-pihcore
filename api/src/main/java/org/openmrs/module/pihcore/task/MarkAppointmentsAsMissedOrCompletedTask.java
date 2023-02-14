@@ -43,5 +43,7 @@ public class MarkAppointmentsAsMissedOrCompletedTask implements Runnable {
                 appointmentService.saveAppointment(appointment);
             }
         }
+
+        log.info(getClass() + " Execution Completed");
     }
 }

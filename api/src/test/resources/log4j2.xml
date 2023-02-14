@@ -24,7 +24,8 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Logger name="org.openmrs.module.pihcore" additivity="false" level="INFO" />
+		<Logger name="org.openmrs.module.dbevent.DbEventLog" level="TRACE" />
+		<Logger name="org.openmrs.module.pihcore" level="INFO" />
 		<Logger name="org.springframework" additivity="false" level="WARN" />
 		<Logger name="org.hibernate" additivity="false" level="ERROR" />
 		<Root level="WARN">

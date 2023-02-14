@@ -59,6 +59,7 @@
         <authenticationuiVersion>1.0.0-SNAPSHOT</authenticationuiVersion>
         <calculationVersion>1.3.0</calculationVersion>
         <coreappsVersion>1.39.0-SNAPSHOT</coreappsVersion>
+        <dbeventVersion>1.0.0-SNAPSHOT</dbeventVersion>
         <dispensingVersion>1.3.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>2.0.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
@@ -97,6 +98,8 @@
         <uiframeworkVersion>3.23.0</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.37.0-SNAPSHOT</webservicesRestVersion>
+
+        <testcontainersVersion>1.17.6</testcontainersVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -151,6 +154,12 @@
             <artifactId>appframework-api</artifactId>
             <version>${appframeworkVersion}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>antlr4-runtime</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -221,6 +230,20 @@
             <artifactId>coreapps-api</artifactId>
             <version>${coreappsVersion}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>dbevent-api</artifactId>
+            <version>${dbeventVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>dbevent-api</artifactId>
+            <version>${dbeventVersion}</version>
+            <scope>test</scope>
+            <classifier>tests</classifier>
         </dependency>
 
         <dependency>
@@ -683,6 +706,15 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Testing -->
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
+            <version>${testcontainersVersion}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 	<build>
@@ -722,9 +754,9 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M5</version>
+                    <version>3.0.0-M7</version>
 					<configuration>
-						<includes>
+                        <includes>
 							<include>**/*Test.java</include>
 						</includes>
 					</configuration>
@@ -758,6 +790,33 @@
         </plugins>
 
 	</build>
+    <profiles>
+        <profile>
+            <id>integration-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>3.0.0-M7</version>
+                        <configuration>
+                            <includes>
+                                <include>**/*IT</include>
+                            </includes>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <repositories>
         <repository>
