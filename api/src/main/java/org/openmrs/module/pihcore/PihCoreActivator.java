@@ -28,6 +28,8 @@ import org.openmrs.module.pihcore.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.task.PihCoreTimerTask;
 
+import java.util.concurrent.TimeUnit;
+
 public class PihCoreActivator extends BaseModuleActivator implements DaemonTokenAware {
 
 	protected Log log = LogFactory.getLog(getClass());
@@ -68,7 +70,14 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
                 configurationSetup.configureConceptDependencies();
             }
 
-            configurationSetup.setupDbEventConsumers();
+            // Startup DB event consumers in a separate thread
+            Daemon.runInDaemonThread(() -> {
+                try {
+                    TimeUnit.MINUTES.sleep(1);
+                }
+                catch (Exception e) {}
+                configurationSetup.setupDbEventConsumers();
+            }, daemonToken);
 
             log.info("Distribution startup complete.");
         }
