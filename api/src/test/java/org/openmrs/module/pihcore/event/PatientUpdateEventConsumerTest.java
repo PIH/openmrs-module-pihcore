@@ -477,6 +477,57 @@ public class PatientUpdateEventConsumerTest {
             testUpdate(pId, "paperrecord_paper_record", "update paperrecord_paper_record set status = 'ASSIGNED' where record_id = ?", paperRecordId);
             testUpdate(pId, "paperrecord_paper_record_request", "update paperrecord_paper_record_request set status = 'ASSIGNED' where request_id = ?", paperRecordRequestId);
             testUpdate(pId, "paperrecord_paper_record_merge_request", "update paperrecord_paper_record_merge_request set status = 'ASSIGNED' where preferred_paper_record = ?", paperRecordId);
+
+            // Test streaming voids (reverse order from updates) and then deletes
+
+            testVoidAndDelete(pId, "paperrecord_paper_record_merge_request", "preferred_paper_record", paperRecordId);
+            testVoidAndDelete(pId, "paperrecord_paper_record_request", "request_id", paperRecordRequestId);
+            testVoidAndDelete(pId, "paperrecord_paper_record", "record_id", paperRecordId);
+            testVoidAndDelete(pId, "address_hierarchy_address_to_entry_map", "address_to_entry_map_id", addressHierarchyEntryId);
+            testVoidAndDelete(pId, "name_phonetics", "name_phonetics_id", namePhoneticId);
+            testVoidAndDelete(pId, "concept_proposal_tag_map", "concept_proposal_id", conceptProposalId);
+            testVoidAndDelete(pId, "concept_proposal", "concept_proposal_id", conceptProposalId);
+            testVoidAndDelete(pId, "fhir_diagnostic_report_results", "diagnostic_report_id", fhirDiagnosticReportWithObs);
+            testVoidAndDelete(pId, "fhir_diagnostic_report_performers", "diagnostic_report_id", fhirDiagnosticReportId);
+            testVoidAndDelete(pId, "fhir_diagnostic_report", "diagnostic_report_id", fhirDiagnosticReportId);
+            testVoidAndDelete(pId, "appointmentscheduling_appointment_request", "appointment_request_id", appointmentRequestId);
+            testVoidAndDelete(pId, "appointmentscheduling_appointment_status_history", "appointment_status_history_id = ?", appointmentStatusId);
+            testVoidAndDelete(pId, "appointmentscheduling_appointment", "appointment_id", appointmentId);
+            testVoidAndDelete(pId, "cohort_member", "patient_id", pId);
+            testVoidAndDelete(pId, "order_group_attribute", "order_group_id", orderGroupId);
+            testVoidAndDelete(pId, "order_group", "order_group_id", orderGroupId);
+            testVoidAndDelete(pId, "order_attribute", "order_id", drugOrderId);
+            testVoidAndDelete(pId, "emr_radiology_order", "order_id", radiologyOrderId);
+            testVoidAndDelete(pId, "test_order", "order_id", radiologyOrderId);
+            testVoidAndDelete(pId, "referral_order", "order_id", referralOrderId);
+            testVoidAndDelete(pId, "drug_order", "order_id", drugOrderId);
+            testVoidAndDelete(pId, "orders", "order_id", drugOrderId);
+            testVoidAndDelete(pId, "note", "obs_id", obsId);
+            testVoidAndDelete(pId, "note", "encounter_id", encounterId);
+            testVoidAndDelete(pId, "note", "patient_id", pId);
+            testVoidAndDelete(pId, "obs", "obs_id", obsId);
+            testVoidAndDelete(pId, "diagnosis_attribute", "diagnosis_id", diagnosisId);
+            testVoidAndDelete(pId, "encounter_diagnosis", "diagnosis_id", diagnosisId);
+            testVoidAndDelete(pId, "encounter_provider", "encounter_id", encounterId);
+            testVoidAndDelete(pId, "encounter", "encounter_id", encounterId);
+            testVoidAndDelete(pId, "visit_attribute", "visit_id", visitId);
+            testVoidAndDelete(pId, "visit", "patient_id", pId);
+            testVoidAndDelete(pId, "patient_program_attribute", "patient_program_id", patientProgramId);
+            testVoidAndDelete(pId, "patient_state", "patient_program_id", patientProgramId);
+            testVoidAndDelete(pId, "patient_program", "patient_program_id", patientProgramId);
+            testVoidAndDelete(pId, "conditions", "patient_id", pId);
+            testVoidAndDelete(pId, "allergy_reaction", "allergy_id", allergyId);
+            testVoidAndDelete(pId, "allergy", "patient_id", pId);
+            testVoidAndDelete(pId, "patient_identifier", "patient_id", pId);
+            testVoidAndDelete(pId, "person_merge_log", "loser_person_id", pId);
+            testVoidAndDelete(pId, "person_merge_log", "winner_person_id", pId);
+            testVoidAndDelete(pId, "relationship", "person_b", pId);
+            testVoidAndDelete(pId, "relationship", "person_a", pId);
+            testVoidAndDelete(pId, "person_attribute", "person_id", pId);
+            testVoidAndDelete(pId, "person_address", "person_id", pId);
+            testVoidAndDelete(pId, "person_name", "person_id", pId);
+            testVoidAndDelete(pId, "patient", "patient_id", pId);
+            testVoidAndDelete(pId, "person", "person_id", pId);
         }
         finally {
             eventSource.stop();
@@ -498,6 +549,15 @@ public class PatientUpdateEventConsumerTest {
     public void testUpdate(Integer patientId, String table, String statement, Object... args) throws Exception {
         db.executeUpdate(statement, args);
         assertLastEvent(patientId, table, false);
+    }
+
+    public void testVoidAndDelete(Integer patientId, String table, String idColumn, Integer idValue) throws Exception{
+        if (db.getMetadata().getTable(table).getColumn("voided") != null) {
+            db.executeUpdate("update " + table + " set voided = true where " + idColumn + " = ?", idValue);
+            assertLastEvent(patientId, table, true);
+        }
+        db.executeUpdate("delete from " + table + " where " + idColumn + " = ?", idValue);
+        assertLastEvent(patientId, table, true);
     }
 
     protected static void waitForSnapshotToComplete(DbEventSource eventSource) throws Exception {
