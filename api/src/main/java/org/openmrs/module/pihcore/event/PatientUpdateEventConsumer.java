@@ -325,23 +325,16 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                             pkTable = "p";
                             pkCol = "patient_id";
                         }
-                        sql.innerJoin(fkTable, fkTable, fkCol, pkTable, pkCol);
-                    }
 
-                    DatabaseColumn primaryKey = table.getPrimaryKeyColumn();
-                    if (primaryKey != null) {
-                        sql.append("where " + primaryKey + " = ?");
-                        List<String> args = Collections.singletonList(primaryKey.getColumnName());
-                        queries.add(new DatabaseQuery(sql.toString(), args));
-                    } else {
-                        List<String> args = new ArrayList<>();
-                        for (DatabaseColumn col : table.getColumns().values()) {
-                            if (!col.isNullable()) {
-                                sql.append(args.isEmpty() ? "where" : "and").append(col.toString()).append(" = ?");
-                                args.add(col.getColumnName());
-                            }
+                        // The last join column becomes the where clause of the statement
+                        if (i == 0) {
+                            sql.append("where " + pkTable + "." + pkCol + " = ?");
+                            List<String> args = Collections.singletonList(join.getForeignKey().getColumnName());
+                            queries.add(new DatabaseQuery(sql.toString(), args));
                         }
-                        queries.add(new DatabaseQuery(sql.toString(), args));
+                        else {
+                            sql.innerJoin(fkTable, fkTable, fkCol, pkTable, pkCol);
+                        }
                     }
                 }
             }

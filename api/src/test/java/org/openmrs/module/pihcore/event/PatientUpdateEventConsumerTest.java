@@ -167,72 +167,77 @@ public class PatientUpdateEventConsumerTest {
         for (List<DatabaseQuery> queries : patientQueries.values()) {
             totalNum += queries.size();
         }
+        String basePatientIdQuery = "select p.patient_id from patient p where p.patient_id = ?";
+        String patientIdColumn = "patient_id";
+        String personIdColumn = "person_id";
+        String encounterIdColumn = "encounter_id";
+        String orderIdColumn = "order_id";
+
         assertThat(totalNum, equalTo(53));
-        assertQuery(patientQueries, "address_hierarchy_address_to_entry_map", 0, "person_address_id", "address_to_entry_map_id");
-        assertQuery(patientQueries, "allergy", 0, "allergy_id");
-        assertQuery(patientQueries, "allergy_reaction", 0, "allergy_id", "allergy_reaction_id");
-        assertQuery(patientQueries, "appointmentscheduling_appointment", 0, "appointment_id");
-        assertQuery(patientQueries, "appointmentscheduling_appointment_request", 0, "appointment_request_id");
-        assertQuery(patientQueries, "appointmentscheduling_appointment_status_history", 0, "appointmentscheduling_appointment", "appointmentscheduling_appointment_status_history", "appointment_status_history_id");
-        assertQuery(patientQueries, "cohort_member", 0, "cohort_member_id");
-        assertQuery(patientQueries, "concept_proposal", 0, "encounter_id", "concept_proposal_id");
-        assertQuery(patientQueries, "concept_proposal", 1, "obs_id", "concept_proposal_id");
-        assertQuery(patientQueries, "concept_proposal_tag_map", 0, "encounter_id", "concept_proposal_id", "concept_name_tag_id");
-        assertQuery(patientQueries, "concept_proposal_tag_map", 1, "obs_id", "concept_proposal_id", "concept_name_tag_id");
-        assertQuery(patientQueries, "conditions", 0, "condition_id");
-        assertQuery(patientQueries, "diagnosis_attribute", 0, "diagnosis_id", "diagnosis_attribute_id");
-        assertQuery(patientQueries, "drug_order", 0, "order_id");
-        assertQuery(patientQueries, "emr_radiology_order", 0, "order_id");
-        assertQuery(patientQueries, "encounter", 0, "encounter_id");
-        assertQuery(patientQueries, "encounter_diagnosis", 0, "diagnosis_id");
-        assertQuery(patientQueries, "encounter_provider", 0, "encounter_id", "encounter_provider_id");
-        assertQuery(patientQueries, "fhir_diagnostic_report", 0, "subject_id", "diagnostic_report_id");
-        assertQuery(patientQueries, "fhir_diagnostic_report", 1, "encounter_id", "diagnostic_report_id");
-        assertQuery(patientQueries, "fhir_diagnostic_report_performers", 0, "subject_id", "diagnostic_report_id");
-        assertQuery(patientQueries, "fhir_diagnostic_report_performers", 1, "encounter_id", "diagnostic_report_id");
-        assertQuery(patientQueries, "fhir_diagnostic_report_results", 0, "obs_id", "diagnostic_report_id");
-        assertQuery(patientQueries, "name_phonetics", 0, "person_name_id", "name_phonetics_id");
-        assertQuery(patientQueries, "note", 0, "patient_id", "note_id");
-        assertQuery(patientQueries, "note", 1, "obs_id", "note_id");
-        assertQuery(patientQueries, "note", 2, "encounter_id", "note_id");
-        assertQuery(patientQueries, "obs", 0, "person_id", "obs_id");
-        assertQuery(patientQueries, "order_attribute", 0, "order_id", "order_attribute_id");
-        assertQuery(patientQueries, "order_group", 0, "order_group_id");
-        assertQuery(patientQueries, "order_group_attribute", 0, "order_group_id", "order_group_attribute_id");
-        assertQuery(patientQueries, "orders", 0, "order_id");
-        assertQuery(patientQueries, "paperrecord_paper_record", 0, "patient_identifier_id", "record_id");
-        assertQuery(patientQueries, "paperrecord_paper_record_merge_request", 0, "patient_identifier_id", "preferred_paper_record", "merge_request_id");
-        assertQuery(patientQueries, "paperrecord_paper_record_merge_request", 1, "patient_identifier_id", "not_preferred_paper_record", "merge_request_id");
-        assertQuery(patientQueries, "paperrecord_paper_record_request", 0, "assignee", "request_id");
-        assertQuery(patientQueries, "paperrecord_paper_record_request", 1, "patient_identifier_id", "request_id");
-        assertQuery(patientQueries, "patient_identifier", 0, "patient_identifier_id");
-        assertQuery(patientQueries, "patient_program", 0, "patient_program_id");
-        assertQuery(patientQueries, "patient_program_attribute", 0, "patient_program_id", "patient_program_attribute_id");
-        assertQuery(patientQueries, "patient_state", 0, "patient_program_id", "patient_state_id");
-        assertQuery(patientQueries, "person", 0, "person_id");
-        assertQuery(patientQueries, "person_address", 0, "person_id", "person_address_id");
-        assertQuery(patientQueries, "person_attribute", 0, "person_id", "person_attribute_id");
-        assertQuery(patientQueries, "person_merge_log", 0, "winner_person_id", "person_merge_log_id");
-        assertQuery(patientQueries, "person_merge_log", 1, "loser_person_id", "person_merge_log_id");
-        assertQuery(patientQueries, "person_name", 0, "person_id", "person_name_id");
-        assertQuery(patientQueries, "referral_order", 0, "order_id");
-        assertQuery(patientQueries, "relationship", 0, "person_a", "relationship_id");
-        assertQuery(patientQueries, "relationship", 1, "person_b", "relationship_id");
-        assertQuery(patientQueries, "test_order", 0, "order_id");
-        assertQuery(patientQueries, "visit", 0, "visit_id");
-        assertQuery(patientQueries, "visit_attribute", 0, "visit_id", "visit_attribute_id");
+        assertQuery(patientQueries, "address_hierarchy_address_to_entry_map", 0, "select p.patient_id from patient p inner join person_address person_address on person_address.person_id = p.patient_id where person_address.person_address_id = ?", "address_id");
+        assertQuery(patientQueries, "allergy", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "allergy_reaction", 0, "select p.patient_id from patient p inner join allergy allergy on allergy.patient_id = p.patient_id where allergy.allergy_id = ?", "allergy_id");
+        assertQuery(patientQueries, "appointmentscheduling_appointment", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "appointmentscheduling_appointment_request", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "appointmentscheduling_appointment_status_history", 0, "select p.patient_id from patient p inner join appointmentscheduling_appointment appointmentscheduling_appointment on appointmentscheduling_appointment.patient_id = p.patient_id where appointmentscheduling_appointment.appointment_id = ?", "appointment_id");
+        assertQuery(patientQueries, "cohort_member", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "concept_proposal", 0, "select p.patient_id from patient p inner join encounter encounter on encounter.patient_id = p.patient_id where encounter.encounter_id = ?", encounterIdColumn);
+        assertQuery(patientQueries, "concept_proposal", 1, "select p.patient_id from patient p inner join obs obs on obs.person_id = p.patient_id where obs.obs_id = ?", "obs_id");
+        assertQuery(patientQueries, "concept_proposal_tag_map", 0, "select p.patient_id from patient p inner join encounter encounter on encounter.patient_id = p.patient_id inner join concept_proposal concept_proposal on concept_proposal.encounter_id = encounter.encounter_id where concept_proposal.concept_proposal_id = ?", "concept_proposal_id");
+        assertQuery(patientQueries, "concept_proposal_tag_map", 1, "select p.patient_id from patient p inner join obs obs on obs.person_id = p.patient_id inner join concept_proposal concept_proposal on concept_proposal.obs_id = obs.obs_id where concept_proposal.concept_proposal_id = ?", "concept_proposal_id");
+        assertQuery(patientQueries, "conditions", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "diagnosis_attribute", 0, "select p.patient_id from patient p inner join encounter_diagnosis encounter_diagnosis on encounter_diagnosis.patient_id = p.patient_id where encounter_diagnosis.diagnosis_id = ?", "diagnosis_id");
+        assertQuery(patientQueries, "drug_order", 0, "select p.patient_id from patient p inner join orders orders on orders.patient_id = p.patient_id where orders.order_id = ?", orderIdColumn);
+        assertQuery(patientQueries, "emr_radiology_order", 0, "select p.patient_id from patient p inner join orders orders on orders.patient_id = p.patient_id inner join test_order test_order on test_order.order_id = orders.order_id where test_order.order_id = ?", orderIdColumn);
+        assertQuery(patientQueries, "encounter", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "encounter_diagnosis", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "encounter_provider", 0, "select p.patient_id from patient p inner join encounter encounter on encounter.patient_id = p.patient_id where encounter.encounter_id = ?", encounterIdColumn);
+        assertQuery(patientQueries, "fhir_diagnostic_report", 0, basePatientIdQuery, "subject_id");
+        assertQuery(patientQueries, "fhir_diagnostic_report", 1, "select p.patient_id from patient p inner join encounter encounter on encounter.patient_id = p.patient_id where encounter.encounter_id = ?", encounterIdColumn);
+        assertQuery(patientQueries, "fhir_diagnostic_report_performers", 0, "select p.patient_id from patient p inner join fhir_diagnostic_report fhir_diagnostic_report on fhir_diagnostic_report.subject_id = p.patient_id where fhir_diagnostic_report.diagnostic_report_id = ?", "diagnostic_report_id");
+        assertQuery(patientQueries, "fhir_diagnostic_report_performers", 1, "select p.patient_id from patient p inner join encounter encounter on encounter.patient_id = p.patient_id inner join fhir_diagnostic_report fhir_diagnostic_report on fhir_diagnostic_report.encounter_id = encounter.encounter_id where fhir_diagnostic_report.diagnostic_report_id = ?", "diagnostic_report_id");
+        assertQuery(patientQueries, "fhir_diagnostic_report_results", 0, "select p.patient_id from patient p inner join obs obs on obs.person_id = p.patient_id where obs.obs_id = ?", "obs_id");
+        assertQuery(patientQueries, "name_phonetics", 0, "select p.patient_id from patient p inner join person_name person_name on person_name.person_id = p.patient_id where person_name.person_name_id = ?", "person_name_id");
+        assertQuery(patientQueries, "note", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "note", 1, "select p.patient_id from patient p inner join obs obs on obs.person_id = p.patient_id where obs.obs_id = ?", "obs_id");
+        assertQuery(patientQueries, "note", 2, "select p.patient_id from patient p inner join encounter encounter on encounter.patient_id = p.patient_id where encounter.encounter_id = ?", encounterIdColumn);
+        assertQuery(patientQueries, "obs", 0, basePatientIdQuery, personIdColumn);
+        assertQuery(patientQueries, "order_attribute", 0, "select p.patient_id from patient p inner join orders orders on orders.patient_id = p.patient_id where orders.order_id = ?", orderIdColumn);
+        assertQuery(patientQueries, "order_group", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "order_group_attribute", 0, "select p.patient_id from patient p inner join order_group order_group on order_group.patient_id = p.patient_id where order_group.order_group_id = ?", "order_group_id");
+        assertQuery(patientQueries, "orders", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "paperrecord_paper_record", 0, "select p.patient_id from patient p inner join patient_identifier patient_identifier on patient_identifier.patient_id = p.patient_id where patient_identifier.patient_identifier_id = ?", "patient_identifier");
+        assertQuery(patientQueries, "paperrecord_paper_record_merge_request", 0, "select p.patient_id from patient p inner join patient_identifier patient_identifier on patient_identifier.patient_id = p.patient_id inner join paperrecord_paper_record paperrecord_paper_record on paperrecord_paper_record.patient_identifier = patient_identifier.patient_identifier_id where paperrecord_paper_record.record_id = ?", "preferred_paper_record");
+        assertQuery(patientQueries, "paperrecord_paper_record_merge_request", 1, "select p.patient_id from patient p inner join patient_identifier patient_identifier on patient_identifier.patient_id = p.patient_id inner join paperrecord_paper_record paperrecord_paper_record on paperrecord_paper_record.patient_identifier = patient_identifier.patient_identifier_id where paperrecord_paper_record.record_id = ?", "not_preferred_paper_record");
+        assertQuery(patientQueries, "paperrecord_paper_record_request", 0, basePatientIdQuery, "assignee");
+        assertQuery(patientQueries, "paperrecord_paper_record_request", 1, "select p.patient_id from patient p inner join patient_identifier patient_identifier on patient_identifier.patient_id = p.patient_id inner join paperrecord_paper_record paperrecord_paper_record on paperrecord_paper_record.patient_identifier = patient_identifier.patient_identifier_id where paperrecord_paper_record.record_id = ?", "paper_record");
+        assertQuery(patientQueries, "patient_identifier", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "patient_program", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "patient_program_attribute", 0, "select p.patient_id from patient p inner join patient_program patient_program on patient_program.patient_id = p.patient_id where patient_program.patient_program_id = ?", "patient_program_id");
+        assertQuery(patientQueries, "patient_state", 0, "select p.patient_id from patient p inner join patient_program patient_program on patient_program.patient_id = p.patient_id where patient_program.patient_program_id = ?", "patient_program_id");
+        assertQuery(patientQueries, "person", 0, basePatientIdQuery, personIdColumn);
+        assertQuery(patientQueries, "person_address", 0, basePatientIdQuery, personIdColumn);
+        assertQuery(patientQueries, "person_attribute", 0, basePatientIdQuery, personIdColumn);
+        assertQuery(patientQueries, "person_merge_log", 0, basePatientIdQuery, "winner_person_id");
+        assertQuery(patientQueries, "person_merge_log", 1, basePatientIdQuery, "loser_person_id");
+        assertQuery(patientQueries, "person_name", 0, basePatientIdQuery, personIdColumn);
+        assertQuery(patientQueries, "referral_order", 0, "select p.patient_id from patient p inner join orders orders on orders.patient_id = p.patient_id where orders.order_id = ?", orderIdColumn);
+        assertQuery(patientQueries, "relationship", 0, basePatientIdQuery, "person_a");
+        assertQuery(patientQueries, "relationship", 1, basePatientIdQuery, "person_b");
+        assertQuery(patientQueries, "test_order", 0, "select p.patient_id from patient p inner join orders orders on orders.patient_id = p.patient_id where orders.order_id = ?", orderIdColumn);
+        assertQuery(patientQueries, "visit", 0, basePatientIdQuery, patientIdColumn);
+        assertQuery(patientQueries, "visit_attribute", 0, "select p.patient_id from patient p inner join visit visit on visit.patient_id = p.patient_id where visit.visit_id = ?", "visit_id");
     }
 
-    private void assertQuery(Map<String, List<DatabaseQuery>> queries, String table, int index, String... textToMatch) {
+    private void assertQuery(Map<String, List<DatabaseQuery>> queries, String table, int index, String expectedQuery, String expectedColumn) {
         List<DatabaseQuery> queriesForTable = queries.get(table);
         assertNotNull(queriesForTable);
         assertTrue(index < queriesForTable.size());
         DatabaseQuery query = queriesForTable.get(index);
         assertNotNull(query);
-        assertTrue(query.getSql().startsWith("select p.patient_id from patient p"));
-        for (String m : textToMatch) {
-            assertTrue(query.getSql().contains(m) || query.getParameterNames().contains(m));
-        }
+        assertThat(query.getSql().trim(), equalTo(expectedQuery.trim()));
+        assertThat(query.getParameterNames().size(), equalTo(1));
+        assertThat(query.getParameterNames().get(0), equalTo(expectedColumn));
     }
 
     @Test
@@ -392,7 +397,7 @@ public class PatientUpdateEventConsumerTest {
             data.insertFhirDiagnosticReportPerformer(fhirDiagnosticReportId, 1);
             assertLastEvent(pId, "fhir_diagnostic_report_performers", false);
 
-            data.insertFhirDiagnosticReport(null, encounterId, "ENCOUNTER");
+            Integer fhirDiagnosticReportWithEncounter = data.insertFhirDiagnosticReport(null, encounterId, "ENCOUNTER");
             assertLastEvent(pId, "fhir_diagnostic_report", false);
 
             Integer fhirDiagnosticReportWithObs = data.insertFhirDiagnosticReport(null, null, "OBS");
@@ -408,7 +413,7 @@ public class PatientUpdateEventConsumerTest {
             data.insertConceptProposalTagMap(conceptProposalId, tag1);
             assertLastEvent(pId, "concept_proposal_tag_map", false);
 
-            data.insertConceptProposal(null, obsId, "Proposal linked to obs");
+            Integer conceptProposalForObs = data.insertConceptProposal(null, obsId, "Proposal linked to obs");
             assertLastEvent(pId, "concept_proposal", false);
 
             Integer namePhoneticId = data.insertNamePhonetic(personNameId, 1, "PKS");
@@ -482,16 +487,18 @@ public class PatientUpdateEventConsumerTest {
 
             testVoidAndDelete(pId, "paperrecord_paper_record_merge_request", "preferred_paper_record", paperRecordId);
             testVoidAndDelete(pId, "paperrecord_paper_record_request", "request_id", paperRecordRequestId);
-            testVoidAndDelete(pId, "paperrecord_paper_record", "record_id", paperRecordId);
+            testVoidAndDelete(pId, "paperrecord_paper_record", "patient_identifier", patientIdentifierId);
             testVoidAndDelete(pId, "address_hierarchy_address_to_entry_map", "address_to_entry_map_id", addressHierarchyEntryId);
             testVoidAndDelete(pId, "name_phonetics", "name_phonetics_id", namePhoneticId);
             testVoidAndDelete(pId, "concept_proposal_tag_map", "concept_proposal_id", conceptProposalId);
             testVoidAndDelete(pId, "concept_proposal", "concept_proposal_id", conceptProposalId);
+            testVoidAndDelete(pId, "concept_proposal", "concept_proposal_id", conceptProposalForObs);
             testVoidAndDelete(pId, "fhir_diagnostic_report_results", "diagnostic_report_id", fhirDiagnosticReportWithObs);
             testVoidAndDelete(pId, "fhir_diagnostic_report_performers", "diagnostic_report_id", fhirDiagnosticReportId);
             testVoidAndDelete(pId, "fhir_diagnostic_report", "diagnostic_report_id", fhirDiagnosticReportId);
+            testVoidAndDelete(pId, "fhir_diagnostic_report", "diagnostic_report_id", fhirDiagnosticReportWithEncounter);
             testVoidAndDelete(pId, "appointmentscheduling_appointment_request", "appointment_request_id", appointmentRequestId);
-            testVoidAndDelete(pId, "appointmentscheduling_appointment_status_history", "appointment_status_history_id = ?", appointmentStatusId);
+            testVoidAndDelete(pId, "appointmentscheduling_appointment_status_history", "appointment_status_history_id", appointmentStatusId);
             testVoidAndDelete(pId, "appointmentscheduling_appointment", "appointment_id", appointmentId);
             testVoidAndDelete(pId, "cohort_member", "patient_id", pId);
             testVoidAndDelete(pId, "order_group_attribute", "order_group_id", orderGroupId);
@@ -501,11 +508,12 @@ public class PatientUpdateEventConsumerTest {
             testVoidAndDelete(pId, "test_order", "order_id", radiologyOrderId);
             testVoidAndDelete(pId, "referral_order", "order_id", referralOrderId);
             testVoidAndDelete(pId, "drug_order", "order_id", drugOrderId);
-            testVoidAndDelete(pId, "orders", "order_id", drugOrderId);
+            testVoidAndDelete(pId, "orders", "encounter_id", encounterId);
             testVoidAndDelete(pId, "note", "obs_id", obsId);
             testVoidAndDelete(pId, "note", "encounter_id", encounterId);
             testVoidAndDelete(pId, "note", "patient_id", pId);
             testVoidAndDelete(pId, "obs", "obs_id", obsId);
+            testVoidAndDelete(pId, "obs", "obs_id", diagnosticObs);
             testVoidAndDelete(pId, "diagnosis_attribute", "diagnosis_id", diagnosisId);
             testVoidAndDelete(pId, "encounter_diagnosis", "diagnosis_id", diagnosisId);
             testVoidAndDelete(pId, "encounter_provider", "encounter_id", encounterId);
@@ -527,7 +535,6 @@ public class PatientUpdateEventConsumerTest {
             testVoidAndDelete(pId, "person_address", "person_id", pId);
             testVoidAndDelete(pId, "person_name", "person_id", pId);
             testVoidAndDelete(pId, "patient", "patient_id", pId);
-            testVoidAndDelete(pId, "person", "person_id", pId);
         }
         finally {
             eventSource.stop();
@@ -552,12 +559,14 @@ public class PatientUpdateEventConsumerTest {
     }
 
     public void testVoidAndDelete(Integer patientId, String table, String idColumn, Integer idValue) throws Exception{
+        boolean expectedDeleted = table.equals("patient");
         if (db.getMetadata().getTable(table).getColumn("voided") != null) {
             db.executeUpdate("update " + table + " set voided = true where " + idColumn + " = ?", idValue);
-            assertLastEvent(patientId, table, true);
+            assertLastEvent(patientId, table, expectedDeleted);
         }
         db.executeUpdate("delete from " + table + " where " + idColumn + " = ?", idValue);
-        assertLastEvent(patientId, table, true);
+
+        assertLastEvent(patientId, table, expectedDeleted);
     }
 
     protected static void waitForSnapshotToComplete(DbEventSource eventSource) throws Exception {
