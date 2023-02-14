@@ -5,11 +5,10 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang.BooleanUtils;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmrs.module.dbevent.Database;
+import org.openmrs.module.dbevent.DatabaseQuery;
 import org.openmrs.module.dbevent.DbEvent;
 import org.openmrs.module.dbevent.DbEventLog;
 import org.openmrs.module.dbevent.DbEventSource;
@@ -77,19 +76,6 @@ public class PatientEventConsumerTest {
         container.stop();
     }
 
-    @BeforeEach
-    public void startSource() throws Exception {
-        eventSource.reset();
-        eventSource.start();
-        waitForSnapshotToComplete(eventSource);
-    }
-
-    @AfterEach
-    public void stopSource() {
-        eventSource.stop();
-        eventSource.reset();
-    }
-
     public static Properties getConnectionProperties() {
         Properties p = new Properties();
         p.setProperty("connection.username", "root");
@@ -99,242 +85,279 @@ public class PatientEventConsumerTest {
     }
 
     @Test
+    public void shouldGetSnapshotStatements() {
+        PatientUpdateEventConsumer consumer = (PatientUpdateEventConsumer) eventSource.getEventConsumer();
+        Map<String, List<String>> snapshotStatements = consumer.getSnapshotStatements();
+        for (String tableName : snapshotStatements.keySet()) {
+            log.warn("Snapshotting table: " + tableName);
+            for (String statement : snapshotStatements.get(tableName)) {
+                log.warn(statement);
+            }
+        }
+    }
+
+    @Test
+    public void shouldGetStreamingQueries() {
+        PatientUpdateEventConsumer consumer = (PatientUpdateEventConsumer) eventSource.getEventConsumer();
+        Map<String, List<DatabaseQuery>> patientQueries = consumer.getPatientQueries();
+        for (String table : patientQueries.keySet()) {
+            List<DatabaseQuery> queries = patientQueries.get(table);
+            if (!queries.isEmpty()) {
+                log.warn("Table: " + table);
+                for (DatabaseQuery query : patientQueries.get(table)) {
+                    log.warn(query.toString());
+                }
+            }
+        }
+    }
+
+    @Test
     public void shouldTrackPatientChanges() throws Exception {
 
-        // Test initial snapshot
-        List<Integer> voidedPatients = db.executeQuery("select patient_id from patient where voided = 1", new ColumnListHandler<>());
-        List<Map<String, Object>> snapshotPatients = db.executeQuery("select * from dbevent_patient", new MapListHandler());
-        System.out.println("Found " + snapshotPatients.size() + " patients to test in initial snapshot");
-        assertFalse(snapshotPatients.isEmpty());
-        for (Map<String, Object> row : snapshotPatients) {
-            Integer patientId = (Integer)row.get("patient_id");
-            LocalDateTime lastUpdated = (LocalDateTime) row.get("last_updated");
-            Boolean deleted = (Boolean) row.get("deleted");
-            assertNotNull(patientId);
-            assertNotNull(lastUpdated);
-            assertThat(voidedPatients.contains(patientId), equalTo(BooleanUtils.isTrue(deleted)));
+        eventSource.reset();
+        eventSource.start();
+        try {
+            waitForSnapshotToComplete(eventSource);
+
+            // Test initial snapshot
+            List<Integer> voidedPatients = db.executeQuery("select patient_id from patient where voided = 1", new ColumnListHandler<>());
+            List<Map<String, Object>> snapshotPatients = db.executeQuery("select * from dbevent_patient", new MapListHandler());
+            System.out.println("Found " + snapshotPatients.size() + " patients to test in initial snapshot");
+            assertFalse(snapshotPatients.isEmpty());
+            for (Map<String, Object> row : snapshotPatients) {
+                Integer patientId = (Integer) row.get("patient_id");
+                LocalDateTime lastUpdated = (LocalDateTime) row.get("last_updated");
+                Boolean deleted = (Boolean) row.get("deleted");
+                assertNotNull(patientId);
+                assertNotNull(lastUpdated);
+                assertThat(voidedPatients.contains(patientId), equalTo(BooleanUtils.isTrue(deleted)));
+            }
+            System.out.println("Successfully tested " + snapshotPatients.size() + " patients to test in initial snapshot");
+
+            Integer pId = data.insertPatient("M", date("1982-10-19"));
+            assertLastEvent(pId, "patient", false);
+
+            Integer personNameId = data.insertPersonName(pId, "TestFirst", "TestLast");
+            assertLastEvent(pId, "person_name", false);
+
+            Integer personAddressId = data.insertPersonAddress(pId, "My Home Address");
+            assertLastEvent(pId, "person_address", false);
+
+            data.insertPersonAttribute(pId, 8, "5555-4433");
+            assertLastEvent(pId, "person_attribute", false);
+
+            Integer otherPersonId = data.insertPerson("F", date("2022-01-06"));
+            data.insertRelationshipToPersonB(pId, 6, otherPersonId);
+            assertLastEvent(pId, "relationship", false);
+
+            data.insertRelationshipToPersonA(pId, 6, otherPersonId);
+            assertLastEvent(pId, "relationship", false);
+
+            data.insertPersonMergeLogAsWinner(pId, otherPersonId);
+            assertLastEvent(pId, "person_merge_log", false);
+
+            data.insertPersonMergeLogAsLoser(pId, otherPersonId);
+            assertLastEvent(pId, "person_merge_log", false);
+
+            Integer patientIdentifierId = data.insertPatientIdentifier(pId, 4, "ABC123", 1);
+            assertLastEvent(pId, "patient_identifier", false);
+
+            Integer allergyId = data.insertAllergy(pId, "Penicillin", "DRUG");
+            assertLastEvent(pId, "allergy", false);
+
+            data.insertAllergyReaction(allergyId, "Unknown");
+            assertLastEvent(pId, "allergy_reaction", false);
+
+            data.insertCondition(pId, "Confused", "ACTIVE");
+            assertLastEvent(pId, "conditions", false);
+
+            Integer patientProgramId = data.insertPatientProgram(pId, "HIV", visitDate);
+            assertLastEvent(pId, "patient_program", false);
+
+            data.insertPatientState(patientProgramId, "872c529c-a5a4-47c7-9584-bd15fa5bb0a9", visitDate);
+            assertLastEvent(pId, "patient_state", false);
+
+            Integer programAttType = data.insertAttributeType("program", "Comments");
+            data.insertPatientProgramAttribute(patientProgramId, programAttType, "Extra Program Info");
+            assertLastEvent(pId, "patient_program_attribute", false);
+
+            Integer visitId = data.insertVisit(pId, 1, visitDate, 1);
+            assertLastEvent(pId, "visit", false);
+
+            Integer visitAttType = data.insertAttributeType("visit", "Comments");
+            data.insertVisitAttribute(visitId, visitAttType, "Last Minute Visit");
+            assertLastEvent(pId, "visit_attribute", false);
+
+            Integer encounterId = data.insertEncounter(pId, 2, visitDate, 1);
+            assertLastEvent(pId, "encounter", false);
+
+            data.insertEncounterProvider(encounterId, 1, 6);
+            assertLastEvent(pId, "encounter_provider", false);
+
+            Integer diagnosisId = data.insertEncounterDiagnosis(encounterId, "Pneumonia", "PROVISIONAL");
+            assertLastEvent(pId, "encounter_diagnosis", false);
+
+            Integer diagnosisAttType = data.insertAttributeType("diagnosis", "Comments");
+            data.insertDiagnosisAttribute(diagnosisId, diagnosisAttType, "Severe");
+            assertLastEvent(pId, "diagnosis_attribute", false);
+
+            Integer obsId = data.insertObs(encounterId, visitDate, 1, "Weight (kg)", 80d);
+            assertLastEvent(pId, "obs", false);
+
+            data.insertNote(pId, null, null, "Patient Note");
+            assertLastEvent(pId, "note", false);
+
+            data.insertNote(null, encounterId, null, "Encounter Note");
+            assertLastEvent(pId, "note", false);
+
+            data.insertNote(null, null, obsId, "Obs Note");
+            assertLastEvent(pId, "note", false);
+
+            Integer drugOrderId = data.insertOrder(encounterId, 2, "Aspirin", visitDate);
+            assertLastEvent(pId, "orders", false);
+
+            data.insertDrugOrder(drugOrderId, 1);
+            assertLastEvent(pId, "drug_order", false);
+
+            Integer referralOrderId = data.insertOrder(encounterId, 4, "Biopsy", visitDate);
+            assertLastEvent(pId, "orders", false);
+
+            data.insertReferralOrder(referralOrderId);
+            assertLastEvent(pId, "referral_order", false);
+
+            Integer radiologyOrderId = data.insertOrder(encounterId, 5, "Chest, 2 views (X-ray)", visitDate);
+            assertLastEvent(pId, "orders", false);
+
+            data.insertTestOrder(radiologyOrderId);
+            assertLastEvent(pId, "test_order", false);
+
+            data.insertRadiologyOrder(radiologyOrderId);
+            assertLastEvent(pId, "emr_radiology_order", false);
+
+            Integer orderAttType = data.insertAttributeType("order", "Comments");
+            data.insertOrderAttribute(drugOrderId, orderAttType, "Additional comment");
+            assertLastEvent(pId, "order_attribute", false);
+
+            Integer orderGroupId = data.insertOrderGroup(encounterId);
+            assertLastEvent(pId, "order_group", false);
+
+            Integer orderGroupAttType = data.insertAttributeType("order_group", "Comments");
+            data.insertOrderGroupAttribute(orderGroupId, orderGroupAttType, "Additional comment");
+            assertLastEvent(pId, "order_group_attribute", false);
+
+            Integer cohortId = data.insertCohort("Test Cohort");
+            data.insertCohortMember(pId, cohortId);
+            assertLastEvent(pId, "cohort_member", false);
+
+            Integer apptType = data.insertAppointmentType("Test Appointment", 60);
+            Integer apptBlock = data.insertAppointmentBlock(visitDate, now, 1);
+            Integer apptSlot = data.insertAppointmentTimeSlot(apptBlock, visitDate, now);
+
+            Integer appointmentId = data.insertAppointment(pId, apptSlot, apptType, "SCHEDULED");
+            assertLastEvent(pId, "appointmentscheduling_appointment", false);
+
+            Integer appointmentStatusId = data.insertAppointmentStatusHistory(appointmentId, "CANCELLED", now, now);
+            assertLastEvent(pId, "appointmentscheduling_appointment_status_history", false);
+
+            Integer appointmentRequestId = data.insertAppointmentRequest(pId, apptType, now, "REQUESTED");
+            assertLastEvent(pId, "appointmentscheduling_appointment_request", false);
+
+            Integer fhirDiagnosticReportId = data.insertFhirDiagnosticReport(pId, null, "PATIENT");
+            assertLastEvent(pId, "fhir_diagnostic_report", false);
+
+            data.insertFhirDiagnosticReportPerformer(fhirDiagnosticReportId, 1);
+            assertLastEvent(pId, "fhir_diagnostic_report_performers", false);
+
+            data.insertFhirDiagnosticReport(null, encounterId, "ENCOUNTER");
+            assertLastEvent(pId, "fhir_diagnostic_report", false);
+
+            Integer fhirDiagnosticReportWithObs = data.insertFhirDiagnosticReport(null, null, "OBS");
+            Integer diagnosticObs = data.insertObs(encounterId, visitDate, 1, "Height (cm)", 100d);
+            data.insertFhirDiagnosticReportResults(fhirDiagnosticReportWithObs, diagnosticObs);
+            assertLastEvent(pId, "fhir_diagnostic_report_results", false);
+
+            Integer conceptProposalId = data.insertConceptProposal(encounterId, null, "Proposal linked to encounter");
+            assertLastEvent(pId, "concept_proposal", false);
+
+            Integer tag1 = data.insertConceptNameTag("Tag 1");
+            Integer tag2 = data.insertConceptNameTag("Tag 2");
+            data.insertConceptProposalTagMap(conceptProposalId, tag1);
+            assertLastEvent(pId, "concept_proposal_tag_map", false);
+
+            data.insertConceptProposal(null, obsId, "Proposal linked to obs");
+            assertLastEvent(pId, "concept_proposal", false);
+
+            Integer namePhoneticId = data.insertNamePhonetic(personNameId, 1, "PKS");
+            assertLastEvent(pId, "name_phonetics", false);
+
+            Integer addressHierarchyEntryId = data.insertAddressHierarcyAddressToEntryMap(personAddressId, 1);
+            assertLastEvent(pId, "address_hierarchy_address_to_entry_map", false);
+
+            Integer paperRecordId = data.insertPaperRecord(patientIdentifierId, 1);
+            assertLastEvent(pId, "paperrecord_paper_record", false);
+
+            Integer paperRecordRequestId = data.insertPaperRecordRequest(paperRecordId, 1);
+            assertLastEvent(pId, "paperrecord_paper_record_request", false);
+
+            Integer otherPaperRecordId = data.insertPaperRecord(patientIdentifierId, 1);
+            data.insertPaperRecordMergeRequest(paperRecordId, otherPaperRecordId);
+            assertLastEvent(pId, "paperrecord_paper_record_merge_request", false);
+
+            // Test streaming updates
+
+            testUpdate(pId, "person", "update person set gender = 'F' where person_id = ?", pId);
+            testUpdate(pId, "patient", "update patient set allergy_status = 'None' where patient_id = ?", pId);
+            testUpdate(pId, "person_name", "update person_name set middle_name = 'Q' where person_id = ?", pId);
+            testUpdate(pId, "person_address", "update person_address set address1 = '11 Main Street' where person_id = ?", pId);
+            testUpdate(pId, "person_attribute", "update person_attribute set value = '1234-5678' where person_id = ?", pId);
+            testUpdate(pId, "relationship", "update relationship set relationship = 2 where person_a = ?", pId);
+            testUpdate(pId, "relationship", "update relationship set relationship = 2 where person_b = ?", pId);
+            testUpdate(pId, "person_merge_log", "update person_merge_log set merged_data = 'Updated winner' where winner_person_id = ?", pId);
+            testUpdate(pId, "person_merge_log", "update person_merge_log set merged_data = 'Updated loser' where loser_person_id = ?", pId);
+            testUpdate(pId, "patient_identifier", "update patient_identifier set identifier = 'XYZ456' where patient_id = ?", pId);
+            testUpdate(pId, "allergy", "update allergy set comments = 'Mild' where patient_id = ?", pId);
+            testUpdate(pId, "allergy_reaction", "update allergy_reaction set reaction_concept_id = ? where allergy_id = ?", conceptId("Hives"), allergyId);
+            testUpdate(pId, "conditions", "update conditions set condition_non_coded = 'Very confused' where patient_id = ?", pId);
+            testUpdate(pId, "patient_program", "update patient_program set location_id = 1 where patient_program_id = ?", patientProgramId);
+            testUpdate(pId, "patient_state", "update patient_state set end_date = ? where patient_program_id = ?", visitDate, patientProgramId);
+            testUpdate(pId, "patient_program_attribute", "update patient_program_attribute set value_reference = 'Extra Info' where patient_program_id = ?", patientProgramId);
+            testUpdate(pId, "visit", "update visit set date_stopped = ? where patient_id = ?", date("2022-07-15"), pId);
+            testUpdate(pId, "visit_attribute", "update visit_attribute set value_reference = 'Upcoming' where visit_id = ?", visitId);
+            testUpdate(pId, "encounter", "update encounter set location_id = 42 where encounter_id = ?", encounterId);
+            testUpdate(pId, "encounter_provider", "update encounter_provider set encounter_role_id = 3 where encounter_id = ?", encounterId);
+            testUpdate(pId, "encounter_diagnosis", "update encounter_diagnosis set certainty = 'CONFIRMED' where diagnosis_id = ?", diagnosisId);
+            testUpdate(pId, "diagnosis_attribute", "update diagnosis_attribute set value_reference = 'MODERATE' where diagnosis_id = ?", diagnosisId);
+            testUpdate(pId, "obs", "update obs set value_numeric = 85 where obs_id = ?", obsId);
+            testUpdate(pId, "note", "update note set text = 'Updated note' where patient_id = ?", pId);
+            testUpdate(pId, "note", "update note set text = 'Updated note' where encounter_id = ?", encounterId);
+            testUpdate(pId, "note", "update note set text = 'Updated note' where obs_id = ?", obsId);
+            testUpdate(pId, "orders", "update orders set instructions = 'As directed' where order_id = ?", drugOrderId);
+            testUpdate(pId, "drug_order", "update drug_order set as_needed = 1 where order_id = ?", drugOrderId);
+            testUpdate(pId, "referral_order", "update referral_order set clinical_history = 'Never' where order_id = ?", referralOrderId);
+            testUpdate(pId, "test_order", "update test_order set clinical_history = 'None' where order_id = ?", radiologyOrderId);
+            testUpdate(pId, "emr_radiology_order", "update emr_radiology_order set exam_location = 1 where order_id = ?", radiologyOrderId);
+            testUpdate(pId, "order_attribute", "update order_attribute set value_reference = 'Modified comment' where order_id = ?", drugOrderId);
+            testUpdate(pId, "order_group", "update order_group set order_group_reason = ? where order_group_id = ?", conceptId("Asthma"), orderGroupId);
+            testUpdate(pId, "order_group_attribute", "update order_group_attribute set value_reference = 'Modified comment' where order_group_id = ?", orderGroupId);
+            testUpdate(pId, "cohort_member", "update cohort_member set start_date = now() where patient_id = ?", pId);
+            testUpdate(pId, "appointmentscheduling_appointment", "update appointmentscheduling_appointment set status = 'RESCHEDULED' where appointment_id = ?", appointmentId);
+            testUpdate(pId, "appointmentscheduling_appointment_status_history", "update appointmentscheduling_appointment_status_history set start_date = ? where appointment_status_history_id = ?", visitDate, appointmentStatusId);
+            testUpdate(pId, "appointmentscheduling_appointment_request", "update appointmentscheduling_appointment_request set status = 'ON HOLD' where appointment_request_id = ?", appointmentRequestId);
+            testUpdate(pId, "fhir_diagnostic_report", "update fhir_diagnostic_report set status = 'UPDATED' where diagnostic_report_id = ?", fhirDiagnosticReportId);
+            testUpdate(pId, "fhir_diagnostic_report_performers", "update fhir_diagnostic_report_performers set provider_id = 2 where diagnostic_report_id = ?", fhirDiagnosticReportId);
+            testUpdate(pId, "fhir_diagnostic_report_results", "update fhir_diagnostic_report_results set obs_id = ? where diagnostic_report_id = ?", obsId, fhirDiagnosticReportWithObs);
+            testUpdate(pId, "concept_proposal", "update concept_proposal set original_text = 'New original text' where concept_proposal_id = ?", conceptProposalId);
+            testUpdate(pId, "concept_proposal_tag_map", "update concept_proposal_tag_map set concept_name_tag_id = ? where concept_proposal_id = ?", tag2, conceptProposalId);
+            testUpdate(pId, "name_phonetics", "update name_phonetics set field = 2 where name_phonetics_id = ?", namePhoneticId);
+            testUpdate(pId, "address_hierarchy_address_to_entry_map", "update address_hierarchy_address_to_entry_map set entry_id = 2 where address_to_entry_map_id = ?", addressHierarchyEntryId);
+            testUpdate(pId, "paperrecord_paper_record", "update paperrecord_paper_record set status = 'ASSIGNED' where record_id = ?", paperRecordId);
+            testUpdate(pId, "paperrecord_paper_record_request", "update paperrecord_paper_record_request set status = 'ASSIGNED' where request_id = ?", paperRecordRequestId);
+            testUpdate(pId, "paperrecord_paper_record_merge_request", "update paperrecord_paper_record_merge_request set status = 'ASSIGNED' where preferred_paper_record = ?", paperRecordId);
         }
-        System.out.println("Successfully tested " + snapshotPatients.size() + " patients to test in initial snapshot");
-
-        Integer pId = data.insertPatient("M", date("1982-10-19"));
-        assertLastEvent(pId, "patient", false);
-
-        Integer personNameId = data.insertPersonName(pId, "TestFirst", "TestLast");
-        assertLastEvent(pId, "person_name", false);
-
-        Integer personAddressId = data.insertPersonAddress(pId, "My Home Address");
-        assertLastEvent(pId, "person_address", false);
-
-        data.insertPersonAttribute(pId,8, "5555-4433");
-        assertLastEvent(pId, "person_attribute", false);
-
-        Integer otherPersonId = data.insertPerson("F", date("2022-01-06"));
-        data.insertRelationshipToPersonB(pId,6, otherPersonId);
-        assertLastEvent(pId, "relationship", false);
-
-        data.insertRelationshipToPersonA(pId,6, otherPersonId);
-        assertLastEvent(pId, "relationship", false);
-
-        data.insertPersonMergeLogAsWinner(pId, otherPersonId);
-        assertLastEvent(pId, "person_merge_log", false);
-
-        data.insertPersonMergeLogAsLoser(pId, otherPersonId);
-        assertLastEvent(pId, "person_merge_log", false);
-
-        Integer patientIdentifierId = data.insertPatientIdentifier(pId,4,"ABC123", 1);
-        assertLastEvent(pId, "patient_identifier", false);
-
-        Integer allergyId = data.insertAllergy(pId,"Penicillin","DRUG");
-        assertLastEvent(pId, "allergy", false);
-
-        data.insertAllergyReaction(allergyId,"Unknown");
-        assertLastEvent(pId, "allergy_reaction", false);
-
-        data.insertCondition(pId,"Confused", "ACTIVE");
-        assertLastEvent(pId, "conditions", false);
-
-        Integer patientProgramId = data.insertPatientProgram(pId, "HIV", visitDate);
-        assertLastEvent(pId, "patient_program", false);
-
-        data.insertPatientState(patientProgramId, "872c529c-a5a4-47c7-9584-bd15fa5bb0a9", visitDate);
-        assertLastEvent(pId, "patient_state", false);
-
-        Integer programAttType = data.insertAttributeType("program", "Comments");
-        data.insertPatientProgramAttribute(patientProgramId, programAttType, "Extra Program Info");
-        assertLastEvent(pId, "patient_program_attribute", false);
-
-        Integer visitId = data.insertVisit(pId, 1, visitDate, 1);
-        assertLastEvent(pId, "visit", false);
-
-        Integer visitAttType = data.insertAttributeType("visit", "Comments");
-        data.insertVisitAttribute(visitId, visitAttType, "Last Minute Visit");
-        assertLastEvent(pId, "visit_attribute", false);
-
-        Integer encounterId = data.insertEncounter(pId, 2, visitDate, 1);
-        assertLastEvent(pId, "encounter", false);
-
-        data.insertEncounterProvider(encounterId, 1, 6);
-        assertLastEvent(pId, "encounter_provider", false);
-
-        Integer diagnosisId = data.insertEncounterDiagnosis(encounterId, "Pneumonia", "PROVISIONAL");
-        assertLastEvent(pId, "encounter_diagnosis", false);
-
-        Integer diagnosisAttType = data.insertAttributeType("diagnosis", "Comments");
-        data.insertDiagnosisAttribute(diagnosisId, diagnosisAttType, "Severe");
-        assertLastEvent(pId, "diagnosis_attribute", false);
-
-        Integer obsId = data.insertObs(encounterId, visitDate, 1, "Weight (kg)", 80d);
-        assertLastEvent(pId, "obs", false);
-
-        data.insertNote(pId, null, null, "Patient Note");
-        assertLastEvent(pId, "note", false);
-
-        data.insertNote(null, encounterId, null, "Encounter Note");
-        assertLastEvent(pId, "note", false);
-
-        data.insertNote(null, null, obsId, "Obs Note");
-        assertLastEvent(pId, "note", false);
-
-        Integer drugOrderId = data.insertOrder(encounterId, 2, "Aspirin", visitDate);
-        assertLastEvent(pId, "orders", false);
-
-        data.insertDrugOrder(drugOrderId, 1);
-        assertLastEvent(pId, "drug_order", false);
-
-        Integer referralOrderId = data.insertOrder(encounterId, 4, "Biopsy", visitDate);
-        assertLastEvent(pId, "orders", false);
-
-        data.insertReferralOrder(referralOrderId);
-        assertLastEvent(pId, "referral_order", false);
-
-        Integer radiologyOrderId = data.insertOrder(encounterId, 5, "Chest, 2 views (X-ray)", visitDate);
-        assertLastEvent(pId, "orders", false);
-
-        data.insertTestOrder(radiologyOrderId);
-        assertLastEvent(pId, "test_order", false);
-
-        data.insertRadiologyOrder(radiologyOrderId);
-        assertLastEvent(pId, "emr_radiology_order", false);
-
-        Integer orderAttType = data.insertAttributeType("order", "Comments");
-        data.insertOrderAttribute(drugOrderId, orderAttType, "Additional comment");
-        assertLastEvent(pId, "order_attribute", false);
-
-        Integer orderGroupId = data.insertOrderGroup(encounterId);
-        assertLastEvent(pId, "order_group", false);
-
-        Integer orderGroupAttType = data.insertAttributeType("order_group", "Comments");
-        data.insertOrderGroupAttribute(orderGroupId, orderGroupAttType, "Additional comment");
-        assertLastEvent(pId, "order_group_attribute", false);
-
-        Integer cohortId = data.insertCohort("Test Cohort");
-        data.insertCohortMember(pId, cohortId);
-        assertLastEvent(pId, "cohort_member", false);
-
-        Integer apptType = data.insertAppointmentType("Test Appointment", 60);
-        Integer apptBlock = data.insertAppointmentBlock(visitDate, now, 1);
-        Integer apptSlot = data.insertAppointmentTimeSlot(apptBlock, visitDate, now);
-
-        Integer appointmentId = data.insertAppointment(pId, apptSlot, apptType, "SCHEDULED");
-        assertLastEvent(pId, "appointmentscheduling_appointment", false);
-
-        Integer appointmentStatusId = data.insertAppointmentStatusHistory(appointmentId, "CANCELLED", now, now);
-        assertLastEvent(pId, "appointmentscheduling_appointment_status_history", false);
-
-        Integer appointmentRequestId = data.insertAppointmentRequest(pId, apptType, now, "REQUESTED");
-        assertLastEvent(pId, "appointmentscheduling_appointment_request", false);
-
-        Integer fhirDiagnosticReportId = data.insertFhirDiagnosticReport(pId, null, "PATIENT");
-        assertLastEvent(pId, "fhir_diagnostic_report", false);
-
-        data.insertFhirDiagnosticReportPerformer(fhirDiagnosticReportId, 1);
-        assertLastEvent(pId, "fhir_diagnostic_report_performers", false);
-
-        data.insertFhirDiagnosticReport(null, encounterId, "ENCOUNTER");
-        assertLastEvent(pId, "fhir_diagnostic_report", false);
-
-        Integer fhirDiagnosticReportWithObs = data.insertFhirDiagnosticReport(null, null, "OBS");
-        Integer diagnosticObs = data.insertObs(encounterId, visitDate, 1, "Height (cm)", 100d);
-        data.insertFhirDiagnosticReportResults(fhirDiagnosticReportWithObs, diagnosticObs);
-        assertLastEvent(pId, "fhir_diagnostic_report_results", false);
-
-        Integer conceptProposalId = data.insertConceptProposal(encounterId, null, "Proposal linked to encounter");
-        assertLastEvent(pId, "concept_proposal", false);
-
-        Integer tag1 = data.insertConceptNameTag("Tag 1");
-        Integer tag2 = data.insertConceptNameTag("Tag 2");
-        data.insertConceptProposalTagMap(conceptProposalId, tag1);
-        assertLastEvent(pId, "concept_proposal_tag_map", false);
-
-        data.insertConceptProposal(null, obsId, "Proposal linked to obs");
-        assertLastEvent(pId, "concept_proposal", false);
-
-        Integer namePhoneticId = data.insertNamePhonetic(personNameId, 1,"PKS");
-        assertLastEvent(pId, "name_phonetics", false);
-
-        Integer addressHierarchyEntryId = data.insertAddressHierarcyAddressToEntryMap(personAddressId, 1);
-        assertLastEvent(pId, "address_hierarchy_address_to_entry_map", false);
-
-        Integer paperRecordId = data.insertPaperRecord(patientIdentifierId, 1);
-        assertLastEvent(pId, "paperrecord_paper_record", false);
-
-        data.insertPaperRecordRequest(paperRecordId, 1);
-        assertLastEvent(pId, "paperrecord_paper_record_request", false);
-
-        Integer otherPaperRecordId = data.insertPaperRecord(patientIdentifierId, 1);
-        data.insertPaperRecordMergeRequest(paperRecordId, otherPaperRecordId);
-        assertLastEvent(pId, "paperrecord_paper_record_merge_request", false);
-
-        // Test streaming updates
-
-        testUpdate(pId, "person", "update person set gender = 'F' where person_id = ?", pId);
-        testUpdate(pId, "patient", "update patient set allergy_status = 'None' where patient_id = ?", pId);
-        testUpdate(pId, "person_name", "update person_name set middle_name = 'Q' where person_id = ?", pId);
-        testUpdate(pId, "person_address", "update person_address set address1 = '11 Main Street' where person_id = ?", pId);
-        testUpdate(pId, "person_attribute", "update person_attribute set value = '1234-5678' where person_id = ?", pId);
-        testUpdate(pId, "relationship", "update relationship set relationship = 2 where person_a = ?", pId);
-        testUpdate(pId, "relationship", "update relationship set relationship = 2 where person_b = ?", pId);
-        testUpdate(pId, "person_merge_log", "update person_merge_log set merged_data = 'Updated winner' where winner_person_id = ?", pId);
-        testUpdate(pId, "person_merge_log", "update person_merge_log set merged_data = 'Updated loser' where loser_person_id = ?", pId);
-        testUpdate(pId, "patient_identifier", "update patient_identifier set identifier = 'XYZ456' where patient_id = ?", pId);
-        testUpdate(pId, "allergy", "update allergy set comments = 'Mild' where patient_id = ?", pId);
-        testUpdate(pId, "allergy_reaction", "update allergy_reaction set reaction_concept_id = ? where allergy_id = ?", conceptId( "Hives"), allergyId);
-        testUpdate(pId, "conditions", "update conditions set condition_non_coded = 'Very confused' where patient_id = ?", pId);
-        testUpdate(pId, "patient_program", "update patient_program set location_id = 1 where patient_program_id = ?", patientProgramId);
-        testUpdate(pId, "patient_state", "update patient_state set end_date = ? where patient_program_id = ?", visitDate, patientProgramId);
-        testUpdate(pId, "patient_program_attribute", "update patient_program_attribute set value_reference = 'Extra Info' where patient_program_id = ?", patientProgramId);
-        testUpdate(pId, "visit", "update visit set date_stopped = ? where patient_id = ?", date("2022-07-15"), pId);
-        testUpdate(pId, "visit_attribute", "update visit_attribute set value_reference = 'Upcoming' where visit_id = ?", visitId);
-        testUpdate(pId, "encounter", "update encounter set location_id = 42 where encounter_id = ?", encounterId);
-        testUpdate(pId, "encounter_provider", "update encounter_provider set encounter_role_id = 3 where encounter_id = ?", encounterId);
-        testUpdate(pId, "encounter_diagnosis", "update encounter_diagnosis set certainty = 'CONFIRMED' where diagnosis_id = ?", diagnosisId);
-        testUpdate(pId, "diagnosis_attribute", "update diagnosis_attribute set value_reference = 'MODERATE' where diagnosis_id = ?", diagnosisId);
-        testUpdate(pId, "obs", "update obs set value_numeric = 85 where obs_id = ?", obsId);
-        testUpdate(pId, "note", "update note set text = 'Updated note' where patient_id = ?", pId);
-        testUpdate(pId, "note", "update note set text = 'Updated note' where encounter_id = ?", encounterId);
-        testUpdate(pId, "note", "update note set text = 'Updated note' where obs_id = ?", obsId);
-        testUpdate(pId, "orders", "update orders set instructions = 'As directed' where order_id = ?", drugOrderId);
-        testUpdate(pId, "drug_order", "update drug_order set as_needed = 1 where order_id = ?", drugOrderId);
-        testUpdate(pId, "referral_order", "update referral_order set clinical_history = 'Never' where order_id = ?", referralOrderId);
-        testUpdate(pId, "test_order", "update test_order set clinical_history = 'None' where order_id = ?", radiologyOrderId);
-        testUpdate(pId, "emr_radiology_order", "update emr_radiology_order set exam_location = 1 where order_id = ?", radiologyOrderId);
-        testUpdate(pId, "order_attribute", "update order_attribute set value_reference = 'Modified comment' where order_id = ?", drugOrderId);
-        testUpdate(pId, "order_group", "update order_group set order_group_reason = ? where order_group_id = ?", conceptId( "Asthma"), orderGroupId);
-        testUpdate(pId, "order_group_attribute", "update order_group_attribute set value_reference = 'Modified comment' where order_group_id = ?", orderGroupId);
-        testUpdate(pId, "cohort_member", "update cohort_member set start_date = now() where patient_id = ?", pId);
-        testUpdate(pId, "appointmentscheduling_appointment", "update appointmentscheduling_appointment set status = 'RESCHEDULED' where appointment_id = ?", appointmentId);
-        testUpdate(pId, "appointmentscheduling_appointment_status_history", "update appointmentscheduling_appointment_status_history set start_date = ? where appointment_status_history_id = ?", visitDate, appointmentStatusId);
-        testUpdate(pId, "appointmentscheduling_appointment_request", "update appointmentscheduling_appointment_request set status = 'ON HOLD' where appointment_request_id = ?", appointmentRequestId);
-        testUpdate(pId, "fhir_diagnostic_report", "update fhir_diagnostic_report set status = 'UPDATED' where diagnostic_report_id = ?", fhirDiagnosticReportId);
-        testUpdate(pId, "fhir_diagnostic_report_performers", "update fhir_diagnostic_report_performers set provider_id = 2 where diagnostic_report_id = ?", fhirDiagnosticReportId);
-        testUpdate(pId, "fhir_diagnostic_report_results", "update fhir_diagnostic_report_results set obs_id = ? where diagnostic_report_id = ?", obsId, fhirDiagnosticReportWithObs);
-        testUpdate(pId, "concept_proposal", "update concept_proposal set original_text = 'New original text' where concept_proposal_id = ?", conceptProposalId);
-        testUpdate(pId, "concept_proposal_tag_map", "update concept_proposal_tag_map set concept_name_tag_id = ? where concept_proposal_id = ?", tag2, conceptProposalId);
-        testUpdate(pId, "name_phonetics", "update name_phonetics set field = 2 where name_phonetics_id = ?", namePhoneticId);
-        testUpdate(pId, "address_hierarchy_address_to_entry_map", "update address_hierarchy_address_to_entry_map set entry_id = 2 where address_to_entry_map_id = ?", addressHierarchyEntryId);
-        testUpdate(pId, "paperrecord_paper_record", "update paperrecord_paper_record set status = 'ASSIGNED' where record_id = ?", paperRecordId);
-        testUpdate(pId, "paperrecord_paper_record_request", "update paperrecord_paper_record_request set status = 'ASSIGNED' where record_id = ?", paperRecordId);
-        testUpdate(pId, "paperrecord_paper_record_merge_request", "update paperrecord_paper_record_merge_request set status = 'ASSIGNED' where preferred_paper_record = ?", paperRecordId);
+        finally {
+            eventSource.stop();
+            eventSource.reset();
+        }
     }
 
     public void assertLastEvent(Integer patientId, String table, boolean expectedDeleted) throws Exception {

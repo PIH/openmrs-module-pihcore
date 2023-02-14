@@ -5,6 +5,10 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openmrs.module.dbevent.Database;
+import org.openmrs.module.dbevent.DatabaseColumn;
+import org.openmrs.module.dbevent.DatabaseJoin;
+import org.openmrs.module.dbevent.DatabaseJoinPath;
+import org.openmrs.module.dbevent.DatabaseQuery;
 import org.openmrs.module.dbevent.DatabaseTable;
 import org.openmrs.module.dbevent.DbEvent;
 import org.openmrs.module.dbevent.DbEventLog;
@@ -17,7 +21,8 @@ import org.openmrs.module.dbevent.SqlBuilder;
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,40 +43,16 @@ public class PatientUpdateEventConsumer implements EventConsumer {
 
     private final DbEventSourceConfig config;
     private final Database database;
-    private final Map<String, String> patientKeys = new LinkedHashMap<>();
-    private final Map<String, String> nonStandardKeys = new HashMap<>();
-    private final Map<String, Integer> multipleColumnTables = new HashMap<>();
     private Rocks statusDb;
     private boolean snapshotInitialized = false;
+    private final Map<String, List<String>> snapshotStatements;
+    private final Map<String, List<DatabaseQuery>> patientQueries;
 
     public PatientUpdateEventConsumer(DbEventSourceConfig config) {
         this.config = config;
         this.database = config.getContext().getDatabase();
-        patientKeys.put("patient_id", "patient");
-        patientKeys.put("person_id", "person");
-        patientKeys.put("person_a", "person");
-        patientKeys.put("person_b", "person");
-        patientKeys.put("winner_person_id", "person");
-        patientKeys.put("loser_person_id", "person");
-        patientKeys.put("order_id", "orders");
-        patientKeys.put("patient_program_id", "patient_program");
-        patientKeys.put("encounter_id", "encounter");
-        patientKeys.put("visit_id", "visit");
-        patientKeys.put("allergy_id", "allergy");
-        patientKeys.put("diagnosis_id", "encounter_diagnosis");
-        patientKeys.put("order_group_id", "order_group");
-        patientKeys.put("obs_id", "obs");
-        patientKeys.put("appointment_id", "appointmentscheduling_appointment");
-        patientKeys.put("diagnostic_report_id", "fhir_diagnostic_report");
-        patientKeys.put("person_name_id", "person_name");
-        patientKeys.put("person_address_id", "person_address");
-        patientKeys.put("patient_identifier_id", "patient_identifier");
-        nonStandardKeys.put("obs", "person_id");
-        nonStandardKeys.put("person_name", "person_id");
-        nonStandardKeys.put("person_address", "person_id");
-        nonStandardKeys.put("fhir_diagnostic_report", "subject_id");
-        multipleColumnTables.put("relationship", 2);
-        multipleColumnTables.put("person_merge_log", 2);
+        this.snapshotStatements = constructSnapshotStatements();
+        this.patientQueries = constructPatientQueries();
     }
 
     @Override
@@ -98,11 +79,15 @@ public class PatientUpdateEventConsumer implements EventConsumer {
             try {
                 TimeUnit.SECONDS.sleep(1);
             }
-            catch (Exception e) {}
+            catch (Exception e) {
+                log.trace("An error occurred while waiting for the snapshot to initialize");
+            }
         }
         Set<Integer> patientIds = getPatientIdsForEvent(event);
         if (patientIds.isEmpty()) {
-            log.debug("Not handling event as not mapped to patient: " + event);
+            if (log.isDebugEnabled()) {
+                log.debug("Not handling event as not mapped to patient: " + event);
+            }
         }
         else {
             for (Integer patientId : patientIds) {
@@ -123,27 +108,16 @@ public class PatientUpdateEventConsumer implements EventConsumer {
             ret.add(patientId);
         }
         else {
-            for (String key : patientKeys.keySet()) {
-                Integer value = event.getValues().getInteger(key);
-                if (value != null) {
-                    String keyTable = patientKeys.get(key);
-                    SqlBuilder sql = new SqlBuilder();
-                    sql.select("p.patient_id").from("patient", "p");
-                    if (keyTable.equals("person")) {
-                        sql.where("p.patient_id = ?");
+            List<DatabaseQuery> databaseQueries = patientQueries.get(event.getTable());
+            if (databaseQueries != null) {
+                for (DatabaseQuery query : databaseQueries) {
+                    Object[] params = new Object[query.getParameterNames().size()];
+                    for (int i=0; i<query.getParameterNames().size(); i++) {
+                        params[i] = event.getValues().get(query.getParameterNames().get(i));
                     }
-                    else {
-                        String fromColumn = nonStandardKeys.getOrDefault(keyTable, "patient_id");
-                        sql.innerJoin(keyTable, "x", fromColumn, "p", "patient_id");
-                        sql.where("x." + key + " = ?");
-                    }
-                    patientId = database.executeQuery(sql.toString(), new ScalarHandler<>(1), value);
-                    if (patientId != null) {
+                    patientId = database.executeQuery(query.getSql(), new ScalarHandler<>(), params);
+                    if (patientId != null){
                         ret.add(patientId);
-                        int numExpected = multipleColumnTables.getOrDefault(event.getTable(), 1);
-                        if (numExpected == ret.size()) {
-                            break;
-                        }
                     }
                 }
             }
@@ -190,63 +164,193 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                     try {
                         TimeUnit.SECONDS.sleep(1);
                     }
-                    catch (Exception e) {}
+                    catch (Exception e) {
+                        log.trace("An error occurred while waiting for the consumer to connect to the binlog");
+                    }
                 }
                 log.warn("Consumer is connected to binlog, executing snapshot queries");
-                log.warn("Snapshotting from patient table");
-                database.executeUpdate(
-                        "insert ignore into dbevent_patient (patient_id, last_updated, deleted) " +
-                                "select patient_id, greatest(date_created, ifnull(date_changed, date_created), ifnull(date_voided, date_created)), voided from patient"
-                );
-                for (DatabaseTable table : config.getMonitoredTables()) {
-                    String tableName = table.getTableName();
-                    if (config.isIncluded(table) && !tableName.equals("patient")) {
-                        Set<String> columns = table.getColumns().keySet();
-
-                        List<String> dateCols = new ArrayList<>();
-                        if (columns.contains("date_created")) {
-                            dateCols.add("ifnull(t.date_created, p.last_updated)");
-                        }
-                        if (columns.contains("date_changed")) {
-                            dateCols.add("ifnull(t.date_changed, p.last_updated)");
-                        }
-                        if (columns.contains("date_voided")) {
-                            dateCols.add("ifnull(t.date_voided, p.last_updated)");
-                        }
-
-                        if (dateCols.isEmpty()) {
-                            log.warn("Omitting snapshot: " + tableName + " (no date columns)");
-                        } else {
-                            for (String key : patientKeys.keySet()) {
-                                if (columns.contains(key)) {
-                                    String keyTable = patientKeys.get(key);
-                                    SqlBuilder sql = new SqlBuilder();
-                                    sql.append("update dbevent_patient p");
-                                    if (keyTable.equals("person")) {
-                                        sql.innerJoin(tableName, "t", key, "p", "patient_id");
-                                    } else {
-                                        String fromColumn = nonStandardKeys.getOrDefault(keyTable, "patient_id");
-                                        sql.innerJoin(keyTable, "x", fromColumn, "p", "patient_id");
-                                        sql.innerJoin(tableName, "t", key, "x", key);
-                                    }
-                                    sql.append(" set p.last_updated = greatest(p.last_updated, ").append(String.join(",", dateCols)).append(")");
-
-                                    log.warn("Snapshotting: " + tableName);
-                                    database.executeUpdate(sql.toString());
-
-                                    // Once we find a match, break, except for relationship table
-                                    if (!tableName.equals("relationship") || key.equals("person_b")) {
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                for (String tableName : snapshotStatements.keySet()) {
+                    for (String statement : snapshotStatements.get(tableName)) {
+                        log.warn("Snapshotting table: " + tableName);
+                        log.trace(statement);
+                        database.executeUpdate(statement);
                     }
                 }
                 statusDb.put("snapshotInitialized", Boolean.TRUE);
                 snapshotInitialized = true;
             });
         }
+    }
+
+    /**
+     * @return a Map from table name to a list of the paths to person id from that table that need to be monitored
+     */
+    public Map<String, List<DatabaseJoinPath>> getPathsToPerson() {
+        Map<String, List<DatabaseJoinPath>> ret = new LinkedHashMap<>();
+        DatabaseColumn personId = database.getMetadata().getTable("person").getColumn("person_id");
+        List<String> tableExclusions = Arrays.asList("users", "provider", "logic_rule_token");
+        for (DatabaseTable table : database.getMetadata().getTables().values()) {
+            ret.put(table.getTableName(), database.getMetadata().getPathsToColumn(table, personId, tableExclusions));
+        }
+        return ret;
+    }
+
+    /**
+     * @param tableName the name of the table
+     * @param alias the alias for that table in the columns returned
+     * @param defaultColumn the default column to be used if the table column is null
+     * @return the columns from the given table to use in the initial snapshot query for that table
+     */
+    public Set<String> getColumnsForTable(String tableName, String alias, String defaultColumn) {
+        Set<String> dateCols = new HashSet<>();
+        Set<String> columns = database.getMetadata().getTable(tableName).getColumns().keySet();
+        if (columns.contains("date_created")) {
+            dateCols.add("ifnull(" + alias + ".date_created, " + defaultColumn + ")");
+        }
+        if (columns.contains("date_changed")) {
+            dateCols.add("ifnull(" + alias + ".date_changed, " + defaultColumn + ")");
+        }
+        if (columns.contains("date_voided")) {
+            dateCols.add("ifnull(" + alias + ".date_voided, " + defaultColumn + ")");
+        }
+        return dateCols;
+    }
+
+    /**
+     * @return a Map from table name to a List of statements to run to initialize the most recent update date for
+     * each patient record in the database.  This is intended to be executed at first invocation prior to streaming
+     */
+    public Map<String, List<String>> constructSnapshotStatements() {
+        Map<String, List<String>> ret = new LinkedHashMap<>();
+
+        SqlBuilder sb = new SqlBuilder();
+        sb.append("insert ignore into dbevent_patient (patient_id, last_updated, deleted)");
+        sb.append("select p.patient_id, greatest(");
+        sb.append(String.join(", ", getColumnsForTable("patient", "p", "date_created")));
+        sb.append("), p.voided from patient p");
+        ret.put("patient", Collections.singletonList(sb.toString()));
+
+        sb = new SqlBuilder();
+        sb.append("update dbevent_patient p inner join person n on p.patient_id = n.person_id");
+        sb.append("set p.last_updated = greatest( p.last_updated,");
+        sb.append(String.join(", ", getColumnsForTable("person", "n", "p.last_updated")));
+        sb.append(")");
+        ret.put("person", Collections.singletonList(sb.toString()));
+
+        Map<String, List<DatabaseJoinPath>> paths = getPathsToPerson();
+        for (String tableName : paths.keySet()) {
+            // Patient and Person are handled specially above
+            if (tableName.equals("patient") || tableName.equals("person")) {
+                continue;
+            }
+
+            List<String> statementsForTable = new ArrayList<>();
+            Set<String> dateCols = getColumnsForTable(tableName, tableName, "p.last_updated");
+            if (!dateCols.isEmpty()) {
+                List<DatabaseJoinPath> tableJoinPaths = paths.get(tableName);
+                for (DatabaseJoinPath joinPath : tableJoinPaths) {
+                    SqlBuilder sql = new SqlBuilder();
+                    sql.append("update dbevent_patient p");
+                    for (int i = joinPath.size() - 1; i >= 0; i--) {
+                        DatabaseJoin join = joinPath.get(i);
+                        String fkTable = join.getForeignKey().getTableName();
+                        String fkCol = join.getForeignKey().getColumnName();
+                        String pkTable = join.getPrimaryKey().getTableName();
+                        String pkCol = join.getPrimaryKey().getColumnName();
+                        if (pkTable.equals("person")) {
+                            if (i > 0 && joinPath.get(i - 1).getPrimaryKey().getTableName().equals("patient")) {
+                                continue;
+                            }
+                        }
+                        if (pkTable.equals("person") || pkTable.equals("patient")) {
+                            pkTable = "p";
+                            pkCol = "patient_id";
+                        }
+                        sql.innerJoin(fkTable, fkTable, fkCol, pkTable, pkCol);
+                    }
+                    sql.append(" set p.last_updated = greatest(p.last_updated,").append(String.join(", ", dateCols)).append(")");
+                    statementsForTable.add(sql.toString());
+                }
+            }
+            else {
+                log.debug("Not adding statements for " + tableName + ". No date columns.");
+            }
+
+            ret.put(tableName, statementsForTable);
+        }
+        return ret;
+    }
+
+    /**
+     * This method is used to retrieve the queries used to identify which patient ids are associated with which
+     * rows in tables that relate to person or patient but which do not directly have a patient_id column
+     * @return a Map from table name to a List of DatabaseQuery for retrieving relevant patients ids for that table
+     */
+    public Map<String, List<DatabaseQuery>> constructPatientQueries() {
+        Map<String, List<DatabaseQuery>> ret = new LinkedHashMap<>();
+
+        Map<String, List<DatabaseJoinPath>> paths = getPathsToPerson();
+        for (String tableName : paths.keySet()) {
+            DatabaseTable table = database.getMetadata().getTable(tableName);
+            List<DatabaseQuery> queries = new ArrayList<>();
+            if (tableName.equals("patient")) {
+                log.trace("Skipping patient table");
+            }
+            else if (tableName.equals("person")) {
+                List<String> args = Collections.singletonList("person_id");
+                queries.add(new DatabaseQuery("select p.patient_id from patient p where p.patient_id = ?", args));
+            }
+            else {
+                for (DatabaseJoinPath joinPath : paths.get(tableName)) {
+                    SqlBuilder sql = new SqlBuilder();
+                    sql.append("select p.patient_id from patient p");
+                    for (int i = joinPath.size() - 1; i >= 0; i--) {
+                        DatabaseJoin join = joinPath.get(i);
+                        String fkTable = join.getForeignKey().getTableName();
+                        String fkCol = join.getForeignKey().getColumnName();
+                        String pkTable = join.getPrimaryKey().getTableName();
+                        String pkCol = join.getPrimaryKey().getColumnName();
+                        if (pkTable.equals("person")) {
+                            if (i > 0 && joinPath.get(i - 1).getPrimaryKey().getTableName().equals("patient")) {
+                                continue;
+                            }
+                        }
+                        if (pkTable.equals("person") || pkTable.equals("patient")) {
+                            pkTable = "p";
+                            pkCol = "patient_id";
+                        }
+                        sql.innerJoin(fkTable, fkTable, fkCol, pkTable, pkCol);
+                    }
+
+                    DatabaseColumn primaryKey = table.getPrimaryKeyColumn();
+                    if (primaryKey != null) {
+                        sql.append("where " + primaryKey + " = ?");
+                        List<String> args = Collections.singletonList(primaryKey.getColumnName());
+                        queries.add(new DatabaseQuery(sql.toString(), args));
+                    } else {
+                        List<String> args = new ArrayList<>();
+                        for (DatabaseColumn col : table.getColumns().values()) {
+                            if (!col.isNullable()) {
+                                sql.append(args.isEmpty() ? "where" : "and").append(col.toString()).append(" = ?");
+                                args.add(col.getColumnName());
+                            }
+                        }
+                        queries.add(new DatabaseQuery(sql.toString(), args));
+                    }
+                }
+            }
+            ret.put(tableName, queries);
+        }
+        return ret;
+    }
+
+    /**
+     * @return true if the consumer is connected to the binlog
+     */
+    public boolean isConnectedToBinlog() {
+        Map<String, Object> attributes = DbEventLog.getStreamingMonitoringAttributes(config.getSourceName());
+        Boolean value = (Boolean) attributes.get("Connected");
+        return BooleanUtils.isTrue(value);
     }
 
     /**
@@ -257,11 +361,16 @@ public class PatientUpdateEventConsumer implements EventConsumer {
     }
 
     /**
-     * @return true if the consumer is connected to the binlog
+     * @return the snapshot statements to execute by table
      */
-    public boolean isConnectedToBinlog() {
-        Map<String, Object> attributes = DbEventLog.getStreamingMonitoringAttributes(config.getSourceName());
-        Boolean value = (Boolean) attributes.get("Connected");
-        return BooleanUtils.isTrue(value);
+    public Map<String, List<String>> getSnapshotStatements() {
+        return snapshotStatements;
+    }
+
+    /**
+     * @return the patient id queries to execute by table
+     */
+    public Map<String, List<DatabaseQuery>> getPatientQueries() {
+        return patientQueries;
     }
 }
