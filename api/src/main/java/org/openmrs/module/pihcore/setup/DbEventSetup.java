@@ -31,6 +31,7 @@ public class DbEventSetup {
 
         // This configures no initial data snapshot to occur, as this is done as a part of the consumer startup
         eventSourceConfig.setProperty("snapshot.mode", "schema_only");
+        eventSourceConfig.setProperty("binlog.buffer.size", "100");
 
         // Configure this source to monitor all patient-related tables
         Set<String> patientTables = eventContext.getDatabase().getMetadata().getPatientTableNames();
