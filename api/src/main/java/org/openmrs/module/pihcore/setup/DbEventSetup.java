@@ -1,6 +1,5 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.dbevent.DbEventSource;
@@ -10,7 +9,6 @@ import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.event.PatientUpdateEventConsumer;
 
-import java.io.File;
 import java.util.Set;
 
 public class DbEventSetup {
@@ -23,18 +21,7 @@ public class DbEventSetup {
     public static void setup(Config config) {
         if (config.isComponentEnabled(Components.DB_EVENT)) {
             EventContext context = new EventContext();
-            DbEventSource eventSource = getEventSource(new EventContext());
-
-            // For now, while we test, reset the event source every time we start up
-            eventSource.reset();
-            File rocksDbDir = new File(context.getModuleDataDir(), "status.db");
-            try {
-                FileUtils.deleteDirectory(rocksDbDir);
-            }
-            catch (Exception e) {
-                log.warn("Error deleting status directory: " + rocksDbDir, e);
-            }
-
+            DbEventSource eventSource = getEventSource(context);
             eventSource.start();
         }
     }
