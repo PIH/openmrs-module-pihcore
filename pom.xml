@@ -95,7 +95,7 @@
         <spaVersion>1.0.9</spaVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.23.0</uicommonsVersion>
-        <uiframeworkVersion>3.23.0</uiframeworkVersion>
+        <uiframeworkVersion>3.24.0-SNAPSHOT</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.37.0-SNAPSHOT</webservicesRestVersion>
 
