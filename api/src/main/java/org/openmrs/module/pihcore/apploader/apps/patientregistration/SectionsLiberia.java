@@ -2,7 +2,11 @@ package org.openmrs.module.pihcore.apploader.apps.patientregistration;
 
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.registrationapp.model.*;
+import org.openmrs.module.registrationapp.model.DropdownWidget;
+import org.openmrs.module.registrationapp.model.Field;
+import org.openmrs.module.registrationapp.model.Question;
+import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
+import org.openmrs.module.registrationapp.model.Section;
 
 public class SectionsLiberia extends SectionsDefault {
 
