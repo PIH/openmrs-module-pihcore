@@ -2046,14 +2046,34 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,
-                "pih.task.mentalHealth.label",
-                "fas fa-fw fa-user",
-                "link",
-                enterStandardHtmlFormLink(definitionUiResource),
-                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
-                and(sessionLocationHasTag("Mental Health Location"),
-                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,
+                    "pih.task.mentalHealthIntake.label",
+                    "fas fa-fw fa-user",
+                    "link",
+                    enterStandardHtmlFormLink(definitionUiResource),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_FOLLOWUP_VISIT_ACTION,
+                    "pih.task.mentalHealthFU.label",
+                    "fas fa-fw fa-user",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("mentalHealthFollowup.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));
+        } else {
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,
+                    "pih.task.mentalHealth.label",
+                    "fas fa-fw fa-user",
+                    "link",
+                    enterStandardHtmlFormLink(definitionUiResource),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));
+        }
 
         // will we need this template after we stop using old patient visits view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID,
