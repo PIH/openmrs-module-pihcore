@@ -2,6 +2,8 @@ package org.openmrs.module.pihcore.apploader.apps.patientregistration;
 
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.registrationapp.model.CheckboxWidget;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -32,6 +34,33 @@ public class SectionsLiberia extends SectionsDefault {
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
             c.addSection(getIdCardPrintSection());
         }
+    }
+
+    @Override
+    public Section getContactInfoSection() {
+        // build the default contact info section and retrieve the address question
+        Section contactInfoSection = super.getContactInfoSection();
+
+        Question homelessQuestion = new Question();
+        homelessQuestion.setHeader("pihcore.homeless");
+        homelessQuestion.setLegend("pihcore.homeless");
+
+        // add the homeless section to it.
+        Field field = new Field();
+        field.setFormFieldName("homeless");
+        field.setType("personAttribute");
+        field.setLabel("pihcore.homeless");
+        field.setUuid(Metadata.getHomelessAttributeType().getUuid());
+
+        CheckboxWidget w = new CheckboxWidget();
+        w.getConfig().setValue("true");
+        field.setWidget(toObjectNode(w));
+        homelessQuestion.addField(field);
+
+        // insert after the "address" question (assumption: address is first question)
+        contactInfoSection.getQuestions().add(1, homelessQuestion);
+
+        return contactInfoSection;
     }
 
     @Override
