@@ -2,7 +2,9 @@ package org.openmrs.module.pihcore.reporting;
 
 import org.openmrs.Concept;
 import org.openmrs.ConceptDatatype;
+import org.openmrs.ConceptMap;
 import org.openmrs.ConceptName;
+import org.openmrs.ConceptReferenceTerm;
 import org.openmrs.ConceptSource;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
@@ -30,7 +32,6 @@ public class MockConcepts extends VersionedPihConceptBundle {
     protected void installNewVersion() throws Exception {
         install(question("Reason for visit", coded, pih, "REASON FOR VISIT"));
         install(answer("Malnutrition program", pih, "MALNUTRITION PROGRAM"));
-
         install(question("Chief complaint", text, ciel, "160531"));
     }
 
@@ -45,7 +46,7 @@ public class MockConcepts extends VersionedPihConceptBundle {
         Concept concept = baseConcept(name);
         concept.setDatatype(datatype);
         concept.setConceptClass(question);
-        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
+        addMappingIfMissing(concept, source, mapping);
         return concept;
     }
 
@@ -53,7 +54,7 @@ public class MockConcepts extends VersionedPihConceptBundle {
         Concept concept = baseConcept(name);
         concept.setDatatype(notApplicable);
         concept.setConceptClass(misc);
-        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
+        addMappingIfMissing(concept, source, mapping);
         return concept;
     }
 
@@ -61,7 +62,7 @@ public class MockConcepts extends VersionedPihConceptBundle {
         Concept concept = baseConcept(name);
         concept.setDatatype(datatype);
         concept.setConceptClass(finding);
-        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
+        addMappingIfMissing(concept, source, mapping);
         return concept;
     }
 
@@ -74,8 +75,21 @@ public class MockConcepts extends VersionedPihConceptBundle {
 
     private Concept diagnosis(String name, ConceptSource source, String mapping) {
         Concept concept = diagnosis(name);
-        concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
+        addMappingIfMissing(concept, source, mapping);
         return concept;
+    }
+
+    private void addMappingIfMissing(Concept concept, ConceptSource source, String mapping) {
+        boolean hasMapping = false;
+        for (ConceptMap m : concept.getConceptMappings()) {
+            ConceptReferenceTerm term = m.getConceptReferenceTerm();
+            if (term.getConceptSource().equals(source) && term.getCode().equalsIgnoreCase(mapping)) {
+                hasMapping = true;
+            }
+        }
+        if (!hasMapping) {
+            concept.addConceptMapping(new ConceptMapBuilder(uuid()).type(sameAs).ensureTerm(source, mapping).build());
+        }
     }
 
     private String uuid() {
