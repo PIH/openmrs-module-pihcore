@@ -2064,7 +2064,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));
+        } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            // Liberia original Mental Health form is followup
+            // Todo:  update the label to pihcore.mentalhealthFU.title
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,
+                    "pih.task.mentalHealth.label",
+                    "fas fa-fw fa-user",
+                    "link",
+                    enterStandardHtmlFormLink(definitionUiResource),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));
+
         } else {
+
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,
                     "pih.task.mentalHealth.label",
                     "fas fa-fw fa-user",
@@ -2081,6 +2094,30 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null, PihEmrConfigConstants.ENCOUNTERROLE_CONSULTINGCLINICIAN_UUID);
     }
 
+    private void enableEpilepsyForm() {
+        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_VISIT_ACTION,
+                    "pihcore.ncd.epilepsy",
+                    "fas fa-fw fa-brain",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("epilepsy.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
+                    and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_UUID))));
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,
+                    "pih.task.mentalHealthIntake.label",
+                    "fas fa-fw fa-user",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("mentalHealthIntake.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
+                    and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID))));
+
+        }
+
+    }
     private void enableVCT() {
 
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VCT_VISIT_ACTION,
@@ -3251,6 +3288,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_FORM)) {
             enableMentalHealthForm();
+        }
+
+        if (config.isComponentEnabled(Components.EPILEPSY)) {
+            enableEpilepsyForm();
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {
