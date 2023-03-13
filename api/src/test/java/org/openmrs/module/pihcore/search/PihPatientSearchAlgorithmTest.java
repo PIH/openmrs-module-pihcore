@@ -1,7 +1,5 @@
 package org.openmrs.module.pihcore.search;
 
-import liquibase.pro.packaged.I;
-import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
@@ -49,7 +47,6 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    @Ignore
     public void shouldReturnEmptyListIfNoNameBirthdateOrGender() {
 
         Patient patient = new Patient();
@@ -59,7 +56,6 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    @Ignore
     public void shouldFindNamePhoneticsMatch() {
 
         Patient patient = new Patient();
@@ -81,7 +77,6 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    @Ignore
     public void shouldExcludeVoidedPatients() {
 
         Patient patientToVoid = patientService.getPatient(13);
@@ -106,7 +101,6 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    @Ignore
     public void exactAddressFieldMatchShouldIncreaseScore() {
 
         // first get the base score for this patient
@@ -138,7 +132,6 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    @Ignore
     public void exactPersonAttributeFieldMatchShouldIncreaseScore() {
 
         // first get the base score for this patient
@@ -171,7 +164,6 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    @Ignore
     public void shouldMatchPhoneNumberOnNumericsOnly() {
 
         // first get the base score for this patient
@@ -204,7 +196,6 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    @Ignore
     public void shouldMatchMothersNameViaPhonetics() {
 
         // first get the base score for this patient
@@ -237,7 +228,6 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    @Ignore
     public void shouldDisregardAccentMarksWhenMakingMatch() {
 
         Patient patient = new Patient();
