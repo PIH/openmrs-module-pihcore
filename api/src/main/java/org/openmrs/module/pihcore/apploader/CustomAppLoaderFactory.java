@@ -2095,7 +2095,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableEpilepsyForm() {
-        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_VISIT_ACTION,
                     "pihcore.ncd.epilepsy",
