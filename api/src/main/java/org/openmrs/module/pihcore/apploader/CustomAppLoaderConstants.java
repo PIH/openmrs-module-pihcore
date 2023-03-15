@@ -121,6 +121,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_REGISTRATION_EBOLA_SCREENING = "mirebalais.mostRecentRegistrationEbolaScreening";
         public static final String MOST_RECENT_REGISTRATION_INSURANCE = "coreapps.mostRecentRegistrationInsurance";
         public static final String MOST_RECENT_REGISTRATION_CONTACT = "coreapps.mostRecentRegistrationContact";
+        public static final String MOST_RECENT_REGISTRATION_PATIENT_SUPPORT = "coreapps.mostRecentRegistrationPatientSupport";
         public static final String MOST_RECENT_CHECK_IN = "coreapps,mostRecentCheckIn";
         public static final String ALLERGY_SUMMARY = "allergyui.allergySummary";
         public static final String PATHOLOGY_SUMMARY = "labtrackingapp.labSummary";
@@ -499,7 +500,8 @@ public class CustomAppLoaderConstants {
     public static final List<String> REGISTRATION_SUMMARY_FIRST_COLUMN_ORDER = Arrays.asList(
             Apps.MOST_RECENT_REGISTRATION_SUMMARY,
             Apps.MOST_RECENT_REGISTRATION_INSURANCE,
-            Apps.MOST_RECENT_REGISTRATION_SOCIAL
+            Apps.MOST_RECENT_REGISTRATION_SOCIAL,
+            Apps.MOST_RECENT_REGISTRATION_PATIENT_SUPPORT
     );
 
     public static final List<String> REGISTRATION_SUMMARY_SECOND_COLUMN_ORDER = Arrays.asList(
