@@ -103,8 +103,8 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsChild;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientNotDead;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationDoesNotHaveTag;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationHasTag;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.userHasPrivilege;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.visitDoesNotHaveEncounterOfType;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.visitHasEncounterOfType;
@@ -1529,6 +1529,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "editable", true)),
                     "coreapps",
                     "encounter/mostRecentEncounter"));
+        }
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            apps.add(addToRegistrationSummaryContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_PATIENT_SUPPORT,
+                        "pih.registration.patientSupport.label",
+                        "fas fa-fw fa-user-friends",
+                        null,
+                        "App: registrationapp.registerPatient",
+                        objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                                "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,
+                                "definitionUiResource", PihCoreUtil.getFormResource("patientRegistration-patientSupport.xml"),
+                                "editable", true)),
+                "coreapps",
+                "encounter/mostRecentEncounter"));
         }
 
         if (config.isComponentEnabled(Components.CHECK_IN)) {
