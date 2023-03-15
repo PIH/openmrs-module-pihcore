@@ -112,7 +112,7 @@ public class SectionsLiberia extends SectionsDefault {
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:6402");
             f.setLabel("pih.registration.patientSupport.location.label");
             f.setType("obsgroup");
-            f.setWidget(getTextFieldWidget(30));
+            f.setWidget(getTextFieldWidget(50));
             q.addField(f);
         }
         {
@@ -120,7 +120,7 @@ public class SectionsLiberia extends SectionsDefault {
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:13173");
             f.setLabel("pih.registration.patientSupport.idNumber.label");
             f.setType("obsgroup");
-            f.setWidget(getTextFieldWidget(30));
+            f.setWidget(getTextFieldWidget(50));
             q.addField(f);
         }
         {
@@ -128,7 +128,7 @@ public class SectionsLiberia extends SectionsDefault {
             f.setFormFieldName("obsgroup.PIH:14493.obs.CIEL:164141");
             f.setLabel("pih.registration.patientSupport.name.label");
             f.setType("obsgroup");
-            f.setWidget(getTextFieldWidget(30));
+            f.setWidget(getTextFieldWidget(50));
             q.addField(f);
         }
         {
@@ -136,7 +136,7 @@ public class SectionsLiberia extends SectionsDefault {
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:2614");
             f.setLabel("pih.registration.patientSupport.phone.label");
             f.setType("obsgroup");
-            f.setWidget(getTextFieldWidget(30));
+            f.setWidget(getTextFieldWidget(50));
             q.addField(f);
         }
         return q;
