@@ -35,6 +35,7 @@ import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
@@ -60,7 +61,7 @@ import java.util.Date;
 
 @SkipBaseSetup
 @Disabled
-public class MirthTest extends BaseModuleContextSensitiveTest {
+public class MirthTest extends PihCoreContextSensitiveTest {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	

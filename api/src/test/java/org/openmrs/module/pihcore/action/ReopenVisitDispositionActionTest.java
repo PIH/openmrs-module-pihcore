@@ -5,19 +5,20 @@ import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.encounter.EncounterDomainWrapper;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class ReopenVisitDispositionActionTest extends BaseModuleContextSensitiveTest {
+public class ReopenVisitDispositionActionTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private ReopenVisitDispositionAction reopenVisitDispositionAction;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         executeDataSet("reopenVisitActionTestDataset.xml");
     }
 

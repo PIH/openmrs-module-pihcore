@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.setup;
 import org.junit.jupiter.api.Test;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.db.SerializedObjectDAO;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.reporting.dataset.definition.SqlDataSetDefinition;
 import org.openmrs.module.reporting.report.ReportDesign;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
@@ -24,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @SkipBaseSetup
-public class ReportSetupComponentTest extends BaseModuleContextSensitiveTest {
+public class ReportSetupComponentTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     SerializedObjectDAO serializedObjectDAO;

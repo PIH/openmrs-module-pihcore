@@ -12,6 +12,7 @@ import org.openmrs.api.OrderContext;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.ProviderService;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import java.util.Date;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class RadiologyOrderNumberGeneratorComponentTest extends BaseModuleContextSensitiveTest {
+public class RadiologyOrderNumberGeneratorComponentTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private EncounterService encounterService;
