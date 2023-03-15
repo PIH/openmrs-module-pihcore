@@ -27,6 +27,7 @@ public class SectionsLiberia extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
+        c.addSection(getPatientSupportSection());
         c.addSection(getIdentifierSection());
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
@@ -79,4 +80,65 @@ public class SectionsLiberia extends SectionsDefault {
         return q;
     }
 
+    private Section getPatientSupportSection() {
+        Section s = new Section();
+        s.setId("patientSupport");
+        s.setLabel("pih.registration.patientSupport.section.label");
+        s.addQuestion(getPatientSupportQuestions());
+        return s;
+    }
+
+    private Question getPatientSupportQuestions() {
+        Question q = new Question();
+        q.setId("patientSupportQuestion");
+        q.setLegend("pih.registration.patientSupport.label");
+        q.setHeader("pih.registration.patientSupport.question");
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:14494");
+            f.setLabel("pih.registration.patientSupport.type.label");
+            f.setType("obsgroup");
+            DropdownWidget w = new DropdownWidget();
+            w.getConfig().addOption("PIH:3645", "pih.registration.following.type.chw");
+            w.getConfig().addOption("PIH:14495", "pih.registration.following.type.chp");
+            w.getConfig().addOption("PIH:14496", "pih.registration.following.type.cha");
+            w.getConfig().addOption("PIH:14502", "pih.registration.following.type.pssa");
+            w.getConfig().setExpanded(true);
+            f.setWidget(toObjectNode(w));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:6402");
+            f.setLabel("pih.registration.patientSupport.location.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:13173");
+            f.setLabel("pih.registration.patientSupport.idNumber.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:14493.obs.CIEL:164141");
+            f.setLabel("pih.registration.patientSupport.name.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:2614");
+            f.setLabel("pih.registration.patientSupport.phone.label");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+        return q;
+    }
 }
