@@ -148,6 +148,14 @@
 				</includes>
 				<targetPath>web/module</targetPath>
 			</resource>
+			<resource>
+				<directory>src/main/webapp/resources/scripts</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.css</include>
+				</includes>
+				<targetPath>web/module/resources/styles</targetPath>
+			</resource>
 		</resources>
 
 		<testResources>
