@@ -1,4 +1,4 @@
-angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.bootstrap", 'ngGrid',
+angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.bootstrap",
     'configService', 'pascalprecht.translate'])
 
     .config(function ($translateProvider) {
@@ -18,7 +18,6 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
             $scope.allPatients = allPatientsIds.split(",");
             $scope.patientPageUrl = "/" + OPENMRS_CONTEXT_PATH + patientPageUrl;
             $scope.activeVisitsData = [];
-            $scope.pagingInformation = '';
             $scope.showResultsSpinner = true;
             if ( $scope.allPatients.length === 1 && ($scope.allPatients[0].length < 1) ) {
                 $scope.totalActiveVisitsItems = 0;
@@ -26,6 +25,15 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                 $scope.totalActiveVisitsItems = $scope.allPatients.length;
             }
 
+            $scope.filter = {
+              paging: {
+                totalItems: 0,
+                currentPage: 1,
+                maxSize: 10,
+                currentEntryStart: 0,
+                currentEntryEnd: 0
+              }
+            };
 
             $scope.timeoutPromise;
             $scope.delayInMs = 1000;
@@ -35,12 +43,6 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
             $scope.filterOptions = {
                 filterText: "",
                 useExternalFilter: true
-            };
-
-            $scope.pagingOptions = {
-                pageSize: '15',
-                pageSizes: [15, 30, 100],
-                currentPage: 1
             };
 
             $scope.getPatientUrl = function(patientId, visitUuid) {
@@ -65,38 +67,42 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                 return $scope.allPatients;
             };
 
-            $scope.updatePagingInformation = function() {
-                var pg = $scope.pagingOptions.currentPage;
-                var sz = $scope.pagingOptions.pageSize;
-                var tot = $scope.totalActiveVisitsItems;
-                var lastOnPage = pg * sz;
-                var firstOnPage = 0;
-                if (lastOnPage) {
-                    var firstOnPage = lastOnPage - sz + 1;
-                    if (lastOnPage > tot) {
-                        lastOnPage = tot;
-                    }
-                } else {
-                    lastOnPage = 0 ;
-                }
 
-
-                $scope.pagingInformation = firstOnPage + " to " + lastOnPage + " of " + tot;
-            };
-
-            $scope.setPagingData = function(data, totalItems, page, pageSize){
+            $scope.setPagingData = function(data, pageNo, pageSize){
                 $scope.showResultsSpinner = false;
                 $scope.activeVisitsData = $filter('orderBy')(data, '-lastEncounterDateTime');
-                $scope.totalActiveVisitsItems = totalItems;
+                let totalItems =  $scope.totalActiveVisitsItems;
                 if (!$scope.$$phase) {
                     $scope.$apply();
                 }
-                $scope.updatePagingInformation();
+                if (totalItems == 0) {
+                    $scope.filter.paging.totalItems = 0;
+                    $scope.filter.paging.currentPage = 0;
+                    $scope.filter.paging.currentEntryStart = 0;
+                    $scope.filter.paging.currentEntryEnd = 0;
+                  }
+                  else {
+                    var sz = $scope.filter.paging.maxSize;
+                    $scope.filter.paging.totalItems = totalItems;
+                    $scope.filter.paging.currentPage = pageNo;
+                    $scope.filter.paging.currentEntryStart = pageNo * sz - sz + 1;
+                    $scope.filter.paging.currentEntryEnd = totalItems < pageNo * sz ? totalItems : pageNo * sz;
+
+                  }
             };
+
+            $scope.pageChanged = function () {
+                return $scope.getPagedDataAsync($scope.filter.paging.maxSize, $scope.filter.paging.currentPage);
+              };
 
             $scope.getPagedDataAsync = function (pageSize, page, searchText) {
                 $scope.showResultsSpinner = true;
-                var ids = $scope.getIdsForPage(pageSize, page);
+                let pageNumber = $scope.filter.paging.currentPage;
+                if (pageNumber == 0 ) {
+                    pageNumber = 1
+                }
+
+                var ids = $scope.getIdsForPage(pageSize, pageNumber);
                 var getAllUrl = "/" + OPENMRS_CONTEXT_PATH + "/module/pihcore/reports/ajax/activeVisitsList.form";
 
                 $http({
@@ -107,61 +113,11 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                         patientIds: ids
                     }
                 }).success(function (fullData) {
-                    $scope.setPagingData(fullData, $scope.totalActiveVisitsItems, page, pageSize);
+                    $scope.setPagingData(fullData, pageNumber, $scope.filter.paging.maxSize);
                 });
             };
 
-            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage);
+            $scope.getPagedDataAsync($scope.filter.paging.maxSize, $scope.filter.paging.currentPage);
 
-
-            $scope.$watch('pagingOptions', function (newVal, oldVal) {
-                window.clearTimeout($scope.timeoutPromise);  //does nothing, if timeout already done
-                if (newVal !== oldVal && (newVal.currentPage > 0)) {
-                    $scope.timeoutPromise = window.setTimeout( function() {
-                            $scope.getPagedDataAsync($scope.pagingOptions.pageSize, $scope.pagingOptions.currentPage, $scope.filterOptions.filterText);
-                        }
-                        , $scope.delayInMs);
-                }
-            }, true);
-            
-
-            $scope.changedGridOptions = function() {
-                console.log("grid options changed");
-            };
-
-            $scope.activeVisitsGrid = {
-                data: 'activeVisitsData',
-                enablePaging: true,
-                showFooter: true,
-                enableRowSelection: false,
-                totalServerItems: 'totalActiveVisitsItems',
-                pagingOptions: $scope.pagingOptions,
-                filterOptions: $scope.filterOptions,
-                headerRowHeight: 60,
-                columnDefs: [
-                    {
-                        field: 'identifier',
-                        width: '20%',
-                        cellTemplate: "<div>{{ row.getProperty(\'identifier\') }}</div>",
-                        headerCellTemplate: "<div>{{ \'coreapps.patient.identifier\' | translate }}</div>"
-                    },
-                    {
-                        field: 'familyName',
-                        cellTemplate:  '<div> <a href="{{ getPatientUrl(row.getProperty(\'patientId\'), row.getProperty(\'visitUuid\')) }}">{{ row.getProperty(\'familyName\') }}, {{ row.getProperty(\'givenName\') }} </a><div>',
-                        headerCellTemplate: "<div>{{ \'coreapps.person.name\' | translate }}</div>"
-                    },
-                    {
-                        field: 'checkinDateTime',
-                        cellTemplate:  '<div ng-if="row.getProperty(\'checkinDateTime\')"><small> {{ row.getProperty(\'firstCheckinLocation\') }} @ {{ row.getProperty(\'checkinDateTime\') | serverDateLocalized:DatetimeFormats.dateLocalized }} </small><div>',
-                        headerCellTemplate: "<div>{{ \'coreapps.activeVisits.checkIn\' | translate }}</div>"
-                    },
-                    {
-                        field: 'lastEncounterLocation',
-                        cellTemplate:  '<div ng-if="row.getProperty(\'lastEncounterLocation\')"> {{ row.getProperty(\'lastEncounterType\')  | translate }} <br/> <small>{{ row.getProperty(\'lastEncounterLocation\') }} @ {{ row.getProperty(\'lastEncounterDateTime\') | serverDateLocalized:DatetimeFormats.dateLocalized }} </small><div>',
-                        headerCellTemplate: "<div>{{ \'coreapps.activeVisits.lastSeen\' | translate }}</div>"
-                    }
-                ]
-
-            };
 
         }]);
