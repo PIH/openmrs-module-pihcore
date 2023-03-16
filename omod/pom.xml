@@ -148,6 +148,15 @@
 				</includes>
 				<targetPath>web/module</targetPath>
 			</resource>
+			<!-- NOTE: The below is done to copy any CSS files from 3rd party JS libraries from scripts to styles at build time -->
+			<resource>
+				<directory>src/main/webapp/resources/scripts</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.css</include>
+				</includes>
+				<targetPath>web/module/resources/styles</targetPath>
+			</resource>
 		</resources>
 
 		<testResources>
