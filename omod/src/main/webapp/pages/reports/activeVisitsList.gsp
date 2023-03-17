@@ -1,4 +1,6 @@
 <%
+    //the table pagination widget needs a newer bootstap version, ui-bootstrap-tpls-2.3.1
+    //  the version in openmrs is older (ui-bootstrap-tpls-0.6.0)
     ui.decorateWith("appui", "standardEmrPage", [ includeBootstrap: false ])
 
     ui.includeCss("uicommons", "ngDialog/ngDialog.min.css")
@@ -23,14 +25,13 @@
     ui.includeJavascript("uicommons", "moment.min.js")
     ui.includeJavascript("pihcore", "services/configService.js")
 
-    // ui.includeCss("uicommons", "angular-ui/ng-grid.min.css")
+
     ui.includeCss("pihcore", "inpatient.css")
     ui.includeCss("pihcore", "activeVisitsList.css")
     ui.includeJavascript("pihcore", "visit/filters.js")
     ui.includeJavascript("pihcore", "reports/activeVisitsListController.js")
 
     // libs for the bootstrap date picker and other libs
-//  the version in openmrs is older
     ui.includeJavascript("pihcore", "reports/ui-bootstrap-tpls-2.3.1.js")
 
     def lastLocationId = lastLocation;
