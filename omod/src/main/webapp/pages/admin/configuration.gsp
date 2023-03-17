@@ -61,6 +61,17 @@
                 });
         });
 
+        jq("#refresh-htmlforms-action").click(function() {
+            actionInitiated();
+            jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config/htmlforms'})
+                .fail(function (data) {
+                    jq("#error-details").html('An error occurred: ' + data.responseText);
+                })
+                .always(function() {
+                    jq(".action-button").removeProp('disabled');
+                });
+        });
+
         jq("#refresh-system-action").click(function() {
             actionInitiated();
             jq.ajax({type: "PUT", url: openmrsContextPath + '/ws/rest/v1/pihcore/config'})
@@ -81,6 +92,8 @@
 <input id="refresh-reports-action" type="button" class="action-button" value="Refresh Reports" />
 <br/>
 <input id="refresh-apps-action" type="button" class="action-button" value="Refresh Apps and Extensions" />
+<br/>
+<input id="refresh-htmlforms-action" type="button" class="action-button" value="Refresh HTML Forms" />
 <br/>
 <input id="refresh-system-action" type="button" class="action-button" value="Refresh Entire Configuration" />
 <br/>

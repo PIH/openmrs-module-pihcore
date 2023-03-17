@@ -7,6 +7,7 @@ import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.initializer.InitializerMessageSource;
 import org.openmrs.module.pihcore.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.config.PihConfigService;
+import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.module.reporting.config.ReportDescriptor;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,16 @@ public class PihConfigRestController {
             return HttpStatus.UNAUTHORIZED;
         }
         ReportLoader.loadReportsFromConfig();
+        return OK;
+    }
+
+    @RequestMapping(value = "/rest/v1/pihcore/config/htmlforms", method = RequestMethod.PUT)
+    @ResponseBody
+    public Object updateHtmlForms() {
+        if (!Context.hasPrivilege(REQUIRED_PRIVILEGE)) {
+            return HttpStatus.UNAUTHORIZED;
+        }
+        HtmlFormSetup.loadHtmlForms(false);
         return OK;
     }
 
