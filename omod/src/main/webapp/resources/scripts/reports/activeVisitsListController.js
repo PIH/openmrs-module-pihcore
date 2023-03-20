@@ -45,7 +45,7 @@ angular.module('activeVisitsListApp', ['uicommons.filters', 'ngDialog', "ui.boot
                 useExternalFilter: true
             };
 
-            $scope.getPatientUrl = function(patientId, visitUuid) {
+            $scope.getPatientUrl = function(patientId) {
                 var patientUrl = $scope.patientPageUrl;
                 return patientUrl.replace("{{patientId}}", patientId);
             };

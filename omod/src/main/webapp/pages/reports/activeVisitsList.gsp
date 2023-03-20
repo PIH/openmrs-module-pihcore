@@ -93,7 +93,7 @@
             <tbody>
                 <tr ng-repeat="visit in activeVisitsData" >
                     <td>{{ visit.identifier }}</td>
-                    <td>{{ visit.familyName }}, {{ visit.givenName }}</td>
+                    <td><a href="{{ getPatientUrl(visit.patientId) }}">{{ visit.familyName }}, {{ visit.givenName }}</a></td>
                     <td><span ng-if="visit.firstCheckinLocation">{{ visit.firstCheckinLocation }}<br/> @ {{ visit.checkinDateTime | date:'medium' }}</span></td>
                     <td><span ng-if="visit.lastEncounterLocation">{{ visit.lastEncounterLocation }}<br/> @ {{ visit.lastEncounterDateTime | date:'medium' }}</span></td>
                 </tr>
