@@ -79,7 +79,7 @@
         <metadatasharingVersion>1.9.0</metadatasharingVersion>
         <namephoneticsVersion>2.0.0-SNAPSHOT</namephoneticsVersion>
         <openconceptlabVersion>2.0.0</openconceptlabVersion>
-        <orderEntryOwaVersion>1.2.4</orderEntryOwaVersion>
+        <orderEntryOwaVersion>1.2.5-SNAPSHOT</orderEntryOwaVersion>
         <owaVersion>1.14.0</owaVersion>
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
         <paperrecordVersion>1.4.0-SNAPSHOT</paperrecordVersion>
