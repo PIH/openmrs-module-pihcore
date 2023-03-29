@@ -3148,14 +3148,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null),
                 sessionLocationHasTag("Labs Component Location")));
 
-        // note that this is only currently accessed via the Lab Workflow "Add Order" button, and the returnUrl and afterAddOrderUrl are both hardcoded below for this
+        // note that this is only currently accessed via the Lab Workflow "Add Order" button, and the returnUrl and addResultsUrl are both hardcoded below for this
         apps.add(findPatientTemplateApp(CustomAppLoaderConstants.Apps.ORDER_LABS,
                 "pih.app.labs.ordering",
                 "icon",
                   PihEmrConfigConstants.PRIVILEGE_TASK_ORDER_LABS,
                 "/owa/orderentry/index.html?patient={{patientId}}&page=laborders&breadcrumbOverride={{breadcrumbOverride}}&returnUrl="
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html","UTF-8")
-						+ "&afterAddOrderUrl="
+						+ "&addResultsUrl="
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{orders}}", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
