@@ -97,7 +97,7 @@
         <uicommonsVersion>2.23.0</uicommonsVersion>
         <uiframeworkVersion>3.24.0-SNAPSHOT</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
-        <webservicesRestVersion>2.39.0</webservicesRestVersion>
+        <webservicesRestVersion>2.40.0-SNAPSHOT</webservicesRestVersion>
 
         <testcontainersVersion>1.17.6</testcontainersVersion>
 
