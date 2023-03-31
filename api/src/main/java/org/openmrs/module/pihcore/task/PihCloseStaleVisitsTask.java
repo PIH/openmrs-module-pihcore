@@ -115,12 +115,12 @@ public class PihCloseStaleVisitsTask implements Runnable {
                             (hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
                         closeVisit = true;
                     }
-                    // if the most recent disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") and there are no encounters in the last 7 days, and visit hasn't been updated in the last 12 hours, close
-                    else if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen() &&
+                    // if the most recent disposition isn't one that "keeps a visit open" (for example "ED Observation" and "Still hospitalized") and there are no encounters in the last 7 days, and visit hasn't been updated in the last 12 hours, close
+                    else if ((mostRecentDisposition == null || mostRecentDisposition.getKeepsVisitOpen() == null || !mostRecentDisposition.getKeepsVisitOpen()) &&
                             (hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
                         closeVisit = true;
                     }
-                    // otherwise, if there are no encounters in the last 30 days, and visit hasn't been updated in the last 12 hours, close
+                    // otherwise,(regardless of any "keeps visit open" disposition) if there are no encounters in the last 30 days, and visit hasn't been updated in the last 12 hours, close
                     else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
                         closeVisit = true;
                     }
