@@ -2068,7 +2068,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(definitionUiResource),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));
+                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID)),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_FOLLOWUP_VISIT_ACTION,
                     "pih.task.mentalHealthFU.label",
@@ -2077,6 +2079,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("mentalHealthFollowup.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));
         } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             // Liberia original Mental Health form is followup
