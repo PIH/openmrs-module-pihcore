@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.initializer.Domain;
+import org.openmrs.module.initializer.api.ConfigDirUtil;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.initializer.api.loaders.BaseFileLoader;
 import org.openmrs.module.initializer.api.loaders.Loader;
@@ -47,7 +48,7 @@ public class InitializerSetup {
             for (Domain domain : getDomainsToLoadAfterConcepts()) {
                 excludeList.add(domain.getName());
             }
-            for (Loader loader : Context.getService(InitializerService.class).getLoaders()) {
+            for (Loader loader : getInitializerService().getLoaders()) {
                 if (!excludeList.contains(loader.getDomainName())) {
                     log.warn("Loading from Initializer: " + loader.getDomainName());
                     List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
@@ -97,12 +98,29 @@ public class InitializerSetup {
      * Note:  This is _different_ from the built-in Initializer loading, which suppresses errors
      */
     public static void installDomain(Domain domain, Config config) throws Exception {
-        for (Loader loader : Context.getService(InitializerService.class).getLoaders()) {
+        for (Loader loader : getInitializerService().getLoaders()) {
             if (loader.getDomainName().equalsIgnoreCase(domain.getName())) {
                 log.warn("Loading from Initializer: " + loader.getDomainName());
-				List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
+                List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
                 loader.loadUnsafe(exclusionsForLoader, true);
             }
         }
+    }
+
+    /**
+     * Deletes the checksum files for the given domains
+     * @param domains the domains for which to delete the checksum files
+     */
+    public static void deleteChecksumsForDomains(Domain... domains) {
+        String configDirPath = getInitializerService().getConfigDirPath();
+        String checksumsDirPath = getInitializerService().getChecksumsDirPath();
+        for (Domain domain : domains) {
+            ConfigDirUtil util = new ConfigDirUtil(configDirPath, checksumsDirPath, domain.getName(), false);
+            util.deleteChecksums();
+        }
+    }
+
+    protected static InitializerService getInitializerService() {
+        return Context.getService(InitializerService.class);
     }
 }
