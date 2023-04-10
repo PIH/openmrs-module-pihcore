@@ -47,26 +47,29 @@ public class MetadataSharingSetup {
         MetadataSharing.getInstance().getResolverEngine().setResolvers(supportedResolvers);
     }
 
-    public static void installMetadataSharingPackages() {
-
+    /**
+     * @return true if any MDS packages were installed, false otherwise
+     */
+    public static boolean installMetadataSharingPackages() throws Exception {
+        boolean updated = false;
         try {
             Collection<File> mdsFiles = loadMdsFiles();
-
-            if (mdsFiles == null) {
-                return;
+            if (mdsFiles != null && !mdsFiles.isEmpty()) {
+                List<PackageImporter> packageImporters = loadPackageImporters(mdsFiles);
+                removeAlreadyLoadedPackageImporters(packageImporters);
+                if (!packageImporters.isEmpty()) {
+                    sortPackageImporters(packageImporters);
+                    loadPackages(packageImporters);
+                    Context.flushSession();
+                    updated = true;
+                }
             }
-
-            List<PackageImporter> packageImporters = loadPackageImporters(mdsFiles);
-            removeAlreadyLoadedPackageImporters(packageImporters);
-            sortPackageImporters(packageImporters);
-            loadPackages(packageImporters);
-
-            Context.flushSession();
         }
-        catch(Exception e) {
+        catch (Exception e) {
             log.error("Unable to load metadata sharing packages", e);
+            throw e;
         }
-
+        return updated;
     }
 
     public static Collection<File> loadMdsFiles() {

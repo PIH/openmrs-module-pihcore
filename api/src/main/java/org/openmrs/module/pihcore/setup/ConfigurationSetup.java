@@ -46,6 +46,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import static org.openmrs.module.initializer.Domain.CONCEPTS;
+import static org.openmrs.module.initializer.Domain.CONCEPT_SETS;
 import static org.openmrs.module.pihcore.PihCoreConstants.GP_COMPONENT_PREFIX;
 import static org.openmrs.module.pihcore.PihCoreConstants.GP_CONFIGURED_SITE;
 
@@ -248,10 +250,14 @@ public class ConfigurationSetup {
         setStatus("Configuration Setup Completed Successfully");
     }
 
-    public void configureConceptDependencies() {
+    public void configureConceptDependencies() throws Exception {
         // Install Concepts, etc from MDS Packages
         setStatus("Installing MDS packages");
-        MetadataSharingSetup.installMetadataSharingPackages();
+        boolean mdsPackagesUpdated = MetadataSharingSetup.installMetadataSharingPackages();
+        if (mdsPackagesUpdated) {
+            setStatus("MDS Packages were updated.  Deleting checksums for concepts and concept_sets domains");
+            InitializerSetup.deleteChecksumsForDomains(CONCEPTS, CONCEPT_SETS);
+        }
 
         // Load remaining Initializer domains that could depend on Concepts
         setStatus("Loading initializer post-concept domains");
