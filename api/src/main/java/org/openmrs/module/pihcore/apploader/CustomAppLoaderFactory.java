@@ -2119,7 +2119,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "fas fa-fw fa-brain",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("epilepsy.xml")),
-                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_UUID))));
 
@@ -2128,7 +2128,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "fas fa-fw fa-user",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("mentalHealthIntake.xml")),
-                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID))));
 
