@@ -95,14 +95,29 @@ public class SectionsLiberia extends SectionsDefault {
         q.setHeader("pih.registration.patientSupport.question");
         {
             Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:6547");
+            f.setLabel("pih.registration.patientSupport.typeOfSupport");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(50));
+            DropdownWidget w = new DropdownWidget();
+            w.getConfig().addOption("PIH:11521", "pih.referred");
+            w.getConfig().addOption("PIH:14646", "pih.escorted");
+            w.getConfig().setExpanded(true);
+            f.setWidget(toObjectNode(w));
+            q.addField(f);
+        }
+        {
+            Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:14494");
             f.setLabel("pih.registration.patientSupport.type.label");
             f.setType("obsgroup");
             DropdownWidget w = new DropdownWidget();
-            w.getConfig().addOption("PIH:3645", "pih.registration.following.type.chw");
-            w.getConfig().addOption("PIH:14495", "pih.registration.following.type.chp");
             w.getConfig().addOption("PIH:14496", "pih.registration.following.type.cha");
+            w.getConfig().addOption("PIH:14495", "pih.registration.following.type.chp");
+            w.getConfig().addOption("PIH:14645", "pih.registration.following.type.chv");
+            w.getConfig().addOption("PIH:13489", "pih.registration.following.type.tba");
             w.getConfig().addOption("PIH:14502", "pih.registration.following.type.pssa");
+            w.getConfig().addOption("PIH:14649", "pih.registration.selfOrFamily");
             w.getConfig().setExpanded(true);
             f.setWidget(toObjectNode(w));
             q.addField(f);
@@ -111,14 +126,6 @@ public class SectionsLiberia extends SectionsDefault {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:6402");
             f.setLabel("pih.registration.patientSupport.location.label");
-            f.setType("obsgroup");
-            f.setWidget(getTextFieldWidget(50));
-            q.addField(f);
-        }
-        {
-            Field f = new Field();
-            f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:13173");
-            f.setLabel("pih.registration.patientSupport.idNumber.label");
             f.setType("obsgroup");
             f.setWidget(getTextFieldWidget(50));
             q.addField(f);
