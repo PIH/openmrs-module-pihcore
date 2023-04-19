@@ -1,5 +1,8 @@
 package org.openmrs.module.pihcore.apploader.apps.patientregistration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
@@ -84,15 +87,18 @@ public class SectionsLiberia extends SectionsDefault {
         Section s = new Section();
         s.setId("patientSupport");
         s.setLabel("pih.registration.patientSupport.section.label");
-        s.addQuestion(getPatientSupportQuestions());
+        s.setQuestions(getPatientSupportQuestions());
         return s;
     }
 
-    private Question getPatientSupportQuestions() {
-        Question q = new Question();
-        q.setId("patientSupportQuestion");
-        q.setLegend("pih.registration.patientSupport.label");
-        q.setHeader("pih.registration.patientSupport.question");
+    private List<Question> getPatientSupportQuestions() {
+
+        List<Question> questions = new ArrayList<>();
+
+        Question q1 = new Question();
+        q1.setId("patientReferredOrEscortedQuestion");
+        q1.setLegend("pih.registration.patientSupport.label");
+        q1.setHeader("pih.registration.patientSupport.question");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:6547");
@@ -104,8 +110,14 @@ public class SectionsLiberia extends SectionsDefault {
             w.getConfig().addOption("PIH:14646", "pih.escorted");
             w.getConfig().setExpanded(true);
             f.setWidget(toObjectNode(w));
-            q.addField(f);
+            q1.addField(f);
         }
+        questions.add(q1);
+
+        Question q2 = new Question();
+        q2.setId("patientTypeOfSupportQuestion");
+        q2.setLegend("pih.registration.patientSupport.label");
+        q2.setHeader("pih.registration.patientSupport.question");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:14494");
@@ -120,32 +132,54 @@ public class SectionsLiberia extends SectionsDefault {
             w.getConfig().addOption("PIH:14649", "pih.registration.selfOrFamily");
             w.getConfig().setExpanded(true);
             f.setWidget(toObjectNode(w));
-            q.addField(f);
+            q2.addField(f);
         }
+        questions.add(q2);
+
+
+        Question q3 = new Question();
+        q3.setId("patientSupportLocationQuestion");
+        q3.setLegend("pih.registration.patientSupport.location.label");
+        q3.setHeader("pih.registration.patientSupport.location.label");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:6402");
             f.setLabel("pih.registration.patientSupport.location.label");
             f.setType("obsgroup");
             f.setWidget(getTextFieldWidget(50));
-            q.addField(f);
+            q3.addField(f);
         }
+        questions.add(q3);
+
+
+        Question q4 = new Question();
+        q4.setId("patientSupportNameQuestion");
+        q4.setLegend("pih.registration.patientSupport.name.label");
+        q4.setHeader("pih.registration.patientSupport.name.label");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.CIEL:164141");
             f.setLabel("pih.registration.patientSupport.name.label");
             f.setType("obsgroup");
             f.setWidget(getTextFieldWidget(50));
-            q.addField(f);
+            q4.addField(f);
         }
+        questions.add(q4);
+
+        Question q5 = new Question();
+        q5.setId("patientSupportPhoneQuestion");
+        q5.setLegend("pih.registration.patientSupport.phone.label");
+        q5.setHeader("pih.registration.patientSupport.phone.label");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:2614");
             f.setLabel("pih.registration.patientSupport.phone.label");
             f.setType("obsgroup");
             f.setWidget(getTextFieldWidget(50));
-            q.addField(f);
+            q5.addField(f);
         }
-        return q;
+        questions.add(q5);
+
+        return questions;
     }
 }
