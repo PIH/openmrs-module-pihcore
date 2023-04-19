@@ -49,14 +49,16 @@ public class PihVelocityContextContentProvider implements VelocityContextContent
         addProgramConceptToList(concepts, "ASTHMA", "PIH");
         addProgramConceptToList(concepts, "CHRONIC OBSTRUCTIVE PULMONARY DISEASE", "PIH");
         addProgramConceptToList(concepts, "Sickle-Cell Anemia", "PIH");
+        addProgramConceptToList(concepts, "SPLENOMEGALY", "PIH");
 
         return concepts;
     }
 
     private List<Concept> getMentalHealthDiagnoses() {
-        List<Concept> concepts = new ArrayList<Concept>();
         addProgramConceptToList(concepts, "PSYCHOSIS", "PIH");
         addProgramConceptToList(concepts, "Bipolar disorder", "PIH");
+        addProgramConceptToList(concepts, "115924", "CIEL"); // Bipolar mania
+        addProgramConceptToList(concepts, "119541", "CIEL"); // Bipolar depression
         addProgramConceptToList(concepts, "SCHIZOPHRENIA", "PIH");
         addProgramConceptToList(concepts, "Psychosomatic problems", "PIH");
         addProgramConceptToList(concepts, "Hyperkinetic Behavior", "PIH");
@@ -66,10 +68,19 @@ public class PihVelocityContextContentProvider implements VelocityContextContent
         addProgramConceptToList(concepts, "EPILEPSY", "PIH");
         addProgramConceptToList(concepts, "ANXIETY DISORDER", "PIH");
         addProgramConceptToList(concepts, "Post traumatic stress disorder", "PIH");
-        addProgramConceptToList(concepts, "130967", "CIEL");
         addProgramConceptToList(concepts, "DEPRESSION", "PIH");
         addProgramConceptToList(concepts, "Manic episode", "PIH");
         addProgramConceptToList(concepts, "Mood disorder", "PIH");
+        addProgramConceptToList(concepts, "121725", "CIEL"); // Alcohol abuse
+        addProgramConceptToList(concepts, "112603", "CIEL"); // Drug abuse
+        addProgramConceptToList(concepts, "137668", "CIEL"); // behaviornal disorder
+        addProgramConceptToList(concepts, "14629", "PIH");   // emotional disorder
+        addProgramConceptToList(concepts, "121303", "CIEL"); // autism
+        addProgramConceptToList(concepts, "156923", "CIEL"); // intellectual
+        addProgramConceptToList(concepts, "160197", "CIEL"); // psychosomatic
+        addProgramConceptToList(concepts, "139545", "CIEL"); // GAD
+        addProgramConceptToList(concepts, "130966", "CIEL"); // Panic disorder
+        addProgramConceptToList(concepts, "113517", "CIEL"); // Psychosis
 
         return concepts;
     }
