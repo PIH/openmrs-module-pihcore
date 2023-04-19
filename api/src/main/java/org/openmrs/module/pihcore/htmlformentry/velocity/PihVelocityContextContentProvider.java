@@ -40,7 +40,6 @@ public class PihVelocityContextContentProvider implements VelocityContextContent
 
     private List<Concept> getNcdDiagnoses() {
         List<Concept> concepts = new ArrayList<Concept>();
-
         addProgramConceptToList(concepts, "DIABETES", "PIH");
         addProgramConceptToList(concepts, "HYPERTENSION", "PIH");
         addProgramConceptToList(concepts, "RENAL FAILURE", "PIH");
@@ -50,11 +49,11 @@ public class PihVelocityContextContentProvider implements VelocityContextContent
         addProgramConceptToList(concepts, "CHRONIC OBSTRUCTIVE PULMONARY DISEASE", "PIH");
         addProgramConceptToList(concepts, "Sickle-Cell Anemia", "PIH");
         addProgramConceptToList(concepts, "SPLENOMEGALY", "PIH");
-
         return concepts;
     }
 
     private List<Concept> getMentalHealthDiagnoses() {
+        List<Concept> concepts = new ArrayList<Concept>();
         addProgramConceptToList(concepts, "PSYCHOSIS", "PIH");
         addProgramConceptToList(concepts, "Bipolar disorder", "PIH");
         addProgramConceptToList(concepts, "115924", "CIEL"); // Bipolar mania
@@ -81,7 +80,6 @@ public class PihVelocityContextContentProvider implements VelocityContextContent
         addProgramConceptToList(concepts, "139545", "CIEL"); // GAD
         addProgramConceptToList(concepts, "130966", "CIEL"); // Panic disorder
         addProgramConceptToList(concepts, "113517", "CIEL"); // Psychosis
-
         return concepts;
     }
 
