@@ -97,8 +97,7 @@ public class SectionsLiberia extends SectionsDefault {
 
         Question q1 = new Question();
         q1.setId("patientReferredOrEscortedQuestion");
-        q1.setLegend("pih.registration.patientSupport.label");
-        q1.setHeader("pih.registration.patientSupport.question");
+        q1.setLegend("pih.registration.patientSupport.refOrEsc");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:6547");
@@ -116,8 +115,7 @@ public class SectionsLiberia extends SectionsDefault {
 
         Question q2 = new Question();
         q2.setId("patientTypeOfSupportQuestion");
-        q2.setLegend("pih.registration.patientSupport.label");
-        q2.setHeader("pih.registration.patientSupport.question");
+        q2.setLegend("pih.registration.patientSupport.roleType");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:14494");
@@ -139,8 +137,7 @@ public class SectionsLiberia extends SectionsDefault {
 
         Question q3 = new Question();
         q3.setId("patientSupportLocationQuestion");
-        q3.setLegend("pih.registration.patientSupport.location.label");
-        q3.setHeader("pih.registration.patientSupport.location.label");
+        q3.setLegend("pihcore.encounterList.location");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:6402");
@@ -155,7 +152,6 @@ public class SectionsLiberia extends SectionsDefault {
         Question q4 = new Question();
         q4.setId("patientSupportNameQuestion");
         q4.setLegend("pih.registration.patientSupport.name.label");
-        q4.setHeader("pih.registration.patientSupport.name.label");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.CIEL:164141");
@@ -169,7 +165,6 @@ public class SectionsLiberia extends SectionsDefault {
         Question q5 = new Question();
         q5.setId("patientSupportPhoneQuestion");
         q5.setLegend("pih.registration.patientSupport.phone.label");
-        q5.setHeader("pih.registration.patientSupport.phone.label");
         {
             Field f = new Field();
             f.setFormFieldName("obsgroup.PIH:14493.obs.PIH:2614");
