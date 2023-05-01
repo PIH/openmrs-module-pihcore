@@ -786,10 +786,6 @@
                             <name>attachmentsVersion</name>
                             <version>[2.7.0-SNAPSHOT,3.0.0)</version>
                         </property>
-                        <property>
-                            <name>initializerVersion</name>
-                            <version>[2.5.0]</version>
-                        </property>
                     </properties>
                 </configuration>
             </plugin>
