@@ -83,7 +83,8 @@ public class SectionsSierraLeone extends SectionsDefault {
     Section s = new Section();
     s.setId("social");
     s.setLabel("zl.registration.patient.social.label");
-    SocialConfigDescriptor socConfig = config.getRegistrationConfig().getSocial();
+    s.addQuestion(getBirthplaceQuestion());
+    s.addQuestion(getCivilStatusQuestion());
     s.addQuestion(getOccupationQuestion());
     return s;
     }
