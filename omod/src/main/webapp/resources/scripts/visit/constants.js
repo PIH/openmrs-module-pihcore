@@ -212,6 +212,9 @@ angular.module('constants', [])
         covidVaccination: {
             uuid: "c3cd46de-21fb-475b-b76a-1c638b250378"
         },
+        hepBVaccination: {
+            uuid: "3cd42a9c-26fe-102b-80cb-0017a47871b2"
+        },
         bcgVaccination: {
             uuid: "3cd4e004-26fe-102b-80cb-0017a47871b2"
         },
