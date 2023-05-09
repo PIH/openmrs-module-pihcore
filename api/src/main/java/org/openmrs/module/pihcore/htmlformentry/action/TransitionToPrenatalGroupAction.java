@@ -67,7 +67,7 @@ public class TransitionToPrenatalGroupAction implements CustomFormSubmissionActi
             ProgramWorkflow typeOfTreatmentWorkflow = programWorkflowService.getWorkflowByUuid(TYPE_OF_TREATMENT_WORKFLOW_UUID);
             ProgramWorkflowState prenatalState = typeOfTreatmentWorkflow.getState(prenatalGroup);
 
-            // In the event that the patient has more than enrollment in the MCH program, update all of them
+            // In the unlikely event that the patient has more than enrollment in the MCH program on the encounter date, update all of them
             for (PatientProgram patientProgram : candidates) {
                 PatientState currentState = HtmlFormEntryUtil.getPatientStateOnDate(patientProgram, typeOfTreatmentWorkflow, encounterDate);
                 // Only transition to the prenatal state if the patient is not already in this state
