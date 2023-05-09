@@ -7,6 +7,7 @@ import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.PatientState;
 import org.openmrs.Program;
 import org.openmrs.PatientProgram;
 import org.openmrs.ProgramWorkflow;
@@ -15,6 +16,7 @@ import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntrySession;
+import org.openmrs.module.htmlformentry.HtmlFormEntryUtil;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +25,7 @@ public class TransitionToPrenatalGroupAction implements CustomFormSubmissionActi
 
     protected final Log log = LogFactory.getLog(getClass());
     private static String MCH_PROGRAM_UUID = "41a2715e-8a14-11e8-9a94-a6cf71072f73";
+    private static String TYPE_OF_TREATMENT_WORKFLOW_UUID = "41a277d0-8a14-11e8-9a94-a6cf71072f73";
 
 
     @Override
@@ -61,13 +64,18 @@ public class TransitionToPrenatalGroupAction implements CustomFormSubmissionActi
                 log.warn("More than one MCH program enrollment for patient " + patient.getUuid()
                         + " on date " + encounterDate + ". Change the treatment group to all of them.");
             }
+            ProgramWorkflow typeOfTreatmentWorkflow = programWorkflowService.getWorkflowByUuid(TYPE_OF_TREATMENT_WORKFLOW_UUID);
+            ProgramWorkflowState prenatalState = typeOfTreatmentWorkflow.getState(prenatalGroup);
+
+            // In the unlikely event that the patient has more than enrollment in the MCH program on the encounter date, update all of them
             for (PatientProgram patientProgram : candidates) {
-                ProgramWorkflow typeOfTreatmentWorkflow = patientProgram.getProgram().getWorkflowByName("Type of treatment");
-                ProgramWorkflowState preanatalState = typeOfTreatmentWorkflow.getState(prenatalGroup);
-                patientProgram.transitionToState(preanatalState, encounterDate);
-                programWorkflowService.savePatientProgram(patientProgram);
+                PatientState currentState = HtmlFormEntryUtil.getPatientStateOnDate(patientProgram, typeOfTreatmentWorkflow, encounterDate);
+                // Only transition to the prenatal state if the patient is not already in this state
+                if (currentState == null || !currentState.getState().equals(prenatalState)) {
+                    patientProgram.transitionToState(prenatalState, encounterDate);
+                    programWorkflowService.savePatientProgram(patientProgram);
+                }
             }
         }
-
     }
 }
