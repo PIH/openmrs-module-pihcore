@@ -50,6 +50,7 @@ public class AuthenticationSetup {
         whitelist.add("/authenticationui/resetPassword/reset.action");
         whitelist.add("/authenticationui/account/resetPassword.page");
         whitelist.add("/csrfguard");
+        whitelist.add("/spa/**/*");
         whitelist.add("*.js");
         whitelist.add("*.css");
         whitelist.add("*.gif");
@@ -59,8 +60,6 @@ public class AuthenticationSetup {
         whitelist.add("*.ttf");
         whitelist.add("*.woff");
         whitelist.add("*.woff2");
-        whitelist.add("/**/manifest.*.json");
-        whitelist.add("/**/importmap.json");
 
         // Set up all the supported authentication schemes with default values.
         // Allow overriding with values from the config
