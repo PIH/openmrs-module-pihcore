@@ -49,6 +49,7 @@ public class AuthenticationSetup {
         whitelist.add("/appui/session/getLoginLocations.action");
         whitelist.add("/authenticationui/resetPassword/reset.action");
         whitelist.add("/authenticationui/account/resetPassword.page");
+        whitelist.add("/ws/rest/v1/session");
         whitelist.add("/csrfguard");
         whitelist.add("/spa/**/*");
         whitelist.add("*.js");
