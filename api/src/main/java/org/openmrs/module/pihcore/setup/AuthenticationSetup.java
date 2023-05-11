@@ -60,6 +60,7 @@ public class AuthenticationSetup {
         whitelist.add("*.woff");
         whitelist.add("*.woff2");
         whitelist.add("/**/manifest.*.json");
+        whitelist.add("/**/importmap.json");
 
         // Set up all the supported authentication schemes with default values.
         // Allow overriding with values from the config
