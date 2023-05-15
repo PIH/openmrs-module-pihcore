@@ -218,6 +218,9 @@ angular.module('constants', [])
         fluVaccination: {
             uuid: "78032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
+        meningoVaccination: {
+            uuid: "159900AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         bcgVaccination: {
             uuid: "3cd4e004-26fe-102b-80cb-0017a47871b2"
         },
