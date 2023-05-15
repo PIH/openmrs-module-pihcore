@@ -215,6 +215,9 @@ angular.module('constants', [])
         hepBVaccination: {
             uuid: "3cd42a9c-26fe-102b-80cb-0017a47871b2"
         },
+        fluVaccination: {
+            uuid: "78032AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         bcgVaccination: {
             uuid: "3cd4e004-26fe-102b-80cb-0017a47871b2"
         },

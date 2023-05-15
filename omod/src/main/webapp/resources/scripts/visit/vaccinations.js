@@ -177,6 +177,11 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         doses: [ 0, 1, 2, 3 ]
                     },
                     {
+                        label: "pihcore.concept.name." + Concepts.fluVaccination.uuid,
+                        concept: Concepts.fluVaccination,
+                        doses: [ 1, 2, 3, 11, 12 ]
+                    },
+                    {
                         label: "pihcore.concept.name." + Concepts.covidVaccination.uuid,
                         concept: Concepts.covidVaccination,
                         doses: [ 1, 2, 3 ]
