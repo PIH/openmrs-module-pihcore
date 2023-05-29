@@ -2070,6 +2070,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             // Liberia original Mental Health form is followup
             // Todo:  update the label to pihcore.mentalhealthFU.title
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,
+                    "pih.task.mentalHealthIntake.label",
+                    "fas fa-fw fa-user",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("mentalHealthIntake.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    and(sessionLocationHasTag("Mental Health Location"),
+                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID)),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID))));
+
+            // Liberia followup form
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,
                     "pih.task.mentalHealth.label",
                     "fas fa-fw fa-user",
@@ -2077,6 +2088,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(definitionUiResource),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));
 
         } else {
@@ -2108,16 +2120,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_UUID))));
-
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,
-                    "pih.task.mentalHealthIntake.label",
-                    "fas fa-fw fa-user",
-                    "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("mentalHealthIntake.xml")),
-                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
-                    and(sessionLocationHasTag("Mental Health Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID))));
-
         }
 
     }
