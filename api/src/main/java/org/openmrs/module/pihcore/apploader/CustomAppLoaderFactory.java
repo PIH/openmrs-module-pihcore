@@ -3027,6 +3027,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "dashboardwidgets/dashboardWidget"));
         }
 
+           if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+                          apps.add(addToMentalHealthDashboardSecondColumn(app(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN,
+                        "pih.app.mental.health.status.title",
+                        "fas fa-fw fa-exclamation-circle",
+                        null,
+                        null,
+                        objectNode("configFile", "mentalHealth/mentalHealthStatuses.yml" )),
+                "pihcore", "dashboardwidgets/statusData"));
+                }
+
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
                 apps.add(addToMentalHealthDashboardSecondColumn(
                         graphs.getWHODASGraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
