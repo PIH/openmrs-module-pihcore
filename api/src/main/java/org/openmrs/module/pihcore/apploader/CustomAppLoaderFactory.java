@@ -3047,6 +3047,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "coreapps",
                     "dashboardwidgets/dashboardWidget"));
         }
+        
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            apps.add(addToMentalHealthDashboardSecondColumn(
+                    graphs.getZLCGIraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
+                    "coreapps",
+                    "dashboardwidgets/dashboardWidget"));
+        }
 
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             apps.add(addToMentalHealthDashboardSecondColumn(

@@ -96,6 +96,7 @@ public class CustomAppLoaderConstants {
         public static final String WHODAS_GRAPH = "pih.app.whodas.graph";
         public static final String ZLDSI_GRAPH = "pih.app.zldsi.graph";
         public static final String SEIZURE_FREQUENCY_GRAPH = "pih.app.seizure.frequency.graph.title";
+        public static final String CGI_I_GRAPH = "pih.app.cgi_i.graph";
         public static final String J9_REFERRALS = "pih.app.j9Referrals";
         public static final String COVID_LAB_RESULTS = "pih.app.covidLabResults";
         public static final String ADD_LAB_RESULTS = "pih.app.addLabResults";
@@ -545,6 +546,7 @@ public class CustomAppLoaderConstants {
     public static final String WHODAS = "163226AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String ZLDSI = "163225AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SEIZURE_FREQUENCY = "ba2e9e43-5a9d-423f-a33e-c34765785397";
+    public static final String CGI_I = "163223AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SARS_COV2_ANTIBODY_TEST = "165853AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SARS_COV2_ANTIGEN_TEST = "165852AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SARS_COV2_RT_PCR_TEST = "165840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";

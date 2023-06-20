@@ -124,6 +124,22 @@ public class GraphFactory {
                         "maxRecords", "12"
                 ));
     }
+    
+    public AppDescriptor getZLCGIraph(String extensionPoint) {
+        return CustomAppLoaderUtil.app(
+                CustomAppLoaderConstants.Apps.CGI_I_GRAPH + extensionPoint,
+                "pihcore.mentalhealth.cgii",
+                "icon-bar-chart",
+                null,
+                null,
+                CustomAppLoaderUtil.objectNode(
+                        "widget", "obsgraph",
+                        "icon", "icon-bar-chart",
+                        "label", "pihcore.mentalhealth.cgii",
+                        "conceptId", CustomAppLoaderConstants.CGI_I,
+                        "maxRecords", "10"
+                ));
+    }
 
     public AppDescriptor getPHQ9Graph(String extensionPoint) {
         return CustomAppLoaderUtil.app(
