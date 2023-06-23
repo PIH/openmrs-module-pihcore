@@ -99,6 +99,7 @@ public class CustomAppLoaderConstants {
         public static final String CGI_I_GRAPH = "pih.app.cgi_i.graph";
         public static final String J9_REFERRALS = "pih.app.j9Referrals";
         public static final String COVID_LAB_RESULTS = "pih.app.covidLabResults";
+        public static final String ALL_LAB_RESULTS = "pih.app.allLabResults";
         public static final String ADD_LAB_RESULTS = "pih.app.addLabResults";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
@@ -485,7 +486,8 @@ public class CustomAppLoaderConstants {
             Apps.VITALS_SUMMARY,
             Apps.DISPENSING_SUMMARY,
             Apps.NOTES_SUMMARY,
-            Apps.COVID_LAB_RESULTS
+            Apps.COVID_LAB_RESULTS,
+            Apps.ALL_LAB_RESULTS
     );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
@@ -551,6 +553,14 @@ public class CustomAppLoaderConstants {
     public static final String SARS_COV2_ANTIGEN_TEST = "165852AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SARS_COV2_RT_PCR_TEST = "165840AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String SARS_COV2_XPERT_TEST = "423edcfa-a5a6-4bc4-a43a-b19644252dc6";
+
+    public static final String GLUCOSE_TEST = "3cd4e194-26fe-102b-80cb-0017a47871b2";
+    public static final String BUN_TEST = "3cd4aa12-26fe-102b-80cb-0017a47871b2";
+    public static final String NA_TEST = "3cd76b58-26fe-102b-80cb-0017a47871b2";
+    public static final String K_TEST = "3cd76ce8-26fe-102b-80cb-0017a47871b2";
+    public static final String CR_TEST = "3cd4374e-26fe-102b-80cb-0017a47871b2";
+    public static final String HB_TEST = "3ccc7158-26fe-102b-80cb-0017a47871b2";
+
     public static final String MED_DISPENSED_NAME_UUID = "3cd9491e-26fe-102b-80cb-0017a47871b2";
     public static final String HEART_RATE_UUID = "3ce93824-26fe-102b-80cb-0017a47871b2";
     public static final String TEMPERATURE_UUID = "3ce939d2-26fe-102b-80cb-0017a47871b2";
