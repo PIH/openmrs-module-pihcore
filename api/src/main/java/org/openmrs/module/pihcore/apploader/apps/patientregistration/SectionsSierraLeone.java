@@ -1,8 +1,14 @@
 package org.openmrs.module.pihcore.apploader.apps.patientregistration;
 
+import org.apache.commons.lang3.StringUtils;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.addresshierarchy.AddressField;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.ContactPersonConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
@@ -10,7 +16,10 @@ import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
 
-
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class SectionsSierraLeone extends SectionsDefault {
@@ -28,8 +37,87 @@ public class SectionsSierraLeone extends SectionsDefault {
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
         c.addSection(getContactsSection());
+        c.addSection(getLocalContactSection());
         c.addSection(getIdentifierSection());
         c.addSection(getIdCardPrintSection());
+    }
+
+    private Section getLocalContactSection() {
+        Section s = new Section();
+        s.setId("localContactInfo");
+        s.setLabel("registration.patient.localContact.label");
+        s.addQuestion(getLocalContactName());
+        s.addQuestion(getLocalAddressQuestion());
+        s.addQuestion(getLocalContactPhoneNumber());
+        return s;
+    }
+
+    private Question getLocalContactName() {
+        Question q = new Question();
+        q.setId("contactNameLabel");
+        q.setLegend("sl.registration.patient.localContactPerson.name.label");
+        q.setHeader("sl.registration.patient.localContactPerson.contactName.question");
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:14704.obs.PIH:NAMES AND FIRSTNAMES OF CONTACT");
+            f.setLabel("sl.registration.patient.localContactPerson.contactName.question");
+            f.setType("obsgroup");
+            f.setWidget(getTextFieldWidget(30));
+            q.addField(f);
+        }
+
+        return q;
+    }
+    private Question getLocalContactPhoneNumber() {
+
+        Question q = new Question();
+        q.setId("contactPhoneNumberQuestionLabel");
+        q.setHeader("sl.registration.patient.localContact.phonenumber.question");
+        q.setLegend("sl.registration.patient.localContact.phonenumber.label");
+
+        {
+            Field f = new Field();
+            f.setFormFieldName("obsgroup.PIH:14704.obs.PIH:TELEPHONE NUMBER OF CONTACT");
+            f.setLabel("registrationapp.patient.phone.label");
+            f.setType("obsgroup");
+            ContactPersonConfigDescriptor contactPersonConfig = config.getRegistrationConfig().getContactPerson();
+            if(contactPersonConfig != null && contactPersonConfig.getPhoneNumber() != null
+                    && StringUtils.isNotBlank(contactPersonConfig.getPhoneNumber().getRegex())){
+                f.setCssClasses(Arrays.asList("regex"));
+                f.setWidget(getTextFieldWidget(30, contactPersonConfig.getPhoneNumber().getRegex()));
+            } else {
+                f.setWidget(getTextFieldWidget(30));
+            }
+            q.addField(f);
+        }
+
+        return q;
+    }
+    private Question getLocalAddressQuestion() {
+        Question q = new Question();
+        q.setId("localAddressLabel");
+        q.setHeader("sl.registration.patient.localAddress.question");
+        q.setLegend("sl.registration.patient.localAddress.label");
+
+        Field f = new Field();
+        f.setLabel("sl.registration.patient.localAddress.label");
+        f.setType("personAddress");
+
+        // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
+        List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
+        if (levels != null && levels.size() > 0) {
+            //q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
+            f.setWidget(getAddressHierarchyWidget(levels, getLocalContactAddressFieldMappings(), true));
+        }
+        else {
+            Map<String, String> m = new HashMap<String, String>();
+            m.put("providerName", "uicommons");
+            m.put("fragmentId", "field/personAddress");
+            f.setWidget(toObjectNode(m));
+        }
+        q.addField(f);
+
+        return q;
     }
 
     @Override
@@ -133,6 +221,18 @@ public class SectionsSierraLeone extends SectionsDefault {
         q.addField(f);
 
         return q;
+    }
+
+    private Map<String,String> getLocalContactAddressFieldMappings() {
+        // Haiti-specific
+        Map<String,String> fieldMappings = new HashMap<String, String>();
+        fieldMappings.put(AddressField.COUNTRY.getName(), "obsgroup.PIH:14704.obs.PIH:Country");
+        fieldMappings.put(AddressField.COUNTY_DISTRICT.getName(), "obsgroup.PIH:14704.obs.PIH:14784");
+        fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obsgroup.PIH:14704.obs.PIH:State Province");
+        fieldMappings.put(AddressField.ADDRESS_1.getName(), "obsgroup.PIH:14704.obs.PIH:Address1");
+        fieldMappings.put(AddressField.CITY_VILLAGE.getName(), "obsgroup.PIH:14704.obs.PIH:City Village");
+        fieldMappings.put(AddressField.ADDRESS_2.getName(), "obsgroup.PIH:14704.obs.PIH:Address2");
+        return fieldMappings;
     }
 
 }

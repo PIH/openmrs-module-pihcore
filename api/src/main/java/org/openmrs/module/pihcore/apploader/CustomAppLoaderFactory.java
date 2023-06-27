@@ -1531,6 +1531,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "encounter/mostRecentEncounter"));
         }
 
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_LOCAL_ADDRESS,
+                            "sl.registration.patient.localAddress.label",
+                            "fas fa-fw fa-phone",
+                            null,
+                            "App: registrationapp.registerPatient",
+                            objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                                    "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,
+                                    "definitionUiResource", PihCoreUtil.getFormResource("patientRegistration-localAddress.xml"),
+                                    "editable", true)),
+                    "coreapps",
+                    "encounter/mostRecentEncounter"));
+        }
+
         if (config.isComponentEnabled(Components.CHECK_IN)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_CHECK_IN,
                     "pihcore.mostRecentCheckin.label",
