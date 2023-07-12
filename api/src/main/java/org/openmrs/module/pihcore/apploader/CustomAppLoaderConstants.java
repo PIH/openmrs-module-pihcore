@@ -140,6 +140,7 @@ public class CustomAppLoaderConstants {
 
         public static final String SPA_PREVIEW_HOME = "spa.preview.home";
 
+        public static final String RECENT_LAB_RESULTS = "pih.app.lab.results";
     }
 
     public static final class Extensions {
@@ -488,6 +489,7 @@ public class CustomAppLoaderConstants {
             Apps.DISPENSING_SUMMARY,
             Apps.NOTES_SUMMARY,
             Apps.COVID_LAB_RESULTS,
+            Apps.RECENT_LAB_RESULTS,
             Apps.ALL_LAB_RESULTS
     );
 
