@@ -83,6 +83,7 @@
         <owaVersion>1.14.0</owaVersion>
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
         <paperrecordVersion>1.4.0-SNAPSHOT</paperrecordVersion>
+        <patientflagsVersion>3.0.6-SNAPSHOT</patientflagsVersion>
         <printerVersion>1.5.0-SNAPSHOT</printerVersion>
         <providermanagementVersion>2.14.0</providermanagementVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
@@ -463,6 +464,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>paperrecord-api</artifactId>
             <version>${paperrecordVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>patientflags-api</artifactId>
+            <version>${patientflagsVersion}</version>
             <scope>provided</scope>
         </dependency>
 

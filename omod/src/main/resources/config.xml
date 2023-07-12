@@ -128,6 +128,9 @@
         <require_module version="${openconceptlabVersion}">
             org.openmrs.module.openconceptlab
         </require_module>
+        <require_module version="${patientflagsVersion}">
+            org.openmrs.module.patientflags
+        </require_module>
     </require_modules>
 
     <activator>${project.parent.groupId}.${project.parent.artifactId}.PihCoreActivator</activator>
