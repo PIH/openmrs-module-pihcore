@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.apploader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
@@ -3210,7 +3211,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             null,
                             null,
                             objectNode(
-                                    "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_LAB_SPECIMEN_COLLECTION_UUID + "," + PihEmrConfigConstants.ENCOUNTERTYPE_LAB_RESULTS_UUID,
+                                    "encounterTypes", Context.getAdministrationService().getGlobalProperty(CustomAppLoaderConstants.GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES),
                                     "detailsUrl", "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=/openmrs/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
                                     "obsTypes", "LabSet,Test",
                                     "labCategoriesSet", PihEmrConfigConstants.CONCEPT_LABORATORYCATEGORIES_UUID,

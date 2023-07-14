@@ -18,7 +18,7 @@
                         <strong>${ ui.format(labResult) }</strong>
                     </span>
                     <span style="float: right; font-size: small; color: #939393">
-                        ${ ui.formatDateWithClientTimezone(labResult.obsDatetime) }
+                        ${ ui.formatDatePretty(labResult.obsDatetime) }
                     </span>
                 </div>
             </li>
