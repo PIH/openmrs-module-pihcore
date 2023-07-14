@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.apploader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
@@ -3204,22 +3205,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
 
         if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
-            apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.ALL_LAB_RESULTS,
+            apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RECENT_LAB_RESULTS,
                             "pihcore.lab.lab_results.caps",
                             "fas fa-vial",
                             null,
                             null,
                             objectNode(
-                                    "widget", "latestObsForConceptList",
-                                    "icon", "fas fa-vial",
-                                    "label", "pihcore.lab.lab_results.caps",
-                                    "concepts",
-                                        CustomAppLoaderConstants.SARS_COV2_ANTIBODY_TEST + "," + CustomAppLoaderConstants.SARS_COV2_ANTIGEN_TEST + "," + CustomAppLoaderConstants.SARS_COV2_RT_PCR_TEST + "," + CustomAppLoaderConstants.SARS_COV2_XPERT_TEST + "," + CustomAppLoaderConstants.GLUCOSE_TEST + "," + CustomAppLoaderConstants.BUN_TEST + "," + CustomAppLoaderConstants.NA_TEST + "," + CustomAppLoaderConstants.K_TEST + "," + CustomAppLoaderConstants.CR_TEST + "," + CustomAppLoaderConstants.HB_TEST,
-                                    "conceptNameType", "shortName",
+                                    "encounterTypes", Context.getAdministrationService().getGlobalProperty(CustomAppLoaderConstants.GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES),
                                     "detailsUrl", "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=/openmrs/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
-                                    "maxRecords", "5"
+                                    "obsTypes", "LabSet,Test",
+                                    "labCategoriesSet", PihEmrConfigConstants.CONCEPT_LABORATORYCATEGORIES_UUID,
+                                    "maxToDisplay", "5"
                             )),
-                    "coreapps", "dashboardwidgets/dashboardWidget"));
+                    "pihcore", "dashboardwidgets/labResults"));
         } else {
             apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.COVID_LAB_RESULTS,
                             "pihcore.labResults.covid",

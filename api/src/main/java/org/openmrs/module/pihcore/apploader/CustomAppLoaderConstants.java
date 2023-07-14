@@ -140,6 +140,7 @@ public class CustomAppLoaderConstants {
 
         public static final String SPA_PREVIEW_HOME = "spa.preview.home";
 
+        public static final String RECENT_LAB_RESULTS = "pih.app.lab.results";
     }
 
     public static final class Extensions {
@@ -488,6 +489,7 @@ public class CustomAppLoaderConstants {
             Apps.DISPENSING_SUMMARY,
             Apps.NOTES_SUMMARY,
             Apps.COVID_LAB_RESULTS,
+            Apps.RECENT_LAB_RESULTS,
             Apps.ALL_LAB_RESULTS
     );
 
@@ -570,4 +572,5 @@ public class CustomAppLoaderConstants {
     public static final String ADVERSE_EFFECT_CONCEPT_UUID = "3cd96052-26fe-102b-80cb-0017a47871b2";
     public static final String ADVERSE_EFFECT_DATE_CONCEPT_UUID = "3cd964bc-26fe-102b-80cb-0017a47871b2";
     public static final String CLINICAL_COMMENTS_CONCEPT_UUID = "3cd9d956-26fe-102b-80cb-0017a47871b2";
+    public static final String GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES = "labworkflowowa.labResultsEncounterTypes";
 }
