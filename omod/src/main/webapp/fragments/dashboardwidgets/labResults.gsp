@@ -8,14 +8,14 @@
     </div>
     <div class="info-body">
         <ul>
-        <% labResults.each{ labResult -> %>
+        <% labResults.each { labResult -> %>
             <li>
                 <div style="display: block; overflow: hidden; padding-right: 5px; padding-bottom: 2px">
                     <span style="float: left">
                         ${ui.format(labResult.concept.getShortNameInLocale(ui.locale) != null ? labResult.concept.getShortNameInLocale(ui.locale) : labResult.concept.getPreferredName(ui.locale))}:&nbsp;
                     </span>
                     <span style="float: left">
-                        <strong>${ ui.format(labResult) }</strong>
+                        <strong>${ ui.format(labResult) }</strong> <span class="append-to-value">${ labResult.concept.datatype.name == 'Numeric' ? conceptUnits.get(labResult.concept.uuid) : ''}</span>
                     </span>
                     <span style="float: right; font-size: small; color: #939393">
                         ${ ui.formatDatePretty(labResult.obsDatetime) }

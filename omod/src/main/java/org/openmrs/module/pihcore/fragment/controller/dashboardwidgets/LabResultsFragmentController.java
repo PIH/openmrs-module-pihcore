@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.fragment.controller.dashboardwidgets;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonNode;
 import org.openmrs.Concept;
+import org.openmrs.ConceptNumeric;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Obs;
@@ -23,8 +24,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class LabResultsFragmentController {
@@ -97,6 +100,7 @@ public class LabResultsFragmentController {
         }
         String labCategoriesSet = getConfigValue(app, "labCategoriesSet");
         Set<String> categoriesList = getLabCategoriesList(labCategoriesSet, conceptService);
+        Map<String, String> conceptUnits = new HashMap<String, String>();
 
         List<Obs> labResults = new ArrayList<>();
         for (Encounter encounter : encounters) {
@@ -115,6 +119,12 @@ public class LabResultsFragmentController {
                             // if the obs is of the type Test or LabTest and it is also in the labCategoriesSet
                             if (className.equalsIgnoreCase(obsType) && categoriesList.contains(ob.getConcept().getUuid())) {
                                 labResults.add(ob);
+                                if (ob.getConcept().getDatatype().isNumeric()) {
+                                    ConceptNumeric conceptNumeric = conceptService.getConceptNumericByUuid(ob.getConcept().getUuid());
+                                    if (conceptNumeric != null && conceptNumeric.getUnits() != null) {
+                                        conceptUnits.put(conceptNumeric.getUuid(), conceptNumeric.getUnits());
+                                    }
+                                }
                             }
                         }
                     }
@@ -124,6 +134,7 @@ public class LabResultsFragmentController {
         String detailsUrl = getConfigValue(app, "detailsUrl");
         model.put("detailsUrl", detailsUrl);
         model.put("labResults", labResults);
+        model.put("conceptUnits", conceptUnits);
     }
 
     private Set<String> getLabCategoriesList(String labCategoriesSet, ConceptService conceptService) {
