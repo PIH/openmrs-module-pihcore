@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.5.12-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>2.6.1</openMRSVersion>
 
         <addresshierarchyVersion>2.15.2</addresshierarchyVersion>
         <allergyuiVersion>1.8.5</allergyuiVersion>
@@ -78,6 +78,7 @@
         <metadatamappingVersion>1.6.0</metadatamappingVersion>
         <metadatasharingVersion>1.9.0</metadatasharingVersion>
         <namephoneticsVersion>2.0.0-SNAPSHOT</namephoneticsVersion>
+        <o3formsVersion>1.1.0-SNAPSHOT</o3formsVersion>
         <openconceptlabVersion>2.1.0</openconceptlabVersion>
         <orderEntryOwaVersion>1.2.5-SNAPSHOT</orderEntryOwaVersion>
         <owaVersion>1.14.0</owaVersion>
@@ -333,6 +334,13 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
+            <artifactId>fhir2-api-2.6</artifactId>
+            <version>${fhir2Version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
             <artifactId>growthchart-api</artifactId>
             <version>${growthChartVersion}</version>
             <scope>provided</scope>
@@ -435,6 +443,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>namephonetics-api</artifactId>
             <version>${namephoneticsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+         <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>o3forms-api</artifactId>
+            <version>${o3formsVersion}</version>
             <scope>provided</scope>
         </dependency>
 
