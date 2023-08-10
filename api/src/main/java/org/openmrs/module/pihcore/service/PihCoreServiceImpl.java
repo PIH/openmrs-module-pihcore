@@ -15,8 +15,10 @@ package org.openmrs.module.pihcore.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Order;
 import org.openmrs.Person;
 import org.openmrs.api.OrderService;
+import org.openmrs.api.db.OrderDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.springframework.beans.BeansException;
@@ -34,6 +36,7 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
 
     private ApplicationContext applicationContext;
 	private PihCoreDAO dao;
+    private OrderDAO orderDAO;
 
     /**
      * @see OrderService#getNextOrderNumberSeedSequenceValue()
@@ -41,6 +44,14 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public synchronized Long getNextRadiologyOrderNumberSeedSequenceValue() {
         return dao.getNextRadiologyOrderNumberSeedSequenceValue();
+    }
+
+    /**
+     * @see OrderDAO#saveOrder(Order)
+     */
+    @Transactional
+    public Order saveOrder(Order order) {
+        return orderDAO.saveOrder(order);
     }
 
     @Override
@@ -63,5 +74,9 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
 
     public PihCoreDAO getDao() {
         return dao;
+    }
+
+    public void setOrderDAO(OrderDAO orderDAO) {
+        this.orderDAO = orderDAO;
     }
 }

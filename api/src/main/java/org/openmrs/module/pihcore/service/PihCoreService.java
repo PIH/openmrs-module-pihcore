@@ -13,8 +13,10 @@
  */
 package org.openmrs.module.pihcore.service;
 
+import org.openmrs.Order;
 import org.openmrs.Person;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.api.db.OrderDAO;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,11 @@ public interface PihCoreService extends OpenmrsService {
      * @return the next available radiology order number seed
      */
     Long getNextRadiologyOrderNumberSeedSequenceValue();
+
+    /**
+     * @see OrderDAO#saveOrder(Order)
+     */
+    Order saveOrder(Order order);
 
     /**
      * @return a new bean instance of a PihAccountDomainWrapper
