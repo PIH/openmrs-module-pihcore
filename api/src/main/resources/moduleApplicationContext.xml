@@ -17,6 +17,7 @@
 						</property>
 					</bean>
 				</property>
+				<property name="orderDAO" ref="orderDAO" />
 			</bean>
 		</property>
 		<property name="preInterceptors">
