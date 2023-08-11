@@ -977,7 +977,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 objectNode(
                         "maxDatesToShow", 5,
-                        "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}"
+                        "detailsUrl", "pihcore/meds/dispensingSummary.page?patientId={{patient.uuid}}"
                 )),
                 "pihcore", "dashboardwidgets/medsDispensed"));
 
