@@ -4,18 +4,15 @@ import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonNode;
 import org.openmrs.Concept;
 import org.openmrs.ConceptName;
-import org.openmrs.Encounter;
-import org.openmrs.EncounterType;
 import org.openmrs.MedicationDispense;
-import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.ConceptService;
-import org.openmrs.api.EncounterService;
 import org.openmrs.api.MedicationDispenseService;
-import org.openmrs.api.ObsService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
+import org.openmrs.module.dispensing.DispensedMedication;
+import org.openmrs.module.dispensing.api.DispensingService;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.parameter.MedicationDispenseCriteria;
@@ -46,8 +43,7 @@ public class MedsDispensedFragmentController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public void controller(@SpringBean("patientService") PatientService patientService,
-                           @SpringBean("encounterService") EncounterService encounterService,
-                           @SpringBean("obsService") ObsService obsService,
+                           @SpringBean("dispensingService") DispensingService dispensingService,
                            @SpringBean("medicationDispenseService") MedicationDispenseService medicationDispenseService,
                            @SpringBean("conceptService") ConceptService conceptService,
                            @FragmentParam("app") AppDescriptor app,
@@ -80,34 +76,21 @@ public class MedsDispensedFragmentController {
         model.put("patient", patient);
         model.put("app", app);
 
-        // The existing behavior seems to be
-        // Get the last 5 encounters of the given type (PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID)
-        // Render one row for each observation in these encounters with concept = CustomAppLoaderConstants.MED_DISPENSED_NAME_UUID
-        // If any of the encounters has no observations with this concept, render an empty row
-        // Where the observation has a valueDrug, display the associated Concept (using short name if available)
-
+        // We organize all drug concepts dispensed by dispense date (time excluded)
         Map<String, List<Concept>> medsDispensed = new HashMap<>();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Locale locale = Context.getLocale();
 
-        String encounterTypesStr = getConfigValue(app, "encounterTypes");
-        List<EncounterType> encounterTypes = new ArrayList<>();
-        if (StringUtils.isNotBlank(encounterTypesStr)) {
-            for (String type : encounterTypesStr.split(",")) {
-                encounterTypes.add(encounterService.getEncounterTypeByUuid(type.trim()));
-            }
-        }
-
-        // Get all Med Dispensed Name observations from the given encounters
-        Concept medDispensedName = conceptService.getConceptByUuid(CustomAppLoaderConstants.MED_DISPENSED_NAME_UUID);
-        List<Obs> obsList = obsService.getObservationsByPersonAndConcept(patient, medDispensedName);
-        for (Obs o : obsList) {
-            Encounter e = o.getEncounter();
-            if (encounterTypes.isEmpty() || (e != null && encounterTypes.contains(e.getEncounterType()))) {
-                Concept concept = (o.getValueDrug() != null ? o.getValueDrug().getConcept() : o.getValueCoded());
-                Date dispenseDate = e.getEncounterDatetime();
-                List<Concept> medsOnDate = medsDispensed.computeIfAbsent(df.format(dispenseDate), k -> new ArrayList<>());
-                medsOnDate.add(concept);
+        // Get all Med Dispensed based on obs (using Dispensing module)
+        List<DispensedMedication> dispensedMedications = dispensingService.getDispensedMedication(patient, null, null, null, null, null);
+        if (dispensedMedications != null && !dispensedMedications.isEmpty()) {
+            for (DispensedMedication dispensedMedication : dispensedMedications) {
+                Date dispenseDate = dispensedMedication.getDispensedDateTime();
+                if (dispenseDate != null && dispensedMedication.getDrug() != null) {
+                    Concept concept = dispensedMedication.getDrug().getConcept();
+                    List<Concept> medsOnDate = medsDispensed.computeIfAbsent(df.format(dispenseDate), k -> new ArrayList<>());
+                    medsOnDate.add(concept);
+                }
             }
         }
 
@@ -119,14 +102,14 @@ public class MedsDispensedFragmentController {
         for (MedicationDispense d : dispenses) {
             Concept medConcept = (d.getDrug() != null ? d.getDrug().getConcept() : d.getConcept());
             Date dispenseDate = d.getDateHandedOver();
-            if (dispenseDate == null) {
-                dispenseDate = d.getEncounter() != null ? d.getEncounter().getEncounterDatetime() : d.getDateCreated();
+            if (dispenseDate != null) {
+                List<Concept> medsOnDate = medsDispensed.computeIfAbsent(df.format(dispenseDate), k -> new ArrayList<>());
+                medsOnDate.add(medConcept);
             }
-            List<Concept> medsOnDate = medsDispensed.computeIfAbsent(df.format(dispenseDate), k -> new ArrayList<>());
-            medsOnDate.add(medConcept);
         }
 
-        // Now that we have all, return all from the most recent dates based on the maxDatesToShow parameter, defaulting to 5
+        // Now that we have all, sort them in reverse chronological order and limit the returned data to
+        // the concepts from the most recent maxDatesToShow dates from configuration, defaulting to 5
 
         String maxDatesStr = getConfigValue(app, "maxDatesToShow");
         int maxDates = StringUtils.isNotBlank(maxDatesStr) ? Integer.parseInt(maxDatesStr) : 5;
@@ -156,6 +139,7 @@ public class MedsDispensedFragmentController {
             }
         }
 
+        Concept medDispensedName = conceptService.getConceptByUuid(CustomAppLoaderConstants.MED_DISPENSED_NAME_UUID);
         model.put("medsDispensedHeaderName", medDispensedName.getShortestName(Context.getLocale(), false));
         model.put("detailsUrl", getConfigValue(app, "detailsUrl"));
         model.put("medsToDisplay", medsToDisplay);
