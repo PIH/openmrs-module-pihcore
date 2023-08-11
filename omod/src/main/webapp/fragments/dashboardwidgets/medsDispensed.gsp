@@ -8,7 +8,7 @@
     </div>
     <div class="info-body">
         <% if (medsToDisplay.isEmpty()) { %>
-        <span>${ui.message('coreapps.none')}</span>
+            <span>${ui.message('coreapps.none')}</span>
         <% } else { %>
             <table>
                 <thead>
