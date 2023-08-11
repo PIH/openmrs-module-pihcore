@@ -976,17 +976,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "dispensing/patient.page?patientId={{patient.uuid}}",
                 null,
                 objectNode(
-                        "widget", "obsacrossencounters",
-                        "icon", "fas fa-fw fa-pills",
-                        "label", "mirebalais.dispensing.title",
-                        "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID,
-                        "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}",
-                        "concepts", CustomAppLoaderConstants.MED_DISPENSED_NAME_UUID,
-                        "useConceptNameForDrugValues", true,
-                        "maxRecords", "5"
+                        "encounterTypes", arrayNode(PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID),
+                        "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}"
                 )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
-
+                "pihcore", "dashboardwidgets/medsDispensed"));
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID,
