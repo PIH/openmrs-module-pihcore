@@ -7,21 +7,25 @@
         </a>
     </div>
     <div class="info-body">
-        <table>
-            <thead>
-                <tr>
-                    <th class="column-header">${ui.message("coreapps.date")}</th>
-                    <th class="column-header">${medsDispensedHeaderName}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% medsToDisplay.each { medToDisplay -> %>
+        <% if (medsToDisplay.isEmpty()) { %>
+        <span>${ui.message('coreapps.none')}</span>
+        <% } else { %>
+            <table>
+                <thead>
                     <tr>
-                        <td>${ui.formatDatePretty(medToDisplay.dispenseDate)}</td>
-                        <td>${medToDisplay.dispenseConceptName}</td>
+                        <th class="column-header">${ui.message("coreapps.date")}</th>
+                        <th class="column-header">${medsDispensedHeaderName}</th>
                     </tr>
-                <% } %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% medsToDisplay.each { medToDisplay -> %>
+                        <tr>
+                            <td>${ui.formatDatePretty(medToDisplay.dispenseDate)}</td>
+                            <td>${medToDisplay.dispenseConceptName}</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        <% } %>
     </div>
 </div>
