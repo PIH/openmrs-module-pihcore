@@ -976,7 +976,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "dispensing/patient.page?patientId={{patient.uuid}}",
                 null,
                 objectNode(
-                        "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_MEDICATION_DISPENSED_UUID,
+                        "maxDatesToShow", 5,
                         "detailsUrl", "dispensing/dispensingSummary.page?patientId={{patient.uuid}}"
                 )),
                 "pihcore", "dashboardwidgets/medsDispensed"));

@@ -108,23 +108,21 @@ public class MedsDispensedFragmentController {
             }
         }
 
-        // Now that we have all, sort them in reverse chronological order and limit the returned data to
-        // the concepts from the most recent maxDatesToShow dates from configuration, defaulting to 5
+        // Now that we have all, sort them in reverse chronological order
+        List<String> datesToInclude = new ArrayList<>(medsDispensed.keySet());
+        Collections.sort(datesToInclude);
+        Collections.reverse(datesToInclude);
 
+        // If configured to do so, limit the returned data to the most recent maxDatesToShow dates from configuration
         String maxDatesStr = getConfigValue(app, "maxDatesToShow");
-        int maxDates = StringUtils.isNotBlank(maxDatesStr) ? Integer.parseInt(maxDatesStr) : 5;
-
-        List<String> allDates = new ArrayList<>(medsDispensed.keySet());
-        Collections.sort(allDates);
-        Collections.reverse(allDates);
-
-        if (maxDates < allDates.size()) {
-            allDates = allDates.subList(0, maxDates);
+        Integer maxDates = StringUtils.isNotBlank(maxDatesStr) ? Integer.parseInt(maxDatesStr) : null;
+        if (maxDates != null && maxDates < datesToInclude.size()) {
+            datesToInclude = datesToInclude.subList(0, maxDates);
         }
 
         // Iterate through the dates and construct the values to render
         List<Map<String, Object>> medsToDisplay = new ArrayList<>();
-        for (String dateYmd : allDates) {
+        for (String dateYmd : datesToInclude) {
 
             for (Concept concept : medsDispensed.get(dateYmd)) {
                 Map<String, Object> row = new HashMap<>();
