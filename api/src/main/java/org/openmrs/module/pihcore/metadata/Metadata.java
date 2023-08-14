@@ -45,6 +45,10 @@ public class Metadata {
         return Context.getPersonService().getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_UNKNOWN_PATIENT_UUID);
     }
 
+    public static PersonAttributeType getHomelessAttributeType() {
+        return Context.getPersonService().getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_HOMELESS_UUID);
+    }
+
     public static PatientIdentifierType getNifIdentifierType() {
         return Context.getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_NIF_UUID);
     }

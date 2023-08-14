@@ -86,7 +86,7 @@
         <printerVersion>1.5.0-SNAPSHOT</printerVersion>
         <providermanagementVersion>2.14.0</providermanagementVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
-        <registrationappVersion>1.25.0</registrationappVersion>
+        <registrationappVersion>1.26.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.12.0</registrationcoreVersion>
         <reportingVersion>1.26.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>1.14.0</reportingrestVersion>
