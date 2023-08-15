@@ -3197,7 +3197,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                   PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_LABS,
                 null));
 
-        if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
+        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA || config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
             apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RECENT_LAB_RESULTS,
                             "pihcore.lab.lab_results.caps",
                             "fas fa-vial",
