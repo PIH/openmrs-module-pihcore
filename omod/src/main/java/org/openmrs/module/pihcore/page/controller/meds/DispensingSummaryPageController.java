@@ -45,6 +45,7 @@ public class DispensingSummaryPageController {
                 Map<String, Object> dispense = new HashMap<>();
                 dispense.put("dispenseDate", m.getDispensedDateTime());
                 dispense.put("drug", m.getDrug());
+                dispense.put("concept", m.getDrug().getConcept());
                 StringBuilder dose = new StringBuilder();
                 if (m.getMedicationDose() != null && m.getMedicationDose().getDose() != null) {
                     dose.append(ui.format(m.getMedicationDose().getDose()));
@@ -90,6 +91,7 @@ public class DispensingSummaryPageController {
                 Map<String, Object> dispense = new HashMap<>();
                 dispense.put("dispenseDate", m.getDateHandedOver());
                 dispense.put("drug", m.getDrug());
+                dispense.put("concept", m.getConcept());
                 StringBuilder dose = new StringBuilder();
                 if (m.getDose() != null) {
                     dose.append(m.getDose());

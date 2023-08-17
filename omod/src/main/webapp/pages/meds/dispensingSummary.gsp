@@ -46,8 +46,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <% } else { %>
                     <% dispenses.each { d -> %>
                         <tr>
-                            <td>${ ui.format(d.dispenseDate) }</td>
-                            <td class="${ d.drug.retired ? 'retiredDrug' : ''}">${ d.drug.displayName }</td>
+                            <td style="width:120px;">${ ui.format(d.dispenseDate) }</td>
+                            <% if (d.drug != null) { %>
+                                <td class="${ d.drug.retired ? 'retiredDrug' : ''}">${ ui.format(d.drug.displayName) }</td>
+                            <% } else { %>
+                                <td class="${ d.concept.retired ? 'retiredDrug' : ''}">${ ui.format(d.concept) }</td>
+                            <% } %>
                             <td>${ d.dose }</td>
                             <td>${ d.frequency }</td>
                             <td>${ d.duration }</td>
