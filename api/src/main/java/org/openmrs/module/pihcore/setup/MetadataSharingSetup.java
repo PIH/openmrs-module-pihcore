@@ -78,7 +78,9 @@ public class MetadataSharingSetup {
 
         try {
             File conceptsDir = new File(PihCoreUtil.getConceptsMetadataSharingDirectory());
-            files = FileUtils.listFiles(conceptsDir, null, true);
+            if (conceptsDir.exists() && conceptsDir.isDirectory()) {
+                files = FileUtils.listFiles(conceptsDir, null, true);
+            }
         }
         catch (Exception e) {
             log.error("Unable to open MDS packages directory", e);
