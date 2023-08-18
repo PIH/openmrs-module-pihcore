@@ -78,6 +78,7 @@
         <metadatamappingVersion>1.6.0</metadatamappingVersion>
         <metadatasharingVersion>1.9.0</metadatasharingVersion>
         <namephoneticsVersion>2.0.0-SNAPSHOT</namephoneticsVersion>
+        <o3formsVersion>2.1.0</o3formsVersion>
         <openconceptlabVersion>2.1.0</openconceptlabVersion>
         <orderEntryOwaVersion>1.2.5-SNAPSHOT</orderEntryOwaVersion>
         <owaVersion>1.14.0</owaVersion>
@@ -442,6 +443,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>namephonetics-api</artifactId>
             <version>${namephoneticsVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>o3forms-api</artifactId>
+            <version>${o3formsVersion}</version>
             <scope>provided</scope>
         </dependency>
 

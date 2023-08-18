@@ -128,6 +128,9 @@
         <require_module version="${openconceptlabVersion}">
             org.openmrs.module.openconceptlab
         </require_module>
+        <require_module version="${o3formsVersion}">
+            org.openmrs.module.o3forms
+        </require_module>
     </require_modules>
 
     <activator>${project.parent.groupId}.${project.parent.artifactId}.PihCoreActivator</activator>
