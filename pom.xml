@@ -791,15 +791,15 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.5.8-SNAPSHOT,2.5.8]</version>
+                            <version>[2.6.1,2.7.0)</version>
                         </property>
                         <property>
                             <name>openMRSwebVersion</name>
-                            <version>[2.5.8-SNAPSHOT,2.5.8]</version>
+                            <version>[2.6.1,2.7.0)</version>
                         </property>
                         <property>
                             <name>attachmentsVersion</name>
-                            <version>[2.7.0-SNAPSHOT,3.0.0)</version>
+                            <version>[2.7.0,3.0.0)</version>
                         </property>
                     </properties>
                 </configuration>
