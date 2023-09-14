@@ -51,8 +51,8 @@
         <addresshierarchyVersion>2.15.2</addresshierarchyVersion>
         <allergyuiVersion>1.8.5</allergyuiVersion>
         <appframeworkVersion>2.17.0</appframeworkVersion>
-        <appointmentschedulingVersion>1.17.0</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>1.15.0-SNAPSHOT</appointmentschedulinguiVersion>
+        <appointmentschedulingVersion>2.0.0-SNAPSHOT</appointmentschedulingVersion>
+        <appointmentschedulinguiVersion>2.0.0-SNAPSHOT</appointmentschedulinguiVersion>
         <appuiVersion>1.16.0</appuiVersion>
         <attachmentsVersion>2.7.0</attachmentsVersion>
         <authenticationVersion>1.0.0</authenticationVersion>
