@@ -2,7 +2,7 @@ package org.openmrs.module.pihcore.task;
 
 import org.joda.time.DateTime;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.PatientAppointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.slf4j.Logger;
@@ -29,18 +29,18 @@ public class MarkAppointmentsAsMissedOrCompletedTask implements Runnable {
 
         Date endOfYesterday = new DateTime().withTime(23, 59, 59, 999).minusDays(1).toDate();
 
-        for (Appointment appointment : appointmentService.getAppointmentsByConstraints(null, endOfYesterday, null, null, null, null,
-                Appointment.AppointmentStatus.getAppointmentsStatusByTypes(Arrays.asList(Appointment.AppointmentStatusType.SCHEDULED)))) {
-            appointment.setStatus(Appointment.AppointmentStatus.MISSED);
-            appointmentService.saveAppointment(appointment);
+        for (PatientAppointment appointment : appointmentService.getAppointmentsByConstraints(null, endOfYesterday, null, null, null, null,
+                PatientAppointment.AppointmentStatus.getAppointmentsStatusByTypes(Arrays.asList(PatientAppointment.AppointmentStatusType.SCHEDULED)))) {
+            appointment.setStatus(PatientAppointment.AppointmentStatus.MISSED);
+            appointmentService.savePatientAppointment(appointment);
         }
 
-        for (Appointment appointment : appointmentService.getAppointmentsByConstraints(null, endOfYesterday, null, null, null, null,
-                Appointment.AppointmentStatus.getAppointmentsStatusByTypes(Arrays.asList(Appointment.AppointmentStatusType.ACTIVE)))) {
+        for (PatientAppointment appointment : appointmentService.getAppointmentsByConstraints(null, endOfYesterday, null, null, null, null,
+                PatientAppointment.AppointmentStatus.getAppointmentsStatusByTypes(Arrays.asList(PatientAppointment.AppointmentStatusType.ACTIVE)))) {
 
             if (appointment.getVisit() != null && adtService.wrap(appointment.getVisit()).hasVisitNoteAtLocation(appointment.getTimeSlot().getAppointmentBlock().getLocation())) {
-                appointment.setStatus(Appointment.AppointmentStatus.COMPLETED);
-                appointmentService.saveAppointment(appointment);
+                appointment.setStatus(PatientAppointment.AppointmentStatus.COMPLETED);
+                appointmentService.savePatientAppointment(appointment);
             }
         }
 
