@@ -51,9 +51,8 @@
         <addresshierarchyVersion>2.15.2</addresshierarchyVersion>
         <allergyuiVersion>1.8.5</allergyuiVersion>
         <appframeworkVersion>2.17.0</appframeworkVersion>
-        <appointmentsVersion>2.0.0-SNAPSHOT</appointmentsVersion>
-        <appointmentschedulingVersion>2.0.0-SNAPSHOT</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>2.0.0-SNAPSHOT</appointmentschedulinguiVersion>
+        <appointmentschedulingVersion>1.17.0</appointmentschedulingVersion>
+        <appointmentschedulinguiVersion>1.15.0-SNAPSHOT</appointmentschedulinguiVersion>
         <appuiVersion>1.16.0</appuiVersion>
         <attachmentsVersion>2.7.0</attachmentsVersion>
         <authenticationVersion>1.0.0</authenticationVersion>
@@ -68,7 +67,7 @@
         <eventVersion>2.10.0</eventVersion>
         <fhir2Version>1.11.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
-        <htmlformentryVersion>5.3.0-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>5.2.0</htmlformentryVersion>
         <htmlformentryuiVersion>2.3.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.11.0</htmlwidgetsVersion>
         <idgenVersion>4.10.0</idgenVersion>
@@ -79,7 +78,7 @@
         <metadatamappingVersion>1.6.0</metadatamappingVersion>
         <metadatasharingVersion>1.9.0</metadatasharingVersion>
         <namephoneticsVersion>1.19.0</namephoneticsVersion>
-        <o3formsVersion>2.2.0-SNAPSHOT</o3formsVersion>
+        <o3formsVersion>2.1.0</o3formsVersion>
         <openconceptlabVersion>2.1.0</openconceptlabVersion>
         <orderEntryOwaVersion>1.2.5-SNAPSHOT</orderEntryOwaVersion>
         <owaVersion>1.14.0</owaVersion>
@@ -95,7 +94,6 @@
         <reportinguiVersion>1.12.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.16</serializationxstreamVersion>
         <spaVersion>1.0.9</spaVersion>
-        <teleconsultationVersion>2.0.0-SNAPSHOT</teleconsultationVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.24.0</uicommonsVersion>
         <uiframeworkVersion>3.24.0</uiframeworkVersion>
@@ -163,13 +161,6 @@
                     <artifactId>antlr4-runtime</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.bahmni.module</groupId>
-            <artifactId>appointments-api</artifactId>
-            <version>${appointmentsVersion}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -571,13 +562,6 @@
             <artifactId>spa</artifactId>
             <version>${spaVersion}</version>
             <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.bahmni.module</groupId>
-            <artifactId>teleconsultation-api</artifactId>
-            <version>${teleconsultationVersion}</version>
             <scope>provided</scope>
         </dependency>
 
