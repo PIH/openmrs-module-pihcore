@@ -267,6 +267,8 @@ public class CustomAppLoaderConstants {
 
         public static final String DEATH_CERTIFICATE_HEADER_EXTENSION = "pih.header.deathCertificate";
 
+        public static final String HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION = "pih.header.hivProgramLocationWarning";
+
         public static final String REPORTING_AD_HOC_ANALYSIS = "reportingui.dataExports.adHoc";
 
         public static final String ALLERGY_UI_VISIT_NOTE_NEXT_SUPPORT = "allergyui.allergires.visitNoteNextSupport";
@@ -295,6 +297,7 @@ public class CustomAppLoaderConstants {
         public static final String HOME_PAGE = "org.openmrs.referenceapplication.homepageLink";
         public static final String PROGRAM_SUMMARY_LIST = Apps.PROGRAM_SUMMARY_LIST + ".apps";
         public static final String DEATH_INFO_HEADER = "patientHeader.deathInfo";
+        public static final String SECOND_LINE_HEADER = "patientHeader.secondLineFragments";
         public static final String DASHBOARD_TAB = "patientDashboard.tabs";
         public static final String DASHBOARD_INCLUDE_FRAGMENTS = "patientDashboard.includeFragments";
         public static final String SYSTEM_ADMINISTRATION_PAGE = "systemAdministration.apps";

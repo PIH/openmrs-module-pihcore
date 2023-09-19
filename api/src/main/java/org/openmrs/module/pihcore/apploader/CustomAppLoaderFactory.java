@@ -261,6 +261,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableDeathCertificate();
         }
 
+        if (config.isComponentEnabled(Components.HIV_PROGRAM_LOCATION_WARNING)) {
+            enableHivProgramLocationWarning();
+        }
+
         if (config.isComponentEnabled(Components.RADIOLOGY)) {
             enableRadiology();
         }
@@ -860,6 +864,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.NO_DETAILS), "fas fa-fw fa-sign-out-alt", null, true, null, null);
     }
 
+    private void enableHivProgramLocationWarning() {
+        extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION,
+                "pihcore",
+                "hiv/programLocationWarning",
+                null,
+                CustomAppLoaderConstants.ExtensionPoints.SECOND_LINE_HEADER,
+                null));
+
+    }
     private void enableDeathCertificate() {
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
