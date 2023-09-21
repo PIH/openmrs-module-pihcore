@@ -19,5 +19,8 @@
     <span ng-repeat="obs in encounter.obs | byConcept:Concepts.prescriptionConstruct">
         {{ (obs | groupMember:Concepts.medicationOrders).value.concept | omrsDisplay }}{{ \$last ? "" : "," }}
     </span>
+    <span ng-repeat="drugOrder in encounter.orders | byOrderType:OrderTypes.drugOrder ">
+        {{ drugOrder.concept | omrsDisplay }}{{ \$last ? "" : "," }}
+    </span>
 </span>
 <span ng-show="showEncounterDetails" ng-include="'templates/showEncounterDetails.page'" />
