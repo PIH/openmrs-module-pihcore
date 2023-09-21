@@ -118,6 +118,18 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("byOrderType", [function() {
+        return function(listOfOrders, orderType, justOne) {
+            var f = justOne ? _.find : _.filter;
+            return f(listOfOrders, function(candidate) {
+                if (!candidate.orderType) {
+                    return false;
+                }
+                return candidate.orderType.uuid === orderType.uuid;
+            });
+        }
+    }])
+
     .filter("primaryCareExam", ["Concepts", "PrimaryCareExamConcepts", function (Concepts, PrimaryCareExamConcepts) {
         return function(listOfObs) {
             return _.filter(listOfObs, function (candidate) {

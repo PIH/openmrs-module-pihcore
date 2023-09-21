@@ -500,6 +500,11 @@ angular.module('constants', [])
             uuid: "4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
         }
     })
+    .value('OrderTypes', {
+        drugOrder: {
+            uuid: "131168f4-15f5-102d-96e4-000c29c2a5d7"
+        }
+    })
     .value('VisitTypes', {
         clinicalOrHospitalVisit: {
             uuid: "f01c54cb-2225-471a-9cd5-d348552c337c"

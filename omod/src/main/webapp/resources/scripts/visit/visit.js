@@ -83,8 +83,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
-    .directive("encounter", [ "Encounter", "Concepts", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter",
-        function(Encounter, Concepts, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter) {
+    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter",
+        function(Encounter, Concepts, OrderTypes, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter) {
             return {
                 restrict: "E",
                 scope: {
@@ -102,6 +102,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                     $scope.DatetimeFormats = DatetimeFormats;
                     $scope.Concepts = Concepts;
+                    $scope.OrderTypes = OrderTypes;
                     $scope.EncounterRoles = EncounterRoles;
                     $scope.session = SessionInfo.get();
                     $scope.encounterState = $scope.selected ? "long" : (config ? config.defaultState : "short");
@@ -236,8 +237,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
     }])
 
-    .directive("encounterSection", [ "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout", "initialRouterState",
-        function(Concepts, DatetimeFormats, SessionInfo, $http, $sce, $timeout, initialRouterState) {
+    .directive("encounterSection", [ "Concepts", "OrderTypes", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout", "initialRouterState",
+        function(Concepts, OrderTypes, DatetimeFormats, SessionInfo, $http, $sce, $timeout, initialRouterState) {
             return {
                 restrict: "E",
                 scope: {
@@ -250,6 +251,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                     $scope.DatetimeFormats = DatetimeFormats;
                     $scope.Concepts = Concepts;
+                    $scope.OrderTypes = OrderTypes;
                     $scope.state = 'short';
                     $scope.sectionLoaded = false;
                     $scope.session = SessionInfo.get();
@@ -509,10 +511,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
-        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "VisitTypes",
+        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "OrderTypes", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
-                 locale, currentSection,goToNext, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, VisitTypes) {
+                 locale, currentSection,goToNext, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, OrderTypes, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
           const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
@@ -530,6 +532,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                 $rootScope.DatetimeFormats = DatetimeFormats;
                 $scope.Concepts = Concepts;
+                $scope.OrderTypes = OrderTypes;
                 $scope.VisitTypes = VisitTypes;
 
                 $scope.session = SessionInfo.get();
