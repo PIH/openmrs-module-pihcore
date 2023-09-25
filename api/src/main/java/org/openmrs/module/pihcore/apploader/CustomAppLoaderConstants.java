@@ -268,6 +268,8 @@ public class CustomAppLoaderConstants {
 
         public static final String DEATH_CERTIFICATE_HEADER_EXTENSION = "pih.header.deathCertificate";
 
+        public static final String HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION = "pih.header.hivProgramLocationWarning";
+
         public static final String REPORTING_AD_HOC_ANALYSIS = "reportingui.dataExports.adHoc";
 
         public static final String ALLERGY_UI_VISIT_NOTE_NEXT_SUPPORT = "allergyui.allergires.visitNoteNextSupport";
