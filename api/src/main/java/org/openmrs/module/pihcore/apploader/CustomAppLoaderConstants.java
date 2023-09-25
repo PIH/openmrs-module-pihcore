@@ -236,6 +236,7 @@ public class CustomAppLoaderConstants {
         public static final String CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION = "coreapps.createRetrospectiveVisit";
         public static final String MERGE_VISITS_OVERALL_ACTION = "coreapps.mergeVisits";
         public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";
+        public static final String HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION = "pih.header.hivProgramLocationWarning";
         public static final String CHART_SEARCH_OVERALL_ACTION = "chartsearch.overallAction";
         public static final String PATIENT_DOCUMENTS_OVERALL_ACTION = "attachments.patientDocuments.overallAction";
         public static final String ORDER_LABS_OVERALL_ACTION = "orderentryowa.orderLabs";
@@ -295,6 +296,7 @@ public class CustomAppLoaderConstants {
         public static final String HOME_PAGE = "org.openmrs.referenceapplication.homepageLink";
         public static final String PROGRAM_SUMMARY_LIST = Apps.PROGRAM_SUMMARY_LIST + ".apps";
         public static final String DEATH_INFO_HEADER = "patientHeader.deathInfo";
+        public static final String SECOND_LINE_HEADER = "patientHeader.secondLineFragments";
         public static final String DASHBOARD_TAB = "patientDashboard.tabs";
         public static final String DASHBOARD_INCLUDE_FRAGMENTS = "patientDashboard.includeFragments";
         public static final String SYSTEM_ADMINISTRATION_PAGE = "systemAdministration.apps";

@@ -260,6 +260,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.DEATH_CERTIFICATE)) {
             enableDeathCertificate();
         }
+        if (config.isComponentEnabled(Components.HIV_PROGRAM_LOCATION_WARNING)) {
+            enableHivProgramLocationWarning();
+        }
 
         if (config.isComponentEnabled(Components.RADIOLOGY)) {
             enableRadiology();
@@ -756,6 +759,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             }
         }
 
+    private void enableHivProgramLocationWarning() {
+        extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION,
+                "pihcore",
+                "hiv/programLocationWarning",
+                null,
+                CustomAppLoaderConstants.ExtensionPoints.SECOND_LINE_HEADER,
+                null));
+
+    }
     private void enableConsultInitial() {
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_INITIAL_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID,
