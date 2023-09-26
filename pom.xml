@@ -87,6 +87,7 @@
         <paperrecordVersion>1.4.0-SNAPSHOT</paperrecordVersion>
         <printerVersion>1.5.0-SNAPSHOT</printerVersion>
         <providermanagementVersion>2.14.0</providermanagementVersion>
+        <queueVersion>1.0.0-SNAPSHOT</queueVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.25.0</registrationappVersion>
         <registrationcoreVersion>1.12.0</registrationcoreVersion>
@@ -501,6 +502,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>providermanagement-api</artifactId>
             <version>${providermanagementVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>queue-api</artifactId>
+            <version>${queueVersion}</version>
             <scope>provided</scope>
         </dependency>
 
