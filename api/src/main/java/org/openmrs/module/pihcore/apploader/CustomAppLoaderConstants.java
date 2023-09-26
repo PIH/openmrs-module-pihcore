@@ -236,7 +236,6 @@ public class CustomAppLoaderConstants {
         public static final String CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION = "coreapps.createRetrospectiveVisit";
         public static final String MERGE_VISITS_OVERALL_ACTION = "coreapps.mergeVisits";
         public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";
-        public static final String HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION = "pih.header.hivProgramLocationWarning";
         public static final String CHART_SEARCH_OVERALL_ACTION = "chartsearch.overallAction";
         public static final String PATIENT_DOCUMENTS_OVERALL_ACTION = "attachments.patientDocuments.overallAction";
         public static final String ORDER_LABS_OVERALL_ACTION = "orderentryowa.orderLabs";
