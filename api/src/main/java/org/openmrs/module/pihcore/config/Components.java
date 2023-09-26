@@ -63,6 +63,8 @@ public class Components {
         public static final String ARCHIVES = "archives";
         public static final String WRISTBANDS = "wristbands";
         public static final String APPOINTMENT_SCHEDULING = "appointmentScheduling";
+
+        public static final String APPOINTMENTS = "appointments"; // SPA appointments
         public static final String SYSTEM_ADMINISTRATION = "systemAdministration";
         public static final String MANAGE_PRINTERS = "managePrinters";
         public static final String MY_ACCOUNT = "myAccount";

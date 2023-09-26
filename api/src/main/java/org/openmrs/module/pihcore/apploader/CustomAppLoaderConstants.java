@@ -24,6 +24,7 @@ public class CustomAppLoaderConstants {
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";  // This is the legacy, form-based dispensing app
         public static final String MEDICATION_DISPENSING = "medicationDispensing.app";  // This is the new, MFE-based dispensing app
+        public static final String APPOINTMENTS = "appointments.app"; // This is the new, MFE-based appointments app
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
         public static final String NOTES_SUMMARY = "pih.app.notes.summary";
         public static final String HIV_DISPENSING_SUMMARY = "pih.app.hiv.dispensing.summary";

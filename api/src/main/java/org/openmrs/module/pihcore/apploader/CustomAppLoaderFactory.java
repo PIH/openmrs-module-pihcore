@@ -273,6 +273,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableMedicationDispensing();
         }
 
+        if (config.isComponentEnabled(Components.APPOINTMENTS)) {
+            enableAppointments();
+        }
+
         if (config.isComponentEnabled(Components.SURGERY)) {
             enableSurgery();
         }
@@ -998,6 +1002,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: dispensing.app.dispense",
                         null),
                 sessionLocationHasTag("Dispensing Location")));
+    }
+
+    private void enableAppointments() {
+        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,
+                        "pih.app.appointments.title",
+                        "fas fa-fw fa-calendar-alt",
+                        "spa/home/appointments",
+                        null,
+                        null),
+                sessionLocationHasTag("Appointment Location")));
     }
 
     private void enableSurgery() {
