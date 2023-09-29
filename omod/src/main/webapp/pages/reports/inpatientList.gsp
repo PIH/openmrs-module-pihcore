@@ -12,7 +12,7 @@
         { label: "${ ui.message("mirebalaisreports.app.inpatients.label")}"}
     ];
 
-    var WARD_COLUMN_INDEX = 4;
+    var WARD_COLUMN_INDEX = ${ dossierNumberDefinitionAvailable ? '4' : '3' };
     var inpatientsTable = jq("#active-visits").dataTable();
 
     jq(document).ready(function() {
@@ -64,7 +64,9 @@
     <thead>
     <tr>
         <th>${ ui.message("emr.patient.identifier") }</th>
-        <th>${ ui.message("ui.i18n.PatientIdentifierType.name.e66645eb-03a8-4991-b4ce-e87318e37566") }</th>
+        <% if (dossierNumberDefinitionAvailable) { %>
+            <th>${ ui.message("ui.i18n.PatientIdentifierType.name.e66645eb-03a8-4991-b4ce-e87318e37566") }</th>
+        <% } %>
         <th>${ ui.message("emr.person.name") }</th>
         <th>${ ui.message("emr.inpatients.firstAdmitted") }</th>
         <th>${ ui.message("emr.inpatients.currentWard") }</th>
@@ -80,8 +82,10 @@
     %>
     <tr id="visit-${ v.patientId
     }">
-        <td>${ v.zlEmrId ?: ''}</td>
-        <td>${ v.dossierNumber ?: ''}</td>
+        <td>${ v.zlEmrId ?: v.primaryIdentifier }</td>
+        <% if (dossierNumberDefinitionAvailable) { %>
+            <td>${ v.dossierNumber ?: ''}</td>
+        <% } %>
         <td>
             <% if (sessionContext.currentUser.hasPrivilege(privilegePatientDashboard)) { %>
             <!-- only add link to patient dashboard if user has appropriate privilege -->
