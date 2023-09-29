@@ -82,7 +82,7 @@
     %>
     <tr id="visit-${ v.patientId
     }">
-        <td>${ v.zlEmrId ?: v.primaryIdentifier }</td>
+        <td>${ v.primaryIdentifier ?: ''}</td>
         <% if (dossierNumberDefinitionAvailable) { %>
             <td>${ v.dossierNumber ?: ''}</td>
         <% } %>

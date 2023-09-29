@@ -40,7 +40,6 @@ public class InpatientListPageController {
         dsd.addColumn("patientId", libraries.getDefinition(PatientDataDefinition.class, "reporting.library.patientDataDefinition.builtIn.patientId"), "");
         dsd.addColumn("familyName", libraries.getDefinition(PatientDataDefinition.class, "reporting.library.patientDataDefinition.builtIn.preferredName.familyName"), "");
         dsd.addColumn("givenName", libraries.getDefinition(PatientDataDefinition.class, "reporting.library.patientDataDefinition.builtIn.preferredName.givenName"), "");
-        dsd.addColumn("zlEmrId", libraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.preferredZlEmrId.identifier"), "");
         dsd.addColumn("primaryIdentifier",
                 libraries.getDefinition(PatientDataDefinition.class, "emrapi.patientDataDefinition.primaryIdentifier"),
                 "", new PropertyConverter(String.class, "identifier"));
