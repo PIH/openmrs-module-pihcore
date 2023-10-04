@@ -18,6 +18,7 @@ public class Components {
 		public static final String NURSE_CONSULT = "nurseConsult";
         public static final String ADT = "adt";
         public static final String DEATH_CERTIFICATE = "deathCertificate";
+        public static final String HIV_PROGRAM_LOCATION_WARNING = "hivProgramLocationWarning";
         public static final String RADIOLOGY = "radiology";
         public static final String DISPENSING = "dispensing";  // This is for the legacy dispensing form functionality
         public static final String MEDICATION_DISPENSING = "medicationDispensing"; // This is for the new dispensing MFE
