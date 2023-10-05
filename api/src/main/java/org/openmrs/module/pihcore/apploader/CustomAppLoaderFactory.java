@@ -277,6 +277,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableMedicationDispensing();
         }
 
+        if (config.isComponentEnabled(Components.APPOINTMENTS)) {
+            enableAppointments();
+        }
+
         if (config.isComponentEnabled(Components.SURGERY)) {
             enableSurgery();
         }
@@ -892,6 +896,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 CustomAppLoaderConstants.ExtensionPoints.DEATH_INFO_HEADER,
                 null));
     }
+    private void enableHivProgramLocationWarning() {
+        extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION,
+                "pihcore",
+                "hiv/programLocationWarning",
+                null,
+                CustomAppLoaderConstants.ExtensionPoints.SECOND_LINE_HEADER,
+                null));
+
+    }
 
     private void enableRadiology() {
 
@@ -1012,6 +1025,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: dispensing.app.dispense",
                         null),
                 sessionLocationHasTag("Dispensing Location")));
+    }
+
+    private void enableAppointments() {
+        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,
+                        "pih.app.appointments.title",
+                        "fas fa-fw fa-calendar-alt",
+                        "spa/home/appointments",
+                        null,
+                        null),
+                sessionLocationHasTag("Appointment Location")));
     }
 
     private void enableSurgery() {
@@ -3378,7 +3401,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.VACCINATION_FORM)) {
             enableVaccinationOnly();
         }
-
+        if (config.isComponentEnabled(Components.HIV_PROGRAM_LOCATION_WARNING)) {
+            enableHivProgramLocationWarning();
+        }
         if (config.isComponentEnabled(Components.ONCOLOGY)) {
             supportedPrograms.add(PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID);
             enableOncology();

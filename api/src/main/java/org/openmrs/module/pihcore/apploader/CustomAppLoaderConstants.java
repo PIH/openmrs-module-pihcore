@@ -24,6 +24,7 @@ public class CustomAppLoaderConstants {
         public static final String APPOINTMENT_SCHEDULING_HOME = "appointmentschedulingui.app";
         public static final String DISPENSING = "dispensing.app";  // This is the legacy, form-based dispensing app
         public static final String MEDICATION_DISPENSING = "medicationDispensing.app";  // This is the new, MFE-based dispensing app
+        public static final String APPOINTMENTS = "appointments.app"; // This is the new, MFE-based appointments app
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
         public static final String NOTES_SUMMARY = "pih.app.notes.summary";
         public static final String HIV_DISPENSING_SUMMARY = "pih.app.hiv.dispensing.summary";
@@ -220,10 +221,10 @@ public class CustomAppLoaderConstants {
         public static final String SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION = "pih.sierraLeone.outpatient.followup";
 
         public static final String REHAB_VISIT_ACTION = "pih.form.rehab";
-
+        public static final String SECOND_LINE_HEADER = "patientHeader.secondLineFragments";
         public static final String ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.admit";
         public static final String DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION = "pih.form.deny";
-
+        public static final String HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION = "pih.header.hivProgramLocationWarning";
         public static final String ENCOUNTER_LIST_OVERALL_ACTION = "pihcore.encounterList";
         public static final String REQUEST_PAPER_RECORD_OVERALL_ACTION = "paperrecord.requestPaperRecord";
         public static final String REQUEST_APPOINTMENT_OVERALL_ACTION = "appointmentschedulingui.requestAppointment";
