@@ -115,6 +115,39 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         return q;
     }
+
+    /**
+     * By default, this would generate a display template that removes the Country. In Sierra Leone,
+     * we are capturing addresses from 3 countries, Sierra Leone, Liberia and Guinea, therefore we
+     * need the country displayed
+     * @return Question
+     */
+    @Override
+    public Question getAddressQuestion() {
+        Question q = new Question();
+        q.setId("personAddressQuestion");
+        q.setLegend("registrationapp.patient.address");
+        q.setHeader("registrationapp.patient.address.question");
+
+        Field f = new Field();
+        f.setType("personAddress");
+
+        // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
+        List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
+        if (levels != null && levels.size() > 0) {
+            f.setWidget(getAddressHierarchyWidget(levels, null, true));
+        }
+        else {
+            Map<String, String> m = new HashMap<String, String>();
+            m.put("providerName", "uicommons");
+            m.put("fragmentId", "field/personAddress");
+            f.setWidget(toObjectNode(m));
+        }
+
+        q.addField(f);
+        return q;
+    }
+
     private Question getLocalAddressQuestion() {
         Question q = new Question();
         q.setId("localAddressLabel");
