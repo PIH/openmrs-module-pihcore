@@ -115,23 +115,6 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         return q;
     }
-    /**
-     * In the base class this method excludes the Country field.
-     * In Sierra Leone we want to display the Country because we are capturing addresses from two other countries, Liberia and Guinea
-     * @param levels
-     * @return a String representing the full address
-     */
-    @Override
-    protected String getAddressHierarchyDisplayTemplate(List<AddressHierarchyLevel> levels) {
-        StringBuilder displayTemplate = new StringBuilder();
-        displayTemplate.append("{{nvl field.[" + levels.size() + "] '-'}}");
-        for (int i = levels.size() - 1; i >= 1; i--) {
-            displayTemplate.append(", {{field.[" + i + "]}}");
-        }
-
-        return displayTemplate.toString();
-    }
-
     private Question getLocalAddressQuestion() {
         Question q = new Question();
         q.setId("localAddressLabel");

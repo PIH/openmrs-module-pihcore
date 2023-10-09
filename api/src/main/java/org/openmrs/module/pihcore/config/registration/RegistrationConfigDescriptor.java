@@ -46,6 +46,15 @@ public class RegistrationConfigDescriptor {
     @JsonProperty
     private Integer maxPatientMatchResults;
 
+    @JsonProperty
+    private boolean showCountryInAddressHierarchy = false;
+
+    public boolean isShowCountryInAddressHiercharchy() {
+        return showCountryInAddressHierarchy;
+    }
+    public void setShowCountryInAddressHierarchy(boolean showCountryInAddressHierarchy) {
+        this.showCountryInAddressHierarchy = showCountryInAddressHierarchy;
+    }
     public boolean isAllowUnknownPatients() {
         return allowUnknownPatients;
     }
