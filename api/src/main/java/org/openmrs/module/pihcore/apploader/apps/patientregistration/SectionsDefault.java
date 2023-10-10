@@ -472,7 +472,8 @@ public class SectionsDefault {
         // TODO: Is this what we want?  Should we show a dash for all empty, non-required fields?
         StringBuilder displayTemplate = new StringBuilder();
         displayTemplate.append("{{nvl field.[" + levels.size() + "] '-'}}");
-        for (int i = levels.size() - 1; i >= 2; i--) {
+        int firstLevel = config.getRegistrationConfig().isShowCountryInAddressHiercharchy() ? 1 : 2;
+        for (int i = levels.size() - 1; i >= firstLevel; i--) {
             displayTemplate.append(", {{field.[" + i + "]}}");
         }
 

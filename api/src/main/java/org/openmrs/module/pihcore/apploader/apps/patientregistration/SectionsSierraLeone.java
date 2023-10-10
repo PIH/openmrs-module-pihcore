@@ -128,7 +128,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         // If there are address hierarchy levels configured, use the address hierarchy widget, otherwise use the standard address widget
         List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
         if (levels != null && levels.size() > 0) {
-            //q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
+            q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
             f.setWidget(getAddressHierarchyWidget(levels, getLocalContactAddressFieldMappings(), true));
         }
         else {
