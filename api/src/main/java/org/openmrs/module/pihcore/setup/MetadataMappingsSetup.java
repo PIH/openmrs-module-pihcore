@@ -22,10 +22,10 @@ public class MetadataMappingsSetup {
             setupPrimaryIdentifierType(mms, ps, LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID);
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            if ("WELLBODY".equalsIgnoreCase(config.getSite())) {
+            if (config.isWellbody()) {
                 setupPrimaryIdentifierType(mms, ps, SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_WELLBODYEMRID_UUID);
             }
-            else if ("KGH".equalsIgnoreCase(config.getSite())) {
+            else if (config.isKgh()) {
                 setupPrimaryIdentifierType(mms, ps, SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_KGHEMRID_UUID);
             }
             else {

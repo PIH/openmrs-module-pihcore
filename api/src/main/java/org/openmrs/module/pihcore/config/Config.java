@@ -128,6 +128,18 @@ public class Config {
         }
     }
 
+    public boolean isSierraLeone() {
+        return getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE);
+    }
+
+    public boolean isWellbody() {
+        return isSierraLeone() && getSite() != null && getSite().toUpperCase().startsWith("WELLBODY");
+    }
+
+    public boolean isKgh() {
+        return isSierraLeone() && getSite() != null && getSite().toUpperCase().startsWith("KGH");
+    }
+
     public AddressConfigDescriptor getAddressConfig() {
         return descriptor.getAddressConfig();
     }
