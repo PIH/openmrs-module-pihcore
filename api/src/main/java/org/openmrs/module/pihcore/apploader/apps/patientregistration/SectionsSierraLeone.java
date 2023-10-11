@@ -7,9 +7,7 @@ import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.ContactPersonConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.SocialConfigDescriptor;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
@@ -147,16 +145,16 @@ public class SectionsSierraLeone extends SectionsDefault {
         Section s = new Section();
         s.setId("patient-identification-section");
         s.setLabel("registrationapp.patient.identifiers.label");
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) && config.getSite().equalsIgnoreCase("KGH")) {
-            s.addQuestion(geWellbodyEmrId());
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) && config.getSite().equalsIgnoreCase("WELLBODY")) {
-            s.addQuestion(geKghEmrId());
+        if (config.isKgh()) {
+            s.addQuestion(getWellbodyEmrId());
+        } else if (config.isWellbody()) {
+            s.addQuestion(getKghEmrId());
         }
 
         return s;
     }
 
-    private Question geWellbodyEmrId() {
+    private Question getWellbodyEmrId() {
         Question q = new Question();
         q.setId("wellbody-emr-id");
         q.setLegend("Wellbody EMR ID");
@@ -172,7 +170,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         return q;
     }
 
-    private Question geKghEmrId() {
+    private Question getKghEmrId() {
         Question q = new Question();
         q.setId("kgh-emr-id");
         q.setLegend("KGH EMR ID");

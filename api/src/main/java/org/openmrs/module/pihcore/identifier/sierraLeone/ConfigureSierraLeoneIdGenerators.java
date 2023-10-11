@@ -15,7 +15,7 @@ public class ConfigureSierraLeoneIdGenerators {
     public static final String KGH_ID_IDENTIFIER_SOURCE_UUID = "809b23e3-7162-11eb-8aa6-0242ac110002";
 
     public static void configurePrimaryIdentifierSource(IdentifierSourceService iss, Config config) {
-        if ("WELLBODY".equalsIgnoreCase(config.getSite())) {
+        if (config.isWellbody()) {
             configurePrimaryIdentifierSource(
                     iss,
                     WELLBODY_PRIMARY_IDENTIFIER_SOURCE_UUID,
@@ -30,7 +30,7 @@ public class ConfigureSierraLeoneIdGenerators {
                     "b6733150-7426-11e5-a837-0800200c9a66"  // Wellbody Clinic
                     );
         }
-        else if ("KGH".equalsIgnoreCase(config.getSite())) {
+        else if (config.isKgh()) {
 
             // First off, we need to override the Sequential Identifier Generator Processor with a custom version
             KghIdGeneratorProcessor processor = Context.getRegisteredComponents(KghIdGeneratorProcessor.class).get(0);
