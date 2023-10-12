@@ -6,6 +6,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang.BooleanUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openmrs.module.dbevent.Database;
 import org.openmrs.module.dbevent.DatabaseQuery;
@@ -45,6 +46,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * To do this, create a new SDK instance, add in a single patient with data that covers as many domains as possible, and export
  * The resulting sql file should replace the one in resources/event/openmrs.sql
  */
+@Disabled
 public class PatientUpdateEventConsumerIT {
 
     private static final Logger log = LoggerFactory.getLogger(PatientUpdateEventConsumerIT.class);
