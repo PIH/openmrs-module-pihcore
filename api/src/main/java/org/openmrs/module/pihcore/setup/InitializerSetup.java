@@ -23,6 +23,7 @@ import static org.openmrs.module.initializer.Domain.ORDER_FREQUENCIES;
 import static org.openmrs.module.initializer.Domain.PROGRAMS;
 import static org.openmrs.module.initializer.Domain.PROGRAM_WORKFLOWS;
 import static org.openmrs.module.initializer.Domain.PROGRAM_WORKFLOW_STATES;
+import static org.openmrs.module.initializer.Domain.QUEUES;
 
 
 public class InitializerSetup {
@@ -38,7 +39,8 @@ public class InitializerSetup {
                 PROGRAM_WORKFLOW_STATES,
                 DRUGS,
                 ORDER_FREQUENCIES,
-                HTML_FORMS
+                HTML_FORMS,
+                QUEUES
         );
     }
 
