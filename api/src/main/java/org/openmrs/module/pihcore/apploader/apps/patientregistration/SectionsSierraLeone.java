@@ -13,6 +13,8 @@ import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
+import org.openmrs.module.pihcore.config.registration.PersonRelationshipConfigDescriptor;
+import org.openmrs.module.registrationapp.model.RegisterPersonRelationshipWidget;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,11 +36,44 @@ public class SectionsSierraLeone extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
+        c.addSection(getPersonRelationshipsSection());
         c.addSection(getRelationshipsSection());
         c.addSection(getContactsSection());
         c.addSection(getLocalContactSection());
         c.addSection(getIdentifierSection());
         c.addSection(getIdCardPrintSection());
+    }
+
+    private Section getPersonRelationshipsSection() {
+        Section s = new Section();
+        s.setId("registerRelationships");
+        s.setLabel("registrationapp.person.relationship");
+
+        List<PersonRelationshipConfigDescriptor> relationships = config.getRegistrationConfig().getRelationships();
+        if (relationships != null && relationships.size() > 0 ) {
+            for (PersonRelationshipConfigDescriptor relationship : relationships) {
+                relationship.getRelationshipType();
+                Question q = new Question();
+                q.setId("relationships_" + relationship.getType());
+                q.setLegend(relationship.getLabel());
+                q.setHeader(relationship.getLabel());
+
+                Field field = new Field();
+                field.setFormFieldName(relationship.getType() + "Name");
+                field.setType( relationship.getType() + "relationship");
+                RegisterPersonRelationshipWidget widget = new RegisterPersonRelationshipWidget();
+                widget.getConfig().setType(relationship.getType());
+                widget.getConfig().setRelationshipType(relationship.getRelationshipType());
+                widget.getConfig().setMultipleValues(relationship.getMultipleValues());
+                widget.getConfig().setRequired(relationship.getRequired());
+                widget.getConfig().setGender(relationship.getGender());
+
+                field.setWidget(toObjectNode(widget));
+                q.addField(field);
+                s.addQuestion(q);
+            }
+        }
+        return s;
     }
     private Section getRelationshipsSection() {
         Section s = new Section();
