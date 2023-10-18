@@ -8,13 +8,13 @@ import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.ContactPersonConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.PersonRelationshipConfigDescriptor;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
+import org.openmrs.module.registrationapp.model.RegisterPersonRelationshipWidget;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
-import org.openmrs.module.pihcore.config.registration.PersonRelationshipConfigDescriptor;
-import org.openmrs.module.registrationapp.model.RegisterPersonRelationshipWidget;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,17 +50,17 @@ public class SectionsSierraLeone extends SectionsDefault {
         s.setLabel("registrationapp.person.relationship");
 
         List<PersonRelationshipConfigDescriptor> relationships = config.getRegistrationConfig().getRelationships();
-        if (relationships != null && relationships.size() > 0 ) {
+        if (relationships != null && relationships.size() > 0) {
             for (PersonRelationshipConfigDescriptor relationship : relationships) {
                 relationship.getRelationshipType();
                 Question q = new Question();
-                q.setId("relationships_" + relationship.getType());
+                q.setId("relationships_" + relationship.getId());
                 q.setLegend(relationship.getLabel());
                 q.setHeader(relationship.getLabel());
 
                 Field field = new Field();
-                field.setFormFieldName(relationship.getType() + "Name");
-                field.setType( relationship.getType() + "relationship");
+                field.setFormFieldName(relationship.getId() + "Name");
+                field.setType(relationship.getId() + "relationship");
                 RegisterPersonRelationshipWidget widget = new RegisterPersonRelationshipWidget();
                 widget.getConfig().setRelationshipType(relationship.getRelationshipType());
                 widget.getConfig().setMultipleValues(relationship.getMultipleValues());
@@ -74,6 +74,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         }
         return s;
     }
+
     private Section getRelationshipsSection() {
         Section s = new Section();
         s.setId("relationshipsInfo");
@@ -96,6 +97,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         s.addQuestion(q);
         return s;
     }
+
     private Section getLocalContactSection() {
         Section s = new Section();
         s.setId("localContactInfo");
@@ -122,6 +124,7 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         return q;
     }
+
     private Question getLocalContactPhoneNumber() {
 
         Question q = new Question();
@@ -135,8 +138,8 @@ public class SectionsSierraLeone extends SectionsDefault {
             f.setLabel("registrationapp.patient.phone.label");
             f.setType("obsgroup");
             ContactPersonConfigDescriptor contactPersonConfig = config.getRegistrationConfig().getContactPerson();
-            if(contactPersonConfig != null && contactPersonConfig.getPhoneNumber() != null
-                    && StringUtils.isNotBlank(contactPersonConfig.getPhoneNumber().getRegex())){
+            if (contactPersonConfig != null && contactPersonConfig.getPhoneNumber() != null
+                    && StringUtils.isNotBlank(contactPersonConfig.getPhoneNumber().getRegex())) {
                 f.setCssClasses(Arrays.asList("regex"));
                 f.setWidget(getTextFieldWidget(30, contactPersonConfig.getPhoneNumber().getRegex()));
             } else {
@@ -147,6 +150,7 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         return q;
     }
+
     private Question getLocalAddressQuestion() {
         Question q = new Question();
         q.setId("localAddressLabel");
@@ -162,8 +166,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         if (levels != null && levels.size() > 0) {
             q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
             f.setWidget(getAddressHierarchyWidget(levels, getLocalContactAddressFieldMappings(), true));
-        }
-        else {
+        } else {
             Map<String, String> m = new HashMap<String, String>();
             m.put("providerName", "uicommons");
             m.put("fragmentId", "field/personAddress");
@@ -222,13 +225,13 @@ public class SectionsSierraLeone extends SectionsDefault {
 
     @Override
     public Section getSocialSection() {
-    Section s = new Section();
-    s.setId("social");
-    s.setLabel("zl.registration.patient.social.label");
-    s.addQuestion(getBirthplaceQuestion());
-    s.addQuestion(getCivilStatusQuestion());
-    s.addQuestion(getOccupationQuestion());
-    return s;
+        Section s = new Section();
+        s.setId("social");
+        s.setLabel("zl.registration.patient.social.label");
+        s.addQuestion(getBirthplaceQuestion());
+        s.addQuestion(getCivilStatusQuestion());
+        s.addQuestion(getOccupationQuestion());
+        return s;
     }
 
     @Override
@@ -277,9 +280,9 @@ public class SectionsSierraLeone extends SectionsDefault {
         return q;
     }
 
-    private Map<String,String> getLocalContactAddressFieldMappings() {
+    private Map<String, String> getLocalContactAddressFieldMappings() {
         // Haiti-specific
-        Map<String,String> fieldMappings = new HashMap<String, String>();
+        Map<String, String> fieldMappings = new HashMap<String, String>();
         fieldMappings.put(AddressField.COUNTRY.getName(), "obsgroup.PIH:14704.obs.PIH:Country");
         fieldMappings.put(AddressField.COUNTY_DISTRICT.getName(), "obsgroup.PIH:14704.obs.PIH:14784");
         fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obsgroup.PIH:14704.obs.PIH:State Province");

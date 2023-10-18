@@ -5,7 +5,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 public class PersonRelationshipConfigDescriptor {
 
     @JsonProperty
-    private String type;
+    private String id;
 
     @JsonProperty
     private String relationshipType;
@@ -54,12 +54,12 @@ public class PersonRelationshipConfigDescriptor {
         this.gender = gender;
     }
 
-    public String getType() {
-        return type;
+    public String getId() {
+        return id;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Boolean getRequired() {
