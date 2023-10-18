@@ -10,6 +10,5 @@
           <li>You modify the dossier of a patient who is not on your site</li>
           <% } %>
       </ul>
-
 </div>
 </div>
