@@ -63,6 +63,7 @@ public class SectionsSierraLeone extends SectionsDefault {
                 field.setType(relationship.getId() + "relationship");
                 RegisterPersonRelationshipWidget widget = new RegisterPersonRelationshipWidget();
                 widget.getConfig().setRelationshipType(relationship.getRelationshipType());
+                widget.getConfig().setRelationshipDirection(relationship.getRelationshipDirection());
                 widget.getConfig().setMultipleValues(relationship.getMultipleValues());
                 widget.getConfig().setRequired(relationship.getRequired());
                 widget.getConfig().setGender(relationship.getGender());

@@ -11,6 +11,9 @@ public class PersonRelationshipConfigDescriptor {
     private String relationshipType;
 
     @JsonProperty
+    private String relationshipDirection;
+
+    @JsonProperty
     private Boolean multipleValues = false;
 
     @JsonProperty
@@ -28,6 +31,14 @@ public class PersonRelationshipConfigDescriptor {
 
     public void setRelationshipType(String relationshipType) {
         this.relationshipType = relationshipType;
+    }
+
+    public String getRelationshipDirection() {
+        return relationshipDirection;
+    }
+
+    public void setRelationshipDirection(String relationshipDirection) {
+        this.relationshipDirection = relationshipDirection;
     }
 
     public Boolean getMultipleValues() {
