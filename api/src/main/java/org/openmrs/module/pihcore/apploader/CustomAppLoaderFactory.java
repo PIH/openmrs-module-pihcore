@@ -205,20 +205,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.VISIT_NOTE)) {
             patientVisitsPageUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}#/visitList";
             patientVisitsPageWithSpecificVisitUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}&visit={{visit.uuid}}#/overview";
-
-            extensions.add(overallAction(CustomAppLoaderConstants.Extensions.ENCOUNTER_LIST_OVERALL_ACTION,
-                    "pihcore.encounterList",
-                    "fas fa-fw fa-file",
-                    "link",
-                    "pihcore/patient/encounterList.page?patientId={{patient.uuid}}",
-                    null,
-                    null));
-
         } else {
             patientVisitsPageUrl = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}";
             patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visitId={{visit.visitId}}";
         }
         patientEncountersPageUrl="/pihcore/visit/visit.page?patient={{patient.uuid}}#/encounterList";
+
+        extensions.add(overallAction(CustomAppLoaderConstants.Extensions.ENCOUNTER_LIST_OVERALL_ACTION,
+                "pihcore.encounterList",
+                "fas fa-fw fa-file",
+                "link",
+                "pihcore/patient/encounterList.page?patientId={{patient.uuid}}",
+                null,
+                null));
 
         if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
             enableVisitManagement();
