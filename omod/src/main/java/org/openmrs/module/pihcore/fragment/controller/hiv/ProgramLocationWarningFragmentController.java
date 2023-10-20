@@ -33,7 +33,12 @@ public class ProgramLocationWarningFragmentController {
             if (patient !=null && hivProgram !=null) {
                 List<PatientProgram> patientPrograms = programWorkflowService.getPatientPrograms(patient, hivProgram, null, null, null, null, false);
                 if (patientPrograms != null && patientPrograms.size() > 0 ) {
-                    model.addAttribute("hivProgramLocation", patientPrograms.get(0).getLocation());
+                    if(patientPrograms.get(0).getLocation() !=null){
+                      model.addAttribute("hivProgramLocation", patientPrograms.get(0).getLocation());
+                    }else{
+                     model.addAttribute("error", "No Location Found for this patient");
+                    }
+                   
                 }
             }
         }
