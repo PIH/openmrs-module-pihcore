@@ -47,6 +47,7 @@ public class CustomAppLoaderConstants {
         public static final String ED_TRIAGE = "edtriageapp.app.edTriage";
         public static final String ED_TRIAGE_QUEUE = "edtriageapp.app.triageQueue";
         public static final String EPILEPSY = "pihcore.ncd.epilepsy";
+        public static final String EPILEPSY_INTAKE = "pihcore.ncd.epilepsyIntake";
         public static final String EPILEPSY_SUMMARY = "pih.app.epilepsy.summary";
         public static final String EPILEPSY_SEIZURES = "pih.app.epilepsy.seizures";
         public static final String TODAYS_VISITS = "pih.app.todaysVisits";
@@ -199,7 +200,7 @@ public class CustomAppLoaderConstants {
         public static final String MENTAL_HEALTH_INTAKE_VISIT_ACTION = "pih.form.mentalHealthIntake";
         public static final String MENTAL_HEALTH_FOLLOWUP_VISIT_ACTION = "pih.form.mentalHealthFollowup";
         public static final String EPILEPSY_VISIT_ACTION = "pih.form.epilepsy";
-
+        public static final String EPILEPSY_INTAKE_VISIT_ACTION = "pih.form.epilepsyIntake";
         public static final String VCT_VISIT_ACTION = "pih.form.vct";
         public static final String SOCIO_ECONOMICS_VISIT_ACTION = "pih.form.socioEconomics";
         public static final String ORDER_XRAY_VISIT_ACTION = "radiologyapp.orderXray";
@@ -435,6 +436,7 @@ public class CustomAppLoaderConstants {
             Extensions.OB_GYN_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,
+            Extensions.EPILEPSY_INTAKE_VISIT_ACTION,
             Extensions.EPILEPSY_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_FOLLOWUP_VISIT_ACTION,
             Extensions.SOCIO_ECONOMICS_VISIT_ACTION,

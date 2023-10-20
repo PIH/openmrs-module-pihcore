@@ -2142,14 +2142,25 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableEpilepsyForm() {
         if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
 
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_INTAKE_VISIT_ACTION,
+                    "pihcore.ncd.epilepsyIntake",
+                    "fas fa-fw fa-brain",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("epilepsyIntake.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
+                    and(sessionLocationHasTag("Mental Health Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_FOLLOWUP_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_INTAKE_UUID))));
+
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_VISIT_ACTION,
-                    "pihcore.ncd.epilepsy",
+                    "pihcore.ncd.epilepsyFU",
                     "fas fa-fw fa-brain",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("epilepsy.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_UUID))));
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_FOLLOWUP_UUID))));
         }
 
     }
