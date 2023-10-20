@@ -37,7 +37,6 @@ public class SectionsSierraLeone extends SectionsDefault {
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
         c.addSection(getPersonRelationshipsSection());
-        c.addSection(getRelationshipsSection());
         c.addSection(getContactsSection());
         c.addSection(getLocalContactSection());
         c.addSection(getIdentifierSection());
@@ -73,29 +72,6 @@ public class SectionsSierraLeone extends SectionsDefault {
                 s.addQuestion(q);
             }
         }
-        return s;
-    }
-
-    private Section getRelationshipsSection() {
-        Section s = new Section();
-        s.setId("relationshipsInfo");
-        s.setLabel("registrationapp.person.relationship");
-
-        Question q = new Question();
-        q.setId("relationshipsInfoQuestion");
-        q.setLegend("registrationapp.person.relationship.label");
-        q.setHeader("registrationapp.person.relationship.question");
-
-        Field f = new Field();
-        f.setType("personRelationships");
-
-        Map<String, String> m = new HashMap<String, String>();
-        m.put("providerName", "registrationapp");
-        m.put("fragmentId", "field/personRelationship");
-        f.setWidget(toObjectNode(m));
-
-        q.addField(f);
-        s.addQuestion(q);
         return s;
     }
 
