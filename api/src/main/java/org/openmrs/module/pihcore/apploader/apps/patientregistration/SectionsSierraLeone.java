@@ -8,9 +8,11 @@ import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.ContactPersonConfigDescriptor;
+import org.openmrs.module.pihcore.config.registration.PersonRelationshipConfigDescriptor;
 import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.Question;
+import org.openmrs.module.registrationapp.model.RegisterPersonRelationshipWidget;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
 
@@ -34,34 +36,45 @@ public class SectionsSierraLeone extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
         c.addSection(getSocialSection());
-        c.addSection(getRelationshipsSection());
+        c.addSection(getPersonRelationshipsSection());
         c.addSection(getContactsSection());
         c.addSection(getLocalContactSection());
         c.addSection(getIdentifierSection());
         c.addSection(getIdCardPrintSection());
     }
-    private Section getRelationshipsSection() {
+
+    private Section getPersonRelationshipsSection() {
         Section s = new Section();
-        s.setId("relationshipsInfo");
+        s.setId("registerRelationships");
         s.setLabel("registrationapp.person.relationship");
 
-        Question q = new Question();
-        q.setId("relationshipsInfoQuestion");
-        q.setLegend("registrationapp.person.relationship.label");
-        q.setHeader("registrationapp.person.relationship.question");
+        List<PersonRelationshipConfigDescriptor> relationships = config.getRegistrationConfig().getRelationships();
+        if (relationships != null && relationships.size() > 0) {
+            for (PersonRelationshipConfigDescriptor relationship : relationships) {
+                relationship.getRelationshipType();
+                Question q = new Question();
+                q.setId("relationships_" + relationship.getId());
+                q.setLegend(relationship.getLabel());
+                q.setHeader(relationship.getLabel());
 
-        Field f = new Field();
-        f.setType("personRelationships");
+                Field field = new Field();
+                field.setFormFieldName(relationship.getId() + "Name");
+                field.setType(relationship.getId() + "relationship");
+                RegisterPersonRelationshipWidget widget = new RegisterPersonRelationshipWidget();
+                widget.getConfig().setRelationshipType(relationship.getRelationshipType());
+                widget.getConfig().setRelationshipDirection(relationship.getRelationshipDirection());
+                widget.getConfig().setMultipleValues(relationship.getMultipleValues());
+                widget.getConfig().setRequired(relationship.getRequired());
+                widget.getConfig().setGender(relationship.getGender());
 
-        Map<String, String> m = new HashMap<String, String>();
-        m.put("providerName", "registrationapp");
-        m.put("fragmentId", "field/personRelationship");
-        f.setWidget(toObjectNode(m));
-
-        q.addField(f);
-        s.addQuestion(q);
+                field.setWidget(toObjectNode(widget));
+                q.addField(field);
+                s.addQuestion(q);
+            }
+        }
         return s;
     }
+
     private Section getLocalContactSection() {
         Section s = new Section();
         s.setId("localContactInfo");
@@ -88,6 +101,7 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         return q;
     }
+
     private Question getLocalContactPhoneNumber() {
 
         Question q = new Question();
@@ -101,8 +115,8 @@ public class SectionsSierraLeone extends SectionsDefault {
             f.setLabel("registrationapp.patient.phone.label");
             f.setType("obsgroup");
             ContactPersonConfigDescriptor contactPersonConfig = config.getRegistrationConfig().getContactPerson();
-            if(contactPersonConfig != null && contactPersonConfig.getPhoneNumber() != null
-                    && StringUtils.isNotBlank(contactPersonConfig.getPhoneNumber().getRegex())){
+            if (contactPersonConfig != null && contactPersonConfig.getPhoneNumber() != null
+                    && StringUtils.isNotBlank(contactPersonConfig.getPhoneNumber().getRegex())) {
                 f.setCssClasses(Arrays.asList("regex"));
                 f.setWidget(getTextFieldWidget(30, contactPersonConfig.getPhoneNumber().getRegex()));
             } else {
@@ -113,6 +127,7 @@ public class SectionsSierraLeone extends SectionsDefault {
 
         return q;
     }
+
     private Question getLocalAddressQuestion() {
         Question q = new Question();
         q.setId("localAddressLabel");
@@ -128,8 +143,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         if (levels != null && levels.size() > 0) {
             q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
             f.setWidget(getAddressHierarchyWidget(levels, getLocalContactAddressFieldMappings(), true));
-        }
-        else {
+        } else {
             Map<String, String> m = new HashMap<String, String>();
             m.put("providerName", "uicommons");
             m.put("fragmentId", "field/personAddress");
@@ -188,13 +202,13 @@ public class SectionsSierraLeone extends SectionsDefault {
 
     @Override
     public Section getSocialSection() {
-    Section s = new Section();
-    s.setId("social");
-    s.setLabel("zl.registration.patient.social.label");
-    s.addQuestion(getBirthplaceQuestion());
-    s.addQuestion(getCivilStatusQuestion());
-    s.addQuestion(getOccupationQuestion());
-    return s;
+        Section s = new Section();
+        s.setId("social");
+        s.setLabel("zl.registration.patient.social.label");
+        s.addQuestion(getBirthplaceQuestion());
+        s.addQuestion(getCivilStatusQuestion());
+        s.addQuestion(getOccupationQuestion());
+        return s;
     }
 
     @Override
@@ -243,9 +257,9 @@ public class SectionsSierraLeone extends SectionsDefault {
         return q;
     }
 
-    private Map<String,String> getLocalContactAddressFieldMappings() {
+    private Map<String, String> getLocalContactAddressFieldMappings() {
         // Haiti-specific
-        Map<String,String> fieldMappings = new HashMap<String, String>();
+        Map<String, String> fieldMappings = new HashMap<String, String>();
         fieldMappings.put(AddressField.COUNTRY.getName(), "obsgroup.PIH:14704.obs.PIH:Country");
         fieldMappings.put(AddressField.COUNTY_DISTRICT.getName(), "obsgroup.PIH:14704.obs.PIH:14784");
         fieldMappings.put(AddressField.STATE_PROVINCE.getName(), "obsgroup.PIH:14704.obs.PIH:State Province");

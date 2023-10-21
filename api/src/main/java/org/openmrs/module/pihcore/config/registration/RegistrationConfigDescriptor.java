@@ -35,6 +35,9 @@ public class RegistrationConfigDescriptor {
     private DemographicsConfigDescriptor demographics;
 
     @JsonProperty
+    private List<PersonRelationshipConfigDescriptor> relationships;
+
+    @JsonProperty
     private SocialConfigDescriptor social;
 
     @JsonProperty
@@ -125,6 +128,14 @@ public class RegistrationConfigDescriptor {
 
     public void setDemographics(DemographicsConfigDescriptor demographics) {
         this.demographics = demographics;
+    }
+
+    public List<PersonRelationshipConfigDescriptor> getRelationships() {
+        return relationships;
+    }
+
+    public void setRelationships(List<PersonRelationshipConfigDescriptor> relationships) {
+        this.relationships = relationships;
     }
 
     public SocialConfigDescriptor getSocial() {
