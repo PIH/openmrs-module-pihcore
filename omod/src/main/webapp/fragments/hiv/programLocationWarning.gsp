@@ -1,18 +1,15 @@
-<% hivProgramLocation.name !=null {%>
+
 <div>
 <div id="hiv-program-location-info" style="background-color: lightcoral; padding: 10px; border-radius: 5px;">
       <ul>
           <li>Session Location: <b>${sessionLocation.name}</b></li>
-          <li>
-             <% if(error !=null){ %>
-             <li> ${error} </li>
-             <% } %>
-              <% if (hivProgramLocation.name !=null ) { %> HIV Program Location: <b>${hivProgramLocation.name} <% } else { %> This Patient has no location yet <% } %>
-          </li>
-          <% if (sessionLocation.name != hivProgramLocation.name ) {%>
-          <li>You modify the dossier of a patient who is not on your site</li>
+          <% if (hivProgramLocation == null) { %>
+          <li>No location found for this patient</li>
+         <% } else { %>
+            <% if (hivProgramLocation.name != sessionLocation.name) { %>
+             <li>You're trying to modify a patient of location <b>${hivProgramLocation.name}</b> who is not in your location</li>
           <% } %>
+        <% }%>
       </ul>
 </div>
 </div>
-<% }  %>
