@@ -27,13 +27,17 @@ public class ProgramLocationWarningFragmentController {
                            UiUtils ui) {
 
         model.addAttribute("sessionLocation", uiSessionContext.getSessionLocation());
+        model.addAttribute("hivProgramLocation", null);
+
         if (patientObject != null ) {
             Patient patient = ((PatientDomainWrapper) patientObject).getPatient();
             Program hivProgram = programWorkflowService.getProgramByUuid(PihEmrConfigConstants.PROGRAM_HIV_UUID);
             if (patient !=null && hivProgram !=null) {
                 List<PatientProgram> patientPrograms = programWorkflowService.getPatientPrograms(patient, hivProgram, null, null, null, null, false);
                 if (patientPrograms != null && patientPrograms.size() > 0 ) {
-                    model.addAttribute("hivProgramLocation", patientPrograms.get(0).getLocation());
+                    if(patientPrograms.get(0).getLocation() !=null){
+                      model.addAttribute("hivProgramLocation", patientPrograms.get(0).getLocation());
+                    }
                 }
             }
         }
