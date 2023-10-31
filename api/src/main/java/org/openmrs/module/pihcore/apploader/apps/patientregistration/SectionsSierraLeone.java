@@ -54,6 +54,7 @@ public class SectionsSierraLeone extends SectionsDefault {
                 relationship.getRelationshipType();
                 Question q = new Question();
                 q.setId("relationships_" + relationship.getId());
+                q.setCssClasses(Arrays.asList("relationships-" + relationship.getId()));
                 q.setLegend(relationship.getLabel());
                 q.setHeader(relationship.getLabel());
 
@@ -61,6 +62,7 @@ public class SectionsSierraLeone extends SectionsDefault {
                 field.setFormFieldName(relationship.getId() + "Name");
                 field.setType(relationship.getId() + "relationship");
                 RegisterPersonRelationshipWidget widget = new RegisterPersonRelationshipWidget();
+                widget.getConfig().setId(relationship.getId());
                 widget.getConfig().setRelationshipType(relationship.getRelationshipType());
                 widget.getConfig().setRelationshipDirection(relationship.getRelationshipDirection());
                 widget.getConfig().setMultipleValues(relationship.getMultipleValues());
