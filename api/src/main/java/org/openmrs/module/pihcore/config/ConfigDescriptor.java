@@ -102,8 +102,17 @@ public class ConfigDescriptor {
     @JsonProperty
     private AuthenticationConfigDescriptor authenticationConfig;
 
+    /**
+     * A value less than zero indicates that the search index should always be rebuilt on server startup.
+     * This is here to support systems that are based on DB backups and always need an initial search index created.
+     * A value greater than zero is checked against a global property which stores the most recent value that triggered
+     * a search index rebuild, and if it is greater than the stored value, this indicates that the search index
+     * should be rebuilt at startup.
+     * This is here to support the ability to trigger a search index rebuild when required by the code, but not to
+     * always have a search index rebuild if not needed, which would add several minutes to a system startup.
+     */
     @JsonProperty
-    private Boolean rebuildSearchIndexOnStartup;
+    private Integer rebuildSearchIndexConfig;
 
     @JsonProperty
     private ArrayNode findPatientColumnConfig;
@@ -317,12 +326,12 @@ public class ConfigDescriptor {
         this.authenticationConfig = authenticationConfig;
     }
 
-    public Boolean getRebuildSearchIndexOnStartup() {
-        return rebuildSearchIndexOnStartup;
+    public Integer getRebuildSearchIndexConfig() {
+        return rebuildSearchIndexConfig;
     }
 
-    public void setRebuildSearchIndexOnStartup(Boolean rebuildSearchIndexOnStartup) {
-        this.rebuildSearchIndexOnStartup = rebuildSearchIndexOnStartup;
+    public void setRebuildSearchIndexConfig(Integer rebuildSearchIndexConfig) {
+        this.rebuildSearchIndexConfig = rebuildSearchIndexConfig;
     }
 
     public ArrayNode getFindPatientColumnConfig() {

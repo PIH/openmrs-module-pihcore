@@ -154,8 +154,8 @@ public class Config {
 
     public AuthenticationConfigDescriptor getAuthenticationConfig() { return descriptor.getAuthenticationConfig(); }
 
-    public Boolean shouldRebuildSearchIndex() {
-        return descriptor.getRebuildSearchIndexOnStartup() != null ? descriptor.getRebuildSearchIndexOnStartup() : false;
+    public Integer getRebuildSearchIndexConfig() {
+        return descriptor.getRebuildSearchIndexConfig();
     }
 
     public ArrayNode getFindPatientColumnConfig() {

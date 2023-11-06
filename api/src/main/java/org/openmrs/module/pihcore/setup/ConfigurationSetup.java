@@ -36,6 +36,7 @@ import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.config.ReportLoader;
+import org.openmrs.util.ConfigUtil;
 import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -231,10 +232,27 @@ public class ConfigurationSetup {
         setStatus("Configuring global resources");
         GlobalResourceSetup.includeGlobalResources();
 
-        // Rebuild search index (TODO: Confirm this is intended to run here, prior to metadata loading, rather than at the end of the process(
-        if (config.shouldRebuildSearchIndex()) {
-            setStatus("Rebuilding search index");
-            Context.updateSearchIndex();
+        // Rebuild search index if needed prior to loading metadata
+        if (config.getRebuildSearchIndexConfig() != null) {
+            if (config.getRebuildSearchIndexConfig() < 0) {
+                setStatus("Search index is set to always reload at startup.  Rebuilding search index");
+                Context.updateSearchIndex();
+            }
+            else {
+                String gpName = "pihcore.rebuildSearchIndexConfig";
+                int gpValue = 0;
+                try {
+                    gpValue = Integer.parseInt(ConfigUtil.getGlobalProperty(gpName));
+                }
+                catch (Exception e) {
+                    log.debug("Unable to parse " + gpName + " as an Integer");
+                }
+                if (config.getRebuildSearchIndexConfig() > gpValue) {
+                    setStatus("Search index needs to be rebuilt.  Rebuilding now");
+                    Context.updateSearchIndex();
+                }
+                setGlobalProperty(gpName, Integer.toString(config.getRebuildSearchIndexConfig()));
+            }
         }
 
         if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
