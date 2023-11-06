@@ -144,7 +144,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         List<AddressHierarchyLevel> levels = Context.getService(AddressHierarchyService.class).getAddressHierarchyLevels();
         if (levels != null && levels.size() > 0) {
             q.setDisplayTemplate(getAddressHierarchyDisplayTemplate(levels));
-            f.setWidget(getAddressHierarchyWidget(levels, getLocalContactAddressFieldMappings(), true));
+            f.setWidget(getAddressHierarchyWidget(levels, getLocalContactAddressFieldMappings(), false));
         } else {
             Map<String, String> m = new HashMap<String, String>();
             m.put("providerName", "uicommons");
