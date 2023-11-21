@@ -107,4 +107,5 @@ public class Components {
         public static final String VITALS_HOMEPAGE_APP = "vitalsHomepageApp";
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
         public static final String WRISTBANDS = "wristbands";
+        public static final String ZIKA="zika";
 }
