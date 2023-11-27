@@ -2046,18 +2046,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
     }
 
-    private void enableANCProgram() {
-        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ANC_UUID);
-    }
-
-    private void enableMCHProgram() {
-        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MCH_UUID);
-    }
-
-    private void enableTBProgram(){
-        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_TB_UUID);
-    }
-
     private void enableVaccinationOnly() {
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VACCINATION_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_VACCINATION_UUID,
@@ -2874,6 +2862,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null));
     }
 
+    private void enableANCProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ANC_UUID);
+    }
+
     private void enableAsthmaProgram() {
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_ASTHMA_UUID);
 
@@ -2893,6 +2885,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "maxRecords", "40"  // MEX-127
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
+    }
+
+    private void enableAYFSProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_AYFS_UUID);
     }
 
     private void enableDiabetesProgram() {
@@ -3022,6 +3018,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
+    private void enableFamilyPlanningProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_FAMILYPLANNING_UUID);
+    }
+
+    private void enableGynecologyProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_GYNECOLOGY_UUID);
+    }
+
     private void enableHypertensionProgram() {
 
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID);
@@ -3055,6 +3059,33 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 graphs.getCholesterolGraph(".htn"),
                 "coreapps",
                 "dashboardwidgets/dashboardWidget"));
+    }
+
+    private void enableInfantProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_INFANT_UUID);
+    }
+
+    private void enableMalnutritionProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MALNUTRITION_UUID);
+
+        apps.add(addToMalnutritionDashboardSecondColumn(
+                graphs.getBmiGraph(".malnutrition"),
+                "coreapps",
+                "dashboardwidgets/dashboardWidget"));
+
+        apps.add(addToMalnutritionDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HEAD_CIRCUMFERENCE_GRAPH,
+                        "pih.app.headCircumferenceGraph.title",
+                        "fas fa-fw fa-chart-bar",
+                        null,
+                        null,
+                        objectNode(
+                                "widget", "obsgraph",
+                                "icon", "fas fa-fw fa-chart-bar",
+                                "conceptId", CustomAppLoaderConstants.HEAD_CIRC_CONCEPT_UUID,
+                                "maxResults", "12"
+                        )),
+                "coreapps", "dashboardwidgets/dashboardWidget"));
+
     }
 
 
@@ -3114,27 +3145,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
     }
 
-    private void enableMalnutritionProgram() {
-        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MALNUTRITION_UUID);
+    private void enableMCHProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MCH_UUID);
+    }
 
-        apps.add(addToMalnutritionDashboardSecondColumn(
-                graphs.getBmiGraph(".malnutrition"),
-                "coreapps",
-                "dashboardwidgets/dashboardWidget"));
+    private void enablePMTCTProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_PMTCT_UUID);
+    }
 
-        apps.add(addToMalnutritionDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HEAD_CIRCUMFERENCE_GRAPH,
-                "pih.app.headCircumferenceGraph.title",
-                "fas fa-fw fa-chart-bar",
-                null,
-                null,
-                objectNode(
-                        "widget", "obsgraph",
-                        "icon", "fas fa-fw fa-chart-bar",
-                        "conceptId", CustomAppLoaderConstants.HEAD_CIRC_CONCEPT_UUID,
-                        "maxResults", "12"
-                )),
-                "coreapps", "dashboardwidgets/dashboardWidget"));
+    private void enablePregnancyProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
+    }
 
+    private void enablePregnancyMentalHealthProgram() {
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_PREGNANCYMENTALHEALTH_UUID);
+    }
+
+    private void enableTBProgram(){
+        configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_TB_UUID);
     }
 
     private void enableBiometrics(Config config) {
@@ -3313,6 +3341,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableAsthmaProgram();
         }
 
+        if (config.isComponentEnabled(Components.AYFS_PROGRAM)) {
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_AYFS_UUID);
+            enableAYFSProgram();
+        }
+
         if (config.isComponentEnabled(Components.DIABETES_PROGRAM)) {
             supportedPrograms.add(PihEmrConfigConstants.PROGRAM_DIABETES_UUID);
             enableDiabetesProgram();
@@ -3321,6 +3354,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.EPILEPSY_PROGRAM)) {
             supportedPrograms.add(PihEmrConfigConstants.PROGRAM_EPILEPSY_UUID);
             enableEpilepsyProgram();
+        }
+
+        if (config.isComponentEnabled(Components.FAMILY_PLANNING_PROGRAM)) {
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_FAMILYPLANNING_UUID);
+            enableFamilyPlanningProgram();
+        }
+
+        if (config.isComponentEnabled(Components.GYNECOLOGY_PROGRAM)) {
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_GYNECOLOGY_UUID);
+            enableGynecologyProgram();
         }
 
         if (config.isComponentEnabled(Components.HIV)) {
@@ -3341,8 +3384,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableHIVIntakeForm();
         }
 
+        if (config.isComponentEnabled(Components.INFANT_PROGRAM)) {
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_INFANT_UUID);
+            enableInfantProgram();
+        }
+
         if (config.isComponentEnabled(Components.PMTCT)) {
             enablePMTCTForms();
+        }
+
+        if (config.isComponentEnabled(Components.PMTCT_PROGRAM)) {
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_PMTCT_UUID);
+            enablePMTCTProgram();
         }
 
         if (config.isComponentEnabled(Components.EXP_INFANT)) {
@@ -3409,6 +3462,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableMCHForms();
             supportedPrograms.add(PihEmrConfigConstants.PROGRAM_MCH_UUID);
             enableMCHProgram();
+        }
+
+        if (config.isComponentEnabled(Components.PREGNANCY_PROGRAM)) {
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
+            enablePregnancyProgram();
+        }
+
+        if (config.isComponentEnabled(Components.PREGNANCY_MENTAL_HEALTH_PROGRAM)) {
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_PREGNANCYMENTALHEALTH_UUID);
+            enablePregnancyMentalHealthProgram();
         }
 
         if(config.isComponentEnabled(Components.TUBERCULOSIS)){
