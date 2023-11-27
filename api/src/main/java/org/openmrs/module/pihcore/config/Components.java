@@ -43,9 +43,7 @@ public class Components {
         public static final String EPILEPSY_PROGRAM = "epilepsyProgram";  // needs EpilepsyProgramBundle, used by CES
         public static final String EXP_INFANT = "exposedInfant" ;
         public static final String EXPORT_PATIENTS = "exportPatients";
-
         public static final String FAMILY_PLANNING_PROGRAM = "familyPlanningProgram";
-
         public static final String GYNECOLOGY_PROGRAM = "gynecologyProgram";
         public static final String GROWTH_CHART = "growthChart";
         public static final String HIV = "hiv";
@@ -57,7 +55,6 @@ public class Components {
         public static final String HYPERTENSION_PROGRAM = "hypertensionProgram";  // needs HypertensionProgram bundle, used by CES
         public static final String ID_CARD_PRINTING = "idcardPrinting";
         public static final String IMPORT_PATIENTS = "importPatients";
-
         public static final String INFANT_PROGRAM ="infantProgram";
         public static final String J9 = "j9";
         public static final String LAB_RESULTS = "labResults";
@@ -90,12 +87,9 @@ public class Components {
         public static final String PATIENT_REGISTRATION = "patientRegistration";
         public static final String PERU_LAB_ORDERS_ANALYSIS_REQUESTS = "peruLabOrdersAnalysisRequests";
         public static final String PMTCT = "pmtct" ;
-
         public static final String PMTCT_PROGRAM = "pmtctProgram";
         public static final String POWER_BI_REPORTS = "powerbiReports";
-
         public static final String PREGNANCY_PROGRAM = "pregnancyProgram";
-
         public static final String PREGNANCY_MENTAL_HEALTH_PROGRAM = "pregnancyMentalHealthProgram";
         public static final String PRESCRIPTION = "prescription"; //Used for Perú
         public static final String PRIMARY_CARE = "primaryCare";  // primary care forms for Haiti, Mexico, and Sierra Leone (country-dependent)
