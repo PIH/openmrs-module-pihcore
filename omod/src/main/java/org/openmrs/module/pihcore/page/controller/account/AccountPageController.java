@@ -16,6 +16,7 @@ package org.openmrs.module.pihcore.page.controller.account;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Person;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.UserService;
@@ -47,11 +48,23 @@ public class AccountPageController {
 
     public PihAccountDomainWrapper getAccount(
             @RequestParam(value = "personId", required = false) Person person,
+            @RequestParam(value = "userId", required = false) User user,
             @SpringBean("pihCoreService") PihCoreService pihCoreService) {
 
         if (person == null) {
+            if (user != null) {
+                person = user.getPerson();
+            }
+        }
+        else {
+            if (user != null && !person.equals(user.getPerson())) {
+                throw new IllegalArgumentException("The given user is not associated with the given person");
+            }
+        }
+        if (person == null) {
             person = new Person();
         }
+
         return pihCoreService.newPihAccountDomainWrapper(person);
     }
 
