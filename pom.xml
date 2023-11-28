@@ -54,7 +54,7 @@
         <appointmentsVersion>2.0.0-SNAPSHOT</appointmentsVersion>
         <appointmentschedulingVersion>2.0.0-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>2.0.0-SNAPSHOT</appointmentschedulinguiVersion>
-        <appuiVersion>1.16.0</appuiVersion>
+        <appuiVersion>1.17.0</appuiVersion>
         <attachmentsVersion>2.7.0</attachmentsVersion>
         <authenticationVersion>1.0.0</authenticationVersion>
         <authenticationuiVersion>1.1.0-SNAPSHOT</authenticationuiVersion>
