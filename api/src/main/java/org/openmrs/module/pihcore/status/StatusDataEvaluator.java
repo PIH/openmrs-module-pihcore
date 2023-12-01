@@ -13,7 +13,7 @@ import org.openmrs.module.reporting.evaluation.EvaluationException;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
+import org.openmrs.api.context.Context;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,7 +35,7 @@ public class StatusDataEvaluator {
 
         SqlFileDataSetDefinition dsd = new SqlFileDataSetDefinition();
         dsd.addParameter(new Parameter("patientId", "Patient ID", Integer.class));
-
+        dsd.addParameter(new Parameter("locale", "Locale", String.class));
         String sql = definition.getStatusDataQuery();
         if (sql.toLowerCase().endsWith(".sql")) {
             File statusDataDir = StatusDataLoader.getStatusDataDirectory();
@@ -49,7 +49,7 @@ public class StatusDataEvaluator {
 
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("patientId", patient.getPatientId());
-
+        context.addParameterValue("locale", Context.getLocale().toString());
         List<Map<String, Object>> queryData = new ArrayList<>();
         try {
             DataSet dataSet = dataSetDefinitionService.evaluate(dsd, context);
