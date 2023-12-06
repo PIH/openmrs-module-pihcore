@@ -166,6 +166,7 @@ public class SectionsSierraLeone extends SectionsDefault {
         } else if (config.isWellbody()) {
             s.addQuestion(getKghEmrId());
         }
+        s.addQuestion(getNationalId());
 
         return s;
     }
@@ -201,6 +202,24 @@ public class SectionsSierraLeone extends SectionsDefault {
         q.addField(f);
         return q;
     }
+
+    private Question getNationalId() {
+
+        Question q = new Question();
+        q.setId("nationalId");
+        q.setLegend("National ID");
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID);
+
+        Field f = new Field();
+        f.setFormFieldName("patientIdentifier" + SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID);
+        f.setUuid(SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID);
+        f.setType("patientIdentifier");
+        f.setWidget(getTextFieldWidget(16));
+
+        q.addField(f);
+        return q;
+    }
+
 
     @Override
     public Section getSocialSection() {
