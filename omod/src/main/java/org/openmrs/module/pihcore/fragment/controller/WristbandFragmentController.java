@@ -4,7 +4,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.Patient;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
+import org.openmrs.module.pihcore.printer.template.SLWristbandTemplate;
 import org.openmrs.module.pihcore.printer.template.WristbandTemplate;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.UnableToPrintLabelException;
@@ -15,6 +17,8 @@ import org.openmrs.module.printer.UnableToPrintViaSocketException;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor.Country;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -33,19 +37,26 @@ public class WristbandFragmentController {
                                       @SpringBean("wristbandTemplate") WristbandTemplate wristbandTemplate,
                                       @SpringBean("printerService") PrinterService printerService,
                                       @SpringBean("paperRecordService") PaperRecordService paperRecordService,
-                                      UiSessionContext uiSessionContext) throws UnableToPrintLabelException {
+                                       @SpringBean Config config,
+                                       UiSessionContext uiSessionContext) throws UnableToPrintLabelException {
         try {
 
             if (location == null) {
                 location = uiSessionContext.getSessionLocation();
             }
 
-            // make sure a paper record has been created
-            if (!paperRecordService.paperRecordExistsForPatient(patient, location)) {
-                paperRecordService.createPaperRecord(patient, location);
+            String data = "";
+            if (config.getCountry().equals(Country.SIERRA_LEONE)) {
+                SLWristbandTemplate slWristbandTemplate = Context.getRegisteredComponent("slWristbandTemplate", SLWristbandTemplate.class);
+                data = slWristbandTemplate.generateWristband(patient, location, uiSessionContext.getLocale());
+            } else {
+                // make sure a paper record has been created
+                if (!paperRecordService.paperRecordExistsForPatient(patient, location)) {
+                    paperRecordService.createPaperRecord(patient, location);
+                }
+                data = wristbandTemplate.generateWristband(patient, location);
             }
 
-            String data = wristbandTemplate.generateWristband(patient, location);
             Printer printer = printerService.getDefaultPrinter(location, PrinterType.WRISTBAND);
 
             if (printer == null) {
