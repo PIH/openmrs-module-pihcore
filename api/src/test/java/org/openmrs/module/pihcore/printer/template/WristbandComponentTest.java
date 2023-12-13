@@ -38,7 +38,7 @@ public class WristbandComponentTest extends PihCoreContextSensitiveTest {
     private TestDataManager testDataManager;
 
     @Autowired
-    private WristbandTemplate wristbandTemplate;
+    private ZLWristbandTemplate ZLWristbandTemplate;
 
     @Autowired
     private EmrApiProperties emrApiProperties;
@@ -86,7 +86,7 @@ public class WristbandComponentTest extends PihCoreContextSensitiveTest {
                 .name("Ringo", "Starr")
                 .save();
 
-        String output = wristbandTemplate.generateWristband(patient, location);
+        String output = ZLWristbandTemplate.generateWristband(patient, location);
 
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
         assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDMirebalais " + df.format(today) + "^FS"));
