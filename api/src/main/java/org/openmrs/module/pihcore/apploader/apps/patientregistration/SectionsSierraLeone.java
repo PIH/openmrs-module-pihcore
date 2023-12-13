@@ -217,8 +217,12 @@ public class SectionsSierraLeone extends SectionsDefault {
         f.setFormFieldName("patientIdentifier" + SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID);
         f.setUuid(SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID);
         f.setType("patientIdentifier");
-        f.setCssClasses(Arrays.asList("regex"));
-        f.setWidget(getTextFieldWidget(16, nationalId.getFormat()));
+        if (StringUtils.isNotBlank(nationalId.getFormat())) {
+            f.setCssClasses(Arrays.asList("regex"));
+            f.setWidget(getTextFieldWidget(16, nationalId.getFormat()));
+        } else {
+            f.setWidget(getTextFieldWidget(16));
+        }
 
         q.addField(f);
         return q;
