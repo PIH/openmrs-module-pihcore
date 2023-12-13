@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.apploader.apps.patientregistration;
 
 import org.apache.commons.lang3.StringUtils;
+import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
@@ -205,6 +206,8 @@ public class SectionsSierraLeone extends SectionsDefault {
 
     private Question getNationalId() {
 
+        PatientIdentifierType nationalId = Context.getPatientService().getPatientIdentifierTypeByUuid(SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID);
+
         Question q = new Question();
         q.setId("nationalId");
         q.setLegend("National ID");
@@ -214,7 +217,8 @@ public class SectionsSierraLeone extends SectionsDefault {
         f.setFormFieldName("patientIdentifier" + SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID);
         f.setUuid(SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID);
         f.setType("patientIdentifier");
-        f.setWidget(getTextFieldWidget(16));
+        f.setCssClasses(Arrays.asList("regex"));
+        f.setWidget(getTextFieldWidget(16, nationalId.getFormat()));
 
         q.addField(f);
         return q;
