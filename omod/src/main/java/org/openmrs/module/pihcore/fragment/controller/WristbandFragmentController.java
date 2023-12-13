@@ -7,7 +7,7 @@ import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.pihcore.printer.template.SLWristbandTemplate;
-import org.openmrs.module.pihcore.printer.template.WristbandTemplate;
+import org.openmrs.module.pihcore.printer.template.ZLWristbandTemplate;
 import org.openmrs.module.paperrecord.PaperRecordService;
 import org.openmrs.module.paperrecord.UnableToPrintLabelException;
 import org.openmrs.module.printer.Printer;
@@ -34,7 +34,6 @@ public class WristbandFragmentController {
     public SimpleObject printWristband(UiUtils ui,
                                       @RequestParam("patientId") Patient patient,
                                       @RequestParam(value = "locationId", required = false) Location location,
-                                      @SpringBean("wristbandTemplate") WristbandTemplate wristbandTemplate,
                                       @SpringBean("printerService") PrinterService printerService,
                                       @SpringBean("paperRecordService") PaperRecordService paperRecordService,
                                        @SpringBean Config config,
@@ -49,16 +48,18 @@ public class WristbandFragmentController {
             if (config.getCountry().equals(Country.SIERRA_LEONE)) {
                 SLWristbandTemplate slWristbandTemplate = Context.getRegisteredComponent("slWristbandTemplate", SLWristbandTemplate.class);
                 data = slWristbandTemplate.generateWristband(patient, location, uiSessionContext.getLocale());
-            } else {
+            } else if (config.getCountry().equals(Country.HAITI)){
                 // make sure a paper record has been created
                 if (!paperRecordService.paperRecordExistsForPatient(patient, location)) {
                     paperRecordService.createPaperRecord(patient, location);
                 }
-                data = wristbandTemplate.generateWristband(patient, location);
+                ZLWristbandTemplate zlWristbandTemplate = Context.getRegisteredComponent("zlWristbandTemplate", ZLWristbandTemplate.class);
+                data = zlWristbandTemplate.generateWristband(patient, location);
+            } else {
+                return SimpleObject.create("success", false, "message", ui.message("pihcore.error.noWristbandTemplateConfiguredForLocation") + " " + ui.format(config.getCountry().toString()));
             }
 
             Printer printer = printerService.getDefaultPrinter(location, PrinterType.WRISTBAND);
-
             if (printer == null) {
                 // TODO: better warning if no default printer
                 return SimpleObject.create("success", false, "message", ui.message("mirebalais.error.noWristbandPrinterConfiguredForLocation") + " " + ui.format(location));

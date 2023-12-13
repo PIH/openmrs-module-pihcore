@@ -26,8 +26,8 @@ import java.util.Locale;
 /**
  * Template for the wristbands we print in Mirebalais; created the code (in ZPL II language) to send to the wristband printer
  */
-@Component
-public class WristbandTemplate {
+@Component("zlWristbandTemplate")
+public class ZLWristbandTemplate {
 
     // we always print in French
     private static Locale locale = new Locale("fr");

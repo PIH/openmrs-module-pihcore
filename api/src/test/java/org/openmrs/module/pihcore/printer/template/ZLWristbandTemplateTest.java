@@ -34,13 +34,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 
-public class WristbandTemplateTest {
+public class ZLWristbandTemplateTest {
 
     private static Locale locale = new Locale("fr");
 
     private static DateFormat df  = new SimpleDateFormat("dd MMM yyyy", locale);
 
-    private WristbandTemplate wristbandTemplate = new WristbandTemplate();
+    private ZLWristbandTemplate ZLWristbandTemplate = new ZLWristbandTemplate();
 
     private EmrApiProperties emrApiProperties;
 
@@ -75,11 +75,11 @@ public class WristbandTemplateTest {
 
         setupAddressHierarchyLevels();
 
-        wristbandTemplate.setAdtService(adtService);
-        wristbandTemplate.setEmrApiProperties(emrApiProperties);
-        wristbandTemplate.setMessageSourceService(messageSourceService);
-        wristbandTemplate.setPaperRecordProperties(paperRecordProperties);
-        wristbandTemplate.setAddressHierarchyService(addressHierarchyService);
+        ZLWristbandTemplate.setAdtService(adtService);
+        ZLWristbandTemplate.setEmrApiProperties(emrApiProperties);
+        ZLWristbandTemplate.setMessageSourceService(messageSourceService);
+        ZLWristbandTemplate.setPaperRecordProperties(paperRecordProperties);
+        ZLWristbandTemplate.setAddressHierarchyService(addressHierarchyService);
 
     }
 
@@ -151,7 +151,7 @@ public class WristbandTemplateTest {
 
         when(messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale)).thenReturn(patient.getAge() + " an(s)");
 
-        String output = wristbandTemplate.generateWristband(patient, visitLocation);
+        String output = ZLWristbandTemplate.generateWristband(patient, visitLocation);
 
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
         assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDMirebalais " + df.format(today) + "^FS"));
@@ -191,7 +191,7 @@ public class WristbandTemplateTest {
         name.setFamilyName("Starr");
         patient.addName(name);
 
-        String output = wristbandTemplate.generateWristband(patient, new Location());
+        String output = ZLWristbandTemplate.generateWristband(patient, new Location());
 
         assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD1940^FS"));
 
