@@ -82,8 +82,8 @@ public class SLWristbandTemplate {
             addressHierarchyService = Context.getService(AddressHierarchyService.class);
         }
         Locale printerLocale = (locale != null) ? locale : new Locale("en"); // default to English
-        DateFormat fullDate  = new SimpleDateFormat("dd MMM yyyy", locale);
-        DateFormat yearOnly = new SimpleDateFormat("yyyy", locale);
+        DateFormat fullDate  = new SimpleDateFormat("dd-MMM-yyyy", printerLocale);
+        DateFormat yearOnly = new SimpleDateFormat("yyyy", printerLocale);
 
         data.append("^XA");
         data.append("^CI28");   // specify Unicode encoding
@@ -94,6 +94,7 @@ public class SLWristbandTemplate {
         data.append("^FO050,200^FB2150,1,0,L,0^AS^FD" + adtService.getLocationThatSupportsVisits((org.openmrs.Location) location).getName() + " "
                 + fullDate.format(new Date()) + "^FS");
 
+        PatientIdentifier primaryIdentifier = patient.getPatientIdentifier(emrApiProperties.getPrimaryIdentifierType());
         // patient name: for now, only printing given and family names
         String patientName = null;
 
@@ -102,7 +103,8 @@ public class SLWristbandTemplate {
                     + (patient.getPersonName().getFamilyName() != null ? patient.getPersonName().getFamilyName() : "");
         }
 
-        data.append("^FO100,200^FB2150,1,0,L,0^AU^FD" + patientName + "^FS");
+        data.append("^FO100,200^FB2150,1,0,L,0^AU^FD" + patientName + "  " + primaryIdentifier.getIdentifier() + "^FS");
+
 
         if (patient.getBirthdate() != null) {
             // birthdate (we only show year if birthdate is estimated
@@ -112,11 +114,11 @@ public class SLWristbandTemplate {
 
         if (patient.getAge() != null) {
             // age
-            data.append("^FO160,200^FB1850,1,0,L,0^AT^FD" + messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), locale) +"^FS");
+            data.append("^FO160,200^FB1850,1,0,L,0^AT^FD" + messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), printerLocale) +"^FS");
         }
 
         // gender
-        data.append("^FO160,200^FB1650,1,0,L,0^AU^FD" + messageSourceService.getMessage("coreapps.gender." + patient.getGender(), null, locale) + "  ");
+        data.append("^FO160,200^FB1650,1,0,L,0^AU^FD" + messageSourceService.getMessage("coreapps.gender." + patient.getGender(), null, printerLocale) + "  ");
 
         data.append("^FS");
 
@@ -161,7 +163,6 @@ public class SLWristbandTemplate {
         }
 
         // barcode with primary identifier
-        PatientIdentifier primaryIdentifier = patient.getPatientIdentifier(emrApiProperties.getPrimaryIdentifierType());
         if (primaryIdentifier != null) {
             data.append("^FO100,2400^AT^BY4^BC,150,N^FD" + primaryIdentifier.getIdentifier() + "^XZ");
         }
