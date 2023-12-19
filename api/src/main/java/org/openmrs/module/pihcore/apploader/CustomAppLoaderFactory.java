@@ -631,7 +631,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "fas fa-fw fa-heartbeat",
                         "/pihcore/vitals/vitalsList.page",
                         "App: mirebalais.outpatientVitals",  // TODO rename this permission to not be mirebalais-specific?
-                        null)));
+                        null),sessionLocationHasTag("Vitals Location")));
 
             }
         }
@@ -2194,7 +2194,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "fas fa-fw fa-stethoscope",
                 "pihcore/visit/waitingForConsult.page",
                   PihEmrConfigConstants.PRIVILEGE_APP_WAITING_FOR_CONSULT,
-                null)));
+                null),sessionLocationHasTag("Consult Note Location")));
     }
 
     private void enableTodaysVisits() {
