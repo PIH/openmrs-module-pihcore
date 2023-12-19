@@ -105,7 +105,6 @@ public class SLWristbandTemplate {
 
         data.append("^FO100,200^FB2150,1,0,L,0^AU^FD" + patientName + "  " + primaryIdentifier.getIdentifier() + "^FS");
 
-
         if (patient.getBirthdate() != null) {
             // birthdate (we only show year if birthdate is estimated
             DateFormat df = patient.getBirthdateEstimated() ? yearOnly : fullDate;
