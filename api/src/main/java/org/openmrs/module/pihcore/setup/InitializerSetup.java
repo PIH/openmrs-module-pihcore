@@ -47,6 +47,10 @@ public class InitializerSetup {
     public static void loadPreConceptDomains(Config config) {
         try {
             List<String> excludeList = new ArrayList<>();
+            // Ensure OCL is not loaded unless configured. See ConfigurationSetup#configureConceptDependencies.
+            // This likely will be changed once we have fully switched from MDS to OCL packages.
+            // Right now this supports the ability to toggle between them by server
+            excludeList.add(Domain.OCL.getName());
             for (Domain domain : getDomainsToLoadAfterConcepts()) {
                 excludeList.add(domain.getName());
             }

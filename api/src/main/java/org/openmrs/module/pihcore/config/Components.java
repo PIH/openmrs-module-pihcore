@@ -77,6 +77,7 @@ public class Components {
         public static final String NCD = "ncd";  // program
         public static final String NURSE_CONSULT = "nurseConsult";
         public static final String OBGYN = "obgyn";
+        public static final String OCL_CONCEPTS = "oclConcepts";
         public static final String ONCOLOGY = "oncology";  // program
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String OVERVIEW_REPORTS = "overviewReports";
