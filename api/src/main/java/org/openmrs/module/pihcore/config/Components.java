@@ -68,6 +68,7 @@ public class Components {
         public static final String MCH_GAIN_MATERNAL = "mchGAINMaternal"; // used by SL GAIN (nursing) project
         public static final String MCH_GAIN_NEWBORN = "mchGAINNewborn";   // used by SL GAIN (nursing) project
         public static final String MCH_PROGRAM = "mchProgram";  // needs MCHProgramBundle[ZL], used by ZL (via "mch")
+        public static final String MCOE_FORMS = "mcoeForms" ;
         public static final String MEDICATION_DISPENSING = "medicationDispensing"; // This is for the new dispensing MFE
         public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
         public static final String MENTAL_HEALTH_FORM = "mentalHealthForm";  // used by ZL (via "mentalHealth")

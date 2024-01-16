@@ -435,6 +435,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableMCHGainNewborn();
         }
 
+        if (config.isComponentEnabled(Components.MCOE_FORMS)) {
+            enableMCOEForms();
+        }
+
         if (config.isComponentEnabled(Components.COVID19)) {
             enableCovid19();
         }
@@ -2044,6 +2048,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
+        }
+    }
+
+    private void enableMCOEForms() {
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_ASSESSMENT_ACTION,
+                    "pih.task.newbornAssessment",
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornAssessment.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"))));
         }
     }
 
