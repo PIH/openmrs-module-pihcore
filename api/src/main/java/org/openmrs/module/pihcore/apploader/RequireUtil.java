@@ -68,6 +68,10 @@ public class RequireUtil {
         return new String("patient.person.age < 15");
     }
 
+    public static String patientIsInfant() {  // expects patient or visit to be in the context
+        return new String("patient.person.age < 1");
+    }
+
     public static String patientAgeLessThanOrEqualToAtVisitStart(int age) {
         return patientAgeInMonthsLessThanAtVisitStart((age+1)*12);
     }

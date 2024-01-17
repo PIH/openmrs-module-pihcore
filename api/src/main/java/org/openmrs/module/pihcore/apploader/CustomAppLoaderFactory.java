@@ -101,6 +101,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasActiveV
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasPreviousEncounter;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdult;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsChild;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsInfant;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientNotDead;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
@@ -2060,7 +2061,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornAssessment.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
-                    and(sessionLocationHasTag("Maternal and Child Location"))));
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            and(patientIsInfant()))));
         }
     }
 
