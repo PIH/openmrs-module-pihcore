@@ -135,20 +135,18 @@ public class AuthenticationSetup {
     }
 
     /**
-     * Add configuration for a scheme with the given schemeId, if a scheme with this schemeId is not already configured
+     * Add configuration for a scheme with the given schemeId
      */
     protected static void addScheme(String schemeId, String className, Properties config, Set<String> whitelist) {
         String schemeTypeProperty = SCHEME_TYPE_TEMPLATE.replace(SCHEME_ID, schemeId);
-        if (StringUtils.isBlank(AuthenticationConfig.getProperty(schemeTypeProperty))) {
-            AuthenticationConfig.setProperty(schemeTypeProperty, className);
-            if (config != null) {
-                for (String propertyName : config.stringPropertyNames()) {
-                    String key = SCHEME_CONFIG_PREFIX_TEMPLATE.replace(SCHEME_ID, schemeId) + propertyName;
-                    String value = config.getProperty(propertyName);
-                    AuthenticationConfig.setProperty(key, value);
-                    if (propertyName.equalsIgnoreCase("loginPage")) {
-                        whitelist.add(value);
-                    }
+        AuthenticationConfig.setProperty(schemeTypeProperty, className);
+        if (config != null) {
+            for (String propertyName : config.stringPropertyNames()) {
+                String key = SCHEME_CONFIG_PREFIX_TEMPLATE.replace(SCHEME_ID, schemeId) + propertyName;
+                String value = config.getProperty(propertyName);
+                AuthenticationConfig.setProperty(key, value);
+                if (propertyName.equalsIgnoreCase("loginPage")) {
+                    whitelist.add(value);
                 }
             }
         }
