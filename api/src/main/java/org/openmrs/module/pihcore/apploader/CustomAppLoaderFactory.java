@@ -1366,7 +1366,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "fas fa-fw fa-search",
                 "pihcore/admin/configuration.page",
                 5,
-                "App: coreapps.systemAdministration",
+                "SQL Level Access",
                 null)));
 
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.STATUS_DATA_VIEW,
