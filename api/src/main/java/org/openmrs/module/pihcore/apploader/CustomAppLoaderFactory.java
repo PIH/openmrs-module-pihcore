@@ -591,25 +591,77 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
                     null, config.getFindPatientColumnConfig()),
                     sessionLocationHasTag("Check-In Location")));
+
+            /*
+            if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+                apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.CHECK_IN,
+                                "mirebalais.app.patientRegistration.checkin.label",
+                                "fas fa-fw fa-paste",
+                                "App: mirebalais.checkin",
+                                "/pihcore/checkin/checkin.page?patientId={{patientId}}",
+                                //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
+                                null, config.getFindPatientColumnConfig()),
+                        sessionLocationHasTag("Check-In Maternal Location")));
+            } */
         }
 
-		// check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_VISIT_ACTION,
-                "mirebalais.task.checkin.label",
-                "fas fa-fw icon-check-in",
-                "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkin.xml")),
-                "Task: mirebalais.checkinForm",
-                sessionLocationHasTag("Check-In Location")));
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+            // Default SL check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_VISIT_ACTION,
+                    "mirebalais.task.checkin.label",
+                    "fas fa-fw icon-check-in",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkin.xml")),
+                    "Task: mirebalais.checkinForm",
+                    sessionLocationHasTag("Check-In Location")));
 
-		// check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
-        extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
-                "mirebalais.task.checkin.label",
-                "fas fa-fw icon-check-in",
-                "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckin.xml")) + andCreateVisit(),
-                "Task: mirebalais.checkinForm",
-                sessionLocationHasTag("Check-In Location")));
+            // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
+            extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
+                    "mirebalais.task.checkin.label",
+                    "fas fa-fw icon-check-in",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckin.xml")) + andCreateVisit(),
+                    "Task: mirebalais.checkinForm",
+                    sessionLocationHasTag("Check-In Location")));
+
+            // Maternal check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
+                    "mirebalais.maternalCheckin.label",
+                    "fas fa-fw icon-check-in",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkinMaternal.xml")),
+                    "Task: mirebalais.checkinForm",
+                    sessionLocationHasTag("Check-In Maternal Location")));
+
+
+            // Maternal live check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
+            extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
+                    "mirebalais.maternalCheckin.label",
+                    "fas fa-fw icon-check-in",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckinMaternal.xml")) + andCreateVisit(),
+                    "Task: mirebalais.checkinForm",
+                    sessionLocationHasTag("Check-In Maternal Location")));
+        } else {
+            // check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_VISIT_ACTION,
+                    "mirebalais.task.checkin.label",
+                    "fas fa-fw icon-check-in",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkin.xml")),
+                    "Task: mirebalais.checkinForm",
+                    sessionLocationHasTag("Check-In Location")));
+
+
+            // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
+            extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
+                    "mirebalais.task.checkin.label",
+                    "fas fa-fw icon-check-in",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckin.xml")) + andCreateVisit(),
+                    "Task: mirebalais.checkinForm",
+                    sessionLocationHasTag("Check-In Location")));
+        }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID,
