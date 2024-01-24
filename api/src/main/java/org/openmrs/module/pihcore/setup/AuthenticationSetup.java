@@ -34,8 +34,11 @@ public class AuthenticationSetup {
         // Needed to ensure the authentication module can load custom PIH Authentication Scheme
         AuthenticationConfig.registerClassLoader(AuthenticationSetup.class.getClassLoader());
 
-        AuthenticationConfigDescriptor cd = config.getAuthenticationConfig();
+        // clear out any existing config
+        AuthenticationConfig.setConfig(new Properties());
 
+        AuthenticationConfigDescriptor cd = config.getAuthenticationConfig();
+        
         // If no authentication scheme is explicitly configured, default to basic
         String scheme = StringUtils.isBlank(cd.getScheme()) ? BASIC : cd.getScheme();
         AuthenticationConfig.setProperty(SCHEME, scheme);
