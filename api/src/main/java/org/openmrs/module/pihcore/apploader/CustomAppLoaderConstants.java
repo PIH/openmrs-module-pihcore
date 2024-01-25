@@ -148,6 +148,7 @@ public class CustomAppLoaderConstants {
     public static final class Extensions {
 
         public static final String CHECK_IN_VISIT_ACTION = "pih.checkin.visitAction";
+        public static final String CHECK_IN_MATERNAL_VISIT_ACTION = "pih.checkinMaternal.visitAction";
         public static final String CHECK_IN_REGISTRATION_ACTION = "pih.checkin.registrationAction";
         public static final String VITALS_CAPTURE_VISIT_ACTION = "pih.form.vitals";
         public static final String CONSULT_NOTE_VISIT_ACTION = "pih.form.consult";
@@ -414,6 +415,7 @@ public class CustomAppLoaderConstants {
 
     public static final List<String> VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.CHECK_IN_VISIT_ACTION,
+            Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
             Extensions.VITALS_CAPTURE_VISIT_ACTION,
             Extensions.CONSULT_NOTE_VISIT_ACTION,
             Extensions.MEXICO_CONSULT_ACTION,
