@@ -590,7 +590,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "/pihcore/checkin/checkin.page?patientId={{patientId}}",
                     //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
                     null, config.getFindPatientColumnConfig()),
-                    sessionLocationHasTag("Check-In Location")));
+                    or(sessionLocationHasTag("Check-In Location"),sessionLocationHasTag("Check-In Maternal Location"))));
         }
 
 		// check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
