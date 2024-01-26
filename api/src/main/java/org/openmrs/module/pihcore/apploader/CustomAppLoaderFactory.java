@@ -623,7 +623,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     sessionLocationHasTag("Check-In Maternal Location")));
 
             // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
-            extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
+            extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_REGISTRATION_ACTION,
                     "mirebalais.maternalCheckin.label",
                     "fas fa-fw icon-check-in",
                     "link",
