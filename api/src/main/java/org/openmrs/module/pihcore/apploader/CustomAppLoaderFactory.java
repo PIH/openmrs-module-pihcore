@@ -621,6 +621,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckinMaternal.xml")),
                     "Task: mirebalais.checkinForm",
                     sessionLocationHasTag("Check-In Maternal Location")));
+
+            // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
+            extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
+                    "mirebalais.maternalCheckin.label",
+                    "fas fa-fw icon-check-in",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckinMaternal.xml")) + andCreateVisit(),
+                    "Task: mirebalais.checkinForm",
+                    sessionLocationHasTag("Check-In Maternal Location")));
         }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
