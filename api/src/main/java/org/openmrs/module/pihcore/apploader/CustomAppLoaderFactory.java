@@ -615,7 +615,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
             // Maternal check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
-                    "mirebalais.maternalCheckin.label",
+                    "mirebalais.checkin.title",
                     "fas fa-fw icon-check-in",
                     "link",
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckinMaternal.xml")),
@@ -624,7 +624,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
             // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
             extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_REGISTRATION_ACTION,
-                    "mirebalais.maternalCheckin.label",
+                    "mirebalais.checkin.title",
                     "fas fa-fw icon-check-in",
                     "link",
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckinMaternal.xml")) + andCreateVisit(),
