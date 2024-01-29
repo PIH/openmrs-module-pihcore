@@ -22,7 +22,8 @@ import org.openmrs.module.queue.model.QueueEntry;
  * Custom action that adds a patient to a queue, if the encounter contains a top level obs with the
  * following structure
  * <obs conceptId="CIEL:1272"  answerConceptId="PIH:14976"  />
- * where answerConceptId points to the service concept associated with a queue
+ * where answerConceptId points to the service concept associated with a queue.
+ * It assumes that the service concept maps to one and only one queue.
  */
 public class AddPatientToQueueAction implements CustomFormSubmissionAction {
 
@@ -80,7 +81,7 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
                 queueEntry.setPriority(allowedPriorities.get(0));
                 // The first entry in the allowedStatuses should always be Waiting
                 queueEntry.setStatus(allowedStatuses.get(0));
-                queueEntry.setStartedAt(new Date());
+                queueEntry.setStartedAt(encounter.getEncounterDatetime());
                 try {
                     queueServicesWrapper.getQueueEntryService().saveQueueEntry(queueEntry);
                 } catch (Exception e) {
