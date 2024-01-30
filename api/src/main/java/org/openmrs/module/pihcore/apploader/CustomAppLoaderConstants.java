@@ -198,6 +198,7 @@ public class CustomAppLoaderConstants {
         public static final String MCH_GAIN_DELIVERY_REGISTER_ACTION = "pih.form.gainDelivery";
         public static final String MCH_GAIN_SCBU_REGISTER_ACTION = "pih.form.gainNewbornSCBU";
         public static final String NEWBORN_ASSESSMENT_ACTION = "pih.form.newbornAssessment";
+        public static final String NEWBORN_EXAM_ACTION = "pih.form.newbornExam";
         public static final String NEWBORN_REFERRAL_ACTION = "pih.form.newbornReferral";
         public static final String NEWBORN_OBS_ACTION = "pih.form.newbornObs";
         public static final String LABOR_PROGRESS_ACTION = "pih.form.laborProgress";
@@ -442,6 +443,7 @@ public class CustomAppLoaderConstants {
             Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION,
             Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,
             Extensions.NEWBORN_ASSESSMENT_ACTION,
+            Extensions.NEWBORN_EXAM_ACTION,
             Extensions.LABOR_PROGRESS_ACTION,
             Extensions.LABOR_DELIVERY_SUMMARY_ACTION,
             Extensions.NEWBORN_OBS_ACTION,
