@@ -64,23 +64,25 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
                     throw new RuntimeException(errorMessage);
                 }
                 queue = queues.get(0);
-                List<Concept> allowedStatuses = queueServicesWrapper.getAllowedStatuses(queue);
-                if (allowedStatuses.isEmpty()) {
-                    log.error("Queue " + queue.getName() + " has not valid allowed statuses");
-                    return;
-                }
-                List<Concept> allowedPriorities = queueServicesWrapper.getAllowedPriorities(queue);
-                if (allowedPriorities.isEmpty()) {
-                    log.error("Queue " + queue.getName() + " has not valid allowed priorities");
-                    return;
-                }
                 queueEntry = new QueueEntry();
                 queueEntry.setQueue(queue);
                 queueEntry.setPatient(patient);
-                // The first entry in the allowedPriorities should always be Normal
-                queueEntry.setPriority(allowedPriorities.get(0));
-                // The first entry in the allowedStatuses should always be Waiting
-                queueEntry.setStatus(allowedStatuses.get(0));
+
+                List<Concept> allowedStatuses = queueServicesWrapper.getAllowedStatuses(queue);
+                if (allowedStatuses.isEmpty()) {
+                    log.warn("Queue " + queue.getName() + " has not valid allowed statuses");
+                } else {
+                    // The first entry in the allowedStatuses should always be Waiting
+                    queueEntry.setStatus(allowedStatuses.get(0));
+                }
+                List<Concept> allowedPriorities = queueServicesWrapper.getAllowedPriorities(queue);
+                if (allowedPriorities.isEmpty()) {
+                    log.warn("Queue " + queue.getName() + " has not valid allowed priorities");
+                } else {
+                    // The first entry in the allowedPriorities should always be Normal
+                    queueEntry.setPriority(allowedPriorities.get(0));
+                }
+
                 queueEntry.setStartedAt(encounter.getEncounterDatetime());
                 try {
                     queueServicesWrapper.getQueueEntryService().saveQueueEntry(queueEntry);
