@@ -178,6 +178,8 @@ public class CustomAppLoaderConstants {
         public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
         public static final String HIV_ZL_DISPENSING_VISIT_ACTION = "pih.form.hivZLDispensing";
         public static final String HIV_MEDICATION_LIST_OVERALL_ACTION = "pih.hiv.medicationList";
+
+        public static final String HIV_PSYCHOSOCIAL_VISIT_ACTION = "pih.form.hivPsychosocial";
         public static final String PMTCT_INITIAL_VISIT_ACTION = "pih.form.pmtctInitial";
         public static final String PMTCT_FOLLOWUP_VISIT_ACTION = "pih.form.pmtctFollowup";
         public static final String EID_FOLLOWUP_VISIT_ACTION = "pih.form.eidFollowup";
@@ -459,6 +461,7 @@ public class CustomAppLoaderConstants {
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ZL_DISPENSING_VISIT_ACTION,
+            Extensions.HIV_PSYCHOSOCIAL_VISIT_ACTION,
             Extensions.HIV_ADHERENCE_VISIT_ACTION,
             Extensions.PMTCT_INITIAL_VISIT_ACTION,
             Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,

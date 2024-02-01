@@ -2681,6 +2681,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(hivFollowup);
         extensions.add(cloneAsHivVisitAction(hivFollowup));
 
+        Extension hivPsychosocial = visitAction(CustomAppLoaderConstants.Extensions.HIV_PSYCHOSOCIAL_VISIT_ACTION,
+                "pihcore.hivPsychosocial.short",
+                "fas fa-fw fa-money-bill-alt",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/hiv-psychosocial.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
+                and(sessionLocationHasTag("HIV Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_HIV_PSYCHOSOCIAL_UUID),
+                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+        extensions.add(hivPsychosocial);
+        extensions.add(cloneAsHivVisitAction(hivPsychosocial));
+
         Extension hivDispensing = visitAction(CustomAppLoaderConstants.Extensions.HIV_ZL_DISPENSING_VISIT_ACTION,
                 "pihcore.hivDispensing.short",
                 "fas fa-fw fa-ribbon",
@@ -2691,9 +2705,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
-
         extensions.add(hivDispensing);
         extensions.add(cloneAsHivVisitAction(hivDispensing));
+
         // circular app for dispensiing
         apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.HIV_DISPENSING,
                 "pihcore.hivDispensing.short",
