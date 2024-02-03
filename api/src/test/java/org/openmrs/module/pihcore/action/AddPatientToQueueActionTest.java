@@ -2,11 +2,14 @@ package org.openmrs.module.pihcore.action;
 
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
@@ -18,6 +21,7 @@ import org.openmrs.module.queue.api.dao.QueueDao;
 import org.openmrs.module.queue.api.dao.QueueEntryDao;
 import org.openmrs.module.queue.api.impl.QueueEntryServiceImpl;
 import org.openmrs.module.queue.api.impl.QueueServiceImpl;
+import org.openmrs.module.queue.api.search.QueueEntrySearchCriteria;
 import org.openmrs.module.queue.model.Queue;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
@@ -33,7 +37,10 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -58,6 +65,9 @@ public class AddPatientToQueueActionTest {
     private QueueEntryService queueEntryServiceImpl;
     private QueueDao mockDao;
     private QueueEntryDao mockQueueEntryDao;
+
+    @Captor
+    ArgumentCaptor<QueueEntry> queueEntryArgumentCaptor;
 
     @Before
     public void setUp()  {
@@ -110,7 +120,6 @@ public class AddPatientToQueueActionTest {
         queueEntry.setPatient(patient);
         queueEntry.setQueue(queue);
         queueEntry.setStartedAt(encounter.getEncounterDatetime());
-        queue.addQueueEntry(queueEntry);
 
         when(mockFormEntrySession.getPatient()).thenReturn(patient);
         when(mockFormEntrySession.getEncounter()).thenReturn(encounter);
@@ -119,12 +128,52 @@ public class AddPatientToQueueActionTest {
         when(mockQueueEntryDao.createOrUpdate(queueEntry)).thenReturn(queueEntry);
 
         addPatientToQueueAction.applyAction(mockFormEntrySession);
+        // verify that a new QueueEntry is added to the queue
+        verify(mockQueueEntryDao).createOrUpdate(any());
+        verify(mockQueueEntryDao).createOrUpdate(queueEntryArgumentCaptor.capture());
+        QueueEntry capturedValue = queueEntryArgumentCaptor.getValue();
+        assertThat(capturedValue.getQueue(), is(queue));
+        assertThat(capturedValue.getPatient(), is(patient));
+        assertThat(capturedValue.getStartedAt(), is(encounter.getEncounterDatetime()));
+    }
 
-        List<Queue> queues = queueServiceImpl.getQueues(searchCriteria);
-        assertThat(queues.isEmpty(), is(false));
-        Queue mcoeQueue = queues.get(0);
-        assertThat(mcoeQueue.getQueueEntries().isEmpty(), is(false));
-        assertThat(mcoeQueue.getQueueEntries().get(0).getPatient(), is(patient));
+    @Test
+    public void applyAction_shouldNotAddPatientToQueueIfPatientIsAlreadyOnTheQueue() {
+        Patient patient = new Patient();
+        Encounter encounter = new Encounter();
+        encounter.setPatient(patient);
+        encounter.setEncounterDatetime(new Date());
+        Location location = new Location();
+        encounter.setLocation(location);
+        Obs referToMCOE = new Obs(patient, addToQueueConcept, encounter.getEncounterDatetime(), location);
+        referToMCOE.setValueCoded(mcoeTriageService);
+        encounter.addObs(referToMCOE);
+        Visit visit = new Visit();
+        visit.addEncounter(encounter);
+        Queue queue = new Queue();
+        queue.setService(mcoeTriageService);
+        QueueSearchCriteria searchCriteria = new QueueSearchCriteria();
+        searchCriteria.setServices(Arrays.asList(mcoeTriageService));
+        QueueEntry queueEntry = new QueueEntry();
+        queueEntry.setPatient(patient);
+        queueEntry.setQueue(queue);
+        queueEntry.setStartedAt(encounter.getEncounterDatetime());
+        queue.addQueueEntry(queueEntry);
+
+        when(mockFormEntrySession.getPatient()).thenReturn(patient);
+        when(mockFormEntrySession.getEncounter()).thenReturn(encounter);
+        when(mockFormEntryContext.getVisit()).thenReturn(visit);
+        when(mockDao.getQueues(searchCriteria)).thenReturn(Arrays.asList(queue));
+        when(mockQueueEntryDao.createOrUpdate(queueEntry)).thenReturn(queueEntry);
+
+        QueueEntrySearchCriteria qeCriteria = new QueueEntrySearchCriteria();
+        qeCriteria.setPatient(patient);
+        qeCriteria.setQueues(Collections.singletonList(queue));
+        when(mockQueueEntryDao.getQueueEntries(qeCriteria)).thenReturn(Arrays.asList(queueEntry));
+
+        addPatientToQueueAction.applyAction(mockFormEntrySession);
+        // a new QueueEntry is never added/saved to the db
+        verify(mockQueueEntryDao, never()).createOrUpdate(any());
 
     }
 }

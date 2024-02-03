@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.htmlformentry.action;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.openmrs.Concept;
@@ -14,9 +15,12 @@ import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.queue.api.QueueServicesWrapper;
+import org.openmrs.module.queue.api.search.QueueEntrySearchCriteria;
 import org.openmrs.module.queue.api.search.QueueSearchCriteria;
+import org.openmrs.module.queue.exception.DuplicateQueueEntryException;
 import org.openmrs.module.queue.model.Queue;
 import org.openmrs.module.queue.model.QueueEntry;
+import org.openmrs.module.queue.utils.QueueUtils;
 
 /**
  * Custom action that adds a patient to a queue, if the encounter contains a top level obs with the
@@ -34,11 +38,9 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
     public void applyAction(FormEntrySession formEntrySession) {
 
         Concept addToQueueConcept = Context.getConceptService().getConceptByMapping(ADD_TO_QUEUE_CONCEPT_CODE_PIH, "PIH");
-        String errorMessage = null;
+
         if (addToQueueConcept == null) {
-            errorMessage = "AddPatientToQueueAction not executing as Concept PIH: " + ADD_TO_QUEUE_CONCEPT_CODE_PIH + " cannot be found";
-            log.error(errorMessage);
-            throw new RuntimeException(errorMessage);
+            throw new RuntimeException("AddPatientToQueueAction not executing as Concept PIH: " + ADD_TO_QUEUE_CONCEPT_CODE_PIH + " cannot be found");
         }
         Patient patient = formEntrySession.getPatient();
         Encounter encounter = formEntrySession.getEncounter();
@@ -54,44 +56,49 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
                 Queue queue = null ;
                 QueueEntry queueEntry = null;
                 if ( queues.isEmpty() ) {
-                    errorMessage = "AddPatientToQueueAction not executing as no queue with service concept " + serviceQueue.getName() + " could be found ";
-                    log.error(errorMessage);
-                    throw new RuntimeException(errorMessage);
+                    throw new RuntimeException("AddPatientToQueueAction not executing as no queue with service concept " + serviceQueue.getName() + " could be found ");
                 }
                 if ( queues.size() > 1 ) {
-                    errorMessage = "AddPatientToQueueAction not executing as there are more than one queue with service concept " + serviceQueue.getName() ;
-                    log.error(errorMessage);
-                    throw new RuntimeException(errorMessage);
+                    throw new RuntimeException("AddPatientToQueueAction not executing as there are more than one queue with service concept " + serviceQueue.getName());
                 }
                 queue = queues.get(0);
+
                 queueEntry = new QueueEntry();
                 queueEntry.setQueue(queue);
                 queueEntry.setPatient(patient);
 
                 List<Concept> allowedStatuses = queueServicesWrapper.getAllowedStatuses(queue);
-                if (allowedStatuses.isEmpty()) {
-                    log.warn("Queue " + queue.getName() + " has not valid allowed statuses");
-                } else {
-                    // The first entry in the allowedStatuses should always be Waiting
+                if (!allowedStatuses.isEmpty()) {
                     queueEntry.setStatus(allowedStatuses.get(0));
                 }
+
                 List<Concept> allowedPriorities = queueServicesWrapper.getAllowedPriorities(queue);
-                if (allowedPriorities.isEmpty()) {
-                    log.warn("Queue " + queue.getName() + " has not valid allowed priorities");
-                } else {
-                    // The first entry in the allowedPriorities should always be Normal
+                if (!allowedPriorities.isEmpty()) {
                     queueEntry.setPriority(allowedPriorities.get(0));
                 }
-
                 queueEntry.setStartedAt(encounter.getEncounterDatetime());
-                try {
-                    queueServicesWrapper.getQueueEntryService().saveQueueEntry(queueEntry);
-                } catch (Exception e) {
-                    log.error("AddPatientToQueueAction not executing as the system failed to add patient to the queue: " + e.getMessage());
-                    throw new RuntimeException(e);
+
+                QueueEntrySearchCriteria searchCriteria = new QueueEntrySearchCriteria();
+                searchCriteria.setPatient(patient);
+                searchCriteria.setQueues(Collections.singletonList(queue));
+                List<QueueEntry> queueEntries = queueServicesWrapper.getQueueEntryService().getQueueEntries(searchCriteria);
+                boolean isPatientAlreadyOnTheQueue = false;
+                for (QueueEntry entry : queueEntries) {
+                    if (!entry.equals(queueEntry)) {
+                        if (QueueUtils.datesOverlap(entry.getStartedAt(), entry.getEndedAt(), queueEntry.getStartedAt(), queueEntry.getEndedAt())) {
+                            isPatientAlreadyOnTheQueue = true;
+                            break;
+                        }
+                    }
+                }
+                if (!isPatientAlreadyOnTheQueue) {
+                    try {
+                        queueServicesWrapper.getQueueEntryService().saveQueueEntry(queueEntry);
+                    } catch (Exception e) {
+                        throw new RuntimeException("AddPatientToQueueAction failed to add patient to queue", e);
+                    }
                 }
             }
         }
-
     }
 }
