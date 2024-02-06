@@ -84,12 +84,11 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
                 List<QueueEntry> queueEntries = queueServicesWrapper.getQueueEntryService().getQueueEntries(searchCriteria);
                 boolean isPatientAlreadyOnTheQueue = false;
                 for (QueueEntry entry : queueEntries) {
-                    if (!entry.equals(queueEntry)) {
-                        if (QueueUtils.datesOverlap(entry.getStartedAt(), entry.getEndedAt(), queueEntry.getStartedAt(), queueEntry.getEndedAt())) {
-                            isPatientAlreadyOnTheQueue = true;
-                            break;
-                        }
+                    if (QueueUtils.datesOverlap(entry.getStartedAt(), entry.getEndedAt(), queueEntry.getStartedAt(), queueEntry.getEndedAt())) {
+                        isPatientAlreadyOnTheQueue = true;
+                        break;
                     }
+
                 }
                 if (!isPatientAlreadyOnTheQueue) {
                     try {
