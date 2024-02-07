@@ -10,7 +10,7 @@
             </a>
         </span>
         <span class="queue-entry-priority">
-            <i ng-show="queueEntry.priority.uuid == '9e4b6acc-ab97-4ecd-a48c-b3d67e5ef778'" class="fas fa-exclamation-circle queue-entry-icon emergency"></i>
+            <i ng-show="queueEntry.priority.uuid == Concepts.emergency.uuid" class="fas fa-exclamation-circle queue-entry-icon emergency"></i>
         </span>
     </div>
     <div class="col-4 text-right">
