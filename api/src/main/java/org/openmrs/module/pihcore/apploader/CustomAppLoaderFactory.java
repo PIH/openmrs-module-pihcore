@@ -3330,36 +3330,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                   PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_LABS,
                 null));
 
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA || config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
-            apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RECENT_LAB_RESULTS,
-                            "pihcore.lab.lab_results.caps",
-                            "fas fa-vial",
-                            null,
-                            null,
-                            objectNode(
-                                    "encounterTypes", Context.getAdministrationService().getGlobalProperty(CustomAppLoaderConstants.GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES),
-                                    "detailsUrl", "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=/openmrs/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
-                                    "obsTypes", "LabSet,Test",
-                                    "labCategoriesSet", PihEmrConfigConstants.CONCEPT_LABORATORYCATEGORIES_UUID,
-                                    "maxToDisplay", "5"
-                            )),
-                    "pihcore", "dashboardwidgets/labResults"));
-        } else {
-            apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.COVID_LAB_RESULTS,
-                            "pihcore.labResults.covid",
-                            "fab fa-fw fa-first-order-alt",
-                            null,
-                            null,
-                            objectNode(
-                                    "widget", "latestObsForConceptList",
-                                    "icon", "fab fa-fw fa-first-order-alt",
-                                    "label", "pihcore.labResults.covid",
-                                    "concepts", CustomAppLoaderConstants.SARS_COV2_ANTIBODY_TEST + "," + CustomAppLoaderConstants.SARS_COV2_ANTIGEN_TEST + "," + CustomAppLoaderConstants.SARS_COV2_RT_PCR_TEST + "," + CustomAppLoaderConstants.SARS_COV2_XPERT_TEST,
-                                    "conceptNameType", "shortName",
-                                    "maxRecords", "4"
-                            )),
-                    "coreapps", "dashboardwidgets/dashboardWidget"));
-        }
+        apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RECENT_LAB_RESULTS,
+                        "pihcore.lab.lab_results.caps",
+                        "fas fa-vial",
+                        null,
+                        null,
+                        objectNode(
+                                "encounterTypes", Context.getAdministrationService().getGlobalProperty(CustomAppLoaderConstants.GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES),
+                                "detailsUrl", "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=/openmrs/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
+                                "obsTypes", "LabSet,Test",
+                                "labCategoriesSet", PihEmrConfigConstants.CONCEPT_LABORATORYCATEGORIES_UUID,
+                                "maxToDisplay", "5"
+                        )),
+                "pihcore", "dashboardwidgets/labResults"));
 
 }
 
