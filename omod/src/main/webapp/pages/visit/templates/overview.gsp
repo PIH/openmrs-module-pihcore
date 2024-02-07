@@ -36,18 +36,18 @@
     </div>
 
     <div class="row">
-        <div ng-repeat="queueEntry in visit.queueEntries" class="col-12">
-            <div class="visit-element">
-                <div class="header">
-                    <queue-entry queue-entry="queueEntry" visit="visit" selected="false" queue-entry-date-format="encounterDateFormat"></queue-entry>
+    <div ng-repeat="visitEvent in visit.visitEvents" class="col-12">
+        <div ng-switch on="visitEvent.eventType">
+            <div ng-switch-when="queueEntry">
+                <div class="visit-element">
+                    <div class="header queue-entry">
+                        <queue-entry queue-entry="visitEvent" visit="visit" selected="false" queue-entry-date-format="encounterDateFormat"></queue-entry>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div ng-repeat="encounter in visit.encounters | filter:{voided:false}" class="col-12">
-            <encounter encounter="encounter" visit="visit" selected="encounter.uuid == encounterUuid" encounter-date-format="encounterDateFormat" country="country" site="site"></encounter>
+            <div ng-switch-when="encounter">
+                <encounter encounter="visitEvent" visit="visit" selected="visitEvent.uuid == encounterUuid" encounter-date-format="encounterDateFormat" country="country" site="site"></encounter>
+            </div>
         </div>
     </div>
 

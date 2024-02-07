@@ -740,6 +740,22 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         scopeVisit.allEncounters = allEncounters;
                         scopeVisit.queueEntries = queueEntries.results;
 
+                        const visitEvents = [];
+                        scopeVisit.encounters.forEach((encounter) => {
+                            visitEvents.push({...encounter, eventType: "encounter", eventDate: encounter.encounterDateTime});
+                        });
+                        scopeVisit.queueEntries.forEach((queueEntry) => {
+                            visitEvents.push({...queueEntry, eventType: "queueEntry", eventDate: queueEntry.startedAt});
+                        });
+
+                        scopeVisit.visitEvents = visitEvents.sort((e1, e2) => {
+                            let ret = e1.eventDate > e2.eventDate ? 1 : e1.eventDate < e2.eventDate ? -1 : 0;
+                            if (ret === 0) {
+                                ret = e1.eventType === 'encounter' ? 1 : -1;
+                            }
+                            return ret;
+                        });
+
                         $scope.visit = scopeVisit;
                         $scope.visitIdx = $scope.getVisitIdx(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
