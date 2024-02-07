@@ -731,7 +731,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     Promise.all([
                         getAllPatientEncounters($scope.patientUuid),
                         Visit.get({uuid: visitUuid, v: visitRef}).$promise,
-                        QueueEntry.get({visit: visitUuid, v: queueEntriesRef}).$promise
+                        QueueEntry.get({visit: visitUuid, v: queueEntriesRef, isEnded: ""}).$promise
                     ]).then(function ([allEncounters, visit, queueEntries]) {
                         visit.encounters = _.reject(visit.encounters, function (it) {
                             return it.voided;
@@ -742,14 +742,14 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                         const visitEvents = [];
                         scopeVisit.encounters.forEach((encounter) => {
-                            visitEvents.push({...encounter, eventType: "encounter", eventDate: encounter.encounterDateTime});
+                            visitEvents.push({...encounter, eventType: "encounter", eventDate: encounter.encounterDatetime});
                         });
                         scopeVisit.queueEntries.forEach((queueEntry) => {
                             visitEvents.push({...queueEntry, eventType: "queueEntry", eventDate: queueEntry.startedAt});
                         });
 
                         scopeVisit.visitEvents = visitEvents.sort((e1, e2) => {
-                            let ret = e1.eventDate > e2.eventDate ? 1 : e1.eventDate < e2.eventDate ? -1 : 0;
+                            let ret = e1.eventDate > e2.eventDate ? -1 : (e1.eventDate < e2.eventDate ? 1 : 0);
                             if (ret === 0) {
                                 ret = e1.eventType === 'encounter' ? 1 : -1;
                             }
