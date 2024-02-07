@@ -349,7 +349,8 @@ table.vaccination-table {
 .visit-element .queue-entry {
   background-color: #f2f2f2
 }
-.queue-entry-priority.emergency {
+
+.queue-entry-priority .emergency {
   color: red;
 }
 
