@@ -1588,19 +1588,40 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.CHECK_IN)) {
-            apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_CHECK_IN,
-                    "pihcore.mostRecentCheckin.label",
-                    "fas fa-fw fa-check",
-                    null,
-                    "App: registrationapp.registerPatient",
-                    objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
-                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID,
-                            "definitionUiResource", PihCoreUtil.getFormResource("checkin.xml"),
-                            "editable", true,
-                            "edit-provider", "htmlformentryui",
-                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi")),
-                    "coreapps",
-                    "encounter/mostRecentEncounter"));
+            if ((config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE))) {
+                // In SierraLeonw we have two different Check-in Encounter Types
+                apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_CHECK_IN,
+                                "pihcore.mostRecentCheckin.label",
+                                "fas fa-fw fa-check",
+                                null,
+                                "App: registrationapp.registerPatient",
+                                objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
+                                        "encounterTypes",arrayNode(
+                                                objectNode(
+                                                        PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID, PihCoreUtil.getFormResource("checkin.xml"),
+                                                        SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMATERNALCHECKIN_UUID, PihCoreUtil.getFormResource("checkinMaternal.xml")
+                                                )
+                                        ),
+                                        "editable", true,
+                                        "edit-provider", "htmlformentryui",
+                                        "edit-fragment", "htmlform/editHtmlFormWithSimpleUi")),
+                        "coreapps",
+                        "encounter/mostRecentEncounter"));
+            } else {
+                apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_CHECK_IN,
+                                "pihcore.mostRecentCheckin.label",
+                                "fas fa-fw fa-check",
+                                null,
+                                "App: registrationapp.registerPatient",
+                                objectNode("encounterDateLabel", "pihcore.mostRecentCheckin.encounterDateLabel",
+                                        "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID,
+                                        "definitionUiResource", PihCoreUtil.getFormResource("checkin.xml"),
+                                        "editable", true,
+                                        "edit-provider", "htmlformentryui",
+                                        "edit-fragment", "htmlform/editHtmlFormWithSimpleUi")),
+                        "coreapps",
+                        "encounter/mostRecentEncounter"));
+            }
         }
 
         if (config.isComponentEnabled(Components.ID_CARD_PRINTING)) {
