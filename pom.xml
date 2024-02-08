@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.6.3</openMRSVersion>
+        <openMRSVersion>2.6.4</openMRSVersion>
 
         <addresshierarchyVersion>2.17.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.5</allergyuiVersion>
@@ -87,7 +87,7 @@
         <paperrecordVersion>1.4.0-SNAPSHOT</paperrecordVersion>
         <printerVersion>1.5.0-SNAPSHOT</printerVersion>
         <providermanagementVersion>2.14.0</providermanagementVersion>
-        <queueVersion>2.2.0-SNAPSHOT</queueVersion>
+        <queueVersion>2.2.1</queueVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.26.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.12.0</registrationcoreVersion>
@@ -103,7 +103,7 @@
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.40.0</webservicesRestVersion>
 
-        <testcontainersVersion>1.19.4</testcontainersVersion>
+        <testcontainersVersion>1.19.5</testcontainersVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
