@@ -1036,6 +1036,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "App: dispensing.app.dispense",
                         null),
                 sessionLocationHasTag("Dispensing Location")));
+
+        // this widget is enabled by both the old and new dispensing functionality, so this if/then block is to make sure we don't enable it twice
+        if (!config.isComponentEnabled(Components.DISPENSING)) {
+            apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.DISPENSING_SUMMARY,
+                            "mirebalais.dispensing.title",
+                            "fas fa-fw fa-pills",
+                            "dispensing/patient.page?patientId={{patient.uuid}}",
+                            null,
+                            objectNode(
+                                    "maxDatesToShow", 5,
+                                    "detailsUrl", "pihcore/meds/dispensingSummary.page?patientId={{patient.uuid}}"
+                            )),
+                    "pihcore", "dashboardwidgets/medsDispensed"));
+        }
     }
 
     private void enableAppointments() {
