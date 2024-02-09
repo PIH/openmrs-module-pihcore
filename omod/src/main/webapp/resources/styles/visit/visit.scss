@@ -346,6 +346,14 @@ table.vaccination-table {
   }
 }
 
+.visit-element .queue-entry {
+  background-color: #f2f2f2
+}
+
+.queue-entry-priority .emergency {
+  color: red;
+}
+
 #draft-plan {
   border: 1px $darkerGrey solid;
   background-color: $lighterGrey;

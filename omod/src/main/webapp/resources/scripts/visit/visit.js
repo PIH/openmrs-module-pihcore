@@ -1,6 +1,6 @@
 angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitService", "encounterService",  "locationService", "obsService",
     "allergies", "vaccinations", "ui.bootstrap", "ui.router", "session", "ngDialog", "appFramework",
-    "configService", 'pascalprecht.translate'])
+    "configService", "queueEntryService", 'pascalprecht.translate'])
 
     .config(function ($stateProvider, $urlRouterProvider, $translateProvider, $templateRequestProvider) {
 
@@ -236,6 +236,34 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 templateUrl: 'templates/encounters/encounter.page'
             }
     }])
+
+    .directive("queueEntry", [ "QueueEntry", "Concepts", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$filter",
+        function(QueueEntry, Concepts, DatetimeFormats, SessionInfo, $http, $sce, $filter) {
+            return {
+                restrict: "E",
+                scope: {
+                    queueEntry: "=",
+                    visit: "=",
+                    selected: '=',
+                    queueEntryDateFormat: "="
+                },
+                controller: ["$scope", function($scope) {
+
+                    $scope.DatetimeFormats = DatetimeFormats;
+                    $scope.Concepts = Concepts;
+                    $scope.session = SessionInfo.get();
+
+                    function loadQueueEntry() {
+                        QueueEntry.get({ uuid: $scope.queueEntry.uuid, v: "custom:(uuid,display,queue:(uuid,display,location:(uuid,display),service:(uuid,display)),status:(uuid,display),priority:(uuid,display),startedAt,endedAt)" }).
+                        $promise.then(function(queueEntry) {
+                            $scope.queueEntry = queueEntry;
+                        });
+                    }
+
+                }],
+                templateUrl: 'templates/queue/queueEntry.page'
+            }
+        }])
 
     .directive("encounterSection", [ "Concepts", "OrderTypes", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout", "initialRouterState",
         function(Concepts, OrderTypes, DatetimeFormats, SessionInfo, $http, $sce, $timeout, initialRouterState) {
@@ -510,14 +538,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
     }])
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
-        "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService",
+        "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService", "QueueEntry",
         "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "OrderTypes", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
-                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
+                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, QueueEntry, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
                  locale, currentSection,goToNext, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, OrderTypes, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
           const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
+          const queueEntriesRef = "custom:(uuid,display,queue:(uuid,display,location:(uuid,display),service:(uuid,display)),status:(uuid,display),priority:(uuid,display),startedAt,endedAt)";
 
             // we are in the "Next" workflow and should immediately redirect to the next section
             if (goToNext && encounterUuid) {
@@ -701,16 +730,32 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 if (visitUuid) {
                     Promise.all([
                         getAllPatientEncounters($scope.patientUuid),
-                        Visit.get({
-                            uuid: visitUuid,
-                            v: visitRef
-                        }).$promise
-                    ]).then(function ([allEncounters, visit]) {
+                        Visit.get({uuid: visitUuid, v: visitRef}).$promise,
+                        QueueEntry.get({visit: visitUuid, v: queueEntriesRef, isEnded: ""}).$promise
+                    ]).then(function ([allEncounters, visit, queueEntries]) {
                         visit.encounters = _.reject(visit.encounters, function (it) {
                             return it.voided;
                         });
                         const scopeVisit = new OpenMRS.VisitModel(visit);
                         scopeVisit.allEncounters = allEncounters;
+                        scopeVisit.queueEntries = queueEntries.results;
+
+                        const visitEvents = [];
+                        scopeVisit.encounters.forEach((encounter) => {
+                            visitEvents.push({...encounter, eventType: "encounter", eventDate: encounter.encounterDatetime});
+                        });
+                        scopeVisit.queueEntries.forEach((queueEntry) => {
+                            visitEvents.push({...queueEntry, eventType: "queueEntry", eventDate: queueEntry.startedAt});
+                        });
+
+                        scopeVisit.visitEvents = visitEvents.sort((e1, e2) => {
+                            let ret = e1.eventDate > e2.eventDate ? -1 : (e1.eventDate < e2.eventDate ? 1 : 0);
+                            if (ret === 0) {
+                                ret = e1.eventType === 'encounter' ? 1 : -1;
+                            }
+                            return ret;
+                        });
+
                         $scope.visit = scopeVisit;
                         $scope.visitIdx = $scope.getVisitIdx(visit);
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";

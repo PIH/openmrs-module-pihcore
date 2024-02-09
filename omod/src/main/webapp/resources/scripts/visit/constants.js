@@ -439,6 +439,9 @@ angular.module('constants', [])
         },
         clinicalNotes: {
             uuid: "3cd9d956-26fe-102b-80cb-0017a47871b2"
+        },
+        emergency: {
+            uuid: "9e4b6acc-ab97-4ecd-a48c-b3d67e5ef778"
         }
     })
     .value('PrimaryCareExamConcepts', {
