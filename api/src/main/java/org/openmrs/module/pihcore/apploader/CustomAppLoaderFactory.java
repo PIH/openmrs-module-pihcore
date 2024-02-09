@@ -1589,7 +1589,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.CHECK_IN)) {
             if ((config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE))) {
-                // In SierraLeonw we have two different Check-in Encounter Types
+                // In SierraLeone we have two different Check-in Encounter Types
                 apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_CHECK_IN,
                                 "pihcore.mostRecentCheckin.label",
                                 "fas fa-fw fa-check",
