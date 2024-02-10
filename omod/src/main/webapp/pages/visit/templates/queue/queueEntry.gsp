@@ -5,7 +5,7 @@
             {{ queueEntry.status.display }} - {{ queueEntry.queue.display }}
         </span>
         <span ng-if="!queueEntry.endedAt">
-            <a href="/spa/home/service-queues">
+            <a class="queue-entry-link" href="/spa/home/service-queues/">
                 {{ queueEntry.status.display }} - {{ queueEntry.queue.display }}
             </a>
         </span>
