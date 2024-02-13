@@ -2119,12 +2119,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientAgeInMonthsLessThanAtVisitStart(3)))));
-
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_EXAM_ACTION,
-                    "pih.task.newbornExam",
+            
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_DAILY_PROGRESS_ACTION,
+                    "pih.task.newbornDailyProgress",
                     "fas fa-fw fa-baby",
                     "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornExam.xml")),
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornDailyProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientAgeInMonthsLessThanAtVisitStart(3)))));
