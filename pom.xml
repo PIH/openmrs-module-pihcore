@@ -799,6 +799,7 @@
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                     <properties>
+                        <!-- hold on 2.6.3 until https://openmrs.atlassian.net/browse/TRUNK-6192 is resolved and a new 2.6.5 is released -->
                         <property>
                             <name>openMRSVersion</name>
                             <version>[2.6.3]</version>
