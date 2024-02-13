@@ -77,6 +77,7 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
                     queueEntry.setPriority(allowedPriorities.get(0));
                 }
                 queueEntry.setStartedAt(encounter.getEncounterDatetime());
+                queueEntry.setVisit(encounter.getVisit());
 
                 QueueEntrySearchCriteria searchCriteria = new QueueEntrySearchCriteria();
                 searchCriteria.setPatient(patient);

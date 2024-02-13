@@ -112,6 +112,7 @@ public class AddPatientToQueueActionTest {
         encounter.addObs(referToMCOE);
         Visit visit = new Visit();
         visit.addEncounter(encounter);
+        visit.setPatient(patient);
         Queue queue = new Queue();
         queue.setService(mcoeTriageService);
         QueueSearchCriteria searchCriteria = new QueueSearchCriteria();
