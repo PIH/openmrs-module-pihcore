@@ -425,6 +425,9 @@ angular.module('constants', [])
         estimatedDueDate: {
             uuid: "3cee56a6-26fe-102b-80cb-0017a47871b2"
         },
+        ncdConditionSet: {
+            uuid: "276eae00-bdcc-458e-a7fc-5e53f89d2920"
+        },
         ncdCategory: {
             uuid: "27b30028-0ed0-4f62-a4d8-52a9c5b600e3"
         },
