@@ -501,7 +501,6 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                     moment(opts.stop).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS') :
                                     moment().format('YYYY-MM-DDTHH:mm:ss.SSS') :
                                 null);
-                            // TODO: Notify with an error if this request fails
                             new Visit({
                                 uuid: $scope.visit.uuid,
                                 startDatetime: start,
@@ -510,6 +509,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             }).$save(function (v) {
                                 $scope.reloadVisits();
                                 $scope.reloadVisit();
+                            }, function(response) {
+                                emr.serverValidationErrorMessage(response);
                             });
                         });
                     });
