@@ -111,7 +111,7 @@
 						<configuration>
 							<groupId>org.pih.openmrs</groupId>
 							<artifactId>openmrs-config-pihsl</artifactId>
-                            <version>1.26.0-SNAPSHOT</version>
+                            <version>1.27.0-SNAPSHOT</version>
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>SierraLeoneConfigConstants</className>
 						</configuration>
