@@ -11,11 +11,9 @@
 <div class="content encounter-summary-long">
 
     <span ng-repeat="section in templateModel.sections" class="aligned">
-        <span ng-repeat="field in section.fields" class="aligned">
+        <span ng-repeat="field in section.activeFields" class="aligned">
             <p ng-show="field.value" class="aligned">
-                <!-- this cryptic expression is to suppress label name if it is same as previous name -->
-                <!-- TODO: can we encapsulate this somewhere else -->
-                <label>{{ (\$index == 0 || field.name != section.fields[\$index-1].name) ? field.name : '' }}</label>
+                <label>{{ field.name }}</label>
                 <span class="obs-value">{{ field.value }}</span>
             </p>
             <span ng-repeat="childField in field.fields" class="aligned">

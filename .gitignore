@@ -14,3 +14,6 @@ omod/src/main/compass
 target
 api/target
 omod/target
+
+# OS X auto-generated files #
+.DS_Store
