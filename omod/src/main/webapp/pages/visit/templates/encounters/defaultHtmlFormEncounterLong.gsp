@@ -11,7 +11,7 @@
 <div class="content encounter-summary-long">
 
     <span ng-repeat="section in templateModel.sections" class="aligned">
-        <span ng-repeat="field in section.activeFields" class="aligned">
+        <span ng-repeat="field in (section.activeFields ? section.activeFields : section.fields)" class="aligned">
             <p ng-show="field.value" class="aligned">
                 <label>{{ field.name }}</label>
                 <span class="obs-value">{{ field.value }}</span>
