@@ -620,15 +620,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkinMaternal.xml")),
                     "Task: mirebalais.checkinForm",
-                    sessionLocationHasTag("Check-In Maternal Location")));
-                    // visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_SIERRALEONEMATERNALCHECKIN_UUID)
+                    and(sessionLocationHasTag("Check-In Maternal Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMATERNALCHECKIN_UUID))));
+
 
             // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
             extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_REGISTRATION_ACTION,
                     "mirebalais.checkin.title",
                     "fas fa-fw icon-check-in",
                     "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkinMaternal.xml")) + andCreateVisit(),
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckinMaternal.xml")) + andCreateVisit(),
                     "Task: mirebalais.checkinForm",
                     sessionLocationHasTag("Check-In Maternal Location")));
         }
