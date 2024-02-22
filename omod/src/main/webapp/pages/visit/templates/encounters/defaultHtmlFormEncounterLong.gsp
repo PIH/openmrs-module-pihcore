@@ -11,17 +11,11 @@
 <div class="content encounter-summary-long">
 
     <span ng-repeat="section in templateModel.sections" class="aligned">
-        <span ng-repeat="field in (section.activeFields ? section.activeFields : section.fields)" class="aligned">
+        <span ng-repeat="field in section.activeFields" class="aligned">
             <p ng-show="field.value" class="aligned">
                 <label>{{ field.name }}</label>
                 <span class="obs-value">{{ field.value }}</span>
             </p>
-            <span ng-repeat="childField in field.fields" class="aligned">
-                <p ng-show="childField.value" class="aligned">
-                    <label>{{ (\$index == 0 || childField.name != field.fields[\$index-1].name) ? childField.name : '' }}</label>
-                    <span class="obs-value">{{ childField.value }}</span>
-                </p>
-            </span>
         </span>
     </span>
 
