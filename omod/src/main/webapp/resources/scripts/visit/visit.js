@@ -148,21 +148,38 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 if (section.fields) {
                                     for (let j = 0; j < section.fields.length; j++) {
                                         const field = section.fields[j];
-                                        if (field.value) {
-                                            let foundField = activeFields.find(({ name }) => name === field.name);
-                                            if (foundField) {
-                                                foundField.value = foundField.value + ", " + field.value;
-                                            } else {
-                                                activeFields.push({
-                                                    name: field.name,
-                                                    value: field.value
-                                                });
-                                            }
+                                        if (field.hasOwnProperty("fields")){
+                                            parseFields(activeFields, field.fields);
+                                        } else {
+                                            addFieldWithValue(activeFields, field);
                                         }
                                     }
                                     section.activeFields = activeFields;
                                 }
                             })
+                        }
+                    }
+
+                    function parseFields(fieldsWithValue, fields) {
+                        if ( fields ) {
+                            for (let i=0; i < fields.length; i++ ) {
+                                const field = fields[i];
+                                addFieldWithValue(fieldsWithValue, field);
+                            }
+                        }
+                        return fieldsWithValue;
+                    }
+                    function addFieldWithValue(fieldsWithValue, field) {
+                        if (field.value) {
+                            let foundField = fieldsWithValue.find(({ name }) => name === field.name);
+                            if (foundField) {
+                                foundField.value = foundField.value + ", " + field.value;
+                            } else {
+                                fieldsWithValue.push({
+                                    name: field.name,
+                                    value: field.value
+                                });
+                            }
                         }
                     }
 
