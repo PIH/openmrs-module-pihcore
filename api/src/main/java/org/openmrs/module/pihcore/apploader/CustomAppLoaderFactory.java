@@ -2139,6 +2139,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
 
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LABOR_DELIVERY_SUMMARY_ACTION,
+                    "pih.task.summaryLandD",
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("laborDeliverySummary.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            and(patientIsFemale()))));
+
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MATERNAL_DISCHARGE_ACTION,
                     "pih.task.maternalDischarge",
                     "fas fa-fw fa-arrow-circle-right",
