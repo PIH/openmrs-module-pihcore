@@ -123,6 +123,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             $http.get("/" + OPENMRS_CONTEXT_PATH + url)
                                 .then(function (response) {
                                     $scope.templateModel = response.data;
+                                    getFieldsWithValue($scope.templateModel.sections);
                                     if ($scope.templateModel.html) {
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
                                         $scope.html = $sce.trustAsHtml($scope.templateModel.html);
@@ -138,7 +139,48 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                     $scope.encounter = encounter;
                                 });
                         }
+                    }
 
+                    function getFieldsWithValue(sections) {
+                        if (sections) {
+                            sections.forEach((section) => {
+                                let activeFields = [];
+                                if (section.fields) {
+                                    for (let j = 0; j < section.fields.length; j++) {
+                                        const field = section.fields[j];
+                                        if (field.hasOwnProperty("fields")){
+                                            parseFields(activeFields, field.fields);
+                                        } else {
+                                            addFieldWithValue(activeFields, field);
+                                        }
+                                    }
+                                    section.activeFields = activeFields;
+                                }
+                            })
+                        }
+                    }
+
+                    function parseFields(fieldsWithValue, fields) {
+                        if ( fields ) {
+                            for (let i=0; i < fields.length; i++ ) {
+                                const field = fields[i];
+                                addFieldWithValue(fieldsWithValue, field);
+                            }
+                        }
+                        return fieldsWithValue;
+                    }
+                    function addFieldWithValue(fieldsWithValue, field) {
+                        if (field.value) {
+                            let foundField = fieldsWithValue.find(({ name }) => name === field.name);
+                            if (foundField) {
+                                foundField.value = foundField.value + ", " + field.value;
+                            } else {
+                                fieldsWithValue.push({
+                                    name: field.name,
+                                    value: field.value
+                                });
+                            }
+                        }
                     }
 
                     $scope.goToLabResults = function () {
