@@ -8,6 +8,7 @@ import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntrySession;
@@ -44,6 +45,13 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
         }
         Patient patient = formEntrySession.getPatient();
         Encounter encounter = formEntrySession.getEncounter();
+        Visit visit = encounter.getVisit();
+        if ( visit != null && visit.getStopDatetime() != null) {
+            // this post submit action do not apply to retrospective entries, only for active point of care visits
+            log.warn("AddPatientToQueueAction not executing because this is not an active visit");
+            // we should not throw an error, because the user should be able to edit other obs on this check-in encounter
+            return;
+        }
 
         for (Obs candidate : encounter.getObsAtTopLevel(false)) {
             if (candidate.getConcept().equals(addToQueueConcept)) {
