@@ -161,7 +161,6 @@ public class AddPatientToQueueActionTest {
         queueEntry.setPatient(patient);
         queueEntry.setQueue(queue);
         queueEntry.setStartedAt(encounter.getEncounterDatetime());
-        queue.addQueueEntry(queueEntry);
 
         when(mockFormEntrySession.getPatient()).thenReturn(patient);
         when(mockFormEntrySession.getEncounter()).thenReturn(encounter);
