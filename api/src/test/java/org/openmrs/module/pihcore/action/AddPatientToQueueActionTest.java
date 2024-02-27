@@ -79,6 +79,7 @@ public class AddPatientToQueueActionTest {
         addPatientToQueueAction = new AddPatientToQueueAction();
         when(mockFormEntrySession.getSubmissionActions()).thenReturn(mockFormSubmissionActions);
         when(mockFormEntrySession.getContext()).thenReturn(mockFormEntryContext);
+        when(mockFormEntryContext.getMode()).thenReturn(FormEntryContext.Mode.ENTER);
         conceptService = mock(ConceptService.class);
         addToQueueConcept = new Concept();
         mcoeTriageService = new Concept();
@@ -151,6 +152,7 @@ public class AddPatientToQueueActionTest {
         encounter.addObs(referToMCOE);
         Visit visit = new Visit();
         visit.addEncounter(encounter);
+        visit.setPatient(patient);
         Queue queue = new Queue();
         queue.setService(mcoeTriageService);
         QueueSearchCriteria searchCriteria = new QueueSearchCriteria();
@@ -170,6 +172,7 @@ public class AddPatientToQueueActionTest {
         QueueEntrySearchCriteria qeCriteria = new QueueEntrySearchCriteria();
         qeCriteria.setPatient(patient);
         qeCriteria.setQueues(Collections.singletonList(queue));
+        qeCriteria.setIsEnded(null);
         when(mockQueueEntryDao.getQueueEntries(qeCriteria)).thenReturn(Arrays.asList(queueEntry));
 
         addPatientToQueueAction.applyAction(mockFormEntrySession);
