@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+-->
+<dataset>
+    <!--A concept set of queue priorities -->
+    <concept concept_id="1000" retired="false" is_set="true" creator="1" date_created="2022-02-02 14:31:00.0" uuid="897eba27-2b38-43e8-91a9-4dfe3956a35t"/>
+    <concept concept_id="1001" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="90b910bd-298c-4ecf-a632-661ae2f446op"/>
+    <concept concept_id="1002" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="91b910bd-298c-4ecf-a632-661ae2f909ut"/>
+    <concept_name concept_name_id="120001" concept_id="1000" name="Priority" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="9c067348-5bf2-4050-b824-0aa009436111" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_name concept_name_id="120002" concept_id="1001" name="Emergency" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="8c067348-5bf2-4050-b824-0aa009436kl0" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_name concept_name_id="120003" concept_id="1002" name="Urgent" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="8j067348-6bf2-4050-b824-0aa009436kl6" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_set concept_set_id="1" concept_set="1000" concept_id="1001" sort_weight="0" date_created="2022-02-02 14:40:00.0" creator="1" uuid="78b910bd-298c-4ecf-a632-661ae2f886bf"/>
+    <concept_set concept_set_id="2" concept_set="1000" concept_id="1002" sort_weight="1" date_created="2022-02-02 14:40:00.0" creator="1" uuid="98b910bd-298c-4ecf-a632-661ae2f897ht"/>
+
+    <!--A concept set of queue service -->
+    <concept concept_id="2000" retired="false" is_set="true" creator="1" date_created="2022-02-02 14:31:00.0" uuid="907eba27-2b38-43e8-91a9-4dfe3956a35t"/>
+    <concept concept_id="2001" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="67b910bd-298c-4ecf-a632-661ae2f446op"/>
+    <concept concept_id="2002" retired="false" is_set="false" creator="1" date_created="2022-03-08 15:40:00.0" uuid="68b910bd-298c-4ecf-a632-661ae2f446op"/>
+    <concept_name concept_name_id="893" concept_id="2000" name="Service" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="9cp62348-5bf2-4050-b824-0aa009436ed6" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_name concept_name_id="210" concept_id="2001" name="Triage" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="9i667348-5bf2-4050-b824-0aa009436kl0" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_name concept_name_id="211" concept_id="2002" name="Consultation" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="5t747348-5bf2-4050-b824-0aa009436kl0" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_set concept_set_id="389000" concept_set="2000" concept_id="2001" sort_weight="0" date_created="2022-02-02 14:40:00.0" creator="1" uuid="470b910bd-298c-4ecf-a632-661ae2f886bf"/>
+    <concept_set concept_set_id="389001" concept_set="2000" concept_id="2002" sort_weight="0" date_created="2022-03-08 15:50:00.0" creator="1" uuid="380b910bd-298c-4ecf-a632-661ae2f886bf"/>
+
+    <!--A concept set of queue status -->
+    <concept concept_id="3000" retired="false" is_set="true" creator="1" date_created="2022-02-02 14:31:00.0" uuid="303eba27-2b38-43e8-91a9-4dfe3956a78t"/>
+    <concept concept_id="3001" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="31b910bd-298c-4ecf-a632-661ae2f4460y"/>
+    <concept concept_id="3002" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="56b910bd-298c-4ecf-a632-661ae2f7865y"/>
+    <concept_name concept_name_id="30123" concept_id="3000" name="Status" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="9c067348-5bf2-4050-b824-0aa009436ed6" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_name concept_name_id="301241" concept_id="3001" name="Waiting for service" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="90067348-5bf2-4050-b824-0aa009436kl0" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_name concept_name_id="301252" concept_id="3002" name="In service" locale="en" creator="1" date_created="2022-02-02 14:40:00.0" voided="0" uuid="34067348-5bf2-4050-b824-0aa00943689h" concept_name_type="FULLY_SPECIFIED" locale_preferred="0"/>
+    <concept_set concept_set_id="4" concept_set="3000" concept_id="3001" sort_weight="0" date_created="2022-02-02 14:40:00.0" creator="1" uuid="43b910bd-298c-4ecf-a632-661ae2f886bf"/>
+    <concept_set concept_set_id="5" concept_set="3000" concept_id="3002" sort_weight="0" date_created="2022-02-02 14:40:00.0" creator="1" uuid="89b910bd-298c-4ecf-a632-661ae2f890jk"/>
+
+    <!-- Queues -->
+    <queue queue_id="1" name="Test Queue" description="This is description" location_id="1" service="2001" creator="1"
+           date_created="2022-01-31 00:00:00.0" retired="false" uuid="3eb7fe43-2813-4kbc-80dc-2e5d30252bb5"/>
+
+    <global_property property="queue.statusConceptSetName"
+                     property_value="Status"
+                     uuid="d5b953bc-d5d2-11ee-9225-0242ac120002"/>
+
+    <global_property property="queue.priorityConceptSetName"
+                     property_value="Priority"
+                     uuid="dd25f981-d5d2-11ee-9225-0242ac120002"/>
+
+    <global_property property="queue.serviceConceptSetName"
+                     property_value="Service"
+                     uuid="e4baa274-d5d2-11ee-9225-0242ac120002"/>
+
+</dataset>
