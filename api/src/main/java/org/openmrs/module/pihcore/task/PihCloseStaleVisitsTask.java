@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.task;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.joda.time.DateTime;
@@ -17,6 +18,10 @@ import org.openmrs.module.emrapi.disposition.Disposition;
 import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.queue.api.QueueEntryService;
+import org.openmrs.module.queue.api.search.QueueEntrySearchCriteria;
+import org.openmrs.module.queue.model.QueueEntry;
+import org.openmrs.util.OpenmrsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -132,7 +137,8 @@ public class PihCloseStaleVisitsTask implements Runnable {
 
                 if (closeVisit) {
                     try {
-                        adtService.closeAndSaveVisit(visit);
+                        visit.setStopDatetime(getLatestDateWithinVisit(visit));
+                        visitService.saveVisit(visit);
                         numVisitsClosed++;
                     } catch (Exception ex) {
                         log.warn("Failed to close inactive visit " + visit, ex);
@@ -146,6 +152,32 @@ public class PihCloseStaleVisitsTask implements Runnable {
         finally {
             isExecuting = false;
         }
+    }
+
+    public Date getLatestDateWithinVisit(Visit visit) {
+        Date latestDate = visit.getStartDatetime();
+        if (visit.getEncounters() != null) {
+            for (Encounter e : visit.getEncounters()) {
+                if (BooleanUtils.isNotTrue(e.getVoided())) {
+                    if (OpenmrsUtil.compare(e.getEncounterDatetime(), latestDate) > 0) {
+                        latestDate = e.getEncounterDatetime();
+                    }
+                }
+            }
+        }
+        if (visit.getVisitId() != null) {
+            QueueEntrySearchCriteria criteria = new QueueEntrySearchCriteria();
+            criteria.setVisit(visit);
+            for (QueueEntry qe : Context.getService(QueueEntryService.class).getQueueEntries(criteria)) {
+                if (OpenmrsUtil.compare(qe.getStartedAt(), latestDate) > 0) {
+                    latestDate = qe.getStartedAt();
+                }
+                if (OpenmrsUtil.compareWithNullAsEarliest(qe.getEndedAt(), latestDate) > 0) {
+                    latestDate = qe.getEndedAt();
+                }
+            }
+        }
+        return latestDate;
     }
 
     private boolean changedOrUpdatedRecently(Visit visit, int hours) {

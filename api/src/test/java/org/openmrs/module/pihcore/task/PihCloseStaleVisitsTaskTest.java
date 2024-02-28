@@ -30,7 +30,11 @@ import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
+import org.openmrs.module.queue.api.QueueEntryService;
+import org.openmrs.module.queue.api.QueueService;
+import org.openmrs.module.queue.model.QueueEntry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Date;
 import java.util.List;
@@ -38,8 +42,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
 
@@ -79,16 +82,28 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
     protected LocationService locationService;
 
     @Autowired
+    @Qualifier("queue.QueueEntryService")
+    protected QueueEntryService queueEntryService;
+
+    @Autowired
+    @Qualifier("queue.QueueService")
+    protected QueueService queueService;
+
+    @Autowired
     protected FormService formService;
+
+    PihCloseStaleVisitsTask task;
 
     @BeforeEach
     public void setUp() throws Exception {
         executeDataSet("closeStaleVisitsTestDataset.xml");
+        executeDataSet("queueTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);
         loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
         loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
         loadFromInitializer(Domain.METADATA_TERM_MAPPINGS, "metadataMappings.csv");
+        task = new PihCloseStaleVisitsTask();
     }
 
     protected Config getConfig() {
@@ -123,7 +138,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         assertThat(visitService.getVisit(5).getStopDatetime(), nullValue());
         assertThat(visitService.getVisit(6).getStopDatetime(), nullValue());
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         // only visits that have a location that is tagged "Visit Location" will be closed
         assertThat(visitService.getVisit(1).getStopDatetime(), notNullValue());
@@ -186,7 +201,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -241,7 +256,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -287,7 +302,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -333,7 +348,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -390,7 +405,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -444,7 +459,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -498,7 +513,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -571,7 +586,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNotNull(activeVisit);
@@ -647,7 +662,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -718,7 +733,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -766,7 +781,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
         assertNull(activeVisit);
@@ -791,7 +806,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         // this visit would have been closed, except that we updated the date created
         assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
@@ -816,12 +831,66 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
 
-        new PihCloseStaleVisitsTask().run();
+        task.run();
 
         // this visit would have been closed, except that we updated the date changed
         assertThat(visitService.getVisit(1).getStopDatetime(), nullValue());
 
     }
 
+    @Test
+    public void getLatestDateWithinVisit_shouldReturnVisitStartDateIfNoEncountersOrQueueEntries() throws Exception {
+        Visit visit = visitService.getVisit(1);
+        assertThat(visit.getStopDatetime(), nullValue());
+        assertEquals(visit.getEncounters().size(), 0);
+        Date latestDate = task.getLatestDateWithinVisit(visit);
+        assertEquals(latestDate, visit.getStartDatetime());
+    }
 
+    @Test
+    public void getLatestDateWithinVisit_shouldReturnEncounterDateIfLatest() throws Exception {
+        Visit visit = visitService.getVisit(1);
+        Encounter e1 = new Encounter();
+        e1.setEncounterDatetime(DateUtils.addHours(visit.getStartDatetime(), 3));
+        visit.addEncounter(e1);
+        Encounter e2 = new Encounter();
+        e2.setEncounterDatetime(DateUtils.addHours(visit.getStartDatetime(), 1));
+        visit.addEncounter(e2);
+        assertEquals(visit.getEncounters().size(), 2);
+        Date latestDate = task.getLatestDateWithinVisit(visit);
+        assertEquals(latestDate, e1.getEncounterDatetime());
+    }
+
+    @Test
+    public void getLatestDateWithinVisit_shouldReturnQueueEntryStartDatesIfLatest() throws Exception {
+        Visit visit = visitService.getVisit(1);
+        QueueEntry qe1 = new QueueEntry();
+        qe1.setQueue(queueService.getQueueById(1).get());
+        qe1.setPatient(visit.getPatient());
+        qe1.setVisit(visit);
+        qe1.setPriority(conceptService.getConcept(1001));
+        qe1.setStatus(conceptService.getConcept(3001));
+        qe1.setStartedAt(DateUtils.addHours(visit.getStartDatetime(), 1));
+        queueEntryService.saveQueueEntry(qe1);
+
+        Date latestDate = task.getLatestDateWithinVisit(visit);
+        assertEquals(latestDate, qe1.getStartedAt());
+    }
+
+    @Test
+    public void getLatestDateWithinVisit_shouldReturnQueueEntryEndDatesIfLatest() throws Exception {
+        Visit visit = visitService.getVisit(1);
+        QueueEntry qe1 = new QueueEntry();
+        qe1.setQueue(queueService.getQueueById(1).get());
+        qe1.setPatient(visit.getPatient());
+        qe1.setVisit(visit);
+        qe1.setPriority(conceptService.getConcept(1001));
+        qe1.setStatus(conceptService.getConcept(3001));
+        qe1.setStartedAt(DateUtils.addHours(visit.getStartDatetime(), 1));
+        qe1.setEndedAt(DateUtils.addHours(visit.getStartDatetime(), 2));
+        queueEntryService.saveQueueEntry(qe1);
+
+        Date latestDate = task.getLatestDateWithinVisit(visit);
+        assertEquals(latestDate, qe1.getEndedAt());
+    }
 }
