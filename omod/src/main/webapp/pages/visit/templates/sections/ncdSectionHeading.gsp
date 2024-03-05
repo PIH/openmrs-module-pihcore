@@ -9,8 +9,8 @@
     </span>
 
     <!-- For SL with obsgroup-->
-    <span ng-repeat="obs in encounter.obs | byConcept:Concepts.ncdConditionSet">
-        {{ (obs | groupMember:Concepts.ncdCategory).value.concept | omrsDisplay }}{{ \$last ? "" : "," }}
+    <span ng-repeat="obs in encounter.obs | byConcept:Concepts.ncdConditionSet ">
+        {{ (obs | groupMember:Concepts.ncdCategory).value | omrsDisplay  }}{{ \$last ? "" : "," }}
     </span>
 
 </span>

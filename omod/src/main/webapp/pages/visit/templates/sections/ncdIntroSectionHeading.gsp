@@ -8,7 +8,8 @@
     </span>
 
     <!-- add a comma between reason for visit and diagnoses -->
-        <span ng-show="(encounter.obs | byConcept:Concepts.familyPlanningVisit).length > 0 && (encounter.obs | byConcept:Concepts.diagnosisConstruct).length > 0))" >--&nbsp;</span>
+        <span ng-show="(((encounter.obs | byConcept:Concepts.familyPlanningVisit).length > 0) && ((encounter.obs | byConcept:Concepts.diagnosisConstruct).length > 0))" >--&nbsp;</span>
+
 
     <!-- display primary diagnosis first -->
     <span ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
