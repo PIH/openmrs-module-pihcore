@@ -42,7 +42,7 @@ public class ConsultationsDataSetManager extends BaseEncounterDataSetManager {
 
         // note: does not include diagnoses--use diagnoses export for thoses
         addObsColumn(dsd, "dispo", "PIH:8620", converters.getObsValueCodedNameConverter());
-        addObsColumn(dsd, "death_date", "org.openmrs.module.emrapi:Date of Death", converters.getObsValueDatetimeConverter());
+        addObsColumn(dsd, "death_date", "PIH:14399", converters.getObsValueDatetimeConverter());
         addObsColumn(dsd, "return_visit_date", "PIH:RETURN VISIT DATE", converters.getObsValueDatetimeConverter());
         addObsColumn(dsd, "clinical_notes", "PIH:CLINICAL IMPRESSION COMMENTS", converters.getObsValueTextConverter());
 
