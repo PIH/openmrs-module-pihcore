@@ -231,6 +231,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableCheckIn(config);
         }
 
+        if (config.isComponentEnabled(Components.MCOE_TRIAGE)) {
+            enableMCOETriage(config);
+        }
+
         if (config.isComponentEnabled(Components.UHM_VITALS) ||
                 config.isComponentEnabled(Components.VITALS)) {
             enableVitals();
@@ -579,6 +583,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
+    private void enableMCOETriage(Config config) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+            // MCOE triage form that appears on visit and clinical dashboard after a visit has been started as a "Visit Action"
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.TRIAGE_VISIT_ACTION,
+                    "mirebalais.task.triage.label",
+                    "fas fa-fw fa-ambulance",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("triage.xml")),
+                    "Task: emr.triage",
+                    and(sessionLocationHasTag("MCOE Triage Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONETRIAGE_UUID))));
+        }
+    }
     private void enableCheckIn(Config config) {
 
         // circular app that redirects to registration page, see comments in CheckInPageController
