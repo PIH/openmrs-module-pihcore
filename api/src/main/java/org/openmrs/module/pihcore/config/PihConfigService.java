@@ -20,7 +20,6 @@ import org.openmrs.module.pihcore.config.model.ConfigFile;
 import org.openmrs.module.pihcore.config.model.InitializerConfig;
 import org.openmrs.module.pihcore.config.model.PihConfig;
 import org.openmrs.module.pihcore.setup.InitializerSetup;
-import org.openmrs.module.pihcore.setup.MetadataSharingSetup;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -50,7 +49,6 @@ public class PihConfigService {
         c.setConfigProperty(ConfigLoader.getRuntimeConfiguration(""));
         c.setConfigDescriptor(config.getDescriptor());
         c.setInitializerConfig(getInitializerConfig());
-        c.getDomains().put("concepts", getPihConceptsConfig());
         c.getDomains().put("reports", getReportsConfig());
         c.setAppAndExtensionConfig(getAppAndExtensionConfig());
         return c;
@@ -92,20 +90,6 @@ public class PihConfigService {
             }
         }
         return c;
-    }
-
-    public ConfigDomain getPihConceptsConfig() {
-        ConfigDomain pihConceptsDomain = new ConfigDomain("concepts");
-        Collection<File> mdsFiles = MetadataSharingSetup.loadMdsFiles();
-        if (mdsFiles != null) {
-            for (File f : mdsFiles) {
-                ConfigFile mdsFile = new ConfigFile();
-                mdsFile.setPath(f.getName());
-                mdsFile.setEnabled(true);
-                pihConceptsDomain.getConfigFiles().add(mdsFile);
-            }
-        }
-        return pihConceptsDomain;
     }
 
     public ConfigDomain getReportsConfig() {

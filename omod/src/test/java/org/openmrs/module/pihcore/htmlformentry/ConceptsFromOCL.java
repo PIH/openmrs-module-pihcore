@@ -14,12 +14,12 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * These are placeholder versions of concepts that are actually imported via MDS packages, that we need to have
- * available in unit tests to be able to test forms (and we don't load the big concepts MDS package during unit tests)
+ * These are placeholder versions of concepts that are actually imported via OCL, that we need to have
+ * available in unit tests to be able to test forms
  */
-@Component("hfeConceptsFromMetadataSharing")
+@Component("hfeConceptsFromOCL")
 @Requires(CoreConceptMetadataBundle.class)
-public class ConceptsFromMetadataSharing extends VersionedPihConceptBundle {
+public class ConceptsFromOCL extends VersionedPihConceptBundle {
 
     @Override
     public int getVersion() {

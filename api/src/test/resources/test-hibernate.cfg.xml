@@ -34,7 +34,7 @@
         <mapping resource="ImportedPackage.hbm.xml"/>
         <mapping resource="ExportedPackage.hbm.xml"/>
 
-            <mapping resource="OutboundQueue.hbm.xml" />
+        <mapping resource="OutboundQueue.hbm.xml" />
         <mapping resource="NamePhonetic.hbm.xml" />
 
         <mapping resource="ReportDesign.hbm.xml" />
