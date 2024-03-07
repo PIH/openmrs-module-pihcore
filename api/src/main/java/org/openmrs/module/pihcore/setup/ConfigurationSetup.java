@@ -135,7 +135,6 @@ public class ConfigurationSetup {
     public void setupBase() throws Exception {
         MergeActionsSetup.registerMergeActions();
         HtmlFormSetup.setupHtmlFormEntryTagHandlers();
-        MetadataSharingSetup.setMetadataSharingResolvers();
         PrinterSetup.registerPrintHandlers(printerService);
         setupCommCareUser();
         UserSetup.registerUsers();
@@ -270,19 +269,9 @@ public class ConfigurationSetup {
     }
 
     public void configureConceptDependencies() throws Exception {
-        // Install Concepts, etc from MDS Packages or OCL
-        if (config.isComponentEnabled(Components.OCL_CONCEPTS)) {
-            setStatus("Installing Concepts from OCL zip rather than MDS packages");
-            InitializerSetup.installDomain(OCL, config);
-        }
-        else {
-            setStatus("Installing MDS packages");
-            boolean mdsPackagesUpdated = MetadataSharingSetup.installMetadataSharingPackages();
-            if (mdsPackagesUpdated) {
-                setStatus("MDS Packages were updated.  Deleting checksums for concepts and concept_sets domains");
-                InitializerSetup.deleteChecksumsForDomains(CONCEPTS, CONCEPT_SETS);
-            }
-        }
+        // Load Concepts from OCL
+        setStatus("Installing Concepts from OCL zip");
+        InitializerSetup.installDomain(OCL, config);
 
         // Load remaining Initializer domains that could depend on Concepts
         setStatus("Loading initializer post-concept domains");

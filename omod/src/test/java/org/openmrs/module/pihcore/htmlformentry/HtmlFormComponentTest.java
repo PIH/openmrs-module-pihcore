@@ -17,7 +17,6 @@ import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.test.SkipBaseSetup;
-import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
 
@@ -51,7 +50,7 @@ public class HtmlFormComponentTest extends PihCoreContextSensitiveTest {
         metadataDeployService.installBundle(Context.getRegisteredComponents(PihCoreMetadataBundle.class).get(0));
 
         // load the test bundle of MDS concepts
-        metadataDeployService.installBundle(Context.getRegisteredComponents(ConceptsFromMetadataSharing.class).get(0));
+        metadataDeployService.installBundle(Context.getRegisteredComponents(ConceptsFromOCL.class).get(0));
 
         HtmlFormSetup.setupHtmlFormEntryTagHandlers();
     }

@@ -43,10 +43,6 @@ public class PihCoreUtil {
         return getDefaultPihConfigurationDir() + "/htmlforms/";
     }
 
-    public static String getConceptsMetadataSharingDirectory() {
-        return getDefaultPihConfigurationDir() + "/concepts/";
-    }
-
     public static  String getLiquibaseDir() {
         return "configuration/pih/liquibase/";
     }
