@@ -7,8 +7,7 @@ public class PihCoreConstants {
     public static final String SESSION_ATTRIBUTE_TERMS_ACCEPTED = "pihcore.termsAndConditionsAccepted";
 
     public static final String DBEVENT_ENABLED_PROPERTY = "dbevent_enabled";
-
-    public static final String GP_RUN_CONCEPT_SETUP_TASK_IN_SEPARATE_THREAD = "pihcore.runMetadataSetupTaskInSeparateThread";
+    
     public static final String GP_COMPONENT_PREFIX = "pihcore.component.";
     public static final String GP_CONFIGURED_SITE = "pihcore.site";
     public static final String GP_NEXT_RADIOLOGY_ORDER_NUMBER_SEED = "order.nextRadiologyOrderNumberSeed";
