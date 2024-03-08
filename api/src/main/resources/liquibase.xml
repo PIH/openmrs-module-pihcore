@@ -783,34 +783,6 @@
         </sql>
     </changeSet>
 
-
-    <changeSet id="20190722-01" author="mgoodrich" runAlways="true" runOnChange="true">
-        <comment>
-            Hack to clean out bad entries in the metadatasharing_imported_item table
-            See: UHM-3949: https://pihemr.atlassian.net/browse/UHM-3949
-            First finds all duplicates where at least one has a date_imported and picks the earliest date_imported to delete
-            Then finds all duplicates where all date_imported are null and picks one to keep based on primary key
-            Note that "runOnChange" is set to true, so will run on every startup
-        </comment>
-        <sql>
-            create temporary table imported_items_to_delete select i1.imported_item_id
-            from metadatasharing_imported_item i1, metadatasharing_imported_item i2
-            where i1.uuid = i2.uuid and i1.imported_item_id != i2.imported_item_id
-            and IFNULL(i1.date_imported, '1000-01-01') &lt; i2.date_imported;
-
-            insert into imported_items_to_delete select i1.imported_item_id
-            from metadatasharing_imported_item i1, metadatasharing_imported_item i2
-            where i1.uuid = i2.uuid and i1.imported_item_id != i2.imported_item_id
-            and i1.date_imported is null and i2.date_imported is null
-            and i1.imported_item_id &lt; i2.imported_item_id;
-
-            delete from metadatasharing_imported_item where imported_item_id in
-            (select distinct imported_item_id from imported_items_to_delete);
-        </sql>
-
-    </changeSet>
-
-
     <changeSet id="20190731-update-glucose-concept-name" author="ball">
 
         <comment>
