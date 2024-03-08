@@ -148,7 +148,7 @@ public class CustomAppLoaderConstants {
     public static final class Extensions {
 
         public static final String CHECK_IN_VISIT_ACTION = "pih.checkin.visitAction";
-        public static final String TRIAGE_VISIT_ACTION = "pih.triage.visitAction";
+        public static final String MCH_TRIAGE_VISIT_ACTION = "pih.mchtriage.visitAction";
         public static final String CHECK_IN_MATERNAL_VISIT_ACTION = "pih.checkinMaternal.visitAction";
         public static final String CHECK_IN_REGISTRATION_ACTION = "pih.checkin.registrationAction";
         public static final String CHECK_IN_MATERNAL_REGISTRATION_ACTION = "pih.checkinMaternal.registrationAction";
