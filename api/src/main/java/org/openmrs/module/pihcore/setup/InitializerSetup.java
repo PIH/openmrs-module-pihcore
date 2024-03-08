@@ -30,40 +30,16 @@ public class InitializerSetup {
 
     protected static Log log = LogFactory.getLog(InitializerSetup.class);
 
-    public static List<Domain> getDomainsToLoadAfterConcepts() {
-        return Arrays.asList(
-                CONCEPTS,
-                CONCEPT_SETS,
-                PROGRAMS,
-                PROGRAM_WORKFLOWS,
-                PROGRAM_WORKFLOW_STATES,
-                DRUGS,
-                ORDER_FREQUENCIES,
-                HTML_FORMS,
-                QUEUES
-        );
-    }
-
-    public static void loadPreConceptDomains(Config config) {
+    public static void install(Config config) {
         try {
-            List<String> excludeList = new ArrayList<>();
-            // Ensure OCL is not loaded unless configured. See ConfigurationSetup#configureConceptDependencies.
-            // This likely will be changed once we have fully switched from MDS to OCL packages.
-            // Right now this supports the ability to toggle between them by server
-            excludeList.add(Domain.OCL.getName());
-            for (Domain domain : getDomainsToLoadAfterConcepts()) {
-                excludeList.add(domain.getName());
-            }
             for (Loader loader : getInitializerService().getLoaders()) {
-                if (!excludeList.contains(loader.getDomainName())) {
-                    if (loader.getDomainName().equalsIgnoreCase(Domain.LOCATION_TAG_MAPS.getName())) {
-                        log.warn("Deleting checksums for: " + loader.getDomainName());
-                        deleteChecksumsForDomains(Domain.LOCATION_TAG_MAPS);
-                    }
-                    log.warn("Loading from Initializer: " + loader.getDomainName());
-                    List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
-                    loader.loadUnsafe(exclusionsForLoader, true);
+                if (loader.getDomainName().equalsIgnoreCase(Domain.LOCATION_TAG_MAPS.getName())) {
+                    log.warn("Deleting checksums for: " + loader.getDomainName());
+                    deleteChecksumsForDomains(Domain.LOCATION_TAG_MAPS);
                 }
+                log.warn("Loading from Initializer: " + loader.getDomainName());
+                List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
+                loader.loadUnsafe(exclusionsForLoader, true);
             }
         }
         catch (Exception e) {
@@ -90,31 +66,6 @@ public class InitializerSetup {
             }
         }
         return exclusions;
-    }
-
-    public static void loadPostConceptDomains(Config config) {
-        try {
-            for (Domain domain : getDomainsToLoadAfterConcepts()) {
-                installDomain(domain, config);
-            }
-        }
-        catch (Exception e) {
-            throw new IllegalStateException("An error occurred while loading from initializer", e);
-        }
-    }
-
-    /**
-     * Explicitly load from a given Domain with no exclusions, and throw an exception on failures
-     * Note:  This is _different_ from the built-in Initializer loading, which suppresses errors
-     */
-    public static void installDomain(Domain domain, Config config) throws Exception {
-        for (Loader loader : getInitializerService().getLoaders()) {
-            if (loader.getDomainName().equalsIgnoreCase(domain.getName())) {
-                log.warn("Loading from Initializer: " + loader.getDomainName());
-                List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
-                loader.loadUnsafe(exclusionsForLoader, true);
-            }
-        }
     }
 
     /**

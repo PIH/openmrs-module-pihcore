@@ -51,7 +51,7 @@ public class InitializerSetupTest extends PihCoreContextSensitiveTest {
     public void testLocationsSetupforMirebalais() {
         assertThat(locationService.getAllLocations().size(), is(2));
         when(config.getSite()).thenReturn("MIREBALAIS");
-        InitializerSetup.loadPreConceptDomains(config);
+        InitializerSetup.install(config);
         assertThat(locationService.getAllLocations().size(), is(70)); // One is an edit from requiredDataTestDataset
     }
 
@@ -59,7 +59,7 @@ public class InitializerSetupTest extends PihCoreContextSensitiveTest {
     public void testLocationsSetupforHsn() {
         assertThat(locationService.getAllLocations().size(), is(2));
         when(config.getSite()).thenReturn("HSN");
-        InitializerSetup.loadPreConceptDomains(config);
+        InitializerSetup.install(config);
         assertThat(locationService.getAllLocations().size(), is(26));
     }
 
@@ -67,7 +67,7 @@ public class InitializerSetupTest extends PihCoreContextSensitiveTest {
     public void testLocationsSetupforCrossSite() {
         assertThat(locationService.getAllLocations().size(), is(2));
         when(config.getSite()).thenReturn("CROSS_SITE");
-        InitializerSetup.loadPreConceptDomains(config);
+        InitializerSetup.install(config);
         assertThat(locationService.getAllLocations().size(), is(23));
     }
 }

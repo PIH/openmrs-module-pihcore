@@ -167,17 +167,9 @@ public class ConfigurationSetup {
         setStatus("Executing liquibase scripts in configuration");
         LiquibaseSetup.setup(config);
 
-        // Setup all metadata that are before Concepts in Iniz loading order
-        setStatus("Loading initializer pre-concept domains");
-        InitializerSetup.loadPreConceptDomains(config);
-
-        // install concepts from OCL
-        setStatus("Installing Concepts from OCL zip");
-        InitializerSetup.installDomain(OCL, config);
-
-        // Load remaining Initializer domains that could depend on Concepts
-        setStatus("Loading initializer post-concept domains");
-        InitializerSetup.loadPostConceptDomains(config);
+        // Setup all metadata via Iniz
+        setStatus("Loading initializer metadata");
+        InitializerSetup.install(config);
 
         // Setup any global properties defined in pih config (TODO: Move this to gp iniz domain)
         // TODO: We need to consider the setting component GPs here
