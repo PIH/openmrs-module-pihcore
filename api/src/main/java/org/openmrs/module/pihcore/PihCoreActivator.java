@@ -16,7 +16,6 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.Daemon;
 import org.openmrs.module.BaseModuleActivator;
@@ -49,8 +48,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
 
             final ConfigurationSetup configurationSetup = Context.getRegisteredComponents(ConfigurationSetup.class).get(0);
             configurationSetup.setupBase();
-            configurationSetup.configureNonConceptDependencies();
-            configurationSetup.configureConceptDependencies();
+            configurationSetup.configureDependencies();
 
             // Startup DB event consumers in a separate thread
             Daemon.runInDaemonThread(() -> {
