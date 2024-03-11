@@ -22,6 +22,7 @@ import org.openmrs.module.queue.api.dao.QueueEntryDao;
 import org.openmrs.module.queue.api.impl.QueueEntryServiceImpl;
 import org.openmrs.module.queue.api.impl.QueueServiceImpl;
 import org.openmrs.module.queue.api.search.QueueEntrySearchCriteria;
+import org.openmrs.module.queue.api.sort.BasicPrioritySortWeightGenerator;
 import org.openmrs.module.queue.model.Queue;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
@@ -48,7 +49,7 @@ import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Context.class)
-@PowerMockIgnore("javax.management.*")
+@PowerMockIgnore({"javax.management.*", "org.apache.*", "org.slf4j.*"})
 public class AddPatientToQueueActionTest {
 
     private static final String ADD_TO_QUEUE_CONCEPT_CODE_PIH = "1272";
@@ -96,6 +97,7 @@ public class AddPatientToQueueActionTest {
 
         mockQueueEntryDao = mock(QueueEntryDao.class);
         queueEntryServiceImpl = new QueueEntryServiceImpl();
+        queueEntryServiceImpl.setSortWeightGenerator(new BasicPrioritySortWeightGenerator(wrapper));
         ((QueueEntryServiceImpl) queueEntryServiceImpl).setDao(mockQueueEntryDao);
         when(wrapper.getQueueEntryService()).thenReturn(queueEntryServiceImpl);
     }
