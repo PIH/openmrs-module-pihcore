@@ -47,8 +47,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static org.openmrs.module.initializer.Domain.CONCEPTS;
-import static org.openmrs.module.initializer.Domain.CONCEPT_SETS;
 import static org.openmrs.module.initializer.Domain.OCL;
 import static org.openmrs.module.pihcore.PihCoreConstants.GP_COMPONENT_PREFIX;
 import static org.openmrs.module.pihcore.PihCoreConstants.GP_CONFIGURED_SITE;
@@ -149,8 +147,7 @@ public class ConfigurationSetup {
 
     // Anything in here depends on configuration settings and needs to be refreshed in a specific order,
     // as some configurations depend on settings or metadata setup in previous configurations.
-    // Ideally we will get rid of this non-concept vs concept dependencies.  Just need to speed up the concept loading component.
-    public void configureNonConceptDependencies() throws Exception {
+    public void configureDependencies() throws Exception {
         setStatus("Configuration Setup Initiated");
 
         // Load in PIH Config
@@ -170,9 +167,9 @@ public class ConfigurationSetup {
         setStatus("Executing liquibase scripts in configuration");
         LiquibaseSetup.setup(config);
 
-        // Setup all metadata that are before Concepts in Iniz loading order
-        setStatus("Loading initializer pre-concept domains");
-        InitializerSetup.loadPreConceptDomains(config);
+        // Setup all metadata via Iniz
+        setStatus("Loading initializer metadata");
+        InitializerSetup.install(config);
 
         // Setup any global properties defined in pih config (TODO: Move this to gp iniz domain)
         // TODO: We need to consider the setting component GPs here
@@ -213,6 +210,21 @@ public class ConfigurationSetup {
         //  registrationcore.identifierSourceId = <uuid of identifier source configured as autogeneration option for the emrapi primary identifier type>
         setStatus("Configuring global properties for registration modules");
         ModuleFactory.getStartedModuleById("registrationapp").getModuleActivator().started();
+
+        // Load HTML Forms  TODO: Move this over to use the initializer methods for this
+        setStatus("Loading HTML forms");
+        HtmlFormSetup.loadHtmlForms(false);
+
+        // Load Reports  TODO: Start a discussion about moving this functionality over to initializer
+        setStatus("Loading reports");
+        ReportLoader.loadReportsFromConfig();
+
+        if (config.isComponentEnabled(Components.OVERVIEW_REPORTS) || config.isComponentEnabled(Components.DATA_EXPORTS)) {
+            setStatus("Setting up scheduled report requests");
+            // TODO: These scheduled report configurations should be moved to entirely to config and that config supported by reporting module natively
+            ReportSetup.scheduleBackupReports(config);
+            ReportSetup.scheduleMonthlyExportsReports(config);
+        }
 
         // Initialize PACS HL7 listener, if the PACS_INTEGRATION component is enabled in pih config
         // TODO:  1. Determine if we can just enable this all the time, and if that will cause any adverse effects
@@ -266,40 +278,6 @@ public class ConfigurationSetup {
         setStatus("Reloading all apps and extensions");
         reloadAppsAndExtensions();
         setStatus("Configuration Setup Completed Successfully");
-    }
-
-    public void configureConceptDependencies() throws Exception {
-        // Load Concepts from OCL
-        setStatus("Installing Concepts from OCL zip");
-        InitializerSetup.installDomain(OCL, config);
-
-        // Load remaining Initializer domains that could depend on Concepts
-        setStatus("Loading initializer post-concept domains");
-        InitializerSetup.loadPostConceptDomains(config);
-
-        // Load PIH drug list
-        setStatus("Installing drug list");
-        DrugListSetup.installDrugList();
-
-        // Load HTML Forms  TODO: Move this over to use the initializer methods for this
-        setStatus("Loading HTML forms");
-        HtmlFormSetup.loadHtmlForms(false);
-
-        // Load Reports  TODO: Start a discussion about moving this functionality over to initializer
-        setStatus("Loading reports");
-        ReportLoader.loadReportsFromConfig();
-
-        if (config.isComponentEnabled(Components.OVERVIEW_REPORTS) || config.isComponentEnabled(Components.DATA_EXPORTS)) {
-            setStatus("Setting up scheduled report requests");
-            // TODO: These scheduled report configurations should be moved to entirely to config and that config supported by reporting module natively
-            ReportSetup.scheduleBackupReports(config);
-            ReportSetup.scheduleMonthlyExportsReports(config);
-        }
-    }
-
-    public void configureSystem() throws Exception {
-        configureNonConceptDependencies();
-        configureConceptDependencies();
     }
 
     public void reloadAppsAndExtensions() {

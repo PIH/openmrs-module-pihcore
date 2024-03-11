@@ -16,7 +16,6 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.Daemon;
 import org.openmrs.module.BaseModuleActivator;
@@ -49,26 +48,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
 
             final ConfigurationSetup configurationSetup = Context.getRegisteredComponents(ConfigurationSetup.class).get(0);
             configurationSetup.setupBase();
-            configurationSetup.configureNonConceptDependencies();
-
-            AdministrationService as = Context.getAdministrationService();
-            String runInSeparateThread = as.getGlobalProperty(PihCoreConstants.GP_RUN_CONCEPT_SETUP_TASK_IN_SEPARATE_THREAD);
-
-            if ("true".equalsIgnoreCase(runInSeparateThread)) {  // see https://pihemr.atlassian.net/browse/UHM-4459
-                log.info("Setting up configuration in a separate thread. Please monitor logs to check status.");
-                Daemon.runInDaemonThread(() -> {
-                    try {
-                        configurationSetup.configureConceptDependencies();
-                    }
-                    catch (Exception e) {
-                        log.error("Configuration Setup Failed", e);
-                        throw new RuntimeException(e);
-                    }
-                }, daemonToken);
-            }
-            else {
-                configurationSetup.configureConceptDependencies();
-            }
+            configurationSetup.configureDependencies();
 
             // Startup DB event consumers in a separate thread
             Daemon.runInDaemonThread(() -> {

@@ -55,7 +55,7 @@ public class PihConfigRestController {
             return HttpStatus.UNAUTHORIZED;
         }
         try {
-            configurationSetup.configureSystem();
+            configurationSetup.configureDependencies();
             updateMessageProperties();
             return OK;
         }
