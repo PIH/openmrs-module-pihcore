@@ -79,7 +79,7 @@
         <metadatamappingVersion>1.6.0</metadatamappingVersion>
         <namephoneticsVersion>1.19.0</namephoneticsVersion>
         <o3formsVersion>2.2.0</o3formsVersion>
-        <openconceptlabVersion>2.2.0-SNAPSHOT</openconceptlabVersion>
+        <openconceptlabVersion>2.2.0</openconceptlabVersion>
         <orderEntryOwaVersion>1.2.5-SNAPSHOT</orderEntryOwaVersion>
         <owaVersion>1.14.0</owaVersion>
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
