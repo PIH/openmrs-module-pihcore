@@ -590,7 +590,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "mirebalais.task.triage.label",
                     "fas fa-fw fa-ambulance",
                     "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("triage.xml")),
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("triage.xml")),
                     "Task: emr.triage",
                     and(sessionLocationHasTag("MCH Triage Location"),
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMCHTRIAGE_UUID))));
