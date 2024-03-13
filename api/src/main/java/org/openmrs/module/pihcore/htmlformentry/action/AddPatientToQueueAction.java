@@ -31,6 +31,7 @@ import org.openmrs.module.queue.utils.QueueUtils;
 public class AddPatientToQueueAction implements CustomFormSubmissionAction {
 
     private static final String ADD_TO_QUEUE_CONCEPT_CODE_PIH = "1272";
+    private static final String PRIORITY_CONCEPT_CODE_PIH = "12842";
     protected Log log = LogFactory.getLog(getClass());
 
     @Override
@@ -84,8 +85,13 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
                                 queueEntry.setStatus(allowedStatuses.get(0));
                             }
                             List<Concept> allowedPriorities = queueServicesWrapper.getAllowedPriorities(queue);
-                            if (!allowedPriorities.isEmpty()) {
-                                queueEntry.setPriority(allowedPriorities.get(0));
+                            Concept queueEntryPriority = getQueueEntryPriority(encounter);
+                            if (queueEntryPriority != null && allowedPriorities.contains(queueEntryPriority)) {
+                                queueEntry.setPriority(queueEntryPriority);
+                            } else {
+                                if (!allowedPriorities.isEmpty()) {
+                                    queueEntry.setPriority(allowedPriorities.get(0));
+                                }
                             }
                             queueEntry.setStartedAt(encounter.getEncounterDatetime());
                             queueEntry.setVisit(encounter.getVisit());
@@ -99,5 +105,18 @@ public class AddPatientToQueueAction implements CustomFormSubmissionAction {
                 }
             }
         }
+    }
+
+    Concept getQueueEntryPriority(Encounter encounter){
+        Concept priorityConcept = null;
+        Concept priorityQuestionConcept = Context.getConceptService().getConceptByMapping(PRIORITY_CONCEPT_CODE_PIH, "PIH");
+        if ( priorityQuestionConcept != null ) {
+            for (Obs candidate : encounter.getObsAtTopLevel(false)) {
+                if (candidate.getConcept().equals(priorityQuestionConcept)) {
+                    priorityConcept = candidate.getValueCoded();
+                }
+            }
+        }
+        return priorityConcept;
     }
 }
