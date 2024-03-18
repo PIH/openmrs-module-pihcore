@@ -8,14 +8,14 @@
     </span>
 
     <!-- add a comma between reason for visit and family planning visit -->
-    <span ng-show="(encounter.obs | byConcept:Concepts.reasonForVisit).length > 0 && (encounter.obs | byConcept:Concepts.familyPlanningVisit).length > 0))" >--&nbsp;</span>
+    <span ng-show="(encounter.obs | byConcept:Concepts.reasonForVisit).length > 0 && (encounter.obs | byConcept:Concepts.familyPlanningVisit).length > 0" >--&nbsp;</span>
 
     <span ng-repeat="obs in encounter.obs | byConcept:Concepts.familyPlanningVisit">
         {{ obs |  obs:"value" }}{{ \$last ? "" : "," }}
     </span>
 
     <!-- add a hyphen between reason for visit and visit type -->
-    <span ng-show="(encounter.obs | byConcept:Concepts.reasonForVisit).length > 0 && (encounter.obs | byConcept:Concepts.visitType).length > 0))" >--&nbsp;</span>
+    <span ng-show="(encounter.obs | byConcept:Concepts.reasonForVisit).length > 0 && (encounter.obs | byConcept:Concepts.visitType).length > 0" >--&nbsp;</span>
 
     <span ng-repeat="obs in encounter.obs | byConcept:Concepts.visitType">
         {{ obs |  obs:"value" }}{{ \$last ? "" : "," }}

@@ -125,6 +125,18 @@ angular.module('constants', [])
         surgery: {
             uuid: "a2bbe648-8b69-438a-9657-8148478cf951"
         },
+        hospitalNcdDisease: {
+            uuid: "eeaceb4e-632a-48ab-a6e3-fd9c99e75f25"
+        },
+        hypertensionType: {
+            uuid: "0597a6e3-afe7-465a-b550-bee4a175c61a"
+        },
+        diabetesComplication: {
+            uuid: "97a0dc90-d289-4465-b8cc-802f57e0519a"
+        },
+        palliativeDisease: {
+            uuid: "a54965c7-af0a-4166-80c9-693910288195"
+        },
         traumaticInjury: {
             uuid: "124193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
@@ -411,6 +423,9 @@ angular.module('constants', [])
             uuid: "164181AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         familyPlanningVisit: {
+            uuid: "86a2cf11-1ea5-4b8a-9e4b-08f4cdbe1346"
+        },
+        reasonForNCDvisit: {
             uuid: "86a2cf11-1ea5-4b8a-9e4b-08f4cdbe1346"
         },
         reasonForVisit: {
