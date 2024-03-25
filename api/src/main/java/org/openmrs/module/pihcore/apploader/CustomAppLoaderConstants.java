@@ -25,6 +25,7 @@ public class CustomAppLoaderConstants {
         public static final String DISPENSING = "dispensing.app";  // This is the legacy, form-based dispensing app
         public static final String MEDICATION_DISPENSING = "medicationDispensing.app";  // This is the new, MFE-based dispensing app
         public static final String APPOINTMENTS = "appointments.app"; // This is the new, MFE-based appointments app
+        public static final String PATIENT_APPOINTMENTS_SUMMARY = "pih.app.appointements.summary";  // o2 dashboard widget showing summary of appointments from new MFE-based appointments app
         public static final String DISPENSING_SUMMARY = "pih.app.dispensing.summary";
         public static final String NOTES_SUMMARY = "pih.app.notes.summary";
         public static final String HIV_DISPENSING_SUMMARY = "pih.app.hiv.dispensing.summary";
@@ -505,6 +506,7 @@ public class CustomAppLoaderConstants {
             Apps.CONDITION_LIST,
             Apps.VISITS_SUMMARY,
             Apps.HOME_VISITS_SUMMARY,
+            Apps.PATIENT_APPOINTMENTS_SUMMARY,
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,
             Apps.RADIOLOGY_APP,
