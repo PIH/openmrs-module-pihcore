@@ -705,7 +705,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
                             "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
             apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
-        }else {
+        } else {
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
                     "mirebalais.task.vitals.label",
                     "fas fa-fw fa-heartbeat",
@@ -1982,6 +1982,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_WITH_GLUCOSE_CAPTURE_VISIT_ACTION,
+                    "pihcore.task.vitalsWithGlucose",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsWithGlucose.xml")),
+                    null,
+                    and(sessionLocationHasTag("NCD Consult Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+        }
     }
 
     private void enableEcho() {
