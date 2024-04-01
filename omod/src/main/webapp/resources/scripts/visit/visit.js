@@ -582,10 +582,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService", "QueueEntry",
-        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "OrderTypes", "VisitTypes",
+        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "nextSection", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "OrderTypes", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, QueueEntry, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
-                 locale, currentSection,goToNext, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, OrderTypes, VisitTypes) {
+                 locale, currentSection, goToNext, nextSection, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, OrderTypes, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
           const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
@@ -593,7 +593,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             // we are in the "Next" workflow and should immediately redirect to the next section
             if (goToNext && encounterUuid) {
-                goToNextSection(currentSection, patientUuid, encounterUuid, visitUuid);
+                goToNextSection(currentSection, nextSection, patientUuid, encounterUuid, visitUuid);
             }
             else {
                 // otherwise do standard loading
@@ -630,7 +630,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             }
 
-            function goToNextSection(currentSection, patientUuid, encounterUuid, visitUuid) {
+            function goToNextSection(currentSection, nextSection, patientUuid, encounterUuid, visitUuid) {
 
                 // fetch the visit and encounter so we add them to the context, and can determine the encounter type, which we need to determine where to redirect to (this all seems like a hack)
                 Visit.get({
@@ -643,16 +643,19 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                         var redirectToSectionIdx = 0;
 
-                        // if current section is null, we just want to jump to first "real" section (idx = 0)
-                        // otherwise find the current section and add one
-                        if (currentSection) {
-                            i = 0;
-                            while (i < sections.length && sections[i].id != currentSection) {
-                                i++;
+                        if ( nextSection ) {
+                            redirectToSectionIdx = sections.findIndex(({ id }) => id === nextSection);
+                        } else {
+                            // if current section is null, we just want to jump to first "real" section (idx = 0)
+                            // otherwise find the current section and add one
+                            if (currentSection) {
+                                i = 0;
+                                while (i < sections.length && sections[i].id != currentSection) {
+                                    i++;
+                                }
+                                redirectToSectionIdx = i + 1;
                             }
-                            redirectToSectionIdx = i + 1;
                         }
-
                         // we want to the redirect to the edit section of the *next* section
                         if (redirectToSectionIdx < sections.length && sections[redirectToSectionIdx].editUrl) {
 
