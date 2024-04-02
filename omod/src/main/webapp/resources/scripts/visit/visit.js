@@ -630,6 +630,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
             }
 
+            /**
+             * Navigates to the next section of the form. If the parameter nextSection has a value, jump to that section,
+             * otherwise jump to the next section in chronological sequence based on the encounterTypeConfig.js
+             * @param currentSection
+             * @param nextSection
+             * @param patientUuid
+             * @param encounterUuid
+             * @param visitUuid
+             */
             function goToNextSection(currentSection, nextSection, patientUuid, encounterUuid, visitUuid) {
 
                 // fetch the visit and encounter so we add them to the context, and can determine the encounter type, which we need to determine where to redirect to (this all seems like a hack)
