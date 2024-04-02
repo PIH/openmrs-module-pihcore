@@ -110,6 +110,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             .value('locale', '${ locale }')
             .value('currentSection', ${ currentSection ? "'" + currentSection + "'" : null})
             .value('goToNext', ${ goToNext ? true : false})
+            .value('nextSection', ${ nextSection ? "'" +  nextSection + "'"  : null })
             .value('initialRouterState', ${initialRouterState ? "'" + initialRouterState + "'" : null})
             .value('country', '${ country }')
             .value('site', '${ site }');

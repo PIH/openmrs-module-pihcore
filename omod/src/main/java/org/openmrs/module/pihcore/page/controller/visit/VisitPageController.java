@@ -32,6 +32,7 @@ public class VisitPageController {
                     @RequestParam(required = false, value = "encounterId") Encounter encounterById,  // passed by the htmformentryui module after form submission creates new encounter (really should be "encounter" for consistency)
                     @RequestParam(required = false, value = "currentSection") String currentSection,
                     @RequestParam(required = false, value = "goToNext") String goToNext,
+                    @RequestParam(required = false, value = "nextSection") String nextSection,
                     @RequestParam(required = false, value = "initialRouterState") String initialRouterState,    // hacky variable which page state to redirect to
 					@SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties,
                     UiSessionContext uiSessionContext,
@@ -74,6 +75,7 @@ public class VisitPageController {
         model.addAttribute("country", config.getCountry().toString().toLowerCase());
         model.addAttribute("site", config.getSite().toString().toLowerCase());
         model.addAttribute("goToNext", goToNext);
+        model.addAttribute("nextSection", nextSection);
         model.addAttribute("currentSection", currentSection);
         model.addAttribute("initialRouterState", initialRouterState);
 		model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
