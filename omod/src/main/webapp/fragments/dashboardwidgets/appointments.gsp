@@ -8,7 +8,7 @@
     </div>
     <div class="info-body">
         <ul>
-            <% appointments.each { appointment -> %>
+            <% appointments?.each { appointment -> %>
             <li>
                 <div style="display: block; overflow: hidden; padding-right: 5px; padding-bottom: 2px;">
                     <div style="float: left">
