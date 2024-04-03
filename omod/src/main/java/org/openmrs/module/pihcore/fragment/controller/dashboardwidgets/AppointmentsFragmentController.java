@@ -57,7 +57,7 @@ public class AppointmentsFragmentController {
         appointmentSearchRequest.setStartDate(new Date(0)); // ugly hack since the appointments search method requires a start date, this is "the epoch", ie January 1, 1970
         List<Appointment> appointments = appointmentsService.search(appointmentSearchRequest);
 
-        List<Appointment> filteredAppointments = appointments !=null ? appointments.stream()
+        List<Appointment> filteredAppointments = appointments != null ? appointments.stream()
                 .filter(a -> a.getStatus() != null && (a.getStatus() == AppointmentStatus.Scheduled || a.getStatus() == AppointmentStatus.CheckedIn))
                 .sorted(Comparator.comparing(Appointment::getStartDateTime))
                 .collect(Collectors.toList()) : Collections.emptyList();
