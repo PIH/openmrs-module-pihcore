@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.fragment.controller.dashboardwidgets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +60,7 @@ public class AppointmentsFragmentController {
         List<Appointment> filteredAppointments = appointments !=null ? appointments.stream()
                 .filter(a -> a.getStatus() != null && (a.getStatus() == AppointmentStatus.Scheduled || a.getStatus() == AppointmentStatus.CheckedIn))
                 .sorted(Comparator.comparing(Appointment::getStartDateTime))
-                .collect(Collectors.toList()) : null;
+                .collect(Collectors.toList()) : Collections.emptyList();
 
         model.put("appointments", filteredAppointments);
         model.put("app", app);
