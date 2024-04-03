@@ -985,7 +985,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
 
             $scope.goToNextSection = function(currentSection) {
-                goToNextSection(currentSection, $scope.patientUuid, $scope.encounterUuid, $scope.visitUuid)
+                goToNextSection(currentSection, null, $scope.patientUuid, $scope.encounterUuid, $scope.visitUuid)
             }
 
             $scope.goToVisit = function(visit) {
