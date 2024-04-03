@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.fragment.controller.dashboardwidgets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -53,13 +54,13 @@ public class AppointmentsFragmentController {
 
         AppointmentSearchRequest appointmentSearchRequest = new AppointmentSearchRequest();
         appointmentSearchRequest.setPatientUuid(patient.getUuid());
-        appointmentSearchRequest.setStartDate(new DateTime().withTimeAtStartOfDay().toDate());
+        appointmentSearchRequest.setStartDate(new Date(0)); // ugly hack since the appointments search method requires a start date, this is "the epoch", ie January 1, 1970
         List<Appointment> appointments = appointmentsService.search(appointmentSearchRequest);
 
-        List<Appointment> filteredAppointments = appointments.stream()
-                .filter(a -> a.getStatus() != AppointmentStatus.Cancelled)
+        List<Appointment> filteredAppointments = appointments != null ? appointments.stream()
+                .filter(a -> a.getStatus() != null && (a.getStatus() == AppointmentStatus.Scheduled || a.getStatus() == AppointmentStatus.CheckedIn))
                 .sorted(Comparator.comparing(Appointment::getStartDateTime))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()) : Collections.emptyList();
 
         model.put("appointments", filteredAppointments);
         model.put("app", app);

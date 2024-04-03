@@ -1081,7 +1081,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("Appointment Location")));
 
         apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PATIENT_APPOINTMENTS_SUMMARY,
-                        "pih.app.appointments.title",
+                        "pih.app.patientAppointments.title",
                         "fas fa-fw fa-calendar-alt",
                         null,
                         null,
