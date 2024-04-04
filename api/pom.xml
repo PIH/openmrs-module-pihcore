@@ -97,7 +97,7 @@
 						<configuration>
 							<groupId>org.pih.openmrs</groupId>
 							<artifactId>openmrs-config-pihliberia</artifactId>
-                            <version>1.10.0-SNAPSHOT</version>
+                            <version>1.11.0-SNAPSHOT</version>
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>LiberiaConfigConstants</className>
 						</configuration>
