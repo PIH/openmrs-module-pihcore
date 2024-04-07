@@ -460,6 +460,63 @@ angular.module('constants', [])
         },
         emergency: {
             uuid: "9e4b6acc-ab97-4ecd-a48c-b3d67e5ef778"
+        },
+        referralPriority: {
+            uuid: "1885AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        airwayExam: {
+            uuid: "97ab3dcb-6207-43ed-ae5c-5ef6f22038ca"
+        },
+        impairedAirway: {
+            uuid: "164348AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        disability: {
+            uuid: "162558AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        blurredVision: {
+            uuid: "118938AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        severeHeadache: {
+            uuid: "139081AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        convulsing: {
+            uuid: "3cce938e-26fe-102b-80cb-0017a47871b2"
+        },
+        coma: {
+            uuid: "144576AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        fetusExam: {
+            uuid: "ddd1d4be-240d-4102-a706-2d55a347d615"
+        },
+        decreasedFM: {
+            uuid: "113377AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        absentFM: {
+            uuid: "24bea073-0ec3-4469-9cad-c6cdd58f3bb4"
+        },
+        pelvicExam: {
+            uuid: "165372AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        spotting: {
+            uuid: "f4fb55fe-4040-44de-b3bf-f45294c8d75a"
+        },
+        labor: {
+            uuid: "162193AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        srom: {
+            uuid: "ba8598a1-1ae2-4582-ba38-12fde493617d"
+        },
+        abdPain: {
+            uuid: "3ccdf8d4-26fe-102b-80cb-0017a47871b2"
+        },
+        vaginalBleeding: {
+            uuid: "147232AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        laborWithImminentDelivery: {
+            uuid: "3182e4ca-8919-4229-98df-0012a8d8c9d3"
+        },
+        severeAbdPain: {
+            uuid: "1d7d598c-282c-42d5-b2bd-0c45e762cadd"
         }
     })
     .value('PrimaryCareExamConcepts', {

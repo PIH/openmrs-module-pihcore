@@ -21,6 +21,25 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("withCodedValue", [function() {
+        return function(obs, codedValue) {
+            if (!obs) {
+                return null;
+            }
+            if (Array.isArray(obs)) {
+                let foundValue = obs.find((element) => element.value.uuid === codedValue.uuid);
+                if ( foundValue ) {
+                    return foundValue;
+                }
+            } else {
+                if (obs.value.uuid === codedValue.uuid) {
+                    return obs;
+                }
+            }
+            return null;
+        }
+    }])
+
     .filter("byConcepts", [function() {
         return function(listOfObs, listOfConcepts, justOne) {
             var f = justOne ? _.find : _.filter;
