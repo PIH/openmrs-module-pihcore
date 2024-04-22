@@ -853,8 +853,8 @@
             <url>https://openmrs.jfrog.io/artifactory/public</url>
         </repository>
         <repository>
-            <id>oss-sonotype</id>
-            <url>https://oss.sonatype.org/content/repositories/public</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/public</url>
         </repository>
         <repository>
             <id>mks-repo</id>
