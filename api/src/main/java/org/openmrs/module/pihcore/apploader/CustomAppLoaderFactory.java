@@ -2169,6 +2169,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientAgeInMonthsLessThanAtVisitStart(3)))));
 
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_DISCHARGE_ACTION,
+                    "pih.task.newbornDischarge",
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornDischarge.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            and(patientAgeInMonthsLessThanAtVisitStart(3)))));
+
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LABOR_PROGRESS_ACTION,
                     "pih.task.laborProgress",
                     "fas fa-fw fa-baby",
@@ -2184,6 +2193,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "fas fa-fw fa-baby",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("laborDeliverySummary.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            and(patientIsFemale()))));
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.POSTPARTUM_PROGRESS_ACTION,
+                    "pih.task.postpartumDailyProgress",
+                    "fas fa-fw fa-arrow-circle-right",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("postpartumDailyProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));

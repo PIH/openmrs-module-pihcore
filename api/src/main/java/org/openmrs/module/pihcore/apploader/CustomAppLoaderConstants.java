@@ -206,9 +206,11 @@ public class CustomAppLoaderConstants {
         public static final String NEWBORN_DAILY_PROGRESS_ACTION = "pih.form.newbornDailyProgress";
         public static final String NEWBORN_REFERRAL_ACTION = "pih.form.newbornReferral";
         public static final String NEWBORN_OBS_ACTION = "pih.form.newbornObs";
+        public static final String NEWBORN_DISCHARGE_ACTION = "pih.form.newbornDischarge";
         public static final String MATERNAL_DISCHARGE_ACTION = "pih.form.maternalDischarge";
         public static final String LABOR_PROGRESS_ACTION = "pih.form.laborProgress";
         public static final String LABOR_DELIVERY_SUMMARY_ACTION = "pih.form.laborDeliverySummary";
+        public static final String POSTPARTUM_PROGRESS_ACTION = "pih.form.postpartumProgress";
         public static final String OB_GYN_VISIT_ACTION = "pih.form.obGyn";
         public static final String MENTAL_HEALTH_VISIT_ACTION = "pih.form.mentalHealth";
         public static final String MENTAL_HEALTH_INTAKE_VISIT_ACTION = "pih.form.mentalHealthIntake";
@@ -450,9 +452,11 @@ public class CustomAppLoaderConstants {
             Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,
             Extensions.NEWBORN_ASSESSMENT_ACTION,
             Extensions.NEWBORN_DAILY_PROGRESS_ACTION,
+            Extensions.NEWBORN_DISCHARGE_ACTION,
             Extensions.MATERNAL_DISCHARGE_ACTION,
             Extensions.LABOR_PROGRESS_ACTION,
             Extensions.LABOR_DELIVERY_SUMMARY_ACTION,
+            Extensions.POSTPARTUM_PROGRESS_ACTION,
             Extensions.NEWBORN_OBS_ACTION,
             Extensions.NEWBORN_REFERRAL_ACTION,
             Extensions.OB_GYN_VISIT_ACTION,
