@@ -2199,7 +2199,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.POSTPARTUM_PROGRESS_ACTION,
                     "pih.task.postpartumDailyProgress",
-                    "fas fa-fw fa-arrow-circle-right",
+                    "fas fa-fw fa-female",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("postpartumDailyProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
