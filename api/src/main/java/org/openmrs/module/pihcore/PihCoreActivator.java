@@ -71,7 +71,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
     @Override
     public void stopped() {
         log.info("PIH Core Module Stopped");
-        MergeActionsSetup.deregisterMergeActions();
+        Context.getRegisteredComponents(MergeActionsSetup.class).get(0).deregisterMergeActions();
     }
 
     @Override

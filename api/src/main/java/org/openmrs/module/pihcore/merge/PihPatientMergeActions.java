@@ -6,11 +6,15 @@ import org.openmrs.Patient;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.EncounterService;
-import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.merge.PatientMergeAction;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.queue.api.QueueEntryService;
+import org.openmrs.module.queue.api.search.QueueEntrySearchCriteria;
+import org.openmrs.module.queue.model.QueueEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,15 +31,20 @@ import java.util.List;
  * 2) Make sure that the most recent registration encounter is from the preferred patient (void any registration encounters associated with
  * the non-preferred patient that occurred after the most recent associated with the preferred patient).  This is because
  * our registration summary simply displays the data from the most recent registration encounter.
+ *
+ * 3) Make sure that if the patient has any queue entries not associated with a visit, that these are moved.
+ * Queue entries associated with a visit are handled by the PihVisitMergeActions class
  */
 @Component("pihPatientMergeActions")
 public class PihPatientMergeActions implements PatientMergeAction {
 
-    @Autowired
-    private PersonService personService;
+    private static final Logger log = LoggerFactory.getLogger(PihVisitMergeActions.class);
 
     @Autowired
     private EncounterService encounterService;
+
+    @Autowired
+    private QueueEntryService queueEntryService;
 
     @Override
     public void beforeMergingPatients(Patient preferred, Patient nonPreferred) {
@@ -45,6 +54,8 @@ public class PihPatientMergeActions implements PatientMergeAction {
 
         // make sure the most recent registration encounter belongs to the preferred patient.
         voidMostRecentRegistrationIfNonPreferred(preferred, nonPreferred);
+
+        moveQueueEntriesNotAssociatedWithVisits(preferred, nonPreferred);
     }
 
     @Override
@@ -61,7 +72,7 @@ public class PihPatientMergeActions implements PatientMergeAction {
                 attr.setVoidReason("Merging into patient " + preferred.getId());
                 attr.setVoidedBy(Context.getAuthenticatedUser());
             }
-            // dont need to save, because it will be committed as part of the merge?
+            // no need to save, because it will be committed as part of the merge
         }
     }
 
@@ -88,10 +99,21 @@ public class PihPatientMergeActions implements PatientMergeAction {
         }
     }
 
-
-    // for injecting mocks during tests
-    public void setPersonService(PersonService personService) {
-        this.personService = personService;
+    /**
+     * Move queue entries that are not associated with visits (we likely do not have any of these, but this is a sanity check).
+     * Those that are associated with visits are handled within the PihVisitMergeActions class
+     * TODO: This likely belongs in emrapi or queue modules, we should consider moving it down the road
+     */
+    private void moveQueueEntriesNotAssociatedWithVisits(Patient preferred, Patient nonPreferred) {
+        QueueEntrySearchCriteria c = new QueueEntrySearchCriteria();
+        c.setPatient(nonPreferred);
+        c.setHasVisit(false);
+        List<QueueEntry> queueEntries = queueEntryService.getQueueEntries(c);
+        for (QueueEntry queueEntry: queueEntries) {
+            log.warn("Moving queue entry " + queueEntry.getId() + " from patient " + nonPreferred.getId() + " to " + preferred.getId());
+            queueEntry.setPatient(preferred);
+            queueEntryService.saveQueueEntry(queueEntry);
+        }
     }
 
     public void setEncounterService(EncounterService encounterService) {

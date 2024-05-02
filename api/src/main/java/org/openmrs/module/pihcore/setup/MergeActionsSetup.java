@@ -1,29 +1,42 @@
 package org.openmrs.module.pihcore.setup;
 
-import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.pihcore.merge.PihPatientMergeActions;
 import org.openmrs.module.pihcore.merge.PihRadiologyOrdersMergeActions;
 import org.openmrs.module.pihcore.merge.PihTestOrdersMergeActions;
+import org.openmrs.module.pihcore.merge.PihVisitMergeActions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MergeActionsSetup {
 
-    public static void registerMergeActions() {
-        Context.getService(AdtService.class)
-                .addPatientMergeAction(Context.getRegisteredComponent("pihPatientMergeActions", PihPatientMergeActions.class));
-        Context.getService(AdtService.class)
-                .addPatientMergeAction(Context.getRegisteredComponent("pihRadiologyOrdersMergeActions", PihRadiologyOrdersMergeActions.class));
-        Context.getService(AdtService.class)
-                .addPatientMergeAction(Context.getRegisteredComponent("pihTestOrdersMergeActions", PihTestOrdersMergeActions.class));
+    @Autowired
+    AdtService adtService;
+
+    @Autowired
+    PihPatientMergeActions pihPatientMergeActions;
+
+    @Autowired
+    PihRadiologyOrdersMergeActions pihRadiologyOrdersMergeActions;
+
+    @Autowired
+    PihTestOrdersMergeActions pihTestOrdersMergeActions;
+
+    @Autowired
+    PihVisitMergeActions pihVisitMergeActions;
+
+    public void registerMergeActions() {
+        adtService.addPatientMergeAction(pihPatientMergeActions);
+        adtService.addPatientMergeAction(pihRadiologyOrdersMergeActions);
+        adtService.addPatientMergeAction(pihTestOrdersMergeActions);
+        adtService.addVisitMergeAction(pihVisitMergeActions);
     }
 
-    public static void deregisterMergeActions() {
-        Context.getService(AdtService.class)
-                .removePatientMergeAction(Context.getRegisteredComponent("pihPatientMergeActions", PihPatientMergeActions.class));
-        Context.getService(AdtService.class)
-                .removePatientMergeAction(Context.getRegisteredComponent("pihRadiologyOrdersMergeActions", PihRadiologyOrdersMergeActions.class));
-        Context.getService(AdtService.class)
-                .removePatientMergeAction(Context.getRegisteredComponent("pihTestOrdersMergeActions", PihTestOrdersMergeActions.class));
-
+    public void deregisterMergeActions() {
+        adtService.removePatientMergeAction(pihPatientMergeActions);
+        adtService.removePatientMergeAction(pihRadiologyOrdersMergeActions);
+        adtService.removePatientMergeAction(pihTestOrdersMergeActions);
+        adtService.removeVisitMergeAction(pihVisitMergeActions);
     }
 }

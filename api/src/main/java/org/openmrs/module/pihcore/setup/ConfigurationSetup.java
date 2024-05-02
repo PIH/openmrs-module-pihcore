@@ -90,6 +90,9 @@ public class ConfigurationSetup {
     @Autowired
     MessageSourceService messageSourceService;
 
+    @Autowired
+    MergeActionsSetup mergeActionsSetup;
+
     protected static final Log log = LogFactory.getLog(ConfigurationSetup.class);
 
     private static String status = "pihcore.status.notStarted";
@@ -131,7 +134,7 @@ public class ConfigurationSetup {
     // nor is it changeable by any configuration settings
 
     public void setupBase() throws Exception {
-        MergeActionsSetup.registerMergeActions();
+        mergeActionsSetup.registerMergeActions();
         HtmlFormSetup.setupHtmlFormEntryTagHandlers();
         PrinterSetup.registerPrintHandlers(printerService);
         setupCommCareUser();
