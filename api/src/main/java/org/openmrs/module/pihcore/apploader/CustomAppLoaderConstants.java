@@ -249,6 +249,7 @@ public class CustomAppLoaderConstants {
         public static final String PRINT_ID_CARD_OVERALL_ACTION = "paperrecord.printIdCardLabel";
         public static final String PRINT_PAPER_FORM_LABEL_OVERALL_ACTION = "paperrecord.printPaperFormLabel";
         public static final String PRINT_WRISTBAND_OVERALL_ACTION = "pih.wristband.print";
+        public static final String PATIENT_CHILDREN_OVERALL_ACTION = "pih.patient.children";
         public static final String CREATE_VISIT_OVERALL_ACTION = "coreapps.createVisit";
         public static final String CREATE_HIV_VISIT_OVERALL_ACTION = "coreapps.hiv.createVisit";
         public static final String CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION = "coreapps.createRetrospectiveVisit";
@@ -421,6 +422,7 @@ public class CustomAppLoaderConstants {
             Extensions.EDIT_PATIENT_CONTACT_INFO,
             Extensions.CHART_SEARCH_OVERALL_ACTION,
             Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION,
+            Extensions.PATIENT_CHILDREN_OVERALL_ACTION,
             Extensions.SPA_PREVIEW_PATIENT_CHART);  // TODO remember to permission chart search in Custom App Loader Factory
 
     public static final List<String> VISIT_ACTIONS_ORDER = Arrays.asList(

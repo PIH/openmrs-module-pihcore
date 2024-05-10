@@ -302,6 +302,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableWristbands();
         }
 
+        if (config.isComponentEnabled(Components.CHILDREN)) {
+            enableChildren();
+        }
+
+        if (config.isComponentEnabled(Components.CHILDREN)) {
+            enableChildren();
+        }
+
         if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
             enableAppointmentScheduling();
         }
@@ -1306,6 +1314,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         addPaperRecordActionsIncludesIfNeeded();
     }
 
+    public void enableChildren() {
+        extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PATIENT_CHILDREN_OVERALL_ACTION,
+                "registration.patient.children.label",
+                "fas fa-fw fa-child",
+                "link",
+                "pihcore/patientRegistration/children.page?patientId={{patient.patientId}}",
+                "App: registrationapp.registerPatient",
+                and(patientIsFemale(), patientIsAdult())));
+    }
     public void enableWristbands() {
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PRINT_WRISTBAND_OVERALL_ACTION,
