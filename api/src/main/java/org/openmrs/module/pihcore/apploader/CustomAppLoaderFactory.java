@@ -306,10 +306,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableChildren();
         }
 
-        if (config.isComponentEnabled(Components.CHILDREN)) {
-            enableChildren();
-        }
-
         if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
             enableAppointmentScheduling();
         }
