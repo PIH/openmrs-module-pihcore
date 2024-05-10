@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.page.controller.patientRegistration;
+package org.openmrs.module.pihcore.page.controller.children;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
@@ -16,7 +16,7 @@ public class ChildrenPageController {
                            ) {
 
         if (StringUtils.isBlank(returnUrl)) {
-            returnUrl = ui.pageLink("registrationapp", "registrationSummary", ObjectUtil.toMap("patientId", patient.getPatientId()));
+            returnUrl = ui.pageLink("coreapps", "clinicianfacing/patient", ObjectUtil.toMap("patientId", patient.getUuid()));
         }
         model.addAttribute("patient", patient);
         model.addAttribute("returnUrl", returnUrl);

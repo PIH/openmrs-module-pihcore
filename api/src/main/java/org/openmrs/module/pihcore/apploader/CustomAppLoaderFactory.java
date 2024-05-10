@@ -1315,7 +1315,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "registration.patient.children.label",
                 "fas fa-fw fa-child",
                 "link",
-                "pihcore/patientRegistration/children.page?patientId={{patient.patientId}}",
+                "pihcore/children/children.page?patientId={{patient.patientId}}&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl() ,
                 "App: registrationapp.registerPatient",
                 and(patientIsFemale(), patientIsAdult())));
     }
