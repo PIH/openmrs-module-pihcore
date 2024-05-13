@@ -102,7 +102,7 @@
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.43.0-SNAPSHOT</webservicesRestVersion>
 
-        <testcontainersVersion>1.19.7</testcontainersVersion>
+        <testcontainersVersion>1.19.8</testcontainersVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
