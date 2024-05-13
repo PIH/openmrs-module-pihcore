@@ -3,6 +3,17 @@
     ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
 
 %>
+<style>
+    .date-column {
+        width: 125px;
+    }
+    .name-link {
+        cursor:pointer;
+        color:blue;
+        text-decoration:underline;
+    }
+
+</style>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
@@ -35,10 +46,22 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
     </tr>
     </thead>
     <tbody>
-        <tr>
-            <td colspan="6">${ ui.message("emr.none") }</td>
-        </tr>
+        <% if (children.size() == 0) {  %>
+            <tr>
+                <td colspan="6">${ ui.message("emr.none") }</td>
+            </tr>
+        <% } %>
     </tbody>
+    <% children.each { child -> %>
+            <tr>
+                <td class="name-link"><a href="${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: child.personId ]) }">${child.givenName}, ${child.familyName}</a></td>
+                <td class="date-column">${ ui.format(child.birthdate) }</td>
+                <td>${child.age}</td>
+                <td>${child.gender}</td>
+                <td class="date-column">${ ui.format(child.deathDate) }</td>
+                <td><i class="icon-remove delete-action"></i></td>
+            </tr>
+    <% } %>
 </table>
 
 <div>
