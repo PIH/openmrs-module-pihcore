@@ -28,9 +28,80 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         jq("#return-button").click(function(event) {
             document.location.href = '${ ui.escapeJs(returnUrl) }';
         });
-
     });
+
+    const contextPath = window.location.href.split('/')[3];
+    const apiBaseUrl =  "/" + contextPath + "/ws/rest/v1";
+
+    let deleteChildDialog = null;
+    function navigateBackToChildren() {
+        emr.navigateTo({
+            provider: "pihcore",
+            page: "children/children",
+            query: {
+                patientId: '${ patient.patientId }',
+                rerturnUrl: '${ ui.escapeJs(returnUrl) }'
+            }
+        });
+    }
+    function initDeleteChildDialog(relationshipUuid) {
+        deleteChildDialog = emr.setupConfirmationDialog({
+            selector: '#delete-child-dialog',
+            actions: {
+                confirm: function() {
+                    jq.ajax({
+                        type:"DELETE",
+                        url: apiBaseUrl + "/relationship/" + relationshipUuid })
+                        .fail(function(data) {
+                            emr.errorMessage("Failed to delete relationship: " + data.responseText);
+                        })
+                        .success(function(data) {
+                            emr.successMessage("Relationship has been deleted");
+
+                    }).always(function(){
+                        deleteChildDialog.close();
+                        jq("#childName").text("");
+                        setTimeout(navigateBackToChildren, 1000);  // set a delay so that the toast message has time to display before the redirect
+                    });
+                },
+                cancel: function() {
+                    deleteChildDialog.close();
+                    jq("#childName").text("");
+                }
+            }
+        });
+
+        deleteChildDialog.show();
+    }
+    function deleteChildRelationship(relationshipUuid, childName) {
+        jq("#childName").text(childName);
+        initDeleteChildDialog(relationshipUuid);
+        deleteChildDialog.show();
+    }
 </script>
+
+<div id="delete-child-dialog" class="dialog" style="display: none">
+    <div class="dialog-header">
+        <i class="fas fa-fw fa-child"></i>
+        <h3>${ ui.message("pihcore.children.delete") }</h3>
+    </div>
+    <div class="dialog-content">
+        <p class="dialog-instructions">${ ui.message("pihcore.children.delete.confirmTitle") }:</p>
+        <ul>
+            <li class="info">
+                <span>${ ui.message("pihcore.child") }</span>
+                <h5 id="childName"></h5>
+            </li>
+            <li class="info">
+                <span>${ ui.message("pihcore.mother") }</span>
+                <h5>${ ui.format(patient) }</h5>
+            </li>
+        </ul>
+
+        <button class="confirm right">${ ui.message("uicommons.yes") }</button>
+        <button class="cancel">${ ui.message("uicommons.no") }</button>
+    </div>
+</div>
 
 <h3>${ ui.message("registration.patient.children.label") }</h3>
 
@@ -52,14 +123,16 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
             </tr>
         <% } %>
     </tbody>
-    <% children.each { child -> %>
+    <% children.keySet().each { relationship ->
+        def child = children.get(relationship);
+    %>
             <tr>
-                <td class="name-link"><a href="${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: child.personId ]) }">${child.givenName}, ${child.familyName}</a></td>
+                <td class="name-link"><a href="${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: child.personId ]) }">${ child.givenName }, ${ child.familyName }</a></td>
                 <td class="date-column">${ ui.format(child.birthdate) }</td>
                 <td>${child.age}</td>
                 <td>${child.gender}</td>
                 <td class="date-column">${ ui.format(child.deathDate) }</td>
-                <td><i class="icon-remove delete-action"></i></td>
+                <td onclick="javascript:deleteChildRelationship('${ relationship }', '${ child.givenName }' + ', ' + '${ child.familyName }')"><i class="icon-remove delete-action"></i></td>
             </tr>
     <% } %>
 </table>
