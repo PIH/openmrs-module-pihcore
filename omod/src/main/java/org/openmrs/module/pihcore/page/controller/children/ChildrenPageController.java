@@ -1,7 +1,9 @@
 package org.openmrs.module.pihcore.page.controller.children;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.Person;
@@ -32,9 +34,9 @@ public class ChildrenPageController {
         }
         RelationshipType motherToChildRelationshipType = personService.getRelationshipTypeByUuid(PihEmrConfigConstants.RELATIONSHIPTYPE_MOTHERTOCHILD_UUID);
         List<Relationship> relationships = personService.getRelationships(patient.getPerson(), null, motherToChildRelationshipType);
-        List<Person> children = new ArrayList<>();
+        Map<String, Person> children= new HashMap<String, Person>();
         for (Relationship relationship : relationships) {
-            children.add(relationship.getPersonB());
+            children.put(relationship.getUuid(), relationship.getPersonB());
         }
         model.addAttribute("patient", patient);
         model.addAttribute("children", children);
