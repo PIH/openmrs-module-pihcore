@@ -55,13 +55,13 @@
                         contentType: "application/json",
                         data: dataJson,
                         success: function( data ) {
-                            emr.successMessage("Relationship has been created");
+                            emr.successMessage('${ ui.message("pihcore.relationship.created") }');
                             addChildDialog.close();
                             jq("#childName").text("");
                             setTimeout(navigateBackToChildren, 1000);
                         }
                     }).fail(function (data) {
-                        emr.errorMessage("Failed to create relationship: " + data.responseText);
+                        emr.errorMessage('${ ui.message("pihcore.relationship.failToCreate") }' + ": " + data.responseText);
                         addChildDialog.close();
                         jq("#childName").text("");
                     });
