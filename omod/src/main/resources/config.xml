@@ -44,6 +44,9 @@
         <require_module version="${authenticationuiVersion}">
             org.openmrs.module.authenticationui
         </require_module>
+        <require_module version="${bedmanagementVersion}">
+            org.openmrs.module.bedmanagement
+        </require_module>
         <require_module version="${calculationVersion}">
             org.openmrs.calculation
         </require_module>
