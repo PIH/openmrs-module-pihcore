@@ -12,7 +12,25 @@
         color:blue;
         text-decoration:underline;
     }
+    .boundary {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
+    .row {
+        display: flex;
+    }
+    /* Create two columns that sits next to each other */
+    .left-column {
+        flex: 40%;
+        float: left;
+        padding: 10px;
+    }
+    .right-column {
+        flex: 60%;
+        float: right;
+        padding: 10px;
+    }
 </style>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
@@ -78,6 +96,17 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         initDeleteChildDialog(relationshipUuid);
         deleteChildDialog.show();
     }
+
+    function searchChildren() {
+        emr.navigateTo({
+            provider: "pihcore",
+            page: "children/findChildren",
+            query: {
+                patientId: '${ patient.patientId }',
+                rerturnUrl: '${ ui.escapeJs(returnUrl) }'
+            }
+        });
+    }
 </script>
 
 <div id="delete-child-dialog" class="dialog" style="display: none">
@@ -103,7 +132,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
     </div>
 </div>
 
-<h3>${ ui.message("registration.patient.children.label") }</h3>
+<div clas="row-lb">
+    <div class="left-column">
+        <h3>${ ui.message("registration.patient.children.label") }</h3>
+    </div>
+    <div class="right-column">
+        <input id="searchChildren" type="button" value="${ ui.message("pihcore.children.searchAndRegister") }" onclick="searchChildren();" />
+    </div>
+</div>
 
 <table id="children-list-table">
     <thead>
@@ -136,7 +172,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
             </tr>
     <% } %>
 </table>
-
+<div class="boundary"></div>
 <div>
     <input id="return-button" type="button" class="cancel" value="${ ui.message("pihcore.encounterList.return") }"/>
 </div>
