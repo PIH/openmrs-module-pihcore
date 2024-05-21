@@ -58,6 +58,7 @@
         <attachmentsVersion>2.8.0</attachmentsVersion>
         <authenticationVersion>1.0.0</authenticationVersion>
         <authenticationuiVersion>1.1.0-SNAPSHOT</authenticationuiVersion>
+        <bedmanagementVersion>5.14.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>1.3.0</calculationVersion>
         <coreappsVersion>1.40.0-SNAPSHOT</coreappsVersion>
         <dbeventVersion>1.0.0-SNAPSHOT</dbeventVersion>
@@ -225,6 +226,13 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>authenticationui-api</artifactId>
             <version>${authenticationuiVersion}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>bedmanagement-api</artifactId>
+            <version>${bedmanagementVersion}</version>
             <scope>provided</scope>
         </dependency>
 
