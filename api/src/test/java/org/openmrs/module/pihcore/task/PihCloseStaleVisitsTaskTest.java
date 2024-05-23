@@ -22,7 +22,6 @@ import org.openmrs.module.emrapi.disposition.Disposition;
 import org.openmrs.module.emrapi.disposition.DispositionDescriptor;
 import org.openmrs.module.emrapi.disposition.DispositionService;
 import org.openmrs.module.emrapi.test.ContextSensitiveMetadataTestUtils;
-import org.openmrs.module.emrapi.visit.EmrVisitService;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.metadatamapping.MetadataSource;
@@ -53,9 +52,6 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private EmrApiProperties emrApiProperties;
-
-    @Autowired
-    EmrVisitService emrVisitService;
 
     @Autowired
     ConceptService conceptService;
