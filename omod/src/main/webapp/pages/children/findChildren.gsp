@@ -111,7 +111,7 @@
 <div class="mx-2">
     <div class="row mt-2">
         <div class="col-8 col-md-4 order-md-last mb-4">
-            <a href="${ ui.pageLink("registrationapp", "registerPatient", [ appId: appId, breadcrumbOverride: '' ]) }">
+            <a href="${ ui.pageLink("registrationapp", "registerPatient", [ appId: appId, breadcrumbOverride: '', initialValues: initialRegistrationValues]) }">
                 <button id="register-patient-button">${ ui.message("registrationapp.new.registration") }</button>
             </a>
         </div>
