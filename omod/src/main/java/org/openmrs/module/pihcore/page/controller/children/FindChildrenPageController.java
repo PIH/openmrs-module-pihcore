@@ -2,12 +2,16 @@ package org.openmrs.module.pihcore.page.controller.children;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
+import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.RelationshipType;
 import org.openmrs.api.PersonService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.reporting.common.ObjectUtil;
+import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
@@ -21,7 +25,6 @@ public class FindChildrenPageController {
                            @SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties
     ) {
 
-
         if (StringUtils.isBlank(returnUrl)) {
             returnUrl = ui.pageLink("pihcore", "children/children", ObjectUtil.toMap("patientId", patient.getUuid()));
         }
@@ -29,6 +32,22 @@ public class FindChildrenPageController {
 
         model.addAttribute("patient", patient);
         model.addAttribute("motherToChildRelationshipType", motherToChildRelationshipType);
+        String phoneNumber = null;
+        PersonAttributeType phoneNumberAttributeType = personService.getPersonAttributeTypeByUuid(Metadata.getPhoneNumberAttributeType().getUuid());
+        if (phoneNumberAttributeType != null ) {
+            PersonAttribute attribute = patient.getAttribute(phoneNumberAttributeType);
+            if ( attribute != null) {
+                phoneNumber = attribute.getValue();
+            }
+        }
+        // pass the mother's info to the baby registration form as a list of property-value in the following format:
+        // SECTION.QUESTION.FIELD , this matches the existing format of the registration form
+        SimpleObject initialValues = SimpleObject.create(
+                "demographics.mothersFirstNameLabel.mothersFirstName", patient.getGivenName(),
+                "contactInfo.phoneNumberLabel.phoneNumber", phoneNumber
+                );
+
+        model.addAttribute("initialRegistrationValues", ui.toJson(initialValues));
         model.addAttribute("returnUrl", returnUrl);
     }
 }
