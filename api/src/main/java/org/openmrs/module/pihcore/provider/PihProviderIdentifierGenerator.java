@@ -5,7 +5,7 @@ import org.openmrs.module.emrapi.account.ProviderIdentifierGenerator;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.validator.LuhnMod30IdentifierValidator;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.providermanagement.Provider;
+import org.openmrs.Provider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
