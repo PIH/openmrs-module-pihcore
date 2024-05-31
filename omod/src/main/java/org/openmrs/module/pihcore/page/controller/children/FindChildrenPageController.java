@@ -61,6 +61,6 @@ public class FindChildrenPageController {
                 "registerRelationships.relationships_mother.mother-field", patientInfo
                 );
         model.addAttribute("initialRegistrationValues", ui.toJson(initialValues));
-        model.addAttribute("returnUrl", returnUrl);
+        model.addAttribute("returnUrl", returnUrl.substring(returnUrl.indexOf("/", 1)));
     }
 }
