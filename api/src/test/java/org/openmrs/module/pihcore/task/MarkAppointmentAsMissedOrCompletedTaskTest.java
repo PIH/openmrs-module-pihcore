@@ -40,7 +40,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
 
     @BeforeEach
     public void before() throws Exception {
-        executeDataSet("appointmentTestDataset.xml");
+        executeDataSet("appointmentSchedulingAppointmentTestDataset.xml");
         createEmrApiMappingSource(metadataMappingService);
         loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
         loadFromInitializer(Domain.ENCOUNTER_TYPES, "encounterTypes.csv");
@@ -57,7 +57,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
     @Test
     public void shouldMarkPastScheduledAppointmentsAsMissed() {
 
-        new MarkAppointmentsAsMissedOrCompletedTask().run();
+        new MarkAppointmentSchedulingAppointmentsAsMissedOrCompletedTask().run();
 
         assertThat(appointmentService.getPatientAppointment(1).getStatus(), is(AppointmentStatus.MISSED));
         assertThat(appointmentService.getPatientAppointment(2).getStatus(), is(AppointmentStatus.MISSED));
@@ -75,7 +75,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
     @Test
     public void shouldNotMarkFutureAppointmentsAsMissedOrCompleted() {
 
-        new MarkAppointmentsAsMissedOrCompletedTask().run();
+        new MarkAppointmentSchedulingAppointmentsAsMissedOrCompletedTask().run();
 
         assertThat(appointmentService.getPatientAppointment(9).getStatus(), is(AppointmentStatus.SCHEDULED));
         assertThat(appointmentService.getPatientAppointment(10).getStatus(), is(AppointmentStatus.WAITING));
@@ -85,7 +85,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
     @Test
     public void shouldMarkActiveAppointmentsAsCompleteIfConsultAsPartOfVisit() {
 
-        new MarkAppointmentsAsMissedOrCompletedTask().run();
+        new MarkAppointmentSchedulingAppointmentsAsMissedOrCompletedTask().run();
 
         // sanity check: status isn't changed by default, since there are no consultations associated with this visit
         assertThat(appointmentService.getPatientAppointment(4).getStatus(), is(AppointmentStatus.INCONSULTATION));
@@ -136,7 +136,7 @@ public class MarkAppointmentAsMissedOrCompletedTaskTest extends PihCoreContextSe
         appointmentService.savePatientAppointment(appt8);
 
         // run the task again
-        new MarkAppointmentsAsMissedOrCompletedTask().run();
+        new MarkAppointmentSchedulingAppointmentsAsMissedOrCompletedTask().run();
 
         // should not be changed because associated visit did not have consult
         assertThat(appointmentService.getPatientAppointment(4).getStatus(), is(AppointmentStatus.INCONSULTATION));

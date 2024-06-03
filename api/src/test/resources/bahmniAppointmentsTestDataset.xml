@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <appointment_speciality speciality_id="1" name="Ortho" uuid="c36006e5-9fbb-4f20-866b-0ece245615a1" creator="1"/>
+
+    <appointment_service appointment_service_id="1" name="Consultation" description="Consultation" start_time="09:00:00" end_time="17:00:00" location_id="1"
+                         speciality_id="1" max_appointments_limit="4" duration_mins="30" creator="1" uuid="c36006e5-9fbb-4f20-866b-0ece245615a6" voided="false"/>
+
+    <patient_appointment patient_appointment_id="1" patient_id ="2" appointment_service_id="1" appointment_kind="Scheduled" status="CheckedIn" start_date_time="2023-07-15 17:00:00.0" end_date_time="2023-07-15 18:00:00.0" creator="1" date_created="2008-08-15 15:57:09.0" voided="false" void_reason="" uuid="75504r42-3ca8-11e3-bf2b-0800271c1b77"/>
+    <patient_appointment patient_appointment_id="2" patient_id ="2" appointment_service_id="1" appointment_kind="Scheduled" status="CheckedIn" start_date_time="2023-07-15 17:00:00.0" end_date_time="2023-07-15 18:00:00.0" creator="1" date_created="2008-08-15 15:57:09.0" voided="false" void_reason="" uuid="83457034-f65a-4d90-8558-a26cce155789"/>
+    <patient_appointment patient_appointment_id="3" patient_id ="2" appointment_service_id="1" appointment_kind="Scheduled" status="Scheduled" start_date_time="2023-07-15 17:00:00.0" end_date_time="2023-07-15 18:00:00.0" creator="1" date_created="2008-08-15 15:57:09.0" voided="false" void_reason="" uuid="cc230ca4-cc64-428f-93c6-5401eb036ffb"/>
+    <patient_appointment patient_appointment_id="4" patient_id ="2" appointment_service_id="1" appointment_kind="Scheduled" status="CheckedIn" start_date_time="2023-07-15 17:00:00.0" end_date_time="2023-07-15 18:00:00.0" creator="1" date_created="2008-08-15 15:57:09.0" voided="false" void_reason="" uuid="26b095a1-5f6a-4c6c-9d79-823c05ce1626"/>
+    <patient_appointment patient_appointment_id="5" patient_id ="2" appointment_service_id="1" appointment_kind="Scheduled" status="CheckedIn" start_date_time="2023-07-15 17:00:00.0" end_date_time="2023-07-15 18:00:00.0" creator="1" date_created="2008-08-15 15:57:09.0" voided="false" void_reason="" uuid="bd1861d7-22b7-44de-b8ef-15976245bc85"/>
+    <patient_appointment patient_appointment_id="6" patient_id ="2" appointment_service_id="1" appointment_kind="Scheduled" status="CheckedIn" start_date_time="2023-07-15 17:00:00.0" end_date_time="2023-07-15 18:00:00.0" creator="1" date_created="2008-08-15 15:57:09.0" voided="false" void_reason="" uuid="8c33099b-377d-4a99-8a3e-3abb14fc45b7"/>
+
+
+
+    <visit visit_id="1001" patient_id="2" visit_type_id="1" date_started="2005-01-01 00:00:00.0" date_stopped="2005-01-01 12:00:00.0" location_id="1" creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="0b5cba3a-72bc-4418-8bfa-d1994754ae7e" />
+    <visit visit_id="1002" patient_id="2" visit_type_id="1" date_started="2005-01-01 00:00:00.0" location_id="1" creator="1" date_created="2005-01-01 00:00:00.0" voided="0" uuid="da2727a7-7a43-4c1a-9a85-d571173d3d7f" />
+
+    <encounter encounter_id="1001"  patient_id="2" encounter_type="1" visit_id="1001" encounter_datetime="2017-08-08 14:00:00.0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="f303e49f-24a9-41bb-810b-5d07b881c0e0"/>
+    <encounter encounter_id="1002"  patient_id="2" encounter_type="2" visit_id="1002" encounter_datetime="2017-08-08 14:30:00.0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="785826c1-f137-4b4f-bb2f-07b5c546d139"/>
+    <encounter encounter_id="1003"  patient_id="2" encounter_type="2" encounter_datetime="2017-08-08 14:30:00.0" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="1190f38e-2651-4af6-bccc-2b8a95d98e55"/>
+
+    <patient_appointment_fulfilling_encounter_map patient_appointment_id="1" fulfilling_encounter_id="1001"/>
+    <patient_appointment_fulfilling_encounter_map patient_appointment_id="2" fulfilling_encounter_id="1002"/>
+    <patient_appointment_fulfilling_encounter_map patient_appointment_id="3" fulfilling_encounter_id="1001"/>
+    <patient_appointment_fulfilling_encounter_map patient_appointment_id="5" fulfilling_encounter_id="1003"/>
+    <patient_appointment_fulfilling_encounter_map patient_appointment_id="6" fulfilling_encounter_id="1001"/>
+    <patient_appointment_fulfilling_encounter_map patient_appointment_id="6" fulfilling_encounter_id="1002"/>
+</dataset>
