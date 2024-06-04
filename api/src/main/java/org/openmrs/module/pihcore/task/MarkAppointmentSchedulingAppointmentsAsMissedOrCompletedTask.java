@@ -16,7 +16,7 @@ import java.util.Date;
  * 1) sets any with a StatusType of SCHEDULED to MISSED, and 2) sets any with a StatusType of ACTIVE to COMPLETED *if* that appointment
  * has a visit with one or more consult encounters associated with it
  */
-public class MarkAppointmentsAsMissedOrCompletedTask implements Runnable {
+public class MarkAppointmentSchedulingAppointmentsAsMissedOrCompletedTask implements Runnable {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 

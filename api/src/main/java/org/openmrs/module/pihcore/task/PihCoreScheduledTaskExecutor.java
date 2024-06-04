@@ -17,15 +17,18 @@ public class PihCoreScheduledTaskExecutor extends ScheduledExecutorFactoryBean {
     private final long oneSecond = 1000;
     private final long oneMinute = oneSecond * 60;
     private final long fiveMinutes = oneMinute * 5;
+
+    private final long tenMinutes = oneMinute * 10;
     private final long oneHour = oneMinute * 60;
     private final long fourHours = oneHour * 4;
 
     public PihCoreScheduledTaskExecutor() {
         setScheduledExecutorTasks(
-                task(fiveMinutes, fourHours, MarkAppointmentsAsMissedOrCompletedTask.class),
+                task(fiveMinutes, fourHours, MarkAppointmentSchedulingAppointmentsAsMissedOrCompletedTask.class),
                 task(fiveMinutes, oneHour, PihCloseStalePullRequestsTask.class),
                 task(fiveMinutes, oneHour, PihCloseStaleCreateRequestsTask.class),
-                task(fiveMinutes, oneHour, PihCloseStaleVisitsTask.class)
+                task(fiveMinutes, oneHour, PihCloseStaleVisitsTask.class),
+                task(tenMinutes, oneHour, MarkBahmniAppointmentsAsCompleted.class)  // generally we want this to run afte the close stale visits task
         );
     }
 
