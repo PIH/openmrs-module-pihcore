@@ -212,6 +212,7 @@ public class CustomAppLoaderConstants {
         public static final String LABOR_PROGRESS_ACTION = "pih.form.laborProgress";
         public static final String LABOR_DELIVERY_SUMMARY_ACTION = "pih.form.laborDeliverySummary";
         public static final String POSTPARTUM_PROGRESS_ACTION = "pih.form.postpartumProgress";
+        public static final String NICU_TRIAGE_ACTION = "pih.form.nicuTriage";
         public static final String OB_GYN_VISIT_ACTION = "pih.form.obGyn";
         public static final String MENTAL_HEALTH_VISIT_ACTION = "pih.form.mentalHealth";
         public static final String MENTAL_HEALTH_INTAKE_VISIT_ACTION = "pih.form.mentalHealthIntake";
@@ -463,6 +464,7 @@ public class CustomAppLoaderConstants {
             Extensions.POSTPARTUM_PROGRESS_ACTION,
             Extensions.NEWBORN_OBS_ACTION,
             Extensions.NEWBORN_REFERRAL_ACTION,
+            Extensions.NICU_TRIAGE_ACTION,
             Extensions.OB_GYN_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_VISIT_ACTION,
             Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,

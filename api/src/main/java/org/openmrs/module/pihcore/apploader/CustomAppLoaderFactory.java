@@ -2191,6 +2191,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientAgeInMonthsLessThanAtVisitStart(3)))));
 
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NICU_TRIAGE_ACTION,
+                    "pih.task.nicuTriage",
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("nicuTriage.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("MCH Triage Location"),
+                            and(patientAgeInMonthsLessThanAtVisitStart(3)))));
+
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LABOR_PROGRESS_ACTION,
                     "pih.task.laborProgress",
                     "fas fa-fw fa-baby",
