@@ -59,9 +59,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>jasper</artifactId>
-			<version>6.0.18</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -120,6 +120,13 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>authenticationui-omod</artifactId>
 			<version>${authenticationuiVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>coreapps-omod</artifactId>
+			<version>${coreappsVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 
