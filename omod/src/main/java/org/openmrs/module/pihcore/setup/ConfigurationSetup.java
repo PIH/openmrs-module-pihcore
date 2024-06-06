@@ -47,7 +47,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import static org.openmrs.module.initializer.Domain.OCL;
 import static org.openmrs.module.pihcore.PihCoreConstants.GP_COMPONENT_PREFIX;
 import static org.openmrs.module.pihcore.PihCoreConstants.GP_CONFIGURED_SITE;
 

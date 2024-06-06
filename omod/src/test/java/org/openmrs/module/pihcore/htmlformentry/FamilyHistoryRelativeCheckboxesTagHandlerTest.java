@@ -15,11 +15,11 @@ import org.openmrs.module.htmlformentry.RegressionTestHelper;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.metadatadeploy.builder.ConceptBuilder;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
-import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
+import org.openmrs.web.test.jupiter.BaseModuleWebContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 
@@ -33,7 +33,7 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptS
  * This is ignored because it causes lots the PastMedicalHistoryCheckboxTagHandlerTest to fail when it is enabled.  It passes when run on it's own.
  */
 @Disabled
-public class FamilyHistoryRelativeCheckboxesTagHandlerTest extends PihCoreContextSensitiveTest {
+public class FamilyHistoryRelativeCheckboxesTagHandlerTest extends BaseModuleWebContextSensitiveTest {
 
     @Autowired
     private ConceptService conceptService;
