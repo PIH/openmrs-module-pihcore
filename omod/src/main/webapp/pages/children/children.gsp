@@ -2,8 +2,6 @@
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
 
-    def NEWBORN_GENDER_CONCEPT = '1587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
-    def NEWBORN_BIRTHDATE_CONCEPT = 'ba82b5dd-228f-49f7-8ce1-23a5e6988a1a';
 %>
 <style>
     .date-column {
@@ -194,29 +192,17 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         </tr>
     </thead>
     <tbody>
-        <% if (deliveryEncounters.size() == 0) { %>
+        <% if (unregisteredBabies.size() == 0) { %>
         <tr>
             <td colspan="8">${ ui.message("emr.none") }</td>
         </tr>
         <% } %>
-        <% deliveryEncounters.each { e ->
-            def pageLink
-            if (e.form) {
-                pageLink = ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi", [
-                        "patientId": e.patient.uuid,
-                        "encounterId": e.uuid,
+        <% unregisteredBabies.each { e ->
+            def pageLink = ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi", [
+                        "patientId": e.patientUuid,
+                        "encounterId": e.encounterUuid,
                         "returnProvider": "pihcore",
                         "returnPage": "children/children"])
-            }
-            def babyGender = null;
-            def babyBirthDatetime= null;
-            e.obs.each { obs ->
-                if (obs.concept.uuid == NEWBORN_GENDER_CONCEPT) {
-                    babyGender = obs
-                } else if (obs.concept.uuid == NEWBORN_BIRTHDATE_CONCEPT) {
-                    babyBirthDatetime = obs
-                }
-            }
         %>
         <tr id="encounter-${ e.encounterId }" class="encounter-row${pageLink ? ' pointer' :''}" data-href="${pageLink}">
             <td>
@@ -226,15 +212,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 ${ ui.format(e.encounterDatetime) }
             </td>
             <td>
-                <% e.encounterProviders.eachWithIndex { ep, index -> %>
-                ${ ui.format(ep.provider) }${ e.encounterProviders.size() - index > 1 ? "<br/>" : ""}
-                <% } %>
+                ${ ui.format(e.provider) }
             </td>
             <td class="date-column">
-                ${ ui.format(babyBirthDatetime) }
+                ${ ui.format(e.birthDatetime) }
             </td>
             <td>
-                ${ui.format(babyGender)  }
+                ${ui.format(e.gender)  }
             </td>
             <td>
                 <input type="button" value="Register">
