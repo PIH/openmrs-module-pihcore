@@ -2,6 +2,8 @@
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
 
+    def NEWBORN_GENDER_CONCEPT = '1587AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+    def NEWBORN_BIRTHDATE_CONCEPT = 'ba82b5dd-228f-49f7-8ce1-23a5e6988a1a';
 %>
 <style>
     .date-column {
@@ -132,7 +134,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
     </div>
 </div>
 
-<div clas="row-lb">
+<div clas="row">
     <div class="left-column">
         <h3>${ ui.message("registration.patient.children.label") }</h3>
     </div>
@@ -171,6 +173,81 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 <td onclick="javascript:deleteChildRelationship('${ relationship }', '${ child.givenName }' + ', ' + '${ child.familyName }')"><i class="icon-remove delete-action"></i></td>
             </tr>
     <% } %>
+</table>
+<div class="boundary"></div>
+
+<div style="margin-top: 30px; margin-bottom: 20px;">
+    <h3>${ ui.message("registration.patient.unregistered.babies") }</h3>
+    <span>${ ui.message("registration.patient.unregistered.babies.msg") }</span>
+</div>
+<table id="unregistered-babies-table">
+    <thead>
+        <tr>
+            <th>${ ui.message("pihcore.delivery.form") }</th>
+            <th>${ ui.message("pihcore.encounterList.enteredDatetime") }</th>
+            <th>${ ui.message("pihcore.provider") }</th>
+            <th>${ ui.message("pihcore.birthdate") }</th>
+            <th>${ ui.message("pihcore.gender") }</th>
+            <th>${ ui.message("registration.patient.register.baby") }</th>
+            <th>${ ui.message("registration.patient.register.link") }</th>
+            <th>${ ui.message("registration.patient.remove") }</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (deliveryEncounters.size() == 0) { %>
+        <tr>
+            <td colspan="8">${ ui.message("emr.none") }</td>
+        </tr>
+        <% } %>
+        <% deliveryEncounters.each { e ->
+            def pageLink
+            if (e.form) {
+                pageLink = ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi", [
+                        "patientId": e.patient.uuid,
+                        "encounterId": e.uuid,
+                        "returnProvider": "pihcore",
+                        "returnPage": "children/children"])
+            }
+            def babyGender = null;
+            def babyBirthDatetime= null;
+            e.obs.each { obs ->
+                if (obs.concept.uuid == NEWBORN_GENDER_CONCEPT) {
+                    babyGender = obs
+                } else if (obs.concept.uuid == NEWBORN_BIRTHDATE_CONCEPT) {
+                    babyBirthDatetime = obs
+                }
+            }
+        %>
+        <tr id="encounter-${ e.encounterId }" class="encounter-row${pageLink ? ' pointer' :''}" data-href="${pageLink}">
+            <td>
+                ${ ui.message("pih.task.summaryLandD") }
+            </td>
+            <td class="date-column">
+                ${ ui.format(e.encounterDatetime) }
+            </td>
+            <td>
+                <% e.encounterProviders.eachWithIndex { ep, index -> %>
+                ${ ui.format(ep.provider) }${ e.encounterProviders.size() - index > 1 ? "<br/>" : ""}
+                <% } %>
+            </td>
+            <td class="date-column">
+                ${ ui.format(babyBirthDatetime) }
+            </td>
+            <td>
+                ${ui.format(babyGender)  }
+            </td>
+            <td>
+                <input type="button" value="Register">
+            </td>
+            <td>
+                <input type="button" value="Link">
+            </td>
+            <td >
+                <input type="button" value="X">
+            </td>
+        </tr>
+    <% } %>
+    </tbody>
 </table>
 <div class="boundary"></div>
 <div>
