@@ -132,7 +132,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
     </div>
 </div>
 
-<div clas="row-lb">
+<div clas="row">
     <div class="left-column">
         <h3>${ ui.message("registration.patient.children.label") }</h3>
     </div>
@@ -171,6 +171,67 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 <td onclick="javascript:deleteChildRelationship('${ relationship }', '${ child.givenName }' + ', ' + '${ child.familyName }')"><i class="icon-remove delete-action"></i></td>
             </tr>
     <% } %>
+</table>
+<div class="boundary"></div>
+
+<div style="margin-top: 30px; margin-bottom: 20px;">
+    <h3>${ ui.message("registration.patient.unregistered.babies") }</h3>
+    <span>${ ui.message("registration.patient.unregistered.babies.msg") }</span>
+</div>
+<table id="unregistered-babies-table">
+    <thead>
+        <tr>
+            <th>${ ui.message("pihcore.delivery.form") }</th>
+            <th>${ ui.message("pihcore.encounterList.enteredDatetime") }</th>
+            <th>${ ui.message("pihcore.provider") }</th>
+            <th>${ ui.message("pihcore.birthdate") }</th>
+            <th>${ ui.message("pihcore.gender") }</th>
+            <th>${ ui.message("registration.patient.register.baby") }</th>
+            <th>${ ui.message("registration.patient.register.link") }</th>
+            <th>${ ui.message("registration.patient.remove") }</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (unregisteredBabies.size() == 0) { %>
+        <tr>
+            <td colspan="8">${ ui.message("emr.none") }</td>
+        </tr>
+        <% } %>
+        <% unregisteredBabies.each { e ->
+            def pageLink = ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi", [
+                        "patientId": e.patientUuid,
+                        "encounterId": e.encounterUuid,
+                        "returnProvider": "pihcore",
+                        "returnPage": "children/children"])
+        %>
+        <tr id="encounter-${ e.encounterId }" class="encounter-row${pageLink ? ' pointer' :''}" data-href="${pageLink}">
+            <td>
+                ${ ui.message("pih.task.summaryLandD") }
+            </td>
+            <td class="date-column">
+                ${ ui.format(e.encounterDatetime) }
+            </td>
+            <td>
+                ${ ui.format(e.provider) }
+            </td>
+            <td class="date-column">
+                ${ ui.format(e.birthDatetime) }
+            </td>
+            <td>
+                ${ui.format(e.gender)  }
+            </td>
+            <td>
+                <input type="button" value="Register">
+            </td>
+            <td>
+                <input type="button" value="Link">
+            </td>
+            <td >
+                <input type="button" value="X">
+            </td>
+        </tr>
+    <% } %>
+    </tbody>
 </table>
 <div class="boundary"></div>
 <div>
