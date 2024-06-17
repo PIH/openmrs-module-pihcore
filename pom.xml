@@ -686,6 +686,19 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Adding this for feature to import fingerprint info from fingerprint db -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.46.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- End OpenMRS contrib -->
 
         <!-- this is necessary to use the Html Form Entry Regresstion Test Helper when running against Platform 2.1.0;
