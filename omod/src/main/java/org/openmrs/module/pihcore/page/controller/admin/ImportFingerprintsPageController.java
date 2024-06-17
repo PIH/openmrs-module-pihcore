@@ -21,7 +21,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -99,6 +99,7 @@ public class ImportFingerprintsPageController {
         log.info("Read " + rows.size() + " fingerprint rows");
 
         PatientIdentifierType hivEmrId = getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
+        PatientIdentifierType zlEmrId = getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
         PatientIdentifierType fingerprintId = getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_BIOMETRICSREFERENCECODE_UUID);
 
         List<Map<String, Object>> existingRows = new ArrayList<>();
@@ -117,10 +118,7 @@ public class ImportFingerprintsPageController {
             String fingerprintSubjectId = (String) row.get("subjectId");
             Date createdDate = (Date) row.get("createdDate");
 
-            List<PatientIdentifier> pis = getPatientService().getPatientIdentifiers(identifier, Collections.singletonList(hivEmrId), null, null, null);
-            if (pis.isEmpty()) {
-                pis = getPatientService().getPatientIdentifiers(identifier, null, null, null, null);
-            }
+            List<PatientIdentifier> pis = getPatientService().getPatientIdentifiers(identifier, Arrays.asList(hivEmrId, zlEmrId), null, null, null);
 
             boolean alreadyExists = false;
             String error = null;
