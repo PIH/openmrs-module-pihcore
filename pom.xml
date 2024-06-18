@@ -101,7 +101,7 @@
         <uicommonsVersion>2.26.0-SNAPSHOT</uicommonsVersion>
         <uiframeworkVersion>3.24.0</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
-        <webservicesRestVersion>2.43.0</webservicesRestVersion>
+        <webservicesRestVersion>2.44.0-SNAPSHOT</webservicesRestVersion>
 
         <testcontainersVersion>1.19.8</testcontainersVersion>
 
