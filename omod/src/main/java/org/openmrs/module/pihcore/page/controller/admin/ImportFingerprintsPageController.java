@@ -82,7 +82,7 @@ public class ImportFingerprintsPageController {
 
         List<Map<String, Object>> rows = new ArrayList<>();
 
-        log.info("Reading fingerprints from DB...");
+        log.warn("Reading fingerprints from DB...");
         try (Connection conn = DriverManager.getConnection(url)) {
             try (Statement stmt = conn.createStatement()) {
                 try (ResultSet rs = stmt.executeQuery(query)) {
@@ -96,7 +96,7 @@ public class ImportFingerprintsPageController {
                 }
             }
         }
-        log.info("Read " + rows.size() + " fingerprint rows");
+        log.warn("Read " + rows.size() + " fingerprint rows");
 
         PatientIdentifierType hivEmrId = getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID);
         PatientIdentifierType zlEmrId = getPatientService().getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
@@ -179,24 +179,24 @@ public class ImportFingerprintsPageController {
             }
             row.put("error", error);
             if (error != null) {
-                log.warn(row.toString());
+                log.error(row.toString());
             }
             else {
-                log.debug(row.toString());
+                log.warn(row.toString());
             }
 
             rowsProcessed++;
 
             if (rowsProcessed % 20 == 0) {
-                log.info("Processed " + rowsProcessed + " / " + rows.size() + " rows");
+                log.warn("Processed " + rowsProcessed + " / " + rows.size() + " rows");
                 Context.flushSession();
                 Context.clearSession();
             }
         }
 
-        log.info("Existing Rows: " + existingRows.size());
-        log.info("Error Rows: " + errorRows.size());
-        log.info("Success Rows: " + successRows.size());
+        log.warn("Existing Rows: " + existingRows.size());
+        log.warn("Error Rows: " + errorRows.size());
+        log.warn("Success Rows: " + successRows.size());
 
         return ret;
     }
