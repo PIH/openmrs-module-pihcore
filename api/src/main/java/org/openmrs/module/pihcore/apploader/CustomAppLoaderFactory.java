@@ -2084,7 +2084,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                       PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
-                            and(patientIsFemale()))));
+                            and(patientIsFemale(), patientIsReproductiveAge()))));
         } else {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
@@ -2096,7 +2096,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
-                            and(patientIsFemale(), patientIsReproductiveAge()))));
+                            and(patientIsFemale(), patientIsAdult()))));
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID,
@@ -2107,7 +2107,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
-                            and(patientIsFemale(), patientIsReproductiveAge()))));
+                            and(patientIsFemale(), patientIsAdult()))));
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
@@ -2117,7 +2117,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                       PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
-                            and(patientIsFemale(), patientIsReproductiveAge()))));
+                            and(patientIsFemale(), patientIsAdult()))));
         }
 
         if (config.isComponentEnabled(Components.OBGYN)) {
