@@ -2075,7 +2075,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
         } else if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
-
+            // For ZL, the reproductive age is 11+.  Not the same for SL
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
                     "fas fa-fw fa-baby",
