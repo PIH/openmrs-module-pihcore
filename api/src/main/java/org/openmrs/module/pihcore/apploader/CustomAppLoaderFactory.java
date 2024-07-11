@@ -1078,21 +1078,40 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableAppointments() {
-        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,
-                        "pih.app.appointments.title",
-                        "fas fa-fw fa-calendar-alt",
-                        "spa/home/appointments",
-                        null,
-                        null),
-                sessionLocationHasTag("Appointment Location")));
 
-        apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PATIENT_APPOINTMENTS_SUMMARY,
-                        "pih.app.patientAppointments.title",
-                        "fas fa-fw fa-calendar-alt",
-                        null,
-                        null,
-                        null),
-                "pihcore", "dashboardwidgets/appointments"));
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+            apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,
+                            "pih.app.appointments.title",
+                            "fas fa-fw fa-calendar-alt",
+                            "spa/home/appointments",
+                            "App: appointmentschedulingui.home",
+                            null),
+                    sessionLocationHasTag("Appointment Location")));
+
+            apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PATIENT_APPOINTMENTS_SUMMARY,
+                            "pih.app.patientAppointments.title",
+                            "fas fa-fw fa-calendar-alt",
+                            null,
+                            null,
+                            null),
+                    "pihcore", "dashboardwidgets/appointments"));
+        } else {
+            apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,
+                            "pih.app.appointments.title",
+                            "fas fa-fw fa-calendar-alt",
+                            "spa/home/appointments",
+                            null,
+                            null),
+                    sessionLocationHasTag("Appointment Location")));
+
+            apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PATIENT_APPOINTMENTS_SUMMARY,
+                            "pih.app.patientAppointments.title",
+                            "fas fa-fw fa-calendar-alt",
+                            null,
+                            null,
+                            null),
+                    "pihcore", "dashboardwidgets/appointments"));
+        }
     }
 
     private void enableSurgery() {
