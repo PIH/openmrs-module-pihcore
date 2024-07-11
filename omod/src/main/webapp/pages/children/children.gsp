@@ -234,7 +234,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 ${ui.format(e.gender)  }
             </td>
             <td>
-                <a href="${ ui.pageLink("registrationapp", "registerPatient", [ appId: 'registrationapp.registerPatient', breadcrumbOverride: '', mother: e.patientUuid, initialValues: updatedValues, returnUrl: childrenPageReturnUrl]) }">
+                <a href="${ ui.pageLink("registrationapp", "registerPatient", [ appId: 'registrationapp.registerPatient', breadcrumbOverride: '', mother: e.patientUuid, initialValues: updatedValues, goToSectionId: "idcardLabel", returnUrl: childrenPageReturnUrl]) }">
                     <button id="register-child-button">${ ui.message("Register") }</button>
                 </a>
             </td>
