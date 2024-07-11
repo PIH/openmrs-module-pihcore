@@ -15,7 +15,8 @@ import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.Person;
-import org.openmrs.Provider;
+import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.Relationship;
 import org.openmrs.RelationshipType;
 import org.openmrs.api.ConceptService;
@@ -26,6 +27,7 @@ import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
+import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
 import org.openmrs.ui.framework.SimpleObject;
@@ -89,7 +91,7 @@ public class ChildrenPageController {
                     Set<Obs> groupMembers = candidate.getGroupMembers();
                     if ( groupMembers != null ) {
                         for (Obs groupMember : groupMembers) {
-                            // search fpr Labour and Delivery obs that have the "Register patient in EMR" obs set to No (SL-617)
+                            // search for Labour and Delivery obs that have the "Register patient in EMR" obs set to No (SL-617)
                             if(groupMember.getConcept().equals(registerBabyConcept) && groupMember.getValueCoded().equals(noConcept)) {
                                 //find the gender and the birthdate time of the baby
                                 String gender = getObsValue(groupMembers, conceptService, BABY_GENDER_CONCEPT_SOURCE, BABY_GENDER_CONCEPT);
@@ -101,7 +103,8 @@ public class ChildrenPageController {
                                         "encounterDatetime", encounter.getEncounterDatetime(),
                                         "provider", encounter.getActiveEncounterProviders().stream().map(p -> p.getProvider().getName()).collect(Collectors.joining(",")),
                                         "birthDatetime", birthDatetime,
-                                        "gender", gender
+                                        "gender", gender,
+                                        "registerBabyObs", groupMember.getUuid()
                                 ));
                             }
                         }
@@ -110,6 +113,35 @@ public class ChildrenPageController {
             }
         }
         model.addAttribute("unregisteredBabies", unregisteredBabies);
+
+        String phoneNumber = null;
+        PersonAttributeType phoneNumberAttributeType = personService.getPersonAttributeTypeByUuid(Metadata.getPhoneNumberAttributeType().getUuid());
+        if (phoneNumberAttributeType != null ) {
+            PersonAttribute attribute = patient.getAttribute(phoneNumberAttributeType);
+            if ( attribute != null) {
+                phoneNumber = attribute.getValue();
+            }
+        }
+        String patientInfo = patient.getPatientIdentifier().getIdentifier() + " - "
+                + patient.getFamilyName() + ", "
+                + patient.getGivenName() + ", "
+                + patient.getGender() + ", "
+                + patient.getBirthdate().toString();
+        // pass the mother's info to the baby registration form as a list of property-value in the following format:
+        // SECTION.QUESTION.FIELD , this matches the existing format of the registration form
+        SimpleObject initialValues = SimpleObject.create(
+                "demographics.demographics-name.familyName", patient.getFamilyName(),
+                "demographics.demographics-name.givenName", "Baby",
+                "demographics.mothersFirstNameLabel.mothersFirstName", patient.getGivenName(),
+                "contactInfo.personAddressQuestion.country", patient.getPersonAddress().getCountry(),
+                "contactInfo.phoneNumberLabel.phoneNumber", phoneNumber,
+                "registerRelationships.relationships_mother.relationship_type", motherToChildRelationshipType.getUuid() + "-A",
+                "registerRelationships.relationships_mother.other_person_uuid", patient.getUuid(),
+                "registerRelationships.relationships_mother.other_person_name", patientInfo,
+                "registerRelationships.relationships_mother.mother-field", patientInfo
+        );
+        model.addAttribute("motherToChildRelationshipType", motherToChildRelationshipType);
+        model.addAttribute("initialRegistrationValues", ui.toJson(initialValues));
     }
 
     private String getObsValue(Set<Obs> groupMembers, ConceptService conceptService, String conceptSource, String conceptId) {
