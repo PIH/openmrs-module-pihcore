@@ -2,6 +2,9 @@
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
 
+    import groovy.json.JsonSlurper
+    import groovy.json.JsonOutput
+
 %>
 <style>
     .date-column {
@@ -198,6 +201,16 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         </tr>
         <% } %>
         <% unregisteredBabies.each { e ->
+            def jsonSlurper = new JsonSlurper()
+            def regValues = jsonSlurper.parseText(initialRegistrationValues);
+            regValues.put("demographics.demographics-gender.gender", e.gender)
+            def birthDate = new Date(Date.parse(e.birthDatetime))
+            regValues.put("demographics.demographics-birthdate.birthdateDay", birthDate[Calendar.DAY_OF_MONTH])
+            regValues.put("demographics.demographics-birthdate.birthdateMonth", birthDate[Calendar.MONTH] + 1)
+            regValues.put("demographics.demographics-birthdate.birthdateYear", birthDate[Calendar.YEAR])
+            def updatedValues = JsonOutput.toJson(regValues)
+            def childrenPageReturnUrl = "pihcore/children/children.page?patientId=" + e.patientUuid + "&registerBabyObs=" + e.registerBabyObs
+
             def pageLink = ui.pageLink("htmlformentryui", "htmlform/editHtmlFormWithStandardUi", [
                         "patientId": e.patientUuid,
                         "encounterId": e.encounterUuid,
@@ -221,7 +234,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 ${ui.format(e.gender)  }
             </td>
             <td>
-                <input type="button" value="Register">
+                <a href="${ ui.pageLink("registrationapp", "registerPatient", [ appId: 'registrationapp.registerPatient', breadcrumbOverride: '', mother: e.patientUuid, initialValues: updatedValues, goToSectionId: "idcardLabel", returnUrl: childrenPageReturnUrl]) }">
+                    <button id="register-child-button">${ ui.message("Register") }</button>
+                </a>
             </td>
             <td>
                 <input type="button" value="Link">
