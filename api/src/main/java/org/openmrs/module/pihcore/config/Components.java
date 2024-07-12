@@ -6,7 +6,8 @@ package org.openmrs.module.pihcore.config;
 public class Components {
 
         public static final String ACTIVE_VISITS = "activeVisits";
-        public static final String ADT = "adt";
+        public static final String ADT = "adt";  // O2 ADT functionality (used in Haiti)
+        public static final String ADT_O3 = "adtO3"; // newer O3 ADT functionality (used at KGH)
         public static final String ALL_DATA_EXPORTS = "allDataExports"; // show all data exports, regardless of what components are actually enabled (used by Mirebalais reporting server)
         public static final String ALLERGIES = "allergies";
         public static final String ANC_PROGRAM = "ancProgram";  // needs ANCProgramBundle, used by CES
