@@ -940,17 +940,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     }
 
-    private void enableMCOETriageQueue() {
-        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,
-                        CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,
-                        "fas fa-fw fa-list-ul",
-                        "spa/home/service-queues/queue-table-by-status/" + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID,
-                        "",  // TODO: figure out proper privilege
-                        null),
-                sessionLocationHasTag("Queue Location")));
-
-    }
-
     private void enableDeathCertificate() {
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
