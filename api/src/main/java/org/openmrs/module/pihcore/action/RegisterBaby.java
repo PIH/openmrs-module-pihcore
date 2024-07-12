@@ -35,6 +35,7 @@ public class RegisterBaby implements AfterPatientCreatedAction {
     public void afterPatientCreated(Patient patient, Map<String, String[]> map) {
         Concept noConcept = conceptService.getConceptByMapping(NO_CONCEPT, "CIEL");
         Concept yesConcept = conceptService.getConceptByMapping(YES_CONCEPT, "CIEL");
+        String parameterName = "registerBabyObs=";
 
         if (map != null && !map.isEmpty()) {
             // the Obs UUID that we need to update has been added to the returnURL
@@ -43,14 +44,23 @@ public class RegisterBaby implements AfterPatientCreatedAction {
                 String url = returnUrl[0];
                 if (StringUtils.isNotBlank(url)) {
                     // just grab the UUID string which is 36 characters long
-                    String obsUuid = url.substring(url.indexOf("registerBabyObs=") + "registerBabyObs=".length(), 36);
-                    if (StringUtils.isNotBlank(obsUuid)) {
-                        Obs registerBabyObs = obsService.getObsByUuid(obsUuid);
-                        if (registerBabyObs != null) {
-                            if (registerBabyObs.getValueCoded().equals(noConcept) ) {
-                                registerBabyObs.setValueCoded(yesConcept);
-                                registerBabyObs.setComment(patient.getUuid());
-                                obsService.saveObs(registerBabyObs, "baby is registered");
+                    int parameterIndex = url.indexOf(parameterName);
+                    if (parameterIndex >= 0 ) {
+                        if (url.length() >= parameterIndex + parameterName.length() + 36) {
+                            // if the url string length is at least as long as the parameter we are looking for
+                            // e.g. pihcore/children/children.page?patientId=27bb698c-a374-47d4-8585-6d4b633dd1d7&registerBabyObs=3f495910-3a28-4aa3-864f-11f7b8fbacdb
+                            // where 36 is the length of an UUID generated string
+                            String obsUuid = url.substring(parameterIndex + parameterName.length(), parameterIndex + parameterName.length() + 36);
+                            // extract just the UUID, in the future there might be additional parameters tacked on to the end of the returnURL
+                            if (StringUtils.isNotBlank(obsUuid)) {
+                                Obs registerBabyObs = obsService.getObsByUuid(obsUuid);
+                                if (registerBabyObs != null) {
+                                    if (registerBabyObs.getValueCoded().equals(noConcept) ) {
+                                        registerBabyObs.setValueCoded(yesConcept);
+                                        registerBabyObs.setComment(patient.getUuid());
+                                        obsService.saveObs(registerBabyObs, "baby is registered");
+                                    }
+                                }
                             }
                         }
                     }
