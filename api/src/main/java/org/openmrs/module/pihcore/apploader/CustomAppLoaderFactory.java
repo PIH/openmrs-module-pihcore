@@ -472,10 +472,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enablePrograms(config);
         }
 
-        if (config.isComponentEnabled(Components.PERU_LAB_ORDERS_ANALYSIS_REQUESTS)) {
-            enablePeruLabOrdersAnalysisRequest();
-        }
-
         if (config.isComponentEnabled(Components.COMMENT_FORM)) {
             enableCommentForm();
         }
@@ -543,16 +539,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     // TODO does this need to be modified for the new visit note at all?
     private void enableVisitManagement() {
-
-        if (!config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            extensions.add(overallAction(CustomAppLoaderConstants.Extensions.MERGE_VISITS_OVERALL_ACTION,
-                    "coreapps.task.mergeVisits.label",
-                    "fas fa-fw fa-link",
-                    "link",
-                    "coreapps/mergeVisits.page?patientId={{patient.uuid}}",
-                    "Task: coreapps.mergeVisits",
-                    null));
-        }
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CREATE_VISIT_OVERALL_ACTION,
                 "coreapps.task.startVisit.label",
@@ -699,58 +685,31 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             }
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
-                    "Triaje",
-                    "fas fa-fw fa-heartbeat",
-                    "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
-                    null,
-                    and(sessionLocationHasTag("Vitals Location"),
-                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
+                "mirebalais.task.vitals.label",
+                "fas fa-fw fa-heartbeat",
+                "link",
+                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
+                null,
+                and(sessionLocationHasTag("Vitals Location"),
+                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-            AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
-                    "Triaje",
-                    "fas fa-fw fa-heartbeat",
-                    null,
-                    "App: mirebalais.outpatientVitals",
-                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
-                            "editable", Boolean.TRUE,
-                            "edit-provider", "htmlformentryui",
-                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                            "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-                            "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
-            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
-        } else {
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
-                    "mirebalais.task.vitals.label",
-                    "fas fa-fw fa-heartbeat",
-                    "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
-                    null,
-                    and(sessionLocationHasTag("Vitals Location"),
-                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+        AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
+                "mirebalais.mostRecentVitals.label",
+                "fas fa-fw fa-heartbeat",
+                null,
+                "App: mirebalais.outpatientVitals",
+                objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                        "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                        "editable", Boolean.TRUE,
+                        "edit-provider", "htmlformentryui",
+                        "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
+                        "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
+                        "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
 
-            AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
-                    "mirebalais.mostRecentVitals.label",
-                    "fas fa-fw fa-heartbeat",
-                    null,
-                    "App: mirebalais.outpatientVitals",
-                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
-                            "editable", Boolean.TRUE,
-                            "edit-provider", "htmlformentryui",
-                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                            "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-                            "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
-
-            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
-        }
+        apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.VITALS_SUMMARY,
@@ -783,44 +742,23 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableConsult() {
-        if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION,
-                    "Consulta Ambulatoria",
-                    "fas fa-fw fa-stethoscope",
-                    "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
-                    null,
-                    and(sessionLocationHasTag("Consult Note Location"),
-                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION,
+                "coreapps.clinic.consult.title",
+                "fas fa-fw fa-stethoscope",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
+                null,
+                and(sessionLocationHasTag("Consult Note Location"),
+                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-            // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-            extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, "pihcore", "patientdashboard/encountertemplate/consultEncounterTemplate"));
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
+        extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, "pihcore", "patientdashboard/encountertemplate/consultEncounterTemplate"));
 
-            // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-            registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
-                    findExtensionById(CustomAppLoaderConstants.EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
-        } else {
-
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION,
-                    "coreapps.clinic.consult.title",
-                    "fas fa-fw fa-stethoscope",
-                    "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
-                    null,
-                    and(sessionLocationHasTag("Consult Note Location"),
-                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
-
-            // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-            extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, "pihcore", "patientdashboard/encountertemplate/consultEncounterTemplate"));
-
-            // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
-            registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
-                    findExtensionById(CustomAppLoaderConstants.EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
-        }
+        // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
+                findExtensionById(CustomAppLoaderConstants.EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
     }
 
     private void enableConsultInitial() {
@@ -3983,16 +3921,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                 null),
                 sessionLocationHasTag("Maternal and Child Location")));
-    }
-
-    private void enablePeruLabOrdersAnalysisRequest() {
-        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.PERU_LAB_ORDERS_ANALYSIS_REQUESTS,
-                "Analysis Requests",  // TODO: feel free to localize...
-                "fas fa-fw fa-vial",  // all font awesome 5 icons shold be available: https://fontawesome.com/icons?d=gallery&p=1
-                "pihcore/peru/analysisRequests.page",  // link to the new page we created in PIH Core
-                null,  // TODO: do we want to limit this is users with a certain privilege?
-                null),
-                sessionLocationHasTag("Consult Note Location")));   //TODO: could change this if need be?  Right now only "COR" is tagged as a consult note location
     }
 
     private void enableCommentForm() {

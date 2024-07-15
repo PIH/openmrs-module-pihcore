@@ -88,7 +88,6 @@ public class Components {
         public static final String PATHOLOGY_TRACKING = "pathologyTracking";
         public static final String PATIENT_DOCUMENTS = "patientDocuments";  // openmrs-module-attachments
         public static final String PATIENT_REGISTRATION = "patientRegistration";
-        public static final String PERU_LAB_ORDERS_ANALYSIS_REQUESTS = "peruLabOrdersAnalysisRequests";
         public static final String PMTCT = "pmtct" ;
         public static final String PMTCT_PROGRAM = "pmtctProgram";
         public static final String POWER_BI_REPORTS = "powerbiReports";

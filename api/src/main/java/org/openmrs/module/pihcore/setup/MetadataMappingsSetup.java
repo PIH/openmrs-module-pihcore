@@ -35,9 +35,6 @@ public class MetadataMappingsSetup {
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             setupPrimaryIdentifierType(mms, ps, CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
-            setupPrimaryIdentifierType(mms, ps, SesConfigConstants.PATIENTIDENTIFIERTYPE_SESEMRID_UUID);
-        }
     }
 
     public static void setupPrimaryIdentifierType(MetadataMappingService metadataMappingService, PatientService patientService, String identifierTypeUuid) {
