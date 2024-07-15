@@ -936,7 +936,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "spa/ward",
                         "App: emr.inpatients",
                         null),
-                sessionLocationHasTag("Inpatients App Location")));
+                sessionLocationHasTag("Admission Location")));
 
     }
 
