@@ -178,9 +178,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
 
-    private String addParametersToUrl(String url, Map<String, String> parameters){
+    private String addParametersToUrl(String url, Map<String, String> parameters) {
         String urlParams = null;
-        if ( StringUtils.isNotBlank(url) && parameters != null && parameters.size() > 0) {
+        if (StringUtils.isNotBlank(url) && parameters != null && parameters.size() > 0) {
             int separatorIndex = url.indexOf("?");
             StringBuilder sb = new StringBuilder()
                     .append(url.substring(0, separatorIndex))
@@ -210,7 +210,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             patientVisitsPageUrl = "/coreapps/patientdashboard/patientDashboard.page?patientId={{patient.patientId}}";
             patientVisitsPageWithSpecificVisitUrl = patientVisitsPageUrl + "&visitId={{visit.visitId}}";
         }
-        patientEncountersPageUrl="/pihcore/visit/visit.page?patient={{patient.uuid}}#/encounterList";
+        patientEncountersPageUrl = "/pihcore/visit/visit.page?patient={{patient.uuid}}#/encounterList";
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.ENCOUNTER_LIST_OVERALL_ACTION,
                 "pihcore.encounterList",
@@ -249,9 +249,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableConsultInitial();
         }
 
-		if (config.isComponentEnabled(Components.NURSE_CONSULT)) {
-			enableNurseConsult();
-		}
+        if (config.isComponentEnabled(Components.NURSE_CONSULT)) {
+            enableNurseConsult();
+        }
 
         if (config.isComponentEnabled(Components.ED_CONSULT)) {
             enableEDConsult();
@@ -259,6 +259,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.ADT)) {
             enableADT();
+        }
+
+        if (config.isComponentEnabled(Components.ADT_O3)) {
+            enableADTO3();
         }
 
         if (config.isComponentEnabled(Components.DEATH_CERTIFICATE)) {
@@ -483,7 +487,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.REHAB)) {
             enableRehab();
         }
-        if (config.isComponentEnabled(Components.PRESCRIPTION)){
+        if (config.isComponentEnabled(Components.PRESCRIPTION)) {
             enablePrescription();
         }
 
@@ -589,7 +593,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableMCHTriage(Config config) {
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             // MCOE triage form that appears on visit and clinical dashboard after a visit has been started as a "Visit Action"
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_TRIAGE_VISIT_ACTION,
                     "mirebalais.task.triage.label",
@@ -600,23 +604,32 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("MCH Triage Location"),
                             and(patientIsFemale(), patientIsAdult()),
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMCHTRIAGE_UUID))));
+
+            apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,
+                            CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,
+                            "fas fa-fw fa-list-ul",
+                            "spa/home/service-queues/queue-table-by-status/" + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID,
+                            "",  // TODO: figure out proper privilege
+                            null),
+                    sessionLocationHasTag("Queue Location")));
         }
     }
+
     private void enableCheckIn(Config config) {
 
         // circular app that redirects to registration page, see comments in CheckInPageController
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
             apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.CHECK_IN,
-                    "mirebalais.app.patientRegistration.checkin.label",
-                    "fas fa-fw fa-paste",
-                    "App: mirebalais.checkin",
-                    "/pihcore/checkin/checkin.page?patientId={{patientId}}",
-                    //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
-                    null, config.getFindPatientColumnConfig()),
-                    or(sessionLocationHasTag("Check-In Location"),sessionLocationHasTag("Check-In Maternal Location"))));
+                            "mirebalais.app.patientRegistration.checkin.label",
+                            "fas fa-fw fa-paste",
+                            "App: mirebalais.checkin",
+                            "/pihcore/checkin/checkin.page?patientId={{patientId}}",
+                            //     "/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=" + Apps.CHECK_IN + "&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label",
+                            null, config.getFindPatientColumnConfig()),
+                    or(sessionLocationHasTag("Check-In Location"), sessionLocationHasTag("Check-In Maternal Location"))));
         }
 
-		// check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
+        // check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_VISIT_ACTION,
                 "mirebalais.task.checkin.label",
                 "fas fa-fw icon-check-in",
@@ -625,7 +638,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag("Check-In Location")));
 
-		// check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
+        // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
         extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
                 "mirebalais.task.checkin.label",
                 "fas fa-fw icon-check-in",
@@ -635,7 +648,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("Check-In Location")));
 
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             // Maternal check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
                     "mirebalais.checkin.title",
@@ -681,12 +694,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "fas fa-fw fa-heartbeat",
                         "/pihcore/vitals/vitalsList.page",
                         "App: mirebalais.outpatientVitals",  // TODO rename this permission to not be mirebalais-specific?
-                        null),sessionLocationHasTag("Vitals Location")));
+                        null), sessionLocationHasTag("Vitals Location")));
 
             }
         }
 
-        if(config.getCountry().equals(ConfigDescriptor.Country.PERU)){
+        if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
                     "Triaje",
                     "fas fa-fw fa-heartbeat",
@@ -694,9 +707,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
                     null,
                     and(sessionLocationHasTag("Vitals Location"),
-                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
                     "Triaje",
@@ -734,31 +747,31 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "edit-provider", "htmlformentryui",
                             "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
                             "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-							"returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
+                            "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
 
             apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.VITALS_SUMMARY,
-                    "mirebalais.vitalsTrend.label",
-                    "fas fa-fw fa-heartbeat",
-                    null,
-                    null,
-                    objectNode(
-                            "widget", "obsacrossencounters",
-                            "icon", "fas fa-fw fa-heartbeat",
-                            "label", "mirebalais.vitalsTrend.label",
-                            "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
-                            "detailsUrl", patientVisitsPageUrl,
-                            "headers", "zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title",
-                            "concepts", CustomAppLoaderConstants.HEART_RATE_UUID + "," +
-                                    CustomAppLoaderConstants.TEMPERATURE_UUID + "," +
-                                    CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
-                                    CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID  + "," +
-                                    CustomAppLoaderConstants.RESPIRATORY_RATE_UUID,
-                            "maxRecords", "5"
-                    )),
+                            "mirebalais.vitalsTrend.label",
+                            "fas fa-fw fa-heartbeat",
+                            null,
+                            null,
+                            objectNode(
+                                    "widget", "obsacrossencounters",
+                                    "icon", "fas fa-fw fa-heartbeat",
+                                    "label", "mirebalais.vitalsTrend.label",
+                                    "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                                    "detailsUrl", patientVisitsPageUrl,
+                                    "headers", "zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title",
+                                    "concepts", CustomAppLoaderConstants.HEART_RATE_UUID + "," +
+                                            CustomAppLoaderConstants.TEMPERATURE_UUID + "," +
+                                            CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
+                                            CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID + "," +
+                                            CustomAppLoaderConstants.RESPIRATORY_RATE_UUID,
+                                    "maxRecords", "5"
+                            )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
         }
 
@@ -770,7 +783,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableConsult() {
-        if (config.getCountry().equals(ConfigDescriptor.Country.PERU) ){
+        if (config.getCountry().equals(ConfigDescriptor.Country.PERU)) {
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION,
                     "Consulta Ambulatoria",
                     "fas fa-fw fa-stethoscope",
@@ -778,9 +791,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("outpatientConsult.xml")),
                     null,
                     and(sessionLocationHasTag("Consult Note Location"),
-                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
             // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
             extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, "pihcore", "patientdashboard/encountertemplate/consultEncounterTemplate"));
@@ -788,7 +801,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
             registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
                     findExtensionById(CustomAppLoaderConstants.EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
-        }else {
+        } else {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION,
                     "coreapps.clinic.consult.title",
@@ -807,8 +820,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
             registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_UUID,
                     findExtensionById(CustomAppLoaderConstants.EncounterTemplates.CONSULT), "fas fa-fw fa-stethoscope", null, true, null, null);
-            }
         }
+    }
 
     private void enableConsultInitial() {
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_INITIAL_VISIT_ACTION,
@@ -821,23 +834,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID)))));
     }
 
-	private void enableNurseConsult() {
-		extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,
-				"ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NURSE_CONSULT_UUID,
-				"fas fa-fw fa-stethoscope",
-				"link",
-				enterStandardHtmlFormLink(PihCoreUtil.getFormResource("nurseConsult.xml")),
-				null,
-				sessionLocationHasTag("Consult Note Location")));
-	}
-    private void enablePrescription(){
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRESCRIPTION_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name."+ PihEmrConfigConstants.ENCOUNTERTYPE_PRESCRIPTION_UUID,
-                    "fas fa-fw fa-stethoscope",
-                    "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("prescription.xml")),
-                    null,
-                    sessionLocationHasTag("Consult Note Location")));
+    private void enableNurseConsult() {
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NURSE_CONSULT_UUID,
+                "fas fa-fw fa-stethoscope",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("nurseConsult.xml")),
+                null,
+                sessionLocationHasTag("Consult Note Location")));
+    }
+
+    private void enablePrescription() {
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRESCRIPTION_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRESCRIPTION_UUID,
+                "fas fa-fw fa-stethoscope",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("prescription.xml")),
+                null,
+                sessionLocationHasTag("Consult Note Location")));
 
     }
 
@@ -851,9 +865,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("edNote.xml")),
                 null,
                 and(sessionLocationHasTag("ED Note Location"),
-                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
     }
 
     private void enableADT() {
@@ -866,11 +880,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 objectNode("patientPageUrl", config.getDashboardUrl()))));
 
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.INPATIENTS,
-                "mirebalaisreports.app.inpatients.label",
-                "fas fa-fw fa-hospital",
-                "pihcore/reports/inpatientList.page",
-                "App: emr.inpatients",
-                null),
+                        "mirebalaisreports.app.inpatients.label",
+                        "fas fa-fw fa-hospital",
+                        "pihcore/reports/inpatientList.page",
+                        "App: emr.inpatients",
+                        null),
                 sessionLocationHasTag("Inpatients App Location")));
 
         extensions.add(awaitingAdmissionAction(CustomAppLoaderConstants.Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,
@@ -896,9 +910,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("admissionNote.xml")),
                 null,
                 and(sessionLocationHasTag("Admission Note Location"),
-                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         // TODO will these be needed after we stop using the old patient visits page view?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID,
@@ -912,6 +926,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_EXIT_FROM_CARE_UUID,
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.NO_DETAILS), "fas fa-fw fa-sign-out-alt", null, true, null, null);
+    }
+
+    private void enableADTO3() {
+
+        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.INPATIENT_WARD,
+                        CustomAppLoaderConstants.Apps.INPATIENT_WARD,
+                        "fas fa-fw fa-hospital",
+                        "spa/ward",
+                        "App: emr.inpatients",
+                        null),
+                sessionLocationHasTag("Admission Location")));
+
     }
 
     private void enableDeathCertificate() {

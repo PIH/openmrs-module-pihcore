@@ -38,6 +38,7 @@ public class CustomAppLoaderConstants {
         public static final String MY_ACCOUNT = "emr.myAccount";
         public static final String REPORTS = "reportingui.reports";
         public static final String INPATIENTS = "mirebalaisreports.inpatients";
+        public static final String INPATIENT_WARD = "pih.app.inpatientWard";  // o3 ward app
         public static final String ACTIVE_VISITS_LIST = "mirebalaisreports.activeVisitsList";
         public static final String PATIENT_REGISTRATION = "registrationapp.registerPatient";
         public static final String CLINICIAN_DASHBOARD = "pih.app.clinicianDashboard";
@@ -144,6 +145,8 @@ public class CustomAppLoaderConstants {
         public static final String SPA_PREVIEW_HOME = "spa.preview.home";
 
         public static final String RECENT_LAB_RESULTS = "pih.app.lab.results";
+
+        public static final String MCH_TRIAGE_QUEUE = "pih.app.mchTriageQueue";
     }
 
     public static final class Extensions {
@@ -356,6 +359,8 @@ public class CustomAppLoaderConstants {
             Apps.APPOINTMENT_SCHEDULING_HOME,
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,
+            Apps.INPATIENT_WARD,
+            Apps.MCH_TRIAGE_QUEUE,
             Apps.HIV_DISPENSING,
             Apps.LABS,
             Apps.PATHOLOGY_TRACKING,
