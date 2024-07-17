@@ -871,7 +871,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.INPATIENT_WARD,
                         CustomAppLoaderConstants.Apps.INPATIENT_WARD,
                         "fas fa-fw fa-hospital",
-                        "spa/ward",
+                        "spa/home/ward",
                         "App: emr.inpatients",
                         null),
                 sessionLocationHasTag("Admission Location")));
