@@ -53,7 +53,7 @@ public class FindChildrenPageController {
         // SECTION.QUESTION.FIELD , this matches the existing format of the registration form
         SimpleObject initialValues = SimpleObject.create(
                 "demographics.mothersFirstNameLabel.mothersFirstName", patient.getGivenName(),
-                "contactInfo.personAddressQuestion.country", patient.getPersonAddress().getCountry(),
+                "contactInfo.personAddressQuestion.country", (patient.getPersonAddress() != null && patient.getPersonAddress().getCountry() != null) ? patient.getPersonAddress().getCountry() : "",
                 "contactInfo.phoneNumberLabel.phoneNumber", phoneNumber,
                 "registerRelationships.relationships_mother.relationship_type", motherToChildRelationshipType.getUuid() + "-A",
                 "registerRelationships.relationships_mother.other_person_uuid", patient.getUuid(),
