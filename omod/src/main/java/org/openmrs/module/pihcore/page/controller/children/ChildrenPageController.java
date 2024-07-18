@@ -1,8 +1,12 @@
 package org.openmrs.module.pihcore.page.controller.children;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -65,8 +69,23 @@ public class ChildrenPageController {
         for (Relationship relationship : relationships) {
             children.put(relationship.getUuid(), relationship.getPersonB());
         }
+        HashMap<String, Person> childrenOrderedByAge = new LinkedHashMap<String, Person>();
+        if (!children.isEmpty()) {
+            List<Map.Entry<String, Person>> list = new LinkedList<Map.Entry<String, Person> >(children.entrySet());
+            //sort the list
+            Collections.sort(list, new Comparator<Map.Entry<String, Person>>() {
+                @Override
+                public int compare(Map.Entry<String, Person> o1, Map.Entry<String, Person> o2) {
+                    return o2.getValue().getBirthdate().compareTo(o1.getValue().getBirthdate());
+                }
+            });
+            for (Map.Entry<String, Person> person : list) {
+                childrenOrderedByAge.put(person.getKey(), person.getValue());
+            }
+
+        }
         model.addAttribute("patient", patient);
-        model.addAttribute("children", children);
+        model.addAttribute("children", childrenOrderedByAge);
         model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
         model.addAttribute("returnUrl", returnUrl);
 
@@ -133,7 +152,7 @@ public class ChildrenPageController {
                 "demographics.demographics-name.familyName", patient.getFamilyName(),
                 "demographics.demographics-name.givenName", "Baby",
                 "demographics.mothersFirstNameLabel.mothersFirstName", patient.getGivenName(),
-                "contactInfo.personAddressQuestion.country", patient.getPersonAddress().getCountry(),
+                "contactInfo.personAddressQuestion.country", (patient.getPersonAddress() != null && patient.getPersonAddress().getCountry() != null) ? patient.getPersonAddress().getCountry() : "",
                 "contactInfo.phoneNumberLabel.phoneNumber", phoneNumber,
                 "registerRelationships.relationships_mother.relationship_type", motherToChildRelationshipType.getUuid() + "-A",
                 "registerRelationships.relationships_mother.other_person_uuid", patient.getUuid(),
