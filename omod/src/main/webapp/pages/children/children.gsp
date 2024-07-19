@@ -93,6 +93,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
     const isBabyRegisteredConceptUuid = "23eeeec5-7f82-4bea-8bdf-f959900882e7";
     const yesConceptUuid = "3cd6f600-26fe-102b-80cb-0017a47871b2";
+    const doNotRegisterConceptUuid = "3cd7b72a-26fe-102b-80cb-0017a47871b2";
     const contextPath = window.location.href.split('/')[3];
     const apiBaseUrl =  "/" + contextPath + "/ws/rest/v1";
 
@@ -100,6 +101,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
     let deleteChildDialog = null;
     let linkChildDialog = null;
+    let removeDeliveryEntryDialog = null;
+
     function navigateBackToChildren() {
         emr.navigateTo({
             provider: "pihcore",
@@ -154,6 +157,50 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 rerturnUrl: '${ ui.escapeJs(returnUrl) }'
             }
         });
+    }
+
+    function initRemoveDeliveryEntryDialog(registerBabyObs) {
+        removeDeliveryEntryDialog = emr.setupConfirmationDialog({
+            selector: '#remove-delivery-entry-dialog',
+            actions: {
+                confirm: function() {
+                    let updatedObs = {
+                        concept : isBabyRegisteredConceptUuid,
+                        value   : doNotRegisterConceptUuid,
+                        comment : "do not register delivery"
+                    };
+                    let dataJson = JSON.stringify(updatedObs);
+                    jq.ajax({
+                        type: "POST",
+                        url: apiBaseUrl + "/obs/" + registerBabyObs,
+                        dataType: "json",
+                        contentType: "application/json",
+                        data: dataJson
+                    })
+                        .fail(function (data) {
+                            emr.errorMessage("Failed to update Labor and Delivery Register baby in EMR obs: " + data.responseText);
+                        })
+                        .success(function (data) {
+                            emr.successMessage("Labor encounter delivery was marked as not to register");
+                        }).always(function () {
+                        setTimeout(navigateBackToChildren, 1000);  // set a delay so that the toast message has time to display before the redirect
+                        removeDeliveryEntryDialog.close();
+                    });
+                },
+                cancel: function() {
+                    removeDeliveryEntryDialog.close();
+                }
+            }
+        });
+
+        removeDeliveryEntryDialog.show();
+    }
+
+    function doNotRegisterChild(registerBabyObs) {
+        if (registerBabyObs) {
+            initRemoveDeliveryEntryDialog(registerBabyObs);
+            removeDeliveryEntryDialog.show();
+        }
     }
 
     function linkBabyToDeliveryForm(registerBabyObs, babyUuid) {
@@ -291,6 +338,19 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 <h5>${ ui.format(patient) }</h5>
             </li>
         </ul>
+
+        <button class="confirm right">${ ui.message("uicommons.yes") }</button>
+        <button class="cancel">${ ui.message("uicommons.no") }</button>
+    </div>
+</div>
+
+<div id="remove-delivery-entry-dialog" class="dialog" style="display: none">
+    <div class="dialog-header">
+        <i class="fas fa-fw fa-child"></i>
+        <h3>${ ui.message("pihcore.delivery.register") }</h3>
+    </div>
+    <div class="dialog-content">
+        <p class="dialog-instructions">${ ui.message("pihcore.donotregister.delivery") }?</p>
 
         <button class="confirm right">${ ui.message("uicommons.yes") }</button>
         <button class="cancel">${ ui.message("uicommons.no") }</button>
@@ -440,7 +500,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 <button id="link-child-button" onclick="javascript:searchRegisteredChild('${ e.gender }', '${ birthdateDay }' , '${ birthdateMonth }', '${ birthdateYear }', '${ patient.familyName }', '${ e.registerBabyObs }')">${ ui.message("coreapps.findPatient.search") }</button>
             </td>
             <td >
-                <input type="button" value="X">
+                <input type="button" onclick="javascript:doNotRegisterChild('${ e.registerBabyObs }')"value="X">
             </td>
         </tr>
     <% } %>
