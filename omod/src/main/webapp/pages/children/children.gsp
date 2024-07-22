@@ -499,8 +499,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
             <td>
                 <button id="link-child-button" onclick="javascript:searchRegisteredChild('${ e.gender }', '${ birthdateDay }' , '${ birthdateMonth }', '${ birthdateYear }', '${ patient.familyName }', '${ e.registerBabyObs }')">${ ui.message("coreapps.findPatient.search") }</button>
             </td>
-            <td >
-                <input type="button" onclick="javascript:doNotRegisterChild('${ e.registerBabyObs }')"value="X">
+            <td onclick="javascript:doNotRegisterChild('${ e.registerBabyObs }')"><i class="icon-remove delete-action"></i>
             </td>
         </tr>
     <% } %>
