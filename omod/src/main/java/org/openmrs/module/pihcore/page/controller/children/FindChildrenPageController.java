@@ -25,6 +25,7 @@ public class FindChildrenPageController {
     public void controller(PageModel model, UiUtils ui, UiSessionContext uiSessionContext,
                            @RequestParam("patientId") Patient patient,
                            @RequestParam(value="returnUrl", required=false) String returnUrl,
+                           @RequestParam(value="registerBabyObs", required=false) String registerBabyObs,
                            @SpringBean("personService") PersonService personService,
                            @SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties
     ) {
@@ -61,6 +62,7 @@ public class FindChildrenPageController {
                 "registerRelationships.relationships_mother.mother-field", patientInfo
                 );
         model.addAttribute("initialRegistrationValues", ui.toJson(initialValues));
+        model.addAttribute("registerBabyObs", registerBabyObs);
         model.addAttribute("returnUrl", returnUrl.substring(returnUrl.indexOf("/", 1)));
     }
 }
