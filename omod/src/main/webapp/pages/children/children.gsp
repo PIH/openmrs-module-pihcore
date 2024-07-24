@@ -24,6 +24,11 @@
     .row {
         display: flex;
     }
+    .row-match:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
     /* Create two columns that sits next to each other */
     .left-column {
         flex: 40%;
@@ -148,13 +153,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         deleteChildDialog.show();
     }
 
-    function searchChildren() {
+    function searchChildren(registerBabyObs) {
         emr.navigateTo({
             provider: "pihcore",
             page: "children/findChildren",
             query: {
                 patientId: '${ patient.patientId }',
-                rerturnUrl: '${ ui.escapeJs(returnUrl) }'
+                rerturnUrl: '${ ui.escapeJs(returnUrl) }',
+                registerBabyObs: registerBabyObs
             }
         });
     }
@@ -203,7 +209,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         }
     }
 
-    function linkBabyToDeliveryForm(registerBabyObs, babyUuid) {
+    function linkBabyToDeliveryForm(registerBabyObs, babyUuid, motherUuid) {
         if (registerBabyObs && babyUuid) {
             let updatedObs = {
                 concept : isBabyRegisteredConceptUuid,
@@ -223,6 +229,28 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 })
                 .success(function (data) {
                     emr.successMessage("Labor encounter has been linked to registered baby");
+                    if (!motherUuid) {
+                        //add mother to child relationship between the patient and the selected baby
+                        let newRelationship = {
+                            relationshipType: '${ motherToChildRelationshipType.uuid }',
+                            personA: '${ patient.uuid }',
+                            personB: babyUuid
+                        };
+                        let babyJson = JSON.stringify(newRelationship);
+                        jq.ajax({
+                            url: apiBaseUrl + "/relationship",
+                            type: "POST",
+                            dataType: "json",
+                            contentType: "application/json",
+                            data: babyJson,
+                            success: function (data) {
+                                emr.successMessage('${ ui.message("pihcore.relationship.created") }');
+                            }
+                        }).fail(function (data) {
+                            emr.errorMessage('${ ui.message("pihcore.relationship.failToCreate") }' + ": " + data.responseText);
+                        });
+                    }
+
                 }).always(function () {
                     linkChildDialog.close();
                     setTimeout(navigateBackToChildren, 1000);  // set a delay so that the toast message has time to display before the redirect
@@ -281,9 +309,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
             let button = jq('#matchedPatientTemplates .local_button').clone();
             var link = patientDashboardLink;
             link += (link.indexOf('?') == -1 ? '?' : '&') + 'patientId=' + item.uuid;
-            button.attr("onclick", "linkBabyToDeliveryForm('" + registerBabyObs + "', '" + item.uuid + "')");
+            button.attr("onclick", "linkBabyToDeliveryForm('" + registerBabyObs + "', '" + item.uuid + "', '" + item.motherUuid + "')");
 
             cloned.append(button);
+            if (item.motherUuid) {
+                jq(cloned).css("background-color", "#c8dfa6");
+
+                cloned.find('.matchingMother').append("<p style='color: red;'>${ ui.message("pihcore.delivery.already.registered") } ${ patient.givenName } ${ patient.familyName }</p>");
+            }
 
             jq('#similarPatientsSelect').append(cloned);
         }
@@ -297,6 +330,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                     console.log("Search for registered children");
                 },
                 cancel: function() {
+                    jq("#continueToSearch").attr("onClick", "searchChildren('')");
                     linkChildDialog.close();
                 }
             }
@@ -304,9 +338,35 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         linkChildDialog.show();
     }
 
+    function getMotherRelationship(babyUuid) {
+        jq.ajaxSetup({async: false});
+        let motherUUID = "";
+        jq.getJSON(apiBaseUrl + "/relationship", {
+            person: babyUuid,
+            relation: '${ motherToChildRelationshipType.uuid }',
+            v: 'custom:(uuid,personA:(uuid,display,isPatient,personId))'
+        }, function (data) {
+            if (data.results) {
+                data.results.forEach((item, index) => {
+                    motherUUID = item.personA.uuid;
+                });
+            }
+        });
+        jq.ajaxSetup({async: true});
+        return motherUUID;
+    }
+
     function searchRegisteredChild(gender, birthdateDay, birthdateMonth, birthdateYear, familyName, registerBabyObs) {
+        let genderParam ="";
+        if (gender == "Male") {
+            genderParam = "M";
+        } else if (gender == "Female") {
+            genderParam = "F";
+        } else {
+            genderParam = gender;
+        }
         let formData = "familyName=" + familyName + "&givenName=Baby&middleName=&preferred=true&unknown=false&"
-            + "gender=" + gender
+            + "gender=" + genderParam
             + "&birthdateDay=" + birthdateDay
             + "&birthdateMonth=" + birthdateMonth
             + "&birthdateYear=" + birthdateYear
@@ -314,8 +374,15 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 
         let searchUrl = '/' + OPENMRS_CONTEXT_PATH + '/registrationapp/matchingPatients/getSimilarPatients.action?appId=registrationapp.registerPatient';
         jq.post(searchUrl, formData, function(data) {
+            if (data && data.length > 0 ) {
+                data.forEach((item, index) => {
+                    const motherUuid = getMotherRelationship(item.uuid);
+                    data[index].motherUuid = motherUuid;
+                });
+            }
             showSimilarPatients(data, registerBabyObs);
             initLinkChildDialog();
+            jq("#continueToSearch").attr("onClick", "searchChildren('" + registerBabyObs  + "')");
             linkChildDialog.show();
         }, "json");
     }
@@ -360,9 +427,17 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 <div id="matchedPatientTemplates" style="display:none;">
     <div class="container"
          style="border-color: #00463f; border-bottom: solid; border-width:2px; margin-bottom: 5px;">
-        <div class="name"></div>
-        <div class="info"></div>
-        <div class="address"></div>
+        <div class="row-match">
+            <div style="float: left; width: 50%;">
+                <div class="name"></div>
+                <div class="info"></div>
+                <div class="address"></div>
+            </div>
+            <div style="float: right; width: 30%;">
+                <div class="matchingMother">
+                </div>
+            </div>
+        </div>
         <div class="identifiers">
             <span class="idName idNameTemplate"></span><span class="idValue idValueTemplate"></span>
         </div>
@@ -381,11 +456,11 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         <div id="noMatchingResults" style="display: none;margin-bottom: 30px;">
             <span>${ ui.message("emr.none") }</span>
         </div>
-        <div id="similarPatientsSlideView" style="display: none; height: 360px; overflow-x: hidden; overflow-y: scroll; margin-bottom: 30px; text-align: justify;">
+        <div id="similarPatientsSlideView" style="display: none; height: 400px; overflow-x: hidden; overflow-y: scroll; margin-bottom: 30px; text-align: justify;">
             <ul id="similarPatientsSelect" class="matchingPatientContainer select" style="width: auto;"></ul>
         </div>
 
-        <button class="confirm right">${ ui.message("pihcore.children.continue.search") }</button>
+        <button id="continueToSearch" class="confirm right" onclick="searchChildren('');">${ ui.message("pihcore.children.continue.search") }</button>
         <button class="cancel">${ ui.message("general.cancel") }</button>
     </div>
 </div>
@@ -395,7 +470,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         <h3>${ ui.message("registration.patient.children.label") }</h3>
     </div>
     <div class="right-column">
-        <input id="searchChildren" type="button" value="${ ui.message("pihcore.children.searchAndRegister") }" onclick="searchChildren();" />
+        <input id="searchChildren" type="button" value="${ ui.message("pihcore.children.searchAndRegister") }" onclick="searchChildren('');" />
     </div>
 </div>
 

@@ -22,6 +22,8 @@
         jq('#patient-search').focus();
     });
 
+    const isBabyRegisteredConceptUuid = "23eeeec5-7f82-4bea-8bdf-f959900882e7";
+    const yesConceptUuid = "3cd6f600-26fe-102b-80cb-0017a47871b2";
     const contextPath = window.location.href.split('/')[3];
     const apiBaseUrl =  "/" + contextPath + "/ws/rest/v1";
     let addChildDialog = null;
@@ -56,6 +58,27 @@
                         data: dataJson,
                         success: function( data ) {
                             emr.successMessage('${ ui.message("pihcore.relationship.created") }');
+                            //update the Labour and Delivery obs which recorded the delivery of this baby
+                            let laborAndDeliveryObs = '${ registerBabyObs }';
+                            if (laborAndDeliveryObs) {
+                                let updatedObs = {
+                                    concept : isBabyRegisteredConceptUuid,
+                                    value   : yesConceptUuid,
+                                    comment : childUuid
+                                };
+                                let dataJson = JSON.stringify(updatedObs);
+                                jq.ajax({
+                                    type: "POST",
+                                    url: apiBaseUrl + "/obs/" + laborAndDeliveryObs,
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    data: dataJson
+                                }).fail(function (data) {
+                                        emr.errorMessage('${ ui.message("pihcore.delivery.obs.update.failed") }' + ": "  + data.responseText);
+                                    }).success(function (data) {
+                                        emr.successMessage('${ ui.message("pihcore.delivery.obs.update.success") }');
+                                    });
+                            }
                             addChildDialog.close();
                             jq("#childName").text("");
                             setTimeout(navigateBackToChildren, 1000);
