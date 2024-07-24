@@ -74,9 +74,9 @@
                                     contentType: "application/json",
                                     data: dataJson
                                 }).fail(function (data) {
-                                        emr.errorMessage("Failed to update Labor and Delivery Register baby in EMR obs: " + data.responseText);
+                                        emr.errorMessage('${ ui.message("pihcore.delivery.obs.update.failed") }' + ": "  + data.responseText);
                                     }).success(function (data) {
-                                        emr.successMessage("Labor encounter has been linked to registered baby");
+                                        emr.successMessage('${ ui.message("pihcore.delivery.obs.update.success") }');
                                     });
                             }
                             addChildDialog.close();

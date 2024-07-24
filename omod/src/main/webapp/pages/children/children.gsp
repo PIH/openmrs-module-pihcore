@@ -314,7 +314,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
             cloned.append(button);
             if (item.motherUuid) {
                 jq(cloned).css("background-color", "#c8dfa6");
-                cloned.find('.matchingMother').append("<p style='color: red;'>This patient is already listed as child of ${ patient.givenName } ${ patient.familyName }</p>");
+
+                cloned.find('.matchingMother').append("<p style='color: red;'>${ ui.message("pihcore.delivery.already.registered") } ${ patient.givenName } ${ patient.familyName }</p>");
             }
 
             jq('#similarPatientsSelect').append(cloned);
