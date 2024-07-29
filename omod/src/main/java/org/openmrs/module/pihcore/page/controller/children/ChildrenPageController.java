@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.page.controller.children;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -29,6 +30,7 @@ import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsProperties;
+import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
@@ -43,6 +45,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ChildrenPageController {
 
     private static String NEWBORN_DETAILS_CONCEPT = "1585";
+    private static String YES_CONCEPT = "1065";
     private static String NO_CONCEPT = "1066";
     private static String REGISTER_BABY_CONCEPT = "20150";
     private static String BABY_GENDER_CONCEPT_SOURCE = "CIEL";
@@ -56,7 +59,8 @@ public class ChildrenPageController {
                            @SpringBean("personService") PersonService personService,
                            @SpringBean("encounterService") EncounterService encounterService,
                            @SpringBean("conceptService") ConceptService conceptService,
-                           @SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties
+                           @SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties,
+                           @SpringBean EmrApiProperties emrApiProperties
                            ) {
 
 
@@ -69,7 +73,7 @@ public class ChildrenPageController {
         for (Relationship relationship : relationships) {
             children.put(relationship.getUuid(), relationship.getPersonB());
         }
-        HashMap<String, Person> childrenOrderedByAge = new LinkedHashMap<String, Person>();
+        HashMap<String, Patient> childrenOrderedByAge = new LinkedHashMap<String, Patient>();
         if (!children.isEmpty()) {
             List<Map.Entry<String, Person>> list = new LinkedList<Map.Entry<String, Person> >(children.entrySet());
             //sort the list
@@ -80,12 +84,13 @@ public class ChildrenPageController {
                 }
             });
             for (Map.Entry<String, Person> person : list) {
-                childrenOrderedByAge.put(person.getKey(), person.getValue());
+                childrenOrderedByAge.put(person.getKey(), Context.getPatientService().getPatientByUuid(person.getValue().getUuid()));
             }
 
         }
         model.addAttribute("patient", patient);
         model.addAttribute("children", childrenOrderedByAge);
+        model.addAttribute("primaryIdentifierType", emrApiProperties.getPrimaryIdentifierType());
         model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
         model.addAttribute("returnUrl", returnUrl);
 
@@ -97,8 +102,10 @@ public class ChildrenPageController {
         List<Encounter> encounters = encounterService.getEncounters(searchCriteriaBuilder.createEncounterSearchCriteria());
         Concept newbornDetailsConcept = conceptService.getConceptByMapping(NEWBORN_DETAILS_CONCEPT, "CIEL");
         Concept registerBabyConcept = conceptService.getConceptByMapping(REGISTER_BABY_CONCEPT, "PIH");
+        Concept yesConcept = conceptService.getConceptByMapping(YES_CONCEPT, "CIEL");
         Concept noConcept = conceptService.getConceptByMapping(NO_CONCEPT, "CIEL");
 
+        Map<String, Date> deliveryEncounterDates = new HashMap<String, Date>();
         List<SimpleObject> unregisteredBabies = new ArrayList<SimpleObject>();
         for (Encounter encounter : encounters) {
             Set<EncounterProvider> activeEncounterProviders = encounter.getActiveEncounterProviders();
@@ -125,6 +132,12 @@ public class ChildrenPageController {
                                         "gender", gender,
                                         "registerBabyObs", groupMember.getUuid()
                                 ));
+                            } else if(groupMember.getConcept().equals(registerBabyConcept)
+                                    && groupMember.getValueCoded().equals(yesConcept)
+                                    && (groupMember.getComment() != null)
+                                    && (groupMember.getComment().length() == 36)) {
+                                // the baby was already registered, and the uuid of the baby is stored as a comment to this obs
+                                deliveryEncounterDates.put(groupMember.getComment(), encounter.getEncounterDatetime());
                             }
                         }
                     }
@@ -132,6 +145,7 @@ public class ChildrenPageController {
             }
         }
         model.addAttribute("unregisteredBabies", unregisteredBabies);
+        model.addAttribute("deliveryEncounterDates", deliveryEncounterDates);
 
         String phoneNumber = null;
         PersonAttributeType phoneNumberAttributeType = personService.getPersonAttributeTypeByUuid(Metadata.getPhoneNumberAttributeType().getUuid());
