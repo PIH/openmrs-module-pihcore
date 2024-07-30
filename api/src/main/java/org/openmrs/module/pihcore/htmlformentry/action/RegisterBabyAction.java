@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -65,9 +66,9 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                             // search for Labour and Delivery obs that have the "Register patient in EMR" obs set to No (SL-617)
                             if (groupMember.getConcept().equals(registerBabyConcept) && groupMember.getValueCoded().equals(noConcept)) {
                                 //find the gender and the birthdate time of the baby
-                                String gender = getObsValue(groupMembers, BABY_GENDER_CONCEPT_SOURCE, BABY_GENDER_CONCEPT);
+                                Concept gender = getCodedValue(groupMembers, BABY_GENDER_CONCEPT_SOURCE, BABY_GENDER_CONCEPT);
                                 Date birthDatetime = getObsDateValue(groupMembers, DATE_TIME_OF_BIRTH_CONCEPT_SOURCE, DATE_TIME_OF_BIRTH_CONCEPT);
-                                if (StringUtils.isNotBlank(gender) && (birthDatetime != null)) {
+                                if ((gender != null) && (birthDatetime != null)) {
                                     Patient baby = registerBaby(patient, gender, birthDatetime, encounter.getLocation());
                                     if (baby != null && baby.getUuid() != null) {
                                         groupMember.setValueCoded(yesConcept);
@@ -89,7 +90,9 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         }
     }
 
-    Patient registerBaby(Patient mother, String gender, Date birthDatetime, Location location) {
+    Patient registerBaby(Patient mother, Concept gender, Date birthDatetime, Location location) {
+        Concept maleConcept = Context.getConceptService().getConceptByMapping("MALE", "PIH");
+        Concept femaleConcept = Context.getConceptService().getConceptByMapping("FEMALE", "PIH");
         PersonService personService = Context.getPersonService();
         RelationshipType motherToChildRelationshipType = personService.getRelationshipTypeByUuid(PihEmrConfigConstants.RELATIONSHIPTYPE_MOTHERTOCHILD_UUID);
         RelationshipType relationship = personService.getRelationshipTypeByUuid(motherToChildRelationshipType.getUuid());
@@ -102,41 +105,24 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         babyName.setFamilyName(mother.getFamilyName());
         babyName.setGivenName("Baby");
         baby.addName(babyName);
-        String babyGender = gender;
-        if (StringUtils.equalsIgnoreCase(gender, "Female")) {
+        String babyGender = "M";
+        if (gender.equals(femaleConcept)) {
             babyGender = "F";
-        } else if (StringUtils.equalsIgnoreCase(gender,"Male")){
+        } else if (gender.equals(maleConcept)){
             babyGender = "M";
         }
         baby.setGender(babyGender);
         baby.setBirthdate(birthDatetime);
         PersonAddress motherAddress = mother.getPersonAddress();
         if ( motherAddress != null ) {
-            PersonAddress babyAddress =  new PersonAddress();
-            String xml = Context.getLocationService().getAddressTemplate();
-            if ( StringUtils.isNotBlank(xml)) {
-                Map<String, String> addressFields = new HashMap<>();
-                try {
-                    AddressTemplate addressTemplate = Context.getSerializationService().getDefaultSerializer().deserialize(xml, AddressTemplate.class);
-                    addressFields = addressTemplate.getNameMappings();
-                } catch (Exception e) {
-                    log.error("Address Template.error:", e);
-                }
-                if (!addressFields.isEmpty()) {
-                    for (String fieldName : addressFields.keySet()) {
-                        Object value = null;
-                        try {
-                            String fieldValue = (String) PropertyUtils.getProperty(motherAddress, fieldName);
-                            if (StringUtils.isNotBlank(fieldValue)) {
-                                PropertyUtils.setProperty(babyAddress, fieldName, fieldValue);
-                            }
-                        } catch (Exception e) {
-                            log.error("Address field error:", e);
-                        }
-                    }
-                }
-                baby.addAddress(babyAddress);
-            }
+            PersonAddress babyAddress =  (PersonAddress) motherAddress.clone();
+            babyAddress.setPersonAddressId(null);
+            babyAddress.setVoided(false);
+            babyAddress.setVoidedBy(null);
+            babyAddress.setVoidReason(null);
+            babyAddress.setPreferred(true);
+            babyAddress.setUuid(UUID.randomUUID().toString());
+            baby.addAddress(babyAddress);
         }
         PersonAttributeType motherFirstName = personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID);
         if (motherFirstName != null) {
@@ -161,6 +147,20 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             throw new RuntimeException("Falied to register baby", ex);
         }
         return baby;
+    }
+
+    Concept getCodedValue(Set<Obs> groupMembers, String conceptSource, String conceptId) {
+        Concept codedValue= null;
+        Concept obsConcept = Context.getConceptService().getConceptByMapping(conceptId, conceptSource);
+        if (obsConcept != null ) {
+            for (Obs groupMember : groupMembers) {
+                if (groupMember.getConcept().equals(obsConcept)) {
+                    codedValue = groupMember.getValueCoded();
+                    break;
+                }
+            }
+        }
+        return codedValue;
     }
     String getObsValue(Set<Obs> groupMembers, String conceptSource, String conceptId) {
         String obsValue= null;
