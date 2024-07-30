@@ -1,7 +1,7 @@
 
-function printWristband() {
+function printWristband(patientId) {
     emr.getFragmentActionWithCallback('pihcore', 'wristband', 'printWristband'
-        , { patientId: patient.id }
+        , { patientId: patientId ?? patient.id }
         , function(data) {
             if(data.success) {
                 emr.successMessage(data.message);
