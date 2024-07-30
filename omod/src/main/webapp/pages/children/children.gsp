@@ -478,10 +478,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
     <thead>
     <tr>
         <th>${ ui.message("pihcore.children.name") }</th>
+        <th>${ ui.message("coreapps.search.identifier") }</th>
         <th>${ ui.message("pihcore.birthdate") }</th>
         <th>${ ui.message("pihcore.age") }</th>
         <th>${ ui.message("pihcore.gender") }</th>
         <th>${ ui.message("mirebalais.deathCertificate.date_of_death") }</th>
+        <th>${ ui.message("pihcore.children.delivery.form.date") }</th>
         <th>${ ui.message("pihcore.children.removeChild") }</th>
     </tr>
     </thead>
@@ -497,16 +499,19 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
     %>
             <tr>
                 <td class="name-link"><a href="${ ui.urlBind("/" + contextPath + dashboardUrl, [ patientId: child.personId ]) }">${ child.givenName }, ${ child.familyName }</a></td>
+                <td>${ child.getPatientIdentifier(primaryIdentifierType.id) }</td>
                 <td class="date-column">${ ui.format(child.birthdate) }</td>
                 <td>${child.age}</td>
                 <td>${child.gender}</td>
                 <td class="date-column">${ ui.format(child.deathDate) }</td>
+                <td class="date-column">${ ui.format(deliveryEncounterDates.get(child.uuid)) }</td>
                 <td onclick="javascript:deleteChildRelationship('${ relationship }', '${ child.givenName }' + ', ' + '${ child.familyName }')"><i class="icon-remove delete-action"></i></td>
             </tr>
     <% } %>
 </table>
 <div class="boundary"></div>
 
+<% if (unregisteredBabies.size() > 0) { %>
 <div style="margin-top: 30px; margin-bottom: 20px;">
     <h3>${ ui.message("registration.patient.unregistered.babies") }</h3>
     <span>${ ui.message("registration.patient.unregistered.babies.msg") }</span>
@@ -525,11 +530,6 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         </tr>
     </thead>
     <tbody>
-        <% if (unregisteredBabies.size() == 0) { %>
-        <tr>
-            <td colspan="8">${ ui.message("emr.none") }</td>
-        </tr>
-        <% } %>
         <% unregisteredBabies.each { e ->
             def jsonSlurper = new JsonSlurper()
             def regValues = jsonSlurper.parseText(initialRegistrationValues);
@@ -580,6 +580,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
     <% } %>
     </tbody>
 </table>
+<% } %>
 <div class="boundary"></div>
 <div>
     <input id="return-button" type="button" class="cancel" value="${ ui.message("pihcore.encounterList.return") }"/>
