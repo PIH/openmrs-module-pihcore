@@ -2148,6 +2148,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableMCOEForms() {
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
 
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_ADMISSION_ACTION,
+                    "pih.task.newbornAdmission",
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornAdmission.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            and(patientAgeInMonthsLessThanAtVisitStart(3)))));
+
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_ASSESSMENT_ACTION,
                     "pih.task.newbornAssessment",
                     "fas fa-fw fa-baby",
