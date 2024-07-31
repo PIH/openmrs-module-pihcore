@@ -3017,7 +3017,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     // not currently used
     private void enableRehab() {
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.REHAB_VISIT_ACTION,
-                "pihcore.ncd.rehab",
+                "pihcore.physicalRehab",
                 "fas fa-fw fa-user-injured",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("retired/physicalRehab.xml")),
