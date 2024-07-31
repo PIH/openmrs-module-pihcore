@@ -1,6 +1,7 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
+    ui.includeJavascript("pihcore", "wristband/printWristband.js")
 
     import groovy.json.JsonSlurper
     import groovy.json.JsonOutput
@@ -484,6 +485,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
         <th>${ ui.message("pihcore.gender") }</th>
         <th>${ ui.message("mirebalais.deathCertificate.date_of_death") }</th>
         <th>${ ui.message("pihcore.children.delivery.form.date") }</th>
+        <th>${ ui.message("mirebalais.printWristband") }</th>
         <th>${ ui.message("pihcore.children.removeChild") }</th>
     </tr>
     </thead>
@@ -505,6 +507,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
                 <td>${child.gender}</td>
                 <td class="date-column">${ ui.format(child.deathDate) }</td>
                 <td class="date-column">${ ui.format(deliveryEncounterDates.get(child.uuid)) }</td>
+                <td onclick="javascript:printWristband('${ child.id }')"><i class="fas fa-fw fa-print"></i></td>
                 <td onclick="javascript:deleteChildRelationship('${ relationship }', '${ child.givenName }' + ', ' + '${ child.familyName }')"><i class="icon-remove delete-action"></i></td>
             </tr>
     <% } %>
