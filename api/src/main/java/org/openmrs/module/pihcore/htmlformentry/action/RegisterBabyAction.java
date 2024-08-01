@@ -2,6 +2,8 @@ package org.openmrs.module.pihcore.htmlformentry.action;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -53,6 +55,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             Patient patient = formEntrySession.getPatient();
             Encounter encounter = formEntrySession.getEncounter();
             boolean updateEncounter = false;
+            HashMap<String, Obs> registeredBabies = new LinkedHashMap<>();
             for (Obs candidate : encounter.getObsAtTopLevel(false)) {
                 if (candidate.getConcept().equals(newbornDetailsConcept)) {
                     Set<Obs> groupMembers = candidate.getGroupMembers();
@@ -66,9 +69,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                 if ((gender != null) && (birthDatetime != null)) {
                                     Patient baby = registerBaby(patient, gender, birthDatetime, encounter.getLocation());
                                     if (baby != null && baby.getUuid() != null) {
-                                        groupMember.setValueCoded(yesConcept);
-                                        groupMember.setComment(baby.getUuid());
-                                        updateEncounter = true;
+                                        registeredBabies.put(baby.getUuid(), groupMember);
                                     }
                                 }
                             }
@@ -76,7 +77,12 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                     }
                 }
             }
-            if (updateEncounter) {
+            if (!registeredBabies.isEmpty()) {
+                for (String babyUuid : registeredBabies.keySet()) {
+                    Obs obs = registeredBabies.get(babyUuid);
+                    obs.setValueCoded(yesConcept);
+                    obs.setComment(babyUuid);
+                }
                 Context.getEncounterService().saveEncounter(encounter);
             }
 
@@ -139,7 +145,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         try {
             baby = Context.getService(RegistrationCoreService.class).registerPatient(registrationData);
         } catch (Exception ex) {
-            throw new RuntimeException("Falied to register baby", ex);
+            throw new RuntimeException("Failed to register baby", ex);
         }
         return baby;
     }
