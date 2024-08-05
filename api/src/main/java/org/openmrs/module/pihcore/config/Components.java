@@ -88,6 +88,7 @@ public class Components {
         public static final String PATHOLOGY_TRACKING = "pathologyTracking";
         public static final String PATIENT_DOCUMENTS = "patientDocuments";  // openmrs-module-attachments
         public static final String PATIENT_REGISTRATION = "patientRegistration";
+        public static final String PHYSICAL_REHAB = "physicalRehab";
         public static final String PMTCT = "pmtct" ;
         public static final String PMTCT_PROGRAM = "pmtctProgram";
         public static final String POWER_BI_REPORTS = "powerbiReports";
@@ -98,7 +99,6 @@ public class Components {
         public static final String PROGRAMS = "programs";
         public static final String PROVIDER_RELATIONSHIPS = "providerRelationships";  // the Relationships widget, configured for providers
         public static final String RADIOLOGY = "radiology";
-        public static final String REHAB = "rehab";
         public static final String RELATIONSHIPS = "relationships";
         public static final String SOCIO_ECONOMICS= "socioEconomics";
         public static final String SPA = "spa";  // the Single-SPA UI

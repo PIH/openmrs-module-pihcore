@@ -480,8 +480,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableSpaPreview();
         }
 
-        if (config.isComponentEnabled(Components.REHAB)) {
-            enableRehab();
+        if (config.isComponentEnabled(Components.PHYSICAL_REHAB)) {
+            enablePhysicalRehab();
         }
         if (config.isComponentEnabled(Components.PRESCRIPTION)) {
             enablePrescription();
@@ -3015,8 +3015,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     // not currently used
-    private void enableRehab() {
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.REHAB_VISIT_ACTION,
+    private void enablePhysicalRehab() {
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PHYSICAL_REHAB_VISIT_ACTION,
                 "pihcore.physicalRehab",
                 "fas fa-fw fa-user-injured",
                 "link",
@@ -3024,7 +3024,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
                 and(sessionLocationHasTag("Consult Note Location"),
                         sessionLocationDoesNotHaveTag("Oncology Consult Location"),
-                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_REHAB_EVAL_UUID))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PHYSICAL_REHAB_EVAL_UUID))));
     }
 
     private void enableHIViSantePlus() {
