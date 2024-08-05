@@ -483,6 +483,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.PHYSICAL_REHAB)) {
             enablePhysicalRehab();
         }
+
+        if (config.isComponentEnabled(Components.DRUG_REHAB)) {
+            enableDrugRehab();
+        }
+
         if (config.isComponentEnabled(Components.PRESCRIPTION)) {
             enablePrescription();
         }
@@ -3025,6 +3030,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag("Consult Note Location"),
                         sessionLocationDoesNotHaveTag("Oncology Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PHYSICAL_REHAB_EVAL_UUID))));
+    }
+
+    // not currently used
+    private void enableDrugRehab() {
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DRUG_REHAB_VISIT_ACTION,
+                "pihcore.drugRehab",
+                "fas fa-fw fa-pills",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("drugRehab.xml")),
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
+                and(sessionLocationHasTag("Mental Health Location"),
+                        sessionLocationDoesNotHaveTag("Oncology Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_DRUG_REHAB_UUID))));
     }
 
     private void enableHIViSantePlus() {
