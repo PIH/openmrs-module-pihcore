@@ -3039,7 +3039,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "fas fa-fw fa-pills",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("drugRehab.xml")),
-                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                 and(sessionLocationHasTag("Mental Health Location"),
                         sessionLocationDoesNotHaveTag("Oncology Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_DRUG_REHAB_UUID))));
