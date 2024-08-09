@@ -537,7 +537,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
             def jsonSlurper = new JsonSlurper()
             def regValues = jsonSlurper.parseText(initialRegistrationValues);
             regValues.put("demographics.demographics-gender.gender", e.gender)
-            def birthDate = new Date(Date.parse(e.birthDatetime))
+            def birthDate = (e.birthDatetime != null) ? (new Date(Date.parse(e.birthDatetime))) : e.encounterDatetime
             def birthdateDay = birthDate[Calendar.DAY_OF_MONTH]
             def birthdateMonth = birthDate[Calendar.MONTH] + 1
             def birthdateYear = birthDate[Calendar.YEAR]
