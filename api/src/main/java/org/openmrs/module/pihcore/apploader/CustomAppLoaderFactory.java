@@ -3724,7 +3724,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "icon", "fas fa-fw fa-stethoscope",
                             "label", "coreapps.programsDashboardWidget.label",
                             "supportedPrograms", StringUtils.join(supportedPrograms, ','),
-                            "enableProgramDashboards", "true"
+                            "enableProgramDashboards", "true",
+                            "dashboardPage", "/pihcore/router/programDashboard.page?patientId={{patientUuid}}&dashboard={{dashboard}}"
                     )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
         }
@@ -3744,7 +3745,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "program", programUuid,
                                 "locationTag", "Program Location",
                                 "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
-                                "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
+                                "dashboard", programUuid,   // provides contextual context so this widget knows which dashboard it's being rendered on
+                                "dashboardPage", "/pihcore/router/programDashboard.page?patientId={{patientUuid}}&dashboard=" + programUuid
                         )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
 
@@ -3805,7 +3807,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "registrationapp.clinicalDashboard",
                 "fas fa-fw fa-stethoscope",
                 "link",
-                 config.getDashboardUrl() + "&currentDashboard=" + programUuid,
+                 config.getDashboardUrl() + "&noRedirect=true",
                 "App: coreapps.patientDashboard",
                 null,
                 programUuid + ".overallActions",
