@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.fragment.controller.hiv;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
 import org.openmrs.Program;
@@ -27,19 +28,21 @@ public class ProgramLocationWarningFragmentController {
                            UiUtils ui) {
 
         model.addAttribute("sessionLocation", uiSessionContext.getSessionLocation());
-        model.addAttribute("hivProgramLocation", null);
-
+        Location hivProgramLocation = null;
         if (patientObject != null ) {
             Patient patient = ((PatientDomainWrapper) patientObject).getPatient();
             Program hivProgram = programWorkflowService.getProgramByUuid(PihEmrConfigConstants.PROGRAM_HIV_UUID);
             if (patient !=null && hivProgram !=null) {
                 List<PatientProgram> patientPrograms = programWorkflowService.getPatientPrograms(patient, hivProgram, null, null, null, null, false);
-                if (patientPrograms != null && patientPrograms.size() > 0 ) {
-                    if(patientPrograms.get(0).getLocation() !=null){
-                      model.addAttribute("hivProgramLocation", patientPrograms.get(0).getLocation());
+                if (patientPrograms != null) {
+                    for (PatientProgram pp : patientPrograms) {
+                        if (pp.getActive()) {
+                            hivProgramLocation = pp.getLocation();
+                        }
                     }
                 }
             }
         }
+        model.addAttribute("hivProgramLocation", hivProgramLocation);
     }
 }
