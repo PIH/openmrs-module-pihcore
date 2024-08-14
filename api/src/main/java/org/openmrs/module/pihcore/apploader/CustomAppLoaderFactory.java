@@ -3731,6 +3731,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void configureBasicProgramDashboard(String programUuid) {
+        boolean isSierraLeone = config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE);
+        boolean isPregnancyProgram = PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID.equals(programUuid);
+        // The Sierra Leone Pregnancy Program Patient Dashboard is setup via config-pihsl, so do not set that up here
+        if (!isSierraLeone || !isPregnancyProgram) {
+            configureBasicProgramPatientDashboardWidgets(programUuid);
+        }
+        configureBasicProgramSummaryApps(programUuid);
+        configureBasicProgramExtensions(programUuid);
+    }
+
+    private void configureBasicProgramPatientDashboardWidgets(String programUuid) {
         apps.add(addToProgramDashboardFirstColumn(programUuid,
                 app("pih.app." + programUuid + ".patientProgramSummary",
                         "coreapps.currentEnrollmentDashboardWidget.label",
@@ -3764,9 +3775,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                         )),
                 "coreapps", "program/programHistory"));
-
-        configureBasicProgramSummaryApps(programUuid);
-        configureBasicProgramExtensions(programUuid);
     }
 
     private void configureBasicProgramSummaryApps(String programUuid) {
