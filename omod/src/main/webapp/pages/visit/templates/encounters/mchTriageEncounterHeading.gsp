@@ -14,7 +14,7 @@
 <div class="row col-12">
     <span class="encounter-card-summary">
         <span ng-show="encounter.obs | byConcept:Concepts.referralPriority:true | withCodedValue:Concepts.emergency" class="emergency">{{ encounter.obs | byConcept:Concepts.referralPriority:true | withCodedValue:Concepts.emergency | obs:{ mode:"value"} }}:</span>
-        {{ encounter.obs | byConcept:Concepts.airwayExam:true | withCodedValue:Concepts.impairedAirway | obs:{ mode:"value", appendComma:true } }}
+        {{ (encounter.obs | byConcept:Concepts.airwayExam:true | withCodedValue:Concepts.impairedAirway).value | translateAs:"concept" }}{{ \$last ? "" : "," }}
         {{ encounter.obs | byConcept:Concepts.disability:false | withCodedValue:Concepts.blurredVision | obs:{ mode:"value", appendComma:true } }}
         {{ encounter.obs | byConcept:Concepts.disability:false | withCodedValue:Concepts.severeHeadache | obs:{ mode:"value", appendComma:true } }}
         {{ encounter.obs | byConcept:Concepts.disability:false | withCodedValue:Concepts.convulsing | obs:{ mode:"value", appendComma:true } }}
