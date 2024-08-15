@@ -6,8 +6,11 @@ import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
 import org.openmrs.Patient;
+import org.openmrs.PatientProgram;
+import org.openmrs.Program;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
+import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
@@ -20,6 +23,8 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,6 +36,7 @@ public class EncountersFragmentController {
 
 	public void controller(@SpringBean("patientService") PatientService patientService,
 						   @SpringBean("encounterService") EncounterService encounterService,
+						   @SpringBean("programWorkflowService") ProgramWorkflowService programWorkflowService,
 						   @InjectBeans PatientDomainWrapper patientWrapper,
 						   @FragmentParam("app") AppDescriptor app,
 						   UiUtils ui,
@@ -86,19 +92,42 @@ public class EncountersFragmentController {
 		}
 		model.put("encounterTypeToUrlMap", encounterTypeToUrlMap);
 
-		EncounterSearchCriteriaBuilder builder = new EncounterSearchCriteriaBuilder();
-		builder.setPatient(patient);
-		builder.setEncounterTypes(encounterTypeToUrlMap.keySet());
-		List<Encounter> encounters = encounterService.getEncounters(builder.createEncounterSearchCriteria());
-		encounters.sort((e1, e2) -> e2.getEncounterDatetime().compareTo(e1.getEncounterDatetime()));
-
-		String maxConfig = getConfigValue(app, "maxToDisplay");
-		if (StringUtils.isNotEmpty(maxConfig)) {
-			Integer maxToDisplay = Integer.parseInt(maxConfig);
-			if (maxToDisplay < encounters.size()) {
-				encounters = encounters.subList(0, maxToDisplay);
+		Date encountersOnOrAfter = null;
+		String programUuid = getConfigValue(app, "duringCurrentEnrollmentInProgram");
+		if (StringUtils.isNotBlank(programUuid)) {
+			Program program = programWorkflowService.getProgramByUuid(programUuid);
+			if (program == null) {
+				throw new IllegalStateException("No program with uuid " + programUuid + " is found.  Please check app configuration of " + app.getId());
+			}
+			for (PatientProgram pp : programWorkflowService.getPatientPrograms(patient, program, null, null, null, null, false)) {
+				if (pp.getActive()) {
+					if (encountersOnOrAfter == null || encountersOnOrAfter.before(pp.getDateEnrolled())) {
+						encountersOnOrAfter = pp.getDateEnrolled();
+					}
+				}
 			}
 		}
+
+		boolean shouldExecuteSearch = programUuid == null || encountersOnOrAfter != null;
+
+		List<Encounter> encounters = new ArrayList<>();
+		if (shouldExecuteSearch) {
+			EncounterSearchCriteriaBuilder builder = new EncounterSearchCriteriaBuilder();
+			builder.setPatient(patient);
+			builder.setEncounterTypes(encounterTypeToUrlMap.keySet());
+			builder.setFromDate(encountersOnOrAfter);
+			encounters = encounterService.getEncounters(builder.createEncounterSearchCriteria());
+			encounters.sort((e1, e2) -> e2.getEncounterDatetime().compareTo(e1.getEncounterDatetime()));
+
+			String maxConfig = getConfigValue(app, "maxToDisplay");
+			if (StringUtils.isNotEmpty(maxConfig)) {
+				Integer maxToDisplay = Integer.parseInt(maxConfig);
+				if (maxToDisplay < encounters.size()) {
+					encounters = encounters.subList(0, maxToDisplay);
+				}
+			}
+		}
+
 		model.put("encounters", encounters);
 	}
 
