@@ -217,6 +217,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         var encounter = new OpenMRS.EncounterModel($scope.encounter);
                         var currentUser = new OpenMRS.UserModel($scope.session.user);
                         return config && config.editUrl &&
+                            $scope.encounter.form &&
                             (encounter.canBeEditedBy(currentUser)
                                 || encounter.participatedIn($scope.session.currentProvider)
                                 || encounter.createdBy(currentUser));
