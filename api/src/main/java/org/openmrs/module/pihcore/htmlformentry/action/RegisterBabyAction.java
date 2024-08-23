@@ -20,6 +20,7 @@ import org.openmrs.api.PersonService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.adt.AdtService;
+import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
@@ -175,20 +176,12 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
 
     Encounter createAdmissionEncounter(Visit visit, Patient patient, Date birthDatetime, Encounter motherEncounter) {
         Encounter admissionEncounter = null;
-
+        AdtService adtService = Context.getService(AdtService.class);
         EncounterService encounterService = Context.getEncounterService();
-        Encounter lastAdmissionEnc = null;
-        List<Encounter> motherEncounters =  motherEncounter.getVisit().getNonVoidedEncounters();
-        // look through mother's encounters for the most recent Admission encounter
-        for (Encounter enc : motherEncounters) {
-            if (enc.getEncounterType().getUuid().equalsIgnoreCase(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID)) {
-                if ( lastAdmissionEnc == null ||
-                        ( (lastAdmissionEnc !=null) && lastAdmissionEnc.getEncounterDatetime().before(enc.getEncounterDatetime()) ) ) {
-                    lastAdmissionEnc = enc;
-                }
-            }
-        }
-        if (lastAdmissionEnc == null ) {
+        VisitDomainWrapper wrappedVisit = adtService.wrap(motherEncounter.getVisit());
+        Location motherLocation = wrappedVisit.getInpatientLocation(birthDatetime);
+
+        if (motherLocation == null ) {
             log.error("Mother of patient " + patient.getUuid() +" has no admission encounter, therefore we cannot create admission encounter for the baby");
         } else {
             admissionEncounter = new Encounter();
@@ -196,7 +189,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             admissionEncounter.setEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID));
             admissionEncounter.setVisit(visit);
             admissionEncounter.setEncounterDatetime(birthDatetime);
-            admissionEncounter.setLocation(lastAdmissionEnc.getLocation());
+            admissionEncounter.setLocation(motherLocation);
             Set<EncounterProvider> providers =  motherEncounter.getEncounterProviders();
             if (providers != null && !providers.isEmpty()) {
                 for (EncounterProvider provider : providers) {
