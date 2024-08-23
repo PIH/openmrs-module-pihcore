@@ -1,16 +1,10 @@
 package org.openmrs.module.pihcore.htmlformentry.action;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
+import org.openmrs.EncounterProvider;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
@@ -20,14 +14,27 @@ import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
 import org.openmrs.Relationship;
 import org.openmrs.RelationshipType;
+import org.openmrs.Visit;
+import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
+import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.emrapi.adt.AdtService;
+import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.registrationcore.RegistrationData;
 import org.openmrs.module.registrationcore.api.RegistrationCoreService;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 public class RegisterBabyAction implements CustomFormSubmissionAction {
 
@@ -54,7 +61,6 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
 
             Patient patient = formEntrySession.getPatient();
             Encounter encounter = formEntrySession.getEncounter();
-            boolean updateEncounter = false;
             HashMap<String, Obs> registeredBabies = new LinkedHashMap<>();
             for (Obs candidate : encounter.getObsAtTopLevel(false)) {
                 if (candidate.getConcept().equals(newbornDetailsConcept)) {
@@ -70,6 +76,12 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                     Patient baby = registerBaby(patient, gender, birthDatetime, encounter.getLocation());
                                     if (baby != null && baby.getUuid() != null) {
                                         registeredBabies.put(baby.getUuid(), groupMember);
+                                        //create visit for the new registered baby
+                                        Visit visit= createVisit(baby, birthDatetime, encounter);
+                                        if (visit != null) {
+                                            // create Admission encounter for the new registered baby
+                                            createAdmissionEncounter(visit, baby, birthDatetime, encounter);
+                                        }
                                     }
                                 }
                             }
@@ -148,6 +160,46 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             throw new RuntimeException("Failed to register baby", ex);
         }
         return baby;
+    }
+
+    Visit createVisit(Patient baby, Date startDatetime, Encounter motherEncounter) {
+        AdtService adtService = Context.getService(AdtService.class);
+        VisitService visitService = Context.getVisitService();
+        Visit visit = new Visit();
+        visit.setPatient(baby);
+        visit.setLocation(adtService.getLocationThatSupportsVisits(motherEncounter.getLocation()));
+        visit.setStartDatetime(startDatetime);
+        visit.setVisitType(visitService.getVisitTypeByUuid(PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID));
+
+        return visitService.saveVisit(visit);
+    }
+
+    Encounter createAdmissionEncounter(Visit visit, Patient patient, Date birthDatetime, Encounter motherEncounter) {
+        Encounter admissionEncounter = null;
+        AdtService adtService = Context.getService(AdtService.class);
+        EncounterService encounterService = Context.getEncounterService();
+        VisitDomainWrapper wrappedVisit = adtService.wrap(motherEncounter.getVisit());
+        Location motherLocation = wrappedVisit.getInpatientLocation(birthDatetime);
+
+        if (motherLocation == null ) {
+            log.error("Mother of patient " + patient.getUuid() +" has no admission encounter, therefore we cannot create admission encounter for the baby");
+        } else {
+            admissionEncounter = new Encounter();
+            admissionEncounter.setPatient(patient);
+            admissionEncounter.setEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID));
+            admissionEncounter.setVisit(visit);
+            admissionEncounter.setEncounterDatetime(birthDatetime);
+            admissionEncounter.setLocation(motherLocation);
+            Set<EncounterProvider> providers =  motherEncounter.getEncounterProviders();
+            if (providers != null && !providers.isEmpty()) {
+                for (EncounterProvider provider : providers) {
+                    admissionEncounter.addProvider(provider.getEncounterRole(), provider.getProvider());
+                }
+            }
+            encounterService.saveEncounter(admissionEncounter);
+
+        }
+        return admissionEncounter;
     }
 
     Concept getCodedValue(Set<Obs> groupMembers, String conceptSource, String conceptId) {
