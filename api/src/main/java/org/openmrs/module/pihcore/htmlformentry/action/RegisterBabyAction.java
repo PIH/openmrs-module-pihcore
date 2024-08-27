@@ -163,15 +163,20 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
     }
 
     Visit createVisit(Patient baby, Date startDatetime, Encounter motherEncounter) {
-        AdtService adtService = Context.getService(AdtService.class);
-        VisitService visitService = Context.getVisitService();
-        Visit visit = new Visit();
-        visit.setPatient(baby);
-        visit.setLocation(adtService.getLocationThatSupportsVisits(motherEncounter.getLocation()));
-        visit.setStartDatetime(startDatetime);
-        visit.setVisitType(visitService.getVisitTypeByUuid(PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID));
-
-        return visitService.saveVisit(visit);
+        Visit visit = null;
+        Visit motherVisit =  motherEncounter.getVisit();
+        if (motherVisit.getStopDatetime() == null ) {
+            // we create a visit for the baby only if the mother has an active visit, (we are not creating retrospective visits, see SL-701)
+            AdtService adtService = Context.getService(AdtService.class);
+            VisitService visitService = Context.getVisitService();
+            visit = new Visit();
+            visit.setPatient(baby);
+            visit.setLocation(adtService.getLocationThatSupportsVisits(motherEncounter.getLocation()));
+            visit.setStartDatetime(startDatetime);
+            visit.setVisitType(visitService.getVisitTypeByUuid(PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID));
+            visitService.saveVisit(visit);
+        }
+        return visit;
     }
 
     Encounter createAdmissionEncounter(Visit visit, Patient patient, Date birthDatetime, Encounter motherEncounter) {
@@ -179,10 +184,15 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         AdtService adtService = Context.getService(AdtService.class);
         EncounterService encounterService = Context.getEncounterService();
         VisitDomainWrapper wrappedVisit = adtService.wrap(motherEncounter.getVisit());
-        Location motherLocation = wrappedVisit.getInpatientLocation(birthDatetime);
+        Location motherLocation = null;
+        try {
+            motherLocation = wrappedVisit.getInpatientLocation(birthDatetime);
+        } catch (IllegalArgumentException e) {
+            log.error(e);
+        }
 
         if (motherLocation == null ) {
-            log.error("Mother of patient " + patient.getUuid() +" has no admission encounter, therefore we cannot create admission encounter for the baby");
+            log.warn("Mother of patient " + patient.getUuid() +" has no admission encounter, therefore we cannot create admission encounter for the baby");
         } else {
             admissionEncounter = new Encounter();
             admissionEncounter.setPatient(patient);
@@ -197,7 +207,6 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                 }
             }
             encounterService.saveEncounter(admissionEncounter);
-
         }
         return admissionEncounter;
     }
