@@ -5,6 +5,7 @@ import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -12,6 +13,7 @@ import java.util.TreeMap;
 public class HtmlFormTagCounter {
 
     private final Map<String, Integer> tagCounter = new TreeMap<>();
+    private final Map<String, Integer> flatTagCounter = new TreeMap<>();
     private final Map<String, Integer> attributeCounter = new TreeMap<>();
 
     public HtmlFormTagCounter() { }
@@ -22,6 +24,13 @@ public class HtmlFormTagCounter {
             protected void handleTagStart(HtmlFormTag tag) {
                 super.handleTagStart(tag);
                 tagCounter.put(tag.getName(), tagCounter.getOrDefault(tag.getName(), 0) + 1);
+                List<String> names = new ArrayList<>();
+                for (HtmlFormTag tagInStack : tagStack) {
+                    names.add(tagInStack.getName());
+                }
+                names.add(tag.getName());
+                String flatName = String.join(".", names);
+                flatTagCounter.put(flatName, tagCounter.getOrDefault(flatName, 0) + 1);
             }
             @Override
             protected void handleTagAttribute(HtmlFormTag tag, String attributeName, String attributeValue) {
@@ -44,14 +53,17 @@ public class HtmlFormTagCounter {
     public void writeToCsv(File outputFile) throws IOException {
         try (FileWriter fileWriter = new FileWriter(outputFile)) {
             try (CSVWriter csvWriter = new CSVWriter(fileWriter)) {
-                String[] csvColumns = {"tagName", "attributeName", "count"};
+                String[] csvColumns = {"counter", "tagName", "attributeName", "count"};
                 csvWriter.writeNext(csvColumns);
                 for (String element : tagCounter.keySet()) {
-                    csvWriter.writeNext(new String[] {element, "", Integer.toString(tagCounter.get(element))});
+                    csvWriter.writeNext(new String[] {"tags", element, "", Integer.toString(tagCounter.get(element))});
+                }
+                for (String element : flatTagCounter.keySet()) {
+                    csvWriter.writeNext(new String[] {"flatTags", element, "", Integer.toString(flatTagCounter.get(element))});
                 }
                 for (String element : attributeCounter.keySet()) {
                     String[] split = element.split("\\.");
-                    csvWriter.writeNext(new String[] {split[0], split[1], Integer.toString(attributeCounter.get(element))});
+                    csvWriter.writeNext(new String[] {"tagAttributes", split[0], split[1], Integer.toString(attributeCounter.get(element))});
                 }
             }
         }

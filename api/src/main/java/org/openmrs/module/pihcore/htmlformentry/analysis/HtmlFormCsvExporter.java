@@ -4,6 +4,14 @@ import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.HtmlFormEntryGenerator;
 import org.openmrs.module.htmlformentry.Translator;
+import org.openmrs.module.pihcore.htmlformentry.analysis.mapper.IfModeTagRemover;
+import org.openmrs.module.pihcore.htmlformentry.analysis.mapper.ObsGroupMapper;
+import org.openmrs.module.pihcore.htmlformentry.analysis.mapper.ParentToChildMerger;
+import org.openmrs.module.pihcore.htmlformentry.analysis.mapper.SectionMerger;
+import org.openmrs.module.pihcore.htmlformentry.analysis.mapper.SiblingMerger;
+import org.openmrs.module.pihcore.htmlformentry.analysis.mapper.TagMapper;
+import org.openmrs.module.pihcore.htmlformentry.analysis.mapper.TagRemover;
+import org.openmrs.module.pihcore.htmlformentry.analysis.reducer.TagCounter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,31 +33,56 @@ public class HtmlFormCsvExporter {
 
     public void export(File file) {
         HtmlFormTag tag = loadFormFromFile(file);
-        HtmlFormTagConverter converter = new HtmlFormTagConverter();
-        for (Tags.Standard standardTag : Tags.Standard.values()) {
-            tag = converter.removeTagsByName(tag, standardTag.getNodeName());
-        }
-        tag = converter.removeTagsByName(tag, "uimessage");
-        tag = converter.removeTagsByName(tag, "lookup");
-        tag = converter.removeTagsByName(tag, "submit");
-        tag = converter.removeIfModeTags(tag);
-        tag = converter.mergeTagIntoChildren(tag, "includeIf");
-        tag = converter.mergeTagIntoChildren(tag, "excludeIf");
 
-        // Handle obs group
-        tag = converter.mergeObsGroupIntoChildren(tag);
+        List<TagMapper> mappers = new ArrayList<>();
+
+        // Remove any standard html tags
+        for (Tags.Standard standardTag : Tags.Standard.values()) {
+            mappers.add(new TagRemover(standardTag.getNodeName()));
+        }
+
+        // Remove tags that do not impact the data model and cannot be easily used as context for other elements
+        mappers.add(new TagRemover("uimessage"));
+        mappers.add(new TagRemover("lookup"));
+        mappers.add(new TagRemover("submit"));
+
+        // Remove any sections of the form that are added *just* for view mode
+        mappers.add(new IfModeTagRemover());
+
+        // Flatten any includeIf or excludeIf expressions down into the child tags
+        mappers.add(new ParentToChildMerger("includeIf"));
+        mappers.add(new ParentToChildMerger("excludeIf"));
 
         // Handle the complex web of velocity conditions for entry of date/location/provider
-        tag = converter.mergeSiblings(tag, "encounterDate");
-        tag = converter.mergeSiblings(tag, "encounterLocation");
-        tag = converter.mergeSiblings(tag, "encounterProviderAndRole");
+        mappers.add(new SiblingMerger("encounterDate"));
+        mappers.add(new SiblingMerger("encounterLocation"));
+        mappers.add(new SiblingMerger("encounterProviderAndRole"));
+
+        // Merge obs groups attributes down into children, and add any hidden obs
+        mappers.add(new ObsGroupMapper());
+
+        // Flatten sections down into the child tags
+        mappers.add(new SectionMerger());
 
         // Handle when/then tags
-        tag = converter.mergeSiblings(tag, "when");
-        tag = converter.removeTagsByName(tag,"controls");
+        mappers.add(new SiblingMerger("when"));
+        tag = new TagRemover("controls").map(tag);
 
+        for (TagMapper mapper : mappers) {
+            tag = mapper.map(tag);
+        }
 
-        HtmlFormUtils.printTag(tag, "");
+        TagCounter tagCounter = new TagCounter();
+        Map<String, Map<String, Integer>> counters = tagCounter.reduce(tag);
+        for (String counter : counters.keySet()) {
+            Map<String, Integer> counterValues = counters.get(counter);
+            for (String key : counterValues.keySet()) {
+                Integer count = counterValues.get(key);
+                System.out.println(counter + ", " + key + ", " + count);
+            }
+        }
+
+        //HtmlFormUtils.printTag(tag, "");
     }
 
     protected HtmlFormTag loadFormFromFile(File file) {
