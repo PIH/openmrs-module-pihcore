@@ -1,16 +1,17 @@
-package org.openmrs.module.pihcore.htmlformentry.analysis.mapper;
+package org.openmrs.module.pihcore.htmlformentry.analysis.converter.tag;
 
 import lombok.Data;
 import org.openmrs.module.pihcore.htmlformentry.analysis.HtmlFormTag;
+import org.openmrs.module.pihcore.htmlformentry.analysis.converter.Converter;
 
 @Data
-public class IfModeTagRemover implements TagMapper {
+public class FlattenOrExcludeIfModeConverter implements Converter<HtmlFormTag, HtmlFormTag> {
 
     @Override
-    public HtmlFormTag map(HtmlFormTag inputTag) {
-        HtmlFormTag outputTag = inputTag.cloneWithoutChildren();
-        for (HtmlFormTag childTag : inputTag.getChildTags()) {
-            childTag = map(childTag);
+    public HtmlFormTag convert(HtmlFormTag input) throws Exception {
+        HtmlFormTag outputTag = input.cloneWithoutChildren();
+        for (HtmlFormTag childTag : input.getChildTags()) {
+            childTag = convert(childTag);
             if (childTag.getName().equalsIgnoreCase("ifMode")) {
                 boolean viewMode = childTag.hasAttribute("mode", "view");
                 boolean include = !childTag.hasAttribute("include", "false");

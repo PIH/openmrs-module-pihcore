@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.htmlformentry.analysis;
 
 import lombok.Data;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ public class HtmlFormTag {
     private final Map<String, String> attributes = new HashMap<>();
     private String data;
     private final List<HtmlFormTag> childTags = new ArrayList<>();
+    private File htmlFormFile;
 
     public HtmlFormTag() {
     }
@@ -35,16 +37,22 @@ public class HtmlFormTag {
         return getAttributes().get(name);
     }
 
-    public void addAttribute(String name, String value, boolean recursively) {
+    public void addAttribute(String name, String value) {
         String existingValue = getAttributes().get(name);
         if (existingValue != null && !existingValue.equals(value)) {
             throw new IllegalStateException("Attribute with name " + name + " already exists in: " + this);
         }
         attributes.put(name, value);
-        if (recursively) {
-            for (HtmlFormTag child : childTags) {
-                child.addAttribute(name, value, true);
-            }
+    }
+
+    public void mergeAttributeRecursively(String name, String value, String separator) {
+        String existingValue = getAttributes().get(name);
+        if (existingValue != null && !existingValue.equals(value)) {
+            value = existingValue + separator + value;
+        }
+        attributes.put(name, value);
+        for (HtmlFormTag child : childTags) {
+            child.mergeAttributeRecursively(name, value, separator);
         }
     }
 

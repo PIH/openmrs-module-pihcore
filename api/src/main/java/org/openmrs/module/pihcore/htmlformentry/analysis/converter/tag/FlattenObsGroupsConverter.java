@@ -1,16 +1,17 @@
-package org.openmrs.module.pihcore.htmlformentry.analysis.mapper;
+package org.openmrs.module.pihcore.htmlformentry.analysis.converter.tag;
 
 import lombok.Data;
 import org.openmrs.module.pihcore.htmlformentry.analysis.HtmlFormTag;
+import org.openmrs.module.pihcore.htmlformentry.analysis.converter.Converter;
 
 @Data
-public class ObsGroupMapper implements TagMapper {
+public class FlattenObsGroupsConverter implements Converter<HtmlFormTag, HtmlFormTag> {
 
     @Override
-    public HtmlFormTag map(HtmlFormTag inputTag) {
-        HtmlFormTag outputTag = inputTag.cloneWithoutChildren();
-        for (HtmlFormTag childTag : inputTag.getChildTags()) {
-            childTag = map(childTag);
+    public HtmlFormTag convert(HtmlFormTag input) throws Exception {
+        HtmlFormTag outputTag = input.cloneWithoutChildren();
+        for (HtmlFormTag childTag : input.getChildTags()) {
+            childTag = convert(childTag);
             if (childTag.getName().equalsIgnoreCase("obsGroup")) {
                 String hiddenConceptId = childTag.getAttributes().remove("hiddenConceptId");
                 String hiddenAnswerConceptId = childTag.getAttributes().remove("hiddenAnswerConceptId");
@@ -25,7 +26,7 @@ public class ObsGroupMapper implements TagMapper {
             }
             outputTag.getChildTags().add(childTag);
         }
-        ParentToChildMerger parentToChildMerger = new ParentToChildMerger("obsGroup");
-        return parentToChildMerger.map(outputTag);
+        MergeParentToChildrenConverter parentToChildMerger = new MergeParentToChildrenConverter("obsGroup", " > ");
+        return parentToChildMerger.convert(outputTag);
     }
 }

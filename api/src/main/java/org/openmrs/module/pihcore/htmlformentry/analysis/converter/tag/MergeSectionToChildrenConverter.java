@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.htmlformentry.analysis.mapper;
+package org.openmrs.module.pihcore.htmlformentry.analysis.converter.tag;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.pihcore.htmlformentry.analysis.HtmlFormUtils;
@@ -6,10 +6,10 @@ import org.openmrs.module.pihcore.htmlformentry.analysis.HtmlFormUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SectionMerger extends ParentToChildMerger {
+public class MergeSectionToChildrenConverter extends MergeParentToChildrenConverter {
 
-    public SectionMerger() {
-        super("section");
+    public MergeSectionToChildrenConverter() {
+        super("section", " > ");
     }
 
     @Override

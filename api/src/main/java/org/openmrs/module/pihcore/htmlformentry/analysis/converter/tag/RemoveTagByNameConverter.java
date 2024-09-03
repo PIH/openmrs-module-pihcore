@@ -1,23 +1,24 @@
-package org.openmrs.module.pihcore.htmlformentry.analysis.mapper;
+package org.openmrs.module.pihcore.htmlformentry.analysis.converter.tag;
 
 import lombok.Data;
 import org.openmrs.module.pihcore.htmlformentry.analysis.HtmlFormTag;
+import org.openmrs.module.pihcore.htmlformentry.analysis.converter.Converter;
 
 @Data
-public class TagRemover implements TagMapper {
+public class RemoveTagByNameConverter implements Converter<HtmlFormTag, HtmlFormTag> {
 
     private String tagName;
     private boolean removeChildren;
 
-    public TagRemover(String tagName) {
+    public RemoveTagByNameConverter(String tagName) {
         this.tagName = tagName;
     }
 
     @Override
-    public HtmlFormTag map(HtmlFormTag inputTag) {
-        HtmlFormTag outputTag = inputTag.cloneWithoutChildren();
-        for (HtmlFormTag childTag : inputTag.getChildTags()) {
-            childTag = map(childTag);
+    public HtmlFormTag convert(HtmlFormTag input) throws Exception {
+        HtmlFormTag outputTag = input.cloneWithoutChildren();
+        for (HtmlFormTag childTag : input.getChildTags()) {
+            childTag = convert(childTag);
             if (childTag.getName().equalsIgnoreCase(tagName)) {
                 if (!removeChildren) {
                     outputTag.getChildTags().addAll(childTag.getChildTags());

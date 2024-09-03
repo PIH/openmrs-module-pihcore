@@ -1,27 +1,28 @@
-package org.openmrs.module.pihcore.htmlformentry.analysis.mapper;
+package org.openmrs.module.pihcore.htmlformentry.analysis.converter.tag;
 
 import lombok.Data;
 import org.openmrs.module.pihcore.htmlformentry.analysis.HtmlFormTag;
+import org.openmrs.module.pihcore.htmlformentry.analysis.converter.Converter;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Data
-public class SiblingMerger implements TagMapper {
+public class MergeSiblingsConverter implements Converter<HtmlFormTag, HtmlFormTag> {
 
     private String tagName;
 
-    public SiblingMerger(String tagName) {
+    public MergeSiblingsConverter(String tagName) {
         this.tagName = tagName;
     }
 
     @Override
-    public HtmlFormTag map(HtmlFormTag inputTag) {
-        HtmlFormTag outputTag = inputTag.cloneWithoutChildren();
+    public HtmlFormTag convert(HtmlFormTag input) throws Exception {
+        HtmlFormTag outputTag = input.cloneWithoutChildren();
         HtmlFormTag matchingTag = null;
-        for (HtmlFormTag childTag : inputTag.getChildTags()) {
-            childTag = map(childTag);
+        for (HtmlFormTag childTag : input.getChildTags()) {
+            childTag = convert(childTag);
             if (childTag.getName().equalsIgnoreCase(tagName)) {
                 if (!childTag.getChildTags().isEmpty()) {
                     throw new IllegalStateException("You cannot merge siblings that have children");
