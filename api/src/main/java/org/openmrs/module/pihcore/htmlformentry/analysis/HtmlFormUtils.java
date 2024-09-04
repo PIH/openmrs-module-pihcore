@@ -36,11 +36,4 @@ public class HtmlFormUtils {
         }
         return String.join(entrySeparator, ret);
     }
-
-    public static void printTag(HtmlFormTag tag, String prefix) {
-        System.out.println(prefix + tag.toString());
-        for (HtmlFormTag childTag : tag.getChildTags()) {
-            printTag(childTag, prefix + "  ");
-        }
-    }
 }

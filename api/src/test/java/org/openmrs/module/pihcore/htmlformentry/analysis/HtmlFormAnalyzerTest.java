@@ -3,9 +3,11 @@ package org.openmrs.module.pihcore.htmlformentry.analysis;
 import org.junit.jupiter.api.Test;
 import org.openmrs.module.pihcore.htmlformentry.analysis.processor.TagCounter;
 import org.openmrs.module.pihcore.htmlformentry.analysis.processor.TagExporter;
+import org.openmrs.module.pihcore.htmlformentry.analysis.processor.TagWriter;
 
-import javax.xml.crypto.Data;
 import java.io.File;
+import java.io.FileWriter;
+import java.util.Map;
 
 public class HtmlFormAnalyzerTest {
 
@@ -27,5 +29,18 @@ public class HtmlFormAnalyzerTest {
         File htmlForm = new File(getHtmlFormsDirectory(), "mentalHealthFollowup.xml");
         DataSet dataSet = analyzer.analyze(htmlForm, new TagExporter());
         dataSet.print("\t");
+    }
+
+    @Test
+    public void writeFormData() throws Exception {
+        HtmlFormAnalyzer analyzer = new HtmlFormAnalyzer();
+        DataSet dataSet = analyzer.analyze(getHtmlFormsDirectory(), new TagWriter());
+        try (FileWriter writer = new FileWriter(new File(getHtmlFormsDirectory(), "tagAnalysis.txt"))) {
+            for (Map<String, String> rows : dataSet.getRows()) {
+                writer.write(rows.get("inputFile") + System.lineSeparator());
+                writer.write("=============================" + System.lineSeparator());
+                writer.write(rows.get("outputData") + System.lineSeparator());
+            }
+        }
     }
 }

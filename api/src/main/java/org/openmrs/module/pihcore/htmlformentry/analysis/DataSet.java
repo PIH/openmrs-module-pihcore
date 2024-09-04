@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.htmlformentry.analysis;
 
 import com.opencsv.CSVWriter;
 import lombok.Data;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -56,8 +57,9 @@ public class DataSet {
     }
 
     public void print(String separator) {
-        System.out.println(name);
-        System.out.println("====================================");
+        if (StringUtils.isNotBlank(name)) {
+            System.out.println(name);
+        }
         System.out.println(String.join(separator, columns));
         for (Map<String, String> row : rows) {
             List<String> values = new ArrayList<>();
