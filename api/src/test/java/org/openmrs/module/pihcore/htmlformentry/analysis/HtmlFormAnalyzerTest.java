@@ -7,6 +7,7 @@ import org.openmrs.module.pihcore.htmlformentry.analysis.processor.TagWriter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Map;
 
 public class HtmlFormAnalyzerTest {
@@ -39,6 +40,17 @@ public class HtmlFormAnalyzerTest {
             for (Map<String, String> rows : dataSet.getRows()) {
                 writer.write(rows.get("inputFile") + System.lineSeparator());
                 writer.write("=============================" + System.lineSeparator());
+                writer.write(rows.get("outputData") + System.lineSeparator());
+            }
+        }
+    }
+
+    @Test
+    public void writeMentalHealthForm() throws Exception {
+        HtmlFormAnalyzer analyzer = new HtmlFormAnalyzer();
+        DataSet dataSet = analyzer.analyze(new File(getHtmlFormsDirectory(), "admissionNote.xml"), new TagWriter());
+        try (PrintWriter writer = new PrintWriter(System.out)) {
+            for (Map<String, String> rows : dataSet.getRows()) {
                 writer.write(rows.get("outputData") + System.lineSeparator());
             }
         }
