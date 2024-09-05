@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.util.Properties;
 
 @SkipBaseSetup
-public class PihCoreSdkTest extends BaseModuleContextSensitiveTest {
+public abstract class PihCoreSdkTest extends BaseModuleContextSensitiveTest {
 
     Properties p = null;
     private static final Logger log = LoggerFactory.getLogger(PihCoreSdkTest.class);
