@@ -18,12 +18,20 @@
 			<button id="create-account-button">${ ui.message("emr.createAccount") }</button>
 		</a>
 	</div>
-	<div style="margin-left:auto;">
-		<input type="checkbox" id="filter-only-enabled" value="true" />
-		${ ui.message("emr.account.showOnlyEnabled.label") }
-	</div>
 </div>
 
+<form>
+	<div style="display:flex; padding: 20px;">
+		<div style="width:auto;">
+			<input type="text" size="50" name="nameOrIdentifier" placeholder="${ ui.message("Provider.search") }" value="${nameOrIdentifier}" />
+		</div>
+		<div style="padding: 10px;">
+			<input type="checkbox" name="showOnlyEnabledUsers" value="true" <%= showOnlyEnabledUsers ? "checked" : "" %> />
+			${ ui.message("emr.account.showOnlyEnabled.label") }
+		</div>
+		<input type="submit" value="${ ui.message("general.search") }"/>
+	</div>
+</form>
 <hr>
 <table id="list-accounts" cellspacing="0" cellpadding="2">
 	<thead>
@@ -75,7 +83,7 @@
 <% if ( (accounts != null) && (accounts.size() > 0) ) { %>
 ${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#list-accounts",
         options: [
-                bFilter: true,
+                bFilter: false,
                 bJQueryUI: true,
                 bLengthChange: false,
                 iDisplayLength: 10,
@@ -85,18 +93,3 @@ ${ ui.includeFragment("uicommons", "widget/dataTable", [ object: "#list-accounts
         ]
 ]) }
 <% } %>
-<script type="text/javascript">
-	jq( document ).ready(function() {
-		jq("#filter-only-enabled").click(function(event) {
-			let table = jq("#list-accounts").dataTable();
-			let onlyEnabled = jq(this).is(':checked');
-			if (onlyEnabled) {
-				table.fnFilter('${ ui.message("emr.yes") }', 5);
-			}
-			else {
-				table.fnFilter('', 5);
-			}
-			table.fnDraw();
-		});
-	});
-</script>
