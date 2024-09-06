@@ -69,9 +69,13 @@ public class AwaitingAdmissionPageController {
 
         log.warn("Searching for inpatient requests");
         InpatientRequestSearchCriteria criteria = new InpatientRequestSearchCriteria();
-        if (dispositionTypes != null && !dispositionTypes.isEmpty()) {
-            criteria.setDispositionTypes(dispositionTypes);
+        if (dispositionTypes == null) {
+            dispositionTypes = new ArrayList<>();
         }
+        if (dispositionTypes.isEmpty()) {
+            dispositionTypes.add(DispositionType.ADMIT);
+        }
+        criteria.setDispositionTypes(dispositionTypes);
         criteria.setVisitLocation(visitLocation);
         if (dispositionLocation != null) {
             criteria.setDispositionLocations(Collections.singletonList(dispositionLocation));
