@@ -825,7 +825,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.INPATIENTS,
                         "mirebalaisreports.app.inpatients.label",
                         "fas fa-fw fa-hospital",
-                        "pihcore/reports/inpatientList.page",
+                        "pihcore/adt/inpatientList.page",
                         "App: emr.inpatients",
                         null),
                 sessionLocationHasTag("Inpatients App Location")));
