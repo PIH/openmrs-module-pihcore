@@ -818,7 +818,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.AWAITING_ADMISSION,
                 "coreapps.app.awaitingAdmission.label",
                 "fas fa-fw fa-list-ul",
-                "coreapps/adt/awaitingAdmission.page?app=" + CustomAppLoaderConstants.Apps.AWAITING_ADMISSION,
+                "pihcore/adt/awaitingAdmission.page?app=" + CustomAppLoaderConstants.Apps.AWAITING_ADMISSION,
                 "App: coreapps.awaitingAdmission",
                 objectNode("patientPageUrl", config.getDashboardUrl()))));
 
