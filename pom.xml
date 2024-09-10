@@ -51,7 +51,7 @@
         <addresshierarchyVersion>2.17.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.6</allergyuiVersion>
         <appframeworkVersion>2.17.0</appframeworkVersion>
-        <appointmentsVersion>2.0.1</appointmentsVersion>
+        <appointmentsVersion>2.0.2</appointmentsVersion>
         <appointmentschedulingVersion>2.0.0-SNAPSHOT</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>2.0.0-SNAPSHOT</appointmentschedulinguiVersion>
         <appuiVersion>1.17.0</appuiVersion>
@@ -79,7 +79,7 @@
         <legacyuiVersion>1.16.0</legacyuiVersion>
         <metadatamappingVersion>1.6.0</metadatamappingVersion>
         <namephoneticsVersion>1.19.0</namephoneticsVersion>
-        <o3formsVersion>2.2.0</o3formsVersion>
+        <o3formsVersion>2.3.0</o3formsVersion>
         <openconceptlabVersion>2.3.0</openconceptlabVersion>
         <orderEntryOwaVersion>1.2.5-SNAPSHOT</orderEntryOwaVersion>
         <owaVersion>1.14.0</owaVersion>

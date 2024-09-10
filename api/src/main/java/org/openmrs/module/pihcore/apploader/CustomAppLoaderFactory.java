@@ -822,14 +822,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.AWAITING_ADMISSION,
                 "coreapps.app.awaitingAdmission.label",
                 "fas fa-fw fa-list-ul",
-                "coreapps/adt/awaitingAdmission.page?app=" + CustomAppLoaderConstants.Apps.AWAITING_ADMISSION,
+                "pihcore/adt/awaitingAdmission.page?app=" + CustomAppLoaderConstants.Apps.AWAITING_ADMISSION,
                 "App: coreapps.awaitingAdmission",
                 objectNode("patientPageUrl", config.getDashboardUrl()))));
 
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.INPATIENTS,
                         "mirebalaisreports.app.inpatients.label",
                         "fas fa-fw fa-hospital",
-                        "pihcore/reports/inpatientList.page",
+                        "pihcore/adt/inpatientList.page",
                         "App: emr.inpatients",
                         null),
                 sessionLocationHasTag("Inpatients App Location")));
