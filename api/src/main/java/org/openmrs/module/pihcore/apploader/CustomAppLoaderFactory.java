@@ -265,6 +265,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableADTO3();
         }
 
+        if (config.isComponentEnabled(Components.BED_ADMINISTRATION)) {
+            enableBedAdministration();
+        }
+
         if (config.isComponentEnabled(Components.DEATH_CERTIFICATE)) {
             enableDeathCertificate();
         }
@@ -879,6 +883,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "spa/home/ward",
                         "App: emr.inpatients",
                         null),
+                sessionLocationHasTag("Admission Location")));
+
+    }
+
+    private void enableBedAdministration() {
+
+        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,
+                CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,
+                "fas fa-fw fa-bed",
+                "/openmrs/owa/bedmanagement/admissionLocations.html",
+                null,
+                null),
                 sessionLocationHasTag("Admission Location")));
 
     }

@@ -105,6 +105,7 @@ public class CustomAppLoaderConstants {
         public static final String COVID_LAB_RESULTS = "pih.app.covidLabResults";
         public static final String ALL_LAB_RESULTS = "pih.app.allLabResults";
         public static final String ADD_LAB_RESULTS = "pih.app.addLabResults";
+        public static final String BED_ADMINISTRATION = "pih.app.bedAdministration";
 
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
@@ -361,6 +362,7 @@ public class CustomAppLoaderConstants {
             Apps.ARCHIVES_ROOM,
             Apps.INPATIENTS,
             Apps.INPATIENT_WARD,
+            Apps.BED_ADMINISTRATION,
             Apps.MCH_TRIAGE_QUEUE,
             Apps.HIV_DISPENSING,
             Apps.LABS,

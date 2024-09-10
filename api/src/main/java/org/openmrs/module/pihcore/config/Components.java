@@ -16,6 +16,7 @@ public class Components {
         public static final String APPOINTMENTS = "appointments"; // SPA appointments
         public static final String ARCHIVES = "archives";
         public static final String ASTHMA_PROGRAM = "asthmaProgram";  // needs AsthmaProgramBundle, used by CES
+        public static final String BED_ADMINISTRATION = "bedAdministration";
         public static final String BIOMETRICS_FINGERPRINTS = "biometricsFingerPrints";
         public static final String BMI_ON_CLINICIAN_DASHBOARD = "bmiOnClinicianDashboard";
         public static final String CHECK_IN = "checkIn";
