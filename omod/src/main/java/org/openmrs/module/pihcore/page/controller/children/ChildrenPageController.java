@@ -95,7 +95,7 @@ public class ChildrenPageController {
         model.addAttribute("returnUrl", returnUrl);
 
         Set<EncounterType> encTypes = new HashSet<>();
-        encTypes.add(encounterService.getEncounterTypeByUuid(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONELABORDELIVERYSUMMARY_UUID));
+        encTypes.add(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_LABOR_DELIVERY_SUMMARY_UUID));
         EncounterSearchCriteriaBuilder searchCriteriaBuilder = new EncounterSearchCriteriaBuilder();
         searchCriteriaBuilder.setPatient(patient);
         searchCriteriaBuilder.setEncounterTypes(encTypes);
