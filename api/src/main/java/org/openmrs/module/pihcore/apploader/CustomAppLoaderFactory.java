@@ -2176,6 +2176,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornAdmission.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_ADMISSION_UUID),
                             and(patientAgeInMonthsLessThanAtVisitStart(3)))));
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_ASSESSMENT_ACTION,
@@ -2185,6 +2186,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornAssessment.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_ASSESSMENT_UUID),
                             and(patientAgeInMonthsLessThanAtVisitStart(3)))));
             
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_DAILY_PROGRESS_ACTION,
@@ -2203,6 +2205,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornDischarge.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_DISCHARGE_UUID),
                             and(patientAgeInMonthsLessThanAtVisitStart(3)))));
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NICU_TRIAGE_ACTION,
@@ -2230,6 +2233,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("laborDeliverySummary.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_LABOR_DELIVERY_SUMMARY_UUID),
                             and(patientIsFemale(), patientIsAdult()))));
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.POSTPARTUM_PROGRESS_ACTION,
@@ -2248,6 +2252,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("maternalDischarge.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_DISCHARGE_UUID),
                             and(patientIsFemale(), patientIsAdult()))));
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MATERNAL_ADMISSION_ACTION,
@@ -2257,6 +2262,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("maternalAdmission.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal Admission Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_ADMISSION_UUID),
                             and(patientIsFemale(), patientIsAdult()))));
         }
     }
