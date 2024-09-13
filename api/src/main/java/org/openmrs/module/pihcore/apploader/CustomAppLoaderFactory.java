@@ -838,7 +838,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.admit.label",
                 "fas fa-fw fa-hospital-symbol",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("admissionNote.xml") + "&returnProvider=coreapps&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label"),
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("admissionNote.xml") + "&returnProvider=pihcore&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label"),
                 "Task: emr.enterAdmissionNote",
                 null));
 
@@ -846,7 +846,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "uicommons.cancel",
                 "fas fa-fw fa-user-minus",
                 "link",
-                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("cancelAdmission.xml") + "&returnProvider=coreapps&returnPage=adt/awaitingAdmission"),
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("cancelAdmission.xml") + "&returnProvider=pihcore&returnPage=adt/awaitingAdmission"),
                 "Task: emr.enterAdmissionNote",
                 null));
 
