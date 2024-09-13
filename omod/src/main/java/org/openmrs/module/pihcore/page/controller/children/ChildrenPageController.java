@@ -32,7 +32,6 @@ import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
-import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
