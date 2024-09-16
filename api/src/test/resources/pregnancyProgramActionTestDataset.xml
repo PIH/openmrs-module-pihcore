@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- patient 7 is from standard test dataset -->
+<dataset>
+    <!-- set up a parent/child location, with the parent tagged as a "Visit Location" -->
+    <location location_id="1001" name="Parent Location" description="Parent Location" address1="" address2="" city_village="" state_province="" postal_code="" country="" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="123e4567-e89b-12d3-a456-426614174000"/>
+    <location location_id="1002" parent_location="1001" name="Child Location" description="Child Location" address1="800 Boylston Street" address2="" city_village="Boston" state_province="MA" postal_code="02115" country="USA" latitude="" longitude="" creator="1" date_created="2008-08-15 13:46:50.0" retired="false" uuid="123e4567-e89b-12d3-a456-426614174001"/>
+    <location_tag location_tag_id="1001" name="Visit Location" description="Visit Location" creator="1" date_created="2008-08-15 13:46:50.0" retired="false" uuid="123e4567-e89b-12d3-a456-426614174002"/>
+    <location_tag_map location_id="1001" location_tag_id="1001"/>
+
+    <!-- mocked version of Pregnancy Program with correct uuids, (linked concepts are incorrect) -->
+    <program program_id="1001" concept_id="9" creator="1" date_created="2008-08-15 16:07:11.0" changed_by="1" date_changed="2008-08-15 17:04:50.0" retired="false" name="Pregnancy Program" description="pregnancy program" uuid="6a5713c2-3fd5-46e7-8f25-36a0f7871e12"/>
+    <program_workflow program_workflow_id="1001" program_id="1001" concept_id="13" creator="1" date_created="2008-08-15 17:01:00.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="9a3f8252-1588-4f7b-b02c-9e99c437d4ef"/>
+    <!-- prenatal -->
+    <program_workflow_state program_workflow_state_id="1001" program_workflow_id="1001" concept_id="16" initial="true" terminal="false" creator="1" date_created="2008-08-15 17:04:02.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="a83896bf-9094-4a3c-b843-e75509a52b32"/>
+    <!-- postpartum -->
+    <program_workflow_state program_workflow_state_id="1002" program_workflow_id="1001" concept_id="17" initial="true" terminal="false" creator="1" date_created="2008-08-15 17:04:02.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="a735b5f6-0b63-4d9a-ae2e-70d08c947aed"/>
+</dataset>
