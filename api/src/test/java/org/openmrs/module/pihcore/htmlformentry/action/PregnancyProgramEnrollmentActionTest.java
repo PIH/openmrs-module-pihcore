@@ -25,8 +25,6 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
 
     private FormEntrySession mockSession;
 
-    private FormEntryContext mockContext;
-
     private PregnancyProgramEnrollmentAction pregnancyProgramEnrollmentAction;
 
     private static final String PREGNANCY_PROGRAM_UUID = "6a5713c2-3fd5-46e7-8f25-36a0f7871e12";
@@ -41,8 +39,6 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
         executeDataSet("pregnancyProgramActionTestDataset.xml");
 
         mockSession = mock(FormEntrySession.class);
-        mockContext = mock(FormEntryContext.class);
-        when(mockSession.getContext()).thenReturn(mockContext);
         pregnancyProgramEnrollmentAction = new PregnancyProgramEnrollmentAction();
     }
 
@@ -65,7 +61,6 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
 
         when(mockSession.getPatient()).thenReturn(patient);
         when(mockSession.getEncounter()).thenReturn(encounter);
-        when(mockSession.getContext().getMode()).thenReturn(FormEntryContext.Mode.ENTER);
         pregnancyProgramEnrollmentAction.applyAction(mockSession);
 
         patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
@@ -108,7 +103,6 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
 
         when(mockSession.getPatient()).thenReturn(patient);
         when(mockSession.getEncounter()).thenReturn(encounter);
-        when(mockSession.getContext().getMode()).thenReturn(FormEntryContext.Mode.ENTER);
         pregnancyProgramEnrollmentAction.applyAction(mockSession);
 
         patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
@@ -157,7 +151,6 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
 
         when(mockSession.getPatient()).thenReturn(patient);
         when(mockSession.getEncounter()).thenReturn(encounter);
-        when(mockSession.getContext().getMode()).thenReturn(FormEntryContext.Mode.ENTER);
         pregnancyProgramEnrollmentAction.applyAction(mockSession);
 
         patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
@@ -198,7 +191,6 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
 
         when(mockSession.getPatient()).thenReturn(patient);
         when(mockSession.getEncounter()).thenReturn(encounter);
-        when(mockSession.getContext().getMode()).thenReturn(FormEntryContext.Mode.ENTER);
         pregnancyProgramEnrollmentAction.applyAction(mockSession);
 
         patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
@@ -212,21 +204,5 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
 
         Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(1).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(1).getDateCompleted());
-    }
-
-    @Test
-    public void setPregnancyProgramEnrollmentAction_shouldDoNothingWhenInEditMode() {
-        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
-        Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
-        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
-        // sanity check, patient is not enrolled
-        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, now, null, false);
-        Assertions.assertEquals(0, patientPregnancyPrograms.size());
-
-        when(mockSession.getContext().getMode()).thenReturn(FormEntryContext.Mode.EDIT);
-        pregnancyProgramEnrollmentAction.applyAction(mockSession);
-
-        patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
-        Assertions.assertEquals(0, patientPregnancyPrograms.size());
     }
 }

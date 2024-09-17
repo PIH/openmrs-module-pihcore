@@ -21,7 +21,7 @@ import static org.openmrs.module.pihcore.htmlformentry.action.util.PregnancyProg
 import static org.openmrs.module.pihcore.htmlformentry.action.util.PregnancyProgramActionUtils.getTypeOfTreatmentStateOnDate;
 
 /**
- * Does the following when a *new* form is submitted:
+ * Does the following when a form is saved:
  * - If the Patient is not enrolled in the Pregnancy Program at the time of the encounter, enrolls the Patient in the Pregnancy Program with the state of Antenatal
  * - If the Patient is already enrolled in the Pregnancy Program with the state of postpartum, end the current enrollment and enroll the Patient in the Pregnancy Program with the state of Antenatal
  * Intended to be added to the following forms:
@@ -36,35 +36,32 @@ public class PregnancyProgramEnrollmentAction implements CustomFormSubmissionAct
 
     @Override
     public void applyAction(FormEntrySession formEntrySession) {
-        // only do anything if we are entering (not editing) a form
-        if (formEntrySession.getContext().getMode().equals(FormEntryContext.Mode.ENTER)) {
-            Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(SierraLeoneConfigConstants.PROGRAM_PREGNANCY_UUID);
-            ProgramWorkflowState antenatalState = Context.getProgramWorkflowService().getStateByUuid(SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID);
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(SierraLeoneConfigConstants.PROGRAM_PREGNANCY_UUID);
+        ProgramWorkflowState antenatalState = Context.getProgramWorkflowService().getStateByUuid(SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID);
 
-            Patient patient = formEntrySession.getPatient();
-            Encounter encounter = formEntrySession.getEncounter();
-            // get all patient programs completed on or after encounter date (or not yet completed) and sort by date enrolled
-            List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient, pregnancyProgram, null, null, encounter.getEncounterDatetime(), null, false);
-            patientPregnancyPrograms.sort(Comparator.comparing(PatientProgram::getDateEnrolled));
-            // see if any are active on encounter date
-            List<PatientProgram> activePatientPregnancyPrograms = patientPregnancyPrograms.stream().filter(patientProgram -> patientProgram.getActive(encounter.getEncounterDatetime())).collect(Collectors.toList());
+        Patient patient = formEntrySession.getPatient();
+        Encounter encounter = formEntrySession.getEncounter();
+        // get all patient programs completed on or after encounter date (or not yet completed) and sort by date enrolled
+        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient, pregnancyProgram, null, null, encounter.getEncounterDatetime(), null, false);
+        patientPregnancyPrograms.sort(Comparator.comparing(PatientProgram::getDateEnrolled));
+        // see if any are active on encounter date
+        List<PatientProgram> activePatientPregnancyPrograms = patientPregnancyPrograms.stream().filter(patientProgram -> patientProgram.getActive(encounter.getEncounterDatetime())).collect(Collectors.toList());
 
-            if (activePatientPregnancyPrograms.isEmpty()) {
-                // enroll if no active program
-                enrollInPregnancyProgram(patient, antenatalState, encounter, patientPregnancyPrograms);
-            } else {
-                if (activePatientPregnancyPrograms.size() > 1) {
-                    log.warn("Patient " + patient.getUuid() + " is enrolled in multiple active pregnancy programs, likely a data error. Operating on the most recent one.");
-                }
-                // if the patient is enrolled, but in postpartum state, end the current enrollment and enroll in new program
-                PatientProgram activePregnancyProgram = activePatientPregnancyPrograms.get(activePatientPregnancyPrograms.size() - 1);
-                if (SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_POSTPARTUM_UUID
-                        .equals(getTypeOfTreatmentStateOnDate(activePregnancyProgram.getStates(), encounter.getEncounterDatetime()).map(patientState -> patientState.getState().getUuid()).orElse(null))) {
-                    endEnrollment(activePregnancyProgram, encounter);
-                    enrollInPregnancyProgram(patient, antenatalState, encounter, patientPregnancyPrograms);
-                }
-                // otherwise, do nothing
+        if (activePatientPregnancyPrograms.isEmpty()) {
+            // enroll if no active program
+            enrollInPregnancyProgram(patient, antenatalState, encounter, patientPregnancyPrograms);
+        } else {
+            if (activePatientPregnancyPrograms.size() > 1) {
+                log.warn("Patient " + patient.getUuid() + " is enrolled in multiple active pregnancy programs, likely a data error. Operating on the most recent one.");
             }
+            // if the patient is enrolled, but in postpartum state, end the current enrollment and enroll in new program
+            PatientProgram activePregnancyProgram = activePatientPregnancyPrograms.get(activePatientPregnancyPrograms.size() - 1);
+            if (SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_POSTPARTUM_UUID
+                    .equals(getTypeOfTreatmentStateOnDate(activePregnancyProgram.getStates(), encounter.getEncounterDatetime()).map(patientState -> patientState.getState().getUuid()).orElse(null))) {
+                endEnrollment(activePregnancyProgram, encounter);
+                enrollInPregnancyProgram(patient, antenatalState, encounter, patientPregnancyPrograms);
+            }
+            // otherwise, do nothing
         }
     }
 }
