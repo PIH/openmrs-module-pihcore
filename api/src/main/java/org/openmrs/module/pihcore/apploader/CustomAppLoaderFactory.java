@@ -3804,7 +3804,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToProgramSummaryListPage(app("pih.app." + programUuid + ".programSummary.dashboard",
                         "pih.app." + programUuid + ".programSummary.dashboard",
                         "fas fa-fw fa-list-alt",
-                        "/coreapps/summarydashboard/summaryDashboard.page?app=" + "pih.app." + programUuid + ".programSummary.dashboard",
+                        "/coreapps/summarydashboard/programEnrollments.page?app=" + "pih.app." + programUuid + ".programSummary.dashboard",
                         PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_SUMMARY_DASHBOARD,
                         objectNode(
                                 "program", programUuid
