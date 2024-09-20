@@ -11,7 +11,6 @@ import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
 import org.openmrs.Program;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
@@ -33,6 +32,8 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
     private static final String ANTENATAL_PROGRAM_STATE_UUID = "a83896bf-9094-4a3c-b843-e75509a52b32";
 
     private static final String POSTPARTUM_PROGRAM_STATE_UUID = "a735b5f6-0b63-4d9a-ae2e-70d08c947aed";
+
+    private static final String CONCEPT_UNKNOWN_UUID = "3cd6fac4-26fe-102b-80cb-0017a47871b2";
 
     @BeforeEach
     public void setUp() {
@@ -68,6 +69,7 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
         Assertions.assertEquals(1, patientPregnancyPrograms.size());
         Assertions.assertEquals(now, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
         Assertions.assertEquals("Parent Location", patientPregnancyPrograms.get(0).getLocation().getName());  // location should be set to parent *visit* location
         Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getStates().size());
         Assertions.assertEquals(POSTPARTUM_PROGRAM_STATE_UUID, patientPregnancyPrograms.get(0).getStates().stream().findFirst().get().getState().getUuid());
@@ -111,10 +113,12 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
 
         Assertions.assertEquals(oneYearAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertEquals(CONCEPT_UNKNOWN_UUID, patientPregnancyPrograms.get(0).getOutcome().getUuid());
         Assertions.assertEquals("Parent Location", patientPregnancyPrograms.get(0).getLocation().getName());  // location should be set to parent *visit* location
 
         Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(1).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(1).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(1).getOutcome());
     }
 
     @Test
@@ -153,6 +157,7 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
 
         Assertions.assertEquals(oneYearAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
         Assertions.assertEquals(2, patientPregnancyPrograms.get(0).getStates().size());
         Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getCurrentStates().size());
         PatientState currentState = patientPregnancyPrograms.get(0).getCurrentStates().iterator().next();
@@ -198,6 +203,7 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
 
         Assertions.assertEquals(oneYearAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
         Assertions.assertEquals(2, patientPregnancyPrograms.get(0).getStates().size());
         Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getCurrentStates().size());
         PatientState currentState = patientPregnancyPrograms.get(0).getCurrentStates().iterator().next();
