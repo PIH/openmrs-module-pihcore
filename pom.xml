@@ -52,7 +52,7 @@
         <allergyuiVersion>1.8.6</allergyuiVersion>
         <appframeworkVersion>2.17.0</appframeworkVersion>
         <appointmentsVersion>2.0.2</appointmentsVersion>
-        <appointmentschedulingVersion>2.0.0-SNAPSHOT</appointmentschedulingVersion>
+        <appointmentschedulingVersion>2.0.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>2.0.0-SNAPSHOT</appointmentschedulinguiVersion>
         <appuiVersion>1.17.0</appuiVersion>
         <attachmentsVersion>2.8.0</attachmentsVersion>
@@ -70,7 +70,7 @@
         <fhir2Version>2.2.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>5.3.0-SNAPSHOT</htmlformentryVersion>
-        <htmlformentryuiVersion>2.4.0-SNAPSHOT</htmlformentryuiVersion>
+        <htmlformentryuiVersion>2.4.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.11.0</htmlwidgetsVersion>
         <idgenVersion>4.10.0</idgenVersion>
         <initializerVersion>2.7.0</initializerVersion>
