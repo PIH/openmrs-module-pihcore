@@ -3755,8 +3755,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void configureBasicProgramDashboard(String programUuid) {
         boolean isSierraLeone = config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE);
         boolean isPregnancyProgram = PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID.equals(programUuid);
-        // The Sierra Leone Pregnancy Program Patient Dashboard is setup via config-pihsl, so do not set that up here
-        if (!isSierraLeone || !isPregnancyProgram) {
+        boolean isInfantProgram = PihEmrConfigConstants.PROGRAM_INFANT_UUID.equals(programUuid);
+        // The Sierra Leone Pregnancy and Infant Programs Patient Dashboards are setup via config-pihsl, so do not set that up here
+        boolean skipBasicProgramDashboardConfiguration = false;
+        if (isSierraLeone && (isPregnancyProgram || isInfantProgram)) {
+            //skip over the basic configuration of the program dashboard
+            skipBasicProgramDashboardConfiguration = true;
+        }
+        if (!skipBasicProgramDashboardConfiguration) {
             configureBasicProgramPatientDashboardWidgets(programUuid);
         }
         configureBasicProgramSummaryApps(programUuid);
