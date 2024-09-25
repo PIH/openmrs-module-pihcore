@@ -11,7 +11,6 @@ import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
 import org.openmrs.Program;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
@@ -68,6 +67,7 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
         Assertions.assertEquals(1, patientPregnancyPrograms.size());
         Assertions.assertEquals(now, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
         Assertions.assertEquals("Parent Location", patientPregnancyPrograms.get(0).getLocation().getName());  // location should be set to parent *visit* location
         Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getStates().size());
         Assertions.assertEquals(POSTPARTUM_PROGRAM_STATE_UUID, patientPregnancyPrograms.get(0).getStates().stream().findFirst().get().getState().getUuid());
@@ -111,10 +111,12 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
 
         Assertions.assertEquals(oneYearAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
         Assertions.assertEquals("Parent Location", patientPregnancyPrograms.get(0).getLocation().getName());  // location should be set to parent *visit* location
 
         Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(1).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(1).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(1).getOutcome());
     }
 
     @Test
@@ -153,6 +155,7 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
 
         Assertions.assertEquals(oneYearAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
         Assertions.assertEquals(2, patientPregnancyPrograms.get(0).getStates().size());
         Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getCurrentStates().size());
         PatientState currentState = patientPregnancyPrograms.get(0).getCurrentStates().iterator().next();
@@ -198,6 +201,7 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
 
         Assertions.assertEquals(oneYearAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
         Assertions.assertEquals(2, patientPregnancyPrograms.get(0).getStates().size());
         Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getCurrentStates().size());
         PatientState currentState = patientPregnancyPrograms.get(0).getCurrentStates().iterator().next();
