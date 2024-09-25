@@ -9,7 +9,6 @@ import org.openmrs.ProgramWorkflow;
 import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.adt.AdtService;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 
 import java.util.Date;
@@ -21,7 +20,6 @@ public class PregnancyProgramActionUtils {
 
     public static void endEnrollment(PatientProgram patientPregnancyProgram, Encounter encounter) {
         patientPregnancyProgram.setDateCompleted(encounter.getEncounterDatetime());
-        patientPregnancyProgram.setOutcome(Context.getConceptService().getConceptByUuid(PihEmrConfigConstants.CONCEPT_UNKNOWN_UUID));
         Context.getProgramWorkflowService().savePatientProgram(patientPregnancyProgram);
     }
 
@@ -36,7 +34,6 @@ public class PregnancyProgramActionUtils {
         newPatientProgram.setPatient(patient);
         newPatientProgram.setDateEnrolled(encounter.getEncounterDatetime());
         newPatientProgram.setDateCompleted(nextPatientProgram.map(PatientProgram::getDateEnrolled).orElse(null)); // see TODO above
-        newPatientProgram.setOutcome(nextPatientProgram.isPresent() ? Context.getConceptService().getConceptByUuid(PihEmrConfigConstants.CONCEPT_UNKNOWN_UUID) : null); //see TODO above
         newPatientProgram.setLocation(Context.getService(AdtService.class).getLocationThatSupportsVisits(encounter.getLocation()));
         newPatientProgram.transitionToState(state, encounter.getEncounterDatetime());
         Context.getProgramWorkflowService().savePatientProgram(newPatientProgram);

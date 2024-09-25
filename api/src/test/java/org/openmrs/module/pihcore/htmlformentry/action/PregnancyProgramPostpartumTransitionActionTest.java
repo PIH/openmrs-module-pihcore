@@ -33,8 +33,6 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
 
     private static final String POSTPARTUM_PROGRAM_STATE_UUID = "a735b5f6-0b63-4d9a-ae2e-70d08c947aed";
 
-    private static final String CONCEPT_UNKNOWN_UUID = "3cd6fac4-26fe-102b-80cb-0017a47871b2";
-
     @BeforeEach
     public void setUp() {
         // contains mock pregnancy program and locations
@@ -113,7 +111,7 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
 
         Assertions.assertEquals(oneYearAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
         Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(0).getDateCompleted());
-        Assertions.assertEquals(CONCEPT_UNKNOWN_UUID, patientPregnancyPrograms.get(0).getOutcome().getUuid());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
         Assertions.assertEquals("Parent Location", patientPregnancyPrograms.get(0).getLocation().getName());  // location should be set to parent *visit* location
 
         Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(1).getDateEnrolled());
