@@ -2133,7 +2133,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                       PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
-
         }
 
     }
