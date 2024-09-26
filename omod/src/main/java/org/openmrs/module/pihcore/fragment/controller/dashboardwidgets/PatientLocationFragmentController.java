@@ -80,7 +80,7 @@ public class PatientLocationFragmentController {
                     currentInpatientLocation = inpatientAdmission.getCurrentInpatientLocation();
                     currentInpatientRequest = inpatientAdmission.getCurrentInpatientRequest();
                     if (currentInpatientRequest != null) {
-                        String dispositionLocation = currentInpatientRequest.getDispositionLocation().getName();
+                        String dispositionLocation = currentInpatientRequest.getDispositionLocation() !=null ?  currentInpatientRequest.getDispositionLocation().getName() : currentInpatientRequest.getDispositionEncounter().getLocation().getName();
                         if (currentInpatientRequest.getDispositionType() == DispositionType.ADMIT) {
                             patientStatus = ui.message("pihcore.waiting.tobe.admitted") + " " + dispositionLocation;
                         } else if (currentInpatientRequest.getDispositionType() == DispositionType.TRANSFER) {
@@ -102,7 +102,7 @@ public class PatientLocationFragmentController {
                 List<InpatientRequest> inpatientRequests = adtService.getInpatientRequests(requestSearchCriteria);
                 if (inpatientRequests != null && !inpatientRequests.isEmpty()) {
                     for (InpatientRequest inpatientRequest : inpatientRequests) {
-                        currentInpatientLocation = inpatientRequest.getDispositionLocation();
+                        currentInpatientLocation = inpatientRequest.getDispositionLocation() !=null ? inpatientRequest.getDispositionLocation() : inpatientRequest.getDispositionEncounter().getLocation();
                         if (inpatientRequest.getDispositionType() == DispositionType.ADMIT) {
                             patientStatus = ui.message("pihcore.waiting.tobe.admitted") + " " + currentInpatientLocation;
                         } else if (inpatientRequest.getDispositionType() == DispositionType.TRANSFER) {
