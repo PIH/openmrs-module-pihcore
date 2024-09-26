@@ -76,6 +76,7 @@ public class PatientLocationFragmentController {
             InpatientRequest currentInpatientRequest = null;
             if (inpatientAdmissions != null && !inpatientAdmissions.isEmpty()) {
                 for (InpatientAdmission inpatientAdmission : inpatientAdmissions) {
+                    // it should never be more than one inpatientAdmission per patient
                     currentInpatientLocation = inpatientAdmission.getCurrentInpatientLocation();
                     currentInpatientRequest = inpatientAdmission.getCurrentInpatientRequest();
                     if (currentInpatientRequest != null) {
@@ -84,6 +85,8 @@ public class PatientLocationFragmentController {
                             patientStatus = ui.message("pihcore.waiting.tobe.admitted") + " " + dispositionLocation;
                         } else if (currentInpatientRequest.getDispositionType() == DispositionType.TRANSFER) {
                             patientStatus = ui.message("pihcore.waiting.for.transfer") + " " + dispositionLocation;
+                        } else if (currentInpatientRequest.getDispositionType() == DispositionType.DISCHARGE) {
+                            patientStatus = ui.message("pihcore.waiting.for.discharge") + " " + dispositionLocation;
                         } else {
                             patientStatus = currentInpatientRequest.getDisposition().getName().getName();
                         }
@@ -104,6 +107,8 @@ public class PatientLocationFragmentController {
                             patientStatus = ui.message("pihcore.waiting.tobe.admitted") + " " + currentInpatientLocation;
                         } else if (inpatientRequest.getDispositionType() == DispositionType.TRANSFER) {
                             patientStatus = ui.message("pihcore.waiting.for.transfer") + " " + currentInpatientLocation;
+                        } else if (inpatientRequest.getDispositionType() == DispositionType.DISCHARGE) {
+                            patientStatus = ui.message("pihcore.waiting.for.discharge") + " " + currentInpatientLocation;
                         } else {
                             patientStatus = inpatientRequest.getDisposition().getName().getName();
                         }
