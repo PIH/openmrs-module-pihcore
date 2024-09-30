@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class RiskFactorsFragmentController {
+public class ObsByEncounterFragmentController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     public void controller(@SpringBean("patientService") PatientService patientService,
@@ -43,20 +43,9 @@ public class RiskFactorsFragmentController {
                            FragmentModel model) {
 
         Object patientConfig = config.get("patient");
-        if (patientConfig == null) {
-            patientConfig = config.get("patientId");
-        }
         Patient patient = null;
-        if (patientConfig != null) {
-            if (patientConfig instanceof Patient) {
-                patient = (Patient) patientConfig;
-            } else if (patientConfig instanceof PatientDomainWrapper) {
+        if (patientConfig != null && (patientConfig instanceof PatientDomainWrapper)) {
                 patient = ((PatientDomainWrapper) patientConfig).getPatient();
-            } else if (patientConfig instanceof Integer) {
-                patient = patientService.getPatient((Integer) patientConfig);
-            } else if (patientConfig instanceof String) {
-                patient = patientService.getPatientByUuid((String) patientConfig);
-            }
         }
         if (patient == null) {
             throw new IllegalArgumentException("No patient found. Please pass patient into the configuration");
