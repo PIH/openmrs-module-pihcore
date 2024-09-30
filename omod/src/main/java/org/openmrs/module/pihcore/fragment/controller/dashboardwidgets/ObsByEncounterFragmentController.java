@@ -58,7 +58,7 @@ public class ObsByEncounterFragmentController {
         if (node == null) {
             throw new IllegalStateException("Missing configuration concepts on widget");
         }
-        Set<Concept> riskConcepts = new HashSet<>();
+        Set<Concept> concepts = new HashSet<>();
         Iterator<JsonNode> i = node.getElements();
         while (i.hasNext()) {
             String conceptUuid = i.next().getTextValue();
@@ -67,7 +67,7 @@ public class ObsByEncounterFragmentController {
                 if (concept == null ) {
                     throw new IllegalArgumentException("No concept with this UUID: " + conceptUuid + " found. Please pass correct concept UUID into the configuration");
                 }
-                riskConcepts.add(concept);
+                concepts.add(concept);
             }
         }
 
@@ -90,7 +90,7 @@ public class ObsByEncounterFragmentController {
         List<Obs> obsList = obsService.getObservations(
                 Arrays.asList(patient),
                 null,
-                new ArrayList<>(riskConcepts),
+                new ArrayList<>(concepts),
                 null,
                 null,
                 null,
