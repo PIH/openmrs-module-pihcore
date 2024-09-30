@@ -70,6 +70,21 @@ public class ObsByEncounterFragmentController {
                 concepts.add(concept);
             }
         }
+        node = app.getConfig().get("headers");
+        if (node == null) {
+            throw new IllegalStateException("Missing configuration headers on widget");
+        }
+        List<String> headers = new ArrayList<>();
+        i = node.getElements();
+        while (i.hasNext()) {
+            String header = i.next().getTextValue();
+            if (StringUtils.isNotBlank(header)) {
+                headers.add(header);
+            } else {
+                throw new IllegalStateException("Missing configuration, headers entries cannot be empty.");
+            }
+        }
+        model.put("headers", headers);
 
         Date obsOnOrAfter = null;
         String visitUrl = getConfigValue(app, "visitUrl");

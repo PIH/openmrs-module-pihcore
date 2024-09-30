@@ -31,8 +31,9 @@
             <table id="obsTable">
                 <thead>
                 <tr>
-                    <th>${ ui.message("coreapps.date") } </th>
-                    <th>${ ui.message("pihcore.riskFactors") }</th>
+                    <% headers.each { header -> %>
+                        <th>${ui.message(header)}</th>
+                    <% } %>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,8 +48,8 @@
                     </td>
                     <td>
                         <span>
-                            <% obsList.each { obs -> %>
-                                ${ui.format(obs)},
+                            <% obsList.eachWithIndex { obs, index -> %>
+                                ${ui.format(obs)}${obsList.size() - 1 > index ? ", " : ""}
                             <%  }%>
                         </span>
                     </td>
