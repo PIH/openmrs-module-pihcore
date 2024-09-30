@@ -80,6 +80,8 @@ public class ObsByEncounterFragmentController {
             String header = i.next().getTextValue();
             if (StringUtils.isNotBlank(header)) {
                 headers.add(header);
+            } else {
+                throw new IllegalStateException("Missing configuration, headers entries cannot be empty.");
             }
         }
         model.put("headers", headers);
