@@ -42,15 +42,28 @@
                     <td>
                         <span class="encounter-date">
                             <a class="visit-link" href="${ ui.urlBind("/" + contextPath + visitUrl, [ "patient.uuid": patient.id, "visit.uuid": enc.visit.uuid ]) }">
-                                ${ui.formatDatePretty(enc.encounterDatetime)}
+                                <% if (showTime) { %>
+                                    ${ui.formatDatetimePretty(enc.encounterDatetime)}
+                                <% } else { %>
+                                    ${ui.formatDatePretty(enc.encounterDatetime)}
+                                <% } %>
                             </a>
                         </span>
                     </td>
                     <td>
                         <span>
                             <% obsList.eachWithIndex { obs, index -> %>
-                                ${ui.format(obs)}${obsList.size() - 1 > index ? ", " : ""}
-                            <%  }%>
+                                <% if (obs.valueNumeric) { %>
+                                    <%  if ((minValue && obs.valueNumeric && (new BigDecimal(obs.valueNumeric) < new BigDecimal(minValue)))
+                                            || (maxValue && obs.valueNumeric && (new BigDecimal(obs.valueNumeric) > new BigDecimal(maxValue)))) {  %>
+                                        <span style="color: red">${ui.format(obs.valueNumeric)}</span>
+                                    <% } else { %>
+                                        ${ui.format(obs.valueNumeric)}
+                                    <% }  %>
+                                <% } else { %>
+                                    ${ui.format(obs)}${obsList.size() - 1 > index ? ", " : ""}
+                                <% } %>
+                            <% } %>
                         </span>
                     </td>
                 </tr>

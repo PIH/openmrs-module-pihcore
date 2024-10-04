@@ -23,10 +23,12 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -126,8 +128,20 @@ public class ObsByEncounterFragmentController {
             existingList.add(obs);
             encounterObs.put(obs.getEncounter(), existingList);
         }
+        List<Encounter> encounters = new ArrayList<>(encounterObs.keySet());
+        // order the encounters by encounterDatetime descending
+        Collections.sort(encounters, (e1, e2) -> e2.getEncounterDatetime().compareTo(e1.getEncounterDatetime()));
+        Map<Encounter, List<Obs>> sortedEncObs = new LinkedHashMap<>();
+        for (Encounter encounter : encounters) {
+            sortedEncObs.put(encounter, encounterObs.get(encounter));
+        }
+
+        Boolean showTime = app.getConfig().get("showTime") != null ? app.getConfig().get("showTime").getBooleanValue() : false;
+        model.put("minValue", app.getConfig().get("minValue") != null ? app.getConfig().get("minValue").getTextValue() : "");
+        model.put("maxValue", app.getConfig().get("maxValue") != null ? app.getConfig().get("maxValue").getTextValue() : "");
+        model.put("showTime", showTime);
         model.put("visitUrl", visitUrl);
-        model.put("encounterObs", encounterObs);
+        model.put("encounterObs", sortedEncObs);
     }
 
     private String getConfigValue(AppDescriptor app, String configValue) {
