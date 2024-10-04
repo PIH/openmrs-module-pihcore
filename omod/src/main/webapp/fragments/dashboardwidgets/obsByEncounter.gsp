@@ -54,11 +54,11 @@
                         <span>
                             <% obsList.eachWithIndex { obs, index -> %>
                                 <% if (obs.valueNumeric) { %>
-                                    <%  if ((minValue && obs.valueNumeric && (new BigDecimal(obs.valueNumeric) < new BigDecimal(minValue)))
-                                            || (maxValue && obs.valueNumeric && (new BigDecimal(obs.valueNumeric) > new BigDecimal(maxValue)))) {  %>
+                                    <%  if ((minValue && (new BigDecimal(obs.valueNumeric) < new BigDecimal(minValue)))
+                                            || (maxValue && (new BigDecimal(obs.valueNumeric) > new BigDecimal(maxValue)))) {  %>
                                         <span style="color: red">${ui.format(obs.valueNumeric)}</span>
                                     <% } else { %>
-                                        ${ui.format(obs.valueNumeric)}
+                                        ${ui.format(obs.valueNumeric)}${obsList.size() - 1 > index ? ", " : ""}
                                     <% }  %>
                                 <% } else { %>
                                     ${ui.format(obs)}${obsList.size() - 1 > index ? ", " : ""}
