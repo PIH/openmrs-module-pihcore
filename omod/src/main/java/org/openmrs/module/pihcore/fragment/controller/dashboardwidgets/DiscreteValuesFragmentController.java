@@ -15,6 +15,7 @@ import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
+import org.openmrs.module.pihcore.PihCoreUtils;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -58,71 +59,37 @@ public class DiscreteValuesFragmentController {
         model.put("app", app);
         model.put("patient", patient);
 
-        JsonNode node = app.getConfig().get("fields");
-        if (node == null) {
-            throw new IllegalStateException("Missing configuration concepts on widget");
+        List<SimpleObject> fieldsObject = (List<SimpleObject>) config.get("fields");
+        if (fieldsObject == null) {
+            throw new IllegalStateException("Missing configuration fields on widget");
         }
         Set<Concept> concepts = new HashSet<>();
         Map<String, SimpleObject> fields = new LinkedHashMap<>();
-        if (node instanceof ArrayNode) {
-            ArrayNode arrayNode = (ArrayNode) node;
-            for (Iterator<JsonNode> iter = arrayNode.getElements(); iter.hasNext();) {
-                JsonNode fieldNode = iter.next();
-                try {
-                    String label = fieldNode.get("label").asText();
-                    String conceptUuid = fieldNode.get("concept").asText();
-                    String minValue = fieldNode.get("minValue").asText();
-                    if (StringUtils.isNotBlank(conceptUuid)) {
-                        Concept concept = conceptService.getConceptByUuid(conceptUuid);
-                        if (concept == null ) {
-                            throw new IllegalArgumentException("No concept with this UUID: " + conceptUuid + " found. Please pass correct concept UUID into the configuration");
-                        }
-                        concepts.add(concept);
-                        fields.put(conceptUuid, SimpleObject.create(
-                                "label", label,
-                                "minValue", minValue
-                        ));
+        for (int i = 0; i < fieldsObject.size(); i++ ) {
+            try {
+                Map<String, String> fieldNode = (LinkedHashMap) fieldsObject.get(i);
+                String label = (String) fieldNode.get("label");
+                String conceptUuid = (String) fieldNode.get("concept");
+                String minValue = (String) fieldNode.get("minValue");
+                if (StringUtils.isNotBlank(conceptUuid)) {
+                    Concept concept = conceptService.getConceptByReference(conceptUuid);
+                    if (concept == null) {
+                        throw new IllegalArgumentException("No concept with this UUID: " + conceptUuid + " found. Please pass correct concept UUID into the configuration");
                     }
+                    concepts.add(concept);
+                    fields.put(conceptUuid, SimpleObject.create(
+                            "label", label,
+                            "minValue", minValue
+                    ));
                 }
-                catch (Exception e) {
-                    throw new IllegalStateException("Invalid configuration for encounterType node", e);
-                }
+            } catch (Exception e) {
+                throw new IllegalStateException("Invalid configuration for encounterType node", e);
             }
-        } else {
-            throw new IllegalStateException("fields is expected to be an array of objects");
         }
 
-        Date obsOnOrAfter = null;
-        String visitUrl = getConfigValue(app, "visitUrl");
-        String programUuid = getConfigValue(app, "duringCurrentEnrollmentInProgram");
-        if (StringUtils.isNotBlank(programUuid)) {
-            Program program = programWorkflowService.getProgramByUuid(programUuid);
-            if (program == null) {
-                throw new IllegalStateException("No program with uuid " + programUuid + " is found.  Please check app configuration of " + app.getId());
-            }
-            for (PatientProgram pp : programWorkflowService.getPatientPrograms(patient, program, null, null, null, null, false)) {
-                if (pp.getActive()) {
-                    if (obsOnOrAfter == null || obsOnOrAfter.before(pp.getDateEnrolled())) {
-                        obsOnOrAfter = pp.getDateEnrolled();
-                    }
-                }
-            }
-        }
-        List<Obs> obsList = obsService.getObservations(
-                Arrays.asList(patient),
-                null,
-                new ArrayList<>(concepts),
-                null,
-                null,
-                null,
-                Arrays.asList("obsDatetime"), //sort by field
-                null,
-                null,
-                obsOnOrAfter, //fromDate
-                null,
-                false); //includeVoidedObs
+        String programUuid = (String) config.get("duringCurrentEnrollmentInProgram");
+        List<Obs> obsList = PihCoreUtils.getObsWithinProgram(patient, concepts, programUuid);
 
-        Map<Encounter, List<Obs>> encounterObs = new HashMap<>();
         for (Obs obs : obsList) {
             obs.getValueAsString(Context.getLocale());
             SimpleObject simpleObject = fields.get(obs.getConcept().getUuid());
@@ -131,13 +98,5 @@ public class DiscreteValuesFragmentController {
             }
         }
         model.put("fields", fields);
-    }
-
-    private String getConfigValue(AppDescriptor app, String configValue) {
-        JsonNode node = app.getConfig().get(configValue);
-        if (node == null) {
-            return "";
-        }
-        return node.asText();
     }
 }
