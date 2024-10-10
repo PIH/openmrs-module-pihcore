@@ -1,8 +1,11 @@
 
 <div class="info-section">
     <div class="info-header">
-        <i class="fas fa-fw fa-child"></i>
-        <h3>${ ui.message("pihcore.apgar.scores") }</h3>
+        <i class="${app.icon}"></i>
+        <h3>${ ui.message(app.label) }</h3>
+        <a href="${ ui.urlBind("/" + contextPath + app.url, [ "patient.uuid": patient.id ]) }" class="right">
+            <i class="icon-share-alt edit-action" title="Edit"></i>
+        </a>
     </div>
     <div class="info-body">
         <% fields.each { concept, obs -> %>

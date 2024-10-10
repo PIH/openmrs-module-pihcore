@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class ApgarScoresFragmentController {
+public class DiscreteValuesFragmentController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -130,7 +130,6 @@ public class ApgarScoresFragmentController {
                 simpleObject.put("obsValue", obs.getValueAsString(Context.getLocale()));
             }
         }
-        model.put("visitUrl", visitUrl);
         model.put("fields", fields);
     }
 
