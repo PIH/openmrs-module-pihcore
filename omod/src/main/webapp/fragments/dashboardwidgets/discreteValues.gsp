@@ -3,19 +3,16 @@
     <div class="info-header">
         <i class="${app.icon}"></i>
         <h3>${ ui.message(app.label) }</h3>
-        <a href="${ ui.urlBind("/" + contextPath + app.url, [ "patient.uuid": patient.id ]) }" class="right">
-            <i class="icon-share-alt edit-action" title="Edit"></i>
-        </a>
     </div>
     <div class="info-body">
-        <% fields.each { concept, obs -> %>
+        <% fields.each { concept, obj -> %>
             <div>
-                <span style="font-family: 'OpenSansBold'";>${ ui.message(obs.label) }:</span>
-                <% if ( obs.minValue && obs.obsValue && obs.minValue.isNumber() && obs.obsValue.isNumber() &&
-                        (new BigDecimal(obs.obsValue) < new BigDecimal(obs.minValue))) {%>
-                    <span style="color: red;">${ obs.obsValue }</span>
+                <span style="font-family: 'OpenSansBold'";>${ ui.message(obj.label) }:</span>
+                <% if ( obj.minValue && obj.obs.valueNumeric &&
+                        (new BigDecimal(obj.obs.valueNumeric) < new BigDecimal(obj.minValue))) {%>
+                    <span style="color: red;">${ obj.obs.valueNumeric }</span>
                 <% } else { %>
-                    <span>${ obs.obsValue }</span>
+                    <span>${ ui.format(obj.obs) }</span>
                 <% } %>
             </div>
         <% } %>
