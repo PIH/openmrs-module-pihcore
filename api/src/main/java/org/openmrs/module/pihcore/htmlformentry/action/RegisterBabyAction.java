@@ -19,6 +19,8 @@ import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.bedmanagement.BedDetails;
+import org.openmrs.module.bedmanagement.service.BedManagementService;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
@@ -59,7 +61,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             Concept yesConcept = Context.getConceptService().getConceptByMapping(YES_CONCEPT, "CIEL");
             Concept noConcept = Context.getConceptService().getConceptByMapping(NO_CONCEPT, "CIEL");
 
-            Patient patient = formEntrySession.getPatient();
+            Patient mother = formEntrySession.getPatient();
             Encounter encounter = formEntrySession.getEncounter();
             HashMap<String, Obs> registeredBabies = new LinkedHashMap<>();
             for (Obs candidate : encounter.getObsAtTopLevel(false)) {
@@ -73,14 +75,22 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                 Concept gender = getCodedValue(groupMembers, BABY_GENDER_CONCEPT_SOURCE, BABY_GENDER_CONCEPT);
                                 Date birthDatetime = getObsDateValue(groupMembers, DATE_TIME_OF_BIRTH_CONCEPT_SOURCE, DATE_TIME_OF_BIRTH_CONCEPT);
                                 if ((gender != null) && (birthDatetime != null)) {
-                                    Patient baby = registerBaby(patient, gender, birthDatetime, encounter.getLocation());
+                                    Patient baby = registerBaby(mother, gender, birthDatetime, encounter.getLocation());
                                     if (baby != null && baby.getUuid() != null) {
                                         registeredBabies.put(baby.getUuid(), groupMember);
                                         //create visit for the new registered baby
                                         Visit visit= createVisit(baby, birthDatetime, encounter);
                                         if (visit != null) {
                                             // create Admission encounter for the new registered baby
-                                            createAdmissionEncounter(visit, baby, birthDatetime, encounter);
+                                            Encounter babyEncounter = createAdmissionEncounter(visit, baby, birthDatetime, encounter);
+                                            if(babyEncounter != null) {
+                                                // assign baby to mother's bed, if exists
+                                                BedManagementService bedManagementService = Context.getService(BedManagementService.class);
+                                                BedDetails motherBed = bedManagementService.getBedAssignmentDetailsByPatient(mother);
+                                                if(motherBed != null) {
+                                                    bedManagementService.assignPatientToBed(baby, babyEncounter, "" + motherBed.getBedId());
+                                                }
+                                            }
                                         }
                                     }
                                 }
