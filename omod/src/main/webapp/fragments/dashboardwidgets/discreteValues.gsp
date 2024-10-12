@@ -8,7 +8,7 @@
         <% fields.each { concept, obj -> %>
             <div>
                 <span style="font-family: 'OpenSansBold'";>${ ui.message(obj.label) }:</span>
-                <% if ( obj.minValue && obj.obs.valueNumeric &&
+                <% if ( obj.minValue && obj.obs?.valueNumeric &&
                         (new BigDecimal(obj.obs.valueNumeric) < new BigDecimal(obj.minValue))) {%>
                     <span style="color: red;">${ obj.obs.valueNumeric }</span>
                 <% } else { %>
