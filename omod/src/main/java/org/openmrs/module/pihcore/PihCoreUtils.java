@@ -31,7 +31,7 @@ import java.util.Set;
 
 public class PihCoreUtils {
 
-    public static List<Obs> getObsWithinProgram(Patient patient, Set<Concept> concepts, String programUuid) {
+    public static List<Obs> getObsWithinProgram(Patient patient, Set<Concept> questions, Set<Concept> answers, String programUuid) {
 
         List<Obs> obsList = null;
         ProgramWorkflowService programWorkflowService = Context.getProgramWorkflowService();
@@ -53,8 +53,8 @@ public class PihCoreUtils {
         obsList = obsService.getObservations(
                 Arrays.asList(patient),
                 null,
-                new ArrayList<>(concepts),
-                null,
+                questions != null ? new ArrayList<>(questions) : null,
+                answers != null ? new ArrayList<>(answers) : null,
                 null,
                 null,
                 Arrays.asList("obsDatetime"), //sort by field

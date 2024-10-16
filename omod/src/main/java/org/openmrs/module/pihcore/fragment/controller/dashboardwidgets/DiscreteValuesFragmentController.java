@@ -114,7 +114,7 @@ public class DiscreteValuesFragmentController {
         }
 
         String programUuid = (String) config.get("duringCurrentEnrollmentInProgram");
-        List<Obs> obsList = PihCoreUtils.getObsWithinProgram(patient, concepts, programUuid);
+        List<Obs> obsList = PihCoreUtils.getObsWithinProgram(patient, concepts, null, programUuid);
 
         for (Obs obs : obsList) {
             obs.getValueAsString(Context.getLocale());

@@ -70,6 +70,20 @@ public class NewbornIndicatorsFragmentController {
         fields.put(PihEmrConfigConstants.CONCEPT_TYPEOFDELIVERY_UUID, SimpleObject.create(
                 "label", "pihcore.mch.deliveryType"
         ));
+        Obs multipleBirth = null;
+        Concept multipleBirthConcept = conceptService.getConceptByUuid(PihEmrConfigConstants.CONCEPT_MULTIPLEBIRTH_UUID);
+        if (multipleBirthConcept != null ) {
+            Set<Concept> answers = new HashSet<>();
+            answers.add(multipleBirthConcept);
+            List<Obs> multipleBirthObsList = PihCoreUtils.getObsWithinProgram(patient, null, answers, programUuid);
+            if (multipleBirthObsList != null && multipleBirthObsList.size() > 0) {
+                multipleBirth = multipleBirthObsList.get(0);
+            }
+        }
+        fields.put("multipleBirth", SimpleObject.create(
+        "label", "pihcore.multiple.birth",
+                "obs", multipleBirth != null ? ui.message("general.true") : ui.message("general.false")
+        ));
         fields.put(PihEmrConfigConstants.CONCEPT_GESTATIONALAGE_UUID, SimpleObject.create(
                 "label", "pihcore.newborn.gestational.age",
                 "css", "red"
@@ -77,15 +91,22 @@ public class NewbornIndicatorsFragmentController {
         fields.put(PihEmrConfigConstants.CONCEPT_BIRTHWEIGHT_UUID, SimpleObject.create(
                 "label", "pihcore.birthweight"
         ));
+        fields.put(PihEmrConfigConstants.CONCEPT_BABYNUMBER_UUID, SimpleObject.create(
+                "label", "pihcore.baby.number"
+        ));
         Set<Concept> concepts = new HashSet<>();
         for (String conceptRef : fields.keySet()) {
+            if ( conceptRef == "multipleBirth") {
+                // this is a special case that we need to skip over
+                continue;
+            }
             Concept concept = conceptService.getConceptByReference(conceptRef);
             if (concept == null) {
                 throw new IllegalArgumentException("No concept with this ref: " + conceptRef + " found. Please pass correct concept ref into the configuration");
             }
             concepts.add(concept);
         }
-        List<Obs> obsList = PihCoreUtils.getObsWithinProgram(patient, concepts, programUuid);
+        List<Obs> obsList = PihCoreUtils.getObsWithinProgram(patient, concepts, null, programUuid);
 
         for (Obs obs : obsList) {
             obs.getValueAsString(Context.getLocale());
@@ -94,6 +115,7 @@ public class NewbornIndicatorsFragmentController {
                 simpleObject.put("obs", obs);
             }
         }
+
         RelationshipType motherToChildRelationshipType = personService.getRelationshipTypeByUuid(PihEmrConfigConstants.RELATIONSHIPTYPE_MOTHERTOCHILD_UUID);
         List<Relationship> relationships = personService.getRelationships(null, patient.getPerson(), motherToChildRelationshipType);
         if (relationships != null && relationships.size() == 1) {
