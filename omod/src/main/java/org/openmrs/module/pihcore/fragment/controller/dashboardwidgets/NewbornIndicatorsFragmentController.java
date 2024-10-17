@@ -132,7 +132,7 @@ public class NewbornIndicatorsFragmentController {
                         "inpatientLocation", inpatientLocation.get("currentInpatientLocation"),
                         "queueName", inpatientLocation.get("queueName"),
                         "patientStatus", inpatientLocation.get("patientStatus"),
-                        "url", "coreapps/clinicianfacing/patient.page?patientId=" + mother.getUuid()
+                        "url", "pihcore/router/programDashboard.page?patientId=" + mother.getUuid()
                 ));
             }
         }
