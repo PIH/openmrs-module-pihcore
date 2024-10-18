@@ -122,8 +122,8 @@ public class NewbornIndicatorsFragmentController {
             // it should be only one entry on this type of relationship
             Patient mother =  patientService.getPatientByUuid(relationships.get(0).getPersonA().getUuid());
             if (mother != null ){
-                VisitDomainWrapper activeVisit = adtService.getActiveVisit(patient, uiSessionContext.getSessionLocation());
-                SimpleObject inpatientLocation = PihCoreUtils.getInpatientLocation(patient, activeVisit != null ?  activeVisit.getVisit() : null, adtService, ui);
+                VisitDomainWrapper activeVisit = adtService.getActiveVisit(mother, uiSessionContext.getSessionLocation());
+                SimpleObject inpatientLocation = PihCoreUtils.getInpatientLocation(mother, activeVisit != null ?  activeVisit.getVisit() : null, adtService, ui);
 
                 fields.put("mother", SimpleObject.create(
                         "label", "pihcore.mother",
