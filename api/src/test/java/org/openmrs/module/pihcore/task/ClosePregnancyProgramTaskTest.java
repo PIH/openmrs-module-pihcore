@@ -151,7 +151,8 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
         existingPatientPregnancyProgram.setProgram(pregnancyProgram);
         existingPatientPregnancyProgram.setPatient(patient);
         existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_MISCARRIED_UUID), sevenWeeksAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_POSTPARTUM_UUID), sevenWeeksAgo);
+        existingPatientPregnancyProgram.setDateCompleted(sevenWeeksAgo);
         Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
 
         // sanity check, patient program exists
@@ -255,6 +256,126 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
         Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
     }
 
-    // TODO: test some cases with both antenatal and postpartum states
+    @Test
+    public void shouldSetCompletedProgramWithFinalStateMiscarriedAndNoOutcomeToOutcomeTreatmentComplete() {
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
+        Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
+        Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
+        Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
+        Concept treatmentCompleteConcept = Context.getConceptService().getConceptByMapping("1714", "PIH");
+        Assertions.assertNotNull(treatmentCompleteConcept);  // sanity check
 
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        // enroll the patient in the program and then transition to miscarried state
+        PatientProgram existingPatientPregnancyProgram = new PatientProgram();
+        existingPatientPregnancyProgram.setProgram(pregnancyProgram);
+        existingPatientPregnancyProgram.setPatient(patient);
+        existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
+        // note that transitioning to miscarried will automatically set the program to completed
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_MISCARRIED_UUID), sevenWeeksAgo);
+        Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
+
+        // sanity check, patient program exists
+        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        task.run();
+
+        // outcome should have been set to treatment complete
+        patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        Assertions.assertEquals(treatmentCompleteConcept, patientPregnancyPrograms.get(0).getOutcome());
+        Assertions.assertEquals(sevenWeeksAgo, patientPregnancyPrograms.get(0).getDateCompleted());
+    }
+
+    @Test
+    public void shouldNotUpdateOutcomeForCompletedProgramWithFinalStateMiscarriedIfOutcomeAlreadySet() {
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
+        Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
+        Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
+        Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
+        Concept lostToFollowupConcept = Context.getConceptService().getConceptByMapping("5240", "PIH");
+        Assertions.assertNotNull(lostToFollowupConcept);  // sanity check
+
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        // enroll the patient in the program and then transition to miscarried state
+        PatientProgram existingPatientPregnancyProgram = new PatientProgram();
+        existingPatientPregnancyProgram.setProgram(pregnancyProgram);
+        existingPatientPregnancyProgram.setPatient(patient);
+        existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
+        // note that transitioning to miscarried will automatically set the program to completed
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_MISCARRIED_UUID), sevenWeeksAgo);
+        existingPatientPregnancyProgram.setOutcome(lostToFollowupConcept);  // explicitly set outcome to lost to followup
+        Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
+
+        // sanity check, patient program exists
+        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        task.run();
+
+        // outcome should have been set to treatment complete
+        patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        Assertions.assertEquals(lostToFollowupConcept, patientPregnancyPrograms.get(0).getOutcome());
+        Assertions.assertEquals(sevenWeeksAgo, patientPregnancyPrograms.get(0).getDateCompleted());
+    }
+
+    @Test
+    public void shouldNotSetOutcomeForProgramWithFinalStateOtherThanMiscarried() {
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
+        Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
+        Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
+        Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
+
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        // enroll the patient in the program and then transition to miscarried state
+        PatientProgram existingPatientPregnancyProgram = new PatientProgram();
+        existingPatientPregnancyProgram.setProgram(pregnancyProgram);
+        existingPatientPregnancyProgram.setPatient(patient);
+        existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_POSTPARTUM_UUID), sevenWeeksAgo);
+        existingPatientPregnancyProgram.setDateCompleted(now);
+        Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
+
+        // sanity check, patient program exists
+        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        task.run();
+
+        // outcome should have been set to treatment complete
+        patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
+        Assertions.assertEquals(now, patientPregnancyPrograms.get(0).getDateCompleted());
+    }
+
+    @Test
+    public void shouldNotSetOutcomeForProgramWithNoWorkflowState() {
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
+        Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
+        Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
+
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        // enroll the patient in the program and then transition to miscarried state
+        PatientProgram existingPatientPregnancyProgram = new PatientProgram();
+        existingPatientPregnancyProgram.setProgram(pregnancyProgram);
+        existingPatientPregnancyProgram.setPatient(patient);
+        existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
+         existingPatientPregnancyProgram.setDateCompleted(now);
+        Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
+
+        // sanity check, patient program exists
+        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        task.run();
+
+        // outcome should have been set to treatment complete
+        patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
+        Assertions.assertEquals(now, patientPregnancyPrograms.get(0).getDateCompleted());
+    }
 }
