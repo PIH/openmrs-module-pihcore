@@ -11,6 +11,7 @@ import org.openmrs.PatientProgram;
 import org.openmrs.Program;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 
 import java.util.Date;
@@ -21,15 +22,7 @@ import static org.mockito.Mockito.when;
 
 public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
 
-    private static final String PREGNANCY_PROGRAM_UUID = "6a5713c2-3fd5-46e7-8f25-36a0f7871e12";
-
     private static final String ANOTHER_PROGRAM_UUID = "550e8400-e29b-41d4-a716-446655440000";
-
-    private static final String ANTENATAL_PROGRAM_STATE_UUID = "a83896bf-9094-4a3c-b843-e75509a52b32";
-
-    private static final String POSTPARTUM_PROGRAM_STATE_UUID = "a735b5f6-0b63-4d9a-ae2e-70d08c947aed";
-
-    private static final String MISCARRIED_PROGRAM_STATE_UUID = "c1d2e3f4-a5b6-7c8d-9e0f-1a2b3c4d5e6f";
 
     private ClosePregnancyProgramTask task;
 
@@ -49,7 +42,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
 
     @Test
     public void shouldClosePregnancyProgramWithStateTreatmentCompleteSixWeeksAfterDelivery() {
-        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
         Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
         Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
@@ -63,8 +56,8 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
         existingPatientPregnancyProgram.setProgram(pregnancyProgram);
         existingPatientPregnancyProgram.setPatient(patient);
         existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(ANTENATAL_PROGRAM_STATE_UUID), tenMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(POSTPARTUM_PROGRAM_STATE_UUID), sevenWeeksAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID), tenMonthsAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_POSTPARTUM_UUID), sevenWeeksAgo);
         Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
 
         // sanity check, patient program exists
@@ -81,7 +74,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
     
     @Test
     public void shouldNotClosePregnancyProgramAfterSixWeeksIfInAntenatalState() {
-        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
         Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
         Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
@@ -95,7 +88,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
         existingPatientPregnancyProgram.setProgram(pregnancyProgram);
         existingPatientPregnancyProgram.setPatient(patient);
         existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(ANTENATAL_PROGRAM_STATE_UUID), sevenWeeksAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID), sevenWeeksAgo);
         Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
 
         // sanity check, patient program exists
@@ -112,7 +105,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
     
     @Test
     public void shouldNotClosePregnancyProgramIfLessThanSixWeeksFromDelivery() {
-        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
         Date fiveWeeksAgo = new DateTime(now).minusWeeks(5).toDate();
         Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
@@ -126,8 +119,8 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
         existingPatientPregnancyProgram.setProgram(pregnancyProgram);
         existingPatientPregnancyProgram.setPatient(patient);
         existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(ANTENATAL_PROGRAM_STATE_UUID), tenMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(POSTPARTUM_PROGRAM_STATE_UUID), fiveWeeksAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID), tenMonthsAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_POSTPARTUM_UUID), fiveWeeksAgo);
         Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
 
         // sanity check, patient program exists
@@ -144,7 +137,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
 
     @Test
     public void shouldNotUpdateDateCompletedOrOutcomeIfProgramAlreadyClosed() {
-        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
         Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
         Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
@@ -158,7 +151,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
         existingPatientPregnancyProgram.setProgram(pregnancyProgram);
         existingPatientPregnancyProgram.setPatient(patient);
         existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(MISCARRIED_PROGRAM_STATE_UUID), sevenWeeksAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_MISCARRIED_UUID), sevenWeeksAgo);
         Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
 
         // sanity check, patient program exists
@@ -177,7 +170,6 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
     public void shouldNotCloseAnotherProgram() {
         Program anotherProgram = Context.getProgramWorkflowService().getProgramByUuid(ANOTHER_PROGRAM_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
-        Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
         Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
         Concept treatmentCompleteConcept = Context.getConceptService().getConceptByMapping("1714", "PIH");
         Assertions.assertNotNull(treatmentCompleteConcept);  // sanity check
@@ -205,7 +197,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
 
     @Test
     public void shouldClosePregnancyProgramWithStateLostToFollowUpIfInAntenatalStateForMoreThanElevenMonths() {
-        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
         Date twelveMonthsAgo  = new DateTime(now).minusMonths(12).toDate();
         Concept lostToFollowupConcept = Context.getConceptService().getConceptByMapping("5240", "PIH");
@@ -218,7 +210,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
         existingPatientPregnancyProgram.setProgram(pregnancyProgram);
         existingPatientPregnancyProgram.setPatient(patient);
         existingPatientPregnancyProgram.setDateEnrolled(twelveMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(ANTENATAL_PROGRAM_STATE_UUID), twelveMonthsAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID), twelveMonthsAgo);
         Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
 
         // sanity check, patient program exists
@@ -235,7 +227,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
 
     @Test
     public void shouldNotClosePregnancyProgramWithStateLostToFollowUpIfInAntenatalStateForLessThanElevenMonths() {
-        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
         Date tenMonthsAgo  = new DateTime(now).minusMonths(10).toDate();
         Concept lostToFollowupConcept = Context.getConceptService().getConceptByMapping("5240", "PIH");
@@ -248,7 +240,7 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
         existingPatientPregnancyProgram.setProgram(pregnancyProgram);
         existingPatientPregnancyProgram.setPatient(patient);
         existingPatientPregnancyProgram.setDateEnrolled(tenMonthsAgo);
-        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(ANTENATAL_PROGRAM_STATE_UUID), tenMonthsAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID), tenMonthsAgo);
         Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
 
         // sanity check, patient program exists

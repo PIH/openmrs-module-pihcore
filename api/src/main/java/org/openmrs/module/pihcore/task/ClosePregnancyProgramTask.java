@@ -8,8 +8,8 @@ import org.openmrs.Program;
 import org.openmrs.ProgramWorkflow;
 import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Date;
@@ -23,14 +23,6 @@ public class ClosePregnancyProgramTask implements Runnable {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
     private static boolean isExecuting = false;
-
-    private static final String PREGNANCY_PROGRAM_UUID = "6a5713c2-3fd5-46e7-8f25-36a0f7871e12";
-
-    private static final String PREGNANCY_PROGRAM_TREATMENT_STATUS_WORKFLOW_UUID = "9a3f8252-1588-4f7b-b02c-9e99c437d4ef";
-
-    private static final String ANTENATAL_PROGRAM_STATE_UUID = "a83896bf-9094-4a3c-b843-e75509a52b32";
-
-    private static final String POSTPARTUM_PROGRAM_STATE_UUID = "a735b5f6-0b63-4d9a-ae2e-70d08c947aed";
 
     private Config config;
 
@@ -49,10 +41,10 @@ public class ClosePregnancyProgramTask implements Runnable {
 
             // logic is for Sierra Leone only
             if (config != null && config.isSierraLeone()) {
-                Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
-                ProgramWorkflow treatmentStatusWorkflow = Context.getProgramWorkflowService().getWorkflowByUuid(PREGNANCY_PROGRAM_TREATMENT_STATUS_WORKFLOW_UUID);
-                ProgramWorkflowState antenatalState = Context.getProgramWorkflowService().getStateByUuid(ANTENATAL_PROGRAM_STATE_UUID);
-                ProgramWorkflowState postpartumState = Context.getProgramWorkflowService().getStateByUuid(POSTPARTUM_PROGRAM_STATE_UUID);
+                Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID);
+                ProgramWorkflow treatmentStatusWorkflow = Context.getProgramWorkflowService().getWorkflowByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_UUID);
+                ProgramWorkflowState antenatalState = Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID);
+                ProgramWorkflowState postpartumState = Context.getProgramWorkflowService().getStateByUuid(PihEmrConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_POSTPARTUM_UUID);
                 Concept treatmentCompleteConcept = Context.getConceptService().getConceptByMapping("1714", "PIH");
                 Concept lostToFollowup = Context.getConceptService().getConceptByMapping("5240", "PIH");
                 Date sixWeeksAgo = new DateTime().minusWeeks(6).toDate();
