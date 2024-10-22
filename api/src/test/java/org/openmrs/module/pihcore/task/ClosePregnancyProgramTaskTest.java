@@ -26,11 +26,6 @@ public class ClosePregnancyProgramTaskTest extends PihCoreContextSensitiveTest {
 
     private ClosePregnancyProgramTask task;
 
-    @Override
-    public String getPihConfig() {
-        return "sierraLeone";
-    }
-
     @BeforeEach
     public void setUp() {
         executeDataSet("pregnancyProgramTestDataset.xml");
