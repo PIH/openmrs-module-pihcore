@@ -36,7 +36,7 @@ public class PregnancyProgramPostpartumTransitionActionTest extends PihCoreConte
     @BeforeEach
     public void setUp() {
         // contains mock pregnancy program and locations
-        executeDataSet("pregnancyProgramActionTestDataset.xml");
+        executeDataSet("pregnancyProgramTestDataset.xml");
 
         mockSession = mock(FormEntrySession.class);
         pregnancyProgramPostpartumTransitionAction = new PregnancyProgramPostpartumTransitionAction();

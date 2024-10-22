@@ -1,7 +1,9 @@
 package org.openmrs.module.pihcore.task;
 
+import org.openmrs.module.pihcore.config.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ScheduledExecutorFactoryBean;
 import org.springframework.scheduling.concurrent.ScheduledExecutorTask;
 import org.springframework.stereotype.Component;
@@ -28,7 +30,8 @@ public class PihCoreScheduledTaskExecutor extends ScheduledExecutorFactoryBean {
                 task(fiveMinutes, oneHour, PihCloseStalePullRequestsTask.class),
                 task(fiveMinutes, oneHour, PihCloseStaleCreateRequestsTask.class),
                 task(fiveMinutes, oneHour, PihCloseStaleVisitsTask.class),
-                task(tenMinutes, oneHour, MarkBahmniAppointmentsAsCompleted.class)  // generally we want this to run afte the close stale visits task
+                task(fiveMinutes, oneHour, ClosePregnancyProgramTask.class),
+                task(tenMinutes, oneHour, MarkBahmniAppointmentsAsCompleted.class)  // generally we want this to run after the close stale visits task
         );
     }
 
