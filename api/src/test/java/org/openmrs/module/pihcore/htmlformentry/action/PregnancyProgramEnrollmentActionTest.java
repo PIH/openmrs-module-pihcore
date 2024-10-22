@@ -36,7 +36,7 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
     @BeforeEach
     public void setUp() {
         // contains mock pregnancy program and locations
-        executeDataSet("pregnancyProgramActionTestDataset.xml");
+        executeDataSet("pregnancyProgramTestDataset.xml");
 
         mockSession = mock(FormEntrySession.class);
         pregnancyProgramEnrollmentAction = new PregnancyProgramEnrollmentAction();
