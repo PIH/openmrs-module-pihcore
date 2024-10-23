@@ -83,7 +83,7 @@ public class CloseInfantProgramTaskTest extends PihCoreContextSensitiveTest {
 
         task.run();
 
-        // should no longer be enrolled
+        // should not be unenrolled
         patientInfantPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,infantProgram, null, null, null, null, false);
         Assertions.assertEquals(1, patientInfantPrograms.size());
         Assertions.assertNull(patientInfantPrograms.get(0).getOutcome());
@@ -110,12 +110,44 @@ public class CloseInfantProgramTaskTest extends PihCoreContextSensitiveTest {
 
         task.run();
 
-        // should no longer be enrolled
+        // should not be unenrolled
         patientAnotherPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,anotherProgram, null, null, null, null, false);
         Assertions.assertEquals(1, patientAnotherPrograms.size());
         Assertions.assertNull(patientAnotherPrograms.get(0).getOutcome());
         Assertions.assertNull(patientAnotherPrograms.get(0).getDateCompleted());
     }
 
+
+    @Test
+    public void shouldNotChangeOutcomeOrCloseDateIfAlreadySet() {
+        Program infantProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_INFANT_UUID);
+        Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
+        Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
+        Date fourWeeksAgo  = new DateTime(now).minusWeeks(4).toDate();
+
+
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        Concept anotherOutcome = Context.getConceptService().getConcept(3);  // just another concept from the standard test dataset
+        PatientProgram existingPatientInfantProgram = new PatientProgram();
+        existingPatientInfantProgram.setProgram(infantProgram);
+        existingPatientInfantProgram.setPatient(patient);
+        existingPatientInfantProgram.setDateEnrolled(sevenWeeksAgo);
+        existingPatientInfantProgram.setDateCompleted(fourWeeksAgo);
+        existingPatientInfantProgram.setOutcome(anotherOutcome);
+        Context.getProgramWorkflowService().savePatientProgram(existingPatientInfantProgram);
+
+        // sanity check, patient program exists
+        List<PatientProgram> patientInfantPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,infantProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientInfantPrograms.size());
+
+        task.run();
+
+        // outcome and date completed should not be updated
+        patientInfantPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,infantProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientInfantPrograms.size());
+        Assertions.assertEquals(anotherOutcome, patientInfantPrograms.get(0).getOutcome());
+        Assertions.assertEquals(fourWeeksAgo, patientInfantPrograms.get(0).getDateCompleted());
+    }
 
 }
