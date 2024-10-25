@@ -99,6 +99,7 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         loadFromInitializer(Domain.ENCOUNTER_ROLES, "encounterRoles.csv");
         loadFromInitializer(Domain.VISIT_TYPES, "visitTypes.csv");
         loadFromInitializer(Domain.METADATA_TERM_MAPPINGS, "metadataMappings.csv");
+        dispositionService.setDispositionConfig("testDispositionConfig.json"); // use demo disposition config from test resources
         task = new PihCloseStaleVisitsTask();
     }
 
