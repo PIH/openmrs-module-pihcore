@@ -18,11 +18,10 @@
     <!-- miscarried -->
     <program_workflow_state program_workflow_state_id="1003" program_workflow_id="1001" concept_id="14" initial="false" terminal="true" creator="1" date_created="2008-08-15 17:04:02.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="c1d2e3f4-a5b6-7c8d-9e0f-1a2b3c4d5e6f"/>
 
-    <concept_reference_source concept_source_id="1001" name="PIH" description="Mocked PIH source" hl7_code="PIH" creator="1" date_created="2005-02-24 00:00:00.0" uuid="123e4567-e89b-12d3-a456-426614174005" retired="false"/>
-
     <!-- another mock program -->
     <program program_id="1002" concept_id="8" creator="1" date_created="2008-08-15 16:07:11.0" changed_by="1" date_changed="2008-08-15 17:04:50.0" retired="false" name="Another Program" description="another program" uuid="550e8400-e29b-41d4-a716-446655440000"/>
 
+    <concept_reference_source concept_source_id="1001" name="PIH" description="Mocked PIH source" hl7_code="PIH" creator="1" date_created="2005-02-24 00:00:00.0" uuid="123e4567-e89b-12d3-a456-426614174005" retired="false"/>
 
     <!-- mocked version of lost to follow up concept -->
     <concept concept_id="1001" retired="false" datatype_id="4" class_id="18" is_set="false" creator="1" date_created="2008-08-15 16:08:18.0" version="" uuid="3ceb0ed8-26fe-102b-80cb-0017a47871b2"/>
