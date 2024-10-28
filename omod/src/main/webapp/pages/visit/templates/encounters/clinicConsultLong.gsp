@@ -45,7 +45,16 @@
             </p>
         </div>
     </div>
-
+    <div class="clear">
+        <div class="left-column">
+            <h3 class="consult-header">${ ui.message('mirebalaisreports.noncodeddiagnoses.name') }</h3>
+        </div>
+        <div class="right-column">
+            <p>
+                {{ encounter.obs | byConcept:Concepts.nonCodedDiagnosis:true | obs:'value' }}
+            </p>
+        </div>
+    </div>
     <div>
         <div class="left-column">
             <h3 class="consult-header">${ ui.message('coreapps.consult.disposition') }</h3>

@@ -46,6 +46,17 @@
         </div>
     </div>
 
+    <div>
+        <div class="left-column">
+            <h3 class="dx-header">${ ui.message('mirebalaisreports.noncodeddiagnoses.name') }</h3>
+        </div>
+        <div class="right-column">
+            <p>
+                {{ encounter.obs | byConcept:Concepts.nonCodedDiagnosis:true | obs:'value' }}
+            </p>
+        </div>
+    </div>
+
     <div class="comments-div">
         <div class="left-column">
             <h3 class="dx-header">${ ui.message('coreapps.consult.freeTextComments') }</h3>
