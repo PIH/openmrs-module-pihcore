@@ -12,6 +12,9 @@
     <span ng-repeat="diag in encounter.obs | byConcept:Concepts.diagnosisConstruct | withoutCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder">
         {{ diag | diagnosisShort }}{{ \$last ? "" : "," }}
     </span>
+    <span>
+        {{ ((encounter.obs | byConcept:Concepts.diagnosisConstruct | withCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder).length == 0 ) && (encounter.obs | byConcept:Concepts.diagnosisConstruct | withoutCodedMember:Concepts.diagnosisOrder:Concepts.primaryOrder).length == 0 ? "" : ", " }}{{ encounter.obs | byConcept:Concepts.nonCodedDiagnosis:true | obs:'value' }}
+    </span>
 </span>
 
 <span ng-show="showEncounterDetails" ng-include="'templates/showEncounterDetails.page'" />
