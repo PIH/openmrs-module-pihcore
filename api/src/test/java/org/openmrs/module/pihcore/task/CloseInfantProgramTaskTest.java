@@ -36,18 +36,22 @@ public class CloseInfantProgramTaskTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    public void shouldCloseInfantProgramWithStatePatientAgedOutAfterSixWeeks() {
+    public void shouldCloseInfantProgramWithStatePatientAgedOutAfterPatientIsSixWeeksOld() {
         Program infantProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_INFANT_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
         Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
+        Date fiveWeeksAgo  = new DateTime(now).minusWeeks(5).toDate();
 
         Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+        // set the patient birthdate to 7 weeks ago
+        patient.setBirthdate(sevenWeeksAgo);
+        Context.getPatientService().savePatient(patient);
 
         Concept patientAgedOut = Context.getConceptService().getConceptByMapping("20492", "PIH");
         PatientProgram existingPatientInfantProgram = new PatientProgram();
         existingPatientInfantProgram.setProgram(infantProgram);
         existingPatientInfantProgram.setPatient(patient);
-        existingPatientInfantProgram.setDateEnrolled(sevenWeeksAgo);
+        existingPatientInfantProgram.setDateEnrolled(fiveWeeksAgo);  // they only enrolled 5 weeks ago, *but* since they are over 6 weeks old they should be aged out
         Context.getProgramWorkflowService().savePatientProgram(existingPatientInfantProgram);
 
         // sanity check, patient program exists
@@ -64,17 +68,21 @@ public class CloseInfantProgramTaskTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    public void shouldNotCloseInfantProgramIfEnrolledLessThanSixWeeks() {
+    public void shouldNotCloseInfantProgramIfPatientLessThanSixWeeksOld () {
         Program infantProgram = Context.getProgramWorkflowService().getProgramByUuid(PihEmrConfigConstants.PROGRAM_INFANT_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
+        Date sevenWeeksAgo  = new DateTime(now).minusWeeks(7).toDate();
         Date fiveWeeksAgo  = new DateTime(now).minusWeeks(5).toDate();
 
         Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+        // set the patient birthdate to 7 weeks ago
+        patient.setBirthdate(fiveWeeksAgo);
+        Context.getPatientService().savePatient(patient);
 
         PatientProgram existingPatientInfantProgram = new PatientProgram();
         existingPatientInfantProgram.setProgram(infantProgram);
         existingPatientInfantProgram.setPatient(patient);
-        existingPatientInfantProgram.setDateEnrolled(fiveWeeksAgo);
+        existingPatientInfantProgram.setDateEnrolled(sevenWeeksAgo);  // this is non-sensical, because they were enrolled before they were born, but it's just to test that they don't get unenrolled based on enrollmnet date
         Context.getProgramWorkflowService().savePatientProgram(existingPatientInfantProgram);
 
         // sanity check, patient program exists
@@ -91,12 +99,14 @@ public class CloseInfantProgramTaskTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    public void shouldNotCloseAnotherProgramEvenIfEnrolledMoreThanSixWeeks() {
+    public void shouldNotCloseAnotherProgramEvenIfPatientIsMoreThanSevenWeeksOld() {
         Program anotherProgram = Context.getProgramWorkflowService().getProgramByUuid(ANOTHER_PROGRAM_UUID);
         Date now = new DateTime().withMillisOfSecond(0).toDate();  // date enrolled loses millisecond for some reason, so make sure "now" doesn't have millisecond component
         Date sevenWeeksAgo  = new DateTime(now).minusWeeks(5).toDate();
 
         Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+        patient.setBirthdate(sevenWeeksAgo);
+        Context.getPatientService().savePatient(patient);
 
         PatientProgram existingPatientAnotherProgram = new PatientProgram();
         existingPatientAnotherProgram.setProgram(anotherProgram);
@@ -127,6 +137,8 @@ public class CloseInfantProgramTaskTest extends PihCoreContextSensitiveTest {
 
 
         Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+        patient.setBirthdate(sevenWeeksAgo);
+        Context.getPatientService().savePatient(patient);
 
         Concept anotherOutcome = Context.getConceptService().getConcept(3);  // just another concept from the standard test dataset
         PatientProgram existingPatientInfantProgram = new PatientProgram();
