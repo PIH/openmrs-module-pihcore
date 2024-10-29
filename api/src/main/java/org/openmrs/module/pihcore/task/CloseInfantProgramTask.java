@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Patients should be unenrolled automatically from the infant program 6 weeks after the enrollment date.
+ * Patients should be unenrolled automatically from the infant program after they are 6 weeks old.
  * The program outcome should be Patient Aged Out.
  */
 public class CloseInfantProgramTask implements  Runnable {
@@ -46,7 +46,7 @@ public class CloseInfantProgramTask implements  Runnable {
                 // there didn't seem to be a way to all programs without an outcome, so we hack it by setting the min completion date to tomorrow
                 List<PatientProgram> patientInfantPrograms = Context.getProgramWorkflowService().getPatientPrograms(null, infantProgram, null, null, new DateTime().plusDays(1).toDate(), null, false);
                 for (PatientProgram patientInfantProgram : patientInfantPrograms) {
-                    if (patientInfantProgram.getDateCompleted() == null && patientInfantProgram.getDateEnrolled() != null && patientInfantProgram.getDateEnrolled().before(sixWeeksAgo)) {
+                    if (patientInfantProgram.getDateCompleted() == null && patientInfantProgram.getPatient().getBirthdate() != null && patientInfantProgram.getPatient().getBirthdate().before(sixWeeksAgo)) {
                         patientInfantProgram.setDateCompleted(new Date());
                         patientInfantProgram.setOutcome(patientAgedOut);
                         Context.getProgramWorkflowService().savePatientProgram(patientInfantProgram);
