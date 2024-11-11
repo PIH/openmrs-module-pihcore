@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.7.0-alpha</openMRSVersion>
+        <openMRSVersion>2.6.9</openMRSVersion>
 
         <addresshierarchyVersion>2.19.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.6</allergyuiVersion>
@@ -806,6 +806,11 @@
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                     <properties>
+                        <!-- hold on 2.6.3 until https://openmrs.atlassian.net/browse/TRUNK-6192 is resolved and a new 2.6.5 is released -->
+                        <property>
+                            <name>openMRSVersion</name>
+                            <version>[2.6.9,2.7.0)</version>
+                        </property>
                         <property>
                             <name>attachmentsVersion</name>
                             <version>[2.7.0,3.0.0)</version>
