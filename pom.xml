@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.6.9</openMRSVersion>
+        <openMRSVersion>2.7.0-alpha</openMRSVersion>
 
         <addresshierarchyVersion>2.19.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.6</allergyuiVersion>
@@ -82,7 +82,7 @@
         <o3formsVersion>2.3.0</o3formsVersion>
         <openconceptlabVersion>2.5.0-SNAPSHOT</openconceptlabVersion>
         <orderEntryOwaVersion>1.2.5-SNAPSHOT</orderEntryOwaVersion>
-        <owaVersion>1.14.0</owaVersion>
+        <owaVersion>1.15.0</owaVersion>
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
         <paperrecordVersion>1.4.0-SNAPSHOT</paperrecordVersion>
         <printerVersion>1.5.0-SNAPSHOT</printerVersion>
