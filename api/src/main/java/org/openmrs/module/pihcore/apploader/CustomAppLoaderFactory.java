@@ -2113,15 +2113,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
                             and(patientIsFemale(), patientIsAdult()))));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
-                    "fas fa-fw fa-baby",
-                    "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
-                    and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
-                            and(patientIsFemale(), patientIsAdult()))));
+        }
+
+        // For Wellbody only, show the (older) delivery form.  KGH has L&D and other forms.
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            if (config.isComponentEnabled(Components.MCH_BASIC_DELIVERY_FORM)) {
+                extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
+                        "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
+                        "fas fa-fw fa-baby",
+                        "link",
+                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource("delivery.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                        PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                        and(sessionLocationHasTag("Maternal and Child Location"),
+                                visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
+                                and(patientIsFemale(), patientIsAdult()))));
+            }
         }
 
         if (config.isComponentEnabled(Components.OBGYN)) {
@@ -2133,9 +2139,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                       PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
-
         }
-
     }
 
     private void enableMCHGainMaternal() {
