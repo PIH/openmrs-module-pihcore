@@ -806,10 +806,10 @@
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                     <properties>
-                        <!-- hold on 2.6.3 until https://openmrs.atlassian.net/browse/TRUNK-6192 is resolved and a new 2.6.5 is released -->
+                        <!-- hold on 2.6.x until we are ready to move to 2.7.x -->
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.6.9,2.7.0)</version>
+                            <version>[2.6.9,2.6.999]</version>
                         </property>
                         <property>
                             <name>attachmentsVersion</name>
