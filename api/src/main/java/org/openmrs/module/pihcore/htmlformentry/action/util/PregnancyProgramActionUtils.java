@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore.htmlformentry.action.util;
 
 import org.openmrs.Encounter;
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
 import org.openmrs.PatientState;
@@ -23,19 +24,19 @@ public class PregnancyProgramActionUtils {
         Context.getProgramWorkflowService().savePatientProgram(patientPregnancyProgram);
     }
 
-    public static void enrollInPregnancyProgram(Patient patient, ProgramWorkflowState state, Encounter encounter, List<PatientProgram> existingPatientPregnancyPrograms) {
+    public static void enrollInPregnancyProgram(Patient patient, ProgramWorkflowState state, Date enrollmentDate, Location enrollmentLocation, List<PatientProgram> existingPatientPregnancyPrograms) {
         Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(SierraLeoneConfigConstants.PROGRAM_PREGNANCY_UUID);
         // see if there is any subsequent program enrollment
         // TODO right now if there is a subsequent program enrollment, we still create a new enrollment, but just make sure it stops before the next enrollment... we may have further discussion about the correct behavior here
-        Optional<PatientProgram> nextPatientProgram = existingPatientPregnancyPrograms.stream().filter((patientProgram) -> patientProgram.getDateEnrolled().after(encounter.getEncounterDatetime())).findFirst();
+        Optional<PatientProgram> nextPatientProgram = existingPatientPregnancyPrograms.stream().filter((patientProgram) -> patientProgram.getDateEnrolled().after(enrollmentDate)).findFirst();
 
         PatientProgram newPatientProgram = new PatientProgram();
         newPatientProgram.setProgram(pregnancyProgram);
         newPatientProgram.setPatient(patient);
-        newPatientProgram.setDateEnrolled(encounter.getEncounterDatetime());
+        newPatientProgram.setDateEnrolled(enrollmentDate);
         newPatientProgram.setDateCompleted(nextPatientProgram.map(PatientProgram::getDateEnrolled).orElse(null)); // see TODO above
-        newPatientProgram.setLocation(Context.getService(AdtService.class).getLocationThatSupportsVisits(encounter.getLocation()));
-        newPatientProgram.transitionToState(state, encounter.getEncounterDatetime());
+        newPatientProgram.setLocation(Context.getService(AdtService.class).getLocationThatSupportsVisits(enrollmentLocation));
+        newPatientProgram.transitionToState(state, enrollmentDate);
         Context.getProgramWorkflowService().savePatientProgram(newPatientProgram);
     }
 
