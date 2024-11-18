@@ -9,7 +9,6 @@ import org.openmrs.Program;
 import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
-import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import java.util.Comparator;
@@ -49,7 +48,7 @@ public class PregnancyProgramEnrollmentAction implements CustomFormSubmissionAct
 
         if (activePatientPregnancyPrograms.isEmpty()) {
             // enroll if no active program
-            enrollInPregnancyProgram(patient, antenatalState, encounter, patientPregnancyPrograms);
+            enrollInPregnancyProgram(patient, antenatalState, encounter.getEncounterDatetime(), encounter.getLocation(), patientPregnancyPrograms);
         } else {
             if (activePatientPregnancyPrograms.size() > 1) {
                 log.warn("Patient " + patient.getUuid() + " is enrolled in multiple active pregnancy programs, likely a data error. Operating on the most recent one.");
@@ -59,7 +58,7 @@ public class PregnancyProgramEnrollmentAction implements CustomFormSubmissionAct
             if (SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_POSTPARTUM_UUID
                     .equals(getTypeOfTreatmentStateOnDate(activePregnancyProgram.getStates(), encounter.getEncounterDatetime()).map(patientState -> patientState.getState().getUuid()).orElse(null))) {
                 endEnrollment(activePregnancyProgram, encounter);
-                enrollInPregnancyProgram(patient, antenatalState, encounter, patientPregnancyPrograms);
+                enrollInPregnancyProgram(patient, antenatalState, encounter.getEncounterDatetime(), encounter.getLocation(), patientPregnancyPrograms);
             }
             // otherwise, do nothing
         }
