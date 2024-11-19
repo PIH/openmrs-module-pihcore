@@ -1,6 +1,7 @@
 package org.openmrs.module.pihcore;
 
 import org.apache.commons.lang.StringUtils;
+import org.codehaus.jackson.JsonNode;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Obs;
@@ -11,6 +12,7 @@ import org.openmrs.Visit;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.adt.InpatientAdmission;
 import org.openmrs.module.emrapi.adt.InpatientAdmissionSearchCriteria;
@@ -36,20 +38,8 @@ public class PihCoreUtils {
         List<Obs> obsList = null;
         ProgramWorkflowService programWorkflowService = Context.getProgramWorkflowService();
         ObsService obsService = Context.getObsService();
-        Date obsOnOrAfter = null;
-        if (StringUtils.isNotBlank(programUuid)) {
-            Program program = programWorkflowService.getProgramByUuid(programUuid);
-            if (program == null) {
-                throw new IllegalStateException("No program with uuid " + programUuid + " is found.");
-            }
-            for (PatientProgram pp : programWorkflowService.getPatientPrograms(patient, program, null, null, null, null, false)) {
-                if (pp.getActive()) {
-                    if (obsOnOrAfter == null || obsOnOrAfter.before(pp.getDateEnrolled())) {
-                        obsOnOrAfter = pp.getDateEnrolled();
-                    }
-                }
-            }
-        }
+        Date obsOnOrAfter = getProgramEnrollmentDate(patient, programUuid);
+
         obsList = obsService.getObservations(
                 Arrays.asList(patient),
                 null,
@@ -139,5 +129,33 @@ public class PihCoreUtils {
                 "queueName", queueName,
                 "patientStatus", patientStatus
         );
+    }
+
+    public static Date getProgramEnrollmentDate(Patient patient, String programUuid) {
+
+        Date programEnrollmentDate = null;
+        if (StringUtils.isNotBlank(programUuid)) {
+            ProgramWorkflowService programWorkflowService = Context.getProgramWorkflowService();
+            Program program = programWorkflowService.getProgramByUuid(programUuid);
+            if (program == null) {
+                throw new IllegalStateException("No program with uuid " + programUuid + " is found.");
+            }
+            for (PatientProgram pp : programWorkflowService.getPatientPrograms(patient, program, null, null, null, null, false)) {
+                if (pp.getActive()) {
+                    if (programEnrollmentDate == null || programEnrollmentDate.before(pp.getDateEnrolled())) {
+                        programEnrollmentDate = pp.getDateEnrolled();
+                    }
+                }
+            }
+        }
+        return programEnrollmentDate;
+    }
+
+    public static String getConfigValue(AppDescriptor app, String configValue) {
+        JsonNode node = app.getConfig().get(configValue);
+        if (node == null) {
+            return "";
+        }
+        return node.asText();
     }
 }
