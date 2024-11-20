@@ -2629,8 +2629,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // HIV Intake
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_INTAKE_ENCOUNTERS,
-                        "pih.app.hiv.intake.title",
-                        "icon-calendar",
+                        "pih.hivIntake.ucase",
+                        "fas fa-fw fa-ribbon",
                         patientVisitsPageUrl,
                         null,
                         objectNode(
@@ -2647,8 +2647,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // HIV Followup
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_FOLLOWUP_ENCOUNTERS,
-                        "pih.app.hiv.followup.title",
-                        "icon-calendar",
+                        "pih.hivFollowup.ucase",
+                        "fas fa-fw fa-ribbon",
                         patientVisitsPageUrl,
                         null,
                         objectNode(
@@ -2666,8 +2666,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // HIV Dispensing
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_DISPENSING_ENCOUNTERS,
-                        "pih.app.hiv.dispensing.title",
-                        "icon-calendar",
+                        "pih.hivDispensing.ucase",
+                        "fas fa-fw fa-ribbon",
                         patientVisitsPageUrl,
                         null,
                         objectNode(
@@ -2685,8 +2685,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // HIV Socioeconomics
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_SOCIOECONOMIC_ENCOUNTERS,
-                        "pih.app.hiv.socioeconomics.title",
-                        "icon-calendar",
+                        "pih.socioeconomics.ucase",
+                        "icon-home",
                         patientVisitsPageUrl,
                         null,
                         objectNode(
@@ -2764,14 +2764,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // Viral Load History
         apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VIRAL_LOAD_HISTORY,
-                        "pih.app.hiv.viralLoadHistory.title",
-                        "fas fa-fw fa-history",
+                        "pih.vlHistory.ucase",
+                        "fas fa-fw fa-ribbon",
                         null,
                         null,
                         objectNode(
                                 "widget", "obsacrossencounters",
-                                "icon", "fas fa-fw fa-history",
-                                "label", "pih.app.hiv.viralLoadHistory.title",
+                                "icon", "fas fa-fw fa-ribbon",
+                                "label", "pih.vlHistory.ucase",
                                 "encounterTypes", CustomAppLoaderConstants.LABORATORY_RESULT_UUID,
                                 "concepts",
                                 CustomAppLoaderConstants.VIRAL_LOAD_QUALITATIVE_UUID + "," +
