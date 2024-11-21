@@ -18,7 +18,7 @@
 
 </style>
 
-<div class="info-section encounters-by-type-widget">
+<div class="info-section encounters-by-type-widget ${app.id}">
     <div class="info-header">
         <i class="${app.icon}"></i>
         <h3>${ ui.message(app.label) }</h3>

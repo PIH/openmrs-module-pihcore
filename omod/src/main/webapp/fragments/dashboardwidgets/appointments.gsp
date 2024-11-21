@@ -1,4 +1,4 @@
-<div class="info-section">
+<div class="info-section appointments ${app.id}">
     <div class="info-header">
         <i class="${app.icon}"></i>
         <h3>${ ui.message(app.label).toUpperCase() }</h3>

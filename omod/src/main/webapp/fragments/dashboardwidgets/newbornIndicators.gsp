@@ -3,7 +3,7 @@
         color: red;
     }
 </style>
-<div class="info-section">
+<div class="info-section newborn-indicator ${app.id}">
     <div class="info-header">
         <i class="${app.icon}"></i>
         <h3>${ ui.message(app.label) }</h3>
