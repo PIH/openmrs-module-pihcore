@@ -1,5 +1,5 @@
 <% if (patientStatus.length() > 0 ) { %>
-    <div class="info-section patient-location">
+    <div class="info-section patient-location ${app.id}">
         <div class="info-header">
             <i class="icon-map-marker"></i>
             <h3>${ ui.message("pihcore.patient.location") }</h3>

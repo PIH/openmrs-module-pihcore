@@ -1,4 +1,4 @@
-<div class="info-section lab-results-widget">
+<div class="info-section lab-results-widget ${app.id}">
     <div class="info-header">
         <i class="${app.icon}"></i>
         <h3>${ ui.message(app.label) }</h3>

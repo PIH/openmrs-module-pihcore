@@ -1,4 +1,4 @@
-<div class="info-section meds-dispensed-widget">
+<div class="info-section meds-dispensed-widget ${app.id}">
     <div class="info-header">
         <i class="fas fa-fw fa-pills"></i>
         <h3>${ ui.message("mirebalais.dispensing.title") }</h3>
