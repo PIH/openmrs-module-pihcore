@@ -47,7 +47,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
     private static String BABY_GENDER_CONCEPT_SOURCE = "CIEL";
     private static String BABY_GENDER_CONCEPT = "1587";
     private static String DATE_TIME_OF_BIRTH_CONCEPT_SOURCE = "PIH";
-    private static String DATE_TIME_OF_BIRTH_CONCEPT = "15080";
+    private static String DATE_TIME_OF_BIRTH_CONCEPT = "5599";
 
     protected Log log = LogFactory.getLog(getClass());
 
