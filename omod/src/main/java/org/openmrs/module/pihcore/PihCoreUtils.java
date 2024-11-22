@@ -38,7 +38,7 @@ public class PihCoreUtils {
         List<Obs> obsList = null;
         ProgramWorkflowService programWorkflowService = Context.getProgramWorkflowService();
         ObsService obsService = Context.getObsService();
-        Date obsOnOrAfter = getProgramEnrollmentDate(patient, programUuid);
+        Date obsOnOrAfter = getActiveProgramEnrollmentDate(patient, programUuid);
 
         obsList = obsService.getObservations(
                 Arrays.asList(patient),
@@ -131,7 +131,7 @@ public class PihCoreUtils {
         );
     }
 
-    public static Date getProgramEnrollmentDate(Patient patient, String programUuid) {
+    public static Date getActiveProgramEnrollmentDate(Patient patient, String programUuid) {
 
         Date programEnrollmentDate = null;
         if (StringUtils.isNotBlank(programUuid)) {

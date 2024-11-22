@@ -64,7 +64,7 @@ public class PregnancyIndicatorsFragmentController {
                 "css", "red",
                 "obs", ui.message("pihcore.pregnant")
         ));
-        Concept question = conceptService.getConceptByUuid(PihEmrConfigConstants.CONCEPT_ESTIMATEDDUEDATE_UUID);
+        Concept question = conceptService.getConceptByUuid(SierraLeoneConfigConstants.CONCEPT_ESTIMATEDDUEDATE_UUID);
         List<Obs> obsWithinProgram = null;
         if ( question != null ) {
             obsWithinProgram = PihCoreUtils.getObsWithinProgram(patient, new HashSet<>(Arrays.asList(question)), null, programUuid);
@@ -86,21 +86,48 @@ public class PregnancyIndicatorsFragmentController {
                 "obs", (obsWithinProgram!=null && obsWithinProgram.size() > 0 ) ? ui.message("general.yes") : ui.message("general.no")
         ));
 
-        question = conceptService.getConceptByUuid(SierraLeoneConfigConstants.CONCEPT_DATETIMEOFBIRTH_UUID);
+        question = conceptService.getConceptByUuid(PihEmrConfigConstants.CONCEPT_DELIVERYDATEANDTIME_UUID);
+        Date latestDeliveryDate = null;
+        Obs latestDeliveryObs = null;
         if ( question != null ) {
             obsWithinProgram = PihCoreUtils.getObsWithinProgram(patient, new HashSet<>(Arrays.asList(question)), null, null);
+            for (Obs obs : obsWithinProgram) {
+                Date obsValueDate = obs.getValueDate();
+                if ( (obsValueDate!= null)  &&
+                        (latestDeliveryDate == null || latestDeliveryDate.before(obs.getValueDate()))) {
+                    latestDeliveryDate = obs.getValueDate();
+                    latestDeliveryObs = obs;
+                }
+            }
         }
         fields.put("latestDelivery", SimpleObject.create(
                 "label", "pihcore.latest.delivery",
-                "obs", (obsWithinProgram!=null && obsWithinProgram.size() > 0 ) ? obsWithinProgram.get(0) : ""
+                "obs", ( latestDeliveryDate !=null ) ? latestDeliveryDate : ""
         ));
-        question = conceptService.getConceptByUuid(PihEmrConfigConstants.CONCEPT_TYPEOFDELIVERY_UUID);
-        if ( question != null ) {
-            obsWithinProgram = PihCoreUtils.getObsWithinProgram(patient, new HashSet<>(Arrays.asList(question)), null, null);
+
+        Set<Obs> methodsOfDelivery = new HashSet<>();
+        if ( latestDeliveryObs != null ) {
+            Encounter encounter = latestDeliveryObs.getEncounter();
+            // search for all the Methods of Delivery associated with the encounter (form) that contains the most recent date/delivery time
+            for (Obs obs : encounter.getAllObs(false) ) {
+                if (obs.getConcept().getUuid().equals(PihEmrConfigConstants.CONCEPT_TYPEOFDELIVERY_UUID)) {
+                    // check if this method of delivery was already added to the list
+                    boolean found = false;
+                    for (Obs method: methodsOfDelivery) {
+                        if ( method.getValueCoded().getUuid().equalsIgnoreCase(obs.getValueCoded().getUuid()) ) {
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        methodsOfDelivery.add(obs);
+                    }
+                }
+            }
         }
+
         fields.put("deliveryType", SimpleObject.create(
                 "label", "pihcore.latest.delivery.type",
-                "obs", (obsWithinProgram!=null && obsWithinProgram.size() > 0 ) ? obsWithinProgram.get(0) : ""
+                "obs", (methodsOfDelivery != null && methodsOfDelivery.size() > 0 ) ? methodsOfDelivery : ""
         ));
 
         EncounterSearchCriteriaBuilder searchCriteriaBuilder = new EncounterSearchCriteriaBuilder();
@@ -128,7 +155,7 @@ public class PregnancyIndicatorsFragmentController {
         searchCriteriaBuilder.setPatient(patient);
         searchCriteriaBuilder.setEncounterTypes(ancEncTypes);
         if ( programUuid != null ) {
-            searchCriteriaBuilder.setFromDate(PihCoreUtils.getProgramEnrollmentDate( patient, programUuid ));
+            searchCriteriaBuilder.setFromDate(PihCoreUtils.getActiveProgramEnrollmentDate( patient, programUuid ));
         }
         encounters = encounterService.getEncounters(searchCriteriaBuilder.createEncounterSearchCriteria());
         int numberOfVisits = encounters != null ? encounters.size() : 0;
