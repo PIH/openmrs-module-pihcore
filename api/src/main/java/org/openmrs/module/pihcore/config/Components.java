@@ -108,6 +108,7 @@ public class Components {
         public static final String SPA_PREVIEW = "spaPreview";  // links to the SPA versions of existing features
         public static final String SURGERY = "surgery";
         public static final String SYSTEM_ADMINISTRATION = "systemAdministration";
+        public static final String SYSTEM_ADMINISTRATION_INPATIENT_TOOLS = "systemAdministrationInpatientTools";
         public static final String TODAYS_VISITS = "todaysVisits";
         public static final String TUBERCULOSIS = "tb";  // program and forms
         public static final String UHM_VITALS = "uhmVitals";

@@ -1481,6 +1481,24 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 9,
                 "App: coreapps.systemAdministration",
                 null)));
+
+        if (config.isComponentEnabled(Components.SYSTEM_ADMINISTRATION_INPATIENT_TOOLS)) {
+            apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.CLOSE_STALE_INPATIENT_ADMISSIONS,
+                    "pih.app.admin.closeStaleInpatientAdmissions.title",
+                    "fas fa-fw fa-list-ul",
+                    "pihcore/admin/staleInpatientAdmissions.page",
+                    10,
+                    "App: coreapps.systemAdministration",
+                    null)));
+
+            apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.CLOSE_STALE_ADMISSION_REQUESTS,
+                    "pih.app.admin.closeStaleAdmissionRequests.title",
+                    "fas fa-fw fa-list-ul",
+                    "pihcore/admin/staleAdmissionRequests.page",
+                    11,
+                    "App: coreapps.systemAdministration",
+                    null)));
+        }
     }
 
     private void enableManagePrinters() {

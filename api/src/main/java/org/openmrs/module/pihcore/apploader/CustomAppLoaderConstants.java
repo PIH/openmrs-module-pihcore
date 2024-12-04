@@ -119,6 +119,8 @@ public class CustomAppLoaderConstants {
         public static final String STATUS_DATA_ADMIN = "pih.app.admin.statusData.admin";
         public static final String EMAIL_CONFIG_ADMIN = "pih.app.admin.email.admin";
         public static final String ACTIVE_USERS_ADMIN = "pih.app.admin.activeUsers.admin";
+        public static final String CLOSE_STALE_INPATIENT_ADMISSIONS = "pih.app.admin.closeStaleInpatientAdmissions";
+        public static final String CLOSE_STALE_ADMISSION_REQUESTS = "pih.app.admin.closeStaleAdmissionRequests";
 
         public static final String ADDITIONAL_IDENTIFIERS = "registrationapp.additionalIdentifiers";
         public static final String MOST_RECENT_VITALS = "coreapps.mostRecentVitals";
