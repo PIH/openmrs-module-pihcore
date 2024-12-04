@@ -27,7 +27,7 @@ public class ManageAccountsPageController {
         }
 
         Set<?> params = request.getParameterMap().keySet();
-        List<AccountDomainWrapper> accounts = new ArrayList<>();
+        List<AccountDomainWrapper> accounts = null;
         if (params.contains("nameOrIdentifier") || params.contains("showOnlyEnabledUsers")) {
             AccountSearchCriteria criteria = new AccountSearchCriteria();
             criteria.setNameOrIdentifier(nameOrIdentifier);
