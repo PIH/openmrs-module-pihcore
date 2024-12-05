@@ -15,17 +15,31 @@ package org.openmrs.module.pihcore.service;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.openmrs.Encounter;
 import org.openmrs.Order;
 import org.openmrs.Person;
 import org.openmrs.api.OrderService;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.db.OrderDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
+import org.openmrs.module.emrapi.adt.AdtService;
+import org.openmrs.module.emrapi.adt.InpatientAdmission;
+import org.openmrs.module.emrapi.adt.InpatientAdmissionSearchCriteria;
+import org.openmrs.module.emrapi.adt.InpatientRequest;
+import org.openmrs.module.emrapi.adt.InpatientRequestSearchCriteria;
+import org.openmrs.module.emrapi.disposition.DispositionType;
+import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Service for PIH Core
@@ -37,6 +51,8 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
     private ApplicationContext applicationContext;
 	private PihCoreDAO dao;
     private OrderDAO orderDAO;
+    private DomainWrapperFactory domainWrapperFactory;
+
 
     /**
      * @see OrderService#getNextOrderNumberSeedSequenceValue()
@@ -61,6 +77,59 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
         applicationContext.getAutowireCapableBeanFactory().autowireBean(accountDomainWrapper);
         accountDomainWrapper.initializeWithPerson(person);
         return accountDomainWrapper;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<InpatientAdmission> getStaleInpatientAdmissions(int staleInpatientAdmissionThresholdInDays, int mostRecentEncounterThresholdInDays) {
+
+        List<InpatientAdmission> staleInpatientAdmissions = new ArrayList<>();
+
+        AdtService adtService = Context.getService(AdtService.class);
+
+        List<InpatientAdmission> inpatientAdmissions = adtService.getInpatientAdmissions(new InpatientAdmissionSearchCriteria());
+
+        for (InpatientAdmission inpatientAdmission : inpatientAdmissions) {
+            Encounter admissionEncounter = inpatientAdmission.getFirstAdmissionOrTransferEncounter();
+            if (admissionEncounter != null) {
+                Duration timeSinceAdmission = new Duration(new DateTime(admissionEncounter.getEncounterDatetime()), new DateTime());
+                if (timeSinceAdmission.getStandardDays() >= staleInpatientAdmissionThresholdInDays) {
+                    Duration timeSinceLastEncounter = new Duration(new DateTime(inpatientAdmission.getLatestEncounter().getEncounterDatetime()), new DateTime());
+                    if (timeSinceLastEncounter.getStandardDays() >= mostRecentEncounterThresholdInDays) {
+                        staleInpatientAdmissions.add(inpatientAdmission);
+                    }
+                }
+            }
+        }
+        return staleInpatientAdmissions;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<InpatientRequest> getStaleAdmissionRequests(int staleAdmissionRequestsThresholdInDays, int mostRecentEncounterThresholdInDays) {
+
+        List<InpatientRequest> staleInpatientRequests = new ArrayList<>();
+        AdtService adtService = Context.getService(AdtService.class);
+
+        InpatientRequestSearchCriteria searchCriteria = new InpatientRequestSearchCriteria();
+        searchCriteria.addDispositionType(DispositionType.ADMIT);
+
+        List<InpatientRequest> inpatientRequests = adtService.getInpatientRequests(searchCriteria);
+
+        for (InpatientRequest inpatientRequest : inpatientRequests) {
+            Encounter dispositionEncounter = inpatientRequest.getDispositionEncounter();
+            if (dispositionEncounter != null) {
+                Duration timeSinceAdmissionRequest = new Duration(new DateTime(dispositionEncounter.getEncounterDatetime()), new DateTime());
+                if (timeSinceAdmissionRequest.getStandardDays() >= staleAdmissionRequestsThresholdInDays) {
+                    Duration timeSinceLastEncounter = new Duration(new DateTime(inpatientRequest.getLatestEncounter().getEncounterDatetime()), new DateTime());
+                    if (timeSinceLastEncounter.getStandardDays() >= mostRecentEncounterThresholdInDays) {
+                        staleInpatientRequests.add(inpatientRequest);
+                    }
+                }
+            }
+
+        }
+        return staleInpatientRequests;
     }
 
     @Override
