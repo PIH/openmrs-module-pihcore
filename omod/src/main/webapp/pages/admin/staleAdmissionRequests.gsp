@@ -26,34 +26,38 @@
     </fieldset>
 </form>
 
-<% if (staleAdmissionRequests != null) { %>
-    <form id="admission-requests-close" method="post">
-        <table id="stale-admission-requests">
-            <thead>
-                <tr>
-                    <th>&nbsp;</th>
-                    <th>Patient</th>
-                    <th>Visit Start Date</th>
-                    <th>Request Date</th>
-                    <th>Latest Encounter Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% staleAdmissionRequests.each { request -> %>
+<% if (staleAdmissionRequests != null) {
+    if (staleAdmissionRequests.isEmpty()) { %>
+        <p>No stale admission requests found.</p>
+    <% } else { %>
+        <form id="admission-requests-close" method="post">
+            <table id="stale-admission-requests">
+                <thead>
                     <tr>
-                        <td><input type="checkbox" name="visitsToClose" value="${ request.visit.id }" checked/></td>
-                        <td>${ ui.format(request.patient) }</td>
-                        <td>${ ui.format(request.visit?.startDatetime) }</td>
-                        <td>${ ui.format(request.dispositionEncounter?.encounterDatetime) }</td>
-                        <td>${ ui.format(request.latestEncounter?.encounterDatetime) }</td>
+                        <th>&nbsp;</th>
+                        <th>Patient</th>
+                        <th>Visit Start Date</th>
+                        <th>Request Date</th>
+                        <th>Latest Encounter Date</th>
                     </tr>
-                <% } %>
-            </tbody>
-        </table>
-        <p>
-            <input type="hidden" name="staleAdmissionRequestsThresholdInDays" value="${ staleAdmissionRequestsThresholdInDays }" />
-            <input type="hidden" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" />
-            <input type="submit" name="action" value="Close Selected Visits" />
-        </p>
-    </form>
+                </thead>
+                <tbody>
+                    <% staleAdmissionRequests.each { request -> %>
+                        <tr>
+                            <td><input type="checkbox" name="visitsToClose" value="${ request.visit.id }" checked/></td>
+                            <td>${ ui.format(request.patient) }</td>
+                            <td>${ ui.format(request.visit?.startDatetime) }</td>
+                            <td>${ ui.format(request.dispositionEncounter?.encounterDatetime) }</td>
+                            <td>${ ui.format(request.latestEncounter?.encounterDatetime) }</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <p>
+                <input type="hidden" name="staleAdmissionRequestsThresholdInDays" value="${ staleAdmissionRequestsThresholdInDays }" />
+                <input type="hidden" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" />
+                <input type="submit" name="action" value="Close Selected Visits" />
+            </p>
+        </form>
+    <% } %>
 <% } %>
