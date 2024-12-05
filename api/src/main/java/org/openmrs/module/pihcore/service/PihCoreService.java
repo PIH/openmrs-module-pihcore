@@ -17,8 +17,12 @@ import org.openmrs.Order;
 import org.openmrs.Person;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.api.db.OrderDAO;
+import org.openmrs.module.emrapi.adt.InpatientAdmission;
+import org.openmrs.module.emrapi.adt.InpatientRequest;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * Service for PIH Core
@@ -40,4 +44,12 @@ public interface PihCoreService extends OpenmrsService {
      * @return a new bean instance of a PihAccountDomainWrapper
      */
     PihAccountDomainWrapper newPihAccountDomainWrapper(Person person);
+
+    /**
+     *
+     */
+    List<InpatientAdmission> getStaleInpatientAdmissions(int staleInpatientVisitThresholdInDays, int mostRecentEncounterThresholdInDays);
+
+    List<InpatientRequest> getStaleAdmissionRequests(int staleAdmissionRequestsThresholdInDays, int mostRecentEncounterThresholdInDays);
+
 }
