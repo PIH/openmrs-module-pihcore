@@ -70,6 +70,8 @@ import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.arrayNode
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsHivOverallAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsMchOverallAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsMchVisitAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsOncologyOverallAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsOncologyVisitAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.configExtension;
@@ -625,13 +627,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         // check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_VISIT_ACTION,
+        Extension checkIn = visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_VISIT_ACTION,
                 "mirebalais.task.checkin.label",
                 "fas fa-fw icon-check-in",
                 "link",
                 enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkin.xml")),
                 "Task: mirebalais.checkinForm",
-                sessionLocationHasTag("Check-In Location")));
+                sessionLocationHasTag("Check-In Location"));
+        extensions.add(checkIn);
+        extensions.add(cloneAsMchVisitAction(checkIn));
 
         // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
         extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
@@ -694,7 +698,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             }
         }
 
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
+        Extension vitalSigns = visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
                 "mirebalais.task.vitals.label",
                 "fas fa-fw fa-heartbeat",
                 "link",
@@ -703,7 +707,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag("Vitals Location"),
                         or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+        extensions.add(vitalSigns);
+        extensions.add(cloneAsMchVisitAction(vitalSigns));
 
         AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
                 "mirebalais.mostRecentVitals.label",
@@ -935,7 +941,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "radiologyapp",
                 "radiologyTab"));
 
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ORDER_XRAY_VISIT_ACTION,
+        Extension orderXray = visitAction(CustomAppLoaderConstants.Extensions.ORDER_XRAY_VISIT_ACTION,
                 "radiologyapp.task.order.CR.label",
                 "fas fa-fw fa-x-ray",
                 "link",
@@ -943,9 +949,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 and(sessionLocationHasTag("Order Radiology Study Location"),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_ORDER_XRAY), patientHasActiveVisit()),
-                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER)))));
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER))));
+        extensions.add(orderXray);
+        extensions.add(cloneAsMchVisitAction(orderXray));
 
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ORDER_CT_VISIT_ACTION,
+        Extension orderCT = visitAction(CustomAppLoaderConstants.Extensions.ORDER_CT_VISIT_ACTION,
                 "radiologyapp.task.order.CT.label",
                 "fas fa-fw fa-x-ray",
                 "link",
@@ -953,9 +961,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 and(sessionLocationHasTag("Order Radiology Study Location"),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_ORDER_CT), patientHasActiveVisit()),
-                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER)))));
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER))));
+        extensions.add(orderCT);
+        extensions.add(cloneAsMchVisitAction(orderCT));
 
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
+        Extension orderUS = visitAction(CustomAppLoaderConstants.Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
                 "radiologyapp.task.order.US.label",
                 "fas fa-fw fa-x-ray",
                 "link",
@@ -963,7 +973,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 and(sessionLocationHasTag("Order Radiology Study Location"),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_ORDER_US), patientHasActiveVisit()),
-                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER)))));
+                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_RADIOLOGYAPP_RETRO_ORDER))));
+        extensions.add(orderUS);
+        extensions.add(cloneAsMchVisitAction(orderUS));
 
         if (config.isComponentEnabled(Components.CLINICIAN_DASHBOARD)) {
             apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RADIOLOGY_ORDERS_APP,
@@ -2080,7 +2092,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             and(patientIsFemale()))));
         } else if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
             // For ZL, the reproductive age is 11+.  Not the same for SL
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
+            Extension delivery = visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
                     "fas fa-fw fa-baby",
                     "link",
@@ -2088,7 +2100,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                       PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
-                            and(patientIsFemale(), patientIsReproductiveAge()))));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
+            extensions.add(delivery);
+            extensions.add(cloneAsMchVisitAction(delivery));
         } else {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
@@ -2131,14 +2145,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.OBGYN)) {
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.OB_GYN_VISIT_ACTION,
+            Extension obgyn = visitAction(CustomAppLoaderConstants.Extensions.OB_GYN_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_OB_GYN_UUID,
                     "fas fa-fw fa-female",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("obGyn.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                       PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            and(patientIsFemale()))));
+                            and(patientIsFemale())));
+            extensions.add(obgyn);
+            extensions.add(cloneAsMchVisitAction(obgyn));
         }
     }
 
@@ -2272,14 +2288,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableVaccinationOnly() {
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VACCINATION_VISIT_ACTION,
+        Extension vaccination = visitAction(CustomAppLoaderConstants.Extensions.VACCINATION_VISIT_ACTION,
                 "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_VACCINATION_UUID,
                 "fas fa-fw fa-umbrella",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vaccination-only.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VACCINATION,
                 and(sessionLocationHasTag("Vaccination Location"),
-                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VACCINATION_UUID))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VACCINATION_UUID)));
+        extensions.add(vaccination);
+        extensions.add(cloneAsMchVisitAction(vaccination));
     }
 
     private void enableMentalHealthForm() {
@@ -2391,14 +2409,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableSocioEconomics() {
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
+        Extension socioEconomics = visitAction(CustomAppLoaderConstants.Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
                 "pih.task.socioEcon.label",
                 "fas fa-fw fa-home",
                 "link",
                 enterStandardHtmlFormLink(PihCoreUtil.getFormResource("socio-econ.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_SOCIO,
                 and(sessionLocationHasTag("Consult Note Location"),
-                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_SOCIO_ECONOMICS_UUID))));
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_SOCIO_ECONOMICS_UUID)));
+        extensions.add(socioEconomics);
+        extensions.add(cloneAsMchVisitAction(socioEconomics));
     }
 
     private void enableChartSearch() {
@@ -3450,13 +3470,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null),
                 sessionLocationHasTag("Order Pathology Location")));
 
-        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ORDER_LAB_VISIT_ACTION,
+        Extension pathology = visitAction(CustomAppLoaderConstants.Extensions.ORDER_LAB_VISIT_ACTION,
                 "labtrackingapp.orderPathology.label",
                 "fas fa-fw fa-microscope",
                 "link",
                 "/labtrackingapp/labtrackingAddOrder.page?patientId={{patient.uuid}}&visitId={{visit.id}}",
                   PihEmrConfigConstants.PRIVILEGE_TASK_LAB_TRACKING_PLACE_ORDERS,
-                sessionLocationHasTag("Order Pathology Location")));
+                sessionLocationHasTag("Order Pathology Location"));
+        extensions.add(pathology);
+        extensions.add(cloneAsMchVisitAction(pathology));
 
         apps.add(addToClinicianDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.PATHOLOGY_SUMMARY,
                 "labtrackingapp.pathology",
