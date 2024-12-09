@@ -6,46 +6,46 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("coreapps.app.system.administration.label") }", link: "${ ui.pageLink("coreapps", "systemadministration/systemAdministration") }" },
-        { label: "Stale Admission Requests", link: "${ ui.pageLink("pihcore", "admin/staleAdmissionRequests") }" }
+        { label: "${ ui.message('pihcore.admin.staleAdmissionRequests') }", link: "${ ui.pageLink("pihcore", "admin/staleAdmissionRequests") }" }
     ];
 </script>
 
-<h3>Stale Admission Requests</h3>
+<h3>${ ui.message('pihcore.admin.staleAdmissionRequests') }</h3>
 
 <form id="admission-requests-search" method="post">
     <fieldset>
         <p>
-            Show visits with admission requests older than <input style="min-width:0%;display:inline" type="number" name="staleAdmissionRequestsThresholdInDays" value="${ staleAdmissionRequestsThresholdInDays }" /> days,
+            ${ ui.message('pihcore.admin.admissionRequestsSearchText1') } <input style="min-width:0%;display:inline" type="number" name="staleAdmissionRequestsThresholdInDays" value="${ staleAdmissionRequestsThresholdInDays }" required/> ${ ui.message('pihcore.admin.admissionRequestsSearchText2') }
          </p>
          <p>
-            where the last encounter is more than <input style="min-width:0%;display:inline" type="number" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" /> days ago.
+            ${ ui.message('pihcore.admin.admissionRequestsSearchText3') } <input style="min-width:0%;display:inline" type="number" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" required/> ${ ui.message('pihcore.admin.admissionRequestsSearchText4') }
         </p>
         <p>
-            <input type="submit" name="action" value="Search" />
+            <input type="submit" name="action" value="${ ui.message('pihcore.admin.search') }" />
         </p>
     </fieldset>
 </form>
 
 <% if (staleAdmissionRequests != null) {
     if (staleAdmissionRequests.isEmpty()) { %>
-        <p>No stale admission requests found.</p>
+        <p>${ ui.message('pihcore.admin.noStaleAdmissionRequestsFound') }</p>
     <% } else { %>
         <form id="admission-requests-close" method="post">
             <table id="stale-admission-requests">
                 <thead>
                     <tr>
                         <th>&nbsp;</th>
-                        <th>Patient</th>
-                        <th>Visit Start Date</th>
-                        <th>Request Date</th>
-                        <th>Latest Encounter Date</th>
+                        <th>${ ui.message('general.patient') }</th>
+                        <th>${ ui.message('pihcore.admin.visitStartDate') }</th>
+                        <th>${ ui.message('pihcore.admin.admissionRequestDate') }</th>
+                        <th>${ ui.message('pihcore.admin.latestEncounterDate') }</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% staleAdmissionRequests.each { request -> %>
                         <tr>
                             <td><input type="checkbox" name="visitsToClose" value="${ request.visit.id }" checked/></td>
-                            <td>${ ui.format(request.patient) }</td>
+                            <td>${ request.patient.formattedName} - ${ request.patient?.primaryIdentifier } </td>
                             <td>${ ui.format(request.visit?.startDatetime) }</td>
                             <td>${ ui.format(request.dispositionEncounter?.encounterDatetime) }</td>
                             <td>${ ui.format(request.latestEncounter?.encounterDatetime) }</td>
@@ -56,7 +56,7 @@
             <p>
                 <input type="hidden" name="staleAdmissionRequestsThresholdInDays" value="${ staleAdmissionRequestsThresholdInDays }" />
                 <input type="hidden" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" />
-                <input type="submit" name="action" value="Close Selected Visits" />
+                <input type="submit" name="action" value="${ ui.message('pihcore.admin.closeSelectedVisits') }" />
             </p>
         </form>
     <% } %>

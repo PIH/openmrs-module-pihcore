@@ -6,29 +6,29 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("coreapps.app.system.administration.label") }", link: "${ ui.pageLink("coreapps", "systemadministration/systemAdministration") }" },
-        { label: "Stale Inpatient Admissions", link: "${ ui.pageLink("pihcore", "admin/staleInpatientAdmissions") }" }
+        { label: "${ ui.message('pihcore.admin.staleInpatientAdmissions') }", link: "${ ui.pageLink("pihcore", "admin/staleInpatientAdmissions") }" }
     ];
 </script>
 
-<h3>Stale Inpatient Admissions</h3>
+<h3>${ ui.message('pihcore.admin.staleInpatientAdmissions') }</h3>
 
 <form id="inpatient-admisssins-search" method="post">
     <fieldset>
         <p>
-            Show inpatients admitted more than <input style="min-width:0%;display:inline" type="number" name="staleInpatientAdmissionThresholdInDays" value="${ staleInpatientAdmissionThresholdInDays }" /> days ago,
+             ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText1') } <input style="min-width:0%;display:inline" type="number" name="staleInpatientAdmissionThresholdInDays" value="${ staleInpatientAdmissionThresholdInDays }" required/>  ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText2') }
          </p>
          <p>
-            where the last encounter is more than <input style="min-width:0%;display:inline" type="number" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" /> days ago.
+              ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText3') } <input style="min-width:0%;display:inline" type="number" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" required/>  ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText4') }
         </p>
         <p>
-            <input type="submit" name="action" value="Search" />
+            <input type="submit" name="action" value="${ ui.message('pihcore.admin.search') }" />
         </p>
     </fieldset>
 </form>
 
 <% if (staleInpatientAdmissions != null) {
     if (staleInpatientAdmissions.isEmpty()) { %>
-        <p>No stale inpatient admissions found.</p>
+        <p>${ ui.message('pihcore.admin.noStaleInpatientAdmissionsFound') }</p>
     <% } else { %>
         <form id="inpatient-admissions-close" method="post">
             <p>
@@ -36,18 +36,18 @@
                     <thead>
                         <tr>
                             <th>&nbsp;</th>
-                            <th>Patient</th>
-                            <th>Visit Start Date</th>
-                            <th>Admission Date</th>
-                            <th>Latest Encounter Date</th>
+                            <th>${ ui.message('general.patient') }</th>
+                            <th>${ ui.message('pihcore.admin.visitStartDate') }</th>
+                            <th>${ ui.message('pihcore.admin.admissionDate') }</th>
+                            <th>${ ui.message('pihcore.admin.latestEncounterDate') }</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% staleInpatientAdmissions.each { admission -> %>
                             <tr>
                                 <td><input type="checkbox" name="visitsToClose" value="${ admission.visit.id }" checked/></td>
-                                <td>${ ui.format(admission.patient) } </td>
-                                <td>${ ui.format(admission.visit?.startDatetime) }</td>
+                                <td>${ admission.patient.formattedName} - ${ admission.patient?.primaryIdentifier } </td>
+                                <td>${ ui.format(admission.visit.startDatetime) }</td>
                                 <td>${ ui.format(admission.firstAdmissionOrTransferEncounter?.encounterDatetime) }</td>
                                 <td>${ ui.format(admission.latestEncounter?.encounterDatetime) }</td>
                             </tr>
@@ -58,7 +58,7 @@
             <p>
                 <input type="hidden" name="staleInpatientAdmissionThresholdInDays" value="${ staleInpatientAdmissionThresholdInDays }" />
                 <input type="hidden" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" />
-                <input type="submit" name="action" value="Close Selected Visits" />
+                 <input type="submit" name="action" value="${ ui.message('pihcore.admin.closeSelectedVisits') }" />
             </p>
         </form>
     <% } %>
