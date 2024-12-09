@@ -505,6 +505,23 @@ public class CustomAppLoaderConstants {
             Extensions.PHYSICAL_REHAB_VISIT_ACTION,
             Extensions.DRUG_REHAB_VISIT_ACTION);
 
+    public static final List<String> MCH_VISIT_ACTIONS_ORDER = Arrays.asList(
+            Extensions.CHECK_IN_VISIT_ACTION,
+            Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
+            Extensions.VITALS_CAPTURE_VISIT_ACTION,
+            Extensions.CONSULT_NOTE_VISIT_ACTION,
+            Extensions.VACCINATION_VISIT_ACTION,
+            Extensions.SURGICAL_NOTE_VISIT_ACTION,
+            Extensions.MCH_DELIVERY_VISIT_ACTION,
+            Extensions.OB_GYN_VISIT_ACTION,
+            Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
+            Extensions.PMTCT_INITIAL_VISIT_ACTION,
+            Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,
+            Extensions.EID_FOLLOWUP_VISIT_ACTION,
+            Extensions.ORDER_XRAY_VISIT_ACTION,
+            Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
+            Extensions.ORDER_LAB_VISIT_ACTION);
+
     public static final List<String> HIV_VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION + ".hiv",
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION + ".hiv",

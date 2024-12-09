@@ -347,6 +347,11 @@ public class CustomAppLoaderUtil {
                 PihEmrConfigConstants.PROGRAM_HIV_UUID + ".visitActions", CustomAppLoaderConstants.HIV_VISIT_ACTIONS_ORDER.indexOf(id), null);
     }
 
+    static public Extension mchVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                PihEmrConfigConstants.PROGRAM_MCH_UUID + ".visitActions", CustomAppLoaderConstants.MCH_VISIT_ACTIONS_ORDER.indexOf(id), null);
+    }
+
     static public Extension oncologyVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID + ".overallActions", CustomAppLoaderConstants.ONCOLOGY_VISIT_ACTIONS_ORDER.indexOf(id), null);
@@ -354,6 +359,11 @@ public class CustomAppLoaderUtil {
 
     static public Extension cloneAsHivVisitAction(Extension ext) {
         return hivVisitAction(ext.getId() + ".hiv", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
+    }
+
+    static public Extension cloneAsMchVisitAction(Extension ext) {
+        return mchVisitAction(ext.getId() + ".mch", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
                 ext.getRequiredPrivilege(), ext.getRequire());
     }
 
@@ -372,6 +382,11 @@ public class CustomAppLoaderUtil {
                 PihEmrConfigConstants.PROGRAM_HIV_UUID + ".overallActions", 1, null);
     }
 
+    static public Extension mchOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                PihEmrConfigConstants.PROGRAM_MCH_UUID + ".overallActions", 1, null);
+    }
+
     static public Extension oncologyOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID + ".overallActions", CustomAppLoaderConstants.ONCOLOGY_OVERALL_ACTIONS_ORDER.indexOf(id), null);
@@ -379,6 +394,11 @@ public class CustomAppLoaderUtil {
 
     static public Extension cloneAsHivOverallAction(Extension ext) {
         return hivOverallAction(ext.getId() + ".hiv", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
+    }
+
+    static public Extension cloneAsMchOverallAction(Extension ext) {
+        return mchOverallAction(ext.getId() + ".mch", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
                 ext.getRequiredPrivilege(), ext.getRequire());
     }
 
