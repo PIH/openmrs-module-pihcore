@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div ng-switch-when="encounter">
-                    <encounter encounter="visitEvent" visit="visit" selected="visitEvent.uuid == encounterUuid" encounter-date-format="encounterDateFormat" country="country" site="site"></encounter>
+                    <encounter class="encounterType-{{visitEvent.encounterType.uuid}}" encounter="visitEvent" visit="visit" selected="visitEvent.uuid == encounterUuid" encounter-date-format="encounterDateFormat" country="country" site="site"></encounter>
                 </div>
             </div>
         </div>
