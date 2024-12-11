@@ -352,6 +352,16 @@ public class CustomAppLoaderUtil {
                 PihEmrConfigConstants.PROGRAM_MCH_UUID + ".visitActions", CustomAppLoaderConstants.MCH_VISIT_ACTIONS_ORDER.indexOf(id), null);
     }
 
+    static public Extension pregnancyVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID + ".visitActions", CustomAppLoaderConstants.PREGNANCY_VISIT_ACTIONS_ORDER.indexOf(id), null);
+    }
+
+    static public Extension infantVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                PihEmrConfigConstants.PROGRAM_INFANT_UUID + ".visitActions", CustomAppLoaderConstants.INFANT_VISIT_ACTIONS_ORDER.indexOf(id), null);
+    }
+
     static public Extension oncologyVisitAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID + ".overallActions", CustomAppLoaderConstants.ONCOLOGY_VISIT_ACTIONS_ORDER.indexOf(id), null);
@@ -364,6 +374,16 @@ public class CustomAppLoaderUtil {
 
     static public Extension cloneAsMchVisitAction(Extension ext) {
         return mchVisitAction(ext.getId() + ".mch", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
+    }
+
+    static public Extension cloneAsPregnancyVisitAction(Extension ext) {
+        return pregnancyVisitAction(ext.getId() + ".pregnancy", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
+    }
+
+    static public Extension cloneAsInfantVisitAction(Extension ext) {
+        return infantVisitAction(ext.getId() + ".infant", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
                 ext.getRequiredPrivilege(), ext.getRequire());
     }
 
@@ -387,6 +407,16 @@ public class CustomAppLoaderUtil {
                 PihEmrConfigConstants.PROGRAM_MCH_UUID + ".overallActions", 1, null);
     }
 
+    static public Extension pregnancyOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID + ".overallActions", 1, null);
+    }
+
+    static public Extension infantOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
+        return  extension(id, label, icon, type, urlOrScript, privilege, require,
+                PihEmrConfigConstants.PROGRAM_INFANT_UUID + ".overallActions", 1, null);
+    }
+
     static public Extension oncologyOverallAction(String id, String label, String icon, String type, String urlOrScript, String privilege, String require) {
         return  extension(id, label, icon, type, urlOrScript, privilege, require,
                 PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID + ".overallActions", CustomAppLoaderConstants.ONCOLOGY_OVERALL_ACTIONS_ORDER.indexOf(id), null);
@@ -399,6 +429,16 @@ public class CustomAppLoaderUtil {
 
     static public Extension cloneAsMchOverallAction(Extension ext) {
         return mchOverallAction(ext.getId() + ".mch", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
+    }
+
+    static public Extension cloneAsPregnancyOverallAction(Extension ext) {
+        return pregnancyOverallAction(ext.getId() + ".pregnancy", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
+                ext.getRequiredPrivilege(), ext.getRequire());
+    }
+
+    static public Extension cloneAsInfantOverallAction(Extension ext) {
+        return infantOverallAction(ext.getId() + ".infant", ext.getLabel(), ext.getIcon(), ext.getType(), ext.getType().equals("link") ? ext.getUrl() : ext.getScript(),
                 ext.getRequiredPrivilege(), ext.getRequire());
     }
 

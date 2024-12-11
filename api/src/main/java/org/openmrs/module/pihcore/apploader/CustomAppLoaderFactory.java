@@ -72,6 +72,10 @@ import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsHi
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsMchOverallAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsMchVisitAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsPregnancyOverallAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsPregnancyVisitAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsInfantOverallAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsInfantVisitAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsOncologyOverallAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsOncologyVisitAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.configExtension;
@@ -636,6 +640,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("Check-In Location"));
         extensions.add(checkIn);
         extensions.add(cloneAsMchVisitAction(checkIn));
+        /* extensions.add(cloneAsInfantVisitAction(checkIn)); */
 
         // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
         extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,
@@ -649,24 +654,27 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             // Maternal check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
+            Extension checkInMaternal = visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
                     "mirebalais.checkin.title",
                     "fas fa-fw icon-check-in",
                     "link",
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkinMaternal.xml")),
                     "Task: mirebalais.checkinForm",
                     and(sessionLocationHasTag("Check-In Maternal Location"),
-                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMATERNALCHECKIN_UUID))));
-
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMATERNALCHECKIN_UUID)));
+            extensions.add(checkInMaternal);
+            extensions.add(cloneAsPregnancyVisitAction(checkInMaternal));
 
             // check-in form that appears on the Registration Page as a "Registration Action" and starts a visit
-            extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_REGISTRATION_ACTION,
+            Extension checkInMaternalLoc = overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_REGISTRATION_ACTION,
                     "mirebalais.checkin.title",
                     "fas fa-fw icon-check-in",
                     "link",
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckinMaternal.xml")) + andCreateVisit(),
                     "Task: mirebalais.checkinForm",
-                    sessionLocationHasTag("Check-In Maternal Location")));
+                    sessionLocationHasTag("Check-In Maternal Location"));
+            extensions.add(checkInMaternalLoc);
+            extensions.add(cloneAsPregnancyVisitAction(checkInMaternalLoc));
         }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
@@ -710,6 +718,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
         extensions.add(vitalSigns);
         extensions.add(cloneAsMchVisitAction(vitalSigns));
+        extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
+        extensions.add(cloneAsInfantVisitAction(vitalSigns));
 
         AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
                 "mirebalais.mostRecentVitals.label",
@@ -2105,7 +2115,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             extensions.add(cloneAsMchVisitAction(delivery));
         } else {
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
+            Extension ancIntake = visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID,
                     "fas fa-fw fa-gift",
                     "link",
@@ -2114,9 +2124,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
-                            and(patientIsFemale(), patientIsAdult()))));
+                            and(patientIsFemale(), patientIsAdult())));
+            extensions.add(ancIntake);
+            extensions.add(cloneAsPregnancyVisitAction(ancIntake));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
+            Extension ancFollowup = visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID,
                     "fas fa-fw fa-gift",
                     "link",
@@ -2125,14 +2137,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
-                            and(patientIsFemale(), patientIsAdult()))));
-
+                            and(patientIsFemale(), patientIsAdult())));
+            extensions.add(ancFollowup);
+            extensions.add(cloneAsPregnancyVisitAction(ancFollowup));
         }
 
         // For Wellbody only, show the (older) delivery form.  KGH has L&D and other forms.
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             if (config.isComponentEnabled(Components.MCH_BASIC_DELIVERY_FORM)) {
-                extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
+                Extension wbDelivery = visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
                         "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
                         "fas fa-fw fa-baby",
                         "link",
@@ -2140,7 +2153,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                         and(sessionLocationHasTag("Maternal and Child Location"),
                                 visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
-                                and(patientIsFemale(), patientIsAdult()))));
+                                and(patientIsFemale(), patientIsAdult())));
+                extensions.add(wbDelivery);
+                extensions.add(cloneAsPregnancyVisitAction(wbDelivery));
             }
         }
 
@@ -2237,16 +2252,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("MCH Triage Location"),
                             and(patientAgeInMonthsLessThanAtVisitStart(3)))));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LABOR_PROGRESS_ACTION,
+            Extension laborProgress = visitAction(CustomAppLoaderConstants.Extensions.LABOR_PROGRESS_ACTION,
                     "pih.task.laborProgress",
                     "fas fa-fw fa-baby",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("laborProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            and(patientIsFemale(), patientIsAdult()))));
+                            and(patientIsFemale(), patientIsAdult())));
+            extensions.add(laborProgress);
+            extensions.add(cloneAsPregnancyVisitAction(laborProgress));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LABOR_DELIVERY_SUMMARY_ACTION,
+            Extension ldSummary = visitAction(CustomAppLoaderConstants.Extensions.LABOR_DELIVERY_SUMMARY_ACTION,
                     "pih.task.summaryLandD",
                     "fas fa-fw fa-baby",
                     "link",
@@ -2254,18 +2271,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_LABOR_DELIVERY_SUMMARY_UUID),
-                            and(patientIsFemale(), patientIsAdult()))));
+                            and(patientIsFemale(), patientIsAdult())));
+            extensions.add(ldSummary);
+            extensions.add(cloneAsPregnancyVisitAction(ldSummary));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.POSTPARTUM_PROGRESS_ACTION,
+            Extension postPartum = visitAction(CustomAppLoaderConstants.Extensions.POSTPARTUM_PROGRESS_ACTION,
                     "pih.task.postpartumDailyProgress",
                     "fas fa-fw fa-female",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("postpartumDailyProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            and(patientIsFemale(), patientIsAdult()))));
+                            and(patientIsFemale(), patientIsAdult())));
+            extensions.add(postPartum);
+            extensions.add(cloneAsPregnancyVisitAction(postPartum));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MATERNAL_DISCHARGE_ACTION,
+            Extension maternalDischarge = visitAction(CustomAppLoaderConstants.Extensions.MATERNAL_DISCHARGE_ACTION,
                     "pih.task.maternalDischarge",
                     "fas fa-fw fa-arrow-circle-right",
                     "link",
@@ -2273,9 +2294,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_DISCHARGE_UUID),
-                            and(patientIsFemale(), patientIsAdult()))));
+                            and(patientIsFemale(), patientIsAdult())));
+            extensions.add(maternalDischarge);
+            extensions.add(cloneAsPregnancyVisitAction(maternalDischarge));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MATERNAL_ADMISSION_ACTION,
+            Extension maternalAdmission = visitAction(CustomAppLoaderConstants.Extensions.MATERNAL_ADMISSION_ACTION,
                     "pih.task.maternalAdmission",
                     "fas fa-fw fa-hospital-symbol",
                     "link",
@@ -2283,7 +2306,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal Admission Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_ADMISSION_UUID),
-                            and(patientIsFemale(), patientIsAdult()))));
+                            and(patientIsFemale(), patientIsAdult())));
+            extensions.add(maternalAdmission);
+            extensions.add(cloneAsPregnancyVisitAction(maternalAdmission));
         }
     }
 
@@ -2298,6 +2323,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VACCINATION_UUID)));
         extensions.add(vaccination);
         extensions.add(cloneAsMchVisitAction(vaccination));
+        extensions.add(cloneAsPregnancyVisitAction(vaccination));
     }
 
     private void enableMentalHealthForm() {
@@ -2895,7 +2921,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(hivDispensing);
         extensions.add(cloneAsHivVisitAction(hivDispensing));
 
-        // circular app for dispensiing
+        // circular app for dispensing
         apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.HIV_DISPENSING,
                 "pihcore.hivDispensing.short",
                 "fas fa-fw fa-ribbon",
@@ -2905,6 +2931,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("HIV Consult Location")));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));
+        extensions.add(cloneAsPregnancyVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));
     }
 
     private void enableHIVIntakeForm() {
@@ -3516,13 +3543,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 config.getFindPatientColumnConfig()
                 ));
 
-        extensions.add(overallAction(CustomAppLoaderConstants.Extensions.ORDER_LABS_OVERALL_ACTION,
+        Extension orderLabs = overallAction(CustomAppLoaderConstants.Extensions.ORDER_LABS_OVERALL_ACTION,
                 "pihcore.orderLabs.overallAction.label",
                 "fas fa-fw fa-vials",
                 "link",
                 "owa/orderentry/index.html?patient={{patient.uuid}}&page=laborders",
                   PihEmrConfigConstants.PRIVILEGE_TASK_ORDER_LABS,
-                null));
+                null);
+        extensions.add(orderLabs);
+        extensions.add(cloneAsMchVisitAction(orderLabs));
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.VIEW_LABS_OVERALL_ACTION,
                 "pihcore.viewLabs.overallAction.label",
@@ -3545,7 +3574,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "maxToDisplay", "5"
                         )),
                 "pihcore", "dashboardwidgets/labResults"));
-
 }
 
     private void enableGrowthChart() {

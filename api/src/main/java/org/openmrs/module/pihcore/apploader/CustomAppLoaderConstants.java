@@ -395,6 +395,8 @@ public class CustomAppLoaderConstants {
             "pih.app." + PihEmrConfigConstants.PROGRAM_HYPERTENSION_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_ANC_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_MCH_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID + ".programSummary.dashboard",
+            "pih.app." + PihEmrConfigConstants.PROGRAM_INFANT_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_NCD_UUID + ".programSummary.dashboard",
             "pih.app." + PihEmrConfigConstants.PROGRAM_ONCOLOGY_UUID + ".programSummary.dashboard",
@@ -507,7 +509,6 @@ public class CustomAppLoaderConstants {
 
     public static final List<String> MCH_VISIT_ACTIONS_ORDER = Arrays.asList(
             Extensions.CHECK_IN_VISIT_ACTION,
-            Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
             Extensions.VITALS_CAPTURE_VISIT_ACTION,
             Extensions.CONSULT_NOTE_VISIT_ACTION,
             Extensions.VACCINATION_VISIT_ACTION,
@@ -518,6 +519,41 @@ public class CustomAppLoaderConstants {
             Extensions.PMTCT_INITIAL_VISIT_ACTION,
             Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,
             Extensions.EID_FOLLOWUP_VISIT_ACTION,
+            Extensions.ORDER_XRAY_VISIT_ACTION,
+            Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
+            Extensions.ORDER_LAB_VISIT_ACTION);
+
+    public static final List<String> PREGNANCY_VISIT_ACTIONS_ORDER = Arrays.asList(
+            Extensions.CHECK_IN_VISIT_ACTION,
+            Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
+            Extensions.VITALS_CAPTURE_VISIT_ACTION,
+            Extensions.VACCINATION_VISIT_ACTION,
+            Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
+            Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,
+            Extensions.MCH_DELIVERY_VISIT_ACTION,
+            Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION,
+            Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,
+            Extensions.MATERNAL_ADMISSION_ACTION,
+            Extensions.MATERNAL_DISCHARGE_ACTION,
+            Extensions.LABOR_PROGRESS_ACTION,
+            Extensions.LABOR_DELIVERY_SUMMARY_ACTION,
+            Extensions.POSTPARTUM_PROGRESS_ACTION,
+            Extensions.ORDER_XRAY_VISIT_ACTION,
+            Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
+            Extensions.ORDER_LAB_VISIT_ACTION);
+
+    public static final List<String> INFANT_VISIT_ACTIONS_ORDER = Arrays.asList(
+            Extensions.CHECK_IN_VISIT_ACTION,
+            Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
+            Extensions.VITALS_CAPTURE_VISIT_ACTION,
+            Extensions.VACCINATION_VISIT_ACTION,
+            Extensions.NEWBORN_ADMISSION_ACTION,
+            Extensions.NEWBORN_ASSESSMENT_ACTION,
+            Extensions.NEWBORN_DAILY_PROGRESS_ACTION,
+            Extensions.NEWBORN_DISCHARGE_ACTION,
+            Extensions.NEWBORN_OBS_ACTION,
+            Extensions.NEWBORN_REFERRAL_ACTION,
+            Extensions.NICU_TRIAGE_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
             Extensions.ORDER_LAB_VISIT_ACTION);
