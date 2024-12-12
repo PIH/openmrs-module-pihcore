@@ -110,7 +110,7 @@ public class LabResultsFragmentController {
                 // sort by obs datetime descending
                 obsList.sort((ob1, ob2) -> ob2.getObsDatetime().compareTo(ob1.getObsDatetime()));
                 for (Obs ob : obsList) {
-                    if (labResults.size() > maxToDisplay) {
+                    if (labResults.size() >= maxToDisplay) {
                         break;
                     }
                     String className = ob.getConcept().getConceptClass().getName();
