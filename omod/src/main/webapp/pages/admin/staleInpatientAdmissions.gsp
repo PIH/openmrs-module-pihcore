@@ -15,10 +15,17 @@
 <form id="inpatient-admisssins-search" method="post">
     <fieldset>
         <p>
-             ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText1') } <input style="min-width:0%;display:inline" type="number" name="staleInpatientAdmissionThresholdInDays" value="${ staleInpatientAdmissionThresholdInDays }" required/>  ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText2') }
+             ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText1') } ${ ui.includeFragment("uicommons", "field/datetimepicker", [
+                                                                                                 id: "admittedOnOrBefore",
+                                                                                                 formFieldName: "admittedOnOrBefore",
+                                                                                                 label:"",
+                                                                                                 defaultDate: admittedOnOrBefore,
+                                                                                                 endDate: new Date(),
+                                                                                                 useTime: false,
+                                                                                         ])}
          </p>
          <p>
-              ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText3') } <input style="min-width:0%;display:inline" type="number" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" required/>  ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText4') }
+              ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText2') } <input style="min-width:0%;display:inline" type="number" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" required/>  ${ ui.message('pihcore.admin.inpatientAdmissionsSearchText3') }
         </p>
         <p>
             <input type="submit" name="action" value="${ ui.message('pihcore.admin.search') }" />
@@ -56,9 +63,9 @@
                 </table>
             </p>
             <p>
-                <input type="hidden" name="staleInpatientAdmissionThresholdInDays" value="${ staleInpatientAdmissionThresholdInDays }" />
+                <input type="hidden" name="admittedOnOrBefore" value="${ ui.dateToISOString(admittedOnOrBefore) }" />
                 <input type="hidden" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" />
-                 <input type="submit" name="action" value="${ ui.message('pihcore.admin.closeSelectedVisits') }" />
+                <input type="submit" name="action" value="${ ui.message('pihcore.admin.closeSelectedVisits') }" />
             </p>
         </form>
     <% } %>

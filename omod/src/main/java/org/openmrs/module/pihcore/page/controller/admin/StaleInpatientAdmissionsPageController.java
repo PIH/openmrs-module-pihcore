@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.page.controller.admin;
 
+import org.joda.time.DateTime;
 import org.openmrs.api.VisitService;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.emr.EmrConstants;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StaleInpatientAdmissionsPageController {
@@ -22,7 +24,7 @@ public class StaleInpatientAdmissionsPageController {
     static final int DEFAULT_MOST_RECENT_ENCOUNTER_THRESHOLD_IN_DAYS = 5;
 
     public void get(PageModel model) {
-        model.put("staleInpatientAdmissionThresholdInDays", DEFAULT_STALE_INPATIENT_ADMISSIONS_THRESHOLD_IN_DAYS);
+        model.put("admittedOnOrBefore", new DateTime().minusDays(DEFAULT_STALE_INPATIENT_ADMISSIONS_THRESHOLD_IN_DAYS).toDate());
         model.put("mostRecentEncounterThresholdInDays", DEFAULT_MOST_RECENT_ENCOUNTER_THRESHOLD_IN_DAYS);
         model.put("staleInpatientAdmissions", null);
     }
@@ -30,7 +32,7 @@ public class StaleInpatientAdmissionsPageController {
 
     public void post(PageModel model,
                      HttpServletRequest request,
-                     @RequestParam("staleInpatientAdmissionThresholdInDays") int staleInpatientAdmissionThresholdInDays,
+                     @RequestParam("admittedOnOrBefore") Date admittedOnOrBefore,
                      @RequestParam("mostRecentEncounterThresholdInDays") int mostRecentEncounterThresholdInDays,
                      @RequestParam(value = "visitsToClose", required = false) List<Integer> visitsToClose,
                      @SpringBean("adtService") AdtService adtService,
@@ -49,7 +51,7 @@ public class StaleInpatientAdmissionsPageController {
             request.getSession().setAttribute(EmrConstants.SESSION_ATTRIBUTE_TOAST_MESSAGE, "true");
         }
 
-        List<InpatientAdmission> staleInpatientAdmissions = pihCoreService.getStaleInpatientAdmissions(staleInpatientAdmissionThresholdInDays, mostRecentEncounterThresholdInDays);
+        List<InpatientAdmission> staleInpatientAdmissions = pihCoreService.getStaleInpatientAdmissions(admittedOnOrBefore, mostRecentEncounterThresholdInDays);
 
         List<SimpleObject> results = new ArrayList<>();
 
@@ -64,7 +66,7 @@ public class StaleInpatientAdmissionsPageController {
         }
 
         model.addAttribute("staleInpatientAdmissions", results);
-        model.put("staleInpatientAdmissionThresholdInDays", staleInpatientAdmissionThresholdInDays);
+        model.put("admittedOnOrBefore", admittedOnOrBefore);
         model.put("mostRecentEncounterThresholdInDays", mostRecentEncounterThresholdInDays);
 
     }

@@ -39,6 +39,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -81,7 +82,7 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
 
     @Override
     @Transactional(readOnly = true)
-    public List<InpatientAdmission> getStaleInpatientAdmissions(int staleInpatientAdmissionThresholdInDays, int mostRecentEncounterThresholdInDays) {
+    public List<InpatientAdmission> getStaleInpatientAdmissions(Date admittedOnOrBefore, int mostRecentEncounterThresholdInDays) {
 
         List<InpatientAdmission> staleInpatientAdmissions = new ArrayList<>();
 
@@ -92,8 +93,7 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
         for (InpatientAdmission inpatientAdmission : inpatientAdmissions) {
             Encounter admissionEncounter = inpatientAdmission.getFirstAdmissionOrTransferEncounter();
             if (admissionEncounter != null) {
-                Duration timeSinceAdmission = new Duration(new DateTime(admissionEncounter.getEncounterDatetime()), new DateTime());
-                if (timeSinceAdmission.getStandardDays() >= staleInpatientAdmissionThresholdInDays) {
+                if (admissionEncounter.getEncounterDatetime().before(new DateTime(admittedOnOrBefore).plusDays(1).withTimeAtStartOfDay().toDate())) {
                     Duration timeSinceLastEncounter = new Duration(new DateTime(inpatientAdmission.getLatestEncounter().getEncounterDatetime()), new DateTime());
                     if (timeSinceLastEncounter.getStandardDays() >= mostRecentEncounterThresholdInDays) {
                         staleInpatientAdmissions.add(inpatientAdmission);
@@ -106,7 +106,7 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
 
     @Override
     @Transactional(readOnly = true)
-    public List<InpatientRequest> getStaleAdmissionRequests(int staleAdmissionRequestsThresholdInDays, int mostRecentEncounterThresholdInDays) {
+    public List<InpatientRequest> getStaleAdmissionRequests(Date admissionRequestOnOrBefore, int mostRecentEncounterThresholdInDays) {
 
         List<InpatientRequest> staleInpatientRequests = new ArrayList<>();
         AdtService adtService = Context.getService(AdtService.class);
@@ -119,8 +119,7 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
         for (InpatientRequest inpatientRequest : inpatientRequests) {
             Encounter dispositionEncounter = inpatientRequest.getDispositionEncounter();
             if (dispositionEncounter != null) {
-                Duration timeSinceAdmissionRequest = new Duration(new DateTime(dispositionEncounter.getEncounterDatetime()), new DateTime());
-                if (timeSinceAdmissionRequest.getStandardDays() >= staleAdmissionRequestsThresholdInDays) {
+                if (dispositionEncounter.getEncounterDatetime().before(new DateTime(admissionRequestOnOrBefore).plusDays(1).withTimeAtStartOfDay().toDate())) {
                     Duration timeSinceLastEncounter = new Duration(new DateTime(inpatientRequest.getLatestEncounter().getEncounterDatetime()), new DateTime());
                     if (timeSinceLastEncounter.getStandardDays() >= mostRecentEncounterThresholdInDays) {
                         staleInpatientRequests.add(inpatientRequest);

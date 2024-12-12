@@ -15,10 +15,17 @@
 <form id="admission-requests-search" method="post">
     <fieldset>
         <p>
-            ${ ui.message('pihcore.admin.admissionRequestsSearchText1') } <input style="min-width:0%;display:inline" type="number" name="staleAdmissionRequestsThresholdInDays" value="${ staleAdmissionRequestsThresholdInDays }" required/> ${ ui.message('pihcore.admin.admissionRequestsSearchText2') }
+            ${ ui.message('pihcore.admin.admissionRequestsSearchText1') }  ${ ui.includeFragment("uicommons", "field/datetimepicker", [
+                                                                               id: "admissionRequestOnOrBefore",
+                                                                               formFieldName: "admissionRequestOnOrBefore",
+                                                                               label:"",
+                                                                               defaultDate: admissionRequestOnOrBefore,
+                                                                               endDate: new Date(),
+                                                                               useTime: false,
+                                                                            ])}
          </p>
          <p>
-            ${ ui.message('pihcore.admin.admissionRequestsSearchText3') } <input style="min-width:0%;display:inline" type="number" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" required/> ${ ui.message('pihcore.admin.admissionRequestsSearchText4') }
+            ${ ui.message('pihcore.admin.admissionRequestsSearchText2') } <input style="min-width:0%;display:inline" type="number" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" required/> ${ ui.message('pihcore.admin.admissionRequestsSearchText3') }
         </p>
         <p>
             <input type="submit" name="action" value="${ ui.message('pihcore.admin.search') }" />
@@ -54,7 +61,7 @@
                 </tbody>
             </table>
             <p>
-                <input type="hidden" name="staleAdmissionRequestsThresholdInDays" value="${ staleAdmissionRequestsThresholdInDays }" />
+                <input type="hidden" name="admissionRequestOnOrBefore" value="${ ui.dateToISOString(admissionRequestOnOrBefore) }" />
                 <input type="hidden" name="mostRecentEncounterThresholdInDays" value="${ mostRecentEncounterThresholdInDays }" />
                 <input type="submit" name="action" value="${ ui.message('pihcore.admin.closeSelectedVisits') }" />
             </p>

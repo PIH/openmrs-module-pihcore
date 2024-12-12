@@ -22,6 +22,7 @@ import org.openmrs.module.emrapi.adt.InpatientRequest;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,8 +49,8 @@ public interface PihCoreService extends OpenmrsService {
     /**
      *
      */
-    List<InpatientAdmission> getStaleInpatientAdmissions(int staleInpatientVisitThresholdInDays, int mostRecentEncounterThresholdInDays);
+    List<InpatientAdmission> getStaleInpatientAdmissions(Date admittedOnOrBefore, int mostRecentEncounterThresholdInDays);
 
-    List<InpatientRequest> getStaleAdmissionRequests(int staleAdmissionRequestsThresholdInDays, int mostRecentEncounterThresholdInDays);
+    List<InpatientRequest> getStaleAdmissionRequests(Date admissionRequestOnOrBefore, int mostRecentEncounterThresholdInDays);
 
 }
