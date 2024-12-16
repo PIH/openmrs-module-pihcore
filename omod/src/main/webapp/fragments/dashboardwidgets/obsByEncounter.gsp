@@ -22,9 +22,11 @@
     <div class="info-header">
         <i class="${app.icon}"></i>
         <h3>${ ui.message(app.label) }</h3>
-        <a href="${ ui.urlBind("/" + contextPath + app.url, [ "patient.uuid": patient.id ]) }" class="right">
-            <i class="icon-share-alt edit-action" title="Edit"></i>
-        </a>
+        <% if (app.url) { %>
+            <a href="${ ui.urlBind("/" + contextPath + app.url, [ "patient.uuid": patient.id ]) }" class="right">
+                <i class="icon-share-alt edit-action" title="Edit"></i>
+            </a>
+        <% } %>
     </div>
     <% if ( encounterObs !=null && (encounterObs.size() > 0 ))  { %>
         <div class="info-body">
