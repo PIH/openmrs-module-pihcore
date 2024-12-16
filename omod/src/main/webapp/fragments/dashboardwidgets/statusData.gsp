@@ -7,7 +7,7 @@
     <div class="info-body">
         <% statusData.each{status -> %>
             <div>
-                <span class="status-data-widget-label">${status.label}: </span>
+                <span class="status-data-widget-label">${status.label}${status.label ? ': ' : ''}</span>
                 <span class="status-data-widget-value ${status.displayFormat}">${status.displayValue}</span>
             </div>
         <% } %>
