@@ -108,7 +108,7 @@ public class EncountersFragmentController {
 			}
 		}
 
-		boolean shouldExecuteSearch = programUuid == null || encountersOnOrAfter != null;
+		boolean shouldExecuteSearch = StringUtils.isBlank(programUuid) || encountersOnOrAfter != null;
 
 		List<Encounter> encounters = new ArrayList<>();
 		if (shouldExecuteSearch) {
