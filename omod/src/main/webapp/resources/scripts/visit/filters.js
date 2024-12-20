@@ -554,6 +554,7 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
                         var user = new OpenMRS.UserModel(SessionInfo.get().user);
                         var patient = visit ? visit.patient : null;
                         var encounters = visit ? visit.allEncounters : null;
+                        visit.startDatetimeInMilliseconds = visit.startDatetime;
                         return eval(expr);
                     })(it.require, visit);
                     if (!result) {
