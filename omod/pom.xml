@@ -81,20 +81,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-asl</artifactId>
-			<version>1.9.13</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-api</artifactId>
 			<version>${project.parent.version}</version>
