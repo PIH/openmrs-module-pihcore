@@ -91,7 +91,7 @@ public class SLWristbandTemplate {
         data.append("^FWB");    // set orientation
 
         // visit location & current data
-        data.append("^FO050,200^FB2150,1,0,L,0^AS^FD" + adtService.getLocationThatSupportsVisits((org.openmrs.Location) location).getName() + " "
+        data.append("^FO050,200^FB1650,1,0,L,0^AS^FD" + adtService.getLocationThatSupportsVisits((org.openmrs.Location) location).getName() + " "
                 + fullDate.format(new Date()) + "^FS");
 
         PatientIdentifier primaryIdentifier = patient.getPatientIdentifier(emrApiProperties.getPrimaryIdentifierType());
@@ -103,21 +103,21 @@ public class SLWristbandTemplate {
                     + (patient.getPersonName().getFamilyName() != null ? patient.getPersonName().getFamilyName() : "");
         }
 
-        data.append("^FO100,200^FB2150,1,0,L,0^AU^FD" + patientName + "  " + primaryIdentifier.getIdentifier() + "^FS");
+        data.append("^FO100,200^FB1650,1,0,L,0^AU^FD" + patientName + "  " + primaryIdentifier.getIdentifier() + "^FS");
 
         if (patient.getBirthdate() != null) {
             // birthdate (we only show year if birthdate is estimated
             DateFormat df = patient.getBirthdateEstimated() ? yearOnly : fullDate;
-            data.append("^FO160,200^FB2150,1,0,L,0^AU^FD" + df.format(patient.getBirthdate()) +  "^FS");
+            data.append("^FO160,200^FB1650,1,0,L,0^AU^FD" + df.format(patient.getBirthdate()) +  "^FS");
         }
 
         if (patient.getAge() != null) {
             // age
-            data.append("^FO160,200^FB1850,1,0,L,0^AT^FD" + messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), printerLocale) +"^FS");
+            data.append("^FO160,200^FB1350,1,0,L,0^AT^FD" + messageSourceService.getMessage("coreapps.ageYears", Collections.singletonList(patient.getAge()).toArray(), printerLocale) +"^FS");
         }
 
         // gender
-        data.append("^FO160,200^FB1650,1,0,L,0^AU^FD" + messageSourceService.getMessage("coreapps.gender." + patient.getGender(), null, printerLocale) + "  ");
+        data.append("^FO160,200^FB1150,1,0,L,0^AU^FD" + messageSourceService.getMessage("coreapps.gender." + patient.getGender(), null, printerLocale) + "  ");
 
         data.append("^FS");
 
@@ -133,7 +133,7 @@ public class SLWristbandTemplate {
             if (LOWEST_LEVEL_ON_SEPARATE_LINE) {
                 String lowestLevelStr = AddressHierarchyUtil.getAddressFieldValue(address, level.getAddressField());
                 if (StringUtils.isNotBlank(address.getAddress2())) {
-                    data.append("^FO220,200^FB2150,1,0,L,0^AS^FD" + lowestLevelStr + "^FS");
+                    data.append("^FO220,200^FB1650,1,0,L,0^AS^FD" + lowestLevelStr + "^FS");
                 }
                 levelCount++;
             }
@@ -157,13 +157,13 @@ public class SLWristbandTemplate {
             if (StringUtils.isNotBlank(addressStr.toString())) {
                 // trim off trailing comma and space
                 addressStr.delete(addressStr.length() - 2, addressStr.length());
-                data.append("^FO270,200^FB2150,1,0,L,0^AS^FD" + addressStr.toString() + "^FS");
+                data.append("^FO270,200^FB1650,1,0,L,0^AS^FD" + addressStr.toString() + "^FS");
             }
         }
 
         // barcode with primary identifier
         if (primaryIdentifier != null) {
-            data.append("^FO100,2400^AT^BY4^BC,150,N^FD" + primaryIdentifier.getIdentifier() + "^XZ");
+            data.append("^FO100,2000^AT^BY4^BC,150,N^FD" + primaryIdentifier.getIdentifier() + "^XZ");
         }
         return data.toString();
     }
