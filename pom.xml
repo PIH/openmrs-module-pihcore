@@ -99,7 +99,7 @@
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.26.0</uicommonsVersion>
-        <uiframeworkVersion>3.25.0-SNAPSHOT</uiframeworkVersion>
+        <uiframeworkVersion>3.25.0</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>2.46.0</webservicesRestVersion>
 
