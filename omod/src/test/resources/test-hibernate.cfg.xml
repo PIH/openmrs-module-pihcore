@@ -27,5 +27,12 @@
         <mapping resource="MetadataSet.hbm.xml" />
         <mapping resource="MetadataSetMember.hbm.xml" />
 
+        <mapping resource="BedType.hbm.xml"/>
+        <mapping resource="BedTag.hbm.xml"/>
+        <mapping resource="BedPatientAssignment.hbm.xml"/>
+        <mapping resource="BedTagMap.hbm.xml"/>
+        <mapping resource="Bed.hbm.xml"/>
+        <mapping resource="BedLocationMapping.hbm.xml"/>
+
 	</session-factory>
 </hibernate-configuration>

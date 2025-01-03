@@ -56,5 +56,12 @@
         <mapping resource="AppointmentProvider.hbm.xml"/>
         <mapping resource="AppointmentRecurringPattern.hbm.xml"/>
 
+        <mapping resource="BedType.hbm.xml"/>
+        <mapping resource="BedTag.hbm.xml"/>
+        <mapping resource="BedPatientAssignment.hbm.xml"/>
+        <mapping resource="BedTagMap.hbm.xml"/>
+        <mapping resource="Bed.hbm.xml"/>
+        <mapping resource="BedLocationMapping.hbm.xml"/>
+
 	</session-factory>
 </hibernate-configuration>
