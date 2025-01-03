@@ -799,7 +799,6 @@
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                     <properties>
-                        <!-- hold on 2.6.9 -->
                         <property>
                             <name>openMRSVersion</name>
                             <version>[2.6.11,2.7.0)</version>
