@@ -90,7 +90,7 @@
         <queueVersion>2.4.0</queueVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.27.0-SNAPSHOT</registrationappVersion>
-        <registrationcoreVersion>1.13.0-SNAPSHOT</registrationcoreVersion>
+        <registrationcoreVersion>1.13.0</registrationcoreVersion>
         <reportingVersion>1.27.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>1.14.0</reportingrestVersion>
         <reportinguiVersion>1.13.0-SNAPSHOT</reportinguiVersion>
