@@ -68,10 +68,10 @@ public class PihCoreConstants {
 
     public static final String HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY = "haiti_hiv_emr_link_url";
 
-    public static final String IMMUNIZATION_GROUP_CONCEPT_UUID = "74260088-9c83-41d5-b92b-03a41654daaf";
-    public static final String IMMUNIZATION_TYPE_CONCEPT_UUID = "2dc6c690-a5fe-4cc4-97cc-32c70200a2eb";
-    public static final String IMMUNIZATION_NUM_CONCEPT_UUID = "ef6b45b4-525e-4d74-bf81-a65a41f3feb9";
-    public static final String IMMUNIZATION_DATE_CONCEPT_UUID = "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    public static final String VACCINATION_GROUP_CONCEPT_UUID = "74260088-9c83-41d5-b92b-03a41654daaf";
+    public static final String VACCINATION_TYPE_CONCEPT_UUID = "2dc6c690-a5fe-4cc4-97cc-32c70200a2eb";
+    public static final String VACCINATION_NUM_CONCEPT_UUID = "ef6b45b4-525e-4d74-bf81-a65a41f3feb9";
+    public static final String VACCINATION_DATE_CONCEPT_UUID = "1410AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 
     public static final String COVID_VACCINATION_CONCEPT_UUID = "c3cd46de-21fb-475b-b76a-1c638b250378";
     public static final String HEP_B_VACCINATION_CONCEPT_UUID = "3cd42a9c-26fe-102b-80cb-0017a47871b2";

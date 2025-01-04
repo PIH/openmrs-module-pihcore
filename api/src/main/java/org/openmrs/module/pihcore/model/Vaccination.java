@@ -19,14 +19,14 @@ import org.openmrs.Obs;
 import java.util.Date;
 
 @Data
-public class Immunization {
+public class Vaccination {
 
     private Obs groupObs;
-    private Obs immunizationObs;
+    private Obs vaccinationObs;
     private Obs sequenceNumberObs;
     private Obs dateObs;
 
     public Date getEffectiveDate() {
-        return dateObs != null ? dateObs.getValueDatetime() : immunizationObs.getObsDatetime();
+        return dateObs != null ? dateObs.getValueDatetime() : vaccinationObs.getObsDatetime();
     }
 }

@@ -6,7 +6,7 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.PatientService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.module.pihcore.model.Immunization;
+import org.openmrs.module.pihcore.model.Vaccination;
 import org.openmrs.module.pihcore.service.PihCoreService;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Displays information about immunizations on the patient dashboard
+ * Displays information about vaccinations on the patient dashboard
  */
-public class ImmunizationsFragmentController {
+public class VaccinationsFragmentController {
 
     public void controller(@SpringBean("patientService") PatientService patientService,
                            @SpringBean("pihCoreService") PihCoreService pihCoreService,
@@ -57,27 +57,27 @@ public class ImmunizationsFragmentController {
         model.put("patient", patient);
         model.put("app", app);
 
-        Map<Concept, Immunization> immunizationsByConcept = new LinkedHashMap<>();
+        Map<Concept, Vaccination> vaccinationsByConcept = new LinkedHashMap<>();
         try {
-            List<String> immunizationConceptUuids = (List<String>)config.get("immunizations");
-            for (String conceptUuid : immunizationConceptUuids) {
-                immunizationsByConcept.put(conceptService.getConceptByUuid(conceptUuid), new Immunization());
+            List<String> vaccinationConceptUuids = (List<String>)config.get("vaccinations");
+            for (String conceptUuid : vaccinationConceptUuids) {
+                vaccinationsByConcept.put(conceptService.getConceptByUuid(conceptUuid), new Vaccination());
             }
         }
         catch (Exception ignored) {}
 
-        // Get all immunizations given and retain the most recent by type in the configured list
-        for (Immunization immunization : pihCoreService.getImmunizations(patient)) {
-            Concept immunizationTypeValue = immunization.getImmunizationObs().getValueCoded();
-            Immunization existing = immunizationsByConcept.get(immunizationTypeValue);
+        // Get all vaccinations given and retain the most recent by type in the configured list
+        for (Vaccination vaccination : pihCoreService.getVaccinations(patient)) {
+            Concept vaccinationTypeValue = vaccination.getVaccinationObs().getValueCoded();
+            Vaccination existing = vaccinationsByConcept.get(vaccinationTypeValue);
             if (existing != null) {
-                Date existingDate = existing.getImmunizationObs() == null ? null : existing.getEffectiveDate();
-                if (existingDate == null || existingDate.before(immunization.getEffectiveDate())) {
-                    immunizationsByConcept.put(immunizationTypeValue, immunization);
+                Date existingDate = existing.getVaccinationObs() == null ? null : existing.getEffectiveDate();
+                if (existingDate == null || existingDate.before(vaccination.getEffectiveDate())) {
+                    vaccinationsByConcept.put(vaccinationTypeValue, vaccination);
                 }
             }
         }
 
-        model.put("immunizationsByConcept", immunizationsByConcept);
+        model.put("vaccinationsByConcept", vaccinationsByConcept);
     }
 }

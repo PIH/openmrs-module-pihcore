@@ -40,7 +40,7 @@ import org.openmrs.module.emrapi.adt.InpatientRequestSearchCriteria;
 import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
-import org.openmrs.module.pihcore.model.Immunization;
+import org.openmrs.module.pihcore.model.Vaccination;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -150,29 +150,29 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
     }
 
     @Override
-    public List<Immunization> getImmunizations(Patient patient) {
-        List<Immunization> ret = new ArrayList<>();
-        Concept immunizationConcept = conceptService.getConceptByUuid(PihCoreConstants.IMMUNIZATION_TYPE_CONCEPT_UUID);
-        List<Obs> immunizationList = obsService.getObservationsByPersonAndConcept(patient, immunizationConcept);
-        for (Obs obs : immunizationList) {
-            Immunization immunization = new Immunization();
-            immunization.setImmunizationObs(obs);
+    public List<Vaccination> getVaccinations(Patient patient) {
+        List<Vaccination> ret = new ArrayList<>();
+        Concept vaccinationConcept = conceptService.getConceptByUuid(PihCoreConstants.VACCINATION_TYPE_CONCEPT_UUID);
+        List<Obs> vaccinationList = obsService.getObservationsByPersonAndConcept(patient, vaccinationConcept);
+        for (Obs obs : vaccinationList) {
+            Vaccination vaccination = new Vaccination();
+            vaccination.setVaccinationObs(obs);
             if (obs.getObsGroup() != null) {
-                immunization.setGroupObs(obs.getObsGroup());
+                vaccination.setGroupObs(obs.getObsGroup());
                 for (Obs sibling : obs.getObsGroup().getGroupMembers()) {
                     if (BooleanUtils.isNotTrue(sibling.getVoided())) {
                         String siblingConcept = sibling.getConcept().getUuid();
-                        if (siblingConcept.equalsIgnoreCase(PihCoreConstants.IMMUNIZATION_NUM_CONCEPT_UUID)) {
-                            immunization.setSequenceNumberObs(sibling);
-                        } else if (siblingConcept.equalsIgnoreCase(PihCoreConstants.IMMUNIZATION_DATE_CONCEPT_UUID)) {
-                            immunization.setDateObs(sibling);
+                        if (siblingConcept.equalsIgnoreCase(PihCoreConstants.VACCINATION_NUM_CONCEPT_UUID)) {
+                            vaccination.setSequenceNumberObs(sibling);
+                        } else if (siblingConcept.equalsIgnoreCase(PihCoreConstants.VACCINATION_DATE_CONCEPT_UUID)) {
+                            vaccination.setDateObs(sibling);
                         }
                     }
                 }
             }
-            ret.add(immunization);
+            ret.add(vaccination);
         }
-        ret.sort(Comparator.comparing(Immunization::getEffectiveDate).reversed());
+        ret.sort(Comparator.comparing(Vaccination::getEffectiveDate).reversed());
         return ret;
     }
 

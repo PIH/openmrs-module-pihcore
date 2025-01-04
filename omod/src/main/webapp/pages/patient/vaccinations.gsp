@@ -6,7 +6,7 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.escapeJs(ui.format(patient.patient)) }" , link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'},
-        { label: "${ ui.message("pihcore.immunizations") }"}
+        { label: "${ ui.message("pihcore.vaccinations") }"}
     ];
 
     jq(document).ready(function() {
@@ -25,30 +25,30 @@
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
-<h3>${ ui.message("pihcore.immunization.history") }</h3>
+<h3>${ ui.message("pihcore.vaccination.history") }</h3>
 
 <div class="container">
 
     <table class="vaccination-table">
         <thead>
-            <th>${ui.message("pihcore.immunizations")}</th>
-            <% immunizationSequenceNumbers.values().each{ sequenceHeader -> %>
+            <th>${ui.message("pihcore.vaccinations")}</th>
+            <% vaccinationSequenceNumbers.values().each{ sequenceHeader -> %>
                 <th>${ui.message(sequenceHeader)}</th>
             <% } %>
         </thead>
         <tbody>
-            <% immunizationConcepts.keySet().each{ immunizationConcept ->
-                def supportedDoses = Arrays.asList(immunizationConcepts.get(immunizationConcept)) %>
+            <% vaccinationConcepts.keySet().each{ vaccinationConcept ->
+                def supportedDoses = Arrays.asList(vaccinationConcepts.get(vaccinationConcept)) %>
                 <tr>
-                    <td style="font-weight: bold;">${ui.message("pihcore.concept.name." + immunizationConcept.uuid)}</td>
-                    <% immunizationSequenceNumbers.keySet().each{ sequenceNumber ->
-                        def immunizationKey = immunizationConcept.uuid + "|" + sequenceNumber
-                        def immunization = immunizations.remove(immunizationKey)
+                    <td style="font-weight: bold;">${ui.message("pihcore.concept.name." + vaccinationConcept.uuid)}</td>
+                    <% vaccinationSequenceNumbers.keySet().each{ sequenceNumber ->
+                        def vaccinationKey = vaccinationConcept.uuid + "|" + sequenceNumber
+                        def vaccination = vaccinations.remove(vaccinationKey)
                         def supported = sequenceNumber != null && supportedDoses.contains(sequenceNumber)
                     %>
                         <td ${supported ? "" : "style='background-color: #888;'"}>
-                            <% if (immunization != null) { %>
-                                ${ui.formatDatePretty(immunization.dateObs?.valueDatetime)}
+                            <% if (vaccination != null) { %>
+                                ${ui.formatDatePretty(vaccination.dateObs?.valueDatetime)}
                             <% } %>
                         </td>
                     <% } %>
@@ -60,35 +60,35 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     </table>
 
     <!-- This only exists as a safety net in case data exists that does not fit in the above table -->
-    <% if (!immunizations.isEmpty()) { %>
+    <% if (!vaccinations.isEmpty()) { %>
 
         <h4>${ui.message("pihcore.other")}</h4>
 
         <table>
             <thead>
                 <tr>
-                    <th>${ui.message("pihcore.immunization")}</th>
+                    <th>${ui.message("pihcore.vaccination")}</th>
                     <th>${ui.message("pihcore.vaccination.sequence.dose")}</th>
                     <th>${ui.message("pihcore.vaccination.whenWasItGiven")}</th>
                 </tr>
             </thead>
             <tbody>
-                <% immunizations.values().each{ immunization -> %>
+                <% vaccinations.values().each{ vaccination -> %>
                     <tr>
-                        <td>${ui.message("pihcore.concept.name." + immunization.immunizationObs.valueCoded.uuid)}</td>
+                        <td>${ui.message("pihcore.concept.name." + vaccination.vaccinationObs.valueCoded.uuid)}</td>
                         <td>
                             <%
-                                def sequenceNum = immunization.sequenceNumberObs?.valueNumeric
+                                def sequenceNum = vaccination.sequenceNumberObs?.valueNumeric
                                 if (sequenceNum) {
                                     sequenceNum = sequenceNum.intValue();
                                 }
-                                if (immunizationSequenceNumbers.containsKey(sequenceNum)) {
-                                    sequenceNum = ui.message(immunizationSequenceNumbers.get(sequenceNum))
+                                if (vaccinationSequenceNumbers.containsKey(sequenceNum)) {
+                                    sequenceNum = ui.message(vaccinationSequenceNumbers.get(sequenceNum))
                                 }
                             %>
                             ${sequenceNum}
                         </td>
-                        <td>${ui.formatDatePretty(immunization.dateObs?.valueDatetime)}</td>
+                        <td>${ui.formatDatePretty(vaccination.dateObs?.valueDatetime)}</td>
                     </tr>
                 <% } %>
             </tbody>

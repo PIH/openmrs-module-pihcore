@@ -1,7 +1,7 @@
-<div class="info-section immunizations-widget ${app.id}">
+<div class="info-section vaccinations-widget ${app.id}">
     <div class="info-header">
         <i class="fas fa-fw ${app.icon}"></i>
-        <h3>${ ui.message("pihcore.immunizations.title") }</h3>
+        <h3>${ ui.message("pihcore.vaccinations.title") }</h3>
         <% if (app.url) { %>
             <a href="${ ui.urlBind("/" + contextPath + app.url, [ "patient.uuid": patient.uuid ]) }" class="right">
                 <i class="icon-share-alt edit-action" title="Edit"></i>
@@ -9,27 +9,27 @@
         <% } %>
     </div>
     <div class="info-body">
-        <% if (immunizationsByConcept.isEmpty()) { %>
+        <% if (vaccinationsByConcept.isEmpty()) { %>
             <span>${ui.message("coreapps.none")}</span>
         <% } else { %>
             <table>
                 <tbody>
-                    <% immunizationsByConcept.keySet().each { immunizationConcept ->
-                        def immunization = immunizationsByConcept.get(immunizationConcept) %>
+                    <% vaccinationsByConcept.keySet().each { vaccinationConcept ->
+                        def vaccination = vaccinationsByConcept.get(vaccinationConcept) %>
                         <tr>
                             <td>
-                                ${ui.message("pihcore.concept.name." + immunizationConcept.uuid)}
+                                ${ui.message("pihcore.concept.name." + vaccinationConcept.uuid)}
                             </td>
                             <td>
-                                <% if (immunization.immunizationObs) { %>
+                                <% if (vaccination.vaccinationObs) { %>
 
-                                    <% if (immunization.sequenceNumberObs) { %>
-                                        ${ui.message("pihcore.vaccination.sequence.dose")} ${ui.format(immunization.sequenceNumberObs.valueNumeric)}
-                                        ${immunization.dateObs ? " - " : ""}
+                                    <% if (vaccination.sequenceNumberObs) { %>
+                                        ${ui.message("pihcore.vaccination.sequence.dose")} ${ui.format(vaccination.sequenceNumberObs.valueNumeric)}
+                                        ${vaccination.dateObs ? " - " : ""}
                                     <% } %>
 
-                                    <% if (immunization.dateObs) { %>
-                                        ${ui.formatDatePretty(immunization.dateObs.valueDatetime)}
+                                    <% if (vaccination.dateObs) { %>
+                                        ${ui.formatDatePretty(vaccination.dateObs.valueDatetime)}
                                     <% } %>
 
                                 <% } else { %>
