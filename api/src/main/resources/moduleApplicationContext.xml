@@ -18,6 +18,8 @@
 					</bean>
 				</property>
 				<property name="orderDAO" ref="orderDAO" />
+				<property name="conceptService" ref="conceptService"/>
+				<property name="obsService" ref="obsService"/>
 			</bean>
 		</property>
 		<property name="preInterceptors">
