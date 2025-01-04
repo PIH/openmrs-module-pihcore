@@ -14,12 +14,14 @@
 package org.openmrs.module.pihcore.service;
 
 import org.openmrs.Order;
+import org.openmrs.Patient;
 import org.openmrs.Person;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.api.db.OrderDAO;
 import org.openmrs.module.emrapi.adt.InpatientAdmission;
 import org.openmrs.module.emrapi.adt.InpatientRequest;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
+import org.openmrs.module.pihcore.model.Immunization;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -46,11 +48,9 @@ public interface PihCoreService extends OpenmrsService {
      */
     PihAccountDomainWrapper newPihAccountDomainWrapper(Person person);
 
-    /**
-     *
-     */
     List<InpatientAdmission> getStaleInpatientAdmissions(Date admittedOnOrBefore, int mostRecentEncounterThresholdInDays);
 
     List<InpatientRequest> getStaleAdmissionRequests(Date admissionRequestOnOrBefore, int mostRecentEncounterThresholdInDays);
 
+    List<Immunization> getImmunizations(Patient patient);
 }

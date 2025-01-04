@@ -1,16 +1,13 @@
 package org.openmrs.module.pihcore.fragment.controller.dashboardwidgets;
 
-import lombok.Data;
-import org.apache.commons.lang.BooleanUtils;
 import org.openmrs.Concept;
-import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.api.ConceptService;
-import org.openmrs.api.ObsService;
 import org.openmrs.api.PatientService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.model.Immunization;
+import org.openmrs.module.pihcore.service.PihCoreService;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -28,7 +25,7 @@ import java.util.Map;
 public class ImmunizationsFragmentController {
 
     public void controller(@SpringBean("patientService") PatientService patientService,
-                           @SpringBean("obsService") ObsService obsService,
+                           @SpringBean("pihCoreService") PihCoreService pihCoreService,
                            @SpringBean("conceptService") ConceptService conceptService,
                            @FragmentParam("app") AppDescriptor app,
                            UiUtils ui,
@@ -70,47 +67,17 @@ public class ImmunizationsFragmentController {
         catch (Exception ignored) {}
 
         // Get all immunizations given and retain the most recent by type in the configured list
-        Concept immunizationConcept = conceptService.getConceptByUuid(PihCoreConstants.IMMUNIZATION_TYPE_CONCEPT_UUID);
-        List<Obs> immunizationList = obsService.getObservationsByPersonAndConcept(patient, immunizationConcept);
-        for (Obs obs : immunizationList) {
-            Concept immunizationTypeValue = obs.getValueCoded();
+        for (Immunization immunization : pihCoreService.getImmunizations(patient)) {
+            Concept immunizationTypeValue = immunization.getImmunizationObs().getValueCoded();
             Immunization existing = immunizationsByConcept.get(immunizationTypeValue);
-            // Only include obs that match one of the configured concepts
             if (existing != null) {
-                Immunization candidate = new Immunization();
-                candidate.setImmunizationObs(obs);
-                if (obs.getObsGroup() != null) {
-                    candidate.setGroupObs(obs.getObsGroup());
-                    for (Obs sibling : obs.getObsGroup().getGroupMembers()) {
-                        if (BooleanUtils.isNotTrue(sibling.getVoided())) {
-                            String siblingConcept = sibling.getConcept().getUuid();
-                            if (siblingConcept.equalsIgnoreCase(PihCoreConstants.IMMUNIZATION_NUM_CONCEPT_UUID)) {
-                                candidate.setSequenceNumberObs(sibling);
-                            } else if (siblingConcept.equalsIgnoreCase(PihCoreConstants.IMMUNIZATION_DATE_CONCEPT_UUID)) {
-                                candidate.setDateObs(sibling);
-                            }
-                        }
-                    }
-                }
                 Date existingDate = existing.getImmunizationObs() == null ? null : existing.getEffectiveDate();
-                if (existingDate == null || existingDate.before(candidate.getEffectiveDate())) {
-                    immunizationsByConcept.put(immunizationTypeValue, candidate);
+                if (existingDate == null || existingDate.before(immunization.getEffectiveDate())) {
+                    immunizationsByConcept.put(immunizationTypeValue, immunization);
                 }
             }
         }
 
         model.put("immunizationsByConcept", immunizationsByConcept);
-    }
-
-    @Data
-    public static class Immunization {
-        private Obs groupObs;
-        private Obs immunizationObs;
-        private Obs sequenceNumberObs;
-        private Obs dateObs;
-
-        public Date getEffectiveDate() {
-            return dateObs != null ? dateObs.getValueDatetime() : immunizationObs.getObsDatetime();
-        }
     }
 }
