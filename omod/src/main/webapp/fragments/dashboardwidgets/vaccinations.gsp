@@ -1,3 +1,8 @@
+<style>
+    .vaccinations-widget {
+        font-size: 0.9em;
+    }
+</style>
 <div class="info-section vaccinations-widget ${app.id}">
     <div class="info-header">
         <i class="fas fa-fw ${app.icon}"></i>
