@@ -50,6 +50,45 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 
     </table>
 
+    <!-- This only exists as a safety net in case data exists that does not fit in the above table -->
+    <% if (!immunizations.isEmpty()) { %>
+
+        <h4>${ui.message("pihcore.other")}</h4>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>${ui.message("pihcore.immunization")}</th>
+                    <th>${ui.message("pihcore.vaccination.sequence.dose")}</th>
+                    <th>${ui.message("pihcore.vaccination.whenWasItGiven")}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% immunizations.values().each{ immunization -> %>
+                    <tr>
+                        <td>${ui.message("pihcore.concept.name." + immunization.immunizationObs.valueCoded.uuid)}</td>
+                        <td>
+                            <%
+                                def sequenceNum = immunization.sequenceNumberObs?.valueNumeric
+                                if (sequenceNum) {
+                                    sequenceNum = sequenceNum.intValue();
+                                }
+                                immunizationSequenceNumbers.entrySet().each { e ->
+                                    if (e.value == sequenceNum) {
+                                        sequenceNum = ui.message(e.key)
+                                    }
+                                }
+                            %>
+                            ${sequenceNum}
+                        </td>
+                        <td>${ui.formatDatePretty(immunization.dateObs?.valueDatetime)}</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+
+    <% } %>
+
     <br/>
 
     <div>
