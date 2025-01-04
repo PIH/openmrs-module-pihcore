@@ -13,35 +13,36 @@ import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ImmunizationsPageController {
 
-    public static final String[] IMMUNIZATION_TABLE_CONCEPTS = {
-            PihCoreConstants.BCG_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.COVID_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.DIPTHERIA_TETANUS_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.HEP_B_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.FLU_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.MENINGO_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.PENTAVALENT_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.PNEUMOCOCCAL_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.POLIO_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.ROTAVIRUS_VACCINATION_CONCEPT_UUID,
-            PihCoreConstants.MEASLES_RUBELLA_VACCINATION_CONCEPT_UUID
-    };
+    public static final Map<String, Integer[]> IMMUNIZATION_TABLE_CONCEPTS = new LinkedHashMap<>();
 
-    public static final Map<String, Integer> SEQUENCE_NUMBER_VALUES = new LinkedHashMap<>();
     static {
-        SEQUENCE_NUMBER_VALUES.put("pihcore.vaccination.sequence.doseZero", 0);
-        SEQUENCE_NUMBER_VALUES.put("pihcore.vaccination.sequence.doseOne", 1);
-        SEQUENCE_NUMBER_VALUES.put("pihcore.vaccination.sequence.doseTwo", 2);
-        SEQUENCE_NUMBER_VALUES.put("pihcore.vaccination.sequence.doseThree", 3);
-        SEQUENCE_NUMBER_VALUES.put("pihcore.vaccination.sequence.doseBoosterOne", 11);
-        SEQUENCE_NUMBER_VALUES.put("pihcore.vaccination.sequence.doseBoosterTwo", 12);
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.BCG_VACCINATION_CONCEPT_UUID, new Integer[]{ 1 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.COVID_VACCINATION_CONCEPT_UUID, new Integer[]{ 1, 2, 3 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.DIPTHERIA_TETANUS_VACCINATION_CONCEPT_UUID, new Integer[]{ 0, 1, 2, 3, 11, 12 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.HEP_B_VACCINATION_CONCEPT_UUID, new Integer[]{ 0, 1, 2, 3 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.FLU_VACCINATION_CONCEPT_UUID, new Integer[]{ 1, 2, 3, 11, 12 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.MENINGO_VACCINATION_CONCEPT_UUID, new Integer[]{ 1, 2 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.PENTAVALENT_VACCINATION_CONCEPT_UUID, new Integer[]{ 1, 2, 3 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.PNEUMOCOCCAL_VACCINATION_CONCEPT_UUID, new Integer[]{ 1, 2, 3 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.POLIO_VACCINATION_CONCEPT_UUID, new Integer[]{ 0, 1, 2, 3, 11, 12 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.ROTAVIRUS_VACCINATION_CONCEPT_UUID, new Integer[]{ 1, 2 });
+        IMMUNIZATION_TABLE_CONCEPTS.put(PihCoreConstants.MEASLES_RUBELLA_VACCINATION_CONCEPT_UUID, new Integer[]{ 1 });
+    }
+
+    public static final Map<Integer, String> SEQUENCE_NUMBER_VALUES = new LinkedHashMap<>();
+    static {
+        SEQUENCE_NUMBER_VALUES.put(0, "pihcore.vaccination.sequence.doseZero");
+        SEQUENCE_NUMBER_VALUES.put(1, "pihcore.vaccination.sequence.doseOne");
+        SEQUENCE_NUMBER_VALUES.put(2, "pihcore.vaccination.sequence.doseTwo");
+        SEQUENCE_NUMBER_VALUES.put(3, "pihcore.vaccination.sequence.doseThree");
+        SEQUENCE_NUMBER_VALUES.put(11, "pihcore.vaccination.sequence.doseBoosterOne");
+        SEQUENCE_NUMBER_VALUES.put(12, "pihcore.vaccination.sequence.doseBoosterTwo");
     }
 
     public void get(PageModel model, UiUtils ui,
@@ -55,9 +56,9 @@ public class ImmunizationsPageController {
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
 
-        List<Concept> immunizationConcepts = new ArrayList<>();
-        for (String conceptUuid : IMMUNIZATION_TABLE_CONCEPTS) {
-            immunizationConcepts.add(conceptService.getConceptByUuid(conceptUuid));
+        Map<Concept, Integer[]> immunizationConcepts = new LinkedHashMap<>();
+        for (String conceptUuid : IMMUNIZATION_TABLE_CONCEPTS.keySet()) {
+            immunizationConcepts.put(conceptService.getConceptByUuid(conceptUuid), IMMUNIZATION_TABLE_CONCEPTS.get(conceptUuid));
         }
         model.addAttribute("immunizationConcepts", immunizationConcepts);
         model.addAttribute("immunizationSequenceNumbers", SEQUENCE_NUMBER_VALUES);

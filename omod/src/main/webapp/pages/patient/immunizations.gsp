@@ -16,28 +16,37 @@
     });
 </script>
 
+<style>
+    .vaccination-table th, td {
+        font-size: 0.9em;
+        text-align: center;
+    }
+</style>
+
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
 
 <h3>${ ui.message("pihcore.immunization.history") }</h3>
 
 <div class="container">
 
-    <table>
+    <table class="vaccination-table">
         <thead>
             <th>${ui.message("pihcore.immunizations")}</th>
-            <% immunizationSequenceNumbers.keySet().each{ sequenceHeader -> %>
+            <% immunizationSequenceNumbers.values().each{ sequenceHeader -> %>
                 <th>${ui.message(sequenceHeader)}</th>
             <% } %>
         </thead>
         <tbody>
-            <% immunizationConcepts.each{ immunizationConcept -> %>
+            <% immunizationConcepts.keySet().each{ immunizationConcept ->
+                def supportedDoses = Arrays.asList(immunizationConcepts.get(immunizationConcept)) %>
                 <tr>
-                    <td>${ui.message("pihcore.concept.name." + immunizationConcept.uuid)}</td>
-                    <% immunizationSequenceNumbers.values().each{ sequenceNumber ->
+                    <td style="font-weight: bold;">${ui.message("pihcore.concept.name." + immunizationConcept.uuid)}</td>
+                    <% immunizationSequenceNumbers.keySet().each{ sequenceNumber ->
                         def immunizationKey = immunizationConcept.uuid + "|" + sequenceNumber
                         def immunization = immunizations.remove(immunizationKey)
+                        def supported = sequenceNumber != null && supportedDoses.contains(sequenceNumber)
                     %>
-                        <td>
+                        <td ${supported ? "" : "style='background-color: #888;'"}>
                             <% if (immunization != null) { %>
                                 ${ui.formatDatePretty(immunization.dateObs?.valueDatetime)}
                             <% } %>
@@ -73,10 +82,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                                 if (sequenceNum) {
                                     sequenceNum = sequenceNum.intValue();
                                 }
-                                immunizationSequenceNumbers.entrySet().each { e ->
-                                    if (e.value == sequenceNum) {
-                                        sequenceNum = ui.message(e.key)
-                                    }
+                                if (immunizationSequenceNumbers.containsKey(sequenceNum)) {
+                                    sequenceNum = ui.message(immunizationSequenceNumbers.get(sequenceNum))
                                 }
                             %>
                             ${sequenceNum}
