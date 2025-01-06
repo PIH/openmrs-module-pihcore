@@ -7,16 +7,22 @@
         <div class="info-body">
             <div>
                 <% if (inpatientLocation != null ) { %>
-                    <span>${ ui.message("pihcore.current.location") }:</span>
-                    <div class="tag">${inpatientLocation}</div>
+                    <span class="patient-dashboard-widget-label">${ ui.message("pihcore.current.location") }:</span>
+                    <span class="patient-dashboard-widget-value">
+                        <% if (inpatientLocation.id == sessionContext.sessionLocationId) { %>
+                            <a href="/${contextPath}/spa/home/ward">${ui.format(inpatientLocation)}</a>
+                        <% } else { %>
+                            ${ui.format(inpatientLocation)}
+                        <% } %>
+                    </span>
                 <% } else { %>
-                    <span>${ ui.message("pihcore.queue.name") }:</span>
-                    <div class="tag">${queueName}</div>
+                    <span class="patient-dashboard-widget-label">${ ui.message("pihcore.queue.name") }:</span>
+                    <span class="patient-dashboard-widget-value">${queueName}</span>
                 <% } %>
             </div>
             <div>
-                <span>${ ui.message("pihcore.status") }:</span>
-                <div class="tag">${patientStatus}</div>
+                <span class="patient-dashboard-widget-label">${ ui.message("pihcore.status") }:</span>
+                <span class="patient-dashboard-widget-value">${patientStatus}</span>
             </div>
         </div>
     </div>
