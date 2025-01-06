@@ -5,10 +5,15 @@
         <h3>${ ui.message(app.label) }</h3>
     </div>
     <div class="info-body">
-        <% statusData.each{status -> %>
+        <% statusData.each{status ->
+            def displayValue = status.displayValue
+            if (displayValue != null) {
+                displayValue = displayValue.replace('{{contextPath}}', contextPath)
+            }
+        %>
             <div>
                 <span class="patient-dashboard-widget-label">${status.label}${status.label ? ': ' : ''}</span>
-                <span class="patient-dashboard-widget-value ${status.displayFormat}">${status.displayValue}</span>
+                <span class="patient-dashboard-widget-value ${status.displayFormat}">${displayValue}</span>
             </div>
         <% } %>
     </div>
