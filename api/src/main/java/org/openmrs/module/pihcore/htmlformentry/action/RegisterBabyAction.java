@@ -75,7 +75,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                 Concept gender = getCodedValue(groupMembers, BABY_GENDER_CONCEPT_SOURCE, BABY_GENDER_CONCEPT);
                                 Date birthDatetime = getObsDateValue(groupMembers, DATE_TIME_OF_BIRTH_CONCEPT_SOURCE, DATE_TIME_OF_BIRTH_CONCEPT);
                                 if ((gender != null) && (birthDatetime != null)) {
-                                    Patient baby = registerBaby(mother, gender, birthDatetime, encounter.getLocation());
+                                    Patient baby = registerBaby(mother, gender, birthDatetime, encounter.getLocation(), registeredBabies.size());
                                     if (baby != null && baby.getUuid() != null) {
                                         registeredBabies.put(baby.getUuid(), groupMember);
                                         //create visit for the new registered baby
@@ -113,7 +113,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         }
     }
 
-    Patient registerBaby(Patient mother, Concept gender, Date birthDatetime, Location location) {
+    Patient registerBaby(Patient mother, Concept gender, Date birthDatetime, Location location, int babyNumber) {
         Concept maleConcept = Context.getConceptService().getConceptByMapping("MALE", "PIH");
         Concept femaleConcept = Context.getConceptService().getConceptByMapping("FEMALE", "PIH");
         PersonService personService = Context.getPersonService();
@@ -126,7 +126,12 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         Patient baby = new Patient();
         PersonName babyName = new PersonName();
         babyName.setFamilyName(mother.getFamilyName());
-        babyName.setGivenName("Baby");
+        // name babies after the first one as "Baby 2", "Baby 3", etc...
+        if(babyNumber == 0) {
+            babyName.setGivenName("Baby");
+        } else {
+            babyName.setGivenName("Baby " + (babyNumber + 1));
+        }
         baby.addName(babyName);
         String babyGender = "M";
         if (gender.equals(femaleConcept)) {
