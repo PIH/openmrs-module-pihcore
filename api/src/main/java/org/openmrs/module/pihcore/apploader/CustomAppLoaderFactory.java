@@ -900,6 +900,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null),
                 sessionLocationHasTag("Admission Location")));
 
+
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION,
+                "mirebalais.task.admit.label",
+                "fas fa-fw fa-hospital-symbol",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornAdmissionNote.xml")),
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                and(sessionLocationHasTag("Newborn Admission Note Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID),
+                        patientAgeInMonthsLessThanAtVisitStart(3))));
     }
 
     private void enableBedAdministration() {
