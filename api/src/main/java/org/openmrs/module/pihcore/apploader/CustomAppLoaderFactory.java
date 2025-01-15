@@ -2213,17 +2213,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableMCOEForms() {
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
 
-            Extension newbornAdmit = visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_ADMISSION_ACTION,
-                    "pih.task.newbornAdmission",
+            Extension newbornInitial = visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_INITIAL_ACTION,
+                    "pih.task.newbornInitial",
                     "fas fa-fw fa-baby",
                     "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornAdmission.xml")),
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornInitial.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("NICU Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_ADMISSION_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_INITIAL_UUID),
                             and(patientAgeInMonthsLessThanAtVisitStart(3))));
-            extensions.add(newbornAdmit);
-            extensions.add(cloneAsInfantVisitAction(newbornAdmit));
+            extensions.add(newbornInitial);
+            extensions.add(cloneAsInfantVisitAction(newbornInitial));
 
             Extension newbornAssess = visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_ASSESSMENT_ACTION,
                     "pih.task.newbornAssessment",
