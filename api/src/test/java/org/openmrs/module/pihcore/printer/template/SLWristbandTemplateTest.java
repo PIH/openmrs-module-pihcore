@@ -142,15 +142,17 @@ public class SLWristbandTemplateTest {
 
         String output = SLWristbandTemplate.generateWristband(patient, visitLocation, null);
 
+        System.out.println(output);
+
         assertThat(output, containsString("^XA^CI28^MTD^FWB"));
-        assertThat(output, containsString("^FO050,200^FB2150,1,0,L,0^AS^FDKoidu Government Hospital " + df.format(today) + "^FS"));
-        assertThat(output, containsString("^FO100,200^FB2150,1,0,L,0^AU^FDRingo Starr  KGH00234003^FS"));
-        assertThat(output, containsString("^FO160,200^FB2150,1,0,L,0^AU^FD07-Jul-1940^FS"));
-        assertThat(output, containsString("^FO160,200^FB1850,1,0,L,0^AT^FD" + patient.getAge() + " an(s)^FS"));
-        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FDMasculin  ^FS"));
-        assertThat(output, containsString("^FO220,200^FB2150,1,0,L,0^AS^FD15 BRIMA FONJAH ST^FS"));
-        assertThat(output, containsString("^FO270,200^FB2150,1,0,L,0^AS^FDKoidu, Njaiafeh Section, Nimiyama, Kono^FS"));
-        assertThat(output, containsString("^FO100,2400^AT^BY4^BC,150,N^FDKGH00234003^XZ"));
+        assertThat(output, containsString("^FO050,200^FB1650,1,0,L,0^AS^FDKoidu Government Hospital " + df.format(today) + "^FS"));
+        assertThat(output, containsString("^FO100,200^FB1650,1,0,L,0^AU^FDRingo Starr  KGH00234003^FS"));
+        assertThat(output, containsString("^FO160,200^FB1650,1,0,L,0^AU^FD07-Jul-1940^FS"));
+        assertThat(output, containsString("^FO160,200^FB1350,1,0,L,0^AT^FD" + patient.getAge() + " an(s)^FS"));
+        assertThat(output, containsString("^FO160,200^FB1150,1,0,L,0^AU^FDMasculin  ^FS"));
+        assertThat(output, containsString("^FO220,200^FB1650,1,0,L,0^AS^FD15 BRIMA FONJAH ST^FS"));
+        assertThat(output, containsString("^FO270,200^FB1650,1,0,L,0^AS^FDKoidu, Njaiafeh Section, Nimiyama, Kono^FS"));
+        assertThat(output, containsString("^FO100,2000^AT^BY4^BC,150,N^FDKGH00234003^XZ"));
     }
 
 }
