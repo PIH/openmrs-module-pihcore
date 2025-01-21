@@ -758,6 +758,34 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "coreapps", "dashboardwidgets/dashboardWidget"));
         }
 
+        // Add additional vital sign forms for ZL
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            // ToDo: Add inpatient AND emergency location tag
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_INPATIENT_VISIT_ACTION,
+                    "pihcore.task.vitalsInpatient",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsInpatient.xml")),
+                    null,
+                    and(sessionLocationHasTag("Admission Note Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_PREGNANCY_VISIT_ACTION,
+                    "pihcore.task.vitalsPregnancy",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsPregnant.xml")),
+                    null,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            and(patientIsFemale(), patientIsAdult()),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+        }
+
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.DEFAULT), "fas fa-fw fa-heartbeat", null, true,
