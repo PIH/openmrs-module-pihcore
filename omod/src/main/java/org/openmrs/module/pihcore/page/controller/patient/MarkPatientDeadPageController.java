@@ -11,7 +11,6 @@ import org.openmrs.Patient;
 import org.openmrs.Visit;
 import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
-import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.coreapps.CoreAppsConstants;
@@ -39,7 +38,6 @@ public class MarkPatientDeadPageController {
 
     public void get(@SpringBean PageModel pageModel,
                     @RequestParam(value = "breadcrumbOverride", required = false) String breadcrumbOverride,
-                    @SpringBean("patientService") PatientService patientService,
                     @SpringBean("emrApiProperties") EmrApiProperties emrApiProperties,
                     @RequestParam("patientId") Patient patient,
                     @RequestParam(value = "defaultDead", required = false, defaultValue = "true") Boolean defaultDead,
@@ -88,10 +86,7 @@ public class MarkPatientDeadPageController {
         }
     }
 
-    public String post(@SpringBean("patientService")
-                       PatientService patientService,
-                       @SpringBean("exitFromCareService")
-                       ExitFromCareService exitFromCareService,
+    public String post(@SpringBean("exitFromCareService") ExitFromCareService exitFromCareService,
                        @SpringBean("conceptService") ConceptService conceptService,
                        @SpringBean("messageSourceService") MessageSourceService messageSourceService,
                        @RequestParam(value = "causeOfDeath", required = false) String causeOfDeath,
@@ -100,31 +95,42 @@ public class MarkPatientDeadPageController {
                        @RequestParam(value = "deathDateHour", required = false) Integer deathDateHour,
                        @RequestParam(value = "deathDateMinute", required = false) Integer deathDateMinute,
                        @RequestParam("patientId") Patient patient, UiUtils ui,
-                       @RequestParam(value = "returnUrl", required = false) String returnUrl,  // does this even work, and, if so, how?
-                       @RequestParam(value = "returnDashboard", required = false) String returnDashboard,
                        HttpServletRequest request) {
         try {
-
             if (deathDate != null && deathDateHour != null && deathDateMinute != null) {
                 deathDate = DateUtils.setHours(deathDate, deathDateHour);
                 deathDate = DateUtils.setMinutes(deathDate, deathDateMinute);
             }
-
-            Date date = new Date();
-            if (dead != null && StringUtils.isNotBlank(causeOfDeath) && deathDate != null && !deathDate.before(patient.getBirthdate()) && !deathDate.after(date)) {
-                // TODO should more gracefully handle bad cause of death concept
-                exitFromCareService.markPatientDead(patient, conceptService.getConceptByUuid(causeOfDeath), deathDate);
-            } else {
+            if (BooleanUtils.isTrue(dead)) {
+                if (deathDate == null) {
+                    throw new APIException("Death date is required");
+                }
+                Date now = new Date();
+                if (deathDate.after(now)) {
+                    throw new APIException("Death date cannot be in the future");
+                }
+                if (deathDate.before(patient.getBirthdate())) {
+                    throw new APIException("Death date cannot be prior to the patient's birthdate");
+                }
+                if (StringUtils.isBlank(causeOfDeath)) {
+                    throw new APIException("Cause of death is required");
+                }
+                Concept causeOfDeathConcept = conceptService.getConceptByUuid(causeOfDeath);
+                if (causeOfDeathConcept == null) {
+                    throw new APIException("Cause of death is invalid");
+                }
+                exitFromCareService.markPatientDead(patient, causeOfDeathConcept, deathDate);
+            }
+            else {
                 exitFromCareService.markPatientNotDead(patient);
             }
-
-            return "redirect:" + ui.pageLink("coreapps", "clinicianfacing/patient", SimpleObject.create("patientId", patient.getId(), "dashboard", returnDashboard, "returnUrl", returnUrl));
-        } catch (APIException e) {
+        }
+        catch (APIException e) {
             log.error(e.getMessage(), e);
             request.getSession().setAttribute(org.openmrs.module.uicommons.UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
                     messageSourceService.getMessage("Unable to mark patient as deceased: " + e.getMessage(), new Object[]{e.getMessage()}, Context.getLocale()));
-            return "redirect:" + ui.pageLink("coreapps", "clinicianfacing/patient", SimpleObject.create("patientId", patient.getId(), "dashboard", returnDashboard, "returnUrl", returnUrl));
         }
+        return "redirect:" + ui.pageLink("pihcore", "router/programDashboard", SimpleObject.create("patientId", patient.getId()));
     }
 
     private Collection<ConceptAnswer> getConceptAnswers(String conceptIdOrNameOrUuid) {
