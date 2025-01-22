@@ -3106,7 +3106,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps.markPatientDead.label",
                 "icon-plus-sign-alt",
                 "link",
-                "coreapps/markPatientDead.page?patientId={{patient.uuid}}&defaultDead=true",
+                "pihcore/patient/markPatientDead.page?patientId={{patient.uuid}}",
                   PihEmrConfigConstants.PRIVILEGE_TASK_MARK_PATIENT_DEAD,
                null));
     }
