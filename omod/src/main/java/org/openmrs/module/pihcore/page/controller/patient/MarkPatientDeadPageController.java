@@ -1,6 +1,8 @@
 package org.openmrs.module.pihcore.page.controller.patient;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
@@ -22,16 +24,17 @@ import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-
 /**
- * Marking a patient as dead
+ * Copies the MarkPatientDeadPageController from coreapps in order to revise it for pihcore
+ * mainly to change the date/time picker widget and to have a more complex widget for choosing cause of death
  */
-
 public class MarkPatientDeadPageController {
+
     protected final Log log = LogFactory.getLog(this.getClass());
 
     public void get(@SpringBean PageModel pageModel,
@@ -39,7 +42,7 @@ public class MarkPatientDeadPageController {
                     @SpringBean("patientService") PatientService patientService,
                     @SpringBean("emrApiProperties") EmrApiProperties emrApiProperties,
                     @RequestParam("patientId") Patient patient,
-                    @RequestParam(value = "defaultDead", required = false) Boolean defaultDead,
+                    @RequestParam(value = "defaultDead", required = false, defaultValue = "true") Boolean defaultDead,
                     @RequestParam(value = "defaultDeathDate", required = false) Date defaultDeathDate
     ) {
 
@@ -47,8 +50,22 @@ public class MarkPatientDeadPageController {
         pageModel.put("patient", patient);
         pageModel.put("patientId", patient.getId());
         pageModel.put("breadcrumbOverride", breadcrumbOverride);
-        pageModel.put("defaultDead", defaultDead);
-        pageModel.put("defaultDeathDate", defaultDeathDate);
+
+        boolean deadSelected = BooleanUtils.isTrue(patient.getDead()) || BooleanUtils.isTrue(defaultDead);
+        Date deathDate = patient.getDeathDate() == null ? defaultDeathDate : patient.getDeathDate();
+        int deathDateHour = 0;
+        int deathDateMinute = 0;
+        if (deathDate != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(deathDate);
+            deathDateHour = cal.get(Calendar.HOUR_OF_DAY);
+            deathDateMinute = cal.get(Calendar.MINUTE);
+        }
+        pageModel.put("deadSelected", deadSelected);
+        pageModel.put("deathDate", deathDate);
+        pageModel.put("deathDateHour", deathDateHour);
+        pageModel.put("deathDateMinute", deathDateMinute);
+
         // if the getPatientDied property is configured, the ExitFromCare service will close/reopen patient programs when marking a patient dead/not dead
         pageModel.put("renderProgramWarning", emrApiProperties.getPatientDiedConcept() != null);
         pageModel.put("includesTime", Context.getAdministrationService().getGlobalProperty(CoreAppsConstants.GP_DECEASED_DATE_USING_TIME , "false"));
@@ -80,11 +97,19 @@ public class MarkPatientDeadPageController {
                        @RequestParam(value = "causeOfDeath", required = false) String causeOfDeath,
                        @RequestParam(value = "dead", required = false) Boolean dead,
                        @RequestParam(value = "deathDate", required = false) Date deathDate,
+                       @RequestParam(value = "deathDateHour", required = false) Integer deathDateHour,
+                       @RequestParam(value = "deathDateMinute", required = false) Integer deathDateMinute,
                        @RequestParam("patientId") Patient patient, UiUtils ui,
                        @RequestParam(value = "returnUrl", required = false) String returnUrl,  // does this even work, and, if so, how?
                        @RequestParam(value = "returnDashboard", required = false) String returnDashboard,
                        HttpServletRequest request) {
         try {
+
+            if (deathDate != null && deathDateHour != null && deathDateMinute != null) {
+                deathDate = DateUtils.setHours(deathDate, deathDateHour);
+                deathDate = DateUtils.setMinutes(deathDate, deathDateMinute);
+            }
+
             Date date = new Date();
             if (dead != null && StringUtils.isNotBlank(causeOfDeath) && deathDate != null && !deathDate.before(patient.getBirthdate()) && !deathDate.after(date)) {
                 // TODO should more gracefully handle bad cause of death concept
