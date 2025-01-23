@@ -94,6 +94,7 @@ public class MarkPatientDeadPageController {
                        @RequestParam(value = "deathDate", required = false) Date deathDate,
                        @RequestParam(value = "deathDateHour", required = false) Integer deathDateHour,
                        @RequestParam(value = "deathDateMinute", required = false) Integer deathDateMinute,
+                       @RequestParam(value = "returnDashboard", required = false) String returnDashboard,
                        @RequestParam("patientId") Patient patient, UiUtils ui,
                        HttpServletRequest request) {
         try {
@@ -129,6 +130,9 @@ public class MarkPatientDeadPageController {
             log.error(e.getMessage(), e);
             request.getSession().setAttribute(org.openmrs.module.uicommons.UiCommonsConstants.SESSION_ATTRIBUTE_ERROR_MESSAGE,
                     messageSourceService.getMessage("Unable to mark patient as deceased: " + e.getMessage(), new Object[]{e.getMessage()}, Context.getLocale()));
+        }
+        if (StringUtils.isNotBlank(returnDashboard)) {
+            return "redirect:" + ui.pageLink("coreapps", "clinicianfacing/patient", SimpleObject.create("patientId", patient.getId(), "dashboard", returnDashboard));
         }
         return "redirect:" + ui.pageLink("pihcore", "router/programDashboard", SimpleObject.create("patientId", patient.getId()));
     }

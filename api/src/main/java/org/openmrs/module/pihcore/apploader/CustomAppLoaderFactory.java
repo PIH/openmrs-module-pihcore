@@ -2800,6 +2800,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "program", programUuid,
                         "locationTag", "Program Location",
                         "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
+                        "markPatientDeadPage", "/pihcore/patient/markPatientDead.page?patientId={{patientUuid}}&returnDashboard={{dashboard}}&defaultDeathDate={{date}}&defaultDead=true",
                         "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget",
@@ -3855,6 +3856,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "program", programUuid,
                                 "locationTag", "Program Location",
                                 "markPatientDeadOutcome", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,
+                                "markPatientDeadPage", "/pihcore/patient/markPatientDead.page?patientId={{patientUuid}}&returnDashboard={{dashboard}}&defaultDeathDate={{date}}&defaultDead=true",
                                 "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                         )),
                 "coreapps", "dashboardwidgets/dashboardWidget"));
