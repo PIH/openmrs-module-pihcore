@@ -168,18 +168,20 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient])}
                         minuteStep   : minuteStep,
                         id           : 'death-date'
                 ])}
-                <span id="death-date-time-container">
-                    <select id="death-date-hour" name="deathDateHour" class="time-selector hour-selector">
-                        <% for (def i=0; i<24; i++) { %>
-                        <option value="${i}"${deathDateHour == i ? " selected" : ""}>${i<10 ? "0" + i : i}</option>
-                        <% } %>
-                    </select> :
-                    <select id="death-date-minute" name="deathDateMinute" class="time-selector minute-selector">
-                        <% for (def i=0; i<60; i++) { %>
-                        <option value="${i}"${deathDateMinute == i ? " selected" : ""}>${i<10 ? "0" + i : i}</option>
-                        <% } %>
-                    </select>
-                </span>
+                <% if (includesTime) { %>
+                    <span id="death-date-time-container">
+                        <select id="death-date-hour" name="deathDateHour" class="time-selector hour-selector">
+                            <% for (def i=0; i<24; i++) { %>
+                            <option value="${i}"${deathDateHour == i ? " selected" : ""}>${i<10 ? "0" + i : i}</option>
+                            <% } %>
+                        </select> :
+                        <select id="death-date-minute" name="deathDateMinute" class="time-selector minute-selector">
+                            <% for (def i=0; i<60; i+=minuteStep) { %>
+                            <option value="${i}"${deathDateMinute == i ? " selected" : ""}>${i<10 ? "0" + i : i}</option>
+                            <% } %>
+                        </select>
+                    </span>
+                <% } %>
             </span>
         </p>
 
