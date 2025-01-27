@@ -767,7 +767,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsInpatient.xml")),
                     null,
-                    and(sessionLocationHasTag("Admission Note Location"),
+                    and(sessionLocationHasTag("Vitals Inpatient Location"),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -778,7 +778,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsPregnant.xml")),
                     null,
-                    and(sessionLocationHasTag("Maternal and Child Location"),
+                    and(sessionLocationHasTag("Vitals ANC Location"),
                             and(patientIsFemale(), patientIsAdult()),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
