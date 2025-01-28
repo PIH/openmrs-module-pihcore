@@ -139,7 +139,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     {
                         label: "pihcore.concept.name." + Concepts.bcgVaccination.uuid,
                         concept: Concepts.bcgVaccination,
-                        doses: [ 1 ]
+                        doses: [ 0 ]
                     },
                     {
                         label: "pihcore.concept.name." + Concepts.covidVaccination.uuid,
