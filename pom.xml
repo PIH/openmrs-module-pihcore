@@ -95,7 +95,7 @@
         <reportingrestVersion>1.14.0</reportingrestVersion>
         <reportinguiVersion>1.13.0-SNAPSHOT</reportinguiVersion>
         <serializationxstreamVersion>0.2.16</serializationxstreamVersion>
-        <spaVersion>2.0.0</spaVersion>
+        <spaVersion>2.1.0-SNAPSHOT</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
         <uicommonsVersion>2.26.0</uicommonsVersion>
