@@ -177,9 +177,14 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         doses: [ 1, 2, 3 ]
                     },
                     {
-                        label: "pihcore.concept.name." + Concepts.polioVaccination.uuid,
+                        label: "pihcore.polioOPV",
                         concept: Concepts.polioVaccination,
                         doses: [ 0, 1, 2, 3, 11, 12 ]
+                    },
+                    {
+                        label: "pihcore.polioIPV",
+                        concept: Concepts.polioIpvVaccination,
+                        doses: [ 1, 2 ]
                     },
                     {
                         label: "pihcore.concept.name." + Concepts.rotavirusVaccination.uuid,
@@ -189,7 +194,17 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                     {
                         label: "pihcore.concept.name." + Concepts.measlesRubellaVaccination.uuid,
                         concept: Concepts.measlesRubellaVaccination,
+                        doses: [ 1 , 2]
+                    },
+                    {
+                        label: "pihcore.concept.name." + Concepts.yellowFeverVaccination.uuid,
+                        concept: Concepts.yellowFeverVaccination,
                         doses: [ 1 ]
+                    },
+                    {
+                        label: "pihcore.concept.name." + Concepts.iptiSpVaccination.uuid,
+                        concept: Concepts.iptiSpVaccination,
+                        doses: [ 1, 2, 3 ]
                     }
                 ]
 

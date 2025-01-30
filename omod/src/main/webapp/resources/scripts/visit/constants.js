@@ -239,6 +239,9 @@ angular.module('constants', [])
         polioVaccination: {
             uuid: "3cd42c36-26fe-102b-80cb-0017a47871b2"
         },
+        polioIpvVaccination: {
+            uuid: "e071268f-4788-4865-b734-1b9db5cc8333"
+        },
         pentavalentVaccination: {
             uuid: "1423AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
@@ -253,6 +256,12 @@ angular.module('constants', [])
         },
         diptheriaTetanusVaccination: {
             uuid: "3ccc6b7c-26fe-102b-80cb-0017a47871b2"
+        },
+        yellowFeverVaccination: {
+            uuid: "935e7954-28cb-4c4c-8b3a-d6f3c12e8b4e"
+        },
+        iptiSpVaccination: {
+            uuid: "924AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         },
         zlLabOrders: {
             uuid: "d4d844de-50bd-4299-8575-1ce59b53908b"
