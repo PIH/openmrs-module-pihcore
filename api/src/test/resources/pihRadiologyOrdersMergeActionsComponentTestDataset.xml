@@ -5,7 +5,7 @@
     <person person_id="10001" birthdate_estimated="0" gender="M" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="5c521595-4e12-46b0-8248-b8f2d3697766"/>
     <patient patient_id="10001" creator="1" date_created="2005-01-01 00:00:00.0" voided="false"/>
     <patient_identifier patient_identifier_id="2" patient_id="10001" identifier="12345-5" identifier_type="1" preferred="0" location_id="1" creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="504c83c7-cfbf-4ae7-a4da-bdfa3236689f"/>
-    <person_address person_address_id="10002" person_id="10001" address1="Apartment ABC" address2="123 fake st" city_village="Faketown" state_province="Fakeland" date_created="2005-01-01 00:00:00.0" voided="false" preferred="1"/>
+    <person_address person_address_id="10002" person_id="10001" address1="Apartment ABC" address2="123 fake st" city_village="Faketown" state_province="Fakeland" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" preferred="1" uuid="dcc9e80d-de7b-11ef-ad57-0242ac120002"/>
     <person_name person_name_id="3" preferred="false" person_id="10001" prefix="President" given_name="John" middle_name="Fitzgerald" family_name="Kennedy" family_name_suffix="Esq." creator="1" date_created="2004-01-01 00:00:00.0" voided="false" uuid="c9714a2d-a97e-4673-80f8-ac8dd5ced083"/>
 
     <person person_id="10002" birthdate_estimated="0" gender="M" dead="false" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="AF22180D-7FB6-45B5-AC19-7E8815F09CCA"/>

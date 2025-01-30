@@ -39,7 +39,9 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     public PihCoreContextSensitiveTest() {
         super();
         {
-            Module mod = new Module("", "metadatamapping", "", "", "", "1.3.4");
+            Module mod = new Module("");
+            mod.setModuleId("metadatamapping");
+            mod.setVersion("1.3.4");
             mod.setFile(new File(""));
             ModuleFactory.getStartedModulesMap().put(mod.getModuleId(), mod);
         }
