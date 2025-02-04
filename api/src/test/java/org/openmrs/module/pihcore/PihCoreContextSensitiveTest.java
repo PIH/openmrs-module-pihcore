@@ -96,8 +96,7 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
 
             connection.commit();
 
-            // TODO: Remove this line, this does not make sense, as there are no tables at this point
-            // updateSearchIndex();
+            updateSearchIndex();
 
             isBaseSetup = false;
         }
