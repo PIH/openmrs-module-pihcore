@@ -50,7 +50,6 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     @BeforeEach
     @Override
     public void baseSetupWithStandardDataAndAuthentication() throws SQLException {
-        deleteAllData();
         super.baseSetupWithStandardDataAndAuthentication();
         setupInitializerForTesting();
     }
