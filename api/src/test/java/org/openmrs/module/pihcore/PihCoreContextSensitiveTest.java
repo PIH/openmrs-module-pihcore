@@ -21,6 +21,8 @@ import org.openmrs.module.initializer.api.ConfigDirUtil;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -37,6 +39,8 @@ import java.util.Properties;
 import static org.openmrs.module.initializer.api.ConfigDirUtil.CHECKSUM_FILE_EXT;
 
 public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensitiveTest {
+
+    private static final Logger log = LoggerFactory.getLogger(PihCoreContextSensitiveTest.class);
 
     @Autowired
     MessageSourceService messageSourceService;
@@ -71,17 +75,24 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
 
     public synchronized void deleteAllData() {
         try {
+            log.warn("In delete all data");
+
+            log.warn("Clear session");
             Context.clearSession();
 
+            log.warn("Get connection");
             Connection connection = getConnection();
 
+            log.warn("Turn off constraints");
             turnOffDBConstraints(connection);
 
+            log.warn("Setup db unit connection");
             IDatabaseConnection dbUnitConn = setupDatabaseConnection(connection);
 
             String databaseName = System.getProperty("databaseName");
 
             // find all the tables for this connection
+            log.warn("Getting tables");
             ResultSet resultSet = connection.getMetaData().getTables(databaseName, getSchemaPattern(), "%", new String[] {"TABLE"});
             DefaultDataSet dataset = new DefaultDataSet();
             while (resultSet.next()) {
@@ -90,12 +101,16 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
             }
 
             // do the actual deleting/truncating
+            log.warn("Deleting all data from all tables");
             DatabaseOperation.DELETE_ALL.execute(dbUnitConn, dataset);
 
+            log.warn("Turning on constraints");
             turnOnDBConstraints(connection);
 
+            log.warn("Committing");
             connection.commit();
 
+            log.warn("Updating search index");
             updateSearchIndex();
 
             isBaseSetup = false;
@@ -109,39 +124,61 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     @Override
     public void baseSetupWithStandardDataAndAuthentication() throws SQLException {
         // Open a session if needed
+
         if (!Context.isSessionOpen()) {
+            log.warn("Opening session");
             Context.openSession();
         }
+        else {
+            log.warn("Session already open");
+        }
         if (!skipBaseSetup) {
+            log.warn("Not skip base setup");
             if (!isBaseSetup) {
+                log.warn("Not base setup");
 
+                log.warn("Deleting all data");
                 deleteAllData();
 
                 if (useInMemoryDatabase()) {
+                    log.warn("Initialize in memory database");
                     initializeInMemoryDatabase();
                 }
                 else {
+                    log.warn("Not-in memory database, executing initial test dataset");
                     executeDataSet(INITIAL_XML_DATASET_PACKAGE_PATH);
                 }
 
+                log.warn("Executing standard test dataset");
                 executeDataSet(EXAMPLE_XML_DATASET_PACKAGE_PATH);
 
                 //Commit so that it is not rolled back after a test.
+                log.warn("Committing");
                 getConnection().commit();
 
+                log.warn("Updating search index");
                 updateSearchIndex();
 
                 isBaseSetup = true;
             }
 
+            log.warn("Authenticating");
             authenticate();
         } else {
+            log.warn("Skip base setup");
             if (isBaseSetup) {
+                log.warn("Is base setup, delete all data");
                 deleteAllData();
+            }
+            else {
+                log.warn("Not base setup");
             }
         }
 
+        log.warn("Clearing session");
         Context.clearSession();
+
+        log.warn("Setting up iniz");
         setupInitializerForTesting();
     }
 
