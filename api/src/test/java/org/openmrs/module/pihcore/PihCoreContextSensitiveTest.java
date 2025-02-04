@@ -36,6 +36,10 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     @Autowired
     protected InitializerMessageSource initializerMessageSource;
 
+    private boolean skipBaseSetup = false;
+
+    private static boolean isBaseSetup;
+
     public PihCoreContextSensitiveTest() {
         super();
         {
@@ -47,10 +51,55 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         }
     }
 
+    @Override
+    public void skipBaseSetup() throws Exception {
+        super.skipBaseSetup();
+        this.skipBaseSetup = true;
+    }
+
+    @Override
+    public synchronized void deleteAllData() {
+        super.deleteAllData();
+        isBaseSetup = false;
+    }
+
     @BeforeEach
     @Override
     public void baseSetupWithStandardDataAndAuthentication() throws SQLException {
-        super.baseSetupWithStandardDataAndAuthentication();
+        // Open a session if needed
+        if (!Context.isSessionOpen()) {
+            Context.openSession();
+        }
+        if (!skipBaseSetup) {
+            if (!isBaseSetup) {
+
+                deleteAllData();
+
+                if (useInMemoryDatabase()) {
+                    initializeInMemoryDatabase();
+                }
+                else {
+                    executeDataSet(INITIAL_XML_DATASET_PACKAGE_PATH);
+                }
+
+                executeDataSet(EXAMPLE_XML_DATASET_PACKAGE_PATH);
+
+                //Commit so that it is not rolled back after a test.
+                getConnection().commit();
+
+                updateSearchIndex();
+
+                isBaseSetup = true;
+            }
+
+            authenticate();
+        } else {
+            if (isBaseSetup) {
+                deleteAllData();
+            }
+        }
+
+        Context.clearSession();
         setupInitializerForTesting();
     }
 
