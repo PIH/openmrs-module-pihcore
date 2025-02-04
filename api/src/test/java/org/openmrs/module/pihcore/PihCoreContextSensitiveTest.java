@@ -2,6 +2,12 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.DatabaseUnitRuntimeException;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.DefaultDataSet;
+import org.dbunit.dataset.DefaultTable;
+import org.dbunit.operation.DatabaseOperation;
 import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.EncounterType;
 import org.openmrs.api.context.Context;
@@ -20,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,10 +65,44 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         this.skipBaseSetup = true;
     }
 
-    @Override
+    private String getSchemaPattern() {
+        return this.useInMemoryDatabase() ? "PUBLIC" : "public";
+    }
+
     public synchronized void deleteAllData() {
-        super.deleteAllData();
-        isBaseSetup = false;
+        try {
+            Context.clearSession();
+
+            Connection connection = getConnection();
+
+            turnOffDBConstraints(connection);
+
+            IDatabaseConnection dbUnitConn = setupDatabaseConnection(connection);
+
+            String databaseName = System.getProperty("databaseName");
+
+            // find all the tables for this connection
+            ResultSet resultSet = connection.getMetaData().getTables(databaseName, getSchemaPattern(), "%", new String[] {"TABLE"});
+            DefaultDataSet dataset = new DefaultDataSet();
+            while (resultSet.next()) {
+                String tableName = resultSet.getString(3);
+                dataset.addTable(new DefaultTable(tableName));
+            }
+
+            // do the actual deleting/truncating
+            DatabaseOperation.DELETE_ALL.execute(dbUnitConn, dataset);
+
+            turnOnDBConstraints(connection);
+
+            connection.commit();
+
+            updateSearchIndex();
+
+            isBaseSetup = false;
+        }
+        catch (SQLException | DatabaseUnitException e) {
+            throw new DatabaseUnitRuntimeException(e);
+        }
     }
 
     @BeforeEach
