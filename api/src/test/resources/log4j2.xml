@@ -29,7 +29,7 @@
 		<Logger name="org.openmrs.module.pihcore" level="INFO" />
 		<Logger name="org.springframework" additivity="false" level="WARN" />
 		<Logger name="org.hibernate" additivity="false" level="ERROR" />
-		<Root level="DEBUG">
+		<Root level="INFO">
 			<AppenderRef ref="CONSOLE" />
 		</Root>
 	</Loggers>
