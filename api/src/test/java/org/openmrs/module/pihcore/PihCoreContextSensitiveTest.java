@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -98,6 +99,15 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
             while (resultSet.next()) {
                 String tableName = resultSet.getString(3);
                 dataset.addTable(new DefaultTable(tableName));
+                try (PreparedStatement ps = connection.prepareStatement("select count(*) from " + tableName)) {
+                    ResultSet rs = ps.executeQuery();
+                    rs.next();
+                    Object count = rs.getObject(1);
+                    log.warn("Found " + count + " rows in " + tableName);
+                }
+                catch (Exception e) {
+                    log.warn("Error getting rows for " + tableName + ": " + e.getMessage());
+                }
             }
 
             // do the actual deleting/truncating
