@@ -140,7 +140,10 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
                 log.warn("Deleting all data");
                 deleteAllData();
 
-                if (useInMemoryDatabase()) {
+                boolean useInMemoryDatabase = useInMemoryDatabase();
+                log.warn("Use in memory database = " + useInMemoryDatabase);
+
+                if (useInMemoryDatabase) {
                     log.warn("Initialize in memory database");
                     initializeInMemoryDatabase();
                 }
