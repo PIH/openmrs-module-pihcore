@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore;
 
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.dbunit.DatabaseUnitException;
@@ -73,6 +74,7 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         return this.useInMemoryDatabase() ? "PUBLIC" : "public";
     }
 
+    @Override
     public synchronized void deleteAllData() {
         try {
             log.warn("In delete all data");
@@ -115,9 +117,20 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
 
             isBaseSetup = false;
         }
-        catch (SQLException | DatabaseUnitException e) {
+        catch (Throwable e) {
+            log.error("Error in deleteAllData", e);
             throw new DatabaseUnitRuntimeException(e);
         }
+    }
+
+    @Override
+    public void updateSearchIndex() {
+        log.warn("In update search index");
+        for (Class<?> indexType : this.getIndexedTypes()) {
+            log.warn("Updating search index for " + indexType.getSimpleName());
+            Context.updateSearchIndexForType(indexType);
+        }
+        log.warn("Exiting update search index");
     }
 
     @BeforeEach
@@ -140,6 +153,7 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
                 log.warn("Deleting all data");
                 deleteAllData();
 
+                log.warn("Getting value of useInMemoryDatabase");
                 boolean useInMemoryDatabase = useInMemoryDatabase();
                 log.warn("Use in memory database = " + useInMemoryDatabase);
 
