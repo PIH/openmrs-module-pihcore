@@ -148,6 +148,9 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
             if (!isBaseSetup) {
                 log.warn("Not base setup");
 
+                log.warn("Deleting all data");
+                deleteAllData();
+
                 log.warn("Getting value of useInMemoryDatabase");
                 boolean useInMemoryDatabase = useInMemoryDatabase();
                 log.warn("Use in memory database = " + useInMemoryDatabase);
@@ -155,15 +158,23 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
                 if (useInMemoryDatabase) {
                     log.warn("Initialize in memory database");
                     initializeInMemoryDatabase();
-                    log.warn("Executing standard test dataset");
-                    executeDataSet(EXAMPLE_XML_DATASET_PACKAGE_PATH);
-                    //Commit so that it is not rolled back after a test.
-                    log.warn("Committing");
-                    getConnection().commit();
-                    log.warn("Updating search index");
-                    updateSearchIndex();
-                    isBaseSetup = true;
                 }
+                else {
+                    log.warn("Not-in memory database, executing initial test dataset");
+                    executeDataSet(INITIAL_XML_DATASET_PACKAGE_PATH);
+                }
+
+                log.warn("Executing standard test dataset");
+                executeDataSet(EXAMPLE_XML_DATASET_PACKAGE_PATH);
+
+                //Commit so that it is not rolled back after a test.
+                log.warn("Committing");
+                getConnection().commit();
+
+                log.warn("Updating search index");
+                updateSearchIndex();
+
+                isBaseSetup = true;
             }
 
             log.warn("Authenticating");
