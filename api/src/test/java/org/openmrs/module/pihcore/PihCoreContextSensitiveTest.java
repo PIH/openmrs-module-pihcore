@@ -9,6 +9,7 @@ import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.DefaultDataSet;
 import org.dbunit.dataset.DefaultTable;
 import org.dbunit.operation.DatabaseOperation;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.EncounterType;
 import org.openmrs.api.context.Context;
@@ -51,7 +52,7 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
 
     private boolean skipBaseSetup = false;
 
-    private static boolean isBaseSetup;
+    private boolean testDataAdded = false;
 
     public PihCoreContextSensitiveTest() {
         super();
@@ -82,40 +83,48 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
             log.warn("Clear session");
             Context.clearSession();
 
-            log.warn("Get connection");
-            Connection connection = getConnection();
+            if (testDataAdded) {
+                log.warn("Removing previously added test data");
 
-            log.warn("Turn off constraints");
-            turnOffDBConstraints(connection);
+                log.warn("Get connection");
+                Connection connection = getConnection();
 
-            log.warn("Setup db unit connection");
-            IDatabaseConnection dbUnitConn = setupDatabaseConnection(connection);
+                log.warn("Turn off constraints");
+                turnOffDBConstraints(connection);
 
-            String databaseName = System.getProperty("databaseName");
+                log.warn("Setup db unit connection");
+                IDatabaseConnection dbUnitConn = setupDatabaseConnection(connection);
 
-            // find all the tables for this connection
-            log.warn("Getting tables");
-            ResultSet resultSet = connection.getMetaData().getTables(databaseName, getSchemaPattern(), "%", new String[] {"TABLE"});
-            DefaultDataSet dataset = new DefaultDataSet();
-            while (resultSet.next()) {
-                String tableName = resultSet.getString(3);
-                dataset.addTable(new DefaultTable(tableName));
+                String databaseName = System.getProperty("databaseName");
+
+                // find all the tables for this connection
+                log.warn("Getting tables");
+                ResultSet resultSet = connection.getMetaData().getTables(databaseName, getSchemaPattern(), "%", new String[]{"TABLE"});
+                DefaultDataSet dataset = new DefaultDataSet();
+                while (resultSet.next()) {
+                    String tableName = resultSet.getString(3);
+                    dataset.addTable(new DefaultTable(tableName));
+                }
+
+                // do the actual deleting/truncating
+                log.warn("Deleting all data from all tables");
+                DatabaseOperation.DELETE_ALL.execute(dbUnitConn, dataset);
+
+                log.warn("Turning on constraints");
+                turnOnDBConstraints(connection);
+
+                log.warn("Committing");
+                connection.commit();
+
+                log.warn("Updating search index");
+                updateSearchIndex();
+
+                log.warn("Setting test data added to false");
+                testDataAdded = false;
             }
-
-            // do the actual deleting/truncating
-            log.warn("Deleting all data from all tables");
-            DatabaseOperation.DELETE_ALL.execute(dbUnitConn, dataset);
-
-            log.warn("Turning on constraints");
-            turnOnDBConstraints(connection);
-
-            log.warn("Committing");
-            connection.commit();
-
-            log.warn("Updating search index");
-            updateSearchIndex();
-
-            isBaseSetup = false;
+            else {
+                log.warn("Not test data to remove");
+            }
         }
         catch (Throwable e) {
             log.error("Error in deleteAllData", e);
@@ -136,8 +145,8 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     @BeforeEach
     @Override
     public void baseSetupWithStandardDataAndAuthentication() throws SQLException {
-        // Open a session if needed
 
+        // Open a session if needed
         if (!Context.isSessionOpen()) {
             log.warn("Opening session");
             Context.openSession();
@@ -145,13 +154,12 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         else {
             log.warn("Session already open");
         }
+
+        // Setup standard test data
         if (!skipBaseSetup) {
             log.warn("Not skip base setup");
-            if (!isBaseSetup) {
-                log.warn("Not base setup");
-
-                log.warn("Deleting all data");
-                deleteAllData();
+            if (!testDataAdded) {
+                log.warn("Test data not yet added");
 
                 log.warn("Getting value of useInMemoryDatabase");
                 boolean useInMemoryDatabase = useInMemoryDatabase();
@@ -160,36 +168,22 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
                 if (useInMemoryDatabase) {
                     log.warn("Initialize in memory database");
                     initializeInMemoryDatabase();
+                    log.warn("Executing standard test dataset");
+                    executeDataSet(EXAMPLE_XML_DATASET_PACKAGE_PATH);
+                    // Commit so that it is not rolled back after a test.
+                    log.warn("Committing");
+                    getConnection().commit();
+                    log.warn("Updating search index");
+                    updateSearchIndex();
+                    testDataAdded = true;
                 }
-                else {
-                    log.warn("Not-in memory database, executing initial test dataset");
-                    executeDataSet(INITIAL_XML_DATASET_PACKAGE_PATH);
-                }
-
-                log.warn("Executing standard test dataset");
-                executeDataSet(EXAMPLE_XML_DATASET_PACKAGE_PATH);
-
-                //Commit so that it is not rolled back after a test.
-                log.warn("Committing");
-                getConnection().commit();
-
-                log.warn("Updating search index");
-                updateSearchIndex();
-
-                isBaseSetup = true;
             }
 
             log.warn("Authenticating");
             authenticate();
-        } else {
+        }
+        else {
             log.warn("Skip base setup");
-            if (isBaseSetup) {
-                log.warn("Is base setup, delete all data");
-                deleteAllData();
-            }
-            else {
-                log.warn("Not base setup");
-            }
         }
 
         log.warn("Clearing session");
@@ -197,6 +191,12 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
 
         log.warn("Setting up iniz");
         setupInitializerForTesting();
+    }
+
+    @AfterEach
+    public void removeTestData() {
+        log.warn("In afterEach removeTestData");
+        deleteAllData();
     }
 
     public void loadFromInitializer(Domain domain, String file) {
