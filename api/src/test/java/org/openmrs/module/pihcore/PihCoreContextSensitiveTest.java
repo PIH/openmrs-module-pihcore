@@ -61,6 +61,8 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
             mod.setFile(new File(""));
             ModuleFactory.getStartedModulesMap().put(mod.getModuleId(), mod);
         }
+        log.warn("Instantiated test class: " + getClass().getSimpleName());
+        log.warn("Runtime properties: " + Context.getRuntimeProperties());
     }
 
     @Override
