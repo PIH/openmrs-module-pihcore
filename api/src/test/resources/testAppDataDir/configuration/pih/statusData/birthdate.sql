@@ -1,1 +1,0 @@
-select birthdate, birthdate_estimated from person where person_id = @patientId;
