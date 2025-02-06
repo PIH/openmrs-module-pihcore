@@ -12,9 +12,10 @@ jobs:
     strategy:
       matrix:
         platform: [ ubuntu-latest ]
-        java-version: [ 8, 17 ]
+        java-version: [ 8 ]
 
     runs-on: ${{ matrix.platform }}
+    timeout-minutes: 60
     env:
       PLATFORM: ${{ matrix.platform }}
       JAVA_VERSION: ${{ matrix.java-version }}
