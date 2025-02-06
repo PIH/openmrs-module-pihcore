@@ -779,9 +779,8 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M7</version>
+                    <version>3.5.2</version>
 					<configuration>
-                        <argLine>-Xmx1024m -Xms1024m -XX:MaxPermSize=512m</argLine>
                         <includes>
 							<include>**/*Test.java</include>
 						</includes>
@@ -821,7 +820,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>3.0.0-M8</version>
+                        <version>3.5.2</version>
                         <configuration>
                             <includes>
                                 <include>**/*IT</include>
