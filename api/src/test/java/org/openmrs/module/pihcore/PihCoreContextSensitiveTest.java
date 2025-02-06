@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.hibernate.cfg.Environment;
 import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.EncounterType;
 import org.openmrs.api.context.Context;
@@ -45,6 +46,17 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
             mod.setFile(new File(""));
             ModuleFactory.getStartedModulesMap().put(mod.getModuleId(), mod);
         }
+    }
+
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties p = super.getRuntimeProperties();
+        String url = p.getProperty(Environment.URL);
+        url = url.replace("DB_CLOSE_DELAY=30", "DB_CLOSE_DELAY=-1");
+        p.setProperty(Environment.URL, url);
+        p.setProperty("connection.url", url);
+        runtimeProperties = p;
+        return p;
     }
 
     @BeforeEach
