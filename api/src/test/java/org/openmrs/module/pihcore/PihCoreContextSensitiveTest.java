@@ -16,13 +16,10 @@ import org.openmrs.module.initializer.api.ConfigDirUtil;
 import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,10 +30,6 @@ import java.util.Properties;
 import static org.openmrs.module.initializer.api.ConfigDirUtil.CHECKSUM_FILE_EXT;
 
 public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensitiveTest {
-
-    private static final Logger log = LoggerFactory.getLogger(PihCoreContextSensitiveTest.class);
-
-    private static String h2Url = null;
 
     @Autowired
     MessageSourceService messageSourceService;
@@ -55,28 +48,13 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         }
     }
 
-    public static String getH2Url() {
-        if (h2Url == null) {
-            try {
-                File h2DbDir = Files.createTempDirectory("openmrs_h2_").toFile();
-                File openmrsDb = new File(h2DbDir, "openmrs");
-                h2Url = "jdbc:h2:file:" + openmrsDb.getAbsolutePath() + ";LOCK_TIMEOUT=10000;IGNORECASE=TRUE";
-                h2DbDir.deleteOnExit();
-                log.warn("Created H2 database at: " + h2Url);
-            }
-            catch (Exception e) {
-                throw new RuntimeException("Error creating h2 database directory", e);
-            }
-        }
-        return h2Url;
-    }
-
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
-        String h2Url = getH2Url();
-        p.setProperty(Environment.URL, h2Url);
-        p.setProperty("connection.url", h2Url);
+        String url = p.getProperty(Environment.URL);
+        url = url.replace("DB_CLOSE_DELAY=30", "DB_CLOSE_DELAY=-1");
+        p.setProperty(Environment.URL, url);
+        p.setProperty("connection.url", url);
         runtimeProperties = p;
         return p;
     }
