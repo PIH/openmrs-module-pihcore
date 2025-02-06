@@ -48,13 +48,13 @@
     <properties>
         <openMRSVersion>2.6.15</openMRSVersion>
 
-        <addresshierarchyVersion>2.20.0-SNAPSHOT</addresshierarchyVersion>
-        <allergyuiVersion>1.8.7-SNAPSHOT</allergyuiVersion>
-        <appframeworkVersion>2.18.0-SNAPSHOT</appframeworkVersion>
+        <addresshierarchyVersion>2.20.0</addresshierarchyVersion>
+        <allergyuiVersion>1.8.7</allergyuiVersion>
+        <appframeworkVersion>2.18.0</appframeworkVersion>
         <appointmentsVersion>2.0.2</appointmentsVersion>
         <appointmentschedulingVersion>2.0.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>2.0.0</appointmentschedulinguiVersion>
-        <appuiVersion>1.17.0</appuiVersion>
+        <appuiVersion>1.18.0</appuiVersion>
         <attachmentsVersion>2.9.0</attachmentsVersion>
         <authenticationVersion>1.1.0</authenticationVersion>
         <authenticationuiVersion>1.1.0</authenticationuiVersion>
@@ -65,7 +65,7 @@
         <dispensingVersion>1.3.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>2.0.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0-SNAPSHOT</emrVersion>
-        <emrapiVersion>2.2.0-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>2.2.0</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
         <fhir2Version>2.3.0-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
@@ -89,11 +89,11 @@
         <providermanagementVersion>2.15.0</providermanagementVersion>
         <queueVersion>2.5.0-SNAPSHOT</queueVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
-        <registrationappVersion>1.27.0-SNAPSHOT</registrationappVersion>
+        <registrationappVersion>1.27.0</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
-        <reportingVersion>1.27.0-SNAPSHOT</reportingVersion>
-        <reportingrestVersion>1.14.0</reportingrestVersion>
-        <reportinguiVersion>1.13.0-SNAPSHOT</reportinguiVersion>
+        <reportingVersion>1.27.0</reportingVersion>
+        <reportingrestVersion>1.15.0</reportingrestVersion>
+        <reportinguiVersion>1.13.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.16</serializationxstreamVersion>
         <spaVersion>2.1.0-SNAPSHOT</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
