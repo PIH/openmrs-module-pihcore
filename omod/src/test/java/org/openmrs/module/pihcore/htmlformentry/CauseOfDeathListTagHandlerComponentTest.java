@@ -18,6 +18,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.htmlformentry.RegressionTestHelper;
+import org.openmrs.module.pihcore.PihCoreWebContextSensitiveTest;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.web.test.jupiter.BaseModuleWebContextSensitiveTest;
@@ -35,7 +36,7 @@ import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptS
 
 ;
 
-public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleWebContextSensitiveTest {
+public class CauseOfDeathListTagHandlerComponentTest extends PihCoreWebContextSensitiveTest {
 
     @Autowired
     private TestDataManager testData;

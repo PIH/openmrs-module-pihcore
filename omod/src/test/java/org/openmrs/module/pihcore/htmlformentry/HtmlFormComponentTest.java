@@ -14,6 +14,7 @@ import org.openmrs.module.htmlformentry.HtmlFormEntryService;
 import org.openmrs.module.htmlformentryui.HtmlFormUtil;
 import org.openmrs.module.metadatadeploy.api.MetadataDeployService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
+import org.openmrs.module.pihcore.PihCoreWebContextSensitiveTest;
 import org.openmrs.module.pihcore.deploy.bundle.core.PihCoreMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.test.SkipBaseSetup;
@@ -28,7 +29,7 @@ import java.util.Properties;
 // TODO ignoring this for now, as this test fails after moving the HTML Forms out of here and into configuration directories
 @SkipBaseSetup
 @Disabled
-public class HtmlFormComponentTest extends PihCoreContextSensitiveTest {
+public class HtmlFormComponentTest extends PihCoreWebContextSensitiveTest {
 
     @Autowired
     private MetadataDeployService metadataDeployService;
