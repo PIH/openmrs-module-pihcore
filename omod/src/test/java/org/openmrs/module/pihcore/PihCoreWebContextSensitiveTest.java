@@ -24,10 +24,9 @@ public abstract class PihCoreWebContextSensitiveTest extends BaseModuleWebContex
     @Override
     public Properties getRuntimeProperties() {
         Properties p = super.getRuntimeProperties();
-        String url = p.getProperty(Environment.URL);
-        url = url.replace("DB_CLOSE_DELAY=30", "DB_CLOSE_DELAY=-1");
-        p.setProperty(Environment.URL, url);
-        p.setProperty("connection.url", url);
+        String h2Url = PihCoreContextSensitiveTest.getH2Url();
+        p.setProperty(Environment.URL, h2Url);
+        p.setProperty("connection.url", h2Url);
         runtimeProperties = p;
         return p;
     }
