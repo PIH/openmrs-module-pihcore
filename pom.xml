@@ -85,7 +85,7 @@
         <owaVersion>1.15.0</owaVersion>
         <pacsintegrationVersion>1.8.0-SNAPSHOT</pacsintegrationVersion>
         <paperrecordVersion>1.4.0-SNAPSHOT</paperrecordVersion>
-        <printerVersion>1.5.0-SNAPSHOT</printerVersion>
+        <printerVersion>1.5.0</printerVersion>
         <providermanagementVersion>2.15.0</providermanagementVersion>
         <queueVersion>2.5.0-SNAPSHOT</queueVersion>
         <radiologyappVersion>1.6.0-SNAPSHOT</radiologyappVersion>
