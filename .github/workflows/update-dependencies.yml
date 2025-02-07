@@ -30,3 +30,4 @@ jobs:
         id: update_dependency_properties
         run: |
           mvn clean versions:update-properties
+          mvn net.mekomsolutions.maven.plugin:dependency-tracker-maven-plugin:1.0.0:track -U
