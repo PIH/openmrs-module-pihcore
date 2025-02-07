@@ -32,3 +32,4 @@ jobs:
         id: build_with_maven
         run: |
           mvn clean verify --batch-mode --file pom.xml
+          mvn net.mekomsolutions.maven.plugin:dependency-tracker-maven-plugin:1.0.0:track -U
