@@ -9,7 +9,7 @@ SHA=$(git rev-parse HEAD)
 FREQUENCY=10  # Check status every X seconds, defaults to 10 seconds
 TIMEOUT=1800  # Return with timeout result if no conclusion in X seconds, defaults to 1800 (30 minutes)
 
-ARGUMENTS_OPTS="s:f:t"
+ARGUMENTS_OPTS="s:f:t:"
 while getopts "$ARGUMENTS_OPTS" opt; do
      case $opt in
         s  ) SHA=$OPTARG;;
@@ -55,6 +55,9 @@ done
 if [ "$BUILD_STATUS" == "success" ]; then
   echo "Build Successful"
   exit 0;
+elif [ -z "$BUILD_STATUS" ]; then
+  echo "Build timed out"
+  exit 1;
 else
   echo "Build Failed with status: ${BUILD_STATUS}"
   exit 1;
