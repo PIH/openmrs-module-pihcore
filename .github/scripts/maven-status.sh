@@ -45,6 +45,9 @@ do
   echo "${CURRENT_DATE}"
   echo "${CURRENT_STATUS}"
   BUILD_STATUS=$(echo "${CURRENT_STATUS}" | jq -r '.conclusion')
+  if [ "${BUILD_STATUS}" == "null" ]; then
+    BUILD_STATUS=""
+  fi
   if [ -z "${BUILD_STATUS}" ]; then
     echo "Remaining timeout: ${TIMEOUT}"
     sleep ${FREQUENCY}
