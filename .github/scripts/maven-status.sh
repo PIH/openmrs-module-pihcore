@@ -1,4 +1,7 @@
 #!/bin/bash
+# This script polls for the status of github action workflows for the `maven.yml` workflow
+# and will return either a success or failure based on the success or failure of the workflow associated with the
+# latest commit in the checked-out code
 
 # Variables from input arguments
 GHA_BASE_URL="https://api.github.com/repos"
