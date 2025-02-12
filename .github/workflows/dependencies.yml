@@ -28,13 +28,11 @@ jobs:
       run: |
         mvn clean versions:update-properties 
         mvn org.pih.maven.plugin:pih-maven-plugin:1.4.0:dependency-report -U
-        mvn scm:add -Dincludes=**/dependencies.txt
-        mvn scm:checkin -Dmessage='automatic update of mvn version dependencies' -U
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Deploy next snapshot
-      run: mvn -B deploy --file pom.xml
+        if [ `git status --porcelain=1 | wc -l` -ne 0 ]; then
+          mvn scm:add -Dincludes=**/dependencies.txt
+          mvn scm:checkin -Dmessage='automatic update of mvn version dependencies' -U
+          mvn -B deploy --file pom.xml
+        fi
       env:
         OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
         OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
