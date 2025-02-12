@@ -14,6 +14,9 @@ jobs:
         distribution: 'temurin'
         java-version: 8
         cache: 'maven'
+        server-id: openmrs-repo-modules-pih
+        server-username: OPENMRS_MAVEN_USERNAME
+        server-password: OPENMRS_MAVEN_PASSWORD
 
     # Set up git config
     - name: Setup Git Config
@@ -24,6 +27,15 @@ jobs:
     - name: Update dependencies
       run: |
         mvn clean versions:update-properties 
-        mvn org.pih.maven.plugin:pih-maven-plugin:1.4.0:dependency-report
+        mvn org.pih.maven.plugin:pih-maven-plugin:1.4.0:dependency-report -U
         mvn scm:add -Dincludes=**/dependencies.txt
         mvn scm:checkin -Dmessage='automatic update of mvn version dependencies' -U
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Deploy next snapshot
+      run: mvn -B deploy --file pom.xml
+      env:
+        OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
+        OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
