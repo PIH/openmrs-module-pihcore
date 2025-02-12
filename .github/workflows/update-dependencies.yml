@@ -1,0 +1,31 @@
+name: Update dependency versions
+
+on:
+  schedule:
+    - cron: "/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 8
+          cache: 'maven'
+
+      # Set up git config
+      - name: Setup Git Config
+        run: |
+          git config user.name "Github Action"
+          git config user.email "github-action@users.noreply.github.com"
+
+      - name: Update dependencies
+        run: |
+          mvn clean versions:update-properties 
+          mvn org.pih.maven.plugin:pih-maven-plugin:1.4.0:dependency-report
+          mvn scm:add -Dincludes=**/dependencies.txt
+          mvn scm:checkin -Dmessage='automatic update of mvn version dependencies' -U

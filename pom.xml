@@ -22,9 +22,9 @@
 	</organization>
 
 	<scm>
-		<connection>scm:git:git@github.com:PIH/openmrs-module-pihcore.git</connection>
-		<developerConnection>scm:git:git@github.com:PIH/openmrs-module-pihcore.git</developerConnection>
-		<url>scm:git:git@github.com:PIH/openmrs-module-pihcore.git</url>
+		<connection>scm:git:https://github.com/PIH/openmrs-module-pihcore.git</connection>
+		<developerConnection>scm:git:https://github.com/PIH/openmrs-module-pihcore.git</developerConnection>
+		<url>scm:git:https://github.com/PIH/openmrs-module-pihcore.git</url>
 	</scm>
 
 	<distributionManagement>
@@ -34,7 +34,7 @@
 			<url>https://openmrs.jfrog.io/artifactory/modules-pih/</url>
 		</repository>
 		<snapshotRepository>
-			<id>openmrs-repo-modules-pih-snapshots</id>
+			<id>openmrs-repo-modules-pih</id>
 			<name>OpenMRS Snapshots</name>
 			<url>https://openmrs.jfrog.io/artifactory/modules-pih-snapshots</url>
 		</snapshotRepository>

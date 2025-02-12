@@ -28,7 +28,7 @@ check_status() {
   GHA_WORKFLOW_RUNS_URL="${GHA_BASE_URL}/${OWNER}/${REPO}/actions/runs?head_sha=${SHA}"
   WORKFLOW_RUNS_RESPONSE=$(curl -Ls "${GHA_WORKFLOW_RUNS_URL}"  2>/dev/null)
   WORKFLOW_RUNS=$(echo ${WORKFLOW_RUNS_RESPONSE} | jq '.workflow_runs')
-  MAVEN_RUN=$(echo ${WORKFLOW_RUNS} | jq '.[] | select (.path=".github/workflows/maven.yml")')
+  MAVEN_RUN=$(echo ${WORKFLOW_RUNS} | jq '.[] | select (.path=".github/workflows/deploy.yml")')
   STATUS_OUTPUT=$(echo "${MAVEN_RUN}" | jq "{
     head_branch: .head_branch,
     head_sha: .head_sha,
