@@ -33,13 +33,13 @@ jobs:
 
     - name: Update dependencies
       run: |
-        mvn clean versions:update-properties 
-        mvn org.pih.maven.plugin:pih-maven-plugin:1.5.0:dependency-report -Dexcludes=org.openmrs.module:pihcore-api -U
+        mvn clean versions:update-properties -U
+        mvn org.pih.maven.plugin:pih-maven-plugin:1.5.0:dependency-report -Dexcludes=org.openmrs.module:pihcore-api
         if [ `git status --porcelain=1 | wc -l` -ne 0 ]; then
           echo "Dependency changes detected"
           git status
           mvn scm:add -Dincludes=**/dependencies.txt
-          mvn scm:checkin -Dmessage='automatic update of mvn version dependencies' -U
+          mvn scm:checkin -Dmessage='automatic update of mvn version dependencies'
         else
           echo "No Dependency changes detected"
         fi
