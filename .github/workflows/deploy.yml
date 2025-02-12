@@ -5,6 +5,11 @@ on:
     branches: ['master']
   workflow_dispatch:
 
+# If another "deploy" or "dependencies" workflow is running, cancel it before starting
+concurrency:
+  group: ${{ github.repository }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -19,6 +24,29 @@ jobs:
         server-id: openmrs-repo-modules-pih
         server-username: OPENMRS_MAVEN_USERNAME
         server-password: OPENMRS_MAVEN_PASSWORD
+
+    # Set up git config
+    - name: Setup Git Config
+      run: |
+        git config user.name "Github Action"
+        git config user.email "github-action@users.noreply.github.com"
+
+    - name: Update dependencies
+      run: |
+        mvn clean versions:update-properties 
+        mvn org.pih.maven.plugin:pih-maven-plugin:1.5.0:dependency-report -Dexcludes=org.openmrs.module:pihcore-api -U
+        if [ `git status --porcelain=1 | wc -l` -ne 0 ]; then
+          echo "Dependency changes detected"
+          git status
+          mvn scm:add -Dincludes=**/dependencies.txt
+          mvn scm:checkin -Dmessage='automatic update of mvn version dependencies' -U
+        else
+          echo "No Dependency changes detected"
+        fi
+      env:
+        OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
+        OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Maven Deploy
       run: mvn -B deploy --file pom.xml

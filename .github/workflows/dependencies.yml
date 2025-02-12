@@ -5,8 +5,13 @@ on:
     - cron: "0 * * * *"
   workflow_dispatch:
 
+# Do not run this if the "deploy" workflow is already running
+concurrency:
+  group: ${{ github.repository }}
+  cancel-in-progress: false
+
 jobs:
-  build:
+  update-dependencies:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
