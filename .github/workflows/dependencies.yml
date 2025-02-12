@@ -1,4 +1,4 @@
-name: Update dependency versions
+name: Update dependencies
 
 on:
   schedule:
