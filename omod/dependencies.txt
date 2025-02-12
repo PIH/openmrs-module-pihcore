@@ -62,8 +62,8 @@ org.openmrs.module:openconceptlab-api:jar:2.5.0-SNAPSHOT:c4cd7e4eff9e325c997168d
 org.openmrs.module:owa-api:jar:1.15.0:89f8e233801e1beedc80f7294b458e50ec353924
 org.openmrs.module:pacsintegration-api:jar:1.12.0:31b0103f48474544951c66b2db08eae8ed6f163f
 org.openmrs.module:paperrecord-api:jar:1.4.1:7bc0a82863c6c63967977670845391c97e5d03c9
-org.openmrs.module:pihcore-api:jar:2.0.0-SNAPSHOT:1426273e330d43f38ae626ee971f0f52836b14f1
-org.openmrs.module:pihcore-api:test-jar:tests:2.0.0-SNAPSHOT:17e3e91eb13bae25dce19a63ebfdf99cdee36a15
+org.openmrs.module:pihcore-api:jar:2.0.0-SNAPSHOT:91f811996921441ff8f10bd2532f7952ead0f753
+org.openmrs.module:pihcore-api:test-jar:tests:2.0.0-SNAPSHOT:849ab1b349111b293a8c262be56930fd5f3498b5
 org.openmrs.module:printer-api:jar:1.5.0:2a546919c088a7e151b1ea3e5550b77577c0dab7
 org.openmrs.module:providermanagement-api:jar:2.15.0:4291903b8b211fcbc0b39f003dcd6f759387b716
 org.openmrs.module:queue-api:jar:2.5.0:09ada103f99d32eb66d72f21065e3eb967a22c6a
