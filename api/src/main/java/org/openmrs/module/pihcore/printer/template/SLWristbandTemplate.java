@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.printer.template;
 
+import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -61,64 +62,41 @@ public class SLWristbandTemplate {
     public static final String BIRTH_WEIGHT_CONCEPT_PIH_CODE = "11067";
 
     @Autowired
+    @Setter
     private AdtService adtService;
 
     @Autowired
+    @Setter
     private MessageSourceService messageSourceService;
 
     @Autowired
+    @Setter
     private EmrApiProperties emrApiProperties;
 
     @Autowired
+    @Setter
     private PersonService personService;
 
     @Autowired
+    @Setter
     private PatientService patientService;
 
     @Autowired
+    @Setter
     private ObsService obsService;
 
     @Autowired
+    @Setter
     private ConceptService conceptService;
 
     // TODO figure out why this isn't getting autowired properly (at least for tests)
     //@Autowired
     private AddressHierarchyService addressHierarchyService;
 
-    /**
-     * Setters are just here to insert mocks during testing
-     */
-    protected void setAdtService(AdtService adtService) {
-        this.adtService = adtService;
-    }
-
-    protected void setMessageSourceService(MessageSourceService messageSourceService) {
-        this.messageSourceService = messageSourceService;
-    }
-
-    protected void setEmrApiProperties(EmrApiProperties emrApiProperties) {
-        this.emrApiProperties = emrApiProperties;
-    }
-
-    public void setPersonService(PersonService personService) {
-        this.personService = personService;
-    }
-
-    public void setPatientService(PatientService patientService) {
-        this.patientService = patientService;
-    }
-
     public void setAddressHierarchyService(AddressHierarchyService addressHierarchyService) {
         this.addressHierarchyService = addressHierarchyService;
     }
 
-    public void setConceptService(ConceptService conceptService) {
-        this.conceptService = conceptService;
-    }
-
-    public void setObsService(ObsService obsService) {
-        this.obsService = obsService;
-    }
 
     public String generateWristband(Patient patient, Location location, Locale locale) {
         StringBuffer data = new StringBuffer();
