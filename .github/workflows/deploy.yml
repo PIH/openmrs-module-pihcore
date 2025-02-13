@@ -5,10 +5,9 @@ on:
     branches: ['master']
   workflow_dispatch:
 
-# If another "deploy" or "dependencies" workflow is running, cancel it before starting
 concurrency:
   group: ${{ github.repository }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -34,15 +33,7 @@ jobs:
     - name: Update dependencies
       run: |
         mvn clean versions:update-properties -U
-        mvn org.pih.maven.plugin:pih-maven-plugin:1.5.0:dependency-report -Dexcludes=org.openmrs.module:pihcore-api
-        if [ `git status --porcelain=1 | wc -l` -ne 0 ]; then
-          echo "Dependency changes detected"
-          git status
-          mvn scm:add -Dincludes=**/dependencies.txt
-          mvn scm:checkin -Dmessage='automatic update of mvn version dependencies'
-        else
-          echo "No Dependency changes detected"
-        fi
+        mvn scm:checkin -Dmessage='automatic update of mvn version dependencies'
       env:
         OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
         OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}

@@ -13,6 +13,10 @@
 	<name>PIH Core Module API</name>
 	<description>API project for PIHCore</description>
 
+	<properties>
+		<dependenciesFile>${project.build.directory}/${project.artifactId}-${project.version}-${dependencyReportClassifier}.${dependencyReportExtension}</dependenciesFile>
+	</properties>
+
 	<build>
 		<resources>
 			<resource>
@@ -128,6 +132,44 @@
                             <version>1.60.0-SNAPSHOT</version>
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>ZlConfigConstants</className>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.pih.maven.plugin</groupId>
+				<artifactId>pih-maven-plugin</artifactId>
+				<configuration>
+					<outputFile>${dependenciesFile}</outputFile>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>dependency-report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.6.0</version>
+				<executions>
+					<execution>
+						<id>Attach the dependency report</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>${dependenciesFile}</file>
+									<type>${dependencyReportExtension}</type>
+									<classifier>${dependencyReportClassifier}</classifier>
+								</artifact>
+							</artifacts>
 						</configuration>
 					</execution>
 				</executions>
