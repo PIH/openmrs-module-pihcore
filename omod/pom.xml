@@ -13,6 +13,10 @@
 	<name>PIH Core Module OMOD</name>
 	<description>OMOD project for PIHCore</description>
 
+	<properties>
+		<dependenciesFile>${project.build.directory}/${project.artifactId}-${project.version}-${dependencyReportClassifier}.${dependencyReportExtension}</dependenciesFile>
+	</properties>
+
     <dependencies>
 		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
@@ -297,6 +301,46 @@
 						</goals>
 						<configuration>
 							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.pih.maven.plugin</groupId>
+				<artifactId>pih-maven-plugin</artifactId>
+				<version>1.5.0</version>
+				<configuration>
+					<outputFile>${dependenciesFile}</outputFile>
+					<excludes>org.openmrs.module:pihcore-api</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>dependency-report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.6.0</version>
+				<executions>
+					<execution>
+						<id>Attach the dependency report</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>${dependenciesFile}</file>
+									<type>${dependencyReportExtension}</type>
+									<classifier>${dependencyReportClassifier}</classifier>
+								</artifact>
+							</artifacts>
 						</configuration>
 					</execution>
 				</executions>
