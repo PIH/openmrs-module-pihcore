@@ -3,6 +3,8 @@ name: Deploy
 on:
   push:
     branches: ['master']
+  schedule:
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 concurrency:
@@ -10,10 +12,132 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+
+  update-versions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      numFilesChanged: ${{ steps.updateVersions.outputs.numFilesChanged }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 8
+          cache: 'maven'
+
+      - name: Setup Git Config
+        run: |
+          git config user.name "Github Action"
+          git config user.email "github-action@users.noreply.github.com"
+
+      - name: Update versions
+        id: updateVersions
+        run: |
+          mvn clean versions:update-properties -U
+          echo numFilesChanged=$(git status --porcelain=1 | wc -l) >> "$GITHUB_OUTPUT"
+          mvn scm:checkin -Dmessage='automatic update of mvn version dependencies'
+        env:
+          OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
+          OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  check-for-dependencies:
+    needs: update-versions
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      hasChanges: ${{ steps.checkDependencies.outputs.hasChanged }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check dependencies
+        id: checkDependencies
+        shell: bash
+        run: |
+          #!/usr/bin/env bash
+          set -e
+          
+          MAVEN_ARGS="-DskipTests"
+          hasChanged=0
+          
+          # Determine the modules for which the dependency report will be run and needs to be checked
+          echo "List of modules to check for dependency changes:"
+          moduleBuildDirs=$(mvn -q $MAVEN_ARGS --also-make exec:exec -Dexec.executable="echo" -Dexec.args='${project.build.directory}')
+          echo "$moduleBuildDirs"
+          
+          # Execute a local build to clean target directories and generate up-to-date dependency reports
+          echo "Compile the latest version of the dependency report"
+          mvn --batch-mode --no-transfer-progress clean package $MAVEN_ARGS
+          
+          # Iterate over each module to compare each dependency report
+          for moduleBuildDir in ${moduleBuildDirs}; do
+            moduleBuildDir=$(echo "${moduleBuildDir}" | sed 's/\\/\//g')
+            pomFile=$(dirname "${moduleBuildDir}")/pom.xml
+        
+            # Get the groupId, artifactId, and version
+            groupId=$(mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout -f "${pomFile}")
+            artifactId=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout -f "${pomFile}")
+            version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -f "${pomFile}")
+            classifier=$(mvn help:evaluate -Dexpression=dependencyReportClassifier -q -DforceStdout -f "${pomFile}")
+            artifact="${groupId}":"${artifactId}":"${version}":txt:"${classifier}"
+            filename="${artifactId}-${version}-${classifier}.txt"
+            newDependencyReportPath="${moduleBuildDir}/${filename}"
+            remoteDependencyReportDir="${moduleBuildDir}/remote-dependency-report"
+            remoteDependencyReportPath="${remoteDependencyReportDir}/${filename}"
+        
+            if [ ! -f "${newDependencyReportPath}" ]; then
+              echo "No dependency report generated at '${newDependencyReportPath}'"
+            else
+              # Fetch the remote dependency report
+              echo "Fetch remote dependency report ${artifact}..."
+              set +e
+              mvn --batch-mode --no-transfer-progress org.apache.maven.plugins:maven-dependency-plugin:3.6.0:get -Dartifact=${artifact} -Dtransitive=false
+              mvn --batch-mode --no-transfer-progress org.apache.maven.plugins:maven-dependency-plugin:3.6.0:copy -Dartifact=${artifact} -DoutputDirectory="${remoteDependencyReportDir}/"  -Dmdep.useBaseVersion=true
+              set -e
+            
+              # If no dependency report was fetched, then this is a change
+              if [ ! -f "${remoteDependencyReportPath}" ]; then
+                echo "No matching remote dependency report found."
+                hasChanged=1
+              else
+                # Compare the 2 files. Will exit with 0 if no change, 1 if changes
+                echo "Compare both dependency reports..."
+                set +e
+                diff "${newDependencyReportPath}" "${remoteDependencyReportPath}"
+                diff_rc=$?
+                if [ $diff_rc -eq 0 ]; then
+                  echo "No dependency change"
+                elif [ $diff_rc -eq 1 ]; then
+                  echo "One or more dependency has changed"
+                  hasChanged=1
+                else
+                  echo "Unknown error occurred."
+                fi
+              fi
+            fi
+          done
+          
+          if [ ${hasChanged} -eq 0 ]; then
+            echo "Check completed: No changes detected"
+          else
+            echo "Check completed: Dependency changes detected"
+          fi
+          
+          # Export hasChanged to be used in later steps of the GitHub workflow
+          echo hasChanged=$hasChanged >> "$GITHUB_OUTPUT"
+          exit 0
+
   deploy:
+    needs: [ update-versions, check-for-dependencies ]
+    if: ${{ github.event_name != 'schedule' || needs.update-versions.outputs.numFilesChanged > 1 || needs.check-for-dependencies.outputs.hasChanged > 0  }}
     runs-on: ubuntu-latest
     steps:
+
     - uses: actions/checkout@v4
+
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
@@ -24,24 +148,8 @@ jobs:
         server-username: OPENMRS_MAVEN_USERNAME
         server-password: OPENMRS_MAVEN_PASSWORD
 
-    # Set up git config
-    - name: Setup Git Config
-      run: |
-        git config user.name "Github Action"
-        git config user.email "github-action@users.noreply.github.com"
-
-    - name: Update dependencies
-      run: |
-        mvn clean versions:update-properties -U
-        mvn scm:checkin -Dmessage='automatic update of mvn version dependencies'
-      env:
-        OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
-        OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Maven Deploy
-      run: mvn -B deploy --file pom.xml
+      run: echo "This will be a deploy" #mvn -B deploy --file pom.xml
       env:
         OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
         OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
