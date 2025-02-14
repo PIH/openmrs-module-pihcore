@@ -139,7 +139,7 @@ jobs:
 
   deploy:
     needs: [ update-versions, check-for-dependencies ]
-    if: ${{ github.event_name != 'schedule' || needs.update-versions.outputs.numFilesChanged > 1 || needs.check-for-dependencies.outputs.hasChanged > 0  }}
+    if: ${{ github.event_name == 'push' || needs.update-versions.outputs.numFilesChanged > 1 || needs.check-for-dependencies.outputs.hasChanged > 0  }}
     runs-on: ubuntu-latest
     steps:
 
@@ -156,7 +156,7 @@ jobs:
         server-password: OPENMRS_MAVEN_PASSWORD
 
     - name: Maven Deploy
-      run: echo "This will be a deploy" #mvn -B deploy --file pom.xml
+      run: mvn -B deploy --file pom.xml
       env:
         OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
         OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
