@@ -139,7 +139,7 @@ jobs:
 
   deploy:
     needs: [ update-versions, check-for-dependencies ]
-    if: ${{ github.event_name == 'push' || needs.update-versions.outputs.numFilesChanged > 1 || needs.check-for-dependencies.outputs.hasChanged > 0  }}
+    if: ${{ github.event_name == 'push' || needs.update-versions.outputs.numFilesChanged > 0 || needs.check-for-dependencies.outputs.hasChanged > 0  }}
     runs-on: ubuntu-latest
     steps:
 
