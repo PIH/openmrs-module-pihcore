@@ -13,10 +13,6 @@
 	<name>PIH Core Module API</name>
 	<description>API project for PIHCore</description>
 
-	<properties>
-		<dependenciesFile>${project.build.directory}/${project.artifactId}-${project.version}-${dependencyReportClassifier}.${dependencyReportExtension}</dependenciesFile>
-	</properties>
-
 	<build>
 		<resources>
 			<resource>
@@ -133,21 +129,6 @@
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>ZlConfigConstants</className>
 						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.pih.maven.plugin</groupId>
-				<artifactId>pih-maven-plugin</artifactId>
-				<configuration>
-					<outputFile>${dependenciesFile}</outputFile>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>dependency-report</goal>
-						</goals>
 					</execution>
 				</executions>
 			</plugin>

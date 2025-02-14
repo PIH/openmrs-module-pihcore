@@ -106,8 +106,10 @@
         <lombokVersion>1.18.36</lombokVersion>
         <testcontainersVersion>1.20.4</testcontainersVersion>
 
+        <pihMavenPluginVersion>1.6.0</pihMavenPluginVersion>
         <dependencyReportClassifier>dependencies</dependencyReportClassifier>
         <dependencyReportExtension>txt</dependencyReportExtension>
+        <dependenciesFile>${project.build.directory}/${project.artifactId}-${project.version}-${dependencyReportClassifier}.${dependencyReportExtension}</dependenciesFile>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -822,6 +824,23 @@
                     </properties>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.pih.maven.plugin</groupId>
+                <artifactId>pih-maven-plugin</artifactId>
+                <version>${pihMavenPluginVersion}</version>
+                <configuration>
+                    <outputFile>${dependenciesFile}</outputFile>
+                    <excludes>org.openmrs.module:pihcore-api</excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>dependency-report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
 
 	</build>
@@ -879,6 +898,13 @@
                 <enabled>true</enabled>
 			</snapshots>
 		</pluginRepository>
+        <pluginRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
 	</pluginRepositories>
 
 </project>
