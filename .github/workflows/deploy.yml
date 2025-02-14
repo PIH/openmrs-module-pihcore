@@ -36,7 +36,7 @@ jobs:
       - name: Update versions
         id: updateVersions
         run: |
-          mvn clean versions:update-properties -U
+          mvn clean versions:update-properties
           echo numFilesChanged=$(git status --porcelain=1 | wc -l) >> "$GITHUB_OUTPUT"
           mvn scm:checkin -Dmessage='automatic update of mvn version dependencies'
         env:
@@ -67,17 +67,16 @@ jobs:
           #!/usr/bin/env bash
           set -e
           
-          MAVEN_ARGS="-DskipTests"
           hasChanged=0
           
           # Determine the modules for which the dependency report will be run and needs to be checked
           echo "List of modules to check for dependency changes:"
-          moduleBuildDirs=$(mvn -q $MAVEN_ARGS --also-make exec:exec -Dexec.executable="echo" -Dexec.args='${project.build.directory}')
+          moduleBuildDirs=$(mvn -q --also-make exec:exec -Dexec.executable="echo" -Dexec.args='${project.build.directory}')
           echo "$moduleBuildDirs"
           
           # Execute a local build to clean target directories and generate up-to-date dependency reports
           echo "Compile the latest version of the dependency report"
-          mvn --batch-mode --no-transfer-progress clean package $MAVEN_ARGS
+          mvn --batch-mode --no-transfer-progress clean org.pih.maven.plugin:pih-maven-plugin:dependency-report -U
           
           # Iterate over each module to compare each dependency report
           for moduleBuildDir in ${moduleBuildDirs}; do
