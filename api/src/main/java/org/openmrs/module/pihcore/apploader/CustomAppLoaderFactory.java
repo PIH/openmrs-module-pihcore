@@ -2068,7 +2068,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsWithGlucose.xml")),
                     null,
-                    and(sessionLocationHasTag("NCD Consult Location"),
+                    and(sessionLocationHasTag("Vitals Glucose Location"),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
