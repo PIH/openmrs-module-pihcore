@@ -768,7 +768,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-dependency-plugin</artifactId>
-					<version>2.4</version>
+					<version>3.6.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -797,6 +797,23 @@
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>3.6.0</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.pih.maven.plugin</groupId>
+                    <artifactId>pih-maven-plugin</artifactId>
+                    <version>${pihMavenPluginVersion}</version>
+                    <configuration>
+                        <outputFile>${dependenciesFile}</outputFile>
+                        <excludes>org.openmrs.module:pihcore-api</excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>dependency-report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -818,23 +835,6 @@
                         </property>
                     </properties>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.pih.maven.plugin</groupId>
-                <artifactId>pih-maven-plugin</artifactId>
-                <version>${pihMavenPluginVersion}</version>
-                <configuration>
-                    <outputFile>${dependenciesFile}</outputFile>
-                    <excludes>org.openmrs.module:pihcore-api</excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>dependency-report</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
 

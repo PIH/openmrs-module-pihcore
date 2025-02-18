@@ -42,6 +42,10 @@
 
 		<plugins>
 			<plugin>
+				<groupId>org.pih.maven.plugin</groupId>
+				<artifactId>pih-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
 				<groupId>org.openmrs.maven.plugins</groupId>
 				<artifactId>openmrs-packager-maven-plugin</artifactId>
 				<version>1.5.0</version>
