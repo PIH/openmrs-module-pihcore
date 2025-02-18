@@ -1,57 +1,13 @@
 name: Deploy
-
 on:
   push:
     branches: ['master']
-  schedule:
-    - cron: "0 0 * * *"
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.repository }}
-  cancel-in-progress: false
-
 jobs:
-
-  update-versions:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    outputs:
-      numFilesChanged: ${{ steps.updateVersions.outputs.numFilesChanged }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 8
-          cache: 'maven'
-
-      - name: Setup Git Config
-        run: |
-          git config user.name "Github Action"
-          git config user.email "github-action@users.noreply.github.com"
-
-      - name: Update versions
-        id: updateVersions
-        run: |
-          mvn clean versions:update-properties
-          echo numFilesChanged=$(git status --porcelain=1 | wc -l) >> "$GITHUB_OUTPUT"
-          mvn scm:checkin -Dmessage='automatic update of mvn version dependencies'
-        env:
-          OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
-          OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   deploy:
-    needs: [ update-versions ]
-    if: ${{ github.event_name == 'push' || needs.update-versions.outputs.numFilesChanged > 0  }}
     runs-on: ubuntu-latest
     steps:
-
     - uses: actions/checkout@v4
-
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
@@ -61,7 +17,6 @@ jobs:
         server-id: openmrs-repo-modules-pih
         server-username: OPENMRS_MAVEN_USERNAME
         server-password: OPENMRS_MAVEN_PASSWORD
-
     - name: Maven Deploy
       run: mvn -B deploy --file pom.xml
       env:
