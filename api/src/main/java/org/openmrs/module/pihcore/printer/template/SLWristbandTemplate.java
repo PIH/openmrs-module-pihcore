@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
@@ -49,6 +50,8 @@ public class SLWristbandTemplate {
 
     public static Boolean SKIP_HIGHEST_LEVEL = true;
 
+    public static final String  NEWBORN_DETAILS_CONCEPT_PIH_CODE = "13555";
+
     public static final String PATIENT_EXISTS_IN_EMR_CONCEPT_PIH_CODE = "20150";
 
     public static final String YES_CONCEPT_PIH_CODE = "YES";
@@ -60,6 +63,8 @@ public class SLWristbandTemplate {
     public static final String FEMALE_CONCEPT_PIH_CODE = "1535";
 
     public static final String BIRTH_WEIGHT_CONCEPT_PIH_CODE = "11067";
+
+    public static final String BIRTH_ORDER_CONCEPT_PIH_CODE = "13126";
 
     @Autowired
     @Setter
@@ -248,16 +253,25 @@ public class SLWristbandTemplate {
             if (linkedBabyRecords.size() > 1) {
                 log.warn("Mother " + mother.getPatientId() + " has more than one baby with the same uuid " + patient.getUuid());
             }
+
             Obs linkedBabyRecord = linkedBabyRecords.get(0).getObsGroup();
+            Encounter deliveryEncounter = linkedBabyRecord.getEncounter();
+
+            // determine how many babies were part of this delivery (so we can note twin/triplet/etc)
+            Concept newbornDetailsConcept = conceptService.getConceptByMapping(NEWBORN_DETAILS_CONCEPT_PIH_CODE, "PIH");
+            long numberOfBabies = deliveryEncounter != null ? deliveryEncounter.getAllFlattenedObs(false).stream().filter(o -> o.getConcept().equals(newbornDetailsConcept) && !o.getVoided()).count() : 1;
+
             if (linkedBabyRecord != null) {
                 Concept birthWeightConcept = conceptService.getConceptByMapping(BIRTH_WEIGHT_CONCEPT_PIH_CODE, "PIH");
                 Concept birthSexConcept = conceptService.getConceptByMapping(SEX_CONCEPT_PIH_CODE, "PIH");
                 Concept dateTimeOfDeliveryConcept = conceptService.getConceptByMapping(DATETIME_OF_DELIVERY_CONCEPT_PIH_CODE, "PIH");
                 Concept femaleConcept = conceptService.getConceptByMapping(FEMALE_CONCEPT_PIH_CODE, "PIH");
+                Concept birthOrderConcept = conceptService.getConceptByMapping(BIRTH_ORDER_CONCEPT_PIH_CODE, "PIH");
 
-                Obs birthWeight = linkedBabyRecord.getGroupMembers().stream().filter(o -> o.getConcept().equals(birthWeightConcept)).findFirst().orElse(null);
-                Obs birthSex = linkedBabyRecord.getGroupMembers().stream().filter(o -> o.getConcept().equals(birthSexConcept)).findFirst().orElse(null);
-                Obs dateTimeOfDelivery = linkedBabyRecord.getGroupMembers().stream().filter(o -> o.getConcept().equals(dateTimeOfDeliveryConcept)).findFirst().orElse(null);
+                Obs birthWeight = linkedBabyRecord.getGroupMembers().stream().filter(o -> o.getConcept().equals(birthWeightConcept) && !o.getVoided()).findFirst().orElse(null);
+                Obs birthSex = linkedBabyRecord.getGroupMembers().stream().filter(o -> o.getConcept().equals(birthSexConcept) && !o.getVoided()).findFirst().orElse(null);
+                Obs dateTimeOfDelivery = linkedBabyRecord.getGroupMembers().stream().filter(o -> o.getConcept().equals(dateTimeOfDeliveryConcept) && !o.getVoided()).findFirst().orElse(null);
+                Obs birthOrder = linkedBabyRecord.getGroupMembers().stream().filter(o -> o.getConcept().equals(birthOrderConcept) && !o.getVoided()).findFirst().orElse(null);
 
                 if (dateTimeOfDelivery != null && dateTimeOfDelivery.getValueDatetime() != null) {
                     data.append("^FO150,200^FB1650,1,0,L,0^AS^FD" + messageSourceService.getMessage("pihcore.born", null, printerLocale) + " "
@@ -270,8 +284,14 @@ public class SLWristbandTemplate {
 
                 if (birthSex != null && birthSex.getValueCoded() != null) {
                     data.append("^FO190,200^FB1550,1,0,L,0^AS^FD" + (birthSex.getValueCoded().equals(femaleConcept) ? "FI" : "MI") + "^FS");
+                }
 
+                if (birthOrder != null && birthOrder.getValueNumeric() != null && numberOfBabies > 1) {
+                    String numberOfBabiesStr = numberOfBabies == 2 ? messageSourceService.getMessage("pihcore.twin", null, printerLocale)
+                            : (numberOfBabies == 3 ? messageSourceService.getMessage("pihcore.triplet", null, printerLocale) : "");
 
+                    data.append("^FO190,200^FB1450,1,0,L,0^AS^FD" + numberOfBabiesStr + " " + birthOrder.getValueNumeric().intValue() + " " +
+                            messageSourceService.getMessage("pihcore.of", null, printerLocale) + " " + numberOfBabies + "^FS");
                 }
             }
         }

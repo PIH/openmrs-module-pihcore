@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.Concept;
+import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
@@ -44,9 +45,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.hamcrest.MockitoHamcrest.argThat;
+import static org.openmrs.module.pihcore.printer.template.SLWristbandTemplate.BIRTH_ORDER_CONCEPT_PIH_CODE;
 import static org.openmrs.module.pihcore.printer.template.SLWristbandTemplate.BIRTH_WEIGHT_CONCEPT_PIH_CODE;
 import static org.openmrs.module.pihcore.printer.template.SLWristbandTemplate.DATETIME_OF_DELIVERY_CONCEPT_PIH_CODE;
 import static org.openmrs.module.pihcore.printer.template.SLWristbandTemplate.FEMALE_CONCEPT_PIH_CODE;
+import static org.openmrs.module.pihcore.printer.template.SLWristbandTemplate.NEWBORN_DETAILS_CONCEPT_PIH_CODE;
 import static org.openmrs.module.pihcore.printer.template.SLWristbandTemplate.PATIENT_EXISTS_IN_EMR_CONCEPT_PIH_CODE;
 import static org.openmrs.module.pihcore.printer.template.SLWristbandTemplate.SEX_CONCEPT_PIH_CODE;
 import static org.openmrs.module.pihcore.printer.template.SLWristbandTemplate.YES_CONCEPT_PIH_CODE;
@@ -82,6 +85,8 @@ public class SLWristbandTemplateTest {
 
     private RelationshipType motherChildRelationshipType = new RelationshipType();
 
+    private Concept newbornDetails = new Concept();
+
     private Concept patientExistsInEmrConcept = new Concept();
 
     private Concept yesConcept = new Concept();
@@ -94,6 +99,7 @@ public class SLWristbandTemplateTest {
 
     private Concept birthWeightConcept = new Concept();
 
+    private Concept birthOrderConcept = new Concept();
 
     private Location visitLocation = new Location();
 
@@ -147,15 +153,20 @@ public class SLWristbandTemplateTest {
         when(messageSourceService.getMessage("pihcore.units.years", null, locale)).thenReturn("year(s)");
         when(messageSourceService.getMessage("pihcore.born", null, locale)).thenReturn("Born");
         when(messageSourceService.getMessage("pihcore.mother", null, locale)).thenReturn("Mother");
+        when(messageSourceService.getMessage("pihcore.twin", null, locale)).thenReturn("Twin");
+        when(messageSourceService.getMessage("pihcore.triplet", null, locale)).thenReturn("Triplet");
+        when(messageSourceService.getMessage("pihcore.of", null, locale)).thenReturn("of");
         when(personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID)).thenReturn(telephoneNumberAttributeType);
         when(personService.getRelationshipTypeByUuid(PihEmrConfigConstants.RELATIONSHIPTYPE_MOTHERTOCHILD_UUID)).thenReturn(motherChildRelationshipType);
         when(patientService.getPatientIdentifierTypeByUuid(SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_NATIONALID_UUID)).thenReturn(nationalIdNumberIdentifierType);
+        when(conceptService.getConceptByMapping(NEWBORN_DETAILS_CONCEPT_PIH_CODE, "PIH")).thenReturn(newbornDetails);
         when(conceptService.getConceptByMapping(PATIENT_EXISTS_IN_EMR_CONCEPT_PIH_CODE, "PIH")).thenReturn(patientExistsInEmrConcept);
         when(conceptService.getConceptByMapping(YES_CONCEPT_PIH_CODE, "PIH")).thenReturn(yesConcept);
         when(conceptService.getConceptByMapping(DATETIME_OF_DELIVERY_CONCEPT_PIH_CODE, "PIH")).thenReturn(dateOfDeliveryConcept);
         when(conceptService.getConceptByMapping(SEX_CONCEPT_PIH_CODE, "PIH")).thenReturn(sexConcept);
         when(conceptService.getConceptByMapping(FEMALE_CONCEPT_PIH_CODE, "PIH")).thenReturn(femaleConcept);
         when(conceptService.getConceptByMapping(BIRTH_WEIGHT_CONCEPT_PIH_CODE, "PIH")).thenReturn(birthWeightConcept);
+        when(conceptService.getConceptByMapping(BIRTH_ORDER_CONCEPT_PIH_CODE, "PIH")).thenReturn(birthOrderConcept);
 
         setupAddressHierarchyLevels();
 
@@ -287,32 +298,45 @@ public class SLWristbandTemplateTest {
         when(personService.getRelationships(null, patient, motherChildRelationshipType)).thenReturn(Collections.singletonList(motherChildRelationship));
         when(patientService.getPatientOrPromotePerson(mother.getId())).thenReturn(mother);
 
-        Obs nomMatchingObsGroup = new Obs();
+        Encounter deliveryEncounter = new Encounter();
+
+        Obs nomMatchingDelivery = new Obs();
+        nomMatchingDelivery.setConcept(newbornDetails);
+        deliveryEncounter.addObs(nomMatchingDelivery);
+
         Obs anotherPatientExistsInEmrObs = new Obs();
         anotherPatientExistsInEmrObs.setConcept(patientExistsInEmrConcept);
         anotherPatientExistsInEmrObs.setComment("some-other-uuid");
-        nomMatchingObsGroup.addGroupMember(anotherPatientExistsInEmrObs);
+        nomMatchingDelivery.addGroupMember(anotherPatientExistsInEmrObs);
 
-        Obs matchingObsGroup = new Obs();
+        Obs matchingDelivery = new Obs();
+        matchingDelivery.setConcept(newbornDetails);
+        deliveryEncounter.addObs(matchingDelivery);
+
         Obs patientExistsInEmrObs = new Obs();
         patientExistsInEmrObs.setConcept(patientExistsInEmrConcept);
         patientExistsInEmrObs.setComment(patient.getUuid());
-        matchingObsGroup.addGroupMember(patientExistsInEmrObs);
+        matchingDelivery.addGroupMember(patientExistsInEmrObs);
 
         Obs birthWeightObs = new Obs();
         birthWeightObs.setConcept(birthWeightConcept);
         birthWeightObs.setValueNumeric(5.5);
-        matchingObsGroup.addGroupMember(birthWeightObs);
+        matchingDelivery.addGroupMember(birthWeightObs);
 
         Obs birthGenderObs = new Obs();
         birthGenderObs.setConcept(sexConcept);
         birthGenderObs.setValueCoded(femaleConcept);
-        matchingObsGroup.addGroupMember(birthGenderObs);
+        matchingDelivery.addGroupMember(birthGenderObs);
 
         Obs birthDatetimeObs = new Obs();
         birthDatetimeObs.setConcept(dateOfDeliveryConcept);
         birthDatetimeObs.setValueDatetime(today);
-        matchingObsGroup.addGroupMember(birthDatetimeObs);
+        matchingDelivery.addGroupMember(birthDatetimeObs);
+
+        Obs birthOrderObs = new Obs();
+        birthOrderObs.setConcept(birthOrderConcept);
+        birthOrderObs.setValueNumeric(2.0);
+        matchingDelivery.addGroupMember(birthOrderObs);
 
         when(obsService.getObservations(Collections.singletonList(mother), null, Collections.singletonList(patientExistsInEmrConcept),
                 Collections.singletonList(yesConcept), null, null, null, null, null, null, null, false))
@@ -327,6 +351,7 @@ public class SLWristbandTemplateTest {
         assertThat(output, containsString("^FO100,200^FB1650,1,0,L,0^AT^FDRingo Starr  KGH00234003^FS"));
         assertThat(output, containsString("^FO150,200^FB1650,1,0,L,0^AS^FDBorn " + new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(today) + "^FS"));
         assertThat(output, containsString("^FO190,200^FB1650,1,0,L,0^AS^FD5.5kg^FS^FO190,200^FB1550,1,0,L,0^AS^FDFI^FS"));
+        assertThat(output, containsString("^FO190,200^FB1450,1,0,L,0^AS^FDTwin 2 of 2^FS"));
         assertThat(output, containsString("^FO230,200^FB1650,1,0,L,0^AS^FDMother: Mother Starr  KGH00111003^FS^FO100,1900^AT^BY4^BC,150,N^FDKGH00234003^FS^XZ"));
     }
 
