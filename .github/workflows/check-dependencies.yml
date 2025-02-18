@@ -15,6 +15,7 @@ jobs:
       - name: Check out PIH tools
         uses: actions/checkout@v4
         with:
+          repository: PIH/tools
           path: tools
       - name: Set up JDK
         uses: actions/setup-java@v4
