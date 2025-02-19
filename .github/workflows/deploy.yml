@@ -22,3 +22,10 @@ jobs:
       env:
         OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
         OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
+    - name: Trigger Distribution Build
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: 'https://bamboo-ci.pih-emr.org/rest/api/latest/queue/OMRS-PIHEMRDISTRIBUTION'
+        method: 'POST'
+        bearerToken: ${{ secrets.PIH_BAMBOO_API_KEY }}
+        customHeaders: '{"Accept": "application/json"}'
