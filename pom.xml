@@ -104,7 +104,7 @@
         <webservicesRestVersion>2.46.0</webservicesRestVersion>
 
         <lombokVersion>1.18.36</lombokVersion>
-        <testcontainersVersion>1.20.4</testcontainersVersion>
+        <testcontainersVersion>1.20.5</testcontainersVersion>
 
         <pihMavenPluginVersion>1.6.0</pihMavenPluginVersion>
         <dependencyReportClassifier>dependencies</dependencyReportClassifier>
