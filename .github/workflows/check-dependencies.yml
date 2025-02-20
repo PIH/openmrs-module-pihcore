@@ -33,5 +33,8 @@ jobs:
           if [ $? -eq 1 ]; then
             gh workflow run deploy.yml
           fi
+        working-directory: ./repository
         env:
           GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+          REPO: ${{ github.event.repository.name }}
