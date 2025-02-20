@@ -2813,7 +2813,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         ));
 
          // Lab Results
-        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RECENT_LAB_RESULTS,
+        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_RECENT_LAB_RESULTS,
                         "pihcore.lab.lab_results.caps",
                         "fas fa-vial",
                         null,
