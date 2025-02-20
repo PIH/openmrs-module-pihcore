@@ -33,3 +33,5 @@ jobs:
           if [ $? -eq 1 ]; then
             gh workflow run deploy.yml
           fi
+        env:
+          GH_TOKEN: ${{ github.token }}
