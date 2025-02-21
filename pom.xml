@@ -827,7 +827,7 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.6.11,2.6.999]</version>
+                            <version>[2.7.0,2.7.999]</version>
                         </property>
                         <property>
                             <name>attachmentsVersion</name>
