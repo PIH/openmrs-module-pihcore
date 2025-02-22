@@ -2820,7 +2820,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         objectNode(
                                 "encounterTypes", Context.getAdministrationService().getGlobalProperty(CustomAppLoaderConstants.GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES),
-                                "detailsUrl", "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=" + "/" + WebConstants.CONTEXT_PATH + "/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
+                                "detailsUrl", "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=" + "/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
                                 "obsTypes", "LabSet,Test",
                                 "labCategoriesSet", PihEmrConfigConstants.CONCEPT_LABORATORYCATEGORIES_UUID,
                                 "maxToDisplay", "5"
