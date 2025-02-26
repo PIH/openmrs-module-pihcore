@@ -44,21 +44,21 @@ public class ProgramDashboardPageController {
             }
         }
 
-        // if the patient is enrolled in the Pregnancy Program, and the session location is tagged as an Pregnancy Program location, redirect to the Pregnancy Dashboard
+        // if the patient is enrolled in the Pregnancy Program, and the session location is tagged as an Pregnancy Program Dashboard location, redirect to the Pregnancy Dashboard
         if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID) &&
                 sessionContext.getSessionLocation().hasTag("Pregnancy Program Dashboard Location") &&
                 !PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Pregnancy dashboard redirects to the basic dashboard
             queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID;
         }
 
-        // if the patient is enrolled in the Infant Program, and the session location is tagged as an Infant Program location, redirect to the Infant Dashboard
+        // if the patient is enrolled in the Infant Program, and the session location is tagged as an Infant Program Dashboard location, redirect to the Infant Dashboard
         else if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_INFANT_UUID) &&
                 sessionContext.getSessionLocation().hasTag("Infant Program Dashboard Location") &&
                 !PihEmrConfigConstants.PROGRAM_INFANT_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Infant dashboard redirects to the basic dashboard
             queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_INFANT_UUID;
         }
 
-        // if the patient is enrolled in the MCH Program, and the session location is tagged as an MCH Program location, redirect to the MCH Dashboard
+        // if the patient is enrolled in the MCH Program, and the session location is tagged as an MCH Program Dashboard location, redirect to the MCH Dashboard
         else if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_MCH_UUID) &&
                 sessionContext.getSessionLocation().hasTag("MCH Program Dashboard Location") &&
                 !PihEmrConfigConstants.PROGRAM_MCH_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Infant dashboard redirects to the basic dashboard
