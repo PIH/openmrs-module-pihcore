@@ -140,6 +140,10 @@ public class Config {
         return isSierraLeone() && getSite() != null && getSite().toUpperCase().startsWith("KGH");
     }
 
+    public boolean isHaiti() {
+        return getCountry().equals(ConfigDescriptor.Country.HAITI);
+    }
+
     public AddressConfigDescriptor getAddressConfig() {
         return descriptor.getAddressConfig();
     }

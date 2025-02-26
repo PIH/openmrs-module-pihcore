@@ -6,29 +6,25 @@ import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.Redirect;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
+/*
  * The purpose of this Controller is to route the user to a specific clinician-facing patient dashboard
  * based on the current program enrollment status of the patient.
  *
- * If a patient is actively enrolled in the Infant Program, and the session location is tagged as an Infant Program Location, redirect the Infant Program dashboard
- * otherwise, of a patient is actively enrolled in the Pregnancy Program, and the session location is tagged as a Pregnancy Program Location, redirect the Pregnancy Program dashboard
- * otherwise, if a patient is actively enrolled in only the HIV program, this will route them to this program's dashboard.
- * Assumption: Patient will never be enrolled in both the Pregnancy and Infant Programs at the same time.
- *
- * Note that this controller is wired in via the config as the "dashboardUrl", and is currently only wired in on the Haiti HIV system and all Sierra Leone servers.
- * Currently, we don't have Pregnancy and Infant programs in the Haiti HIV server, nor do we have an HIV program in the Sierra Leone server, once there is overlap,
- * we may need to adjust to logic based on which dashboards we want to prioritize.
+ * Note that this controller is wired in via the config as the "dashboardUrl", and is currently only wired in on the Haiti and Sierra Leone servers
  */
 public class ProgramDashboardPageController {
 
     public Redirect controller(@RequestParam(value = "patientId") Patient patient,
                                @RequestParam(value = "currentDashboard", required = false) String currentDashboard,
+                               @SpringBean Config config,
                                UiSessionContext sessionContext) {
 
         String providerName = "coreapps";
@@ -44,31 +40,37 @@ public class ProgramDashboardPageController {
             }
         }
 
-        // if the patient is enrolled in the Pregnancy Program, and the session location is tagged as an Pregnancy Program Dashboard location, redirect to the Pregnancy Dashboard
-        if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID) &&
-                sessionContext.getSessionLocation().hasTag("Pregnancy Program Dashboard Location") &&
-                !PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Pregnancy dashboard redirects to the basic dashboard
-            queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID;
+        // logic for Sierra Leone
+        if (config.isSierraLeone()) {
+            // if the patient is enrolled in the Pregnancy Program, and the session location is tagged as an Pregnancy Program Dashboard location, redirect to the Pregnancy Dashboard
+            if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID) &&
+                    sessionContext.getSessionLocation().hasTag("Pregnancy Program Dashboard Location") &&
+                    !PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Pregnancy dashboard redirects to the basic dashboard
+                queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID;
+            }
+
+            // if the patient is enrolled in the Infant Program, and the session location is tagged as an Infant Program Dashboard location, redirect to the Infant Dashboard
+            else if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_INFANT_UUID) &&
+                    sessionContext.getSessionLocation().hasTag("Infant Program Dashboard Location") &&
+                    !PihEmrConfigConstants.PROGRAM_INFANT_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Infant dashboard redirects to the basic dashboard
+                queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_INFANT_UUID;
+            }
         }
 
-        // if the patient is enrolled in the Infant Program, and the session location is tagged as an Infant Program Dashboard location, redirect to the Infant Dashboard
-        else if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_INFANT_UUID) &&
-                sessionContext.getSessionLocation().hasTag("Infant Program Dashboard Location") &&
-                !PihEmrConfigConstants.PROGRAM_INFANT_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Infant dashboard redirects to the basic dashboard
-            queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_INFANT_UUID;
-        }
+        // logic for Haiti
+        if (config.isHaiti()) {
+            // if the patient is enrolled in the MCH Program, and the session location is tagged as an MCH Program Dashboard location, redirect to the MCH Dashboard
+            if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_MCH_UUID) &&
+                    sessionContext.getSessionLocation().hasTag("MCH Program Dashboard Location") &&
+                    !PihEmrConfigConstants.PROGRAM_MCH_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Infant dashboard redirects to the basic dashboard
+                queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_MCH_UUID;
+            }
 
-        // if the patient is enrolled in the MCH Program, and the session location is tagged as an MCH Program Dashboard location, redirect to the MCH Dashboard
-        else if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_MCH_UUID) &&
-                sessionContext.getSessionLocation().hasTag("MCH Program Dashboard Location") &&
-                !PihEmrConfigConstants.PROGRAM_MCH_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Infant dashboard redirects to the basic dashboard
-            queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_MCH_UUID;
-        }
-
-        // if there is only one active enrollment, and it is for the HIV program, redirect to the HIV dashboard
-        else if (activeEnrollments.size() == 1 && activeEnrollments.get(0).getProgram().getUuid().equals(PihEmrConfigConstants.PROGRAM_HIV_UUID) &&
-                !PihEmrConfigConstants.PROGRAM_HIV_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the HIV dashboard redirects to the basic dashboard
-            queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_HIV_UUID;
+            // if there is only one active enrollment, and it is for the HIV program, redirect to the HIV dashboard
+            else if (activeEnrollments.size() == 1 && activeEnrollments.get(0).getProgram().getUuid().equals(PihEmrConfigConstants.PROGRAM_HIV_UUID) &&
+                    !PihEmrConfigConstants.PROGRAM_HIV_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the HIV dashboard redirects to the basic dashboard
+                queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_HIV_UUID;
+            }
         }
 
         return new Redirect(providerName, pageName, queryString);
