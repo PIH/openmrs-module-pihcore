@@ -57,6 +57,14 @@ public class ProgramDashboardPageController {
                 !PihEmrConfigConstants.PROGRAM_INFANT_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Infant dashboard redirects to the basic dashboard
             queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_INFANT_UUID;
         }
+
+        // if the patient is enrolled in the MCH Program, and the session location is tagged as an MCH Program location, redirect to the MCH Dashboard
+        else if (isPatientActivelyEnrolledInProgram(activeEnrollments, PihEmrConfigConstants.PROGRAM_MCH_UUID) &&
+                sessionContext.getSessionLocation().hasTag("MCH Program Dashboard Location") &&
+                !PihEmrConfigConstants.PROGRAM_MCH_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the Infant dashboard redirects to the basic dashboard
+            queryString += "&dashboard=" + PihEmrConfigConstants.PROGRAM_MCH_UUID;
+        }
+
         // if there is only one active enrollment, and it is for the HIV program, redirect to the HIV dashboard
         else if (activeEnrollments.size() == 1 && activeEnrollments.get(0).getProgram().getUuid().equals(PihEmrConfigConstants.PROGRAM_HIV_UUID) &&
                 !PihEmrConfigConstants.PROGRAM_HIV_UUID.equals(currentDashboard)) {  // make sure clicking on the clinical dashboard link while on the HIV dashboard redirects to the basic dashboard
