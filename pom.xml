@@ -87,7 +87,7 @@
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <printerVersion>1.5.0</printerVersion>
         <providermanagementVersion>2.15.0</providermanagementVersion>
-        <queueVersion>2.5.0</queueVersion>
+        <queueVersion>2.6.0-SNAPSHOT</queueVersion>
         <radiologyappVersion>1.7.0</radiologyappVersion>
         <registrationappVersion>1.27.0</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
