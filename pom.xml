@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.7.3-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>2.7.3</openMRSVersion>
 
         <addresshierarchyVersion>2.20.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.7</allergyuiVersion>
