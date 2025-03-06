@@ -66,7 +66,7 @@ public class PregnancyProgramPostpartumTransitionAction implements CustomFormSub
             if (activePatientPregnancyPrograms.size() > 1) {
                 log.warn("Patient " + patient.getUuid() + " is enrolled in multiple active pregnancy programs, likely a data error. Operating on the most recent one.");
             }
-            // if the patient state on the delivery is the most recent, and antenatal, transition to postpartum
+            // if the patient state at time of delivery is the most recent, and antenatal, transition to postpartum
             PatientProgram activePregnancyProgram = activePatientPregnancyPrograms.get(activePatientPregnancyPrograms.size() - 1);
             PatientState patientStateOnDeliverDate = getTypeOfTreatmentStateOnDate(activePregnancyProgram.getStates(), deliveryDate).orElse(null);
             PatientState patientStateCurrent = getTypeOfTreatmentCurrentState(activePregnancyProgram.getStates()).orElse(null);
