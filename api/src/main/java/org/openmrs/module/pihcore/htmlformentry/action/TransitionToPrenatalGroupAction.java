@@ -53,26 +53,26 @@ public class TransitionToPrenatalGroupAction implements CustomFormSubmissionActi
 
         Patient patient = formEntrySession.getPatient();
         Encounter encounter = formEntrySession.getEncounter();
-        // use the encounter date *without* the time component
-        Date encounterDate = (new DateTime(encounter.getEncounterDatetime())).withTimeAtStartOfDay().toDate();
 
         List<PatientProgram> candidates = programWorkflowService.getPatientPrograms(patient, mchProgram, null,
-                null, encounterDate, null, false);
+                null, encounter.getEncounterDatetime(), null, false);
 
         if (candidates != null) {
             if (candidates.size() > 1 ) {
                 log.warn("More than one MCH program enrollment for patient " + patient.getUuid()
-                        + " on date " + encounterDate + ". Change the treatment group to all of them.");
+                        + " on date " + encounter.getEncounterDatetime() + ". Change the treatment group to all of them.");
             }
             ProgramWorkflow typeOfTreatmentWorkflow = programWorkflowService.getWorkflowByUuid(TYPE_OF_TREATMENT_WORKFLOW_UUID);
             ProgramWorkflowState prenatalState = typeOfTreatmentWorkflow.getState(prenatalGroup);
 
+            // TODO: check to make sure current state is the *current* state, not just the state on the encounter date
             // In the unlikely event that the patient has more than enrollment in the MCH program on the encounter date, update all of them
             for (PatientProgram patientProgram : candidates) {
-                PatientState currentState = HtmlFormEntryUtil.getPatientStateOnDate(patientProgram, typeOfTreatmentWorkflow, encounterDate);
-                // Only transition to the prenatal state if the patient is not already in this state
-                if (currentState == null || !currentState.getState().equals(prenatalState)) {
-                    patientProgram.transitionToState(prenatalState, encounterDate);
+                PatientState stateOnEncounterDate = HtmlFormEntryUtil.getPatientStateOnDate(patientProgram, typeOfTreatmentWorkflow, encounter.getEncounterDatetime());
+                PatientState currentState = HtmlFormEntryUtil.getPatientStateOnDate(patientProgram, typeOfTreatmentWorkflow, new Date());
+                // if the patient is not already in the prenatal group, transition them, assuming the state on the encounter date is the current state
+                if (stateOnEncounterDate == null || (!stateOnEncounterDate.getState().equals(prenatalState) && stateOnEncounterDate.equals(currentState))) {
+                    patientProgram.transitionToState(prenatalState, encounter.getEncounterDatetime());
                     programWorkflowService.savePatientProgram(patientProgram);
                 }
             }

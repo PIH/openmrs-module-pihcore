@@ -7,6 +7,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
+import org.openmrs.PatientState;
 import org.openmrs.Program;
 import org.openmrs.ProgramWorkflowState;
 import org.openmrs.api.context.Context;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.openmrs.module.pihcore.htmlformentry.action.util.PregnancyProgramActionUtils.enrollInPregnancyProgram;
+import static org.openmrs.module.pihcore.htmlformentry.action.util.PregnancyProgramActionUtils.getTypeOfTreatmentCurrentState;
 import static org.openmrs.module.pihcore.htmlformentry.action.util.PregnancyProgramActionUtils.getTypeOfTreatmentStateOnDate;
 
 /**
@@ -64,10 +66,14 @@ public class PregnancyProgramPostpartumTransitionAction implements CustomFormSub
             if (activePatientPregnancyPrograms.size() > 1) {
                 log.warn("Patient " + patient.getUuid() + " is enrolled in multiple active pregnancy programs, likely a data error. Operating on the most recent one.");
             }
-            // if the patient is enrolled, but in antenatal state, transition to the postpartum
+            // if the patient state on the delivery is the most recent, and antenatal, transition to postpartum
             PatientProgram activePregnancyProgram = activePatientPregnancyPrograms.get(activePatientPregnancyPrograms.size() - 1);
-            if (SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID
-                    .equals(getTypeOfTreatmentStateOnDate(activePregnancyProgram.getStates(), deliveryDate).map(patientState -> patientState.getState().getUuid()).orElse(null))) {
+            PatientState patientStateOnDeliverDate = getTypeOfTreatmentStateOnDate(activePregnancyProgram.getStates(), deliveryDate).orElse(null);
+            PatientState patientStateCurrent = getTypeOfTreatmentCurrentState(activePregnancyProgram.getStates()).orElse(null);
+            if (patientStateOnDeliverDate != null && patientStateOnDeliverDate.equals(patientStateCurrent) &&
+                    SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID
+                    .equals(patientStateOnDeliverDate.getState().getUuid())) {
+
                 activePregnancyProgram.transitionToState(postpartumState, deliveryDate);
                 Context.getProgramWorkflowService().savePatientProgram(activePregnancyProgram);
             }
