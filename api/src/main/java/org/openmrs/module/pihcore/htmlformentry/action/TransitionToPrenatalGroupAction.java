@@ -55,7 +55,7 @@ public class TransitionToPrenatalGroupAction implements CustomFormSubmissionActi
         Encounter encounter = formEntrySession.getEncounter();
 
         List<PatientProgram> candidates = programWorkflowService.getPatientPrograms(patient, mchProgram, null,
-                null, encounter.getEncounterDatetime(), null, false);
+                encounter.getEncounterDatetime(), encounter.getEncounterDatetime(), null, false);
 
         if (candidates != null) {
             if (candidates.size() > 1 ) {

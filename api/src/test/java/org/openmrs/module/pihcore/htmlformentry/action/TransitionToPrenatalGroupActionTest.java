@@ -15,7 +15,6 @@ import org.openmrs.Program;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.C;
 
 import java.util.Date;
 import java.util.List;
@@ -153,5 +152,55 @@ public class TransitionToPrenatalGroupActionTest extends PihCoreContextSensitive
         Assertions.assertEquals(PRENATAL_GROUP_STATE_UUID, currentState.getState().getUuid());
         Assertions.assertEquals(oneMonthAgo, currentState.getStartDate());
     }
+
+    @Test
+    public void transitionToPrenatalGroupAction_shouldNotTransitionIfPatientNotInProgramOnEncounterDate() {
+        Program mchProgram = Context.getProgramWorkflowService().getProgramByUuid(MCH_PROGRAM_UUID);
+        Location location = Context.getLocationService().getLocation("Child Location");
+        Date now = new DateTime().withMillisOfSecond(0).toDate();
+        Date twoMonthsAgo = new DateTime(now).minusMonths(2).toDate();
+
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        // enroll the patient in the MCH program
+        PatientProgram existingPatientProgram = new PatientProgram();
+        existingPatientProgram.setProgram(mchProgram);
+        existingPatientProgram.setPatient(patient);
+        existingPatientProgram.setDateEnrolled(now);
+        Context.getProgramWorkflowService().savePatientProgram(existingPatientProgram);
+
+        // sanity check, patient *is* enrolled
+        List<PatientProgram> patientPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient, mchProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPrograms.size());
+
+        // set the encounter to two months ago (before the enrollment)
+        Encounter encounter = new Encounter();
+        encounter.setPatient(patient);
+        encounter.setEncounterDatetime(twoMonthsAgo);
+        encounter.setLocation(location);
+
+        // add the that triggers the state change
+        Concept treatmentType = Context.getConceptService().getConceptByMapping("11698", "PIH");
+        Concept prenatalGroup = Context.getConceptService().getConceptByMapping("11699", "PIH");
+        Obs obs = new Obs();
+        obs.setConcept(treatmentType);
+        obs.setValueCoded(prenatalGroup);
+        encounter.addObs(obs);
+
+        when(mockSession.getPatient()).thenReturn(patient);
+        when(mockSession.getEncounter()).thenReturn(encounter);
+        transitionToPrenatalGroupAction.applyAction(mockSession);
+
+        patientPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient, mchProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPrograms.size());
+
+        // nothing should have changed
+        Assertions.assertEquals(now, patientPrograms.get(0).getDateEnrolled());
+        Assertions.assertNull(patientPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPrograms.get(0).getOutcome());
+        Assertions.assertEquals(0, patientPrograms.get(0).getStates().size());
+    }
+
+
 }
 
