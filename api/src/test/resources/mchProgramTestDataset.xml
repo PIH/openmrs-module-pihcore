@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- patient 7 is from standard test dataset -->
+<dataset>
+    <!-- set up a parent/child location, with the parent tagged as a "Visit Location" -->
+    <location location_id="1001" name="Parent Location" description="Parent Location" address1="" address2="" city_village="" state_province="" postal_code="" country="" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="123e4567-e89b-12d3-a456-426614174000"/>
+    <location location_id="1002" parent_location="1001" name="Child Location" description="Child Location" address1="800 Boylston Street" address2="" city_village="Boston" state_province="MA" postal_code="02115" country="USA" latitude="" longitude="" creator="1" date_created="2008-08-15 13:46:50.0" retired="false" uuid="123e4567-e89b-12d3-a456-426614174001"/>
+    <location_tag location_tag_id="1001" name="Visit Location" description="Visit Location" creator="1" date_created="2008-08-15 13:46:50.0" retired="false" uuid="123e4567-e89b-12d3-a456-426614174002"/>
+    <location_tag_map location_id="1001" location_tag_id="1001"/>
+
+    <concept_reference_source concept_source_id="1001" name="PIH" description="Mocked PIH source" hl7_code="PIH" creator="1" date_created="2005-02-24 00:00:00.0" uuid="123e4567-e89b-12d3-a456-426614174005" retired="false"/>
+
+    <!-- mocked version of treatment type concept -->
+    <concept concept_id="1001" retired="false" datatype_id="2" class_id="7" is_set="false" creator="1" date_created="2008-08-15 16:08:18.0" version="" uuid="3ceb0ed8-26fe-102b-80cb-0017a47871b2"/>
+    <concept_reference_term concept_reference_term_id="1001" concept_source_id="1001" code="11698" name="11698" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="123e4567-e89b-12d3-a456-426614174006"/>
+    <concept_reference_map concept_map_id="1001" concept_id="1001" concept_reference_term_id="1001" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="123e4567-e89b-12d3-a456-426614174008"/>
+
+    <!-- mocked version of prenatal group concept -->
+    <concept concept_id="1002" retired="false" datatype_id="4" class_id="5" is_set="false" creator="1" date_created="2008-08-15 16:22:03.0" version="" uuid="3cdcecea-26fe-102b-80cb-0017a47871b2"/>
+    <concept_reference_term concept_reference_term_id="1002" concept_source_id="1001" code="11699" name="11699" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="123e4567-e89b-12d3-a456-426614174007"/>
+    <concept_reference_map concept_map_id="1002" concept_id="1002" concept_reference_term_id="1002" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="123e4567-e89b-12d3-a456-426614174009"/>
+
+    <!-- mocked version of MCH Program with correct uuids, (linked concepts are incorrect, execept for prenatal group since tests rely on that one) -->
+    <program program_id="1001" concept_id="9" creator="1" date_created="2008-08-15 16:07:11.0" changed_by="1" date_changed="2008-08-15 17:04:50.0" retired="false" name="MCH Program" description="pregnancy program" uuid="41a2715e-8a14-11e8-9a94-a6cf71072f73"/>
+    <program_workflow program_workflow_id="1001" program_id="1001" concept_id="13" creator="1" date_created="2008-08-15 17:01:00.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="41a277d0-8a14-11e8-9a94-a6cf71072f73"/>
+    <!-- prenatal group -->
+    <program_workflow_state program_workflow_state_id="1001" program_workflow_id="1001" concept_id="1002" initial="true" terminal="false" creator="1" date_created="2008-08-15 17:04:02.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="41a2753c-8a14-11e8-9a94-a6cf71072f73"/>
+    <!-- prenatal individual -->
+    <program_workflow_state program_workflow_state_id="1002" program_workflow_id="1001" concept_id="16" initial="true" terminal="false" creator="1" date_created="2008-08-15 17:04:02.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="41a27d48-8a14-11e8-9a94-a6cf71072f73"/>
+    <!-- peds group -->
+    <program_workflow_state program_workflow_state_id="1003" program_workflow_id="1001" concept_id="14" initial="false" terminal="true" creator="1" date_created="2008-08-15 17:04:02.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="2fa7008c-aa58-11e8-98d0-529269fb1459"/>
+    <!-- peds individual -->
+    <program_workflow_state program_workflow_state_id="1004" program_workflow_id="1001" concept_id="13" initial="false" terminal="true" creator="1" date_created="2008-08-15 17:04:02.0" retired="false" changed_by="1" date_changed="2008-08-15 17:04:50.0" uuid="d31c4de9-48ac-4d60-9689-f3669bd1382d"/>
+
+</dataset>

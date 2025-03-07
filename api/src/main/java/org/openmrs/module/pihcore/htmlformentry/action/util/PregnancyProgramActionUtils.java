@@ -40,9 +40,15 @@ public class PregnancyProgramActionUtils {
         Context.getProgramWorkflowService().savePatientProgram(newPatientProgram);
     }
 
+
     public static Optional<PatientState> getTypeOfTreatmentStateOnDate(Set<PatientState> states, Date date) {
         ProgramWorkflow pregnancyProgramWorkflow = Context.getProgramWorkflowService().getWorkflowByUuid(SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_UUID);
         return states.stream().filter(patientState -> patientState.getState().getProgramWorkflow().equals(pregnancyProgramWorkflow)).filter(patientState -> patientState.getActive(date)).findFirst();
+    }
+
+    public static Optional<PatientState> getTypeOfTreatmentCurrentState(Set<PatientState> states) {
+        ProgramWorkflow pregnancyProgramWorkflow = Context.getProgramWorkflowService().getWorkflowByUuid(SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_UUID);
+        return states.stream().filter(patientState -> patientState.getState().getProgramWorkflow().equals(pregnancyProgramWorkflow)).filter(PatientState::getActive).findFirst();
     }
 
 }
