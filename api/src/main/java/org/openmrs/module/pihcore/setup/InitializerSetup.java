@@ -37,6 +37,10 @@ public class InitializerSetup {
                     log.warn("Deleting checksums for: " + loader.getDomainName());
                     deleteChecksumsForDomains(Domain.LOCATION_TAG_MAPS);
                 }
+                else if (loader.getDomainName().equals(Domain.LOCATIONS.getName())) {
+                    log.warn("Deleting checksums for: " + loader.getDomainName());
+                    deleteChecksumsForDomains(Domain.LOCATIONS);
+                }
                 log.warn("Loading from Initializer: " + loader.getDomainName());
                 List<String> exclusionsForLoader = getExclusionsForLoader(loader, config);
                 loader.loadUnsafe(exclusionsForLoader, true);
