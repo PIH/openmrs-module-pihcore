@@ -20,36 +20,78 @@ public class ReportSetup {
 
     //***** REPORT DEFINITIONS *****
     public static final String FULL_DATA_EXPORT_REPORT_DEFINITION_UUID = "8c3752e2-20bb-11e3-b5bd-0bec7fb71852";
-    public static final String ALL_PATIENTS_REPORT_DEFINITION_UUID_SIERRA_LEONE = "48617a3c-d5df-469c-b67e-026e7421d7dd";
+    public static final String ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID = "d534683e-20bd-11e3-b5bd-0bec7fb71852";
+    public static final String CHECKINS_DATA_EXPORT_REPORT_DEFINITION_UUID = "1c72b461-fc74-11e3-8248-08002769d9ae";
+    public static final String APPOINTMENTS_REPORT_DEFINITION_UUID = "7fd11020-e5d1-11e3-ac10-0800200c9a66";
 
     //***** SCHEDULED REPORT REQUESTS *****
     public static final String ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID = "733cd7c0-2ed0-11e4-8c21-0800200c9a66";
+    public static final String APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID = "f19ff350-2ed9-11e4-8c21-0800200c9a66";
+    public static final String CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID = "f9e01270-2ed9-11e4-8c21-0800200c9a66";
     public static final String FULL_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID = "2619c140-5b0e-11e5-a837-0800200c9a66";
 
     public static void scheduleBackupReports(Config config) {
         ReportService reportService = Context.getService(ReportService.class);
         ReportDefinitionService reportDefinitionService = Context.getService(ReportDefinitionService.class);
-        // sets up reports currently only used on Sierra Leone production servers (as a backup)
-        // note that this is hard-coded to use the uuid for the All Patients report in Sierra Leone, we will need to fix this if we want to use this in other implementations
+    	// TODO: we no longer use this, so this can likely be removed in the future (and doesn't need to be migrated
+		// when we refactor our setup process)
+        // sets up reports currently only used on Mirebalais production server (as a backup)
         if (config.shouldScheduleBackupReports()) {
 
-            // schedule the all patients report to run at 10pm and 5am everyday
+            // schedule the all patients report to run at 4am and 4pm everyday
             ReportRequest allPatientsScheduledReportRequest = reportService.getReportRequestByUuid(ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
             if (allPatientsScheduledReportRequest == null) {
                 allPatientsScheduledReportRequest = new ReportRequest();
             }
-            ReportDefinition allPatientsReportDefinition = reportDefinitionService.getDefinitionByUuid(ALL_PATIENTS_REPORT_DEFINITION_UUID_SIERRA_LEONE);
+            ReportDefinition allPatientsReportDefinition = reportDefinitionService.getDefinitionByUuid(ALL_PATIENTS_WITH_IDS_REPORT_DEFINITION_UUID);
             allPatientsScheduledReportRequest.setUuid(ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
             allPatientsScheduledReportRequest.setReportDefinition(Mapped.noMappings(allPatientsReportDefinition));
             allPatientsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, allPatientsReportDefinition));
-            allPatientsScheduledReportRequest.setSchedule("0 0 5,22 * * ?");
+            allPatientsScheduledReportRequest.setSchedule("0 0 4-23/12 * * ?");
             reportService.queueReport(allPatientsScheduledReportRequest);
+
+            // schedule the appointments report to run  at 4am and 4pm everyday, retrieving all appointments for the next seven days
+            ReportRequest appointmentsScheduledReportRequest = reportService.getReportRequestByUuid(APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            if (appointmentsScheduledReportRequest == null) {
+                appointmentsScheduledReportRequest = new ReportRequest();
+            }
+            ReportDefinition appointmentsReportDefinition = reportDefinitionService.getDefinitionByUuid(APPOINTMENTS_REPORT_DEFINITION_UUID);
+            appointmentsScheduledReportRequest.setUuid(APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            appointmentsScheduledReportRequest.setReportDefinition(Mapped.map(appointmentsReportDefinition, "startDate=${start_of_today},endDate=${start_of_today + 7d}"));
+            appointmentsScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, appointmentsReportDefinition));
+            appointmentsScheduledReportRequest.setSchedule("0 0 4-23/12 * * ?");
+            reportService.queueReport(appointmentsScheduledReportRequest);
+
+            // schedule the check-ins report to run  at 4am and 4pm everyday retrieving all check-ins for the past seven days
+            ReportRequest checkInsDataExportScheduledReportRequest = reportService.getReportRequestByUuid(CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            if (checkInsDataExportScheduledReportRequest == null) {
+                checkInsDataExportScheduledReportRequest = new ReportRequest();
+            }
+            ReportDefinition checkInsDataExportReportDefinition = reportDefinitionService.getDefinitionByUuid(CHECKINS_DATA_EXPORT_REPORT_DEFINITION_UUID);
+            checkInsDataExportScheduledReportRequest.setUuid(CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            checkInsDataExportScheduledReportRequest.setReportDefinition(Mapped.map(checkInsDataExportReportDefinition, "startDate=${start_of_today - 7d},endDate=${now}"));
+            checkInsDataExportScheduledReportRequest.setRenderingMode(getCsvReportRenderer(reportService, checkInsDataExportReportDefinition));
+            checkInsDataExportScheduledReportRequest.setSchedule("0 0 4-23/12 * * ?");
+            reportService.queueReport(checkInsDataExportScheduledReportRequest);
+
         }
         else {
+
             ReportRequest allPatientsScheduledReportRequest = reportService.getReportRequestByUuid(ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID);
             if (allPatientsScheduledReportRequest != null) {
                 reportService.purgeReportRequest(allPatientsScheduledReportRequest);
             }
+
+            ReportRequest appointmentsScheduledReportRequest = reportService.getReportRequestByUuid(APPOINTMENTS_SCHEDULED_REPORT_REQUEST_UUID);
+            if (appointmentsScheduledReportRequest != null) {
+                reportService.purgeReportRequest(appointmentsScheduledReportRequest);
+            }
+
+            ReportRequest checkInsDataExportScheduledReportRequest = reportService.getReportRequestByUuid(CHECKINS_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID);
+            if (checkInsDataExportScheduledReportRequest != null) {
+                reportService.purgeReportRequest(checkInsDataExportScheduledReportRequest);
+            }
+
         }
     }
 
