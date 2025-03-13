@@ -17,7 +17,6 @@ package org.openmrs.module.pihcore;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
-import org.openmrs.api.context.Daemon;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.DaemonToken;
 import org.openmrs.module.DaemonTokenAware;
@@ -26,8 +25,6 @@ import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.pihcore.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
 import org.openmrs.module.pihcore.task.PihCoreTimerTask;
-
-import java.util.concurrent.TimeUnit;
 
 public class PihCoreActivator extends BaseModuleActivator implements DaemonTokenAware {
 
@@ -45,20 +42,10 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
     public void configureSystem() {
         try {
             log.info("Initiating pihcore configuration");
-
             final ConfigurationSetup configurationSetup = Context.getRegisteredComponents(ConfigurationSetup.class).get(0);
             configurationSetup.setupBase();
             configurationSetup.configureDependencies();
-
-            // Startup DB event consumers in a separate thread
-            Daemon.runInDaemonThread(() -> {
-                try {
-                    TimeUnit.MINUTES.sleep(1);
-                }
-                catch (Exception e) {}
-                configurationSetup.setupDbEventConsumers();
-            }, daemonToken);
-
+            configurationSetup.setupDbEventListeners();
             log.info("Distribution startup complete.");
         }
         catch (Exception e) {

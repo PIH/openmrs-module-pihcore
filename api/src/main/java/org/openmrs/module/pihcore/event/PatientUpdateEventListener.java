@@ -1,24 +1,26 @@
 package org.openmrs.module.pihcore.event;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openmrs.module.dbevent.Database;
-import org.openmrs.module.dbevent.DatabaseColumn;
-import org.openmrs.module.dbevent.DatabaseJoin;
-import org.openmrs.module.dbevent.DatabaseJoinPath;
-import org.openmrs.module.dbevent.DatabaseQuery;
-import org.openmrs.module.dbevent.DatabaseTable;
 import org.openmrs.module.dbevent.DbEvent;
-import org.openmrs.module.dbevent.DbEventLog;
-import org.openmrs.module.dbevent.DbEventSourceConfig;
-import org.openmrs.module.dbevent.EventConsumer;
+import org.openmrs.module.dbevent.DbEventListener;
 import org.openmrs.module.dbevent.Operation;
-import org.openmrs.module.dbevent.Rocks;
-import org.openmrs.module.dbevent.SqlBuilder;
+import org.openmrs.module.dbevent.database.Database;
+import org.openmrs.module.dbevent.database.DatabaseColumn;
+import org.openmrs.module.dbevent.database.DatabaseJoin;
+import org.openmrs.module.dbevent.database.DatabaseJoinPath;
+import org.openmrs.module.dbevent.database.DatabaseTable;
+import org.openmrs.module.dbevent.monitoring.DbEventMonitor;
 
 import java.io.File;
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,52 +34,35 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Consumes patient-related events
+ * Listens for patient-related events
  * For performance reasons on larger databases, this does not use a Debezium-generated snapshot, but rather
  * computes a custom snapshot that is then updated as needed from change events.
  * When used, this should be configured with "snapshot.mode = schema_only"
  */
-public class PatientUpdateEventConsumer implements EventConsumer {
+public class PatientUpdateEventListener extends DbEventListener {
 
-    private static final Logger log = LogManager.getLogger(PatientUpdateEventConsumer.class);
+    private static final Logger log = LogManager.getLogger(PatientUpdateEventListener.class);
 
     public static final String[] DATE_CHANGED_COLUMNS = {
             "date_created", "date_changed", "date_voided", "date_status_changed"  // date_status_changed is found on the paperrecord tables
     };
 
-    private final DbEventSourceConfig config;
-    private final Database database;
-    private Rocks statusDb;
-    private boolean snapshotInitialized = false;
-    private final Map<String, List<String>> snapshotStatements;
-    private final Map<String, List<DatabaseQuery>> patientQueries;
+    private Database database;
 
-    public PatientUpdateEventConsumer(DbEventSourceConfig config) {
-        this.config = config;
-        this.database = config.getContext().getDatabase();
+    @Getter private boolean snapshotInitialized = false;
+    @Getter private Map<String, List<String>> snapshotStatements = new LinkedHashMap<>();
+    @Getter private Map<String, List<DatabaseQuery>> patientQueries = new LinkedHashMap<>();
+
+    @Override
+    public void beforeProcessingEvents() {
+        this.database = getConfig().getContext().getDatabase();
         this.snapshotStatements = constructSnapshotStatements();
         this.patientQueries = constructPatientQueries();
+        performInitialSnapshot();
     }
 
     @Override
-    public void startup() {
-        try {
-            log.warn(getClass().getSimpleName() + ": startup initiated");
-            statusDb = new Rocks(new File(config.getContext().getModuleDataDir(), "status.db"));
-            performInitialSnapshot();
-            log.warn(getClass().getSimpleName() + ": startup completed");
-        } catch (Exception e) {
-            throw new RuntimeException("An error occurred starting up", e);
-        }
-    }
-
-    @Override
-    public void shutdown() {
-        statusDb.close();
-    }
-
-    @Override
-    public void accept(DbEvent event) {
+    public void processEvent(DbEvent event) {
         while (!snapshotInitialized) {
             log.warn("Waiting to accept streaming events until snapshot is initialized...");
             try {
@@ -159,7 +144,8 @@ public class PatientUpdateEventConsumer implements EventConsumer {
      * This method performs this operation, and returns the max last_updated in the database
      */
     protected synchronized void performInitialSnapshot() {
-        snapshotInitialized = BooleanUtils.isTrue(statusDb.get("snapshotInitialized"));
+        File snapshotMarker = new File(getConfig().getDataDirectory(), "snapshot_initialized");
+        snapshotInitialized = snapshotMarker.exists();
         if (!snapshotInitialized) {
             log.warn("Snapshot has not yet been initialized, will perform initial snapshot");
             Executors.newSingleThreadExecutor().execute(() -> {
@@ -180,7 +166,12 @@ public class PatientUpdateEventConsumer implements EventConsumer {
                         database.executeUpdate(statement);
                     }
                 }
-                statusDb.put("snapshotInitialized", Boolean.TRUE);
+                try {
+                    FileUtils.writeStringToFile(snapshotMarker, "SNAPSHOT_COMPLETED," + System.currentTimeMillis(), StandardCharsets.UTF_8);
+                }
+                catch (Exception e) {
+                    throw new IllegalStateException("Unable to write to file: " + snapshotMarker, e);
+                }
                 snapshotInitialized = true;
             });
         }
@@ -347,29 +338,64 @@ public class PatientUpdateEventConsumer implements EventConsumer {
      * @return true if the consumer is connected to the binlog
      */
     public boolean isConnectedToBinlog() {
-        Map<String, Object> attributes = DbEventLog.getStreamingMonitoringAttributes(config.getSourceName());
+        Map<String, Object> attributes = DbEventMonitor.getStreamingMonitoringAttributes(getConfig().getSourceName());
         Boolean value = (Boolean) attributes.get("Connected");
         return BooleanUtils.isTrue(value);
     }
 
-    /**
-     * @return true if the snapshot has been initialized
-     */
-    public boolean isSnapshotInitialized() {
-        return snapshotInitialized;
+    @Data
+    @AllArgsConstructor
+    public static class DatabaseQuery implements Serializable {
+
+        private String sql;
+        private List<String> parameterNames;
+
+        @Override
+        public String toString() {
+            return sql + " " + parameterNames;
+        }
     }
 
-    /**
-     * @return the snapshot statements to execute by table
-     */
-    public Map<String, List<String>> getSnapshotStatements() {
-        return snapshotStatements;
-    }
+    public static class SqlBuilder {
 
-    /**
-     * @return the patient id queries to execute by table
-     */
-    public Map<String, List<DatabaseQuery>> getPatientQueries() {
-        return patientQueries;
+        private final StringBuilder sb = new StringBuilder();
+
+        public SqlBuilder select(String... columnNames) {
+            for (int i=0; i<columnNames.length; i++) {
+                sb.append(i == 0 ? "select " : ", ").append(columnNames[i]).append(" ");
+            }
+            return this;
+        }
+
+        public SqlBuilder from(String tableName) {
+            return from(tableName, tableName);
+        }
+
+        public SqlBuilder from(String tableName, String alias) {
+            sb.append("from ").append(tableName).append(" ").append(alias).append(" ");
+            return this;
+        }
+
+        public SqlBuilder innerJoin(String fromTable, String fromAlias, String fromColumn, String toTable, String toColumn) {
+            sb.append("inner join ").append(fromTable).append(" ").append(fromAlias);
+            sb.append(" on ").append(fromAlias).append(".").append(fromColumn);
+            sb.append(" = ").append(toTable).append(".").append(toColumn).append(" ");
+            return this;
+        }
+
+        public SqlBuilder where(String constraint) {
+            sb.append(sb.indexOf("where") == -1 ? "where " : "and ").append(constraint).append(" ");
+            return this;
+        }
+
+        public SqlBuilder append(String clause) {
+            sb.append(clause).append(" ");
+            return this;
+        }
+
+        @Override
+        public String toString() {
+            return sb.toString();
+        }
     }
 }

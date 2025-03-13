@@ -143,7 +143,7 @@ public class ConfigurationSetup {
         initializerMessageSource.addFallbackLanguage("ht", "fr");
      }
 
-     public void setupDbEventConsumers() {
+     public void setupDbEventListeners() {
         DbEventSetup.setup(config);
      }
 
