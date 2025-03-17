@@ -772,7 +772,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_PREGNANCY_VISIT_ACTION,
+            Extension vitalsPregnancy = visitAction(CustomAppLoaderConstants.Extensions.VITALS_PREGNANCY_VISIT_ACTION,
                     "pihcore.task.vitalsPregnancy",
                     "fas fa-fw fa-heartbeat",
                     "link",
@@ -782,8 +782,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             and(patientIsFemale(), patientIsAdult()),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
+            extensions.add(vitalsPregnancy);
+            extensions.add(cloneAsMchVisitAction(vitalsPregnancy));
         }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
