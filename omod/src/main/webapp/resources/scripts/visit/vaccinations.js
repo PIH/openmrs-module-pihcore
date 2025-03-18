@@ -152,6 +152,11 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         doses: [ 0, 1, 2, 3, 11, 12 ]
                     },
                     {
+                        label: "pihcore.concept.name." + Concepts.tetanusVaccination.uuid,
+                        concept: Concepts.tetanusVaccination,
+                        doses: [ 1, 2, 3, 11, 12 ]
+                    },
+                    {
                         label: "pihcore.concept.name." + Concepts.hepBVaccination.uuid,
                         concept: Concepts.hepBVaccination,
                         doses: [ 0, 1, 2, 3 ]

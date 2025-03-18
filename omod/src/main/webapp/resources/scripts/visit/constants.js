@@ -257,6 +257,9 @@ angular.module('constants', [])
         diptheriaTetanusVaccination: {
             uuid: "3ccc6b7c-26fe-102b-80cb-0017a47871b2"
         },
+        tetanusVaccination: {
+            uuid: "84879AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         yellowFeverVaccination: {
             uuid: "935e7954-28cb-4c4c-8b3a-d6f3c12e8b4e"
         },
