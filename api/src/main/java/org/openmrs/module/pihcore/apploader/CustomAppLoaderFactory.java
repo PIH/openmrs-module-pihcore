@@ -2896,7 +2896,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 secondColumnIndex++
         ));
 
-        // Viral Load
+        // Pending Viral Load Tests
+        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_PENDING_VIRAL_LOAD_TESTS,
+                "pih.pendingViralLoad.ucase",
+                "fas fa-fw fa-ribbon",
+                null,
+                null,
+                objectNode(
+                        "orderables", CustomAppLoaderConstants.VIRAL_LOAD_PANEL_UUID + ",3cd6b1fe-26fe-102b-80cb-0017a47871b2"
+                )
+                ), "pihcore", "dashboardwidgets/pendingLabOrders", secondColumnIndex++));
+
+        // Viral Load,
         apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VL_GRAPH,
                 "pih.app.hivvlGraph.title",
                 "fas fa-fw fa-chart-bar",
