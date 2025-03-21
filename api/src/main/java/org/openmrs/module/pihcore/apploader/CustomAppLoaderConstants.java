@@ -136,6 +136,7 @@ public class CustomAppLoaderConstants {
         public static final String PATHOLOGY_SUMMARY = "labtrackingapp.labSummary";
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
         public static final String BIOMETRICS_SUMMARY = "registrationapp.biometricsSummary";
+        public static final String BIOMETRICS_WIDGET = "dashboard.biometricsSummary";
 
         public static final String RADIOLOGY_APP = "radiology.app";
         public static final String RADIOLOGY_ORDERS_APP = "radiology.orders.app";
@@ -594,7 +595,8 @@ public class CustomAppLoaderConstants {
             Apps.NOTES_SUMMARY,
             Apps.COVID_LAB_RESULTS,
             Apps.RECENT_LAB_RESULTS,
-            Apps.ALL_LAB_RESULTS
+            Apps.ALL_LAB_RESULTS,
+            Apps.BIOMETRICS_WIDGET
     );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(

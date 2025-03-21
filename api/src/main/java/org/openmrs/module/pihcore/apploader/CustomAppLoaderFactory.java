@@ -2692,10 +2692,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
 
-        int firstColumnIndex = 0;
-        int secondColumnIndex = 0;
-
         // FIRST COLUMN
+        int firstColumnIndex = 0;
 
         // HIV Status
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_ALERTS,
@@ -2849,7 +2847,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget",
-                secondColumnIndex++
+                1
         ));
 
         // Previous Enrollment TODO DO WE WANT TO KEEP THIS, IT ISN'T IN THE DESIGNS
@@ -2869,10 +2867,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "program/programHistory",
-                secondColumnIndex++
+                2
         ));
 
         // TODO: Add ACTIVE MEDICATIONS HERE
+
+        // Start index for order after fingerprints
+        int secondColumnIndex = 3;
 
         // Viral Load History
         apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VIRAL_LOAD_HISTORY,
@@ -3550,6 +3551,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "fas fa-fw fa-fingerprint")),
                 "registrationapp",
                 "summary/biometricsSummary"));
+
+        // Add biometrics widget to the HIV dashboard
+        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.BIOMETRICS_WIDGET,
+                        "registrationapp.biometrics.summary",
+                        "fas fa-fw fa-fingerprint",
+                        null,
+                        null,
+                        objectNode(
+                                "registrationAppId", CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,
+                                "icon", "fas fa-fw fa-fingerprint")),
+                "registrationapp",
+                "summary/biometricsSummary",
+                3
+        ));
     }
 
     private void enablePathologyTracking() {
