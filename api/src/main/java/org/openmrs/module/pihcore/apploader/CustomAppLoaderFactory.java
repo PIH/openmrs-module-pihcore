@@ -2884,7 +2884,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "widget", "obsacrossencounters",
                                 "icon", "fas fa-fw fa-ribbon",
                                 "label", "pih.vlHistory.ucase",
-                                "encounterTypes", CustomAppLoaderConstants.LABORATORY_RESULT_UUID,
+                                "encounterTypes", CustomAppLoaderConstants.LABORATORY_RESULT_UUID + "," + PihEmrConfigConstants.ENCOUNTERTYPE_LAB_SPECIMEN_COLLECTION_UUID,
                                 "concepts",
                                 CustomAppLoaderConstants.VIRAL_LOAD_QUALITATIVE_UUID + "," +
                                         CustomAppLoaderConstants.VIRAL_LOAD_UUID + "," +
