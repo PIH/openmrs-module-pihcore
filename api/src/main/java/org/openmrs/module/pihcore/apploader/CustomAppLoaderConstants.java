@@ -68,6 +68,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_ALERTS = "pih.app.hiv.alerts";
         public static final String HIV_TB_STATUS = "pih.app.hivTb.status";
         public static final String HIV_VIRAL_LOAD_HISTORY = "pih.app.hiv.viralLoadHistory";
+        public static final String HIV_PENDING_VIRAL_LOAD_TESTS = "pih.app.giv.pendingViralLoadTests";
         public static final String HIV_INTAKE_ENCOUNTERS = "pih.app.hiv.encounters.intake";
         public static final String HIV_FOLLOWUP_ENCOUNTERS = "pih.app.hiv.encounters.followup";
         public static final String HIV_DISPENSING_ENCOUNTERS = "pih.app.hiv.dispensing.followup";
@@ -642,6 +643,7 @@ public class CustomAppLoaderConstants {
     public static final String HEIGHT_CONCEPT_UUID = "3ce93cf2-26fe-102b-80cb-0017a47871b2";
     public static final String HEAD_CIRC_CONCEPT_UUID = "3ceb96b4-26fe-102b-80cb-0017a47871b2";
     public static final String LABORATORY_RESULT_UUID = "4d77916a-0620-11e5-a6c0-1697f925ec7b";
+    public static final String VIRAL_LOAD_PANEL_UUID = "d760dcec-f2b3-46c5-a6af-7e83c2165fd1";
     public static final String VIRAL_LOAD_UUID = "3cd4a882-26fe-102b-80cb-0017a47871b2";
     public static final String VIRAL_LOAD_QUALITATIVE_UUID = "1305AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     public static final String VIRAL_LOAD_LLD_UUID = "53cb83ed-5d55-4b63-922f-d6b8fc67a5f8";
