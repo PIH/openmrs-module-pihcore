@@ -2903,7 +2903,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 null,
                 objectNode(
-                        "orderables", CustomAppLoaderConstants.VIRAL_LOAD_PANEL_UUID + ",3cd6b1fe-26fe-102b-80cb-0017a47871b2"
+                        "orderables", CustomAppLoaderConstants.VIRAL_LOAD_PANEL_UUID
                 )
                 ), "pihcore", "dashboardwidgets/pendingLabOrders", secondColumnIndex++));
 
