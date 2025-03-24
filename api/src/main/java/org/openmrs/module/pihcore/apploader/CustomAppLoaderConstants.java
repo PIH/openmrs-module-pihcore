@@ -137,6 +137,7 @@ public class CustomAppLoaderConstants {
         public static final String PATHOLOGY_SUMMARY = "labtrackingapp.labSummary";
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
         public static final String BIOMETRICS_SUMMARY = "registrationapp.biometricsSummary";
+        public static final String BIOMETRICS_WIDGET = "dashboard.biometricsSummary";
 
         public static final String RADIOLOGY_APP = "radiology.app";
         public static final String RADIOLOGY_ORDERS_APP = "radiology.orders.app";
