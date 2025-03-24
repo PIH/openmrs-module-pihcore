@@ -2872,7 +2872,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // TODO: Add ACTIVE MEDICATIONS HERE
 
-        // Start index for order after fingerprints
+        // Start index for order after fingerprint widget (which is added in the Biometrics section)
         int secondColumnIndex = 3;
 
         // Viral Load History

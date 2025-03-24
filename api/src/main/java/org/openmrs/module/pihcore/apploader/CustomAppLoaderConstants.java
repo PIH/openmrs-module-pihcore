@@ -595,8 +595,7 @@ public class CustomAppLoaderConstants {
             Apps.NOTES_SUMMARY,
             Apps.COVID_LAB_RESULTS,
             Apps.RECENT_LAB_RESULTS,
-            Apps.ALL_LAB_RESULTS,
-            Apps.BIOMETRICS_WIDGET
+            Apps.ALL_LAB_RESULTS
     );
 
     public static final List<String> CLINICIAN_DASHBOARD_SECOND_COLUMN_ORDER = Arrays.asList(
