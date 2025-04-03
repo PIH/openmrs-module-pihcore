@@ -2947,6 +2947,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 secondColumnIndex++
         ));
 
+        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_OIS,
+                        "pihcore.ois.caps",
+                        "fas fa-fw fa-exclamation-triangle",
+                        null,
+                        null,
+                        objectNode(
+                                "concept", "PIH:DIAGNOSIS",
+                                "codedValueSet", "PIH:8566",
+                                "codedValueHeader", "pihcore.ois.infection",
+                                "detailsUrl", patientVisitsPageUrl
+                        )),
+                "pihcore", "dashboardwidgets/mostRecentObsWithCodedValue", secondColumnIndex++));
+
         // TODO:  ADD PATIENT PROGRAMS WIDGET HERE
 
         configureBasicProgramSummaryApps(programUuid);

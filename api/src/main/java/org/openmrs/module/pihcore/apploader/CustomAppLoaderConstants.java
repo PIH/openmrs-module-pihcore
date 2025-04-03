@@ -33,6 +33,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_ADVERSE_EFFECT = "pih.app.hiv.adverse.effect";
         public static final String HIV_STATUS_SUMMARY = "pih.app.hiv.status";
 		public static final String HIV_NOTES_SUMMARY = "pih.app.hiv.notes.summary";
+        public static final String HIV_OIS = "pih.app.hiv.ois";
         public static final String VITALS_SUMMARY = "pih.app.vitals.summary";
         public static final String SCHEDULE_APPOINTMENT = "appointmentschedulingui.schedulingAppointmentApp";
         public static final String MY_ACCOUNT = "emr.myAccount";
