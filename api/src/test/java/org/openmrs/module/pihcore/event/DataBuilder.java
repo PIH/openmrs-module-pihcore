@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore.event;
 
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-import org.openmrs.module.dbevent.Database;
+import org.openmrs.module.dbevent.database.Database;
 
 import java.util.Date;
 import java.util.UUID;
