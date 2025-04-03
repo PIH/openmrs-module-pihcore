@@ -772,7 +772,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_PREGNANCY_VISIT_ACTION,
+            Extension vitalsPregnancy = visitAction(CustomAppLoaderConstants.Extensions.VITALS_PREGNANCY_VISIT_ACTION,
                     "pihcore.task.vitalsPregnancy",
                     "fas fa-fw fa-heartbeat",
                     "link",
@@ -782,8 +782,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             and(patientIsFemale(), patientIsAdult()),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
 
+            extensions.add(vitalsPregnancy);
+            extensions.add(cloneAsMchVisitAction(vitalsPregnancy));
         }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
@@ -2690,10 +2692,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
 
-        int firstColumnIndex = 0;
-        int secondColumnIndex = 0;
-
         // FIRST COLUMN
+        int firstColumnIndex = 0;
 
         // HIV Status
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_ALERTS,
@@ -2847,7 +2847,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "dashboardwidgets/dashboardWidget",
-                secondColumnIndex++
+                1
         ));
 
         // Previous Enrollment TODO DO WE WANT TO KEEP THIS, IT ISN'T IN THE DESIGNS
@@ -2867,10 +2867,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "dashboard", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on
                 )),
                 "coreapps", "program/programHistory",
-                secondColumnIndex++
+                2
         ));
 
         // TODO: Add ACTIVE MEDICATIONS HERE
+
+        // Start index for order after fingerprint widget (which is added in the Biometrics section)
+        int secondColumnIndex = 3;
 
         // Viral Load History
         apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VIRAL_LOAD_HISTORY,
@@ -2882,7 +2885,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "widget", "obsacrossencounters",
                                 "icon", "fas fa-fw fa-ribbon",
                                 "label", "pih.vlHistory.ucase",
-                                "encounterTypes", CustomAppLoaderConstants.LABORATORY_RESULT_UUID,
+                                "encounterTypes", CustomAppLoaderConstants.LABORATORY_RESULT_UUID + "," + PihEmrConfigConstants.ENCOUNTERTYPE_LAB_SPECIMEN_COLLECTION_UUID,
                                 "concepts",
                                 CustomAppLoaderConstants.VIRAL_LOAD_QUALITATIVE_UUID + "," +
                                         CustomAppLoaderConstants.VIRAL_LOAD_UUID + "," +
@@ -2894,7 +2897,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 secondColumnIndex++
         ));
 
-        // Viral Load
+        // Pending Viral Load Tests
+        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_PENDING_VIRAL_LOAD_TESTS,
+                "pih.pendingViralLoad.ucase",
+                "fas fa-fw fa-ribbon",
+                null,
+                null,
+                objectNode(
+                        "orderables", CustomAppLoaderConstants.VIRAL_LOAD_PANEL_UUID
+                )
+                ), "pihcore", "dashboardwidgets/pendingLabOrders", secondColumnIndex++));
+
+        // Viral Load,
         apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VL_GRAPH,
                 "pih.app.hivvlGraph.title",
                 "fas fa-fw fa-chart-bar",
@@ -3548,6 +3562,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "fas fa-fw fa-fingerprint")),
                 "registrationapp",
                 "summary/biometricsSummary"));
+
+        // Add biometrics widget to the HIV dashboard
+        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.BIOMETRICS_WIDGET,
+                        "registrationapp.biometrics.summary",
+                        "fas fa-fw fa-fingerprint",
+                        null,
+                        null,
+                        objectNode(
+                                "registrationAppId", CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,
+                                "icon", "fas fa-fw fa-fingerprint")),
+                "registrationapp",
+                "summary/biometricsSummary",
+                3
+        ));
     }
 
     private void enablePathologyTracking() {
