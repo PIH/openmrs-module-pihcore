@@ -231,6 +231,8 @@ public class CustomAppLoaderConstants {
         public static final String EPILEPSY_VISIT_ACTION = "pih.form.epilepsy";
         public static final String EPILEPSY_INTAKE_VISIT_ACTION = "pih.form.epilepsyIntake";
         public static final String VCT_VISIT_ACTION = "pih.form.vct";
+        public static final String PREP_INTAKE_VISIT_ACTION = "pih.form.prepIntake";
+        public static final String PREP_FOLLOWUP_VISIT_ACTION = "pih.form.prepFollowup";
         public static final String SOCIO_ECONOMICS_VISIT_ACTION = "pih.form.socioEconomics";
         public static final String ORDER_XRAY_VISIT_ACTION = "radiologyapp.orderXray";
         public static final String ORDER_CT_VISIT_ACTION = "radiologyapp.orderCT";
@@ -490,6 +492,8 @@ public class CustomAppLoaderConstants {
             Extensions.MENTAL_HEALTH_FOLLOWUP_VISIT_ACTION,
             Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
             Extensions.VCT_VISIT_ACTION,
+            Extensions.PREP_INTAKE_VISIT_ACTION,
+            Extensions.PREP_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ZL_INITIAL_VISIT_ACTION,
             Extensions.HIV_ZL_FOLLOWUP_VISIT_ACTION,
             Extensions.HIV_ZL_DISPENSING_VISIT_ACTION,

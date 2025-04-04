@@ -2484,6 +2484,29 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VCT_UUID))));
     }
 
+    private void enablePrEP() {
+
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_INTAKE_VISIT_ACTION,
+                "pih.task.prepIntake.label",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/prep-intake.xml")),
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
+                and(sessionLocationHasTag("Consult Note Location"),
+                        sessionLocationDoesNotHaveTag("Oncology Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID))));
+
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_FOLLOWUP_VISIT_ACTION,
+                "pih.task.prepFollowup.label",
+                "fas fa-fw fa-ribbon",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("hiv/prep-followup.xml")),
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
+                and(sessionLocationHasTag("Consult Note Location"),
+                        sessionLocationDoesNotHaveTag("Oncology Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID))));
+    }
+
     private void enableSocioEconomics() {
         Extension socioEconomics = visitAction(CustomAppLoaderConstants.Extensions.SOCIO_ECONOMICS_VISIT_ACTION,
                 "pih.task.socioEcon.label",
@@ -3784,6 +3807,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         if (config.isComponentEnabled(Components.PMTCT_PROGRAM)) {
             supportedPrograms.add(PihEmrConfigConstants.PROGRAM_PMTCT_UUID);
             enablePMTCTProgram();
+        }
+
+        if (config.isComponentEnabled(Components.HIV_PREVENTION)) {
+            supportedPrograms.add(PihEmrConfigConstants.PROGRAM_PREP_UUID);
+            enablePrEP();
         }
 
         if (config.isComponentEnabled(Components.EXP_INFANT)) {

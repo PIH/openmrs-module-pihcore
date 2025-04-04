@@ -50,6 +50,7 @@ public class Components {
         public static final String GYNECOLOGY_PROGRAM = "gynecologyProgram";
         public static final String GROWTH_CHART = "growthChart";
         public static final String HIV = "hiv";
+        public static final String HIV_PREVENTION = "prep";
         public static final String HIV_PROGRAM = "hivProgram";
         public static final String HIV_FORMS = "hivForms";
         public static final String HIV_INTAKE_FORM = "hivIntakeForm";
