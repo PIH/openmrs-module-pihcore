@@ -2979,6 +2979,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 "concept", "PIH:DIAGNOSIS",
                                 "codedValueSet", "PIH:8566",
                                 "codedValueHeader", "pihcore.ois.infection",
+                                "maxMonths", "6",
                                 "detailsUrl", patientVisitsPageUrl
                         )),
                 "pihcore", "dashboardwidgets/mostRecentObsWithCodedValue", secondColumnIndex++));

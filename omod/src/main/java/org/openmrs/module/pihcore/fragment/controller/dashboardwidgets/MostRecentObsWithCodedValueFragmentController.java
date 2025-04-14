@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.fragment.controller.dashboardwidgets;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonNode;
 import org.openmrs.Concept;
 import org.openmrs.Obs;
@@ -8,8 +9,8 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.PatientService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.emrapi.diagnosis.ObsGroupDiagnosisService;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
+import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -19,7 +20,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +69,16 @@ public class MostRecentObsWithCodedValueFragmentController {
         model.put("patient", patient);
         model.put("app", app);
 
+        // Get the optional maxMonths parameter
+        Date minObsDate = null;
+        String maxMonthsStr = getConfigValue(app, "maxMonths");
+        if (StringUtils.isNotBlank(maxMonthsStr)) {
+            int maxMonths = Integer.parseInt(maxMonthsStr);
+            Date today = DateUtil.getStartOfDay(new Date());
+            minObsDate = DateUtil.adjustDate(today, maxMonths * -1, Calendar.MONTH);
+        }
+
+
         Map<Concept, Obs> latestObsWithCodedValue = new HashMap<>();
 
         // First get all observations for the configured concept and organize the most recent by coded value
@@ -78,9 +91,11 @@ public class MostRecentObsWithCodedValueFragmentController {
             for (Obs o : obsList) {
                 Concept valueCoded = o.getValueCoded();
                 if (codedValueSet == null || codedValueSet.getSetMembers().contains(valueCoded)) {
-                    Obs latestValue = latestObsWithCodedValue.get(valueCoded);
-                    if (latestValue == null || latestValue.getObsDatetime().before(o.getObsDatetime())) {
-                        latestObsWithCodedValue.put(valueCoded, o);
+                    if (minObsDate == null || !minObsDate.after(o.getObsDatetime())) {
+                        Obs latestValue = latestObsWithCodedValue.get(valueCoded);
+                        if (latestValue == null || latestValue.getObsDatetime().before(o.getObsDatetime())) {
+                            latestObsWithCodedValue.put(valueCoded, o);
+                        }
                     }
                 }
             }
