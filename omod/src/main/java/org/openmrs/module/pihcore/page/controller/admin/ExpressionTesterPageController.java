@@ -4,21 +4,13 @@ import lombok.Data;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.Patient;
-import org.openmrs.api.EncounterService;
-import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.appui.UiSessionContext;
-import org.openmrs.module.coreapps.CoreAppsProperties;
-import org.openmrs.module.coreapps.page.controller.clinicianfacing.PatientPageController;
-import org.openmrs.module.emrapi.EmrApiProperties;
-import org.openmrs.module.emrapi.adt.AdtService;
-import org.openmrs.module.emrapi.event.ApplicationEventService;
-import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
-import org.openmrs.ui.framework.annotation.InjectBeans;
+import org.openmrs.module.coreapps.contextmodel.AppContextModelGenerator;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,14 +36,8 @@ public class ExpressionTesterPageController {
                     @RequestParam(required = false, value = "extension") String extension,
                     @RequestParam(required = false, value = "expressionToTest") String expressionToTest,
                     @RequestParam(required = false, value = "app") AppDescriptor app,
-                    @InjectBeans PatientDomainWrapper patientDomainWrapper,
-                    @SpringBean("adtService") AdtService adtService,
-                    @SpringBean("visitService") VisitService visitService,
-                    @SpringBean("encounterService") EncounterService encounterService,
-                    @SpringBean("emrApiProperties") EmrApiProperties emrApiProperties,
+                    @SpringBean("appContextModelGenerator") AppContextModelGenerator appContextModelGenerator,
                     @SpringBean("appFrameworkService") AppFrameworkService appFrameworkService,
-                    @SpringBean("applicationEventService") ApplicationEventService applicationEventService,
-                    @SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties,
                     UiSessionContext sessionContext) throws IOException {
 
         Context.requirePrivilege(REQUIRED_PRIVILEGE);
@@ -62,28 +48,7 @@ public class ExpressionTesterPageController {
         model.addAttribute("extensionPoint", extensionPoint);
         model.addAttribute("extension", extension);
 
-        AppContextModel contextModel = sessionContext.generateAppContextModel();
-
-        if (patient != null) {
-            patientDomainWrapper.setPatient(patient);
-            PatientPageController patientPageController = new PatientPageController();
-            patientPageController.controller(
-                    patient,
-                    model,
-                    app,
-                    dashboard,
-                    patientDomainWrapper,
-                    adtService,
-                    visitService,
-                    encounterService,
-                    emrApiProperties,
-                    appFrameworkService,
-                    applicationEventService,
-                    coreAppsProperties,
-                    sessionContext
-            );
-            contextModel = (AppContextModel) model.getAttribute("appContextModel");
-        }
+        AppContextModel contextModel = appContextModelGenerator.generateAppContextModel(sessionContext, patient);
 
         List<EvaluationResult> evaluationResults = new ArrayList<>();
         Set<String> extensionPoints = new TreeSet<>();
