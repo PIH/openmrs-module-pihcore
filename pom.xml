@@ -67,7 +67,7 @@
         <emrVersion>2.3.0</emrVersion>
         <emrapiVersion>2.2.0</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
-        <fhir2Version>2.4.0</fhir2Version>
+        <fhir2Version>2.3.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>5.5.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>2.5.0</htmlformentryuiVersion>
@@ -833,8 +833,10 @@
                             <name>attachmentsVersion</name>
                             <version>[2.7.0,3.0.0)</version>
                         </property>
-                        <property>fhir2Version</property>
-                        <version>[2.3.0]</version>
+                        <property>
+                            <name>fhir2Version</name>
+                            <version>[2.3.0]</version>
+                        </property>
                     </properties>
                 </configuration>
             </plugin>
