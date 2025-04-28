@@ -213,7 +213,7 @@ public class PregnancyIndicatorsFragmentController {
                     Calendar calendar = Calendar.getInstance();
                     // we set the calendar to the date when the gestational age was recorded
                     calendar.setTime(obsDatetime);
-                    // we add the remaining of weeks to due date
+                    // we add the remaining number of weeks to due date
                     calendar.add(Calendar.WEEK_OF_YEAR, 40 - gaWeeks);
                     dueDate = calendar.getTime();
                 }
