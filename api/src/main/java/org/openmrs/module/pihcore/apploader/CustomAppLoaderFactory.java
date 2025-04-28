@@ -3684,7 +3684,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.viewLabs.overallAction.label",
                 "fas fa-fw fa-stream",
                 "link",
-                "owa/labworkflow/index.html?patient={{patient.uuid}}#/LabResults",
+                "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=" +  "/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
                   PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_LABS,
                 null));
 
