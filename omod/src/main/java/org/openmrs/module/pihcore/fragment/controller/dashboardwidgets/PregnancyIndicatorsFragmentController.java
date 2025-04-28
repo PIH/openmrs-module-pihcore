@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -66,14 +67,28 @@ public class PregnancyIndicatorsFragmentController {
         ));
         Concept question = conceptService.getConceptByUuid(SierraLeoneConfigConstants.CONCEPT_ESTIMATEDDUEDATE_UUID);
         List<Obs> obsWithinProgram = null;
+        Date dueDate= null;
         if ( question != null ) {
             obsWithinProgram = PihCoreUtils.getObsWithinProgram(patient, new HashSet<>(Arrays.asList(question)), null, programUuid);
+            if ( obsWithinProgram == null || obsWithinProgram.size() < 1) {
+                // if there are no ESTIMATED_DUE_DATE obs then look for
+                // GESTATIONAL_AGE_IN_WEEKS obs
+                question = conceptService.getConceptByUuid(SierraLeoneConfigConstants.CONCEPT_GESTATIONALAGEINWEEKS_UUID);
+                if ( question != null ) {
+                    obsWithinProgram = PihCoreUtils.getObsWithinProgram(patient, new HashSet<>(Arrays.asList(question)), null, programUuid);
+                    if (obsWithinProgram != null && obsWithinProgram.size() > 0 ) {
+                        dueDate = calculateDueDate(obsWithinProgram.get(0));
+                    }
+                }
+            } else {
+                dueDate = obsWithinProgram.get(0).getValueDatetime();
+            }
         }
 
         fields.put("dueDate", SimpleObject.create(
                 "label", "pihcore.delivery.dueDate",
                 "css", "red",
-                "obs", (obsWithinProgram!=null && obsWithinProgram.size() > 0 ) ? obsWithinProgram.get(0) : ""
+                "obs", (dueDate !=null ) ? dueDate : ""
         ));
 
         question = conceptService.getConceptByUuid(SierraLeoneConfigConstants.CONCEPT_PREGNANCYRISKFACTORS_UUID);
@@ -180,5 +195,30 @@ public class PregnancyIndicatorsFragmentController {
         ));
 
         model.put("fields", fields);
+    }
+
+    /**
+     * Calculate dueDate based on the recorded Gestational Age
+     * @param obs that represents the gestational age
+     * @return
+     */
+    private Date calculateDueDate(Obs obs) {
+        Date dueDate = null;
+        if (obs != null ) {
+            Double gestationalAge = obs.getValueNumeric();
+            if ( gestationalAge != null ){
+                int gaWeeks = gestationalAge.intValue();
+                if (gaWeeks > 0 && gaWeeks <= 40) {
+                    Date obsDatetime = obs.getObsDatetime();
+                    Calendar calendar = Calendar.getInstance();
+                    // we set the calendar to the date when the gestational age was recorded
+                    calendar.setTime(obsDatetime);
+                    // we add the remaining number of weeks to due date
+                    calendar.add(Calendar.WEEK_OF_YEAR, 40 - gaWeeks);
+                    dueDate = calendar.getTime();
+                }
+            }
+        }
+        return dueDate;
     }
 }
