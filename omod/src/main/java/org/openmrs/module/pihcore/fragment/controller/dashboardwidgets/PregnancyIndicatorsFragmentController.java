@@ -23,6 +23,8 @@ import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -215,6 +217,10 @@ public class PregnancyIndicatorsFragmentController {
                     calendar.setTime(obsDatetime);
                     // we add the remaining number of weeks to due date
                     calendar.add(Calendar.WEEK_OF_YEAR, 40 - gaWeeks);
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 0);
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
                     dueDate = calendar.getTime();
                 }
             }
