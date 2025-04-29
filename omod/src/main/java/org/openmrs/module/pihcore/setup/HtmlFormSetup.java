@@ -34,16 +34,13 @@ public class HtmlFormSetup {
     public static void loadHtmlForms(Boolean testingContext) {
 
         try {
-            ResourceFactory resourceFactory = ResourceFactory.getInstance();
-            FormService formService = Context.getFormService();
             HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
-
             File htmlformDir = new File(PihCoreUtil.getFormDirectory());
             Collection<File> files = FileUtils.listFiles(htmlformDir, null, true);
-
             for (File file : files) {
                 try {
-                    HtmlForm form = HtmlFormUtil.getHtmlFormFromUiResource(resourceFactory, formService, htmlFormEntryService, "file:" + file.getAbsolutePath());
+                    String xmlData = FileUtils.readFileToString(file, "UTF-8");
+                    HtmlForm form = htmlFormEntryService.saveHtmlFormFromXml(xmlData);
                     // If the form is not already configured and saved as published, do so here
                     if (BooleanUtils.isNotTrue(form.getForm().getPublished())) {
                         form.getForm().setPublished(true);
