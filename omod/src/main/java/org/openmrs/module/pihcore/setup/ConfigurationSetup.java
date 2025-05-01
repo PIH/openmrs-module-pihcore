@@ -9,6 +9,7 @@ import org.openmrs.Person;
 import org.openmrs.PersonName;
 import org.openmrs.Privilege;
 import org.openmrs.Provider;
+import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
@@ -342,7 +343,13 @@ public class ConfigurationSetup {
             }
 
             user.addRole(Context.getUserService().getRole("Authenticated"));
-            user.addRole(Context.getUserService().getRole("Privilege Level: Full"));
+            user.addRole(Context.getUserService().getRole("Privilege Level: High"));
+
+            // remove the legacy "Full" role which we are no long setting for users
+            if (user.hasRole("Privilege Level: Full")) {
+                user.removeRole(Context.getUserService().getRole("Privilege Level: Full"));
+            }
+
             if (user.getId() == null ) {
                 // create a new record
                 user = Context.getUserService().createUser(user, commCareUserPassword);
