@@ -94,10 +94,8 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
 
         patient.setBirthdate(new Date());
         patient.setGender("M");
-        Map<String, Object> otherDataPoints = new HashMap<>();
-        otherDataPoints.put("birthdateYears", new Integer(52));
 
-        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, otherDataPoints, null, 10);
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, null, 10);
 
         assertThat(results.size(), is(1));
         assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("Jarus"));
