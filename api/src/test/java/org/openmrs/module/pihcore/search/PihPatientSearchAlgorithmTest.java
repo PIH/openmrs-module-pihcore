@@ -17,9 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.Map;
+import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -55,6 +58,29 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
 
     }
 
+    @Test
+    public void shouldFindNameMatchWithoutBirthdate() {
+
+        Patient patient = new Patient();
+
+        PersonName name = new PersonName();
+        patient.addName(name);
+        name.setGivenName("Ion");
+        name.setFamilyName("Popa");
+
+        patient.setBirthdate(new Date());
+        patient.setGender("M");
+        Map<String, Object> otherDataPoints = new HashMap<>();
+        otherDataPoints.put("birthdateYears", new Integer(52));
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, otherDataPoints, null, 10);
+
+        //one of the two patient matches has no birthdate
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("Ion"));
+        assertThat(results.get(0).getPatient().getPersonName().getFamilyName(), is("Popa"));
+        assertThat(results.get(0).getPatient().getBirthdate(), nullValue());
+    }
     @Test
     public void shouldFindNamePhoneticsMatch() {
 

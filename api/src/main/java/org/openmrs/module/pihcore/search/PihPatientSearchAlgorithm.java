@@ -168,7 +168,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                     patientEstimatedAge = 0;
                 }
 
-                if (patientEstimatedAge != null) {
+                if (patientEstimatedAge != null && match.getAge() != null) {
                     int yearsBetween = Math.abs(patientEstimatedAge - match.getAge());
                     if (yearsBetween < 5) {
                         score += (6 - yearsBetween);
