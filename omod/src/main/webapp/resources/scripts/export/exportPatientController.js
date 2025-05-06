@@ -90,7 +90,7 @@ angular.module('exportPatientApp', ['ngDialog'])
                         obs.valueModifier = inputObs.valueModifier;
                         obs.valueCodedName = inputObs.valueCodedName;
                         obs.voided = inputObs.voided;
-                        if (inputObs.value) {
+                        if (inputObs.value != null) {
                                 if (inputObs.value.uuid) {
                                         var tempValue= {};
                                         tempValue.uuid = inputObs.value.uuid;
