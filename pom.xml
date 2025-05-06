@@ -101,7 +101,7 @@
         <uicommonsVersion>2.26.0</uicommonsVersion>
         <uiframeworkVersion>3.25.0</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
-        <webservicesRestVersion>2.49.0-SNAPSHOT</webservicesRestVersion>
+        <webservicesRestVersion>2.50.0-SNAPSHOT</webservicesRestVersion>
 
         <lombokVersion>1.18.38</lombokVersion>
         <testcontainersVersion>1.21.0</testcontainersVersion>
