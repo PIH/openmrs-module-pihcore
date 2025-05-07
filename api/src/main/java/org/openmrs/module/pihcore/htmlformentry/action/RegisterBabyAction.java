@@ -126,11 +126,11 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         Patient baby = new Patient();
         PersonName babyName = new PersonName();
         babyName.setFamilyName(mother.getFamilyName());
-        // name babies after the first one as "Baby 2", "Baby 3", etc...
+        // name babies after the first one as "Infant 2", "Infant 3", etc...
         if(babyNumber == 0) {
-            babyName.setGivenName("Baby");
+            babyName.setGivenName("Infant");
         } else {
-            babyName.setGivenName("Baby " + (babyNumber + 1));
+            babyName.setGivenName("Infant " + (babyNumber + 1));
         }
         baby.addName(babyName);
         String babyGender = "M";
@@ -171,10 +171,23 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         }
         try {
             baby = Context.getService(RegistrationCoreService.class).registerPatient(registrationData);
+            createRegisterEncounter(baby, birthDatetime, location);
         } catch (Exception ex) {
             throw new RuntimeException("Failed to register baby", ex);
         }
         return baby;
+    }
+
+    Encounter createRegisterEncounter(Patient patient, Date registrationDate, Location location) {
+
+        EncounterService encounterService = Context.getEncounterService();
+        Encounter registrationEncounter = new Encounter();
+        registrationEncounter.setPatient(patient);
+        registrationEncounter.setEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID));
+        registrationEncounter.setLocation(location);
+        registrationEncounter.setEncounterDatetime(registrationDate);
+        encounterService.saveEncounter(registrationEncounter);
+        return registrationEncounter;
     }
 
     Visit createVisit(Patient baby, Date startDatetime, Encounter motherEncounter) {
