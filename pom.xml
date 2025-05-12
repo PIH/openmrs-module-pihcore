@@ -66,7 +66,7 @@
         <edtriageappVersion>2.0.0</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
         <emrapiVersion>2.3.0</emrapiVersion>
-        <eventVersion>3.0.0</eventVersion>
+        <eventVersion>2.10.0</eventVersion>
         <fhir2Version>2.5.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>5.5.0-SNAPSHOT</htmlformentryVersion>
@@ -839,6 +839,10 @@
                         <property>
                             <name>attachmentsVersion</name>
                             <version>[2.7.0,3.0.0)</version>
+                        </property>
+                        <property>
+                            <name>eventVersion</name>
+                            <version>[2.10.0,3.0.0)</version>
                         </property>
                     </properties>
                 </configuration>
