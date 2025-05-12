@@ -10,7 +10,7 @@
         { label: "${ ui.message("pih.app.admin.rolesandprivileges.view") }", link: "${ ui.pageLink("pihcore", "admin/rolesAndPrivileges") }" }
     ];
 
-    jq(function() {
+    jq(document).ready(function() {
         jq('#rolesList li > ul').hide(); // Hide all sub-lists initially
         jq('#rolesList li').click(function(event) {
             event.stopPropagation();
@@ -23,14 +23,14 @@
 <fieldset>
     <div>
         <p>
-            <strong>${ ui.message("emr.user.Capabilities") }</strong>
+            <strong>${ ui.message("emr.user.Capabilities") }</strong> (${ ui.message("emr.user.view.Privileges") })
         </p>
         <ol id="rolesList" style="padding-left:20px;">
-            <% capabilities.sort { ui.format(it).toLowerCase() }.each{ %>
-                <li>${ ui.format(it) }
-                    <ul style="padding-left:20px; list-style-type: disc;>
-                        <% it.privileges.sort { ui.format(it).toLowerCase() }.each{ %>
-                            <li>${ ui.format(it) }</li>
+            <% capabilities.sort { ui.format(it).toLowerCase() }.each { %>
+            <li style="cursor: pointer; "><u>${ ui.format(it) }</u>
+                    <ul style="padding-left:20px; list-style-type: disc;">
+                        <% it.privileges.sort { ui.format(it).toLowerCase() }.each { %>
+                            <li style="cursor: default; ">${ ui.format(it) }</li>
                         <% } %>
                     </ul>
                 </li>
