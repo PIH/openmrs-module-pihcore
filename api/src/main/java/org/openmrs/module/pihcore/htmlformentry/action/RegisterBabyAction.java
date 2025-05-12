@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterProvider;
+import org.openmrs.EncounterRole;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
@@ -12,8 +13,10 @@ import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
+import org.openmrs.Provider;
 import org.openmrs.Relationship;
 import org.openmrs.RelationshipType;
+import org.openmrs.User;
 import org.openmrs.Visit;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
@@ -31,6 +34,7 @@ import org.openmrs.module.registrationcore.RegistrationData;
 import org.openmrs.module.registrationcore.api.RegistrationCoreService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -186,6 +190,14 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         registrationEncounter.setEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID));
         registrationEncounter.setLocation(location);
         registrationEncounter.setEncounterDatetime(registrationDate);
+        EncounterRole encounterRole = encounterService.getEncounterRoleByUuid(PihEmrConfigConstants.ENCOUNTERROLE_ADMINISTRATIVECLERK_UUID);
+        if ( encounterRole != null ) {
+            User user = Context.getAuthenticatedUser();
+            Collection<Provider> providersByPerson = Context.getProviderService().getProvidersByPerson(user.getPerson());
+            if (providersByPerson != null && !providersByPerson.isEmpty()) {
+                registrationEncounter.addProvider(encounterRole, providersByPerson.iterator().next());
+            }
+        }
         encounterService.saveEncounter(registrationEncounter);
         return registrationEncounter;
     }
