@@ -136,7 +136,7 @@ public class ConfigureHaitiIdGenerators {
 
         autoGenerationOption.setIdentifierType(identifierSource.getIdentifierType());
         autoGenerationOption.setSource(identifierSource);
-        autoGenerationOption.setManualEntryEnabled(false);
+        autoGenerationOption.setManualEntryEnabled(true);
         autoGenerationOption.setAutomaticGenerationEnabled(true);
 
         identifierSourceService.saveAutoGenerationOption(autoGenerationOption);
