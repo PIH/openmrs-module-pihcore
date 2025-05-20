@@ -91,9 +91,9 @@
         <radiologyappVersion>1.7.0</radiologyappVersion>
         <registrationappVersion>1.27.0</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
-        <reportingVersion>1.27.0</reportingVersion>
+        <reportingVersion>1.28.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>1.15.0</reportingrestVersion>
-        <reportinguiVersion>1.13.0</reportinguiVersion>
+        <reportinguiVersion>1.14.0-SNAPSHOT</reportinguiVersion>
         <serializationxstreamVersion>0.2.16</serializationxstreamVersion>
         <spaVersion>2.1.0-SNAPSHOT</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
