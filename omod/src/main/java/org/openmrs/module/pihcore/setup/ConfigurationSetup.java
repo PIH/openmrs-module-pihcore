@@ -141,6 +141,7 @@ public class ConfigurationSetup {
         UserSetup.registerUsers();
         removeOldPrivileges(); // TODO: This can likely be removed altogether at this point, or moved to liquibase
         ReportSetup.cleanupOldReports(); // TODO: could move this to liquibase or to a fixed scheduled task
+        AppFrameworkExpressionFunctionsSetup.loadExpressionFunctions();
         initializerMessageSource.addFallbackLanguage("ht", "fr");
      }
 

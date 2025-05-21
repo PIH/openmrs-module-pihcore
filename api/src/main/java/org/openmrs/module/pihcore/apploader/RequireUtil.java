@@ -52,11 +52,8 @@ public class RequireUtil {
                 "' } )))");
     }
 
-    public static String patientIsNotEnrolledInProgramOfUuid(String programUuid) {
-        return new String("typeof activePrograms == 'undefined' || !activePrograms || (" +
-                "!some(activePrograms, (function(program) { " +
-                "  return program.programUuid === '" + programUuid +
-                "' } )))");
+    public static String patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment(String encounterTypeUuid, String programUuid) {
+        return new String("!patientHasEncounterOfTypeDuringProgramEnrollment('" +  encounterTypeUuid + "','" + programUuid + "'" +")");
     }
 
     public static String patientHasPreviousEncounter(String encounterTypeUuid) {
