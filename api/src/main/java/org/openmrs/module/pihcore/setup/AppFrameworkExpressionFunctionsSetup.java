@@ -19,7 +19,6 @@ public class AppFrameworkExpressionFunctionsSetup {
     public static void loadExpressionFunctions() {
 
         AppFrameworkService appFrameworkService = Context.getService(AppFrameworkService.class);
-        //appFrameworkService.addRequireExpressionScript("", "");
 
         File configDir = OpenmrsUtil.getDirectoryInApplicationDataDirectory("configuration");
         File appFrameworkDir = new File(configDir, "appframework");
