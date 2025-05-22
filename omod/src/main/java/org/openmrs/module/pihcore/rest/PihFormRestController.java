@@ -4,9 +4,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
+import org.openmrs.Visit;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.ProviderService;
+import org.openmrs.api.VisitService;
 import org.openmrs.module.appframework.context.AppContextModel;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.service.AppFrameworkService;
@@ -54,6 +56,9 @@ public class PihFormRestController {
     PatientService patientService;
 
     @Autowired
+    VisitService visitService;
+
+    @Autowired
     HtmlFormEntryService htmlFormEntryService;
 
     @Autowired
@@ -75,12 +80,17 @@ public class PihFormRestController {
 
         Patient patient = patientService.getPatientByUuid(requestContext.getParameter("patientUuid"));
         if (patient != null) {
-            UiSessionContext uiSessionContext = new UiSessionContext(locationService, providerService, request);
+            Visit visit = null;
+            String visitUuid = requestContext.getParameter("visitUuid");
+            if (StringUtils.isNotBlank(visitUuid)) {
+                visit = visitService.getVisitByUuid(visitUuid);
+            }
+            UiSessionContext ctx = new UiSessionContext(locationService, providerService, request);
             String extensionPoint = request.getParameter("extensionPoint");
             if (StringUtils.isBlank(extensionPoint)) {
                 extensionPoint = "patientDashboard.visitActions";
             }
-            AppContextModel contextModel = appContextModelGenerator.generateAppContextModel(uiSessionContext, patient);
+            AppContextModel contextModel = appContextModelGenerator.generateAppContextModel(ctx, patient, visit);
             List<Extension> extensions = appFrameworkService.getExtensionsForCurrentUser(extensionPoint, contextModel);
             Collections.sort(extensions);
 
