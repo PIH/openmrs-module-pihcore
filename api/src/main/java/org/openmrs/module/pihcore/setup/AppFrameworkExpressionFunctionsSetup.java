@@ -1,8 +1,6 @@
 package org.openmrs.module.pihcore.setup;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.util.OpenmrsUtil;
@@ -13,8 +11,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class AppFrameworkExpressionFunctionsSetup {
-
-    protected static Log log = LogFactory.getLog(AppFrameworkExpressionFunctionsSetup.class);
 
     public static void loadExpressionFunctions() {
 
@@ -33,7 +29,7 @@ public class AppFrameworkExpressionFunctionsSetup {
                             String value = IOUtils.toString(Objects.requireNonNull(fileInputStream), "UTF-8");
                             appFrameworkService.addRequireExpressionScript(functionName.substring(0, functionName.indexOf(".")), value);
                         } catch (IOException e) {
-                            log.error("Failed to read appframework require expression: " + functionName + " from " + scriptsDir.getAbsolutePath(), e);
+                            throw new RuntimeException("Failed to read appframework require expression: " + functionName + " from " + scriptsDir.getAbsolutePath(), e);
                         }
                     }
                 }
