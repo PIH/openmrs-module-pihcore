@@ -53,7 +53,7 @@ public class RequireUtil {
     }
 
     public static String patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment(String encounterTypeUuid, String programUuid) {
-        return new String("!patientHasEncounterOfTypeDuringProgramEnrollment('" +  encounterTypeUuid + "','" + programUuid + "'" +")");
+        return new String("!patientHasEncounterOfTypeDuringProgramEnrollment(activePrograms, '" +  encounterTypeUuid + "','" + programUuid + "'" +")");
     }
 
     public static String patientHasPreviousEncounter(String encounterTypeUuid) {

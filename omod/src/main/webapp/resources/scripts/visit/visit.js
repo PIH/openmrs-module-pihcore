@@ -817,7 +817,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
 
                         if ($scope.suppressActions !== true) {
-                          CoreappsService.getUserExtensionsFor("patientDashboard.visitActions", $scope.patientUuid).then(function (ext) {
+                          CoreappsService.getUserExtensionsFor("patientDashboard.visitActions", $scope.patientUuid, $scope.visit.uuid).then(function (ext) {
                               $scope.visitActions = ext;
                           });
                         }

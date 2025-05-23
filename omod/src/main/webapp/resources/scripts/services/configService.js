@@ -29,13 +29,15 @@ angular.module('configService', ['ngResource'])
     .factory('CoreappsService', [ "ExtensionResource", function(ExtensionResource, AppResource) {
         return {
             // returns a promise
-            getUserExtensionsFor: function(extensionPoint, patient) {
+            getUserExtensionsFor: function(extensionPoint, patient, visit) {
                 // TODO handle multiple pages
                 var extensionPointId = extensionPoint.uuid || extensionPoint;
                 var patientUuid = patient.uuid || patient;
+                var visitUuid = visit.uuid || visit;
                 return ExtensionResource.query({
                     extensionPoint: extensionPointId,
-                    patient: patientUuid
+                    patient: patientUuid,
+                    visit: visitUuid
                 }).$promise.then(function(response) {
                     return response.extensions;
                 });
