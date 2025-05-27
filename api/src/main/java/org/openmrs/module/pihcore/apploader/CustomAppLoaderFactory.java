@@ -108,6 +108,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasPreviou
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdult;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsChild;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsReproductiveAge;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientNotDead;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
@@ -2163,6 +2164,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
+                            patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID, PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID),
                             and(patientIsFemale(), patientIsAdult())));
             extensions.add(ancIntake);
             extensions.add(cloneAsPregnancyVisitAction(ancIntake));

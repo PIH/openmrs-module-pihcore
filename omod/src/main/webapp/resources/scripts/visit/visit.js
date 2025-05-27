@@ -582,10 +582,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
     }])
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
-        "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "AppFrameworkService", "QueueEntry",
+        "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "CoreappsService", "AppFrameworkService", "QueueEntry",
         "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "nextSection", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "OrderTypes", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
-                 ngDialog, Encounter, EncounterTypeConfig, AppFrameworkService, QueueEntry, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
+                 ngDialog, Encounter, EncounterTypeConfig, CoreappsService, AppFrameworkService, QueueEntry, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
                  locale, currentSection, goToNext, nextSection, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, OrderTypes, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
@@ -817,8 +817,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         $scope.encounterDateFormat = sameDate($scope.visit.startDatetime, $scope.visit.stopDatetime) ? "hh:mm a" : "hh:mm a (d-MMM)";
 
                         if ($scope.suppressActions !== true) {
-                          AppFrameworkService.getUserExtensionsFor("patientDashboard.visitActions").then(function (ext) {
-                            $scope.visitActions = ext;
+                          CoreappsService.getUserExtensionsFor("patientDashboard.visitActions", $scope.patientUuid, $scope.visit.uuid).then(function (ext) {
+                              $scope.visitActions = ext;
                           });
                         }
                     });

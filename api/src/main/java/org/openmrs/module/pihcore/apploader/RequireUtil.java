@@ -52,6 +52,10 @@ public class RequireUtil {
                 "' } )))");
     }
 
+    public static String patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment(String encounterTypeUuid, String programUuid) {
+        return new String("!patientHasEncounterOfTypeDuringProgramEnrollmentThatIsActiveOnVisitDate(patientPrograms, '" +  programUuid + "', encounters, '" + encounterTypeUuid + "', visit" +")");
+    }
+
     public static String patientHasPreviousEncounter(String encounterTypeUuid) {
         return "encounters && some(encounters, function(e) { return e.encounterTypeUuid === '" + encounterTypeUuid + "'; })";
     }
