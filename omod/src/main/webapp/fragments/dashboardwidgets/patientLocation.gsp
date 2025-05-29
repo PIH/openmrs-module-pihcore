@@ -10,7 +10,7 @@
                     <span class="patient-dashboard-widget-label">${ ui.message("pihcore.current.location") }:</span>
                     <span class="patient-dashboard-widget-value">
                         <% if (inpatientLocation.id == sessionContext.sessionLocationId) { %>
-                            <a href="/${contextPath}/spa/home/ward">${ui.format(inpatientLocation)}</a>
+                            <a href="/${contextPath}/spa/ward">${ui.format(inpatientLocation)}</a>
                         <% } else { %>
                             ${ui.format(inpatientLocation)}
                         <% } %>
