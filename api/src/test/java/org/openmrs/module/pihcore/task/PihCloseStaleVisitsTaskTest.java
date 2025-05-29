@@ -42,6 +42,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
 
@@ -402,6 +404,9 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
+        Config config = mock(Config.class);
+        when(config.isHaiti()).thenReturn(true);
+        task.setConfig(config);
         task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
@@ -456,6 +461,9 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
+        Config config = mock(Config.class);
+        when(config.isHaiti()).thenReturn(true);
+        task.setConfig(config);
         task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
@@ -510,6 +518,9 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
+        Config config = mock(Config.class);
+        when(config.isHaiti()).thenReturn(true);
+        task.setConfig(config);
         task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
@@ -583,6 +594,9 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
+        Config config = mock(Config.class);
+        when(config.isHaiti()).thenReturn(true);
+        task.setConfig(config);
         task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
@@ -659,6 +673,56 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
+        Config config = mock(Config.class);
+        when(config.isHaiti()).thenReturn(true);
+        task.setConfig(config);
+        task.run();
+
+        activeVisit = adtService.getActiveVisit(patient, location);
+        assertNull(activeVisit);
+    }
+
+    @Test
+    public void test_ED_SierraLeone_shouldNotKeepVisitOpenIfItHasEDTriageEncounter() throws Exception {
+
+        DispositionDescriptor descriptor=  ContextSensitiveMetadataTestUtils.setupDispositionDescriptor(conceptService, dispositionService);
+        ContextSensitiveMetadataTestUtils.setupAdmissionDecisionConcept(conceptService, emrApiProperties);
+        ContextSensitiveMetadataTestUtils.setupSupportsVisitLocationTag(locationService);
+
+        List<Disposition> dispositions = dispositionService.getDispositions();
+
+        Patient patient = patientService.getPatient(7);    // patient already has one visit in test dataset
+
+        // need to tag the unknown location so we don't run into an error when testing against the existing visits in the test dataset
+        Location unknownLocation = locationService.getLocation(1);
+        unknownLocation.addTag(emrApiProperties.getSupportsVisitsLocationTag());
+        locationService.saveLocation(unknownLocation);
+
+        Location location = locationService.getLocation(2);
+        location.addTag(emrApiProperties.getSupportsVisitsLocationTag());
+        locationService.saveLocation(location);
+
+        Visit visit = new Visit();
+        visit.setDateCreated(DateUtils.addHours(new Date(), -24));
+        visit.setStartDatetime(DateUtils.addDays(new Date(), -1));  // visit started 1 day ago
+        visit.setPatient(patient);
+        visit.setLocation(location);
+        visit.setVisitType(emrApiProperties.getAtFacilityVisitType());
+
+        // create ED Triage encounter
+        Encounter edTriage = new Encounter();
+        edTriage.setPatient(patient);
+        edTriage.setEncounterType(encounterService.getEncounterTypeByUuid(ED_TRIAGE_ENCOUNTER_TYPE_UUID));
+        edTriage.setEncounterDatetime(visit.getStartDatetime());
+        encounterService.saveEncounter(edTriage);
+        visit.addEncounter(edTriage);
+        visitService.saveVisit(visit);
+
+        VisitDomainWrapper activeVisit = adtService.getActiveVisit(patient, location);
+
+        // sanity check
+        assertNotNull(activeVisit);
+        
         task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
@@ -730,6 +794,9 @@ public class PihCloseStaleVisitsTaskTest extends PihCoreContextSensitiveTest {
         // sanity check
         assertNotNull(activeVisit);
 
+        Config config = mock(Config.class);
+        when(config.isHaiti()).thenReturn(true);
+        task.setConfig(config);
         task.run();
 
         activeVisit = adtService.getActiveVisit(patient, location);
