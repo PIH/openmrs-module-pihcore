@@ -18,6 +18,7 @@ import org.openmrs.module.emrapi.disposition.Disposition;
 import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.emrapi.visit.VisitDomainWrapper;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.queue.api.QueueEntryService;
 import org.openmrs.module.queue.api.search.QueueEntrySearchCriteria;
 import org.openmrs.module.queue.model.QueueEntry;
@@ -36,6 +37,7 @@ import java.util.List;
 public class PihCloseStaleVisitsTask implements Runnable {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
+    private Config config;
 
     private static int REGULAR_VISIT_EXPIRE_TIME_IN_HOURS = 12;
     private static int ED_VISIT_EXPIRE_TIME_IN_HOURS = 168; // 7days -- All ED visits stay open for at least 7 days
@@ -61,6 +63,9 @@ public class PihCloseStaleVisitsTask implements Runnable {
             log.info("Executing " + getClass());
             StopWatch sw = new StopWatch();
             sw.start();
+            if (config == null) {
+                config = Context.getRegisteredComponent("config", Config.class);
+            }
 
             AdtService adtService = Context.getService(AdtService.class);
             VisitService visitService = Context.getVisitService();
@@ -99,23 +104,9 @@ public class PihCloseStaleVisitsTask implements Runnable {
                     closeVisit = false;
                 }
                 // otherwise, branch based on whether this is a "regular" visits, or a "ED Visit", with our special logic
-                else if (!isEDVisit(wrappedVisit)) {
-                    // "normal" visits:
-                    // if the disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") keep the visit open
-                    if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen()) {
-                        closeVisit = false;
-                    }
-                    // otherwise, close the visit if there are no encounter, or no encounters in the last 12 hours, and the visit hasn't been updated in the last 12 hours
-                    else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
-                        closeVisit = true;
-                    }
-                    // otherwise, don't close
-                    else {
-                        closeVisit = false;
-                    }
-                } else {
-                    // special logic for ED visits:
-                    // if the most recent disposition is "discharge" and there are no encouters in the last 12 hours, and visit hasn't been updated in the last 12 hours, close
+                else if (isEDVisit(wrappedVisit) && (config != null) && config.isHaiti()) {
+                    // special logic for Haiti ED visits:
+                    // if the most recent disposition is "discharge" and there are no encounters in the last 12 hours, and visit hasn't been updated in the last 12 hours, close
                     if (mostRecentDisposition != null && mostRecentDisposition.getType() != null && mostRecentDisposition.getType().equals(DispositionType.DISCHARGE) &&
                             (hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
                         closeVisit = true;
@@ -127,6 +118,20 @@ public class PihCloseStaleVisitsTask implements Runnable {
                     }
                     // otherwise,(regardless of any "keeps visit open" disposition) if there are no encounters in the last 30 days, and visit hasn't been updated in the last 12 hours, close
                     else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > ED_VISIT_EXPIRE_VERY_OLD_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
+                        closeVisit = true;
+                    }
+                    // otherwise, don't close
+                    else {
+                        closeVisit = false;
+                    }
+                } else {
+                    // "normal" visits:
+                    // if the disposition is one that "keeps a visit open" ("ED Observation" and "Still hospitalized") keep the visit open
+                    if (mostRecentDisposition != null && mostRecentDisposition.getKeepsVisitOpen() != null && mostRecentDisposition.getKeepsVisitOpen()) {
+                        closeVisit = false;
+                    }
+                    // otherwise, close the visit if there are no encounter, or no encounters in the last 12 hours, and the visit hasn't been updated in the last 12 hours
+                    else if ((hoursSinceLastEncounter == null || hoursSinceLastEncounter > REGULAR_VISIT_EXPIRE_TIME_IN_HOURS) && !changedOrUpdatedRecently) {
                         closeVisit = true;
                     }
                     // otherwise, don't close
@@ -222,6 +227,10 @@ public class PihCloseStaleVisitsTask implements Runnable {
         else {
             return true;
         }
+    }
+    // to allow mocking in tests
+    public void setConfig(Config config) {
+        this.config = config;
     }
 
 }
