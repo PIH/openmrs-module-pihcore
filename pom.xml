@@ -86,7 +86,7 @@
         <pacsintegrationVersion>1.12.0</pacsintegrationVersion>
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <printerVersion>1.6.0-SNAPSHOT</printerVersion>
-        <providermanagementVersion>2.15.0</providermanagementVersion>
+        <providermanagementVersion>2.16.0</providermanagementVersion>
         <queueVersion>2.6.0</queueVersion>
         <radiologyappVersion>1.7.0</radiologyappVersion>
         <registrationappVersion>1.27.0</registrationappVersion>
