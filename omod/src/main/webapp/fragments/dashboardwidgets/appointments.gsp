@@ -2,7 +2,7 @@
     <div class="info-header">
         <i class="${app.icon}"></i>
         <h3>${ ui.message(app.label).toUpperCase() }</h3>
-        <a href="${ "/" + contextPath + "/spa/appointments/patient/" +   patientUuid }" class="right">
+        <a href="${ "/" + contextPath + "/spa/home/appointments/patient/" +   patientUuid }" class="right">
             <i class="icon-share-alt edit-action" title="Edit"></i>
         </a>
     </div>
