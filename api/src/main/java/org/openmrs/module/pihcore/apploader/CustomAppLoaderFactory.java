@@ -610,7 +610,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,
                             CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,
                             "fas fa-fw fa-list-ul",
-                            "spa/service-queues/queue-table-by-status/" + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID,
+                            "spa/home/service-queues/queue-table-by-status/" + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID,
                             "",  // TODO: figure out proper privilege
                             null),
                     sessionLocationHasTag("Queue Location")));
@@ -926,7 +926,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.INPATIENT_WARD,
                         CustomAppLoaderConstants.Apps.INPATIENT_WARD,
                         "fas fa-fw fa-hospital",
-                        "spa/ward",
+                        "spa/home/ward",
                         "App: emr.inpatients",
                         null),
                 sessionLocationHasTag("Admission Location")));
@@ -1104,7 +1104,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MEDICATION_DISPENSING,
                         "pih.app.medicationDispensing.title",
                         "fas fa-fw fa-pills",
-                        "spa/dispensing2",
+                        "spa/dispensing",
                         "App: dispensing.app.dispense",
                         null),
                 sessionLocationHasTag("Dispensing Location")));
@@ -1130,7 +1130,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,
                             "pih.app.appointments.title",
                             "fas fa-fw fa-calendar-alt",
-                            "spa/appointments",
+                            "spa/home/appointments",
                             "App: appointmentschedulingui.home",
                             null),
                     sessionLocationHasTag("Appointment Location")));
@@ -1146,7 +1146,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,
                             "pih.app.appointments.title",
                             "fas fa-fw fa-calendar-alt",
-                            "spa/appointments",
+                            "spa/home/appointments",
                             null,
                             null),
                     sessionLocationHasTag("Appointment Location")));
