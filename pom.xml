@@ -89,7 +89,7 @@
         <providermanagementVersion>2.16.0</providermanagementVersion>
         <queueVersion>2.6.0</queueVersion>
         <radiologyappVersion>1.7.0</radiologyappVersion>
-        <registrationappVersion>1.27.0</registrationappVersion>
+        <registrationappVersion>1.28.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
         <reportingVersion>1.28.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>1.15.0</reportingrestVersion>
