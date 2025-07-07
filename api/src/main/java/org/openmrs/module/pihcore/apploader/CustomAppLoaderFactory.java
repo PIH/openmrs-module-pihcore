@@ -2783,6 +2783,27 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 firstColumnIndex++
         ));
 
+
+        // PMTCT Followup
+         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PMTCT_FOLLOWUP_ENCOUNTERS,
+                        "pih.pmtctFollowup.ucase",
+                        "fas fa-fw fa-ribbon",
+                        patientVisitsPageUrl,
+                        null,
+                        objectNode(
+                                "encounterTypes", arrayNode(
+                                        objectNode(
+                                                "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID,
+                                                "url", patientVisitsPageWithSpecificVisitUrl
+                                        )
+                                ),
+                                "maxToDisplay", "3"
+                        )),
+                "pihcore", "dashboardwidgets/encounters",
+                firstColumnIndex++
+        ));
+
+
         // HIV Dispensing
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_DISPENSING_ENCOUNTERS,
                         "pih.hivDispensing.ucase",

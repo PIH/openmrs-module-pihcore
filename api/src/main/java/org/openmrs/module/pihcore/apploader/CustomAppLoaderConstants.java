@@ -72,6 +72,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_PENDING_VIRAL_LOAD_TESTS = "pih.app.giv.pendingViralLoadTests";
         public static final String HIV_INTAKE_ENCOUNTERS = "pih.app.hiv.encounters.intake";
         public static final String HIV_FOLLOWUP_ENCOUNTERS = "pih.app.hiv.encounters.followup";
+        public static final String PMTCT_FOLLOWUP_ENCOUNTERS = "pih.app.pmtct.dispensing.followup";
         public static final String HIV_DISPENSING_ENCOUNTERS = "pih.app.hiv.dispensing.followup";
         public static final String HIV_SOCIOECONOMIC_ENCOUNTERS = "pih.app.hiv.socioeconomic.followup";
         public static final String HIV_CD4_GRAPH = "pih.app.hiv.cd4Graph";
