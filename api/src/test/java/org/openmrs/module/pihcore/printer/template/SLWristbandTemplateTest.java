@@ -179,13 +179,13 @@ public class SLWristbandTemplateTest {
     }
 
     @Test
-    public void testWristBandTemplate() {
+    public void testWristBandTemplate() throws Exception {
 
         Date today = new Date();
 
         Patient patient = new Patient();
         patient.setGender("F");
-        patient.setBirthdate(new DateTime(1940,7,7,5,5,5).toDate());
+        patient.setBirthdate(new SimpleDateFormat("yyyy-MM-dd").parse("1940-07-087"));
         patient.setBirthdateEstimated(true);
 
         PatientIdentifier primaryIdentifier = new PatientIdentifier();
