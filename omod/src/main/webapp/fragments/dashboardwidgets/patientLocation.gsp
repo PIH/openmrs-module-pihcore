@@ -2,7 +2,7 @@
     <div class="info-section patient-location ${app.id}">
         <div class="info-header">
             <i class="icon-map-marker"></i>
-            <h3>${ ui.message("pihcore.patient.location") }</h3>
+            <h3>${ ui.message("pihcore.patientLocation.ucase") }</h3>
         </div>
         <div class="info-body">
             <div>
