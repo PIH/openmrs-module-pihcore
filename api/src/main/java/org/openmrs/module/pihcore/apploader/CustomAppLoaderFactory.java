@@ -953,6 +953,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null),
                 sessionLocationHasTag("Admission Location")));
 
+        registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_BED_ASSIGNMENT_UUID,
+                findExtensionById(CustomAppLoaderConstants.EncounterTemplates.DEFAULT), "fas fa-fw fa-bed", true, true, null, null);
     }
 
     private void enableDeathCertificate() {
