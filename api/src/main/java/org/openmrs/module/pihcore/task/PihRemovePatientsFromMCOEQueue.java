@@ -1,28 +1,28 @@
 package org.openmrs.module.pihcore.task;
 
 import org.apache.commons.lang.time.StopWatch;
-import org.openmrs.Concept;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.queue.api.QueueServicesWrapper;
 import org.openmrs.module.queue.api.search.QueueEntrySearchCriteria;
-import org.openmrs.module.queue.api.search.QueueSearchCriteria;
 import org.openmrs.module.queue.model.Queue;
 import org.openmrs.module.queue.model.QueueEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class PihRemovePatientsFromMCOEQueue implements Runnable {
 
-    private static final Long QUEUE_TIMEOUT_MINUTES = 720L;
-    private static final String MCOE_TRIAGE_QUEUE_CONCEPT_CODE_PIH = "14976";
-
+    private static final Long QUEUE_TIMEOUT_HOURS = 12L; // remove all queue entries from the MCOE Triage older than 12 hours
     private final Logger log = LoggerFactory.getLogger(getClass());
-
     private static boolean isExecuting = false;
 
     @Override
@@ -41,7 +41,9 @@ public class PihRemovePatientsFromMCOEQueue implements Runnable {
             stopWatch.start();
 
             Queue queue = getQueue();
-            if (queue == null) return;
+            if (queue == null) {
+                return;
+            }
 
             int removedPatientsCount = removeTimedOutPatients(queue);
 
@@ -55,21 +57,14 @@ public class PihRemovePatientsFromMCOEQueue implements Runnable {
     }
 
     private Queue getQueue() throws Exception {
-        Concept MCOE_TRIAGE_QUEUE_CONCEPT = Context.getConceptService().getConceptByMapping(MCOE_TRIAGE_QUEUE_CONCEPT_CODE_PIH, "PIH");
-        QueueSearchCriteria queueSearchCriteria = new QueueSearchCriteria();
-        queueSearchCriteria.setServices(Collections.singletonList(MCOE_TRIAGE_QUEUE_CONCEPT));
 
         QueueServicesWrapper queueServices = Context.getRegisteredComponents(QueueServicesWrapper.class).get(0);
-        List<Queue> queues = queueServices.getQueueService().getQueues(queueSearchCriteria);
-
-        if (queues.isEmpty()) {
-            throw new Exception("No queue found with service concept " + MCOE_TRIAGE_QUEUE_CONCEPT_CODE_PIH);
-        }
-        if (queues.size() > 1) {
-            throw new Exception("Multiple queues found with service concept " + MCOE_TRIAGE_QUEUE_CONCEPT_CODE_PIH);
+        Optional<Queue> mcoeQueue = queueServices.getQueueService().getQueueByUuid(SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID);
+        if (!mcoeQueue.isPresent()) {
+            throw new Exception("No queue found with uuid " + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID);
         }
 
-        return queues.get(0);
+        return mcoeQueue.get();
     }
 
     private int removeTimedOutPatients(Queue queue) {
@@ -80,25 +75,27 @@ public class PihRemovePatientsFromMCOEQueue implements Runnable {
         criteria.setQueues(Collections.singletonList(queue));
         criteria.setIsEnded(false);
 
+        LocalDateTime now = LocalDateTime.now();
+        ZonedDateTime atZone = now.atZone(ZoneId.systemDefault());
+        Date currentTime = atZone.toInstant().toEpochMilli() > 0 ? Date.from(atZone.toInstant()) : new Date();
+
+        Date removalTimeLimit = Date.from(atZone.minusHours(QUEUE_TIMEOUT_HOURS).toInstant());
+        criteria.setStartedOnOrBefore(removalTimeLimit);
+
         List<QueueEntry> queueEntries = queueServices.getQueueEntryService().getQueueEntries(criteria);
 
         if (queueEntries == null || queueEntries.isEmpty()) {
             return numPatientsRemoved;
         }
 
-        Date currentTime = new Date();
-
         for (QueueEntry entry : queueEntries) {
             Date startedAt = entry.getStartedAt();
             long activeMinutes = Duration.between(startedAt.toInstant(), currentTime.toInstant()).toMinutes();
+            log.warn("Removing patient {} from queue after {} minutes", entry.getPatient().getUuid(), activeMinutes);
+            entry.setEndedAt(currentTime);
+            queueServices.getQueueEntryService().saveQueueEntry(entry);
+            numPatientsRemoved++;
 
-            if (activeMinutes > QUEUE_TIMEOUT_MINUTES) {
-                log.warn("Removing patient {} from queue after {} minutes", entry.getPatient().getUuid(), activeMinutes);
-                entry.setEndedAt(currentTime);
-                queueServices.getQueueEntryService().saveQueueEntry(entry);
-
-                numPatientsRemoved++;
-            }
         }
 
         return numPatientsRemoved;
