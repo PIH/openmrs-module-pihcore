@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public class PihRemovePatientsFromMCOEQueue implements Runnable {
 
-    private static final Long QUEUE_TIMEOUT_HOURS = 12L; // remove all queue entries from the MCOE Triage older than 12 hours
+    public static final Long QUEUE_TIMEOUT_HOURS = 12L; // remove all queue entries from the MCOE Triage older than 12 hours
     private final Logger log = LoggerFactory.getLogger(getClass());
     private static boolean isExecuting = false;
 
