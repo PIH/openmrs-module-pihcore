@@ -1,0 +1,22 @@
+<dataset>
+
+    <location location_id="17" name="MCOE Triage" description="MCOE Triage" creator="1" date_created="2012-09-24 10:10:31.0" retired="false"  uuid="f85feffc-fe54-4648-aa14-01ed6d30b943"/>
+
+    <!--A concept set of queue priorities -->
+    <concept concept_id="1000" retired="false" is_set="true" creator="1" date_created="2022-02-02 14:31:00.0" uuid="897eba27-2b38-43e8-91a9-4dfe3956a35t"/>
+    <concept concept_id="1001" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="90b910bd-298c-4ecf-a632-661ae2f446op"/>
+    <!-- Triage service-->
+    <concept concept_id="2001" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="167411AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+    <!--A concept set of queue status -->
+    <concept concept_id="3000" retired="false" is_set="true" creator="1" date_created="2022-02-02 14:31:00.0" uuid="303eba27-2b38-43e8-91a9-4dfe3956a78t"/>
+    <concept concept_id="3001" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="31b910bd-298c-4ecf-a632-661ae2f4460y"/>
+    <concept concept_id="3002" retired="false" is_set="false" creator="1" date_created="2022-02-02 14:40:00.0" uuid="56b910bd-298c-4ecf-a632-661ae2f7865y"/>
+
+    <!-- Queues -->
+    <queue queue_id="1" name="MCOE Triage" description="MCOE Triage queue" location_id="17" service="2001" creator="1"
+           date_created="2022-01-31 00:00:00.0" retired="false" uuid="3113f164-68f0-11ee-ab8d-0242ac120002"/>
+
+    <queue_entry queue_entry_id="1"  queue_id="1" patient_id="7" creator="1" priority="1001" status="3001" sort_weight="0"
+                 date_created="2022-02-02 16:38:56.0" started_at="2022-02-02 16:40:56.0" voided="false" uuid="4eb8fe43-2813-4kbc-80dc-2e5d30252cc6"/>
+
+</dataset>
