@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.task;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
@@ -11,9 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -75,11 +73,9 @@ public class PihRemovePatientsFromMCOEQueue implements Runnable {
         criteria.setQueues(Collections.singletonList(queue));
         criteria.setIsEnded(false);
 
-        LocalDateTime now = LocalDateTime.now();
-        ZonedDateTime atZone = now.atZone(ZoneId.systemDefault());
-        Date currentTime = atZone.toInstant().toEpochMilli() > 0 ? Date.from(atZone.toInstant()) : new Date();
+        Date currentTime = new Date();
+        Date removalTimeLimit = DateUtils.addHours(currentTime, (int) (-1*QUEUE_TIMEOUT_HOURS));
 
-        Date removalTimeLimit = Date.from(atZone.minusHours(QUEUE_TIMEOUT_HOURS).toInstant());
         criteria.setStartedOnOrBefore(removalTimeLimit);
 
         List<QueueEntry> queueEntries = queueServices.getQueueEntryService().getQueueEntries(criteria);
