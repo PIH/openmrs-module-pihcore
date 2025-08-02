@@ -3,16 +3,84 @@
     ui.includeCss("pihcore", "labOrder.css")
 %>
 <script type="text/javascript">
-    const selectedPanelIds = new Set();
+
+    const selectedTests = [];
+    const testNames = new Map();
+    const testsByPanel = new Map();
+    <% labSet.setMembers.each { category -> %>
+        <% category.setMembers.each { orderable -> %>
+            testNames.set('${ orderable.uuid }', '${ pihui.getBestShortName(category) }');
+            <% if (orderable.isSet()) { %>
+                testsByPanel.set('${ orderable.uuid }', new Set());
+                <% orderable.setMembers.each { test -> %>
+                    testsByPanel.get('${ orderable.uuid }').add('${ test.uuid }');
+                <% } %>
+            <% } %>
+        <% } %>
+    <% } %>
+
     function changeCategory(categoryUuid) {
         jQuery(".category-link").removeClass("active-category");
         jQuery("#category-link-" + categoryUuid).addClass("active-category");
         jQuery(".lab-selection-form").hide();
         jQuery("#lab-selection-form-" + categoryUuid).show();
     }
-    function addPanel(panelUuid) {
-        selectedPanelIds.add(panelUuid);
+
+    function togglePanel(panelUuid) {
+        const existingIndex = selectedTests.indexOf(panelUuid);
+        const addingPanel = (existingIndex < 0);
+        if (addingPanel) {
+            selectedTests.push(panelUuid);
+            jq("#panel-button-" + panelUuid).addClass("active").blur();
+        }
+        else {
+            selectedTests.splice(existingIndex, 1);
+            jq("#panel-button-" + panelUuid).removeClass("active").blur();
+        }
+        testsByPanel.get(panelUuid).forEach((testUuid) => {
+            if (addingPanel) {
+                addTest(testUuid);
+            }
+            else {
+                removeTest(testUuid);
+            }
+        })
     }
+
+    function toggleTest(testUuid) {
+        const existingIndex = selectedTests.indexOf(testUuid);
+        if (existingIndex < 0) {
+            addTest(testUuid);
+        }
+        else {
+            removeTest(testUuid);
+        }
+    }
+
+    function removeTest(testUuid) {
+        let addedFromPanel = false;
+        selectedTests.forEach((selectedTest) => {
+            testsByPanel.get(selectedTest)?.forEach((testInPanel) => {
+                if (testInPanel === testUuid) {
+                    addedFromPanel = true;
+                }
+            })
+        });
+        if (!addedFromPanel) {
+            selectedTests.splice(selectedTests.indexOf(testUuid), 1);
+            jq("#test-button-" + testUuid).removeClass("active");
+        }
+        jq("#test-button-" + testUuid).blur();
+    }
+
+    function addTest(testUuid) {
+        if (selectedTests.indexOf(testUuid) < 0) {
+            selectedTests.push(testUuid);
+            jq("#test-button-" + testUuid).addClass("active");
+        }
+        jq("#test-button-" + testUuid).blur()
+    }
+
     jQuery(document).ready(function () {
         jQuery(".lab-selection-form").hide();
         <% if (labSet && !labSet.setMembers.isEmpty()) { %>
@@ -93,8 +161,6 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                         <% } %>
                     </div>
                 </div>
-
-
             <% } %>
         </div>
     </div>
