@@ -4,7 +4,8 @@
 %>
 <script type="text/javascript">
 
-    const selectedTests = [];
+    const orderedTests = [];
+    const orderedTestsFromPanel = [];
     const testNames = new Map();
     const testsByPanel = new Map();
     <% labSet.setMembers.each { category -> %>
@@ -27,65 +28,80 @@
     }
 
     function togglePanel(panelUuid) {
-        const existingIndex = selectedTests.indexOf(panelUuid);
+        const existingIndex = orderedTests.indexOf(panelUuid);
         const addingPanel = (existingIndex < 0);
         if (addingPanel) {
-            selectedTests.push(panelUuid);
+            orderedTests.push(panelUuid);
             jq("#panel-button-" + panelUuid).addClass("active").blur();
         }
         else {
-            selectedTests.splice(existingIndex, 1);
+            orderedTests.splice(existingIndex, 1);
             jq("#panel-button-" + panelUuid).removeClass("active").blur();
         }
         testsByPanel.get(panelUuid).forEach((testUuid) => {
             if (addingPanel) {
-                addTest(testUuid);
+                if (orderedTests.indexOf(testUuid) === -1) {
+                    orderedTestsFromPanel.push(testUuid);
+                    jq("#test-button-" + testUuid).addClass("active").blur();
+                }
             }
             else {
-                removeTest(testUuid);
+                if (orderedTestsFromPanel.indexOf(testUuid) > 0) {
+                    jq("#test-button-" + testUuid).removeClass("active").blur();
+                }
             }
-        })
+        });
+        updateDraftList();
     }
 
     function toggleTest(testUuid) {
-        const existingIndex = selectedTests.indexOf(testUuid);
-        if (existingIndex < 0) {
-            addTest(testUuid);
+        const testButton = jq("#test-button-" + testUuid);
+        if (orderedTestsFromPanel.indexOf(testUuid) < 0) {
+            const existingIndex = orderedTests.indexOf(testUuid);
+            if (existingIndex < 0) {
+                orderedTests.push(testUuid);
+                testButton.addClass("active");
+            } else {
+                orderedTests.splice(orderedTests.indexOf(testUuid), 1);
+                testButton.removeClass("active");
+            }
+            updateDraftList();
+        }
+        testButton.blur();
+    }
+
+    function updateDraftList() {
+        jQuery("#num-draft-orders").html(orderedTests.length);
+        const discardAllButton = jQuery("#draft-discard-all");
+        const saveButton = jQuery("#draft-save-button");
+        if (orderedTests.length > 1) {
+            discardAllButton.val('${ui.message("pihcore.discardAll")}');
         }
         else {
-            removeTest(testUuid);
+            discardAllButton.val('${ui.message("pihcore.discard")}');
+            if (orderedTests.length === 0) {
+                discardAllButton.attr("disabled", "disabled");
+                saveButton.attr("disabled", "disabled");
+            }
+            else {
+                discardAllButton.removeAttr("disabled");
+                saveButton.removeAttr("disabled");
+            }
         }
-    }
-
-    function removeTest(testUuid) {
-        let addedFromPanel = false;
-        selectedTests.forEach((selectedTest) => {
-            testsByPanel.get(selectedTest)?.forEach((testInPanel) => {
-                if (testInPanel === testUuid) {
-                    addedFromPanel = true;
-                }
-            })
-        });
-        if (!addedFromPanel) {
-            selectedTests.splice(selectedTests.indexOf(testUuid), 1);
-            jq("#test-button-" + testUuid).removeClass("active");
-        }
-        jq("#test-button-" + testUuid).blur();
-    }
-
-    function addTest(testUuid) {
-        if (selectedTests.indexOf(testUuid) < 0) {
-            selectedTests.push(testUuid);
-            jq("#test-button-" + testUuid).addClass("active");
-        }
-        jq("#test-button-" + testUuid).blur()
     }
 
     jQuery(document).ready(function () {
+
         jQuery(".lab-selection-form").hide();
         <% if (labSet && !labSet.setMembers.isEmpty()) { %>
             changeCategory('${labSet.setMembers.get(0).uuid}');
         <% } %>
+
+        jQuery("#draft-discard-all").click(function () {
+            orderedTests.splice(0, orderedTests.length);
+            orderedTestsFromPanel.splice(0, orderedTestsFromPanel.length);
+            updateDraftList();
+        })
     })
 </script>
 
@@ -167,12 +183,16 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     <div class="col-12 col-sm-6 col-md-4 draft-wrapper">
         <h5 class="h5-draft-header">
             ${ui.message('pihcore.unsavedDraftOrders')}
+            (<span id="num-draft-orders">0</span>)
         </h5>
         <div class="table-container">
-            <ul class="draft-list-container">
-
-            </ul>
+            <ul class="draft-list-container"></ul>
         </div>
+        <br />
+        <input type="button" id="draft-discard-all" value="${ui.message('pihcore.discard')}" disabled="disabled" class="cancel modified-btn"/>
+        <input type="submit" id="draft-save-button" value="${ui.message('mirebalais.save')}" disabled="disabled" class="right confirm modified-btn"/>
+        <br />
+        <br />
     </div>
 </div>
 <div style="margin-top: 20px;">
