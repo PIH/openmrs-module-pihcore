@@ -1,5 +1,6 @@
 <%
     ui.decorateWith("appui", "standardEmrPage")
+    ui.includeCss("pihcore", "orderEntry.css")
     ui.includeCss("pihcore", "labOrder.css")
 %>
 <script type="text/javascript">
@@ -10,7 +11,7 @@
     const testsByPanel = new Map();
     <% labSet.setMembers.each { category -> %>
         <% category.setMembers.each { orderable -> %>
-            testNames.set('${ orderable.uuid }', '${ pihui.getBestShortName(category) }');
+            testNames.set('${ orderable.uuid }', '${ pihui.getBestShortName(orderable) }');
             <% if (orderable.isSet()) { %>
                 testsByPanel.set('${ orderable.uuid }', new Set());
                 <% orderable.setMembers.each { test -> %>
@@ -27,47 +28,70 @@
         jQuery("#lab-selection-form-" + categoryUuid).show();
     }
 
-    function togglePanel(panelUuid) {
-        const existingIndex = orderedTests.indexOf(panelUuid);
-        const addingPanel = (existingIndex < 0);
-        if (addingPanel) {
-            orderedTests.push(panelUuid);
-            jq("#panel-button-" + panelUuid).addClass("active").blur();
-        }
-        else {
-            orderedTests.splice(existingIndex, 1);
-            jq("#panel-button-" + panelUuid).removeClass("active").blur();
-        }
-        testsByPanel.get(panelUuid).forEach((testUuid) => {
-            if (addingPanel) {
-                if (orderedTests.indexOf(testUuid) === -1) {
-                    orderedTestsFromPanel.push(testUuid);
-                    jq("#test-button-" + testUuid).addClass("active").blur();
-                }
-            }
-            else {
-                if (orderedTestsFromPanel.indexOf(testUuid) > 0) {
-                    jq("#test-button-" + testUuid).removeClass("active").blur();
-                }
-            }
+    function addOrderedTest(orderedUuid) {
+        orderedTests.push(orderedUuid);
+        const testName = testNames.get(orderedUuid);
+        const draftItem = jQuery("#draft-order-template").clone();
+        jQuery(draftItem)
+            .attr("id", "draft-order-" + orderedUuid)
+            .find(".draft-name").html(testName);
+        jQuery("#draft-list-container").append(draftItem);
+        jQuery(draftItem).find(".draft-discard-btn").click(function () {
+            toggleTest(orderedUuid);
         });
-        updateDraftList();
+        jQuery(draftItem).show();
+    }
+
+    function removeOrderedTest(orderedUuid) {
+        orderedTests.splice(orderedTests.indexOf(orderedUuid), 1);
+        jQuery("#draft-order-" + orderedUuid).remove();
     }
 
     function toggleTest(testUuid) {
         const testButton = jq("#test-button-" + testUuid);
-        if (orderedTestsFromPanel.indexOf(testUuid) < 0) {
-            const existingIndex = orderedTests.indexOf(testUuid);
-            if (existingIndex < 0) {
-                orderedTests.push(testUuid);
-                testButton.addClass("active");
+        const existingIndex = orderedTests.indexOf(testUuid);
+
+        // Handle panel
+        if (testsByPanel.has(testUuid)) {
+            const addingPanel = (existingIndex < 0);
+            if (addingPanel) {
+                addOrderedTest(testUuid);
+                jq("#panel-button-" + testUuid).addClass("active").blur();
             } else {
-                orderedTests.splice(orderedTests.indexOf(testUuid), 1);
-                testButton.removeClass("active");
+                removeOrderedTest(testUuid);
+                jq("#panel-button-" + testUuid).removeClass("active").blur();
             }
+            testsByPanel.get(testUuid).forEach((testInPanelUuid) => {
+                if (addingPanel) {
+                    if (orderedTests.indexOf(testInPanelUuid) === -1) {
+                        orderedTestsFromPanel.push(testInPanelUuid);
+                        jq("#test-button-" + testInPanelUuid).addClass("active").blur();
+                    }
+                }
+                else {
+                    if (orderedTestsFromPanel.indexOf(testInPanelUuid) > 0) {
+                        orderedTestsFromPanel.splice(orderedTestsFromPanel.indexOf(testInPanelUuid), 1);
+                        jq("#test-button-" + testInPanelUuid).removeClass("active").blur();
+                    }
+                }
+            });
             updateDraftList();
         }
-        testButton.blur();
+        // Handle individual test
+        else {
+            if (orderedTestsFromPanel.indexOf(testUuid) < 0) {
+
+                if (existingIndex < 0) {
+                    addOrderedTest(testUuid);
+                    testButton.addClass("active");
+                } else {
+                    removeOrderedTest(testUuid);
+                    testButton.removeClass("active");
+                }
+                updateDraftList();
+            }
+            testButton.blur();
+        }
     }
 
     function updateDraftList() {
@@ -119,6 +143,9 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     legend {
         text-align: left; padding: 0 10px; font-weight: 300; font-size: 16px; text-transform: uppercase; width: unset;
     }
+    li.small-font {
+        font-size: 0.8rem;
+    }
 </style>
 
 <div class="row">
@@ -154,7 +181,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                                     <div class="panel-box">
                                         <% category.setMembers.each { orderable -> %>
                                             <% if (orderable.isSet()) { %>
-                                                <button id="panel-button-${orderable.uuid}" class="lab-tests-btn" type="button" onclick="togglePanel('${orderable.uuid}')">
+                                                <button id="panel-button-${orderable.uuid}" class="lab-tests-btn" type="button" onclick="toggleTest('${orderable.uuid}')">
                                                     ${ pihui.getBestShortName(orderable) }
                                                 </button>
                                             <% } %>
@@ -186,8 +213,26 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             (<span id="num-draft-orders">0</span>)
         </h5>
         <div class="table-container">
-            <ul class="draft-list-container"></ul>
+            <ul id="draft-list-container" class="draft-list-container"></ul>
         </div>
+        <ul style="display: none;">
+            <li class="draft-list small-font" id="draft-order-template" style="display: none;">
+                <span class="order-status">NEW</span>
+                <span class="draft-name"></span>
+                <div class="action-btn-wrapper">
+                    <span class="action-btn">
+                        <a class="draft-toggle-btn" href="#">
+                            <i class="i-gray scale" title="${ui.message('pihcore.urgency')}">&#x25B2;</i>
+                        </a>
+                    </span>
+                    <span class="action-btn right">
+                        <a class="draft-discard-btn" href="#">
+                            <i class="icon-remove scale" title="${ui.message('pihcore.discard')}"></i>
+                        </a>
+                    </span>
+                </div>
+            </li>
+        </ul>
         <br />
         <input type="button" id="draft-discard-all" value="${ui.message('pihcore.discard')}" disabled="disabled" class="cancel modified-btn"/>
         <input type="submit" id="draft-save-button" value="${ui.message('mirebalais.save')}" disabled="disabled" class="right confirm modified-btn"/>
