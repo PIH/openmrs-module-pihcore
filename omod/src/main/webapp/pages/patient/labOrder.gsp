@@ -261,6 +261,56 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
     li.small-font {
         font-size: 0.8rem;
     }
+
+    .tooltip {
+        position: relative;
+        opacity: unset;
+        text-align: center;
+    }
+    .tooltip .tooltip-text {
+        visibility: hidden;
+        width: 300px;
+        background-color: white;
+        border: 1px solid grey;
+        border-radius: 6px;
+        text-align: left;
+        position: absolute;
+        bottom: 130%;
+        left: 30%;
+        z-index: 1;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    .tooltip .tooltip-text p {
+        padding: 5px 0 0 8px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+    .tooltip .tooltip-text div {
+        display: flex;
+        flex-flow: row wrap;
+        padding: 0px 10px 5px 10px;
+    }
+    .tooltip .tooltip-text div span {
+        margin: 0 5px 7px 0;
+        text-align: left;
+        width: 31.5%;
+    }
+    .tooltip .tooltip-text::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 10%;
+        margin-left: -5px;
+        border-width: 10px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+    .tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
 </style>
 
 <div class="row">
@@ -296,8 +346,16 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
                                     <div class="panel-box">
                                         <% category.setMembers.each { orderable -> %>
                                             <% if (orderable.isSet()) { %>
-                                                <button id="panel-button-${orderable.uuid}" class="lab-tests-btn" type="button" onclick="toggleTest('${orderable.uuid}')">
+                                                <button id="panel-button-${orderable.uuid}" class="lab-tests-btn tooltip" type="button" onclick="toggleTest('${orderable.uuid}')">
                                                     ${ pihui.getBestShortName(orderable) }
+                                                    <span class="tooltip-text">
+                                                        <p>${ui.message("pihcore.testsIncludedInThisPanel")}:</p>
+                                                        <div>
+                                                            <% orderable.setMembers.each { setMember -> %>
+                                                                <span>${pihui.getBestShortName(setMember)}</span>
+                                                            <% } %>
+                                                        </div>
+                                                    </span>
                                                 </button>
                                             <% } %>
                                         <% } %>
