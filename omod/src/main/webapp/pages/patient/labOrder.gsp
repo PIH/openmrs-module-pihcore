@@ -156,8 +156,12 @@
         <% } %>
 
         jQuery("#draft-discard-all").click(function () {
-            orderedTests.splice(0, orderedTests.length);
-            orderedTestsFromPanel.splice(0, orderedTestsFromPanel.length);
+            const testsToRemove = [... orderedTests];
+            testsToRemove.forEach(test => {
+                toggleTest(test);
+            })
+            urgencies.clear();
+            reasons.clear();
             updateDraftList();
         });
 
