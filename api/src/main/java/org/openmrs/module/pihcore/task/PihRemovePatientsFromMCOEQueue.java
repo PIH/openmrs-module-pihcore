@@ -61,7 +61,7 @@ public class PihRemovePatientsFromMCOEQueue implements Runnable {
         if (mcoeQueue.isPresent()) {
             return mcoeQueue.get();
         } else {
-            log.warn("No queue found with uuid " + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID);
+            log.debug("No queue found with uuid " + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID);
             return null;
         }
     }
