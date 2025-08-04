@@ -10,6 +10,7 @@
     const reasons = new Map();
     const orderedTestsFromPanel = [];
     const testNames = new Map();
+    const reasonsByTest = new Map();
     const testsByPanel = new Map();
     <% labSet.setMembers.each { category -> %>
         <% category.setMembers.each { orderable -> %>
@@ -18,6 +19,12 @@
                 testsByPanel.set('${ orderable.uuid }', new Set());
                 <% orderable.setMembers.each { test -> %>
                     testsByPanel.get('${ orderable.uuid }').add('${ test.uuid }');
+                <% } %>
+            <% } %>
+            <% if (orderReasonsMap.get(orderable.uuid)) { %>
+                reasonsByTest.set('${ orderable.uuid }', []);
+                <% orderReasonsMap.get(orderable.uuid).each{ reasonConcept -> %>
+                    reasonsByTest.get('${ orderable.uuid }').push({uuid: '${reasonConcept.uuid}', display: '${ pihui.getBestShortName(reasonConcept) }'});
                 <% } %>
             <% } %>
         <% } %>
@@ -33,6 +40,7 @@
     function addOrderedTest(orderedUuid) {
         orderedTests.push(orderedUuid);
         const testName = testNames.get(orderedUuid);
+
         const draftItem = jQuery("#draft-order-template").clone();
         jQuery(draftItem)
             .attr("id", "draft-order-" + orderedUuid)
@@ -45,11 +53,25 @@
             toggleUrgency(orderedUuid);
         });
         jQuery(draftItem).show();
+
+        const orderedReasons = reasonsByTest.get(orderedUuid);
+        if (orderedReasons && orderedReasons.length > 0) {
+            const draftReasonItem = jQuery("#order-reason-template").clone();
+            jQuery(draftReasonItem).attr("id", "order-reason-" + orderedUuid);
+            const reasonSelector = jQuery(draftReasonItem).find(".order-reason-selector");
+            orderedReasons.forEach(reason => {
+                const selectItem = jQuery("<option>").val(reason.uuid).html(reason.display);
+                jQuery(reasonSelector).append(selectItem);
+            })
+            jQuery("#draft-list-container").append(draftReasonItem);
+            jQuery(draftReasonItem).show();
+        }
     }
 
     function removeOrderedTest(orderedUuid) {
         orderedTests.splice(orderedTests.indexOf(orderedUuid), 1);
         jQuery("#draft-order-" + orderedUuid).remove();
+        jQuery("#order-reason-" + orderedUuid).remove();
     }
 
     function toggleUrgency(orderedUuid) {
@@ -252,6 +274,10 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
                         <i class="draft-discard-icon draft-discard-btn icon-remove scale" title="${ui.message('pihcore.discard')}"></i>
                     </a>
                 </div>
+            </li>
+            <li id="order-reason-template" style="display: none;">
+                <span>${ui.message("pihcore.orderReason")}</span>:
+                <select class="order-reason-selector" name="orderReason"></select>
             </li>
         </ul>
         <br />
