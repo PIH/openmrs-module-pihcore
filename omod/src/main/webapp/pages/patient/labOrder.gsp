@@ -159,18 +159,18 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
 </script>
 
 <style>
-legend {
-    text-align: left;
-    padding: 0 10px;
-    font-weight: 300;
-    font-size: 16px;
-    text-transform: uppercase;
-    width: unset;
-}
+    legend {
+        text-align: left;
+        padding: 0 10px;
+        font-weight: 300;
+        font-size: 16px;
+        text-transform: uppercase;
+        width: unset;
+    }
 
-li.small-font {
-    font-size: 0.8rem;
-}
+    li.small-font {
+        font-size: 0.8rem;
+    }
 </style>
 
 <div class="row">
