@@ -6,6 +6,8 @@
 <script type="text/javascript">
 
     const orderedTests = [];
+    const urgencies = new Map();
+    const reasons = new Map();
     const orderedTestsFromPanel = [];
     const testNames = new Map();
     const testsByPanel = new Map();
@@ -39,12 +41,23 @@
         jQuery(draftItem).find(".draft-discard-btn").click(function () {
             toggleTest(orderedUuid);
         });
+        jQuery(draftItem).find(".draft-urgency-toggle-btn").click(function () {
+            toggleUrgency(orderedUuid);
+        });
         jQuery(draftItem).show();
     }
 
     function removeOrderedTest(orderedUuid) {
         orderedTests.splice(orderedTests.indexOf(orderedUuid), 1);
         jQuery("#draft-order-" + orderedUuid).remove();
+    }
+
+    function toggleUrgency(orderedUuid) {
+        const current = urgencies.get(orderedUuid);
+        const newUrgency = (current === 'STAT' ? 'ROUTINE' : 'STAT');
+        urgencies.set(orderedUuid, newUrgency);
+        const urgencyIcon = jQuery("#draft-order-" + orderedUuid).find(".draft-urgency-icon");
+        jQuery(urgencyIcon).removeClass('i-gray').removeClass('i-red').addClass(newUrgency === 'STAT' ? 'i-red' : 'i-gray');
     }
 
     function toggleTest(testUuid) {
@@ -80,7 +93,6 @@
         // Handle individual test
         else {
             if (orderedTestsFromPanel.indexOf(testUuid) < 0) {
-
                 if (existingIndex < 0) {
                     addOrderedTest(testUuid);
                     testButton.addClass("active");
@@ -125,27 +137,40 @@
             orderedTests.splice(0, orderedTests.length);
             orderedTestsFromPanel.splice(0, orderedTestsFromPanel.length);
             updateDraftList();
-        })
+        });
+
     })
 </script>
 
-${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
+${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
 
 <script type="text/javascript">
     var breadcrumbs = [
-        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.escapeJs(ui.format(patient.patient)) }" , link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'},
-        { label: "${ ui.message("pihcore.labOrder") }" , link: '${ui.pageLink("pihcore", "patient/labOrder", ["patientId": patient.id])}'}
+        {icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm'},
+        {
+            label: "${ ui.escapeJs(ui.format(patient.patient)) }",
+            link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'
+        },
+        {
+            label: "${ ui.message("pih.app.labs.ordering") }",
+            link: '${ui.pageLink("pihcore", "patient/labOrder", ["patientId": patient.id])}'
+        }
     ];
 </script>
 
 <style>
-    legend {
-        text-align: left; padding: 0 10px; font-weight: 300; font-size: 16px; text-transform: uppercase; width: unset;
-    }
-    li.small-font {
-        font-size: 0.8rem;
-    }
+legend {
+    text-align: left;
+    padding: 0 10px;
+    font-weight: 300;
+    font-size: 16px;
+    text-transform: uppercase;
+    width: unset;
+}
+
+li.small-font {
+    font-size: 0.8rem;
+}
 </style>
 
 <div class="row">
@@ -220,16 +245,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <span class="order-status">NEW</span>
                 <span class="draft-name"></span>
                 <div class="action-btn-wrapper">
-                    <span class="action-btn">
-                        <a class="draft-toggle-btn" href="#">
-                            <i class="i-gray scale" title="${ui.message('pihcore.urgency')}">&#x25B2;</i>
-                        </a>
-                    </span>
-                    <span class="action-btn right">
-                        <a class="draft-discard-btn" href="#">
-                            <i class="icon-remove scale" title="${ui.message('pihcore.discard')}"></i>
-                        </a>
-                    </span>
+                    <a class="draft-urgency-toggle-btn action-btn" href="#">
+                        <i class="draft-urgency-icon i-gray scale" title="${ui.message('pihcore.urgency')}">&#x25B2;</i>
+                    </a>
+                    <a class="action-btn right" href="#">
+                        <i class="draft-discard-icon draft-discard-btn icon-remove scale" title="${ui.message('pihcore.discard')}"></i>
+                    </a>
                 </div>
             </li>
         </ul>
