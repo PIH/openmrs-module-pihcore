@@ -54,15 +54,16 @@ public class PihRemovePatientsFromMCOEQueue implements Runnable {
         }
     }
 
-    private Queue getQueue() throws Exception {
+    private Queue getQueue() {
 
         QueueServicesWrapper queueServices = Context.getRegisteredComponents(QueueServicesWrapper.class).get(0);
         Optional<Queue> mcoeQueue = queueServices.getQueueService().getQueueByUuid(SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID);
-        if (!mcoeQueue.isPresent()) {
-            throw new Exception("No queue found with uuid " + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID);
+        if (mcoeQueue.isPresent()) {
+            return mcoeQueue.get();
+        } else {
+            log.warn("No queue found with uuid " + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID);
+            return null;
         }
-
-        return mcoeQueue.get();
     }
 
     private int removeTimedOutPatients(Queue queue) {
