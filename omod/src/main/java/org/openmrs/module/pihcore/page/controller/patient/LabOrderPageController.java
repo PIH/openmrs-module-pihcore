@@ -34,6 +34,7 @@ public class LabOrderPageController {
     public void get(PageModel model, UiUtils ui,
                       @InjectBeans PatientDomainWrapper patientDomainWrapper,
                       @RequestParam(value = "patient") Patient patient,
+                      @RequestParam(value = "returnUrl", required = false) String returnUrl,
                       @SpringBean("orderService") OrderService orderService,
                       @SpringBean("encounterService") EncounterService encounterService,
                       @SpringBean("conceptService") ConceptService conceptService) throws IOException {
@@ -121,6 +122,7 @@ public class LabOrderPageController {
         model.addAttribute("encounterType", encounterType);
         model.addAttribute("encounterRole", encounterRole);
         model.addAttribute("autoExpireDays", autoExpireDays);
+        model.addAttribute("returnUrl", returnUrl);
         model.addAttribute("pihui", new PihUiUtils());
     }
 }

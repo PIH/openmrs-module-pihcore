@@ -14,6 +14,7 @@
     const encounterType = '${encounterType.uuid}';
     const encounterRole = '${encounterRole.uuid}';
     const autoExpireDays = ${autoExpireDays};
+    const returnUrl = '${returnUrl ?: ui.pageLink("pihcore", "patient/labOrders", [patient: patient.id])}';
 
     // Order Data
     const orderedTests = [];
@@ -173,7 +174,7 @@
         <% } %>
 
         jQuery("#cancel-button").click(function () {
-            document.location.href = "${ui.pageLink("pihcore", "patient/labOrders", [patient: patient.id])}"
+            document.location.href = returnUrl;
         })
 
         jQuery("#draft-discard-all").click(function () {
@@ -219,7 +220,7 @@
                 dataType: 'json', // Expect JSON response
                 success: function(response) {
                     emr.successMessage('${ui.message("pihcore.orderSuccessMessage")}');
-                    document.location.href= '${ui.pageLink('pihcore', 'patient/labOrders', [patient: patient.id])}';
+                    document.location.href = returnUrl;
                 },
                 error: function(xhr, status, error) {
                     const message = xhr.responseJSON?.error?.message ?? error ?? xhr.responseText;
@@ -241,8 +242,12 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
             link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'
         },
         {
+            label: "${ ui.message("pihcore.labOrders") }",
+            link: '${ui.pageLink("pihcore", "patient/labOrders", ["patient": patient.id])}'
+        },
+        {
             label: "${ ui.message("pih.app.labs.ordering") }",
-            link: '${ui.pageLink("pihcore", "patient/labOrder", ["patientId": patient.id])}'
+            link: '${ui.pageLink("pihcore", "patient/labOrder", ["patient": patient.id])}'
         }
     ];
 </script>
