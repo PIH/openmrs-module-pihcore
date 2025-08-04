@@ -3,11 +3,8 @@ package org.openmrs.module.pihcore.page.controller.patient;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.CareSetting;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
-import org.openmrs.EncounterRole;
-import org.openmrs.EncounterType;
 import org.openmrs.Patient;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
@@ -74,54 +71,10 @@ public class LabOrderPageController {
             }
         }
 
-        // The orderentryowa hard-codes to the second returned care setting, which is Inpatient, so set this for now
-        CareSetting careSetting = orderService.getCareSettingByName("Inpatient");
-
-        // The type of encounter to create for new orders
-        String encounterTypeProp = ConfigUtil.getGlobalProperty("orderentryowa.encounterType");
-        EncounterType encounterType = null;
-        if (StringUtils.isNotBlank(encounterTypeProp)) {
-            encounterType = encounterService.getEncounterTypeByUuid(encounterTypeProp);
-            if (encounterType == null) {
-                encounterType = encounterService.getEncounterType(encounterTypeProp);
-            }
-        }
-        if (encounterType == null) {
-            log.warn("Invalid orderEntryowa encounterType configuration: " + encounterTypeProp);
-        }
-
-        // The provider role to associate with providers for new encounters
-        String encounterRoleProp = ConfigUtil.getGlobalProperty("orderentryowa.encounterRole");
-        EncounterRole encounterRole = null;
-        if (StringUtils.isNotBlank(encounterRoleProp)) {
-            encounterRole = encounterService.getEncounterRoleByUuid(encounterRoleProp);
-            if (encounterRole == null) {
-                encounterRole = encounterService.getEncounterRoleByName(encounterRoleProp);
-            }
-        }
-        if (encounterRole == null) {
-            log.warn("Invalid orderEntryowa encounterRole configuration: " + encounterTypeProp);
-        }
-
-        String autoExpireDaysProp = ConfigUtil.getGlobalProperty("orderentryowa.labOrderAutoExpireTimeInDays");
-        Integer autoExpireDays = 30;
-        if (StringUtils.isNotBlank(autoExpireDaysProp)) {
-            try {
-                autoExpireDays = Integer.parseInt(autoExpireDaysProp);
-            }
-            catch (NumberFormatException e) {
-                log.warn("Invalid orderEntryowa autoExpireDays: " + autoExpireDaysProp);
-            }
-        }
-
         patientDomainWrapper.setPatient(patient);
         model.addAttribute("patient", patientDomainWrapper);
         model.addAttribute("labSet", labSet);
         model.addAttribute("orderReasonsMap", orderReasonsMap);
-        model.addAttribute("careSetting", careSetting);
-        model.addAttribute("encounterType", encounterType);
-        model.addAttribute("encounterRole", encounterRole);
-        model.addAttribute("autoExpireDays", autoExpireDays);
         model.addAttribute("returnUrl", returnUrl);
         model.addAttribute("pihui", new PihUiUtils());
     }

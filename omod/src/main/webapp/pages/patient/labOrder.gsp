@@ -10,10 +10,6 @@
     const testNames = new Map();
     const reasonsByTest = new Map();
     const testsByPanel = new Map();
-    const careSetting = '${careSetting.uuid}';
-    const encounterType = '${encounterType.uuid}';
-    const encounterRole = '${encounterRole.uuid}';
-    const autoExpireDays = ${autoExpireDays};
     const returnUrl = '${returnUrl ?: ui.pageLink("pihcore", "patient/labOrders", [patient: patient.id])}';
 
     // Order Data
@@ -188,45 +184,46 @@
         });
 
         jQuery("#draft-save-button").click(function () {
-            const orders = [];
-            orderedTests.forEach(orderable => {
-                orders.push({
-                    type: 'testorder',
+            jq.get(openmrsContextPath + "/ws/rest/v1/pihcore/labOrderConfig", function(labOrderConfig) {
+                const orders = [];
+                orderedTests.forEach(orderable => {
+                    orders.push({
+                        type: 'testorder',
+                        patient: patient,
+                        orderer: orderer,
+                        concept: orderable,
+                        urgency: urgencies.get(orderable) || 'ROUTINE',
+                        orderReason: reasons.get(orderable) ?? null,
+                        careSetting: labOrderConfig.careSetting.INPATIENT,
+                        dateActivated: orderDate,
+                        autoExpireDate: moment(orderDate).add(labOrderConfig.autoExpireDays || 30, 'days').format('YYYY-MM-DDTHH:mm:ss.SSS'),
+                    });
+                })
+                const encounterPayload = {
                     patient: patient,
-                    orderer: orderer,
-                    concept: orderable,
-                    urgency: urgencies.get(orderable) || 'ROUTINE',
-                    orderReason: reasons.get(orderable) ?? null,
-                    careSetting: careSetting,
-                    dateActivated: orderDate,
-                    autoExpireDate: moment(orderDate).add(autoExpireDays, 'days').format('YYYY-MM-DDTHH:mm:ss.SSS'),
+                    encounterType: labOrderConfig.encounterType,
+                    encounterDatetime: orderDate,
+                    location: encounterLocation,
+                    orders,
+                    encounterProviders: [ { encounterRole: labOrderConfig.encounterRole, provider: orderer } ],
+                };
+
+                jq.ajax({
+                    url: openmrsContextPath + '/ws/rest/v1/encounter',
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(encounterPayload),
+                    dataType: 'json', // Expect JSON response
+                    success: function(response) {
+                        emr.successMessage('${ui.message("pihcore.orderSuccessMessage")}');
+                        document.location.href = returnUrl;
+                    },
+                    error: function(xhr, status, error) {
+                        const message = xhr.responseJSON?.error?.message ?? error ?? xhr.responseText;
+                        emr.errorMessage('${ui.message("pihcore.orderErrorMessage")}: ' + message);
+                    }
                 });
-            })
-            const encounterPayload = {
-                patient: patient,
-                encounterType: encounterType,
-                encounterDatetime: orderDate,
-                location: encounterLocation,
-                orders,
-                encounterProviders: [ { encounterRole: encounterRole, provider: orderer } ],
-            };
-
-            jq.ajax({
-                url: openmrsContextPath + '/ws/rest/v1/encounter',
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(encounterPayload),
-                dataType: 'json', // Expect JSON response
-                success: function(response) {
-                    emr.successMessage('${ui.message("pihcore.orderSuccessMessage")}');
-                    document.location.href = returnUrl;
-                },
-                error: function(xhr, status, error) {
-                    const message = xhr.responseJSON?.error?.message ?? error ?? xhr.responseText;
-                    emr.errorMessage('${ui.message("pihcore.orderErrorMessage")}: ' + message);
-                }
             });
-
         });
     })
 </script>
