@@ -29,7 +29,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     }
 </script>
 
-<h3>${ ui.message("pihcore.labOrders.active") }</h3>
+<div class="row">
+    <div class="col-8">
+        <h3>${ ui.message("pihcore.labOrders.active") }</h3>
+    </div>
+    <div class="col-4 text-right">
+        <a href="${ui.pageLink("pihcore", "patient/labOrder", ["patient": patient.patient.uuid])}"><input type="button" value="${ui.message("pih.app.labs.ordering")}"/></a>
+    </div>
+</div>
 
 <table id="active-orders-list" width="100%" border="1" cellspacing="0" cellpadding="2">
     <thead>
@@ -66,9 +73,6 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     <% } %>
     </tbody>
 </table>
-<div style="padding-top:10px;">
-    <a href="${ui.pageLink("pihcore", "patient/labOrder", ["patient": patient.patient.uuid])}"><input type="button" value="${ui.message("pih.app.labs.ordering")}"/></a>
-</div>
 
 <br/>
 
@@ -96,8 +100,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         <td>${ ui.format(labOrder.orderNumber) }</td>
         <td>${ pihui.getBestShortName(labOrder.concept) }</td>
         <td>${ ui.format(labOrder.orderer) }</td>
-        <td class="order-actions-btn">
-        </td>
+        <td class="order-actions-btn"></td>
     </tr>
     <% } %>
     </tbody>

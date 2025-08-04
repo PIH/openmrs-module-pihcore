@@ -172,6 +172,10 @@
             changeCategory('${labSet.setMembers.get(0).uuid}');
         <% } %>
 
+        jQuery("#cancel-button").click(function () {
+            document.location.href = "${ui.pageLink("pihcore", "patient/labOrders", [patient: patient.id])}"
+        })
+
         jQuery("#draft-discard-all").click(function () {
             const testsToRemove = [... orderedTests];
             testsToRemove.forEach(test => {
