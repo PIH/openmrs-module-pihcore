@@ -31,7 +31,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     <% } %>
     <% activeOrders.each { labOrder -> %>
         <tr>
-            <td>${ ui.formatDatePretty(labOrder.effectiveStartDate) }</td>
+            <td>${ ui.formatDatetimePretty(labOrder.effectiveStartDate) }</td>
             <td>${ ui.format(labOrder.orderNumber) }</td>
             <td>
                 <% if (ui.format(labOrder.urgency) == 'STAT') { %>
