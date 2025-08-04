@@ -210,7 +210,6 @@
                 orders,
                 encounterProviders: [ { encounterRole: encounterRole, provider: orderer } ],
             };
-            console.log(encounterPayload);
 
             jq.ajax({
                 url: openmrsContextPath + '/ws/rest/v1/encounter',

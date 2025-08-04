@@ -2,6 +2,7 @@
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeCss("pihcore", "orderEntry.css")
     ui.includeCss("pihcore", "labOrder.css")
+    ui.includeJavascript("uicommons", "moment.min.js")
 %>
 
 ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ]) }
@@ -12,13 +13,54 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         { label: "${ ui.escapeJs(ui.format(patient.patient)) }" , link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'},
         { label: "${ ui.message("pihcore.labOrders") }" , link: '${ui.pageLink("pihcore", "patient/labOrders", ["patientId": patient.id])}'}
     ];
-    function discontinueOrder(orderUuid) {
+    function discontinueOrder(orderUuid, orderableUuid) {
         const discontinueDialog = emr.setupConfirmationDialog({
             selector: '#discontinue-order-dialog',
             actions: {
                 confirm: function() {
-                    const discontinueReason = jq("#discontinue-reason-field").val();
 
+                    const discontinueReason = jq("#discontinue-reason-field").val();
+                    const discontinueDate = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
+                    const patient = '${patient.patient.uuid}';
+                    const orderer = '${sessionContext.currentProvider.uuid}';
+                    jq.get(openmrsContextPath + "/ws/rest/v1/pihcore/labOrderConfig", function(labOrderConfig) {
+                        const encounterPayload = {
+                            patient: patient,
+                            encounterType: labOrderConfig.encounterType,
+                            encounterDatetime: discontinueDate,
+                            location: '${sessionContext.sessionLocation.uuid}',
+                            encounterProviders: [ { encounterRole: labOrderConfig.encounterRole, provider: orderer } ],
+                            orders: [
+                                {
+                                    type: 'testorder',
+                                    action: 'DISCONTINUE',
+                                    previousOrder: orderUuid,
+                                    patient: patient,
+                                    orderer: orderer,
+                                    concept: orderableUuid,
+                                    urgency: 'ROUTINE',
+                                    orderReasonNonCoded: discontinueReason,
+                                    careSetting: labOrderConfig.careSetting.INPATIENT,
+                                    dateActivated: discontinueDate,
+                                }
+                            ]
+                        };
+                        jq.ajax({
+                            url: openmrsContextPath + '/ws/rest/v1/encounter',
+                            type: 'POST',
+                            contentType: 'application/json; charset=utf-8',
+                            data: JSON.stringify(encounterPayload),
+                            dataType: 'json', // Expect JSON response
+                            success: function(response) {
+                                emr.successMessage('${ui.message("pihcore.discontinueSuccessMessage")}');
+                                document.location.href = '${ui.pageLink('pihcore', 'patient/labOrders', [patient: patient.id])}>';
+                            },
+                            error: function(xhr, status, error) {
+                                const message = xhr.responseJSON?.error?.message ?? error ?? xhr.responseText;
+                                emr.errorMessage('${ui.message("pihcore.discontinueErrorMessage")}: ' + message);
+                            }
+                        });
+                    })
                 },
                 cancel: function() {
                     jq("#discontinue-reason-field").val("")
@@ -66,7 +108,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <td>${ ui.format(labOrder.orderer) }</td>
             <td class="order-actions-btn" style="text-align: center;">
                 <span>
-                    <a href="#" onclick="discontinueOrder('${labOrder.uuid}')"><i class="icon-remove scale" title="${ui.message("pihcore.discontinue")}"></i></a>
+                    <a href="#" onclick="discontinueOrder('${labOrder.uuid}', '${labOrder.concept.uuid}')"><i class="icon-remove scale" title="${ui.message("pihcore.discontinue")}"></i></a>
                 </span>
             </td>
         </tr>
@@ -85,7 +127,6 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         <th>${ ui.message("pihcore.orderNumber") }</th>
         <th>${ ui.message("pihcore.labTest") }</th>
         <th>${ ui.message("pihcore.testOrderedBy") }</th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -100,7 +141,6 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         <td>${ ui.format(labOrder.orderNumber) }</td>
         <td>${ pihui.getBestShortName(labOrder.concept) }</td>
         <td>${ ui.format(labOrder.orderer) }</td>
-        <td class="order-actions-btn"></td>
     </tr>
     <% } %>
     </tbody>
