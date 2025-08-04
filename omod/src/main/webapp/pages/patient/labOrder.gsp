@@ -2,16 +2,29 @@
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeCss("pihcore", "orderEntry.css")
     ui.includeCss("pihcore", "labOrder.css")
+    ui.includeJavascript("uicommons", "moment.min.js")
 %>
 <script type="text/javascript">
 
+    // Configuration
+    const testNames = new Map();
+    const reasonsByTest = new Map();
+    const testsByPanel = new Map();
+    const careSetting = '${careSetting.uuid}';
+    const encounterType = '${encounterType.uuid}';
+    const encounterRole = '${encounterRole.uuid}';
+    const autoExpireDays = ${autoExpireDays};
+
+    // Order Data
     const orderedTests = [];
     const urgencies = new Map();
     const reasons = new Map();
     const orderedTestsFromPanel = [];
-    const testNames = new Map();
-    const reasonsByTest = new Map();
-    const testsByPanel = new Map();
+    const orderDate = new Date();
+    const patient = '${patient.patient.uuid}';
+    const orderer = '${sessionContext.currentProvider.uuid}';
+    const encounterLocation = '${sessionContext.sessionLocation.uuid}'
+
     <% labSet.setMembers.each { category -> %>
         <% category.setMembers.each { orderable -> %>
             testNames.set('${ orderable.uuid }', '${ pihui.getBestShortName(orderable) }');
@@ -62,7 +75,11 @@
             orderedReasons.forEach(reason => {
                 const selectItem = jQuery("<option>").val(reason.uuid).html(reason.display);
                 jQuery(reasonSelector).append(selectItem);
-            })
+            });
+            jQuery(reasonSelector).change(function () {
+                reasons.set(orderedUuid, jQuery(reasonSelector).val());
+            });
+            jQuery(reasonSelector).change();
             jQuery("#draft-list-container").append(draftReasonItem);
             jQuery(draftReasonItem).show();
         }
@@ -165,6 +182,48 @@
             updateDraftList();
         });
 
+        jQuery("#draft-save-button").click(function () {
+            const orders = [];
+            orderedTests.forEach(orderable => {
+                orders.push({
+                    type: 'testorder',
+                    patient: patient,
+                    orderer: orderer,
+                    concept: orderable,
+                    urgency: urgencies.get(orderable) || 'ROUTINE',
+                    orderReason: reasons.get(orderable) ?? null,
+                    careSetting: careSetting,
+                    dateActivated: orderDate,
+                    autoExpireDate: moment(orderDate).add(autoExpireDays, 'days').format('YYYY-MM-DDTHH:mm:ss.SSS'),
+                });
+            })
+            const encounterPayload = {
+                patient: patient,
+                encounterType: encounterType,
+                encounterDatetime: orderDate,
+                location: encounterLocation,
+                orders,
+                encounterProviders: [ { encounterRole: encounterRole, provider: orderer } ],
+            };
+            console.log(encounterPayload);
+
+            jq.ajax({
+                url: openmrsContextPath + '/ws/rest/v1/encounter',
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(encounterPayload),
+                dataType: 'json', // Expect JSON response
+                success: function(response) {
+                    emr.successMessage('${ui.message("pihcore.orderSuccessMessage")}');
+                    document.location.href= '${ui.pageLink('pihcore', 'patient/labOrders', [patient: patient.id])}';
+                },
+                error: function(xhr, status, error) {
+                    const message = xhr.responseJSON?.error?.message ?? error ?? xhr.responseText;
+                    emr.errorMessage('${ui.message("pihcore.orderErrorMessage")}: ' + message);
+                }
+            });
+
+        });
     })
 </script>
 
