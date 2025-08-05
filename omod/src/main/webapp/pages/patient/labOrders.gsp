@@ -11,7 +11,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.escapeJs(ui.format(patient.patient)) }" , link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'},
-        { label: "${ ui.message("pihcore.labOrders") }" , link: '${ui.pageLink("pihcore", "patient/labOrders", ["patientId": patient.id])}'}
+        { label: "${ ui.encodeJavaScript(ui.message("pihcore.labOrders")) }" , link: '${ui.pageLink("pihcore", "patient/labOrders", ["patientId": patient.id])}'}
     ];
     function discontinueOrder(orderUuid, orderableUuid) {
         const discontinueDialog = emr.setupConfirmationDialog({
@@ -52,12 +52,12 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                             data: JSON.stringify(encounterPayload),
                             dataType: 'json', // Expect JSON response
                             success: function(response) {
-                                emr.successMessage('${ui.message("pihcore.discontinueSuccessMessage")}');
+                                emr.successMessage('${ui.encodeJavaScript(ui.message("pihcore.discontinueSuccessMessage"))}');
                                 document.location.href = '${ui.pageLink('pihcore', 'patient/labOrders', [patient: patient.id])}>';
                             },
                             error: function(xhr, status, error) {
                                 const message = xhr.responseJSON?.error?.message ?? error ?? xhr.responseText;
-                                emr.errorMessage('${ui.message("pihcore.discontinueErrorMessage")}: ' + message);
+                                emr.errorMessage('${ui.encodeJavaScript(ui.message("pihcore.discontinueErrorMessage"))}: ' + message);
                             }
                         });
                     })
@@ -72,11 +72,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
 </script>
 
 <div class="row">
-    <div class="col-8">
+    <div class="col-6">
         <h3>${ ui.message("pihcore.labOrders.active") }</h3>
     </div>
-    <div class="col-4 text-right">
-        <a href="${ui.pageLink("pihcore", "patient/labOrder", ["patient": patient.patient.uuid])}"><input type="button" value="${ui.message("pih.app.labs.ordering")}"/></a>
+    <div class="col-6 text-right">
+        <a href="${ui.pageLink("pihcore", "patient/labOrder", ["patient": patient.patient.uuid])}">
+            <input type="button" value="${ui.message("pihcore.addLabOrders")}" style="max-width: unset;"/>
+        </a>
     </div>
 </div>
 

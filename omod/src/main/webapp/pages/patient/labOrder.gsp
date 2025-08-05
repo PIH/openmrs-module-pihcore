@@ -24,7 +24,7 @@
 
     <% labSet.setMembers.each { category -> %>
         <% category.setMembers.each { orderable -> %>
-            testNames.set('${ orderable.uuid }', '${ pihui.getBestShortName(orderable) }');
+            testNames.set('${ orderable.uuid }', '${ ui.encodeJavaScript(pihui.getBestShortName(orderable)) }');
             <% if (orderable.isSet()) { %>
                 testsByPanel.set('${ orderable.uuid }', new Set());
                 <% orderable.setMembers.each { test -> %>
@@ -34,7 +34,7 @@
             <% if (orderReasonsMap.get(orderable.uuid)) { %>
                 reasonsByTest.set('${ orderable.uuid }', []);
                 <% orderReasonsMap.get(orderable.uuid).each{ reasonConcept -> %>
-                    reasonsByTest.get('${ orderable.uuid }').push({uuid: '${reasonConcept.uuid}', display: '${ pihui.getBestShortName(reasonConcept) }'});
+                    reasonsByTest.get('${ orderable.uuid }').push({uuid: '${reasonConcept.uuid}', display: '${ ui.encodeJavaScript(pihui.getBestShortName(reasonConcept)) }'});
                 <% } %>
             <% } %>
         <% } %>
@@ -147,10 +147,10 @@
         const discardAllButton = jQuery("#draft-discard-all");
         const saveButton = jQuery("#draft-save-button");
         if (orderedTests.length > 1) {
-            discardAllButton.val('${ui.message("pihcore.discardAll")}');
+            discardAllButton.val('${ui.encodeJavaScript(ui.message("pihcore.discardAll"))}');
         }
         else {
-            discardAllButton.val('${ui.message("pihcore.discard")}');
+            discardAllButton.val('${ui.encodeJavaScript(ui.message("pihcore.discard"))}');
             if (orderedTests.length === 0) {
                 discardAllButton.attr("disabled", "disabled");
                 saveButton.attr("disabled", "disabled");
@@ -215,12 +215,12 @@
                     data: JSON.stringify(encounterPayload),
                     dataType: 'json', // Expect JSON response
                     success: function(response) {
-                        emr.successMessage('${ui.message("pihcore.orderSuccessMessage")}');
+                        emr.successMessage('${ui.encodeJavaScript(ui.message("pihcore.orderSuccessMessage"))}');
                         document.location.href = returnUrl;
                     },
                     error: function(xhr, status, error) {
                         const message = xhr.responseJSON?.error?.message ?? error ?? xhr.responseText;
-                        emr.errorMessage('${ui.message("pihcore.orderErrorMessage")}: ' + message);
+                        emr.errorMessage('${ui.encodeJavaScript(ui.message("pihcore.orderErrorMessage"))}: ' + message);
                     }
                 });
             });
@@ -238,11 +238,11 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
             link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'
         },
         {
-            label: "${ ui.message("pihcore.labOrders") }",
+            label: "${ ui.encodeJavaScript(ui.message("pihcore.labOrders")) }",
             link: '${ui.pageLink("pihcore", "patient/labOrders", ["patient": patient.id])}'
         },
         {
-            label: "${ ui.message("pih.app.labs.ordering") }",
+            label: "${ ui.encodeJavaScript(ui.message("pihcore.addLabOrders")) }",
             link: '${ui.pageLink("pihcore", "patient/labOrder", ["patient": patient.id])}'
         }
     ];
@@ -316,7 +316,7 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
 <div class="row">
     <div class="col-12 col-md-8">
         <div class="lab-order-entry">
-            <h3>${ ui.message("pih.app.labs.ordering") }</h3>
+            <h3>${ ui.message("pihcore.addLabOrders") }</h3>
 
             <% if (!labSet) { %>
 
