@@ -17,7 +17,6 @@
     const urgencies = new Map();
     const reasons = new Map();
     const orderedTestsFromPanel = [];
-    const orderDate = new Date();
     const patient = '${patient.patient.uuid}';
     const orderer = '${sessionContext.currentProvider.uuid}';
     const encounterLocation = '${sessionContext.sessionLocation.uuid}'
@@ -41,59 +40,59 @@
     <% } %>
 
     function changeCategory(categoryUuid) {
-        jQuery(".category-link").removeClass("active-category");
-        jQuery("#category-link-" + categoryUuid).addClass("active-category");
-        jQuery(".lab-selection-form").hide();
-        jQuery("#lab-selection-form-" + categoryUuid).show();
+        jq(".category-link").removeClass("active-category");
+        jq("#category-link-" + categoryUuid).addClass("active-category");
+        jq(".lab-selection-form").hide();
+        jq("#lab-selection-form-" + categoryUuid).show();
     }
 
     function addOrderedTest(orderedUuid) {
         orderedTests.push(orderedUuid);
         const testName = testNames.get(orderedUuid);
 
-        const draftItem = jQuery("#draft-order-template").clone();
-        jQuery(draftItem)
+        const draftItem = jq("#draft-order-template").clone();
+        jq(draftItem)
             .attr("id", "draft-order-" + orderedUuid)
             .find(".draft-name").html(testName);
-        jQuery("#draft-list-container").append(draftItem);
-        jQuery(draftItem).find(".draft-discard-btn").click(function () {
+        jq("#draft-list-container").append(draftItem);
+        jq(draftItem).find(".draft-discard-btn").click(function () {
             toggleTest(orderedUuid);
         });
-        jQuery(draftItem).find(".draft-urgency-toggle-btn").click(function () {
+        jq(draftItem).find(".draft-urgency-toggle-btn").click(function () {
             toggleUrgency(orderedUuid);
         });
-        jQuery(draftItem).show();
+        jq(draftItem).show();
 
         const orderedReasons = reasonsByTest.get(orderedUuid);
         if (orderedReasons && orderedReasons.length > 0) {
-            const draftReasonItem = jQuery("#order-reason-template").clone();
-            jQuery(draftReasonItem).attr("id", "order-reason-" + orderedUuid);
-            const reasonSelector = jQuery(draftReasonItem).find(".order-reason-selector");
+            const draftReasonItem = jq("#order-reason-template").clone();
+            jq(draftReasonItem).attr("id", "order-reason-" + orderedUuid);
+            const reasonSelector = jq(draftReasonItem).find(".order-reason-selector");
             orderedReasons.forEach(reason => {
-                const selectItem = jQuery("<option>").val(reason.uuid).html(reason.display);
-                jQuery(reasonSelector).append(selectItem);
+                const selectItem = jq("<option>").val(reason.uuid).html(reason.display);
+                jq(reasonSelector).append(selectItem);
             });
-            jQuery(reasonSelector).change(function () {
-                reasons.set(orderedUuid, jQuery(reasonSelector).val());
+            jq(reasonSelector).change(function () {
+                reasons.set(orderedUuid, jq(reasonSelector).val());
             });
-            jQuery(reasonSelector).change();
-            jQuery("#draft-list-container").append(draftReasonItem);
-            jQuery(draftReasonItem).show();
+            jq(reasonSelector).change();
+            jq("#draft-list-container").append(draftReasonItem);
+            jq(draftReasonItem).show();
         }
     }
 
     function removeOrderedTest(orderedUuid) {
         orderedTests.splice(orderedTests.indexOf(orderedUuid), 1);
-        jQuery("#draft-order-" + orderedUuid).remove();
-        jQuery("#order-reason-" + orderedUuid).remove();
+        jq("#draft-order-" + orderedUuid).remove();
+        jq("#order-reason-" + orderedUuid).remove();
     }
 
     function toggleUrgency(orderedUuid) {
         const current = urgencies.get(orderedUuid);
         const newUrgency = (current === 'STAT' ? 'ROUTINE' : 'STAT');
         urgencies.set(orderedUuid, newUrgency);
-        const urgencyIcon = jQuery("#draft-order-" + orderedUuid).find(".draft-urgency-icon");
-        jQuery(urgencyIcon).removeClass('i-gray').removeClass('i-red').addClass(newUrgency === 'STAT' ? 'i-red' : 'i-gray');
+        const urgencyIcon = jq("#draft-order-" + orderedUuid).find(".draft-urgency-icon");
+        jq(urgencyIcon).removeClass('i-gray').removeClass('i-red').addClass(newUrgency === 'STAT' ? 'i-red' : 'i-gray');
     }
 
     function toggleTest(testUuid) {
@@ -143,9 +142,10 @@
     }
 
     function updateDraftList() {
-        jQuery("#num-draft-orders").html(orderedTests.length);
-        const discardAllButton = jQuery("#draft-discard-all");
-        const saveButton = jQuery("#draft-save-button");
+        jq("#num-draft-orders").html(orderedTests.length);
+        const discardAllButton = jq("#draft-discard-all");
+        const saveButton = jq("#draft-save-button");
+        const orderDateSection = jq("#order-date-section");
         if (orderedTests.length > 1) {
             discardAllButton.val('${ui.encodeJavaScript(ui.message("pihcore.discardAll"))}');
         }
@@ -154,26 +154,30 @@
             if (orderedTests.length === 0) {
                 discardAllButton.attr("disabled", "disabled");
                 saveButton.attr("disabled", "disabled");
+                orderDateSection.hide();
+                jq("#order-date-picker-display").val("");
+                jq("#order-date-picker-field").val("");
             }
             else {
                 discardAllButton.removeAttr("disabled");
                 saveButton.removeAttr("disabled");
+                orderDateSection.show();
             }
         }
     }
 
-    jQuery(document).ready(function () {
+    jq(document).ready(function () {
 
-        jQuery(".lab-selection-form").hide();
+        jq(".lab-selection-form").hide();
         <% if (labSet && !labSet.setMembers.isEmpty()) { %>
             changeCategory('${labSet.setMembers.get(0).uuid}');
         <% } %>
 
-        jQuery("#cancel-button").click(function () {
+        jq("#cancel-button").click(function () {
             document.location.href = returnUrl;
         })
 
-        jQuery("#draft-discard-all").click(function () {
+        jq("#draft-discard-all").click(function () {
             const testsToRemove = [... orderedTests];
             testsToRemove.forEach(test => {
                 toggleTest(test);
@@ -183,9 +187,15 @@
             updateDraftList();
         });
 
-        jQuery("#draft-save-button").click(function () {
+        jq("#order-date-toggle").click(function () {
+            jq("#order-date-default").hide();
+            jq("#order-date-custom").show();
+        })
+
+        jq("#draft-save-button").click(function () {
             jq.get(openmrsContextPath + "/ws/rest/v1/pihcore/labOrderConfig", function(labOrderConfig) {
                 const orders = [];
+                const orderDate = jq("#order-date-picker-field").val() || new Date();
                 orderedTests.forEach(orderable => {
                     orders.push({
                         type: 'testorder',
@@ -311,6 +321,24 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
         visibility: visible;
         opacity: 1;
     }
+
+    #order-date-section {
+        font-size: 80%;
+        display: none;
+    }
+    #order-date-label {
+        font-weight: bold;
+    }
+    #order-date-default {
+        padding-left: 10px;
+    }
+    #order-date-toggle {
+        padding-left: 20px;
+    }
+    #order-date-custom {
+        padding-left: 20px;
+        display: none;
+    }
 </style>
 
 <div class="row">
@@ -406,7 +434,24 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
                 <select class="order-reason-selector" name="orderReason"></select>
             </li>
         </ul>
-        <br />
+        <div id="order-date-section">
+            <span id="order-date-label">${ui.message("pihcore.orderDate")}:</span>
+            <span id="order-date-default">
+                ${ui.message("pihcore.now")}
+                <a href="#" id="order-date-toggle">${ui.message("pihcore.change")}</a>
+            </span>
+            <span id="order-date-custom">
+                ${ui.includeFragment("uicommons", "field/datetimepicker", [
+                        id: "order-date-picker",
+                        label: "",
+                        formFieldName: "order_date",
+                        useTime: false,
+                        left: true,
+                        size: 20
+                ])}
+            </span>
+        </div>
+        <br/>
         <input type="button" id="draft-discard-all" value="${ui.message('pihcore.discard')}" disabled="disabled" class="cancel modified-btn"/>
         <input type="submit" id="draft-save-button" value="${ui.message('mirebalais.save')}" disabled="disabled" class="right confirm modified-btn"/>
         <br />
