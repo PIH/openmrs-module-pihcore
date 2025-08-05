@@ -1,0 +1,356 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+
+.order-entry-page {
+  .error-notice {
+    color: red;
+    padding: 0px 8px;
+  }
+
+  .order-type-button {
+    margin: 10px 5px 10px 0px;
+    outline: none;
+  }
+
+  .order-type-button.active {
+    border: 2px solid #009384 !important;
+  }
+
+  .header-nav {
+    display: flex;
+  }
+
+  .orders-nav {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+  .select-nav {
+    display: flex;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    background: none;
+    margin-top: -10px;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    margin-top: 10px;
+  }
+
+  .dropdown-content div {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: black;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content div:hover {
+    background-color: #f1f1f1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+
+  .order-type-option {
+    font-size: 18px;
+    font-weight: 300;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: left;
+  }
+
+  .add-order-nav {
+    height: 15px;
+    margin-top: -10px;
+    cursor: pointer;
+  }
+
+  .header-nav {
+    border-bottom: 1px solid #333;
+  }
+
+  .order-details {
+    background-color: #fff;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .details {
+    padding-left: 50px;
+  }
+
+  .drug-form-header {
+    margin-bottom: 30px;
+  }
+
+  .accordion-link {
+    cursor: pointer;
+  }
+
+  .content .open {
+    overflow-y: hidden;
+    max-height: 500px; /* approximate max height */
+
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .t-orders {
+    position: relative;
+  }
+
+  .t-orders #details {
+    width: 55%;
+  }
+
+
+  %invisible {
+    border: none;
+    background-color: #fff;
+  }
+
+  .th-invisible {
+    border: none;
+    background-color: #fff;
+    padding: 0px;
+  }
+
+  .th-details {
+    border: none;
+    background: #fff;
+    padding: 0px;
+  }
+
+  .orders-breadcrumb {
+    margin-bottom: 20px;
+  }
+
+  .rotate90 {
+    transform: rotate(90deg);
+  }
+  .rotate180::before {
+    transform: rotate(180deg);
+  }
+
+  .accordion-two.content {
+    padding: 0px 5px;
+    overflow-y: scroll;
+    max-height: 0px;
+    transition: all 0.5s ease;
+  }
+
+  .accordion-two.content.close {
+    max-height: 0;
+  }
+
+  .th-1 {
+    width: 120px;  
+    text-align: left;  
+  }
+
+  .accordion-two.content.open {
+    max-height: 500px;
+  }
+
+  .sort-filter-section {
+    display: flex;
+  }
+
+  .sort-type {
+    padding-right: 15px;
+  }
+
+  .label-sort {
+    padding-right: 5px;
+  }
+
+  .sort-select:focus {
+    border: none !important;
+  }
+
+  .no-results {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .sort-status {
+    display: none;
+  }
+}
+
+.pagination {
+  display: flex;
+  text-align: center;
+  padding-left: 35%;
+  padding-right: 35%;
+  padding-bottom: 50px;
+}
+
+.page-link {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.page-link-disabled {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  pointer-events:none;
+  p {
+    color: #58626b !important;
+  }
+}
+
+.page-link-disabled:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.page-link:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.no-click {
+  cursor: auto;
+}
+
+.no-click:hover {
+  background-color: #fff;
+}
+
+.order-actions-btn {
+  span {
+    width: 50%;
+    a {
+      i.scale {
+        text-decoration: none;
+        color: black;
+      }
+    }
+    :hover {
+      transform: scale(1.5);
+      -webkit-transform: scale(1.5);
+      -moz-transform: scale(1.5);
+    }
+  }
+}
+
+.swal-button--NO {
+ background: #f66;
+}
+
+.swal-button--YES,
+.swal-button--confirm {
+  background: #8eb82a;
+}
+.draft-list-container{
+  .draft-list {
+    display: block;
+    background: #EBEBEB;
+    padding: 0 0 0 10px;
+    margin: 5px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    border-radius: 5px;
+    &:hover{
+      background: #D3D3D3;
+      transition: all 200ms ease-in-out;
+      -webkit-transition: all 200ms ease-in-out;
+      -moz-transition: all 200ms ease-in-out;
+    }
+
+    .order-status{
+      font-size: .7em;
+      margin-right: 10px;
+    }
+
+    .draft-name {
+      font-size: .9em;
+      font-weight: bolder;
+    }
+  }
+
+  /* Icon styles */
+  .i-gray {
+    color: gray
+  }
+
+  .i-red {
+    color: red;
+  }
+}
+
+.th-orderable {
+  text-align: left;
+}
+
+.draft-wrapper{
+  .action-btn-wrapper{
+    display: flex;
+  }
+
+  .action-btn {
+    cursor: pointer;
+    width: 50%;
+    height: 100% !important;
+    border-left: 1px #d0d0d0 solid;
+    display: inline-flex;
+    justify-content: center;
+    padding: .7em;
+    transition: all ease-in-out 200ms;
+    -moz-transition: all ease-in-out 200ms;
+    -webkit-transition: all ease-in-out 200ms;
+
+    .draft-discard-btn {
+      color: #ff3d3d;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .2);
+
+      a {
+        i.scale {
+          text-decoration: none;
+          transform: scale(1.7);
+          -webkit-transform: scale(1.7);
+          -moz-transform: scale(1.7);
+        }
+      }
+    }
+  }
+}
+
+.patient-header {
+  margin: 10px 0px;
+}
