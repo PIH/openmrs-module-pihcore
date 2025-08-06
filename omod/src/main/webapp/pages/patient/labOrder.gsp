@@ -195,6 +195,8 @@
         })
 
         jq("#draft-save-button").click(function () {
+            const saveButton = jq("#draft-save-button");
+            saveButton.attr("disabled", "disabled");
             jq.get(openmrsContextPath + "/ws/rest/v1/pihcore/labOrderConfig", function(labOrderConfig) {
                 const orders = [];
                 const orderDate = jq("#order-date-picker-field").val() || new Date();
@@ -233,6 +235,7 @@
                     error: function(xhr, status, error) {
                         const message = xhr.responseJSON?.error?.message ?? error ?? xhr.responseText;
                         emr.errorMessage('${ui.encodeJavaScript(ui.message("pihcore.orderErrorMessage"))}: ' + message);
+                        saveButton.removeAttr("disabled");
                     }
                 });
             });
