@@ -157,6 +157,8 @@
                 orderDateSection.hide();
                 jq("#order-date-picker-display").val("");
                 jq("#order-date-picker-field").val("");
+                jq("#order-date-default").show();
+                jq("#order-date-custom").hide();
             }
             else {
                 discardAllButton.removeAttr("disabled");
@@ -437,7 +439,7 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
         <div id="order-date-section">
             <span id="order-date-label">${ui.message("pihcore.orderDate")}:</span>
             <span id="order-date-default">
-                ${ui.message("pihcore.now")}
+                ${ ui.format(new Date()) }
                 <a href="#" id="order-date-toggle">${ui.message("pihcore.change")}</a>
             </span>
             <span id="order-date-custom">

@@ -89,6 +89,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <th>${ ui.message("pihcore.orderNumber") }</th>
             <th>${ ui.message("pihcore.labTest") }</th>
             <th>${ ui.message("pihcore.testOrderedBy") }</th>
+            <th>${ ui.message("pihcore.status")} </th>
             <th></th>
         </tr>
     </thead>
@@ -98,7 +99,8 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             <td colspan="6">${ ui.message("coreapps.none") }</td>
         </tr>
     <% } %>
-    <% activeOrders.each { labOrder -> %>
+    <% activeOrders.each { labOrder ->
+        def status = labOrder.fulfillerStatus?.name() ?: "" %>
         <tr>
             <td>${ ui.formatDatetimePretty(labOrder.effectiveStartDate) }</td>
             <td>${ ui.format(labOrder.orderNumber) }</td>
@@ -108,10 +110,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                 <% } %>
                 ${ pihui.getBestShortName(labOrder.concept) }</td>
             <td>${ ui.format(labOrder.orderer) }</td>
+            <td>${ ui.message(status == "" ? "pihcore.ordered" : "pihcore.fulfillerStatus." + status) }</td>
             <td class="order-actions-btn" style="text-align: center;">
-                <span>
-                    <a href="#" onclick="discontinueOrder('${labOrder.uuid}', '${labOrder.concept.uuid}')"><i class="icon-remove scale" title="${ui.message("pihcore.discontinue")}"></i></a>
-                </span>
+                <% if (status != 'IN_PROGRESS' && status != 'COMPLETED') { %>
+                    <span>
+                        <a href="#" onclick="discontinueOrder('${labOrder.uuid}', '${labOrder.concept.uuid}')"><i class="icon-remove scale" title="${ui.message("pihcore.discontinue")}"></i></a>
+                    </span>
+                <% } %>
             </td>
         </tr>
     <% } %>
@@ -129,6 +134,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         <th>${ ui.message("pihcore.orderNumber") }</th>
         <th>${ ui.message("pihcore.labTest") }</th>
         <th>${ ui.message("pihcore.testOrderedBy") }</th>
+        <th>${ ui.message("pihcore.status")} </th>
     </tr>
     </thead>
     <tbody>
@@ -137,12 +143,14 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
         <td colspan="6">${ ui.message("coreapps.none") }</td>
     </tr>
     <% } %>
-    <% inactiveOrders.each { labOrder -> %>
+    <% inactiveOrders.each { labOrder ->
+        def status = labOrder.fulfillerStatus?.name() ?: "" %>
     <tr>
         <td>${ ui.formatDatePretty(labOrder.effectiveStartDate) }</td>
         <td>${ ui.format(labOrder.orderNumber) }</td>
         <td>${ pihui.getBestShortName(labOrder.concept) }</td>
         <td>${ ui.format(labOrder.orderer) }</td>
+        <td>${ ui.message("pihcore." + (status == "" ? labOrder.isDiscontinuedRightNow() ? "discontinued" : "expired" : "fulfillerStatus." + status)) }</td>
     </tr>
     <% } %>
     </tbody>
