@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.7.5</openMRSVersion>
+        <openMRSVersion>2.7.4</openMRSVersion>
 
         <addresshierarchyVersion>2.21.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.7</allergyuiVersion>
@@ -67,7 +67,7 @@
         <emrVersion>2.3.0</emrVersion>
         <emrapiVersion>2.4.0</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
-        <fhir2Version>2.6.0</fhir2Version>
+        <fhir2Version>2.5.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>6.0.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>3.0.0-SNAPSHOT</htmlformentryuiVersion>
@@ -834,7 +834,7 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.7.0,2.7.999]</version>
+                            <version>[${openMRSVersion}]</version>
                         </property>
                         <property>
                             <name>attachmentsVersion</name>
@@ -843,6 +843,10 @@
                         <property>
                             <name>eventVersion</name>
                             <version>[2.10.0,3.0.0)</version>
+                        </property>
+                        <property>
+                            <name>fhir2Version</name>
+                            <version>[${fhir2Version}]</version>
                         </property>
                     </properties>
                 </configuration>
