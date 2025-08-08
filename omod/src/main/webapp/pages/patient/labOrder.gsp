@@ -3,6 +3,8 @@
     ui.includeCss("pihcore", "orderEntry.css")
     ui.includeCss("pihcore", "labOrder.css")
     ui.includeJavascript("uicommons", "moment.min.js")
+
+    def defaultOrderDate = new Date();
 %>
 <script type="text/javascript">
 
@@ -20,6 +22,7 @@
     const patient = '${patient.patient.uuid}';
     const orderer = '${sessionContext.currentProvider.uuid}';
     const encounterLocation = '${sessionContext.sessionLocation.uuid}'
+    const defaultOrderDate = '${ui.dateToISOString(defaultOrderDate)}'
 
     <% labSet.setMembers.each { category -> %>
         <% category.setMembers.each { orderable -> %>
@@ -199,7 +202,7 @@
             saveButton.attr("disabled", "disabled");
             jq.get(openmrsContextPath + "/ws/rest/v1/pihcore/labOrderConfig", function(labOrderConfig) {
                 const orders = [];
-                const orderDate = jq("#order-date-picker-field").val() || new Date();
+                const orderDate = jq("#order-date-picker-field").val() || defaultOrderDate;
                 orderedTests.forEach(orderable => {
                     orders.push({
                         type: 'testorder',
@@ -442,7 +445,7 @@ ${ui.includeFragment("coreapps", "patientHeader", [patient: patient.patient])}
         <div id="order-date-section">
             <span id="order-date-label">${ui.message("pihcore.orderDate")}:</span>
             <span id="order-date-default">
-                ${ ui.format(new Date()) }
+                ${ ui.format(defaultOrderDate) }
                 <a href="#" id="order-date-toggle">${ui.message("pihcore.change")}</a>
             </span>
             <span id="order-date-custom">
