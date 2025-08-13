@@ -3676,7 +3676,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{orders}}", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
-                        objectNode("label", "coreapps.findPatient.app.label")),CALF
+                        objectNode("label", "coreapps.findPatient.app.label")),
                 config.getFindPatientColumnConfig()
                 ));
 
