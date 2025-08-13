@@ -3622,20 +3622,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "icon", "fas fa-fw fa-fingerprint")),
                 "registrationapp",
                 "summary/biometricsSummary"));
-
-        // Add biometrics widget to the HIV dashboard
-        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.BIOMETRICS_WIDGET,
-                        "registrationapp.biometrics.summary",
-                        "fas fa-fw fa-fingerprint",
-                        null,
-                        null,
-                        objectNode(
-                                "registrationAppId", CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,
-                                "icon", "fas fa-fw fa-fingerprint")),
-                "registrationapp",
-                "summary/biometricsSummary",
-                3
-        ));
     }
 
     private void enablePathologyTracking() {
@@ -3690,7 +3676,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html#/order/{{orders}}", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
-                        objectNode("label", "coreapps.findPatient.app.label")),
+                        objectNode("label", "coreapps.findPatient.app.label")),CALF
                 config.getFindPatientColumnConfig()
                 ));
 
