@@ -18,7 +18,9 @@ import org.openmrs.Relationship;
 import org.openmrs.RelationshipType;
 import org.openmrs.User;
 import org.openmrs.Visit;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
+import org.openmrs.api.FormService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
@@ -50,8 +52,21 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
     private static String REGISTER_BABY_CONCEPT = "20150";
     private static String BABY_GENDER_CONCEPT_SOURCE = "CIEL";
     private static String BABY_GENDER_CONCEPT = "1587";
+    private static String DELIVERY_TYPE_CONCEPT = "11663";
+    private static String DELIVERY_OUTCOME_CONCEPT = "159917";
+    private static String BIRTH_WEIGHT_CONCEPT = "5916";
+    private static String BIRTH_HEIGHT_CONCEPT = "163554";
+    private static String HEAD_CIRCUMFERENCE_CONCEPT = "163555";
     private static String DATE_TIME_OF_BIRTH_CONCEPT_SOURCE = "PIH";
     private static String DATE_TIME_OF_BIRTH_CONCEPT = "5599";
+    private static String APGAR_ONE_MINUTE_CONCEPT = "14419";
+    private static String APGAR_FIVE_MINUTES_CONCEPT = "159604";
+    private static String APGAR_TEN_MINUTES_CONCEPT = "14785";
+    private static String VISIT_DIAGNOSIS_CONCEPT = "159947";
+    private static String DIAGNOSIS_CONCEPT = "3064";
+    private static String MULTIPLE_BABIES_CONCEPT = "115491";
+    private static String BABY_NUMBER_CONCEPT = "163460";
+    private static String NEWBORN_ASSESSMENT_FORM_UUID = "17e93a76-32d1-4435-a5e3-3068e305c2d7";
 
     protected Log log = LogFactory.getLog(getClass());
 
@@ -95,6 +110,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                                     bedManagementService.assignPatientToBed(baby, babyEncounter, "" + motherBed.getBedId());
                                                 }
                                             }
+                                            createNewbornAssessmentEncounter(visit, baby, groupMembers, encounter, registeredBabies.size());
                                         }
                                     }
                                 }
@@ -219,6 +235,103 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         return visit;
     }
 
+    Encounter createNewbornAssessmentEncounter(Visit visit, Patient patient, Set<Obs> newbornObs, Encounter motherEncounter, int babyNumber) {
+        ConceptService conceptService = Context.getConceptService();
+        Location motherEncounterLocation = motherEncounter.getLocation();
+        Concept gender = getCodedValue(newbornObs, BABY_GENDER_CONCEPT_SOURCE, BABY_GENDER_CONCEPT);
+        Concept deliveryType = getCodedValue(newbornObs, "PIH", DELIVERY_TYPE_CONCEPT);
+        Concept outcome = getCodedValue(newbornObs, "CIEL", DELIVERY_OUTCOME_CONCEPT);
+        Double weight = getObsNumericValue(newbornObs, "CIEL", BIRTH_WEIGHT_CONCEPT);
+        Double height = getObsNumericValue(newbornObs, "CIEL", BIRTH_HEIGHT_CONCEPT);
+        Double headCircumference = getObsNumericValue(newbornObs, "CIEL", HEAD_CIRCUMFERENCE_CONCEPT);
+        Date birthDatetime = getObsDateValue(newbornObs, DATE_TIME_OF_BIRTH_CONCEPT_SOURCE, DATE_TIME_OF_BIRTH_CONCEPT);
+        Double apgarScoreOneMinute = getObsNumericValue(newbornObs, "PIH", APGAR_ONE_MINUTE_CONCEPT);
+        Double apgarScoreFiveMinutes = getObsNumericValue(newbornObs, "CIEL", APGAR_FIVE_MINUTES_CONCEPT);
+        Double apgarScoreTenMinutes = getObsNumericValue(newbornObs, "PIH", APGAR_TEN_MINUTES_CONCEPT);
+
+        Concept diagnosisConcept = getCodedValue(motherEncounter.getAllFlattenedObs(false), "PIH", DIAGNOSIS_CONCEPT);
+        Concept multipleBabiesConcept = conceptService.getConceptByMapping(MULTIPLE_BABIES_CONCEPT, "CIEL");
+
+        Encounter newbornAssessmentEncounter = new Encounter();
+        EncounterService encounterService = Context.getEncounterService();
+        newbornAssessmentEncounter.setPatient(patient);
+        newbornAssessmentEncounter.setEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_ASSESSMENT_UUID));
+        newbornAssessmentEncounter.setEncounterDatetime(birthDatetime);
+        newbornAssessmentEncounter.setForm(Context.getService(FormService.class).getFormByUuid(NEWBORN_ASSESSMENT_FORM_UUID));
+        newbornAssessmentEncounter.setVisit(visit);
+        newbornAssessmentEncounter.setLocation(motherEncounterLocation);
+        Set<EncounterProvider> providers =  motherEncounter.getEncounterProviders();
+        if (providers != null && !providers.isEmpty()) {
+            for (EncounterProvider provider : providers) {
+                newbornAssessmentEncounter.addProvider(provider.getEncounterRole(), provider.getProvider());
+            }
+        }
+        if (diagnosisConcept != null && multipleBabiesConcept != null && diagnosisConcept.equals(multipleBabiesConcept)) {
+            //multiple babies
+            Obs visitDiagnosisObs = new Obs(patient, conceptService.getConceptByMapping(VISIT_DIAGNOSIS_CONCEPT, "CIEL"), birthDatetime, motherEncounterLocation);
+            Obs diagnosisObs = new Obs(patient, conceptService.getConceptByMapping(DIAGNOSIS_CONCEPT, "PIH"), birthDatetime, motherEncounterLocation);
+            diagnosisObs.setValueCoded(multipleBabiesConcept);
+            visitDiagnosisObs.addGroupMember(diagnosisObs);
+            newbornAssessmentEncounter.addObs(visitDiagnosisObs);
+        }
+        if (outcome != null) {
+            Obs outcomeObservation = new Obs(patient, conceptService.getConceptByMapping(DELIVERY_OUTCOME_CONCEPT, "CIEL"), birthDatetime, motherEncounterLocation);
+            outcomeObservation.setValueCoded(outcome);
+            newbornAssessmentEncounter.addObs(outcomeObservation);
+        }
+        if (deliveryType != null) {
+            Obs deliveryTypeObservation = new Obs(patient, conceptService.getConceptByMapping(DELIVERY_TYPE_CONCEPT, "PIH"), birthDatetime, motherEncounterLocation);
+            deliveryTypeObservation.setValueCoded(deliveryType);
+            newbornAssessmentEncounter.addObs(deliveryTypeObservation);
+        }
+        if (gender != null) {
+            Obs genderObs = new Obs(patient, conceptService.getConceptByMapping(BABY_GENDER_CONCEPT, "CIEL"), birthDatetime, motherEncounterLocation);
+            genderObs.setValueCoded(gender);
+            newbornAssessmentEncounter.addObs(genderObs);
+        }
+        if (birthDatetime != null) {
+            Obs birthTimeObs = new Obs(patient, conceptService.getConceptByMapping(DATE_TIME_OF_BIRTH_CONCEPT, DATE_TIME_OF_BIRTH_CONCEPT_SOURCE), birthDatetime, motherEncounterLocation);
+            birthTimeObs.setValueDatetime(birthDatetime);
+            newbornAssessmentEncounter.addObs(birthTimeObs);
+        }
+        if (weight != null) {
+            Obs weightObs = new Obs(patient, conceptService.getConceptByMapping(BIRTH_WEIGHT_CONCEPT, "CIEL"), birthDatetime, motherEncounterLocation);
+            weightObs.setValueNumeric(weight);
+            newbornAssessmentEncounter.addObs(weightObs);
+        }
+        if (height != null) {
+            Obs heightObs = new Obs(patient, conceptService.getConceptByMapping(BIRTH_HEIGHT_CONCEPT, "CIEL"), birthDatetime, motherEncounterLocation);
+            heightObs.setValueNumeric(height);
+            newbornAssessmentEncounter.addObs(heightObs);
+        }
+        if (headCircumference != null) {
+            Obs headCircumferenceObs = new Obs(patient, conceptService.getConceptByMapping(HEAD_CIRCUMFERENCE_CONCEPT, "CIEL"), birthDatetime, motherEncounterLocation);
+            headCircumferenceObs.setValueNumeric(headCircumference);
+            newbornAssessmentEncounter.addObs(headCircumferenceObs);
+        }
+        if (apgarScoreOneMinute != null) {
+            Obs apgarOneMinObs = new Obs(patient, conceptService.getConceptByMapping(APGAR_ONE_MINUTE_CONCEPT, "PIH"), birthDatetime, motherEncounterLocation);
+            apgarOneMinObs.setValueNumeric(apgarScoreOneMinute);
+            newbornAssessmentEncounter.addObs(apgarOneMinObs);
+        }
+        if (apgarScoreFiveMinutes != null) {
+            Obs apgarFiveMinsObs = new Obs(patient, conceptService.getConceptByMapping(APGAR_FIVE_MINUTES_CONCEPT, "CIEL"), birthDatetime, motherEncounterLocation);
+            apgarFiveMinsObs.setValueNumeric(apgarScoreFiveMinutes);
+            newbornAssessmentEncounter.addObs(apgarFiveMinsObs);
+        }
+        if (apgarScoreTenMinutes != null) {
+            Obs apgarTenMinsObs = new Obs(patient, conceptService.getConceptByMapping(APGAR_TEN_MINUTES_CONCEPT, "PIH"), birthDatetime, motherEncounterLocation);
+            apgarTenMinsObs.setValueNumeric(apgarScoreTenMinutes);
+            newbornAssessmentEncounter.addObs(apgarTenMinsObs);
+        }
+        if (babyNumber > 0) {
+            Obs babyNumberObs = new Obs(patient, conceptService.getConceptByMapping(BABY_NUMBER_CONCEPT, "CIEL"), birthDatetime, motherEncounterLocation);
+            babyNumberObs.setValueNumeric(Double.valueOf(babyNumber));
+            newbornAssessmentEncounter.addObs(babyNumberObs);
+        }
+        return encounterService.saveEncounter(newbornAssessmentEncounter);
+    }
+
     Encounter createAdmissionEncounter(Visit visit, Patient patient, Date birthDatetime, Encounter motherEncounter) {
         Encounter admissionEncounter = null;
         AdtService adtService = Context.getService(AdtService.class);
@@ -276,6 +389,14 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             }
         }
         return obsValue;
+    }
+
+    Double getObsNumericValue(Set<Obs> groupMembers, String conceptSource, String conceptId) {
+        String obsValue= getObsValue(groupMembers, conceptSource, conceptId);
+        if (obsValue != null) {
+            return Double.valueOf(obsValue);
+        }
+        return null;
     }
 
     Date getObsDateValue(Set<Obs> groupMembers, String conceptSource, String conceptId) {
