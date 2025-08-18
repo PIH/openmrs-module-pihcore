@@ -93,8 +93,13 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                 //find the gender and the birthdate time of the baby
                                 Concept gender = getCodedValue(groupMembers, BABY_GENDER_CONCEPT_SOURCE, BABY_GENDER_CONCEPT);
                                 Date birthDatetime = getObsDateValue(groupMembers, DATE_TIME_OF_BIRTH_CONCEPT_SOURCE, DATE_TIME_OF_BIRTH_CONCEPT);
+                                Double birthOrder = getObsNumericValue(groupMembers, "CIEL", BABY_NUMBER_CONCEPT);
+                                int babyNumber = 1;
+                                if (birthOrder != null && birthOrder.intValue() > 0) {
+                                    babyNumber = birthOrder.intValue();
+                                }
                                 if ((gender != null) && (birthDatetime != null)) {
-                                    Patient baby = registerBaby(mother, gender, birthDatetime, encounter.getLocation(), registeredBabies.size());
+                                    Patient baby = registerBaby(mother, gender, birthDatetime, encounter.getLocation(), babyNumber);
                                     if (baby != null && baby.getUuid() != null) {
                                         registeredBabies.put(baby.getUuid(), groupMember);
                                         //create visit for the new registered baby
@@ -110,7 +115,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                                     bedManagementService.assignPatientToBed(baby, babyEncounter, "" + motherBed.getBedId());
                                                 }
                                             }
-                                            createNewbornAssessmentEncounter(visit, baby, groupMembers, encounter, registeredBabies.size());
+                                            createNewbornAssessmentEncounter(visit, baby, groupMembers, encounter, babyNumber);
                                         }
                                     }
                                 }
@@ -147,10 +152,10 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         PersonName babyName = new PersonName();
         babyName.setFamilyName(mother.getFamilyName());
         // name babies after the first one as "Infant 2", "Infant 3", etc...
-        if(babyNumber == 0) {
+        if(babyNumber == 1) {
             babyName.setGivenName("Infant");
         } else {
-            babyName.setGivenName("Infant " + (babyNumber + 1));
+            babyName.setGivenName("Infant " + babyNumber );
         }
         baby.addName(babyName);
         String babyGender = "M";
