@@ -9,10 +9,12 @@ import org.openmrs.EncounterRole;
 import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.PatientProgram;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
+import org.openmrs.Program;
 import org.openmrs.Provider;
 import org.openmrs.Relationship;
 import org.openmrs.RelationshipType;
@@ -32,6 +34,7 @@ import org.openmrs.module.htmlformentry.CustomFormSubmissionAction;
 import org.openmrs.module.htmlformentry.FormEntryContext;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.registrationcore.RegistrationData;
 import org.openmrs.module.registrationcore.api.RegistrationCoreService;
 
@@ -115,7 +118,10 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                                     bedManagementService.assignPatientToBed(baby, babyEncounter, "" + motherBed.getBedId());
                                                 }
                                             }
-                                            createNewbornAssessmentEncounter(visit, baby, groupMembers, encounter, babyNumber);
+                                            Encounter newbornAssessmentEncounter = createNewbornAssessmentEncounter(visit, baby, groupMembers, encounter, babyNumber);
+                                            if ( newbornAssessmentEncounter != null ) {
+                                                enrollInInfancyProgram(baby, birthDatetime, encounter);
+                                            }
                                         }
                                     }
                                 }
@@ -335,6 +341,21 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             newbornAssessmentEncounter.addObs(babyNumberObs);
         }
         return encounterService.saveEncounter(newbornAssessmentEncounter);
+    }
+
+    PatientProgram enrollInInfancyProgram(Patient patient, Date enrollmentDate, Encounter motherEncounter) {
+
+        PatientProgram newPatientProgram = null;
+        Program infantProgram = Context.getProgramWorkflowService().getProgramByUuid(SierraLeoneConfigConstants.PROGRAM_INFANT_UUID);
+        if (infantProgram != null) {
+            newPatientProgram = new PatientProgram();
+            newPatientProgram.setProgram(infantProgram);
+            newPatientProgram.setPatient(patient);
+            newPatientProgram.setDateEnrolled(enrollmentDate);
+            newPatientProgram.setLocation(Context.getService(AdtService.class).getLocationThatSupportsVisits(motherEncounter.getLocation()));
+            newPatientProgram = Context.getProgramWorkflowService().savePatientProgram(newPatientProgram);
+        }
+        return newPatientProgram;
     }
 
     Encounter createAdmissionEncounter(Visit visit, Patient patient, Date birthDatetime, Encounter motherEncounter) {
