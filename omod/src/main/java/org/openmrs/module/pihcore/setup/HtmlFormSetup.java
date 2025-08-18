@@ -61,7 +61,7 @@ public class HtmlFormSetup {
             HtmlFormEntryService htmlFormEntryService = Context.getService(HtmlFormEntryService.class);
             FormService formService = Context.getService(FormService.class);
             File htmlformDir = new File(PihCoreUtil.getFormDirectory());
-            Collection<File> files = FileUtils.listFiles(htmlformDir, null, true);
+            Collection<File> files = FileUtils.listFiles(htmlformDir,  new String[] {"xml"}, true);
             for (File file : files) {
                 try {
                     String xmlData = FileUtils.readFileToString(file, "UTF-8");
