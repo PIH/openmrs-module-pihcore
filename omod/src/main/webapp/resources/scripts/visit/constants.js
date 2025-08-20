@@ -527,6 +527,9 @@ angular.module('constants', [])
         laborWithImminentDelivery: {
             uuid: "3182e4ca-8919-4229-98df-0012a8d8c9d3"
         },
+        obstructedLabor: {
+            uuid: "131518AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
         severeAbdPain: {
             uuid: "1d7d598c-282c-42d5-b2bd-0c45e762cadd"
         }

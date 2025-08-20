@@ -25,6 +25,7 @@
         {{ encounter.obs | byConcept:Concepts.pelvicExam:false | withCodedValue:Concepts.abdPain | obs:{ mode:"value", appendComma:true } }}
         {{ encounter.obs | byConcept:Concepts.pelvicExam:false | withCodedValue:Concepts.vaginalBleeding | obs:{ mode:"value", appendComma:true } }}
         {{ encounter.obs | byConcept:Concepts.pelvicExam:false | withCodedValue:Concepts.laborWithImminentDelivery | obs:{ mode:"value", appendComma:true } }}
+        {{ encounter.obs | byConcept:Concepts.pelvicExam:false | withCodedValue:Concepts.obstructedLabor | obs:{ mode:"value", appendComma:true } }}
         {{ encounter.obs | byConcept:Concepts.pelvicExam:false | withCodedValue:Concepts.severeAbdPain | obs:{ mode:"value", appendComma:true } }}
         {{ encounter.obs | byConcept:Concepts.fetusExam:false | withCodedValue:Concepts.decreasedFM | obs:{ mode:"value", appendComma:true } }}
         {{ encounter.obs | byConcept:Concepts.fetusExam:false | withCodedValue:Concepts.absentFM | obs:{ mode:"value", appendComma:true } }}
