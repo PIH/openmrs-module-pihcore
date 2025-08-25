@@ -1,0 +1,9 @@
+<dataset>
+    <!-- mocked version of HIV Program with correct uuids, (linked concept is incorrect) -->
+    <program program_id="1001" concept_id="9" creator="1" date_created="2008-08-15 16:07:11.0" changed_by="1" date_changed="2008-08-15 17:04:50.0" retired="false" name="HIV Program" description="HIV program" uuid="b1cb1fc1-5190-4f7a-af08-48870975dafc"/>
+    <person_attribute_type person_attribute_type_id="7" name="Health Center" description="Specific Location of this person&apos;s home health center." format="org.openmrs.Location" foreign_key="0" searchable="false" creator="1" date_created="2007-05-04 00:00:00.0" retired="false" sort_weight="3.0" uuid="8d87236c-c2cc-11de-8d13-0010c6dffd0f"/>
+
+    <!-- patient 2 is a patient in the standard test data set, enroll them in the HIV program at location=2 (which is Xanadu in the standard test dataset -->
+    <patient_program patient_program_id="1001" patient_id="2" program_id="1001" date_enrolled="2024-08-01 00:00:00.0" creator="1" date_created="2008-08-18 11:40:48.0" changed_by="1" date_changed="2024-08-18 12:29:29.0" voided="false" uuid="7e3f67bc-3d5b-4c85-bcc7-94ab145a6b7f" location_id="2"/>
+
+</dataset>
