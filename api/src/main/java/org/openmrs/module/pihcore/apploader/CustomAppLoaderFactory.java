@@ -367,6 +367,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enablePrimaryCare();
         }
 
+        if (config.isComponentEnabled(Components.FAMILY_MEDICINE)) {
+            enableFamilyMedicine();
+        }
+
         if (config.isComponentEnabled(Components.ED_TRIAGE)) {
             enableEDTriage();
         }
@@ -2690,8 +2694,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                     null,
                     and(sessionLocationHasTag("Consult Note Location"),
-                        visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),
-                        visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID,
@@ -2701,8 +2705,36 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
                     null,
                     and(sessionLocationHasTag("Consult Note Location"),
-                        visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),
-                        visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));
+
+            }
+        }
+
+        private void enableFamilyMedicine() {
+            if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
+
+                extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_INITIAL_VISIT_ACTION,
+                        "ui.i18n.EncounterType.name." + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID,
+                        "fas fa-fw fa-stethoscope",
+                        "link",
+                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource("family-medicine-intake.xml")
+                                + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                        null,
+                        and(sessionLocationHasTag("Consult Note Location"),
+                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID),
+                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID))));
+
+                extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_FOLLOWUP_VISIT_ACTION,
+                        "ui.i18n.EncounterType.name." + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID,
+                        "fas fa-fw fa-stethoscope",
+                        "link",
+                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource("family-medicine-followup.xml")
+                                + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                        null,
+                        and(sessionLocationHasTag("Consult Note Location"),
+                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID),
+                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID))));
         }
 
     }

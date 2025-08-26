@@ -100,6 +100,7 @@ public class Components {
         public static final String PREGNANCY_MENTAL_HEALTH_PROGRAM = "pregnancyMentalHealthProgram";
         public static final String PRESCRIPTION = "prescription"; //Used for Perú
         public static final String PRIMARY_CARE = "primaryCare";  // primary care forms for Haiti, Mexico, and Sierra Leone (country-dependent)
+        public static final String FAMILY_MEDICINE = "familyMedicine" ; // start with Liberia
         public static final String PROGRAMS = "programs";
         public static final String PROVIDER_RELATIONSHIPS = "providerRelationships";  // the Relationships widget, configured for providers
         public static final String RADIOLOGY = "radiology";
