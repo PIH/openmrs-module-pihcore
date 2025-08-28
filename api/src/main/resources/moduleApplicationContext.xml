@@ -20,6 +20,10 @@
 				<property name="orderDAO" ref="orderDAO" />
 				<property name="conceptService" ref="conceptService"/>
 				<property name="obsService" ref="obsService"/>
+				<property name="patientService" ref="patientService"/>
+				<property name="personService" ref="personService"/>
+				<property name="programWorkflowService" ref="programWorkflowService"/>
+				<property name="config" ref="config"/>
 			</bean>
 		</property>
 		<property name="preInterceptors">

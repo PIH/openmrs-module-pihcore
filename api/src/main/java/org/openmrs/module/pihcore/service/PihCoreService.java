@@ -21,6 +21,7 @@ import org.openmrs.api.db.OrderDAO;
 import org.openmrs.module.emrapi.adt.InpatientAdmission;
 import org.openmrs.module.emrapi.adt.InpatientRequest;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
+import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.model.Vaccination;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,4 +54,9 @@ public interface PihCoreService extends OpenmrsService {
     List<InpatientRequest> getStaleAdmissionRequests(Date admissionRequestOnOrBefore, int mostRecentEncounterThresholdInDays);
 
     List<Vaccination> getVaccinations(Patient patient);
+
+    void updateHealthCenter(Patient patient);
+
+    // just for mocking during tests, don't use outside of test context
+    void setConfig(Config config);
 }

@@ -25,10 +25,17 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.PatientProgram;
 import org.openmrs.Person;
+import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
+import org.openmrs.Program;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.OrderService;
+import org.openmrs.api.PatientService;
+import org.openmrs.api.PersonService;
+import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.OrderDAO;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -39,7 +46,10 @@ import org.openmrs.module.emrapi.adt.InpatientRequest;
 import org.openmrs.module.emrapi.adt.InpatientRequestSearchCriteria;
 import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.pihcore.PihCoreConstants;
+import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
+import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.model.Vaccination;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -72,6 +82,18 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
 
     @Setter
     private ObsService obsService;
+
+    @Setter
+    private PatientService patientService;
+
+    @Setter
+    private PersonService personService;
+
+    @Setter
+    private ProgramWorkflowService programWorkflowService;
+
+    @Setter
+    private Config config;
 
     /**
      * @see OrderService#getNextOrderNumberSeedSequenceValue()
@@ -176,8 +198,27 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
         return ret;
     }
 
+    public void updateHealthCenter(Patient patient) {
+        // specific Haiti-based logic for Health Centers
+        if (config.isHaiti()) {
+            PersonAttributeType healthCenter = personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_HEALTH_CENTER_UUID);
+            // Retrieve the HIV program from the ProgramWorkflowService
+            Program hivProgram = programWorkflowService.getProgramByUuid(PihEmrConfigConstants.PROGRAM_HIV_UUID);
+            if (patient != null && hivProgram != null && healthCenter != null) {
+                // Retrieve all patient programs for this patient that are linked to the HIV program
+                List<PatientProgram> patientPrograms = programWorkflowService.getPatientPrograms(patient, hivProgram, null, null, null, null, false);
+                if (!patientPrograms.isEmpty()) {
+                    // per documentation, the "addAttribute" function will create the attribute if needed, or otherwise override any existing attribute value
+                    patient.addAttribute(new PersonAttribute(healthCenter,patientPrograms.get(0).getLocation().getId().toString()));
+                    patientService.savePatient(patient);
+                }
+            }
+        }
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
+
 }
