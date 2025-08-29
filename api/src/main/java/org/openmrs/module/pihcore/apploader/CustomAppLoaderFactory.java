@@ -3700,7 +3700,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.app.labs.ordering",
                 "icon",
                   PihEmrConfigConstants.PRIVILEGE_TASK_ORDER_LABS,
-                "/pihcore/patient/labOrder.page?patient={{patientId}}&returnUrl="
+                "/pihapps/labs/labOrder.page?patient={{patientId}}&returnUrl="
                         + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html", "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
                         objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
@@ -3712,7 +3712,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.orderLabs.overallAction.label",
                 "fas fa-fw fa-vials",
                 "link",
-                "/pihcore/patient/labOrders.page?patient={{patient.uuid}}",
+                "/pihapps/labs/labOrders.page?patient={{patient.uuid}}",
                   PihEmrConfigConstants.PRIVILEGE_TASK_ORDER_LABS,
                 null);
         extensions.add(orderLabs);
