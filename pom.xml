@@ -859,6 +859,10 @@
                             <name>eventVersion</name>
                             <version>[2.10.0,3.0.0)</version>
                         </property>
+                        <property>
+                            <name>fhir2Version</name>
+                            <version>[2.7.0,2.8.0)</version>
+                        </property>
                     </properties>
                 </configuration>
             </plugin>
