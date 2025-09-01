@@ -88,7 +88,7 @@
         <pihappsVersion>1.0.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0-SNAPSHOT</printerVersion>
         <providermanagementVersion>2.16.0</providermanagementVersion>
-        <queueVersion>2.6.0</queueVersion>
+        <queueVersion>2.8.0</queueVersion>
         <radiologyappVersion>1.7.0</radiologyappVersion>
         <registrationappVersion>1.28.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
