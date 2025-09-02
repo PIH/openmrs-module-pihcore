@@ -25,6 +25,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientProgram;
 import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
@@ -208,9 +209,19 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
                 // Retrieve all patient programs for this patient that are linked to the HIV program
                 List<PatientProgram> patientPrograms = programWorkflowService.getPatientPrograms(patient, hivProgram, null, null, null, null, false);
                 if (!patientPrograms.isEmpty()) {
+                    // Get the most recent HIV program for the patient by selecting the one with the latest enrollment date
+                    PatientProgram mostRecentProgram = patientPrograms.stream()
+                        .max(Comparator.comparing(PatientProgram::getDateEnrolled))
+                        .orElse(null);
                     // per documentation, the "addAttribute" function will create the attribute if needed, or otherwise override any existing attribute value
-                    patient.addAttribute(new PersonAttribute(healthCenter,patientPrograms.get(0).getLocation().getId().toString()));
+                    patient.addAttribute(new PersonAttribute(healthCenter,mostRecentProgram.getLocation().getId().toString()));
                     patientService.savePatient(patient);
+                    
+                } else {
+                    for (PatientIdentifier pid : patient.getIdentifiers()) {
+                        patient.addAttribute(new PersonAttribute(healthCenter, pid.getLocation().getId().toString()));
+                        patientService.savePatient(patient);
+                    }
                 }
             }
         }
