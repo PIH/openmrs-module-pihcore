@@ -22,6 +22,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
+import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.Patient;
@@ -32,6 +33,7 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Program;
 import org.openmrs.api.ConceptService;
+import org.openmrs.api.EncounterService;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
@@ -52,7 +54,11 @@ import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.model.Vaccination;
+import org.openmrs.parameter.EncounterSearchCriteria;
+import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
+import org.openmrs.ui.framework.annotation.SpringBean;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.transaction.annotation.Propagation;
@@ -218,10 +224,25 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
                     patientService.savePatient(patient);
                     
                 } else {
-                    for (PatientIdentifier pid : patient.getIdentifiers()) {
-                        patient.addAttribute(new PersonAttribute(healthCenter, pid.getLocation().getId().toString()));
-                        patientService.savePatient(patient);
-                    }
+                
+                    EncounterService encounterService= Context.getService(EncounterService.class);
+                    EncounterType encounterType = encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID);
+                    List<EncounterType> encounterTypes = new ArrayList<EncounterType>();
+                    encounterTypes.add(encounterType);
+                    EncounterSearchCriteria encounterSearchCriteria = new EncounterSearchCriteriaBuilder()
+                        .setPatient(patient)
+                        .setEncounterTypes(encounterTypes)
+                        .setIncludeVoided(false)
+                        .createEncounterSearchCriteria();
+                    List<Encounter> encounters = encounterService.getEncounters(encounterSearchCriteria);
+                    if(!encounters.isEmpty()){
+                    Encounter mostRecentEncounter = encounters.stream()
+                            .max(Comparator.comparing(Encounter::getEncounterDatetime))
+                            .orElse(null);
+                    patient.addAttribute(new PersonAttribute(healthCenter, mostRecentEncounter.getLocation().getId().toString()));
+                    patientService.savePatient(patient);
+                    
+                    }  
                 }
             }
         }
