@@ -60,7 +60,7 @@
         <authenticationuiVersion>1.1.0</authenticationuiVersion>
         <bedmanagementVersion>6.1.0</bedmanagementVersion>
         <calculationVersion>1.3.0</calculationVersion>
-        <coreappsVersion>3.0.0-SNAPSHOT</coreappsVersion>
+        <coreappsVersion>3.0.0</coreappsVersion>
         <dbeventVersion>1.2.0</dbeventVersion>
         <dispensingVersion>1.3.0</dispensingVersion>
         <edtriageappVersion>2.1.0-SNAPSHOT</edtriageappVersion>
