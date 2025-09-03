@@ -92,7 +92,7 @@
         <radiologyappVersion>1.7.0</radiologyappVersion>
         <registrationappVersion>1.28.1</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
-        <reportingVersion>1.28.0-SNAPSHOT</reportingVersion>
+        <reportingVersion>1.28.0</reportingVersion>
         <reportingrestVersion>1.15.0</reportingrestVersion>
         <reportinguiVersion>1.14.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.16</serializationxstreamVersion>
@@ -102,7 +102,7 @@
         <uicommonsVersion>2.26.0</uicommonsVersion>
         <uiframeworkVersion>4.0.0</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
-        <webservicesRestVersion>2.50.0-SNAPSHOT</webservicesRestVersion>
+        <webservicesRestVersion>2.50.0</webservicesRestVersion>
 
         <lombokVersion>1.18.38</lombokVersion>
         <testcontainersVersion>1.21.3</testcontainersVersion>
@@ -522,13 +522,6 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>reporting-api</artifactId>
-            <version>${reportingVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>reporting-api-2.4</artifactId>
             <version>${reportingVersion}</version>
             <scope>provided</scope>
         </dependency>

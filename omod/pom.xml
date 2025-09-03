@@ -74,13 +74,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>webservices.rest-omod-1.9</artifactId>
-			<version>${webservicesRestVersion}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>${project.parent.groupId}</groupId>
 			<artifactId>${project.parent.artifactId}-api</artifactId>
 			<version>${project.parent.version}</version>
