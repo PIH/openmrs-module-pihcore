@@ -3851,6 +3851,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.HIV_PREVENTION)) {
             supportedPrograms.add(PihEmrConfigConstants.PROGRAM_PREP_UUID);
+            configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_PREP_UUID);
             enablePrEP();
         }
 
