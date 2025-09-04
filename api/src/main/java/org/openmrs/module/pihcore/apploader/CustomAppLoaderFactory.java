@@ -2500,6 +2500,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
                 and(sessionLocationHasTag("Consult Note Location"),
                         sessionLocationDoesNotHaveTag("Oncology Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID))));
 
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_FOLLOWUP_VISIT_ACTION,
@@ -2510,6 +2511,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,
                 and(sessionLocationHasTag("Consult Note Location"),
                         sessionLocationDoesNotHaveTag("Oncology Consult Location"),
+                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID))));
     }
 
