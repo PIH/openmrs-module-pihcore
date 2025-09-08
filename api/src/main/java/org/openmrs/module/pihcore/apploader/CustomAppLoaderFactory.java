@@ -2767,18 +2767,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 firstColumnIndex++
         ));
 
-        // // TB Status
-        // apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_TB_STATUS,
-        //                 "pih.app.hivTb.status.title",
-        //                 "fas fa-fw fa-exclamation-circle",
-        //                 null,
-        //                 null,
-        //                 objectNode(
-        //                         "configFile", "hivTb/statuses.yml"
-        //                 )),
-        //         "pihcore", "dashboardwidgets/statusData",
-        //         firstColumnIndex++
-        // ));
+        // TB Status
+        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_TB_STATUS,
+                        "pih.app.hivTb.status.title",
+                        "fas fa-fw fa-exclamation-circle",
+                        null,
+                        null,
+                        objectNode(
+                                "configFile", "hivTb/statuses.yml"
+                        )),
+                "pihcore", "dashboardwidgets/statusData",
+                firstColumnIndex++
+        ));
 
         // HIV Intake
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_INTAKE_ENCOUNTERS,
