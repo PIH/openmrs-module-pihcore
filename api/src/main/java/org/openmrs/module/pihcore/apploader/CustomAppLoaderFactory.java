@@ -2767,18 +2767,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 firstColumnIndex++
         ));
 
-        // TB Status
-        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_TB_STATUS,
-                        "pih.app.hivTb.status.title",
-                        "fas fa-fw fa-exclamation-circle",
-                        null,
-                        null,
-                        objectNode(
-                                "configFile", "hivTb/statuses.yml"
-                        )),
-                "pihcore", "dashboardwidgets/statusData",
-                firstColumnIndex++
-        ));
+        // // TB Status
+        // apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_TB_STATUS,
+        //                 "pih.app.hivTb.status.title",
+        //                 "fas fa-fw fa-exclamation-circle",
+        //                 null,
+        //                 null,
+        //                 objectNode(
+        //                         "configFile", "hivTb/statuses.yml"
+        //                 )),
+        //         "pihcore", "dashboardwidgets/statusData",
+        //         firstColumnIndex++
+        // ));
 
         // HIV Intake
         apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_INTAKE_ENCOUNTERS,
@@ -2954,6 +2954,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // Start index for order after fingerprint widget (which is added in the Biometrics section)
         int secondColumnIndex = 3;
+
+        
+         // FINGERPRINT Status
+        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_FINGERPRINT_STATUS,
+                        "pih.app.hiv.fingerprint.status.title",
+                        "fas fa-fw fa-fingerprint",
+                        null,
+                        null,
+                        null
+                        ),
+                "pihcore", "dashboardwidgets/fingerprint",
+                secondColumnIndex++
+        ));
 
         // Viral Load History
         apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VIRAL_LOAD_HISTORY,
