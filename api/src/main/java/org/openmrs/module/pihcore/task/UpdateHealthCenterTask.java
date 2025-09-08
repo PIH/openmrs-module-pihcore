@@ -32,8 +32,8 @@ public class UpdateHealthCenterTask implements Runnable {
                 StopWatch stopWatch = new StopWatch();
                 stopWatch.start();
 
-                for (Patient paitent : Context.getPatientService().getAllPatients()) {
-                    Context.getService(PihCoreService.class).updateHealthCenter(paitent);
+                for (Patient patient : Context.getPatientService().getAllPatients()) {
+                    Context.getService(PihCoreService.class).updateHealthCenter(patient);
                 }
 
                 stopWatch.stop();
