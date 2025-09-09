@@ -5,7 +5,7 @@
     </div>
     <div class="info-body">
         <%
-            statusData.each { status ->
+            prenatalStatusData.each { status ->
                 def formattedValue
                 def displayValue = status.displayValue
 

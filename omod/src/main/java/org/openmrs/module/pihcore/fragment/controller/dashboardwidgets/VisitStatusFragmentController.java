@@ -64,6 +64,6 @@ public class VisitStatusFragmentController {
        }
        List<StatusData> statusData = statusDataEvaluator.evaluate(patient, configFileNode.asText());
        statusData.removeIf(statusData1 -> !statusData1.isEnabled());
-       model.put("statusData", statusData);
+       model.put("prenatalStatusData", statusData);
     }
 }
