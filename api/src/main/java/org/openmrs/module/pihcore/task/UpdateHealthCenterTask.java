@@ -18,6 +18,8 @@ public class UpdateHealthCenterTask implements Runnable {
     @Override
     public void run() {
 
+        log.info("Executing UpdateHealthCenterTask");
+
         if (isExecuting) {
             log.info("Not executing " + getClass() + " because another instance is already executing");
             return;
