@@ -68,6 +68,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_NEXT_DISPENSING = "pih.app.hiv.next.dispensing";
         public static final String HIV_ALERTS = "pih.app.hiv.alerts";
         public static final String HIV_TB_STATUS = "pih.app.hivTb.status";
+        public static final String HIV_FINGERPRINT_STATUS = "pih.app.fingerprint";
         public static final String HIV_VIRAL_LOAD_HISTORY = "pih.app.hiv.viralLoadHistory";
         public static final String HIV_PENDING_VIRAL_LOAD_TESTS = "pih.app.giv.pendingViralLoadTests";
         public static final String HIV_INTAKE_ENCOUNTERS = "pih.app.hiv.encounters.intake";
