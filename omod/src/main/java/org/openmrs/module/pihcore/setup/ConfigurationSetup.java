@@ -9,7 +9,6 @@ import org.openmrs.Person;
 import org.openmrs.PersonName;
 import org.openmrs.Privilege;
 import org.openmrs.Provider;
-import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
@@ -34,6 +33,7 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
+import org.openmrs.module.pihcore.listener.UpdateHealthCenterListener;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.config.ReportLoader;
@@ -277,6 +277,12 @@ public class ConfigurationSetup {
                 //  or wherever this is created to control which identifier type to use in the report, and then set this GP in Iniz config
                 AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
             }
+        }
+
+        // turn on our listetner task to update Health Center attribute, currently only enabled on Haiti HIV
+        if (config.isHaiti() && ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {
+            setStatus("Enabling UpdateHealthCenterListener");
+            UpdateHealthCenterListener.setEnabled(true);
         }
 
         setStatus("Reloading all apps and extensions");
