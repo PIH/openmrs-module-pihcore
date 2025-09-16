@@ -279,11 +279,16 @@ public class ConfigurationSetup {
             }
         }
 
-        // turn on our listetner task to update Health Center attribute, currently only enabled on Haiti HIV
+        // turn on our listener task to update Health Center attribute, currently only enabled on Haiti HIV
+        // doesn't necessarily need to happen in a certain order
         if (config.isHaiti() && ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {
             setStatus("Enabling UpdateHealthCenterListener");
             UpdateHealthCenterListener.setEnabled(true);
         }
+
+        // schedule tasks near the end because we don't want them to run (or the timer to start ticking on them) until setup is c
+        setStatus("Scheduling tasks");
+        ScheduledTaskSetup.setup();
 
         setStatus("Reloading all apps and extensions");
         reloadAppsAndExtensions();
