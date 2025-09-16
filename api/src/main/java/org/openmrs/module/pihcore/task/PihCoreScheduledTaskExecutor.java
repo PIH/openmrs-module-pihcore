@@ -1,49 +1,47 @@
 package org.openmrs.module.pihcore.task;
 
+import org.openmrs.api.context.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ScheduledExecutorFactoryBean;
-import org.springframework.scheduling.concurrent.ScheduledExecutorTask;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Executor that is responsible for scheduling and running the pihcore scheduled tasks
  */
-@Component
+@Component("pihCoreScheduledTaskExecutor")
 public class PihCoreScheduledTaskExecutor extends ScheduledExecutorFactoryBean {
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final Logger log = LoggerFactory.getLogger(PihCoreScheduledTaskExecutor.class);
 
-    private final long oneSecond = 1000;
-    private final long oneMinute = oneSecond * 60;
-    private final long fiveMinutes = oneMinute * 5;
-    private final long tenMinutes = oneMinute * 10;
-    private final long thirtyMinutes = oneMinute * 30;
-    private final long oneHour = oneMinute * 60;
-    private final long fourHours = oneHour * 4;
-    private final long twelveHours = oneHour * 12;
-    private final long twentyFourHours = oneHour * 24;
+    private static final long oneSecond = 1000;
+    private static final long oneMinute = oneSecond * 60;
+    private static final long fiveMinutes = oneMinute * 5;
+    private static final long tenMinutes = oneMinute * 10;
+    private static final long oneHour = oneMinute * 60;
+    private static final long fourHours = oneHour * 4;
+    private static final long twelveHours = oneHour * 12;
+    private static final long twentyFourHours = oneHour * 24;
 
-    public PihCoreScheduledTaskExecutor() {
-        setScheduledExecutorTasks(
-                task(fiveMinutes, fourHours, MarkAppointmentSchedulingAppointmentsAsMissedOrCompletedTask.class),
-                task(fiveMinutes, oneHour, PihCloseStalePullRequestsTask.class),
-                task(fiveMinutes, oneHour, PihCloseStaleCreateRequestsTask.class),
-                task(fiveMinutes, oneHour, PihCloseStaleVisitsTask.class),
-                task(fiveMinutes, oneHour, PihRemovePatientsFromMCOEQueue.class),
-                task(fiveMinutes, twelveHours, ClosePregnancyProgramTask.class),
-                task(fiveMinutes, twelveHours, CloseInfantProgramTask.class),
-                task(tenMinutes, oneHour, MarkBahmniAppointmentsAsCompleted.class),  // generally we want this to run after the close stale visits task
-                task(thirtyMinutes, twentyFourHours, UpdateHealthCenterTask.class)
-        );
+    public static void setup() {
+        ScheduledThreadPoolExecutor executor = Context.getRegisteredComponent("pihCoreScheduledTaskExecutor",  ScheduledThreadPoolExecutor.class);
+        task(executor, fiveMinutes, fourHours, MarkAppointmentSchedulingAppointmentsAsMissedOrCompletedTask.class);
+        task(executor, fiveMinutes, oneHour, PihCloseStalePullRequestsTask.class);
+        task(executor, fiveMinutes, oneHour, PihCloseStaleCreateRequestsTask.class);
+        task(executor, fiveMinutes, oneHour, PihCloseStaleVisitsTask.class);
+        task(executor, fiveMinutes, oneHour, PihRemovePatientsFromMCOEQueue.class);
+        task(executor, fiveMinutes, twelveHours, ClosePregnancyProgramTask.class);
+        task(executor, fiveMinutes, twelveHours, CloseInfantProgramTask.class);
+        task(executor, tenMinutes, oneHour, MarkBahmniAppointmentsAsCompleted.class);  // generally we want this to run after the close stale visits task
+        task(executor, fiveMinutes, twentyFourHours, UpdateHealthCenterTask.class);
     }
 
-    private ScheduledExecutorTask task(long delay, long period, Class<? extends Runnable> runnable) {
+    private static void  task(ScheduledThreadPoolExecutor executor, long delay, long period, Class<? extends Runnable> runnable) {
         log.info("Scheduling task " + runnable.getSimpleName() + " with delay " + delay + " and period " + period);
-        ScheduledExecutorTask task = new ScheduledExecutorTask();
-        task.setDelay(delay);
-        task.setPeriod(period);
-        task.setRunnable(new PihCoreTimerTask(runnable));
-        return task;
+        executor.scheduleAtFixedRate(new PihCoreTimerTask(runnable), delay, period, TimeUnit.MILLISECONDS);
     }
+
 }
