@@ -2,12 +2,17 @@ package org.openmrs.module.pihcore.task;
 
 import org.apache.commons.lang.time.StopWatch;
 import org.openmrs.Patient;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.service.PihCoreService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class UpdateHealthCenterTask implements Runnable {
 
@@ -33,9 +38,28 @@ public class UpdateHealthCenterTask implements Runnable {
                 log.info("Executing " + getClass());
                 StopWatch stopWatch = new StopWatch();
                 stopWatch.start();
+                PihCoreService pihCoreService = Context.getService(PihCoreService.class);
+                PatientService patientService = Context.getService(PatientService.class);
 
-                for (Patient patient : Context.getPatientService().getAllPatients()) {
-                    Context.getService(PihCoreService.class).updateHealthCenter(patient);
+                List<Patient> patients = patientService.getAllPatients();
+                Set<Integer> patientIds = new HashSet<>();
+                for(Patient patient : patients) {
+                    patientIds.add(patient.getId());
+                }
+
+                int totalPatientCount = patientIds.size();
+                log.info("Found {} patients", totalPatientCount);
+
+                int i = 0;
+
+                for (Integer patientId : patientIds) {
+                    pihCoreService.updateHealthCenter(patientService.getPatient(patientId));
+                    i++;
+                    if (i % 10 == 0) {
+                        log.info("Updated {} of {} patients, flushing session", i, totalPatientCount);
+                        Context.flushSession();
+                        Context.clearSession();
+                    }
                 }
 
                 stopWatch.stop();
