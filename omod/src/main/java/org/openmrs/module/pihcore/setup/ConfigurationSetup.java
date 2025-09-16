@@ -287,7 +287,7 @@ public class ConfigurationSetup {
             UpdateHealthCenterListener.setEnabled(true);
         }
 
-        // schedule tasks near the end because we don't want them to run (or the timer to start ticking on them) until setup is c
+        // schedule tasks near the end because we don't want them to run (or the timer to start ticking on them) until setup is complete
         setStatus("Scheduling tasks");
         PihCoreScheduledTaskExecutor.setup();
 
