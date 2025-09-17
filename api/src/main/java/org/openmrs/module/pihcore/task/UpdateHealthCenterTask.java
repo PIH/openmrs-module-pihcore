@@ -47,13 +47,23 @@ public class UpdateHealthCenterTask implements Runnable {
                     patientIds.add(patient.getId());
                 }
 
+                // clear out all the all patients list, there seems to be performance hit if we operate directly on this
+                Context.flushSession();
+                Context.clearSession();
+
                 int totalPatientCount = patientIds.size();
                 log.info("Found {} patients", totalPatientCount);
 
                 int i = 0;
 
                 for (Integer patientId : patientIds) {
-                    pihCoreService.updateHealthCenter(patientService.getPatient(patientId));
+                    try {
+                        pihCoreService.updateHealthCenter(patientService.getPatient(patientId));
+                    }
+                    catch (Exception e) {
+                        // don't let a validation error stop us from updating other patients
+                        log.error("Error updating health center for patient " + patientId, e);
+                    }
                     i++;
                     if (i % 10 == 0) {
                         log.info("Updated {} of {} patients, flushing session", i, totalPatientCount);
