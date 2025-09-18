@@ -103,7 +103,7 @@
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>3.0.0-SNAPSHOT</webservicesRestVersion>
 
-        <lombokVersion>1.18.40</lombokVersion>
+        <lombokVersion>1.18.42</lombokVersion>
         <testcontainersVersion>1.21.3</testcontainersVersion>
 
         <pihMavenPluginVersion>1.6.0</pihMavenPluginVersion>
