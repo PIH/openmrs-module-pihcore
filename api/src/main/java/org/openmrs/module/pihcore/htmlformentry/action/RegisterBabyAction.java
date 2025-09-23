@@ -84,7 +84,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             Concept noConcept = Context.getConceptService().getConceptByMapping(NO_CONCEPT, "CIEL");
 
             Patient mother = formEntrySession.getPatient();
-            Encounter encounter = formEntrySession.getEncounter();
+            Encounter encounter = formEntrySession.getEncounter(); 
             HashMap<String, Obs> registeredBabies = new LinkedHashMap<>();
             for (Obs candidate : encounter.getObsAtTopLevel(false)) {
                 if (candidate.getConcept().equals(newbornDetailsConcept)) {
@@ -365,7 +365,8 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         VisitDomainWrapper wrappedVisit = adtService.wrap(motherEncounter.getVisit());
         Location motherLocation = null;
         try {
-            motherLocation = wrappedVisit.getInpatientLocation(birthDatetime);
+            // get the mother's current inpatient location
+            motherLocation = wrappedVisit.getInpatientLocation(new Date());
         } catch (IllegalArgumentException e) {
             log.error(e);
         }
