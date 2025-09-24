@@ -22,7 +22,6 @@ import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
@@ -50,8 +49,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.ibm.icu.text.PluralRules.Operand.i;
-
 /**
  * Renderer for the Mexico regulated prescriptions report
  */
@@ -69,28 +66,28 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
         log.debug("Rendering Mexico Regulated Prescriptions Report...");
         try (PDDocument pdf = new PDDocument()) {
             try (PDDocument template = Loader.loadPDF(getTemplateFile())) {
+                Map<String, Map<String, Object>> encounters = new LinkedHashMap<>();
+                Map<String, List<Map<String, Object>>> prescriptions = new LinkedHashMap<>();
+
                 SimpleDataSet encounterDataSet = (SimpleDataSet) reportData.getDataSets().get("encounters");
-                Map<String, Map<String, Object>> encounterData = new LinkedHashMap<>();
                 for (DataSetRow row : encounterDataSet.getRows()) {
                     String encounterId = row.getColumnValue("encounter_id").toString();
-                    encounterData.put(encounterId, row.getColumnValuesByKey());
-                    encounterData.get(encounterId).put("prescriptions", new ArrayList<>());
+                    encounters.put(encounterId, row.getColumnValuesByKey());
                 }
                 SimpleDataSet prescriptionDataSet = (SimpleDataSet) reportData.getDataSets().get("prescriptions");
                 for (DataSetRow row : prescriptionDataSet.getRows()) {
                     String encounterId = row.getColumnValue("encounter_id").toString();
-                    List<Map<String, Object>> prescriptions = (List<Map<String, Object>>)encounterData.get(encounterId).get("prescriptions");
-                    prescriptions.add(row.getColumnValuesByKey());
+                    prescriptions.computeIfAbsent(encounterId, k -> new ArrayList<>()).add(row.getColumnValuesByKey());
                 }
-                for (String encounterId : encounterData.keySet()) {
-                    addPrescription(pdf, template, encounterData.get(encounterId), 1);
+                for (String encounterId : encounters.keySet()) {
+                    addPage(pdf, template, encounters.get(encounterId), prescriptions.get(encounterId));
                 }
                 pdf.save(out);
             }
         }
     }
 
-    void addPrescription(PDDocument pdf, PDDocument template, Map<String, Object> encounterData, int pageNum) throws IOException {
+    void addPage(PDDocument pdf, PDDocument template, Map<String, Object> encounter, List<Map<String, Object>> prescriptions) throws IOException {
         PDAcroForm pdfTemplateForm = template.getDocumentCatalog().getAcroForm();
         PDAcroForm pdfForm = new PDAcroForm(pdf);
         pdfForm.setDefaultResources(pdfTemplateForm.getDefaultResources());
@@ -104,11 +101,11 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
 
         // Populate the form fields where they are present
         List<PDField> fields = new ArrayList<>();
-        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "date", encounterData.get("encounter_date"));
-        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "patientName", encounterData.get("patient_name"));
-        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "age", encounterData.get("age"));
-        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "diagnosis", encounterData.get("diagnoses"));
-        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "allergies", encounterData.get("allergies"));
+        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "date", encounter.get("encounter_date"));
+        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "patientName", encounter.get("patient_name"));
+        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "age", encounter.get("age"));
+        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "diagnosis", encounter.get("diagnoses"));
+        populateFormField(newPage, pdfForm, pdfTemplateForm, fields, "allergies", encounter.get("allergies"));
         pdfForm.setFields(fields);
         pdfForm.flatten(fields, true);
 
@@ -123,11 +120,10 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
         int instructionsIndex = 640;
 
         int yIndex = 395;
-        List<Map<String, Object>> prescriptions = (List<Map<String, Object>>)encounterData.get("prescriptions");
         try (PDPageContentStream content = new PDPageContentStream(pdf, newPage, PDPageContentStream.AppendMode.APPEND,true,true)) {
             content.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 9);
-            for (Iterator<Map<String, Object>> i = prescriptions.iterator(); i.hasNext();) {
-                Map<String, Object> m = i.next();
+            for (int i=0; i<prescriptions.size(); i++) {
+                Map<String, Object> m = prescriptions.get(i);
                 List<Integer> medLines = new ArrayList<>();
                 medLines.add(addAndWrapText(content, yIndex + ": " + m.get("name"), drugNameIndex, yIndex, 40));
                 List<Integer> dose1Lines = new ArrayList<>();
@@ -150,15 +146,21 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
                 medLines.add(addAndWrapText(content, formatQtyAndUnits(m.get("duration"), m.get("duration_units")), durationIndex, yIndex, 12));
                 medLines.add(addAndWrapText(content, m.get("instructions"), instructionsIndex, yIndex, 40));
                 int linesUsed = Collections.max(medLines);
-
                 yIndex = yIndex - 10*linesUsed;
 
-                if (i.hasNext()) {
-                    content.setStrokingColor(1.0f, 0.59608f, 0.0f);
-                    content.moveTo(30, yIndex);
-                    content.lineTo(755, yIndex);
-                    content.stroke();
-                    yIndex -= 20;
+                boolean hasMorePrescriptions = (i+1)<prescriptions.size();
+                if (hasMorePrescriptions) {
+                    if (yIndex < 150) {
+                        addPage(pdf, template, encounter, prescriptions.subList(i+1, prescriptions.size()));
+                        i = prescriptions.size();
+                    }
+                    else {
+                        content.setStrokingColor(1.0f, 0.59608f, 0.0f);
+                        content.moveTo(30, yIndex);
+                        content.lineTo(755, yIndex);
+                        content.stroke();
+                        yIndex -= 20;
+                    }
                 }
             }
         }
