@@ -122,6 +122,10 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
         int yIndex = 395;
         try (PDPageContentStream content = new PDPageContentStream(pdf, newPage, PDPageContentStream.AppendMode.APPEND,true,true)) {
             content.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 9);
+
+            // Populate prescriber
+            addAndWrapText(content, encounter.get("prescriber"), 220, 95, 200);
+
             for (int i=0; i<prescriptions.size(); i++) {
                 Map<String, Object> m = prescriptions.get(i);
                 List<Integer> medLines = new ArrayList<>();
@@ -168,7 +172,7 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
 
     int addAndWrapText(PDPageContentStream content, Object value, int x, int y, int maxWidth) throws IOException {
         List<String> lines = new ArrayList<>();
-        String formattedValue = ObjectUtil.format(value);
+        String formattedValue = format(value);
         if (StringUtils.isNotBlank(formattedValue)) {
             StringBuilder currentLine = new StringBuilder();
             for (String word : formattedValue.split(" ")) {
@@ -195,21 +199,14 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
         return lines.size();
     }
 
-    void addText(PDPageContentStream content, String value, int x, int y) throws IOException {
-        content.beginText();
-        content.newLineAtOffset(x, y);
-        content.showText(value);
-        content.endText();
-    }
-
     String formatQtyAndUnits(Object dose, Object doseUnits) {
         if (ObjectUtil.isNull(dose)) {
             return "";
         }
         if (ObjectUtil.isNull(doseUnits)) {
-            return ObjectUtil.format(dose);
+            return format(dose);
         }
-        return ObjectUtil.format(dose) + " " + ObjectUtil.format(doseUnits).toLowerCase();
+        return format(dose) + " " + format(doseUnits).toLowerCase();
     }
 
     void populateFormField(PDPage page, PDAcroForm pdfForm, PDAcroForm pdfTemplateForm, List<PDField> fields, String pdfFieldName, Object value) throws IOException {
@@ -217,7 +214,7 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
         PDTextField newField = new PDTextField(pdfForm);
         newField.setPartialName(templateField.getPartialName());
         newField.setDefaultAppearance(templateField.getDefaultAppearance());
-        newField.setValue(ObjectUtil.format(value));
+        newField.setValue(format(value));
         List<PDAnnotationWidget> newWidgets = new ArrayList<>();
         for (PDAnnotationWidget originalWidget : templateField.getWidgets()) {
             PDAnnotationWidget newWidget = new PDAnnotationWidget();
@@ -228,6 +225,16 @@ public class MexicoRegulatedPrescriptionsReportRenderer extends ReportTemplateRe
         newField.setWidgets(newWidgets);
         fields.add(newField);
         page.getAnnotations().addAll(newWidgets);
+    }
+
+    String format(Object value) {
+        if (value == null) {
+            return "";
+        }
+        if (value instanceof String) {
+            return (String)value;
+        }
+        return ObjectUtil.format(value);
     }
 
     /**
