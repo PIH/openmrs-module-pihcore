@@ -1,0 +1,4 @@
+encounter_id,patient_id,encounter_date,patient_name,birthdate,age,diagnoses,allergies,has_qualifying_prescription
+2829,2319,2025-07-08,Fiona April,2000-12-30,24,"Astenia y adinamia, My Test Diagnosis, Artritis, Fiebre","Codeine, Poison Ivy",1
+2827,2305,2025-07-10,TestUser Dummy,1988-01-18,37,,,1
+2832,2351,2025-09-01,Jane Austin,1960-01-20,65,,,1
