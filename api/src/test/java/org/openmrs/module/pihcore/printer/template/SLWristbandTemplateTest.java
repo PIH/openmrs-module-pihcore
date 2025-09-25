@@ -185,7 +185,7 @@ public class SLWristbandTemplateTest {
 
         Patient patient = new Patient();
         patient.setGender("F");
-        patient.setBirthdate(new SimpleDateFormat("yyyy-MM-dd").parse("1940-07-07"));
+        patient.setBirthdate(new SimpleDateFormat("yyyy-MM-dd").parse("1945-07-07"));
         patient.setBirthdateEstimated(true);
 
         PatientIdentifier primaryIdentifier = new PatientIdentifier();
@@ -226,7 +226,7 @@ public class SLWristbandTemplateTest {
 
         assertThat(output, containsString("^XA^CI28^MTD^FWB^FO050,200^FB1650,1,0,L,0^AS^FDKoidu Government Hospital " + new SimpleDateFormat("dd-MMM-yyyy").format(today) + "^FS"));
         assertThat(output, containsString("^FO100,200^FB1650,1,0,L,0^AT^FDRingo Starr  KGH00234003^FS^FO150,200^FB1650,1,0,L,0^AS^FDFemale^FS"));
-        assertThat(output, containsString("^FO150,200^FB1350,1,0,L,0^AS^FDestimated 85 year(s)^FS^FO190,200^FB1650,1,0,L,0^AS^FD1234567890^FS"));
+        assertThat(output, containsString("^FO150,200^FB1350,1,0,L,0^AS^FDestimated " + patient.getAge() + " year(s)^FS^FO190,200^FB1650,1,0,L,0^AS^FD1234567890^FS"));
         assertThat(output, containsString("^FO190,200^FB1350,1,0,L,0^AS^FDNIN: A123456^FS^FO230,200^FB1650,1,0,L,0^AS^FD15 BRIMA FONJAH ST^FS"));
         assertThat(output, containsString("^FO270,200^FB1650,1,0,L,0^AS^FDKoidu, Njaiafeh Section, Nimiyama, Kono^FS^FO100,1900^AT^BY4^BC,150,N^FDKGH00234003^FS^XZ"));
     }
