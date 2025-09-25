@@ -1,0 +1,19 @@
+encounter_id,obs_group_id,name,duration,duration_units,instructions,dose_1,dose_1_units,dose_1_morning,dose_1_noon,dose_1_afternoon,dose_1_evening,dose_2,dose_2_units,dose_2_morning,dose_2_noon,dose_2_afternoon,dose_2_evening
+2827,14984,CES: Acenocumarol 4mg - 20 tabletas,,,1 tablet per day,4,mg,1 Morn,1 Noon,1 After,1 Even,20,mg,2 Morning,2 Noon,2 Afternoon,2 Evening
+2827,14989,CES: Timolol/brimonidina 6.8g /2g oftalmico - Frasco con 5 ml,,,3 drops per eye every 6 hours.,,,,,,,,,,,,
+2827,14993,CES: Clonazepam 2mg - 30 tabletas **controlado**,,,"Split tablet - 1/2 AM, 1/2 PM",1,mg,,,,,,,,,,
+2827,14998,CES: Insulina rapida (lispro o aspart) - 1 frasco de 10 ml,,,1mL injection,,,,,,,,,,,,
+2827,15002,"SSA: Irbesartán - hidroclorotiazida de 150 mg/12.5 mg, tableta, envase con 28 tabletas. - envase con 28 tabletas.",,,1 tablet per day for 4 weeks,1,Tableta,,,,,,,,,,
+2827,15007,CES: Lidocaina 10mg/ml inyectable - 1 Ampula,,,1 ampoule injection,10,mg,,,,,,,,,,
+2827,15012,CES: Oxcarbazepina 600mg - 20 tabletas,,,1 tablet every morning with food,600,mg,,,,,,,,,,
+2829,15039,CES: Diazepam 10mg - 20 tabletas **controlado**,3,Semanas,,4,mg,1 Morn,1 Noon,1 After,1 Even,20,mg,2 Morning,2 Noon,2 Afternoon,2 Evening
+2829,15051,CES: Acido acetilsalicilico 100mg - 30 tabletas,,,,1,mg,1,,,,,,,,,
+2829,15063,CES: Paracetamol 300mg - 12 supositorios,4,Dias,,100,mg,50 mg,,,50 mg,200,mg,,100 mg,100 mg,
+2832,15095,CES: Ciprofloxacino 500mg - 14 tabletas,6,Semanas,Take with plenty of water,1,Tableta,1 tablet,,1 tablet,,2,Tableta,,2 tablets,,2 tablets as needed
+2832,15109,CES: Diazepam 10mg - 20 tabletas **controlado**,,,,50,mg,25mg,,,25mg,,,,,,
+2832,15115,"SSA: Paracetamol de 500 mg, tableta, envase con 10 tabletas. - 10 tabletas",,,,1,Tableta,,,,,,,,,,
+2832,15119,CES: Ibuprofeno 800mg - 12 tabletas,,,,500,mg,,,,,,,,,,
+2832,15123,Epinefrina 1mg/ml - inyectable,,,As need arises,1,Capsula,,,,,,,,,,
+2832,15128,CES: Acido acetilsalicilico 100mg - 30 tabletas,,,,20,mL,,,,,,,,,,
+2832,15132,CES: Benzonatato 100mg - 20 tabletas,,,,100,Soplo,1,2,3,4,,,,,,
+2832,15140,"SSA: Vitaminas (polivitaminas) y minerales de vitamina b1, b2, b6, b12, niacinamida, e, a, d3, ácido pantoténico, sulfato ferroso, cobre, magnesio, zinc, tableta, cá",,,,2,Tableta,,2 tablets at lunch,,,2,,1 tablet at breakfast,,,1 tablet before bed

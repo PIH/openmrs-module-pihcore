@@ -91,7 +91,7 @@
         <radiologyappVersion>1.7.0</radiologyappVersion>
         <registrationappVersion>1.28.1</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
-        <reportingVersion>1.28.0</reportingVersion>
+        <reportingVersion>1.29.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>1.15.0</reportingrestVersion>
         <reportinguiVersion>1.14.0</reportinguiVersion>
         <serializationxstreamVersion>0.2.16</serializationxstreamVersion>
@@ -689,6 +689,13 @@
         </dependency>
 
         <!-- end dependencies for Zebra ZXP Series 3 API -->
+
+        <!-- Needed for PDF report generation -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>3.0.5</version>
+        </dependency>
 
         <!-- Begin OpenMRS contrib -->
 
