@@ -15,6 +15,7 @@
 package org.openmrs.module.pihcore.reporting.renderer;
 
 import com.opencsv.CSVReader;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openmrs.module.reporting.dataset.DataSetColumn;
 import org.openmrs.module.reporting.dataset.DataSetRow;
@@ -28,6 +29,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
+/**
+ * To run this test, remove the Disabled annotation, and update the getRenderer method to point the appropriate template location
+ */
+@Disabled
 public class MexicoRegulatedPrescriptionsReportRendererTest {
 
     ReportData createReportData() {
