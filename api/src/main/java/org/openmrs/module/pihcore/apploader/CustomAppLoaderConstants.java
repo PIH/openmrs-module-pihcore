@@ -182,6 +182,10 @@ public class CustomAppLoaderConstants {
         public static final String NCD_INITIAL_VISIT_ACTION = "pih.form.ncdAdultInitial";
         public static final String NCD_FOLLOWUP_VISIT_ACTION = "pih.form.ncdAdultFollowup";
         public static final String ECHO_VISIT_ACTION = "pih.form.echoConsult";
+        public static final String NCD_INITIAL_1_VISIT_ACTION = "pih.form.ncdAdultInitial1";
+        public static final String NCD_FOLLOWUP_1_VISIT_ACTION = "pih.form.ncdAdultFollowup1";
+        public static final String NCD_INITIAL_2_VISIT_ACTION = "pih.form.ncdAdultInitial2";
+        public static final String NCD_FOLLOWUP_2_VISIT_ACTION = "pih.form.ncdAdultFollowup2";
         public static final String VACCINATION_VISIT_ACTION = "pih.form.vaccination";
         public static final String COMMENT_VISIT_ACTION = "pih.form.comment";
 
@@ -470,6 +474,10 @@ public class CustomAppLoaderConstants {
             Extensions.COMMENT_VISIT_ACTION,
             Extensions.NCD_INITIAL_VISIT_ACTION,
             Extensions.NCD_FOLLOWUP_VISIT_ACTION,
+            Extensions.NCD_INITIAL_1_VISIT_ACTION,
+            Extensions.NCD_INITIAL_2_VISIT_ACTION,
+            Extensions.NCD_FOLLOWUP_1_VISIT_ACTION,
+            Extensions.NCD_FOLLOWUP_2_VISIT_ACTION,
             Extensions.ECHO_VISIT_ACTION,
             Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
             Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,

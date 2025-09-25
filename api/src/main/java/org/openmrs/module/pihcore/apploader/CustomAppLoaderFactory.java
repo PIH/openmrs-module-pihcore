@@ -2044,6 +2044,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,
                 and(sessionLocationHasTag("NCD Consult Location"),
                     visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
+                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),
                     visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
                     not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
@@ -2064,6 +2065,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag("NCD Consult Location"),
                     visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
                     visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
+                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2080,6 +2082,63 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_1_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID,
+                    "fas fa-fw fa-heart",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ncd-initial-part-1.xml")),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,
+                    and(sessionLocationHasTag("NCD Consult Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),
+                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_2_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID,
+                    "fas fa-fw fa-heart",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ncd-initial-part-2.xml")),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,
+                    and(sessionLocationHasTag("NCD Consult Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),
+                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_1_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID,
+                    "fas fa-fw fa-heart",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ncd-followup-part-1.xml")),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,
+                    and(sessionLocationHasTag("NCD Consult Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),
+                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
+            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_2_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID,
+                    "fas fa-fw fa-heart",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ncd-followup-part-2.xml")),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,
+                    and(sessionLocationHasTag("NCD Consult Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),
+                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
         }
     }
 
