@@ -91,7 +91,7 @@ public class PihRemovePatientsFromMCOEQueue implements Runnable {
             entry.setEndedAt(currentTime);
             try {
                 queueServices.getQueueEntryService().saveQueueEntry(entry);
-                log.warn("Removing patient {} from queue after {} minutes", entry.getPatient().getUuid(), activeMinutes);
+                log.warn("Removed patient {} from queue after {} minutes", entry.getPatient().getUuid(), activeMinutes);
                 numPatientsRemoved++;
             } catch (Exception e) {
                 log.error("Failed to remove patient: " + entry.getPatient().getUuid() + " from queue.", e);
