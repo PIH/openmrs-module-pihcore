@@ -1535,7 +1535,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.EMAIL_CONFIG_ADMIN,
                 "pih.app.admin.email.config",
                 "fas fa-fw fa-envelope",
-                "pihcore/admin/emailTest.page",
+                "pihapps/admin/emailTest.page",
                 8,
                 "App: coreapps.systemAdministration",
                 null)));
