@@ -3732,7 +3732,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "devicesUrl", config.getBiometricsConfig().getDevicesUrl())));
 
 
-      apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.BIOMETRICS_SUMMARY,
+        apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.BIOMETRICS_SUMMARY,
                 "registrationapp.biometrics.summary",
                 "fas fa-fw fa-fingerprint",
                 null,
