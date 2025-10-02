@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore.fragment.controller.dashboardwidgets;
 
 import org.openmrs.Patient;
 import org.openmrs.api.PatientService;
+import org.codehaus.jackson.JsonNode;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.ui.framework.annotation.FragmentParam;
@@ -27,7 +28,7 @@ public class FingerprintFragmentController {
 						   @InjectBeans PatientDomainWrapper patientWrapper,
 						   @FragmentParam("app") AppDescriptor app,
 						   FragmentConfiguration config,
-						   FragmentModel model) {
+						   FragmentModel model) throws Exception{
 
 		Object patientConfig = config.get("patient");
 		if (patientConfig == null ) {
@@ -67,6 +68,18 @@ public class FingerprintFragmentController {
 			model.put("fingerprintDateCollected", null);
         }
 
+	    model.put("detailsUrl", getConfigValue(app, "detailsUrl"));
         model.put("app",  app);
 	}
+
+	 private String getConfigValue(AppDescriptor app, String configValue) {
+		if(app.getConfig() != null){
+			JsonNode node = app.getConfig().get(configValue);
+			if (node == null) {
+				return "";
+			}
+			return node.asText();
+		}
+		return "";
+    }
 }

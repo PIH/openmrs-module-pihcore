@@ -3,6 +3,10 @@
     <div class="info-header">
         <i class="${app.icon}"></i>
         <h3>${ ui.message(app.label).toUpperCase() }</h3>
+        <% if (detailsUrl) { %>
+                <i class="icon-pencil edit-action right" title="${ ui.message("coreapps.edit") }"
+                onclick="location.href='${ ui.urlBind("/" + contextPath + "/"+ detailsUrl, [ "patient.uuid": config.patientUuid, "patient.patientId": config.patientId ]) }';"></i>
+        <% } %>   
     </div>
     <div class="info-body">
         <div class="fingerprint-message">
