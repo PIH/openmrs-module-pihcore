@@ -3732,16 +3732,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "devicesUrl", config.getBiometricsConfig().getDevicesUrl())));
 
 
-        apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.BIOMETRICS_SUMMARY,
+      apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.BIOMETRICS_SUMMARY,
                 "registrationapp.biometrics.summary",
                 "fas fa-fw fa-fingerprint",
                 null,
                 "App: registrationapp.registerPatient",
                 objectNode(
                         "registrationAppId", CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,
-                        "icon", "fas fa-fw fa-fingerprint")),
-                "registrationapp",
-                "summary/biometricsSummary"));
+                              "icon", "fas fa-fw fa-fingerprint",
+                              "detailsUrl", "registrationapp/biometrics/editBiometrics.page?patientId={{patient.patientId}}&registrationAppId=registrationapp.registerPatient"
+                              )),
+                     "pihcore", "dashboardwidgets/fingerprint"));
     }
 
     private void enablePathologyTracking() {
