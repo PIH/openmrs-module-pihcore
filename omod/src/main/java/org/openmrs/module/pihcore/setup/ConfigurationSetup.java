@@ -318,8 +318,8 @@ public class ConfigurationSetup {
         // configure default specific visit detail page in coreapps
         updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_WITH_SPECIFIC_URL, config.getVisitsPageWithSpecificUrl());
 
-        // TODO: Move this to Iniz, in a mirebalais-specific gp.xml file
-        if (config.isComponentEnabled(Components.RADIOLOGY) && config.getSite().equalsIgnoreCase("MIREBALAIS")) {
+        // TODO: one we centralize the ZL server (or perhaps even before?) we can likely just set this in the gp_radiology file in config-zl?
+        if (config.isComponentEnabled(Components.RADIOLOGY) && (config.getSite().equalsIgnoreCase("MIREBALAIS") || config.getSite().equalsIgnoreCase("CENTRAL"))) {
             updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, PihCoreConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
         }
 
