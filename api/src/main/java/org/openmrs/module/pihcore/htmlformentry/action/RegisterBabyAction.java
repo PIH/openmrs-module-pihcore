@@ -363,10 +363,11 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
         AdtService adtService = Context.getService(AdtService.class);
         EncounterService encounterService = Context.getEncounterService();
         VisitDomainWrapper wrappedVisit = adtService.wrap(motherEncounter.getVisit());
+        Date now = new Date();
         Location motherLocation = null;
         try {
             // get the mother's current inpatient location
-            motherLocation = wrappedVisit.getInpatientLocation(new Date());
+            motherLocation = wrappedVisit.getInpatientLocation(now);
         } catch (IllegalArgumentException e) {
             log.error(e);
         }
@@ -378,7 +379,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             admissionEncounter.setPatient(patient);
             admissionEncounter.setEncounterType(encounterService.getEncounterTypeByUuid(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID));
             admissionEncounter.setVisit(visit);
-            admissionEncounter.setEncounterDatetime(birthDatetime);
+            admissionEncounter.setEncounterDatetime(now);
             admissionEncounter.setLocation(motherLocation);
             Set<EncounterProvider> providers =  motherEncounter.getEncounterProviders();
             if (providers != null && !providers.isEmpty()) {
