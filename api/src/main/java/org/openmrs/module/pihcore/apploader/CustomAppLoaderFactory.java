@@ -2031,7 +2031,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_NCD_UUID);
 
-        String definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-initial.xml");
+        String definitionUiResource = PihCoreUtil.getFormResource("ncd-initial.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
@@ -2054,7 +2054,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        definitionUiResource = PihCoreUtil.getFormResource("ncd-adult-followup.xml");
+        definitionUiResource = PihCoreUtil.getFormResource("ncd-followup.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
