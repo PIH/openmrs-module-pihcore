@@ -2457,8 +2457,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMentalHealthForm() {
 
+        String definitionUiResource = PihCoreUtil.getFormResource("mentalHealth.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
-            String definitionUiResource = PihCoreUtil.getFormResource("mentalHealth.xml");
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
