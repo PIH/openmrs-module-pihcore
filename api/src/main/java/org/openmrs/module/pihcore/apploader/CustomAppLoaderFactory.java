@@ -2457,8 +2457,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMentalHealthForm() {
 
-        String definitionUiResource = PihCoreUtil.getFormResource("mentalHealth.xml");
         if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+            String definitionUiResource = PihCoreUtil.getFormResource("mentalHealth.xml");
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
@@ -2501,7 +2501,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "pih.task.mentalHealth.label",
                     "fas fa-fw fa-user",
                     "link",
-                    enterStandardHtmlFormLink(definitionUiResource),
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("mentalHealthFollowup.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,
                     and(sessionLocationHasTag("Mental Health Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID),
