@@ -222,7 +222,7 @@ public class ConfigurationSetup {
 
         // Load Reports  TODO: Start a discussion about moving this functionality over to initializer
         setStatus("Loading reports");
-        ReportLoader.loadReportsFromConfig();
+        ReportSetup.setupReportsFromConfig();
 
         if (config.isComponentEnabled(Components.OVERVIEW_REPORTS) || config.isComponentEnabled(Components.DATA_EXPORTS)) {
             setStatus("Setting up scheduled report requests");
