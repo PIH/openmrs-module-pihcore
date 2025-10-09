@@ -1,17 +1,25 @@
 package org.openmrs.module.pihcore.setup;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.FileFilterUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.reporting.config.ReportDescriptor;
+import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.report.ReportRequest;
 import org.openmrs.module.reporting.report.definition.ReportDefinition;
 import org.openmrs.module.reporting.report.definition.service.ReportDefinitionService;
 import org.openmrs.module.reporting.report.renderer.RenderingMode;
 import org.openmrs.module.reporting.report.service.ReportService;
+import org.openmrs.util.OpenmrsUtil;
 
+import java.io.File;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 public class ReportSetup {
@@ -25,6 +33,34 @@ public class ReportSetup {
     //***** SCHEDULED REPORT REQUESTS *****
     public static final String ALL_PATIENTS_SCHEDULED_REPORT_REQUEST_UUID = "733cd7c0-2ed0-11e4-8c21-0800200c9a66";
     public static final String FULL_DATA_EXPORT_SCHEDULED_REPORT_REQUEST_UUID = "2619c140-5b0e-11e5-a837-0800200c9a66";
+
+    public static void setupReportsFromConfig() {
+        // First delete any reports that have been moved to the archive directory
+        File configDir = OpenmrsUtil.getDirectoryInApplicationDataDirectory("configuration");
+        File reportsDir = new File(configDir, "reports");
+        File archiveDir = new File(reportsDir, "archive");
+        if (archiveDir.exists()) {
+            Collection<File> files = FileUtils.listFiles(archiveDir, FileFilterUtils.suffixFileFilter("yml"), TrueFileFilter.INSTANCE);
+            if (files != null && !files.isEmpty()) {
+                for (File file : files) {
+                    try {
+                        ReportDescriptor reportDescriptor = ReportLoader.load(file);
+                        ReportDefinitionService rds = Context.getService(ReportDefinitionService.class);
+                        ReportDefinition reportDefinition = rds.getDefinitionByUuid(reportDescriptor.getUuid());
+                        if (reportDefinition != null) {
+                            Context.getService(ReportDefinitionService.class).purgeDefinition(reportDefinition);
+                            log.info("Purged report definition: " + reportDescriptor.getUuid());
+                        }
+                    }
+                    catch (Exception e) {
+                        log.warn("Error deleting report definition from descriptor: " + file.getAbsolutePath());
+                    }
+                }
+            }
+        }
+        // Now load in reports that have not been archived
+        ReportLoader.loadReportsFromConfig();
+    }
 
     public static void scheduleBackupReports(Config config) {
         ReportService reportService = Context.getService(ReportService.class);
