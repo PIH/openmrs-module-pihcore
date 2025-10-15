@@ -1,15 +1,16 @@
 package org.openmrs.module.pihcore.provider;
 
-;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openmrs.Provider;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.providermanagement.Provider;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+;
 
 public class PihProviderIdentifierGeneratorTest {
 

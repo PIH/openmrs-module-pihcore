@@ -2,9 +2,9 @@ package org.openmrs.module.pihcore.provider;
 
 import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
+import org.openmrs.Provider;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.account.ProviderIdentifierGenerator;
-import org.openmrs.module.providermanagement.Provider;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
 import java.util.Properties;

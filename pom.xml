@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>pihcore</artifactId>
-	<version>2.1.0-SNAPSHOT</version>
+	<version>2.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>PIH Core Module</name>
 	<description>Core metadata and configuration included in all PIH distributions</description>
@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.7.7</openMRSVersion>
+        <openMRSVersion>2.8.1</openMRSVersion>
 
         <addresshierarchyVersion>2.21.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.7</allergyuiVersion>
@@ -67,9 +67,9 @@
         <emrVersion>2.3.0</emrVersion>
         <emrapiVersion>2.5.0-SNAPSHOT</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
-        <fhir2Version>2.7.1-SNAPSHOT</fhir2Version>
+        <fhir2Version>2.8.0-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
-        <htmlformentryVersion>6.1.0</htmlformentryVersion>
+        <htmlformentryVersion>7.0.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>3.0.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.11.0</htmlwidgetsVersion>
         <idgenVersion>4.14.0</idgenVersion>
@@ -86,7 +86,6 @@
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <pihappsVersion>1.0.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0-SNAPSHOT</printerVersion>
-        <providermanagementVersion>2.16.0</providermanagementVersion>
         <queueVersion>2.9.0</queueVersion>
         <radiologyappVersion>1.7.0</radiologyappVersion>
         <registrationappVersion>1.28.1</registrationappVersion>
@@ -480,13 +479,6 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>printer-api</artifactId>
             <version>${printerVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>providermanagement-api</artifactId>
-            <version>${providermanagementVersion}</version>
             <scope>provided</scope>
         </dependency>
 
