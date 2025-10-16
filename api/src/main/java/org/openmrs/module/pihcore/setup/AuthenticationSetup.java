@@ -47,16 +47,11 @@ public class AuthenticationSetup {
 
         // Basic Authentication Scheme.  This provides basic auth + session location selection
         {
-            String className = "org.openmrs.module.authentication.web.BasicWithLocationAuthenticationScheme";
+            String className = "org.openmrs.module.authentication.web.BasicWebAuthenticationScheme";
             Properties p = new Properties();
             p.put("loginPage", "/authenticationui/login/login.page");
             p.put("usernameParam", "username");
             p.put("passwordParam", "password");
-            p.put("locationParamName", "sessionLocation");
-            p.put("locationRequired", "true");
-            p.put("onlyLocationsWithTag", "Login Location");
-            p.put("locationSessionAttributeName", "emrContext.sessionLocationId");
-            p.put("lastLocationCookieName", "emr.lastSessionLocation");
             addScheme(BASIC, className, p);
         }
 
