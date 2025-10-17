@@ -839,6 +839,12 @@
                 <version>2.1</version>
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
+                    <properties>
+                        <property>
+                            <name>attachmentsVersion</name>
+                            <version>[2.7.0,3.0.0)</version>
+                        </property>
+                    </properties>
                 </configuration>
             </plugin>
         </plugins>
