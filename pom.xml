@@ -113,6 +113,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- FHIR2, when added as a dependency, hangs the build.  Nothing requires this for building, so moving to dependency management -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.openmrs.module</groupId>
+                <artifactId>fhir2-api</artifactId>
+                <version>${fhir2Version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <!-- Begin OpenMRS core -->
 
@@ -309,34 +321,6 @@
             <groupId>org.openmrs</groupId>
             <artifactId>event-api</artifactId>
             <version>${eventVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>fhir2-api</artifactId>
-            <version>${fhir2Version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>fhir2-api-2.5</artifactId>
-            <version>${fhir2Version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>fhir2-api-2.6</artifactId>
-            <version>${fhir2Version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>fhir2-api-2.7</artifactId>
-            <version>${fhir2Version}</version>
             <scope>provided</scope>
         </dependency>
 
