@@ -537,12 +537,6 @@
             <version>${serializationxstreamVersion}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>serialization.xstream-api-2.0</artifactId>
-            <version>${serializationxstreamVersion}</version>
-            <scope>provided</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
