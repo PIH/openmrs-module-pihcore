@@ -93,7 +93,7 @@
         <reportingVersion>1.29.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>1.15.0</reportingrestVersion>
         <reportinguiVersion>1.14.0</reportinguiVersion>
-        <serializationxstreamVersion>0.2.17-SNAPSHOT</serializationxstreamVersion>
+        <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
         <spaVersion>2.1.0</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
@@ -823,6 +823,10 @@
                 <configuration>
                     <generateBackupPoms>false</generateBackupPoms>
                     <properties>
+                        <property>
+                            <name>openMRSVersion</name>
+                            <version>[2.8.0,2.8.999]</version>
+                        </property>
                         <property>
                             <name>attachmentsVersion</name>
                             <version>[2.7.0,3.0.0)</version>
