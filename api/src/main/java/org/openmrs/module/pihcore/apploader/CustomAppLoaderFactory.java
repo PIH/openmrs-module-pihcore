@@ -530,10 +530,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 AuthenticationUiConfig.ADMIN_DEFAULT_LOCATION_USER_PROPERTY, ""
         )));
         extensions.add(configExtension(PIH_AUTH_LOGIN_EXTENSION, AuthenticationUiConfig.LOGIN_PAGE_EXTENSION, map(
-                AuthenticationUiConfig.LOGIN_SHOW_LOCATIONS, true,
-                AuthenticationUiConfig.LOGIN_REQUIRE_LOCATION, true,
-                AuthenticationUiConfig.LOGIN_LOCATION_TAG_NAME, "Login Location",
-                AuthenticationUiConfig.LOGIN_LAST_LOCATION_COOKIE_NAME, "emr.lastSessionLocation",
+                AuthenticationUiConfig.LOGIN_SHOW_LOCATIONS, false,
+                AuthenticationUiConfig.LOGIN_REQUIRE_LOCATION, false,
                 AuthenticationUiConfig.LOGIN_WELCOME_MESSAGE, config.getWelcomeMessage(),
                 AuthenticationUiConfig.LOGIN_WARNING_IF_NOT_CHROME, config.getBrowserWarning(),
                 AuthenticationUiConfig.LOGIN_ALLOW_PASSWORD_RESET, true

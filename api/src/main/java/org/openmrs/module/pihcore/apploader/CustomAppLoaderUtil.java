@@ -468,7 +468,7 @@ public class CustomAppLoaderUtil {
     }
 
     static public Extension header(String id, String logo) {
-        Map<String, Object> configs = map("logo-link-url", "/index.htm", "logo-icon-url", logo);
+        Map<String, Object> configs = map("logo-link-url", "/index.htm", "logo-icon-url", logo, "custom-provider", "pihapps", "custom-fragment", "header");
         return new Extension(id, null, AppUiExtensions.HEADER_CONFIG_EXTENSION, "config", null, null, 0, null, configs);
     }
 
