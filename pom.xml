@@ -84,7 +84,7 @@
         <owaVersion>1.15.0</owaVersion>
         <pacsintegrationVersion>1.12.0</pacsintegrationVersion>
         <paperrecordVersion>1.4.1</paperrecordVersion>
-        <pihappsVersion>1.0.0-SNAPSHOT</pihappsVersion>
+        <pihappsVersion>1.1.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0-SNAPSHOT</printerVersion>
         <providermanagementVersion>2.16.0</providermanagementVersion>
         <queueVersion>2.9.0</queueVersion>
