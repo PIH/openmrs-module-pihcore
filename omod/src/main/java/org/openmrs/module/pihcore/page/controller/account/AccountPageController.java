@@ -19,6 +19,7 @@ import org.openmrs.Person;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.AdministrationService;
+import org.openmrs.api.ProviderService;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
@@ -29,7 +30,6 @@ import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.openmrs.module.pihcore.account.PihAccountValidator;
 import org.openmrs.module.pihcore.service.PihCoreService;
-import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.ui.framework.annotation.BindParams;
 import org.openmrs.ui.framework.annotation.MethodParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -71,13 +71,13 @@ public class AccountPageController {
     public String get(PageModel model, @MethodParam("getAccount") PihAccountDomainWrapper account,
                     @SpringBean("accountService") AccountService accountService,
                     @SpringBean("adminService") AdministrationService administrationService,
-                    @SpringBean("providerManagementService") ProviderManagementService providerManagementService) {
+                    @SpringBean("providerService") ProviderService providerService) {
 
         model.addAttribute("account", account);
         model.addAttribute("capabilities", accountService.getAllCapabilities());
         model.addAttribute("rolePrefix", EmrApiConstants.ROLE_PREFIX_CAPABILITY);
         model.addAttribute("allowedLocales", administrationService.getAllowedLocales());
-        model.addAttribute("providerRoles", providerManagementService.getAllProviderRoles(false));
+        model.addAttribute("providerRoles", providerService.getAllProviderRoles(false));
 
         if (!Context.hasPrivilege(PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION)) {
             return "redirect:/index.htm";
@@ -92,7 +92,7 @@ public class AccountPageController {
                        @SpringBean("accountService") AccountService accountService,
                        @SpringBean("userService") UserService userService,
                        @SpringBean("adminService") AdministrationService administrationService,
-                       @SpringBean("providerManagementService") ProviderManagementService providerManagementService,
+                       @SpringBean("providerService") ProviderService providerService,
                        @SpringBean("pihAccountValidator") PihAccountValidator pihAccountValidator,
                        PageModel model,
                        HttpServletRequest request) {
@@ -137,7 +137,7 @@ public class AccountPageController {
         model.addAttribute("privilegeLevels", accountService.getAllPrivilegeLevels());
         model.addAttribute("rolePrefix", EmrApiConstants.ROLE_PREFIX_CAPABILITY);
         model.addAttribute("allowedLocales", administrationService.getAllowedLocales());
-        model.addAttribute("providerRoles", providerManagementService.getAllProviderRoles(false));
+        model.addAttribute("providerRoles", providerService.getAllProviderRoles(false));
 
         return "account/account";
 

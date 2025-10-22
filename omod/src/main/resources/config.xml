@@ -125,9 +125,6 @@
         <require_module version="${printerVersion}">
             org.openmrs.module.printer
         </require_module>
-        <require_module version="${providermanagementVersion}">
-            org.openmrs.module.providermanagement
-        </require_module>
         <require_module version="${queueVersion}">
             org.openmrs.module.queue
         </require_module>

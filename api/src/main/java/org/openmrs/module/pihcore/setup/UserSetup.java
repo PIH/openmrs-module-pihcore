@@ -3,13 +3,12 @@ package org.openmrs.module.pihcore.setup;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.Person;
 import org.openmrs.PersonName;
+import org.openmrs.ProviderRole;
 import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.openmrs.module.pihcore.service.PihCoreService;
-import org.openmrs.module.providermanagement.ProviderRole;
-import org.openmrs.module.providermanagement.api.ProviderManagementService;
 import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsUtil;
 import org.supercsv.cellprocessor.Optional;
@@ -84,7 +83,7 @@ public class UserSetup {
 
             PihAccountDomainWrapper account = Context.getService(PihCoreService.class).newPihAccountDomainWrapper(person);
             account.setDefaultLocale(LocaleUtility.fromSpecification(locale));
-            for (ProviderRole pr : Context.getService(ProviderManagementService.class).getAllProviderRoles(false)) {
+            for (ProviderRole pr : Context.getProviderService().getAllProviderRoles(false)) {
                 if (pr.getName().equalsIgnoreCase(providerRole)) {
                     account.setProviderRole(pr);
                 }
