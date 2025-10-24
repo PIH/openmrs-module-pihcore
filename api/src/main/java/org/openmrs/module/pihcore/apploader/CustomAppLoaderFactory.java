@@ -714,7 +714,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
                 null,
-                and(sessionLocationHasTag("Vitals Location"),
+                and(sessionLocationHasTag("Vitals Location"), sessionLocationDoesNotHaveTag("Vitals Inpatient Location"),
                         or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
@@ -759,6 +759,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     "maxRecords", "5"
                             )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
+
+            Extension inpatientVitalsSigns = visitAction(CustomAppLoaderConstants.Extensions.INPATIENT_VITALS_CAPTURE_VISIT_ACTION,
+                    "pihcore.task.inpatient.vitals",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("inpatientVitals.xml")),
+                    null,
+                    and(sessionLocationHasTag("Vitals Inpatient Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+            extensions.add(inpatientVitalsSigns);
         }
 
         // Add additional vital sign forms for ZL
