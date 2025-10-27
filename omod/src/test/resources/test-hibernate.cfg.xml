@@ -15,6 +15,9 @@
         <mapping resource="RadiologyOrder.hbm.xml"/>
         <mapping resource="HtmlFormEntryHtmlForm.hbm.xml"/>
 
+        <mapping resource="ProviderSuggestion.hbm.xml" />
+        <mapping resource="SupervisionSuggestion.hbm.xml" />
+
         <mapping resource="AddressHierarchyEntry.hbm.xml"/>
         <mapping resource="AddressHierarchyLevel.hbm.xml"/>
         <mapping resource="AddressToEntryMap.hbm.xml"/>
