@@ -5,7 +5,7 @@ import org.openmrs.module.initializer.api.BaseLineProcessor;
 import org.openmrs.module.initializer.api.CsvLine;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("pihProviderRolesLineParser")
 public class ProviderRolesLineProcessor extends BaseLineProcessor<ProviderRole> {
 	
 	public ProviderRolesLineProcessor() {
