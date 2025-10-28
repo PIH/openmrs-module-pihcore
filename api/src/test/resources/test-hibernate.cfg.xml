@@ -14,11 +14,6 @@
         <mapping resource="TimeSlot.hbm.xml"/>
         <mapping resource="AppointmentStatusHistory.hbm.xml"/>
 
-        <mapping resource="ProviderRole.hbm.xml" />
-        <mapping resource="Provider.hbm.xml" />
-        <mapping resource="ProviderSuggestion.hbm.xml" />
-        <mapping resource="SupervisionSuggestion.hbm.xml" />
-
         <mapping resource="Printer.hbm.xml"/>
         <mapping resource="PrinterModel.hbm.xml"/>
 

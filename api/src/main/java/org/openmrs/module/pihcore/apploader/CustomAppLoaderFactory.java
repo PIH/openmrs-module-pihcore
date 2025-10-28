@@ -70,14 +70,11 @@ import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.arrayNode
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.awaitingAdmissionAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsHivOverallAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsHivVisitAction;
-import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsMchOverallAction;
-import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsMchVisitAction;
-import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsPregnancyOverallAction;
-import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsPregnancyVisitAction;
-import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsInfantOverallAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsInfantVisitAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsMchVisitAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsOncologyOverallAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsOncologyVisitAction;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.cloneAsPregnancyVisitAction;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.configExtension;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.containsExtension;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.dashboardTab;
@@ -103,12 +100,12 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInMonth
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeUnknown;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotActiveVisit;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasActiveVisit;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasPreviousEncounter;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdult;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsChild;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsReproductiveAge;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientNotDead;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
@@ -377,10 +374,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.ED_TRIAGE_QUEUE)) {
             enableEDTriageQueue();
-        }
-
-        if (config.isComponentEnabled(Components.CHW_APP)) {
-            enableCHWApp();
         }
 
         if (config.isComponentEnabled(Components.BIOMETRICS_FINGERPRINTS)) {
@@ -1636,7 +1629,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "editable", "true",
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                             "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
-                            "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
+                            "providerPage", null,
                             "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_CHWTOPATIENT_UUID,
                             "icon", "fas fa-fw fa-users",
                             "label", "pihcore.providerRelationshipsDashboardWidget.label"
@@ -1656,7 +1649,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "editable", "true",
                             "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                             "dashboardPage", "/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient",
-                            "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
+                            "providerPage", null,
                             "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_SPOUSEPARTNER_UUID
                                     + "," + PihCoreConstants.RELATIONSHIP_SIBLING
                                     + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,
@@ -2640,18 +2633,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                   PihEmrConfigConstants.PRIVILEGE_APP_TODAYS_VISITS,
                 null)));
 
-    }
-
-    private void enableCHWApp() {
-        if (findAppById(CustomAppLoaderConstants.Apps.CHW_MGMT) == null) {
-            apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.CHW_MGMT,
-                    "chwapp.label",
-                    "fas fa-users",
-                    "/coreapps/providermanagement/providerList.page",
-                      PihEmrConfigConstants.PRIVILEGE_APP_CHW,
-                    null),
-                    sessionLocationHasTag("Provider Management Location")));
-        }
     }
 
     private void enableEDTriage() {
@@ -4226,7 +4207,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "widget", "relationships",
                     "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                     "dashboardPage", config.getDashboardUrl(),
-                    "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
+                    "providerPage", null,
                     "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_CHWTOPATIENT_UUID,
                     "icon", "fas fa-fw fa-users",
                     "label", "pihcore.providerRelationshipsDashboardWidget.label"
@@ -4245,7 +4226,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         "widget", "relationships",
                         "editPrivilege", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,
                         "dashboardPage", config.getDashboardUrl(),
-                        "providerPage", "/coreapps/providermanagement/editProvider.page?personUuid={{personUuid}}",
+                        "providerPage", null,
                         "includeRelationshipTypes", PihEmrConfigConstants.RELATIONSHIPTYPE_SPOUSEPARTNER_UUID
                                 + "," + PihCoreConstants.RELATIONSHIP_SIBLING
                                 + "," + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,

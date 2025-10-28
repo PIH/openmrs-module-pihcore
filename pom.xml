@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>pihcore</artifactId>
-	<version>2.1.0-SNAPSHOT</version>
+	<version>2.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>PIH Core Module</name>
 	<description>Core metadata and configuration included in all PIH distributions</description>
@@ -46,7 +46,7 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.7.8-SNAPSHOT</openMRSVersion>
+        <openMRSVersion>2.8.2-SNAPSHOT</openMRSVersion>
 
         <addresshierarchyVersion>2.21.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.7</allergyuiVersion>
@@ -62,14 +62,14 @@
         <calculationVersion>1.3.0</calculationVersion>
         <coreappsVersion>3.0.0</coreappsVersion>
         <dbeventVersion>1.2.0</dbeventVersion>
-        <dispensingVersion>1.3.0</dispensingVersion>
+        <dispensingVersion>2.0.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>2.1.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
-        <emrapiVersion>2.5.0-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>3.2.0-SNAPSHOT</emrapiVersion>
         <eventVersion>2.10.0</eventVersion>
-        <fhir2Version>2.7.1-SNAPSHOT</fhir2Version>
+        <fhir2Version>2.8.0-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
-        <htmlformentryVersion>6.1.0</htmlformentryVersion>
+        <htmlformentryVersion>7.0.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>3.0.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>1.11.0</htmlwidgetsVersion>
         <idgenVersion>5.0.0-SNAPSHOT</idgenVersion>
@@ -86,7 +86,6 @@
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <pihappsVersion>1.1.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0-SNAPSHOT</printerVersion>
-        <providermanagementVersion>2.16.0</providermanagementVersion>
         <queueVersion>2.9.0</queueVersion>
         <radiologyappVersion>1.7.0</radiologyappVersion>
         <registrationappVersion>1.28.1</registrationappVersion>
@@ -94,7 +93,7 @@
         <reportingVersion>1.29.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>1.15.0</reportingrestVersion>
         <reportinguiVersion>1.14.0</reportinguiVersion>
-        <serializationxstreamVersion>0.2.16</serializationxstreamVersion>
+        <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
         <spaVersion>2.1.0</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
         <testutilsVersion>1.7.0</testutilsVersion>
@@ -113,6 +112,18 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <!-- FHIR2, when added as a dependency, hangs the build.  Nothing requires this for building, so moving to dependency management -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.openmrs.module</groupId>
+                <artifactId>fhir2-api</artifactId>
+                <version>${fhir2Version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Begin OpenMRS core -->
@@ -315,34 +326,6 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>fhir2-api</artifactId>
-            <version>${fhir2Version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>fhir2-api-2.5</artifactId>
-            <version>${fhir2Version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>fhir2-api-2.6</artifactId>
-            <version>${fhir2Version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>fhir2-api-2.7</artifactId>
-            <version>${fhir2Version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
             <artifactId>growthchart-api</artifactId>
             <version>${growthChartVersion}</version>
             <scope>provided</scope>
@@ -485,13 +468,6 @@
 
         <dependency>
             <groupId>org.openmrs.module</groupId>
-            <artifactId>providermanagement-api</artifactId>
-            <version>${providermanagementVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
             <artifactId>queue-api</artifactId>
             <version>${queueVersion}</version>
             <scope>provided</scope>
@@ -542,12 +518,6 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>serialization.xstream-api</artifactId>
-            <version>${serializationxstreamVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>serialization.xstream-api-2.0</artifactId>
             <version>${serializationxstreamVersion}</version>
             <scope>provided</scope>
         </dependency>
@@ -813,12 +783,11 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.2</version>
+                    <version>3.5.4</version>
 					<configuration>
                         <includes>
 							<include>**/*Test.java</include>
 						</includes>
-                        <runOrder>alphabetical</runOrder>
 					</configuration>
 				</plugin>
                 <plugin>
@@ -856,19 +825,11 @@
                     <properties>
                         <property>
                             <name>openMRSVersion</name>
-                            <version>[2.7.0,2.7.999]</version>
+                            <version>[2.8.0,2.8.999]</version>
                         </property>
                         <property>
                             <name>attachmentsVersion</name>
                             <version>[2.7.0,3.0.0)</version>
-                        </property>
-                        <property>
-                            <name>eventVersion</name>
-                            <version>[2.10.0,3.0.0)</version>
-                        </property>
-                        <property>
-                            <name>fhir2Version</name>
-                            <version>[2.7.0,2.8.0)</version>
                         </property>
                     </properties>
                 </configuration>
