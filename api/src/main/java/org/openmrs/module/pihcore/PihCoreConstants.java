@@ -2,10 +2,6 @@ package org.openmrs.module.pihcore;
 
 public class PihCoreConstants {
 
-    public static final String TERMS_AND_CONDITIONS_ENABLED_PROPERTY = "terms_and_conditions_enabled";
-    public static final String USER_PROPERTY_TERMS_AND_CONDITIONS_ACCEPTED_DATE = "termsAndConditionsAcceptedDate";
-    public static final String SESSION_ATTRIBUTE_TERMS_ACCEPTED = "pihcore.termsAndConditionsAccepted";
-
     public static final String DBEVENT_ENABLED_PROPERTY = "dbevent_enabled";
     
     public static final String GP_COMPONENT_PREFIX = "pihcore.component.";
