@@ -42,7 +42,7 @@ public class ProviderRolesCsvParser extends CsvParser<ProviderRole, BaseLineProc
 	
 	@Override
 	public ProviderRole save(ProviderRole instance) {
-		log.warn("Saving provider role: " + instance.getName());
+		log.debug("Saving provider role: {}", instance.getName());
 		return providerService.saveProviderRole(instance);
 	}
 }
