@@ -100,7 +100,7 @@
         <uicommonsVersion>2.26.0</uicommonsVersion>
         <uiframeworkVersion>4.0.0</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
-        <webservicesRestVersion>3.0.0-SNAPSHOT</webservicesRestVersion>
+        <webservicesRestVersion>3.0.0</webservicesRestVersion>
 
         <lombokVersion>1.18.42</lombokVersion>
         <testcontainersVersion>1.21.3</testcontainersVersion>
@@ -826,10 +826,6 @@
                         <property>
                             <name>openMRSVersion</name>
                             <version>[2.8.0,2.8.999]</version>
-                        </property>
-                        <property>
-                            <name>attachmentsVersion</name>
-                            <version>[2.7.0,3.0.0)</version>
                         </property>
                     </properties>
                 </configuration>
