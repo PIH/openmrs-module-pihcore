@@ -4,6 +4,7 @@ import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.pihcore.merge.PihPatientMergeActions;
 import org.openmrs.module.pihcore.merge.PihRadiologyOrdersMergeActions;
 import org.openmrs.module.pihcore.merge.PihTestOrdersMergeActions;
+import org.openmrs.module.pihcore.merge.PihValidationMergeActions;
 import org.openmrs.module.pihcore.merge.PihVisitMergeActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,12 +25,16 @@ public class MergeActionsSetup {
     PihTestOrdersMergeActions pihTestOrdersMergeActions;
 
     @Autowired
+    PihValidationMergeActions pihValidationMergeActions;
+
+    @Autowired
     PihVisitMergeActions pihVisitMergeActions;
 
     public void registerMergeActions() {
         adtService.addPatientMergeAction(pihPatientMergeActions);
         adtService.addPatientMergeAction(pihRadiologyOrdersMergeActions);
         adtService.addPatientMergeAction(pihTestOrdersMergeActions);
+        adtService.addPatientMergeAction(pihValidationMergeActions);
         adtService.addVisitMergeAction(pihVisitMergeActions);
     }
 
@@ -37,6 +42,7 @@ public class MergeActionsSetup {
         adtService.removePatientMergeAction(pihPatientMergeActions);
         adtService.removePatientMergeAction(pihRadiologyOrdersMergeActions);
         adtService.removePatientMergeAction(pihTestOrdersMergeActions);
+        adtService.removePatientMergeAction(pihValidationMergeActions);
         adtService.removeVisitMergeAction(pihVisitMergeActions);
     }
 }
