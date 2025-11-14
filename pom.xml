@@ -55,7 +55,7 @@
         <appointmentschedulingVersion>2.0.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>2.0.0</appointmentschedulinguiVersion>
         <appuiVersion>1.18.0</appuiVersion>
-        <attachmentsVersion>2.9.0</attachmentsVersion>
+        <attachmentsVersion>4.0.0-SNAPSHOT</attachmentsVersion>
         <authenticationVersion>2.1.0</authenticationVersion>
         <authenticationuiVersion>1.2.0-SNAPSHOT</authenticationuiVersion>
         <bedmanagementVersion>6.1.0</bedmanagementVersion>
@@ -214,20 +214,6 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>attachments-api</artifactId>
-            <version>${attachmentsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>attachments-api-1.11</artifactId>
-            <version>${attachmentsVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>attachments-api-2.0</artifactId>
             <version>${attachmentsVersion}</version>
             <scope>provided</scope>
         </dependency>

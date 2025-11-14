@@ -4260,13 +4260,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                   PihEmrConfigConstants.PRIVILEGE_APP_ATTACHMENTS_PAGE,
                 null),
-                "attachments", "dashboardWidget"));
+                "pihapps", "attachments/dashboardWidget"));
 
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,
                 "pihcore.patientDocuments.overallAction.label",
                 "fas fa-fw fa-paperclip",
                 "link",
-                "attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
+                "pihapps/attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
                   PihEmrConfigConstants.PRIVILEGE_APP_ATTACHMENTS_PAGE,
                 null));
     }
