@@ -40,6 +40,7 @@ import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.util.ConfigUtil;
 import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -180,6 +181,9 @@ public class ConfigurationSetup {
         // TODO: We need to consider the setting component GPs here
         setStatus("Setting additional global properties");
         setGlobalProperties(config);
+
+        // set GP that points to the OWA directorey
+        updateGlobalProperty("owa.appFolderPath", OpenmrsUtil.getDirectoryInApplicationDataDirectory("owa"));
 
         // Configure the Disposition Config based on PIH Config
         // TODO: Note, in the various activators, this is done multiple times across many started and contextRefreshed methods
