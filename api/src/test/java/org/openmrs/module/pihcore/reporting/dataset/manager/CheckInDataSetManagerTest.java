@@ -14,7 +14,7 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
-;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

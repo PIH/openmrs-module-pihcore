@@ -7,6 +7,8 @@ import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.bedmanagement.entity.BedPatientAssignment;
+import org.openmrs.module.bedmanagement.service.BedManagementService;
 import org.openmrs.module.emrapi.merge.PatientMergeAction;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.metadata.Metadata;
@@ -46,6 +48,9 @@ public class PihPatientMergeActions implements PatientMergeAction {
     @Autowired
     private QueueEntryService queueEntryService;
 
+    @Autowired
+    private BedManagementService bedManagementService;
+
     @Override
     public void beforeMergingPatients(Patient preferred, Patient nonPreferred) {
         // void attributes on non-preferred patient if present on preferred patient
@@ -56,6 +61,8 @@ public class PihPatientMergeActions implements PatientMergeAction {
         voidMostRecentRegistrationIfNonPreferred(preferred, nonPreferred);
 
         moveQueueEntriesNotAssociatedWithVisits(preferred, nonPreferred);
+
+        moveBedPatientAssignments(preferred, nonPreferred);
     }
 
     @Override
@@ -113,6 +120,14 @@ public class PihPatientMergeActions implements PatientMergeAction {
             log.warn("Moving queue entry " + queueEntry.getId() + " from patient " + nonPreferred.getId() + " to " + preferred.getId());
             queueEntry.setPatient(preferred);
             queueEntryService.saveQueueEntry(queueEntry);
+        }
+    }
+
+    private void moveBedPatientAssignments(Patient preferred, Patient nonPreferred) {
+        List<BedPatientAssignment> bpaList = bedManagementService.getBedPatientAssignmentByPatient(nonPreferred.getUuid(), true);
+        for (BedPatientAssignment bpa : bpaList) {
+            bpa.setPatient(preferred);
+            bedManagementService.saveBedPatientAssignment(bpa);
         }
     }
 

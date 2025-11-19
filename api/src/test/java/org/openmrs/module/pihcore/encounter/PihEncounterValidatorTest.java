@@ -1,7 +1,6 @@
 package org.openmrs.module.pihcore.encounter;
 
 import org.apache.commons.lang.time.DateUtils;
-;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
