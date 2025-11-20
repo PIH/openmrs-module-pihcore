@@ -1,7 +1,7 @@
 package org.openmrs.module.pihcore;
 
 import org.apache.commons.lang.StringUtils;
-;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;

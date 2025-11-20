@@ -12,6 +12,9 @@ import org.openmrs.api.EncounterService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
+import org.openmrs.module.bedmanagement.entity.Bed;
+import org.openmrs.module.bedmanagement.entity.BedPatientAssignment;
+import org.openmrs.module.bedmanagement.service.BedManagementService;
 import org.openmrs.module.initializer.Domain;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.queue.api.QueueEntryService;
@@ -20,6 +23,8 @@ import org.openmrs.module.queue.model.QueueEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -36,6 +41,7 @@ public class PihPatientMergeActionsTest extends PihCoreContextSensitiveTest {
     @Autowired ConceptService conceptService;
     @Autowired @Qualifier("queue.QueueService") QueueService queueService;
     @Autowired @Qualifier("queue.QueueEntryService") QueueEntryService queueEntryService;
+    @Autowired BedManagementService bedManagementService;
     @Autowired TestDataManager tdm;
 
     PersonAttributeType phoneNumber;
@@ -228,6 +234,45 @@ public class PihPatientMergeActionsTest extends PihCoreContextSensitiveTest {
 
         qe1 = queueEntryService.getQueueEntryById(qe1.getQueueEntryId()).get();
         assertThat(qe1.getPatient(), equalTo(nonPreferred));
+    }
+
+    @Test
+    public void shouldMoveBedPatientAssignments() {
+        preferred = tdm.randomPatient().save();
+        nonPreferred = tdm.randomPatient().save();
+
+        Date yesterday = new Date(Instant.now().minus(1, ChronoUnit.DAYS).toEpochMilli());
+        Date today = new Date();
+
+        Encounter preferredEncounter1 = tdm.randomEncounter().patient(preferred).encounterDatetime(yesterday).encounterType(getAdmissionEncounterType()).save();
+        Encounter preferredEncounter2 = tdm.randomEncounter().patient(preferred).encounterDatetime(today).encounterType(getTransferEncounterType()).save();
+
+        Bed bed1 = new Bed();
+        bed1.setBedNumber("bed1");
+        bedManagementService.saveBed(bed1);
+        Bed bed2 = new Bed();
+        bed2.setBedNumber("bed2");
+        bedManagementService.saveBed(bed2);
+
+        BedPatientAssignment bpa1 = new BedPatientAssignment();
+        bpa1.setPatient(nonPreferred);
+        bpa1.setStartDatetime(yesterday);
+        bpa1.setEndDatetime(today);
+        bpa1.setEncounter(preferredEncounter1);
+        bpa1.setBed(bed1);
+        bedManagementService.saveBedPatientAssignment(bpa1);
+        
+        BedPatientAssignment bpa2 = new BedPatientAssignment();
+        bpa2.setPatient(nonPreferred);
+        bpa2.setStartDatetime(today);
+        bpa2.setEncounter(preferredEncounter2);
+        bpa2.setBed(bed2);
+        bedManagementService.saveBedPatientAssignment(bpa2);
+
+        pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
+
+        assertThat(bpa1.getPatient(), equalTo(preferred));
+        assertThat(bpa2.getPatient(), equalTo(preferred));
     }
 
     @Test
