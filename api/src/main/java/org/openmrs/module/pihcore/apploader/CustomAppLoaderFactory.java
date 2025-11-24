@@ -2387,6 +2387,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             extensions.add(nicuTriage);
             extensions.add(cloneAsInfantVisitAction(nicuTriage));
 
+            Extension pacuFollowup = visitAction(CustomAppLoaderConstants.Extensions.PACU_FOLLOWUP_ACTION,
+                    "pih.task.pacuFollowup",
+                    "fas fa-fw fa-dizzy",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("pacuFollowup.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("PACU Location"),
+                            and(patientIsFemale(), patientIsAdult())));
+            extensions.add(pacuFollowup);
+            extensions.add(cloneAsPregnancyVisitAction(pacuFollowup));
+
             Extension laborProgress = visitAction(CustomAppLoaderConstants.Extensions.LABOR_PROGRESS_ACTION,
                     "pih.task.laborProgress",
                     "fas fa-fw fa-baby",
