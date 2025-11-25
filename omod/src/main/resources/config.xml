@@ -113,9 +113,6 @@
         <require_module version="${owaVersion}">
             org.openmrs.module.owa
         </require_module>
-        <require_module version="${pacsintegrationVersion}">
-            org.openmrs.module.pacsintegration
-        </require_module>
         <require_module version="${paperrecordVersion}">
             org.openmrs.module.paperrecord
         </require_module>

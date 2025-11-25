@@ -87,7 +87,6 @@ public class Components {
         public static final String ORDER_ENTRY = "orderEntry";  // TODO we probably want a different name for this?  break up by drug orders and lab orders, etc?
         public static final String OVERVIEW_REPORTS = "overviewReports";
         public static final String OVC = "ovc";  // program and forms
-        public static final String PACS_INTEGRATION = "pacsIntegration";  // TODO do we actually use this?
         public static final String PATHOLOGY_TRACKING = "pathologyTracking";
         public static final String PATIENT_DOCUMENTS = "patientDocuments";  // openmrs-module-attachments
         public static final String PATIENT_REGISTRATION = "patientRegistration";
