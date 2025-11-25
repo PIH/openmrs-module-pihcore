@@ -82,7 +82,6 @@
         <o3formsVersion>2.3.0</o3formsVersion>
         <openconceptlabVersion>2.5.0</openconceptlabVersion>
         <owaVersion>1.15.0</owaVersion>
-        <pacsintegrationVersion>1.12.0</pacsintegrationVersion>
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <pihappsVersion>1.1.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0-SNAPSHOT</printerVersion>
@@ -421,13 +420,6 @@
             <groupId>org.openmrs.module</groupId>
             <artifactId>owa-api</artifactId>
             <version>${owaVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>pacsintegration-api</artifactId>
-            <version>${pacsintegrationVersion}</version>
             <scope>provided</scope>
         </dependency>
 

@@ -37,7 +37,6 @@ import org.openmrs.module.pihcore.listener.UpdateHealthCenterListener;
 import org.openmrs.module.pihcore.task.PihCoreScheduledTaskExecutor;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
-import org.openmrs.module.reporting.config.ReportLoader;
 import org.openmrs.util.ConfigUtil;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
@@ -234,14 +233,6 @@ public class ConfigurationSetup {
             ReportSetup.scheduleBackupReports(config);
             ReportSetup.scheduleMonthlyExportsReports(config);
         }
-
-        // Initialize PACS HL7 listener, if the PACS_INTEGRATION component is enabled in pih config
-        // TODO:  1. Determine if we can just enable this all the time, and if that will cause any adverse effects
-        // TODO:  2. Or determine if we can enable it all the time, but switch inside the listener on the component, to determine whether to act or not
-        // TODO:  3. If we leave this like this, determine if we can call this setup method over and over in a running server, or if we need to code around that
-        //           In testing, when running configure, I get this:  java.lang.RuntimeException: java.net.BindException: Address already in use (Bind failed)
-        setStatus("Configuring PACS HL7 Listener");
-        PacIntegrationSetup.setup(config);
 
         // TODO: This seems harmless here for refreshing, but we should determine if
         // TODO: 1. Has this run everywhere it needs to, and can we remove this code altogether now
