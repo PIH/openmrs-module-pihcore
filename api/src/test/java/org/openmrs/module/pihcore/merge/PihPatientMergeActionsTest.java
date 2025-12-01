@@ -237,15 +237,15 @@ public class PihPatientMergeActionsTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    public void shouldMoveBedPatientAssignments() {
+    public void shouldMoveBedPatientAssignmentsWhenPreferredPatientHasNoBedAssigned() {
         preferred = tdm.randomPatient().save();
         nonPreferred = tdm.randomPatient().save();
 
         Date yesterday = new Date(Instant.now().minus(1, ChronoUnit.DAYS).toEpochMilli());
         Date today = new Date();
 
-        Encounter preferredEncounter1 = tdm.randomEncounter().patient(preferred).encounterDatetime(yesterday).encounterType(getAdmissionEncounterType()).save();
-        Encounter preferredEncounter2 = tdm.randomEncounter().patient(preferred).encounterDatetime(today).encounterType(getTransferEncounterType()).save();
+        Encounter nonPreferredEncounter1 = tdm.randomEncounter().patient(nonPreferred).encounterDatetime(yesterday).encounterType(getAdmissionEncounterType()).save();
+        Encounter nonPreferredEncounter2 = tdm.randomEncounter().patient(nonPreferred).encounterDatetime(today).encounterType(getTransferEncounterType()).save();
 
         Bed bed1 = new Bed();
         bed1.setBedNumber("bed1");
@@ -258,14 +258,14 @@ public class PihPatientMergeActionsTest extends PihCoreContextSensitiveTest {
         bpa1.setPatient(nonPreferred);
         bpa1.setStartDatetime(yesterday);
         bpa1.setEndDatetime(today);
-        bpa1.setEncounter(preferredEncounter1);
+        bpa1.setEncounter(nonPreferredEncounter1);
         bpa1.setBed(bed1);
         bedManagementService.saveBedPatientAssignment(bpa1);
         
         BedPatientAssignment bpa2 = new BedPatientAssignment();
         bpa2.setPatient(nonPreferred);
         bpa2.setStartDatetime(today);
-        bpa2.setEncounter(preferredEncounter2);
+        bpa2.setEncounter(nonPreferredEncounter2);
         bpa2.setBed(bed2);
         bedManagementService.saveBedPatientAssignment(bpa2);
 
@@ -273,6 +273,65 @@ public class PihPatientMergeActionsTest extends PihCoreContextSensitiveTest {
 
         assertThat(bpa1.getPatient(), equalTo(preferred));
         assertThat(bpa2.getPatient(), equalTo(preferred));
+    }
+
+    @Test
+    public void shouldVoidBedPatientAssignmentsWhenPreferredPatientHasBedAssigned() {
+        preferred = tdm.randomPatient().save();
+        nonPreferred = tdm.randomPatient().save();
+
+        Date yesterday = new Date(Instant.now().minus(1, ChronoUnit.DAYS).toEpochMilli());
+        Date today = new Date();
+
+        Encounter nonPreferredEncounter1 = tdm.randomEncounter().patient(nonPreferred).encounterDatetime(yesterday).encounterType(getAdmissionEncounterType()).save();
+        Encounter nonPreferredEncounter2 = tdm.randomEncounter().patient(nonPreferred).encounterDatetime(today).encounterType(getTransferEncounterType()).save();
+        Encounter preferredEncounter1 = tdm.randomEncounter().patient(preferred).encounterDatetime(today).encounterType(getTransferEncounterType()).save();
+
+        Bed bed1 = new Bed();
+        bed1.setBedNumber("bed1");
+        bedManagementService.saveBed(bed1);
+        Bed bed2 = new Bed();
+        bed2.setBedNumber("bed2");
+        bedManagementService.saveBed(bed2);
+        Bed bed3 = new Bed();
+        bed3.setBedNumber("bed2");
+        bedManagementService.saveBed(bed3);
+
+        BedPatientAssignment bpa1 = new BedPatientAssignment();
+        bpa1.setPatient(nonPreferred);
+        bpa1.setStartDatetime(yesterday);
+        bpa1.setEndDatetime(today);
+        bpa1.setEncounter(nonPreferredEncounter1);
+        bpa1.setBed(bed1);
+        bedManagementService.saveBedPatientAssignment(bpa1);
+        
+        BedPatientAssignment bpa2 = new BedPatientAssignment();
+        bpa2.setPatient(nonPreferred);
+        bpa2.setStartDatetime(today);
+        bpa2.setEncounter(nonPreferredEncounter2);
+        bpa2.setBed(bed2);
+        bedManagementService.saveBedPatientAssignment(bpa2);
+        
+        BedPatientAssignment bpa3 = new BedPatientAssignment();
+        bpa3.setPatient(preferred);
+        bpa3.setStartDatetime(today);
+        bpa3.setEncounter(preferredEncounter1);
+        bpa3.setBed(bed3);
+        bedManagementService.saveBedPatientAssignment(bpa3);
+
+        pihPatientMergeActions.beforeMergingPatients(preferred, nonPreferred);
+
+        assertThat(bpa1.getPatient(), equalTo(preferred));
+        assertThat(bpa1.getVoided(), equalTo(false));
+        assertThat(nonPreferredEncounter1.getVoided(), equalTo(false));
+
+        assertThat(bpa2.getPatient(), equalTo(preferred));
+        assertThat(bpa2.getVoided(), equalTo(true));
+        assertThat(nonPreferredEncounter2.getVoided(), equalTo(true));
+
+        assertThat(bpa3.getPatient(), equalTo(preferred));
+        assertThat(bpa3.getVoided(), equalTo(false));
+        assertThat(preferredEncounter1.getVoided(), equalTo(false));
     }
 
     @Test
