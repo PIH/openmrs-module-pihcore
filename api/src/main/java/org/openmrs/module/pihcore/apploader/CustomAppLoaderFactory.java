@@ -2389,7 +2389,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
             Extension pacuFollowup = visitAction(CustomAppLoaderConstants.Extensions.PACU_FOLLOWUP_ACTION,
                     "pih.task.pacuFollowup",
-                    "fas fa-fw fa-dizzy",
+                    "fas fa-fw fa-clipboard-check",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("pacuFollowup.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
