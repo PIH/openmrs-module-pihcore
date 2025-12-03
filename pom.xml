@@ -71,7 +71,7 @@
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>7.0.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>3.0.0</htmlformentryuiVersion>
-        <htmlwidgetsVersion>1.11.0</htmlwidgetsVersion>
+        <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
         <idgenVersion>5.0.0-SNAPSHOT</idgenVersion>
         <initializerVersion>2.10.0-SNAPSHOT</initializerVersion>
         <labtrackingappVersion>1.2.0</labtrackingappVersion>
@@ -83,13 +83,13 @@
         <openconceptlabVersion>2.5.0</openconceptlabVersion>
         <owaVersion>1.15.0</owaVersion>
         <paperrecordVersion>1.4.1</paperrecordVersion>
-        <pihappsVersion>1.1.0-SNAPSHOT</pihappsVersion>
-        <printerVersion>1.6.0-SNAPSHOT</printerVersion>
+        <pihappsVersion>1.1.0</pihappsVersion>
+        <printerVersion>1.6.0</printerVersion>
         <queueVersion>2.9.0</queueVersion>
-        <radiologyappVersion>1.8.0-SNAPSHOT</radiologyappVersion>
+        <radiologyappVersion>1.8.0</radiologyappVersion>
         <registrationappVersion>1.28.1</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
-        <reportingVersion>1.29.0-SNAPSHOT</reportingVersion>
+        <reportingVersion>2.0.0</reportingVersion>
         <reportingrestVersion>1.15.0</reportingrestVersion>
         <reportinguiVersion>1.14.0</reportinguiVersion>
         <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
