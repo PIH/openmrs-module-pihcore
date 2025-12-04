@@ -58,7 +58,7 @@
         <attachmentsVersion>4.0.0-SNAPSHOT</attachmentsVersion>
         <authenticationVersion>2.1.0</authenticationVersion>
         <authenticationuiVersion>1.2.0</authenticationuiVersion>
-        <bedmanagementVersion>6.2.0-SNAPSHOT</bedmanagementVersion>
+        <bedmanagementVersion>7.0.0</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
         <coreappsVersion>3.1.0</coreappsVersion>
         <dbeventVersion>1.2.0</dbeventVersion>
