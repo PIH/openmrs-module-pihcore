@@ -96,6 +96,7 @@ import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.visitActi
 import static org.openmrs.module.pihcore.apploader.RequireUtil.and;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.not;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.or;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInDaysLessThanAtVisitStart;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInMonthsLessThanAtVisitStart;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeUnknown;
@@ -947,7 +948,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                 and(sessionLocationHasTag("Newborn Admission Note Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID),
-                        patientAgeInMonthsLessThanAtVisitStart(3))));
+                        patientAgeInDaysLessThanAtVisitStart(42)))); //6 weeks
     }
 
     private void enableBedAdministration() {
@@ -2337,7 +2338,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("NICU Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_INITIAL_UUID),
-                            and(patientAgeInMonthsLessThanAtVisitStart(3))));
+                            and(patientAgeInDaysLessThanAtVisitStart(42)))); // 6 weeks
             extensions.add(newbornInitial);
             extensions.add(cloneAsInfantVisitAction(newbornInitial));
 
@@ -2349,7 +2350,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Newborn Assessment Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_ASSESSMENT_UUID),
-                            and(patientAgeInMonthsLessThanAtVisitStart(3))));
+                            and(patientAgeInDaysLessThanAtVisitStart(42)))); // 6 weeks
             extensions.add(newbornAssess);
             extensions.add(cloneAsInfantVisitAction(newbornAssess));
             
@@ -2360,7 +2361,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornDailyProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Newborn Daily Progress Location"),
-                            and(patientAgeInMonthsLessThanAtVisitStart(3))));
+                            and(patientAgeInDaysLessThanAtVisitStart(42)))); // 6 weeks
             extensions.add(newbornDaily);
             extensions.add(cloneAsInfantVisitAction(newbornDaily));
 
@@ -2372,7 +2373,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Newborn Daily Progress Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_DISCHARGE_UUID),
-                            and(patientAgeInMonthsLessThanAtVisitStart(3))));
+                            and(patientAgeInDaysLessThanAtVisitStart(42)))); // 6 weeks
             extensions.add(newbornDischarge);
             extensions.add(cloneAsInfantVisitAction(newbornDischarge));
 
@@ -2383,7 +2384,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("nicuTriage.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("MCH Triage Location"),
-                            and(patientAgeInMonthsLessThanAtVisitStart(3))));
+                            and(patientAgeInDaysLessThanAtVisitStart(42)))); // 6 weeks
             extensions.add(nicuTriage);
             extensions.add(cloneAsInfantVisitAction(nicuTriage));
 
