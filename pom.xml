@@ -62,14 +62,14 @@
         <calculationVersion>2.0.0</calculationVersion>
         <coreappsVersion>3.1.0</coreappsVersion>
         <dbeventVersion>1.2.0</dbeventVersion>
-        <dispensingVersion>2.0.0-SNAPSHOT</dispensingVersion>
+        <dispensingVersion>2.0.0</dispensingVersion>
         <edtriageappVersion>2.1.0</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
         <emrapiVersion>3.2.1</emrapiVersion>
         <eventVersion>4.0.0-SNAPSHOT</eventVersion>
         <fhir2Version>2.8.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
-        <htmlformentryVersion>7.0.0-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>7.0.0</htmlformentryVersion>
         <htmlformentryuiVersion>3.0.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
         <idgenVersion>5.0.4</idgenVersion>
