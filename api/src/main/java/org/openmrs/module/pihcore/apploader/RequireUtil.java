@@ -69,7 +69,7 @@ public class RequireUtil {
     }
 
     public static String patientIsReproductiveAge() {  // expects patient or visit to be in the context
-        return new String("patient.person.age >= 11");
+        return new String("patient.person.age >= 10");
     }
 
     public static String patientIsChild() {  // expects patient or visit to be in the context

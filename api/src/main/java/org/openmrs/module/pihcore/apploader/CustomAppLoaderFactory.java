@@ -600,7 +600,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("triage.xml")),
                     "Task: emr.triage",
                     and(sessionLocationHasTag("MCH Triage Location"),
-                            and(patientIsFemale(), patientIsAdult()),
+                            and(patientIsFemale(), patientIsReproductiveAge()),
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMCHTRIAGE_UUID))));
 
             apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,
@@ -788,7 +788,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsPregnant.xml")),
                     null,
                     and(sessionLocationHasTag("Vitals ANC Location"),
-                            and(patientIsFemale(), patientIsAdult()),
+                            and(patientIsFemale(), patientIsReproductiveAge()),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
@@ -1393,7 +1393,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "link",
                 "pihcore/children/children.page?patientId={{patient.patientId}}&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl() ,
                 "App: registrationapp.registerPatient",
-                and(patientIsFemale(), patientIsAdult())));
+                and(patientIsFemale(), patientIsReproductiveAge())));
     }
     public void enableWristbands() {
 
@@ -2250,7 +2250,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
                             patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID, PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID),
-                            and(patientIsFemale(), patientIsAdult())));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(ancIntake);
             extensions.add(cloneAsPregnancyVisitAction(ancIntake));
 
@@ -2263,7 +2263,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),
-                            and(patientIsFemale(), patientIsAdult())));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(ancFollowup);
             extensions.add(cloneAsPregnancyVisitAction(ancFollowup));
         }
@@ -2279,7 +2279,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                         and(sessionLocationHasTag("Maternal and Child Location"),
                                 visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),
-                                and(patientIsFemale(), patientIsAdult())));
+                                and(patientIsFemale(), patientIsReproductiveAge())));
                 extensions.add(wbDelivery);
                 extensions.add(cloneAsPregnancyVisitAction(wbDelivery));
             }
@@ -2309,7 +2309,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("gainMaternalRegister.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            and(patientIsFemale(), patientIsAdult()))));
+                            and(patientIsFemale(), patientIsReproductiveAge()))));
         }
     }
 
@@ -2323,7 +2323,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("gainNewbornRegister.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
-                            and(patientIsFemale(), patientIsAdult()))));
+                            and(patientIsFemale(), patientIsReproductiveAge()))));
         }
     }
 
@@ -2395,7 +2395,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("pacuFollowup.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("PACU Location"),
-                            and(patientIsFemale(), patientIsAdult())));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(pacuFollowup);
             extensions.add(cloneAsPregnancyVisitAction(pacuFollowup));
 
@@ -2406,7 +2406,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("laborProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Antenatal Location"),
-                            and(patientIsFemale(), patientIsAdult())));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(laborProgress);
             extensions.add(cloneAsPregnancyVisitAction(laborProgress));
 
@@ -2418,7 +2418,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Delivery Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_LABOR_DELIVERY_SUMMARY_UUID),
-                            and(patientIsFemale(), patientIsAdult())));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(ldSummary);
             extensions.add(cloneAsPregnancyVisitAction(ldSummary));
 
@@ -2429,7 +2429,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("postpartumDailyProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Postnatal Location"),
-                            and(patientIsFemale(), patientIsAdult())));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(postPartum);
             extensions.add(cloneAsPregnancyVisitAction(postPartum));
 
@@ -2441,7 +2441,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal Admission Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_ADMISSION_UUID),
-                            and(patientIsFemale(), patientIsAdult())));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(maternalAdmission);
             extensions.add(cloneAsPregnancyVisitAction(maternalAdmission));
 
@@ -2453,7 +2453,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Postnatal Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_DISCHARGE_UUID),
-                            and(patientIsFemale(), patientIsAdult())));
+                            and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(maternalDischarge);
             extensions.add(cloneAsPregnancyVisitAction(maternalDischarge));
         }
