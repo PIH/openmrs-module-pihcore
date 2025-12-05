@@ -1405,6 +1405,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "Task: emr.printWristband",
                 null));
 
+        extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.PRINT_WRISTBAND_OVERALL_REGISTRATION_ACTION,
+                "mirebalais.printWristband",
+                "fas fa-fw fa-print",
+                "script",
+                "printWristband()",
+                "Task: emr.printWristband",
+                null));
+
         // this provides the javascript the backs the print wrist action button
         extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.PRINT_WRISTBAND_ACTION_INCLUDES,
                 "pihcore",
