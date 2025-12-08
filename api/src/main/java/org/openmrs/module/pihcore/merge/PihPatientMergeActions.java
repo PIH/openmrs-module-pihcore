@@ -123,10 +123,30 @@ public class PihPatientMergeActions implements PatientMergeAction {
         }
     }
 
+    /**
+     * move bed patient assignments from non-preferred to preferred patient
+     * If the preferred patient already has an active bed assignment, then active bed assignments
+     * (there should be no more than one) on the non-preferred patient will be voided
+     * @param preferred
+     * @param nonPreferred
+     */
     private void moveBedPatientAssignments(Patient preferred, Patient nonPreferred) {
+        boolean preferredPatientHasBedAssigned = bedManagementService.getBedPatientAssignmentByPatient(preferred.getUuid(), false).size() > 0;
         List<BedPatientAssignment> bpaList = bedManagementService.getBedPatientAssignmentByPatient(nonPreferred.getUuid(), true);
         for (BedPatientAssignment bpa : bpaList) {
             bpa.setPatient(preferred);
+            // ensure there is at most one active bed assignment per patient
+            if(preferredPatientHasBedAssigned && bpa.getEndDatetime() == null) {
+                bpa.setVoided(true);
+                bpa.setDateVoided(new Date());
+                bpa.setVoidReason("Merging into patient " + preferred.getId());
+                bpa.setVoidedBy(Context.getAuthenticatedUser());
+
+                Encounter e = bpa.getEncounter();
+                if(e != null) {
+                    encounterService.voidEncounter(e, "Merging into patient " + preferred.getId() + ": voiding active bed assignment encounter on non-preferred patient");
+                }
+            }
             bedManagementService.saveBedPatientAssignment(bpa);
         }
     }
