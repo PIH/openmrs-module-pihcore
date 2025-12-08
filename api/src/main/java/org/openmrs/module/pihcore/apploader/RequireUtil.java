@@ -80,6 +80,10 @@ public class RequireUtil {
         return patientAgeInMonthsLessThanAtVisitStart((age+1)*12);
     }
 
+    public static String patientAgeInDaysOlderThanAtVisitStart(int ageDays) {
+        return "visit && patient && daysBetweenDates(patient.person.birthdate, visit.startDatetimeInMilliseconds) > " + ageDays;
+    }
+
     public static String patientAgeInDaysLessThanAtVisitStart(int ageDays) {
         return "visit && patient && daysBetweenDates(patient.person.birthdate, visit.startDatetimeInMilliseconds) < " + ageDays;
     }
