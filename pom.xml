@@ -83,7 +83,7 @@
         <openconceptlabVersion>2.5.0</openconceptlabVersion>
         <owaVersion>1.15.0</owaVersion>
         <paperrecordVersion>1.4.1</paperrecordVersion>
-        <pihappsVersion>1.1.0</pihappsVersion>
+        <pihappsVersion>1.2.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0</printerVersion>
         <queueVersion>2.9.0</queueVersion>
         <radiologyappVersion>1.8.0</radiologyappVersion>
