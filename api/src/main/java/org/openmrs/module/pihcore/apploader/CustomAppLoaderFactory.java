@@ -97,6 +97,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.and;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.not;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.or;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInDaysLessThanAtVisitStart;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInDaysOlderThanAtVisitStart;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInMonthsLessThanAtVisitStart;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeUnknown;
@@ -754,17 +755,30 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
 
+            // Inpatient Vitals form for patients older than 6 weeks
             Extension inpatientVitalsSigns = visitAction(CustomAppLoaderConstants.Extensions.INPATIENT_VITALS_CAPTURE_VISIT_ACTION,
                     "pihcore.task.inpatient.vitals",
                     "fas fa-fw fa-heartbeat",
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("inpatientVitals.xml")),
                     null,
-                    and(sessionLocationHasTag("Vitals Inpatient Location"),
+                    and(patientAgeInDaysOlderThanAtVisitStart(41),sessionLocationHasTag("Vitals Inpatient Location"),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
             extensions.add(inpatientVitalsSigns);
+            // Inpatient Vitals form for patients younger than 6 weeks
+            Extension inpatientNewbornVitalsSigns = visitAction(CustomAppLoaderConstants.Extensions.INPATIENT_VITALS_NEWBORN_CAPTURE_VISIT_ACTION,
+                    "pihcore.task.inpatient.vitals",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("inpatientNewbornVitals.xml")),
+                    null,
+                    and(patientAgeInDaysLessThanAtVisitStart(42),sessionLocationHasTag("Vitals Inpatient Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+            extensions.add(inpatientNewbornVitalsSigns);
         }
 
         // Add additional vital sign forms for ZL
