@@ -2292,6 +2292,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // For Wellbody only, show the (older) delivery form.  KGH has L&D and other forms.
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            Extension postnatalFollowup = visitAction(CustomAppLoaderConstants.Extensions.MCH_POSTNATAL_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_POSTNATALFOLLOWUP_UUID,
+                    "fas fa-fw fa-gift",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("postnatalFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_POSTNATALFOLLOWUP_UUID),
+                            and(patientIsFemale(), patientIsReproductiveAge())));
+            extensions.add(postnatalFollowup);
+            extensions.add(cloneAsPregnancyVisitAction(postnatalFollowup));
             if (config.isComponentEnabled(Components.MCH_BASIC_DELIVERY_FORM)) {
                 Extension wbDelivery = visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
                         "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
