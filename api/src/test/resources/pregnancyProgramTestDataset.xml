@@ -2,6 +2,8 @@
 
 <!-- patient 7 is from standard test dataset -->
 <dataset>
+    <encounter_type encounter_type_id="3001" name="Postnatal Followup" description="Postnatal Followup" creator="1"
+                    date_created="2012-10-23 18:04:14" retired="0" uuid="b7a7c300-f7e5-4d38-a388-fc178ab02e78"/>
     <!-- set up a parent/child location, with the parent tagged as a "Visit Location" -->
     <location location_id="1001" name="Parent Location" description="Parent Location" address1="" address2="" city_village="" state_province="" postal_code="" country="" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="123e4567-e89b-12d3-a456-426614174000"/>
     <location location_id="1002" parent_location="1001" name="Child Location" description="Child Location" address1="800 Boylston Street" address2="" city_village="Boston" state_province="MA" postal_code="02115" country="USA" latitude="" longitude="" creator="1" date_created="2008-08-15 13:46:50.0" retired="false" uuid="123e4567-e89b-12d3-a456-426614174001"/>
