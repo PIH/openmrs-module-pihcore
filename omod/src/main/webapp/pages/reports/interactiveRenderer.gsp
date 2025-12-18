@@ -1,0 +1,167 @@
+<%
+    ui.decorateWith("appui", "standardEmrPage")
+    ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
+    ui.includeJavascript("uicommons", "moment-with-locales.min.js")
+    ui.includeJavascript("pihapps", "pagingDataTable.js")
+    ui.includeJavascript("pihapps", "conceptUtils.js")
+    ui.includeJavascript("pihapps", "patientUtils.js")
+    ui.includeJavascript("pihapps", "dateUtils.js")
+
+    def now = new Date()
+%>
+
+<style>
+    #report-name {
+        font-weight: bold;
+        font-size: 1.6em;
+    }
+    #report-description {
+        font-size: 0.8em;
+        padding: 5px;
+    }
+    #report-datasets {
+        padding-top: 10px;
+    }
+    .date {
+        white-space: nowrap;
+    }
+    #refresh-button {
+        padding: unset;
+        margin-left: 10px;
+    }
+</style>
+
+<script type="text/javascript">
+    const breadcrumbs = [
+        { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
+        { label: "${ ui.escapeJs(ui.message("reportingui.reportsapp.home.title")) }", link: emr.pageLink("reportingui", "reportsapp/home") },
+        { label: "${ ui.message(ui.format(reportDefinition)) }", link: "${ ui.escapeJs(ui.thisUrl()) }" }
+    ];
+    moment.locale(window.sessionContext?.locale ?? 'en');
+    const dateUtils = new PihAppsDateUtils(moment);
+    const dateFormat = "${dateFormat}";
+    const dateTimeFormat = "${dateTimeFormat}";
+
+    let currentDataSetKey = '';
+
+    jq(document).ready(function() {
+        const urlParams = new URLSearchParams(document.location.search);
+        const reportDefinitionUuid = urlParams.get("reportDefinition");
+        const reportDefinitionRep = "full";
+
+        jq.get(openmrsContextPath + "/ws/rest/v1/reportingrest/reportDefinition/" + reportDefinitionUuid + "?v=" + reportDefinitionRep, function(reportDefinition) {
+            console.debug(reportDefinition);
+
+            jq("#report-name").html(reportDefinition.display);
+            jq("#report-description").html(reportDefinition.descriptionDisplay);
+
+            // TODO: Parameters currently handled in GSP.  Consider moving to JS at some point
+
+            if (reportDefinition.dataSetDefinitions.length > 1) {
+                reportDefinition.dataSetDefinitions.forEach((dsd) => {
+                    jq("#report-dataset-tabs").append("<div class=\"report-dataset-tab\">" + dsd.key + "</div>");
+                });
+            }
+            currentDataSetKey = reportDefinition.dataSetDefinitions[0].key;
+
+            const getParameterValues = function() {
+                let ret = {}
+                reportDefinition.parameters.forEach((parameter) => {
+                    ret[parameter.name] = jq(".parameter-wrapper input[name=\"" + parameter.name + "\"]").val();
+                });
+                return ret;
+            }
+
+            // TODO:  Add formatting for particular values
+            const formatColumnValue = function(dataSetColumn, columnValue) {
+                if (columnValue) {
+                    if (dataSetColumn.datatype === "java.util.Date") {
+                        columnValue = dateUtils.formatDateWithTimeIfPresent(columnValue, dateFormat, dateTimeFormat);
+                    }
+                }
+                return columnValue;
+            }
+
+            const loadDataSet = function(dataSetKey) {
+                const dataSetRep = "custom:(metadata,rows)";
+                const endpoint = openmrsContextPath + "/ws/rest/v1/reportingrest/reportDataSet/" + reportDefinitionUuid + "/" + dataSetKey + "?v=" + dataSetRep;
+                const parameterValues = getParameterValues();
+                console.debug("Loading Data Set", endpoint, parameterValues);
+
+                const reportSpinnerDiv = jq("#report-spinner");
+                const contentSectionDiv = jq("#report-dataset-content");
+                contentSectionDiv.html("").hide();
+                reportSpinnerDiv.show();
+                jq.get(endpoint, parameterValues, function(dataSet) {
+                    console.debug(dataSet);
+                    const contentTable = jq("<table>").addClass("table");
+                    contentSectionDiv.append(contentTable);
+                    // Add columns
+                    const tableHead = jq("<thead>").addClass("dataset-header");
+                    contentTable.append(tableHead);
+                    const tableHeadRow = jq("<tr>").addClass("dataset-header-row");
+                    tableHead.append(tableHeadRow);
+                    dataSet.metadata.columns.forEach((column) => {
+                        const tableHeadCell = jq("<th>").prop("scope", "col").prop("id", "col-" + dataSetKey + "-" + column.name).html(column.display);
+                        tableHeadRow.append(tableHeadCell);
+                    });
+                    // Add rows
+                    const tableBody = jq("<tbody>").addClass("dataset-body");
+                    contentTable.append(tableBody);
+                    if (dataSet.rows.length === 0) {
+                        const tableBodyRow = jq("<tr>").addClass("dataset-row");
+                        tableBody.append(tableBodyRow);
+                        tableBodyRow.append(jq("<td>").html("${ui.message("reportingui.adHocReport.noResults")}"));
+                    }
+                    dataSet.rows.forEach((row) => {
+                        const tableBodyRow = jq("<tr>").addClass("dataset-row");
+                        tableBody.append(tableBodyRow);
+                        dataSet.metadata.columns.forEach((column) => {
+                            const columnValue = formatColumnValue(column, row[column.name]);
+                            const tableBodyCell = jq("<td>").addClass("dataset-column-value").html(columnValue);
+                            tableBodyRow.append(tableBodyCell);
+                        });
+                    });
+                    reportSpinnerDiv.hide();
+                    contentSectionDiv.show();
+                }).fail((response) => {
+                    reportSpinnerDiv.hide();
+                    const errorDiv = jq("<div>").addClass("error").html(response.responseJSON.error.message);
+                    jq("#report-dataset-content").html(errorDiv).show();
+                });
+            };
+            loadDataSet(currentDataSetKey);
+
+            jq("#refresh-button").click(() => {
+                loadDataSet(currentDataSetKey);
+            });
+        });
+    });
+</script>
+
+<div id="report-section">
+    <div class="row">
+        <div class="col">
+            <div>
+                <span id="report-name"></span>
+                <button id="refresh-button"><i class="small icon-refresh"></i></button>
+            </div>
+            <div id="report-description"></div>
+        </div>
+        <div class="col">
+            <div id="report-parameters" class="row">
+                <% reportDefinition.parameters.each{ parameter ->
+                    def initialValue = parameter.defaultValue ?: parameter.type.simpleName.toLowerCase() == 'date' ? now : "" %>
+                    <div class="parameter-wrapper col" id="parameter-wrapper-${parameter.name}">
+                        ${ ui.includeFragment("pihcore", "field/reportParameter", [ parameter: parameter, initialValue: initialValue ]) }
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div id="report-datasets">
+        <div id="report-dataset-tabs"></div>
+        <div id="report-spinner"><img src="${ui.resourceLink("uicommons", "images/spinner.gif")}"></div>
+        <div id="report-dataset-content" class="table-responsive"></div>
+    </div>
+</div>
