@@ -90,7 +90,7 @@
         <registrationappVersion>1.28.1</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
         <reportingVersion>2.0.0</reportingVersion>
-        <reportingrestVersion>1.16.0</reportingrestVersion>
+        <reportingrestVersion>2.0.0-SNAPSHOT</reportingrestVersion>
         <reportinguiVersion>1.14.0</reportinguiVersion>
         <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
         <spaVersion>2.1.0</spaVersion>
