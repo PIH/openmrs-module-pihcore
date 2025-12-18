@@ -51,11 +51,15 @@
         const urlParams = new URLSearchParams(document.location.search);
         const reportDefinitionUuid = urlParams.get("reportDefinition");
         const reportDefinitionRep = "full";
+        const allowChangingReportDefinition = true;
 
         jq.get(openmrsContextPath + "/ws/rest/v1/reportingrest/reportDefinition/" + reportDefinitionUuid + "?v=" + reportDefinitionRep, function(reportDefinition) {
 
             jq("#report-name").html(reportDefinition.display);
-            jq("#report-description").html(reportDefinition.descriptionDisplay);
+
+            if (reportDefinition.descriptionDisplay && reportDefinition.descriptionDisplay !== reportDefinition.display) {
+                jq("#report-description").html(reportDefinition.descriptionDisplay);
+            }
 
             const datasetTabsElement = jq("#report-dataset-tabs");
             const datasetContentElement = jq("#report-dataset-content");
@@ -186,30 +190,32 @@
                 loadDataSet(currentDataSetKey);
             });
 
-            jq("#change-report-button").click(() => {
-                jq("#report-name").hide();
-                const reportSelector = jq("<select>").attr("name", "reportDefinition");
-                jq.get(openmrsContextPath + "/ws/rest/v1/reportingrest/reportDefinition", function(results) {
-                    const sortedReports = results.results.sort((a, b) => a.display.toLowerCase().localeCompare(b.display.toLowerCase()))
-                    sortedReports.forEach((rd) => {
-                        const option = jq("<option value=\"" + rd.uuid + "\">" + rd.display + "</option>");
-                        if (rd.uuid === reportDefinitionUuid) {
-                            option.attr("selected", "selected");
-                        }
-                        reportSelector.append(option);
-                    });
-                    reportSelector.change(function() {
-                        const url = new URL(window.location);
-                        url.searchParams.forEach((key) => {
-                            url.searchParams.delete(key);
+            if (allowChangingReportDefinition) {
+                jq("#change-report-button").click(() => {
+                    jq("#report-name").hide();
+                    const reportSelector = jq("<select>").attr("name", "reportDefinition");
+                    jq.get(openmrsContextPath + "/ws/rest/v1/reportingrest/reportDefinition", function (results) {
+                        const sortedReports = results.results.sort((a, b) => a.display.toLowerCase().localeCompare(b.display.toLowerCase()))
+                        sortedReports.forEach((rd) => {
+                            const option = jq("<option value=\"" + rd.uuid + "\">" + rd.display + "</option>");
+                            if (rd.uuid === reportDefinitionUuid) {
+                                option.attr("selected", "selected");
+                            }
+                            reportSelector.append(option);
                         });
-                        const selectedReport = jq(this).val();
-                        url.searchParams.set("reportDefinition", selectedReport);
-                        document.location.href = url.toString();
+                        reportSelector.change(function () {
+                            const url = new URL(window.location);
+                            url.searchParams.forEach((key) => {
+                                url.searchParams.delete(key);
+                            });
+                            const selectedReport = jq(this).val();
+                            url.searchParams.set("reportDefinition", selectedReport);
+                            document.location.href = url.toString();
+                        });
+                        jq("#report-selector").html(reportSelector).show();
                     });
-                    jq("#report-selector").html(reportSelector).show();
-                });
-            });
+                }).show();
+            }
 
             // Initiate the first data set
             jq("#data-set-link-" + reportDefinition.dataSetDefinitions[0].key).click();
@@ -223,7 +229,7 @@
             <div>
                 <span id="report-name"></span>
                 <span id="report-selector" style="display:none;"></span>
-                <button id="change-report-button" class="action-button"><i class="small icon-pencil"></i></button>
+                <button id="change-report-button" class="action-button" style="display:none;"><i class="small icon-pencil"></i></button>
             </div>
             <div id="report-description"></div>
         </div>
