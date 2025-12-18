@@ -24,7 +24,10 @@
     .date {
         white-space: nowrap;
     }
-    #refresh-button {
+    .parameter-wrapper {
+        white-space: nowrap;
+    }
+    .action-button {
         padding: unset;
         margin-left: 10px;
     }
@@ -168,6 +171,31 @@
             jq("#refresh-button").click(() => {
                 loadDataSet(currentDataSetKey);
             });
+
+            jq("#change-report-button").click(() => {
+                jq("#report-name").hide();
+                const reportSelector = jq("<select>").attr("name", "reportDefinition");
+                jq.get(openmrsContextPath + "/ws/rest/v1/reportingrest/reportDefinition", function(results) {
+                    const sortedReports = results.results.sort((a, b) => a.display.toLowerCase().localeCompare(b.display.toLowerCase()))
+                    sortedReports.forEach((rd) => {
+                        const option = jq("<option value=\"" + rd.uuid + "\">" + rd.display + "</option>");
+                        if (rd.uuid === reportDefinitionUuid) {
+                            option.attr("selected", "selected");
+                        }
+                        reportSelector.append(option);
+                    });
+                    reportSelector.change(function() {
+                        const url = new URL(window.location);
+                        url.searchParams.forEach((key) => {
+                            url.searchParams.delete(key);
+                        });
+                        const selectedReport = jq(this).val();
+                        url.searchParams.set("reportDefinition", selectedReport);
+                        document.location.href = url.toString();
+                    });
+                    jq("#report-selector").html(reportSelector).show();
+                });
+            });
         });
     });
 </script>
@@ -177,11 +205,12 @@
         <div class="col">
             <div>
                 <span id="report-name"></span>
-                <button id="refresh-button"><i class="small icon-refresh"></i></button>
+                <span id="report-selector" style="display:none;"></span>
+                <button id="change-report-button" class="action-button"><i class="small icon-pencil"></i></button>
             </div>
             <div id="report-description"></div>
         </div>
-        <div class="col">
+        <div class="col-auto">
             <div id="report-parameters" class="row">
                 <% reportDefinition.parameters.each{ parameter ->
                     def initialValue = parameter.defaultValue ?: parameter.type.simpleName.toLowerCase() == 'date' ? now : "" %>
@@ -189,6 +218,9 @@
                         ${ ui.includeFragment("pihcore", "field/reportParameter", [ parameter: parameter, initialValue: initialValue ]) }
                     </div>
                 <% } %>
+                <span class="text-right" style="padding-right:10px;">
+                    <button id="refresh-button" class="action-button"><i class="small icon-refresh"></i></button>
+                </span>
             </div>
         </div>
     </div>
