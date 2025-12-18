@@ -2,11 +2,7 @@
     ui.decorateWith("appui", "standardEmrPage")
     ui.includeJavascript("uicommons", "datatables/jquery.dataTables.min.js")
     ui.includeJavascript("uicommons", "moment-with-locales.min.js")
-    ui.includeJavascript("pihapps", "pagingDataTable.js")
-    ui.includeJavascript("pihapps", "conceptUtils.js")
-    ui.includeJavascript("pihapps", "patientUtils.js")
     ui.includeJavascript("pihapps", "dateUtils.js")
-
     def now = new Date()
 %>
 
@@ -21,6 +17,9 @@
     }
     #report-datasets {
         padding-top: 10px;
+    }
+    #report-dataset-content {
+        font-size: 0.9em;
     }
     .date {
         white-space: nowrap;
@@ -113,15 +112,49 @@
                         tableBody.append(tableBodyRow);
                         tableBodyRow.append(jq("<td>").html("${ui.message("reportingui.adHocReport.noResults")}"));
                     }
-                    dataSet.rows.forEach((row) => {
-                        const tableBodyRow = jq("<tr>").addClass("dataset-row");
-                        tableBody.append(tableBodyRow);
-                        dataSet.metadata.columns.forEach((column) => {
-                            const columnValue = formatColumnValue(column, row[column.name]);
-                            const tableBodyCell = jq("<td>").addClass("dataset-column-value").html(columnValue);
-                            tableBodyRow.append(tableBodyCell);
+                    else {
+                        dataSet.rows.forEach((row) => {
+                            const tableBodyRow = jq("<tr>").addClass("dataset-row");
+                            tableBody.append(tableBodyRow);
+                            dataSet.metadata.columns.forEach((column) => {
+                                const columnValue = formatColumnValue(column, row[column.name]);
+                                const tableBodyCell = jq("<td>").addClass("dataset-column-value").html(columnValue);
+                                tableBodyRow.append(tableBodyCell);
+                            });
                         });
-                    });
+                        contentTable.dataTable(
+                            {
+                                bFilter: false,
+                                bJQueryUI: true,
+                                bLengthChange: false,
+                                iDisplayLength: 8,
+                                sPaginationType: 'full_numbers',
+                                bSort: false,
+                                sDom: 'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>',
+                                oLanguage: {
+                                    oPaginate: {
+                                        sFirst: "${ ui.message("uicommons.dataTable.first") }",
+                                        sLast: "${ ui.message("uicommons.dataTable.last") }",
+                                        sNext: "${ ui.message("uicommons.dataTable.next") }",
+                                        sPrevious: "${ ui.message("uicommons.dataTable.previous") }"
+                                    },
+                                    sInfo: "${ ui.message("uicommons.dataTable.info") }",
+                                    sSearch: "${ ui.message("uicommons.dataTable.search") }",
+                                    sZeroRecords: "${ ui.message("uicommons.dataTable.zeroRecords") }",
+                                    sEmptyTable: "${ ui.message("uicommons.dataTable.emptyTable") }",
+                                    sInfoFiltered: "${ ui.message("uicommons.dataTable.infoFiltered") }",
+                                    sInfoEmpty: "${ ui.message("uicommons.dataTable.infoEmpty") }",
+                                    sLengthMenu: "${ ui.message("uicommons.dataTable.lengthMenu") }",
+                                    sLoadingRecords: "${ ui.message("uicommons.dataTable.loadingRecords") }",
+                                    sProcessing: "${ ui.message("uicommons.dataTable.processing") }",
+                                    oAria: {
+                                        sSortAscending: "${ ui.message("uicommons.dataTable.sortAscending") }",
+                                        sSortDescending: "${ ui.message("uicommons.dataTable.sortDescending") }"
+                                    }
+                                }
+                            }
+                        );
+                    }
                     reportSpinnerDiv.hide();
                     contentSectionDiv.show();
                 }).fail((response) => {
