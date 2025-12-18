@@ -59,6 +59,10 @@
 
             const datasetTabsElement = jq("#report-dataset-tabs");
             const datasetContentElement = jq("#report-dataset-content");
+            const datasetNavSection = jq("#report-dataset-nav");
+            if (reportDefinition.dataSetDefinitions.length === 1) {
+                datasetNavSection.hide();
+            }
 
             reportDefinition.dataSetDefinitions.forEach((dsd) => {
                 const contentSectionId = "dataset-content-" + dsd.key;
@@ -132,7 +136,7 @@
                             });
                         });
 
-                        const displayLength = 8;
+                        const displayLength = 10;
                         const usePagination = (dataSet.rows.length > displayLength);
                         contentTable.dataTable(
                             {
