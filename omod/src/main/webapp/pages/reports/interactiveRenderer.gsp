@@ -47,31 +47,34 @@
     let currentDataSetKey = '';
 
     jq(document).ready(function() {
+
         const urlParams = new URLSearchParams(document.location.search);
         const reportDefinitionUuid = urlParams.get("reportDefinition");
         const reportDefinitionRep = "full";
 
         jq.get(openmrsContextPath + "/ws/rest/v1/reportingrest/reportDefinition/" + reportDefinitionUuid + "?v=" + reportDefinitionRep, function(reportDefinition) {
-            console.debug(reportDefinition);
 
             jq("#report-name").html(reportDefinition.display);
             jq("#report-description").html(reportDefinition.descriptionDisplay);
 
-            // TODO: Parameters currently handled in GSP.  Consider moving to JS at some point
+            const datasetTabsElement = jq("#report-dataset-tabs");
+            const datasetContentElement = jq("#report-dataset-content");
 
-            if (reportDefinition.dataSetDefinitions.length > 1) {
-                const navElement = jq("<nav>").addClass("nav nav-pills");
-                reportDefinition.dataSetDefinitions.forEach((dsd, index) => {
-                    const navLink = jq("<button>")
-                        .addClass("nav-link" + (index === 0 ? " active" : ""))
-                        .attr("data-bs-toggle", "tab").attr("data-bs-target", "#report-dataset-content")
-                        .attr("aria-current", "page")
-                        .html(dsd.key);
-                    navElement.append(navLink)
+            reportDefinition.dataSetDefinitions.forEach((dsd) => {
+                const contentSectionId = "dataset-content-" + dsd.key;
+                const navTarget = jq("<div>").attr("id", contentSectionId).addClass("tab-pane").html(dsd.key);
+                const navLink = jq("<button>").addClass("nav-link").attr("id", "data-set-link-" + dsd.key).html(dsd.key);
+                navLink.click(() => {
+                    console.log("Loading Data Set: " + dsd.key);
+                    jq(".nav-link").removeClass("active");
+                    navLink.addClass("active");
+                    jq(".tab-pane").addClass("show").hide();
+                    navTarget.show();
+                    loadDataSet(dsd.key);
                 });
-                jq("#report-dataset-tabs").append(navElement);
-            }
-            currentDataSetKey = reportDefinition.dataSetDefinitions[0].key;
+                datasetTabsElement.append(navLink);
+                datasetContentElement.append(navTarget);
+            });
 
             const getParameterValues = function() {
                 let ret = {}
@@ -92,37 +95,33 @@
             }
 
             const loadDataSet = function(dataSetKey) {
+                currentDataSetKey = dataSetKey;
                 const dataSetRep = "custom:(metadata,rows)";
                 const endpoint = openmrsContextPath + "/ws/rest/v1/reportingrest/reportDataSet/" + reportDefinitionUuid + "/" + dataSetKey + "?v=" + dataSetRep;
                 const parameterValues = getParameterValues();
-                console.debug("Loading Data Set", endpoint, parameterValues);
-
                 const reportSpinnerDiv = jq("#report-spinner");
-                const contentSectionDiv = jq("#report-dataset-content");
+                const contentSectionDiv = jq("#dataset-content-" + dataSetKey);
                 contentSectionDiv.html("").hide();
                 reportSpinnerDiv.show();
                 jq.get(endpoint, parameterValues, function(dataSet) {
-                    console.debug(dataSet);
                     const contentTable = jq("<table>").addClass("table");
-                    contentSectionDiv.append(contentTable);
-                    // Add columns
                     const tableHead = jq("<thead>").addClass("dataset-header");
-                    contentTable.append(tableHead);
-                    const tableHeadRow = jq("<tr>").addClass("dataset-header-row");
-                    tableHead.append(tableHeadRow);
-                    dataSet.metadata.columns.forEach((column) => {
-                        const tableHeadCell = jq("<th>").prop("scope", "col").prop("id", "col-" + dataSetKey + "-" + column.name).html(column.display);
-                        tableHeadRow.append(tableHeadCell);
-                    });
-                    // Add rows
                     const tableBody = jq("<tbody>").addClass("dataset-body");
-                    contentTable.append(tableBody);
+                    contentSectionDiv.append(contentTable.append(tableHead).append(tableBody));
                     if (dataSet.rows.length === 0) {
                         const tableBodyRow = jq("<tr>").addClass("dataset-row");
                         tableBody.append(tableBodyRow);
                         tableBodyRow.append(jq("<td>").html("${ui.message("reportingui.adHocReport.noResults")}"));
                     }
                     else {
+                        // Add columns
+                        const tableHeadRow = jq("<tr>").addClass("dataset-header-row");
+                        tableHead.append(tableHeadRow);
+                        dataSet.metadata.columns.forEach((column) => {
+                            const tableHeadCell = jq("<th>").prop("scope", "col").prop("id", "col-" + dataSetKey + "-" + column.name).html(column.display);
+                            tableHeadRow.append(tableHeadCell);
+                        });
+                        // Add rows
                         dataSet.rows.forEach((row) => {
                             const tableBodyRow = jq("<tr>").addClass("dataset-row");
                             tableBody.append(tableBodyRow);
@@ -132,15 +131,20 @@
                                 tableBodyRow.append(tableBodyCell);
                             });
                         });
+
+                        const displayLength = 8;
+                        const usePagination = (dataSet.rows.length > displayLength);
                         contentTable.dataTable(
                             {
                                 bFilter: false,
                                 bJQueryUI: true,
                                 bLengthChange: false,
-                                iDisplayLength: 8,
-                                sPaginationType: 'full_numbers',
+                                iDisplayLength: displayLength,
+                                paging: usePagination,
+                                info: usePagination,
+                                sPaginationType: "full_numbers",
                                 bSort: false,
-                                sDom: 'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"ip>',
+                                sDom: 'ft<\"fg-toolbar ui-toolbar ui-corner-bl ui-corner-br ui-helper-clearfix datatables-info-and-pg \"' + (usePagination ? 'ip' : '') + '>',
                                 oLanguage: {
                                     oPaginate: {
                                         sFirst: "${ ui.message("uicommons.dataTable.first") }",
@@ -173,7 +177,6 @@
                     jq("#report-dataset-content").html(errorDiv).show();
                 });
             };
-            loadDataSet(currentDataSetKey);
 
             jq("#refresh-button").click(() => {
                 loadDataSet(currentDataSetKey);
@@ -203,6 +206,9 @@
                     jq("#report-selector").html(reportSelector).show();
                 });
             });
+
+            // Initiate the first data set
+            jq("#data-set-link-" + reportDefinition.dataSetDefinitions[0].key).click();
         });
     });
 </script>
@@ -232,8 +238,10 @@
         </div>
     </div>
     <div id="report-datasets">
-        <div id="report-dataset-tabs"></div>
+        <nav id="report-dataset-nav">
+            <div class="nav nav-pills" id="report-dataset-tabs" role="tablist"></div>
+        </nav>
         <div id="report-spinner"><img src="${ui.resourceLink("uicommons", "images/spinner.gif")}"></div>
-        <div id="report-dataset-content" class="table-responsive"></div>
+        <div id="report-dataset-content" class="table-responsive tab-content"></div>
     </div>
 </div>
