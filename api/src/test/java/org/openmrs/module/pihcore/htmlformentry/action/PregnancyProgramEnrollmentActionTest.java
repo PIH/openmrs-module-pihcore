@@ -8,6 +8,7 @@ import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.PatientProgram;
+import org.openmrs.PatientState;
 import org.openmrs.Program;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntrySession;
@@ -32,6 +33,7 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
 
     private static final String POSTPARTUM_PROGRAM_STATE_UUID = "a735b5f6-0b63-4d9a-ae2e-70d08c947aed";
 
+    private static final String POSTNATAL_FOLLOWUP_ENCOUNTER_TYPE_UUID = "b7a7c300-f7e5-4d38-a388-fc178ab02e78";
 
     @BeforeEach
     public void setUp() {
@@ -122,6 +124,127 @@ public class PregnancyProgramEnrollmentActionTest  extends PihCoreContextSensiti
         Assertions.assertNull(patientPregnancyPrograms.get(1).getOutcome());
         Assertions.assertEquals(1, patientPregnancyPrograms.get(1).getStates().size());
         Assertions.assertEquals(ANTENATAL_PROGRAM_STATE_UUID, patientPregnancyPrograms.get(1).getStates().stream().findFirst().get().getState().getUuid());
+    }
+
+    @Test
+    public void postNatalPregnancyProgramEnrollmentAction_shouldEnrollPatientInPregnancyProgramWithStateDeliveredIfNotEnrolled() {
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+
+        Location location = Context.getLocationService().getLocation("Child Location");
+        Date now = new DateTime().withMillisOfSecond(0).toDate();
+
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        // sanity check, patient is not enrolled
+        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(0, patientPregnancyPrograms.size());
+
+        Encounter encounter = new Encounter();
+        encounter.setEncounterType(Context.getEncounterService().getEncounterTypeByUuid(POSTNATAL_FOLLOWUP_ENCOUNTER_TYPE_UUID));
+        encounter.setPatient(patient);
+        encounter.setEncounterDatetime(now);
+        encounter.setLocation(location);
+
+        when(mockSession.getPatient()).thenReturn(patient);
+        when(mockSession.getEncounter()).thenReturn(encounter);
+        pregnancyProgramEnrollmentAction.applyAction(mockSession);
+
+        patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        Assertions.assertEquals(now, patientPregnancyPrograms.get(0).getDateEnrolled());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
+        Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getStates().size());
+        Assertions.assertEquals(POSTPARTUM_PROGRAM_STATE_UUID, patientPregnancyPrograms.get(0).getStates().stream().findFirst().get().getState().getUuid());
+    }
+
+    @Test
+    public void postNatalPregnancyProgramEnrollmentAction_shouldChangeStateIfCurrentInAntenatalState() {
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+
+        Location location = Context.getLocationService().getLocation("Child Location");
+        Date now = new DateTime().withMillisOfSecond(0).toDate();
+        Date sixMonthsAgo  = new DateTime(now).minusMonths(6).toDate();
+
+
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        // the patient was enrolled in the pregnancy program with antenatal state 6 months ago, and postpartum state 1 month ago
+        PatientProgram existingPatientPregnancyProgram = new PatientProgram();
+        existingPatientPregnancyProgram.setProgram(pregnancyProgram);
+        existingPatientPregnancyProgram.setPatient(patient);
+        existingPatientPregnancyProgram.setDateEnrolled(sixMonthsAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(ANTENATAL_PROGRAM_STATE_UUID), sixMonthsAgo);
+        Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
+
+        // sanity check, patient is enrolled
+        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        Assertions.assertEquals(ANTENATAL_PROGRAM_STATE_UUID, patientPregnancyPrograms.get(0).getStates().stream().findFirst().get().getState().getUuid());
+
+        Encounter encounter = new Encounter();
+        encounter.setEncounterType(Context.getEncounterService().getEncounterTypeByUuid(POSTNATAL_FOLLOWUP_ENCOUNTER_TYPE_UUID));
+        encounter.setPatient(patient);
+        encounter.setEncounterDatetime(now);
+        encounter.setLocation(location);
+
+        when(mockSession.getPatient()).thenReturn(patient);
+        when(mockSession.getEncounter()).thenReturn(encounter);
+        pregnancyProgramEnrollmentAction.applyAction(mockSession);
+
+        patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
+        Assertions.assertEquals(2, patientPregnancyPrograms.get(0).getStates().size());
+        Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getCurrentStates().size());
+        PatientState currentState = patientPregnancyPrograms.get(0).getCurrentStates().iterator().next();
+        Assertions.assertEquals(POSTPARTUM_PROGRAM_STATE_UUID, currentState.getState().getUuid());
+    }
+    @Test
+    public void postNatalPregnancyProgramEnrollmentAction_shouldNotChangeStateIfCurrentInPostpartumState() {
+        Program pregnancyProgram = Context.getProgramWorkflowService().getProgramByUuid(PREGNANCY_PROGRAM_UUID);
+
+        Location location = Context.getLocationService().getLocation("Child Location");
+        Date now = new DateTime().withMillisOfSecond(0).toDate();
+        Date sixMonthsAgo  = new DateTime(now).minusMonths(6).toDate();
+        Date oneMonthAgo  = new DateTime(now).minusMonths(1).toDate();
+
+        Patient patient = Context.getPatientService().getPatient(7); // patient from standard test dataset
+
+        // the patient was enrolled in the pregnancy program with antenatal state 6 months ago, and postpartum state 1 month ago
+        PatientProgram existingPatientPregnancyProgram = new PatientProgram();
+        existingPatientPregnancyProgram.setProgram(pregnancyProgram);
+        existingPatientPregnancyProgram.setPatient(patient);
+        existingPatientPregnancyProgram.setDateEnrolled(sixMonthsAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(ANTENATAL_PROGRAM_STATE_UUID), sixMonthsAgo);
+        existingPatientPregnancyProgram.transitionToState(Context.getProgramWorkflowService().getStateByUuid(POSTPARTUM_PROGRAM_STATE_UUID), oneMonthAgo);
+        Context.getProgramWorkflowService().savePatientProgram(existingPatientPregnancyProgram);
+
+        // sanity check, patient is enrolled
+        List<PatientProgram> patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+
+        Encounter encounter = new Encounter();
+        encounter.setEncounterType(Context.getEncounterService().getEncounterTypeByUuid(POSTNATAL_FOLLOWUP_ENCOUNTER_TYPE_UUID));
+        encounter.setPatient(patient);
+        encounter.setEncounterDatetime(now);
+        encounter.setLocation(location);
+
+        when(mockSession.getPatient()).thenReturn(patient);
+        when(mockSession.getEncounter()).thenReturn(encounter);
+        pregnancyProgramEnrollmentAction.applyAction(mockSession);
+
+        patientPregnancyPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient,pregnancyProgram, null, null, null, null, false);
+        Assertions.assertEquals(1, patientPregnancyPrograms.size());
+        Assertions.assertEquals(sixMonthsAgo, patientPregnancyPrograms.get(0).getDateEnrolled());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getDateCompleted());
+        Assertions.assertNull(patientPregnancyPrograms.get(0).getOutcome());
+        Assertions.assertEquals(2, patientPregnancyPrograms.get(0).getStates().size());
+        Assertions.assertEquals(1, patientPregnancyPrograms.get(0).getCurrentStates().size());
+        PatientState currentState = patientPregnancyPrograms.get(0).getCurrentStates().iterator().next();
+        Assertions.assertEquals(POSTPARTUM_PROGRAM_STATE_UUID, currentState.getState().getUuid());
     }
 
     @Test
