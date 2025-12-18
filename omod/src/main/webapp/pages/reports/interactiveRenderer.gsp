@@ -60,9 +60,16 @@
             // TODO: Parameters currently handled in GSP.  Consider moving to JS at some point
 
             if (reportDefinition.dataSetDefinitions.length > 1) {
-                reportDefinition.dataSetDefinitions.forEach((dsd) => {
-                    jq("#report-dataset-tabs").append("<div class=\"report-dataset-tab\">" + dsd.key + "</div>");
+                const navElement = jq("<nav>").addClass("nav nav-pills");
+                reportDefinition.dataSetDefinitions.forEach((dsd, index) => {
+                    const navLink = jq("<button>")
+                        .addClass("nav-link" + (index === 0 ? " active" : ""))
+                        .attr("data-bs-toggle", "tab").attr("data-bs-target", "#report-dataset-content")
+                        .attr("aria-current", "page")
+                        .html(dsd.key);
+                    navElement.append(navLink)
                 });
+                jq("#report-dataset-tabs").append(navElement);
             }
             currentDataSetKey = reportDefinition.dataSetDefinitions[0].key;
 
