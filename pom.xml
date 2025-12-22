@@ -69,7 +69,7 @@
         <eventVersion>4.0.0-SNAPSHOT</eventVersion>
         <fhir2Version>2.9.0-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
-        <htmlformentryVersion>7.0.0</htmlformentryVersion>
+        <htmlformentryVersion>7.1.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>3.1.0-SNAPSHOT</htmlformentryuiVersion>
         <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
         <idgenVersion>5.0.4</idgenVersion>
