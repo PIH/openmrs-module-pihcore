@@ -70,8 +70,9 @@
 
             reportDefinition.dataSetDefinitions.forEach((dsd) => {
                 const contentSectionId = "dataset-content-" + dsd.key;
-                const navTarget = jq("<div>").attr("id", contentSectionId).addClass("tab-pane").html(dsd.key);
-                const navLink = jq("<button>").addClass("nav-link").attr("id", "data-set-link-" + dsd.key).html(dsd.key);
+                const dsdKeyDisplay = (dsd.display ?? dsd.key).replaceAll("_", " ");
+                const navTarget = jq("<div>").attr("id", contentSectionId).addClass("tab-pane").html(dsdKeyDisplay);
+                const navLink = jq("<button>").addClass("nav-link").attr("id", "data-set-link-" + dsd.key).html(dsdKeyDisplay);
                 navLink.click(() => {
                     console.log("Loading Data Set: " + dsd.key);
                     jq(".nav-link").removeClass("active");
@@ -127,7 +128,8 @@
                         const tableHeadRow = jq("<tr>").addClass("dataset-header-row");
                         tableHead.append(tableHeadRow);
                         dataSet.metadata.columns.forEach((column) => {
-                            const tableHeadCell = jq("<th>").prop("scope", "col").prop("id", "col-" + dataSetKey + "-" + column.name).html(column.display);
+                            const columnDisplay = column.display.replaceAll("_", " ");
+                            const tableHeadCell = jq("<th>").prop("scope", "col").prop("id", "col-" + dataSetKey + "-" + column.name).html(columnDisplay);
                             tableHeadRow.append(tableHeadCell);
                         });
                         // Add rows
