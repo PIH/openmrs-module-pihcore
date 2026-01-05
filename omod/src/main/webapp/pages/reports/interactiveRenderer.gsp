@@ -51,7 +51,7 @@
         const urlParams = new URLSearchParams(document.location.search);
         const reportDefinitionUuid = urlParams.get("reportDefinition");
         const reportDefinitionRep = "full";
-        const allowChangingReportDefinition = true;
+        const allowChangingReportDefinition = urlParams.get("allowChangingReportDefinition") === "true";
 
         jq.get(openmrsContextPath + "/ws/rest/v1/reportingrest/reportDefinition/" + reportDefinitionUuid + "?v=" + reportDefinitionRep, function(reportDefinition) {
 
@@ -104,6 +104,7 @@
 
             const loadDataSet = function(dataSetKey) {
                 currentDataSetKey = dataSetKey;
+                jq(".nav-link").attr("disabled", "disabled");
                 const dataSetRep = "custom:(metadata,rows)";
                 const endpoint = openmrsContextPath + "/ws/rest/v1/reportingrest/reportDataSet/" + reportDefinitionUuid + "/" + dataSetKey + "?v=" + dataSetRep;
                 const parameterValues = getParameterValues();
@@ -177,9 +178,11 @@
                             }
                         );
                     }
+                    jq(".nav-link").removeAttr("disabled");
                     reportSpinnerDiv.hide();
                     contentSectionDiv.show();
                 }).fail((response) => {
+                    jq(".nav-link").removeAttr("disabled");
                     reportSpinnerDiv.hide();
                     const errorDiv = jq("<div>").addClass("error").html(response.responseJSON.error.message);
                     jq("#report-dataset-content").html(errorDiv).show();
