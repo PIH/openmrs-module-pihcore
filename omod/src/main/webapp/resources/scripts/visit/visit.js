@@ -553,12 +553,12 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             controller: ["$scope", function ($dialogScope) {
                                 $dialogScope.now = new Date();
                                 $dialogScope.visit = $scope.visit;
-                                $dialogScope.newStartDatetime = $scope.visit.startDatetime;
+                                $dialogScope.newStartDatetime = moment($scope.visit.startDatetime).format('YYYY-MM-DDTHH:mm:ss.SSS');
                                 $dialogScope.startDateLowerLimit = $scope.previousVisitEndDatetime($scope.visit);
                                 $dialogScope.startDateUpperLimit = $scope.firstEncounterInVisitDatetime($scope.visit);
                                 $dialogScope.endDateLowerLimit = $scope.mostRecentEncounterInVisitDatetime($scope.visit);
                                 $dialogScope.endDateUpperLimit = $scope.nextVisitStartDatetime($scope.visit);
-                                $dialogScope.newStopDatetime = $scope.visit.stopDatetime || '';
+                                $dialogScope.newStopDatetime = $scope.visit.stopDatetime ? moment($scope.visit.stopDatetime).format('YYYY-MM-DDTHH:mm:ss.SSS') : '';
                                 $dialogScope.locations = locations.filter(l => l.tags.some(t => t.display === "Visit Location" ));
                                 $dialogScope.newLocation = $scope.visit.location;
                                 $dialogScope.$watch('newStartDatetime', function(newVal, oldVal) {
