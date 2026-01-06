@@ -83,6 +83,33 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
+    .directive("timeWithPopup", [ function() {
+        return {
+            restrict: 'E',
+            scope: {
+                ngModel: '=',
+                clearButton: '='
+            },
+            controller: function($scope) {
+                $scope.opened = true;
+                $scope.toggle = function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $scope.opened = !$scope.opened;
+                }
+                $scope.clear = function() {
+                    $scope.ngModel = null;
+                    $scope.opened = false;
+                }
+            },
+            template: '<span class="angular-datepicker">' +
+                '<div class="angular-timepicker-popup" ng-show="opened">' +
+                '<timepicker ng-model="ngModel" show-meridian="true"></timepicker>' +
+                '</div>' +
+                '</span>'
+        }
+    }])
+
     .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter",
         function(Encounter, Concepts, OrderTypes, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter) {
             return {
@@ -538,10 +565,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             template: "templates/visitDetailsEdit.page"
                         }).then(function (opts) {
                             // we trim off the time zone, because we don't want to send it along: the server will just assume that it is in it's timezone
-                            var start = moment(opts.start).startOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                            var start = moment(opts.start).format('YYYY-MM-DDTHH:mm:ss.SSS');
                             var stop = (opts.stop ?
-                                moment(opts.stop).endOf('day').isBefore(moment()) ?      // set end date to end of day *unless* end of day is after current datetime (ie, end date is today)--then just set to current datetime)
-                                    moment(opts.stop).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS') :
+                                moment(opts.stop).isBefore(moment()) ?      // set end date to stopVisit time *unless* stopVisit time is after current datetime (ie, end date is today)--then just set to current datetime)
+                                    moment(opts.stop).format('YYYY-MM-DDTHH:mm:ss.SSS') :
                                     moment().format('YYYY-MM-DDTHH:mm:ss.SSS') :
                                 null);
                             new Visit({

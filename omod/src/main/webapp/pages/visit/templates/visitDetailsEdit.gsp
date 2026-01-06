@@ -23,16 +23,18 @@
         <tbody>
         <tr>
             <td>${ ui.message("uicommons.start") }</td>
-            <td>{{ visit.startDatetime | serverDate }}</td>
-            <td>
+            <td style="white-space: nowrap;">{{ visit.startDatetime | serverDateLocalized:DatetimeFormats.dateLocalized }} {{ visit.startDatetime | serverDateLocalized:DatetimeFormats.timeLocalized }}</td>
+            <td class="editVisitDate">
                 <date-with-popup ng-model="newStartDatetime" min-date="startDateLowerLimit" max-date="(startDateUpperLimit && (startDateUpperLimit < newStopDatetime) ? startDateUpperLimit : newStopDatetime) || now"></date-with-popup>
+                <time-with-popup ng-model="newStartDatetime" style="margin-left: 10px;"></time-with-popup>
             </td>
         </tr>
         <tr>
             <td>${ ui.message("uicommons.end") }</td>
-            <td>{{ visit.stopDatetime | serverDate }}</td>
-            <td>
+            <td style="white-space: nowrap;">{{ visit.stopDatetime | serverDateLocalized:DatetimeFormats.dateLocalized }} {{ visit.stopDatetime | serverDateLocalized:DatetimeFormats.timeLocalized }}</td>
+            <td class="editVisitDate">
                 <date-with-popup type="text" size="20" ng-model="newStopDatetime" min-date="(endDateLowerLimit && (endDateLowerLimit > newStartDatetime) ? endDateLowerLimit : newStartDatetime)" max-date="endDateUpperLimit || now" clear-button="!endDateUpperLimit"></date-with-popup>
+                <time-with-popup ng-model="newStopDatetime" style="margin-left: 10px;"></time-with-popup>
             </td>
         </tr>
         <tr>
