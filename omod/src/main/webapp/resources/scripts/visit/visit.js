@@ -68,7 +68,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.opened = true;
                 }
                 $scope.clear = function() {
-                  $scope.ngModel = null
+                  $scope.ngModel = null;
                 }
                 $scope.options = { // for some reason setting this via attribute doesn't work
                     showWeeks: false
@@ -80,6 +80,33 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         '<i class="icon-calendar small add-on" ng-click="open($event)" ></i>' +
                         '<i class="icon-remove small add-on" ng-click="clear()" ng-show="clearButton" ></i>'  +
                         '</span>'
+        }
+    }])
+
+    .directive("timeWithPopup", [ function() {
+        return {
+            restrict: 'E',
+            scope: {
+                ngModel: '=',
+                clearButton: '='
+            },
+            controller: function($scope) {
+                $scope.opened = true;
+                $scope.toggle = function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $scope.opened = !$scope.opened;
+                }
+                $scope.clear = function() {
+                    $scope.ngModel = null;
+                    $scope.opened = false;
+                }
+            },
+            template: '<span class="angular-datepicker">' +
+                '<div class="angular-timepicker-popup" ng-show="opened">' +
+                '<timepicker ng-model="ngModel" show-meridian="true"></timepicker>' +
+                '</div>' +
+                '</span>'
         }
     }])
 
@@ -534,14 +561,30 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 $dialogScope.newStopDatetime = $scope.visit.stopDatetime || '';
                                 $dialogScope.locations = locations.filter(l => l.tags.some(t => t.display === "Visit Location" ));
                                 $dialogScope.newLocation = $scope.visit.location;
+                                $dialogScope.$watch('newStartDatetime', function(newVal, oldVal) {
+                                    let oldDate = new Date(oldVal);
+                                    let newDate = new Date(newVal);
+                                    if (oldDate.toDateString() !== newDate.toDateString()) {
+                                        //if the start date has changed, reset the start time to midnight
+                                        $dialogScope.newStartDatetime = moment(newDate).startOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                                    }
+                                });
+                                $dialogScope.$watch('newStopDatetime', function(newVal, oldVal) {
+                                    let oldDate = new Date(oldVal);
+                                    let newDate = new Date(newVal);
+                                    if (oldDate.toDateString() !== newDate.toDateString()) {
+                                        //if the end date has changed, reset the time to 1 second before midnight
+                                        $dialogScope.newStopDatetime = moment(newDate).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                                    }
+                                });
                             }],
                             template: "templates/visitDetailsEdit.page"
                         }).then(function (opts) {
                             // we trim off the time zone, because we don't want to send it along: the server will just assume that it is in it's timezone
-                            var start = moment(opts.start).startOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                            var start = moment(opts.start).format('YYYY-MM-DDTHH:mm:ss.SSS');
                             var stop = (opts.stop ?
-                                moment(opts.stop).endOf('day').isBefore(moment()) ?      // set end date to end of day *unless* end of day is after current datetime (ie, end date is today)--then just set to current datetime)
-                                    moment(opts.stop).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS') :
+                                moment(opts.stop).isBefore(moment()) ?      // set end date to stopVisit time *unless* stopVisit time is after current datetime (ie, end date is today)--then just set to current datetime)
+                                    moment(opts.stop).format('YYYY-MM-DDTHH:mm:ss.SSS') :
                                     moment().format('YYYY-MM-DDTHH:mm:ss.SSS') :
                                 null);
                             new Visit({
