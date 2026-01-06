@@ -68,7 +68,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.opened = true;
                 }
                 $scope.clear = function() {
-                  $scope.ngModel = null
+                  $scope.ngModel = null;
                 }
                 $scope.options = { // for some reason setting this via attribute doesn't work
                     showWeeks: false
@@ -561,6 +561,22 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 $dialogScope.newStopDatetime = $scope.visit.stopDatetime || '';
                                 $dialogScope.locations = locations.filter(l => l.tags.some(t => t.display === "Visit Location" ));
                                 $dialogScope.newLocation = $scope.visit.location;
+                                $dialogScope.$watch('newStartDatetime', function(newVal, oldVal) {
+                                    let oldDate = new Date(oldVal);
+                                    let newDate = new Date(newVal);
+                                    if (oldDate.toDateString() !== newDate.toDateString()) {
+                                        //if the start date has changed, reset the start time to midnight
+                                        $dialogScope.newStartDatetime = moment(newDate).startOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                                    }
+                                });
+                                $dialogScope.$watch('newStopDatetime', function(newVal, oldVal) {
+                                    let oldDate = new Date(oldVal);
+                                    let newDate = new Date(newVal);
+                                    if (oldDate.toDateString() !== newDate.toDateString()) {
+                                        //if the end date has changed, reset the time to 1 second before midnight
+                                        $dialogScope.newStopDatetime = moment(newDate).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                                    }
+                                });
                             }],
                             template: "templates/visitDetailsEdit.page"
                         }).then(function (opts) {
