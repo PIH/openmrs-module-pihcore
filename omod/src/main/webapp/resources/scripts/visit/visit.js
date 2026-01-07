@@ -571,15 +571,19 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 });
                                 $dialogScope.$watch('newStopDatetime', function(newVal, oldVal) {
                                     let oldDate = new Date(oldVal);
-                                    let newDate = new Date(newVal);
-                                    if (oldDate.toDateString() !== newDate.toDateString()) {
-                                        if (moment(newDate).isSame(moment(), 'day') ) {
-                                            //if the end date is today, then set the time to now
-                                            $dialogScope.newStopDatetime = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
-                                        } else {
-                                            //if the end date has changed, reset the time to 1 second before midnight
-                                            $dialogScope.newStopDatetime = moment(newDate).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                                    if (newVal !== '' && newVal !== null) {
+                                        let newDate = new Date(newVal);
+                                        if (oldDate.toDateString() !== newDate.toDateString()) {
+                                            if (moment(newDate).isSame(moment(), 'day')) {
+                                                //if the end date is today, then set the time to now
+                                                $dialogScope.newStopDatetime = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
+                                            } else {
+                                                //if the end date has changed, reset the time to 1 second before midnight
+                                                $dialogScope.newStopDatetime = moment(newDate).endOf('day').format('YYYY-MM-DDTHH:mm:ss.SSS');
+                                            }
                                         }
+                                    } else {
+                                        $dialogScope.newStopDatetime = '';
                                     }
                                 });
                             }],
