@@ -25,6 +25,7 @@ import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.pihcore.listener.UpdateHealthCenterListener;
 import org.openmrs.module.pihcore.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
+import org.openmrs.module.pihcore.task.HeartbeatTask;
 import org.openmrs.module.pihcore.task.PihCoreTimerTask;
 
 public class PihCoreActivator extends BaseModuleActivator implements DaemonTokenAware {
@@ -37,6 +38,7 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
 	public void started() {
         log.info("PIH Core Module Started");
         configureSystem();
+        HeartbeatTask.setServerStartTime(System.currentTimeMillis());
         PihCoreTimerTask.setEnabled(true);
     }
 

@@ -37,6 +37,7 @@ public class PihCoreScheduledTaskExecutor extends ScheduledExecutorFactoryBean {
         task(executor, fiveMinutes, twelveHours, CloseInfantProgramTask.class);
         task(executor, tenMinutes, oneHour, MarkBahmniAppointmentsAsCompleted.class);  // generally we want this to run after the close stale visits task
         task(executor, fiveMinutes, twentyFourHours, UpdateHealthCenterTask.class);
+        task(executor, oneSecond, oneMinute, HeartbeatTask.class);
     }
 
     private static void  task(ScheduledThreadPoolExecutor executor, long delay, long period, Class<? extends Runnable> runnable) {
