@@ -58,7 +58,7 @@
         <attachmentsVersion>4.0.0-SNAPSHOT</attachmentsVersion>
         <authenticationVersion>2.1.0</authenticationVersion>
         <authenticationuiVersion>1.2.0</authenticationuiVersion>
-        <bedmanagementVersion>7.1.0-SNAPSHOT</bedmanagementVersion>
+        <bedmanagementVersion>7.1.0</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
         <coreappsVersion>3.2.0</coreappsVersion>
         <dbeventVersion>1.2.0</dbeventVersion>
@@ -80,7 +80,7 @@
         <metadatamappingVersion>1.7.0</metadatamappingVersion>
         <namephoneticsVersion>1.19.0</namephoneticsVersion>
         <o3formsVersion>2.3.0</o3formsVersion>
-        <openconceptlabVersion>2.6.0-SNAPSHOT</openconceptlabVersion>
+        <openconceptlabVersion>2.6.0</openconceptlabVersion>
         <owaVersion>1.15.0</owaVersion>
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <pihappsVersion>1.2.0-SNAPSHOT</pihappsVersion>
