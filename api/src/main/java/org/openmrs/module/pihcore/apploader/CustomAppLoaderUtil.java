@@ -64,7 +64,7 @@ public class CustomAppLoaderUtil {
                 "pihcore/router/appEntryRouter.page?app=" + app.getId(),  // NOTE THAT WE ARE NOW ROUTING ALL HOME PAGE APPS VIA THE APP ENTRY ROUTER!
                 app.getRequiredPrivilege(),
                 require,
-                CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER.indexOf(app.getId()),
+                CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER.indexOf(app.getId()) * 10,
                 CustomAppLoaderConstants.ExtensionPoints.HOME_PAGE);
         return app;
     }
@@ -93,7 +93,7 @@ public class CustomAppLoaderUtil {
                 app.getUrl(),
                 app.getRequiredPrivilege(),
                 require,
-                CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER.indexOf(app.getId()),
+                CustomAppLoaderConstants.HOME_PAGE_APPS_ORDER.indexOf(app.getId()) * 10,
                 CustomAppLoaderConstants.ExtensionPoints.HOME_PAGE);
         return app;
     }
