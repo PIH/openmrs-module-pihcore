@@ -616,6 +616,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableCheckIn(Config config) {
 
+        String checkInFormName = "checkin.xml";
+        String liveCheckInFormName = "liveCheckin.xml";
+
+        // hack; we have a new "v3" form in Haiti, but currently we *only* want to roll this out at St Marc
+        // once we roll the new checkin forms everywhere, we can remove this hack
+        // note that this *only* works because we don't have a "1.0" version of the form(s) in use
+        // (because hardcoding 'v2' or 'v1.1' would override ever loading old versions of the forms)
+        // if for some reason we determine we are *never* rolling out the new St Marc form everywhere, we should come up with a better way to conditionally load this form
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("HSN_SAINT_MARC")) {
+            checkInFormName = "checkin_v2.0.xml";
+            String liveCheckInFormName = "liveCheckin_v1.1.xml";
+        }
+
         // circular app that redirects to registration page, see comments in CheckInPageController
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
             apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.CHECK_IN,
@@ -633,7 +646,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.checkin.label",
                 "fas fa-fw icon-check-in",
                 "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkin.xml")),
+                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(checkInFormName)),
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag("Check-In Location"));
         extensions.add(checkIn);
@@ -644,7 +657,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.checkin.label",
                 "fas fa-fw icon-check-in",
                 "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckin.xml")) + andCreateVisit(),
+                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(liveCheckInFormName)) + andCreateVisit(),
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag("Check-In Location")));
 
