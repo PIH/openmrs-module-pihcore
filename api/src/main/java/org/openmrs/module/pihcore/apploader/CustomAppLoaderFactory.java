@@ -620,11 +620,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         String liveCheckInFormName = "liveCheckin.xml";
 
         // hack; we have a new "v3" form in Haiti, but currently we *only* want to roll this out at St Marc
-        // once we roll this new form out everywhere, we can remove this hack
-        // note that this *only* works because we don't have a "1.0" version of the form in use (because hardocding 'v2' would override ever loading old versions of the form)
+        // once we roll the new checkin forms everywhere, we can remove this hack
+        // note that this *only* works because we don't have a "1.0" version of the form(s) in use
+        // (because hardcoding 'v2' or 'v1.1' would override ever loading old versions of the forms)
         // if for some reason we determine we are *never* rolling out the new St Marc form everywhere, we should come up with a better way to conditionally load this form
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("HSN_SAINT_MARC")) {
             checkInFormName = "checkin_v2.0.xml";
+            String liveCheckInFormName = "liveCheckin_v1.1.xml";
         }
 
         // circular app that redirects to registration page, see comments in CheckInPageController
