@@ -626,7 +626,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // if for some reason we determine we are *never* rolling out the new St Marc form everywhere, we should come up with a better way to conditionally load this form
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("HSN_SAINT_MARC")) {
             checkInFormName = "checkin_v2.0.xml";
-            String liveCheckInFormName = "liveCheckin_v1.1.xml";
+            liveCheckInFormName = "liveCheckin_v1.1.xml";
         }
 
         // circular app that redirects to registration page, see comments in CheckInPageController
