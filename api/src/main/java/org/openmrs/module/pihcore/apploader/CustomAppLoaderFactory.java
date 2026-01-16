@@ -623,7 +623,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // once we roll this new form out everywhere, we can remove this hack
         // note that this *only* works because we don't have a "1.0" version of the form in use (because hardocding 'v2' would override ever loading old versions of the form)
         // if for some reason we determine we are *never* rolling out the new St Marc form everywhere, we should come up with a better way to conditionally load this form
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("MIREBALAIS")) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("HSN_SAINT_MARC")) {
             checkInFormName = "checkin_v2.0.xml";
         }
 
