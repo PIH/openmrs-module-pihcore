@@ -12,7 +12,11 @@
     </div>
 </div>
 <div class="row col-12">
-    <span class="encounter-card-summary">{{ encounter.obs | byConcept:Concepts.typeOfVisit:true | obs }}</span>
+    <span class="encounter-card-summary">
+        <span ng-repeat="item in encounter.obs | byConcept:Concepts.typeOfVisit:false">
+            {{\$first && item | obs }} {{!\$first && item | obs:"value" }}{{ \$last ? "" : ", " }}
+        </span>
+    </span>
 </div>
 <div class="row justify-content-between">
     <div class="col-8">
