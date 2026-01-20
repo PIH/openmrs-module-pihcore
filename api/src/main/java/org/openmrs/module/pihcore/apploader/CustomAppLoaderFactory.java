@@ -3033,7 +3033,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         )),
                  "pihcore", "dashboardwidgets/labResults", firstColumnIndex++));
 
-
+        //  HIV DISPENSED MEDS
+        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_MEDICATION_DISPENSING,
+                        "pih.app.medicationDispensing.title",
+                        "fas fa-fw fa-pills",
+                        "spa/dispensing",
+                        "App: dispensing.app.dispense",
+                        objectNode(
+                                "maxDatesToShow", 5,
+                                "detailsUrl", "pihcore/meds/dispensingSummary.page?patientId={{patient.uuid}}"
+                        )),
+                "pihcore", "dashboardwidgets/medsDispensed", firstColumnIndex++));
         // SECOND COLUMN
 
         // Current Enrollment
