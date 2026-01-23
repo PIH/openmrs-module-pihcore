@@ -159,12 +159,12 @@
                 ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "confirmPassword" ])}
             </p>
 
-            <p>
+            <p class="emr_passwordDetails" <% if(!account.password && !account.confirmPassword) { %>style="display: none"<% } %>>
                 ${ ui.includeFragment("pihcore", "field/checkbox", [
                         label: ui.message("User.forceChange.description"),
                         formFieldName: "passwordChangeRequired",
                         value: "true",
-                        checked: account.passwordChangeRequired
+                        checked: !account.user || account.passwordChangeRequired
                 ])}
             </p>
 
