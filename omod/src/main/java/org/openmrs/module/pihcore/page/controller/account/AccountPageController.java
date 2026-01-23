@@ -87,6 +87,7 @@ public class AccountPageController {
 
     public String post(@MethodParam("getAccount") @BindParams PihAccountDomainWrapper account, BindingResult errors,
                        @RequestParam(value = "userEnabled", defaultValue = "false") boolean userEnabled,
+                       @RequestParam(value = "passwordChangeRequired", defaultValue = "false") boolean passwordChangeRequired,
                        @SpringBean("messageSource") MessageSource messageSource,
                        @SpringBean("messageSourceService") MessageSourceService messageSourceService,
                        @SpringBean("accountService") AccountService accountService,
@@ -97,8 +98,9 @@ public class AccountPageController {
                        PageModel model,
                        HttpServletRequest request) {
 
-        // manually bind userEnabled (since checkboxes don't submit anything if unchecked));
+        // manually bind checkboxes since checkboxes don't submit anything if unchecked
         account.setUserEnabled(userEnabled);
+        account.setPasswordChangeRequired(passwordChangeRequired);
 
         // we only support Privilege Level: High, so set this explicitly.  see UHM-6717
         account.setPrivilegeLevel(userService.getRole(EmrApiConstants.PRIVILEGE_LEVEL_HIGH_ROLE));

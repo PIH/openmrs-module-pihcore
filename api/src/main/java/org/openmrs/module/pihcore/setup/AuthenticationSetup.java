@@ -7,6 +7,8 @@ import org.openmrs.module.authentication.AuthenticationConfig;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -15,6 +17,7 @@ import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME;
 import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME_CONFIG_PREFIX_TEMPLATE;
 import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME_ID;
 import static org.openmrs.module.authentication.AuthenticationConfig.SCHEME_TYPE_TEMPLATE;
+import static org.openmrs.module.authentication.AuthenticationConfig.SUPPORT_FORCED_PASSWORD_CHANGE;
 
 public class AuthenticationSetup {
 
@@ -82,6 +85,13 @@ public class AuthenticationSetup {
             p.put("secondaryOptions", SECRET + "," + TOTP);
             addScheme(TWO_FACTOR, className, p);
         }
+
+        // Force password change
+        AuthenticationConfig.setProperty(SUPPORT_FORCED_PASSWORD_CHANGE, "true");
+        AuthenticationConfig.setProperty(AuthenticationConfig.PASSWORD_CHANGE_URL, "/authenticationui/account/changePassword.page");
+        List<String> passwordChangeWhitelist = new ArrayList<>();
+        passwordChangeWhitelist.add("/pihapps/loginLocation.page");
+        AuthenticationConfig.setProperty(AuthenticationConfig.PASSWORD_CHANGE_WHITE_LIST, String.join(",", passwordChangeWhitelist));
 
         // Configuration overrides
         for (String schemeId : cd.getSchemes().keySet()) {

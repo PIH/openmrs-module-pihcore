@@ -159,6 +159,15 @@
                 ${ ui.includeFragment("uicommons", "fieldErrors", [ fieldName: "confirmPassword" ])}
             </p>
 
+            <p>
+                ${ ui.includeFragment("pihcore", "field/checkbox", [
+                        label: ui.message("User.forceChange.description"),
+                        formFieldName: "passwordChangeRequired",
+                        value: "true",
+                        checked: account.passwordChangeRequired
+                ])}
+            </p>
+
             ${ ui.includeFragment("uicommons", "field/text", [
                     label: ui.message("emr.person.email"),
                     formFieldName: "email",
