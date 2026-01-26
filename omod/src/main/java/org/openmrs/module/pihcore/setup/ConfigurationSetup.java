@@ -162,7 +162,6 @@ public class ConfigurationSetup {
 
         // Configure authentication settings
         AuthenticationSetup.setup(config);
-        ForcePasswordChangeFilter.setEnabled(false);
 
         // Configure the Name Template based on the config (TODO: Move this to config / configure outside of Java code)
         // hack: configure both name support beans, since two actually exist (?)
