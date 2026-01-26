@@ -26,6 +26,12 @@
 			<version>${openMRSVersion}</version>
 			<type>jar</type>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jsp-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -34,6 +40,12 @@
 			<version>${openMRSVersion}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jsp-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
         <dependency>
@@ -62,7 +74,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- for RequireUtilTest -->
@@ -106,6 +118,13 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>coreapps-omod</artifactId>
 			<version>${coreappsVersion}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>legacyui-omod</artifactId>
+			<version>${legacyuiVersion}</version>
 			<scope>provided</scope>
 		</dependency>
 

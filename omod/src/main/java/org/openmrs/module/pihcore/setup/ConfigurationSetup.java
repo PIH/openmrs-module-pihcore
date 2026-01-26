@@ -37,6 +37,7 @@ import org.openmrs.module.pihcore.listener.UpdateHealthCenterListener;
 import org.openmrs.module.pihcore.task.PihCoreScheduledTaskExecutor;
 import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
+import org.openmrs.module.web.filter.ForcePasswordChangeFilter;
 import org.openmrs.util.ConfigUtil;
 import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
@@ -161,6 +162,7 @@ public class ConfigurationSetup {
 
         // Configure authentication settings
         AuthenticationSetup.setup(config);
+        ForcePasswordChangeFilter.setEnabled(false);
 
         // Configure the Name Template based on the config (TODO: Move this to config / configure outside of Java code)
         // hack: configure both name support beans, since two actually exist (?)

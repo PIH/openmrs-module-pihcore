@@ -8,8 +8,11 @@ import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.emrapi.account.AccountDomainWrapper;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
+import java.util.HashMap;
 
 /**
  * Extends the AccountDomainWrapper class from emrapi to provide direct support for email address and phone number
@@ -51,6 +54,23 @@ public class PihAccountDomainWrapper extends AccountDomainWrapper {
 
     public PersonAttributeType getPhoneNumberAttributeType() {
         return personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID);
+    }
+
+    public boolean isPasswordChangeRequired() {
+        if (getUser() != null && getUser().getUserProperties() != null) {
+            return Boolean.parseBoolean(getUser().getUserProperties().get(OpenmrsConstants.USER_PROPERTY_CHANGE_PASSWORD));
+        }
+        return false;
+    }
+
+    public void setPasswordChangeRequired(boolean passwordChangeRequired) {
+        if (getUser() == null && passwordChangeRequired) {
+            initializeUser();
+        }
+        if (getUser().getUserProperties() == null) {
+            getUser().setUserProperties(new HashMap<>());
+        }
+        getUser().getUserProperties().put(OpenmrsConstants.USER_PROPERTY_CHANGE_PASSWORD, Boolean.toString(passwordChangeRequired));
     }
 
     private void initializeUser() {
