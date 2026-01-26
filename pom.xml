@@ -334,6 +334,12 @@
             <artifactId>htmlformentryui-api</artifactId>
             <version>${htmlformentryuiVersion}</version>
             <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>jsp-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
