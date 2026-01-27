@@ -161,7 +161,7 @@
 
             <p class="emr_passwordDetails" <% if(!account.password && !account.confirmPassword) { %>style="display: none"<% } %>>
                 ${ ui.includeFragment("pihcore", "field/checkbox", [
-                        label: ui.message("User.forceChange.description"),
+                        label: ui.message("authenticationui.changePassword.requirePasswordChange"),
                         formFieldName: "passwordChangeRequired",
                         value: "true",
                         checked: !account.user || account.passwordChangeRequired
