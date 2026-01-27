@@ -91,6 +91,7 @@ public class AuthenticationSetup {
         AuthenticationConfig.setProperty(AuthenticationConfig.PASSWORD_CHANGE_URL, "/authenticationui/account/changePassword.page");
         List<String> passwordChangeWhitelist = new ArrayList<>();
         passwordChangeWhitelist.add("/pihapps/loginLocation.page");
+        passwordChangeWhitelist.add("/pihapps/account/termsAndConditions.page");
         AuthenticationConfig.setProperty(AuthenticationConfig.PASSWORD_CHANGE_WHITE_LIST, String.join(",", passwordChangeWhitelist));
 
         // Configuration overrides
