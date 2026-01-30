@@ -70,7 +70,7 @@
         <fhir2Version>2.9.1-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>7.1.0</htmlformentryVersion>
-        <htmlformentryuiVersion>3.2.00-SNAPSHOT</htmlformentryuiVersion>
+        <htmlformentryuiVersion>3.2.0-SNAPSHOT</htmlformentryuiVersion>
         <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
         <idgenVersion>5.0.4</idgenVersion>
         <initializerVersion>2.10.0</initializerVersion>
