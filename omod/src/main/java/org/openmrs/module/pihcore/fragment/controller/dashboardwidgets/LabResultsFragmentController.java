@@ -138,16 +138,41 @@ public class LabResultsFragmentController {
     }
 
     private Set<String> getLabCategoriesList(String labCategoriesSet, ConceptService conceptService) {
+        return getLabCategoriesListRecursive(labCategoriesSet, conceptService, new HashSet<>());
+    }
+
+    /**
+     * Recursive function that builds a set of Lab concepts.
+     * **Early return**: Stops immediately when the concept has already visited
+     * @param labCategoriesSet a String representing a concept set UUID
+     * @param conceptService
+     * @param visited a Set of concept set UUIDs that have already been visited to prevent cycles and redundant processing
+     * @return a Set of concept UUIDs
+     */
+
+    private Set<String> getLabCategoriesListRecursive(String labCategoriesSet, ConceptService conceptService, Set<String> visited) {
         Set<String> labCategories = new HashSet<>();
+
         if (StringUtils.isNotBlank(labCategoriesSet)) {
+            // Check if already visited (prevents cycles and redundant processing)
+            if (visited.contains(labCategoriesSet)) {
+                return labCategories;
+            }
+
+            visited.add(labCategoriesSet);
+
             Concept conceptSet = conceptService.getConceptByUuid(labCategoriesSet);
-            if (conceptSet != null && conceptSet.getSetMembers().size() > 0) {
-                for (Concept member : conceptSet.getSetMembers() ) {
-                    labCategories.addAll(getLabCategoriesList(member.getUuid(), conceptService));
+            if (conceptSet != null) {
+                labCategories.add(conceptSet.getUuid());
+
+                if (conceptSet.getSetMembers().size() > 0) {
+                    for (Concept member : conceptSet.getSetMembers()) {
+                        labCategories.addAll(getLabCategoriesListRecursive(member.getUuid(), conceptService, visited));
+                    }
                 }
             }
-            labCategories.add(conceptSet.getUuid());
         }
+
         return labCategories;
     }
 
