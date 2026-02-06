@@ -33,6 +33,7 @@ import java.util.Set;
 public class LabResultsFragmentController {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
+    private static final int MAX_RECURSION_DEPTH = 100;
 
     public void controller(@SpringBean("patientService") PatientService patientService,
                            @SpringBean("encounterService") EncounterService encounterService,
@@ -138,16 +139,48 @@ public class LabResultsFragmentController {
     }
 
     private Set<String> getLabCategoriesList(String labCategoriesSet, ConceptService conceptService) {
+        return getLabCategoriesListWithDepth(labCategoriesSet, conceptService, 0, new HashSet<>());
+    }
+
+    /**
+     * Recursive function that builds a set of Lab concepts.
+     * **MAX_RECURSION_DEPTH constant**: Limits iterations to 100 (configurable) UHM-9037
+     * **Early return**: Stops immediately when max depth is reached or concept already visited
+     * @param labCategoriesSet a String representing a concept set UUID
+     * @param conceptService
+     * @param depth an Int representing the current recursion depth
+     * @param visited a Set of concept set UUIDs that have already been visited to prevent cycles and redundant processing
+     * @return a Set of concept UUIDs
+     */
+
+    private Set<String> getLabCategoriesListWithDepth(String labCategoriesSet, ConceptService conceptService, int depth, Set<String> visited) {
         Set<String> labCategories = new HashSet<>();
+
         if (StringUtils.isNotBlank(labCategoriesSet)) {
+            // Check max depth
+            if (depth >= MAX_RECURSION_DEPTH) {
+                return labCategories;
+            }
+
+            // Check if already visited (prevents cycles and redundant processing)
+            if (visited.contains(labCategoriesSet)) {
+                return labCategories;
+            }
+
+            visited.add(labCategoriesSet);
+
             Concept conceptSet = conceptService.getConceptByUuid(labCategoriesSet);
-            if (conceptSet != null && conceptSet.getSetMembers().size() > 0) {
-                for (Concept member : conceptSet.getSetMembers() ) {
-                    labCategories.addAll(getLabCategoriesList(member.getUuid(), conceptService));
+            if (conceptSet != null) {
+                labCategories.add(conceptSet.getUuid());
+
+                if (conceptSet.getSetMembers().size() > 0) {
+                    for (Concept member : conceptSet.getSetMembers()) {
+                        labCategories.addAll(getLabCategoriesListWithDepth(member.getUuid(), conceptService, depth + 1, visited));
+                    }
                 }
             }
-            labCategories.add(conceptSet.getUuid());
         }
+
         return labCategories;
     }
 
