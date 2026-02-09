@@ -3,6 +3,9 @@ on:
   schedule:
     - cron: "30 * * * *"
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   update-versions:
     runs-on: ubuntu-latest
