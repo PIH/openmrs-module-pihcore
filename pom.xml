@@ -65,7 +65,7 @@
         <dispensingVersion>2.0.0</dispensingVersion>
         <edtriageappVersion>2.1.0</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
-        <emrapiVersion>3.2.1</emrapiVersion>
+        <emrapiVersion>3.3.0-SNAPSHOT</emrapiVersion>
         <eventVersion>4.0.0-SNAPSHOT</eventVersion>
         <fhir2Version>2.9.1-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>

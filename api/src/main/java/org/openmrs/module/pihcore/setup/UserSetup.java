@@ -7,8 +7,8 @@ import org.openmrs.ProviderRole;
 import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
-import org.openmrs.module.pihcore.service.PihCoreService;
+import org.openmrs.module.emrapi.account.AccountDomainWrapper;
+import org.openmrs.module.emrapi.account.AccountService;
 import org.openmrs.util.LocaleUtility;
 import org.openmrs.util.OpenmrsUtil;
 import org.supercsv.cellprocessor.Optional;
@@ -81,7 +81,7 @@ public class UserSetup {
                 Context.getAdministrationService().executeSQL("update users set password = '" + passwordHash + "', salt='" + salt + "' where username = '" + username + "'", false);
             }
 
-            PihAccountDomainWrapper account = Context.getService(PihCoreService.class).newPihAccountDomainWrapper(person);
+            AccountDomainWrapper account = Context.getService(AccountService.class).getAccountByPerson(person);
             account.setDefaultLocale(LocaleUtility.fromSpecification(locale));
             for (ProviderRole pr : Context.getProviderService().getAllProviderRoles(false)) {
                 if (pr.getName().equalsIgnoreCase(providerRole)) {

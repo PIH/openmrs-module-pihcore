@@ -26,9 +26,7 @@ import org.openmrs.EncounterType;
 import org.openmrs.Obs;
 import org.openmrs.Order;
 import org.openmrs.Patient;
-import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientProgram;
-import org.openmrs.Person;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Program;
@@ -50,15 +48,11 @@ import org.openmrs.module.emrapi.adt.InpatientRequestSearchCriteria;
 import org.openmrs.module.emrapi.disposition.DispositionType;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
-import org.openmrs.module.pihcore.account.PihAccountDomainWrapper;
 import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.model.Vaccination;
 import org.openmrs.parameter.EncounterSearchCriteria;
 import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
-import org.openmrs.ui.framework.annotation.SpringBean;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.transaction.annotation.Propagation;
@@ -116,15 +110,6 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
     @Transactional
     public Order saveOrder(Order order) {
         return orderDAO.saveOrder(order);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public PihAccountDomainWrapper newPihAccountDomainWrapper(Person person) {
-        PihAccountDomainWrapper accountDomainWrapper = new PihAccountDomainWrapper();
-        applicationContext.getAutowireCapableBeanFactory().autowireBean(accountDomainWrapper);
-        accountDomainWrapper.initializeWithPerson(person);
-        return accountDomainWrapper;
     }
 
     @Override
