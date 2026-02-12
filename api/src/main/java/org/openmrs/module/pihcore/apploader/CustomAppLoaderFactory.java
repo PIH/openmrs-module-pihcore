@@ -629,6 +629,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             liveCheckInFormName = "liveCheckin_v1.1.xml";
         }
 
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            liveCheckInFormName = "checkin.xml"; // we are migrating away from the "live check in Sierra Leone, hopefully we can remove this eventually everywhere
+        }
+
         // circular app that redirects to registration page, see comments in CheckInPageController
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
             apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.CHECK_IN,
@@ -681,7 +685,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "mirebalais.checkin.title",
                     "fas fa-fw icon-check-in",
                     "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("liveCheckinMaternal.xml")) + andCreateVisit(),
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("checkinMaternal.xml")) + andCreateVisit(),
                     "Task: mirebalais.checkinForm",
                     sessionLocationHasTag("Check-In Maternal Location"));
             extensions.add(checkInMaternalLoc);
