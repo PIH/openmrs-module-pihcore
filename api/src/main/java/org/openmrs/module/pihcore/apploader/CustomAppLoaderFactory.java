@@ -2421,7 +2421,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornDischarge.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
-                    and(sessionLocationHasTag("Newborn Daily Progress Location"),
+                    and(sessionLocationHasTag("Newborn Discharge Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_DISCHARGE_UUID),
                             and(patientAgeInDaysLessThanAtVisitStart(42)))); // 6 weeks
             extensions.add(newbornDischarge);
@@ -2501,7 +2501,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("maternalDischarge.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
-                    and(sessionLocationHasTag("Postnatal Location"),
+                    and(sessionLocationHasTag("Maternal Discharge Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_DISCHARGE_UUID),
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(maternalDischarge);
