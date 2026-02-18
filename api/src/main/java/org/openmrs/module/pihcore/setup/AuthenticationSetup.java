@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.setup;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.authentication.AuthenticationConfig;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
@@ -71,7 +72,7 @@ public class AuthenticationSetup {
         {
             String className = "org.openmrs.module.authentication.web.TotpAuthenticationScheme";
             Properties p = new Properties();
-            p.put("qrCodeIssuer", "PIHEMR");
+            p.put("qrCodeIssuer", getQrCodeIssuer(config));
             p.put("loginPage", "/authenticationui/login/loginTotp.page");
             p.put("configurationPage", "/authenticationui/account/configureTotp.page?schemeId={schemeId}&userId={userId}");
             addScheme(TOTP, className, p);
@@ -128,5 +129,28 @@ public class AuthenticationSetup {
                 AuthenticationConfig.setProperty(key, value);
             }
         }
+    }
+
+    /**
+     * Set the issuer to a value that identifies this particular instance of the PIH EMR
+     * This can be further customized and translated via message property configuration
+     */
+    protected static String getQrCodeIssuer(Config config) {
+        StringBuilder issuer = new StringBuilder("PIHEMR");
+        if (config.getCountry() != null) {
+            issuer.append(" " ).append(config.getCountry());
+        }
+        if (config.getSite() != null) {
+            issuer.append(" ").append(config.getSite());
+        }
+        if (config.getSpecialty() != null) {
+            issuer.append(" ").append(config.getSpecialty().name());
+        }
+        String messageCode = issuer.toString().replace(" ", ".").toLowerCase();
+        String translation = Context.getMessageSourceService().getMessage(messageCode);
+        if (messageCode.equals(translation)) {
+            return issuer.toString();
+        }
+        return messageCode;
     }
 }
