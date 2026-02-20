@@ -58,7 +58,7 @@
         <attachmentsVersion>4.0.0</attachmentsVersion>
         <authenticationVersion>2.2.0</authenticationVersion>
         <authenticationuiVersion>1.3.0-SNAPSHOT</authenticationuiVersion>
-        <bedmanagementVersion>7.2.0</bedmanagementVersion>
+        <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
         <coreappsVersion>3.3.0-SNAPSHOT</coreappsVersion>
         <dbeventVersion>1.2.0</dbeventVersion>
@@ -80,7 +80,7 @@
         <metadatamappingVersion>2.0.0</metadatamappingVersion>
         <namephoneticsVersion>1.19.0</namephoneticsVersion>
         <o3formsVersion>2.3.0</o3formsVersion>
-        <openconceptlabVersion>2.6.0</openconceptlabVersion>
+        <openconceptlabVersion>3.1.0-SNAPSHOT</openconceptlabVersion>
         <owaVersion>1.15.0</owaVersion>
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <pihappsVersion>1.2.0-SNAPSHOT</pihappsVersion>
@@ -814,14 +814,6 @@
                         <property>
                             <name>fhirVersion</name>
                             <version>[2.9.0,2.9.999]</version>
-                        </property>
-                        <!--
-                            Version 3.0.0 of the openconceptlab module has a liquibase changeset that is incompatible with MySQL 5.6.
-                            We need to lock this down until this is fixed.
-                         -->
-                        <property>
-                            <name>openconceptlabVersion</name>
-                            <version>[2.6.0,2.6.999]</version>
                         </property>
                     </properties>
                 </configuration>
