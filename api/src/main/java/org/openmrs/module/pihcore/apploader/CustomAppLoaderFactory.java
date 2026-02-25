@@ -2491,6 +2491,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal Admission Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_ADMISSION_UUID),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID),
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(maternalAdmission);
             extensions.add(cloneAsPregnancyVisitAction(maternalAdmission));
