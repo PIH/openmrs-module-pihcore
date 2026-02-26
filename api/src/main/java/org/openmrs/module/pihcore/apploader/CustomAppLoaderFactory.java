@@ -2438,6 +2438,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             extensions.add(nicuTriage);
             extensions.add(cloneAsInfantVisitAction(nicuTriage));
 
+            Extension ballardScore = visitAction(CustomAppLoaderConstants.Extensions.NICU_BALLARD_SCORE_ACTION,
+                    "pih.task.ballardScore",
+                    "fas fa-fw fa-list-ol",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ballardScore.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("NICU Location"),
+                            and(patientAgeInDaysLessThanAtVisitStart(31)))); // 30 days old or younger
+            extensions.add(ballardScore);
+            extensions.add(cloneAsInfantVisitAction(ballardScore));
+
             Extension pacuFollowup = visitAction(CustomAppLoaderConstants.Extensions.PACU_FOLLOWUP_ACTION,
                     "pih.task.pacuFollowup",
                     "fas fa-fw fa-clipboard-check",
