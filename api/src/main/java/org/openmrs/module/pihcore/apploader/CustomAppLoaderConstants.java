@@ -229,6 +229,7 @@ public class CustomAppLoaderConstants {
         public static final String NEWBORN_DISCHARGE_ACTION = "pih.form.newbornDischarge";
         public static final String MATERNAL_ADMISSION_ACTION = "pih.form.maternalAdmission";
         public static final String MATERNAL_DISCHARGE_ACTION = "pih.form.maternalDischarge";
+        public static final String ANC_PROGRESS_ACTION = "pih.form.ancProgress";
         public static final String LABOR_PROGRESS_ACTION = "pih.form.laborProgress";
         public static final String LABOR_DELIVERY_SUMMARY_ACTION = "pih.form.laborDeliverySummary";
         public static final String POSTPARTUM_PROGRESS_ACTION = "pih.form.postpartumProgress";

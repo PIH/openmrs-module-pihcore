@@ -2460,6 +2460,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             extensions.add(pacuFollowup);
             extensions.add(cloneAsPregnancyVisitAction(pacuFollowup));
 
+            Extension ancProgress = visitAction(CustomAppLoaderConstants.Extensions.ANC_PROGRESS_ACTION,
+                    "pih.task.ancProgress",
+                    "fas fa-fw fa-baby",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancProgress.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Antenatal Location"),
+                            and(patientIsFemale(), patientIsReproductiveAge())));
+            extensions.add(ancProgress);
+            extensions.add(cloneAsPregnancyVisitAction(ancProgress));
+
             Extension laborProgress = visitAction(CustomAppLoaderConstants.Extensions.LABOR_PROGRESS_ACTION,
                     "pih.task.laborProgress",
                     "fas fa-fw fa-baby",
