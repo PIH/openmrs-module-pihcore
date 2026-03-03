@@ -85,7 +85,7 @@
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <pihappsVersion>1.2.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0</printerVersion>
-        <queueVersion>3.0.0</queueVersion>
+        <queueVersion>3.1.0-SNAPSHOT</queueVersion>
         <radiologyappVersion>1.8.0</radiologyappVersion>
         <registrationappVersion>1.28.1</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
