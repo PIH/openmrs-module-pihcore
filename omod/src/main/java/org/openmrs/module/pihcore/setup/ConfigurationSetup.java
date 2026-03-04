@@ -171,12 +171,16 @@ public class ConfigurationSetup {
         NameTemplateSetup.configureNameTemplate(NameSupport.getInstance(), config);
 
         // Execute any liquibase changesets defined in the pih/liquibase domain
-        setStatus("Executing liquibase scripts in configuration");
+        setStatus("Executing liquibase scripts in configuration prior to loading metadata from Iniz");
         LiquibaseSetup.setup(config);
 
         // Setup all metadata via Iniz
         setStatus("Loading initializer metadata");
         InitializerSetup.install(config);
+
+        // Re-execute any liquibase changesets that were not previously run, due to preconditions that require newly installed metadata
+        setStatus("Executing liquibase scripts in configuration after loading metadata from Iniz");
+        LiquibaseSetup.setup(config);
 
         // Setup any global properties defined in pih config (TODO: Move this to gp iniz domain)
         // TODO: We need to consider the setting component GPs here
