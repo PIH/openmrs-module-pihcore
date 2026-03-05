@@ -2466,7 +2466,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ancProgress.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
-                    and(sessionLocationHasTag("Antenatal Location"),
+                    and(sessionLocationHasTag("Antenatal Progress Location"),
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(ancProgress);
             extensions.add(cloneAsPregnancyVisitAction(ancProgress));
