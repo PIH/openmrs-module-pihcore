@@ -49,10 +49,19 @@
 
         const urlParams = new URLSearchParams(document.location.search);
         const reportDefinitionUuid = urlParams.get("reportDefinition");
-        const reportDefinitionRep = "full";
+        const reportDefinitionRep = "custom:(" +
+            "uuid,name,display,description,descriptionDisplay," +
+            "parameters:full," +
+            "dataSetDefinitions:full," +
+            "reportDesigns:(rendererType,properties)" +
+            ")";
+
         const allowChangingReportDefinition = urlParams.get("allowChangingReportDefinition") === "true";
 
         jq.get(openmrsContextPath + "/ws/rest/v1/reportingrest/reportDefinition/" + reportDefinitionUuid + "?v=" + reportDefinitionRep, function(reportDefinition) {
+
+            const design = reportDefinition.reportDesigns?.find((d) => d.rendererType === "org.openmrs.module.reporting.web.renderers.DefaultWebRenderer");
+            const config = design?.properties ?? {};
 
             jq("#report-name").html(reportDefinition.display);
 
@@ -142,7 +151,7 @@
                             });
                         });
 
-                        const displayLength = 10;
+                        const displayLength = config.pageSize ?? 10;
                         const usePagination = (dataSet.rows.length > displayLength);
                         contentTable.dataTable(
                             {
