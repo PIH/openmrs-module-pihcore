@@ -39,9 +39,7 @@
         { label: "${ ui.message(ui.format(reportDefinition)) }", link: "${ ui.escapeJs(ui.thisUrl()) }" }
     ];
     moment.locale(window.sessionContext?.locale ?? 'en');
-    const dateUtils = new PihAppsDateUtils(moment);
-    const dateFormat = "${dateFormat}";
-    const dateTimeFormat = "${dateTimeFormat}";
+    const dateUtils = new PihAppsDateUtils(moment, "${dateFormat}", "${dateTimeFormat}");
 
     let currentDataSetKey = '';
 
@@ -105,7 +103,7 @@
             const formatColumnValue = function(dataSetColumn, columnValue) {
                 if (columnValue) {
                     if (dataSetColumn.datatype === "java.util.Date") {
-                        columnValue = dateUtils.formatDateWithTimeIfPresent(columnValue, dateFormat, dateTimeFormat);
+                        columnValue = dateUtils.formatDateWithTimeIfPresent(columnValue);
                     }
                 }
                 return columnValue;
