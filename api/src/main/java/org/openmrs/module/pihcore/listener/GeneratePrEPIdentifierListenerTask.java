@@ -33,6 +33,7 @@ public class GeneratePrEPIdentifierListenerTask implements Runnable {
             String className = mapMessage.getString("classname");
             String uuid = mapMessage.getString("uuid");
 
+            // should always be true, but just in case
             if ("org.openmrs.PatientProgram".equals(className)) {
                 PatientProgram patientProgram = Context.getProgramWorkflowService().getPatientProgramByUuid(uuid);
                 if (patientProgram != null && patientProgram.getProgram().getUuid().equals(ZlConfigConstants.PROGRAM_PREP_UUID)) {
@@ -54,7 +55,6 @@ public class GeneratePrEPIdentifierListenerTask implements Runnable {
                             PatientIdentifier identifier = new PatientIdentifier(prepIdentifier, prepIdentifierType, location);
                             patient.addIdentifier(identifier);
                             Context.getPatientService().savePatientIdentifier(identifier);
-                            log.info("Generated PrEP identifier " + prepIdentifier + " for patient " + patient.getId());
                         } else {
                             log.error("Unable to generate PrEP identifier for patient " + patient.getId());
                         }
