@@ -22,7 +22,6 @@ import org.openmrs.module.DaemonToken;
 import org.openmrs.module.DaemonTokenAware;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
-import org.openmrs.module.pihcore.listener.GeneratePrEPIdentifierListener;
 import org.openmrs.module.pihcore.listener.UpdateHealthCenterListener;
 import org.openmrs.module.pihcore.setup.ConfigurationSetup;
 import org.openmrs.module.pihcore.setup.MergeActionsSetup;
@@ -70,6 +69,5 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
         this.daemonToken = daemonToken;
         PihCoreTimerTask.setDaemonToken(daemonToken);
         UpdateHealthCenterListener.setDaemonToken(daemonToken);
-        GeneratePrEPIdentifierListener.setDaemonToken(daemonToken);
     }
 }

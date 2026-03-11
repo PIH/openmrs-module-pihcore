@@ -26,6 +26,8 @@ import java.util.List;
 @Handler
 public class UpdateHealthCenterListener implements SubscribableEventListener {
 
+    // TODO: refactor to new transaction Event mechanism, see GeneratePrEPIdentifierListener for an example
+
     private static DaemonToken daemonToken;
     public static void setDaemonToken(DaemonToken daemonToken) {
         UpdateHealthCenterListener.daemonToken = daemonToken;
