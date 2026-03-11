@@ -8,7 +8,7 @@ import org.openmrs.PatientProgram;
 import org.openmrs.api.context.Context;
 import org.openmrs.event.EntityEvent;
 import org.openmrs.event.Event;
-import org.openmrs.event.TransactionCommittedEvent;
+import org.openmrs.event.TransactionBeforeCompletionEvent;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ import java.util.List;
  * * Currently this is only enabled for our HAITI HIV server,
  */
 @Component
-public class GeneratePrEPIdentifierListener implements ApplicationListener<TransactionCommittedEvent> {
+public class GeneratePrEPIdentifierListener implements ApplicationListener<TransactionBeforeCompletionEvent> {
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -37,12 +37,12 @@ public class GeneratePrEPIdentifierListener implements ApplicationListener<Trans
     }
 
     @Override
-    public void onApplicationEvent(TransactionCommittedEvent transactionCommittedEvent) {
+    public void onApplicationEvent(TransactionBeforeCompletionEvent transactionBeforeCompletionEvent) {
         if (!enabled) {
             return;
         }
-        if (transactionCommittedEvent.getEvents() != null) {
-            for (EntityEvent entityEvent : transactionCommittedEvent.getEvents()) {
+        if (transactionBeforeCompletionEvent.getEvents() != null) {
+            for (EntityEvent entityEvent : transactionBeforeCompletionEvent.getEvents()) {
                 if (entityEvent.getAction().name().equals(Event.Action.CREATED.name()) && entityEvent.getEntity() instanceof PatientProgram) {
                     PatientProgram patientProgram = (PatientProgram) entityEvent.getEntity();
                     if (patientProgram.getProgram().getUuid().equals(ZlConfigConstants.PROGRAM_PREP_UUID)) {
