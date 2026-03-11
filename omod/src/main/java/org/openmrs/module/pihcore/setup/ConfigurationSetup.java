@@ -33,6 +33,7 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
+import org.openmrs.module.pihcore.listener.GeneratePrEPIdentifierListener;
 import org.openmrs.module.pihcore.listener.UpdateHealthCenterListener;
 import org.openmrs.module.pihcore.task.PihCoreScheduledTaskExecutor;
 import org.openmrs.module.printer.PrinterService;
@@ -281,11 +282,13 @@ public class ConfigurationSetup {
             }
         }
 
-        // turn on our listener task to update Health Center attribute, currently only enabled on Haiti HIV
+        // turn on our listeners to update Health Center attribute and set PrEP id, currently only enabled on Haiti HIV
         // doesn't necessarily need to happen in a certain order
         if (config.isHaiti() && ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {
             setStatus("Enabling UpdateHealthCenterListener");
             UpdateHealthCenterListener.setEnabled(true);
+            setStatus("Enabling GeneratePrEPIdentifierListener");
+            GeneratePrEPIdentifierListener.setEnabled(true);
         }
 
         // schedule tasks near the end because we don't want them to run (or the timer to start ticking on them) until setup is complete
