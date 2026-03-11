@@ -1,12 +1,12 @@
 package org.openmrs.module.pihcore.apploader;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.openmrs.module.allergyui.AllergyUIConstants;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.registrationapp.RegistrationAppConstants;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class CustomAppLoaderConstants {
 
@@ -199,6 +199,7 @@ public class CustomAppLoaderConstants {
         public static final String HIV_ZL_FOLLOWUP_VISIT_ACTION = "pih.form.hivZLAdultFollowup";
         public static final String HIV_ZL_DISPENSING_VISIT_ACTION = "pih.form.hivZLDispensing";
         public static final String HIV_MEDICATION_LIST_OVERALL_ACTION = "pih.hiv.medicationList";
+        public static final String HIV_MEDICATION_OVERALL_ACTION = "pih.hiv.medication";
 
         public static final String HIV_PSYCHOSOCIAL_VISIT_ACTION = "pih.form.hivPsychosocial";
         public static final String PMTCT_INITIAL_VISIT_ACTION = "pih.form.pmtctInitial";

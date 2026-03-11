@@ -226,6 +226,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 null));
 
+       if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+
+                extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_OVERALL_ACTION,
+                        "pihcore.hivDispensing",
+                        "fas fa-fw fa-capsules",
+                        "link",
+                        "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + CustomAppLoaderConstants.Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
+                        null,
+                        null));
+         }
+
         if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
             enableVisitManagement();
         }
