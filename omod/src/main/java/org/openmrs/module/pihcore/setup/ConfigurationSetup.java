@@ -282,7 +282,7 @@ public class ConfigurationSetup {
             }
         }
 
-        // turn on our listener task to update Health Center attribute and set PrEP id, currently only enabled on Haiti HIV
+        // turn on our listeners to update Health Center attribute and set PrEP id, currently only enabled on Haiti HIV
         // doesn't necessarily need to happen in a certain order
         if (config.isHaiti() && ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {
             setStatus("Enabling UpdateHealthCenterListener");
