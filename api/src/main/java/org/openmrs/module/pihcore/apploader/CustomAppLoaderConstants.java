@@ -439,6 +439,7 @@ public class CustomAppLoaderConstants {
             Extensions.CREATE_VISIT_OVERALL_ACTION,
             Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,
             Extensions.VIEW_GROWTH_CHART_ACTION,
+            Extensions.HIV_MEDICATION_OVERALL_ACTION,
             Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION,
             Extensions.ORDER_LABS_OVERALL_ACTION,
             Extensions.VIEW_LABS_OVERALL_ACTION,

@@ -226,17 +226,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null,
                 null));
 
-       if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
-
-                extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_OVERALL_ACTION,
-                        "pihcore.hivDispensing",
-                        "fas fa-fw fa-capsules",
-                        "link",
-                        "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/coreapps/findpatient/findPatient.page?app=" + CustomAppLoaderConstants.Apps.HIV_DISPENSING + "&returnLabel=pihcore.hivDispensing.short",
-                        null,
-                        null));
-         }
-
         if (config.isComponentEnabled(Components.VISIT_MANAGEMENT)) {
             enableVisitManagement();
         }
@@ -3280,6 +3269,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("HIV Consult Location")));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));
+        
+        extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_OVERALL_ACTION,
+                        "pihcore.hivDispensing",
+                        "fas fa-fw fa-capsules",
+                        "link",
+                        "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl() + "&returnLabel=pihcore.hivDispensing.short",
+                        PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,
+                        sessionLocationHasTag("HIV Consult Location")));
+
+        extensions.add(cloneAsHivOverallAction(findExtensionById(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_OVERALL_ACTION)));
     }
 
     private void enableHIVIntakeForm() {
