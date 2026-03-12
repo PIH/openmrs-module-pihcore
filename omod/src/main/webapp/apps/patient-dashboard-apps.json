@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "category": "patient-dashboard",
+    "description": "Apps for patient dashboard",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 6,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "clinician.dashboard",
+      "description": "mirebalais.app.clinicianDashboard.label",
+      "label": "mirebalais.app.clinicianDashboard.label",
+      "icon": "fas fa-fw fa-medkit",
+      "url": "coreapps/clinicianfacing/patient.page?app=",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(app(CustomAppLoaderConstants.Apps.CLINICIAN_DASHBOARD,\n                \"mirebalais.app.clinicianDashboard.label\",\n                \"fas fa-fw fa-medkit\",\n                \"coreapps/clinicianfacing/patient.page?app=\" + CustomAppLoaderConstants.Apps.CLINICIAN_DASHBOARD,\n                CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD,\n                objectNode(\n                        \"visitUrl\", patientVisitsPageWithSpecificVisitUrl,\n                        \"visitsUrl\", patientVisitsPageUrl\n                )));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "clinicianfacing/visitsSection",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(visitSummary, \"coreapps\", \"clinicianfacing/visitsSection\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "clinicianfacing/visitsSection",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(homeVisitsSummary, \"coreapps\", \"clinicianfacing/visitsSection\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(\n                    graphs.getBmiGraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_FIRST_COLUMN),\n                    \"coreapps\",\n                    \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "allergy.summary",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-allergies",
+      "url": "",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.ALLERGY_SUMMARY,\n                \"allergyui.allergies\",\n                \"fas fa-fw fa-allergies\",\n                null,\n                null,\n                null),\n                \"allergyui\", \"allergies\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "conditionlist/conditions",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(conditionList, \"coreapps\", \"conditionlist/conditions\"));"
+    }
+  ]
+}

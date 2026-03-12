@@ -1,0 +1,143 @@
+{
+  "_meta": {
+    "category": "system-admin",
+    "description": "Apps for system admin",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 13,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "system.administration",
+      "description": "coreapps.app.system.administration.label",
+      "label": "coreapps.app.system.administration.label",
+      "icon": "fas fa-fw fa-cogs",
+      "url": "coreapps/systemadministration/systemAdministration.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.SYSTEM_ADMINISTRATION,\n                    \"coreapps.app.system.administration.label\",\n                    \"fas fa-fw fa-cogs\",\n                    \"coreapps/systemadministration/systemAdministration.page\",\n                    \"App: coreapps.systemAdministration\",\n                    null)));"
+    },
+    {
+      "id": "manage.accounts",
+      "description": "coreapps.task.accountManagement.label",
+      "label": "coreapps.task.accountManagement.label",
+      "icon": "fas fa-fw fa-book",
+      "url": "pihapps/account/manageAccounts.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.MANAGE_ACCOUNTS,\n                \"coreapps.task.accountManagement.label\",\n                \"fas fa-fw fa-book\",\n                \"pihapps/account/manageAccounts.page\",\n                1,\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "merge.patients",
+      "description": "coreapps.app.systemAdministration.label",
+      "label": "coreapps.app.systemAdministration.label",
+      "icon": "fas fa-fw fa-home",
+      "url": "/coreapps/systemadministration/systemAdministration.page",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.MERGE_PATIENTS,\n                \"coreapps.mergePatientsLong\",\n                \"fas fa-users\",\n                \"coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients\",\n                2,\n                \"App: coreapps.systemAdministration\",\n                objectNode(\"breadcrumbs\", arrayNode(objectNode(\"icon\", \"fas fa-fw fa-home\", \"link\", \"/index.htm\"),\n                        objectNode(\"label\", \"coreapps.app.systemAdministration.label\", \"link\", \"/coreapps/systemadministration/systemAdministration.page\"),\n                        objectNode(\"label\", \"coreapps.mergePatientsLong\")),\n                        \"dashboardUrl\", (config.getAfterMergeUrl() != null) ? (config.getAfterMergeUrl()) : (config.getDashboardUrl())))));"
+    },
+    {
+      "id": "feature.toggles",
+      "description": "pih.app.featureToggles.label",
+      "label": "pih.app.featureToggles.label",
+      "icon": "fas fa-fw fa-toggle-on",
+      "url": "pihcore/toggles.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.FEATURE_TOGGLES,\n                \"pih.app.featureToggles.label\",\n                \"fas fa-fw fa-toggle-on\",\n                \"pihcore/toggles.page\",\n                3,\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "legacy.administration",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-toolbox",
+      "url": "admin/index.htm",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.LEGACY_ADMINISTRATION,\n                \"emr.advancedFeatures\",\n                \"fas fa-fw fa-toolbox\",\n                \"admin/index.htm\",\n                4,\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "system.configuration",
+      "description": "pih.app.admin.configuration",
+      "label": "pih.app.admin.configuration",
+      "icon": "fas fa-fw fa-search",
+      "url": "pihcore/admin/configuration.page",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.SYSTEM_CONFIGURATION,\n                \"pih.app.admin.configuration\",\n                \"fas fa-fw fa-search\",\n                \"pihcore/admin/configuration.page\",\n                5,\n                \"SQL Level Access\",\n                null)));"
+    },
+    {
+      "id": "status.data.view",
+      "description": "pih.app.admin.statusData.view",
+      "label": "pih.app.admin.statusData.view",
+      "icon": "fas fa-fw icon-flag",
+      "url": "pihcore/admin/statusData.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.STATUS_DATA_VIEW,\n                \"pih.app.admin.statusData.view\",\n                \"fas fa-fw icon-flag\",\n                \"pihcore/admin/statusData.page\",\n                6,\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "status.data.admin",
+      "description": "pih.app.admin.statusData.admin",
+      "label": "pih.app.admin.statusData.admin",
+      "icon": "fas fa-fw fa-calculator",
+      "url": "pihcore/admin/statusAdmin.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.STATUS_DATA_ADMIN,\n                \"pih.app.admin.statusData.admin\",\n                \"fas fa-fw fa-calculator\",\n                \"pihcore/admin/statusAdmin.page\",\n                7,\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "email.config.admin",
+      "description": "pih.app.admin.email.config",
+      "label": "pih.app.admin.email.config",
+      "icon": "fas fa-fw fa-envelope",
+      "url": "pihapps/admin/emailTest.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.EMAIL_CONFIG_ADMIN,\n                \"pih.app.admin.email.config\",\n                \"fas fa-fw fa-envelope\",\n                \"pihapps/admin/emailTest.page\",\n                8,\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "active.users.admin",
+      "description": "authenticationui.activeUsers.title",
+      "label": "authenticationui.activeUsers.title",
+      "icon": "fas fa-fw fa-users",
+      "url": "authenticationui/admin/activeUsers.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.ACTIVE_USERS_ADMIN,\n                \"authenticationui.activeUsers.title\",\n                \"fas fa-fw fa-users\",\n                \"authenticationui/admin/activeUsers.page\",\n                9,\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "system.administration",
+      "description": "coreapps.app.system.administration.label",
+      "label": "coreapps.app.system.administration.label",
+      "icon": "fas fa-fw fa-cogs",
+      "url": "coreapps/systemadministration/systemAdministration.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.SYSTEM_ADMINISTRATION,\n                    \"coreapps.app.system.administration.label\",\n                    \"fas fa-fw fa-cogs\",\n                    \"coreapps/systemadministration/systemAdministration.page\",\n                    \"App: coreapps.systemAdministration\",\n                    null)));"
+    },
+    {
+      "id": "printer.administration",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-print",
+      "url": "printer/printerAdministration.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.PRINTER_ADMINISTRATION,\n                \"printer.administration\",\n                \"fas fa-fw fa-print\",\n                \"printer/printerAdministration.page\",\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "my.account",
+      "description": "authenticationui.myAccount.title",
+      "label": "authenticationui.myAccount.title",
+      "icon": "fas fa-fw fa-cog",
+      "url": "authenticationui/account/userAccount.page",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MY_ACCOUNT,\n                \"authenticationui.myAccount.title\",\n                \"fas fa-fw fa-cog\",\n                \"authenticationui/account/userAccount.page\",\n                null, null)));"
+    }
+  ]
+}

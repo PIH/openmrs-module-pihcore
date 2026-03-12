@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "category": "oncology-chemotherapy",
+    "description": "Extensions for oncology chemotherapy",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 4,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "oncology.consult.note.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.oncologyConsultNote.label",
+      "url": "",
+      "icon": "fas fa-fw fa-hand-holding-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('Oncology Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,\n                \"pih.task.oncologyConsultNote.label\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyConsult.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "oncology.treatment.plan.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.oncologyTreatmentPlan.label",
+      "url": "",
+      "icon": "fas fa-fw fa-hand-holding-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('Oncology Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_TREATMENT_PLAN_ACTION,\n                \"pih.task.oncologyTreatmentPlan.label\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyTreatment.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "chemotherapy.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.chemotherapySession.label",
+      "url": "",
+      "icon": "fas fa-fw fa-retweet",
+      "order": 0,
+      "require": "sessionLocationHasTag('Chemotherapy Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHEMOTHERAPY_VISIT_ACTION,\n                \"pih.task.chemotherapySession.label\",\n                \"fas fa-fw fa-retweet\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"chemotherapyTreatment.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Chemotherapy Location\"),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "oncology.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pihcore.oncologyIntake.title",
+      "url": "",
+      "icon": "fas fa-fw fa-hand-holding-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('Oncology Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,\n                \"pihcore.oncologyIntake.title\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyIntakeConsult.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    }
+  ]
+}

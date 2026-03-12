@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "category": "check-in-triage",
+    "description": "Extensions for check in triage",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 9,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(checkIn);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsMchVisitAction(checkIn));"
+    },
+    {
+      "id": "check.in.registration.action",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "mirebalais.task.checkin.label",
+      "url": "",
+      "icon": "fas fa-fw icon-check-in",
+      "order": 0,
+      "require": "sessionLocationHasTag('Check-In Location')",
+      "_java_source": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,\n                \"mirebalais.task.checkin.label\",\n                \"fas fa-fw icon-check-in\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(liveCheckInFormName)) + andCreateVisit(),\n                \"Task: mirebalais.checkinForm\",\n                sessionLocationHasTag(\"Check-In Location\")));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(checkInMaternal);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsPregnancyVisitAction(checkInMaternal));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsInfantVisitAction(checkInMaternal));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(checkInMaternalLoc);"
+    },
+    {
+      "id": "mch.triage.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "mirebalais.task.triage.label",
+      "url": "",
+      "icon": "fas fa-fw fa-ambulance",
+      "order": 0,
+      "require": "sessionLocationHasTag('MCH Triage Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_TRIAGE_VISIT_ACTION,\n                    \"mirebalais.task.triage.label\",\n                    \"fas fa-fw fa-ambulance\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"triage.xml\")),\n                    \"Task: emr.triage\",\n                    and(sessionLocationHasTag(\"MCH Triage Location\"),\n                            and(patientIsFemale(), patientIsReproductiveAge()),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMCHTRIAGE_UUID))));"
+    },
+    {
+      "id": "ed.triage.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=",
+      "icon": "fas fa-fw fa-ambulance",
+      "order": 0,
+      "require": "sessionLocationHasTag('ED Triage Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ED_TRIAGE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_EMERGENCY_TRIAGE_UUID,\n                \"fas fa-fw fa-ambulance\",\n                \"link\",\n                \"/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=\" + CustomAppLoaderConstants.Apps.ED_TRIAGE,\n                null,\n                and(sessionLocationHasTag(\"ED Triage Location\"), patientHasActiveVisit())));"
+    }
+  ]
+}

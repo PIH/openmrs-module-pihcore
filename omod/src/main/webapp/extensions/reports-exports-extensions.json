@@ -1,0 +1,99 @@
+{
+  "_meta": {
+    "category": "reports-exports",
+    "description": "Extensions for reports exports",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 8,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "reporting.overview.reports",
+      "type": "script",
+      "label": "Extension Label",
+      "url": "mirebalaisreports.overview.",
+      "icon": null,
+      "order": 0,
+      "require": "App: reportingui.reports",
+      "_java_source": "extensions.add(report(\n                                \"mirebalaisreports.overview.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "reporting.overview.reports",
+      "type": "script",
+      "label": "Extension Label",
+      "url": "mirebalaisreports.dailyReports.",
+      "icon": null,
+      "order": 0,
+      "require": "App: reportingui.reports",
+      "_java_source": "extensions.add(report(\n                                \"mirebalaisreports.dailyReports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"pihcore\" : pageProvider),\n                                (pagePath == null ? \"reports/dailyReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "reporting.data.quality",
+      "type": "script",
+      "label": "Extension Label",
+      "url": "mirebalaisreports.dataQualityReports.",
+      "icon": null,
+      "order": 0,
+      "require": "App: reportingui.reports",
+      "_java_source": "extensions.add(report(\n                                \"mirebalaisreports.dataQualityReports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_QUALITY,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "reporting.monitoring",
+      "type": "script",
+      "label": "Extension Label",
+      "url": "mirebalaisreports.monitoring.",
+      "icon": null,
+      "order": 0,
+      "require": "App: reportingui.reports",
+      "_java_source": "extensions.add(report(\n                                \"mirebalaisreports.monitoring.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_MONITORING,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "reporting.data.export",
+      "type": "script",
+      "label": "Extension Label",
+      "url": "mirebalaisreports.dataExports.",
+      "icon": null,
+      "order": 0,
+      "require": "App: mirebalaisreports.dataexports",
+      "_java_source": "extensions.add(report(\n                                \"mirebalaisreports.dataExports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: mirebalaisreports.dataexports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "id": "registration.summary.by.age.report",
+      "extensionPointId": "reporting.overview.reports",
+      "type": "link",
+      "label": "mirebalaisreports.registrationoverview.title",
+      "url": "pihcore/reports/registrationsByAge.page",
+      "icon": null,
+      "order": 0,
+      "require": "App: reportingui.reports",
+      "_java_source": "extensions.add(extension(CustomAppLoaderConstants.Extensions.REGISTRATION_SUMMARY_BY_AGE_REPORT,\n                        \"mirebalaisreports.registrationoverview.title\",\n                        null,\n                        \"link\",\n                        \"pihcore/reports/registrationsByAge.page\",\n                        \"App: reportingui.reports\",\n                        null,\n                        CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                        1,\n                        map(\"linkId\", \"mirebalaisreports-registrationoverview-link\")));"
+    },
+    {
+      "id": "check.in.summary.by.age.report",
+      "extensionPointId": "reporting.overview.reports",
+      "type": "link",
+      "label": "mirebalaisreports.checkinoverview.title",
+      "url": "pihcore/reports/checkInsByAge.page",
+      "icon": null,
+      "order": 0,
+      "require": "App: reportingui.reports",
+      "_java_source": "extensions.add(extension(CustomAppLoaderConstants.Extensions.CHECK_IN_SUMMARY_BY_AGE_REPORT,\n                        \"mirebalaisreports.checkinoverview.title\",\n                        null,\n                        \"link\",\n                        \"pihcore/reports/checkInsByAge.page\",\n                        \"App: reportingui.reports\",\n                        null,\n                        CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                        1,\n                        map(\"linkId\", \"mirebalaisreports-checkinoverview-link\")));"
+    },
+    {
+      "id": "reporting.ad.hoc.analysis",
+      "extensionPointId": "reporting.data.export",
+      "type": "link",
+      "label": "reportingui.adHocAnalysis.label",
+      "url": "reportingui/adHocManage.page",
+      "icon": null,
+      "order": 0,
+      "require": "App: reportingui.adHocAnalysis",
+      "_java_source": "extensions.add(extension(CustomAppLoaderConstants.Extensions.REPORTING_AD_HOC_ANALYSIS,\n                    \"reportingui.adHocAnalysis.label\",\n                    null,\n                    \"link\",\n                    \"reportingui/adHocManage.page\",\n                    \"App: reportingui.adHocAnalysis\",\n                    null,\n                    CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT,\n                    9999,\n                    null));"
+    }
+  ]
+}

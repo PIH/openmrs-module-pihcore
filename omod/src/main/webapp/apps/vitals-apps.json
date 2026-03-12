@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "category": "vitals",
+    "description": "Apps for vitals",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 4,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "uhm.vitals",
+      "description": "mirebalais.outpatientVitals.title",
+      "label": "mirebalais.outpatientVitals.title",
+      "icon": "fas fa-fw fa-heartbeat",
+      "url": "/pihcore/outpatientvitals/patient.page?patientId={{patientId}}",
+      "config": {},
+      "require": "sessionLocationHasTag('Vitals Location')",
+      "_java_source": "apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.UHM_VITALS,\n                                \"mirebalais.outpatientVitals.title\",\n                                \"fas fa-fw fa-heartbeat\",\n                                \"App: mirebalais.outpatientVitals\",\n                                \"/pihcore/outpatientvitals/patient.page?patientId={{patientId}}\",\n                                null, config.getFindPatientColumnConfig()),\n                        sessionLocationHasTag(\"Vitals Location\")));"
+    },
+    {
+      "id": "vitals",
+      "description": "pihcore.vitalsList.title",
+      "label": "pihcore.vitalsList.title",
+      "icon": "fas fa-fw fa-heartbeat",
+      "url": "/pihcore/vitals/vitalsList.page",
+      "config": {},
+      "require": "sessionLocationHasTag('Vitals Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.VITALS,\n                        \"pihcore.vitalsList.title\",\n                        \"fas fa-fw fa-heartbeat\",\n                        \"/pihcore/vitals/vitalsList.page\",\n                        \"App: mirebalais.outpatientVitals\",  // TODO rename this permission to not be mirebalais-specific?\n                        null), sessionLocationHasTag(\"Vitals Location\")));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "encounter/mostRecentEncounter",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, \"coreapps\", \"encounter/mostRecentEncounter\"));"
+    },
+    {
+      "id": "vitals.summary",
+      "description": "mirebalais.vitalsTrend.label",
+      "label": "mirebalais.vitalsTrend.label",
+      "icon": "fas fa-fw fa-heartbeat",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.VITALS_SUMMARY,\n                            \"mirebalais.vitalsTrend.label\",\n                            \"fas fa-fw fa-heartbeat\",\n                            null,\n                            null,\n                            objectNode(\n                                    \"widget\", \"obsacrossencounters\",\n                                    \"icon\", \"fas fa-fw fa-heartbeat\",\n                                    \"label\", \"mirebalais.vitalsTrend.label\",\n                                    \"encounterType\", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,\n                                    \"detailsUrl\", patientVisitsPageUrl,\n                                    \"headers\", \"zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title\",\n                                    \"concepts\", CustomAppLoaderConstants.HEART_RATE_UUID + \",\" +\n                                            CustomAppLoaderConstants.TEMPERATURE_UUID + \",\" +\n                                            CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID + \",\" +\n                                            CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID + \",\" +\n                                            CustomAppLoaderConstants.RESPIRATORY_RATE_UUID,\n                                    \"maxRecords\", \"5\"\n                            )),\n                    \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    }
+  ]
+}

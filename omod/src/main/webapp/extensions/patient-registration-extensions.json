@@ -1,0 +1,88 @@
+{
+  "_meta": {
+    "category": "patient-registration",
+    "description": "Extensions for patient registration",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 7,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "register.new.patient",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "registrationapp/findPatient.page?appId=",
+      "icon": "fas fa-fw fa-user",
+      "order": 0,
+      "require": "sessionLocationHasTag('Registration Location')",
+      "_java_source": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.REGISTER_NEW_PATIENT,\n                \"registrationapp.home\",\n                \"fas fa-fw fa-user\",\n                \"link\",\n                \"registrationapp/findPatient.page?appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,\n                \"App: registrationapp.registerPatient\",\n                sessionLocationHasTag(\"Registration Location\")));"
+    },
+    {
+      "id": "merge.into.another.patient",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}",
+      "icon": "fas fa-fw fa-users",
+      "order": 0,
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.MERGE_INTO_ANOTHER_PATIENT,\n                \"coreapps.mergePatientsShort\",\n                \"fas fa-fw fa-users\",\n                \"link\",\n                \"coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}\",\n                \"App: registrationapp.registerPatient\",\n                null));"
+    },
+    {
+      "id": "clinician.facing.patient.dashboard",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "App: coreapps.patientDashboard",
+      "_java_source": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CLINICIAN_FACING_PATIENT_DASHBOARD,\n                    \"registrationapp.clinicalDashboard\",\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    config.getDashboardUrl() + \"&appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,  // TODO what was/is the app id supposed to do here?\n                    \"App: coreapps.patientDashboard\",\n                    null));"
+    },
+    {
+      "id": "registration.summary.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=",
+      "icon": "fas fa-fw fa-user",
+      "order": 0,
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,\n                    \"registrationapp.patient.registrationSummary\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    \"registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,\n                    \"App: registrationapp.registerPatient\",\n                    null));"
+    },
+    {
+      "id": "visits.dashboard",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-user",
+      "order": 0,
+      "require": "App: coreapps.patientDashboard",
+      "_java_source": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.VISITS_DASHBOARD,\n                    \"pihcore.visitDashboard\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    patientVisitsPageUrl,\n                    \"App: coreapps.patientDashboard\",\n                    null));"
+    },
+    {
+      "id": "print.paper.form.label",
+      "extensionPointId": "unknown.extension.point",
+      "type": "script",
+      "label": "paperrecord.task.printPaperFormLabel.label",
+      "url": "paperrecord.task.printPaperFormLabel.label",
+      "icon": "fas fa-fw fa-print",
+      "order": 0,
+      "require": "Task: emr.printLabels",
+      "_java_source": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.PRINT_PAPER_FORM_LABEL,\n                    \"paperrecord.task.printPaperFormLabel.label\",\n                    \"fas fa-fw fa-print\",\n                    \"script\",\n                    \"printPaperFormLabel()\",\n                    \"Task: emr.printLabels\",\n                    null));"
+    },
+    {
+      "id": "print.id.card.registration.action",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "zl.registration.patient.idcard.label",
+      "url": "pihcore/patientRegistration/printIdCard.page?patientId={{patient.patientId}}",
+      "icon": "fas fa-fw fa-barcode",
+      "order": 0,
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.PRINT_ID_CARD_REGISTRATION_ACTION,\n                    \"zl.registration.patient.idcard.label\",\n                    \"fas fa-fw fa-barcode\",\n                    \"link\",\n                    \"pihcore/patientRegistration/printIdCard.page?patientId={{patient.patientId}}\",\n                    \"App: registrationapp.registerPatient\",\n                    null));"
+    }
+  ]
+}

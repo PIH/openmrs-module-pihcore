@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "category": "vitals",
+    "description": "Extensions for vitals",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 9,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(vitalSigns);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsMchVisitAction(vitalSigns));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsPregnancyVisitAction(vitalSigns));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsInfantVisitAction(vitalSigns));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(inpatientVitalsSigns);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(inpatientNewbornVitalsSigns);"
+    },
+    {
+      "id": "vitals.inpatient.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pihcore.task.vitalsInpatient",
+      "url": "",
+      "icon": "fas fa-fw fa-heartbeat",
+      "order": 0,
+      "require": "sessionLocationHasTag('Vitals Inpatient Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_INPATIENT_VISIT_ACTION,\n                    \"pihcore.task.vitalsInpatient\",\n                    \"fas fa-fw fa-heartbeat\",\n                    \"link\",\n                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"vitalsInpatient.xml\")),\n                    null,\n                    and(sessionLocationHasTag(\"Vitals Inpatient Location\"),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(vitalsPregnancy);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsMchVisitAction(vitalsPregnancy));"
+    }
+  ]
+}

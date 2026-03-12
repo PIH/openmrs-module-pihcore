@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "category": "dispensing-medication",
+    "description": "Extensions for dispensing medication",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 2,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "dispense.medication.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "dispensing.app.label",
+      "url": "",
+      "icon": "fas fa-fw fa-pills",
+      "order": 0,
+      "require": "sessionLocationHasTag('Dispensing Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION,\n                \"dispensing.app.label\",\n                \"fas fa-fw fa-pills\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"dispensing.xml\")),\n                \"Task: mirebalais.dispensing\",\n                sessionLocationHasTag(\"Dispensing Location\")));"
+    },
+    {
+      "id": "prescription.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "script",
+      "label": "Extension Label",
+      "url": "ui.i18n.EncounterType.name.",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRESCRIPTION_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRESCRIPTION_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"prescription.xml\")),\n                null,\n                sessionLocationHasTag(\"Consult Note Location\")));"
+    }
+  ]
+}

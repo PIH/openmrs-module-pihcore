@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "category": "check-in-triage",
+    "description": "Apps for check in triage",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 4,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "check.in",
+      "description": "mirebalais.app.patientRegistration.checkin.label",
+      "label": "mirebalais.app.patientRegistration.checkin.label",
+      "icon": "fas fa-fw fa-paste",
+      "url": "/pihcore/checkin/checkin.page?patientId={{patientId}}",
+      "config": {},
+      "require": "sessionLocationHasTag('Check-In Location')",
+      "_java_source": "apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.CHECK_IN,\n                            \"mirebalais.app.patientRegistration.checkin.label\",\n                            \"fas fa-fw fa-paste\",\n                            \"App: mirebalais.checkin\",\n                            \"/pihcore/checkin/checkin.page?patientId={{patientId}}\",\n                            //     \"/registrationapp/registrationSummary.page?patientId={{patientId}}&breadcrumbOverrideProvider=coreapps&breadcrumbOverridePage=findpatient%2FfindPatient&breadcrumbOverrideApp=\" + Apps.CHECK_IN + \"&breadcrumbOverrideLabel=mirebalais.app.patientRegistration.checkin.label\",\n                            null, config.getFindPatientColumnConfig()),\n                    or(sessionLocationHasTag(\"Check-In Location\"), sessionLocationHasTag(\"Check-In Maternal Location\"))));"
+    },
+    {
+      "id": "mch.triage.queue",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-list-ul",
+      "url": "spa/home/service-queues/queue-table-by-status/",
+      "config": {},
+      "require": "sessionLocationHasTag('Queue Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,\n                            CustomAppLoaderConstants.Apps.MCH_TRIAGE_QUEUE,\n                            \"fas fa-fw fa-list-ul\",\n                            \"spa/home/service-queues/queue-table-by-status/\" + SierraLeoneConfigConstants.QUEUE_TRIAGE_UUID,\n                            \"\",  // TODO: figure out proper privilege\n                            null),\n                    sessionLocationHasTag(\"Queue Location\")));"
+    },
+    {
+      "id": "ed.triage",
+      "description": "edtriageapp.label",
+      "label": "edtriageapp.label",
+      "icon": "fas fa-fw fa-ambulance",
+      "url": "/edtriageapp/edtriageEditPatient.page?patientId={{patientId}}&appId=",
+      "config": {},
+      "require": "sessionLocationHasTag('ED Triage Location')",
+      "_java_source": "apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.ED_TRIAGE,\n                \"edtriageapp.label\",\n                \"fas fa-fw fa-ambulance\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_ED_TRIAGE,\n                \"/edtriageapp/edtriageEditPatient.page?patientId={{patientId}}&appId=\" + CustomAppLoaderConstants.Apps.ED_TRIAGE\n                        + \"&dashboardUrl=\" + config.getDashboardUrl(),\n                null, config.getFindPatientColumnConfig()),\n                sessionLocationHasTag(\"ED Triage Location\")));"
+    },
+    {
+      "id": "ed.triage.queue",
+      "description": "edtriageapp.queue.label",
+      "label": "edtriageapp.queue.label",
+      "icon": "fas fa-fw fa-list-ol",
+      "url": "/edtriageapp/edtriageViewQueue.page?appId=",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "sessionLocationHasTag('ED Triage Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.ED_TRIAGE_QUEUE,\n                \"edtriageapp.queue.label\",\n                \"fas fa-fw fa-list-ol\",\n                \"/edtriageapp/edtriageViewQueue.page?appId=\" + CustomAppLoaderConstants.Apps.ED_TRIAGE_QUEUE,\n                  PihEmrConfigConstants.PRIVILEGE_APP_ED_TRIAGE_QUEUE,\n                objectNode(\"dashboardUrl\", config.getDashboardUrl())),\n                sessionLocationHasTag(\"ED Triage Location\")));"
+    }
+  ]
+}

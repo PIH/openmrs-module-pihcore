@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "category": "primary-care",
+    "description": "Extensions for primary care",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 3,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(socioEconomics);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsMchVisitAction(socioEconomics));"
+    },
+    {
+      "id": "patient.documents.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "pihcore.patientDocuments.overallAction.label",
+      "url": "coreapps/attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}",
+      "icon": "fas fa-fw fa-paperclip",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,\n                \"pihcore.patientDocuments.overallAction.label\",\n                \"fas fa-fw fa-paperclip\",\n                \"link\",\n                \"coreapps/attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_ATTACHMENTS_PAGE,\n                null));"
+    }
+  ]
+}

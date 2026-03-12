@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "category": "patient-dashboard",
+    "description": "Extensions for patient dashboard",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 1,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "view.growth.chart.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "pihcore.viewGrowthChart.overallAction.label",
+      "url": "growthchart/growthCharts.page?patientId={{patient.uuid}}",
+      "icon": "fas fa-fw fa-chart-line",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.VIEW_GROWTH_CHART_ACTION,\n                \"pihcore.viewGrowthChart.overallAction.label\",\n                \"fas fa-fw fa-chart-line\",\n                \"link\",\n                \"growthchart/growthCharts.page?patientId={{patient.uuid}}\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_GROWTH_CHARTS,\n                null));"
+    }
+  ]
+}

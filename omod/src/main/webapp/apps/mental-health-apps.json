@@ -1,0 +1,83 @@
+{
+  "_meta": {
+    "category": "mental-health",
+    "description": "Apps for mental health",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 7,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToMentalHealthDashboardSecondColumn(\n                    graphs.getPHQ9Graph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),\n                    \"coreapps\",\n                    \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "pih.app.mental.health.status.title",
+      "label": "pih.app.mental.health.status.title",
+      "icon": "fas fa-fw fa-exclamation-circle",
+      "url": "dashboardwidgets/statusData",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToMentalHealthDashboardSecondColumn(app(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN,\n                        \"pih.app.mental.health.status.title\",\n                        \"fas fa-fw fa-exclamation-circle\",\n                        null,\n                        null,\n                        objectNode(\"configFile\", \"mentalHealth/mentalHealthStatuses.yml\" )),\n                \"pihcore\", \"dashboardwidgets/statusData\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToMentalHealthDashboardSecondColumn(\n                        graphs.getWHODASGraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),\n                        \"coreapps\",\n                        \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToMentalHealthDashboardSecondColumn(\n                    graphs.getZLDSIGraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),\n                    \"coreapps\",\n                    \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToMentalHealthDashboardSecondColumn(\n                    graphs.getSeizureFrequencyGraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),\n                    \"coreapps\",\n                    \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToMentalHealthDashboardSecondColumn(\n                    graphs.getZLCGIraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),\n                    \"coreapps\",\n                    \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToMentalHealthDashboardSecondColumn(\n                    graphs.getGAD7Graph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),\n                    \"coreapps\",\n                    \"dashboardwidgets/dashboardWidget\"));"
+    }
+  ]
+}

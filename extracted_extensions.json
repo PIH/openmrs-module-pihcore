@@ -1,0 +1,961 @@
+{
+  "visit-management": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CREATE_VISIT_OVERALL_ACTION,\n                \"coreapps.task.startVisit.label\",\n                \"fas fa-fw icon-check-in\",\n                \"script\",\n                \"visit.showQuickVisitCreationDialog({{patient.patientId}})\",\n                \"Task: coreapps.createVisit\",\n                and(patientDoesNotActiveVisit(), patientNotDead())));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CREATE_VISIT_OVERALL_ACTION,\n                \"coreapps.task.startVisit.label\",\n                \"fas fa-fw icon-check-in\",\n                \"script\",\n                \"visit.showQuickVisitCreationDialog({{patient.patientId}})\",\n                \"Task: coreapps.createVisit\",\n                and(patientDoesNotActiveVisit(), patientNotDead())));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,\n                \"coreapps.task.createRetrospectiveVisit.label\",\n                \"fas fa-fw fa-plus\",\n                \"script\",\n                \"visit.showRetrospectiveVisitCreationDialog()\",\n                \"Task: coreapps.createRetrospectiveVisit\",\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,\n                \"coreapps.task.createRetrospectiveVisit.label\",\n                \"fas fa-fw fa-plus\",\n                \"script\",\n                \"visit.showRetrospectiveVisitCreationDialog()\",\n                \"Task: coreapps.createRetrospectiveVisit\",\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.VISIT_ACTIONS_INCLUDES,\n                \"coreapps\",\n                \"patientdashboard/visitIncludes\",\n                null,\n                CustomAppLoaderConstants.ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,\n                map(\"patientVisitsPage\", patientVisitsPageWithSpecificVisitUrl,\n                        \"visitType\", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID)));",
+      "line_content": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.VISIT_ACTIONS_INCLUDES,\n                \"coreapps\",\n                \"patientdashboard/visitIncludes\",\n                null,\n                CustomAppLoaderConstants.ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,\n                map(\"patientVisitsPage\", patientVisitsPageWithSpecificVisitUrl,\n                        \"visitType\", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID)));"
+    }
+  ],
+  "check-in-triage": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(checkIn);",
+      "line_content": "extensions.add(checkIn);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(checkIn));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(checkIn));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,\n                \"mirebalais.task.checkin.label\",\n                \"fas fa-fw icon-check-in\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(liveCheckInFormName)) + andCreateVisit(),\n                \"Task: mirebalais.checkinForm\",\n                sessionLocationHasTag(\"Check-In Location\")));",
+      "line_content": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CHECK_IN_REGISTRATION_ACTION,\n                \"mirebalais.task.checkin.label\",\n                \"fas fa-fw icon-check-in\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(liveCheckInFormName)) + andCreateVisit(),\n                \"Task: mirebalais.checkinForm\",\n                sessionLocationHasTag(\"Check-In Location\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(checkInMaternal);",
+      "line_content": "extensions.add(checkInMaternal);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(checkInMaternal));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(checkInMaternal));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(checkInMaternal));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(checkInMaternal));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(checkInMaternalLoc);",
+      "line_content": "extensions.add(checkInMaternalLoc);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_TRIAGE_VISIT_ACTION,\n                    \"mirebalais.task.triage.label\",\n                    \"fas fa-fw fa-ambulance\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"triage.xml\")),\n                    \"Task: emr.triage\",\n                    and(sessionLocationHasTag(\"MCH Triage Location\"),\n                            and(patientIsFemale(), patientIsReproductiveAge()),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMCHTRIAGE_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_TRIAGE_VISIT_ACTION,\n                    \"mirebalais.task.triage.label\",\n                    \"fas fa-fw fa-ambulance\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"triage.xml\")),\n                    \"Task: emr.triage\",\n                    and(sessionLocationHasTag(\"MCH Triage Location\"),\n                            and(patientIsFemale(), patientIsReproductiveAge()),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMCHTRIAGE_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ED_TRIAGE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_EMERGENCY_TRIAGE_UUID,\n                \"fas fa-fw fa-ambulance\",\n                \"link\",\n                \"/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=\" + CustomAppLoaderConstants.Apps.ED_TRIAGE,\n                null,\n                and(sessionLocationHasTag(\"ED Triage Location\"), patientHasActiveVisit())));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ED_TRIAGE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_EMERGENCY_TRIAGE_UUID,\n                \"fas fa-fw fa-ambulance\",\n                \"link\",\n                \"/edtriageapp/edtriageEditPatient.page?patientId={{patient.uuid}}&appId=\" + CustomAppLoaderConstants.Apps.ED_TRIAGE,\n                null,\n                and(sessionLocationHasTag(\"ED Triage Location\"), patientHasActiveVisit())));"
+    }
+  ],
+  "vitals": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(vitalSigns);",
+      "line_content": "extensions.add(vitalSigns);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(vitalSigns));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(vitalSigns));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(vitalSigns));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(vitalSigns));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(vitalSigns));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(vitalSigns));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(inpatientVitalsSigns);",
+      "line_content": "extensions.add(inpatientVitalsSigns);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(inpatientNewbornVitalsSigns);",
+      "line_content": "extensions.add(inpatientNewbornVitalsSigns);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_INPATIENT_VISIT_ACTION,\n                    \"pihcore.task.vitalsInpatient\",\n                    \"fas fa-fw fa-heartbeat\",\n                    \"link\",\n                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"vitalsInpatient.xml\")),\n                    null,\n                    and(sessionLocationHasTag(\"Vitals Inpatient Location\"),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_INPATIENT_VISIT_ACTION,\n                    \"pihcore.task.vitalsInpatient\",\n                    \"fas fa-fw fa-heartbeat\",\n                    \"link\",\n                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"vitalsInpatient.xml\")),\n                    null,\n                    and(sessionLocationHasTag(\"Vitals Inpatient Location\"),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(vitalsPregnancy);",
+      "line_content": "extensions.add(vitalsPregnancy);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(vitalsPregnancy));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(vitalsPregnancy));"
+    }
+  ],
+  "clinical-consults": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION,\n                \"coreapps.clinic.consult.title\",\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatientConsult.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION,\n                \"coreapps.clinic.consult.title\",\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatientConsult.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, \"pihcore\", \"patientdashboard/encountertemplate/consultEncounterTemplate\"));",
+      "line_content": "extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, \"pihcore\", \"patientdashboard/encountertemplate/consultEncounterTemplate\"));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatientConsultInitial.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID)))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatientConsultInitial.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID)))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NURSE_CONSULT_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"nurseConsult.xml\")),\n                null,\n                sessionLocationHasTag(\"Consult Note Location\")));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NURSE_CONSULT_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"nurseConsult.xml\")),\n                null,\n                sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ED_CONSULT_NOTE_VISIT_ACTION,\n                \"coreapps.ed.consult.title\",\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"edNote.xml\")),\n                null,\n                and(sessionLocationHasTag(\"ED Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ED_CONSULT_NOTE_VISIT_ACTION,\n                \"coreapps.ed.consult.title\",\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"edNote.xml\")),\n                null,\n                and(sessionLocationHasTag(\"ED Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-peds-initial.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID)),\n                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-peds-initial.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID)),\n                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-peds-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),\n                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-peds-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),\n                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-adult-initial.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID)),\n                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-adult-initial.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID)),\n                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-adult-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),\n                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-adult-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),\n                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MEXICO_CONSULT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + CesConfigConstants.ENCOUNTERTYPE_MEXICOCONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"consult.xml\")),\n                    null,\n                    sessionLocationHasTag(\"Consult Note Location\")));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MEXICO_CONSULT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + CesConfigConstants.ENCOUNTERTYPE_MEXICOCONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"consult.xml\")),\n                    null,\n                    sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MEXICO_CLINICAL_HISTORY_ACTION,\n                    \"ui.i18n.EncounterType.name.0d16a7c9-07fb-43f6-8984-dd7787f26a5a\",  // Clinical History\n                    \"fas fa-fw fa-clipboard-list\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"clinicalHistory.xml\")),\n                    null,\n                    sessionLocationHasTag(\"Consult Note Location\")));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MEXICO_CLINICAL_HISTORY_ACTION,\n                    \"ui.i18n.EncounterType.name.0d16a7c9-07fb-43f6-8984-dd7787f26a5a\",  // Clinical History\n                    \"fas fa-fw fa-clipboard-list\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"clinicalHistory.xml\")),\n                    null,\n                    sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatient-initial.xml\")\n                            + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                    null,\n                    and(sessionLocationHasTag(\"Consult Note Location\"),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatient-initial.xml\")\n                            + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                    null,\n                    and(sessionLocationHasTag(\"Consult Note Location\"),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatient-followup.xml\")\n                            + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                    null,\n                    and(sessionLocationHasTag(\"Consult Note Location\"),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatient-followup.xml\")\n                            + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                    null,\n                    and(sessionLocationHasTag(\"Consult Note Location\"),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_INITIAL_VISIT_ACTION,\n                        \"ui.i18n.EncounterType.name.\" + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID,\n                        \"fas fa-fw fa-stethoscope\",\n                        \"link\",\n                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"family-medicine-intake.xml\")\n                                + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                        null,\n                        and(sessionLocationHasTag(\"Consult Note Location\"),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_INITIAL_VISIT_ACTION,\n                        \"ui.i18n.EncounterType.name.\" + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID,\n                        \"fas fa-fw fa-stethoscope\",\n                        \"link\",\n                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"family-medicine-intake.xml\")\n                                + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                        null,\n                        and(sessionLocationHasTag(\"Consult Note Location\"),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_FOLLOWUP_VISIT_ACTION,\n                        \"ui.i18n.EncounterType.name.\" + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID,\n                        \"fas fa-fw fa-stethoscope\",\n                        \"link\",\n                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"family-medicine-followup.xml\")\n                                + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                        null,\n                        and(sessionLocationHasTag(\"Consult Note Location\"),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_FOLLOWUP_VISIT_ACTION,\n                        \"ui.i18n.EncounterType.name.\" + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID,\n                        \"fas fa-fw fa-stethoscope\",\n                        \"link\",\n                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"family-medicine-followup.xml\")\n                                + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                        null,\n                        and(sessionLocationHasTag(\"Consult Note Location\"),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID))));"
+    }
+  ],
+  "adt-inpatient": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(awaitingAdmissionAction(CustomAppLoaderConstants.Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"admissionNote.xml\") + \"&returnProvider=pihcore&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label\"),\n                \"Task: emr.enterAdmissionNote\",\n                null));",
+      "line_content": "extensions.add(awaitingAdmissionAction(CustomAppLoaderConstants.Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"admissionNote.xml\") + \"&returnProvider=pihcore&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label\"),\n                \"Task: emr.enterAdmissionNote\",\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(awaitingAdmissionAction(CustomAppLoaderConstants.Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION,\n                \"uicommons.cancel\",\n                \"fas fa-fw fa-user-minus\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"cancelAdmission.xml\") + \"&returnProvider=pihcore&returnPage=adt/awaitingAdmission\"),\n                \"Task: emr.enterAdmissionNote\",\n                null));",
+      "line_content": "extensions.add(awaitingAdmissionAction(CustomAppLoaderConstants.Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION,\n                \"uicommons.cancel\",\n                \"fas fa-fw fa-user-minus\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"cancelAdmission.xml\") + \"&returnProvider=pihcore&returnPage=adt/awaitingAdmission\"),\n                \"Task: emr.enterAdmissionNote\",\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"admissionNote.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Admission Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"admissionNote.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Admission Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"newbornAdmissionNote.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                and(sessionLocationHasTag(\"Newborn Admission Note Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID),\n                        patientAgeInDaysLessThanAtVisitStart(42))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"newbornAdmissionNote.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                and(sessionLocationHasTag(\"Newborn Admission Note Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID),\n                        patientAgeInDaysLessThanAtVisitStart(42))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,\n                \"mirebalais.deathCertificate.death_certificate\",\n                \"fas fa-fw fa-times-circle\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"deathCertificate.xml\")),\n                \"Task: mirebalais.enterDeathCertificate\",\n                \"!patient.person.dead\"\n        ));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,\n                \"mirebalais.deathCertificate.death_certificate\",\n                \"fas fa-fw fa-times-circle\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"deathCertificate.xml\")),\n                \"Task: mirebalais.enterDeathCertificate\",\n                \"!patient.person.dead\"\n        ));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION,\n                \"pihcore\",\n                \"deathcertificate/headerLink\",\n                \"Task: mirebalais.enterDeathCertificate\",\n                CustomAppLoaderConstants.ExtensionPoints.DEATH_INFO_HEADER,\n                null));",
+      "line_content": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION,\n                \"pihcore\",\n                \"deathcertificate/headerLink\",\n                \"Task: mirebalais.enterDeathCertificate\",\n                CustomAppLoaderConstants.ExtensionPoints.DEATH_INFO_HEADER,\n                null));"
+    }
+  ],
+  "radiology": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(dashboardTab(CustomAppLoaderConstants.Extensions.RADIOLOGY_TAB,\n                \"radiologyapp.radiology.label\",\n                \"Task: org.openmrs.module.radiologyapp.tab\",\n                \"radiologyapp\",\n                \"radiologyTab\"));",
+      "line_content": "extensions.add(dashboardTab(CustomAppLoaderConstants.Extensions.RADIOLOGY_TAB,\n                \"radiologyapp.radiology.label\",\n                \"Task: org.openmrs.module.radiologyapp.tab\",\n                \"radiologyapp\",\n                \"radiologyTab\"));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(orderXray);",
+      "line_content": "extensions.add(orderXray);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(orderXray));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(orderXray));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(orderCT);",
+      "line_content": "extensions.add(orderCT);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(orderCT));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(orderCT));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(orderUS);",
+      "line_content": "extensions.add(orderUS);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(orderUS));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(orderUS));"
+    }
+  ],
+  "labs-pathology": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.LAB_RESULTS_OVERALL_ACTION,\n                \"pih.task.addPastLabResults.label\",\n                \"fas fa-fw fa-vial\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"labResults.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_LAB_RESULTS,\n                sessionLocationHasTag(\"Lab Results Location\")));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.LAB_RESULTS_OVERALL_ACTION,\n                \"pih.task.addPastLabResults.label\",\n                \"fas fa-fw fa-vial\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"labResults.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_LAB_RESULTS,\n                sessionLocationHasTag(\"Lab Results Location\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(pathology);",
+      "line_content": "extensions.add(pathology);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(pathology));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(pathology));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ECHO_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_ECHOCARDIOGRAM_UUID,\n                \"fas fa-fw fa-chart-line\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Echocardiogram Location\"),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ECHO_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_ECHOCARDIOGRAM_UUID,\n                \"fas fa-fw fa-chart-line\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Echocardiogram Location\"),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    }
+  ],
+  "dispensing-medication": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION,\n                \"dispensing.app.label\",\n                \"fas fa-fw fa-pills\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"dispensing.xml\")),\n                \"Task: mirebalais.dispensing\",\n                sessionLocationHasTag(\"Dispensing Location\")));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION,\n                \"dispensing.app.label\",\n                \"fas fa-fw fa-pills\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"dispensing.xml\")),\n                \"Task: mirebalais.dispensing\",\n                sessionLocationHasTag(\"Dispensing Location\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRESCRIPTION_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRESCRIPTION_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"prescription.xml\")),\n                null,\n                sessionLocationHasTag(\"Consult Note Location\")));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRESCRIPTION_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRESCRIPTION_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"prescription.xml\")),\n                null,\n                sessionLocationHasTag(\"Consult Note Location\")));"
+    }
+  ],
+  "surgery": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SURGICAL_NOTE_VISIT_ACTION,\n                \"mirebalais.task.surgicalOperativeNote.label\",\n                \"fas fa-fw fa-paste\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"surgicalPostOpNote.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_SURGICAL_NOTE,\n                sessionLocationHasTag(\"Surgery Note Location\")));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SURGICAL_NOTE_VISIT_ACTION,\n                \"mirebalais.task.surgicalOperativeNote.label\",\n                \"fas fa-fw fa-paste\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"surgicalPostOpNote.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_SURGICAL_NOTE,\n                sessionLocationHasTag(\"Surgery Note Location\")));"
+    }
+  ],
+  "hiv-program": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(hivFollowup);",
+      "line_content": "extensions.add(hivFollowup);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsHivVisitAction(hivFollowup));",
+      "line_content": "extensions.add(cloneAsHivVisitAction(hivFollowup));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(hivPsychosocial);",
+      "line_content": "extensions.add(hivPsychosocial);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsHivVisitAction(hivPsychosocial));",
+      "line_content": "extensions.add(cloneAsHivVisitAction(hivPsychosocial));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(hivDispensing);",
+      "line_content": "extensions.add(hivDispensing);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsHivVisitAction(hivDispensing));",
+      "line_content": "extensions.add(cloneAsHivVisitAction(hivDispensing));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));",
+      "line_content": "extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(hivInitial);",
+      "line_content": "extensions.add(hivInitial);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsHivVisitAction(hivInitial));",
+      "line_content": "extensions.add(cloneAsHivVisitAction(hivInitial));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION,\n                \"pihcore.hivMedicationList.overallAction.label\",\n                \"fas fa-fw fa-capsules\",\n                \"link\",\n                \"pihcore/meds/drugOrders.page?patient={{patient.uuid}}\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION,\n                \"pihcore.hivMedicationList.overallAction.label\",\n                \"fas fa-fw fa-capsules\",\n                \"link\",\n                \"pihcore/meds/drugOrders.page?patient={{patient.uuid}}\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsHivOverallAction(findExtensionById(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION)));",
+      "line_content": "extensions.add(cloneAsHivOverallAction(findExtensionById(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION)));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,\n                \"pih.task.hivIntakeISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/SaisiePremiereVisiteAdult.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsAdult())));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,\n                \"pih.task.hivIntakeISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/SaisiePremiereVisiteAdult.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsAdult())));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,\n                \"pih.task.hivIntakeISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml\")),\n                null,\n                and(patientIsChild())));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,\n                \"pih.task.hivIntakeISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml\")),\n                null,\n                and(patientIsChild())));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.hivFollowupISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/VisiteDeSuivi.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsAdult())));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.hivFollowupISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/VisiteDeSuivi.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsAdult())));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.hivFollowupISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/VisiteDeSuiviPediatrique.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsChild())));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.hivFollowupISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/VisiteDeSuiviPediatrique.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsChild())));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADHERENCE_VISIT_ACTION,\n                \"pih.task.hivAdherence.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/Adherence.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                null));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADHERENCE_VISIT_ACTION,\n                \"pih.task.hivAdherence.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/Adherence.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_INTAKE_VISIT_ACTION,\n                \"pih.task.prepIntake.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/prep-intake.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_INTAKE_VISIT_ACTION,\n                \"pih.task.prepIntake.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/prep-intake.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.prepFollowup.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/prep-followup.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.prepFollowup.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/prep-followup.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(extension(\n                CustomAppLoaderConstants.Extensions.HAITI_HIV_EMR_DASHBOARD_LINK,\n                \"pihcore.hiv.viewPatientInHivEmr\",\n                \"icon-external-link\",\n                \"link\",\n                PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY) + \"?patientId={{identifier}}&identifierType=\" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID + \"&dashboard=\"+ PihEmrConfigConstants.PROGRAM_HIV_UUID,\n                null,\n                null,\n                \"patientHeader.extraIdentifierLinks\",\n                1,\n                map(\"identifierType\", ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID)\n        ));",
+      "line_content": "extensions.add(extension(\n                CustomAppLoaderConstants.Extensions.HAITI_HIV_EMR_DASHBOARD_LINK,\n                \"pihcore.hiv.viewPatientInHivEmr\",\n                \"icon-external-link\",\n                \"link\",\n                PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY) + \"?patientId={{identifier}}&identifierType=\" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID + \"&dashboard=\"+ PihEmrConfigConstants.PROGRAM_HIV_UUID,\n                null,\n                null,\n                \"patientHeader.extraIdentifierLinks\",\n                1,\n                map(\"identifierType\", ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID)\n        ));"
+    }
+  ],
+  "mch-forms": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_INTAKE_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID,\n                    \"fas fa-fw fa-gift\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"anc-initial.xml\")),\n                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),\n                            and(patientIsFemale()))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_INTAKE_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID,\n                    \"fas fa-fw fa-gift\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"anc-initial.xml\")),\n                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),\n                            and(patientIsFemale()))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID,\n                    \"fas fa-fw fa-gift\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"anc-followup.xml\")),\n                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),\n                            and(patientIsFemale()))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID,\n                    \"fas fa-fw fa-gift\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"anc-followup.xml\")),\n                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ANC_FOLLOWUP_UUID),\n                            and(patientIsFemale()))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,            //TODO: working on this\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,\n                    \"fas fa-fw fa-gift\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"anc-delivery.xml\")),\n                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),\n                            and(patientIsFemale()))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,            //TODO: working on this\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,\n                    \"fas fa-fw fa-gift\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"anc-delivery.xml\")),\n                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID),\n                            and(patientIsFemale()))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_PEDS_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAPEDSFORM_UUID,\n                    \"fas fa-fw fa-gift\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"peds.xml\")),\n                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            and(patientIsFemale()))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_PEDS_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAPEDSFORM_UUID,\n                    \"fas fa-fw fa-gift\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"peds.xml\")),\n                      PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            and(patientIsFemale()))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(delivery);",
+      "line_content": "extensions.add(delivery);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(delivery));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(delivery));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(ancIntake);",
+      "line_content": "extensions.add(ancIntake);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(ancIntake));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(ancIntake));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(ancFollowup);",
+      "line_content": "extensions.add(ancFollowup);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(ancFollowup));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(ancFollowup));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(postnatalFollowup);",
+      "line_content": "extensions.add(postnatalFollowup);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(postnatalFollowup));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(postnatalFollowup));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(wbDelivery);",
+      "line_content": "extensions.add(wbDelivery);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(wbDelivery));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(wbDelivery));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(obgyn);",
+      "line_content": "extensions.add(obgyn);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(obgyn));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(obgyn));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION,\n                    \"pih.task.maternalDeliveryRegister\",\n                    \"fas fa-fw fa-baby\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"gainMaternalRegister.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            and(patientIsFemale(), patientIsReproductiveAge()))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION,\n                    \"pih.task.maternalDeliveryRegister\",\n                    \"fas fa-fw fa-baby\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"gainMaternalRegister.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            and(patientIsFemale(), patientIsReproductiveAge()))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,\n                    \"pih.task.sbcuRegister\",\n                    \"fas fa-fw fa-baby\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"gainNewbornRegister.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            and(patientIsFemale(), patientIsReproductiveAge()))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,\n                    \"pih.task.sbcuRegister\",\n                    \"fas fa-fw fa-baby\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"gainNewbornRegister.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                    and(sessionLocationHasTag(\"Maternal and Child Location\"),\n                            and(patientIsFemale(), patientIsReproductiveAge()))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(newbornInitial);",
+      "line_content": "extensions.add(newbornInitial);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(newbornInitial));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(newbornInitial));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(newbornAssess);",
+      "line_content": "extensions.add(newbornAssess);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(newbornAssess));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(newbornAssess));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(newbornDaily);",
+      "line_content": "extensions.add(newbornDaily);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(newbornDaily));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(newbornDaily));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(newbornDischarge);",
+      "line_content": "extensions.add(newbornDischarge);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(newbornDischarge));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(newbornDischarge));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(nicuTriage);",
+      "line_content": "extensions.add(nicuTriage);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(nicuTriage));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(nicuTriage));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(ballardScore);",
+      "line_content": "extensions.add(ballardScore);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(ballardScore));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(ballardScore));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(pacuFollowup);",
+      "line_content": "extensions.add(pacuFollowup);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(pacuFollowup));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(pacuFollowup));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(ancProgress);",
+      "line_content": "extensions.add(ancProgress);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(ancProgress));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(ancProgress));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(laborProgress);",
+      "line_content": "extensions.add(laborProgress);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(laborProgress));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(laborProgress));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(ldSummary);",
+      "line_content": "extensions.add(ldSummary);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(ldSummary));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(ldSummary));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(postPartum);",
+      "line_content": "extensions.add(postPartum);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(postPartum));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(postPartum));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(maternalAdmission);",
+      "line_content": "extensions.add(maternalAdmission);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(maternalAdmission));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(maternalAdmission));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(maternalDischarge);",
+      "line_content": "extensions.add(maternalDischarge);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(maternalDischarge));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(maternalDischarge));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(vaccination);",
+      "line_content": "extensions.add(vaccination);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(vaccination));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(vaccination));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsPregnancyVisitAction(vaccination));",
+      "line_content": "extensions.add(cloneAsPregnancyVisitAction(vaccination));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsInfantVisitAction(vaccination));",
+      "line_content": "extensions.add(cloneAsInfantVisitAction(vaccination));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PMTCT_INITIAL_VISIT_ACTION,\n                \"pih.task.pmtctIntake.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/pmtct-intake.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"HIV Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),\n                        and(patientIsFemale()),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PMTCT_INITIAL_VISIT_ACTION,\n                \"pih.task.pmtctIntake.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/pmtct-intake.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"HIV Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),\n                        and(patientIsFemale()),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.pmtctFollowup.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/pmtct-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"HIV Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),\n                        and(patientIsFemale()),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.pmtctFollowup.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/pmtct-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"HIV Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),\n                        and(patientIsFemale()),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EID_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.eidFollowup.label\",\n                \"fas fa-fw fa-baby\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/eid-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"HIV Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),\n                        and(patientAgeInMonthsLessThanAtVisitStart(24)),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EID_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.eidFollowup.label\",\n                \"fas fa-fw fa-baby\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/eid-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"HIV Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EID_FOLLOWUP_UUID),\n                        and(patientAgeInMonthsLessThanAtVisitStart(24)),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    }
+  ],
+  "ncd-programs": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID,\n                \"fas fa-fw fa-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"NCD Consult Location\"),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID)),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID)),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID,\n                \"fas fa-fw fa-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"NCD Consult Location\"),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID)),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID)),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID,\n                \"fas fa-fw fa-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"NCD Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID,\n                \"fas fa-fw fa-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"NCD Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_WITH_GLUCOSE_CAPTURE_VISIT_ACTION,\n                    \"pihcore.task.vitalsWithGlucose\",\n                    \"fas fa-fw fa-heartbeat\",\n                    \"link\",\n                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"vitalsWithGlucose.xml\")),\n                    null,\n                    and(sessionLocationHasTag(\"Vitals Glucose Location\"),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_WITH_GLUCOSE_CAPTURE_VISIT_ACTION,\n                    \"pihcore.task.vitalsWithGlucose\",\n                    \"fas fa-fw fa-heartbeat\",\n                    \"link\",\n                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"vitalsWithGlucose.xml\")),\n                    null,\n                    and(sessionLocationHasTag(\"Vitals Glucose Location\"),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_1_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-initial-part-1.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID)),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_1_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-initial-part-1.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID)),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_2_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-initial-part-2.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID)),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_2_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-initial-part-2.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID)),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_1_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-followup-part-1.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_1_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-followup-part-1.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_2_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-followup-part-2.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_2_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-followup-part-2.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_INTAKE_VISIT_ACTION,\n                    \"pihcore.ncd.epilepsyIntake\",\n                    \"fas fa-fw fa-brain\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"epilepsyIntake.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_FOLLOWUP_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_INTAKE_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_INTAKE_VISIT_ACTION,\n                    \"pihcore.ncd.epilepsyIntake\",\n                    \"fas fa-fw fa-brain\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"epilepsyIntake.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_FOLLOWUP_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_INTAKE_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_VISIT_ACTION,\n                    \"pihcore.ncd.epilepsyFU\",\n                    \"fas fa-fw fa-brain\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"epilepsy.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_FOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_VISIT_ACTION,\n                    \"pihcore.ncd.epilepsyFU\",\n                    \"fas fa-fw fa-brain\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"epilepsy.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_FOLLOWUP_UUID))));"
+    }
+  ],
+  "mental-health": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealthIntake.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(definitionUiResource),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID)),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealthIntake.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(definitionUiResource),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID)),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_FOLLOWUP_VISIT_ACTION,\n                    \"pih.task.mentalHealthFU.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthFollowup.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_FOLLOWUP_VISIT_ACTION,\n                    \"pih.task.mentalHealthFU.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthFollowup.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,\n                    \"pih.task.mentalHealthIntake.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthIntake.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID)),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,\n                    \"pih.task.mentalHealthIntake.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthIntake.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID)),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealth.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthFollowup.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealth.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthFollowup.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealth.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(definitionUiResource),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealth.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(definitionUiResource),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));"
+    }
+  ],
+  "oncology-chemotherapy": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,\n                \"pih.task.oncologyConsultNote.label\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyConsult.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_CONSULT_NOTE_VISIT_ACTION,\n                \"pih.task.oncologyConsultNote.label\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyConsult.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_TREATMENT_PLAN_ACTION,\n                \"pih.task.oncologyTreatmentPlan.label\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyTreatment.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_TREATMENT_PLAN_ACTION,\n                \"pih.task.oncologyTreatmentPlan.label\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyTreatment.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHEMOTHERAPY_VISIT_ACTION,\n                \"pih.task.chemotherapySession.label\",\n                \"fas fa-fw fa-retweet\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"chemotherapyTreatment.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Chemotherapy Location\"),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CHEMOTHERAPY_VISIT_ACTION,\n                \"pih.task.chemotherapySession.label\",\n                \"fas fa-fw fa-retweet\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"chemotherapyTreatment.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Chemotherapy Location\"),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,\n                \"pihcore.oncologyIntake.title\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyIntakeConsult.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ONCOLOGY_INITIAL_VISIT_ACTION,\n                \"pihcore.oncologyIntake.title\",\n                \"fas fa-fw fa-hand-holding-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"oncologyIntakeConsult.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_INITIAL_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_TREATMENT_PLAN_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ONCOLOGY_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ONCOLOGY_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    }
+  ],
+  "other-programs": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.TB_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_TB_INTAKE_UUID,\n                \"fas fa-fw fa-wind\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"tbIntake.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,\n                sessionLocationHasTag(\"Consult Note Location\")));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.TB_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_TB_INTAKE_UUID,\n                \"fas fa-fw fa-wind\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"tbIntake.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,\n                sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_FOLLOWUP_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Followup.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                    visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_FOLLOWUP_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Followup.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                    visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_DISCHARGE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Discharge.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID),\n                        visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_DISCHARGE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Discharge.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID),\n                        visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Intake.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Intake.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VCT_VISIT_ACTION,\n                \"pih.task.vct.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/vct.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VCT_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VCT_VISIT_ACTION,\n                \"pih.task.vct.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/vct.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VCT_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.OVC_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID,\n                \"fas fa-fw fa-child\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ovcIntake.xml\")),\n                null,\n                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.OVC_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID,\n                \"fas fa-fw fa-child\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ovcIntake.xml\")),\n                null,\n                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.OVC_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID,\n                \"fas fa-fw fa-child\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ovcFollowup.xml\")),\n                null,\n                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.OVC_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID,\n                \"fas fa-fw fa-child\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ovcFollowup.xml\")),\n                null,\n                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PHYSICAL_REHAB_VISIT_ACTION,\n                \"pihcore.physicalRehab\",\n                \"fas fa-fw fa-user-injured\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"retired/physicalRehab.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PHYSICAL_REHAB_EVAL_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PHYSICAL_REHAB_VISIT_ACTION,\n                \"pihcore.physicalRehab\",\n                \"fas fa-fw fa-user-injured\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"retired/physicalRehab.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PHYSICAL_REHAB_EVAL_UUID))));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DRUG_REHAB_VISIT_ACTION,\n                \"pihcore.drugRehab\",\n                \"fas fa-fw fa-pills\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"drugRehab.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                and(sessionLocationHasTag(\"Mental Health Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_DRUG_REHAB_UUID))));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DRUG_REHAB_VISIT_ACTION,\n                \"pihcore.drugRehab\",\n                \"fas fa-fw fa-pills\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"drugRehab.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                and(sessionLocationHasTag(\"Mental Health Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_DRUG_REHAB_UUID))));"
+    }
+  ],
+  "patient-registration": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.REGISTER_NEW_PATIENT,\n                \"registrationapp.home\",\n                \"fas fa-fw fa-user\",\n                \"link\",\n                \"registrationapp/findPatient.page?appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,\n                \"App: registrationapp.registerPatient\",\n                sessionLocationHasTag(\"Registration Location\")));",
+      "line_content": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.REGISTER_NEW_PATIENT,\n                \"registrationapp.home\",\n                \"fas fa-fw fa-user\",\n                \"link\",\n                \"registrationapp/findPatient.page?appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,\n                \"App: registrationapp.registerPatient\",\n                sessionLocationHasTag(\"Registration Location\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.MERGE_INTO_ANOTHER_PATIENT,\n                \"coreapps.mergePatientsShort\",\n                \"fas fa-fw fa-users\",\n                \"link\",\n                \"coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}\",\n                \"App: registrationapp.registerPatient\",\n                null));",
+      "line_content": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.MERGE_INTO_ANOTHER_PATIENT,\n                \"coreapps.mergePatientsShort\",\n                \"fas fa-fw fa-users\",\n                \"link\",\n                \"coreapps/datamanagement/mergePatients.page?app=coreapps.mergePatients&patient1={{patient.patientId}}\",\n                \"App: registrationapp.registerPatient\",\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CLINICIAN_FACING_PATIENT_DASHBOARD,\n                    \"registrationapp.clinicalDashboard\",\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    config.getDashboardUrl() + \"&appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,  // TODO what was/is the app id supposed to do here?\n                    \"App: coreapps.patientDashboard\",\n                    null));",
+      "line_content": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.CLINICIAN_FACING_PATIENT_DASHBOARD,\n                    \"registrationapp.clinicalDashboard\",\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    config.getDashboardUrl() + \"&appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,  // TODO what was/is the app id supposed to do here?\n                    \"App: coreapps.patientDashboard\",\n                    null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,\n                    \"registrationapp.patient.registrationSummary\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    \"registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,\n                    \"App: registrationapp.registerPatient\",\n                    null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,\n                    \"registrationapp.patient.registrationSummary\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    \"registrationapp/registrationSummary.page?patientId={{patient.patientId}}&appId=\" + CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,\n                    \"App: registrationapp.registerPatient\",\n                    null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.VISITS_DASHBOARD,\n                    \"pihcore.visitDashboard\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    patientVisitsPageUrl,\n                    \"App: coreapps.patientDashboard\",\n                    null));",
+      "line_content": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.VISITS_DASHBOARD,\n                    \"pihcore.visitDashboard\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    patientVisitsPageUrl,\n                    \"App: coreapps.patientDashboard\",\n                    null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.PRINT_PAPER_FORM_LABEL,\n                    \"paperrecord.task.printPaperFormLabel.label\",\n                    \"fas fa-fw fa-print\",\n                    \"script\",\n                    \"printPaperFormLabel()\",\n                    \"Task: emr.printLabels\",\n                    null));",
+      "line_content": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.PRINT_PAPER_FORM_LABEL,\n                    \"paperrecord.task.printPaperFormLabel.label\",\n                    \"fas fa-fw fa-print\",\n                    \"script\",\n                    \"printPaperFormLabel()\",\n                    \"Task: emr.printLabels\",\n                    null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.PRINT_ID_CARD_REGISTRATION_ACTION,\n                    \"zl.registration.patient.idcard.label\",\n                    \"fas fa-fw fa-barcode\",\n                    \"link\",\n                    \"pihcore/patientRegistration/printIdCard.page?patientId={{patient.patientId}}\",\n                    \"App: registrationapp.registerPatient\",\n                    null));",
+      "line_content": "extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.PRINT_ID_CARD_REGISTRATION_ACTION,\n                    \"zl.registration.patient.idcard.label\",\n                    \"fas fa-fw fa-barcode\",\n                    \"link\",\n                    \"pihcore/patientRegistration/printIdCard.page?patientId={{patient.patientId}}\",\n                    \"App: registrationapp.registerPatient\",\n                    null));"
+    }
+  ],
+  "patient-dashboard": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.VIEW_GROWTH_CHART_ACTION,\n                \"pihcore.viewGrowthChart.overallAction.label\",\n                \"fas fa-fw fa-chart-line\",\n                \"link\",\n                \"growthchart/growthCharts.page?patientId={{patient.uuid}}\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_GROWTH_CHARTS,\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.VIEW_GROWTH_CHART_ACTION,\n                \"pihcore.viewGrowthChart.overallAction.label\",\n                \"fas fa-fw fa-chart-line\",\n                \"link\",\n                \"growthchart/growthCharts.page?patientId={{patient.uuid}}\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_GROWTH_CHARTS,\n                null));"
+    }
+  ],
+  "appointments": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,\n                \"appointmentschedulingui.scheduleAppointment.new.title\",\n                \"fas fa-fw fa-calendar-alt\",\n                \"link\",\n                \"appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}\",\n                \"Task: appointmentschedulingui.bookAppointments\",\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,\n                \"appointmentschedulingui.scheduleAppointment.new.title\",\n                \"fas fa-fw fa-calendar-alt\",\n                \"link\",\n                \"appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}\",\n                \"Task: appointmentschedulingui.bookAppointments\",\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,\n                \"appointmentschedulingui.requestAppointment.label\",\n                \"fas fa-fw fa-calendar-alt\",\n                \"link\",\n                \"appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}\",\n                \"Task: appointmentschedulingui.requestAppointments\",\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,\n                \"appointmentschedulingui.requestAppointment.label\",\n                \"fas fa-fw fa-calendar-alt\",\n                \"link\",\n                \"appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}\",\n                \"Task: appointmentschedulingui.requestAppointments\",\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(dashboardTab(CustomAppLoaderConstants.Extensions.APPOINTMENTS_TAB,\n                \"appointmentschedulingui.appointmentsTab.label\",\n                \"App: appointmentschedulingui.viewAppointments\",\n                \"appointmentschedulingui\",\n                \"appointmentsTab\"));",
+      "line_content": "extensions.add(dashboardTab(CustomAppLoaderConstants.Extensions.APPOINTMENTS_TAB,\n                \"appointmentschedulingui.appointmentsTab.label\",\n                \"App: appointmentschedulingui.viewAppointments\",\n                \"appointmentschedulingui\",\n                \"appointmentsTab\"));"
+    }
+  ],
+  "primary-care": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(socioEconomics);",
+      "line_content": "extensions.add(socioEconomics);"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(cloneAsMchVisitAction(socioEconomics));",
+      "line_content": "extensions.add(cloneAsMchVisitAction(socioEconomics));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,\n                \"pihcore.patientDocuments.overallAction.label\",\n                \"fas fa-fw fa-paperclip\",\n                \"link\",\n                \"coreapps/attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_ATTACHMENTS_PAGE,\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,\n                \"pihcore.patientDocuments.overallAction.label\",\n                \"fas fa-fw fa-paperclip\",\n                \"link\",\n                \"coreapps/attachments/attachments.page?patient={{patient.uuid}}&patientId={{patient.patientId}}\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_ATTACHMENTS_PAGE,\n                null));"
+    }
+  ],
+  "reports-exports": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(report(\n                                \"mirebalaisreports.overview.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );",
+      "line_content": "extensions.add(report(\n                                \"mirebalaisreports.overview.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(report(\n                                \"mirebalaisreports.dailyReports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"pihcore\" : pageProvider),\n                                (pagePath == null ? \"reports/dailyReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );",
+      "line_content": "extensions.add(report(\n                                \"mirebalaisreports.dailyReports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"pihcore\" : pageProvider),\n                                (pagePath == null ? \"reports/dailyReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(report(\n                                \"mirebalaisreports.dataQualityReports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_QUALITY,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );",
+      "line_content": "extensions.add(report(\n                                \"mirebalaisreports.dataQualityReports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_QUALITY,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(report(\n                                \"mirebalaisreports.monitoring.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_MONITORING,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );",
+      "line_content": "extensions.add(report(\n                                \"mirebalaisreports.monitoring.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: reportingui.reports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_MONITORING,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(report(\n                                \"mirebalaisreports.dataExports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: mirebalaisreports.dataexports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );",
+      "line_content": "extensions.add(report(\n                                \"mirebalaisreports.dataExports.\" + reportDescriptor.getKey(),\n                                reportDescriptor.getName(),\n                                (pageProvider == null ? \"reportingui\" : pageProvider),\n                                (pagePath == null ? \"runReport\" : pagePath),\n                                reportDescriptor.getUuid(),\n                                (privilege == null ? \"App: mirebalaisreports.dataexports\" : privilege),\n                                CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT,\n                                order,\n                                \"mirebalaisreports-\" + reportDescriptor.getKey() + \"-link\")\n                        );"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(extension(CustomAppLoaderConstants.Extensions.REGISTRATION_SUMMARY_BY_AGE_REPORT,\n                        \"mirebalaisreports.registrationoverview.title\",\n                        null,\n                        \"link\",\n                        \"pihcore/reports/registrationsByAge.page\",\n                        \"App: reportingui.reports\",\n                        null,\n                        CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                        1,\n                        map(\"linkId\", \"mirebalaisreports-registrationoverview-link\")));",
+      "line_content": "extensions.add(extension(CustomAppLoaderConstants.Extensions.REGISTRATION_SUMMARY_BY_AGE_REPORT,\n                        \"mirebalaisreports.registrationoverview.title\",\n                        null,\n                        \"link\",\n                        \"pihcore/reports/registrationsByAge.page\",\n                        \"App: reportingui.reports\",\n                        null,\n                        CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                        1,\n                        map(\"linkId\", \"mirebalaisreports-registrationoverview-link\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(extension(CustomAppLoaderConstants.Extensions.CHECK_IN_SUMMARY_BY_AGE_REPORT,\n                        \"mirebalaisreports.checkinoverview.title\",\n                        null,\n                        \"link\",\n                        \"pihcore/reports/checkInsByAge.page\",\n                        \"App: reportingui.reports\",\n                        null,\n                        CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                        1,\n                        map(\"linkId\", \"mirebalaisreports-checkinoverview-link\")));",
+      "line_content": "extensions.add(extension(CustomAppLoaderConstants.Extensions.CHECK_IN_SUMMARY_BY_AGE_REPORT,\n                        \"mirebalaisreports.checkinoverview.title\",\n                        null,\n                        \"link\",\n                        \"pihcore/reports/checkInsByAge.page\",\n                        \"App: reportingui.reports\",\n                        null,\n                        CustomAppLoaderConstants.ExtensionPoints.REPORTING_OVERVIEW_REPORTS,\n                        1,\n                        map(\"linkId\", \"mirebalaisreports-checkinoverview-link\")));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(extension(CustomAppLoaderConstants.Extensions.REPORTING_AD_HOC_ANALYSIS,\n                    \"reportingui.adHocAnalysis.label\",\n                    null,\n                    \"link\",\n                    \"reportingui/adHocManage.page\",\n                    \"App: reportingui.adHocAnalysis\",\n                    null,\n                    CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT,\n                    9999,\n                    null));",
+      "line_content": "extensions.add(extension(CustomAppLoaderConstants.Extensions.REPORTING_AD_HOC_ANALYSIS,\n                    \"reportingui.adHocAnalysis.label\",\n                    null,\n                    \"link\",\n                    \"reportingui/adHocManage.page\",\n                    \"App: reportingui.adHocAnalysis\",\n                    null,\n                    CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT,\n                    9999,\n                    null));"
+    }
+  ],
+  "archives-records": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,\n                \"paperrecord.task.requestPaperRecord.label\",\n                \"fas fa-fw fa-folder-open\",\n                \"script\",\n                \"showRequestChartDialog()\",\n                \"Task: emr.requestPaperRecord\",\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,\n                \"paperrecord.task.requestPaperRecord.label\",\n                \"fas fa-fw fa-folder-open\",\n                \"script\",\n                \"showRequestChartDialog()\",\n                \"Task: emr.requestPaperRecord\",\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PRINT_ID_CARD_OVERALL_ACTION,\n                \"paperrecord.task.printIdCardLabel.label\",\n                \"fas fa-fw fa-print\",\n                \"script\",\n                \"printIdCardLabel()\",\n                \"Task: emr.printLabels\",\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PRINT_ID_CARD_OVERALL_ACTION,\n                \"paperrecord.task.printIdCardLabel.label\",\n                \"fas fa-fw fa-print\",\n                \"script\",\n                \"printIdCardLabel()\",\n                \"Task: emr.printLabels\",\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,\n                \"paperrecord.task.printPaperFormLabel.label\",\n                \"fas fa-fw fa-print\",\n                \"script\",\n                \"printPaperFormLabel()\",\n                \"Task: emr.printLabels\",\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,\n                \"paperrecord.task.printPaperFormLabel.label\",\n                \"fas fa-fw fa-print\",\n                \"script\",\n                \"printPaperFormLabel()\",\n                \"Task: emr.printLabels\",\n                null));"
+    }
+  ],
+  "specialized-tools": [
+    {
+      "type": "extension",
+      "raw": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.BIOMETRICS_FIND_PATIENT,\n                \"registrationapp\",\n                \"biometrics/fingerprintSearch\",\n                null,   // shouldn't need a privilege, since this is injected into the patient search\n                CustomAppLoaderConstants.ExtensionPoints.PATIENT_SEARCH,\n                map(\"scanUrl\", config.getBiometricsConfig().getScanUrl(),\n                        \"devicesUrl\", config.getBiometricsConfig().getDevicesUrl())));",
+      "line_content": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.BIOMETRICS_FIND_PATIENT,\n                \"registrationapp\",\n                \"biometrics/fingerprintSearch\",\n                null,   // shouldn't need a privilege, since this is injected into the patient search\n                CustomAppLoaderConstants.ExtensionPoints.PATIENT_SEARCH,\n                map(\"scanUrl\", config.getBiometricsConfig().getScanUrl(),\n                        \"devicesUrl\", config.getBiometricsConfig().getDevicesUrl())));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CHART_SEARCH_OVERALL_ACTION,\n                \"pihcore.chartSearch.label\",\n                \"fas fa-fw fa-search\",\n                \"link\",\n                \"chartsearch/chartsearch.page?patientId={{patient.patientId}}\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE, // TODO correct permission!\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CHART_SEARCH_OVERALL_ACTION,\n                \"pihcore.chartSearch.label\",\n                \"fas fa-fw fa-search\",\n                \"link\",\n                \"chartsearch/chartsearch.page?patientId={{patient.patientId}}\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE, // TODO correct permission!\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION,\n                \"coreapps.markPatientDead.label\",\n                \"icon-plus-sign-alt\",\n                \"link\",\n                \"coreapps/markPatientDead.page?patientId={{patient.uuid}}&defaultDead=true\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_MARK_PATIENT_DEAD,\n               null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION,\n                \"coreapps.markPatientDead.label\",\n                \"icon-plus-sign-alt\",\n                \"link\",\n                \"coreapps/markPatientDead.page?patientId={{patient.uuid}}&defaultDead=true\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_MARK_PATIENT_DEAD,\n               null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COMMENT_VISIT_ACTION,\n                \"pihcore.comment\",\n                \"fas fa-fw fa-pencil-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"comment.xml\")),\n                null,\n                null));",
+      "line_content": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COMMENT_VISIT_ACTION,\n                \"pihcore.comment\",\n                \"fas fa-fw fa-pencil-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"comment.xml\")),\n                null,\n                null));"
+    },
+    {
+      "type": "extension",
+      "raw": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.SPA_PREVIEW_PATIENT_CHART,\n                \"pihcore.spa.patientChart\",\n                \"fas fa-fw fa-exclamation-triangle\",\n                \"link\",\n                \"spa/patient/{{patient.uuid}}/chart/summary\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION,\n                null));",
+      "line_content": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.SPA_PREVIEW_PATIENT_CHART,\n                \"pihcore.spa.patientChart\",\n                \"fas fa-fw fa-exclamation-triangle\",\n                \"link\",\n                \"spa/patient/{{patient.uuid}}/chart/summary\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION,\n                null));"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "category": "archives-records",
+    "description": "Apps for archives records",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 1,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "archives.room",
+      "description": "paperrecord.app.archivesRoom.label",
+      "label": "paperrecord.app.archivesRoom.label",
+      "icon": "fas fa-fw fa-folder-open",
+      "url": "paperrecord/archivesRoom.page",
+      "config": {},
+      "require": "App: emr.archivesRoom",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.ARCHIVES_ROOM,\n                \"paperrecord.app.archivesRoom.label\",\n                \"fas fa-fw fa-folder-open\",\n                \"paperrecord/archivesRoom.page\",\n                \"App: emr.archivesRoom\",\n                null)));"
+    }
+  ]
+}

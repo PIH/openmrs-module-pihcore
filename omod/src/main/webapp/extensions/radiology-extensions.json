@@ -1,0 +1,88 @@
+{
+  "_meta": {
+    "category": "radiology",
+    "description": "Extensions for radiology",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 7,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "radiology.tab",
+      "extensionPointId": "patientDashboard.tabs",
+      "type": "tab",
+      "label": "radiologyapp.radiology.label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": "Task: org.openmrs.module.radiologyapp.tab",
+      "_java_source": "extensions.add(dashboardTab(CustomAppLoaderConstants.Extensions.RADIOLOGY_TAB,\n                \"radiologyapp.radiology.label\",\n                \"Task: org.openmrs.module.radiologyapp.tab\",\n                \"radiologyapp\",\n                \"radiologyTab\"));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(orderXray);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsMchVisitAction(orderXray));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(orderCT);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsMchVisitAction(orderCT));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(orderUS);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsMchVisitAction(orderUS));"
+    }
+  ]
+}

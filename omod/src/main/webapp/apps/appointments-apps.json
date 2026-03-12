@@ -1,0 +1,73 @@
+{
+  "_meta": {
+    "category": "appointments",
+    "description": "Apps for appointments",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 6,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "appointments",
+      "description": "pih.app.appointments.title",
+      "label": "pih.app.appointments.title",
+      "icon": "fas fa-fw fa-calendar-alt",
+      "url": "spa/home/appointments",
+      "config": {},
+      "require": "sessionLocationHasTag('Appointment Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,\n                            \"pih.app.appointments.title\",\n                            \"fas fa-fw fa-calendar-alt\",\n                            \"spa/home/appointments\",\n                            \"App: appointmentschedulingui.home\",\n                            null),\n                    sessionLocationHasTag(\"Appointment Location\")));"
+    },
+    {
+      "id": "patient.appointments.summary",
+      "description": "pih.app.patientAppointments.title",
+      "label": "pih.app.patientAppointments.title",
+      "icon": "fas fa-fw fa-calendar-alt",
+      "url": "dashboardwidgets/appointments",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PATIENT_APPOINTMENTS_SUMMARY,\n                            \"pih.app.patientAppointments.title\",\n                            \"fas fa-fw fa-calendar-alt\",\n                            null,\n                            null,\n                            null),\n                    \"pihcore\", \"dashboardwidgets/appointments\"));"
+    },
+    {
+      "id": "appointments",
+      "description": "pih.app.appointments.title",
+      "label": "pih.app.appointments.title",
+      "icon": "fas fa-fw fa-calendar-alt",
+      "url": "spa/home/appointments",
+      "config": {},
+      "require": "sessionLocationHasTag('Appointment Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,\n                            \"pih.app.appointments.title\",\n                            \"fas fa-fw fa-calendar-alt\",\n                            \"spa/home/appointments\",\n                            null,\n                            null),\n                    sessionLocationHasTag(\"Appointment Location\")));"
+    },
+    {
+      "id": "patient.appointments.summary",
+      "description": "pih.app.patientAppointments.title",
+      "label": "pih.app.patientAppointments.title",
+      "icon": "fas fa-fw fa-calendar-alt",
+      "url": "dashboardwidgets/appointments",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PATIENT_APPOINTMENTS_SUMMARY,\n                            \"pih.app.patientAppointments.title\",\n                            \"fas fa-fw fa-calendar-alt\",\n                            null,\n                            null,\n                            null),\n                    \"pihcore\", \"dashboardwidgets/appointments\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "",
+      "config": {},
+      "require": "sessionLocationHasTag('Appointment Location')",
+      "_java_source": "apps.add(addToHomePage((apppointmentScheduling),\n                sessionLocationHasTag(\"Appointment Location\")));"
+    },
+    {
+      "id": "schedule.appointment",
+      "description": "appointmentschedulingui.scheduleAppointment.buttonTitle",
+      "label": "appointmentschedulingui.scheduleAppointment.buttonTitle",
+      "icon": "fas fa-fw fa-home",
+      "url": "/appointmentschedulingui/home.page",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "Task: appointmentschedulingui.bookAppointments",
+      "_java_source": "apps.add(findPatientTemplateApp(CustomAppLoaderConstants.Apps.SCHEDULE_APPOINTMENT,\n                \"appointmentschedulingui.scheduleAppointment.buttonTitle\",\n                \"fas fa-fw fa-calendar-alt\",\n                \"Task: appointmentschedulingui.bookAppointments\",\n                \"/appointmentschedulingui/manageAppointments.page?patientId={{patientId}}&breadcrumbOverride={{breadcrumbOverride}}\",\n                arrayNode(objectNode(\"icon\", \"fas fa-fw fa-home\", \"link\", \"/index.htm\"),\n                        objectNode(\"label\", \"appointmentschedulingui.home.title\", \"link\", \"/appointmentschedulingui/home.page\"),\n                        objectNode(\"label\", \"appointmentschedulingui.scheduleAppointment.buttonTitle\")),\n                config.getFindPatientColumnConfig()));"
+    }
+  ]
+}

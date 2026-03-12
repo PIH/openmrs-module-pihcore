@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "category": "visit-management",
+    "description": "Apps for visit management",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 1,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "active.visits.list",
+      "description": "coreapps.activeVisits.app.label",
+      "label": "coreapps.activeVisits.app.label",
+      "icon": "fas fa-fw icon-check-in",
+      "url": "pihcore/reports/activeVisitsList.page?app=",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: coreapps.activeVisits",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.ACTIVE_VISITS_LIST,\n                \"coreapps.activeVisits.app.label\",\n                \"fas fa-fw icon-check-in\",\n                \"pihcore/reports/activeVisitsList.page?app=\" + CustomAppLoaderConstants.Apps.ACTIVE_VISITS,\n                \"App: coreapps.activeVisits\",\n                objectNode(\"patientPageUrl\", patientVisitsPageWithSpecificVisitUrl))));"
+    }
+  ]
+}

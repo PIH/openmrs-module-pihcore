@@ -1,0 +1,57 @@
+{
+  "_meta": {
+    "category": "dispensing-medication",
+    "description": "Apps for dispensing medication",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 4,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "dispensing",
+      "description": "dispensing.app.label",
+      "label": "dispensing.app.label",
+      "icon": "fas fa-fw fa-pills",
+      "url": "dispensing/findPatient.page",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "sessionLocationHasTag('Dispensing Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.DISPENSING,\n                \"dispensing.app.label\",\n                \"fas fa-fw fa-pills\",\n                \"dispensing/findPatient.page\",\n                \"App: dispensing.app.dispense\",\n                objectNode(\"definitionUiResource\", PihCoreUtil.getFormResource(\"dispensing.xml\"))),\n                sessionLocationHasTag(\"Dispensing Location\")));"
+    },
+    {
+      "id": "dispensing.summary",
+      "description": "mirebalais.dispensing.title",
+      "label": "mirebalais.dispensing.title",
+      "icon": "fas fa-fw fa-pills",
+      "url": "dashboardwidgets/medsDispensed",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.DISPENSING_SUMMARY,\n                \"mirebalais.dispensing.title\",\n                \"fas fa-fw fa-pills\",\n                \"dispensing/patient.page?patientId={{patient.uuid}}\",\n                null,\n                objectNode(\n                        \"maxDatesToShow\", 5,\n                        \"detailsUrl\", \"pihcore/meds/dispensingSummary.page?patientId={{patient.uuid}}\"\n                )),\n                \"pihcore\", \"dashboardwidgets/medsDispensed\"));"
+    },
+    {
+      "id": "medication.dispensing",
+      "description": "pih.app.medicationDispensing.title",
+      "label": "pih.app.medicationDispensing.title",
+      "icon": "fas fa-fw fa-pills",
+      "url": "spa/dispensing",
+      "config": {},
+      "require": "sessionLocationHasTag('Dispensing Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.MEDICATION_DISPENSING,\n                        \"pih.app.medicationDispensing.title\",\n                        \"fas fa-fw fa-pills\",\n                        \"spa/dispensing\",\n                        \"App: dispensing.app.dispense\",\n                        null),\n                sessionLocationHasTag(\"Dispensing Location\")));"
+    },
+    {
+      "id": "dispensing.summary",
+      "description": "mirebalais.dispensing.title",
+      "label": "mirebalais.dispensing.title",
+      "icon": "fas fa-fw fa-pills",
+      "url": "dashboardwidgets/medsDispensed",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.DISPENSING_SUMMARY,\n                            \"mirebalais.dispensing.title\",\n                            \"fas fa-fw fa-pills\",\n                            \"dispensing/patient.page?patientId={{patient.uuid}}\",\n                            null,\n                            objectNode(\n                                    \"maxDatesToShow\", 5,\n                                    \"detailsUrl\", \"pihcore/meds/dispensingSummary.page?patientId={{patient.uuid}}\"\n                            )),\n                    \"pihcore\", \"dashboardwidgets/medsDispensed\"));"
+    }
+  ]
+}

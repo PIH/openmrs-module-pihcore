@@ -1,0 +1,223 @@
+{
+  "_meta": {
+    "category": "hiv-program",
+    "description": "Apps for hiv program",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 18,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "hiv.alerts",
+      "description": "pih.app.hiv.status.title",
+      "label": "pih.app.hiv.status.title",
+      "icon": "fas fa-fw fa-exclamation-circle",
+      "url": "dashboardwidgets/statusData",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_ALERTS,\n                        \"pih.app.hiv.status.title\",\n                        \"fas fa-fw fa-exclamation-circle\",\n                        null,\n                        null,\n                        objectNode(\n                                \"configFile\", \"hiv/hivStatuses.yml\"\n                        )),\n                \"pihcore\", \"dashboardwidgets/statusData\",\n                firstColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.tb.status",
+      "description": "pih.app.hivTb.status.title",
+      "label": "pih.app.hivTb.status.title",
+      "icon": "fas fa-fw fa-exclamation-circle",
+      "url": "dashboardwidgets/statusData",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_TB_STATUS,\n                        \"pih.app.hivTb.status.title\",\n                        \"fas fa-fw fa-exclamation-circle\",\n                        null,\n                        null,\n                        objectNode(\n                                \"configFile\", \"hivTb/statuses.yml\"\n                        )),\n                \"pihcore\", \"dashboardwidgets/statusData\",\n                firstColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.intake.encounters",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-ribbon",
+      "url": "dashboardwidgets/encounters",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_INTAKE_ENCOUNTERS,\n                        \"pih.hivIntake.ucase\",\n                        \"fas fa-fw fa-ribbon\",\n                        patientVisitsPageUrl,\n                        null,\n                        objectNode(\n                                \"encounterTypes\", arrayNode(\n                                        objectNode(\n                                                \"encounterType\", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID,\n                                                \"url\", patientVisitsPageWithSpecificVisitUrl\n                                        )\n                                )\n                        )),\n                \"pihcore\", \"dashboardwidgets/encounters\",\n                firstColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.followup.encounters",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-ribbon",
+      "url": "dashboardwidgets/encounters",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_FOLLOWUP_ENCOUNTERS,\n                        \"pih.hivFollowup.ucase\",\n                        \"fas fa-fw fa-ribbon\",\n                        patientVisitsPageUrl,\n                        null,\n                        objectNode(\n                                \"encounterTypes\", arrayNode(\n                                        objectNode(\n                                                \"encounterType\", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,\n                                                \"url\", patientVisitsPageWithSpecificVisitUrl\n                                        )\n                                ),\n                                \"maxToDisplay\", \"3\"\n                        )),\n                \"pihcore\", \"dashboardwidgets/encounters\",\n                firstColumnIndex++\n        ));"
+    },
+    {
+      "id": "pmtct.followup.encounters",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-ribbon",
+      "url": "dashboardwidgets/encounters",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PMTCT_FOLLOWUP_ENCOUNTERS,\n                        \"pih.pmtctFollowup.ucase\",\n                        \"fas fa-fw fa-ribbon\",\n                        patientVisitsPageUrl,\n                        null,\n                        objectNode(\n                                \"encounterTypes\", arrayNode(\n                                        objectNode(\n                                                \"encounterType\", PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID,\n                                                \"url\", patientVisitsPageWithSpecificVisitUrl\n                                        )\n                                ),\n                                \"maxToDisplay\", \"3\"\n                        )),\n                \"pihcore\", \"dashboardwidgets/encounters\",\n                firstColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.dispensing.encounters",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-ribbon",
+      "url": "dashboardwidgets/encounters",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_DISPENSING_ENCOUNTERS,\n                        \"pih.hivDispensing.ucase\",\n                        \"fas fa-fw fa-ribbon\",\n                        patientVisitsPageUrl,\n                        null,\n                        objectNode(\n                                \"encounterTypes\", arrayNode(\n                                        objectNode(\n                                                \"encounterType\", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_DISPENSING_UUID,\n                                                \"url\", patientVisitsPageWithSpecificVisitUrl\n                                        )\n                                ),\n                                \"maxToDisplay\", \"3\"\n                        )),\n                \"pihcore\", \"dashboardwidgets/encounters\",\n                firstColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.socioeconomic.encounters",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "icon-home",
+      "url": "dashboardwidgets/encounters",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_SOCIOECONOMIC_ENCOUNTERS,\n                        \"pih.socioeconomics.ucase\",\n                        \"icon-home\",\n                        patientVisitsPageUrl,\n                        null,\n                        objectNode(\n                                \"encounterTypes\", arrayNode(\n                                        objectNode(\n                                                \"encounterType\", PihEmrConfigConstants.ENCOUNTERTYPE_SOCIO_ECONOMICS_UUID,\n                                                \"url\", patientVisitsPageWithSpecificVisitUrl\n                                        )\n                                )\n                        )),\n                \"pihcore\", \"dashboardwidgets/encounters\",\n                firstColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.weight.graph",
+      "description": "pih.app.hivWeightGraph.title",
+      "label": "pih.app.hivWeightGraph.title",
+      "icon": "fas fa-fw fa-chart-bar",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_WEIGHT_GRAPH,\n                        \"pih.app.hivWeightGraph.title\",\n                        \"fas fa-fw fa-chart-bar\",\n                        null,\n                        null,\n                        objectNode(\n                                \"widget\", \"obsgraph\",\n                                \"icon\", \"fas fa-fw fa-chart-bar\",\n                                \"label\", \"pih.app.hivWeightGraph.title\",\n                                \"conceptId\", CustomAppLoaderConstants.WEIGHT_CONCEPT_UUID,\n                                \"maxResults\", \"1000\"\n                        )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\",\n                        firstColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.recent.lab.results",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-vial",
+      "url": "dashboardwidgets/labResults",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.HIV_RECENT_LAB_RESULTS,\n                        \"pihcore.lab.lab_results.caps\",\n                        \"fas fa-vial\",\n                        null,\n                        null,\n                        objectNode(\n                                \"encounterTypes\", Context.getAdministrationService().getGlobalProperty(CustomAppLoaderConstants.GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES),\n                                \"detailsUrl\", \"owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=\" + \"/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults\",\n                                \"obsTypes\", \"LabSet,Test\",\n                                \"labCategoriesSet\", PihEmrConfigConstants.CONCEPT_LABORATORYCATEGORIES_UUID,\n                                \"maxToDisplay\", \"5\"\n                        )),\n                 \"pihcore\", \"dashboardwidgets/labResults\", firstColumnIndex++));"
+    },
+    {
+      "id": "pih.app.",
+      "description": "pih.app.",
+      "label": "pih.app.",
+      "icon": "fas fa-fw fa-stethoscope",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardSecondColumn(app(\n                \"pih.app.\" + programUuid + \".patientProgramSummary\",\n                \"coreapps.currentEnrollmentDashboardWidget.label\",\n                \"fas fa-fw fa-stethoscope\",\n                null,\n                PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,\n                objectNode(\n                        \"widget\", \"programstatus\",\n                        \"icon\", \"fas fa-fw fa-stethoscope\",\n                        \"label\", \"coreapps.currentEnrollmentDashboardWidget.label\",\n                        \"program\", programUuid,\n                        \"locationTag\", \"Program Location\",\n                        \"markPatientDeadOutcome\", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,\n                        \"dashboard\", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\",\n                1\n        ));"
+    },
+    {
+      "id": "pih.app.",
+      "description": "pih.app.",
+      "label": "pih.app.",
+      "icon": "fas fa-fw fa-stethoscope",
+      "url": "program/programHistory",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardSecondColumn(app(\n                \"pih.app.\" + programUuid + \".patientProgramHistory\",\n                \"coreapps.programHistoryDashboardWidget.label\",\n                \"fas fa-fw fa-stethoscope\",\n                null,\n                PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,\n                objectNode(\n                        \"icon\", \"fas fa-fw fa-stethoscope\",\n                        \"label\", \"coreapps.programHistoryDashboardWidget.label\",\n                        \"program\", programUuid,\n                        \"includeActive\", false,\n                        \"locationTag\", \"Program Location\",\n                        \"markPatientDeadOutcome\", config.isComponentEnabled(Components.MARK_PATIENT_DEAD) ? PihCoreConstants.PATIENT_DIED_CONCEPT_UUID : null,\n                        \"dashboard\", programUuid   // provides contextual context so this widget knows which dashboard it's being rendered on\n                )),\n                \"coreapps\", \"program/programHistory\",\n                2\n        ));"
+    },
+    {
+      "id": "hiv.fingerprint.status",
+      "description": "pih.app.hiv.fingerprint.status.title",
+      "label": "pih.app.hiv.fingerprint.status.title",
+      "icon": "fas fa-fw fa-fingerprint",
+      "url": "dashboardwidgets/fingerprint",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_FINGERPRINT_STATUS,\n                        \"pih.app.hiv.fingerprint.status.title\",\n                        \"fas fa-fw fa-fingerprint\",\n                        null,\n                        null,\n                        null\n                        ),\n                \"pihcore\", \"dashboardwidgets/fingerprint\",\n                secondColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.viral.load.history",
+      "description": "zl.date,pihcore.status,pih.app.hiv.viralLoadHistory.load,pih.app.hiv.viralLoadHistory.lld",
+      "label": "zl.date,pihcore.status,pih.app.hiv.viralLoadHistory.load,pih.app.hiv.viralLoadHistory.lld",
+      "icon": "fas fa-fw fa-ribbon",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VIRAL_LOAD_HISTORY,\n                        \"pih.vlHistory.ucase\",\n                        \"fas fa-fw fa-ribbon\",\n                        null,\n                        null,\n                        objectNode(\n                                \"widget\", \"obsacrossencounters\",\n                                \"icon\", \"fas fa-fw fa-ribbon\",\n                                \"label\", \"pih.vlHistory.ucase\",\n                                \"encounterTypes\", CustomAppLoaderConstants.LABORATORY_RESULT_UUID + \",\" + PihEmrConfigConstants.ENCOUNTERTYPE_LAB_SPECIMEN_COLLECTION_UUID,\n                                \"concepts\",\n                                CustomAppLoaderConstants.VIRAL_LOAD_QUALITATIVE_UUID + \",\" +\n                                        CustomAppLoaderConstants.VIRAL_LOAD_UUID + \",\" +\n                                        CustomAppLoaderConstants.VIRAL_LOAD_LLD_UUID,\n                                \"headers\", \"zl.date,pihcore.status,pih.app.hiv.viralLoadHistory.load,pih.app.hiv.viralLoadHistory.lld\",\n                                \"maxRecords\", \"5\"\n                        )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\",\n                secondColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.pending.viral.load.tests",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-ribbon",
+      "url": "dashboardwidgets/pendingLabOrders",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_PENDING_VIRAL_LOAD_TESTS,\n                \"pih.pendingViralLoad.ucase\",\n                \"fas fa-fw fa-ribbon\",\n                null,\n                null,\n                objectNode(\n                        \"orderables\", CustomAppLoaderConstants.VIRAL_LOAD_PANEL_UUID\n                )\n                ), \"pihcore\", \"dashboardwidgets/pendingLabOrders\", secondColumnIndex++));"
+    },
+    {
+      "id": "hiv.vl.graph",
+      "description": "pih.app.hivvlGraph.title",
+      "label": "pih.app.hivvlGraph.title",
+      "icon": "fas fa-fw fa-chart-bar",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_VL_GRAPH,\n                \"pih.app.hivvlGraph.title\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsgraph\",\n                        \"icon\", \"fas fa-fw fa-chart-bar\",\n                        \"label\", \"pih.app.hivvlGraph.title\",\n                        \"conceptId\", CustomAppLoaderConstants.VIRAL_LOAD_UUID,\n                        \"type\", \"logarithmic\",\n                        \"maxResults\", \"1000\"\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\",\n                secondColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.adverse.effect",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-allergies",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_ADVERSE_EFFECT,\n                \"pihcore.adverse.reactions\",\n                \"fas fa-fw fa-allergies\",\n                patientVisitsPageUrl,\n                null,\n                objectNode(\n                        \"widget\", \"obsacrossencounters\",\n                        \"icon\", \"fas fa-fw fa-allergies\",\n                        \"label\", \"pihcore.adverse.reactions\",\n                        \"detailsUrl\", patientVisitsPageUrl,\n                        \"encounterTypes\", PihEmrConfigConstants.ENCOUNTERTYPE_HIV_INTAKE_UUID + \",\" + PihEmrConfigConstants.ENCOUNTERTYPE_HIV_FOLLOWUP_UUID,\n                        \"concepts\",\n                        CustomAppLoaderConstants.ADVERSE_EFFECT_CONCEPT_UUID + \",\" +\n                                CustomAppLoaderConstants.ADVERSE_EFFECT_DATE_CONCEPT_UUID,\n                        \"headers\", \"zl.date,pihcore.reaction,pihcore.on.date\"\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\",\n                secondColumnIndex++\n        ));"
+    },
+    {
+      "id": "hiv.ois",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-exclamation-triangle",
+      "url": "dashboardwidgets/mostRecentObsWithCodedValue",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_OIS,\n                        \"pihcore.ois.caps\",\n                        \"fas fa-fw fa-exclamation-triangle\",\n                        null,\n                        null,\n                        objectNode(\n                                \"concept\", \"PIH:DIAGNOSIS\",\n                                \"codedValueSet\", \"PIH:8566\",\n                                \"codedValueHeader\", \"pihcore.ois.infection\",\n                                \"maxMonths\", \"6\",\n                                \"detailsUrl\", patientVisitsPageUrl\n                        )),\n                \"pihcore\", \"dashboardwidgets/mostRecentObsWithCodedValue\", secondColumnIndex++));"
+    },
+    {
+      "id": "hiv.dispensing",
+      "description": "&returnLabel=pihcore.hivDispensing.short",
+      "label": "&returnLabel=pihcore.hivDispensing.short",
+      "icon": "fas fa-fw fa-ribbon",
+      "url": "/coreapps/findpatient/findPatient.page?app=",
+      "config": {},
+      "require": "sessionLocationHasTag('HIV Consult Location')",
+      "_java_source": "apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.HIV_DISPENSING,\n                \"pihcore.hivDispensing.short\",\n                \"fas fa-fw fa-ribbon\",\n                        PihEmrConfigConstants.PRIVILEGE_APP_DISPENSING_APP_DISPENSE,\n                \"/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=\" + PihCoreUtil.getFormResource(\"hiv/hiv-dispensing.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/coreapps/findpatient/findPatient.page?app=\" + CustomAppLoaderConstants.Apps.HIV_DISPENSING + \"&returnLabel=pihcore.hivDispensing.short\",\n                null, config.getFindPatientColumnConfig()),\n                sessionLocationHasTag(\"HIV Consult Location\")));"
+    }
+  ]
+}

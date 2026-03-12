@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "category": "other-programs",
+    "description": "Apps for other programs",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 2,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "program.summary.list",
+      "description": "pih.app.programSummaryList.title",
+      "label": "pih.app.programSummaryList.title",
+      "icon": "fas fa-fw fa-chart-pie",
+      "url": "/coreapps/applist/appList.page?app=",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.PROGRAM_SUMMARY_LIST,\n                    \"pih.app.programSummaryList.title\",\n                    \"fas fa-fw fa-chart-pie\",\n                    \"/coreapps/applist/appList.page?app=\" + CustomAppLoaderConstants.Apps.PROGRAM_SUMMARY_LIST,\n                      PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_SUMMARY_DASHBOARD,\n                    null),\n                    null));"
+    },
+    {
+      "id": "programs.list",
+      "description": "coreapps.programsListDashboardWidget.label",
+      "label": "coreapps.programsListDashboardWidget.label",
+      "icon": "fas fa-fw fa-stethoscope",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.PROGRAMS_LIST,\n                    \"coreapps.programsListDashboardWidget.label\",\n                    \"fas fa-fw fa-stethoscope\",  // TODO figure out right icon\n                    null,\n                      PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,\n                    objectNode(\n                            \"widget\", \"programs\",\n                            \"icon\", \"fas fa-fw fa-stethoscope\",\n                            \"label\", \"coreapps.programsDashboardWidget.label\",\n                            \"supportedPrograms\", StringUtils.join(supportedPrograms, ','),\n                            \"enableProgramDashboards\", \"true\"\n                    )),\n                    \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    }
+  ]
+}

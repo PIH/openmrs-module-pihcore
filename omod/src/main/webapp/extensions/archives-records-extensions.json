@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "category": "archives-records",
+    "description": "Extensions for archives records",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 3,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "request.paper.record.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "script",
+      "label": "paperrecord.task.requestPaperRecord.label",
+      "url": "paperrecord.task.requestPaperRecord.label",
+      "icon": "fas fa-fw fa-folder-open",
+      "order": 0,
+      "require": "Task: emr.requestPaperRecord",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REQUEST_PAPER_RECORD_OVERALL_ACTION,\n                \"paperrecord.task.requestPaperRecord.label\",\n                \"fas fa-fw fa-folder-open\",\n                \"script\",\n                \"showRequestChartDialog()\",\n                \"Task: emr.requestPaperRecord\",\n                null));"
+    },
+    {
+      "id": "print.id.card.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "script",
+      "label": "paperrecord.task.printIdCardLabel.label",
+      "url": "paperrecord.task.printIdCardLabel.label",
+      "icon": "fas fa-fw fa-print",
+      "order": 0,
+      "require": "Task: emr.printLabels",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PRINT_ID_CARD_OVERALL_ACTION,\n                \"paperrecord.task.printIdCardLabel.label\",\n                \"fas fa-fw fa-print\",\n                \"script\",\n                \"printIdCardLabel()\",\n                \"Task: emr.printLabels\",\n                null));"
+    },
+    {
+      "id": "print.paper.form.label.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "script",
+      "label": "paperrecord.task.printPaperFormLabel.label",
+      "url": "paperrecord.task.printPaperFormLabel.label",
+      "icon": "fas fa-fw fa-print",
+      "order": 0,
+      "require": "Task: emr.printLabels",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PRINT_PAPER_FORM_LABEL_OVERALL_ACTION,\n                \"paperrecord.task.printPaperFormLabel.label\",\n                \"fas fa-fw fa-print\",\n                \"script\",\n                \"printPaperFormLabel()\",\n                \"Task: emr.printLabels\",\n                null));"
+    }
+  ]
+}

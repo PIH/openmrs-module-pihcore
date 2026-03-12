@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "category": "labs-pathology",
+    "description": "Apps for labs pathology",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 3,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "add.lab.results",
+      "description": "pih.app.pastLabResults",
+      "label": "pih.app.pastLabResults",
+      "icon": "fas fa-fw fa-vial",
+      "url": "/coreapps/findpatient/findPatient.page?app=",
+      "config": {},
+      "require": "sessionLocationHasTag('Lab Results Location')",
+      "_java_source": "apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.ADD_LAB_RESULTS,\n                \"pih.app.pastLabResults\",\n                \"fas fa-fw fa-vial\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_LAB_RESULTS,\n                \"/htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patientId}}&definitionUiResource=\" + PihCoreUtil.getFormResource(\"labResults.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/coreapps/findpatient/findPatient.page?app=\" + CustomAppLoaderConstants.Apps.ADD_LAB_RESULTS,\n                null, config.getFindPatientColumnConfig()),\n                sessionLocationHasTag(\"Lab Results Location\")));"
+    },
+    {
+      "id": "pathology.tracking",
+      "description": "labtrackingapp.app.label",
+      "label": "labtrackingapp.app.label",
+      "icon": "fas fa-fw fa-microscope",
+      "url": "/labtrackingapp/labtrackingViewQueue.page?appId=",
+      "config": {},
+      "require": "sessionLocationHasTag('Order Pathology Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.PATHOLOGY_TRACKING,\n                \"labtrackingapp.app.label\",\n                \"fas fa-fw fa-microscope\",\n                \"/labtrackingapp/labtrackingViewQueue.page?appId=\" + CustomAppLoaderConstants.Apps.PATHOLOGY_TRACKING,\n                  PihEmrConfigConstants.PRIVILEGE_APP_LAB_TRACKING_MONITOR_ORDERS,\n                null),\n                sessionLocationHasTag(\"Order Pathology Location\")));"
+    },
+    {
+      "id": "pathology.summary",
+      "description": "labtrackingapp.pathology",
+      "label": "labtrackingapp.pathology",
+      "icon": "fas fa-fw fa-microscope",
+      "url": "",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.PATHOLOGY_SUMMARY,\n                \"labtrackingapp.pathology\",\n                \"fas fa-fw fa-microscope\",\n                null,\n                  PihEmrConfigConstants.PRIVILEGE_TASK_LAB_TRACKING_PLACE_ORDERS,\n                null),\n                \"labtrackingapp\", \"labtrackingPatientDashboard\"));"
+    }
+  ]
+}

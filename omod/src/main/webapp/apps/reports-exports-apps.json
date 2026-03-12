@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "category": "reports-exports",
+    "description": "Apps for reports exports",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 4,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "reports",
+      "description": "reportingui.reportsapp.home.title",
+      "label": "reportingui.reportsapp.home.title",
+      "icon": "fas fa-fw fa-chart-bar",
+      "url": "reportingui/reportsapp/home.page",
+      "config": {},
+      "require": "App: reportingui.reports",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.REPORTS,\n                \"reportingui.reportsapp.home.title\",\n                \"fas fa-fw fa-chart-bar\",\n                \"reportingui/reportsapp/home.page\",\n                \"App: reportingui.reports\",\n                null)));"
+    },
+    {
+      "id": "patient.export",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-external-link-alt",
+      "url": "pihcore/export/exportPatients.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.PATIENT_EXPORT,\n                \"pihcore.patient.export\",\n                \"fas fa-fw fa-external-link-alt\",\n                \"pihcore/export/exportPatients.page\",\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "patient.import",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-sign-in-alt",
+      "url": "pihcore/export/importPatients.page",
+      "config": {},
+      "require": "App: coreapps.systemAdministration",
+      "_java_source": "apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.PATIENT_IMPORT,\n                \"pihcore.patient.import\",\n                \"fas fa-fw fa-sign-in-alt\",\n                \"pihcore/export/importPatients.page\",\n                \"App: coreapps.systemAdministration\",\n                null)));"
+    },
+    {
+      "id": "cohort.builder.app",
+      "description": "pih.app.cohortBuilder.label",
+      "label": "pih.app.cohortBuilder.label",
+      "icon": "fas fa-fw icon-check-in",
+      "url": "owa/cohortbuilder/index.html#/",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.COHORT_BUILDER_APP,\n                \"pih.app.cohortBuilder.label\",\n                \"fas fa-fw icon-check-in\",\n                \"owa/cohortbuilder/index.html#/\",\n                   PihEmrConfigConstants.PRIVILEGE_APP_COHORT_BUILDER,null)));"
+    }
+  ]
+}

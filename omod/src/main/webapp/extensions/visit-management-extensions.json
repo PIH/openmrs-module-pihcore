@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "category": "visit-management",
+    "description": "Extensions for visit management",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 3,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "create.visit.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "script",
+      "label": "coreapps.task.startVisit.label",
+      "url": "coreapps.task.startVisit.label",
+      "icon": "fas fa-fw icon-check-in",
+      "order": 0,
+      "require": "Task: coreapps.createVisit",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CREATE_VISIT_OVERALL_ACTION,\n                \"coreapps.task.startVisit.label\",\n                \"fas fa-fw icon-check-in\",\n                \"script\",\n                \"visit.showQuickVisitCreationDialog({{patient.patientId}})\",\n                \"Task: coreapps.createVisit\",\n                and(patientDoesNotActiveVisit(), patientNotDead())));"
+    },
+    {
+      "id": "create.retrospective.visit.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "script",
+      "label": "coreapps.task.createRetrospectiveVisit.label",
+      "url": "coreapps.task.createRetrospectiveVisit.label",
+      "icon": "fas fa-fw fa-plus",
+      "order": 0,
+      "require": "Task: coreapps.createRetrospectiveVisit",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION,\n                \"coreapps.task.createRetrospectiveVisit.label\",\n                \"fas fa-fw fa-plus\",\n                \"script\",\n                \"visit.showRetrospectiveVisitCreationDialog()\",\n                \"Task: coreapps.createRetrospectiveVisit\",\n                null));"
+    },
+    {
+      "id": "visit.actions.includes",
+      "extensionPointId": "dashboard.include.fragments",
+      "type": "fragment",
+      "label": "Extension Label",
+      "url": "patientdashboard/visitIncludes",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.VISIT_ACTIONS_INCLUDES,\n                \"coreapps\",\n                \"patientdashboard/visitIncludes\",\n                null,\n                CustomAppLoaderConstants.ExtensionPoints.DASHBOARD_INCLUDE_FRAGMENTS,\n                map(\"patientVisitsPage\", patientVisitsPageWithSpecificVisitUrl,\n                        \"visitType\", PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID)));"
+    }
+  ]
+}

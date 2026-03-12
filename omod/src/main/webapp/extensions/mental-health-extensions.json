@@ -1,0 +1,66 @@
+{
+  "_meta": {
+    "category": "mental-health",
+    "description": "Extensions for mental health",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 5,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "mental.health.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.mentalHealthIntake.label",
+      "url": "",
+      "icon": "fas fa-fw fa-user",
+      "order": 0,
+      "require": "sessionLocationHasTag('Mental Health Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealthIntake.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(definitionUiResource),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID)),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));"
+    },
+    {
+      "id": "mental.health.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.mentalHealthFU.label",
+      "url": "",
+      "icon": "fas fa-fw fa-user",
+      "order": 0,
+      "require": "sessionLocationHasTag('Mental Health Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_FOLLOWUP_VISIT_ACTION,\n                    \"pih.task.mentalHealthFU.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthFollowup.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));"
+    },
+    {
+      "id": "mental.health.intake.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.mentalHealthIntake.label",
+      "url": "",
+      "icon": "fas fa-fw fa-user",
+      "order": 0,
+      "require": "sessionLocationHasTag('Mental Health Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,\n                    \"pih.task.mentalHealthIntake.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthIntake.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID)),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID))));"
+    },
+    {
+      "id": "mental.health.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.mentalHealth.label",
+      "url": "",
+      "icon": "fas fa-fw fa-user",
+      "order": 0,
+      "require": "sessionLocationHasTag('Mental Health Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealth.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"mentalHealthFollowup.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));"
+    },
+    {
+      "id": "mental.health.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.mentalHealth.label",
+      "url": "",
+      "icon": "fas fa-fw fa-user",
+      "order": 0,
+      "require": "sessionLocationHasTag('Mental Health Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,\n                    \"pih.task.mentalHealth.label\",\n                    \"fas fa-fw fa-user\",\n                    \"link\",\n                    enterStandardHtmlFormLink(definitionUiResource),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID))));"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "category": "surgery",
+    "description": "Extensions for surgery",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 1,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "surgical.note.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "mirebalais.task.surgicalOperativeNote.label",
+      "url": "",
+      "icon": "fas fa-fw fa-paste",
+      "order": 0,
+      "require": "sessionLocationHasTag('Surgery Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SURGICAL_NOTE_VISIT_ACTION,\n                \"mirebalais.task.surgicalOperativeNote.label\",\n                \"fas fa-fw fa-paste\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"surgicalPostOpNote.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_SURGICAL_NOTE,\n                sessionLocationHasTag(\"Surgery Note Location\")));"
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "_meta": {
+    "category": "ncd-programs",
+    "description": "Apps for ncd programs",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 16,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "asthma.symptoms.obs.table",
+      "description": "pih.app.asthma.symptomsObsTable.title",
+      "label": "pih.app.asthma.symptomsObsTable.title",
+      "icon": "fas fa-fw fa-list-alt",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToAsthmaDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.ASTHMA_SYMPTOMS_OBS_TABLE,\n                \"pih.app.asthma.symptomsObsTable.title\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsacrossencounters\",\n                        \"icon\", \"fas fa-fw fa-list-alt\",\n                        \"label\", \"pih.app.asthma.symptomsObsTable.title\",\n                        \"concepts\", CustomAppLoaderConstants.ASTHMA_DAYTIME_SYMPTOMS_TWICE_WEEKLY + ','\n                                + CustomAppLoaderConstants.ASTHMA_DAYTIME_SYMPTOMS_ONCE_WEEKLY + ','\n                                + CustomAppLoaderConstants.ASTHMA_MEDS_TWICE_WEEKLY + ','\n                                + CustomAppLoaderConstants.LIMITATION_OF_ACTIVITY,\n                        \"maxRecords\", \"40\"  // MEX-127\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "abdominal.circumference.graph",
+      "description": "pih.app.abdominalCircumference.graph.title",
+      "label": "pih.app.abdominalCircumference.graph.title",
+      "icon": "fas fa-fw fa-chart-bar",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToDiabetesDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.ABDOMINAL_CIRCUMFERENCE_GRAPH,\n                \"pih.app.abdominalCircumference.graph.title\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsgraph\",\n                        \"label\", \"pih.app.abdominalCircumference.graph.title\",\n                        \"icon\", \"fas fa-fw fa-chart-bar\",\n                        \"conceptId\", CustomAppLoaderConstants.ABDOMINAL_CIRCUMFERENCE_CONCEPT_UUID,\n                        \"maxRecords\", \"4\"\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "foot.exam.obs.table",
+      "description": "pih.app.footExamObsTable.title",
+      "label": "pih.app.footExamObsTable.title",
+      "icon": "fas fa-fw fa-list-alt",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToDiabetesDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.FOOT_EXAM_OBS_TABLE,\n                \"pih.app.footExamObsTable.title\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsacrossencounters\",\n                        \"icon\", \"fas fa-fw fa-list-alt\",\n                        \"label\", \"pih.app.footExamObsTable.title\",\n                        \"concepts\", CustomAppLoaderConstants.FOOT_EXAM_CONCEPT_UUID,\n                        \"maxRecords\", \"100\"  // MEX-127 - should be ten or so rows\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "urinary.albumin.obs.table",
+      "description": "pih.app.urinaryAlbuminObsTable.title",
+      "label": "pih.app.urinaryAlbuminObsTable.title",
+      "icon": "fas fa-fw fa-list-alt",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToDiabetesDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.URINARY_ALBUMIN_OBS_TABLE,\n                \"pih.app.urinaryAlbuminObsTable.title\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsacrossencounters\",\n                        \"icon\", \"fas fa-fw fa-list-alt\",\n                        \"label\", \"pih.app.urinaryAlbuminObsTable.title\",\n                        \"concepts\", CustomAppLoaderConstants.URINARY_ALBUMIN_CONCEPT_UUID,\n                        \"maxRecords\", \"10\"  // MEX-127 - should be 3 rows\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "alc.tobac.use.summary",
+      "description": "pih.app.patientSummary.title",
+      "label": "pih.app.patientSummary.title",
+      "icon": "fas fa-fw fa-user-md",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToDiabetesDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.ALC_TOBAC_USE_SUMMARY,\n                \"pih.app.patientSummary.title\",\n                \"fas fa-fw fa-user-md\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"latestobsforconceptlist\",\n                        \"icon\", \"fas fa-fw fa-user-md\",\n                        \"label\", \"pih.app.patientSummary.title\",\n                        \"concepts\", CustomAppLoaderConstants.ALCOHOL_USE_CONCEPT_UUID + ','\n                                + CustomAppLoaderConstants.TOBACCO_USE_CONCEPT_UUID\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "glucose.graph",
+      "description": "pih.app.glucose.graph.title",
+      "label": "pih.app.glucose.graph.title",
+      "icon": "fas fa-fw fa-chart-bar",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToDiabetesDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.GLUCOSE_GRAPH,\n                \"pih.app.glucose.graph.title\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsgraph\",\n                        \"label\", \"pih.app.glucose.graph.title\",\n                        \"icon\", \"fas fa-fw fa-chart-bar\",\n                        \"conceptId\", CustomAppLoaderConstants.GLUCOSE_CONCEPT_UUID,\n                        \"maxRecords\", \"12\"\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "hba",
+      "description": "pih.app.hba1c.graph.title",
+      "label": "pih.app.hba1c.graph.title",
+      "icon": "fas fa-fw fa-chart-bar",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToDiabetesDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HBA1C_GRAPH,\n                \"pih.app.hba1c.graph.title\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsgraph\",\n                        \"label\", \"pih.app.hba1c.graph.title\",\n                        \"icon\", \"fas fa-fw fa-chart-bar\",\n                        \"conceptId\", CustomAppLoaderConstants.HBA1C_CONCEPT_UUID,\n                        \"maxRecords\", \"4\"\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToDiabetesDashboardSecondColumn(\n                graphs.getCholesterolGraph(\".diabetes\"),\n                \"coreapps\",\n                \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHypertensionDashboardFirstColumn(\n                graphs.getBloodPressureGraph(\".htn\"),\n                \"coreapps\",\n                \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "blood.pressure.obs.table",
+      "description": "pih.app.bloodPressure.obsTable.title",
+      "label": "pih.app.bloodPressure.obsTable.title",
+      "icon": "fas fa-fw fa-list-alt",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToHypertensionDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.BLOOD_PRESSURE_OBS_TABLE,\n                \"pih.app.bloodPressure.obsTable.title\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsacrossencounters\",\n                        \"icon\", \"fas fa-fw fa-list-alt\",\n                        \"label\", \"pih.app.bloodPressure.obsTable.title\",\n                        \"concepts\", CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID + \",\"\n                                + CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID,\n                        \"maxRecords\", \"100\"\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHypertensionDashboardSecondColumn(\n                graphs.getBmiGraph(\".htn\"),\n                \"coreapps\",\n                \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHypertensionDashboardSecondColumn(\n                graphs.getCholesterolGraph(\".htn\"),\n                \"coreapps\",\n                \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "epilepsy.summary",
+      "description": "pih.app.patientSummary.title",
+      "label": "pih.app.patientSummary.title",
+      "icon": "fas fa-fw fa-user-md",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToEpilepsyDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.EPILEPSY_SUMMARY,\n                \"pih.app.patientSummary.title\",\n                \"fas fa-fw fa-user-md\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"latestobsforconceptlist\",\n                        \"icon\", \"fas fa-fw fa-user-md\",\n                        \"label\", \"pih.app.patientSummary.title\",\n                        \"concepts\", CustomAppLoaderConstants.EPI_SEIZURES_BASELINE\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "epilepsy.seizures",
+      "description": "pih.app.epilepsy.seizureGraph",
+      "label": "pih.app.epilepsy.seizureGraph",
+      "icon": "fas fa-fw fa-chart-bar",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToEpilepsyDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.EPILEPSY_SEIZURES,\n                \"pih.app.epilepsy.seizureGraph\",\n                \"fas fa-fw fa-chart-bar\",\n                null,\n                null,\n                objectNode(\n                        \"widget\", \"obsgraph\",\n                        \"label\", \"pih.app.epilepsy.seizureGraph\",\n                        \"icon\", \"fas fa-fw fa-chart-bar\",\n                        \"conceptId\", CustomAppLoaderConstants.EPI_SEIZURES,\n                        \"maxResults\", \"30\"  // MEX-127\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToMalnutritionDashboardSecondColumn(\n                graphs.getBmiGraph(\".malnutrition\"),\n                \"coreapps\",\n                \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "head.circumference.graph",
+      "description": "pih.app.headCircumferenceGraph.title",
+      "label": "pih.app.headCircumferenceGraph.title",
+      "icon": "fas fa-fw fa-chart-bar",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": null,
+      "_java_source": "apps.add(addToMalnutritionDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HEAD_CIRCUMFERENCE_GRAPH,\n                        \"pih.app.headCircumferenceGraph.title\",\n                        \"fas fa-fw fa-chart-bar\",\n                        null,\n                        null,\n                        objectNode(\n                                \"widget\", \"obsgraph\",\n                                \"icon\", \"fas fa-fw fa-chart-bar\",\n                                \"conceptId\", CustomAppLoaderConstants.HEAD_CIRC_CONCEPT_UUID,\n                                \"maxResults\", \"12\"\n                        )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    }
+  ]
+}

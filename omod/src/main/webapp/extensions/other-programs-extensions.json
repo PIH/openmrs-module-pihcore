@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "category": "other-programs",
+    "description": "Extensions for other programs",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 9,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "tb.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-wind",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.TB_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_TB_INTAKE_UUID,\n                \"fas fa-fw fa-wind\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"tbIntake.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,\n                sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "id": "covid",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": "sessionLocationHasTag('COVID-19 Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_FOLLOWUP_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Followup.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                    visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));"
+    },
+    {
+      "id": "covid",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": "sessionLocationHasTag('COVID-19 Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_DISCHARGE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Discharge.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_DISCHARGE_UUID),\n                        visitHasEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));"
+    },
+    {
+      "id": "covid",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": "sessionLocationHasTag('COVID-19 Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COVID19_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID,\n                \"fab fa-fw fa-first-order-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"covid19Intake.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_COVID,\n                and(sessionLocationHasTag(\"COVID-19 Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_COVID19_INTAKE_UUID))));"
+    },
+    {
+      "id": "vct.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.vct.label",
+      "url": "hiv/vct.xml",
+      "icon": "fas fa-fw fa-ribbon",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VCT_VISIT_ACTION,\n                \"pih.task.vct.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/vct.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_VCT_UUID))));"
+    },
+    {
+      "id": "ovc.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-child",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.OVC_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID,\n                \"fas fa-fw fa-child\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ovcIntake.xml\")),\n                null,\n                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));"
+    },
+    {
+      "id": "ovc.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-child",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.OVC_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID,\n                \"fas fa-fw fa-child\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ovcFollowup.xml\")),\n                null,\n                and(or(patientAgeUnknown(), patientAgeLessThanOrEqualToAtVisitStart(21)),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_OVC_FOLLOWUP_UUID))));"
+    },
+    {
+      "id": "physical.rehab.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "retired/physicalRehab.xml",
+      "icon": "fas fa-fw fa-user-injured",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PHYSICAL_REHAB_VISIT_ACTION,\n                \"pihcore.physicalRehab\",\n                \"fas fa-fw fa-user-injured\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"retired/physicalRehab.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PHYSICAL_REHAB_EVAL_UUID))));"
+    },
+    {
+      "id": "drug.rehab.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-pills",
+      "order": 0,
+      "require": "sessionLocationHasTag('Mental Health Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DRUG_REHAB_VISIT_ACTION,\n                \"pihcore.drugRehab\",\n                \"fas fa-fw fa-pills\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"drugRehab.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                and(sessionLocationHasTag(\"Mental Health Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_DRUG_REHAB_UUID))));"
+    }
+  ]
+}

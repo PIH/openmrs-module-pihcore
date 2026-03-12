@@ -1,0 +1,66 @@
+{
+  "_meta": {
+    "category": "specialized-tools",
+    "description": "Extensions for specialized tools",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 5,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "biometrics.find.patient",
+      "extensionPointId": "patient.search",
+      "type": "fragment",
+      "label": "Extension Label",
+      "url": "biometrics/fingerprintSearch",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.BIOMETRICS_FIND_PATIENT,\n                \"registrationapp\",\n                \"biometrics/fingerprintSearch\",\n                null,   // shouldn't need a privilege, since this is injected into the patient search\n                CustomAppLoaderConstants.ExtensionPoints.PATIENT_SEARCH,\n                map(\"scanUrl\", config.getBiometricsConfig().getScanUrl(),\n                        \"devicesUrl\", config.getBiometricsConfig().getDevicesUrl())));"
+    },
+    {
+      "id": "chart.search.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "pihcore.chartSearch.label",
+      "url": "chartsearch/chartsearch.page?patientId={{patient.patientId}}",
+      "icon": "fas fa-fw fa-search",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.CHART_SEARCH_OVERALL_ACTION,\n                \"pihcore.chartSearch.label\",\n                \"fas fa-fw fa-search\",\n                \"link\",\n                \"chartsearch/chartsearch.page?patientId={{patient.patientId}}\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE, // TODO correct permission!\n                null));"
+    },
+    {
+      "id": "mark.patient.dead.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "coreapps.markPatientDead.label",
+      "url": "coreapps/markPatientDead.page?patientId={{patient.uuid}}&defaultDead=true",
+      "icon": "icon-plus-sign-alt",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.MARK_PATIENT_DEAD_OVERALL_ACTION,\n                \"coreapps.markPatientDead.label\",\n                \"icon-plus-sign-alt\",\n                \"link\",\n                \"coreapps/markPatientDead.page?patientId={{patient.uuid}}&defaultDead=true\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_MARK_PATIENT_DEAD,\n               null));"
+    },
+    {
+      "id": "comment.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-pencil-alt",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.COMMENT_VISIT_ACTION,\n                \"pihcore.comment\",\n                \"fas fa-fw fa-pencil-alt\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"comment.xml\")),\n                null,\n                null));"
+    },
+    {
+      "id": "spa.preview.patient.chart",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "spa/patient/{{patient.uuid}}/chart/summary",
+      "icon": "fas fa-fw fa-exclamation-triangle",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.SPA_PREVIEW_PATIENT_CHART,\n                \"pihcore.spa.patientChart\",\n                \"fas fa-fw fa-exclamation-triangle\",\n                \"link\",\n                \"spa/patient/{{patient.uuid}}/chart/summary\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION,\n                null));"
+    }
+  ]
+}

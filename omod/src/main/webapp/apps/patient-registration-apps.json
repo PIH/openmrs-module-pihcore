@@ -1,0 +1,149 @@
+{
+  "_meta": {
+    "category": "patient-registration",
+    "description": "Apps for patient registration",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 12,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "",
+      "config": {},
+      "require": "sessionLocationHasTag('Registration Location')",
+      "_java_source": "apps.add(addToHomePage(patientRegistrationApp.getAppDescriptor(config),\n                sessionLocationHasTag(\"Registration Location\")));"
+    },
+    {
+      "id": "additional.identifiers",
+      "description": "App: registrationapp.registerPatient",
+      "label": "App: registrationapp.registerPatient",
+      "icon": "fas fa-fw fa-user",
+      "url": "summary/section",
+      "config": {},
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.ADDITIONAL_IDENTIFIERS,\n                    \"zl.registration.patient.additionalIdentifiers\",\n                    \"fas fa-fw fa-user\",\n                    null,\n                    \"App: registrationapp.registerPatient\",\n                    null),\n                    \"registrationapp\",\n                    \"summary/section\",\n                    map(\"sectionId\", \"patient-identification-section\")));"
+    },
+    {
+      "id": "most.recent.registration.summary",
+      "description": "mirebalais.mostRecentRegistration.label",
+      "label": "mirebalais.mostRecentRegistration.label",
+      "icon": "fas fa-fw fa-user",
+      "url": "encounter/mostRecentEncounter",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummaryContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_SUMMARY,\n                \"mirebalais.mostRecentRegistration.label\",\n                \"fas fa-fw fa-user\",\n                null,\n                \"App: registrationapp.registerPatient\",\n                objectNode(\"encounterDateLabel\", \"mirebalais.mostRecentRegistration.encounterDateLabel\",\n                        \"encounterTypeUuid\", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,\n                        \"definitionUiResource\", PihCoreUtil.getFormResource(\"patientRegistration-rs.xml\"),\n                        \"editable\", true,\n                        \"creatable\", true)),\n                \"coreapps\",\n                \"encounter/mostRecentEncounter\"));"
+    },
+    {
+      "id": "provider.relationships.registration.summary",
+      "description": "pihcore.providerRelationshipsDashboardWidget.label",
+      "label": "pihcore.providerRelationshipsDashboardWidget.label",
+      "icon": "fas fa-fw fa-users",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "editPrivilege",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.PROVIDER_RELATIONSHIPS_REGISTRATION_SUMMARY,\n                    \"pihcore.providerRelationshipsDashboardWidget.label\",\n                    \"fas fa-fw fa-users\",\n                    null,\n                    null,\n                    objectNode(\n                            \"widget\", \"relationships\",\n                            \"baseAppPath\", \"/registrationapp\",\n                            \"editable\", \"true\",\n                            \"editPrivilege\", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,\n                            \"dashboardPage\", \"/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient\",\n                            \"providerPage\", null,\n                            \"includeRelationshipTypes\", PihEmrConfigConstants.RELATIONSHIPTYPE_CHWTOPATIENT_UUID,\n                            \"icon\", \"fas fa-fw fa-users\",\n                            \"label\", \"pihcore.providerRelationshipsDashboardWidget.label\"\n                    )),\n                    \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "relationships.registration.summary",
+      "description": "pihcore.relationshipsDashboardWidget.label",
+      "label": "pihcore.relationshipsDashboardWidget.label",
+      "icon": "fas fa-fw fa-users",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "editPrivilege",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,\n                    \"pihcore.relationshipsDashboardWidget.label\",\n                    \"fas fa-fw fa-users\",\n                    null,\n                    null, // TODO restrict by privilege or location)\n                    objectNode(\n                            \"widget\", \"relationships\",\n                            \"baseAppPath\", \"/registrationapp\",\n                            \"editable\", \"true\",\n                            \"editPrivilege\", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,\n                            \"dashboardPage\", \"/registrationapp/registrationSummary.page?patientId={{patientUuid}}&appId=registrationapp.registerPatient\",\n                            \"providerPage\", null,\n                            \"includeRelationshipTypes\", PihEmrConfigConstants.RELATIONSHIPTYPE_SPOUSEPARTNER_UUID\n                                    + \",\" + PihCoreConstants.RELATIONSHIP_SIBLING\n                                    + \",\" + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,\n                            \"icon\", \"fas fa-fw fa-users\",\n                            \"label\", \"pihcore.relationshipsDashboardWidget.label\"\n                    )),\n                    \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "most.recent.registration.insurance",
+      "description": "zl.registration.patient.insurance.insuranceName.label",
+      "label": "zl.registration.patient.insurance.insuranceName.label",
+      "icon": "fas fa-fw fa-address-card",
+      "url": "encounter/mostRecentEncounter",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummaryContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_INSURANCE,\n                    \"zl.registration.patient.insurance.insuranceName.label\",\n                    \"fas fa-fw fa-address-card\",\n                    null,\n                    \"App: registrationapp.registerPatient\",\n                    objectNode(\"encounterDateLabel\", \"mirebalais.mostRecentRegistration.encounterDateLabel\",\n                            \"encounterTypeUuid\", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,\n                            \"definitionUiResource\", PihCoreUtil.getFormResource(\"patientRegistration-insurance.xml\"),\n                            \"editable\", true)),\n                    \"coreapps\",\n                    \"encounter/mostRecentEncounter\"));"
+    },
+    {
+      "id": "most.recent.registration.social",
+      "description": "zl.registration.patient.social.label",
+      "label": "zl.registration.patient.social.label",
+      "icon": "fas fa-fw fa-user",
+      "url": "encounter/mostRecentEncounter",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummaryContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_SOCIAL,\n                \"zl.registration.patient.social.label\",\n                \"fas fa-fw fa-user\",\n                null,\n                \"App: registrationapp.registerPatient\",\n                objectNode(\"encounterDateLabel\", \"mirebalais.mostRecentRegistration.encounterDateLabel\",\n                        \"encounterTypeUuid\", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,\n                        \"definitionUiResource\", PihCoreUtil.getFormResource(\"patientRegistration-social.xml\"),\n                        \"editable\", true)),\n                \"coreapps\",\n                \"encounter/mostRecentEncounter\"));"
+    },
+    {
+      "id": "most.recent.registration.contact",
+      "description": "zl.registration.patient.contactPerson.label",
+      "label": "zl.registration.patient.contactPerson.label",
+      "icon": "fas fa-fw fa-phone",
+      "url": "encounter/mostRecentEncounter",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_CONTACT,\n                    \"zl.registration.patient.contactPerson.label\",\n                    \"fas fa-fw fa-phone\",\n                    null,\n                    \"App: registrationapp.registerPatient\",\n                    objectNode(\"encounterDateLabel\", \"mirebalais.mostRecentRegistration.encounterDateLabel\",\n                            \"encounterTypeUuid\", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,\n                            \"definitionUiResource\", PihCoreUtil.getFormResource(\"patientRegistration-contact.xml\"),\n                            \"editable\", true)),\n                    \"coreapps\",\n                    \"encounter/mostRecentEncounter\"));"
+    },
+    {
+      "id": "most.recent.registration.local.address",
+      "description": "sl.registration.patient.localAddress.label",
+      "label": "sl.registration.patient.localAddress.label",
+      "icon": "fas fa-fw fa-phone",
+      "url": "encounter/mostRecentEncounter",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_LOCAL_ADDRESS,\n                            \"sl.registration.patient.localAddress.label\",\n                            \"fas fa-fw fa-phone\",\n                            null,\n                            \"App: registrationapp.registerPatient\",\n                            objectNode(\"encounterDateLabel\", \"mirebalais.mostRecentRegistration.encounterDateLabel\",\n                                    \"encounterTypeUuid\", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,\n                                    \"definitionUiResource\", PihCoreUtil.getFormResource(\"patientRegistration-localAddress.xml\"),\n                                    \"editable\", true)),\n                    \"coreapps\",\n                    \"encounter/mostRecentEncounter\"));"
+    },
+    {
+      "id": "most.recent.check.in",
+      "description": "pihcore.mostRecentCheckin.label",
+      "label": "pihcore.mostRecentCheckin.label",
+      "icon": "fas fa-fw fa-check",
+      "url": "encounter/mostRecentEncounter",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_CHECK_IN,\n                                \"pihcore.mostRecentCheckin.label\",\n                                \"fas fa-fw fa-check\",\n                                null,\n                                \"App: registrationapp.registerPatient\",\n                                objectNode(\"encounterDateLabel\", \"pihcore.mostRecentCheckin.encounterDateLabel\",\n                                        \"encounterTypes\",arrayNode(\n                                                objectNode(\n                                                        PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID, PihCoreUtil.getFormResource(\"checkin.xml\"),\n                                                        SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMATERNALCHECKIN_UUID, PihCoreUtil.getFormResource(\"checkinMaternal.xml\")\n                                                )\n                                        ),\n                                        \"editable\", true,\n                                        \"edit-provider\", \"htmlformentryui\",\n                                        \"edit-fragment\", \"htmlform/editHtmlFormWithSimpleUi\")),\n                        \"coreapps\",\n                        \"encounter/mostRecentEncounter\"));"
+    },
+    {
+      "id": "most.recent.check.in",
+      "description": "pihcore.mostRecentCheckin.label",
+      "label": "pihcore.mostRecentCheckin.label",
+      "icon": "fas fa-fw fa-check",
+      "url": "encounter/mostRecentEncounter",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_CHECK_IN,\n                                \"pihcore.mostRecentCheckin.label\",\n                                \"fas fa-fw fa-check\",\n                                null,\n                                \"App: registrationapp.registerPatient\",\n                                objectNode(\"encounterDateLabel\", \"pihcore.mostRecentCheckin.encounterDateLabel\",\n                                        \"encounterTypeUuid\", PihEmrConfigConstants.ENCOUNTERTYPE_CHECK_IN_UUID,\n                                        \"definitionUiResource\", PihCoreUtil.getFormResource(\"checkin.xml\"),\n                                        \"editable\", true,\n                                        \"edit-provider\", \"htmlformentryui\",\n                                        \"edit-fragment\", \"htmlform/editHtmlFormWithSimpleUi\")),\n                        \"coreapps\",\n                        \"encounter/mostRecentEncounter\"));"
+    },
+    {
+      "id": "id.card.printing.status",
+      "description": "App: registrationapp.registerPatient",
+      "label": "App: registrationapp.registerPatient",
+      "icon": "fas fa-fw fa-barcode",
+      "url": "patientRegistration/idCardStatus",
+      "config": {},
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.ID_CARD_PRINTING_STATUS,\n                    \"zl.registration.patient.idcard.status\",\n                    \"fas fa-fw fa-barcode\",\n                    null,\n                    \"App: registrationapp.registerPatient\",\n                    null),\n                    \"pihcore\",\n                    \"patientRegistration/idCardStatus\"));"
+    }
+  ]
+}

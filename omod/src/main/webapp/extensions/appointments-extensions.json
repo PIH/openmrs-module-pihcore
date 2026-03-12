@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "category": "appointments",
+    "description": "Extensions for appointments",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 3,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "schedule.appointment.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "appointmentschedulingui.scheduleAppointment.new.title",
+      "url": "appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}",
+      "icon": "fas fa-fw fa-calendar-alt",
+      "order": 0,
+      "require": "Task: appointmentschedulingui.bookAppointments",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,\n                \"appointmentschedulingui.scheduleAppointment.new.title\",\n                \"fas fa-fw fa-calendar-alt\",\n                \"link\",\n                \"appointmentschedulingui/manageAppointments.page?patientId={{patient.uuid}}\",\n                \"Task: appointmentschedulingui.bookAppointments\",\n                null));"
+    },
+    {
+      "id": "request.appointment.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "appointmentschedulingui.requestAppointment.label",
+      "url": "appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}",
+      "icon": "fas fa-fw fa-calendar-alt",
+      "order": 0,
+      "require": "Task: appointmentschedulingui.requestAppointments",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.REQUEST_APPOINTMENT_OVERALL_ACTION,\n                \"appointmentschedulingui.requestAppointment.label\",\n                \"fas fa-fw fa-calendar-alt\",\n                \"link\",\n                \"appointmentschedulingui/requestAppointment.page?patientId={{patient.uuid}}\",\n                \"Task: appointmentschedulingui.requestAppointments\",\n                null));"
+    },
+    {
+      "id": "appointments.tab",
+      "extensionPointId": "patientDashboard.tabs",
+      "type": "tab",
+      "label": "appointmentschedulingui.appointmentsTab.label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": "App: appointmentschedulingui.viewAppointments",
+      "_java_source": "extensions.add(dashboardTab(CustomAppLoaderConstants.Extensions.APPOINTMENTS_TAB,\n                \"appointmentschedulingui.appointmentsTab.label\",\n                \"App: appointmentschedulingui.viewAppointments\",\n                \"appointmentschedulingui\",\n                \"appointmentsTab\"));"
+    }
+  ]
+}

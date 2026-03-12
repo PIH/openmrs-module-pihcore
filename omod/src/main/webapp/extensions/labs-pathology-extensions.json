@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "category": "labs-pathology",
+    "description": "Extensions for labs pathology",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 4,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "lab.results.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "pih.task.addPastLabResults.label",
+      "url": "",
+      "icon": "fas fa-fw fa-vial",
+      "order": 0,
+      "require": "sessionLocationHasTag('Lab Results Location')",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.LAB_RESULTS_OVERALL_ACTION,\n                \"pih.task.addPastLabResults.label\",\n                \"fas fa-fw fa-vial\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"labResults.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_LAB_RESULTS,\n                sessionLocationHasTag(\"Lab Results Location\")));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(pathology);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsMchVisitAction(pathology));"
+    },
+    {
+      "id": "echo.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-chart-line",
+      "order": 0,
+      "require": "sessionLocationHasTag('Echocardiogram Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ECHO_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_ECHOCARDIOGRAM_UUID,\n                \"fas fa-fw fa-chart-line\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"Echocardiogram Location\"),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    }
+  ]
+}

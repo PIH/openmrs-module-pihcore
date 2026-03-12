@@ -1,0 +1,45 @@
+{
+  "_meta": {
+    "category": "primary-care",
+    "description": "Apps for primary care",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 3,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "relationships.clinical.summary",
+      "description": "pihcore.relationshipsDashboardWidget.label",
+      "label": "pihcore.relationshipsDashboardWidget.label",
+      "icon": "fas fa-fw fa-users",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "editPrivilege",
+      "_java_source": "apps.add(addToClinicianDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.RELATIONSHIPS_CLINICAL_SUMMARY,\n                \"pihcore.relationshipsDashboardWidget.label\",\n                \"fas fa-fw fa-users\",\n                null,\n                null, // TODO restrict by privilege or location)\n                objectNode(\n                        \"widget\", \"relationships\",\n                        \"editPrivilege\", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,\n                        \"dashboardPage\", config.getDashboardUrl(),\n                        \"providerPage\", null,\n                        \"includeRelationshipTypes\", PihEmrConfigConstants.RELATIONSHIPTYPE_SPOUSEPARTNER_UUID\n                                + \",\" + PihCoreConstants.RELATIONSHIP_SIBLING\n                                + \",\" + PihCoreConstants.RELATIONSHIP_PARENT_CHILD,\n                        \"icon\", \"fas fa-fw fa-users\",\n                        \"label\", \"pihcore.relationshipsDashboardWidget.label\"\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "provider.relationships.clinical.summary",
+      "description": "pihcore.providerRelationshipsDashboardWidget.label",
+      "label": "pihcore.providerRelationshipsDashboardWidget.label",
+      "icon": "fas fa-fw fa-users",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "editPrivilege",
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.PROVIDER_RELATIONSHIPS_CLINICAL_SUMMARY,\n                \"pihcore.providerRelationshipsDashboardWidget.label\",\n                \"fas fa-fw fa-users\",\n                null,\n                null,\n                objectNode(\n                    \"widget\", \"relationships\",\n                    \"editPrivilege\", CoreAppsConstants.PRIVILEGE_EDIT_RELATIONSHIPS,\n                    \"dashboardPage\", config.getDashboardUrl(),\n                    \"providerPage\", null,\n                    \"includeRelationshipTypes\", PihEmrConfigConstants.RELATIONSHIPTYPE_CHWTOPATIENT_UUID,\n                    \"icon\", \"fas fa-fw fa-users\",\n                    \"label\", \"pihcore.providerRelationshipsDashboardWidget.label\"\n                )),\n                \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "patient.documents",
+      "description": "pihcore.patientDocuments.label",
+      "label": "pihcore.patientDocuments.label",
+      "icon": "fas fa-fw fa-paperclip",
+      "url": "attachments/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.PATIENT_DOCUMENTS,\n                \"pihcore.patientDocuments.label\",\n                \"fas fa-fw fa-paperclip\",\n                null,\n                  PihEmrConfigConstants.PRIVILEGE_APP_ATTACHMENTS_PAGE,\n                null),\n                \"coreapps\", \"attachments/dashboardWidget\"));"
+    }
+  ]
+}

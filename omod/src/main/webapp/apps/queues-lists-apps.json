@@ -1,0 +1,31 @@
+{
+  "_meta": {
+    "category": "queues-lists",
+    "description": "Apps for queues lists",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 2,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "waiting.for.consult",
+      "description": "pihcore.waitingForConsult.title",
+      "label": "pihcore.waitingForConsult.title",
+      "icon": "fas fa-fw fa-stethoscope",
+      "url": "pihcore/visit/waitingForConsult.page",
+      "config": {},
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.WAITING_FOR_CONSULT,\n                \"pihcore.waitingForConsult.title\",\n                \"fas fa-fw fa-stethoscope\",\n                \"pihcore/visit/waitingForConsult.page\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_WAITING_FOR_CONSULT,\n                null),sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "id": "todays.visits",
+      "description": "pihcore.todaysVisits.title",
+      "label": "pihcore.todaysVisits.title",
+      "icon": "fas fa-fw icon-check-in",
+      "url": "pihcore/visit/todaysVisits.page",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.TODAYS_VISITS,\n                \"pihcore.todaysVisits.title\",\n                \"fas fa-fw icon-check-in\",\n                \"pihcore/visit/todaysVisits.page\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_TODAYS_VISITS,\n                null)));"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "category": "adt-inpatient",
+    "description": "Apps for adt inpatient",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 4,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "awaiting.admission",
+      "description": "coreapps.app.awaitingAdmission.label",
+      "label": "coreapps.app.awaitingAdmission.label",
+      "icon": "fas fa-fw fa-list-ul",
+      "url": "pihcore/adt/awaitingAdmission.page?app=",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: coreapps.awaitingAdmission",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.AWAITING_ADMISSION,\n                \"coreapps.app.awaitingAdmission.label\",\n                \"fas fa-fw fa-list-ul\",\n                \"pihcore/adt/awaitingAdmission.page?app=\" + CustomAppLoaderConstants.Apps.AWAITING_ADMISSION,\n                \"App: coreapps.awaitingAdmission\",\n                objectNode(\"patientPageUrl\", config.getDashboardUrl()))));"
+    },
+    {
+      "id": "inpatients",
+      "description": "mirebalaisreports.app.inpatients.label",
+      "label": "mirebalaisreports.app.inpatients.label",
+      "icon": "fas fa-fw fa-hospital",
+      "url": "pihcore/adt/inpatientList.page",
+      "config": {},
+      "require": "sessionLocationHasTag('Inpatients App Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.INPATIENTS,\n                        \"mirebalaisreports.app.inpatients.label\",\n                        \"fas fa-fw fa-hospital\",\n                        \"pihcore/adt/inpatientList.page\",\n                        \"App: emr.inpatients\",\n                        null),\n                sessionLocationHasTag(\"Inpatients App Location\")));"
+    },
+    {
+      "id": "inpatient.ward",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-hospital",
+      "url": "spa/home/ward",
+      "config": {},
+      "require": "sessionLocationHasTag('Admission Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.INPATIENT_WARD,\n                        CustomAppLoaderConstants.Apps.INPATIENT_WARD,\n                        \"fas fa-fw fa-hospital\",\n                        \"spa/home/ward\",\n                        \"App: emr.inpatients\",\n                        null),\n                sessionLocationHasTag(\"Admission Location\")));"
+    },
+    {
+      "id": "bed.administration",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-bed",
+      "url": "/openmrs/owa/bedmanagement/admissionLocations.html",
+      "config": {},
+      "require": "sessionLocationHasTag('Admission Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,\n                CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,\n                \"fas fa-fw fa-bed\",\n                \"/openmrs/owa/bedmanagement/admissionLocations.html\",\n                null,\n                null),\n                sessionLocationHasTag(\"Admission Location\")));"
+    }
+  ]
+}

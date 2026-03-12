@@ -1,0 +1,176 @@
+{
+  "_meta": {
+    "category": "clinical-consults",
+    "description": "Extensions for clinical consults",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 15,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "consult.note.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "coreapps.clinic.consult.title",
+      "url": "",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_VISIT_ACTION,\n                \"coreapps.clinic.consult.title\",\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatientConsult.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "patientdashboard/encountertemplate/consultEncounterTemplate",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(encounterTemplate(CustomAppLoaderConstants.EncounterTemplates.CONSULT, \"pihcore\", \"patientdashboard/encountertemplate/consultEncounterTemplate\"));"
+    },
+    {
+      "id": "consult.note.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.CONSULT_NOTE_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatientConsultInitial.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_CONSULTATION_INITIAL_UUID)))));"
+    },
+    {
+      "id": "nurse.consult.note.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NURSE_CONSULT_NOTE_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NURSE_CONSULT_UUID,\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"nurseConsult.xml\")),\n                null,\n                sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "id": "ed.consult.note.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "coreapps.ed.consult.title",
+      "url": "",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('ED Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ED_CONSULT_NOTE_VISIT_ACTION,\n                \"coreapps.ed.consult.title\",\n                \"fas fa-fw fa-stethoscope\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"edNote.xml\")),\n                null,\n                and(sessionLocationHasTag(\"ED Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ED_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "primary.care.peds.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnUrl=/",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Primary Care Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-peds-initial.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID)),\n                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "primary.care.peds.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnUrl=/",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Primary Care Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-peds-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),\n                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "primary.care.adult.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnUrl=/",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Primary Care Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_ADULT_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-adult-initial.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID)),\n                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "primary.care.adult.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnUrl=/",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Primary Care Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_ADULT_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"primary-care-adult-followup.xml\") + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link\n                    null,\n                    and(sessionLocationHasTag(\"Primary Care Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),\n                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotActiveVisit()),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "mexico.consult.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MEXICO_CONSULT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + CesConfigConstants.ENCOUNTERTYPE_MEXICOCONSULT_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"consult.xml\")),\n                    null,\n                    sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "id": "mexico.clinical.history.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-clipboard-list",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MEXICO_CLINICAL_HISTORY_ACTION,\n                    \"ui.i18n.EncounterType.name.0d16a7c9-07fb-43f6-8984-dd7787f26a5a\",  // Clinical History\n                    \"fas fa-fw fa-clipboard-list\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"clinicalHistory.xml\")),\n                    null,\n                    sessionLocationHasTag(\"Consult Note Location\")));"
+    },
+    {
+      "id": "sierra.leone.outpatient.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnUrl=/",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatient-initial.xml\")\n                            + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                    null,\n                    and(sessionLocationHasTag(\"Consult Note Location\"),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));"
+    },
+    {
+      "id": "sierra.leone.outpatient.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnUrl=/",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID,\n                    \"fas fa-fw fa-stethoscope\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"outpatient-followup.xml\")\n                            + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                    null,\n                    and(sessionLocationHasTag(\"Consult Note Location\"),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID),\n                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTFOLLOWUP_UUID))));"
+    },
+    {
+      "id": "liberia.family.med.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnUrl=/",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_INITIAL_VISIT_ACTION,\n                        \"ui.i18n.EncounterType.name.\" + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID,\n                        \"fas fa-fw fa-stethoscope\",\n                        \"link\",\n                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"family-medicine-intake.xml\")\n                                + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                        null,\n                        and(sessionLocationHasTag(\"Consult Note Location\"),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID))));"
+    },
+    {
+      "id": "liberia.family.med.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnUrl=/",
+      "icon": "fas fa-fw fa-stethoscope",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_FOLLOWUP_VISIT_ACTION,\n                        \"ui.i18n.EncounterType.name.\" + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID,\n                        \"fas fa-fw fa-stethoscope\",\n                        \"link\",\n                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"family-medicine-followup.xml\")\n                                + \"&returnUrl=/\" + WebConstants.CONTEXT_PATH + \"/\" + patientVisitsPageWithSpecificVisitUrl),\n                        null,\n                        and(sessionLocationHasTag(\"Consult Note Location\"),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID),\n                                visitDoesNotHaveEncounterOfType(LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEFOLLOWUP_UUID))));"
+    }
+  ]
+}

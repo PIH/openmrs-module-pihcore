@@ -1,0 +1,110 @@
+{
+  "_meta": {
+    "category": "ncd-programs",
+    "description": "Extensions for ncd programs",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 9,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "ncd.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('NCD Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID,\n                \"fas fa-fw fa-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"NCD Consult Location\"),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID)),\n                    not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID)),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                    visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "ncd.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('NCD Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_VISIT_ACTION,\n                \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID,\n                \"fas fa-fw fa-heart\",\n                \"link\",\n                enterStandardHtmlFormLink(definitionUiResource),  // always redirect to visit page after clicking this link\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                and(sessionLocationHasTag(\"NCD Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                        or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "vitals.with.glucose.capture.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pihcore.task.vitalsWithGlucose",
+      "url": "",
+      "icon": "fas fa-fw fa-heartbeat",
+      "order": 0,
+      "require": "sessionLocationHasTag('Vitals Glucose Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_WITH_GLUCOSE_CAPTURE_VISIT_ACTION,\n                    \"pihcore.task.vitalsWithGlucose\",\n                    \"fas fa-fw fa-heartbeat\",\n                    \"link\",\n                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"vitalsWithGlucose.xml\")),\n                    null,\n                    and(sessionLocationHasTag(\"Vitals Glucose Location\"),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "ncd.initial.",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('NCD Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_1_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-initial-part-1.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID)),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "ncd.initial.",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('NCD Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_INITIAL_2_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-initial-part-2.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID)),\n                            not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID)),\n                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "ncd.followup.",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('NCD Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_1_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-followup-part-1.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_1_CONSULT_UUID),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "ncd.followup.",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-heart",
+      "order": 0,
+      "require": "sessionLocationHasTag('NCD Consult Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.NCD_FOLLOWUP_2_VISIT_ACTION,\n                    \"ui.i18n.EncounterType.name.\" + PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID,\n                    \"fas fa-fw fa-heart\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"ncd-followup-part-2.xml\")),  // always redirect to visit page after clicking this link\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE,\n                    and(sessionLocationHasTag(\"NCD Consult Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_1_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_INITIAL_2_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_CONSULT_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NCD_FOLLOWUP_2_CONSULT_UUID),\n                            or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_NCD_CONSULT_NOTE), patientHasActiveVisit()),\n                                    userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                    and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "epilepsy.intake.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-brain",
+      "order": 0,
+      "require": "sessionLocationHasTag('Mental Health Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_INTAKE_VISIT_ACTION,\n                    \"pihcore.ncd.epilepsyIntake\",\n                    \"fas fa-fw fa-brain\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"epilepsyIntake.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_FOLLOWUP_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_INTAKE_UUID))));"
+    },
+    {
+      "id": "epilepsy.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-brain",
+      "order": 0,
+      "require": "sessionLocationHasTag('Mental Health Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_VISIT_ACTION,\n                    \"pihcore.ncd.epilepsyFU\",\n                    \"fas fa-fw fa-brain\",\n                    \"link\",\n                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"epilepsy.xml\")),\n                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MENTAL_HEALTH_NOTE,\n                    and(sessionLocationHasTag(\"Mental Health Location\"),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_INTAKE_UUID),\n                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_EPILEPSY_FOLLOWUP_UUID))));"
+    }
+  ]
+}

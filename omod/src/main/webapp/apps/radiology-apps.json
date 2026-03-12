@@ -1,0 +1,31 @@
+{
+  "_meta": {
+    "category": "radiology",
+    "description": "Apps for radiology",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 2,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "radiology.orders.app",
+      "description": "radiologyapp.app.orders",
+      "label": "radiologyapp.app.orders",
+      "icon": "fas fa-fw fa-camera",
+      "url": "",
+      "config": {},
+      "require": "Task: org.openmrs.module.radiologyapp.tab",
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RADIOLOGY_ORDERS_APP,\n                    \"radiologyapp.app.orders\",\n                    \"fas fa-fw fa-camera\",\n                    \"null\",\n                    \"Task: org.openmrs.module.radiologyapp.tab\",\n                    null),\n                    \"radiologyapp\", \"radiologyOrderSection\"));"
+    },
+    {
+      "id": "radiology.app",
+      "description": "Task: org.openmrs.module.radiologyapp.tab",
+      "label": "Task: org.openmrs.module.radiologyapp.tab",
+      "icon": "fas fa-fw fa-camera",
+      "url": "",
+      "config": {},
+      "require": "Task: org.openmrs.module.radiologyapp.tab",
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.RADIOLOGY_APP,\n                    \"coreapps.clinicianfacing.radiology\",\n                    \"fas fa-fw fa-camera\",\n                    \"null\",\n                    \"Task: org.openmrs.module.radiologyapp.tab\",\n                    null),\n                    \"radiologyapp\", \"radiologySection\"));"
+    }
+  ]
+}

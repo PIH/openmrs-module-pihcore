@@ -1,0 +1,77 @@
+{
+  "_meta": {
+    "category": "adt-inpatient",
+    "description": "Extensions for adt inpatient",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 6,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "admission.form.awaiting.admission.action",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "mirebalais.task.admit.label",
+      "url": "&returnProvider=pihcore&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label",
+      "icon": "fas fa-fw fa-hospital-symbol",
+      "order": 0,
+      "require": "Task: emr.enterAdmissionNote",
+      "_java_source": "extensions.add(awaitingAdmissionAction(CustomAppLoaderConstants.Extensions.ADMISSION_FORM_AWAITING_ADMISSION_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"admissionNote.xml\") + \"&returnProvider=pihcore&returnPage=adt/awaitingAdmission&returnLabel=coreapps.app.awaitingAdmission.label\"),\n                \"Task: emr.enterAdmissionNote\",\n                null));"
+    },
+    {
+      "id": "deny.admission.form.awaiting.admission.action",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "&returnProvider=pihcore&returnPage=adt/awaitingAdmission",
+      "icon": "fas fa-fw fa-user-minus",
+      "order": 0,
+      "require": "Task: emr.enterAdmissionNote",
+      "_java_source": "extensions.add(awaitingAdmissionAction(CustomAppLoaderConstants.Extensions.DENY_ADMISSION_FORM_AWAITING_ADMISSION_ACTION,\n                \"uicommons.cancel\",\n                \"fas fa-fw fa-user-minus\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"cancelAdmission.xml\") + \"&returnProvider=pihcore&returnPage=adt/awaitingAdmission\"),\n                \"Task: emr.enterAdmissionNote\",\n                null));"
+    },
+    {
+      "id": "admission.note.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "mirebalais.task.admit.label",
+      "url": "",
+      "icon": "fas fa-fw fa-hospital-symbol",
+      "order": 0,
+      "require": "sessionLocationHasTag('Admission Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"admissionNote.xml\")),\n                null,\n                and(sessionLocationHasTag(\"Admission Note Location\"),\n                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_ADMISSION_NOTE), patientHasActiveVisit()),\n                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),\n                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));"
+    },
+    {
+      "id": "admission.note.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "mirebalais.task.admit.label",
+      "url": "",
+      "icon": "fas fa-fw fa-hospital-symbol",
+      "order": 0,
+      "require": "sessionLocationHasTag('Newborn Admission Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ADMISSION_NOTE_VISIT_ACTION,\n                \"mirebalais.task.admit.label\",\n                \"fas fa-fw fa-hospital-symbol\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"newbornAdmissionNote.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                and(sessionLocationHasTag(\"Newborn Admission Note Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_ADMISSION_UUID),\n                        patientAgeInDaysLessThanAtVisitStart(42))));"
+    },
+    {
+      "id": "death.certificate.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "fas fa-fw fa-times-circle",
+      "order": 0,
+      "require": "Task: mirebalais.enterDeathCertificate",
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,\n                \"mirebalais.deathCertificate.death_certificate\",\n                \"fas fa-fw fa-times-circle\",\n                \"link\",\n                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(\"deathCertificate.xml\")),\n                \"Task: mirebalais.enterDeathCertificate\",\n                \"!patient.person.dead\"\n        ));"
+    },
+    {
+      "id": "death.certificate.header.extension",
+      "extensionPointId": "death.info.header",
+      "type": "fragment",
+      "label": "Extension Label",
+      "url": "deathcertificate/headerLink",
+      "icon": null,
+      "order": 0,
+      "require": "Task: mirebalais.enterDeathCertificate",
+      "_java_source": "extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION,\n                \"pihcore\",\n                \"deathcertificate/headerLink\",\n                \"Task: mirebalais.enterDeathCertificate\",\n                CustomAppLoaderConstants.ExtensionPoints.DEATH_INFO_HEADER,\n                null));"
+    }
+  ]
+}

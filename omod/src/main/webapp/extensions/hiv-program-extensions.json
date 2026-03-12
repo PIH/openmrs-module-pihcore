@@ -1,0 +1,220 @@
+{
+  "_meta": {
+    "category": "hiv-program",
+    "description": "Extensions for hiv program",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 19,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "extensions": [
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(hivFollowup);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsHivVisitAction(hivFollowup));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(hivPsychosocial);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsHivVisitAction(hivPsychosocial));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(hivDispensing);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsHivVisitAction(hivDispensing));"
+    },
+    {
+      "id": "vitals.capture.visit.action",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(hivInitial);"
+    },
+    {
+      "id": "unknown.extension.id",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsHivVisitAction(hivInitial));"
+    },
+    {
+      "id": "hiv.medication.list.overall.action",
+      "extensionPointId": "patientDashboard.overallActions",
+      "type": "link",
+      "label": "pihcore.hivMedicationList.overallAction.label",
+      "url": "pihcore/meds/drugOrders.page?patient={{patient.uuid}}",
+      "icon": "fas fa-fw fa-capsules",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION,\n                \"pihcore.hivMedicationList.overallAction.label\",\n                \"fas fa-fw fa-capsules\",\n                \"link\",\n                \"pihcore/meds/drugOrders.page?patient={{patient.uuid}}\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD,\n                null));"
+    },
+    {
+      "id": "hiv.medication.list.overall.action",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": null,
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(cloneAsHivOverallAction(findExtensionById(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_LIST_OVERALL_ACTION)));"
+    },
+    {
+      "id": "hiv.adult.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.hivIntakeISantePlus.label",
+      "url": "hiv/iSantePlus/SaisiePremiereVisiteAdult.xml",
+      "icon": "fas fa-fw fa-ribbon",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADULT_INITIAL_VISIT_ACTION,\n                \"pih.task.hivIntakeISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/SaisiePremiereVisiteAdult.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsAdult())));"
+    },
+    {
+      "id": "hiv.peds.initial.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.hivIntakeISantePlus.label",
+      "url": "hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml",
+      "icon": "fas fa-fw fa-ribbon",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_PEDS_INITIAL_VISIT_ACTION,\n                \"pih.task.hivIntakeISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/SaisiePremiereVisitePediatrique.xml\")),\n                null,\n                and(patientIsChild())));"
+    },
+    {
+      "id": "hiv.adult.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.hivFollowupISantePlus.label",
+      "url": "hiv/iSantePlus/VisiteDeSuivi.xml",
+      "icon": "fas fa-fw fa-ribbon",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADULT_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.hivFollowupISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/VisiteDeSuivi.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsAdult())));"
+    },
+    {
+      "id": "hiv.peds.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.hivFollowupISantePlus.label",
+      "url": "hiv/iSantePlus/VisiteDeSuiviPediatrique.xml",
+      "icon": "fas fa-fw fa-ribbon",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_PEDS_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.hivFollowupISantePlus.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/VisiteDeSuiviPediatrique.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                and(patientIsChild())));"
+    },
+    {
+      "id": "hiv.adherence.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.hivAdherence.label",
+      "url": "hiv/iSantePlus/Adherence.xml",
+      "icon": "fas fa-fw fa-ribbon",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.HIV_ADHERENCE_VISIT_ACTION,\n                \"pih.task.hivAdherence.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/iSantePlus/Adherence.xml\")),\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,\n                null));"
+    },
+    {
+      "id": "prep.intake.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.prepIntake.label",
+      "url": "hiv/prep-intake.xml",
+      "icon": "fas fa-fw fa-ribbon",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_INTAKE_VISIT_ACTION,\n                \"pih.task.prepIntake.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/prep-intake.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID))));"
+    },
+    {
+      "id": "prep.followup.visit.action",
+      "extensionPointId": "patientDashboard.visitActions",
+      "type": "link",
+      "label": "pih.task.prepFollowup.label",
+      "url": "hiv/prep-followup.xml",
+      "icon": "fas fa-fw fa-ribbon",
+      "order": 0,
+      "require": "sessionLocationHasTag('Consult Note Location')",
+      "_java_source": "extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PREP_FOLLOWUP_VISIT_ACTION,\n                \"pih.task.prepFollowup.label\",\n                \"fas fa-fw fa-ribbon\",\n                \"link\",\n                enterStandardHtmlFormLink(PihCoreUtil.getFormResource(\"hiv/prep-followup.xml\")),\n                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VCT,\n                and(sessionLocationHasTag(\"Consult Note Location\"),\n                        sessionLocationDoesNotHaveTag(\"Oncology Consult Location\"),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_INTAKE_UUID),\n                        visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PREP_FOLLOWUP_UUID))));"
+    },
+    {
+      "id": "haiti.hiv.emr.dashboard.link",
+      "extensionPointId": "unknown.extension.point",
+      "type": "link",
+      "label": "Extension Label",
+      "url": "",
+      "icon": "icon-external-link",
+      "order": 0,
+      "require": null,
+      "_java_source": "extensions.add(extension(\n                CustomAppLoaderConstants.Extensions.HAITI_HIV_EMR_DASHBOARD_LINK,\n                \"pihcore.hiv.viewPatientInHivEmr\",\n                \"icon-external-link\",\n                \"link\",\n                PihCoreUtil.getSystemOrRuntimeProperty(PihCoreConstants.HAITI_HIV_EMR_LINK_URL_RUNTIME_PROPERTY) + \"?patientId={{identifier}}&identifierType=\" + ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID + \"&dashboard=\"+ PihEmrConfigConstants.PROGRAM_HIV_UUID,\n                null,\n                null,\n                \"patientHeader.extraIdentifierLinks\",\n                1,\n                map(\"identifierType\", ZlConfigConstants.PATIENTIDENTIFIERTYPE_HIVEMRV1_UUID)\n        ));"
+    }
+  ]
+}

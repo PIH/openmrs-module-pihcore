@@ -1,0 +1,63 @@
+{
+  "_meta": {
+    "category": "specialized-tools",
+    "description": "Apps for specialized tools",
+    "source": "Converted from CustomAppLoaderFactory.java",
+    "total_count": 5,
+    "note": "Auto-converted from Java - review all fields"
+  },
+  "apps": [
+    {
+      "id": "biometrics.summary",
+      "description": "registrationapp.biometrics.summary",
+      "label": "registrationapp.biometrics.summary",
+      "icon": "fas fa-fw fa-fingerprint",
+      "url": "dashboardwidgets/fingerprint",
+      "config": {
+        "_note": "Config object present in Java - needs manual extraction"
+      },
+      "require": "App: registrationapp.registerPatient",
+      "_java_source": "apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.BIOMETRICS_SUMMARY,\n                \"registrationapp.biometrics.summary\",\n                \"fas fa-fw fa-fingerprint\",\n                null,\n                \"App: registrationapp.registerPatient\",\n                objectNode(\n                        \"registrationAppId\", CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION,\n                              \"icon\", \"fas fa-fw fa-fingerprint\",\n                              \"detailsUrl\", \"registrationapp/biometrics/editBiometrics.page?patientId={{patient.patientId}}&registrationAppId=registrationapp.registerPatient\"\n                              )),\n                     \"pihcore\", \"dashboardwidgets/fingerprint\"));"
+    },
+    {
+      "id": "unknown.app.id",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "dashboardwidgets/dashboardWidget",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardFirstColumn(notesSummary, \"coreapps\", \"dashboardwidgets/dashboardWidget\"));"
+    },
+    {
+      "id": "spa.preview.home",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-exclamation-triangle",
+      "url": "spa/home",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.SPA_PREVIEW_HOME,\n                \"pihcore.spa.home\",\n                \"fas fa-fw fa-exclamation-triangle\",\n                \"spa/home\",\n                  PihEmrConfigConstants.PRIVILEGE_APP_EMR_SYSTEM_ADMINISTRATION,\n                null),\n                null));"
+    },
+    {
+      "id": "j",
+      "description": "pih.app.j9Referrals.title",
+      "label": "pih.app.j9Referrals.title",
+      "icon": "fas fa-fw fa-file",
+      "url": "spa/referrals-queue",
+      "config": {},
+      "require": "sessionLocationHasTag('Maternal and Child Location')",
+      "_java_source": "apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.J9_REFERRALS,\n                \"pih.app.j9Referrals.title\",\n                \"fa fa-fw fa-baby\",\n                \"spa/referrals-queue\",\n                  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,\n                null),\n                sessionLocationHasTag(\"Maternal and Child Location\")));"
+    },
+    {
+      "id": "active.drug.orders",
+      "description": "App description",
+      "label": "App Label",
+      "icon": "fas fa-fw fa-file",
+      "url": "patientdashboard/activeDrugOrders",
+      "config": {},
+      "require": null,
+      "_java_source": "apps.add(addToClinicianDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.ACTIVE_DRUG_ORDERS,\n                \"coreapps.patientdashboard.activeDrugOrders\",\n                null,\n                null,\n                null, // TODO restrict by privilege?\n               null),\n                \"coreapps\", \"patientdashboard/activeDrugOrders\"));"
+    }
+  ]
+}
