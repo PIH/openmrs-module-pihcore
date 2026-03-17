@@ -6,7 +6,6 @@ import org.openmrs.module.emrapi.EmrApiConstants;
 import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.CesConfigConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
-import org.openmrs.module.pihcore.SesConfigConstants;
 import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
