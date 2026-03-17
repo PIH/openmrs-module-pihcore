@@ -3269,6 +3269,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("HIV Consult Location")));
 
         extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));
+        
+        extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_OVERALL_ACTION,
+                        "pihcore.hivDispensing",
+                        "fas fa-fw fa-capsules",
+                        "link",
+                        "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl() + "&returnLabel=pihcore.hivDispensing.short",
+                        PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
+                        sessionLocationHasTag("HIV Consult Location")));
+
+        extensions.add(cloneAsHivOverallAction(findExtensionById(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_OVERALL_ACTION)));
     }
 
     private void enableHIVIntakeForm() {
