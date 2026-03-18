@@ -735,20 +735,37 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
         extensions.add(cloneAsInfantVisitAction(vitalSigns));
 
-        AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
-                "mirebalais.mostRecentVitals.label",
-                "fas fa-fw fa-heartbeat",
-                null,
-                "App: mirebalais.outpatientVitals",
-                objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                        "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
-                        "editable", Boolean.TRUE,
-                        "edit-provider", "htmlformentryui",
-                        "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                        "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-                        "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
-
-        apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+            // For 3 SL vitals form:  Regular, with glucose, and inpatient
+            AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
+                    "mirebalais.mostRecentVitals.label",
+                    "fas fa-fw fa-heartbeat",
+                    null,
+                    "App: mirebalais.outpatientVitals",
+                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                            "encounterTypes", arrayNode(
+                               objectNode(
+                                       PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID, PihCoreUtil.getFormResource("vitals.xml"),
+                                       SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEVITALSNCD_UUID, PihCoreUtil.getFormResource("vitalsWithGlucose.xml"),
+                                       SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEINPATIENTVITALS_UUID, PihCoreUtil.getFormResource("inpatientVitals.xml")
+                               )
+                            )));
+            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+        } else {
+            AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
+                    "mirebalais.mostRecentVitals.label",
+                    "fas fa-fw fa-heartbeat",
+                    null,
+                    "App: mirebalais.outpatientVitals",
+                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                            "editable", Boolean.TRUE,
+                            "edit-provider", "htmlformentryui",
+                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
+                            "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
+                            "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
+            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+        }
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.VITALS_SUMMARY,
@@ -760,15 +777,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     "widget", "obsacrossencounters",
                                     "icon", "fas fa-fw fa-heartbeat",
                                     "label", "mirebalais.vitalsTrend.label",
-                                    "encounterType", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                                    "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID + "," + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEVITALSNCD_UUID + "," + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEINPATIENTVITALS_UUID + "," + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONELABORPROGRESS_UUID + "," + SierraLeoneConfigConstants.ENCOUNTERTYPE_ANCPROGRESS_UUID + "," + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEMCHTRIAGE_UUID + "," + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEPOSTPARTUMPROGRESS_UUID,
                                     "detailsUrl", patientVisitsPageUrl,
-                                    "headers", "zl.date,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.respiratoryRate.short.title",
-                                    "concepts", CustomAppLoaderConstants.HEART_RATE_UUID + "," +
-                                            CustomAppLoaderConstants.TEMPERATURE_UUID + "," +
+                                    "headers", "zl.date,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.respiratoryRate.short.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.weight.short.title",
+                                    "concepts",
                                             CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
                                             CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID + "," +
-                                            CustomAppLoaderConstants.RESPIRATORY_RATE_UUID,
-                                    "maxRecords", "5"
+                                            CustomAppLoaderConstants.HEART_RATE_UUID + "," +
+                                            CustomAppLoaderConstants.RESPIRATORY_RATE_UUID + "," +
+                                            CustomAppLoaderConstants.TEMPERATURE_UUID + "," +
+                                            CustomAppLoaderConstants.WEIGHT_CONCEPT_UUID,
+                                    "maxRecords", "5",
+                                    "order", "desc"
                             )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
 
