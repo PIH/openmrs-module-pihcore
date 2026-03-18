@@ -9,8 +9,8 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.emrapi.utils.GeneralUtils;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
-import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.registrationapp.action.AfterPatientCreatedAction;
 import org.slf4j.Logger;
@@ -40,7 +40,11 @@ public class AssignDossierNumber implements AfterPatientCreatedAction {
     public synchronized void afterPatientCreated(Patient patient, Map<String, String[]> map) {
 
         PatientIdentifierType dossierIdentifierType = patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
-        Location medicalRecordLocation = getLocationThatSupportsMedicalRecord(Context.getUserContext().getLocation());
+        Location medicalRecordLocation = GeneralUtils.getMedicalRecordLocationAssociatedWith(Context.getUserContext().getLocation());
+
+        if (medicalRecordLocation == null) {
+            throw new IllegalStateException("No location tagged as medical record location");
+        }
 
         String dossierId = "";
 
@@ -64,16 +68,6 @@ public class AssignDossierNumber implements AfterPatientCreatedAction {
         patient.addIdentifier(dossierIdentifier);
         patientService.savePatientIdentifier(dossierIdentifier);
 
-    }
-
-    public Location getLocationThatSupportsMedicalRecord(Location location) {
-        if (location == null) {
-            throw new IllegalStateException("No location tagged as medical record location");
-        } else if (location.hasTag(PaperRecordConstants.LOCATION_TAG_MEDICAL_RECORD_LOCATION)) {
-            return location;
-        } else {
-            return getLocationThatSupportsMedicalRecord(location.getParentLocation());
-        }
     }
 
     private boolean dossierIdentifierInUse(String identifier, PatientIdentifierType dossierIdentifierType, Location medicalRecordLocation) {
