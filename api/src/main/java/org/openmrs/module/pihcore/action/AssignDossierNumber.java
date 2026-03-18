@@ -8,6 +8,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.APIException;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.PatientService;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.paperrecord.PaperRecordConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
@@ -39,7 +40,7 @@ public class AssignDossierNumber implements AfterPatientCreatedAction {
     public synchronized void afterPatientCreated(Patient patient, Map<String, String[]> map) {
 
         PatientIdentifierType dossierIdentifierType = patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
-        Location medicalRecordLocation = getMedicalRecordLocation();
+        Location medicalRecordLocation = getLocationThatSupportsMedicalRecord(Context.getUserContext().getLocation());
 
         String dossierId = "";
 
@@ -65,27 +66,14 @@ public class AssignDossierNumber implements AfterPatientCreatedAction {
 
     }
 
-
-    // assumption here is that there is only one medical record location
-    private Location getMedicalRecordLocation() {
-
-        Location medicalRecordLocation = null;
-
-        for (Location l : locationService.getAllLocations(false)) {
-            if (l.hasTag(PaperRecordConstants.LOCATION_TAG_MEDICAL_RECORD_LOCATION)) {
-                if (medicalRecordLocation == null) {
-                    medicalRecordLocation = l;
-                }
-                else {
-                    throw new IllegalStateException("Only one location can be tagged as medical record location if using Assign Dossier Number action");
-                }
-            }
-        }
-
-        if (medicalRecordLocation == null) {
+    public Location getLocationThatSupportsMedicalRecord(Location location) {
+        if (location == null) {
             throw new IllegalStateException("No location tagged as medical record location");
+        } else if (location.hasTag(PaperRecordConstants.LOCATION_TAG_MEDICAL_RECORD_LOCATION)) {
+            return location;
+        } else {
+            return getLocationThatSupportsMedicalRecord(location.getParentLocation());
         }
-        return medicalRecordLocation;
     }
 
     private boolean dossierIdentifierInUse(String identifier, PatientIdentifierType dossierIdentifierType, Location medicalRecordLocation) {
