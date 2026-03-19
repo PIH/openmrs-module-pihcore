@@ -137,6 +137,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_REGISTRATION_PATIENT_SUPPORT = "coreapps.mostRecentRegistrationPatientSupport";
         public static final String MOST_RECENT_CHECK_IN = "coreapps,mostRecentCheckIn";
         public static final String ALLERGY_SUMMARY = "allergyui.allergySummary";
+        public static final String HIV_ALLERGY_SUMMARY = "allergyui.hivAllergySummary";
         public static final String PATHOLOGY_SUMMARY = "labtrackingapp.labSummary";
         public static final String ID_CARD_PRINTING_STATUS = "mirebalais.idCardPrintingStatus";
         public static final String BIOMETRICS_SUMMARY = "registrationapp.biometricsSummary";

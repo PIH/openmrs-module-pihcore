@@ -3213,6 +3213,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 secondColumnIndex++
         ));
 
+        // Allergy
+        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_ALLERGY_SUMMARY,
+                "allergyui.allergies",
+                "fas fa-fw fa-allergies",
+                null,
+                null,
+                null
+            ),
+            "allergyui", "allergies",
+            secondColumnIndex++
+        ));
+
         apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_OIS,
                         "pihcore.ois.caps",
                         "fas fa-fw fa-exclamation-triangle",
