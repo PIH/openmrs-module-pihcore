@@ -788,7 +788,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                             CustomAppLoaderConstants.TEMPERATURE_UUID + "," +
                                             CustomAppLoaderConstants.WEIGHT_CONCEPT_UUID,
                                     "maxRecords", "5",
-                                    "order", "desc"
+                                    "sortOrder", "desc"
                             )),
                     "coreapps", "dashboardwidgets/dashboardWidget"));
 
