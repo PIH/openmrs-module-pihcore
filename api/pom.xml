@@ -59,7 +59,7 @@
 						<configuration>
 							<groupId>org.pih.openmrs</groupId>
 							<artifactId>openmrs-config-pihemr</artifactId>
-							<version>1.5.0-SNAPSHOT</version>
+							<version>${configPihemrVersion}</version>
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>PihEmrConfigConstants</className>
 						</configuration>
@@ -73,7 +73,7 @@
 						<configuration>
 							<groupId>org.pih.openmrs</groupId>
 							<artifactId>openmrs-config-ces</artifactId>
-                            <version>1.44.0-SNAPSHOT</version>
+							<version>${configCesVersion}</version>
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>CesConfigConstants</className>
 						</configuration>
@@ -87,7 +87,7 @@
 						<configuration>
 							<groupId>org.pih.openmrs</groupId>
 							<artifactId>openmrs-config-pihliberia</artifactId>
-                            <version>1.21.0-SNAPSHOT</version>
+							<version>${configLiberiaVersion}</version>
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>LiberiaConfigConstants</className>
 						</configuration>
@@ -101,7 +101,7 @@
 						<configuration>
 							<groupId>org.pih.openmrs</groupId>
 							<artifactId>openmrs-config-pihsl</artifactId>
-                            <version>1.54.0-SNAPSHOT</version>
+							<version>${configSlVersion}</version>
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>SierraLeoneConfigConstants</className>
 						</configuration>
@@ -115,7 +115,7 @@
 						<configuration>
 							<groupId>org.pih.openmrs</groupId>
 							<artifactId>openmrs-config-zl</artifactId>
-                            <version>1.75.0-SNAPSHOT</version>
+							<version>${configZlVersion}</version>
 							<packageName>org.openmrs.module.pihcore</packageName>
 							<className>ZlConfigConstants</className>
 						</configuration>
