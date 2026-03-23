@@ -17,6 +17,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.service.AppFrameworkService;
+import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.module.emrapi.EmrApiConstants;
@@ -53,7 +54,13 @@ public class AwaitingAdmissionPageController {
                     @SpringBean("emrDiagnosisService") DiagnosisService diagnosisService,
                     @SpringBean("adminService") AdministrationService adminService,
                     @SpringBean CoreAppsProperties coreAppsProperties,
-                    @SpringBean("appFrameworkService") AppFrameworkService appFrameworkService) {
+                    @SpringBean("appFrameworkService") AppFrameworkService appFrameworkService,
+                    UiSessionContext uiSessionContext) {
+
+        // use the closest visit location associated with the session location if the location param is not specified
+        if (visitLocation == null) {
+            visitLocation= adtService.getLocationThatSupportsVisits(uiSessionContext.getSessionLocation());
+        }
 
         List<Extension> admissionActions = appFrameworkService.getExtensionsForCurrentUser("coreapps.app.awaitingAdmissionActions");
         Collections.sort(admissionActions);
@@ -115,6 +122,9 @@ public class AwaitingAdmissionPageController {
         // add location tag constants
         model.addAttribute("supportsAdmissionLocationTag", EmrApiConstants.LOCATION_TAG_SUPPORTS_ADMISSION);
         model.addAttribute("supportsLoginLocationTag", EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN);
+
+        // add visit location
+        model.addAttribute("visitLocation", visitLocation);
 
         // used to determine whether we display a link to the patient in the results list
         model.addAttribute("privilegePatientDashboard", CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD);
