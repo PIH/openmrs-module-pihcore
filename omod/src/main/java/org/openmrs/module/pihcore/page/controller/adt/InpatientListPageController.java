@@ -9,6 +9,7 @@ import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.PatientService;
+import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
@@ -37,7 +38,13 @@ public class InpatientListPageController {
                     @SpringBean("coreAppsProperties") CoreAppsProperties coreAppsProperties,
                     @SpringBean("patientService") PatientService patientService,
                     @SpringBean("adtService") AdtService adtService,
-                    @SpringBean("emrApiProperties") EmrApiProperties emrApiProperties) throws EvaluationException {
+                    @SpringBean("emrApiProperties") EmrApiProperties emrApiProperties,
+                    UiSessionContext uiSessionContext) throws EvaluationException {
+
+        // use the closest visit location associated with the session location if the location param is not specified
+        if (visitLocation == null) {
+            visitLocation= adtService.getLocationThatSupportsVisits(uiSessionContext.getSessionLocation());
+        }
 
         InpatientAdmissionSearchCriteria criteria = new InpatientAdmissionSearchCriteria();
         criteria.setVisitLocation(visitLocation);
@@ -80,6 +87,7 @@ public class InpatientListPageController {
 
         model.addAttribute("inpatientsList", rows);
         model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
+        model.addAttribute("visitLocation", visitLocation);
         model.put("privilegePatientDashboard", PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD);  // used to determine if we display links to patient dashboard)
     }
 

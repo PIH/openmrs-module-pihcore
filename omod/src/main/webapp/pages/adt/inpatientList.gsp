@@ -52,11 +52,12 @@
 
 <h3 class="inpatient-count">${ ui.message("emr.inpatients.patientCount") }: <span id="listSize">${inpatientsNumber}</span></h3>
 <div class="inpatient-filter">
-    ${ ui.includeFragment("emr", "field/location", [
+    ${ ui.includeFragment("uicommons", "field/location", [
             "id": "inpatients-filterByLocation",
             "formFieldName": "filterByLocationId",
             "label": "emr.inpatients.filterByCurrentWard",
-            "withTag": "Admission Location;Transfer Location"
+            "withTag": "Admission Location;Transfer Location",
+            "withAncestor": visitLocation
     ] ) }
 </div>
 
