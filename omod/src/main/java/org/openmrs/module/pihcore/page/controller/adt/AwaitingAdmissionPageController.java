@@ -123,9 +123,6 @@ public class AwaitingAdmissionPageController {
         model.addAttribute("supportsAdmissionLocationTag", EmrApiConstants.LOCATION_TAG_SUPPORTS_ADMISSION);
         model.addAttribute("supportsLoginLocationTag", EmrApiConstants.LOCATION_TAG_SUPPORTS_LOGIN);
 
-        // add visit location
-        model.addAttribute("visitLocation", visitLocation);
-
         // used to determine whether we display a link to the patient in the results list
         model.addAttribute("privilegePatientDashboard", CoreAppsConstants.PRIVILEGE_PATIENT_DASHBOARD);
 

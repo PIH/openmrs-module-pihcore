@@ -100,22 +100,22 @@
 <h2>${ ui.message("coreapps.app.awaitingAdmission.title") }</h2>
 
 <div class="inpatient-current-location-filter">
-    ${ ui.includeFragment("uicommons", "field/location", [
+    ${ ui.includeFragment("pihapps", "field/location", [
             "id": "inpatients-filterByCurrentLocation",
             "formFieldName": "filterByCurentLocationId",
             "label": "coreapps.app.awaitingAdmission.filterByCurrent",
             "withTag": supportsLoginLocationTag,
-            "withAncestor": visitLocation
+            "restrictToVisitLocationAndDescendants": true
     ] ) }
 </div>
 
 <div class="inpatient-admitTo-location-filter">
-    ${ ui.includeFragment("uicommons", "field/location", [
+    ${ ui.includeFragment("pihapps", "field/location", [
             "id": "inpatients-filterByAdmitToLocation",
             "formFieldName": "filterByAdmitToLocationId",
             "label": "coreapps.app.awaitingAdmission.filterByAdmittedTo",
             "withTag": supportsAdmissionLocationTag,
-            "withAncestor": visitLocation,
+            "restrictToVisitLocationAndDescendants": true,
             "initialValue": sessionContext.sessionLocation
     ] ) }
 </div>
