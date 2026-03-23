@@ -87,7 +87,6 @@ public class InpatientListPageController {
 
         model.addAttribute("inpatientsList", rows);
         model.addAttribute("dashboardUrl", coreAppsProperties.getDashboardUrl());
-        model.addAttribute("visitLocation", visitLocation);
         model.put("privilegePatientDashboard", PihEmrConfigConstants.PRIVILEGE_APP_COREAPPS_PATIENT_DASHBOARD);  // used to determine if we display links to patient dashboard)
     }
 
