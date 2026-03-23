@@ -735,23 +735,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
         extensions.add(cloneAsInfantVisitAction(vitalSigns));
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            // For 3 SL vitals form:  Regular, with glucose, and inpatient
-            AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
-                    "mirebalais.mostRecentVitals.label",
-                    "fas fa-fw fa-heartbeat",
-                    null,
-                    "App: mirebalais.outpatientVitals",
-                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                            "encounterTypes", arrayNode(
-                               objectNode(
-                                       PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID, PihCoreUtil.getFormResource("vitals.xml"),
-                                       SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEVITALSNCD_UUID, PihCoreUtil.getFormResource("vitalsWithGlucose.xml"),
-                                       SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEINPATIENTVITALS_UUID, PihCoreUtil.getFormResource("inpatientVitals.xml")
-                               )
-                            )));
-            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
-        } else {
+        if (!config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
                     "mirebalais.mostRecentVitals.label",
                     "fas fa-fw fa-heartbeat",
