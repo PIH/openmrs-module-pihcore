@@ -8,9 +8,6 @@
         { label: "${ ui.message("coreapps.app.awaitingAdmission.label")}"}
     ];
 
-    var supportsAdmissionLocationTag = '${supportsAdmissionLocationTag}';
-    var supportsLoginLocationTag = '${supportsLoginLocationTag}';
-
     // TODO: probably want replace the whole thing with either ngGrid or the new datatable widget
     // TODO: make this more robust--kind of hacky to rely on column index now that it can change
     var admitToLocationColumnIndex = ${ paperRecordIdentifierDefinitionAvailable ? '5' : '4' };
@@ -103,20 +100,22 @@
 <h2>${ ui.message("coreapps.app.awaitingAdmission.title") }</h2>
 
 <div class="inpatient-current-location-filter">
-    ${ ui.includeFragment("uicommons", "field/location", [
+    ${ ui.includeFragment("pihapps", "field/location", [
             "id": "inpatients-filterByCurrentLocation",
             "formFieldName": "filterByCurentLocationId",
             "label": "coreapps.app.awaitingAdmission.filterByCurrent",
-            "withTag": supportsLoginLocationTag
+            "withTag": supportsLoginLocationTag,
+            "restrictToVisitLocationAndDescendants": true
     ] ) }
 </div>
 
 <div class="inpatient-admitTo-location-filter">
-    ${ ui.includeFragment("uicommons", "field/location", [
+    ${ ui.includeFragment("pihapps", "field/location", [
             "id": "inpatients-filterByAdmitToLocation",
             "formFieldName": "filterByAdmitToLocationId",
             "label": "coreapps.app.awaitingAdmission.filterByAdmittedTo",
             "withTag": supportsAdmissionLocationTag,
+            "restrictToVisitLocationAndDescendants": true,
             "initialValue": sessionContext.sessionLocation
     ] ) }
 </div>
