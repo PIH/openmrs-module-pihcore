@@ -45,11 +45,15 @@ public class ActiveVisitsListPageController {
         }
 
         SqlQueryBuilder q = new SqlQueryBuilder();
-        q.append("select distinct patient_id from visit");
-        q.append(" where date_stopped is null and voided = 0");
+        q.append("select v.patient_id, max(IFNULL(e.encounter_datetime,v.date_started)) as last_seen from visit v ");
+        q.append("left join encounter e ");
+        q.append("on e.visit_id = v.visit_id and e.voided = 0 ");
+        q.append("where date_stopped is null and v.voided = 0 ");
         if (locationId != null) {
-            q.append(" and location_id = :location").addParameter("location", locationId);
+            q.append("and v.location_id = :location ").addParameter("location", locationId);
         }
+        q.append("group by v.patient_id ");
+        q.append("order by last_seen desc");
 
         DbSessionFactory dbSessionFactory = Context.getRegisteredComponents(DbSessionFactory.class).get(0);
         List<Object[]> resultSet = q.evaluateToList(dbSessionFactory, context);
