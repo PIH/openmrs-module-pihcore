@@ -23,9 +23,6 @@ public class ConfigureHaitiIdGenerators {
     private static final String ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8";
     private static final String HIVEMR_V1_IDENTIFIER_SOURCE_UUID = "f36ec8b2-70ca-11eb-8aa6-0242ac110002";
     private static final String HIVEMR_V1_AUTOGENERATION_OPTION_UUID = "570fe8a7-70cd-11eb-8aa6-0242ac110002";
-    private static final String PREP_IDENTIFIER_SOURCE_UUID = "24bd1390-5959-11e4-8ed6-0800200c9a66";
-    private static final String PREP_AUTOGENERATION_OPTION_UUID = "24bd1390-5959-11e4-8ed6-0800200c9a66";
-    private static final String PREP_IDENTIFIER_PREFIX = "PrEP";
 
     private final IdentifierSourceService identifierSourceService;
     private final Config config;
@@ -134,39 +131,6 @@ public class ConfigureHaitiIdGenerators {
             autoGen.setManualEntryEnabled(false);
             iss.saveAutoGenerationOption(autoGen);
         }
-    }
-
-    public static void createSequentialIdentifierGeneratorAndAutoGenerationOptionForPrep(IdentifierSourceService iss) {
-        SequentialIdentifierGenerator prepSequenceGenerator;
-
-        prepSequenceGenerator = (SequentialIdentifierGenerator) iss.getIdentifierSourceByUuid(
-                    PREP_IDENTIFIER_SOURCE_UUID);
-
-        if (prepSequenceGenerator == null) {
-            prepSequenceGenerator = new SequentialIdentifierGenerator();
-        }
-
-        prepSequenceGenerator.setName("Sequential Generator for PrEP Code");
-        prepSequenceGenerator.setUuid(PREP_IDENTIFIER_SOURCE_UUID);
-        prepSequenceGenerator.setMaxLength(6 + PREP_IDENTIFIER_PREFIX.length());
-        prepSequenceGenerator.setMinLength(6 + PREP_IDENTIFIER_PREFIX.length());
-        prepSequenceGenerator.setPrefix(PREP_IDENTIFIER_PREFIX );
-        prepSequenceGenerator.setBaseCharacterSet("0123456789");
-        prepSequenceGenerator.setFirstIdentifierBase("000001");
-        prepSequenceGenerator.setIdentifierType(getPrepIdentifierType());
-        iss.saveIdentifierSource(prepSequenceGenerator);
-
-        AutoGenerationOption autoGen = iss.getAutoGenerationOptionByUuid(PREP_AUTOGENERATION_OPTION_UUID);
-        if (autoGen == null) {
-            autoGen = new AutoGenerationOption();
-        }
-        
-        autoGen.setUuid(PREP_AUTOGENERATION_OPTION_UUID);
-        autoGen.setSource(prepSequenceGenerator);
-        autoGen.setIdentifierType(prepSequenceGenerator.getIdentifierType());
-        autoGen.setAutomaticGenerationEnabled(true);
-        autoGen.setManualEntryEnabled(true);
-        iss.saveAutoGenerationOption(autoGen);
     }
 
     public void setAutoGenerationOptionsForDossierNumberGenerator(IdentifierSource identifierSource, Location location) {
