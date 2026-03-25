@@ -63,7 +63,7 @@
         <coreappsVersion>4.0.0-SNAPSHOT</coreappsVersion>
         <dbeventVersion>1.2.0</dbeventVersion>
         <dispensingVersion>2.0.0</dispensingVersion>
-        <edtriageappVersion>2.1.0</edtriageappVersion>
+        <edtriageappVersion>2.2.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
         <emrapiVersion>3.4.0-SNAPSHOT</emrapiVersion>
         <eventVersion>4.0.0</eventVersion>
