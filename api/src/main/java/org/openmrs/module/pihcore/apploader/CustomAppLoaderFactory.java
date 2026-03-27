@@ -630,7 +630,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            liveCheckInFormName = "checkin.xml"; // we are migrating away from the "live check in Sierra Leone, hopefully we can remove this eventually everywhere
+            liveCheckInFormName = "checkin.xml"; // we are migrating away from the "live check in" in Sierra Leone, hopefully we can remove this eventually everywhere (but will need to account for the "wristband" functionality built into the live check in for Haiti)
         }
 
         // circular app that redirects to registration page, see comments in CheckInPageController
