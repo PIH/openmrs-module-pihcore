@@ -629,7 +629,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             liveCheckInFormName = "liveCheckin_v1.1.xml";
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             liveCheckInFormName = "checkin.xml"; // we are migrating away from the "live check in" in Sierra Leone, hopefully we can remove this eventually everywhere (but will need to account for the "wristband" functionality built into the live check in for Haiti)
         }
 
