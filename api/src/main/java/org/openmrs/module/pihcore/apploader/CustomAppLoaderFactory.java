@@ -1421,12 +1421,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         addPaperRecordActionsIncludesIfNeeded();
     }
 
-    public void enableChildren() {
+    public void enableChildren() throws UnsupportedEncodingException {
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.PATIENT_CHILDREN_OVERALL_ACTION,
                 "registration.patient.children.label",
                 "fas fa-fw fa-child",
                 "link",
                 "pihcore/children/children.page?patientId={{patient.patientId}}&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl() ,
+                "App: registrationapp.registerPatient",
+                and(patientIsFemale(), patientIsReproductiveAge())));
+
+        extensions.add(overallRegistrationAction(CustomAppLoaderConstants.Extensions.PATIENT_CHILDREN_OVERALL_REGISTRATION_ACTION,
+                "registration.patient.children.label",
+                "fas fa-fw fa-child",
+                "link",
+                "pihcore/children/children.page?patientId={{patient.patientId}}&returnUrl=" + "/" + WebConstants.CONTEXT_PATH + "/registrationapp/registrationSummary.page?patientId={{patient.uuid}}" + URLEncoder.encode("&appId=registrationapp.registerPatient", "UTF-8") ,
                 "App: registrationapp.registerPatient",
                 and(patientIsFemale(), patientIsReproductiveAge())));
     }

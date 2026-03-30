@@ -282,6 +282,7 @@ public class CustomAppLoaderConstants {
         public static final String PRINT_WRISTBAND_OVERALL_ACTION = "pih.wristband.print";
         public static final String PRINT_WRISTBAND_OVERALL_REGISTRATION_ACTION = "pih.registration.wristband.print";
         public static final String PATIENT_CHILDREN_OVERALL_ACTION = "pih.patient.children";
+        public static final String PATIENT_CHILDREN_OVERALL_REGISTRATION_ACTION = "pih.registration.patient.children";
         public static final String CREATE_VISIT_OVERALL_ACTION = "coreapps.createVisit";
         public static final String CREATE_HIV_VISIT_OVERALL_ACTION = "coreapps.hiv.createVisit";
         public static final String CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION = "coreapps.createRetrospectiveVisit";
