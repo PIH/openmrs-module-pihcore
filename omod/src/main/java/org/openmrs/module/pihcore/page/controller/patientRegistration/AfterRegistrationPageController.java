@@ -67,7 +67,7 @@ public class AfterRegistrationPageController {
 
         String liberiaEmrId = pi.getIdentifier();
         if (liberiaEmrId != null && liberiaEmrId.startsWith(config.getPrimaryIdentifierPrefix())) {
-            redirectUrl += PihCoreUtil.getFormResource("liveCheckin.xml") + "&createVisit=true";
+            redirectUrl += PihCoreUtil.getFormResource("checkin.xml") + "&createVisit=true";
         } else {
             redirectUrl += PihCoreUtil.getFormResource("checkin.xml");
         }
