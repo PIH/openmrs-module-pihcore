@@ -50,7 +50,7 @@
 
         <addresshierarchyVersion>2.21.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.7</allergyuiVersion>
-        <appframeworkVersion>2.18.0</appframeworkVersion>
+        <appframeworkVersion>2.19.0-SNAPSHOT</appframeworkVersion>
         <appointmentsVersion>2.1.0</appointmentsVersion>
         <appointmentschedulingVersion>2.0.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>2.0.0</appointmentschedulinguiVersion>
