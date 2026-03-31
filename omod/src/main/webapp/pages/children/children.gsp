@@ -7,6 +7,9 @@
     import groovy.json.JsonOutput
 
     def patientDashboardLink = ui.pageLink("coreapps", "clinicianfacing/patient")
+    def breadcrumbMiddle = """ '${ returnUrl }' """ ?: """
+        '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'
+    """
 %>
 <style>
     .date-column {
@@ -87,7 +90,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.escapeJs(ui.format(patient)) }" , link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'},
+        { label: "${ ui.escapeJs(ui.format(patient)) }" , link: ${ breadcrumbMiddle } },
         { label: "${ ui.message("registration.patient.children.label") }" , link: '${ui.pageLink("pihcore", "children/children", ["patientId": patient.id])}'}
     ];
 
