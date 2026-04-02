@@ -2910,6 +2910,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         enableHIVProgram();
         enableHIVForms();
         enableHIVActions();
+        enableConditionList();
     }
 
     private void enableHIVProgram() {
@@ -3217,7 +3218,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             secondColumnIndex++
         ));
 
-        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_OIS,
+
+            apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_OIS,
                         "pihcore.ois.caps",
                         "fas fa-fw fa-exclamation-triangle",
                         null,
