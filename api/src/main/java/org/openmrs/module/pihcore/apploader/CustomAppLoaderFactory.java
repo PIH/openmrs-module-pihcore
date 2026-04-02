@@ -2910,11 +2910,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         enableHIVProgram();
         enableHIVForms();
         enableHIVActions();
-        enableConditionList();
     }
 
     private void enableHIVProgram() {
-
         String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
 
         // FIRST COLUMN
@@ -3115,6 +3113,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "program/programHistory",
                 2
         ));
+//       Condition List
+        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.CONDITION_LIST,
+                        null,
+                        null,
+                        null,
+                        PihEmrConfigConstants.PRIVILEGE_TASK_MANAGE_CONDITIONS_LIST,
+                        null),
+                "coreapps", "conditionlist/conditions",
+                firstColumnIndex++
+        ));
+
+
 
         // TODO: Add ACTIVE MEDICATIONS HERE
 
