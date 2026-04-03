@@ -2434,7 +2434,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornDischarge.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Newborn Discharge Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_DISCHARGE_UUID),
                             and(patientAgeInDaysLessThanAtVisitStart(42)))); // 6 weeks
             extensions.add(newbornDischarge);
             extensions.add(cloneAsInfantVisitAction(newbornDischarge));
