@@ -2434,7 +2434,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("newbornDischarge.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Newborn Discharge Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_NEWBORN_DISCHARGE_UUID),
                             and(patientAgeInDaysLessThanAtVisitStart(42)))); // 6 weeks
             extensions.add(newbornDischarge);
             extensions.add(cloneAsInfantVisitAction(newbornDischarge));
@@ -2913,7 +2912,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableHIVProgram() {
-
         String programUuid = PihEmrConfigConstants.PROGRAM_HIV_UUID;
 
         // FIRST COLUMN
@@ -3114,6 +3112,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "program/programHistory",
                 2
         ));
+//       Condition List in HIV Dashboard
+        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.CONDITION_LIST+".hiv",
+                        null,
+                        null,
+                        null,
+                        PihEmrConfigConstants.PRIVILEGE_TASK_MANAGE_CONDITIONS_LIST,
+                        null),
+                "coreapps", "conditionlist/conditions",
+                firstColumnIndex++
+        ));
+
+
 
         // TODO: Add ACTIVE MEDICATIONS HERE
 
@@ -3217,7 +3227,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             secondColumnIndex++
         ));
 
-        apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_OIS,
+
+            apps.add(addToHivDashboardSecondColumn(app(CustomAppLoaderConstants.Apps.HIV_OIS,
                         "pihcore.ois.caps",
                         "fas fa-fw fa-exclamation-triangle",
                         null,
