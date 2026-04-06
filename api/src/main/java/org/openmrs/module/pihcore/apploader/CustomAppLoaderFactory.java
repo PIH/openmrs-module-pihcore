@@ -3113,8 +3113,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "coreapps", "program/programHistory",
                 2
         ));
-//       Condition List
-        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.CONDITION_LIST,
+//       Condition List in HIV Dashboard
+        apps.add(addToHivDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.CONDITION_LIST+".hiv",
                         null,
                         null,
                         null,
