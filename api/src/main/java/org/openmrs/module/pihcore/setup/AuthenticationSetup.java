@@ -27,6 +27,7 @@ public class AuthenticationSetup {
     public static final String BASIC = "basic";
     public static final String SECRET = "secret";
     public static final String TOTP = "totp";
+    public static String EMAIL = "email";
     public static final String TWO_FACTOR = "2fa";
 
     /**
@@ -68,6 +69,15 @@ public class AuthenticationSetup {
             addScheme(SECRET, className, p);
         }
 
+        // Email Authentication Scheme.  This is an available 2nd factor
+        {
+            String className = "org.openmrs.module.authentication.web.EmailAuthenticationScheme";
+            Properties p = new Properties();
+            p.put("loginPage", "/authenticationui/login/loginEmail.page");
+            p.put("configurationPage", "/authenticationui/account/configureEmail.page?schemeId={schemeId}&userId={userId}");
+            addScheme(EMAIL, className, p);
+        }
+
         // Totp Authentication Scheme.  This is an available 2nd factor
         {
             String className = "org.openmrs.module.authentication.web.TotpAuthenticationScheme";
@@ -83,7 +93,7 @@ public class AuthenticationSetup {
             String className = "org.openmrs.module.authentication.web.TwoFactorAuthenticationScheme";
             Properties p = new Properties();
             p.put("primaryOptions", BASIC);
-            p.put("secondaryOptions", SECRET + "," + TOTP);
+            p.put("secondaryOptions", SECRET + "," + TOTP + "," + EMAIL);
             addScheme(TWO_FACTOR, className, p);
         }
 
