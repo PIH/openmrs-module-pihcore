@@ -9,8 +9,8 @@
 <script type="text/javascript">
     let breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.escapeJs(ui.format(patient)) }" , link: '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'},
-        { label: "${ ui.message("registration.patient.children.label") }" , link: '${ui.pageLink("pihcore", "children/children", ["patientId": patient.id])}'},
+        { label: "${ ui.escapeJs(ui.format(patient)) }" , link: '${ returnUrl }'},
+        { label: "${ ui.message("registration.patient.children.label") }" , link: '${ui.pageLink("pihcore", "children/children", ["patientId": patient.id, "returnUrl": ui.escapeJs(returnUrl)])}'},
         { label: "${ ui.message("pihcore.findChild") }" , link: '${ui.pageLink("pihcore", "children/findChildren", ["patientId": patient.id])}'}
     ];
 
@@ -34,7 +34,7 @@
             page: "children/children",
             query: {
                 patientId: '${ patient.patientId }',
-                rerturnUrl: '${ ui.escapeJs(returnUrl) }'
+                returnUrl: '${ ui.escapeJs(returnUrl) }'
             }
         });
     }
@@ -134,7 +134,7 @@
 <div class="mx-2">
     <div class="row mt-2">
         <div class="col-8 col-md-4 order-md-last mb-4">
-            <a href="${ ui.pageLink("registrationapp", "registerPatient", [ appId: appId, breadcrumbOverride: '', mother: patient.uuid , initialValues: initialRegistrationValues, returnUrl: returnUrl]) }">
+            <a href="${ ui.pageLink("registrationapp", "registerPatient", [ appId: appId, breadcrumbOverride: '', mother: patient.uuid , initialValues: initialRegistrationValues, returnUrl: 'pihcore/children/children.page?patientId=' + patient.patientId + ui.escapeJs("&returnUrl=" + returnUrl)]) }">
                 <button id="register-patient-button">${ ui.message("registrationapp.new.registration") }</button>
             </a>
         </div>

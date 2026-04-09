@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
@@ -65,6 +66,8 @@ public class ChildrenPageController {
 
         if (StringUtils.isBlank(returnUrl)) {
             returnUrl = ui.pageLink("coreapps", "clinicianfacing/patient", ObjectUtil.toMap("patientId", patient.getUuid()));
+        } else {
+            returnUrl = StringEscapeUtils.unescapeHtml(returnUrl);
         }
         RelationshipType motherToChildRelationshipType = personService.getRelationshipTypeByUuid(PihEmrConfigConstants.RELATIONSHIPTYPE_MOTHERTOCHILD_UUID);
         List<Relationship> relationships = personService.getRelationships(patient.getPerson(), null, motherToChildRelationshipType);

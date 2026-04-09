@@ -63,6 +63,6 @@ public class FindChildrenPageController {
                 );
         model.addAttribute("initialRegistrationValues", ui.toJson(initialValues));
         model.addAttribute("registerBabyObs", registerBabyObs);
-        model.addAttribute("returnUrl", returnUrl.substring(returnUrl.indexOf("/", 1)));
+        model.addAttribute("returnUrl", returnUrl);
     }
 }

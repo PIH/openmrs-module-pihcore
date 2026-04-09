@@ -7,7 +7,7 @@
     import groovy.json.JsonOutput
 
     def patientDashboardLink = ui.pageLink("coreapps", "clinicianfacing/patient")
-    def breadcrumbMiddle = """ '${ returnUrl }' """ ?: """
+    def breadcrumbMiddle = """ ${ returnUrl } """ ?: """
         '${ui.pageLink("pihcore", "router/programDashboard", ["patientId": patient.id])}'
     """
 %>
@@ -90,7 +90,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
 <script type="text/javascript">
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
-        { label: "${ ui.escapeJs(ui.format(patient)) }" , link: ${ breadcrumbMiddle } },
+        { label: "${ ui.escapeJs(ui.format(patient)) }" , link: '${ breadcrumbMiddle }' },
         { label: "${ ui.message("registration.patient.children.label") }" , link: '${ui.pageLink("pihcore", "children/children", ["patientId": patient.id])}'}
     ];
 
@@ -163,7 +163,7 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient ]) }
             page: "children/findChildren",
             query: {
                 patientId: '${ patient.patientId }',
-                rerturnUrl: '${ ui.escapeJs(returnUrl) }',
+                returnUrl: '${ ui.escapeJs(returnUrl) }',
                 registerBabyObs: registerBabyObs
             }
         });
