@@ -3,6 +3,7 @@
     <tr>
         <th>${ ui.message("uicommons.start") }</th>
         <th>${ ui.message("uicommons.end") }</th>
+        <th ng-if="showVisitLocation">${ ui.message("uicommons.location")}</th>
         <th>${ ui.message("pihcore.diagnoses.label") }</th>
         <th>${ ui.message("pihcore.visitNote.clinicalNotes") }</th>
     </tr>
@@ -17,6 +18,9 @@
             <span ng-hide="v.stopDatetime">
                 (${ ui.message("uicommons.active") })
             </span>
+        </td>
+        <td ng-if="showVisitLocation">
+            {{ v.location | omrsDisplay }}
         </td>
         <td>
             <span ng-repeat="diag in v | diagnosesInVisitShort">
