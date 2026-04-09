@@ -56,7 +56,7 @@
         <appointmentschedulinguiVersion>2.0.0</appointmentschedulinguiVersion>
         <appuiVersion>1.18.0</appuiVersion>
         <attachmentsVersion>4.0.0</attachmentsVersion>
-        <authenticationVersion>2.2.0</authenticationVersion>
+        <authenticationVersion>2.3.0-SNAPSHOT</authenticationVersion>
         <authenticationuiVersion>1.3.0-SNAPSHOT</authenticationuiVersion>
         <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
