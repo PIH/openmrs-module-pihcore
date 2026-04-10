@@ -43,7 +43,7 @@ public class AuthenticationSetup {
 
         AuthenticationConfigDescriptor cd = config.getAuthenticationConfig();
         
-        // If no authentication scheme is explicitly configured, default to basic
+        // If no authentication scheme is explicitly configured, default to 2FA
         String scheme = StringUtils.isBlank(cd.getScheme()) ? TWO_FACTOR : cd.getScheme();
         AuthenticationConfig.setProperty(SCHEME, scheme);
 
