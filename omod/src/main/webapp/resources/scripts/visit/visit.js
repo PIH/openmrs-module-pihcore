@@ -635,10 +635,10 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     .controller("VisitController", [ "$scope", "$rootScope", "$translate","$http", "Visit", "$state",
         "$timeout", "$filter", "ngDialog", "Encounter", "EncounterTypeConfig", "CoreappsService", "AppFrameworkService", "QueueEntry",
-        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "nextSection", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "OrderTypes", "VisitTypes",
+        "visitUuid", "visitTypeUuid", "encounterTypeUuid", "suppressActions", "patientUuid", "encounterUuid", "locale", "currentSection", "goToNext", "showVisitLocation", "nextSection", "initialRouterState", "country", "site", "DatetimeFormats", "EncounterTransaction", "SessionInfo", "Concepts", "OrderTypes", "VisitTypes",
         function($scope, $rootScope, $translate, $http, Visit, $state, $timeout, $filter,
                  ngDialog, Encounter, EncounterTypeConfig, CoreappsService, AppFrameworkService, QueueEntry, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
-                 locale, currentSection, goToNext, nextSection, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, OrderTypes, VisitTypes) {
+                 locale, currentSection, goToNext, showVisitLocation, nextSection, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, OrderTypes, VisitTypes) {
 
           const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
           const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
@@ -666,6 +666,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 $scope.visitTypeUuid = visitTypeUuid;
                 $scope.encounterTypeUuid = encounterTypeUuid;
                 $scope.suppressActions = suppressActions;
+                $scope.showVisitLocation = showVisitLocation;
                 $scope.patientUuid = patientUuid;
                 $scope.encounterUuid = encounterUuid;
 
@@ -828,7 +829,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                 Visit.get({
                   patient: $scope.patientUuid,
                   visitType: $scope.visitTypeUuid ? $scope.visitTypeUuid : $scope.VisitTypes.clinicalOrHospitalVisit.uuid,
-                  v: "custom:(uuid,startDatetime,stopDatetime)"
+                  v: "custom:(uuid,startDatetime,stopDatetime,location:(uuid,display,uuid))"
                 }).$promise.then(function(response) {
                     $scope.visits = response.results;
                 });
@@ -948,7 +949,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     Visit.get({
                         patient: $scope.patientUuid,
                         visitType: $scope.visitTypeUuid ? $scope.visitTypeUuid : $scope.VisitTypes.clinicalOrHospitalVisit.uuid,
-                        v: "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default,voided),attributes:default)"
+                        v: "custom:(uuid,startDatetime,stopDatetime,location:(uuid,display,name),encounters:(uuid,display,encounterDatetime,location:ref,encounterType:ref,obs:default,voided),attributes:default)"
                     }).$promise.then(function (response) {
                         _.each(response.results, function (visit) {
                             visit.encounters =  _.reject(visit.encounters, function(it) {

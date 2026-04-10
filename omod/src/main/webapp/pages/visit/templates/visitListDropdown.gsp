@@ -4,6 +4,7 @@
         <li id="visit-list-full-details-element" class="list-element selectable" ng-click="goToVisitList()">${ ui.message('pihcore.visitNote.fullDetails') }</li>
         <li class="list-element selectable" ng-repeat="v in visits" ng-click="goToVisit(v)" ng-class="{ 'selected-visit': v.uuid===visit.uuid }">
             <span class="visit-list-date">{{ v.startDatetime | serverDate : 'dd-MMM-yyyy' }}</span>
+            <span ng-if="showVisitLocation">- {{ v.location |  omrsDisplay }}</span>
         </li>
     </ul>
 </span>
