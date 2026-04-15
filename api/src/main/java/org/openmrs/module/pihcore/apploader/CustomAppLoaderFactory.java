@@ -3306,8 +3306,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));
         
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_OVERALL_ACTION,
-                        "pihcore.hivDispensing",
-                        "fas fa-fw fa-capsules",
+                        "pihcore.hivDispensing.short",
+                        "fas fa-fw fa-ribbon",
                         "link",
                         "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl() + "&returnLabel=pihcore.hivDispensing.short",
                         PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
