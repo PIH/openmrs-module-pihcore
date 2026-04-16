@@ -291,6 +291,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableMedicationDispensing();
         }
 
+        if (config.isComponentEnabled(Components.MEDICATION_ORDER)) {
+            enableMedicationOrder();
+        }
+
         if (config.isComponentEnabled(Components.APPOINTMENTS)) {
             enableAppointments();
         }
@@ -1165,6 +1169,23 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             )),
                     "pihcore", "dashboardwidgets/medsDispensed"));
         }
+    }
+
+    /**
+     * This enables a basic medication (drug) order htmlform
+     */
+    private void enableMedicationOrder() {
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ORDER_DRUG_VISIT_ACTION,
+                "pih.task.orderMed",
+                "fas fa-fw fa-pills",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("drugOrder.xml")),
+                null,
+                and(sessionLocationHasTag("Consult Note Location"),
+                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
     }
 
     private void enableAppointments() {
