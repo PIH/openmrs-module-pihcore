@@ -291,6 +291,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableMedicationDispensing();
         }
 
+        if (config.isComponentEnabled(Components.MEDICATION_ORDER)) {
+            enableMedicationOrder();
+        }
+
         if (config.isComponentEnabled(Components.APPOINTMENTS)) {
             enableAppointments();
         }
@@ -1165,6 +1169,23 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             )),
                     "pihcore", "dashboardwidgets/medsDispensed"));
         }
+    }
+
+    /**
+     * This enables a basic medication (drug) order htmlform
+     */
+    private void enableMedicationOrder() {
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.ORDER_DRUG_VISIT_ACTION,
+                "pih.task.orderMed",
+                "fas fa-fw fa-pills",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("drugOrder.xml")),
+                null,
+                and(sessionLocationHasTag("Consult Note Location"),
+                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE), patientHasActiveVisit()),
+                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
+
     }
 
     private void enableAppointments() {
@@ -3306,8 +3327,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(cloneAsHivVisitAction(findExtensionById(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION)));
         
         extensions.add(overallAction(CustomAppLoaderConstants.Extensions.HIV_MEDICATION_OVERALL_ACTION,
-                        "pihcore.hivDispensing",
-                        "fas fa-fw fa-capsules",
+                        "pihcore.hivDispensing.short",
+                        "fas fa-fw fa-ribbon",
                         "link",
                         "/htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patientId}}&definitionUiResource=" + PihCoreUtil.getFormResource("hiv/hiv-dispensing.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl() + "&returnLabel=pihcore.hivDispensing.short",
                         PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE,
@@ -3357,7 +3378,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),
-                        and(patientIsFemale()),
+                        and(patientIsFemale(), patientIsReproductiveAge()),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -3371,7 +3392,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 and(sessionLocationHasTag("HIV Consult Location"),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_INTAKE_UUID),
                         visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PMTCT_FOLLOWUP_UUID),
-                        and(patientIsFemale()),
+                        and(patientIsFemale(), patientIsReproductiveAge()),
                         or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_HIV_CONSULT_NOTE), patientHasActiveVisit()),
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));

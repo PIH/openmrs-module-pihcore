@@ -248,6 +248,7 @@ public class CustomAppLoaderConstants {
         public static final String PREP_INTAKE_VISIT_ACTION = "pih.form.prepIntake";
         public static final String PREP_FOLLOWUP_VISIT_ACTION = "pih.form.prepFollowup";
         public static final String SOCIO_ECONOMICS_VISIT_ACTION = "pih.form.socioEconomics";
+        public static final String ORDER_DRUG_VISIT_ACTION = "pih.form.drugOrder";
         public static final String ORDER_XRAY_VISIT_ACTION = "radiologyapp.orderXray";
         public static final String ORDER_CT_VISIT_ACTION = "radiologyapp.orderCT";
         public static final String ORDER_ULTRASOUND_VISIT_ACTION = "radiologyapp.orderUS";
@@ -536,6 +537,7 @@ public class CustomAppLoaderConstants {
             Extensions.COVID19_INITIAL_VISIT_ACTION,
             Extensions.COVID19_FOLLOWUP_VISIT_ACTION,
             Extensions.COVID19_DISCHARGE_VISIT_ACTION,
+            Extensions.ORDER_DRUG_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_CT_VISIT_ACTION,
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
@@ -555,6 +557,7 @@ public class CustomAppLoaderConstants {
             Extensions.PMTCT_INITIAL_VISIT_ACTION,
             Extensions.PMTCT_FOLLOWUP_VISIT_ACTION,
             Extensions.EID_FOLLOWUP_VISIT_ACTION,
+            Extensions.ORDER_DRUG_VISIT_ACTION,
             Extensions.ORDER_XRAY_VISIT_ACTION,
             Extensions.ORDER_ULTRASOUND_VISIT_ACTION,
             Extensions.ORDER_LAB_VISIT_ACTION);
