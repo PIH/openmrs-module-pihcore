@@ -101,7 +101,7 @@
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>3.4.0-SNAPSHOT</webservicesRestVersion>
 
-        <configPihemrVersion>1.5.0</configPihemrVersion>
+        <configPihemrVersion>1.6.0</configPihemrVersion>
         <configCesVersion>1.44.0-SNAPSHOT</configCesVersion>
         <configLiberiaVersion>1.21.0-SNAPSHOT</configLiberiaVersion>
         <configSlVersion>1.54.0-SNAPSHOT</configSlVersion>
