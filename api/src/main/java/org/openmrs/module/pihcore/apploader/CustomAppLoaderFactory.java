@@ -533,7 +533,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 AuthenticationUiConfig.LOGIN_REQUIRE_LOCATION, false,
                 AuthenticationUiConfig.LOGIN_WELCOME_MESSAGE, config.getWelcomeMessage(),
                 AuthenticationUiConfig.LOGIN_WARNING_IF_NOT_CHROME, config.getBrowserWarning(),
-                AuthenticationUiConfig.LOGIN_ALLOW_PASSWORD_RESET, true
+                AuthenticationUiConfig.LOGIN_ALLOW_PASSWORD_RESET, true,
+                AuthenticationUiConfig.LOGIN_SHOW_REMEMBER_ME, true
         )));
     }
 
