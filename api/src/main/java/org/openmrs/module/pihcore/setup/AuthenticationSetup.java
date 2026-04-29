@@ -94,6 +94,7 @@ public class AuthenticationSetup {
             Properties p = new Properties();
             p.put("primaryOptions", BASIC);
             p.put("secondaryOptions", SECRET + "," + TOTP + "," + EMAIL);
+            p.put("rememberMeEnabled", "true");
             addScheme(TWO_FACTOR, className, p);
         }
 
