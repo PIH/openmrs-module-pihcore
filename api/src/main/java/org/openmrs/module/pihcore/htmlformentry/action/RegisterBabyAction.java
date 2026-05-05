@@ -111,7 +111,6 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
                                         //create visit for the new registered baby
                                         Visit visit= createVisit(baby, birthDatetime, encounter);
                                         if (visit != null) {
-
                                             // create Admission encounter for the new registered baby
                                             Encounter babyEncounter = createAdmissionEncounter(visit, baby, birthDatetime, encounter);
                                             if(babyEncounter != null) {
