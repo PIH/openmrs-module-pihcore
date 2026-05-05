@@ -20,6 +20,8 @@ import org.openmrs.Relationship;
 import org.openmrs.RelationshipType;
 import org.openmrs.User;
 import org.openmrs.Visit;
+import org.openmrs.VisitAttribute;
+import org.openmrs.VisitAttributeType;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.FormService;
@@ -70,6 +72,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
     private static String MULTIPLE_BABIES_CONCEPT = "115491";
     private static String BABY_NUMBER_CONCEPT = "163460";
     private static String NEWBORN_ASSESSMENT_FORM_UUID = "17e93a76-32d1-4435-a5e3-3068e305c2d7";
+    private static String BORN_DURING_VISIT_ATTRIBUTE_TYPE = "86f716fc-5e26-4eb1-9484-46370cff28f0";
 
     protected Log log = LogFactory.getLog(getClass());
 
@@ -241,6 +244,13 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             visit.setLocation(adtService.getLocationThatSupportsVisits(motherEncounter.getLocation()));
             visit.setStartDatetime(startDatetime);
             visit.setVisitType(visitService.getVisitTypeByUuid(PihEmrConfigConstants.VISITTYPE_CLINIC_OR_HOSPITAL_VISIT_UUID));
+            VisitAttributeType visitAttributeType = visitService.getVisitAttributeTypeByUuid(BORN_DURING_VISIT_ATTRIBUTE_TYPE);
+            if (visitAttributeType != null) {
+                VisitAttribute visitAttribute = new VisitAttribute();
+                visitAttribute.setAttributeType(visitAttributeType);
+                visitAttribute.setValue(new Boolean(true));
+                visit.addAttribute(visitAttribute);
+            }
             visitService.saveVisit(visit);
         }
         return visit;
