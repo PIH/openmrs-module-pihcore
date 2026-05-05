@@ -248,7 +248,7 @@ public class RegisterBabyAction implements CustomFormSubmissionAction {
             if (visitAttributeType != null) {
                 VisitAttribute visitAttribute = new VisitAttribute();
                 visitAttribute.setAttributeType(visitAttributeType);
-                visitAttribute.setValueReferenceInternal("true");
+                visitAttribute.setValue(new Boolean(true));
                 visit.addAttribute(visitAttribute);
             }
             visitService.saveVisit(visit);
