@@ -69,14 +69,14 @@
         <eventVersion>4.0.0</eventVersion>
         <fhir2Version>3.1.0-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
-        <htmlformentryVersion>7.2.0-SNAPSHOT</htmlformentryVersion>
+        <htmlformentryVersion>7.2.1</htmlformentryVersion>
         <htmlformentryuiVersion>3.2.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
         <idgenVersion>5.0.4</idgenVersion>
         <initializerVersion>2.11.0</initializerVersion>
         <labtrackingappVersion>1.3.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>1.4.0-SNAPSHOT</labworkflowOwaVersion>
-        <legacyuiVersion>2.1.0-SNAPSHOT</legacyuiVersion>
+        <legacyuiVersion>2.1.0</legacyuiVersion>
         <metadatamappingVersion>2.0.0</metadatamappingVersion>
         <namephoneticsVersion>1.19.0</namephoneticsVersion>
         <o3formsVersion>2.3.0</o3formsVersion>
