@@ -118,8 +118,18 @@ public class ObsByEncounterFragmentController {
                 null,
                 false); //includeVoidedObs
 
+        Integer maxRecords = null;
+        String maxRecordsConfig = app.getConfig().get("maxRecords") != null ?  app.getConfig().get("maxRecords").getTextValue() : null;
+        if ( maxRecordsConfig != null ) {
+            maxRecords = Integer.parseInt(maxRecordsConfig.toString());
+        }
+
         Map<Encounter, List<Obs>> encounterObs = new HashMap<>();
+        int obsCount = 0;
         for (Obs obs : obsList) {
+            if (maxRecords != null && obsCount >= maxRecords) {
+                break;
+            }
             //group obs by encounter
             List<Obs> existingList = encounterObs.get(obs.getEncounter());
             if (existingList == null ) {
@@ -127,6 +137,7 @@ public class ObsByEncounterFragmentController {
             }
             existingList.add(obs);
             encounterObs.put(obs.getEncounter(), existingList);
+            obsCount++;
         }
         List<Encounter> encounters = new ArrayList<>(encounterObs.keySet());
         // order the encounters by encounterDatetime descending
