@@ -55,9 +55,13 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
     });
 </script>
 
+<% def warningMessage = activeVisitAtOtherLocation
+        ? ui.message("mirebalais.checkin.newVisitAtOtherLocation", ui.format(activeVisit.visit.location))
+        : ui.message("mirebalais.checkin.newVisit") %>
+
 <%= ui.includeFragment("emr", "widget/note", [
         noteType: "warning",
-        message: ui.message("mirebalais.checkin.newVisit"),
+        message: warningMessage,
         additionalContent: """
                 <div id="actions">
                     <button id="close-visit-and-continue" class="confirm medium right">
@@ -65,10 +69,11 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
                         ${ ui.message("pihcore.checkIn.closeVisitAndContinue") }
                     </button>
 
+                    ${ activeVisitAtOtherLocation ? '' : """
                     <button id="continue" class="confirm medium right">
                         <i class="icon-arrow-right"></i>
                         ${ ui.message("pihcore.checkIn.continue") }
-                    </button>
+                    </button>""" }
 
                     <button id="cancel" class="cancel medium">
                         <i class="icon-arrow-left"></i>

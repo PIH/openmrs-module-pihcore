@@ -2,6 +2,8 @@ package org.openmrs.module.pihcore.page.controller.checkin;
 
 import org.openmrs.Encounter;
 import org.openmrs.Patient;
+import org.openmrs.Visit;
+import org.openmrs.api.VisitService;
 import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
@@ -41,10 +43,20 @@ public class CheckinPageController {
                                PageModel model,
                                EmrApiProperties emrApiProperties,
                                @SpringBean AdtService adtService,
+                               @SpringBean("visitService") VisitService visitService,
                                @InjectBeans PatientDomainWrapper patientDomainWrapper) {
 
         patientDomainWrapper.setPatient(patient);
         VisitDomainWrapper activeVisit = patientDomainWrapper.getActiveVisit(uiSessionContext.getSessionLocation());
+        boolean activeVisitAtOtherLocation = false;
+
+        if (activeVisit == null) {
+            List<Visit> activeVisitsAnywhere = visitService.getActiveVisitsByPatient(patient);
+            if (!activeVisitsAnywhere.isEmpty()) {
+                activeVisit = adtService.wrap(activeVisitsAnywhere.get(0));
+                activeVisitAtOtherLocation = true;
+            }
+        }
 
         if (closeVisit != null && closeVisit && activeVisit != null) {
             adtService.closeAndSaveVisit(activeVisit.getVisit());
@@ -73,6 +85,7 @@ public class CheckinPageController {
             SimpleObject patientPageBreadcrumb = SimpleObject.create("label", ui.escapeJs(patient.getFamilyName()) + ", " + ui.escapeJs(patient.getGivenName()), "link", ui.thisUrlWithContextPath());
             model.addAttribute("breadcrumbOverride", ui.toJson(Arrays.asList(appHomepageBreadcrumb, patientPageBreadcrumb)));
             model.addAttribute("activeVisit", activeVisit);
+            model.addAttribute("activeVisitAtOtherLocation", activeVisitAtOtherLocation);
             model.addAttribute("existingEncounters", existingEncounters);
             model.addAttribute("patient", patientDomainWrapper);
             model.addAttribute("appName", "mirebalais.liveCheckin");
