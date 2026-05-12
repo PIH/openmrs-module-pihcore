@@ -13,8 +13,12 @@ public class RequireUtil {
         return new String("typeof visit !== 'undefined' && visit != null && (visit.stopDatetime == null)");
     }
 
-    public static String patientDoesNotActiveVisit() {
+    public static String patientDoesNotHasActiveVisit() {
         return new String("typeof visit == 'undefined' || !visit || (visit.stopDatetime !== null)");
+    }
+
+    public static String patientDoesNotHasActiveVisitAtAnyLocation() {
+        return new String("typeof hasAnyActiveVisit !== 'undefined' && hasAnyActiveVisit === false");
     }
 
     public static String patientVisitWithinPastThirtyDays(Config config) {
