@@ -101,11 +101,11 @@
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>3.4.0-SNAPSHOT</webservicesRestVersion>
 
-        <configPihemrVersion>1.6.0</configPihemrVersion>
+        <configPihemrVersion>1.7.0</configPihemrVersion>
         <configCesVersion>1.44.0-SNAPSHOT</configCesVersion>
         <configLiberiaVersion>1.21.0-SNAPSHOT</configLiberiaVersion>
         <configSlVersion>1.54.0</configSlVersion>
-        <configZlVersion>1.75.0</configZlVersion>
+        <configZlVersion>1.76.0</configZlVersion>
 
         <lombokVersion>1.18.46</lombokVersion>
         <testcontainersVersion>1.21.4</testcontainersVersion>
