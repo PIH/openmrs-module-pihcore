@@ -89,8 +89,8 @@
         <radiologyappVersion>1.8.0</radiologyappVersion>
         <registrationappVersion>1.29.0</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
-        <reportingVersion>2.1.0</reportingVersion>
-        <reportingrestVersion>2.0.0</reportingrestVersion>
+        <reportingVersion>2.2.0-SNAPSHOT</reportingVersion>
+        <reportingrestVersion>2.1.0-SNAPSHOT</reportingrestVersion>
         <reportinguiVersion>1.14.0</reportinguiVersion>
         <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
         <spaVersion>2.1.0</spaVersion>
