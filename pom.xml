@@ -65,11 +65,11 @@
         <dispensingVersion>2.0.0</dispensingVersion>
         <edtriageappVersion>2.2.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
-        <emrapiVersion>3.4.0</emrapiVersion>
+        <emrapiVersion>3.5.0-SNAPSHOT</emrapiVersion>
         <eventVersion>4.0.0</eventVersion>
         <fhir2Version>3.1.0-SNAPSHOT</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
-        <htmlformentryVersion>7.2.1</htmlformentryVersion>
+        <htmlformentryVersion>7.3.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>3.2.0</htmlformentryuiVersion>
         <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
         <idgenVersion>5.0.4</idgenVersion>
