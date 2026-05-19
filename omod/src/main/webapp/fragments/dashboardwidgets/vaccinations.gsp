@@ -1,6 +1,6 @@
 <style>
     .vaccinations-widget {
-        font-size: 0.9em;
+        font-size: 1em;
     }
 </style>
 <div class="info-section vaccinations-widget ${app.id}">
