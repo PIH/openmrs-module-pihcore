@@ -752,8 +752,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 loadPage(sections[redirectToSectionIdx].id);
                             }
                             else {
-                                // if there are any errors, just continue loading the page
-                                loadPage();
+                                // no further sections — return to the visit overview so the user gets a clear end-of-workflow signal
+                                loadPage("overview");
                             }
                         }
                     });
