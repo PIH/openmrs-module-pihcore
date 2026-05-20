@@ -2355,6 +2355,19 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(postnatalFollowup);
             extensions.add(cloneAsPregnancyVisitAction(postnatalFollowup));
+
+            Extension familyPlanningIntake = visitAction(CustomAppLoaderConstants.Extensions.MCH_FAMILY_PLANNING_INTAKE_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_INTAKE_UUID,
+                    "fas fa-fw icon-group",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("familyPlanningIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_INTAKE_UUID),
+                            and(patientIsFemale(), patientIsReproductiveAge())));
+            extensions.add(familyPlanningIntake);
+            extensions.add(cloneAsPregnancyVisitAction(familyPlanningIntake));
+
             if (config.isComponentEnabled(Components.MCH_BASIC_DELIVERY_FORM)) {
                 Extension wbDelivery = visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
                         "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
