@@ -68,7 +68,7 @@ public class PregnancyProgramEnrollmentAction implements CustomFormSubmissionAct
             PatientProgram activePregnancyProgram = activePatientPregnancyPrograms.get(activePatientPregnancyPrograms.size() - 1);
             if (encounter.getEncounterType() != null && encounter.getEncounterType().getUuid().equals(SierraLeoneConfigConstants.ENCOUNTERTYPE_POSTNATALFOLLOWUP_UUID)) {
                 PatientState patientStateCurrent = getTypeOfTreatmentCurrentState(activePregnancyProgram.getStates()).orElse(null);
-                if (patientStateCurrent.getState().getUuid().equals(SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID)) {
+                if (patientStateCurrent != null && patientStateCurrent.getState().getUuid().equals(SierraLeoneConfigConstants.PROGRAMWORKFLOW_PREGNANCYPROGRAMTYPEOFTREATMENT_STATE_ANTENATAL_UUID)) {
                     //since this is a Postnatal Followup encounter, and the active program state is ANTENATAL we need to transition to POSTPARTUM state
                     Date deliveryDate = getDeliveryDate(encounter); // first look for Delivery date obs
                     activePregnancyProgram.transitionToState(postpartumState, deliveryDate);
