@@ -70,9 +70,9 @@
     ])}
 <% } else if (widgetType == "string" || type == "integer") { %>
     ${ ui.includeFragment("uicommons", "field/text", [
-            formFieldName: "parameterValues[" + it.name + "]",
-            label: paramLabel,
-            initialValue: it.defaultValue,
+            formFieldName: formFieldName,
+            label: displayLabel,
+            initialValue: initialValue,
             classes: ["drop-down-list " + (required == true ? "required" : "")]
     ])}
 <% } else { %>
