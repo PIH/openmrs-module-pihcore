@@ -2365,9 +2365,21 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_FOLLOWUP_UUID),
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(familyPlanningIntake);
-            extensions.add(cloneAsPregnancyVisitAction(familyPlanningIntake));
+
+            Extension familyPlanningFollowup = visitAction(CustomAppLoaderConstants.Extensions.MCH_FAMILY_PLANNING_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_FOLLOWUP_UUID,
+                    "fas fa-fw icon-group",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("familyPlanningFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_FOLLOWUP_UUID),
+                            and(patientIsFemale(), patientIsReproductiveAge())));
+            extensions.add(familyPlanningFollowup);
 
             if (config.isComponentEnabled(Components.MCH_BASIC_DELIVERY_FORM)) {
                 Extension wbDelivery = visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
