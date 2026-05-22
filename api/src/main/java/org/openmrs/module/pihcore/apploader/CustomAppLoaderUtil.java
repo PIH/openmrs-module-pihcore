@@ -554,12 +554,20 @@ public class CustomAppLoaderUtil {
         return "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=" + definitionUiResource;
     }
 
+    static public String enterSimpleHtmlFormLinkWithoutVisit(String definitionUiResource) {
+        return "htmlformentryui/htmlform/enterHtmlFormWithSimpleUi.page?patientId={{patient.uuid}}&definitionUiResource=" + definitionUiResource;
+    }
+
     static public String editSimpleHtmlFormLink(String definitionUiResource) {
         return "htmlformentryui/htmlform/editHtmlFormWithSimpleUi.page?patientId={{patient.uuid}}&encounterId={{encounter.id}}&definitionUiResource=" + definitionUiResource;
     }
 
     static public String enterStandardHtmlFormLink(String definitionUiResource) {
         return "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.uuid}}&visitId={{visit.id}}&definitionUiResource=" + definitionUiResource;
+    }
+
+    static public String enterStandardHtmlFormLinkWithoutVisit(String definitionUiResource) {
+        return "htmlformentryui/htmlform/enterHtmlFormWithStandardUi.page?patientId={{patient.uuid}}&definitionUiResource=" + definitionUiResource;
     }
 
     static public String andCreateVisit() {
