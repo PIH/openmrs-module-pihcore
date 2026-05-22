@@ -539,7 +539,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }])
 
     // this is not a reusable directive, and it does not have an isolate scope
-    .directive("visitDetails", [ "Visit", "LocationService", "ngDialog", function(Visit, LocationService, ngDialog) {
+    .directive("visitDetails", [ "Visit", "LocationService", "ngDialog", "SessionInfo", function(Visit, LocationService, ngDialog, SessionInfo) {
         // TODO make sure this at least gives as error message in case of failure
         return {
             restrict: 'E',
@@ -560,6 +560,16 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 $dialogScope.endDateUpperLimit = $scope.nextVisitStartDatetime($scope.visit);
                                 $dialogScope.newStopDatetime = $scope.visit.stopDatetime ? new Date($scope.visit.stopDatetime.slice(0, -5)) : ''; //remove the timezone from the date string
                                 $dialogScope.locations = locations.filter(l => l.tags.some(t => t.display === "Visit Location" ));
+                                // if the user has an 'allowedVisitLocations' property, restrict the dropdown to those UUIDs;
+                                // always include the visit's current location so the user can keep it unchanged
+                                var userProps = SessionInfo.get().user && SessionInfo.get().user.userProperties;
+                                var allowedProp = userProps && userProps['allowedVisitLocations'];
+                                if (allowedProp) {
+                                    var allowedUuids = new Set(allowedProp.split(',').map(function(s) { return s.trim(); }));
+                                    $dialogScope.locations = $dialogScope.locations.filter(function(l) {
+                                        return allowedUuids.has(l.uuid) || l.uuid === $scope.visit.location.uuid;
+                                    });
+                                }
                                 $dialogScope.newLocation = $scope.visit.location;
                                 $dialogScope.$watch('newStartDatetime', function(newVal, oldVal) {
                                     let oldDate = new Date(oldVal);
