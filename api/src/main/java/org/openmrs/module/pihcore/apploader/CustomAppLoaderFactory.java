@@ -81,6 +81,7 @@ import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.dashboard
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.editSimpleHtmlFormLink;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.encounterTemplate;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLink;
+import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.enterSimpleHtmlFormLinkWithoutVisit;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.enterStandardHtmlFormLink;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.extension;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.findPatientTemplateApp;
@@ -1010,7 +1011,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.deathCertificate.death_certificate",
                 "fas fa-fw fa-times-circle",
                 "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("deathCertificate.xml")),
+                enterSimpleHtmlFormLinkWithoutVisit(PihCoreUtil.getFormResource("deathCertificate.xml")),
                 "Task: mirebalais.enterDeathCertificate",
                 "!patient.person.dead"
         ));
@@ -2084,7 +2085,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pih.task.addPastLabResults.label",
                 "fas fa-fw fa-vial",
                 "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("labResults.xml")),
+                enterSimpleHtmlFormLinkWithoutVisit(PihCoreUtil.getFormResource("labResults.xml")),
                   PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_LAB_RESULTS,
                 sessionLocationHasTag("Lab Results Location")));
 
