@@ -1777,6 +1777,20 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "encounter/mostRecentEncounter"));
         }
 
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && config.getSite().equals("CENTRAL")) {
+            apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_HEALTH_CENTER,
+                            "zl.registration.patient.healthCenter.label",
+                            "fas fa-fw fa-hospital",
+                            null,
+                            "App: registrationapp.registerPatient",
+                            objectNode("encounterDateLabel", "mirebalais.mostRecentRegistration.encounterDateLabel",
+                                    "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID,
+                                    "definitionUiResource", PihCoreUtil.getFormResource("patientRegistration-healthCenter.xml"),
+                                    "editable", true)),
+                    "coreapps",
+                    "encounter/mostRecentEncounter"));
+        }
+
         if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_LOCAL_ADDRESS,
                             "sl.registration.patient.localAddress.label",
