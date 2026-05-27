@@ -43,12 +43,7 @@ public class SectionsHaiti extends SectionsDefault {
 
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
-
-        // remove toggle once enabled
-        if (featureToggles.isFeatureEnabled("insuranceCollection")) {
-            c.addSection(getInsuranceSection());
-        }
-
+        c.addSection(getInsuranceSection());
         c.addSection(getSocialSection());
         c.addSection(getContactsSection());
         c.addSection(getIdentifierSection());
