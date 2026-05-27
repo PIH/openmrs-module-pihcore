@@ -1779,7 +1779,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && config.getSite().equals("CENTRAL")) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_HEALTH_CENTER,
-                            "zl.registration.patient.healthCenter.label",
+                            "zl.registration.patient.healthCenter.header",
                             "fas fa-fw fa-hospital",
                             null,
                             "App: registrationapp.registerPatient",
