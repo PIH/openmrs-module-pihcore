@@ -24,7 +24,7 @@ public class ConfigDescriptor {
     }
 
     public enum Specialty {
-        HIV, MENTAL_HEALTH
+        HIV
     }
 
     @JsonProperty

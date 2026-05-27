@@ -44,13 +44,9 @@ public class SectionsHaiti extends SectionsDefault {
         c.addSection(getDemographicsSection());
         c.addSection(getContactInfoSection());
 
-        // exclude the cross-site MH laptops
-        if (!ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty())) {
-
-            // remove toggle once enabled
-            if (featureToggles.isFeatureEnabled("insuranceCollection")) {
-                c.addSection(getInsuranceSection());
-            }
+        // remove toggle once enabled
+        if (featureToggles.isFeatureEnabled("insuranceCollection")) {
+            c.addSection(getInsuranceSection());
         }
 
         c.addSection(getSocialSection());

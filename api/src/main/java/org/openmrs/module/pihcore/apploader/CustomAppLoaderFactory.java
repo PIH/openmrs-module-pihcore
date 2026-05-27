@@ -1737,8 +1737,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
 
         if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) ||
-                (config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
-                        !ConfigDescriptor.Specialty.MENTAL_HEALTH.equals(config.getSpecialty()))) {  // reversed to make this null safe
+                (config.getCountry().equals(ConfigDescriptor.Country.HAITI))) {
             apps.add(addToRegistrationSummaryContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
                     "fas fa-fw fa-address-card",
