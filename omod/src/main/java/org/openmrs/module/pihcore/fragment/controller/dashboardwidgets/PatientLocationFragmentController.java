@@ -65,18 +65,40 @@ public class PatientLocationFragmentController {
         model.put("patientStatus", inpatientLocation.get("patientStatus"));
         model.put("inpatientLocation", inpatientLocation.get("currentInpatientLocation"));
         model.put("queueName", inpatientLocation.get("queueName"));
-        model.put("admissionStatus", getAdmissionStatus(activeVisit, ui));
+        model.put("activeVisitUuid", activeVisit != null ? activeVisit.getVisit().getUuid() : null);
+        model.put("isBornDuringVisit", getBornDuringVisitValue(activeVisit));
+        model.put("visitAttributeUuid", getVisitAttributeUuid(activeVisit));
+        model.put("bornDuringVisitAttributeType", BORN_DURING_VISIT_ATTRIBUTE_TYPE);
     }
 
     /**
-     * Determines the admission status (inborn vs outborn) based on the "born during visit" attribute
+     * Gets the UUID of the "born during visit" visit attribute
      *
      * @param activeVisit the active visit wrapper, may be null
-     * @param ui the UI utils for message localization
-     * @return localized admission status message
+     * @return the visit attribute UUID, or null if not found
      */
-    private String getAdmissionStatus(VisitDomainWrapper activeVisit, UiUtils ui) {
-        String admissionStatus = ui.message("pihcore.outborn");
+    private String getVisitAttributeUuid(VisitDomainWrapper activeVisit) {
+        if (activeVisit != null && activeVisit.getVisit() != null) {
+            Visit visit = activeVisit.getVisit();
+            VisitAttributeType visitAttributeType = Context.getVisitService().getVisitAttributeTypeByUuid(BORN_DURING_VISIT_ATTRIBUTE_TYPE);
+            if (visitAttributeType != null) {
+                for (VisitAttribute attribute : visit.getActiveAttributes()) {
+                    if (attribute.getAttributeType().equals(visitAttributeType)) {
+                        return attribute.getUuid();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Gets the boolean value of the "born during visit" attribute
+     *
+     * @param activeVisit the active visit wrapper, may be null
+     * @return true if born during visit, false otherwise
+     */
+    private boolean getBornDuringVisitValue(VisitDomainWrapper activeVisit) {
         if (activeVisit != null && activeVisit.getVisit() != null) {
             Visit visit = activeVisit.getVisit();
             VisitAttributeType visitAttributeType = Context.getVisitService().getVisitAttributeTypeByUuid(BORN_DURING_VISIT_ATTRIBUTE_TYPE);
@@ -84,14 +106,15 @@ public class PatientLocationFragmentController {
                 for (VisitAttribute attribute : visit.getActiveAttributes()) {
                     if (attribute.getAttributeType().equals(visitAttributeType)) {
                         Object value = attribute.getValue();
-                        if (value != null && value instanceof Boolean && (Boolean)value == true) {
-                            admissionStatus = ui.message("pihcore.inborn");
+                        if (value != null && value instanceof Boolean) {
+                            return (Boolean)value;
                         }
                         break;
                     }
                 }
             }
         }
-        return admissionStatus;
+        return false;
     }
+
 }
