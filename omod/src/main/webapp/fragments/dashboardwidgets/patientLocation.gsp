@@ -1,38 +1,40 @@
 <style>
-.boldLabel {
-    font-family: 'OpenSansBold';
-}
-.edit-icon {
-    cursor: pointer;
-    margin-left: 5px;
-    color: #007bff;
-}
-.edit-icon:hover {
-    color: #0056b3;
-}
-.admission-status-editor {
-    display: inline-block;
-    margin-left: 10px;
-}
-.admission-status-editor select {
-    padding: 4px 8px;
-    margin-right: 5px;
-}
-.admission-status-save-btn {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 4px 12px;
-    cursor: pointer;
-    border-radius: 3px;
-}
-.admission-status-save-btn:hover {
-    background-color: #c82333;
-}
-.admission-status-save-btn:disabled {
-    background-color: #6c757d;
-    cursor: not-allowed;
-}
+    .boldLabel {
+        font-family: 'OpenSansBold';
+    }
+    .edit-icon {
+        cursor: pointer;
+        margin-left: 5px;
+        color: #007bff;
+    }
+    .edit-icon:hover {
+        color: #0056b3;
+    }
+    .admission-status-editor {
+        display: inline-block;
+        margin-left: 10px;
+    }
+    .admission-status-editor select {
+        padding: 4px 8px;
+        margin-right: 5px;
+    }
+    .admission-status-save-btn {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 4px 12px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    #admissionStatusSaveBtn.changed,
+    #admissionStatusSaveBtn.changed:hover {
+        background-color: #dc3545;
+    }
+
+    .admission-status-save-btn:disabled {
+        background-color: #6c757d;
+        cursor: not-allowed;
+    }
 </style>
 
 <% if (patientStatus.length() > 0 ) { %>
@@ -72,7 +74,7 @@
                         <option value="true" ${ isBornDuringVisit ? 'selected' : '' }>${ ui.message("pihcore.inborn") }</option>
                         <option value="false" ${ !isBornDuringVisit ? 'selected' : '' }>${ ui.message("pihcore.outborn") }</option>
                     </select>
-                    <button class="admission-status-save-btn" onclick="saveAdmissionStatus()">${ ui.message("coreapps.save") }</button>
+                    <button id="admissionStatusSaveBtn" class="admission-status-save-btn" onclick="saveAdmissionStatus()">${ ui.message("coreapps.save") }</button>
                 </span>
                 <% } %>
             </span>
@@ -86,24 +88,33 @@
     var ATTRIBUTE_TYPE_UUID = '86f716fc-5e26-4eb1-9484-46370cff28f0';
     var INBORN_LABEL = '${ ui.message("pihcore.inborn") }';
     var OUTBORN_LABEL = '${ ui.message("pihcore.outborn") }';
+    var INITIAL_VALUE = '${ isBornDuringVisit }';
 
     function showAdmissionStatusEditor() {
+        jq('#admissionStatusDisplay').hide();
         jq('#editAdmissionStatusIcon').hide();
         jq('#admissionStatusEditor').show();
     }
 
     function hideAdmissionStatusEditor() {
+        jq('#admissionStatusDisplay').show();
         jq('#editAdmissionStatusIcon').show();
         jq('#admissionStatusEditor').hide();
+        // Reset select to initial value
+        jq('#admissionStatusSelect').val(INITIAL_VALUE);
+        var saveButton = jq('#admissionStatusSaveBtn');
+        saveButton.removeClass('changed');
+        saveButton[0].style.removeProperty('background-color');
+        saveButton[0].style.removeProperty('background-image');
     }
 
     function saveAdmissionStatus() {
         var bornDuringVisit = jq('#admissionStatusSelect').val() === 'true';
-        var saveButton = jq('.admission-status-save-btn');
+        var saveButton = jq('#admissionStatusSaveBtn');
 
         // Disable button during save
         saveButton.prop('disabled', true);
-        saveButton.text('${ ui.message("coreapps.saving") }');
+        saveButton.text('${ ui.message("pihcore.saving") }');
 
         var requestData = {
             attributeType: ATTRIBUTE_TYPE_UUID,
@@ -121,7 +132,8 @@
                 var displayText = bornDuringVisit ? INBORN_LABEL : OUTBORN_LABEL;
                 jq('#admissionStatusDisplay').text(displayText);
                 emr.successMessage('${ ui.message("pihcore.admission.type.success") }', 3000, 'top', 'right');
-
+                // Update initial value
+                INITIAL_VALUE = bornDuringVisit.toString();
                 // Hide editor and show edit icon
                 hideAdmissionStatusEditor();
 
@@ -140,6 +152,21 @@
         });
     }
 
+    // Handle select change event
+    jq(document).on('change', '#admissionStatusSelect', function() {
+        var saveButton = jq('#admissionStatusSaveBtn');
+        var btnEl = saveButton[0];
+        if (jq(this).val() !== INITIAL_VALUE) {
+            saveButton.prop('disabled', false);
+            saveButton.addClass('changed');
+            btnEl.style.setProperty('background-color', '#dc3545', 'important');
+            btnEl.style.setProperty('background-image', 'none', 'important');
+        } else {
+            saveButton.removeClass('changed');
+            btnEl.style.removeProperty('background-color');
+            btnEl.style.removeProperty('background-image');
+        }
+    });
     // Close editor when clicking outside
     jq(document).on('click', function(event) {
         var editor = jq('#admissionStatusEditor');
