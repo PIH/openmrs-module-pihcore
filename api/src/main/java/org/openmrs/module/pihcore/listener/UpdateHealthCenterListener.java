@@ -20,7 +20,7 @@ import java.util.List;
  * and then (via the UpdateHealthCenterListenerTask) calls our "updateHealthCenter" server to
  * update the Health Center attribute for the specific patient
  *
- * Currently this is only enabled for our HAITI HIV server, but could likely be expanded to other servers as we merge Haiti servers
+ * Currently this is only enabled for our HAITI HIV server and has HIV-specific logic
  */
 @Component
 @Handler

@@ -135,6 +135,7 @@ public class CustomAppLoaderConstants {
         public static final String MOST_RECENT_REGISTRATION_CONTACT = "coreapps.mostRecentRegistrationContact";
         public static final String MOST_RECENT_REGISTRATION_LOCAL_ADDRESS = "coreapps.mostRecentRegistrationLocalAddress";
         public static final String MOST_RECENT_REGISTRATION_PATIENT_SUPPORT = "coreapps.mostRecentRegistrationPatientSupport";
+        public static final String MOST_RECENT_REGISTRATION_HEALTH_CENTER = "coreapps.mostRecentRegistrationHealthCenter";
         public static final String MOST_RECENT_CHECK_IN = "coreapps,mostRecentCheckIn";
         public static final String ALLERGY_SUMMARY = "allergyui.allergySummary";
         public static final String HIV_ALLERGY_SUMMARY = "allergyui.hivAllergySummary";
@@ -663,6 +664,7 @@ public class CustomAppLoaderConstants {
             Apps.ADDITIONAL_IDENTIFIERS,
             Apps.MOST_RECENT_REGISTRATION_CONTACT,
             Apps.MOST_RECENT_REGISTRATION_LOCAL_ADDRESS,
+            Apps.MOST_RECENT_REGISTRATION_HEALTH_CENTER,
             Apps.BIOMETRICS_SUMMARY,
             Apps.PROVIDER_RELATIONSHIPS_REGISTRATION_SUMMARY,
             Apps.RELATIONSHIPS_REGISTRATION_SUMMARY,
