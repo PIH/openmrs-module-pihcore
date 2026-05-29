@@ -503,6 +503,7 @@ public class CustomAppLoaderConstants {
             Extensions.MCH_FAMILY_PLANNING_INTAKE_VISIT_ACTION,
             Extensions.MCH_FAMILY_PLANNING_FOLLOWUP_VISIT_ACTION,
             Extensions.MCH_GYNECOLOGY_INTAKE_VISIT_ACTION,
+            Extensions.MCH_GYNECOLOGY_FOLLOWUP_VISIT_ACTION,
             Extensions.MCH_DELIVERY_VISIT_ACTION,
             Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION,
             Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,
