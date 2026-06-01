@@ -259,6 +259,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 || encounter.createdBy(currentUser));
                     }
 
+                    $scope.printFormUrl = function() {
+                        // a dedicated print-only form definition takes precedence over the standard view template
+                        return config && config.printFormUrl ? config.printFormUrl : $scope.templateModelUrl();
+                    }
+
+                    $scope.canPrintForm = function() {
+                        return config && config.printForm && $scope.printFormUrl();
+                    }
+
                     $scope.expand = function() {
                         // Get the latest representation when we expand, in case things have been edited
                         loadFullEncounter(); // TODO make this a promise with a then
@@ -285,6 +294,74 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                     $scope.delete = function() {
                         $scope.$emit("request-delete-encounter", $scope.encounter);
+                    }
+
+                    function printDiv(data) {
+                        if (data) {
+                            var title = $scope.encounter.encounterType ? $scope.encounter.encounterType.display : '';
+                            var mywindow = window.open('', 'print form', 'height=600,width=800');
+                            mywindow.document.write('<html><head><title>' + title + '</title>');
+                            // the print window is an about:blank document, so give it a base href
+                            // to resolve any path-absolute resource (eg. form logos) against this server
+                            mywindow.document.write('<base href="' + window.location.origin + '/"/>');
+                            mywindow.document.write('</head><body >');
+                            mywindow.document.write(data);
+                            mywindow.document.write('</body></html>');
+
+                            mywindow.document.close();
+                            mywindow.focus();
+
+                            var printed = false;
+                            var doPrint = function() {
+                                if (printed) {
+                                    return;
+                                }
+                                printed = true;
+                                mywindow.print();
+                                mywindow.close();
+                            };
+
+                            // Wait for any images (eg. the form logos) to finish loading before printing.
+                            // Otherwise print() fires before the browser has fetched them and they are
+                            // missing from the printout.
+                            var images = mywindow.document.images;
+                            var remaining = images.length;
+                            if (remaining === 0) {
+                                doPrint();
+                            } else {
+                                var onImageDone = function() {
+                                    remaining--;
+                                    if (remaining <= 0) {
+                                        doPrint();
+                                    }
+                                };
+                                for (var i = 0; i < images.length; i++) {
+                                    if (images[i].complete) {
+                                        onImageDone();
+                                    } else {
+                                        images[i].onload = onImageDone;
+                                        images[i].onerror = onImageDone;
+                                    }
+                                }
+                                // safety net in case an image never reports load/error
+                                mywindow.setTimeout(doPrint, 2000);
+                            }
+
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    $scope.printForm = function() {
+                        // fetch a fresh rendering of the encounter's form (the HFE html view) and print it
+                        var url = Handlebars.compile($scope.printFormUrl())({
+                            encounter: $scope.encounter
+                        });
+                        $http.get("/" + OPENMRS_CONTEXT_PATH + url)
+                            .then(function (response) {
+                                var data = response.data && response.data.html ? response.data.html : response.data;
+                                printDiv(data);
+                            });
                     }
 
                     $scope.$on('expand-all',function() {
