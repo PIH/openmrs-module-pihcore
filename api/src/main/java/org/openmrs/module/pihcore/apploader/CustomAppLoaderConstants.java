@@ -224,6 +224,7 @@ public class CustomAppLoaderConstants {
         public static final String MCH_FAMILY_PLANNING_FOLLOWUP_VISIT_ACTION= "pih.form.familyPlanningFollowup";
         public static final String MCH_GYNECOLOGY_INTAKE_VISIT_ACTION = "pih.form.gynetIntake";
         public static final String MCH_GYNECOLOGY_FOLLOWUP_VISIT_ACTION = "pih.form.gynetFollowup";
+        public static final String CERVICAL_CANCER_SCREENING_VISIT_ACTION = "pih.form.cervicalCancerScreening";
         public static final String MCH_PEDS_ACTION = "pih.form.peds";
         public static final String MCH_DELIVERY_VISIT_ACTION = "pih.form.delivery";
         public static final String MCH_GAIN_DELIVERY_REGISTER_ACTION = "pih.form.gainDelivery";
@@ -504,6 +505,7 @@ public class CustomAppLoaderConstants {
             Extensions.MCH_FAMILY_PLANNING_FOLLOWUP_VISIT_ACTION,
             Extensions.MCH_GYNECOLOGY_INTAKE_VISIT_ACTION,
             Extensions.MCH_GYNECOLOGY_FOLLOWUP_VISIT_ACTION,
+            Extensions.CERVICAL_CANCER_SCREENING_VISIT_ACTION,
             Extensions.MCH_DELIVERY_VISIT_ACTION,
             Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION,
             Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,

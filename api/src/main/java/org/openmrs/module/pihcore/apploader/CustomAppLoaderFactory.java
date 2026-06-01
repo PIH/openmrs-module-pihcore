@@ -2418,6 +2418,17 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(gynecologyFollowup);
 
+            Extension cervicalCancerScreening = visitAction(CustomAppLoaderConstants.Extensions.CERVICAL_CANCER_SCREENING_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_CERVICAL_CANCER_SCREENING_UUID,
+                    "fas fa-fw fa-ribbon",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("cervicalCancerScreening.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_CERVICAL_CANCER_SCREENING_UUID),
+                            and(patientIsFemale(), patientIsReproductiveAge())));
+            extensions.add(cervicalCancerScreening);
+
             if (config.isComponentEnabled(Components.MCH_BASIC_DELIVERY_FORM)) {
                 Extension wbDelivery = visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
                         "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
