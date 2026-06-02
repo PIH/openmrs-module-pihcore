@@ -2381,6 +2381,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_FOLLOWUP_UUID),
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(familyPlanningIntake);
+            extensions.add(cloneAsPregnancyVisitAction(familyPlanningIntake));
 
             Extension familyPlanningFollowup = visitAction(CustomAppLoaderConstants.Extensions.MCH_FAMILY_PLANNING_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_FOLLOWUP_UUID,
@@ -2393,6 +2394,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_FAMILY_PLANNING_FOLLOWUP_UUID),
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(familyPlanningFollowup);
+            extensions.add(cloneAsPregnancyVisitAction(familyPlanningFollowup));
 
             Extension gynecologyIntake = visitAction(CustomAppLoaderConstants.Extensions.MCH_GYNECOLOGY_INTAKE_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_INTAKE_UUID,
@@ -2428,6 +2430,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_CERVICAL_CANCER_SCREENING_UUID),
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(cervicalCancerScreening);
+            extensions.add(cloneAsPregnancyVisitAction(cervicalCancerScreening));
 
             if (config.isComponentEnabled(Components.MCH_BASIC_DELIVERY_FORM)) {
                 Extension wbDelivery = visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
