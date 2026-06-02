@@ -13,6 +13,7 @@ import org.openmrs.api.EncounterService;
 import org.openmrs.api.PatientService;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
+import org.openmrs.parameter.ConceptSearchCriteriaBuilder;
 import org.openmrs.parameter.EncounterSearchCriteriaBuilder;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
@@ -138,36 +139,28 @@ public class LabResultsFragmentController {
     }
 
     private Set<String> getLabCategoriesList(String labCategoriesSet, ConceptService conceptService) {
-        return getLabCategoriesListRecursive(labCategoriesSet, conceptService, new HashSet<>());
-    }
-
-    /**
-     * Recursive function that builds a set of Lab concepts.
-     * **Early return**: Stops immediately when the concept has already visited
-     * @param labCategoriesSet a String representing a concept set UUID
-     * @param conceptService
-     * @param visited a Set of concept set UUIDs that have already been visited to prevent cycles and redundant processing
-     * @return a Set of concept UUIDs
-     */
-
-    private Set<String> getLabCategoriesListRecursive(String labCategoriesSet, ConceptService conceptService, Set<String> visited) {
         Set<String> labCategories = new HashSet<>();
+        if (StringUtils.isBlank(labCategoriesSet)) {
+            return labCategories;
+        }
 
-        if (StringUtils.isNotBlank(labCategoriesSet)) {
-            // Check if already visited (prevents cycles and redundant processing)
-            if (visited.contains(labCategoriesSet)) {
-                return labCategories;
-            }
+        Set<String> visited = new HashSet<>();
+        Set<String> frontier = new HashSet<>();
+        frontier.add(labCategoriesSet);
 
-            visited.add(labCategoriesSet);
+        while (!frontier.isEmpty()) {
+            List<Concept> concepts = conceptService.getConcepts(
+                    new ConceptSearchCriteriaBuilder().addUuids(frontier.toArray(new String[0])).build());
 
-            Concept conceptSet = conceptService.getConceptByUuid(labCategoriesSet);
-            if (conceptSet != null) {
-                labCategories.add(conceptSet.getUuid());
+            visited.addAll(frontier);
+            frontier.clear();
 
-                if (conceptSet.getSetMembers().size() > 0) {
-                    for (Concept member : conceptSet.getSetMembers()) {
-                        labCategories.addAll(getLabCategoriesListRecursive(member.getUuid(), conceptService, visited));
+            for (Concept concept : concepts) {
+                labCategories.add(concept.getUuid());
+                for (Concept member : concept.getSetMembers()) {
+                    String memberUuid = member.getUuid();
+                    if (!visited.contains(memberUuid)) {
+                        frontier.add(memberUuid);
                     }
                 }
             }
