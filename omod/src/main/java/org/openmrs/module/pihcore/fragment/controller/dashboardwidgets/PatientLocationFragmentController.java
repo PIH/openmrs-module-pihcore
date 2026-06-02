@@ -59,6 +59,7 @@ public class PatientLocationFragmentController {
         }
         VisitDomainWrapper activeVisit = adtService.getActiveVisit(patient, uiSessionContext.getSessionLocation());
         SimpleObject inpatientLocation = PihCoreUtils.getInpatientLocation(patient, activeVisit != null ?  activeVisit.getVisit() : null, adtService, ui);
+        String showAdmissionTypeAtLocation = PihCoreUtils.getConfigValue(app, "showAdmissionTypeAtLocation");
 
         model.put("patient", patient);
         model.put("app", app);
@@ -66,8 +67,9 @@ public class PatientLocationFragmentController {
         model.put("inpatientLocation", inpatientLocation.get("currentInpatientLocation"));
         model.put("queueName", inpatientLocation.get("queueName"));
         model.put("activeVisitUuid", activeVisit != null ? activeVisit.getVisit().getUuid() : null);
+        model.put("showAdmissionTypeAtLocation", showAdmissionTypeAtLocation);
         model.put("isBornDuringVisit", getBornDuringVisitValue(activeVisit));
-        model.put("visitAttributeUuid", getVisitAttributeUuid(activeVisit));
+        model.put("visitAttributeUuid", getVisitAttributeUuid(activeVisit) != null ? getVisitAttributeUuid(activeVisit) : "");
         model.put("bornDuringVisitAttributeType", BORN_DURING_VISIT_ATTRIBUTE_TYPE);
     }
 

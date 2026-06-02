@@ -36,6 +36,9 @@
         cursor: not-allowed;
     }
 </style>
+<%
+    def NICU_LOCATION_UUID = ""
+%>
 
 <% if (patientStatus.length() > 0 ) { %>
 <div class="info-section patient-location ${app.id}">
@@ -67,7 +70,7 @@
             <span class="patient-dashboard-widget-label boldLabel">${ ui.message("pihcore.admission.type") }:</span>
             <span class="patient-dashboard-widget-value">
                 <span id="admissionStatusDisplay">${ isBornDuringVisit ? ui.message("pihcore.inborn") : ui.message("pihcore.outborn") }</span>
-                <% if (activeVisitUuid != null && visitAttributeUuid != null) { %>
+                <% if (activeVisitUuid != null && inpatientLocation.uuid == showAdmissionTypeAtLocation) { %>
                 <i class="icon-pencil edit-icon" id="editAdmissionStatusIcon" onclick="showAdmissionStatusEditor()" title="${ ui.message("coreapps.edit") }"></i>
                 <span id="admissionStatusEditor" class="admission-status-editor" style="display: none;">
                     <select id="admissionStatusSelect">
@@ -121,8 +124,10 @@
             value: bornDuringVisit
         };
 
+        // If visitAttributeUuid is null, it's a new visit attribute, so we need to create it
+        var postUrl = '/' + OPENMRS_CONTEXT_PATH + '/ws/rest/v1/visit/' + ACTIVE_VISIT_UUID + '/attribute' + ((VISIT_ATTRIBUTE_UUID && VISIT_ATTRIBUTE_UUID != 'null') ? ('/' + VISIT_ATTRIBUTE_UUID) : '');
         jq.ajax({
-            url: '/' + OPENMRS_CONTEXT_PATH + '/ws/rest/v1/visit/' + ACTIVE_VISIT_UUID + '/attribute/' + VISIT_ATTRIBUTE_UUID,
+            url: postUrl,
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(requestData),
