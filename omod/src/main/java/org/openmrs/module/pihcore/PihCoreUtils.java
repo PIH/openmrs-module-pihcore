@@ -152,10 +152,13 @@ public class PihCoreUtils {
     }
 
     public static String getConfigValue(AppDescriptor app, String configValue) {
-        JsonNode node = app.getConfig().get(configValue);
-        if (node == null) {
-            return "";
+        if (app != null && app.getConfig() != null) {
+            JsonNode node = app.getConfig().get(configValue);
+            if (node == null) {
+                return "";
+            }
+            return node.asText();
         }
-        return node.asText();
+        return "";
     }
 }
