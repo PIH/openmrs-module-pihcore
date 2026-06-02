@@ -120,6 +120,20 @@
 							<className>ZlConfigConstants</className>
 						</configuration>
 					</execution>
+					<execution>
+						<id>generate-lesotho-config-constants</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate-constants-class</goal>
+						</goals>
+						<configuration>
+							<groupId>org.pih.openmrs</groupId>
+							<artifactId>openmrs-config-lesotho</artifactId>
+							<version>${configLesothoVersion}</version>
+							<packageName>org.openmrs.module.pihcore</packageName>
+							<className>LesothoConfigConstants</className>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>

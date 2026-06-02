@@ -106,6 +106,7 @@
         <configLiberiaVersion>1.21.0-SNAPSHOT</configLiberiaVersion>
         <configSlVersion>1.55.0-SNAPSHOT</configSlVersion>
         <configZlVersion>1.76.0</configZlVersion>
+        <configLesothoVersion>1.0.0-SNAPSHOT</configLesothoVersion>
 
         <lombokVersion>1.18.46</lombokVersion>
         <testcontainersVersion>1.21.4</testcontainersVersion>
@@ -605,6 +606,15 @@
             <scope>provided</scope>
             <type>zip</type>
         </dependency>
+
+        <dependency>
+            <groupId>org.pih.openmrs</groupId>
+            <artifactId>openmrs-config-lesotho</artifactId>
+            <version>${configLesothoVersion}</version>
+            <scope>provided</scope>
+            <type>zip</type>
+        </dependency>
+
 
         <!-- dependencies required for the Zebra ZXP Series 3 API -->
 
