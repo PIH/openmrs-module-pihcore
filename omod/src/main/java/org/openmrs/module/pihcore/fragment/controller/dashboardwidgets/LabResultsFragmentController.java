@@ -150,7 +150,7 @@ public class LabResultsFragmentController {
 
         while (!frontier.isEmpty()) {
             List<Concept> concepts = conceptService.getConcepts(
-                    new ConceptSearchCriteriaBuilder().addUuids(frontier.toArray(new String[0])).build());
+                    new ConceptSearchCriteriaBuilder().addUuids(frontier.toArray(new String[0])).includeRetired(true).build());
 
             visited.addAll(frontier);
             frontier.clear();
