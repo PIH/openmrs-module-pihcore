@@ -352,6 +352,77 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         return false;
                     }
 
+                    // The HFE drug-order widget renders orders via jQuery(function(){ orderWidget.initialize(config) }).
+                    // That script cannot run in the blank print window (no jQuery/orderWidget available), so we
+                    // pre-render the orders from the embedded JSON config before opening the print window.
+                    function preRenderOrderWidgets(html) {
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(html, 'text/html');
+
+                        Array.from(doc.querySelectorAll('script')).forEach(function(script) {
+                            var text = script.textContent || '';
+                            // The HFE OrderWidget writes: "jQuery(function() { FUNCNAME(\nJSON\n)});"
+                            var lines = text.split('\n');
+                            var jsonStart = -1, jsonEnd = -1;
+                            for (var i = 0; i < lines.length; i++) {
+                                if (lines[i].indexOf('jQuery(function()') >= 0 &&
+                                        (lines[i].indexOf('orderWidget.initialize') >= 0 ||
+                                         lines[i].indexOf('initializeOrderWidget') >= 0)) {
+                                    jsonStart = i + 1;
+                                } else if (lines[i].trim() === ')});' && jsonStart >= 0) {
+                                    jsonEnd = i;
+                                    break;
+                                }
+                            }
+                            if (jsonStart < 0 || jsonEnd < 0) { return; }
+
+                            try {
+                                var config = JSON.parse(lines.slice(jsonStart, jsonEnd).join('\n').trim());
+                                var fieldName = config.fieldName;
+                                if (!fieldName || !Array.isArray(config.history)) { return; }
+
+                                var ordersDiv = doc.getElementById(fieldName + '_orders');
+                                var viewTemplate = doc.getElementById(fieldName + '_view_template');
+                                if (!ordersDiv || !viewTemplate) { return; }
+
+                                config.history.forEach(function(order) {
+                                    var orderEl = viewTemplate.cloneNode(true);
+                                    orderEl.removeAttribute('id');
+                                    orderEl.style.display = '';
+
+                                    // Remove the quantity calculator UI — it is edit-mode-only and
+                                    // not relevant in a print context.
+                                    Array.from(orderEl.querySelectorAll('.calculated-quantity-section')).forEach(function(el) {
+                                        el.parentNode.removeChild(el);
+                                    });
+
+                                    for (var prop in order) {
+                                        if (!Object.prototype.hasOwnProperty.call(order, prop)) { continue; }
+                                        var val = order[prop];
+                                        var displayVal = val && val.display ? val.display : null;
+                                        var fieldWidget = orderEl.querySelector('.order-field-widget.order-' + prop);
+                                        if (fieldWidget) {
+                                            if (displayVal) {
+                                                fieldWidget.innerHTML = displayVal;
+                                            } else {
+                                                var fieldContainer = orderEl.querySelector('.order-field.order-' + prop);
+                                                if (fieldContainer) { fieldContainer.style.display = 'none'; }
+                                            }
+                                        }
+                                    }
+                                    ordersDiv.appendChild(orderEl);
+                                });
+
+                                viewTemplate.parentNode.removeChild(viewTemplate);
+                                script.parentNode.removeChild(script);
+                            } catch(e) {
+                                console.warn('preRenderOrderWidgets: failed to render orders', e);
+                            }
+                        });
+
+                        return doc.body.innerHTML;
+                    }
+
                     $scope.printForm = function() {
                         // fetch a fresh rendering of the encounter's form (the HFE html view) and print it
                         var url = Handlebars.compile($scope.printFormUrl())({
@@ -360,7 +431,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         $http.get("/" + OPENMRS_CONTEXT_PATH + url)
                             .then(function (response) {
                                 var data = response.data && response.data.html ? response.data.html : response.data;
-                                printDiv(data);
+                                printDiv(preRenderOrderWidgets(data));
                             });
                     }
 
