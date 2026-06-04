@@ -5,6 +5,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.identifier.haiti.ConfigureHaitiIdGenerators;
+import org.openmrs.module.pihcore.identifier.lesotho.ConfigureLesothoIdGenerator;
 import org.openmrs.module.pihcore.identifier.liberia.ConfigureLiberiaIdGenerators;
 import org.openmrs.module.pihcore.identifier.mexico.ConfigureMexicoIdGenerators;
 import org.openmrs.module.pihcore.identifier.sierraLeone.ConfigureSierraLeoneIdGenerators;
@@ -33,6 +34,9 @@ public class PatientIdentifierSetup {
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             ConfigureMexicoIdGenerators.configureGenerators(identifierSourceService, config);
+        }
+        else if (config.getCountry().equals(ConfigDescriptor.Country.LESOTHO)) {
+            ConfigureLesothoIdGenerator.configureGenerators(identifierSourceService);
         }
     }
 }
