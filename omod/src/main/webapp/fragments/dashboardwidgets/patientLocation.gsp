@@ -66,11 +66,12 @@
             <span class="patient-dashboard-widget-label boldLabel">${ ui.message("pihcore.status") }:</span>
             <span class="patient-dashboard-widget-value">${patientStatus}</span>
         </div>
+        <% if (activeVisitUuid != null && showAdmissionTypeAtLocation != null && inpatientLocation.uuid == showAdmissionTypeAtLocation) { %>
         <div>
             <span class="patient-dashboard-widget-label boldLabel">${ ui.message("pihcore.admission.type") }:</span>
             <span class="patient-dashboard-widget-value">
                 <span id="admissionStatusDisplay">${ isBornDuringVisit ? ui.message("pihcore.inborn") : ui.message("pihcore.outborn") }</span>
-                <% if (activeVisitUuid != null && inpatientLocation.uuid == showAdmissionTypeAtLocation) { %>
+
                 <i class="icon-pencil edit-icon" id="editAdmissionStatusIcon" onclick="showAdmissionStatusEditor()" title="${ ui.message("coreapps.edit") }"></i>
                 <span id="admissionStatusEditor" class="admission-status-editor" style="display: none;">
                     <select id="admissionStatusSelect">
@@ -79,9 +80,9 @@
                     </select>
                     <button id="admissionStatusSaveBtn" class="admission-status-save-btn" onclick="saveAdmissionStatus()">${ ui.message("coreapps.save") }</button>
                 </span>
-                <% } %>
             </span>
         </div>
+        <% } %>
     </div>
 </div>
 
