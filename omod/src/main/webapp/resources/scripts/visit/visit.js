@@ -110,8 +110,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
-    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter",
-        function(Encounter, Concepts, OrderTypes, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter) {
+    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter", "ngDialog", "$timeout",
+        function(Encounter, Concepts, OrderTypes, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter, ngDialog, $timeout) {
             return {
                 restrict: "E",
                 scope: {
@@ -352,86 +352,55 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         return false;
                     }
 
-                    // The HFE drug-order widget renders orders via jQuery(function(){ orderWidget.initialize(config) }).
-                    // That script cannot run in the blank print window (no jQuery/orderWidget available), so we
-                    // pre-render the orders from the embedded JSON config before opening the print window.
-                    function preRenderOrderWidgets(html) {
-                        var parser = new DOMParser();
-                        var doc = parser.parseFromString(html, 'text/html');
+                    // Render the form's HFE "view" html inline in a dialog. Unlike a blank
+                    // print window, the page here has jQuery and the htmlformentry orderWidget
+                    // available, so injecting the html with jQuery.html() runs the embedded
+                    // "jQuery(function(){ orderWidget.initialize(...) })" scripts and the
+                    // medications (and form images) render. Once everything is displayed the
+                    // user prints the fully-rendered form from the dialog.
+                    function openPrintFormDialog(html) {
+                        var dialogScope = $scope.$new();
+                        dialogScope.printFormReady = false;
+                        dialogScope.encounterTitle = $scope.encounter.encounterType ? $scope.encounter.encounterType.display : '';
 
-                        Array.from(doc.querySelectorAll('script')).forEach(function(script) {
-                            var text = script.textContent || '';
-                            // The HFE OrderWidget writes: "jQuery(function() { FUNCNAME(\nJSON\n)});"
-                            var lines = text.split('\n');
-                            var jsonStart = -1, jsonEnd = -1;
-                            for (var i = 0; i < lines.length; i++) {
-                                if (lines[i].indexOf('jQuery(function()') >= 0 &&
-                                        (lines[i].indexOf('orderWidget.initialize') >= 0 ||
-                                         lines[i].indexOf('initializeOrderWidget') >= 0)) {
-                                    jsonStart = i + 1;
-                                } else if (lines[i].trim() === ')});' && jsonStart >= 0) {
-                                    jsonEnd = i;
-                                    break;
-                                }
-                            }
-                            if (jsonStart < 0 || jsonEnd < 0) { return; }
-
-                            try {
-                                var config = JSON.parse(lines.slice(jsonStart, jsonEnd).join('\n').trim());
-                                var fieldName = config.fieldName;
-                                if (!fieldName || !Array.isArray(config.history)) { return; }
-
-                                var ordersDiv = doc.getElementById(fieldName + '_orders');
-                                var viewTemplate = doc.getElementById(fieldName + '_view_template');
-                                if (!ordersDiv || !viewTemplate) { return; }
-
-                                config.history.forEach(function(order) {
-                                    var orderEl = viewTemplate.cloneNode(true);
-                                    orderEl.removeAttribute('id');
-                                    orderEl.style.display = '';
-
-                                    // Remove the quantity calculator UI — it is edit-mode-only and
-                                    // not relevant in a print context.
-                                    Array.from(orderEl.querySelectorAll('.calculated-quantity-section')).forEach(function(el) {
-                                        el.parentNode.removeChild(el);
-                                    });
-
-                                    for (var prop in order) {
-                                        if (!Object.prototype.hasOwnProperty.call(order, prop)) { continue; }
-                                        var val = order[prop];
-                                        var displayVal = val && val.display ? val.display : null;
-                                        var fieldWidget = orderEl.querySelector('.order-field-widget.order-' + prop);
-                                        if (fieldWidget) {
-                                            if (displayVal) {
-                                                fieldWidget.innerHTML = displayVal;
-                                            } else {
-                                                var fieldContainer = orderEl.querySelector('.order-field.order-' + prop);
-                                                if (fieldContainer) { fieldContainer.style.display = 'none'; }
-                                            }
-                                        }
-                                    }
-                                    ordersDiv.appendChild(orderEl);
-                                });
-
-                                viewTemplate.parentNode.removeChild(viewTemplate);
-                                script.parentNode.removeChild(script);
-                            } catch(e) {
-                                console.warn('preRenderOrderWidgets: failed to render orders', e);
-                            }
+                        var dialog = ngDialog.open({
+                            template: 'templates/encounters/printForm.page',
+                            className: 'ngdialog-theme-default print-form-dialog',
+                            scope: dialogScope
                         });
 
-                        return doc.body.innerHTML;
+                        dialogScope.doPrint = function() {
+                            printDiv($('#' + dialog.id + ' .print-form-content').html());
+                        };
+
+                        // the dialog template loads asynchronously, so wait for its content
+                        // container to exist, then inject the html. Using jQuery.html() runs
+                        // the embedded order-widget scripts so the medications render.
+                        var injectWhenReady = function() {
+                            var content = $('#' + dialog.id + ' .print-form-content');
+                            if (content.length === 0) {
+                                $timeout(injectWhenReady, 50);
+                                return;
+                            }
+                            // the default ngDialog theme vertically centers the modal via a large
+                            // top padding; shrink it so the (often tall) print form sits near the
+                            // top of the screen instead
+                            $('#' + dialog.id).css('padding-top', '20px');
+                            content.html(html);
+                            dialogScope.printFormReady = true;
+                        };
+                        $timeout(injectWhenReady);
                     }
 
                     $scope.printForm = function() {
-                        // fetch a fresh rendering of the encounter's form (the HFE html view) and print it
+                        // fetch a fresh rendering of the encounter's form (the HFE html view)
                         var url = Handlebars.compile($scope.printFormUrl())({
                             encounter: $scope.encounter
                         });
                         $http.get("/" + OPENMRS_CONTEXT_PATH + url)
                             .then(function (response) {
                                 var data = response.data && response.data.html ? response.data.html : response.data;
-                                printDiv(preRenderOrderWidgets(data));
+                                openPrintFormDialog(data);
                             });
                     }
 
