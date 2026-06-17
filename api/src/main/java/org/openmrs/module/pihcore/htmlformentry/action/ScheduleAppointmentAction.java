@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Obs;
@@ -23,8 +24,9 @@ import org.openmrs.module.htmlformentry.HtmlFormEntryUtil;
 
 /**
  * Creates a new appointment based on concepts in the set "PIH:Scheduled visit information".
- * By design, the obs are only used to create an appointment in ENTER mode, and editting
- * the obs does not modify the appointment.
+ * Only runs in ENTER mode — editing the form does not update or void the appointment.
+ * This is intentional: appointments may be modified independently after creation,
+ * so re-syncing from obs on edit could overwrite legitimate changes.
  */
 public class ScheduleAppointmentAction implements CustomFormSubmissionAction {
 
@@ -43,6 +45,8 @@ public class ScheduleAppointmentAction implements CustomFormSubmissionAction {
             return;
         }
 
+        // SCHEDULE_APPOINTMENT_CONCEPT is a top-level yes/no obs; the appointment detail
+        // construct is only present when the answer is Yes
         if (!isScheduleAppointmentYes(session)) {
             return;
         }
@@ -53,21 +57,24 @@ public class ScheduleAppointmentAction implements CustomFormSubmissionAction {
         }
 
         Date startDateTime = getDatetimeValue(appointmentGroup, APPOINTMENT_DATETIME_CONCEPT);
-        String locationText = getTextValue(appointmentGroup, APPOINTMENT_LOCATION_CONCEPT);
-        String serviceUuid  = getTextValue(appointmentGroup, APPOINTMENT_SERVICE_CONCEPT);
-        Concept typeValue   = getCodedValue(appointmentGroup, APPOINTMENT_TYPE_CONCEPT);
-        String providerText = getTextValue(appointmentGroup, APPOINTMENT_PROVIDER_CONCEPT);
-        String notes        = getTextValue(appointmentGroup, APPOINTMENT_NOTES_CONCEPT);
+        String locationRef = getTextValue(appointmentGroup, APPOINTMENT_LOCATION_CONCEPT);
+        String serviceRef  = getTextValue(appointmentGroup, APPOINTMENT_SERVICE_CONCEPT);
+        Concept typeValue  = getCodedValue(appointmentGroup, APPOINTMENT_TYPE_CONCEPT);
+        String providerRef = getTextValue(appointmentGroup, APPOINTMENT_PROVIDER_CONCEPT);
+        String notes       = getTextValue(appointmentGroup, APPOINTMENT_NOTES_CONCEPT);
 
-        if (startDateTime == null || locationText == null || serviceUuid == null) {
-            return;
+        if (startDateTime == null || locationRef == null || serviceRef == null || StringUtils.isBlank(providerRef)) {
+            throw new IllegalStateException("ScheduleAppointmentAction requires startDateTime, location, service, and provider obs");
         }
 
-        Location location = HtmlFormEntryUtil.getLocation(locationText);
-        AppointmentServiceDefinition service = getAppointmentService(serviceUuid);
+        Location location = HtmlFormEntryUtil.getLocation(locationRef);
+        if (location == null) {
+            throw new IllegalStateException("ScheduleAppointmentAction: no location found for ref: " + locationRef);
+        }
 
-        if (location == null || service == null) {
-            return;
+        AppointmentServiceDefinition service = Context.getService(AppointmentServiceDefinitionService.class).getAppointmentServiceByUuid(serviceRef);
+        if (service == null) {
+            throw new IllegalStateException("ScheduleAppointmentAction: no appointment service found for ref: " + serviceRef);
         }
 
         Appointment appointment = new Appointment();
@@ -78,25 +85,20 @@ public class ScheduleAppointmentAction implements CustomFormSubmissionAction {
         if (service.getDurationMins() != null) {
             appointment.setEndDateTime(new Date(startDateTime.getTime() + (long) service.getDurationMins() * 60 * 1000));
         }
-        AppointmentKind kind = getAppointmentKind(typeValue);
-        if (kind != null) {
-            appointment.setAppointmentKind(kind);
+        appointment.setAppointmentKind(getAppointmentKind(typeValue));
+        appointment.setComments(notes);
+
+        Provider provider = HtmlFormEntryUtil.getProvider(providerRef);
+        if (provider == null) {
+            throw new IllegalStateException("ScheduleAppointmentAction: no provider found for ref: " + providerRef);
         }
-        if (notes != null) {
-            appointment.setComments(notes);
-        }
-        if (providerText != null) {
-            Provider provider = HtmlFormEntryUtil.getProvider(providerText);
-            if (provider != null) {
-                AppointmentProvider appointmentProvider = new AppointmentProvider();
-                appointmentProvider.setProvider(provider);
-                appointmentProvider.setResponse(AppointmentProviderResponse.ACCEPTED);
-                appointmentProvider.setAppointment(appointment);
-                Set<AppointmentProvider> providers = new HashSet<>();
-                providers.add(appointmentProvider);
-                appointment.setProviders(providers);
-            }
-        }
+        AppointmentProvider appointmentProvider = new AppointmentProvider();
+        appointmentProvider.setProvider(provider);
+        appointmentProvider.setResponse(AppointmentProviderResponse.ACCEPTED);
+        appointmentProvider.setAppointment(appointment);
+        Set<AppointmentProvider> providers = new HashSet<>();
+        providers.add(appointmentProvider);
+        appointment.setProviders(providers);
 
         Context.getService(AppointmentsService.class).validateAndSave(appointment);
     }
@@ -121,6 +123,9 @@ public class ScheduleAppointmentAction implements CustomFormSubmissionAction {
     }
 
     private Obs findMemberObs(Obs group, String conceptMapping) {
+        if (group.getGroupMembers(false) == null) {
+            return null;
+        }
         for (Obs member : group.getGroupMembers(false)) {
             if (member.getConcept().equals(HtmlFormEntryUtil.getConcept(conceptMapping))) {
                 return member;
@@ -160,12 +165,4 @@ public class ScheduleAppointmentAction implements CustomFormSubmissionAction {
         return null;
     }
 
-    private AppointmentServiceDefinition getAppointmentService(String uuid) {
-        return Context.getService(AppointmentServiceDefinitionService.class)
-                .getAllAppointmentServices(false)
-                .stream()
-                .filter(s -> s.getUuid().equals(uuid))
-                .findFirst()
-                .orElse(null);
-    }
 }
