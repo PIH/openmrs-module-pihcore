@@ -265,7 +265,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     }
 
                     $scope.canPrintForm = function() {
-                        return config && config.printForm && $scope.printFormUrl();
+                        return config && config.printForm &&
+                            (config.printReportDefinitionUuid || $scope.printFormUrl());
                     }
 
                     $scope.expand = function() {
@@ -353,15 +354,28 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     }
 
                     $scope.printForm = function() {
-                        // fetch a fresh rendering of the encounter's form (the HFE html view) and print it
-                        var url = Handlebars.compile($scope.printFormUrl())({
-                            encounter: $scope.encounter
-                        });
-                        $http.get("/" + OPENMRS_CONTEXT_PATH + url)
-                            .then(function (response) {
-                                var data = response.data && response.data.html ? response.data.html : response.data;
-                                printDiv(data);
+                        if (config.printReportDefinitionUuid && config.printReportDesignUuid) {
+                            // fetch a PDF from the reporting module and open it in a new tab for printing
+                            var url = "/" + OPENMRS_CONTEXT_PATH + "/ws/rest/v1/reportingrest/runReport/" +
+                                config.printReportDefinitionUuid + "/" + config.printReportDesignUuid +
+                                "?encounterId=" + encodeURIComponent($scope.encounter.uuid);
+                            $http.post(url, {}, { responseType: 'arraybuffer' })
+                                .then(function(response) {
+                                    var blob = new Blob([response.data], { type: 'application/pdf' });
+                                    var blobUrl = URL.createObjectURL(blob);
+                                    window.open(blobUrl, '_blank');
+                                });
+                        } else {
+                            // fall back to HFE HTML print for encounter types without a dedicated report
+                            var url = Handlebars.compile($scope.printFormUrl())({
+                                encounter: $scope.encounter
                             });
+                            $http.get("/" + OPENMRS_CONTEXT_PATH + url)
+                                .then(function(response) {
+                                    var data = response.data && response.data.html ? response.data.html : response.data;
+                                    printDiv(data);
+                                });
+                        }
                     }
 
                     $scope.$on('expand-all',function() {
