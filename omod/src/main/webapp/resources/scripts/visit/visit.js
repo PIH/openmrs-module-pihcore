@@ -110,8 +110,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
-    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter",
-        function(Encounter, Concepts, OrderTypes, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter) {
+    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter", "ngDialog", "$timeout",
+        function(Encounter, Concepts, OrderTypes, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter, ngDialog, $timeout) {
             return {
                 restrict: "E",
                 scope: {
@@ -352,15 +352,55 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         return false;
                     }
 
+                    // Render the form's HFE "view" html inline in a dialog. Unlike a blank
+                    // print window, the page here has jQuery and the htmlformentry orderWidget
+                    // available, so injecting the html with jQuery.html() runs the embedded
+                    // "jQuery(function(){ orderWidget.initialize(...) })" scripts and the
+                    // medications (and form images) render. Once everything is displayed the
+                    // user prints the fully-rendered form from the dialog.
+                    function openPrintFormDialog(html) {
+                        var dialogScope = $scope.$new();
+                        dialogScope.printFormReady = false;
+                        dialogScope.encounterTitle = $scope.encounter.encounterType ? $scope.encounter.encounterType.display : '';
+
+                        var dialog = ngDialog.open({
+                            template: 'templates/encounters/printForm.page',
+                            className: 'ngdialog-theme-default print-form-dialog',
+                            scope: dialogScope
+                        });
+
+                        dialogScope.doPrint = function() {
+                            printDiv($('#' + dialog.id + ' .print-form-content').html());
+                        };
+
+                        // the dialog template loads asynchronously, so wait for its content
+                        // container to exist, then inject the html. Using jQuery.html() runs
+                        // the embedded order-widget scripts so the medications render.
+                        var injectWhenReady = function() {
+                            var content = $('#' + dialog.id + ' .print-form-content');
+                            if (content.length === 0) {
+                                $timeout(injectWhenReady, 50);
+                                return;
+                            }
+                            // the default ngDialog theme vertically centers the modal via a large
+                            // top padding; shrink it so the (often tall) print form sits near the
+                            // top of the screen instead
+                            $('#' + dialog.id).css('padding-top', '20px');
+                            content.html(html);
+                            dialogScope.printFormReady = true;
+                        };
+                        $timeout(injectWhenReady);
+                    }
+
                     $scope.printForm = function() {
-                        // fetch a fresh rendering of the encounter's form (the HFE html view) and print it
+                        // fetch a fresh rendering of the encounter's form (the HFE html view)
                         var url = Handlebars.compile($scope.printFormUrl())({
                             encounter: $scope.encounter
                         });
                         $http.get("/" + OPENMRS_CONTEXT_PATH + url)
                             .then(function (response) {
                                 var data = response.data && response.data.html ? response.data.html : response.data;
-                                printDiv(data);
+                                openPrintFormDialog(data);
                             });
                     }
 
