@@ -91,7 +91,7 @@
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
         <reportingVersion>2.2.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>2.1.0-SNAPSHOT</reportingrestVersion>
-        <reportinguiVersion>1.14.0</reportinguiVersion>
+        <reportinguiVersion>1.15.0-SNAPSHOT</reportinguiVersion>
         <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
         <spaVersion>2.1.0</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
