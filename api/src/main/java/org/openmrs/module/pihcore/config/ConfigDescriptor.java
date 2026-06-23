@@ -20,7 +20,7 @@ import java.util.Map;
 public class ConfigDescriptor {
 
     public enum Country {
-        HAITI, LIBERIA, SIERRA_LEONE, MEXICO, OTHER
+        HAITI, LIBERIA, SIERRA_LEONE, MEXICO, LESOTHO, OTHER
     }
 
     public enum Specialty {
