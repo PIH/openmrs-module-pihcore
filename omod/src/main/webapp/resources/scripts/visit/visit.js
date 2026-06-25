@@ -304,6 +304,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             // the print window is an about:blank document, so give it a base href
                             // to resolve any path-absolute resource (eg. form logos) against this server
                             mywindow.document.write('<base href="' + window.location.origin + '/"/>');
+                            // the browser prints the document URL (here "about:blank") and other
+                            // info in the page header/footer by default. Zeroing the @page margin
+                            // suppresses the browser-generated header/footer; body padding restores
+                            // the print margins so the form layout is unchanged.
+                            mywindow.document.write('<style>@page { margin: 0; } @media print { body { padding: 0.5in; } }</style>');
                             mywindow.document.write('</head><body >');
                             mywindow.document.write(data);
                             mywindow.document.write('</body></html>');
