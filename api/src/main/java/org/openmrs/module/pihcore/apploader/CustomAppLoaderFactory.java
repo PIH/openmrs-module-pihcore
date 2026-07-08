@@ -995,14 +995,13 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableBedAdministration() {
 
-        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,
+        apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,
                 CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,
                 "fas fa-fw fa-bed",
                 "/openmrs/owa/bedmanagement/admissionLocations.html",
-                null,
-                null),
-                sessionLocationHasTag("Admission Location")));
-
+                15,
+                "App: coreapps.systemAdministration",
+                null)));
     }
 
     private void enableDeathCertificate() {
@@ -1643,6 +1642,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "printer.administration",
                 "fas fa-fw fa-print",
                 "printer/printerAdministration.page",
+                12,
                 "App: coreapps.systemAdministration",
                 null)));
 
@@ -4417,6 +4417,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.patient.export",
                 "fas fa-fw fa-external-link-alt",
                 "pihcore/export/exportPatients.page",
+                16,
                 "App: coreapps.systemAdministration",
                 null)));
     }
@@ -4426,6 +4427,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.patient.import",
                 "fas fa-fw fa-sign-in-alt",
                 "pihcore/export/importPatients.page",
+                17,
                 "App: coreapps.systemAdministration",
                 null)));
     }
