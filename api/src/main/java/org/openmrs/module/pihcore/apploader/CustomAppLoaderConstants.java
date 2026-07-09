@@ -440,6 +440,7 @@ public class CustomAppLoaderConstants {
     public static final List<String> SYSTEM_ADMINISTRATION_APPS_ORDER = Arrays.asList(
             Apps.MANAGE_ACCOUNTS,
             Apps.PRINTER_ADMINISTRATION,
+            Apps.BED_ADMINISTRATION,
             Apps.MERGE_PATIENTS,
             Apps.FEATURE_TOGGLES);
 
