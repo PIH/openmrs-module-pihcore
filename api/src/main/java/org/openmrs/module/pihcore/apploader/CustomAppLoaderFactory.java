@@ -998,7 +998,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,
                 CustomAppLoaderConstants.Apps.BED_ADMINISTRATION,
                 "fas fa-fw fa-bed",
-                "/openmrs/owa/bedmanagement/admissionLocations.html",
+                "owa/bedmanagement/admissionLocations.html",
                 15,
                 "App: coreapps.systemAdministration",
                 null)));
