@@ -299,22 +299,54 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     function printDiv(data) {
                         if (data) {
                             var title = $scope.encounter.encounterType ? $scope.encounter.encounterType.display : '';
-                            var mywindow = window.open('', 'print form', 'height=600,width=800');
-                            mywindow.document.write('<html><head><title>' + title + '</title>');
-                            // the print window is an about:blank document, so give it a base href
-                            // to resolve any path-absolute resource (eg. form logos) against this server
-                            mywindow.document.write('<base href="' + window.location.origin + '/"/>');
-                            // the browser prints the document URL (here "about:blank") and other
-                            // info in the page header/footer by default. Zeroing the @page margin
-                            // suppresses the browser-generated header/footer; body padding restores
-                            // the print margins so the form layout is unchanged.
-                            mywindow.document.write('<style>@page { margin: 0; } @media print { body { padding: 0.5in; } }</style>');
-                            mywindow.document.write('</head><body >');
-                            mywindow.document.write(data);
-                            mywindow.document.write('</body></html>');
 
-                            mywindow.document.close();
-                            mywindow.focus();
+                            // The rendered form html still contains the order-widget <script> tags that
+                            // already ran while the form was injected into the dialog. jQuery.parseHTML
+                            // (keepScripts = false) drops those <script> elements without executing them,
+                            // so they are not re-run inside the print iframe -- which has no jQuery loaded
+                            // and would otherwise throw "jQuery is not defined". The already-rendered
+                            // markup (medications, etc.) is preserved.
+                            data = $('<div>').append($.parseHTML(data)).html();
+
+                            // Render into a hidden, same-document iframe rather than a popup window.
+                            // window.open() opens a popup, which the browser blocks (returning null)
+                            // when there is no user gesture -- eg. when printing is triggered
+                            // automatically after the "Save & Print" navigation on a freshly loaded
+                            // page. An iframe is not subject to popup blocking and needs no gesture, so
+                            // it works for both the automatic path and the manual Print button.
+                            var iframe = document.createElement('iframe');
+                            iframe.style.position = 'fixed';
+                            iframe.style.width = '0';
+                            iframe.style.height = '0';
+                            iframe.style.border = '0';
+                            document.body.appendChild(iframe);
+
+                            var printWindow = iframe.contentWindow;
+                            var doc = printWindow.document;
+                            doc.open();
+                            doc.write('<html><head><title>' + title + '</title>');
+                            // the iframe document is about:blank, so give it a base href to resolve any
+                            // path-absolute resource (eg. form logos) against this server
+                            doc.write('<base href="' + window.location.origin + '/"/>');
+                            // the browser prints the document URL and other info in the page
+                            // header/footer by default. Zeroing the @page margin suppresses the
+                            // browser-generated header/footer; body padding restores the print margins
+                            // so the form layout is unchanged.
+                            doc.write('<style>@page { margin: 0; } @media print { body { padding: 0.5in; } }</style>');
+                            doc.write('</head><body >');
+                            doc.write(data);
+                            doc.write('</body></html>');
+                            doc.close();
+
+                            var removeIframe = function() {
+                                if (iframe.parentNode) {
+                                    iframe.parentNode.removeChild(iframe);
+                                }
+                            };
+                            // clean up the iframe once the print dialog has been dismissed; keep a
+                            // long fallback in case onafterprint never fires (eg. older browsers)
+                            printWindow.onafterprint = removeIframe;
+                            $timeout(removeIframe, 60000);
 
                             var printed = false;
                             var doPrint = function() {
@@ -322,14 +354,14 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                     return;
                                 }
                                 printed = true;
-                                mywindow.print();
-                                mywindow.close();
+                                printWindow.focus();
+                                printWindow.print();
                             };
 
                             // Wait for any images (eg. the form logos) to finish loading before printing.
                             // Otherwise print() fires before the browser has fetched them and they are
                             // missing from the printout.
-                            var images = mywindow.document.images;
+                            var images = doc.images;
                             var remaining = images.length;
                             if (remaining === 0) {
                                 doPrint();
@@ -349,7 +381,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                     }
                                 }
                                 // safety net in case an image never reports load/error
-                                mywindow.setTimeout(doPrint, 2000);
+                                window.setTimeout(doPrint, 2000);
                             }
 
                             return true;
@@ -417,6 +449,42 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 var data = response.data && response.data.html ? response.data.html : response.data;
                                 openPrintFormDialog(data);
                             });
+                    }
+
+                    // "Save & Print": a form (eg. Maternal Discharge) can request that its just-saved
+                    // encounter be printed automatically. On save, htmlformentryui navigates back to the
+                    // visit page carrying "printForm=true" in the query string, and the saved encounter is
+                    // the "selected" one. When that is the case we send this encounter's form to the printer
+                    // exactly as if the print icon had been clicked.
+                    function printFormRequestedInUrl() {
+                        return new URLSearchParams(window.location.search).get('printForm') === 'true';
+                    }
+
+                    // Whether this page load is a browser reload rather than a fresh navigation. We don't
+                    // want to re-print when the user simply refreshes a visit page whose URL still carries
+                    // the "printForm=true" flag.
+                    function isPageReload() {
+                        var nav = window.performance && window.performance.getEntriesByType
+                            ? window.performance.getEntriesByType('navigation')[0] : null;
+                        if (nav && nav.type) {
+                            return nav.type === 'reload';
+                        }
+                        // fallback for older browsers
+                        return !!(window.performance && window.performance.navigation
+                            && window.performance.navigation.type === 1 /* TYPE_RELOAD */);
+                    }
+
+                    // Note: we deliberately do NOT strip the flag from the URL. In this AngularJS app
+                    // $location owns the browser URL and reconciles it against window.location on every
+                    // digest, so mutating it with history.replaceState fights $location and triggers an
+                    // infinite $digest ($rootScope:infdig). Instead we guard against printing twice with an
+                    // in-memory flag (covers this directive being re-instantiated during the same page
+                    // load) and skip re-printing on a reload.
+                    if ($scope.selected && $scope.canPrintForm() && printFormRequestedInUrl()
+                            && !isPageReload() && !$scope.$root.pihFormAutoPrinted) {
+                        $scope.$root.pihFormAutoPrinted = true;
+                        // defer past the current digest so the encounter/config are fully wired up
+                        $timeout($scope.printForm);
                     }
 
                     $scope.$on('expand-all',function() {
