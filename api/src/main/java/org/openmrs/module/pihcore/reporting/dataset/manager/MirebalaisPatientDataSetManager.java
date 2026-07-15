@@ -14,13 +14,10 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
-import org.openmrs.EncounterType;
-import org.openmrs.module.pihcore.PihEmrConfigConstants;
-import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.Location;
 import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
 import org.openmrs.module.reporting.cohort.definition.CohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CompositionCohortDefinition;
-import org.openmrs.module.reporting.cohort.definition.EncounterCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.VisitCohortDefinition;
 import org.openmrs.module.reporting.config.DataSetDescriptor;
 import org.openmrs.module.reporting.config.factory.DataSetFactory;
@@ -68,24 +65,23 @@ public class MirebalaisPatientDataSetManager implements DataSetFactory {
         dsd.addParameter(getStartDateParameter());
         dsd.addParameter(getEndDateParameter());
 
+        Parameter visitLocationParameter = new Parameter("location", "mirebalaisreports.parameter.location",
+                Location.class, null, null, null, false); // optional: only filters by visit location when supplied
+        dsd.addParameter(visitLocationParameter);
+
         CompositionCohortDefinition baseCohortDefinition = new CompositionCohortDefinition();
         baseCohortDefinition.addParameter(getStartDateParameter());
         baseCohortDefinition.addParameter(getEndDateParameter());
+        baseCohortDefinition.addParameter(visitLocationParameter);
 
         VisitCohortDefinition visitDuringPeriod = new VisitCohortDefinition();
         visitDuringPeriod.addParameter(new Parameter("activeOnOrAfter", "", Date.class));
         visitDuringPeriod.addParameter(new Parameter("activeOnOrBefore", "", Date.class));
-        baseCohortDefinition.addSearch("visitDuringPeriod", this.<CohortDefinition>map(visitDuringPeriod, "activeOnOrAfter=${startDate},activeOnOrBefore=${endDate}"));
+        visitDuringPeriod.addParameter(new Parameter("locationList", "", Location.class));
+        baseCohortDefinition.addSearch("visitDuringPeriod", this.<CohortDefinition>map(visitDuringPeriod, "activeOnOrAfter=${startDate},activeOnOrBefore=${endDate},locationList=${location}"));
 
-        EncounterType registrationEncounterType = Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PATIENT_REGISTRATION_UUID);
-        EncounterCohortDefinition registrationEncounterDuringPeriod = new EncounterCohortDefinition();
-        registrationEncounterDuringPeriod.addEncounterType(registrationEncounterType);
-        registrationEncounterDuringPeriod.addParameter(new Parameter("onOrAfter", "", Date.class));
-        registrationEncounterDuringPeriod.addParameter(new Parameter("onOrBefore", "", Date.class));
-        baseCohortDefinition.addSearch("registrationEncounterDuringPeriod", this.<CohortDefinition>map(registrationEncounterDuringPeriod, "onOrAfter=${startDate},onOrBefore=${endDate}"));
-
-        baseCohortDefinition.setCompositionString("(visitDuringPeriod OR registrationEncounterDuringPeriod)");
-        dsd.addRowFilter(this.<CohortDefinition>map(baseCohortDefinition, "startDate=${startDate},endDate=${endDate}"));
+        baseCohortDefinition.setCompositionString("visitDuringPeriod");
+        dsd.addRowFilter(this.<CohortDefinition>map(baseCohortDefinition, "startDate=${startDate},endDate=${endDate},location=${location}"));
 
         dsd.addColumn("patient_id", builtInPatientData.getPatientId(), "");
         dsd.addColumn("zlemr", pihPatientData.getPreferredZlEmrIdIdentifier(), "");

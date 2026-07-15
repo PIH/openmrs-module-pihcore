@@ -16,7 +16,9 @@ package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.Encounter;
+import org.openmrs.Location;
 import org.openmrs.Patient;
+import org.openmrs.Visit;
 import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.builder.EncounterBuilder;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.InsuranceConcepts;
@@ -56,11 +58,18 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
     }
 
     protected Encounter createRegistrationEncounter(Patient p) {
+        return createRegistrationEncounter(p, null);
+    }
+
+    protected Encounter createRegistrationEncounter(Patient p, Visit visit) {
         EncounterBuilder eb = data.encounter();
         eb.patient(p);
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
         eb.location(locationService.getLocation("Biwo Resepsyon"));
         eb.encounterType(getRegistrationEncounterType());
+        if (visit != null) {
+            eb.visit(visit);
+        }
 
         // TODO: Add More Obs to test
         eb.obs(Metadata.getConcept(SocioEconomicConcepts.Concepts.CIVIL_STATUS), Metadata.getConcept(SocioEconomicConcepts.Concepts.MARRIED));
@@ -69,13 +78,25 @@ public abstract class EncounterDataSetManagerTest extends BaseReportTest {
     }
 
     protected Encounter createCheckInEncounter(Patient p) {
+        return createCheckInEncounter(p, null);
+    }
+
+    protected Encounter createCheckInEncounter(Patient p, Visit visit) {
         EncounterBuilder eb = data.encounter();
         eb.patient(p);
         eb.encounterDatetime(DateUtil.getDateTime(2015, 4, 15));
         eb.location(locationService.getLocation("Klinik Ekstèn"));
         eb.encounterType(getCheckInEncounterType());
+        if (visit != null) {
+            eb.visit(visit);
+        }
         eb.obs("REASON FOR VISIT", "PIH", Metadata.getConcept("PIH:MALNUTRITION PROGRAM"));
         return eb.save();
+    }
+
+    protected Visit createVisit(Patient p, Location location) {
+        return data.visit().patient(p).visitType(emrApiProperties.getAtFacilityVisitType())
+                .started(DateUtil.getDateTime(2015, 4, 15)).location(location).save();
     }
 
 }

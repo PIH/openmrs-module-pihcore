@@ -14,9 +14,7 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
-
 import org.junit.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmrs.Location;
 import org.openmrs.Patient;
@@ -27,91 +25,75 @@ import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.evaluation.EvaluationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class CheckInDataSetManagerTest extends EncounterDataSetManagerTest {
+public class HaitiEncounterDataSetManagerTest extends EncounterDataSetManagerTest {
 
     @Autowired
-    CheckInDataSetManager checkInDataSetManager;
-
-    @BeforeEach
-    @Override
-    public void setup() throws Exception {
-        super.setup();
-        Patient p = createPatient("X3XK71");
-        createRegistrationEncounter(p);
-        createCheckInEncounter(p);
-    }
+    HaitiEncounterDataSetManager haitiEncounterDataSetManager;
 
     @Test
     public void testDataSet() throws Exception {
-        DataSetDefinition dsd = checkInDataSetManager.constructDataSet();
+        Patient p = createPatient("X3XK71");
+        Location biwoResepsyon = locationService.getLocation("Biwo Resepsyon");
+        createRegistrationEncounter(p, createVisit(p, biwoResepsyon));
+
+        DataSetDefinition dsd = haitiEncounterDataSetManager.constructDataSet();
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
         context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
-        SimpleDataSet dataSet = (SimpleDataSet)dataSetDefinitionService.evaluate(dsd, context);
-        DataSetRow row = dataSet.getRows().get(0);
+
+        SimpleDataSet dataSet = (SimpleDataSet) dataSetDefinitionService.evaluate(dsd, context);
         Assert.assertEquals(1, dataSet.getRows().size());
-        Assert.assertNull(row.getColumnValue("CHECK_IN_VISIT"));
-        Assert.assertEquals(22, dataSet.getMetaData().getColumnCount());
-        Assert.assertEquals("X3XK71", row.getColumnValue("EMR_ID"));
-        Assert.assertEquals(DateUtil.getDateTime(1977, 11, 23), row.getColumnValue("BIRTHDATE"));
-        Assert.assertEquals(false, row.getColumnValue("BIRTHDATE_ESTIMATED"));
-        Assert.assertEquals(37.4, row.getColumnValue("AGE_AT_CHECK_IN"));
-        Assert.assertEquals("M", row.getColumnValue("GENDER"));
-        Assert.assertEquals(DateUtil.getDateTime(2015, 4, 15), row.getColumnValue("CHECK_IN_DATE"));
-        Assert.assertEquals("Klinik Ekstèn", row.getColumnValue("CHECK_IN_LOCATION"));
-        Assert.assertEquals("Malnutrition program", row.getColumnValue("TYPE_OF_VISIT"));
-        Assert.assertEquals("true", row.getColumnValue("CHECK_IN_RETROSPECTIVE"));
-        Assert.assertEquals("true", row.getColumnValue("BIOMETRICS_COLLECTED"));
+        DataSetRow row = dataSet.getRows().get(0);
+        Assert.assertEquals("X3XK71", row.getColumnValue("zlEmrId"));
     }
 
     @Test
     public void testDataSetFiltersByVisitLocationWhenSpecified() throws Exception {
         Patient p1 = createPatient("X1AAAD");
         Patient p2 = createPatient("X2CCC6");
-        Location klinikEksten = locationService.getLocation("Klinik Ekstèn");
+        Location biwoResepsyon = locationService.getLocation("Biwo Resepsyon");
         Location lacolline = locationService.getLocation("Lacolline");
-        createCheckInEncounter(p1, createVisit(p1, klinikEksten));
-        createCheckInEncounter(p2, createVisit(p2, lacolline));
+        createRegistrationEncounter(p1, createVisit(p1, biwoResepsyon));
+        createRegistrationEncounter(p2, createVisit(p2, lacolline));
 
-        DataSetDefinition dsd = checkInDataSetManager.constructDataSet();
+        DataSetDefinition dsd = haitiEncounterDataSetManager.constructDataSet();
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
         context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
-        context.addParameterValue("visitLocation", klinikEksten);
+        context.addParameterValue("visitLocation", biwoResepsyon);
 
         SimpleDataSet dataSet = (SimpleDataSet) dataSetDefinitionService.evaluate(dsd, context);
         Assert.assertEquals(1, dataSet.getRows().size());
-        Assert.assertEquals("X1AAAD", dataSet.getRows().get(0).getColumnValue("EMR_ID"));
+        Assert.assertEquals("X1AAAD", dataSet.getRows().get(0).getColumnValue("zlEmrId"));
     }
 
     @Test
     public void testDataSetReturnsAllEncountersWhenVisitLocationNotSpecified() throws Exception {
-        // setup() already created a check-in encounter (with no visit) for patient X3XK71
         Patient p1 = createPatient("X1AAAD");
         Patient p2 = createPatient("X2CCC6");
-        createCheckInEncounter(p1, createVisit(p1, locationService.getLocation("Klinik Ekstèn")));
-        createCheckInEncounter(p2, createVisit(p2, locationService.getLocation("Lacolline")));
+        createRegistrationEncounter(p1, createVisit(p1, locationService.getLocation("Biwo Resepsyon")));
+        createRegistrationEncounter(p2, createVisit(p2, locationService.getLocation("Lacolline")));
 
-        DataSetDefinition dsd = checkInDataSetManager.constructDataSet();
+        DataSetDefinition dsd = haitiEncounterDataSetManager.constructDataSet();
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
         context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
         // visitLocation intentionally not set
 
         SimpleDataSet dataSet = (SimpleDataSet) dataSetDefinitionService.evaluate(dsd, context);
-        Assert.assertEquals(3, dataSet.getRows().size());
+        Assert.assertEquals(2, dataSet.getRows().size());
     }
 
     @Test
     public void testDataSetExcludesEncountersWithNoVisitWhenVisitLocationSpecified() throws Exception {
-        Patient p1 = createPatient("X1AAAD");
-        createCheckInEncounter(p1); // no visit attached
+        Patient p = createPatient("X1AAAD");
+        createRegistrationEncounter(p); // no visit attached
 
-        DataSetDefinition dsd = checkInDataSetManager.constructDataSet();
+        DataSetDefinition dsd = haitiEncounterDataSetManager.constructDataSet();
         EvaluationContext context = new EvaluationContext();
         context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
         context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
-        context.addParameterValue("visitLocation", locationService.getLocation("Klinik Ekstèn"));
+        context.addParameterValue("visitLocation", locationService.getLocation("Biwo Resepsyon"));
 
         SimpleDataSet dataSet = (SimpleDataSet) dataSetDefinitionService.evaluate(dsd, context);
         Assert.assertEquals(0, dataSet.getRows().size());
