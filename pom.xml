@@ -61,7 +61,6 @@
         <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
         <coreappsVersion>4.0.0-SNAPSHOT</coreappsVersion>
-        <dbeventVersion>1.2.0</dbeventVersion>
         <dispensingVersion>2.0.0</dispensingVersion>
         <edtriageappVersion>2.2.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
@@ -180,12 +179,6 @@
             <artifactId>appframework-api</artifactId>
             <version>${appframeworkVersion}</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.antlr</groupId>
-                    <artifactId>antlr4-runtime</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -256,20 +249,6 @@
             <artifactId>coreapps-api</artifactId>
             <version>${coreappsVersion}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>dbevent-api</artifactId>
-            <version>${dbeventVersion}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>dbevent-api</artifactId>
-            <version>${dbeventVersion}</version>
-            <scope>test</scope>
-            <classifier>tests</classifier>
         </dependency>
 
         <dependency>

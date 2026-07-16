@@ -1176,5 +1176,13 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="20260715-remove-dbevent-patient" author="mseaton">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="dbevent_patient"/>
+        </preConditions>
+        <comment>Remove table to track most recent update date of each patient</comment>
+        <dropTable tableName="dbevent_patient"/>
+    </changeSet>
+
 </databaseChangeLog>
 

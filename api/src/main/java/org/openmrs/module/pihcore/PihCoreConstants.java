@@ -2,8 +2,6 @@ package org.openmrs.module.pihcore;
 
 public class PihCoreConstants {
 
-    public static final String DBEVENT_ENABLED_PROPERTY = "dbevent_enabled";
-    
     public static final String GP_COMPONENT_PREFIX = "pihcore.component.";
     public static final String GP_CONFIGURED_SITE = "pihcore.site";
     public static final String GP_NEXT_RADIOLOGY_ORDER_NUMBER_SEED = "order.nextRadiologyOrderNumberSeed";

@@ -32,7 +32,6 @@ public class Components {
         public static final String CHART_SEARCH = "chartSearch";
         public static final String CHECK_IN_HOMEPAGE_APP = "checkInHomepageApp";
         public static final String DATA_EXPORTS = "dataExports";  // enabled the data export section
-        public static final String DB_EVENT = "dbevent";
         public static final String DEATH_CERTIFICATE = "deathCertificate";
         public static final String DIABETES_PROGRAM = "diabetesProgram";  // needs DiabetesProgram bundle, used by CES
         public static final String DISPENSING = "dispensing";  // This is for the legacy dispensing form functionality
