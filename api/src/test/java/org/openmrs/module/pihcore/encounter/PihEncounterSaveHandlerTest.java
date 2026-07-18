@@ -1,8 +1,9 @@
 package org.openmrs.module.pihcore.encounter;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.mockito.MockedStatic;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Obs;
@@ -12,9 +13,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appointments.model.Appointment;
 import org.openmrs.module.appointments.model.AppointmentStatus;
 import org.openmrs.module.appointments.service.AppointmentsService;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.Date;
 
@@ -24,14 +22,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Context.class)
-@PowerMockIgnore({"javax.management.*", "org.apache.*", "org.slf4j.*"})
 public class PihEncounterSaveHandlerTest {
 
     private PihEncounterSaveHandler handler;
@@ -44,6 +39,8 @@ public class PihEncounterSaveHandlerTest {
     private User user;
     private Date date;
 
+    private MockedStatic<Context> mockedContext;
+
     @Before
     public void setUp() {
         handler = new PihEncounterSaveHandler();
@@ -53,13 +50,18 @@ public class PihEncounterSaveHandlerTest {
 
         uuidConcept = new Concept();
 
-        mockStatic(Context.class);
-        when(Context.getConceptService()).thenReturn(mockConceptService);
-        when(Context.getService(AppointmentsService.class)).thenReturn(mockAppointmentsService);
+        mockedContext = mockStatic(Context.class);
+        mockedContext.when(Context::getConceptService).thenReturn(mockConceptService);
+        mockedContext.when(() -> Context.getService(AppointmentsService.class)).thenReturn(mockAppointmentsService);
         when(mockConceptService.getConceptByMapping("Appointment uuid", "PIH")).thenReturn(uuidConcept);
 
         user = new User();
         date = new Date();
+    }
+
+    @After
+    public void tearDown() {
+        mockedContext.close();
     }
 
     @Test

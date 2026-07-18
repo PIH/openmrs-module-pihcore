@@ -4,12 +4,14 @@ package org.openmrs.module.pihcore.action;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
+import org.mockito.MockedStatic;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.Location;
@@ -34,22 +36,17 @@ import org.openmrs.module.queue.api.QueueService;
 import org.openmrs.module.queue.api.QueueServicesWrapper;
 import org.openmrs.module.queue.api.search.QueueSearchCriteria;
 import org.openmrs.module.queue.model.QueueEntry;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(Context.class)
-@PowerMockIgnore({"javax.management.*", "org.apache.*", "org.slf4j.*"})
+@RunWith(MockitoJUnitRunner.Silent.class)
 public class AddPatientToQueueActionTest {
 
     private static final String ADD_TO_QUEUE_CONCEPT_CODE_PIH = "1272";
@@ -70,6 +67,8 @@ public class AddPatientToQueueActionTest {
     @Captor
     ArgumentCaptor<QueueEntry> queueEntryArgumentCaptor;
 
+    private MockedStatic<Context> mockedContext;
+
     @Before
     public void setUp()  {
 
@@ -84,12 +83,12 @@ public class AddPatientToQueueActionTest {
         conceptService = mock(ConceptService.class);
         addToQueueConcept = new Concept();
         mcoeTriageService = new Concept();
-        mockStatic(Context.class);
-        when(Context.getConceptService()).thenReturn(conceptService);
+        mockedContext = mockStatic(Context.class);
+        mockedContext.when(Context::getConceptService).thenReturn(conceptService);
         when(conceptService.getConceptByMapping(ADD_TO_QUEUE_CONCEPT_CODE_PIH, "PIH")).thenReturn(addToQueueConcept);
         wrapper = mock(QueueServicesWrapper.class);
 
-        when(Context.getRegisteredComponents(QueueServicesWrapper.class)).thenReturn(Arrays.asList(wrapper));
+        mockedContext.when(() -> Context.getRegisteredComponents(QueueServicesWrapper.class)).thenReturn(Arrays.asList(wrapper));
         mockDao = mock(QueueDao.class);
         queueServiceImpl = new QueueServiceImpl();
         ((QueueServiceImpl) queueServiceImpl).setDao(mockDao);
@@ -100,6 +99,11 @@ public class AddPatientToQueueActionTest {
         queueEntryServiceImpl.setSortWeightGenerator(new BasicPrioritySortWeightGenerator(wrapper));
         ((QueueEntryServiceImpl) queueEntryServiceImpl).setDao(mockQueueEntryDao);
         when(wrapper.getQueueEntryService()).thenReturn(queueEntryServiceImpl);
+    }
+
+    @After
+    public void tearDown() {
+        mockedContext.close();
     }
 
     @Test
