@@ -16,6 +16,7 @@ package org.openmrs.module.pihcore.reporting.dataset.manager;
 
 import org.openmrs.Concept;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
 import org.openmrs.Visit;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
@@ -106,10 +107,14 @@ public abstract class BaseEncounterDataSetManager implements DataSetFactory {
 		EncounterDataSetDefinition dsd = new EncounterDataSetDefinition();
 		dsd.addParameter(new Parameter("startDate", "mirebalaisreports.parameter.startDate", Date.class));
 		dsd.addParameter(new Parameter("endDate", "mirebalaisreports.parameter.endDate", Date.class));
+		Parameter visitLocationParameter = new Parameter("visitLocation", "mirebalaisreports.parameter.visitLocation",
+				Location.class, null, null, null, false); // optional: only filters by visit location when supplied
+		dsd.addParameter(visitLocationParameter);
 
 		// Rows defined as patients who had an encounter of the configured types during the given period
 		dsd.addRowFilter(Mapped.mapStraightThrough(new PatientEncounterQuery(cohortQueries.getExcludeTestPatients())));
 		dsd.addRowFilter(Mapped.mapStraightThrough(encounterQueries.getEncountersDuringPeriodAtLocation(getEncounterTypes())));
+		dsd.addRowFilter(Mapped.mapStraightThrough(encounterQueries.getEncountersWithVisitAtLocation()));
 
 		// Define columns
 		addPrimaryIdentifierColumns(dsd);

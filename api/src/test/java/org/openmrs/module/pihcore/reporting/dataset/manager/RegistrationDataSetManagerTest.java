@@ -18,6 +18,7 @@ package org.openmrs.module.pihcore.reporting.dataset.manager;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.module.reporting.common.DateUtil;
 import org.openmrs.module.reporting.dataset.DataSetRow;
@@ -71,5 +72,58 @@ public class RegistrationDataSetManagerTest extends EncounterDataSetManagerTest 
         Assert.assertEquals("Married", row.getColumnValue("CIVIL_STATUS"));
         Assert.assertEquals("true", row.getColumnValue("REGISTRATION_RETROSPECTIVE"));
         Assert.assertEquals("true", row.getColumnValue("BIOMETRICS_COLLECTED"));
+    }
+
+    @Test
+    public void testDataSetFiltersByVisitLocationWhenSpecified() throws Exception {
+        Patient p1 = createPatient("X1AAAD");
+        Patient p2 = createPatient("X2CCC6");
+        Location biwoResepsyon = locationService.getLocation("Biwo Resepsyon");
+        Location lacolline = locationService.getLocation("Lacolline");
+        createRegistrationEncounter(p1, createVisit(p1, biwoResepsyon));
+        createRegistrationEncounter(p2, createVisit(p2, lacolline));
+
+        DataSetDefinition dsd = registrationDataSetManager.constructDataSet();
+        EvaluationContext context = new EvaluationContext();
+        context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
+        context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
+        context.addParameterValue("visitLocation", biwoResepsyon);
+
+        SimpleDataSet dataSet = (SimpleDataSet) dataSetDefinitionService.evaluate(dsd, context);
+        Assert.assertEquals(1, dataSet.getRows().size());
+        Assert.assertEquals("X1AAAD", dataSet.getRows().get(0).getColumnValue("EMR_ID"));
+    }
+
+    @Test
+    public void testDataSetReturnsAllEncountersWhenVisitLocationNotSpecified() throws Exception {
+        // setup() already created a registration encounter (with no visit) for patient X3XK71
+        Patient p1 = createPatient("X1AAAD");
+        Patient p2 = createPatient("X2CCC6");
+        createRegistrationEncounter(p1, createVisit(p1, locationService.getLocation("Biwo Resepsyon")));
+        createRegistrationEncounter(p2, createVisit(p2, locationService.getLocation("Lacolline")));
+
+        DataSetDefinition dsd = registrationDataSetManager.constructDataSet();
+        EvaluationContext context = new EvaluationContext();
+        context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
+        context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
+        // visitLocation intentionally not set
+
+        SimpleDataSet dataSet = (SimpleDataSet) dataSetDefinitionService.evaluate(dsd, context);
+        Assert.assertEquals(3, dataSet.getRows().size());
+    }
+
+    @Test
+    public void testDataSetExcludesEncountersWithNoVisitWhenVisitLocationSpecified() throws Exception {
+        Patient p1 = createPatient("X1AAAD");
+        createRegistrationEncounter(p1); // no visit attached
+
+        DataSetDefinition dsd = registrationDataSetManager.constructDataSet();
+        EvaluationContext context = new EvaluationContext();
+        context.addParameterValue("startDate", DateUtil.getDateTime(2015, 1, 1));
+        context.addParameterValue("endDate", DateUtil.getDateTime(2015, 12, 31));
+        context.addParameterValue("visitLocation", locationService.getLocation("Biwo Resepsyon"));
+
+        SimpleDataSet dataSet = (SimpleDataSet) dataSetDefinitionService.evaluate(dsd, context);
+        Assert.assertEquals(0, dataSet.getRows().size());
     }
 }

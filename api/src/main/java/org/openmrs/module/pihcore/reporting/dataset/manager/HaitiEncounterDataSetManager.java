@@ -14,9 +14,11 @@
 
 package org.openmrs.module.pihcore.reporting.dataset.manager;
 
+import org.openmrs.Location;
 import org.openmrs.Visit;
 import org.openmrs.module.pihcore.reporting.library.DataConverterLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihEncounterDataLibrary;
+import org.openmrs.module.pihcore.reporting.library.PihEncounterQueryLibrary;
 import org.openmrs.module.pihcore.reporting.library.PihPatientDataLibrary;
 import org.openmrs.module.reporting.config.DataSetDescriptor;
 import org.openmrs.module.reporting.config.factory.DataSetFactory;
@@ -31,6 +33,7 @@ import org.openmrs.module.reporting.data.patient.definition.PatientDataDefinitio
 import org.openmrs.module.reporting.data.patient.library.BuiltInPatientDataLibrary;
 import org.openmrs.module.reporting.dataset.definition.DataSetDefinition;
 import org.openmrs.module.reporting.dataset.definition.EncounterDataSetDefinition;
+import org.openmrs.module.reporting.evaluation.parameter.Mapped;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.query.encounter.definition.BasicEncounterQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +64,9 @@ public class HaitiEncounterDataSetManager implements DataSetFactory {
     @Autowired
     DataConverterLibrary converterLibrary;
 
+    @Autowired
+    PihEncounterQueryLibrary encounterQueries;
+
     private Parameter getStartDateParameter() {
         return new Parameter("startDate", "mirebalaisreports.parameter.startDate", Date.class);
     }
@@ -80,10 +86,16 @@ public class HaitiEncounterDataSetManager implements DataSetFactory {
         dsd.addParameter(getStartDateParameter());
         dsd.addParameter(getEndDateParameter());
 
+        Parameter visitLocationParameter = new Parameter("visitLocation", "mirebalaisreports.parameter.visitLocation",
+                Location.class, null, null, null, false); // optional: only filters by visit location when supplied
+        dsd.addParameter(visitLocationParameter);
+
         BasicEncounterQuery query = new BasicEncounterQuery();
         query.addParameter(new Parameter("onOrAfter", "On or after", Date.class));
         query.addParameter(new Parameter("onOrBefore", "On or before", Date.class));
         dsd.addRowFilter(query, "onOrAfter=${startDate},onOrBefore=${endDate}");
+
+        dsd.addRowFilter(Mapped.mapStraightThrough(encounterQueries.getEncountersWithVisitAtLocation()));
 
         dsd.addColumn("zlEmrId", patientData(pihPatientData.getPreferredZlEmrIdIdentifier()), null);
         dsd.addColumn("patientId", builtInEncounterData.getPatientId(), null);
