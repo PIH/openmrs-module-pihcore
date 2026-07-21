@@ -338,7 +338,23 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             doc.write('</body></html>');
                             doc.close();
 
+                            // When the visit page is embedded in the ward app (O2VisitSummaryWorkspace
+                            // iframe), a discharge form's "Save & Print" leaves the patient discharged.
+                            // The parent defers removing the patient from the ward until printing has
+                            // finished, so notify it here (guarded so it fires at most once).
+                            var printedNotified = false;
+                            var notifyParentPrinted = function() {
+                                if (printedNotified) {
+                                    return;
+                                }
+                                printedNotified = true;
+                                if (window.parent !== window) {
+                                    window.parent.postMessage({ type: 'o2IframeFormPrinted' }, '*');
+                                }
+                            };
+
                             var removeIframe = function() {
+                                notifyParentPrinted();
                                 if (iframe.parentNode) {
                                     iframe.parentNode.removeChild(iframe);
                                 }
