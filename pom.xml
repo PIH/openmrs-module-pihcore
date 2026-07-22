@@ -156,20 +156,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.openmrs.web</groupId>
-            <artifactId>openmrs-web</artifactId>
-            <version>${openMRSVersion}</version>
-            <type>jar</type>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>jsp-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
         <!-- End OpenMRS core -->
 
         <!-- Begin OpenMRS modules -->
