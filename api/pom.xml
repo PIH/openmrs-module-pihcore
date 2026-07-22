@@ -13,6 +13,15 @@
 	<name>PIH Core Module API</name>
 	<description>API project for PIHCore</description>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>5.3.30</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
