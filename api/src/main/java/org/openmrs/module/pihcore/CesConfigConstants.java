@@ -11,8 +11,8 @@ package org.openmrs.module.pihcore;
 
 /**
  * Frozen snapshot of constants formerly generated from org.pih.openmrs:openmrs-config-ces.
- * That generation mechanism was removed when openmrs-config-ces dropped openmrs-packager-maven-plugin
- * (2026-07-24) — this file is now hand-maintained.
+ * That generation mechanism was removed as part of UHM-9406 (2026-07-24) — this file is now
+ * hand-maintained.
  */
 public class CesConfigConstants {
 
