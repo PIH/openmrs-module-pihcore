@@ -69,7 +69,7 @@
         <fhir2Version>4.2.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
         <htmlformentryVersion>7.3.0-SNAPSHOT</htmlformentryVersion>
-        <htmlformentryuiVersion>3.2.0</htmlformentryuiVersion>
+        <htmlformentryuiVersion>3.3.0-SNAPSHOT</htmlformentryuiVersion>
         <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
         <idgenVersion>5.0.4</idgenVersion>
         <initializerVersion>2.12.0</initializerVersion>
@@ -86,7 +86,7 @@
         <printerVersion>1.6.0</printerVersion>
         <queueVersion>3.1.0-SNAPSHOT</queueVersion>
         <radiologyappVersion>1.8.0</radiologyappVersion>
-        <registrationappVersion>1.29.0</registrationappVersion>
+        <registrationappVersion>1.30.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
         <reportingVersion>2.2.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>2.1.0-SNAPSHOT</reportingrestVersion>

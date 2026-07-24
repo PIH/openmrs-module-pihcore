@@ -13,6 +13,18 @@
 	<name>PIH Core Module API</name>
 	<description>API project for PIHCore</description>
 
+	<dependencies>
+		<!-- TODO: we should look to remove this dependency from the API project -->
+		<!-- TODO: currently it is needed for the RestBiometricEngine (which we should be be to move to the web project) -->
+		<!-- TODO: but also there appear to be some transitive dependencies that occur when trying to fire up the a test context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>5.3.30</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<resources>
 			<resource>

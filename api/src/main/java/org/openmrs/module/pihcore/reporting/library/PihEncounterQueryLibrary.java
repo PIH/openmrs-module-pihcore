@@ -15,6 +15,7 @@ package org.openmrs.module.pihcore.reporting.library;
 
 import org.openmrs.EncounterType;
 import org.openmrs.Location;
+import org.openmrs.module.pihcore.reporting.query.encounter.definition.EncounterVisitLocationQuery;
 import org.openmrs.module.reporting.common.ObjectUtil;
 import org.openmrs.module.reporting.common.TimeQualifier;
 import org.openmrs.module.reporting.definition.library.BaseDefinitionLibrary;
@@ -52,6 +53,13 @@ public class PihEncounterQueryLibrary extends BaseDefinitionLibrary<EncounterQue
         q.addParameter(parameter(Date.class, "onOrBefore"));
         q.addParameter(parameter(Location.class, "locationList"));
         return new MappedParametersEncounterQuery(q, ObjectUtil.toMap("onOrAfter=startDate,onOrBefore=endDate,locationList=location"));
+    }
+
+    @DocumentedDefinition(value = "encountersWithVisitAtLocation")
+    public EncounterQuery getEncountersWithVisitAtLocation() {
+        EncounterVisitLocationQuery q = new EncounterVisitLocationQuery();
+        q.addParameter(parameter(Location.class, "visitLocation"));
+        return q;
     }
 
     public Parameter parameter(Class<?> clazz, String name) {

@@ -2640,6 +2640,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(maternalDischarge);
             extensions.add(cloneAsPregnancyVisitAction(maternalDischarge));
+
+            Extension maternalDeath = visitAction(CustomAppLoaderConstants.Extensions.MATERNAL_DEATH_ACTION,
+                    "pih.task.maternalDeath",
+                    "fas fa-fw fa-times-circle",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("maternalDeath.xml")),
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal Death Location"),
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_DEATH_UUID)));
+            extensions.add(maternalDeath);
+            extensions.add(cloneAsPregnancyVisitAction(maternalDeath));
+
         }
     }
 
