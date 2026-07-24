@@ -46,27 +46,6 @@
 				<artifactId>pih-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.openmrs.maven.plugins</groupId>
-				<artifactId>openmrs-packager-maven-plugin</artifactId>
-				<version>1.5.0</version>
-				<executions>
-					<execution>
-						<id>generate-pihemr-config-constants</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate-constants-class</goal>
-						</goals>
-						<configuration>
-							<groupId>org.pih.openmrs</groupId>
-							<artifactId>openmrs-config-pihemr</artifactId>
-							<version>${configPihemrVersion}</version>
-							<packageName>org.openmrs.module.pihcore</packageName>
-							<className>PihEmrConfigConstants</className>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<version>3.6.0</version>
