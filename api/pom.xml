@@ -64,48 +64,6 @@
 							<className>PihEmrConfigConstants</className>
 						</configuration>
 					</execution>
-					<execution>
-						<id>generate-liberia-config-constants</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate-constants-class</goal>
-						</goals>
-						<configuration>
-							<groupId>org.pih.openmrs</groupId>
-							<artifactId>openmrs-config-pihliberia</artifactId>
-							<version>${configLiberiaVersion}</version>
-							<packageName>org.openmrs.module.pihcore</packageName>
-							<className>LiberiaConfigConstants</className>
-						</configuration>
-					</execution>
-					<execution>
-						<id>generate-sierraleone-config-constants</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate-constants-class</goal>
-						</goals>
-						<configuration>
-							<groupId>org.pih.openmrs</groupId>
-							<artifactId>openmrs-config-pihsl</artifactId>
-							<version>${configSlVersion}</version>
-							<packageName>org.openmrs.module.pihcore</packageName>
-							<className>SierraLeoneConfigConstants</className>
-						</configuration>
-					</execution>
-					<execution>
-						<id>generate-haiti-config-constants</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate-constants-class</goal>
-						</goals>
-						<configuration>
-							<groupId>org.pih.openmrs</groupId>
-							<artifactId>openmrs-config-zl</artifactId>
-							<version>${configZlVersion}</version>
-							<packageName>org.openmrs.module.pihcore</packageName>
-							<className>ZlConfigConstants</className>
-						</configuration>
-					</execution>
 				</executions>
 			</plugin>
 			<plugin>
