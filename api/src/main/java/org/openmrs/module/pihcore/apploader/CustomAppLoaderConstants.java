@@ -237,6 +237,7 @@ public class CustomAppLoaderConstants {
         public static final String NEWBORN_DISCHARGE_ACTION = "pih.form.newbornDischarge";
         public static final String MATERNAL_ADMISSION_ACTION = "pih.form.maternalAdmission";
         public static final String MATERNAL_DISCHARGE_ACTION = "pih.form.maternalDischarge";
+        public static final String MATERNAL_DEATH_ACTION = "pih.form.maternalDeath";
         public static final String ANC_PROGRESS_ACTION = "pih.form.ancProgress";
         public static final String LABOR_PROGRESS_ACTION = "pih.form.laborProgress";
         public static final String LABOR_DELIVERY_SUMMARY_ACTION = "pih.form.laborDeliverySummary";
@@ -516,6 +517,7 @@ public class CustomAppLoaderConstants {
             Extensions.NEWBORN_DISCHARGE_ACTION,
             Extensions.MATERNAL_ADMISSION_ACTION,
             Extensions.MATERNAL_DISCHARGE_ACTION,
+            Extensions.MATERNAL_DEATH_ACTION,
             Extensions.LABOR_PROGRESS_ACTION,
             Extensions.LABOR_DELIVERY_SUMMARY_ACTION,
             Extensions.POSTPARTUM_PROGRESS_ACTION,
@@ -587,6 +589,7 @@ public class CustomAppLoaderConstants {
             Extensions.MCH_POSTNATAL_FOLLOWUP_VISIT_ACTION,
             Extensions.MATERNAL_ADMISSION_ACTION,
             Extensions.MATERNAL_DISCHARGE_ACTION,
+            Extensions.MATERNAL_DEATH_ACTION,
             Extensions.LABOR_PROGRESS_ACTION,
             Extensions.LABOR_DELIVERY_SUMMARY_ACTION,
             Extensions.PACU_FOLLOWUP_ACTION,
