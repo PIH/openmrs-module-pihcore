@@ -100,12 +100,6 @@
         <uilibraryVersion>2.0.7</uilibraryVersion>
         <webservicesRestVersion>3.5.0-SNAPSHOT</webservicesRestVersion>
 
-        <configPihemrVersion>1.11.0</configPihemrVersion>
-        <configCesVersion>1.44.0-SNAPSHOT</configCesVersion>
-        <configLiberiaVersion>1.21.0-SNAPSHOT</configLiberiaVersion>
-        <configSlVersion>1.55.0</configSlVersion>
-        <configZlVersion>1.77.0</configZlVersion>
-
         <lombokVersion>1.18.46</lombokVersion>
         <testcontainersVersion>1.21.4</testcontainersVersion>
 
@@ -543,47 +537,6 @@
         </dependency>
 
         <!-- End Openmrs Modules -->
-
-        <!-- Config dependencies for constants -->
-        <dependency>
-            <groupId>org.pih.openmrs</groupId>
-            <artifactId>openmrs-config-pihemr</artifactId>
-            <version>${configPihemrVersion}</version>
-            <scope>provided</scope>
-            <type>zip</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.pih.openmrs</groupId>
-            <artifactId>openmrs-config-ces</artifactId>
-            <version>${configCesVersion}</version>
-            <scope>provided</scope>
-            <type>zip</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.pih.openmrs</groupId>
-            <artifactId>openmrs-config-pihliberia</artifactId>
-            <version>${configLiberiaVersion}</version>
-            <scope>provided</scope>
-            <type>zip</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.pih.openmrs</groupId>
-            <artifactId>openmrs-config-pihsl</artifactId>
-            <version>${configSlVersion}</version>
-            <scope>provided</scope>
-            <type>zip</type>
-        </dependency>
-
-        <dependency>
-            <groupId>org.pih.openmrs</groupId>
-            <artifactId>openmrs-config-zl</artifactId>
-            <version>${configZlVersion}</version>
-            <scope>provided</scope>
-            <type>zip</type>
-        </dependency>
 
         <!-- dependencies required for the Zebra ZXP Series 3 API -->
 
