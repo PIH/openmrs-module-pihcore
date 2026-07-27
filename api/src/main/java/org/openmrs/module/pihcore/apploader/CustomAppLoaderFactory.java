@@ -112,6 +112,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsChild;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsReproductiveAge;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientNotDead;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDead;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationDoesNotHaveTag;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationHasTag;
@@ -2648,7 +2649,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("maternalDeath.xml")),
                     PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal Death Location"),
-                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_DEATH_UUID)));
+                            visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MATERNAL_DEATH_UUID),
+                            and(patientDead())));
             extensions.add(maternalDeath);
             extensions.add(cloneAsPregnancyVisitAction(maternalDeath));
 

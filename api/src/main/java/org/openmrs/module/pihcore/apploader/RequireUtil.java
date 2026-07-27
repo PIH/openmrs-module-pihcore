@@ -68,6 +68,10 @@ public class RequireUtil {
         return new String("!patient.person.dead");
     }
 
+    public static String patientDead() {
+        return new String("patient.person.dead");
+    }
+
     public static String patientIsAdult() {  // expects patient or visit to be in the context
         return new String("patient.person.age >= 15");
     }
