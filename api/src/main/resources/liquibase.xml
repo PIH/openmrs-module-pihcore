@@ -1184,5 +1184,19 @@
         <dropTable tableName="dbevent_patient"/>
     </changeSet>
 
+    <changeSet id="20260730-migrate-labworkflow-obs-to-form-namespace-and-path" author="mseaton">
+        <comment>
+            UHM-9418 - Migrate lab workflow result-entry-form obs from comment to formNamespaceAndPath
+        </comment>
+        <sql>
+            update obs
+               set form_namespace_and_path = concat('labworkflow^result-entry-form/',
+                                                     replace(substring(comments, length('result-entry-form^') + 1), '^', '/')),
+                   comments = null
+             where comments like 'result-entry-form^%'
+               and (form_namespace_and_path is null or form_namespace_and_path = '');
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
 
