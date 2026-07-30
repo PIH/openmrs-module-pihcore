@@ -2,10 +2,8 @@ package org.openmrs.module.pihcore.page.controller.router;
 
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.Patient;
-import org.openmrs.module.pihcore.config.Components;
-import org.openmrs.module.pihcore.config.Config;
-import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.Redirect;
+import org.openmrs.util.ConfigUtil;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 public class LabRouterPageController {
 
     public Redirect controller(HttpServletRequest request,
-                               @SpringBean("config") Config config,
                                @RequestParam(value = "patient", required = false) Patient patient,
                                @RequestParam(value = "returnUrl", required = false) String returnUrl,
                                @RequestParam(value = "dashboard", required = false) String dashboard) {
 
         String redirectUrl;
-        boolean usePihAppsLabs = config.isComponentEnabled(Components.LABS_USING_PIH_APPS);
+        boolean usePihApps = Boolean.parseBoolean(ConfigUtil.getProperty("pihcore.usePihAppsLabs"));
         if (patient != null) {
             String patientUuid = patient.getUuid();
-            if (usePihAppsLabs) {
+            if (usePihApps) {
                 redirectUrl = "pihapps/labs/patientLabResults.page?patient=" + patientUuid;
             }
             else {
@@ -37,7 +34,7 @@ public class LabRouterPageController {
             }
         }
         else {
-            if (usePihAppsLabs) {
+            if (usePihApps) {
                 redirectUrl = "pihapps/labs/labOrderList.page";
             }
             else {

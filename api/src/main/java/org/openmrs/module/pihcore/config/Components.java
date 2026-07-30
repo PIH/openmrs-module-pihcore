@@ -61,7 +61,6 @@ public class Components {
         public static final String J9 = "j9";
         public static final String LAB_RESULTS = "labResults";
         public static final String LABS = "labs";
-        public static final String LABS_USING_PIH_APPS = "labsUsingPihApps";
         public static final String LACOLLINE_PATIENT_REGISTRATION_ENCOUNTER_TYPES = "lacollinePatientRegistrationEncounterTypes";
         public static final String MALNUTRITION_PROGRAM = "malnutritionProgram";  // needs MalnutritionProgramBundle, used by CES
         public static final String MANAGE_PRINTERS = "managePrinters";
