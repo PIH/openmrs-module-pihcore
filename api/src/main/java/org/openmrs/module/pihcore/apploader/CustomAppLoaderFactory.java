@@ -290,6 +290,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableDispensing();
         }
 
+        if (config.isComponentEnabled(Components.DISPENSING_FORM)) {
+            enableDispensingForm();
+        }
+
         if (config.isComponentEnabled(Components.MEDICATION_DISPENSING)) {
             enableMedicationDispensing();
         }
@@ -1107,7 +1111,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     /**
-     * This enables the legacy, form-based medication dispensing functionality
+     * This enables the legacy, form-based medication dispensing functionality (currently used in Liberia)
      */
     private void enableDispensing() {
 
@@ -1146,6 +1150,22 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.DEFAULT), "fas fa-fw fa-pills", true, true, null, "bad21515-fd04-4ff6-bfcd-78456d12f168");
 
     }
+
+    /**
+     * This enables *just* the legacy, medication dispensing form (currently used in Haiti HIV)
+     */
+    private void enableDispensingForm() {
+
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
+                "dispensing.app.label",
+                "fas fa-fw fa-pills",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("dispensing.xml")),
+                "Task: mirebalais.dispensing",
+                sessionLocationHasTag("Dispensing Location")));
+
+    }
+
 
     /**
      * This enables the new, micro-frontend medication dispensing functionality

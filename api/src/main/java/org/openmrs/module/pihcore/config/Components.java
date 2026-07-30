@@ -35,6 +35,7 @@ public class Components {
         public static final String DEATH_CERTIFICATE = "deathCertificate";
         public static final String DIABETES_PROGRAM = "diabetesProgram";  // needs DiabetesProgram bundle, used by CES
         public static final String DISPENSING = "dispensing";  // This is for the legacy dispensing form functionality
+        public static final String DISPENSING_FORM = "dispensingForm"; // This is for the legacy dispensing form functionality *without* the circular app and dashboard widget
         public static final String DRUG_REHAB = "drugRehab";
         public static final String ECHO = "echocardiogram" ;
         public static final String ED_CONSULT = "edConsult";
