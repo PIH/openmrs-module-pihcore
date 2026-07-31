@@ -211,7 +211,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     }
 
                     $scope.goToLabResults = function () {
-                      var labResultsUrl = "owa/labworkflow/index.html?patient={{patient}}&returnUrl={{returnUrl}}#/LabResults";
+                      var labResultsUrl = "pihcore/router/labRouter.page?patient={{patient}}&returnUrl={{returnUrl}}";
                       var url = Handlebars.compile(labResultsUrl)({
                         patient: $scope.visit.patient.uuid,
                         returnUrl: window.encodeURIComponent(window.location.pathname + "?visit=" + $scope.visit.uuid )
