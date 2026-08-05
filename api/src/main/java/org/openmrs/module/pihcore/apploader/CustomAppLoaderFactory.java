@@ -145,6 +145,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private String patientVisitsPageWithSpecificVisitUrl = "";
 
+    private String labOrderListPage = "pihcore/router/labRouter.page";
+
+    private String patientLabResultsPage = "pihcore/router/labRouter.page?patient={{patient.uuid}}";
+
     public enum ReportCategory { OVERVIEW, DAILY, DATA_EXPORT, DATA_QUALITY, MONITORING };
 
     @Autowired
@@ -3197,7 +3201,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         objectNode(
                                 "encounterTypes", Context.getAdministrationService().getGlobalProperty(CustomAppLoaderConstants.GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES),
-                                "detailsUrl", "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=" + "/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
+                                "detailsUrl", patientLabResultsPage,
                                 "obsTypes", "LabSet,Test",
                                 "labCategoriesSet", PihEmrConfigConstants.CONCEPT_LABORATORYCATEGORIES_UUID,
                                 "maxToDisplay", "5"
@@ -4038,7 +4042,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.LABS,
                 "pih.app.labs.label",
                 "fas fa-vials",
-                "owa/labworkflow/index.html",
+                labOrderListPage,
                   PihEmrConfigConstants.PRIVILEGE_APP_LABS,
                 null),
                 sessionLocationHasTag("Labs Component Location")));
@@ -4049,9 +4053,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "icon",
                   PihEmrConfigConstants.PRIVILEGE_TASK_ORDER_LABS,
                 "/pihapps/labs/labOrder.page?patient={{patientId}}&returnUrl="
-                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/owa/labworkflow/index.html", "UTF-8"),
+                        + URLEncoder.encode("/" + WebConstants.CONTEXT_PATH + "/" + labOrderListPage, "UTF-8"),
                 arrayNode(objectNode("icon", "fas fa-fw fa-home", "link", "/index.htm"),
-                        objectNode("label", "pih.app.labs.label", "link", "/owa/labworkflow/index.html"),
+                        objectNode("label", "pih.app.labs.label", "link", "/" + labOrderListPage),
                         objectNode("label", "coreapps.findPatient.app.label")),
                 config.getFindPatientColumnConfig()
                 ));
@@ -4069,7 +4073,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore.viewLabs.overallAction.label",
                 "fas fa-fw fa-stream",
                 "link",
-                "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=" +  "/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
+                patientLabResultsPage,
                   PihEmrConfigConstants.PRIVILEGE_TASK_VIEW_LABS,
                 null));
 
@@ -4080,7 +4084,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         null,
                         objectNode(
                                 "encounterTypes", Context.getAdministrationService().getGlobalProperty(CustomAppLoaderConstants.GP_LABWORKFLOW_OWA_LABRESULTSENCOUNTERTYPES),
-                                "detailsUrl", "owa/labworkflow/index.html?patient={{patient.uuid}}&returnUrl=" + "/coreapps/clinicianfacing/patient.page?patientId={{patient.uuid}}#/LabResults",
+                                "detailsUrl", patientLabResultsPage,
                                 "obsTypes", "LabSet,Test",
                                 "labCategoriesSet", PihEmrConfigConstants.CONCEPT_LABORATORYCATEGORIES_UUID,
                                 "maxToDisplay", "5"

@@ -57,7 +57,7 @@
         <appuiVersion>1.18.0</appuiVersion>
         <attachmentsVersion>4.0.0</attachmentsVersion>
         <authenticationVersion>2.3.0</authenticationVersion>
-        <authenticationuiVersion>1.3.0</authenticationuiVersion>
+        <authenticationuiVersion>1.4.0-SNAPSHOT</authenticationuiVersion>
         <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
         <coreappsVersion>4.0.0-SNAPSHOT</coreappsVersion>
@@ -74,7 +74,7 @@
         <idgenVersion>5.0.4</idgenVersion>
         <initializerVersion>2.12.0</initializerVersion>
         <labtrackingappVersion>1.3.0-SNAPSHOT</labtrackingappVersion>
-        <labworkflowOwaVersion>1.4.0-SNAPSHOT</labworkflowOwaVersion>
+        <labworkflowOwaVersion>2.0.0-SNAPSHOT</labworkflowOwaVersion>
         <legacyuiVersion>2.1.0</legacyuiVersion>
         <metadatamappingVersion>2.0.0</metadatamappingVersion>
         <namephoneticsVersion>1.19.0</namephoneticsVersion>
