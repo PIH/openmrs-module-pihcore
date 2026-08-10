@@ -37,69 +37,33 @@ public class SectionsLesotho extends SectionsDefault {
     }
 
     private Question getNationalId() {
-
-        PatientIdentifierType nationalId = Context.getPatientService().getPatientIdentifierTypeByUuid(LesothoConfigConstants.PATIENTIDENTIFIERTYPE_NATIONAL_ID_UUID);
-
-        Question q = new Question();
-        q.setId("nationalId");
-        q.setLegend("National ID");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + LesothoConfigConstants.PATIENTIDENTIFIERTYPE_NATIONAL_ID_UUID);
-
-        Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + LesothoConfigConstants.PATIENTIDENTIFIERTYPE_NATIONAL_ID_UUID);
-        f.setUuid(LesothoConfigConstants.PATIENTIDENTIFIERTYPE_NATIONAL_ID_UUID);
-        f.setType("patientIdentifier");
-        if (StringUtils.isNotBlank(nationalId.getFormat())) {
-            f.setCssClasses(Arrays.asList("regex"));
-            f.setWidget(getTextFieldWidget(16, nationalId.getFormat()));
-        } else {
-            f.setWidget(getTextFieldWidget(16));
-        }
-
-        q.addField(f);
-        return q;
+        return getIdentifierQuestion("nationalId", "National ID", LesothoConfigConstants.PATIENTIDENTIFIERTYPE_NATIONAL_ID_UUID);
     }
 
     private Question getMDRTBlId() {
-
-        PatientIdentifierType mdrtbId = Context.getPatientService().getPatientIdentifierTypeByUuid(LesothoConfigConstants.PATIENTIDENTIFIERTYPE_MDRTB_ID_UUID);
-
-        Question q = new Question();
-        q.setId("mdrtbId");
-        q.setLegend("MDRTB ID");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + LesothoConfigConstants.PATIENTIDENTIFIERTYPE_MDRTB_ID_UUID);
-
-        Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + LesothoConfigConstants.PATIENTIDENTIFIERTYPE_MDRTB_ID_UUID);
-        f.setUuid(LesothoConfigConstants.PATIENTIDENTIFIERTYPE_MDRTB_ID_UUID);
-        f.setType("patientIdentifier");
-        if (StringUtils.isNotBlank(mdrtbId.getFormat())) {
-            f.setCssClasses(Arrays.asList("regex"));
-            f.setWidget(getTextFieldWidget(16, mdrtbId.getFormat()));
-        } else {
-            f.setWidget(getTextFieldWidget(16));
-        }
-
-        q.addField(f);
-        return q;
+        return getIdentifierQuestion("mdrtbId", "MDRTB ID", LesothoConfigConstants.PATIENTIDENTIFIERTYPE_MDRTB_ID_UUID);
     }
 
     private Question getDSTBId() {
+        return getIdentifierQuestion("dstbId", "DSTB ID", LesothoConfigConstants.PATIENTIDENTIFIERTYPE_DSTB_ID_UUID);
+    }
 
-        PatientIdentifierType dstbId = Context.getPatientService().getPatientIdentifierTypeByUuid(LesothoConfigConstants.PATIENTIDENTIFIERTYPE_DSTB_ID_UUID);
+    private Question getIdentifierQuestion(String questionId, String legend, String identifierTypeUuid) {
+
+        PatientIdentifierType identifierType = Context.getPatientService().getPatientIdentifierTypeByUuid(identifierTypeUuid);
 
         Question q = new Question();
-        q.setId("dstbId");
-        q.setLegend("DSTB ID");
-        q.setHeader("ui.i18n.PatientIdentifierType.name." + LesothoConfigConstants.PATIENTIDENTIFIERTYPE_DSTB_ID_UUID);
+        q.setId(questionId);
+        q.setLegend(legend);
+        q.setHeader("ui.i18n.PatientIdentifierType.name." + identifierTypeUuid);
 
         Field f = new Field();
-        f.setFormFieldName("patientIdentifier" + LesothoConfigConstants.PATIENTIDENTIFIERTYPE_DSTB_ID_UUID);
-        f.setUuid(LesothoConfigConstants.PATIENTIDENTIFIERTYPE_DSTB_ID_UUID);
+        f.setFormFieldName("patientIdentifier" + identifierTypeUuid);
+        f.setUuid(identifierTypeUuid);
         f.setType("patientIdentifier");
-        if (StringUtils.isNotBlank(dstbId.getFormat())) {
+        if (StringUtils.isNotBlank(identifierType.getFormat())) {
             f.setCssClasses(Arrays.asList("regex"));
-            f.setWidget(getTextFieldWidget(16, dstbId.getFormat()));
+            f.setWidget(getTextFieldWidget(16, identifierType.getFormat()));
         } else {
             f.setWidget(getTextFieldWidget(16));
         }
