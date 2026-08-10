@@ -58,6 +58,9 @@ public class PatientRegistrationApp {
             case SIERRA_LEONE:
                 new SectionsSierraLeone(config).addSections(c);
                 break;
+            case LESOTHO:
+                new SectionsLesotho(config).addSections(c);
+                break;
             default:
                 new SectionsDefault(config).addSections(c);
         }
