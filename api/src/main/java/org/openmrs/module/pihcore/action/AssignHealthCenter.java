@@ -21,7 +21,7 @@ import java.util.Map;
  * AfterPatientCreatedAction that sets the "Health Center" person attribute to the Visit Location
  * associated with the current user's session location.
  *
- * NOTE: This bean is currently only wired in for the Haiti CENTRAL server. Country/site
+ * NOTE: This bean is currently only wired in for the Haiti servers. Country/site
  * checking is handled by selective bean wiring rather than a runtime guard.
  *
  * If any required information is unavailable (no session location, no Visit Location ancestor,
