@@ -26,6 +26,8 @@ public class SierraLeoneConfigConstants {
 	public static final String ENCOUNTERTYPE_FAMILY_PLANNING_INTAKE_UUID = "52fe1a29-678d-49cb-9ccd-7296d634284d";
 	public static final String ENCOUNTERTYPE_GYNO_FOLLOWUP_UUID = "9b973514-7799-41b6-85f1-1ebc752d01f0";
 	public static final String ENCOUNTERTYPE_GYNO_INTAKE_UUID = "34700f4f-c3df-4cfc-863a-bd8b92a0a485";
+	public static final String ENCOUNTERTYPE_AYFS_FOLLOWUP_UUID = "73399721-644e-494b-86c9-5dd345072db3";
+	public static final String ENCOUNTERTYPE_AYFS_INTAKE_UUID = "1f3375af-fd9e-42a9-954e-99533ee15de9";
 	public static final String ENCOUNTERTYPE_POSTNATALFOLLOWUP_UUID = "b7a7c300-f7e5-4d38-a388-fc178ab02e78";
 	public static final String ENCOUNTERTYPE_SIERRALEONEINPATIENTVITALS_UUID = "6b1c3929-f23c-423f-8cad-64b17cf10b99";
 	public static final String ENCOUNTERTYPE_SIERRALEONELABORPROGRESS_UUID = "ac5ec970-31b7-4659-9141-284bfbc13c69";
