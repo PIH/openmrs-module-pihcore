@@ -1160,6 +1160,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
      */
     private void enableDispensingForm() {
 
+        // TODO change this to use the coreapps find patient app?
+        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.DISPENSING,
+                        "dispensing.app.label",
+                        "fas fa-fw fa-pills",
+                        "dispensing/findPatient.page",
+                        "App: dispensing.app.dispense",
+                        objectNode("definitionUiResource", PihCoreUtil.getFormResource("dispensing.xml"))),
+                sessionLocationHasTag("Dispensing Location")));
+
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
                 "dispensing.app.label",
                 "fas fa-fw fa-pills",
