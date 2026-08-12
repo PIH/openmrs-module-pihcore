@@ -316,7 +316,7 @@ public class ConfigurationSetup {
         updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_WITH_SPECIFIC_URL, config.getVisitsPageWithSpecificUrl());
 
         // TODO: one we centralize the ZL server (or perhaps even before?) we can likely just set this in the gp_radiology file in config-zl?
-        if (config.isComponentEnabled(Components.RADIOLOGY) && (config.getSite().equalsIgnoreCase("MIREBALAIS") || config.getSite().equalsIgnoreCase("CENTRAL"))) {
+        if (config.isComponentEnabled(Components.RADIOLOGY) && ("MIREBALAIS".equalsIgnoreCase(config.getSite()) || "CENTRAL".equalsIgnoreCase(config.getSite()))) {
             updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, PihCoreConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
         }
 

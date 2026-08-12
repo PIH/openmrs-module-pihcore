@@ -640,7 +640,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // note that this *only* works because we don't have a "1.0" version of the form(s) in use
         // (because hardcoding 'v2' or 'v1.1' would override ever loading old versions of the forms)
         // if for some reason we determine we are *never* rolling out the new St Marc form everywhere, we should come up with a better way to conditionally load this form
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("HSN_SAINT_MARC")) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !"HSN_SAINT_MARC".equals(config.getSite())) {
             checkInFormName = "checkin_v2.0.xml";
             liveCheckInFormName = "liveCheckin_v1.1.xml";
         }
@@ -1811,7 +1811,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "encounter/mostRecentEncounter"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && config.getSite().equals("CENTRAL")) {
+        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && "CENTRAL".equals(config.getSite())) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_HEALTH_CENTER,
                             "zl.registration.patient.healthCenter.header",
                             "fas fa-fw fa-hospital",
