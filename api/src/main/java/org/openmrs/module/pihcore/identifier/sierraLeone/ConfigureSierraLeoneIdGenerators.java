@@ -1,5 +1,7 @@
 package org.openmrs.module.pihcore.identifier.sierraLeone;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.context.Context;
@@ -10,6 +12,8 @@ import org.openmrs.module.pihcore.SierraLeoneConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
 
 public class ConfigureSierraLeoneIdGenerators {
+
+    protected static Log log = LogFactory.getLog(ConfigureSierraLeoneIdGenerators.class);
 
     public static final String WELLBODY_PRIMARY_IDENTIFIER_SOURCE_UUID = "a1516200-7427-11e5-a837-0800200c9a66";
     public static final String KGH_ID_IDENTIFIER_SOURCE_UUID = "809b23e3-7162-11eb-8aa6-0242ac110002";
@@ -53,7 +57,10 @@ public class ConfigureSierraLeoneIdGenerators {
         else if (config.getSite() != null) {
             throw new IllegalStateException("Unknown configuration site found.  Expecteed one of 'WELLBODY' or 'KGH'");
         }
-        // else: no site configured (e.g. a generic, country-only base) -- nothing to set up yet
+        else {
+            // no site configured (e.g. a generic, country-only base) -- nothing to set up yet
+            log.warn("No site configured for SIERRA_LEONE -- skipping primary identifier source setup. Expected for a generic, country-only base config; a facility config must be layered on before patients can be registered.");
+        }
     }
 
     public static void configurePrimaryIdentifierSource(IdentifierSourceService iss, String uuid,

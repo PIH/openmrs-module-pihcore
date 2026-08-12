@@ -20,6 +20,12 @@ public class ConfigureSierraLeoneIdGeneratorsTest extends PihCoreContextSensitiv
      * A generic, country-only Sierra Leone config (no site) should not throw when configuring the
      * primary identifier source -- previously this unconditionally threw an IllegalStateException
      * because neither isWellbody() nor isKgh() matched a null site.
+     *
+     * This same null-site path now also logs a WARN (via ConfigureSierraLeoneIdGenerators.log)
+     * explaining that primary identifier source setup is being skipped. Asserting on log output
+     * content isn't exercised here (no existing precedent in this test suite for capturing
+     * commons-logging output, and standing up an appender for one assertion isn't worth the added
+     * fragility); this test still confirms the warning path completes without throwing.
      */
     @Test
     public void configurePrimaryIdentifierSourceShouldNotThrowForNullSite() {
