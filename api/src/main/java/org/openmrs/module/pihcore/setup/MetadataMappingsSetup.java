@@ -18,13 +18,13 @@ public class MetadataMappingsSetup {
     protected static Log log = LogFactory.getLog(MetadataMappingsSetup.class);
 
     public static void setupPrimaryIdentifierTypeBasedOnCountry(MetadataMappingService mms, PatientService ps, Config config) {
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
             setupPrimaryIdentifierType(mms, ps, ZlConfigConstants.PATIENTIDENTIFIERTYPE_ZLEMRID_UUID);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        else if (config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             setupPrimaryIdentifierType(mms, ps, LiberiaConfigConstants.PATIENTIDENTIFIERTYPE_LIBERIAEMRID_UUID);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        else if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             if (config.isWellbody()) {
                 setupPrimaryIdentifierType(mms, ps, SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_WELLBODYEMRID_UUID);
             }
@@ -39,7 +39,7 @@ public class MetadataMappingsSetup {
                 log.warn("No site configured for SIERRA_LEONE -- skipping primary identifier type mapping. Expected for a generic, country-only base config; a facility config must be layered on before patients can be registered.");
             }
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+        else if (config.isCountry(ConfigDescriptor.Country.MEXICO)) {
             setupPrimaryIdentifierType(mms, ps, CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID);
         }
     }

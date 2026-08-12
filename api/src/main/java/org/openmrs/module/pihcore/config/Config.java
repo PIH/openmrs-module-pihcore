@@ -155,6 +155,14 @@ public class Config {
         return getCountry().equals(ConfigDescriptor.Country.HAITI);
     }
 
+    public boolean isCountry(ConfigDescriptor.Country country) {
+        return getCountry() != null && getCountry().equals(country);
+    }
+
+    public boolean isSite(String site) {
+        return getSite() != null && getSite().equalsIgnoreCase(site);
+    }
+
     public AddressConfigDescriptor getAddressConfig() {
         return descriptor.getAddressConfig();
     }

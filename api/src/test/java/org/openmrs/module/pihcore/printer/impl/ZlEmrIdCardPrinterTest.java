@@ -84,7 +84,7 @@ public class ZlEmrIdCardPrinterTest extends PihCoreContextSensitiveTest {
         PrinterSetup.registerPrintHandlers(printerService); // Register print handlers
 
         Config config = mock(Config.class);
-        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
+        when(config.isCountry(ConfigDescriptor.Country.HAITI)).thenReturn(true);
         Location location = locationService.getLocation("Biwo Resepsyon");
         LocationTag tag = new LocationTag();
         tag.setName(PaperRecordConstants.LOCATION_TAG_MEDICAL_RECORD_LOCATION);

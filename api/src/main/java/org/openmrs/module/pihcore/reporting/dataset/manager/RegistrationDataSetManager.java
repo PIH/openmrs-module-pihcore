@@ -84,7 +84,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
     protected void addObsColumns(EncounterDataSetDefinition dsd) {
 
         // we collect full birthplace address hierarchy in Haiti,not elsewhere
-        if (config != null && config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config != null && config.isCountry(ConfigDescriptor.Country.HAITI)) {
 
             addObsColumn(dsd, "insurance_company", Concepts.HAITI_INSURANCE_COMPANY_NAME, converters.getObsValueCodedNameConverter());
             addObsColumn(dsd, "insurance_policy_number", Concepts.INSURANCE_POLICY_NUMBER, converters.getObsValueTextConverter());
@@ -117,7 +117,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
         addObsColumn(dsd, "occupation", Concepts.MAIN_ACTIVITY, converters.getObsValueCodedNameConverter());
 
         // Add in religion question here conditionally when appropriate
-        if (config != null && config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config != null && config.isCountry(ConfigDescriptor.Country.HAITI)) {
             addObsColumn(dsd, "religion", Concepts.RELIGION, converters.getObsValueCodedNameConverter());
         }
 
@@ -127,7 +127,7 @@ public class RegistrationDataSetManager extends BaseEncounterDataSetManager {
         addObsColumn(dsd, "contact_person_telephone", Concepts.TELEPHONE_NUMBER_OF_CONTACT, converters.getObsValueTextConverter());
 
         // we collect contact address hierarchy in Haiti,not elsewhere
-        if (config != null && config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config != null && config.isCountry(ConfigDescriptor.Country.HAITI)) {
             addObsColumn(dsd, "contact_person_country", Concepts.PATIENT_CONTACTS_CONSTRUCT,
                     converters.getObsFromObsGroupConverter(conceptService.getConceptByUuid(Concepts.COUNTRY)),
                     converters.getObsValueTextConverter());
