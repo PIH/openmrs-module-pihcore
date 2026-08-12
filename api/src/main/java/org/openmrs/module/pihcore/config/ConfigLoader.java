@@ -86,7 +86,11 @@ public class ConfigLoader {
                     }
 
                     if (is == null && !config.equals("site-default")) {  // bit of a hack, we don't insist that a "pih-config-site-default.json" exists
-                        throw new IllegalStateException("Unable to find config file for configuration " + config);
+                        throw new IllegalStateException("PIH CONFIGURATION ERROR: Could not find a configuration file "
+                                + "named '" + configFilename + "' for pih.config value '" + config.trim() + "'. Checked "
+                                + "application data directory (" + dir + ") and classpath location 'config/"
+                                + configFilename + "'. Set the 'pih.config' runtime property to a valid, "
+                                + "comma-delimited list of PIH configuration profile names for this distribution.");
                     }
 
                     // TODO: remove this null test if we remove the "site-default" hack above
@@ -111,6 +115,11 @@ public class ConfigLoader {
 
             String json = objectMapper.writeValueAsString(configNode);
             return objectMapper.readValue(json, ConfigDescriptor.class);
+        }
+        catch (IllegalStateException e) {
+            // a missing config file is already a clear, actionable message -- don't bury it inside
+            // the generic "Error parsing json configuration" message below
+            throw e;
         }
         catch (Exception e) {
             throw new RuntimeException("Error parsing json configuration", e);
