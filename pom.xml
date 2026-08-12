@@ -61,7 +61,7 @@
         <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
         <coreappsVersion>4.0.0-SNAPSHOT</coreappsVersion>
-        <dispensingVersion>2.0.0</dispensingVersion>
+        <dispensingVersion>2.1.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>2.2.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
         <emrapiVersion>3.5.0-SNAPSHOT</emrapiVersion>
