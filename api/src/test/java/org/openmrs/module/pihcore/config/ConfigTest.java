@@ -1,15 +1,18 @@
 package org.openmrs.module.pihcore.config;
 
 import org.junit.jupiter.api.Test;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConfigTest extends PihCoreContextSensitiveTest{
@@ -58,6 +61,26 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
         assertThat(config.getWelcomeMessage(), is("Hello custom!"));
         assertThat(config.getSite(), is("LACOLLINE"));
         assertFalse(config.shouldScheduleBackupReports());
+    }
+
+    @Test
+    public void noArgConstructorShouldNotSwallowFailureWhenRuntimePropertyIsInvalid() {
+        Properties prop = getRuntimeProperties();
+        String originalPihConfig = prop.getProperty("pih.config");
+        try {
+            prop.setProperty("pih.config", "does-not-exist");
+            Context.setRuntimeProperties(prop);
+
+            // the exception thrown by ConfigLoader.loadFromRuntimeProperties() must propagate out of the
+            // Config() constructor, not be swallowed after logging the startup failure banner
+            assertThrows(RuntimeException.class, () -> new Config());
+        }
+        finally {
+            // restore, since setupInitializerForTesting()'s @BeforeEach reset relies on getPihConfig(),
+            // but this leaves nothing broken for other tests within this run either way
+            prop.setProperty("pih.config", originalPihConfig);
+            Context.setRuntimeProperties(prop);
+        }
     }
 
     @Test

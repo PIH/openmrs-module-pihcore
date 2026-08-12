@@ -1,7 +1,10 @@
 package org.openmrs.module.pihcore.config;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
@@ -19,11 +22,19 @@ import java.util.Map;
 @Qualifier("config")
 public class Config {
 
+    protected Log log = LogFactory.getLog(getClass());
+
     private ConfigDescriptor descriptor;
 
 
     public Config() {
-        descriptor = ConfigLoader.loadFromRuntimeProperties();
+        try {
+            descriptor = ConfigLoader.loadFromRuntimeProperties();
+        }
+        catch (RuntimeException e) {
+            log.error(PihCoreUtil.buildStartupFailureBanner(e), e);
+            throw e;
+        }
     }
 
     public void reload(ConfigDescriptor descriptor) {

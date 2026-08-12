@@ -68,6 +68,30 @@ public class PihCoreUtil {
     }
 
     /**
+     * Builds a loud, unmissable banner describing a startup failure, walking the full cause chain so that
+     * the actionable message from a wrapped exception (e.g. a Spring BeanCreationException wrapping the
+     * real root cause) is not lost.
+     *
+     * @param e the exception that caused startup to fail
+     * @return a multi-line banner, one line per exception in the cause chain
+     */
+    public static String buildStartupFailureBanner(Throwable e) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n")
+                .append("***************************************************************************\n")
+                .append("* PIH CORE MODULE FAILED TO START\n");
+        Throwable current = e;
+        while (current != null) {
+            String message = current.getMessage();
+            sb.append("* ").append(current.getClass().getSimpleName()).append(": ")
+                    .append(message == null ? "(no message)" : message).append("\n");
+            current = current.getCause();
+        }
+        sb.append("***************************************************************************");
+        return sb.toString();
+    }
+
+    /**
      * Utility  method that reopens a visit (sets its end date to null) if it is the most recent visit for a patient
      * (Used by the ReopenVisitAction and ReopenVisitDispositionAction)
      * TODO: is there a better place for this to live?

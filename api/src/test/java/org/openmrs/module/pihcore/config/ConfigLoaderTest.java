@@ -17,4 +17,11 @@ public class ConfigLoaderTest extends PihCoreContextSensitiveTest {
         assertThat(thrown.getMessage(), containsString("does-not-exist"));
         assertThat(thrown.getMessage(), containsString("pih.config"));
     }
+
+    @Test
+    public void loadShouldNotThrowWhenSiteDefaultHasLeadingWhitespaceInCommaDelimitedList() {
+        // "default, site-default" -- note the space after the comma -- should not throw, since
+        // "site-default" is optional and the guard must recognize it even with surrounding whitespace
+        ConfigLoader.load("default, site-default");
+    }
 }

@@ -61,7 +61,8 @@ public class ConfigLoader {
                 InputStream is = null;
 
                 try {
-                    String configFilename = "pih-config-" + config.trim() + ".json";
+                    String trimmedConfig = config.trim();
+                    String configFilename = "pih-config-" + trimmedConfig + ".json";
 
                     // first see if is in the .OpenMRS directory (or directory specified in pih.config.dir runtime property)
                     // (any file found will override any file of the same name on the classpath)
@@ -85,9 +86,9 @@ public class ConfigLoader {
                         }
                     }
 
-                    if (is == null && !config.equals("site-default")) {  // bit of a hack, we don't insist that a "pih-config-site-default.json" exists
+                    if (is == null && !trimmedConfig.equals("site-default")) {  // bit of a hack, we don't insist that a "pih-config-site-default.json" exists
                         throw new IllegalStateException("PIH CONFIGURATION ERROR: Could not find a configuration file "
-                                + "named '" + configFilename + "' for pih.config value '" + config.trim() + "'. Checked "
+                                + "named '" + configFilename + "' for pih.config value '" + trimmedConfig + "'. Checked "
                                 + "application data directory (" + dir + ") and classpath location 'config/"
                                 + configFilename + "'. Set the 'pih.config' runtime property to a valid, "
                                 + "comma-delimited list of PIH configuration profile names for this distribution.");
