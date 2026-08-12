@@ -27,9 +27,10 @@ public class MetadataMappingsSetup {
             else if (config.isKgh()) {
                 setupPrimaryIdentifierType(mms, ps, SierraLeoneConfigConstants.PATIENTIDENTIFIERTYPE_KGHEMRID_UUID);
             }
-            else {
+            else if (config.getSite() != null) {
                 throw new IllegalStateException("Unable to setup primary identifier type for site: " + config.getSite());
             }
+            // else: no site configured (e.g. a generic, country-only base) -- nothing to map yet
         }
         else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
             setupPrimaryIdentifierType(mms, ps, CesConfigConstants.PATIENTIDENTIFIERTYPE_CHIAPASEMRID_UUID);

@@ -48,7 +48,7 @@ public class ConfigureHaitiIdGenerators {
         PatientIdentifierType dossierIdentifierType = getDossierIdentifierType();
 
         // special, legacy case for Mirebalais
-        if (config.getSite().equalsIgnoreCase("MIREBALAIS")) {
+        if ("MIREBALAIS".equalsIgnoreCase(config.getSite())) {
 
             SequentialIdentifierGenerator sequentialIdentifierGeneratorForUHM = configureHaitiIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
@@ -68,7 +68,7 @@ public class ConfigureHaitiIdGenerators {
 
         }
         // TODO: new setup for Central server, can we eventually move this into config?
-        else if (config.getSite().equalsIgnoreCase("CENTRAL")) {
+        else if ("CENTRAL".equalsIgnoreCase(config.getSite())) {
 
             SequentialIdentifierGenerator sequentialIdentifierGeneratorForUHM = configureHaitiIdGenerators
                     .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,

@@ -50,9 +50,10 @@ public class ConfigureSierraLeoneIdGenerators {
                     "074b2ab0-716a-11eb-8aa6-0242ac110002"  // KGH
             );
         }
-        else {
+        else if (config.getSite() != null) {
             throw new IllegalStateException("Unknown configuration site found.  Expecteed one of 'WELLBODY' or 'KGH'");
         }
+        // else: no site configured (e.g. a generic, country-only base) -- nothing to set up yet
     }
 
     public static void configurePrimaryIdentifierSource(IdentifierSourceService iss, String uuid,
