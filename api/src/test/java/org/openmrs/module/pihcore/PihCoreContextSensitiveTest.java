@@ -98,10 +98,10 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     }
 
     public void setupInitializerForTesting() {
-        // the bootstrap-only system property set in the static initializer above has done its job of
-        // getting Config's eager Spring bean past application-context creation -- clear it now so it
-        // doesn't take precedence over (and silently override) the real pih.config value this method
-        // is about to set as a runtime property for this specific test
+        // the bootstrap-only system property declared in the root pom's Surefire config has done its
+        // job of getting Config's eager Spring bean past application-context creation -- clear it now
+        // so it doesn't take precedence over (and silently override) the real pih.config value this
+        // method is about to set as a runtime property for this specific test
         System.clearProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
         Properties prop = getRuntimeProperties();
         prop.setProperty("pih.config", getPihConfig());
