@@ -191,7 +191,7 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
     }
 
     public void updateHealthCenter(Patient patient) {
-        // specific Haiti HIV-based logic for Health Centers
+        // specific Haiti HIV-based logic for Health Centers (differs from how we assign health centers on the ZL Central server)
         if (config.isHaiti()) {
             PersonAttributeType healthCenter = personService.getPersonAttributeTypeByUuid(PihEmrConfigConstants.PERSONATTRIBUTETYPE_HEALTH_CENTER_UUID);
             // Retrieve the HIV program from the ProgramWorkflowService
