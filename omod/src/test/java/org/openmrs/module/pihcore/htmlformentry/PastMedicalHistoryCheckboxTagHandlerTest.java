@@ -18,7 +18,6 @@ import org.openmrs.module.metadatadeploy.builder.ConceptBuilder;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
-import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.web.test.jupiter.BaseModuleWebContextSensitiveTest;
@@ -32,16 +31,6 @@ import java.util.Map;
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
 public class PastMedicalHistoryCheckboxTagHandlerTest extends BaseModuleWebContextSensitiveTest {
-
-    static {
-        // this test's web application context creates the eagerly-instantiated Config Spring bean
-        // before any test-specific setup runs, and (unlike PihCoreContextSensitiveTest subclasses)
-        // this class has no @BeforeEach that sets a real pih.config -- see PihCoreContextSensitiveTest
-        // for the full explanation of why ConfigLoader now requires one to be present at that point
-        if (System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY) == null) {
-            System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "default");
-        }
-    }
 
     protected Log log = LogFactory.getLog(getClass());
 

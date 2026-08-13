@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -66,9 +67,9 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
 
     @Test
     public void noArgConstructorShouldNotSwallowFailureWhenRuntimePropertyIsInvalid() {
-        // a system property, not a runtime property, since PihCoreContextSensitiveTest sets a system
-        // property to satisfy Config's eager Spring-bean creation at application-context bootstrap time,
-        // and system properties take precedence over runtime properties in getSystemOrRuntimeProperty()
+        // a system property, not a runtime property: the Surefire-declared pih.config system property
+        // (see the root pom) takes precedence over runtime properties in getSystemOrRuntimeProperty(),
+        // so it's what actually needs overriding here to make ConfigLoader see an invalid value
         String original = System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
         try {
             System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "does-not-exist");
@@ -97,7 +98,8 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
 
             IllegalStateException thrown = assertThrows(IllegalStateException.class,
                     ConfigLoader::loadFromRuntimeProperties);
-            assertThat(thrown.getMessage(), containsString("pih.config"));
+            assertThat(thrown.getMessage(), containsString("is not set"));
+            assertThat(thrown.getMessage(), not(containsString("pih-config-")));
         }
         finally {
             restorePihConfigSystemProperty(originalSystemProperty);

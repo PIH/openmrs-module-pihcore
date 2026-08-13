@@ -37,19 +37,6 @@ import static org.openmrs.module.initializer.api.ConfigDirUtil.CHECKSUM_FILE_EXT
 
 public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensitiveTest {
 
-    static {
-        // Config is an eagerly-instantiated Spring bean, created while the application context is
-        // refreshing -- before any @BeforeEach gets a chance to set "pih.config" via setupInitializerForTesting().
-        // ConfigLoader no longer tolerates an unset pih.config with a silent fallback (nor should it -- a real
-        // deployment always has pih.config set in its runtime properties file before the server even starts), so
-        // the test harness needs a real value in place at the same point a real deployment would have one: before
-        // Spring ever touches it. A test-only system property (checked before runtime properties by
-        // PihCoreUtil.getSystemOrRuntimeProperty) is the only reliable place given context caching across test classes.
-        if (System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY) == null) {
-            System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "default");
-        }
-    }
-
     @Autowired
     MessageSourceService messageSourceService;
 

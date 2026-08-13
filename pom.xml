@@ -751,6 +751,16 @@
                         <includes>
 							<include>**/*Test.java</include>
 						</includes>
+                        <systemPropertyVariables>
+                            <!-- Config is an eagerly-instantiated Spring bean, created while the
+                                 application context refreshes, before any test's @BeforeEach gets a
+                                 chance to set a real pih.config. Declaring it here (rather than via a
+                                 static initializer in a shared test base class) guarantees it is in
+                                 place before ANY test class in the module loads, regardless of Surefire
+                                 run order or forking; setupInitializerForTesting() still clears this
+                                 before setting each test's own value as a runtime property. -->
+                            <pih.config>default</pih.config>
+                        </systemPropertyVariables>
 					</configuration>
 				</plugin>
                 <plugin>
