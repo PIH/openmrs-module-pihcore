@@ -73,9 +73,16 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         return properties;
     }
 
+    // guards against re-arming the bootstrap value on every getRuntimeProperties() call (it's called
+    // more than once per test) -- this must only ever fire once per JVM, the same as a one-time default
+    private static volatile boolean pihConfigBootstrapped = false;
+
     public static void ensurePihConfigSystemPropertyIsSet() {
-        if (StringUtils.isBlank(System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY))) {
-            System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "default");
+        if (!pihConfigBootstrapped) {
+            if (StringUtils.isBlank(System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY))) {
+                System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "default");
+            }
+            pihConfigBootstrapped = true;
         }
     }
 
