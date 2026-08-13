@@ -42,7 +42,7 @@ public class ConfigLoader {
     public static ConfigDescriptor load(String configs) {
 
         if (StringUtils.isBlank(configs)) {
-            throw new IllegalStateException("PIH CONFIGURATION ERROR: pih.config is not set");
+            throw new IllegalStateException("pih config is not defined");
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -64,10 +64,7 @@ public class ConfigLoader {
                     File configFile = new File(dir, configFilename);
 
                     if (!configFile.exists()) {
-                        throw new IllegalStateException("PIH CONFIGURATION ERROR: Could not find a configuration file "
-                                + "named '" + configFilename + "' for pih.config value '" + trimmedConfig + "'. Checked "
-                                + configFile.getAbsolutePath() + ". Set the 'pih.config' runtime property to a valid, "
-                                + "comma-delimited list of PIH configuration profile names for this distribution.");
+                        throw new IllegalStateException("No pih config file found with name: " + configFilename);
                     }
 
                     try {
@@ -97,13 +94,8 @@ public class ConfigLoader {
             String json = objectMapper.writeValueAsString(configNode);
             return objectMapper.readValue(json, ConfigDescriptor.class);
         }
-        catch (IllegalStateException e) {
-            // a missing config file is already a clear, actionable message -- don't bury it inside
-            // the generic "Error parsing json configuration" message below
-            throw e;
-        }
         catch (Exception e) {
-            throw new RuntimeException("Error parsing json configuration", e);
+            throw new RuntimeException("Error loading PIH config", e);
         }
     }
 
