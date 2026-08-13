@@ -38,6 +38,7 @@ public class PastMedicalHistoryCheckboxTagHandlerTest extends BaseModuleWebConte
     @Override
     public Properties getRuntimeProperties() {
         Properties properties = super.getRuntimeProperties();
+        PihCoreContextSensitiveTest.ensurePihConfigSystemPropertyIsSet();
         PihCoreContextSensitiveTest.copyPihConfigFixturesToTestAppDataDir();
         return properties;
     }

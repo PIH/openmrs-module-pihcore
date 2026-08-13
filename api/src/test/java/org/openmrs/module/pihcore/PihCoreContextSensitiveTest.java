@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.EncounterType;
 import org.openmrs.Role;
@@ -64,13 +65,18 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         setupInitializerForTesting();
     }
 
-    // ConfigLoader has no classpath fallback, so Config's eager Spring bean creation needs a real
-    // pih-config-*.json on disk before this method returns.
     @Override
     public Properties getRuntimeProperties() {
         Properties properties = super.getRuntimeProperties();
+        ensurePihConfigSystemPropertyIsSet();
         copyPihConfigFixturesToTestAppDataDir();
         return properties;
+    }
+
+    public static void ensurePihConfigSystemPropertyIsSet() {
+        if (StringUtils.isBlank(System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY))) {
+            System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "default");
+        }
     }
 
     public static void copyPihConfigFixturesToTestAppDataDir() {
@@ -130,10 +136,6 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     }
 
     public void setupInitializerForTesting() {
-        // the bootstrap-only system property declared in the root pom's Surefire config has done its
-        // job of getting Config's eager Spring bean past application-context creation -- clear it now
-        // so it doesn't take precedence over (and silently override) the real pih.config value this
-        // method is about to set as a runtime property for this specific test
         System.clearProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
         Properties prop = getRuntimeProperties();
         prop.setProperty("pih.config", getPihConfig());

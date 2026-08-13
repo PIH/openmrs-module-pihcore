@@ -67,9 +67,6 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
 
     @Test
     public void noArgConstructorShouldNotSwallowFailureWhenRuntimePropertyIsInvalid() {
-        // a system property, not a runtime property: the Surefire-declared pih.config system property
-        // (see the root pom) takes precedence over runtime properties in getSystemOrRuntimeProperty(),
-        // so it's what actually needs overriding here to make ConfigLoader see an invalid value
         String original = System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
         try {
             System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "does-not-exist");
@@ -98,7 +95,7 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
 
             IllegalStateException thrown = assertThrows(IllegalStateException.class,
                     ConfigLoader::loadFromRuntimeProperties);
-            assertThat(thrown.getMessage(), containsString("is not set"));
+            assertThat(thrown.getMessage(), containsString("is not defined"));
             assertThat(thrown.getMessage(), not(containsString("pih-config-")));
         }
         finally {
