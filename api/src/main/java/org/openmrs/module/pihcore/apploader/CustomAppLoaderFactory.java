@@ -2467,6 +2467,18 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             and(patientIsAdolescent())));
             extensions.add(ayfsIntake);
 
+            Extension ayfsFollowup = visitAction(CustomAppLoaderConstants.Extensions.AYFS_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_FOLLOWUP_UUID,
+                    "fas fa-fw fa-hands-helping",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ayfsFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_FOLLOWUP_UUID),
+                            and(patientIsAdolescent())));
+            extensions.add(ayfsFollowup);
+
             Extension cervicalCancerScreening = visitAction(CustomAppLoaderConstants.Extensions.CERVICAL_CANCER_SCREENING_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_CERVICAL_CANCER_SCREENING_UUID,
                     "fas fa-fw fa-ribbon",
