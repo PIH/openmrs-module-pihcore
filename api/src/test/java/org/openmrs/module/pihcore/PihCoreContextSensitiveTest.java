@@ -17,6 +17,7 @@ import org.openmrs.module.initializer.InitializerConstants;
 import org.openmrs.module.initializer.InitializerMessageSource;
 import org.openmrs.module.initializer.api.ConfigDirUtil;
 import org.openmrs.module.initializer.api.InitializerService;
+import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,19 @@ import java.util.Properties;
 import static org.openmrs.module.initializer.api.ConfigDirUtil.CHECKSUM_FILE_EXT;
 
 public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensitiveTest {
+
+    static {
+        // Config is an eagerly-instantiated Spring bean, created while the application context is
+        // refreshing -- before any @BeforeEach gets a chance to set "pih.config" via setupInitializerForTesting().
+        // ConfigLoader no longer tolerates an unset pih.config with a silent fallback (nor should it -- a real
+        // deployment always has pih.config set in its runtime properties file before the server even starts), so
+        // the test harness needs a real value in place at the same point a real deployment would have one: before
+        // Spring ever touches it. A test-only system property (checked before runtime properties by
+        // PihCoreUtil.getSystemOrRuntimeProperty) is the only reliable place given context caching across test classes.
+        if (System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY) == null) {
+            System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "default");
+        }
+    }
 
     @Autowired
     MessageSourceService messageSourceService;
@@ -97,6 +111,11 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     }
 
     public void setupInitializerForTesting() {
+        // the bootstrap-only system property set in the static initializer above has done its job of
+        // getting Config's eager Spring bean past application-context creation -- clear it now so it
+        // doesn't take precedence over (and silently override) the real pih.config value this method
+        // is about to set as a runtime property for this specific test
+        System.clearProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
         Properties prop = getRuntimeProperties();
         prop.setProperty("pih.config", getPihConfig());
         prop.setProperty(InitializerConstants.PROPS_SKIPCHECKSUMS, "true");

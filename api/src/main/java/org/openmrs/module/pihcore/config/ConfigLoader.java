@@ -41,7 +41,12 @@ public class ConfigLoader {
      * Loads Configuration based on configuration in the runtime properties file
      */
     public static ConfigDescriptor loadFromRuntimeProperties() {
-        return load(getRuntimeConfiguration("default"));
+        String configs = getRuntimeConfiguration("");
+        if (configs.trim().isEmpty()) {
+            throw new IllegalStateException("PIH CONFIGURATION ERROR: The 'pih.config' runtime property is not set. "
+                    + "Set it to a valid, comma-delimited list of PIH configuration profile names for this distribution.");
+        }
+        return load(configs);
     }
 
     /**

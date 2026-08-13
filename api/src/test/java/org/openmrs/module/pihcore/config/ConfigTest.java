@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -65,21 +66,57 @@ public class ConfigTest extends PihCoreContextSensitiveTest{
 
     @Test
     public void noArgConstructorShouldNotSwallowFailureWhenRuntimePropertyIsInvalid() {
-        Properties prop = getRuntimeProperties();
-        String originalPihConfig = prop.getProperty("pih.config");
+        // a system property, not a runtime property, since PihCoreContextSensitiveTest sets a system
+        // property to satisfy Config's eager Spring-bean creation at application-context bootstrap time,
+        // and system properties take precedence over runtime properties in getSystemOrRuntimeProperty()
+        String original = System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
         try {
-            prop.setProperty("pih.config", "does-not-exist");
-            Context.setRuntimeProperties(prop);
+            System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "does-not-exist");
 
             // the exception thrown by ConfigLoader.loadFromRuntimeProperties() must propagate out of the
             // Config() constructor, not be swallowed after logging the startup failure banner
             assertThrows(RuntimeException.class, () -> new Config());
         }
         finally {
-            // restore, since setupInitializerForTesting()'s @BeforeEach reset relies on getPihConfig(),
-            // but this leaves nothing broken for other tests within this run either way
-            prop.setProperty("pih.config", originalPihConfig);
+            restorePihConfigSystemProperty(original);
+        }
+    }
+
+    @Test
+    public void loadFromRuntimePropertiesShouldThrowClearErrorWhenPihConfigIsNotSet() {
+        // getSystemOrRuntimeProperty() checks the system property first, then falls back to the runtime
+        // property that @BeforeEach's setupInitializerForTesting() already populated for this test class
+        // (via getPihConfig()) -- both have to be cleared to genuinely simulate "pih.config was never set"
+        String originalSystemProperty = System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
+        Properties prop = getRuntimeProperties();
+        String originalRuntimeProperty = prop.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
+        try {
+            System.clearProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
+            prop.remove(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
             Context.setRuntimeProperties(prop);
+
+            IllegalStateException thrown = assertThrows(IllegalStateException.class,
+                    ConfigLoader::loadFromRuntimeProperties);
+            assertThat(thrown.getMessage(), containsString("pih.config"));
+        }
+        finally {
+            restorePihConfigSystemProperty(originalSystemProperty);
+            if (originalRuntimeProperty == null) {
+                prop.remove(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
+            }
+            else {
+                prop.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, originalRuntimeProperty);
+            }
+            Context.setRuntimeProperties(prop);
+        }
+    }
+
+    private void restorePihConfigSystemProperty(String original) {
+        if (original == null) {
+            System.clearProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
+        }
+        else {
+            System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, original);
         }
     }
 
