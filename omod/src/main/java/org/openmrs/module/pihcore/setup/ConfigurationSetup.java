@@ -270,7 +270,7 @@ public class ConfigurationSetup {
         }
 
         if (config.isComponentEnabled(Components.APPOINTMENT_SCHEDULING)) {
-            if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+            if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
                 // TODO: This seems like something that should be moved to configuration.  We should add a GP to the appointment scheduling module
                 //  or wherever this is created to control which identifier type to use in the report, and then set this GP in Iniz config
                 AppointmentSchedulingSetup.customizeDailyAppointmentsDataSet();
@@ -316,7 +316,7 @@ public class ConfigurationSetup {
         updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_WITH_SPECIFIC_URL, config.getVisitsPageWithSpecificUrl());
 
         // TODO: one we centralize the ZL server (or perhaps even before?) we can likely just set this in the gp_radiology file in config-zl?
-        if (config.isComponentEnabled(Components.RADIOLOGY) && (config.getSite().equalsIgnoreCase("MIREBALAIS") || config.getSite().equalsIgnoreCase("CENTRAL"))) {
+        if (config.isComponentEnabled(Components.RADIOLOGY) && (config.isSite("MIREBALAIS") || config.isSite("CENTRAL"))) {
             updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, PihCoreConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
         }
 

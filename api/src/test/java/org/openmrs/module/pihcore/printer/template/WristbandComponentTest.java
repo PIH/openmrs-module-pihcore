@@ -60,7 +60,7 @@ public class WristbandComponentTest extends PihCoreContextSensitiveTest {
         emrApiActivator.started();
 
         Config config = mock(Config.class);
-        when(config.getCountry()).thenReturn(ConfigDescriptor.Country.HAITI);
+        when(config.isCountry(ConfigDescriptor.Country.HAITI)).thenReturn(true);
         MetadataMappingsSetup.setupPrimaryIdentifierTypeBasedOnCountry(metadataMappingService, patientService, config);
 
         Locale fr = new Locale("fr");

@@ -2,6 +2,7 @@ package org.openmrs.module.pihcore;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.EncounterType;
 import org.openmrs.Role;
@@ -17,14 +18,17 @@ import org.openmrs.module.initializer.InitializerConstants;
 import org.openmrs.module.initializer.InitializerMessageSource;
 import org.openmrs.module.initializer.api.ConfigDirUtil;
 import org.openmrs.module.initializer.api.InitializerService;
+import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
+import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -59,6 +63,48 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         deleteAllData();
         super.baseSetupWithStandardDataAndAuthentication();
         setupInitializerForTesting();
+    }
+
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties properties = super.getRuntimeProperties();
+        ensurePihConfigSystemPropertyIsSet();
+        copyPihConfigFixturesToTestAppDataDir();
+        return properties;
+    }
+
+    // guards against re-arming the bootstrap value on every getRuntimeProperties() call (it's called
+    // more than once per test) -- this must only ever fire once per JVM, the same as a one-time default
+    private static volatile boolean pihConfigBootstrapped = false;
+
+    public static void ensurePihConfigSystemPropertyIsSet() {
+        if (!pihConfigBootstrapped) {
+            if (StringUtils.isBlank(System.getProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY))) {
+                System.setProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY, "default");
+            }
+            pihConfigBootstrapped = true;
+        }
+    }
+
+    public static void copyPihConfigFixturesToTestAppDataDir() {
+        try {
+            File targetDir = new File(OpenmrsUtil.getApplicationDataDirectory(), "configuration/pih");
+            targetDir.mkdirs();
+            URL configResourceUrl = PihCoreContextSensitiveTest.class.getClassLoader().getResource("config");
+            if (configResourceUrl == null) {
+                return;
+            }
+            File sourceDir = new File(configResourceUrl.toURI());
+            File[] fixtures = sourceDir.listFiles((dir, name) -> name.startsWith("pih-config-") && name.endsWith(".json"));
+            if (fixtures != null) {
+                for (File fixture : fixtures) {
+                    FileUtils.copyFileToDirectory(fixture, targetDir);
+                }
+            }
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Unable to copy pih-config test fixtures into the test application data directory", e);
+        }
     }
 
     public void warmRolePrivilegeCache() {
@@ -97,6 +143,7 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
     }
 
     public void setupInitializerForTesting() {
+        System.clearProperty(ConfigLoader.PIH_CONFIGURATION_RUNTIME_PROPERTY);
         Properties prop = getRuntimeProperties();
         prop.setProperty("pih.config", getPihConfig());
         prop.setProperty(InitializerConstants.PROPS_SKIPCHECKSUMS, "true");

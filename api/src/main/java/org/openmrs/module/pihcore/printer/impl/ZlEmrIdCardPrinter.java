@@ -110,7 +110,7 @@ public class ZlEmrIdCardPrinter implements IdPrinter {
         paramMap.put("name", getName(patient));
         paramMap.put("patientIdentifier", getIdentifier(patient));
         paramMap.put("gender", patient.getGender());
-        paramMap.put("birthdate", df.format(patient.getBirthdate()));
+        paramMap.put("birthdate", (patient.getBirthdate() == null ? "" : df.format(patient.getBirthdate())));
         paramMap.put("birthdateEstimated", patient.getBirthdateEstimated());
         paramMap.put("issuingLocation", getIssuingLocationName(issuingLocation));
         paramMap.put("issuedDate", df.format(new Date()));

@@ -108,6 +108,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotHav
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasActiveVisit;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasPreviousEncounter;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdult;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdolescent;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsChild;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsReproductiveAge;
@@ -608,7 +609,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableMCHTriage(Config config) {
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             // MCOE triage form that appears on visit and clinical dashboard after a visit has been started as a "Visit Action"
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_TRIAGE_VISIT_ACTION,
                     "mirebalais.task.triage.label",
@@ -640,12 +641,12 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // note that this *only* works because we don't have a "1.0" version of the form(s) in use
         // (because hardcoding 'v2' or 'v1.1' would override ever loading old versions of the forms)
         // if for some reason we determine we are *never* rolling out the new St Marc form everywhere, we should come up with a better way to conditionally load this form
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && !config.getSite().equals("HSN_SAINT_MARC")) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI) && !config.isSite("HSN_SAINT_MARC")) {
             checkInFormName = "checkin_v2.0.xml";
             liveCheckInFormName = "liveCheckin_v1.1.xml";
         }
 
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA || config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.LIBERIA) || config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             liveCheckInFormName = "checkin.xml"; // we are migrating away from the "live check in" in Sierra Leone, hopefully we can remove this eventually everywhere (but will need to account for the "wristband" functionality built into the live check in for Haiti)
         }
 
@@ -682,7 +683,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 sessionLocationHasTag("Check-In Location")));
 
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             // Maternal check-in form that appears on visit and clinicial dashboard after a visit has been started as a "Visit Action"
             Extension checkInMaternal = visitAction(CustomAppLoaderConstants.Extensions.CHECK_IN_MATERNAL_VISIT_ACTION,
                     "mirebalais.checkin.title",
@@ -751,7 +752,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
         extensions.add(cloneAsInfantVisitAction(vitalSigns));
 
-        if (!config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (!config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
                     "mirebalais.mostRecentVitals.label",
                     "fas fa-fw fa-heartbeat",
@@ -767,7 +768,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.VITALS_SUMMARY,
                             "mirebalais.vitalsTrend.label",
                             "fas fa-fw fa-heartbeat",
@@ -819,7 +820,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         // Add additional vital sign forms for ZL
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
             // ToDo: Add inpatient AND emergency location tag
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_INPATIENT_VISIT_ACTION,
                     "pihcore.task.vitalsInpatient",
@@ -1160,6 +1161,15 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
      */
     private void enableDispensingForm() {
 
+        // TODO change this to use the coreapps find patient app?
+        apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.DISPENSING,
+                        "dispensing.app.label",
+                        "fas fa-fw fa-pills",
+                        "dispensing/findPatient.page",
+                        "App: dispensing.app.dispense",
+                        objectNode("definitionUiResource", PihCoreUtil.getFormResource("dispensing.xml"))),
+                sessionLocationHasTag("Dispensing Location")));
+
         extensions.add(visitAction(CustomAppLoaderConstants.Extensions.DISPENSE_MEDICATION_VISIT_ACTION,
                 "dispensing.app.label",
                 "fas fa-fw fa-pills",
@@ -1217,7 +1227,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableAppointments() {
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE) ) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE) ) {
             apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.APPOINTMENTS,
                             "pih.app.appointments.title",
                             "fas fa-fw fa-calendar-alt",
@@ -1389,7 +1399,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         // TODO: Get rid of these hacked-in reports in favor of proper configuration
         if (enabledCategories.contains(ReportCategory.OVERVIEW)) {
-            if (config.getCountry() == ConfigDescriptor.Country.LIBERIA || config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
+            if (config.isCountry(ConfigDescriptor.Country.LIBERIA) || config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
                 extensions.add(extension(CustomAppLoaderConstants.Extensions.REGISTRATION_SUMMARY_BY_AGE_REPORT,
                         "mirebalaisreports.registrationoverview.title",
                         null,
@@ -1691,8 +1701,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // Show additional identifiers (from form section "patient-identification-section")
         //   - in Mexico
         //   - in Haiti if configured for HIV
-        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) || (
-                        config.getCountry().equals(ConfigDescriptor.Country.HAITI) &&
+        if (config.isCountry(ConfigDescriptor.Country.MEXICO) || (
+                        config.isCountry(ConfigDescriptor.Country.HAITI) &&
                         ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty()))) {  // reversed to make this null safe
             apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.ADDITIONAL_IDENTIFIERS,
                     "zl.registration.patient.additionalIdentifiers",
@@ -1761,8 +1771,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) ||
-                (config.getCountry().equals(ConfigDescriptor.Country.HAITI))) {
+        if (config.isCountry(ConfigDescriptor.Country.MEXICO) ||
+                (config.isCountry(ConfigDescriptor.Country.HAITI))) {
             apps.add(addToRegistrationSummaryContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_INSURANCE,
                     "zl.registration.patient.insurance.insuranceName.label",
                     "fas fa-fw fa-address-card",
@@ -1788,7 +1798,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "encounter/mostRecentEncounter"));
 
 
-        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (!config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_CONTACT,
                     "zl.registration.patient.contactPerson.label",
                     "fas fa-fw fa-phone",
@@ -1802,7 +1812,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "encounter/mostRecentEncounter"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) && config.getSite().equals("CENTRAL")) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI) && config.isSite("CENTRAL")) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_HEALTH_CENTER,
                             "zl.registration.patient.healthCenter.header",
                             "fas fa-fw fa-hospital",
@@ -1816,7 +1826,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "encounter/mostRecentEncounter"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_REGISTRATION_LOCAL_ADDRESS,
                             "sl.registration.patient.localAddress.label",
                             "fas fa-fw fa-phone",
@@ -1831,7 +1841,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         if (config.isComponentEnabled(Components.CHECK_IN)) {
-            if ((config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE))) {
+            if ((config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE))) {
                 // In SierraLeone we have two different Check-in Encounter Types
                 apps.add(addToRegistrationSummarySecondColumnContent(app(CustomAppLoaderConstants.Apps.MOST_RECENT_CHECK_IN,
                                 "pihcore.mostRecentCheckin.label",
@@ -2149,7 +2159,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_NCD_UUID);
 
         String definitionUiResource = PihCoreUtil.getFormResource("ncd-initial.xml");
-        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (!config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
@@ -2174,7 +2184,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
         definitionUiResource = PihCoreUtil.getFormResource("ncd-followup.xml");
-        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (!config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
@@ -2195,7 +2205,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                 userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                 and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_WITH_GLUCOSE_CAPTURE_VISIT_ACTION,
                     "pihcore.task.vitalsWithGlucose",
                     "fas fa-fw fa-heartbeat",
@@ -2296,7 +2306,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMCHForms() {
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_ANC_INTAKE_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_ANC_INTAKE_UUID,
@@ -2338,7 +2348,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                       PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             and(patientIsFemale()))));
-        } else if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
+        } else if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
             // For ZL, the reproductive age is 11+.  Not the same for SL
             Extension delivery = visitAction(CustomAppLoaderConstants.Extensions.MCH_DELIVERY_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_MCH_DELIVERY_UUID,
@@ -2382,7 +2392,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         // For Wellbody only, show the (older) delivery form.  KGH has L&D and other forms.
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             Extension postnatalFollowup = visitAction(CustomAppLoaderConstants.Extensions.MCH_POSTNATAL_FOLLOWUP_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_POSTNATALFOLLOWUP_UUID,
                     "fas fa-fw fa-gift",
@@ -2445,6 +2455,30 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             and(patientIsFemale(), patientIsReproductiveAge())));
             extensions.add(gynecologyFollowup);
 
+            Extension ayfsIntake = visitAction(CustomAppLoaderConstants.Extensions.AYFS_INITIAL_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_INTAKE_UUID,
+                    "fas fa-fw fa-hands-helping",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ayfsIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_FOLLOWUP_UUID),
+                            and(patientIsAdolescent())));
+            extensions.add(ayfsIntake);
+
+            Extension ayfsFollowup = visitAction(CustomAppLoaderConstants.Extensions.AYFS_FOLLOWUP_VISIT_ACTION,
+                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_FOLLOWUP_UUID,
+                    "fas fa-fw fa-hands-helping",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("ayfsFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                    and(sessionLocationHasTag("Maternal and Child Location"),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_INTAKE_UUID),
+                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_FOLLOWUP_UUID),
+                            and(patientIsAdolescent())));
+            extensions.add(ayfsFollowup);
+
             Extension cervicalCancerScreening = visitAction(CustomAppLoaderConstants.Extensions.CERVICAL_CANCER_SCREENING_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_CERVICAL_CANCER_SCREENING_UUID,
                     "fas fa-fw fa-ribbon",
@@ -2487,7 +2521,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableMCHGainMaternal() {
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_GAIN_DELIVERY_REGISTER_ACTION,
                     "pih.task.maternalDeliveryRegister",
@@ -2501,7 +2535,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableMCHGainNewborn() {
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MCH_GAIN_SCBU_REGISTER_ACTION,
                     "pih.task.sbcuRegister",
@@ -2515,7 +2549,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableMCOEForms() {
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
 
             Extension newbornInitial = visitAction(CustomAppLoaderConstants.Extensions.NEWBORN_INITIAL_ACTION,
                     "pih.task.newbornInitial",
@@ -2699,11 +2733,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableMentalHealthForm() {
 
         String definitionUiResource = PihCoreUtil.getFormResource("mentalHealth.xml");
-        if (!config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (!config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             definitionUiResource = definitionUiResource + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl;
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_VISIT_ACTION,
                     "pih.task.mentalHealthIntake.label",
                     "fas fa-fw fa-user",
@@ -2724,7 +2758,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Mental Health Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_ASSESSMENT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_MENTAL_HEALTH_FOLLOWUP_UUID))));
-        } else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        } else if (config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             // Liberia original Mental Health form is followup
             // Todo:  update the label to pihcore.mentalhealthFU.title
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MENTAL_HEALTH_INTAKE_VISIT_ACTION,
@@ -2767,7 +2801,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void enableEpilepsyForm() {
-        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.EPILEPSY_INTAKE_VISIT_ACTION,
                     "pihcore.ncd.epilepsyIntake",
@@ -2910,7 +2944,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enablePrimaryCare() {
 
-        if (config.getCountry() == ConfigDescriptor.Country.HAITI) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.PRIMARY_CARE_PEDS_INITIAL_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID,
@@ -2970,7 +3004,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
 
-        } else if (config.getCountry() == ConfigDescriptor.Country.MEXICO) {
+        } else if (config.isCountry(ConfigDescriptor.Country.MEXICO)) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.MEXICO_CONSULT_ACTION,
                     "ui.i18n.EncounterType.name." + CesConfigConstants.ENCOUNTERTYPE_MEXICOCONSULT_UUID,
@@ -2988,7 +3022,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     null,
                     sessionLocationHasTag("Consult Note Location")));
 
-        } else if (config.getCountry() == ConfigDescriptor.Country.SIERRA_LEONE) {
+        } else if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
 
             extensions.add(visitAction(CustomAppLoaderConstants.Extensions.SIERRA_LEONE_OUTPATIENT_INITIAL_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_SIERRALEONEOUTPATIENTINITIAL_UUID,
@@ -3016,7 +3050,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         }
 
         private void enableFamilyMedicine() {
-            if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
+            if (config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
 
                 extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LIBERIA_FAMILY_MED_INITIAL_VISIT_ACTION,
                         "ui.i18n.EncounterType.name." + LiberiaConfigConstants.ENCOUNTERTYPE_LIBERIAFAMILYMEDICINEINTAKE_UUID,
@@ -3911,14 +3945,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableMentalHealthProgram() {
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID);
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO) || config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (config.isCountry(ConfigDescriptor.Country.MEXICO) || config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getPHQ9Graph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
                     "dashboardwidgets/dashboardWidget"));
         }
 
-           if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+           if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
                           apps.add(addToMentalHealthDashboardSecondColumn(app(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN,
                         "pih.app.mental.health.status.title",
                         "fas fa-fw fa-exclamation-circle",
@@ -3928,35 +3962,35 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "pihcore", "dashboardwidgets/statusData"));
                 }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
                 apps.add(addToMentalHealthDashboardSecondColumn(
                         graphs.getWHODASGraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                         "coreapps",
                         "dashboardwidgets/dashboardWidget"));
                 }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getZLDSIGraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
                     "dashboardwidgets/dashboardWidget"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI) || config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI) || config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getSeizureFrequencyGraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
                     "dashboardwidgets/dashboardWidget"));
         }
         
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getZLCGIraph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
                     "dashboardwidgets/dashboardWidget"));
         }
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+        if (config.isCountry(ConfigDescriptor.Country.MEXICO)) {
             apps.add(addToMentalHealthDashboardSecondColumn(
                     graphs.getGAD7Graph(CustomAppLoaderConstants.ExtensionPoints.CLINICIAN_DASHBOARD_SECOND_COLUMN),
                     "coreapps",
@@ -4329,7 +4363,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
     private void configureBasicProgramDashboard(String programUuid) {
-        boolean isSierraLeone = config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE);
+        boolean isSierraLeone = config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE);
         boolean isPregnancyProgram = PihEmrConfigConstants.PROGRAM_PREGNANCY_UUID.equals(programUuid);
         boolean isInfantProgram = PihEmrConfigConstants.PROGRAM_INFANT_UUID.equals(programUuid);
         // The Sierra Leone Pregnancy and Infant Programs Patient Dashboards are setup via config-pihsl, so do not set that up here

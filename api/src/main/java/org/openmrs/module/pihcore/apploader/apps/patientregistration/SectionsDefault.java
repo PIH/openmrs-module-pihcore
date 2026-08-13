@@ -27,6 +27,7 @@ import org.openmrs.module.registrationapp.model.Section;
 import org.openmrs.module.registrationapp.model.TextAreaWidget;
 import org.openmrs.module.registrationapp.model.TextFieldWidget;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -405,15 +406,20 @@ public class SectionsDefault {
             f.setLabel("registrationapp.patient.phone.label");
             f.setType("obsgroup");
 			ContactPersonConfigDescriptor contactPersonConfig = config.getRegistrationConfig().getContactPerson();
+			// note: a field can be both required and format-checked
+			List<String> cssClasses = new ArrayList<String>();
             if (contactPersonConfig != null && contactPersonConfig.getRequired() == true) {
-				f.setCssClasses(Arrays.asList("required"));
+				cssClasses.add("required");
 			}
 			if(contactPersonConfig != null && contactPersonConfig.getPhoneNumber() != null
 					&& StringUtils.isNotBlank(contactPersonConfig.getPhoneNumber().getRegex())){
-				f.setCssClasses(Arrays.asList("regex"));
+				cssClasses.add("regex");
 				f.setWidget(getTextFieldWidget(30, contactPersonConfig.getPhoneNumber().getRegex()));
 			} else {
 				f.setWidget(getTextFieldWidget(30));
+			}
+			if (!cssClasses.isEmpty()) {
+				f.setCssClasses(cssClasses);
 			}
             q.addField(f);
         }

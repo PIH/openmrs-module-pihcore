@@ -90,7 +90,7 @@ public class VisitPageController {
         model.addAttribute("encounter", encounter);
         model.addAttribute("locale", uiSessionContext.getLocale().getLanguage());
         model.addAttribute("country", config.getCountry().toString().toLowerCase());
-        model.addAttribute("site", config.getSite().toString().toLowerCase());
+        model.addAttribute("site", config.getSite() == null ? "" : config.getSite().toLowerCase());
         model.addAttribute("goToNext", goToNext);
         model.addAttribute("nextSection", nextSection);
         model.addAttribute("currentSection", currentSection);

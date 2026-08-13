@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.SQLException;
+import java.util.Properties;
 
 import static org.testcontainers.shaded.org.hamcrest.MatcherAssert.assertThat;
 import static org.testcontainers.shaded.org.hamcrest.Matchers.notNullValue;
@@ -74,6 +75,15 @@ public class ContextLoadingSmokeTest extends BaseModuleContextSensitiveTest {
     public void clearSessionAfterEachTest() {
         log.warn("Clearing Session...");
         super.clearSessionAfterEachTest();
+    }
+
+    // see PihCoreContextSensitiveTest.getRuntimeProperties()
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties properties = super.getRuntimeProperties();
+        PihCoreContextSensitiveTest.ensurePihConfigSystemPropertyIsSet();
+        PihCoreContextSensitiveTest.copyPihConfigFixturesToTestAppDataDir();
+        return properties;
     }
 
     @Test

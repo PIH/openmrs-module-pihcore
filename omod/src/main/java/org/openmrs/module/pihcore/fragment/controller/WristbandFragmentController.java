@@ -45,10 +45,10 @@ public class WristbandFragmentController {
             }
 
             String data = "";
-            if (config.getCountry().equals(Country.SIERRA_LEONE)) {
+            if (config.isCountry(Country.SIERRA_LEONE)) {
                 SLWristbandTemplate slWristbandTemplate = Context.getRegisteredComponent("slWristbandTemplate", SLWristbandTemplate.class);
                 data = slWristbandTemplate.generateWristband(patient, location, uiSessionContext.getLocale());
-            } else if (config.getCountry().equals(Country.HAITI)){
+            } else if (config.isCountry(Country.HAITI)){
                 // make sure a paper record has been created
                 if (!paperRecordService.paperRecordExistsForPatient(patient, location)) {
                     paperRecordService.createPaperRecord(patient, location);

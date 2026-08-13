@@ -51,9 +51,10 @@ public class PihCoreActivator extends BaseModuleActivator implements DaemonToken
             log.info("Distribution startup complete.");
         }
         catch (Exception e) {
+            log.error(PihCoreUtil.buildStartupFailureBanner(e), e);
             Module mod = ModuleFactory.getModuleById("pihcore");
             ModuleFactory.stopModule(mod, true, true);
-            throw new RuntimeException("An error occurred while starting the pihcore module", e);
+            throw new RuntimeException("PIH Core module failed to start", e);
         }
     }
 
