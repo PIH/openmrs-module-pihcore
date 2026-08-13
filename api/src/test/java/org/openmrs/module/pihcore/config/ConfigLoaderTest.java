@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -19,9 +20,19 @@ public class ConfigLoaderTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    public void loadShouldNotThrowWhenSiteDefaultHasLeadingWhitespaceInCommaDelimitedList() {
-        // "default, site-default" -- note the space after the comma -- should not throw, since
-        // "site-default" is optional and the guard must recognize it even with surrounding whitespace
-        ConfigLoader.load("default, site-default");
+    public void loadShouldTolerateWhitespaceAroundConfigNamesInCommaDelimitedList() {
+        // " default" -- note the leading space -- should still resolve pih-config-default.json
+        ConfigDescriptor descriptor = ConfigLoader.load(" default");
+        assertThat(descriptor.getWelcomeMessage(), is("Welcome to the PIH EMR"));
+    }
+
+    @Test
+    public void loadShouldThrowWhenSiteDefaultFileDoesNotExist() {
+        // "site-default" is no longer special-cased as optional -- a missing
+        // pih-config-site-default.json must fail loudly like any other missing config name
+        IllegalStateException thrown = assertThrows(IllegalStateException.class,
+                () -> ConfigLoader.load("default,site-default"));
+
+        assertThat(thrown.getMessage(), containsString("site-default"));
     }
 }

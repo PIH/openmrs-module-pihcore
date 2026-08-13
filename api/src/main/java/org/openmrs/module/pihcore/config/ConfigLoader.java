@@ -41,7 +41,7 @@ public class ConfigLoader {
      * Loads Configuration based on configuration in the runtime properties file
      */
     public static ConfigDescriptor loadFromRuntimeProperties() {
-        return load(getRuntimeConfiguration("default,site-default"));
+        return load(getRuntimeConfiguration("default"));
     }
 
     /**
@@ -86,7 +86,7 @@ public class ConfigLoader {
                         }
                     }
 
-                    if (is == null && !trimmedConfig.equals("site-default")) {  // bit of a hack, we don't insist that a "pih-config-site-default.json" exists
+                    if (is == null) {
                         throw new IllegalStateException("PIH CONFIGURATION ERROR: Could not find a configuration file "
                                 + "named '" + configFilename + "' for pih.config value '" + trimmedConfig + "'. Checked "
                                 + "application data directory (" + dir + ") and classpath location 'config/"
@@ -94,18 +94,15 @@ public class ConfigLoader {
                                 + "comma-delimited list of PIH configuration profile names for this distribution.");
                     }
 
-                    // TODO: remove this null test if we remove the "site-default" hack above
-                    if (is != null) {
-                        // Read the configuration file into a JsonNode
-                        JsonNode rootNode = objectMapper.readTree(is);
+                    // Read the configuration file into a JsonNode
+                    JsonNode rootNode = objectMapper.readTree(is);
 
-                        // Merge this in if this is not the first configuration file loaded
-                        if (configNode == null) {
-                            configNode = rootNode;
-                        }
-                        else {
-                            configNode = merge(configNode, rootNode);
-                        }
+                    // Merge this in if this is not the first configuration file loaded
+                    if (configNode == null) {
+                        configNode = rootNode;
+                    }
+                    else {
+                        configNode = merge(configNode, rootNode);
                     }
                 }
                 finally {
