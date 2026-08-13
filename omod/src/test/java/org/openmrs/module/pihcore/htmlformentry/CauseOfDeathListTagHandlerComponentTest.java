@@ -18,6 +18,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.contrib.testdata.TestDataManager;
 import org.openmrs.module.htmlformentry.HtmlFormEntryConstants;
 import org.openmrs.module.htmlformentry.RegressionTestHelper;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.web.test.jupiter.BaseModuleWebContextSensitiveTest;
@@ -28,12 +29,21 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
 public class CauseOfDeathListTagHandlerComponentTest extends BaseModuleWebContextSensitiveTest {
+
+    // see PihCoreContextSensitiveTest.getRuntimeProperties()
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties properties = super.getRuntimeProperties();
+        PihCoreContextSensitiveTest.copyPihConfigFixturesToTestAppDataDir();
+        return properties;
+    }
 
     @Autowired
     private TestDataManager testData;

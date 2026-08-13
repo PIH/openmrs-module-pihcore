@@ -18,6 +18,7 @@ import org.openmrs.module.metadatadeploy.builder.ConceptBuilder;
 import org.openmrs.module.metadatadeploy.builder.ConceptMapBuilder;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.ClinicalConsultationConcepts;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CommonConcepts;
+import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.deploy.bundle.core.concept.CoreConceptMetadataBundle;
 import org.openmrs.module.pihcore.setup.HtmlFormSetup;
 import org.openmrs.web.test.jupiter.BaseModuleWebContextSensitiveTest;
@@ -27,10 +28,19 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
 import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.conceptSource;
 
 public class PastMedicalHistoryCheckboxTagHandlerTest extends BaseModuleWebContextSensitiveTest {
+
+    // see PihCoreContextSensitiveTest.getRuntimeProperties()
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties properties = super.getRuntimeProperties();
+        PihCoreContextSensitiveTest.copyPihConfigFixturesToTestAppDataDir();
+        return properties;
+    }
 
     protected Log log = LogFactory.getLog(getClass());
 

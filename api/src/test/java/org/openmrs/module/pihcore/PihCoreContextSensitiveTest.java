@@ -20,12 +20,14 @@ import org.openmrs.module.initializer.api.InitializerService;
 import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
+import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -60,6 +62,36 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         deleteAllData();
         super.baseSetupWithStandardDataAndAuthentication();
         setupInitializerForTesting();
+    }
+
+    // ConfigLoader has no classpath fallback, so Config's eager Spring bean creation needs a real
+    // pih-config-*.json on disk before this method returns.
+    @Override
+    public Properties getRuntimeProperties() {
+        Properties properties = super.getRuntimeProperties();
+        copyPihConfigFixturesToTestAppDataDir();
+        return properties;
+    }
+
+    public static void copyPihConfigFixturesToTestAppDataDir() {
+        try {
+            File targetDir = new File(OpenmrsUtil.getApplicationDataDirectory(), "configuration/pih");
+            targetDir.mkdirs();
+            URL configResourceUrl = PihCoreContextSensitiveTest.class.getClassLoader().getResource("config");
+            if (configResourceUrl == null) {
+                return;
+            }
+            File sourceDir = new File(configResourceUrl.toURI());
+            File[] fixtures = sourceDir.listFiles((dir, name) -> name.startsWith("pih-config-") && name.endsWith(".json"));
+            if (fixtures != null) {
+                for (File fixture : fixtures) {
+                    FileUtils.copyFileToDirectory(fixture, targetDir);
+                }
+            }
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Unable to copy pih-config test fixtures into the test application data directory", e);
+        }
     }
 
     public void warmRolePrivilegeCache() {

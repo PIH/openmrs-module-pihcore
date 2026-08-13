@@ -1,13 +1,13 @@
 package org.openmrs.module.pihcore.config;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.pihcore.PihCoreUtil;
-import org.openmrs.util.OpenmrsClassLoader;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,11 +21,6 @@ public class ConfigLoader {
 
     public static final String PIH_CONFIGURATION_RUNTIME_PROPERTY = "pih.config";
 
-    // allows users to specify a directory other than the application data directory to look for config files
-    // helpful for developers, where you may want to point this to the appropriate directory in your local checkout
-    // of our puppet project, ie: /home/mgoodrich/openmrs/modules/mirebalais-puppet/mirebalais-modules/openmrs/files/config
-    public static final String PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY = "pih.config.dir";
-
     /**
      * @return the configuration based on runtime properties configuration, or based on default value if not found
      */
@@ -33,19 +28,11 @@ public class ConfigLoader {
         return PihCoreUtil.getSystemOrRuntimeProperty(PIH_CONFIGURATION_RUNTIME_PROPERTY, defaultValue);
     }
 
-    public static String getPihConfigurationDirRuntimeProperty(String defaultValue) {
-        return PihCoreUtil.getSystemOrRuntimeProperty(PIH_CONFIGURATION_DIR_RUNTIME_PROPERTY, defaultValue);
-    }
-
     /**
      * Loads Configuration based on configuration in the runtime properties file
      */
     public static ConfigDescriptor loadFromRuntimeProperties() {
         String configs = getRuntimeConfiguration("");
-        if (configs.trim().isEmpty()) {
-            throw new IllegalStateException("PIH CONFIGURATION ERROR: The 'pih.config' runtime property is not set. "
-                    + "Set it to a valid, comma-delimited list of PIH configuration profile names for this distribution.");
-        }
         return load(configs);
     }
 
@@ -53,6 +40,10 @@ public class ConfigLoader {
      * Loads Configuration based on a comma-delimited series of configuration files that can override one another
      */
     public static ConfigDescriptor load(String configs) {
+
+        if (StringUtils.isBlank(configs)) {
+            throw new IllegalStateException("PIH CONFIGURATION ERROR: pih.config is not set");
+        }
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
@@ -69,34 +60,21 @@ public class ConfigLoader {
                     String trimmedConfig = config.trim();
                     String configFilename = "pih-config-" + trimmedConfig + ".json";
 
-                    // first see if is in the .OpenMRS directory (or directory specified in pih.config.dir runtime property)
-                    // (any file found will override any file of the same name on the classpath)
-                    String dir = getPihConfigurationDirRuntimeProperty(PihCoreUtil.getDefaultPihConfigurationDir());
+                    String dir = PihCoreUtil.getDefaultPihConfigurationDir();
                     File configFile = new File(dir, configFilename);
 
-                    if (configFile.exists()) {
-                        try {
-                            is = new FileInputStream(configFile);
-                        }
-                        catch (Exception e) {
-                            throw new IllegalArgumentException("Error loading " + configFilename + " from application data directory", e);
-                        }
-                    }
-                    else {
-                        try {
-                            is = OpenmrsClassLoader.getInstance().getResourceAsStream("config/" + configFilename);
-                        }
-                        catch (Exception e) {
-                            throw new IllegalArgumentException("Error loading " + configFilename + " from classpath", e);
-                        }
-                    }
-
-                    if (is == null) {
+                    if (!configFile.exists()) {
                         throw new IllegalStateException("PIH CONFIGURATION ERROR: Could not find a configuration file "
                                 + "named '" + configFilename + "' for pih.config value '" + trimmedConfig + "'. Checked "
-                                + "application data directory (" + dir + ") and classpath location 'config/"
-                                + configFilename + "'. Set the 'pih.config' runtime property to a valid, "
+                                + configFile.getAbsolutePath() + ". Set the 'pih.config' runtime property to a valid, "
                                 + "comma-delimited list of PIH configuration profile names for this distribution.");
+                    }
+
+                    try {
+                        is = new FileInputStream(configFile);
+                    }
+                    catch (Exception e) {
+                        throw new IllegalArgumentException("Error loading " + configFilename + " from " + dir, e);
                     }
 
                     // Read the configuration file into a JsonNode

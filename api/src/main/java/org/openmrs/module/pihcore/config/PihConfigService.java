@@ -19,6 +19,7 @@ import org.openmrs.module.pihcore.config.model.ConfigDomain;
 import org.openmrs.module.pihcore.config.model.ConfigFile;
 import org.openmrs.module.pihcore.config.model.InitializerConfig;
 import org.openmrs.module.pihcore.config.model.PihConfig;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.setup.InitializerSetup;
 import org.openmrs.module.reporting.config.ReportLoader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class PihConfigService {
 
     public PihConfig getPihConfig() {
         PihConfig c = new PihConfig();
-        c.setConfigDir(ConfigLoader.getPihConfigurationDirRuntimeProperty(""));
+        c.setConfigDir(PihCoreUtil.getDefaultPihConfigurationDir());
         c.setConfigProperty(ConfigLoader.getRuntimeConfiguration(""));
         c.setConfigDescriptor(config.getDescriptor());
         c.setInitializerConfig(getInitializerConfig());
