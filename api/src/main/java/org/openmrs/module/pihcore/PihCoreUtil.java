@@ -76,12 +76,13 @@ public class PihCoreUtil {
      * @return a multi-line banner, one line per exception in the cause chain
      */
     public static String buildStartupFailureBanner(Throwable e) {
+        final int MAX_CAUSE_CHAIN_DEPTH = 10;  // guards against a self-referential cause chain
         StringBuilder sb = new StringBuilder();
         sb.append("\n")
                 .append("***************************************************************************\n")
                 .append("* PIH CORE MODULE FAILED TO START\n");
         Throwable current = e;
-        while (current != null) {
+        for (int i = 0; current != null && i < MAX_CAUSE_CHAIN_DEPTH; i++) {
             String message = current.getMessage();
             sb.append("* ").append(current.getClass().getSimpleName()).append(": ")
                     .append(message == null ? "(no message)" : message).append("\n");

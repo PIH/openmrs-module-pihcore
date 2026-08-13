@@ -140,7 +140,7 @@ public class Config {
     }
 
     public boolean isSierraLeone() {
-        return getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE);
+        return isCountry(ConfigDescriptor.Country.SIERRA_LEONE);
     }
 
     public boolean isWellbody() {
@@ -152,7 +152,7 @@ public class Config {
     }
 
     public boolean isHaiti() {
-        return getCountry().equals(ConfigDescriptor.Country.HAITI);
+        return isCountry(ConfigDescriptor.Country.HAITI);
     }
 
     public boolean isCountry(ConfigDescriptor.Country country) {
