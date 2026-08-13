@@ -29,7 +29,7 @@ public class ConfigureLiberiaIdGenerators {
         liberiaPrimaryIdentifierSource.setMinLength(7 + liberiaPrimaryIdentifierSource.getPrefix().length());
         liberiaPrimaryIdentifierSource.setMaxLength(8 + liberiaPrimaryIdentifierSource.getPrefix().length());
         liberiaPrimaryIdentifierSource.setBaseCharacterSet("0123456789");
-        if (config.getSite().equalsIgnoreCase("HARPER")) {
+        if (config.isSite("HARPER")) {
             liberiaPrimaryIdentifierSource.setFirstIdentifierBase("0100000");
         } else {
             liberiaPrimaryIdentifierSource.setFirstIdentifierBase("0000001");

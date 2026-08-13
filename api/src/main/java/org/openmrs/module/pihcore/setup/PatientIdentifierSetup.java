@@ -17,7 +17,7 @@ public class PatientIdentifierSetup {
                                                       LocationService locationService,
                                                       Config config) {
 
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
             ConfigureHaitiIdGenerators configureHaitiIdGenerators = new ConfigureHaitiIdGenerators(config, identifierSourceService);
             ConfigureHaitiIdGenerators.createPatientIdGenerator(configureHaitiIdGenerators);
             ConfigureHaitiIdGenerators.createDossierNumberGenerator(locationService, configureHaitiIdGenerators, config);
@@ -25,13 +25,13 @@ public class PatientIdentifierSetup {
                 ConfigureHaitiIdGenerators.createSourceAndAutoGenerationOptionForHivEmrV1(identifierSourceService);
             }
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        else if (config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             ConfigureLiberiaIdGenerators.configureGenerators(identifierSourceService, config);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        else if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             ConfigureSierraLeoneIdGenerators.configurePrimaryIdentifierSource(identifierSourceService, config);
         }
-        else if (config.getCountry().equals(ConfigDescriptor.Country.MEXICO)) {
+        else if (config.isCountry(ConfigDescriptor.Country.MEXICO)) {
             ConfigureMexicoIdGenerators.configureGenerators(identifierSourceService, config);
         }
     }

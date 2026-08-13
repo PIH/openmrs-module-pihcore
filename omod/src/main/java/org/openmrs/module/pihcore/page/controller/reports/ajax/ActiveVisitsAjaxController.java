@@ -74,7 +74,7 @@ public class ActiveVisitsAjaxController {
         dsd.addColumn("givenName", definitionLibraries.getDefinition(PatientDataDefinition.class, "reporting.library.patientDataDefinition.builtIn.preferredName.givenName"), "");
 
         // TODO: change this to not have to rely on an if/then
-        if (config.getCountry().equals(ConfigDescriptor.Country.HAITI)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
             dsd.addColumn("identifier", definitionLibraries.getDefinition(PatientDataDefinition.class, "mirebalais.patientDataCalculation.preferredZlEmrId.identifier"), "");
         }
         else {

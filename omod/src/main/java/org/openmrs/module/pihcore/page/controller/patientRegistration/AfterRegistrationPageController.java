@@ -31,7 +31,7 @@ public class AfterRegistrationPageController {
 
         String returnUrl = ui.pageLink("registrationapp", "findPatient", ObjectUtil.toMap("appId", CustomAppLoaderConstants.Apps.PATIENT_REGISTRATION));
 
-        if (config.getCountry() == ConfigDescriptor.Country.LIBERIA) {
+        if (config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             String redirectUrl = getRedirectUrlForLiberia(config, patientService, patient);
             if (redirectUrl == null) {
                 return "redirect:" + returnUrl;

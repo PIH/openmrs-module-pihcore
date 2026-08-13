@@ -33,7 +33,7 @@ public class DiagnosesDataSetManager extends BaseObsDataSetManager {
         addObsColumn(dsd, "order", "PIH:Diagnosis order", converters.getObsValueCodedNameConverter());
 
         // hack, have a better way of configuring this
-        if (config.getCountry().equals(ConfigDescriptor.Country.LIBERIA)) {
+        if (config.isCountry(ConfigDescriptor.Country.LIBERIA)) {
             addObsColumn(dsd, "diagnosis_code", "PIH:DIAGNOSIS", converters.getObsValueCodedConceptCode("Liberia MoH"));
         }
     }

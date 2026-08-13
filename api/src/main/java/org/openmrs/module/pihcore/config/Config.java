@@ -1,7 +1,10 @@
 package org.openmrs.module.pihcore.config;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.module.appframework.domain.Extension;
+import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
@@ -19,11 +22,19 @@ import java.util.Map;
 @Qualifier("config")
 public class Config {
 
+    protected Log log = LogFactory.getLog(getClass());
+
     private ConfigDescriptor descriptor;
 
 
     public Config() {
-        descriptor = ConfigLoader.loadFromRuntimeProperties();
+        try {
+            descriptor = ConfigLoader.loadFromRuntimeProperties();
+        }
+        catch (RuntimeException e) {
+            log.error(PihCoreUtil.buildStartupFailureBanner(e), e);
+            throw e;
+        }
     }
 
     public void reload(ConfigDescriptor descriptor) {
@@ -129,7 +140,7 @@ public class Config {
     }
 
     public boolean isSierraLeone() {
-        return getCountry().equals(ConfigDescriptor.Country.SIERRA_LEONE);
+        return isCountry(ConfigDescriptor.Country.SIERRA_LEONE);
     }
 
     public boolean isWellbody() {
@@ -141,7 +152,15 @@ public class Config {
     }
 
     public boolean isHaiti() {
-        return getCountry().equals(ConfigDescriptor.Country.HAITI);
+        return isCountry(ConfigDescriptor.Country.HAITI);
+    }
+
+    public boolean isCountry(ConfigDescriptor.Country country) {
+        return getCountry() != null && getCountry().equals(country);
+    }
+
+    public boolean isSite(String site) {
+        return getSite() != null && getSite().equalsIgnoreCase(site);
     }
 
     public AddressConfigDescriptor getAddressConfig() {
