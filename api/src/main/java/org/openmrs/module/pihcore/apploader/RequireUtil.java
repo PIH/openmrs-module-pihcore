@@ -80,8 +80,8 @@ public class RequireUtil {
         return new String("patient.person.age >= 10");
     }
 
-    public static String patientIsAdolescent() {  // expects patient or visit to be in the context
-        return new String("patient.person.age >= 10 && patient.person.age < 20");
+    public static String patientIsAdolescentYouth() {  // used by Sierra Leone for AYFS
+        return new String("patient.person.age >= 10 && patient.person.age < 25");
     }
 
     public static String patientIsChild() {  // expects patient or visit to be in the context

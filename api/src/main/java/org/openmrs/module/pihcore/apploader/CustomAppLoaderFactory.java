@@ -108,7 +108,7 @@ import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotHav
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasActiveVisit;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasPreviousEncounter;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdult;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdolescent;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdolescentYouth;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsChild;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
 import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsReproductiveAge;
@@ -2464,7 +2464,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_FOLLOWUP_UUID),
-                            and(patientIsAdolescent())));
+                            and(patientIsAdolescentYouth())));
             extensions.add(ayfsIntake);
 
             Extension ayfsFollowup = visitAction(CustomAppLoaderConstants.Extensions.AYFS_FOLLOWUP_VISIT_ACTION,
@@ -2476,7 +2476,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Maternal and Child Location"),
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_INTAKE_UUID),
                             visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_FOLLOWUP_UUID),
-                            and(patientIsAdolescent())));
+                            and(patientIsAdolescentYouth())));
             extensions.add(ayfsFollowup);
 
             Extension cervicalCancerScreening = visitAction(CustomAppLoaderConstants.Extensions.CERVICAL_CANCER_SCREENING_VISIT_ACTION,
