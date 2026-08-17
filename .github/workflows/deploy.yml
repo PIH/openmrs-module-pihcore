@@ -25,13 +25,12 @@ jobs:
       env:
         OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
         OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
-    - name: Trigger Distribution Build
-      uses: fjogeleit/http-request-action@v1
+    - name: Trigger pihemr build
+      uses: peter-evans/repository-dispatch@v4
       with:
-        url: 'https://bamboo-ci.pih-emr.org/rest/api/latest/queue/OMRS-PIHEMRDISTRIBUTION'
-        method: 'POST'
-        bearerToken: ${{ secrets.PIH_BAMBOO_API_KEY }}
-        customHeaders: '{"Accept": "application/json"}'
+        token: ${{ secrets.GHA_WRITE_TOKEN }}
+        repository: PIH/pihemr
+        event-type: dependency-trigger
     - name: Notify Teams on failure
       if: failure()
       uses: skitionek/notify-microsoft-teams@master
