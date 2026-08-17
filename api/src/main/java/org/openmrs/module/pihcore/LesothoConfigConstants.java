@@ -17,4 +17,6 @@ public class LesothoConfigConstants {
 
 	public static final String IDENTIFIERSOURCE_EMRIDPOOL_UUID ="4e8e404e-6f28-11f1-9293-c6dbcf623907";
 
+	public static final String PROGRAM_MDRTB_UUID ="7d377413-4626-4342-b015-1ab229964cb4";
+
 }

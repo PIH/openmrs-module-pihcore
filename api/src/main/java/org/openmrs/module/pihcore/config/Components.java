@@ -74,6 +74,7 @@ public class Components {
         public static final String MCOE_FORMS = "mcoeForms" ;
         public static final String MCH_TRIAGE = "mchTriage";
         public static final String MCH_BASIC_DELIVERY_FORM = "mchBasicDeliveryForm"; // used by Wellbody
+        public static final String MDRTB_PROGRAM = "mdrtbProgram";  // program, used by Lesotho
         public static final String MEDICATION_ORDER = "medicationOrder";
         public static final String MEDICATION_DISPENSING = "medicationDispensing"; // This is for the new dispensing MFE
         public static final String MENTAL_HEALTH= "mentalHealth";  // mentalHealthForm + mentalHealthProgram
