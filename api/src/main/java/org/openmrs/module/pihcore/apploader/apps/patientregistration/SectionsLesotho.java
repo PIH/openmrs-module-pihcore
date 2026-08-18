@@ -20,6 +20,7 @@ public class SectionsLesotho extends SectionsDefault {
 
     @Override
     public void addSections(RegistrationAppConfig c) {
+        super.addSections(c);
         c.addSection(getIdentifierSection());
     }
 
