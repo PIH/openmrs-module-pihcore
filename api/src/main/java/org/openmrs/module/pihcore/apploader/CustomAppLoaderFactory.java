@@ -2431,29 +2431,32 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             extensions.add(familyPlanningFollowup);
             extensions.add(cloneAsPregnancyVisitAction(familyPlanningFollowup));
 
-            Extension gynecologyIntake = visitAction(CustomAppLoaderConstants.Extensions.MCH_GYNECOLOGY_INTAKE_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_INTAKE_UUID,
-                    "fas fa-fw fa-venus",
-                    "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("gynecologyIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
-                    and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_INTAKE_UUID),
-                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_FOLLOWUP_UUID),
-                            and(patientIsFemale(), patientIsReproductiveAge())));
-            extensions.add(gynecologyIntake);
+            if (config.isComponentEnabled(Components.MCH_GYNECOLOGY_FORMS)) {
 
-            Extension gynecologyFollowup = visitAction(CustomAppLoaderConstants.Extensions.MCH_GYNECOLOGY_FOLLOWUP_VISIT_ACTION,
-                    "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_FOLLOWUP_UUID,
-                    "fas fa-fw fa-venus",
-                    "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("gynecologyFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
-                    PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
-                    and(sessionLocationHasTag("Maternal and Child Location"),
-                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_INTAKE_UUID),
-                            visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_FOLLOWUP_UUID),
-                            and(patientIsFemale(), patientIsReproductiveAge())));
-            extensions.add(gynecologyFollowup);
+                Extension gynecologyIntake = visitAction(CustomAppLoaderConstants.Extensions.MCH_GYNECOLOGY_INTAKE_VISIT_ACTION,
+                        "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_INTAKE_UUID,
+                        "fas fa-fw fa-venus",
+                        "link",
+                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource("gynecologyIntake.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                        PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                        and(sessionLocationHasTag("Maternal and Child Location"),
+                                visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_INTAKE_UUID),
+                                visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_FOLLOWUP_UUID),
+                                and(patientIsFemale(), patientIsReproductiveAge())));
+                extensions.add(gynecologyIntake);
+
+                Extension gynecologyFollowup = visitAction(CustomAppLoaderConstants.Extensions.MCH_GYNECOLOGY_FOLLOWUP_VISIT_ACTION,
+                        "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_FOLLOWUP_UUID,
+                        "fas fa-fw fa-venus",
+                        "link",
+                        enterStandardHtmlFormLink(PihCoreUtil.getFormResource("gynecologyFollowup.xml") + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),  // always redirect to visit page after clicking this link
+                        PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_MCH,
+                        and(sessionLocationHasTag("Maternal and Child Location"),
+                                visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_INTAKE_UUID),
+                                visitDoesNotHaveEncounterOfType(SierraLeoneConfigConstants.ENCOUNTERTYPE_GYNO_FOLLOWUP_UUID),
+                                and(patientIsFemale(), patientIsReproductiveAge())));
+                extensions.add(gynecologyFollowup);
+            }
 
             Extension ayfsIntake = visitAction(CustomAppLoaderConstants.Extensions.AYFS_INITIAL_VISIT_ACTION,
                     "ui.i18n.EncounterType.name." + SierraLeoneConfigConstants.ENCOUNTERTYPE_AYFS_INTAKE_UUID,
