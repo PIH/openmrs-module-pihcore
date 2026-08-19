@@ -13,6 +13,7 @@ import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.authenticationui.AuthenticationUiConfig;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.CesConfigConstants;
+import org.openmrs.module.pihcore.LesothoConfigConstants;
 import org.openmrs.module.pihcore.LiberiaConfigConstants;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
@@ -3945,6 +3946,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     }
 
 
+    private void enableMdrTbProgram() {
+        configureBasicProgramDashboard(LesothoConfigConstants.PROGRAM_MDRTB_UUID);
+    }
+
     private void enableMentalHealthProgram() {
         configureBasicProgramDashboard(PihEmrConfigConstants.PROGRAM_MENTALHEALTH_UUID);
 
@@ -4270,6 +4275,11 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         if (config.isComponentEnabled(Components.EPILEPSY)) {
             enableEpilepsyForm();
+        }
+
+        if (config.isComponentEnabled(Components.MDRTB_PROGRAM)) {
+            supportedPrograms.add(LesothoConfigConstants.PROGRAM_MDRTB_UUID);
+            enableMdrTbProgram();
         }
 
         if (config.isComponentEnabled(Components.MENTAL_HEALTH_PROGRAM)) {

@@ -33,6 +33,7 @@ import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
 import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
+import org.openmrs.module.pihcore.listener.GenerateMdrTbIdentifierListener;
 import org.openmrs.module.pihcore.listener.UpdateHealthCenterListener;
 import org.openmrs.module.pihcore.task.PihCoreScheduledTaskExecutor;
 import org.openmrs.module.printer.PrinterService;
@@ -282,6 +283,12 @@ public class ConfigurationSetup {
         if (config.isHaiti() && ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {
             setStatus("Enabling UpdateHealthCenterListener");
             UpdateHealthCenterListener.setEnabled(true);
+        }
+
+        // turn on our listener to generate a MDR-TB ID when a patient is enrolled in the MDR-TB program, currently only enabled on Lesotho
+        if (config.isCountry(ConfigDescriptor.Country.LESOTHO)) {
+            setStatus("Enabling GenerateMdrTbIdentifierListener");
+            GenerateMdrTbIdentifierListener.setEnabled(true);
         }
 
         // schedule tasks near the end because we don't want them to run (or the timer to start ticking on them) until setup is complete
