@@ -738,22 +738,53 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             }
         }
 
-        Extension vitalSigns = visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
-                "mirebalais.task.vitals.label",
-                "fas fa-fw fa-heartbeat",
-                "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
-                null,
-                and(sessionLocationHasTag("Vitals Location"), sessionLocationDoesNotHaveTag("Vitals Inpatient Location"),
-                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
-        extensions.add(vitalSigns);
-        extensions.add(cloneAsMchVisitAction(vitalSigns));
-        extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
-        extensions.add(cloneAsInfantVisitAction(vitalSigns));
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
+            Extension vitalSigns = visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
+                    "mirebalais.task.vitals.label",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vitalsAll.xml")),
+                    null,
+                    and(sessionLocationHasTag("Vitals Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+            extensions.add(vitalSigns);
+            extensions.add(cloneAsMchVisitAction(vitalSigns));
+            extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
+            extensions.add(cloneAsInfantVisitAction(vitalSigns));
+        } else {
+            Extension vitalSigns = visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
+                    "mirebalais.task.vitals.label",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
+                    null,
+                    and(sessionLocationHasTag("Vitals Location"), sessionLocationDoesNotHaveTag("Vitals Inpatient Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+            extensions.add(vitalSigns);
+            extensions.add(cloneAsMchVisitAction(vitalSigns));
+            extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
+            extensions.add(cloneAsInfantVisitAction(vitalSigns));
+        }
 
-        if (!config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
+            AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
+                    "mirebalais.mostRecentVitals.label",
+                    "fas fa-fw fa-heartbeat",
+                    null,
+                    "App: mirebalais.outpatientVitals",
+                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                            "editable", Boolean.TRUE,
+                            "edit-provider", "htmlformentryui",
+                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
+                            "definitionUiResource", PihCoreUtil.getFormResource("vitalsAll.xml"),
+                            "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
+            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+        } else if (!config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
             AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
                     "mirebalais.mostRecentVitals.label",
                     "fas fa-fw fa-heartbeat",
@@ -818,36 +849,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
             extensions.add(inpatientNewbornVitalsSigns);
-        }
-
-        // Add additional vital sign forms for ZL
-        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
-            // ToDo: Add inpatient AND emergency location tag
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_INPATIENT_VISIT_ACTION,
-                    "pihcore.task.vitalsInpatient",
-                    "fas fa-fw fa-heartbeat",
-                    "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsInpatient.xml")),
-                    null,
-                    and(sessionLocationHasTag("Vitals Inpatient Location"),
-                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
-
-            Extension vitalsPregnancy = visitAction(CustomAppLoaderConstants.Extensions.VITALS_PREGNANCY_VISIT_ACTION,
-                    "pihcore.task.vitalsPregnancy",
-                    "fas fa-fw fa-heartbeat",
-                    "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsPregnant.xml")),
-                    null,
-                    and(sessionLocationHasTag("Vitals ANC Location"),
-                            and(patientIsFemale(), patientIsReproductiveAge()),
-                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
-
-            extensions.add(vitalsPregnancy);
-            extensions.add(cloneAsMchVisitAction(vitalsPregnancy));
         }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
