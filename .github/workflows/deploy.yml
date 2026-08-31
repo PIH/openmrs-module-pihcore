@@ -14,27 +14,14 @@ jobs:
     uses: PIH/openmrs-contrib-distro-tools/.github/workflows/build-and-deploy-to-openmrs-jfrog.yml@main
     secrets: inherit
 
-  # Kept as separate steps alongside the shared workflow above, since a reusable-workflow call
-  # can't have additional steps within the same job. Note the Teams notification here can only
-  # report this job's own (trivial) step status, not the actual build's per-step detail the way
-  # it could when this all ran as a single inline job - it still fires on deploy failure, just
-  # with less granular detail.
-  post-deploy:
+  # Kept as a separate job since a reusable-workflow call can't have additional steps of its
+  # own. Runs only on successful deploy (default behavior for a job with `needs`).
+  trigger-pihemr-build:
     needs: build-and-publish
-    if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger pihemr build
-        if: needs.build-and-publish.result == 'success'
-        uses: peter-evans/repository-dispatch@v4
+      - uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.GHA_WRITE_TOKEN }}
           repository: PIH/pihemr
           event-type: dependency-trigger
-      - name: Notify Teams on failure
-        if: needs.build-and-publish.result == 'failure'
-        uses: skitionek/notify-microsoft-teams@master
-        with:
-          webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-          job: ${{ toJson(job) }}
-          steps: ${{ toJson(steps) }}
