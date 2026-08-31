@@ -1,0 +1,13 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    if: github.repository_owner == 'PIH'
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    uses: PIH/openmrs-contrib-distro-tools/.github/workflows/release-to-openmrs-jfrog.yml@main
+    secrets: inherit
