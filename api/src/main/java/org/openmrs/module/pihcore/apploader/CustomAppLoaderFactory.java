@@ -635,21 +635,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
     private void enableCheckIn(Config config) {
 
         String checkInFormName = "checkin.xml";
-        String liveCheckInFormName = "liveCheckin.xml";
-
-        // hack; we have a new "v3" form in Haiti, but currently we *only* want to roll this out at St Marc
-        // once we roll the new checkin forms everywhere, we can remove this hack
-        // note that this *only* works because we don't have a "1.0" version of the form(s) in use
-        // (because hardcoding 'v2' or 'v1.1' would override ever loading old versions of the forms)
-        // if for some reason we determine we are *never* rolling out the new St Marc form everywhere, we should come up with a better way to conditionally load this form
-        if (config.isCountry(ConfigDescriptor.Country.HAITI) && !config.isSite("HSN_SAINT_MARC")) {
-            checkInFormName = "checkin_v2.0.xml";
-            liveCheckInFormName = "liveCheckin_v1.1.xml";
-        }
-
-        if (config.isCountry(ConfigDescriptor.Country.LIBERIA) || config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            liveCheckInFormName = "checkin.xml"; // we are migrating away from the "live check in" in Sierra Leone, hopefully we can remove this eventually everywhere (but will need to account for the "wristband" functionality built into the live check in for Haiti)
-        }
 
         // circular app that redirects to registration page, see comments in CheckInPageController
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
@@ -679,7 +664,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.task.checkin.label",
                 "fas fa-fw icon-check-in",
                 "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(liveCheckInFormName)) + andCreateVisit(),
+                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource(checkInFormName)) + andCreateVisit(),
                 "Task: mirebalais.checkinForm",
                 sessionLocationHasTag("Check-In Location")));
 
