@@ -14,6 +14,4 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
     uses: PIH/openmrs-contrib-distro-tools/.github/workflows/update-versions.yml@main
-    with:
-      allow-snapshots: false
     secrets: inherit
