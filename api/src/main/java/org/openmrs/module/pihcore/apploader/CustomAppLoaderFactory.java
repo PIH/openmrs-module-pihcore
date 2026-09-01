@@ -743,7 +743,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "mirebalais.task.vitals.label",
                     "fas fa-fw fa-heartbeat",
                     "link",
-                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vitalsAll.xml")),
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
                     null,
                     and(sessionLocationHasTag("Vitals Location"),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
@@ -780,8 +780,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
                             "editable", Boolean.TRUE,
                             "edit-provider", "htmlformentryui",
-                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                            "definitionUiResource", PihCoreUtil.getFormResource("vitalsAll.xml"),
+                            "edit-fragment", "htmlform/editHtmlFormWithStandardUi",
+                            "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
                             "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
             apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         } else if (!config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
