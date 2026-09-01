@@ -46,64 +46,64 @@
 	</modules>
 
     <properties>
-        <openMRSVersion>2.8.9</openMRSVersion>
+        <openMRSVersion>2.8.10-SNAPSHOT</openMRSVersion>
 
         <addresshierarchyVersion>3.0.0-SNAPSHOT</addresshierarchyVersion>
-        <allergyuiVersion>1.8.7</allergyuiVersion>
+        <allergyuiVersion>1.9.0-SNAPSHOT</allergyuiVersion>
         <appframeworkVersion>2.20.0-SNAPSHOT</appframeworkVersion>
-        <appointmentsVersion>2.1.0</appointmentsVersion>
-        <appointmentschedulingVersion>2.0.0</appointmentschedulingVersion>
-        <appointmentschedulinguiVersion>2.0.0</appointmentschedulinguiVersion>
-        <appuiVersion>1.18.0</appuiVersion>
-        <attachmentsVersion>4.0.0</attachmentsVersion>
-        <authenticationVersion>2.3.0</authenticationVersion>
+        <appointmentsVersion>2.2.0-SNAPSHOT</appointmentsVersion>
+        <appointmentschedulingVersion>2.1.0-SNAPSHOT</appointmentschedulingVersion>
+        <appointmentschedulinguiVersion>2.1.0-SNAPSHOT</appointmentschedulinguiVersion>
+        <appuiVersion>1.19.0-SNAPSHOT</appuiVersion>
+        <attachmentsVersion>4.1.0-SNAPSHOT</attachmentsVersion>
+        <authenticationVersion>2.4.0-SNAPSHOT</authenticationVersion>
         <authenticationuiVersion>1.4.0-SNAPSHOT</authenticationuiVersion>
         <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
-        <calculationVersion>2.0.0</calculationVersion>
+        <calculationVersion>2.1.0-SNAPSHOT</calculationVersion>
         <coreappsVersion>4.0.0-SNAPSHOT</coreappsVersion>
         <dispensingVersion>2.1.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>2.2.0-SNAPSHOT</edtriageappVersion>
-        <emrVersion>2.3.0</emrVersion>
+        <emrVersion>2.4.0-SNAPSHOT</emrVersion>
         <emrapiVersion>3.5.0-SNAPSHOT</emrapiVersion>
-        <eventVersion>4.0.0</eventVersion>
+        <eventVersion>4.1.0-SNAPSHOT</eventVersion>
         <fhir2Version>4.3.0-SNAPSHOT</fhir2Version>
-        <growthChartVersion>2.1.0</growthChartVersion>
+        <growthChartVersion>2.2.0-SNAPSHOT</growthChartVersion>
         <htmlformentryVersion>7.3.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>3.3.0-SNAPSHOT</htmlformentryuiVersion>
-        <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
-        <idgenVersion>5.0.4</idgenVersion>
-        <initializerVersion>2.12.0</initializerVersion>
+        <htmlwidgetsVersion>2.1.0-SNAPSHOT</htmlwidgetsVersion>
+        <idgenVersion>6.0.0-SNAPSHOT</idgenVersion>
+        <initializerVersion>2.13.0-SNAPSHOT</initializerVersion>
         <labtrackingappVersion>1.3.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>2.0.0-SNAPSHOT</labworkflowOwaVersion>
-        <legacyuiVersion>2.2.0</legacyuiVersion>
-        <metadatamappingVersion>2.0.0</metadatamappingVersion>
-        <namephoneticsVersion>1.19.0</namephoneticsVersion>
-        <o3formsVersion>2.3.0</o3formsVersion>
-        <openconceptlabVersion>3.2.0</openconceptlabVersion>
-        <owaVersion>1.15.0</owaVersion>
-        <paperrecordVersion>1.4.1</paperrecordVersion>
+        <legacyuiVersion>3.0.0-SNAPSHOT</legacyuiVersion>
+        <metadatamappingVersion>2.1.0-SNAPSHOT</metadatamappingVersion>
+        <namephoneticsVersion>2.0.0-SNAPSHOT</namephoneticsVersion>
+        <o3formsVersion>3.0.0-SNAPSHOT</o3formsVersion>
+        <openconceptlabVersion>3.3.0-SNAPSHOT</openconceptlabVersion>
+        <owaVersion>1.16.0-SNAPSHOT</owaVersion>
+        <paperrecordVersion>1.5.0-SNAPSHOT</paperrecordVersion>
         <pihappsVersion>1.2.0-SNAPSHOT</pihappsVersion>
-        <printerVersion>1.6.0</printerVersion>
+        <printerVersion>1.7.0-SNAPSHOT</printerVersion>
         <queueVersion>3.1.0-SNAPSHOT</queueVersion>
-        <radiologyappVersion>1.8.0</radiologyappVersion>
+        <radiologyappVersion>1.9.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.30.0-SNAPSHOT</registrationappVersion>
-        <registrationcoreVersion>1.13.0</registrationcoreVersion>
+        <registrationcoreVersion>1.14.0-SNAPSHOT</registrationcoreVersion>
         <reportingVersion>2.2.0-SNAPSHOT</reportingVersion>
         <reportingrestVersion>2.1.0-SNAPSHOT</reportingrestVersion>
         <reportinguiVersion>1.15.0-SNAPSHOT</reportinguiVersion>
-        <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
-        <spaVersion>3.0.0</spaVersion>
-        <teleconsultationVersion>2.0.0</teleconsultationVersion>
-        <testutilsVersion>1.7.0</testutilsVersion>
+        <serializationxstreamVersion>0.4.0-SNAPSHOT</serializationxstreamVersion>
+        <spaVersion>3.1.0-SNAPSHOT</spaVersion>
+        <teleconsultationVersion>2.1.0-SNAPSHOT</teleconsultationVersion>
+        <testutilsVersion>1.8.0-SNAPSHOT</testutilsVersion>
         <uicommonsVersion>3.2.0-SNAPSHOT</uicommonsVersion>
-        <uiframeworkVersion>4.0.0</uiframeworkVersion>
-        <uilibraryVersion>2.0.7</uilibraryVersion>
+        <uiframeworkVersion>4.0.1-SNAPSHOT</uiframeworkVersion>
+        <uilibraryVersion>3.0.0-SNAPSHOT</uilibraryVersion>
         <webservicesRestVersion>3.5.0-SNAPSHOT</webservicesRestVersion>
 
         <lombokVersion>1.18.46</lombokVersion>
         <testcontainersVersion>1.21.4</testcontainersVersion>
 
-        <pihMavenPluginVersion>1.6.0</pihMavenPluginVersion>
+        <pihMavenPluginVersion>1.7.0-SNAPSHOT</pihMavenPluginVersion>
         <dependencyReportClassifier>dependencies</dependencyReportClassifier>
         <dependencyReportExtension>txt</dependencyReportExtension>
         <dependenciesFile>${project.build.directory}/${project.artifactId}-${project.version}-${dependencyReportClassifier}.${dependencyReportExtension}</dependenciesFile>
