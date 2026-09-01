@@ -1,30 +1,17 @@
 name: Update Versions
+
 on:
   schedule:
     - cron: "30 * * * *"
   workflow_dispatch:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+
 jobs:
   update-versions:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out pihcore module
-        uses: actions/checkout@v4
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: 8
-          cache: 'maven'
-      - name: Setup Git Config
-        run: |
-          git config user.name "Github Action"
-          git config user.email "github-action@users.noreply.github.com"
-      - name: Update versions
-        run: mvn clean versions:update-properties scm:checkin -Dmessage='automatic update of mvn version dependencies'
-        env:
-          OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
-          OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.GHA_WRITE_TOKEN }}
+    if: github.repository_owner == 'PIH'
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    uses: PIH/openmrs-contrib-distro-tools/.github/workflows/update-versions.yml@main
+    secrets: inherit

@@ -1,40 +1,27 @@
 name: Deploy
+
 on:
   push:
     branches: ['master']
   workflow_dispatch:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+
 jobs:
-  deploy:
+  build-and-publish:
+    if: github.repository_owner == 'PIH'
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+    uses: PIH/openmrs-contrib-distro-tools/.github/workflows/build-and-deploy-to-openmrs-jfrog.yml@main
+    secrets: inherit
+
+  # Kept as a separate job since a reusable-workflow call can't have additional steps of its
+  # own. Runs only on successful deploy (default behavior for a job with `needs`).
+  trigger-pihemr-build:
+    needs: build-and-publish
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK
-      uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: 8
-        cache: 'maven'
-        server-id: openmrs-repo-modules-pih
-        server-username: OPENMRS_MAVEN_USERNAME
-        server-password: OPENMRS_MAVEN_PASSWORD
-    - name: Maven Deploy
-      run: mvn -B -U deploy --file pom.xml
-      env:
-        OPENMRS_MAVEN_USERNAME: ${{ secrets.OPENMRS_MAVEN_USERNAME }}
-        OPENMRS_MAVEN_PASSWORD: ${{ secrets.OPENMRS_MAVEN_PASSWORD }}
-    - name: Trigger pihemr build
-      uses: peter-evans/repository-dispatch@v4
-      with:
-        token: ${{ secrets.GHA_WRITE_TOKEN }}
-        repository: PIH/pihemr
-        event-type: dependency-trigger
-    - name: Notify Teams on failure
-      if: failure()
-      uses: skitionek/notify-microsoft-teams@master
-      with:
-        webhook_url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
-        job: ${{ toJson(job) }}
-        steps: ${{ toJson(steps) }}
+      - uses: peter-evans/repository-dispatch@v4
+        with:
+          token: ${{ secrets.GHA_WRITE_TOKEN }}
+          repository: PIH/pihemr
+          event-type: dependency-trigger
