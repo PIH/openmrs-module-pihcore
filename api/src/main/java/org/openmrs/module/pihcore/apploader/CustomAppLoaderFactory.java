@@ -636,6 +636,16 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
         String checkInFormName = "checkin.xml";
 
+        // hack; we have a new "v4" form in Haiti and without liveCheckin
+        // but currently we *only* want multi-select type of visit at St Marc
+        // When we deploy multi-select forms everywhere, we can remove this hack.
+        // NOTE:  this *only* works because we hardcode a "3.5 version of the form(s)
+        // for non-HSN sites.  Hardcoding 'v2' or 'v1.1' would override ever loading old versions of the forms)
+        // if for some reason we determine we are *never* rolling out the new St Marc form everywhere, we should come up with a better way to conditionally load this form
+        if (config.isCountry(ConfigDescriptor.Country.HAITI) && !config.isSite("HSN_SAINT_MARC")) {
+            checkInFormName = "checkin_v3.5.xml";
+        }
+
         // circular app that redirects to registration page, see comments in CheckInPageController
         if (config.isComponentEnabled(Components.CHECK_IN_HOMEPAGE_APP)) {
             apps.add(addToHomePage(findPatientTemplateApp(CustomAppLoaderConstants.Apps.CHECK_IN,
