@@ -1654,6 +1654,14 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 9,
                 "App: coreapps.systemAdministration",
                 null)));
+
+        apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.AUDIT_TRAIL,
+                "app.auditTrail.label",
+                "fas fa-fw fa-file-archive",
+                "spa/home/audit",
+                10,
+                "App: coreapps.systemAdministration",
+                null)));
     }
 
     private void enableManagePrinters() {
