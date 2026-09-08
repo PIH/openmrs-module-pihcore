@@ -2961,7 +2961,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),
                             not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID)),
-                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotHaveActiveVisit()),
+                            or(patientIsChild(), patientAgeUnknown()),
                             or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2975,7 +2975,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Primary Care Consult Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),
-                            or(patientIsChild(), patientAgeUnknown(), patientDoesNotHaveActiveVisit()),
+                            or(patientIsChild(), patientAgeUnknown()),
                             or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2990,7 +2990,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),
                             not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID)),
-                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotHaveActiveVisit()),
+                            or(patientIsAdult(), patientAgeUnknown()),
                             or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -3004,7 +3004,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Primary Care Consult Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),
-                            or(patientIsAdult(), patientAgeUnknown(), patientDoesNotHaveActiveVisit()),
+                            or(patientIsAdult(), patientAgeUnknown()),
                             or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
