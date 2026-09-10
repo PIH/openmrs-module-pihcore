@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.radiology;
+package org.openmrs.module.pihcore.order;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,9 +13,9 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class RadiologyOrderNumberGeneratorTest {
+public class PihOrderNumberGeneratorTest {
 
-    private RadiologyOrderNumberGenerator generator;
+    private PihOrderNumberGenerator generator;
 
     private PihCoreService pihCoreService;
 
@@ -37,7 +37,7 @@ public class RadiologyOrderNumberGeneratorTest {
         when(pihCoreService.getNextRadiologyOrderNumberSeedSequenceValue()).thenReturn(new Long(10));
         when(radiologyProperties.getRadiologyTestOrderType()).thenReturn(radiologyOrderType);
 
-        generator = new RadiologyOrderNumberGenerator();
+        generator = new PihOrderNumberGenerator();
         generator.setRadiologyProperties(radiologyProperties);
         generator.setPihCoreService(pihCoreService);
         generator.setOrderService(orderService);

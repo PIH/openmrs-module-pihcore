@@ -40,7 +40,6 @@ import org.openmrs.module.printer.PrinterService;
 import org.openmrs.module.registrationcore.RegistrationCoreConstants;
 import org.openmrs.module.web.filter.ForcePasswordChangeFilter;
 import org.openmrs.util.ConfigUtil;
-import org.openmrs.util.OpenmrsConstants;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -321,11 +320,6 @@ public class ConfigurationSetup {
         updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_URL, config.getVisitPageUrl());
         // configure default specific visit detail page in coreapps
         updateGlobalProperty(CoreAppsConstants.GP_VISITS_PAGE_WITH_SPECIFIC_URL, config.getVisitsPageWithSpecificUrl());
-
-        // TODO: one we centralize the ZL server (or perhaps even before?) we can likely just set this in the gp_radiology file in config-zl?
-        if (config.isComponentEnabled(Components.RADIOLOGY) && (config.isSite("MIREBALAIS") || config.isSite("CENTRAL"))) {
-            updateGlobalProperty(OpenmrsConstants.GP_ORDER_NUMBER_GENERATOR_BEAN_ID, PihCoreConstants.RADIOLOGY_ORDER_NUMBER_GENERATOR_BEAN_ID);
-        }
 
         // Update global properties for any enabled components, so database queries can utilize these via SQL
         AdministrationService adminService = Context.getAdministrationService();
