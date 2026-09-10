@@ -30,9 +30,6 @@ public class PihCoreConstants {
     public static final String CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "fac39940-9c35-11e4-bd06-0800200c9a66";
     public static final String CDI_DOSSIER_NUMBER_PREFIX = "CDI";
 
-    public static final String CANGE_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8";
-    public static final String CANGE_DOSSIER_NUMBER_PREFIX = "CNG";
-
     public static final int LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE = 1000;
     public static final int LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE = 2000;
 
