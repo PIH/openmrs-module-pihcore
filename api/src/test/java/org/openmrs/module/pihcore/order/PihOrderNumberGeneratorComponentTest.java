@@ -1,4 +1,4 @@
-package org.openmrs.module.pihcore.radiology;
+package org.openmrs.module.pihcore.order;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ import java.util.Date;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class RadiologyOrderNumberGeneratorComponentTest extends PihCoreContextSensitiveTest {
+public class PihOrderNumberGeneratorComponentTest extends PihCoreContextSensitiveTest {
 
     @Autowired
     private EncounterService encounterService;
@@ -46,7 +46,7 @@ public class RadiologyOrderNumberGeneratorComponentTest extends PihCoreContextSe
 
     @BeforeEach
     public void setup() throws Exception {
-        executeDataSet("radiologyOrderNumberGeneratorTestDataset.xml");
+        executeDataSet("pihOrderNumberGeneratorTestDataset.xml");
         // it appears we need to fully commit this in order for it to be properly fetched when called with LockOptions.UPGRADE
         // (see PihCoreDAO.getNextRadiologyOrderNumberSeedSequenceValue()
         getConnection().commit();
