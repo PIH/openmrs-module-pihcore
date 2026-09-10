@@ -67,32 +67,11 @@ public class ConfigureHaitiIdGenerators {
                     locationService.getLocationByUuid("083e75b0-5959-11e4-8ed6-0800200c9a66"));  // CDI Klinik Ekstèn Jeneral
 
         }
-        // TODO: new setup for Central server, can we eventually move this into config?
+        // HAI-1235: Central's UHM/CDI/Cange Dossier Number generators are now configured via
+        // Initializer (see idgen-site-central.csv and autogenerationoptions-site-central.csv in
+        // zl-content), not here. This branch intentionally does nothing for CENTRAL.
         else if (config.isSite("CENTRAL")) {
-
-            SequentialIdentifierGenerator sequentialIdentifierGeneratorForUHM = configureHaitiIdGenerators
-                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
-                            PihCoreConstants.UHM_DOSSIER_NUMBER_PREFIX,
-                            PihCoreConstants.UHM_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
-
-            configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForUHM,
-                    locationService.getLocationByUuid("24bd1390-5959-11e4-8ed6-0800200c9a66"));  // Hôpital Universitaire de Mirebalais - Prensipal
-
-            SequentialIdentifierGenerator sequentialIdentifierGeneratorForCDI = configureHaitiIdGenerators
-                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
-                            PihCoreConstants.CDI_DOSSIER_NUMBER_PREFIX,
-                            PihCoreConstants.CDI_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
-
-            configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCDI,
-                    locationService.getLocationByUuid("083e75b0-5959-11e4-8ed6-0800200c9a66"));  // CDI Klinik Ekstèn Jeneral
-
-            SequentialIdentifierGenerator sequentialIdentifierGeneratorForCange = configureHaitiIdGenerators
-                    .sequentialIdentifierGeneratorForDossier(dossierIdentifierType,
-                            PihCoreConstants.CANGE_DOSSIER_NUMBER_PREFIX,
-                            PihCoreConstants.CANGE_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID);
-
-            configureHaitiIdGenerators.setAutoGenerationOptionsForDossierNumberGenerator(sequentialIdentifierGeneratorForCange,
-                    locationService.getLocationByUuid("328f68e4-0370-102d-b0e3-001ec94a0cc1"));  // Cange
+            // no-op: see comment above
         }
         else if (config.getDossierIdentifierPrefix() != null) {
 
