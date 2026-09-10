@@ -71,7 +71,7 @@
         <htmlformentryVersion>7.3.0-SNAPSHOT</htmlformentryVersion>
         <htmlformentryuiVersion>3.3.0-SNAPSHOT</htmlformentryuiVersion>
         <htmlwidgetsVersion>2.0.1</htmlwidgetsVersion>
-        <idgenVersion>5.0.4</idgenVersion>
+        <idgenVersion>6.0.0-SNAPSHOT</idgenVersion>
         <initializerVersion>2.12.0</initializerVersion>
         <labtrackingappVersion>1.3.0-SNAPSHOT</labtrackingappVersion>
         <labworkflowOwaVersion>2.0.0-SNAPSHOT</labworkflowOwaVersion>
