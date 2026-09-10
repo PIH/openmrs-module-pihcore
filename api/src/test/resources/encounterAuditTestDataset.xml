@@ -1,0 +1,27 @@
+<dataset>
+    <!--
+      Encounters for auditing, attributed to users 501 (bruno) and 502 (butch) from the standard
+      test dataset. encounter_type 1, patient 7, location 1 and provider 1 all come from there too.
+
+      The audit dates below are deliberately in a different order from the encounter_datetimes, so a
+      query that bounded or ordered by the wrong column would fail the tests rather than look right.
+      Encounter 3005 is of a different type from the rest, so a type filter has something to exclude.
+    -->
+
+    <!-- created by bruno, never touched again -->
+    <encounter encounter_id="3001" encounter_type="1" patient_id="7" location_id="1" form_id="1" encounter_datetime="2026-08-01 10:00:00.0" creator="501" date_created="2026-09-01 08:00:00.0" voided="false" uuid="e0e11111-1111-4111-8111-111111111111"/>
+
+    <!-- created by bruno, later changed by butch -->
+    <encounter encounter_id="3002" encounter_type="1" patient_id="7" location_id="1" form_id="1" encounter_datetime="2026-07-01 10:00:00.0" creator="501" date_created="2026-08-25 08:00:00.0" changed_by="502" date_changed="2026-09-03 08:00:00.0" voided="false" uuid="e0e22222-2222-4222-8222-222222222222"/>
+
+    <!-- created by butch, later voided by butch -->
+    <encounter encounter_id="3003" encounter_type="1" patient_id="7" location_id="1" form_id="1" encounter_datetime="2026-08-20 10:00:00.0" creator="502" date_created="2026-08-20 08:00:00.0" voided="true" voided_by="502" date_voided="2026-09-05 08:00:00.0" void_reason="entered in error" uuid="e0e33333-3333-4333-8333-333333333333"/>
+
+    <!-- created by butch, changed by bruno, and the only one naming provider 1 -->
+    <encounter encounter_id="3004" encounter_type="1" patient_id="7" location_id="1" form_id="1" encounter_datetime="2026-08-30 10:00:00.0" creator="502" date_created="2026-09-02 08:00:00.0" changed_by="501" date_changed="2026-09-04 08:00:00.0" voided="false" uuid="e0e44444-4444-4444-8444-444444444444"/>
+    <encounter_provider encounter_provider_id="3001" encounter_id="3004" provider_id="1" encounter_role_id="1" creator="1" date_created="2026-09-02 08:00:00.0" voided="false" uuid="ep011111-1111-4111-8111-111111111111"/>
+
+    <!-- a voided provider row, which must not make this encounter match a provider search -->
+    <encounter encounter_id="3005" encounter_type="2" patient_id="7" location_id="1" form_id="1" encounter_datetime="2026-08-31 10:00:00.0" creator="502" date_created="2026-09-06 08:00:00.0" voided="false" uuid="e0e55555-5555-4555-8555-555555555555"/>
+    <encounter_provider encounter_provider_id="3002" encounter_id="3005" provider_id="1" encounter_role_id="1" creator="1" date_created="2026-09-06 08:00:00.0" voided="true" voided_by="1" date_voided="2026-09-07 08:00:00.0" void_reason="wrong provider" uuid="ep022222-2222-4222-8222-222222222222"/>
+</dataset>
