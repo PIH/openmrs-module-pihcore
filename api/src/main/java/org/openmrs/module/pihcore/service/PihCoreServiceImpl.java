@@ -30,6 +30,8 @@ import org.openmrs.PatientProgram;
 import org.openmrs.PersonAttribute;
 import org.openmrs.PersonAttributeType;
 import org.openmrs.Program;
+import org.openmrs.Provider;
+import org.openmrs.User;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.ObsService;
@@ -110,6 +112,35 @@ public class PihCoreServiceImpl extends BaseOpenmrsService implements PihCoreSer
     @Transactional
     public Order saveOrder(Order order) {
         return orderDAO.saveOrder(order);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Obs> getObsByAuditUser(User createdBy, User voidedBy, Date fromDate, Date toDate, Integer startIndex,
+            Integer limit) {
+        return dao.getObsByAuditUser(createdBy, voidedBy, fromDate, toDate, startIndex, limit);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Long getCountOfObsByAuditUser(User createdBy, User voidedBy, Date fromDate, Date toDate) {
+        return dao.getCountOfObsByAuditUser(createdBy, voidedBy, fromDate, toDate);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Encounter> getEncountersByAuditUser(User createdBy, User changedBy, User voidedBy, Provider provider,
+            EncounterType encounterType, Date fromDate, Date toDate, Integer startIndex, Integer limit) {
+        return dao.getEncountersByAuditUser(createdBy, changedBy, voidedBy, provider, encounterType, fromDate, toDate,
+            startIndex, limit);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Long getCountOfEncountersByAuditUser(User createdBy, User changedBy, User voidedBy, Provider provider,
+            EncounterType encounterType, Date fromDate, Date toDate) {
+        return dao.getCountOfEncountersByAuditUser(createdBy, changedBy, voidedBy, provider, encounterType, fromDate,
+            toDate);
     }
 
     @Override
