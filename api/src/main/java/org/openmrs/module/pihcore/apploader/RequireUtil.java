@@ -84,6 +84,24 @@ public class RequireUtil {
         return new String("patient.person.age >= 10 && patient.person.age < 25");
     }
 
+    /**
+     * Checks if the patient was 15 years or older at the start of the visit.
+     * Uses the visit start date to calculate the patient's age, so past visits
+     * are filtered based on the patient's age at the time of that visit.
+     */
+    public static String patientIsAdultAtVisitStart() {
+        return "visit && patient && fullMonthsBetweenDates(patient.person.birthdate, visit.startDatetimeInMilliseconds) >= 180";
+    }
+
+    /**
+     * Checks if the patient was younger than 15 years old at the start of the visit.
+     * Uses the visit start date to calculate the patient's age, so past visits
+     * are filtered based on the patient's age at the time of that visit.
+     */
+    public static String patientIsChildAtVisitStart() {
+        return "visit && patient && fullMonthsBetweenDates(patient.person.birthdate, visit.startDatetimeInMilliseconds) < 180";
+    }
+
     public static String patientIsChild() {  // expects patient or visit to be in the context
         return new String("patient.person.age < 15");
     }
