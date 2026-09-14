@@ -95,32 +95,7 @@ import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.overallRe
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.registerTemplateForEncounterType;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.report;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.visitAction;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.and;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.not;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.or;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInDaysLessThanAtVisitStart;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInDaysOlderThanAtVisitStart;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeInMonthsLessThanAtVisitStart;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeLessThanOrEqualToAtVisitStart;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientAgeUnknown;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotHaveActiveVisit;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotHaveActiveVisitAtAnyLocation;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDoesNotHaveEncounterOfTypeDuringProgramEnrollment;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasActiveVisit;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientHasPreviousEncounter;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdult;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsAdolescentYouth;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsChild;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsFemale;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientIsReproductiveAge;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientNotDead;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientDead;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.patientVisitWithinPastThirtyDays;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationDoesNotHaveTag;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.sessionLocationHasTag;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.userHasPrivilege;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.visitDoesNotHaveEncounterOfType;
-import static org.openmrs.module.pihcore.apploader.RequireUtil.visitHasEncounterOfType;
+import static org.openmrs.module.pihcore.apploader.RequireUtil.*;
 
 
 @Component("customAppLoaderFactory")
@@ -2961,7 +2936,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),
                             not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID)),
-                            or(patientIsChild(), patientAgeUnknown()),
+                            or( patientAgeUnknown(),patientIsChildAtVisitStart()),
                             or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2975,7 +2950,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Primary Care Consult Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_PEDS_FOLLOWUP_CONSULT_UUID),
-                            or(patientIsChild(), patientAgeUnknown()),
+                            or(patientAgeUnknown(),patientIsChildAtVisitStart()),
                             or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -2990,7 +2965,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),
                             not(patientHasPreviousEncounter(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID)),
-                            or(patientIsAdult(), patientAgeUnknown()),
+                            or(patientAgeUnknown(),patientIsAdultAtVisitStart()),
                             or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
@@ -3004,7 +2979,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     and(sessionLocationHasTag("Primary Care Consult Location"),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID),
                             visitDoesNotHaveEncounterOfType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID),
-                            or(patientIsAdult(), patientAgeUnknown()),
+                            or(patientAgeUnknown(),patientIsAdultAtVisitStart()),
                             or(and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_PRIMARY_CARE_CONSULT_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(  PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
