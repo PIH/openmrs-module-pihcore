@@ -2,7 +2,6 @@ package org.openmrs.module.pihcore.page.controller.router;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openmrs.Patient;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.service.AppFrameworkService;
 import org.openmrs.module.pihcore.PihCoreConstants;
@@ -16,7 +15,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class AppEndRouterPageControllerTest {
+public class ActiveAppRouterPageControllerTest {
 
     private AppFrameworkService appFrameworkService;
 
@@ -39,16 +38,8 @@ public class AppEndRouterPageControllerTest {
         app.setUrl("coreapps/findpatient/findPatient.page?app=mirebalais.liveCheckin");
         when(appFrameworkService.getApp("mirebalais.liveCheckin")).thenReturn(app);
         when(session.getAttribute(PihCoreConstants.CURRENT_APP_SESSION_VARIABLE)).thenReturn("mirebalais.liveCheckin");
-        Redirect redirect = new AppEndRouterPageController().controller(request, appFrameworkService, null);
+        Redirect redirect = new ActiveAppRouterPageController().controller(request, appFrameworkService);
         assertThat(redirect.getUrl(), is("coreapps/findpatient/findPatient.page?app=mirebalais.liveCheckin"));
-    }
-
-    @Test
-    public void shouldRedirectToRegistrationSummaryfApp() {
-        Patient patient = new Patient(1);
-        when(session.getAttribute(PihCoreConstants.CURRENT_APP_SESSION_VARIABLE)).thenReturn("");
-        Redirect redirect = new AppEndRouterPageController().controller(request, appFrameworkService, patient);
-        assertThat(redirect.getUrl(), is("registrationapp/registrationSummary.page?patientId=1&appId=registrationapp.registerPatient"));
     }
 
 }
