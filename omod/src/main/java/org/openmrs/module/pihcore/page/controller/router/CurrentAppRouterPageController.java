@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * that intermediate page is given this page as its own return destination, rather than the
  * check-in app's entry page directly.
  */
-public class ActiveAppRouterPageController {
+public class CurrentAppRouterPageController {
 
     public Redirect controller(HttpServletRequest request,
                                @SpringBean AppFrameworkService appFrameworkService) {

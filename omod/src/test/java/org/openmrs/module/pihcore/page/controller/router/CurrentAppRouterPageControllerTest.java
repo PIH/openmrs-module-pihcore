@@ -15,7 +15,7 @@ import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ActiveAppRouterPageControllerTest {
+public class CurrentAppRouterPageControllerTest {
 
     private AppFrameworkService appFrameworkService;
 
@@ -38,7 +38,7 @@ public class ActiveAppRouterPageControllerTest {
         app.setUrl("coreapps/findpatient/findPatient.page?app=mirebalais.liveCheckin");
         when(appFrameworkService.getApp("mirebalais.liveCheckin")).thenReturn(app);
         when(session.getAttribute(PihCoreConstants.CURRENT_APP_SESSION_VARIABLE)).thenReturn("mirebalais.liveCheckin");
-        Redirect redirect = new ActiveAppRouterPageController().controller(request, appFrameworkService);
+        Redirect redirect = new CurrentAppRouterPageController().controller(request, appFrameworkService);
         assertThat(redirect.getUrl(), is("coreapps/findpatient/findPatient.page?app=mirebalais.liveCheckin"));
     }
 
