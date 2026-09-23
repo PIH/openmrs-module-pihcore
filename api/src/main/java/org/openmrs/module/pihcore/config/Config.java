@@ -5,9 +5,9 @@ import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.pihcore.PihCoreUtil;
+import org.openmrs.module.pihcore.biometrics.BiometricsConfig;
 import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -171,8 +171,8 @@ public class Config {
         return descriptor.getRegistrationConfig();
     }
 
-    public BiometricsConfigDescriptor getBiometricsConfig() {
-        return descriptor.getBiometricsConfig();
+    public BiometricsConfig getBiometricsConfig() {
+        return new BiometricsConfig();
     }
 
     public AuthenticationConfigDescriptor getAuthenticationConfig() { return descriptor.getAuthenticationConfig(); }
