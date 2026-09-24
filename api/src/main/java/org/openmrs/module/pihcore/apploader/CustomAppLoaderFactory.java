@@ -733,35 +733,33 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             }
         }
 
-        Extension vitalSigns = visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
-                "mirebalais.task.vitals.label",
-                "fas fa-fw fa-heartbeat",
-                "link",
-                enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
-                null,
-                and(sessionLocationHasTag("Vitals Location"), sessionLocationDoesNotHaveTag("Vitals Inpatient Location"),
-                        or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
-        extensions.add(vitalSigns);
-        extensions.add(cloneAsMchVisitAction(vitalSigns));
-        extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
-        extensions.add(cloneAsInfantVisitAction(vitalSigns));
-
-        if (!config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
-            AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
-                    "mirebalais.mostRecentVitals.label",
+        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
+            Extension vitalSigns = visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
+                    "mirebalais.task.vitals.label",
                     "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
                     null,
-                    "App: mirebalais.outpatientVitals",
-                    objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
-                            "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
-                            "editable", Boolean.TRUE,
-                            "edit-provider", "htmlformentryui",
-                            "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
-                            "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
-                            "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
-            apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
+                    and(sessionLocationHasTag("Vitals Location"), sessionLocationDoesNotHaveTag("Vitals Inpatient Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+            extensions.add(vitalSigns);
+        } else {
+            Extension vitalSigns = visitAction(CustomAppLoaderConstants.Extensions.VITALS_CAPTURE_VISIT_ACTION,
+                    "mirebalais.task.vitals.label",
+                    "fas fa-fw fa-heartbeat",
+                    "link",
+                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
+                    null,
+                    and(sessionLocationHasTag("Vitals Location"), sessionLocationDoesNotHaveTag("Vitals Inpatient Location"),
+                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
+                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
+                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
+            extensions.add(vitalSigns);
+            extensions.add(cloneAsMchVisitAction(vitalSigns));
+            extensions.add(cloneAsPregnancyVisitAction(vitalSigns));
+            extensions.add(cloneAsInfantVisitAction(vitalSigns));
         }
 
         if (config.isCountry(ConfigDescriptor.Country.SIERRA_LEONE)) {
@@ -778,7 +776,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                                     "detailsUrl", patientVisitsPageUrl,
                                     "headers", "zl.date,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.respiratoryRate.short.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.weight.short.title",
                                     "concepts",
-                                            CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
+                                    CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
                                             CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID + "," +
                                             CustomAppLoaderConstants.HEART_RATE_UUID + "," +
                                             CustomAppLoaderConstants.RESPIRATORY_RATE_UUID + "," +
@@ -796,7 +794,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("inpatientVitals.xml")),
                     null,
-                    and(patientAgeInDaysOlderThanAtVisitStart(41),sessionLocationHasTag("Vitals Inpatient Location"),
+                    and(patientAgeInDaysOlderThanAtVisitStart(41), sessionLocationHasTag("Vitals Inpatient Location"),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
@@ -808,41 +806,49 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("inpatientNewbornVitals.xml")),
                     null,
-                    and(patientAgeInDaysLessThanAtVisitStart(42),sessionLocationHasTag("Vitals Inpatient Location"),
+                    and(patientAgeInDaysLessThanAtVisitStart(42), sessionLocationHasTag("Vitals Inpatient Location"),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
             extensions.add(inpatientNewbornVitalsSigns);
-        }
-
-        // Add additional vital sign forms for ZL
-        if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
-            // ToDo: Add inpatient AND emergency location tag
-            extensions.add(visitAction(CustomAppLoaderConstants.Extensions.VITALS_INPATIENT_VISIT_ACTION,
-                    "pihcore.task.vitalsInpatient",
-                    "fas fa-fw fa-heartbeat",
-                    "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsInpatient.xml")),
-                    null,
-                    and(sessionLocationHasTag("Vitals Inpatient Location"),
-                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config))))));
-
-            Extension vitalsPregnancy = visitAction(CustomAppLoaderConstants.Extensions.VITALS_PREGNANCY_VISIT_ACTION,
-                    "pihcore.task.vitalsPregnancy",
-                    "fas fa-fw fa-heartbeat",
-                    "link",
-                    enterSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitalsPregnant.xml")),
-                    null,
-                    and(sessionLocationHasTag("Vitals ANC Location"),
-                            and(patientIsFemale(), patientIsReproductiveAge()),
-                            or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
-                                    userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
-                                    and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
-
-            extensions.add(vitalsPregnancy);
-            extensions.add(cloneAsMchVisitAction(vitalsPregnancy));
+        } else if (config.isCountry(ConfigDescriptor.Country.HAITI)) {
+            apps.add(addToClinicianDashboardFirstColumn(app(CustomAppLoaderConstants.Apps.VITALS_SUMMARY,
+                            "mirebalais.vitalsTrend.label",
+                            "fas fa-fw fa-heartbeat",
+                            null,
+                            null,
+                            objectNode(
+                                    "widget", "obsacrossencounters",
+                                    "icon", "fas fa-fw fa-heartbeat",
+                                    "label", "mirebalais.vitalsTrend.label",
+                                    "encounterTypes", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                                    "detailsUrl", patientVisitsPageUrl,
+                                    "headers", "zl.date,mirebalais.vitals.systolic.bp.short.title,mirebalais.vitals.diastolic.bp.short.title,mirebalais.vitals.short.heartRate.title,mirebalais.vitals.respiratoryRate.short.title,mirebalais.vitals.short.temperature.title,mirebalais.vitals.weight.short.title",
+                                    "concepts",
+                                    CustomAppLoaderConstants.SYSTOLIC_BP_CONCEPT_UUID + "," +
+                                            CustomAppLoaderConstants.DIASTOLIC_BP_CONCEPT_UUID + "," +
+                                            CustomAppLoaderConstants.HEART_RATE_UUID + "," +
+                                            CustomAppLoaderConstants.RESPIRATORY_RATE_UUID + "," +
+                                            CustomAppLoaderConstants.TEMPERATURE_UUID + "," +
+                                            CustomAppLoaderConstants.WEIGHT_CONCEPT_UUID,
+                                    "maxRecords", "5",
+                                    "sortOrder", "desc"
+                            )),
+                    "coreapps", "dashboardwidgets/dashboardWidget"));
+        } else {
+                AppDescriptor mostRecentVitals = app(CustomAppLoaderConstants.Apps.MOST_RECENT_VITALS,
+                        "mirebalais.mostRecentVitals.label",
+                        "fas fa-fw fa-heartbeat",
+                        null,
+                        "App: mirebalais.outpatientVitals",
+                        objectNode("encounterDateLabel", "mirebalais.mostRecentVitals.encounterDateLabel",
+                                "encounterTypeUuid", PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
+                                "editable", Boolean.TRUE,
+                                "edit-provider", "htmlformentryui",
+                                "edit-fragment", "htmlform/editHtmlFormWithSimpleUi",
+                                "definitionUiResource", PihCoreUtil.getFormResource("vitals.xml"),
+                                "returnUrl", "/" + WebConstants.CONTEXT_PATH + "/" + config.getDashboardUrl()));  // we don't have a good pattern when one needs to include the CONTEXT_PATH
+                apps.add(addToClinicianDashboardSecondColumn(mostRecentVitals, "coreapps", "encounter/mostRecentEncounter"));
         }
 
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
