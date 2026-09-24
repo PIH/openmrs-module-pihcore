@@ -1,12 +1,13 @@
 package org.openmrs.module.pihcore.config;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.node.ArrayNode;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.pihcore.config.model.AuthenticationConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.RegistrationConfigDescriptor;
 
 import java.util.ArrayList;
@@ -18,6 +19,8 @@ import java.util.Map;
  * Object that encapsulates the options that can be configured on a per-installation basis
  */
 public class ConfigDescriptor {
+
+    private static final Log log = LogFactory.getLog(ConfigDescriptor.class);
 
     public enum Country {
         HAITI, LIBERIA, SIERRA_LEONE, MEXICO, LESOTHO, OTHER
@@ -95,9 +98,6 @@ public class ConfigDescriptor {
 
     @JsonProperty
     private RegistrationConfigDescriptor registrationConfig;
-
-    @JsonProperty
-    private BiometricsConfigDescriptor biometricsConfig;
 
     @JsonProperty
     private AuthenticationConfigDescriptor authenticationConfig;
@@ -304,15 +304,14 @@ public class ConfigDescriptor {
         this.registrationConfig = registrationConfig;
     }
 
-    public BiometricsConfigDescriptor getBiometricsConfig() {
-        if (biometricsConfig == null) {
-            biometricsConfig = new BiometricsConfigDescriptor();
-        }
-        return biometricsConfig;
-    }
-
-    public void setBiometrics(BiometricsConfigDescriptor biometricsConfig) {
-        this.biometricsConfig = biometricsConfig;
+    /**
+     * No longer supported, accepted only so that existing pih-config files continue to load.
+     * @see org.openmrs.module.pihcore.biometrics.BiometricsConfig
+     */
+    @JsonProperty("biometricsConfig")
+    public void setBiometricsConfig(Map<String, Object> biometricsConfig) {
+        log.warn("biometricsConfig in pih-config is no longer supported and will be ignored. " +
+                "Use the pihcore.biometrics.* runtime, system, or global properties instead: " + biometricsConfig);
     }
 
     public AuthenticationConfigDescriptor getAuthenticationConfig() {

@@ -9,10 +9,10 @@ import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.apploader.RequireUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
+import org.openmrs.module.pihcore.biometrics.BiometricsConfig;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.registration.AddressConfigDescriptor;
-import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.ContactInfoConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.ContactPersonConfigDescriptor;
 import org.openmrs.module.pihcore.config.registration.DemographicsConfigDescriptor;
@@ -454,7 +454,7 @@ public class SectionsDefault {
     }
 
     public ObjectNode getFingerprintWidget() {
-        BiometricsConfigDescriptor biometricsConfig = config.getBiometricsConfig();
+        BiometricsConfig biometricsConfig = config.getBiometricsConfig();
         FingerprintWidget w = new FingerprintWidget();
         FingerprintWidget.Config c = new FingerprintWidget.Config();
         c.setFormat(biometricsConfig.getTemplateFormat());

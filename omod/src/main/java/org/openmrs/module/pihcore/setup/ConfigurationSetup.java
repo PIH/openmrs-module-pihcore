@@ -28,11 +28,11 @@ import org.openmrs.module.metadatamapping.api.MetadataMappingService;
 import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderFactory;
+import org.openmrs.module.pihcore.biometrics.BiometricsConfig;
 import org.openmrs.module.pihcore.config.Components;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.config.ConfigLoader;
-import org.openmrs.module.pihcore.config.registration.BiometricsConfigDescriptor;
 import org.openmrs.module.pihcore.listener.GenerateMdrTbIdentifierListener;
 import org.openmrs.module.pihcore.listener.UpdateHealthCenterListener;
 import org.openmrs.module.pihcore.task.PihCoreScheduledTaskExecutor;
@@ -312,8 +312,8 @@ public class ConfigurationSetup {
             }
         }
         if (config != null) {
-            BiometricsConfigDescriptor biometricsDescriptor = config.getBiometricsConfig();
-            setGlobalProperty(RegistrationCoreConstants.GP_BIOMETRICS_IMPLEMENTATION, biometricsDescriptor.getBiometricEngine());
+            BiometricsConfig biometricsConfig = config.getBiometricsConfig();
+            setGlobalProperty(RegistrationCoreConstants.GP_BIOMETRICS_IMPLEMENTATION, biometricsConfig.getBiometricEngine());
         }
         // configure default dashboard in coreapps
         updateGlobalProperty(CoreAppsConstants.GP_DASHBOARD_URL, config.getDashboardUrl());
