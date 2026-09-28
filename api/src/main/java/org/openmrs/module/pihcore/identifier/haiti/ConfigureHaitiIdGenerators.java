@@ -157,13 +157,15 @@ public class ConfigureHaitiIdGenerators {
             localZlIdentifierPool = new IdentifierPool();
             localZlIdentifierPool.setName("Local Pool of ZL Identifiers");
             localZlIdentifierPool.setUuid(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_UUID);
-            localZlIdentifierPool.setSource(zlIdentifierGenerator);
             localZlIdentifierPool.setIdentifierType(zlIdentifierGenerator.getIdentifierType());
             localZlIdentifierPool.setMinPoolSize(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_MIN_POOL_SIZE);
             localZlIdentifierPool.setBatchSize(PihCoreConstants.LOCAL_ZL_IDENTIFIER_POOL_BATCH_SIZE);
             localZlIdentifierPool.setSequential(false);
-			identifierSourceService.saveIdentifierSource(localZlIdentifierPool);
 		}
+		// always (re)set the source, so that switching between the local and remote ZL identifier generator
+		// takes effect on an existing database (e.g. one restored from a seed image built with a different config)
+		localZlIdentifierPool.setSource(zlIdentifierGenerator);
+		identifierSourceService.saveIdentifierSource(localZlIdentifierPool);
 		return localZlIdentifierPool;
 	}
 
