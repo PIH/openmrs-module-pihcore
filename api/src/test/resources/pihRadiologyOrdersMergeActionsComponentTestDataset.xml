@@ -75,14 +75,13 @@
     <encounter_role encounter_role_id="1002" name="Principal Results Interpreter" description="Principal Results Interpreter" creator="1" retired="false" date_created="2011-08-18 14:00:00.0" uuid="a0b03050-c99b-22e0-9572-0800123c9a66" />
     <global_property property="emr.principalResultsInterpreterEncounterRole" property_value="a0b03050-c99b-22e0-9572-0800123c9a66" uuid="6988b3c3-9236-42c6-2203-2a0c1e9ca2a8"/>
 
-    <order_type order_type_id="1001" name="RadiologyOrder" parent="2" java_class_name="org.openmrs.module.radiologyapp.RadiologyOrder" description="Radiology Order" date_created="2008-08-15 13:49:47.0" retired="false" uuid="c303c420-e9d4-11e4-b571-0800200c9a66" creator="1" />  <!-- parent=2 references Test Order in standard test dataset -->
+    <order_type order_type_id="1001" name="RadiologyOrder" parent="2" java_class_name="org.openmrs.TestOrder" description="Radiology Order" date_created="2008-08-15 13:49:47.0" retired="false" uuid="c303c420-e9d4-11e4-b571-0800200c9a66" creator="1" />  <!-- parent=2 references Test Order in standard test dataset -->
     <order_type order_type_id="1002" name="DrugOrder" parent="2" java_class_name="org.openmrs.DrugOrder" description="Drug Order" date_created="2008-08-15 15:49:04.0" retired="false" uuid="dd3fb1d0-ae06-22e3-a5e2-0800211c9a66" creator="1"/>
     <order_type order_type_id="1003" name="PathologyOrder" parent="2" java_class_name="org.openmrs.TestOrder" description="A pathology test order" date_created="2008-08-15 15:49:04.0" retired="false" uuid="65c912c2-88cf-46c2-83ae-2b03b1f97d3a" creator="1"/>
 
     <encounter encounter_id="1001" encounter_type="1003" patient_id="6" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="EC1C0A78-69F3-449B-8880-6A9387B37D47"/>
     <orders order_id="1002" order_number="12346" encounter_id="1001" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="6" uuid="4C4157CC-CF06-48B1-BC32-AF31B5916583"/>
     <test_order order_id="1002"/>
-    <emr_radiology_order order_id="1002"/>
 
     <encounter encounter_id="1002" encounter_type="1004" patient_id="10002" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="AB05AF2B-6FE9-46E9-9F1B-BE82EC839DCC"/>
     <orders order_id="1003" order_number="12347" encounter_id="1002" order_action="NEW" order_type_id="1002" care_setting="1" urgency="STAT" concept_id="113" orderer="1" instructions="take medication" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10002" uuid="B7BFB632-B710-4445-8F0D-7BD57149DE8F"/>
@@ -91,13 +90,11 @@
     <encounter encounter_id="1003" encounter_type="1003" patient_id="10003" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="112959CA-91B3-41AB-866D-BD5D21A76082"/>
     <orders order_id="1004" order_number="12348" encounter_id="1003" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10003" uuid="0368FF8B-499C-4DA1-9C8A-008B484DAB7F"/>
     <test_order order_id="1004"/>
-    <emr_radiology_order order_id="1004"/>
 
     <!-- associate this order with a visit that is at the same time as a visit for patient 6 from the standard test dataset (the patient we will be attempting to merge into) -->
     <encounter encounter_id="1004" visit_id="1001" encounter_type="1003" patient_id="10004" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="611e0a81-a6a8-4faa-9eb1-48b941e8ab52"/>
     <orders order_id="1005" order_number="45648" encounter_id="1004" order_action="NEW" order_type_id="1001" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="x-ray" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10004" uuid="d5721243-c153-48bb-8be3-42fc54b82f71"/>
     <test_order order_id="1005"/>
-    <emr_radiology_order order_id="1005"/>
 
     <encounter encounter_id="1005" encounter_type="1005" patient_id="10005" location_id="1" encounter_datetime="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15" voided="false" uuid="0BC76400-66EF-403E-8483-D107E4C847E0"/>
     <orders order_id="1006" order_number="ORD-151" encounter_id="1005" order_action="NEW" order_type_id="2" care_setting="1" urgency="STAT" concept_id="1001" orderer="1" instructions="please test" date_activated="2015-08-15 00:00:00.0" creator="1" date_created="2015-08-15 00:00:00.0" voided="false" patient_id="10005" uuid="68481B2A-3576-41BA-AD93-1544D9CC0268"/>

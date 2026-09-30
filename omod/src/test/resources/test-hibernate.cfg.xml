@@ -12,7 +12,6 @@
         <mapping resource="ImportedPackage.hbm.xml"/>
         <mapping resource="ImportedItem.hbm.xml"/>
 
-        <mapping resource="RadiologyOrder.hbm.xml"/>
         <mapping resource="HtmlFormEntryHtmlForm.hbm.xml"/>
 
         <mapping resource="AddressHierarchyEntry.hbm.xml"/>

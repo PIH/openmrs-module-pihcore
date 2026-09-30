@@ -21,9 +21,11 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openmrs.Encounter;
 import org.openmrs.Order;
+import org.openmrs.OrderAttribute;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
 import org.openmrs.PersonName;
+import org.openmrs.TestOrder;
 import org.openmrs.Visit;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
@@ -33,11 +35,11 @@ import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
+import org.openmrs.customdatatype.CustomDatatypeUtil;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.radiologyapp.RadiologyConstants;
-import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -196,7 +198,7 @@ public class MirthTest extends PihCoreContextSensitiveTest {
 		adtService.ensureActiveVisit(patient, locationService.getLocation("Mirebalais Hospital"));
 		
 		// now create and save the order for this patient
-		RadiologyOrder order = new RadiologyOrder();
+		TestOrder order = new TestOrder();
 		order.setOrderType(orderService.getOrderTypeByUuid(administrationService
 		        .getGlobalProperty(RadiologyConstants.GP_RADIOLOGY_TEST_ORDER_TYPE)));
 		order.setPatient(patient);
@@ -205,7 +207,10 @@ public class MirthTest extends PihCoreContextSensitiveTest {
 		order.setDateActivated(new SimpleDateFormat("MM-dd-yyyy").parse("09-09-2012"));
 		order.setUrgency(Order.Urgency.STAT);
 		order.setClinicalHistory("Patient fell off horse");
-		order.setExamLocation(locationService.getLocation("Mirebalais Hospital"));
+		OrderAttribute examLocation = new OrderAttribute();
+		examLocation.setAttributeType(orderService.getOrderAttributeTypeByUuid(RadiologyConstants.EXAM_LOCATION_ORDER_ATTRIBUTE_TYPE_UUID));
+		examLocation.setValue(locationService.getLocation("Mirebalais Hospital"));
+		order.addAttribute(examLocation);
 		
 		Encounter encounter = new Encounter();
 		encounter.setPatient(patient);
@@ -213,6 +218,7 @@ public class MirthTest extends PihCoreContextSensitiveTest {
 		encounter.setLocation(locationService.getLocation("Mirebalais Hospital"));
 		encounter.setEncounterType(encounterService.getEncounterType(1));
 		encounter.addOrder(order);
+		CustomDatatypeUtil.saveAttributesIfNecessary(order);
 		encounter.addProvider(emrApiProperties.getOrderingProviderEncounterRole(), Context.getProviderService().getProvider(1));
 		encounterService.saveEncounter(encounter);
 

@@ -17,7 +17,6 @@
         <mapping resource="Printer.hbm.xml"/>
         <mapping resource="PrinterModel.hbm.xml"/>
 
-        <mapping resource="RadiologyOrder.hbm.xml"/>
 
         <mapping resource="HtmlFormEntryHtmlForm.hbm.xml"/>
 

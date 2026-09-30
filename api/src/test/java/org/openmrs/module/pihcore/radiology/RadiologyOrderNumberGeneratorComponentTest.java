@@ -13,7 +13,6 @@ import org.openmrs.api.OrderService;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
-import org.openmrs.module.radiologyapp.RadiologyOrder;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -81,7 +80,7 @@ public class RadiologyOrderNumberGeneratorComponentTest extends PihCoreContextSe
     public void shouldGenerateRadiologyOrderNumber() {
 
         // new test order
-        Order order = new RadiologyOrder();
+        Order order = new TestOrder();
         order.setEncounter(encounterService.getEncounter(6));
         order.setPatient(patientService.getPatient(7));
         order.setConcept(conceptService.getConcept(5497));
