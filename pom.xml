@@ -48,7 +48,7 @@
     <properties>
         <openMRSVersion>2.8.9</openMRSVersion>
 
-        <addresshierarchyVersion>3.0.0-SNAPSHOT</addresshierarchyVersion>
+        <addresshierarchyVersion>3.0.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.7</allergyuiVersion>
         <appframeworkVersion>2.20.0-SNAPSHOT</appframeworkVersion>
         <appointmentsVersion>2.2.0</appointmentsVersion>
@@ -56,7 +56,7 @@
         <appointmentschedulinguiVersion>2.0.0</appointmentschedulinguiVersion>
         <appuiVersion>1.18.0</appuiVersion>
         <attachmentsVersion>4.1.0</attachmentsVersion>
-        <authenticationVersion>2.3.0</authenticationVersion>
+        <authenticationVersion>2.4.0</authenticationVersion>
         <authenticationuiVersion>1.4.0-SNAPSHOT</authenticationuiVersion>
         <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
@@ -88,7 +88,7 @@
         <radiologyappVersion>1.9.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.30.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
-        <reportingVersion>2.2.0-SNAPSHOT</reportingVersion>
+        <reportingVersion>2.2.0</reportingVersion>
         <reportingrestVersion>2.1.0-SNAPSHOT</reportingrestVersion>
         <reportinguiVersion>1.15.0-SNAPSHOT</reportinguiVersion>
         <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
