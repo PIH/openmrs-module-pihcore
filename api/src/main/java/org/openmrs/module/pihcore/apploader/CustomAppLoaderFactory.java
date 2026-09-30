@@ -740,7 +740,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                     "link",
                     enterStandardHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")),
                     null,
-                    and(sessionLocationHasTag("Vitals Location"), sessionLocationDoesNotHaveTag("Vitals Inpatient Location"),
+                    and(sessionLocationHasTag("Vitals Location"),
                             or(and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_VITALS_NOTE), patientHasActiveVisit()),
                                     userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE),
                                     and(userHasPrivilege(PihEmrConfigConstants.PRIVILEGE_TASK_EMR_RETRO_CLINICAL_NOTE_THIS_PROVIDER_ONLY), patientVisitWithinPastThirtyDays(config)))));
