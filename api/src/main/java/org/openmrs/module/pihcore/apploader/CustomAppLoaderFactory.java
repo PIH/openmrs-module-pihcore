@@ -854,7 +854,8 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         // TODO will this be needed after we stop using the old patient visits page view, or is is replaced by encounterTypeConfig?
         registerTemplateForEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID,
                 findExtensionById(CustomAppLoaderConstants.EncounterTemplates.DEFAULT), "fas fa-fw fa-heartbeat", null, true,
-                editSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")), null);
+                // the Haiti vitals form is a standard form, so use the default (standard) edit link there
+                config.isCountry(ConfigDescriptor.Country.HAITI) ? null : editSimpleHtmlFormLink(PihCoreUtil.getFormResource("vitals.xml")), null);
 
     }
 

@@ -10,6 +10,7 @@ import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.pihcore.config.ConfigDescriptor;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
@@ -64,6 +65,10 @@ public class VitalsListPageController {
 
         String formPath = PihCoreUtil.getFormResource("vitals.xml");
 
+        // the Haiti vitals form is a standard form, other countries still use a one-question-per-screen simple form
+        String formPage = config.isCountry(ConfigDescriptor.Country.HAITI) ?
+                "htmlform/enterHtmlFormWithStandardUi" : "htmlform/enterHtmlFormWithSimpleUi";
+
         SimpleObject vitalsListBreadcrumb = SimpleObject.create("label", ui.message("pihcore.vitalsList.title"), "link", ui.pageLink("pihcore", "vitals/vitalsList"));
 
         PatientIdentifierType dossierNumberType = patientService.getPatientIdentifierTypeByUuid(ZlConfigConstants.PATIENTIDENTIFIERTYPE_DOSSIERNUMBER_UUID);
@@ -74,6 +79,7 @@ public class VitalsListPageController {
         model.addAttribute("dossierIdentifierName", dossierNumberType == null ? null : dossierNumberType.getName());
         model.addAttribute("breadcrumbOverride", ui.toJson(Arrays.asList(vitalsListBreadcrumb)));
         model.addAttribute("formPath", formPath);
+        model.addAttribute("formPage", formPage);
 
         return null;
     }

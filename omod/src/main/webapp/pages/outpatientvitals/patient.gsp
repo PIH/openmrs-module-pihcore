@@ -25,9 +25,11 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             });
         });
         jq('#actions .confirm').click(function() {
+            // always use the standard UI: this page is only used by the uhmVitals app, which is only enabled in Haiti,
+            // where vitals.xml is a standard form (other countries use the vitals list app, see VitalsListPageController)
             emr.navigateTo({
                 provider: "htmlformentryui",
-                page: "htmlform/enterHtmlFormWithSimpleUi",
+                page: "htmlform/enterHtmlFormWithStandardUi",
                 query: {
                     patientId: "${ patient.id }",
                     visitId: "${ visit?.id }",

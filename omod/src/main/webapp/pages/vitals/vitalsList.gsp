@@ -31,7 +31,7 @@
     %>
     <tr id="patient-${ p.id }">
         <td>
-            <a href="${ ui.pageLink("htmlformentryui", "htmlform/enterHtmlFormWithSimpleUi",
+            <a href="${ ui.pageLink("htmlformentryui", formPage,
                     [   "definitionUiResource": formPath,
                         "visitId": patientWithCheckInEncounter.get(p).visit.id,
                         "patientId": p.id,
@@ -45,7 +45,7 @@
         <% } %>
         </td>
         <td>
-            <a href="${ ui.pageLink("htmlformentryui", "htmlform/enterHtmlFormWithSimpleUi",
+            <a href="${ ui.pageLink("htmlformentryui", formPage,
                     [   "definitionUiResource": formPath,
                         "visitId": patientWithCheckInEncounter.get(p).visit.id,
                         "patientId": p.id,
