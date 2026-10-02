@@ -5,15 +5,19 @@ import org.joda.time.DateTimeConstants;
 import org.openmrs.Concept;
 import org.openmrs.Encounter;
 import org.openmrs.EncounterType;
+import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifierType;
+import org.openmrs.Visit;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.ObsService;
 import org.openmrs.api.PatientService;
-import org.openmrs.api.context.Context;
+import org.openmrs.api.VisitService;
+import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.emrapi.EmrApiConstants;
+import org.openmrs.module.emrapi.adt.AdtService;
 import org.openmrs.module.emrapi.domainwrapper.DomainWrapperFactory;
 import org.openmrs.module.emrapi.patient.PatientDomainWrapper;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
@@ -25,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -40,10 +45,10 @@ public class WaitingForConsultPageController {
                       @SpringBean("obsService") ObsService obsService,
                       @SpringBean("conceptService") ConceptService conceptService,
                       @SpringBean("patientService") PatientService patientService,
-                      @SpringBean("domainWrapperFactory") DomainWrapperFactory domainWrapperFactory) {
-
-
-        // TODO restrict by location at some point if necessary
+                      @SpringBean("visitService") VisitService visitService,
+                      @SpringBean("adtService") AdtService adtService,
+                      @SpringBean("domainWrapperFactory") DomainWrapperFactory domainWrapperFactory,
+                      UiSessionContext uiSessionContext) {
 
         Filter filter;
 
@@ -61,93 +66,56 @@ public class WaitingForConsultPageController {
         primaryCareEncounterTypes.add(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_INITIAL_CONSULT_UUID));
         primaryCareEncounterTypes.add(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_PRIMARY_CARE_ADULT_FOLLOWUP_CONSULT_UUID));
 
+        List<EncounterType> vitalsEncounterTypes = Collections.singletonList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID));
+        Concept dispoConceptSet = conceptService.getConceptByMapping(EmrApiConstants.CONCEPT_CODE_DISPOSITION_CONCEPT_SET, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
+
+        Date startOfToday = new DateMidnight().toDate();
+        boolean isMonday = new DateMidnight().getDayOfWeek() == DateTimeConstants.MONDAY;
+        Date startOfPreviousBusinessDay = isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate();
+        Date endOfPreviousBusinessDay = isMonday ? new DateMidnight().minusDays(2).toDate() : startOfToday;
+
+        // restrict the queue to active visits at the visit location (e.g. Cange or Mirebalais) that contains the session location
+        Set<Visit> activeVisits = getActiveVisitsAtVisitLocation(uiSessionContext.getSessionLocation(), adtService, visitService);
+
         // first handle any patients with vitals taken today:
 
         // create a list of all patients that have a vitals encounter today, *ordered by time of first vitals encounter*
-        LinkedHashSet<Patient> patientsWithVitalsToday = new LinkedHashSet<Patient>();
-        for (Encounter encounter : encounterService.getEncounters(null, null, new DateMidnight().toDate(), null,
-                null, Collections.singletonList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID)),
-                null, null, null, false)) {
-            patientsWithVitalsToday.add(encounter.getPatient());
-        }
+        LinkedHashSet<Patient> patientListForToday = getPatientsWithEncounters(encounterService, vitalsEncounterTypes, startOfToday, null, activeVisits);
 
         // fetch the set of all patients that have a primary care encounter today
-        Set<Patient> patientsWithConsultToday = new HashSet<Patient>();
-        for (Encounter encounter :  encounterService.getEncounters(null, null, new DateMidnight().toDate(), null,
-                null, primaryCareEncounterTypes, null, null, null, false)) {
-            patientsWithConsultToday.add(encounter.getPatient());
-        }
+        Set<Patient> patientsWithConsultToday = getPatientsWithEncounters(encounterService, primaryCareEncounterTypes, startOfToday, null, activeVisits);
 
-        // fetch the set of all patients who have a disposition today
-        Set<Patient> patientsWithDispositionToday = new HashSet<Patient>();
-        Concept dispoConceptSet = conceptService.getConceptByMapping(EmrApiConstants.CONCEPT_CODE_DISPOSITION_CONCEPT_SET, EmrApiConstants.EMR_CONCEPT_SOURCE_NAME);
-        for (Obs obs : obsService.getObservations(null, null, Collections.singletonList(dispoConceptSet),
-                null, null, null, null, null, null, new DateMidnight().toDate(), null,false)) {
-            patientsWithDispositionToday.add(Context.getPatientService().getPatient(obs.getPersonId()));  // assumption: only patients have obs, not plain persio
-        }
+        // now handle any patients with vitals taken on the last business day whose visit is still active
 
-        LinkedHashSet<Patient> patientListForToday = patientsWithVitalsToday;
+        // create a list of all patients that have a vitals encounter on last business day, *ordered by time of first vitals encounter*
+        LinkedHashSet<Patient> patientListForPreviousBusinessDay = getPatientsWithEncounters(encounterService, vitalsEncounterTypes,
+                startOfPreviousBusinessDay, endOfPreviousBusinessDay, activeVisits);
+
+        // fetch the set of all patients that have a primary care encounter last business day or today
+        Set<Patient> patientsWithConsultOnPreviousBusinessDayOrToday = getPatientsWithEncounters(encounterService, primaryCareEncounterTypes,
+                startOfPreviousBusinessDay, endOfPreviousBusinessDay, activeVisits);
+        patientsWithConsultOnPreviousBusinessDayOrToday.addAll(patientsWithConsultToday);
 
         // assumption: you can't have a disposition without also having a consult
         if (filter.equals(Filter.WAITING_FOR_CONSULT)) {
             // the "waiting for consult" list is all patients with vitals today but no consult
             patientListForToday.removeAll(patientsWithConsultToday);
-        }
-        else {
-            // the "in-consultation" list is all patients with vitals AND consult today but no dispostion (disposition is our trigger that a consult is finished)
-            patientListForToday.retainAll(patientsWithConsultToday);
-            patientListForToday.removeAll(patientsWithDispositionToday);
-        }
-
-        // now handle any patients with vitals taken on the last business day
-
-        boolean isMonday = new DateMidnight().getDayOfWeek() == DateTimeConstants.MONDAY;
-
-        // create a list of all patients that have a vitals encounter on last business day, *ordered by time of first vitals encounter*
-        LinkedHashSet<Patient> patientsWithVitalsOnPreviousBusinessDay = new LinkedHashSet<Patient>();
-        for (Encounter encounter : encounterService.getEncounters(null, null,
-                isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate(),
-                isMonday ? new DateMidnight().minusDays(2).toDate() : new DateMidnight().toDate(),
-                null, Collections.singletonList(Metadata.lookupEncounterType(PihEmrConfigConstants.ENCOUNTERTYPE_VITALS_UUID)),
-                null, null, null, false)) {
-            patientsWithVitalsOnPreviousBusinessDay.add(encounter.getPatient());
-        }
-
-        Set<Patient> patientsWithConsultOnPreviousBusinessDayOrToday = new HashSet<Patient>();
-        // fetch the set of all patients that have a primary care encounter last business day
-        for (Encounter encounter :  encounterService.getEncounters(null, null,
-                isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate(),
-                isMonday ? new DateMidnight().minusDays(2).toDate() : new DateMidnight().toDate(),
-                null, primaryCareEncounterTypes, null, null, null, false)) {
-            patientsWithConsultOnPreviousBusinessDayOrToday.add(encounter.getPatient());
-        }
-        // add all patiens with primary care encounter today
-        patientsWithConsultOnPreviousBusinessDayOrToday.addAll(patientsWithConsultToday);
-
-        Set<Patient> patientsWithDispositionOnPreviousDaysOrToday = new HashSet<Patient>();
-        // fetch the set of all patients who have a disposition last business day
-        for (Obs obs : obsService.getObservations(null, null, Collections.singletonList(dispoConceptSet),
-                null, null, null, null, null, null,
-                isMonday ? new DateMidnight().minusDays(3).toDate() : new DateMidnight().minusDays(1).toDate(),
-                isMonday ? new DateMidnight().minusDays(2).toDate() : new DateMidnight().toDate(),
-                false)) {
-            patientsWithDispositionOnPreviousDaysOrToday.add(Context.getPatientService().getPatient(obs.getPersonId()));  // assumption: only patients have obs, not plain persio
-        }
-        // add all patiens with disposition today
-        patientsWithConsultOnPreviousBusinessDayOrToday.addAll(patientsWithDispositionToday);
-
-
-        LinkedHashSet<Patient> patientListForPreviousBusinessDay = patientsWithVitalsOnPreviousBusinessDay;
-
-        // assumption: you can't have a disposition without also having a consult
-        if (filter.equals(Filter.WAITING_FOR_CONSULT)) {
-            // the "waiting for consult" list is all patients with vitals last business day but no consult then or today
+            // plus all patients with vitals last business day but no consult then or today
             patientListForPreviousBusinessDay.removeAll(patientsWithConsultOnPreviousBusinessDayOrToday);
         }
         else {
-            // the "in-consultation" list is all patients with vitals last business day and consult last business day or today, but no disposition
+            // fetch the set of all patients who have a disposition today, and last business day or today
+            Set<Patient> patientsWithDispositionToday = getPatientsWithDisposition(obsService, dispoConceptSet, startOfToday, null, activeVisits);
+            Set<Patient> patientsWithDispositionOnPreviousBusinessDayOrToday = getPatientsWithDisposition(obsService, dispoConceptSet,
+                    startOfPreviousBusinessDay, endOfPreviousBusinessDay, activeVisits);
+            patientsWithDispositionOnPreviousBusinessDayOrToday.addAll(patientsWithDispositionToday);
+
+            // the "in-consultation" list is all patients with vitals AND consult today but no dispostion (disposition is our trigger that a consult is finished)
+            patientListForToday.retainAll(patientsWithConsultToday);
+            patientListForToday.removeAll(patientsWithDispositionToday);
+            // plus all patients with vitals last business day and consult last business day or today, but no disposition
             patientListForPreviousBusinessDay.retainAll(patientsWithConsultOnPreviousBusinessDayOrToday);
-            patientListForPreviousBusinessDay.removeAll(patientsWithDispositionOnPreviousDaysOrToday);
+            patientListForPreviousBusinessDay.removeAll(patientsWithDispositionOnPreviousBusinessDayOrToday);
         }
 
         // now create our final list by combining the list for the previous business day with the list for the current day
@@ -169,6 +137,51 @@ public class WaitingForConsultPageController {
         model.addAttribute("mothersFirstName", Metadata.getMothersFirstNameAttributeType());
 
         return null;
+    }
+
+    private Set<Visit> getActiveVisitsAtVisitLocation(Location sessionLocation, AdtService adtService, VisitService visitService) {
+        Location visitLocation;
+        try {
+            visitLocation = sessionLocation == null ? null : adtService.getLocationThatSupportsVisits(sessionLocation);
+        }
+        catch (IllegalArgumentException e) {
+            // thrown when neither the session location nor any of its ancestors is tagged as a Visit Location
+            visitLocation = null;
+        }
+        if (visitLocation == null) {
+            return Collections.emptySet();
+        }
+        return new HashSet<Visit>(visitService.getVisits(null, null, Collections.singletonList(visitLocation),
+                null, null, null, null, null, null, false, false));
+    }
+
+    private LinkedHashSet<Patient> getPatientsWithEncounters(EncounterService encounterService, List<EncounterType> encounterTypes,
+                                                             Date fromDate, Date toDate, Set<Visit> activeVisits) {
+        // ordered by time of first encounter
+        LinkedHashSet<Patient> patients = new LinkedHashSet<Patient>();
+        for (Encounter encounter : encounterService.getEncounters(null, null, fromDate, toDate,
+                null, encounterTypes, null, null, null, false)) {
+            if (isInActiveVisit(encounter, activeVisits)) {
+                patients.add(encounter.getPatient());
+            }
+        }
+        return patients;
+    }
+
+    private Set<Patient> getPatientsWithDisposition(ObsService obsService, Concept dispoConceptSet,
+                                                    Date fromDate, Date toDate, Set<Visit> activeVisits) {
+        Set<Patient> patients = new HashSet<Patient>();
+        for (Obs obs : obsService.getObservations(null, null, Collections.singletonList(dispoConceptSet),
+                null, null, null, null, null, null, fromDate, toDate, false)) {
+            if (isInActiveVisit(obs.getEncounter(), activeVisits)) {
+                patients.add(obs.getEncounter().getPatient());
+            }
+        }
+        return patients;
+    }
+
+    private boolean isInActiveVisit(Encounter encounter, Set<Visit> activeVisits) {
+        return encounter != null && encounter.getVisit() != null && activeVisits.contains(encounter.getVisit());
     }
 
 
