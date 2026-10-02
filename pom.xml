@@ -64,7 +64,7 @@
         <dispensingVersion>2.1.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>2.2.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
-        <emrapiVersion>3.5.0-SNAPSHOT</emrapiVersion>
+        <emrapiVersion>3.5.0</emrapiVersion>
         <eventVersion>4.0.0</eventVersion>
         <fhir2Version>4.3.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
@@ -94,7 +94,7 @@
         <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
         <spaVersion>3.0.0</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
-        <testutilsVersion>1.7.0</testutilsVersion>
+        <testutilsVersion>1.8.0</testutilsVersion>
         <uicommonsVersion>3.2.0-SNAPSHOT</uicommonsVersion>
         <uiframeworkVersion>4.0.0</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
