@@ -56,7 +56,7 @@
         <appointmentschedulinguiVersion>2.0.0</appointmentschedulinguiVersion>
         <appuiVersion>1.18.0</appuiVersion>
         <attachmentsVersion>4.1.0</attachmentsVersion>
-        <authenticationVersion>2.4.0</authenticationVersion>
+        <authenticationVersion>2.5.0-SNAPSHOT</authenticationVersion>
         <authenticationuiVersion>1.4.0-SNAPSHOT</authenticationuiVersion>
         <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
@@ -80,7 +80,7 @@
         <namephoneticsVersion>1.19.0</namephoneticsVersion>
         <o3formsVersion>2.3.0</o3formsVersion>
         <openconceptlabVersion>4.0.0</openconceptlabVersion>
-        <owaVersion>1.15.0</owaVersion>
+        <owaVersion>1.16.0-SNAPSHOT</owaVersion>
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <pihappsVersion>1.2.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0</printerVersion>
