@@ -15,7 +15,7 @@
         <% fields?.each { concept, obj -> %>
             <div style="font-size: smaller;">
                 <span style="font-family: 'OpenSansBold'";>${ concept == 'ancVisits' ? ('# ' + ui.message(obj.label)) : ui.message(obj.label) }:</span>
-                        <% if (concept == 'deliveryType') { %>
+                        <% if (concept == 'deliveryType' || concept == 'pregnancyCohort') { %>
                             <span id="delivery-type">
                                 <% obj.obs.eachWithIndex { it, index -> %>
                                      ${ ui.format(it.valueCoded) } ${obj.obs.size() - 1 > index ? ", " : ""}

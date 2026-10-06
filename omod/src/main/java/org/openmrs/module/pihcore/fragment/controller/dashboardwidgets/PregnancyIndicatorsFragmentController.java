@@ -91,6 +91,22 @@ public class PregnancyIndicatorsFragmentController {
                 "obs", (dueDate !=null ) ? dueDate : ""
         ));
 
+        question = conceptService.getConceptByUuid(PihEmrConfigConstants.CONCEPT_PREGNANCYGROUP_UUID);
+        Set<Obs> pregnancyGroups = new HashSet<>();
+        if (question != null) {
+            obsWithinProgram = PihCoreUtils.getObsWithinProgram(patient, new HashSet<>(Arrays.asList(question)), null, programUuid);
+            for (Obs obs : obsWithinProgram) {
+                if (obs.getValueCoded() != null) {
+                    pregnancyGroups.add(obs);
+                }
+            }
+        }
+
+        fields.put("pregnancyCohort", SimpleObject.create(
+                "label", "pihcore.pregnancyProgramCohortGroup",
+                "obs", !pregnancyGroups.isEmpty() ? pregnancyGroups : ""
+        ));
+
         question = conceptService.getConceptByUuid(SierraLeoneConfigConstants.CONCEPT_PREGNANCYRISKFACTORS_UUID);
         Concept answer = conceptService.getConceptByUuid(PihEmrConfigConstants.CONCEPT_MULTIPLEBIRTH_UUID);
         if ( question != null && answer != null) {

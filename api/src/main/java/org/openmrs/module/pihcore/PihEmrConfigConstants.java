@@ -22,6 +22,7 @@ public class PihEmrConfigConstants {
 	public static final String CONCEPT_GESTATIONALAGE_UUID = "165425AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
 	public static final String CONCEPT_LABORATORYCATEGORIES_UUID = "517d25f7-2e68-4da4-912b-76090fbfe0fd";
 	public static final String CONCEPT_MULTIPLEBIRTH_UUID = "115491AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+	public static final String CONCEPT_PREGNANCYGROUP_UUID = "838c518d-7d20-4361-bab0-c3e4f04233b3";
 	public static final String CONCEPT_TYPEOFDELIVERY_UUID = "fec005b5-6d44-487f-ae34-9f0f483b4ae8";
 	public static final String CONCEPT_YES_UUID = "3cd6f600-26fe-102b-80cb-0017a47871b2";
 	public static final String ENCOUNTERROLE_ADMINISTRATIVECLERK_UUID = "cbfe0b9d-9923-404c-941b-f048adc8cdc0";
