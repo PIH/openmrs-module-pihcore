@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,10 @@ import java.util.Set;
  family name is within a small edit distance of the family name entered (and vice versa: phonetic family name match with
  a given name within a small edit distance).
 
+ 3. The same as (1) and (2) with the given and family names swapped, since names are sometimes entered in the wrong fields.
+
+ 4. The same as (1) to (3) for each well known equivalent of the given name (ex: David/Dave, William/Bill), see GivenNameEquivalents.
+
  Then, that cohort is scores as follows:
 
  Gender:
@@ -61,6 +66,9 @@ import java.util.Set;
  If givenName, familyName and middleName (nickname) are all the same: 4 pts
  If givenName and familyName are the same: 2 pts
  Otherwise, if any *one* of the names match: 0.5 pts
+ Otherwise, if both given and family name are a close (typo) match: 1 pt
+ Given names that are well known equivalents (ex: David/Dave) count as the same given name.
+ Names are also compared in swapped order (given name entered as family name and vice versa), worth at most 2 pts
 
  Address:
  Customizable via pih-config. A set of key-value pairs matching address field names to weights
@@ -123,7 +131,15 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         }
 
         // our initial search to find a "base cohort"; hits will only occur if there is a phonetic match on both given name and family name
-        List<Patient> patients = getPatientsByPhonetics(patient.getGivenName(), patient.getFamilyName());
+        // We search for the given name as entered and for its well known equivalents (ex: David/Dave, William/Bill), and
+        // since names are sometimes entered in the wrong order (given name in the family name field and vice versa) we
+        // also search with the given and family names swapped
+        List<Patient> patients = new ArrayList<Patient>();
+        Set<Integer> cohortIds = new HashSet<Integer>();
+        for (String givenNameVariant : getGivenNameVariants(patient.getGivenName())) {
+            addToCohort(patients, cohortIds, getPatientsByPhonetics(givenNameVariant, patient.getFamilyName()));
+            addToCohort(patients, cohortIds, getPatientsByPhonetics(patient.getFamilyName(), givenNameVariant));
+        }
 
         List<PatientAndMatchQuality> matches = new ArrayList<PatientAndMatchQuality>();
 
@@ -184,24 +200,10 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                 }
             }
 
-            // check for *exact* name matches
-            boolean familyNameMatch = false;
-            boolean givenNameMatch = false;
-            boolean middleNameMatch = false;
-
-            familyNameMatch = nameExactMatch(patient.getFamilyName(), match.getFamilyName());
-            givenNameMatch = nameExactMatch(patient.getGivenName(), match.getGivenName());
-            middleNameMatch = nameExactMatch(patient.getMiddleName(), match.getMiddleName());
-
-            if (familyNameMatch && givenNameMatch && middleNameMatch) {
-                score += 4;
-            }
-            else if (familyNameMatch && givenNameMatch) {
-                score += 2;
-            }
-            else if (familyNameMatch || givenNameMatch || middleNameMatch) {
-                score += 0.5;
-            }
+            // check for name matches, trying both the entered order and the swapped order
+            // (given name entered as family name and vice versa), and keeping the better of the two
+            double nameScore = Math.max(scoreNames(patient, match, false), scoreNames(patient, match, true));
+            score += nameScore;
 
             // check for address matches
             if (config.getRegistrationConfig() != null && config.getRegistrationConfig().getSimilarPatientsSearch() != null
@@ -275,6 +277,62 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             return matches;
         }
 
+    }
+
+    private void addToCohort(List<Patient> cohort, Set<Integer> cohortIds, List<Patient> candidates) {
+        for (Patient candidate : candidates) {
+            if (cohortIds.add(candidate.getPatientId())) {
+                cohort.add(candidate);
+            }
+        }
+    }
+
+    // the given name as entered (preserving case) followed by its known equivalents
+    private Set<String> getGivenNameVariants(String givenName) {
+        Set<String> variants = new LinkedHashSet<String>();
+        variants.add(givenName);
+        String normalizedGivenName = GivenNameEquivalents.normalize(givenName);
+        for (String variant : GivenNameEquivalents.getVariants(givenName)) {
+            if (!variant.equals(normalizedGivenName)) {
+                variants.add(variant);
+            }
+        }
+        return variants;
+    }
+
+    /**
+     * Scores the names of the patient against the names of a match: 4 pts if given, family and middle names are the same,
+     * 2 pts if given and family names are the same, 0.5 pts if any one name is the same. If no names are exactly the same
+     * but both given and family names are a "close match" (typos), 1 pt.
+     * If swapped is true, the patient's given name is compared with the match's family name and vice versa; a swapped
+     * match is worth no more than 2 pts, since a name in the wrong order is less certain than the same name in the right order.
+     */
+    private double scoreNames(Patient patient, Patient match, boolean swapped) {
+        String matchGiven = swapped ? match.getFamilyName() : match.getGivenName();
+        String matchFamily = swapped ? match.getGivenName() : match.getFamilyName();
+
+        boolean familyNameMatch = nameExactMatch(patient.getFamilyName(), matchFamily);
+        boolean givenNameMatch = nameExactMatch(patient.getGivenName(), matchGiven)
+                || GivenNameEquivalents.areEquivalent(patient.getGivenName(), matchGiven);
+        boolean middleNameMatch = nameExactMatch(patient.getMiddleName(), match.getMiddleName());
+
+        double nameScore;
+        if (familyNameMatch && givenNameMatch && middleNameMatch) {
+            nameScore = 4;
+        }
+        else if (familyNameMatch && givenNameMatch) {
+            nameScore = 2;
+        }
+        else if (familyNameMatch || givenNameMatch || middleNameMatch) {
+            nameScore = 0.5;
+        }
+        else if (isCloseMatch(patient.getFamilyName(), matchFamily) && isCloseMatch(patient.getGivenName(), matchGiven)) {
+            nameScore = 1;
+        }
+        else {
+            nameScore = 0;
+        }
+        return swapped ? Math.min(nameScore, 2) : nameScore;
     }
 
     /***

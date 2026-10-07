@@ -52,6 +52,16 @@
     <person_name person_name_id="9349" preferred="true" person_id="100" given_name="Dave" family_name="Progam" creator="1" date_created="2009-01-18 00:00:00.0" voided="false" uuid="6a1c6e1e-7d0b-4a52-9d54-3f8a5b0c1a02"/>
     <name_phonetics name_phonetics_id="5" rendered_string="D100" person_name_id="9349" field="1" renderer_class_name="org.apache.commons.codec.language.Soundex"/>
     <name_phonetics name_phonetics_id="6" rendered_string="P625" person_name_id="9349" field="3" renderer_class_name="org.apache.commons.codec.language.Soundex"/>
+    <person person_id="101" gender="M" birthdate="2001-01-01" birthdate_estimated="false" dead="false" creator="1" date_created="2009-01-18 00:00:00.0" voided="false" uuid="6a1c6e1e-7d0b-4a52-9d54-3f8a5b0c1a03"/>
+    <patient patient_id="101" creator="1" date_created="2009-01-18 00:00:00.0" voided="false"/>
+    <person_name person_name_id="9350" preferred="true" person_id="101" given_name="Lopez" family_name="Maria" creator="1" date_created="2009-01-18 00:00:00.0" voided="false" uuid="6a1c6e1e-7d0b-4a52-9d54-3f8a5b0c1a04"/>
+    <name_phonetics name_phonetics_id="7" rendered_string="L120" person_name_id="9350" field="1" renderer_class_name="org.apache.commons.codec.language.Soundex"/>
+    <name_phonetics name_phonetics_id="8" rendered_string="M600" person_name_id="9350" field="3" renderer_class_name="org.apache.commons.codec.language.Soundex"/>
+    <person person_id="102" gender="M" birthdate="2001-01-01" birthdate_estimated="false" dead="false" creator="1" date_created="2009-01-18 00:00:00.0" voided="false" uuid="6a1c6e1e-7d0b-4a52-9d54-3f8a5b0c1a05"/>
+    <patient patient_id="102" creator="1" date_created="2009-01-18 00:00:00.0" voided="false"/>
+    <person_name person_name_id="9351" preferred="true" person_id="102" given_name="William" family_name="Santos" creator="1" date_created="2009-01-18 00:00:00.0" voided="false" uuid="6a1c6e1e-7d0b-4a52-9d54-3f8a5b0c1a06"/>
+    <name_phonetics name_phonetics_id="9" rendered_string="W450" person_name_id="9351" field="1" renderer_class_name="org.apache.commons.codec.language.Soundex"/>
+    <name_phonetics name_phonetics_id="10" rendered_string="S532" person_name_id="9351" field="3" renderer_class_name="org.apache.commons.codec.language.Soundex"/>
     <patient patient_id="2"  creator="1" date_created="2005-09-22 00:00:00.0" voided="false"/>
     <patient patient_id="6"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>
     <patient patient_id="13"  creator="1" date_created="2006-01-18 00:00:00.0" voided="false"/>

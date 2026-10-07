@@ -129,6 +129,53 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
+    public void shouldFindPatientWithGivenAndFamilyNameSwapped() {
+
+        // the existing patient has given name "Lopez" and family name "Maria"
+        Patient patient = buildPatient("Maria", "Lopez");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("Lopez"));
+        assertThat(results.get(0).getPatient().getPersonName().getFamilyName(), is("Maria"));
+    }
+
+    @Test
+    public void shouldFindPatientWithNamesSwappedAndTypo() {
+
+        Patient patient = buildPatient("Marie", "Lopes");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getFamilyName(), is("Maria"));
+    }
+
+    @Test
+    public void shouldFindPatientWithEquivalentGivenName() {
+
+        // the existing patient is William Santos; "Bill" encodes to a completely different phonetic code
+        Patient patient = buildPatient("Bill", "Santos");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("William"));
+    }
+
+    @Test
+    public void shouldFindPatientWithEquivalentGivenNameAndFamilyNameTypo() {
+
+        Patient patient = buildPatient("Billy", "Santoz");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("William"));
+    }
+
+    @Test
     public void shouldNotFindUnrelatedFamilyName() {
 
         Patient patient = buildPatient("Dave", "Zxqwerty");
