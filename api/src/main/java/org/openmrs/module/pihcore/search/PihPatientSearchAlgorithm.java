@@ -25,8 +25,10 @@ import org.springframework.stereotype.Service;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -34,10 +36,15 @@ import java.util.Map;
  Persons are ranked via that score and only patients over a certain threshold are returned.  (The Registration App has "2.0"
  hardcoded as the threshold, so I used that as a basis for determining how to score elements).
 
- Base Cohort:
+ Base Cohort (union of the following):
 
- An AND query against the name phonetics table checking given name and family name, so, more or less:
+ 1. An AND query against the name phonetics table checking given name and family name, so, more or less:
  WHERE encodedPotentialMatchGivenName LIKE encodedPatientGivenName% AND encodedPotentialMatchFamilyName LIKE encodedMatchFamilyName%
+
+ 2. Typo tolerance: phonetic encoders (ex: Double Metaphone) truncate their output, so a single-letter typo can change the
+ code and drop the right patient from (1). So we also include patients that match phonetically on the given name and whose
+ family name is within a small edit distance of the family name entered (and vice versa: phonetic family name match with
+ a given name within a small edit distance).
 
  Then, that cohort is scores as follows:
 
@@ -295,16 +302,38 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
     }
 
 
-    // does a AND match on firstname and lastname against the name phonetics table; returns partial matches as long as start is match (ie, 'match%')
+    // builds the "base cohort": the phonetic AND match on given and family name, plus the patients whose
+    // given (or family) name matches phonetically and whose other name is "close enough" (see isCloseMatch)
     private List<Patient> getPatientsByPhonetics(String firstName, String lastName) {
-
-        List<Integer> personIds;
-        List<Patient> patients = new ArrayList<Patient>();
 
         if (StringUtils.isBlank(firstName) || (StringUtils.isBlank(lastName))){
             return new ArrayList<Patient>();
         }
 
+        List<Patient> patients = new ArrayList<Patient>();
+
+        try {
+            Set<Integer> personIds = new LinkedHashSet<Integer>(getPersonIdsByPhoneticsOnBothNames(firstName, lastName));
+            personIds.addAll(getPersonIdsByPhoneticsOnOneNameAndCloseOtherName(firstName, NamePhonetic.NameField.GIVEN_NAME,
+                    lastName, NamePhonetic.NameField.FAMILY_NAME));
+            personIds.addAll(getPersonIdsByPhoneticsOnOneNameAndCloseOtherName(lastName, NamePhonetic.NameField.FAMILY_NAME,
+                    firstName, NamePhonetic.NameField.GIVEN_NAME));
+
+            if (personIds.size() > 0) {
+                Query query = sessionFactory.getCurrentSession().createQuery("from Patient as p where p.personId in (:personIds) and voided='false'");
+                query.setParameterList("personIds", personIds);
+                patients = query.list();
+            }
+        }
+        catch(Exception e){
+            log.error("error retrieving name phonetics", e);
+        }
+
+        return patients;
+    }
+
+    // does a AND match on firstname and lastname against the name phonetics table; returns partial matches as long as start is match (ie, 'match%')
+    private List<Integer> getPersonIdsByPhoneticsOnBothNames(String firstName, String lastName) {
         StringBuilder sql = new StringBuilder();
         sql.append("select distinct np1.personName.person.personId ");
         sql.append("from NamePhonetic np1 ");
@@ -318,21 +347,50 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                 .append(NamePhoneticsUtil.encodeString(lastName, adminService.getGlobalProperty("namephonetics.familyNameStringEncoder")))
                 .append("%' ");
         sql.append("and np2.nameField=" + NamePhonetic.NameField.FAMILY_NAME.getValue() + ")");
-        try{
-            Query query = sessionFactory.getCurrentSession().createQuery(sql.toString());
-            //query.setCacheMode(CacheMode.IGNORE);  // was there a reason we were ignoring the cache? seems like we'd want to cache for performance reasons?
-            personIds = query.list();
-            if (personIds != null && personIds.size() > 0) {
-                query = sessionFactory.getCurrentSession().createQuery("from Patient as p where p.personId in (:personIds) and voided='false'");
-                query.setParameterList("personIds", personIds);
-                patients = query.list();
+        return sessionFactory.getCurrentSession().createQuery(sql.toString()).list();
+    }
+
+    // finds names that match phonetically on one field (ex: given name), and then keeps those whose *other* name field
+    // (ex: family name) is a close (edit distance) match; the edit distance is done in memory against the (relatively
+    // small) set of names that already matched phonetically on the first field
+    private List<Integer> getPersonIdsByPhoneticsOnOneNameAndCloseOtherName(String phoneticValue, NamePhonetic.NameField phoneticField,
+                                                                           String closeValue, NamePhonetic.NameField closeField) {
+
+        String encoderGp = phoneticField == NamePhonetic.NameField.GIVEN_NAME ? "namephonetics.givenNameStringEncoder" : "namephonetics.familyNameStringEncoder";
+        String encoded = NamePhoneticsUtil.encodeString(phoneticValue, adminService.getGlobalProperty(encoderGp));
+
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "select pn.person.personId, pn.givenName, pn.familyName from PersonName pn " +
+                "where pn.voided = false and pn.personNameId in " +
+                "(select np.personName.personNameId from NamePhonetic np " +
+                "where np.renderedString like :encoded and np.nameField = :field)");
+        query.setString("encoded", encoded + "%");
+        query.setInteger("field", phoneticField.getValue());
+
+        List<Integer> personIds = new ArrayList<Integer>();
+        for (Object row : query.list()) {
+            Object[] columns = (Object[]) row;
+            String candidate = closeField == NamePhonetic.NameField.GIVEN_NAME ? (String) columns[1] : (String) columns[2];
+            if (isCloseMatch(closeValue, candidate)) {
+                personIds.add((Integer) columns[0]);
             }
         }
-        catch(Exception e){
-            log.error("error retrieving name phonetics", e);
-        }
+        return personIds;
+    }
 
-        return patients;
+    /**
+     * Two names are a "close match" if they are within a small edit distance (ignoring case and accent marks), to allow
+     * for typos. Very short names are not fuzzy matched, because a single edit changes too much of the name.
+     */
+    protected boolean isCloseMatch(String value, String candidate) {
+        if (StringUtils.isBlank(value) || StringUtils.isBlank(candidate)) {
+            return false;
+        }
+        String a = stripAccentMarks(value.trim()).toLowerCase();
+        String b = stripAccentMarks(candidate.trim()).toLowerCase();
+        int length = Math.min(a.length(), b.length());
+        int maxDistance = length <= 3 ? 0 : (length <= 5 ? 1 : 2);
+        return StringUtils.getLevenshteinDistance(a, b) <= maxDistance;
     }
 
 
