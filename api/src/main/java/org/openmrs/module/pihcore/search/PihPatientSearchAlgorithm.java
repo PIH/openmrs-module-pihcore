@@ -25,8 +25,11 @@ import org.springframework.stereotype.Service;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -34,10 +37,19 @@ import java.util.Map;
  Persons are ranked via that score and only patients over a certain threshold are returned.  (The Registration App has "2.0"
  hardcoded as the threshold, so I used that as a basis for determining how to score elements).
 
- Base Cohort:
+ Base Cohort (union of the following):
 
- An AND query against the name phonetics table checking given name and family name, so, more or less:
+ 1. An AND query against the name phonetics table checking given name and family name, so, more or less:
  WHERE encodedPotentialMatchGivenName LIKE encodedPatientGivenName% AND encodedPotentialMatchFamilyName LIKE encodedMatchFamilyName%
+
+ 2. Typo tolerance: phonetic encoders (ex: Double Metaphone) truncate their output, so a single-letter typo can change the
+ code and drop the right patient from (1). So we also include patients that match phonetically on the given name and whose
+ family name is within a small edit distance of the family name entered (and vice versa: phonetic family name match with
+ a given name within a small edit distance).
+
+ 3. The same as (1) and (2) with the given and family names swapped, since names are sometimes entered in the wrong fields.
+
+ 4. The same as (1) to (3) for each well known equivalent of the given name (ex: David/Dave, William/Bill), see GivenNameEquivalents.
 
  Then, that cohort is scores as follows:
 
@@ -54,6 +66,9 @@ import java.util.Map;
  If givenName, familyName and middleName (nickname) are all the same: 4 pts
  If givenName and familyName are the same: 2 pts
  Otherwise, if any *one* of the names match: 0.5 pts
+ Otherwise, if both given and family name are a close (typo) match: 1 pt
+ Given names that are well known equivalents (ex: David/Dave) count as the same given name.
+ Names are also compared in swapped order (given name entered as family name and vice versa), worth at most 2 pts
 
  Address:
  Customizable via pih-config. A set of key-value pairs matching address field names to weights
@@ -116,7 +131,15 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         }
 
         // our initial search to find a "base cohort"; hits will only occur if there is a phonetic match on both given name and family name
-        List<Patient> patients = getPatientsByPhonetics(patient.getGivenName(), patient.getFamilyName());
+        // We search for the given name as entered and for its well known equivalents (ex: David/Dave, William/Bill), and
+        // since names are sometimes entered in the wrong order (given name in the family name field and vice versa) we
+        // also search with the given and family names swapped
+        List<Patient> patients = new ArrayList<Patient>();
+        Set<Integer> cohortIds = new HashSet<Integer>();
+        for (String givenNameVariant : getGivenNameVariants(patient.getGivenName())) {
+            addToCohort(patients, cohortIds, getPatientsByPhonetics(givenNameVariant, patient.getFamilyName()));
+            addToCohort(patients, cohortIds, getPatientsByPhonetics(patient.getFamilyName(), givenNameVariant));
+        }
 
         List<PatientAndMatchQuality> matches = new ArrayList<PatientAndMatchQuality>();
 
@@ -177,24 +200,10 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                 }
             }
 
-            // check for *exact* name matches
-            boolean familyNameMatch = false;
-            boolean givenNameMatch = false;
-            boolean middleNameMatch = false;
-
-            familyNameMatch = nameExactMatch(patient.getFamilyName(), match.getFamilyName());
-            givenNameMatch = nameExactMatch(patient.getGivenName(), match.getGivenName());
-            middleNameMatch = nameExactMatch(patient.getMiddleName(), match.getMiddleName());
-
-            if (familyNameMatch && givenNameMatch && middleNameMatch) {
-                score += 4;
-            }
-            else if (familyNameMatch && givenNameMatch) {
-                score += 2;
-            }
-            else if (familyNameMatch || givenNameMatch || middleNameMatch) {
-                score += 0.5;
-            }
+            // check for name matches, trying both the entered order and the swapped order
+            // (given name entered as family name and vice versa), and keeping the better of the two
+            double nameScore = Math.max(scoreNames(patient, match, false), scoreNames(patient, match, true));
+            score += nameScore;
 
             // check for address matches
             if (config.getRegistrationConfig() != null && config.getRegistrationConfig().getSimilarPatientsSearch() != null
@@ -270,6 +279,62 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
 
     }
 
+    private void addToCohort(List<Patient> cohort, Set<Integer> cohortIds, List<Patient> candidates) {
+        for (Patient candidate : candidates) {
+            if (cohortIds.add(candidate.getPatientId())) {
+                cohort.add(candidate);
+            }
+        }
+    }
+
+    // the given name as entered (preserving case) followed by its known equivalents
+    private Set<String> getGivenNameVariants(String givenName) {
+        Set<String> variants = new LinkedHashSet<String>();
+        variants.add(givenName);
+        String normalizedGivenName = GivenNameEquivalents.normalize(givenName);
+        for (String variant : GivenNameEquivalents.getVariants(givenName)) {
+            if (!variant.equals(normalizedGivenName)) {
+                variants.add(variant);
+            }
+        }
+        return variants;
+    }
+
+    /**
+     * Scores the names of the patient against the names of a match: 4 pts if given, family and middle names are the same,
+     * 2 pts if given and family names are the same, 0.5 pts if any one name is the same. If no names are exactly the same
+     * but both given and family names are a "close match" (typos), 1 pt.
+     * If swapped is true, the patient's given name is compared with the match's family name and vice versa; a swapped
+     * match is worth no more than 2 pts, since a name in the wrong order is less certain than the same name in the right order.
+     */
+    private double scoreNames(Patient patient, Patient match, boolean swapped) {
+        String matchGiven = swapped ? match.getFamilyName() : match.getGivenName();
+        String matchFamily = swapped ? match.getGivenName() : match.getFamilyName();
+
+        boolean familyNameMatch = nameExactMatch(patient.getFamilyName(), matchFamily);
+        boolean givenNameMatch = nameExactMatch(patient.getGivenName(), matchGiven)
+                || GivenNameEquivalents.areEquivalent(patient.getGivenName(), matchGiven);
+        boolean middleNameMatch = nameExactMatch(patient.getMiddleName(), match.getMiddleName());
+
+        double nameScore;
+        if (familyNameMatch && givenNameMatch && middleNameMatch) {
+            nameScore = 4;
+        }
+        else if (familyNameMatch && givenNameMatch) {
+            nameScore = 2;
+        }
+        else if (familyNameMatch || givenNameMatch || middleNameMatch) {
+            nameScore = 0.5;
+        }
+        else if (isCloseMatch(patient.getFamilyName(), matchFamily) && isCloseMatch(patient.getGivenName(), matchGiven)) {
+            nameScore = 1;
+        }
+        else {
+            nameScore = 0;
+        }
+        return swapped ? Math.min(nameScore, 2) : nameScore;
+    }
+
     /***
      * @param value
      * @param matches
@@ -295,16 +360,38 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
     }
 
 
-    // does a AND match on firstname and lastname against the name phonetics table; returns partial matches as long as start is match (ie, 'match%')
+    // builds the "base cohort": the phonetic AND match on given and family name, plus the patients whose
+    // given (or family) name matches phonetically and whose other name is "close enough" (see isCloseMatch)
     private List<Patient> getPatientsByPhonetics(String firstName, String lastName) {
-
-        List<Integer> personIds;
-        List<Patient> patients = new ArrayList<Patient>();
 
         if (StringUtils.isBlank(firstName) || (StringUtils.isBlank(lastName))){
             return new ArrayList<Patient>();
         }
 
+        List<Patient> patients = new ArrayList<Patient>();
+
+        try {
+            Set<Integer> personIds = new LinkedHashSet<Integer>(getPersonIdsByPhoneticsOnBothNames(firstName, lastName));
+            personIds.addAll(getPersonIdsByPhoneticsOnOneNameAndCloseOtherName(firstName, NamePhonetic.NameField.GIVEN_NAME,
+                    lastName, NamePhonetic.NameField.FAMILY_NAME));
+            personIds.addAll(getPersonIdsByPhoneticsOnOneNameAndCloseOtherName(lastName, NamePhonetic.NameField.FAMILY_NAME,
+                    firstName, NamePhonetic.NameField.GIVEN_NAME));
+
+            if (personIds.size() > 0) {
+                Query query = sessionFactory.getCurrentSession().createQuery("from Patient as p where p.personId in (:personIds) and voided='false'");
+                query.setParameterList("personIds", personIds);
+                patients = query.list();
+            }
+        }
+        catch(Exception e){
+            log.error("error retrieving name phonetics", e);
+        }
+
+        return patients;
+    }
+
+    // does a AND match on firstname and lastname against the name phonetics table; returns partial matches as long as start is match (ie, 'match%')
+    private List<Integer> getPersonIdsByPhoneticsOnBothNames(String firstName, String lastName) {
         StringBuilder sql = new StringBuilder();
         sql.append("select distinct np1.personName.person.personId ");
         sql.append("from NamePhonetic np1 ");
@@ -318,21 +405,50 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                 .append(NamePhoneticsUtil.encodeString(lastName, adminService.getGlobalProperty("namephonetics.familyNameStringEncoder")))
                 .append("%' ");
         sql.append("and np2.nameField=" + NamePhonetic.NameField.FAMILY_NAME.getValue() + ")");
-        try{
-            Query query = sessionFactory.getCurrentSession().createQuery(sql.toString());
-            //query.setCacheMode(CacheMode.IGNORE);  // was there a reason we were ignoring the cache? seems like we'd want to cache for performance reasons?
-            personIds = query.list();
-            if (personIds != null && personIds.size() > 0) {
-                query = sessionFactory.getCurrentSession().createQuery("from Patient as p where p.personId in (:personIds) and voided='false'");
-                query.setParameterList("personIds", personIds);
-                patients = query.list();
+        return sessionFactory.getCurrentSession().createQuery(sql.toString()).list();
+    }
+
+    // finds names that match phonetically on one field (ex: given name), and then keeps those whose *other* name field
+    // (ex: family name) is a close (edit distance) match; the edit distance is done in memory against the (relatively
+    // small) set of names that already matched phonetically on the first field
+    private List<Integer> getPersonIdsByPhoneticsOnOneNameAndCloseOtherName(String phoneticValue, NamePhonetic.NameField phoneticField,
+                                                                           String closeValue, NamePhonetic.NameField closeField) {
+
+        String encoderGp = phoneticField == NamePhonetic.NameField.GIVEN_NAME ? "namephonetics.givenNameStringEncoder" : "namephonetics.familyNameStringEncoder";
+        String encoded = NamePhoneticsUtil.encodeString(phoneticValue, adminService.getGlobalProperty(encoderGp));
+
+        Query query = sessionFactory.getCurrentSession().createQuery(
+                "select pn.person.personId, pn.givenName, pn.familyName from PersonName pn " +
+                "where pn.voided = false and pn.personNameId in " +
+                "(select np.personName.personNameId from NamePhonetic np " +
+                "where np.renderedString like :encoded and np.nameField = :field)");
+        query.setString("encoded", encoded + "%");
+        query.setInteger("field", phoneticField.getValue());
+
+        List<Integer> personIds = new ArrayList<Integer>();
+        for (Object row : query.list()) {
+            Object[] columns = (Object[]) row;
+            String candidate = closeField == NamePhonetic.NameField.GIVEN_NAME ? (String) columns[1] : (String) columns[2];
+            if (isCloseMatch(closeValue, candidate)) {
+                personIds.add((Integer) columns[0]);
             }
         }
-        catch(Exception e){
-            log.error("error retrieving name phonetics", e);
-        }
+        return personIds;
+    }
 
-        return patients;
+    /**
+     * Two names are a "close match" if they are within a small edit distance (ignoring case and accent marks), to allow
+     * for typos. Very short names are not fuzzy matched, because a single edit changes too much of the name.
+     */
+    protected boolean isCloseMatch(String value, String candidate) {
+        if (StringUtils.isBlank(value) || StringUtils.isBlank(candidate)) {
+            return false;
+        }
+        String a = stripAccentMarks(value.trim()).toLowerCase();
+        String b = stripAccentMarks(candidate.trim()).toLowerCase();
+        int length = Math.min(a.length(), b.length());
+        int maxDistance = length <= 3 ? 0 : (length <= 5 ? 1 : 2);
+        return StringUtils.getLevenshteinDistance(a, b) <= maxDistance;
     }
 
 
