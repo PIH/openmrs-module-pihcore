@@ -10,9 +10,9 @@
     </div>
     <div class="info-body">
         <% fields?.each { concept, obj -> %>
-            <div style="font-size: smaller;">
-                <span style="font-family: 'OpenSansBold';">${ ui.message(obj.label) }:</span>
-                <span class="${obj.css ? obj.css : ''}">${ obj.obs ?: ui.message("coreapps.none") }</span>
+            <div>
+                <span class="patient-dashboard-widget-label">${ ui.message(obj.label) }:</span>
+                <span class="patient-dashboard-widget-value ${obj.css ? obj.css : ''}">${ obj.obs ?: ui.message("coreapps.none") }</span>
                 <% if (obj.date) { %>
                     <span style="color: gray;">(${ ui.format(obj.date) })</span>
                 <% } %>

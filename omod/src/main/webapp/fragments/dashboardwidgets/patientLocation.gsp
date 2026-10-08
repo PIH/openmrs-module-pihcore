@@ -1,7 +1,4 @@
 <style>
-    .boldLabel {
-        font-family: 'OpenSansBold';
-    }
     .edit-icon {
         cursor: pointer;
         margin-left: 5px;
@@ -49,7 +46,7 @@
     <div class="info-body">
         <div>
             <% if (inpatientLocation != null ) { %>
-            <span class="patient-dashboard-widget-label boldLabel">${ ui.message("pihcore.current.location") }:</span>
+            <span class="patient-dashboard-widget-label">${ ui.message("pihcore.current.location") }:</span>
             <span class="patient-dashboard-widget-value">
                 <% if (inpatientLocation.id == sessionContext.sessionLocationId) { %>
                 <a href="/${contextPath}/spa/home/ward">${ui.format(inpatientLocation)}</a>
@@ -58,17 +55,17 @@
                 <% } %>
             </span>
             <% } else { %>
-            <span class="patient-dashboard-widget-label boldLabel">${ ui.message("pihcore.queue.name") }:</span>
+            <span class="patient-dashboard-widget-label">${ ui.message("pihcore.queue.name") }:</span>
             <span class="patient-dashboard-widget-value">${queueName}</span>
             <% } %>
         </div>
         <div>
-            <span class="patient-dashboard-widget-label boldLabel">${ ui.message("pihcore.status") }:</span>
+            <span class="patient-dashboard-widget-label">${ ui.message("pihcore.status") }:</span>
             <span class="patient-dashboard-widget-value">${patientStatus}</span>
         </div>
         <% if (activeVisitUuid != null && showAdmissionTypeAtLocation != null && inpatientLocation.uuid == showAdmissionTypeAtLocation) { %>
         <div>
-            <span class="patient-dashboard-widget-label boldLabel">${ ui.message("pihcore.admission.type") }:</span>
+            <span class="patient-dashboard-widget-label">${ ui.message("pihcore.admission.type") }:</span>
             <span class="patient-dashboard-widget-value">
                 <span id="admissionStatusDisplay">${ isBornDuringVisit ? ui.message("pihcore.inborn") : ui.message("pihcore.outborn") }</span>
 
