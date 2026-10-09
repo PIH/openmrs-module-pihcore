@@ -1,6 +1,5 @@
 package org.openmrs.module.pihcore.biometrics;
 
-import org.apache.commons.lang3.StringUtils;
 import org.openmrs.util.ConfigUtil;
 
 /**
@@ -33,14 +32,22 @@ public class BiometricsConfig {
      * Called by the OpenMRS server to reach the fingerprint server
      */
     public String getSubjectUrl() {
-        return getProperty(SUBJECT_URL_LOWERCASE, SUBJECT_URL, "http://localhost:9000/subject");
+        String url = ConfigUtil.getProperty(SUBJECT_URL_LOWERCASE, null);
+        if (url == null) {
+            url = ConfigUtil.getProperty(SUBJECT_URL, "http://localhost:9000/subject");
+        }
+        return url;
     }
 
     /**
      * Called by the OpenMRS server to reach the fingerprint server
      */
     public String getMatchUrl() {
-        return getProperty(MATCH_URL_LOWERCASE, MATCH_URL, "http://localhost:9000/match");
+        String url = ConfigUtil.getProperty(MATCH_URL_LOWERCASE, null);
+        if (url == null) {
+            url = ConfigUtil.getProperty(MATCH_URL, "http://localhost:9000/match");
+        }
+        return url;
     }
 
     /**
@@ -55,10 +62,5 @@ public class BiometricsConfig {
      */
     public String getDevicesUrl() {
         return ConfigUtil.getProperty(DEVICES_URL, "http://localhost:9000/fingerprint/devices");
-    }
-
-    private String getProperty(String name, String fallbackName, String defaultValue) {
-        String value = ConfigUtil.getProperty(name);
-        return StringUtils.isNotBlank(value) ? value : ConfigUtil.getProperty(fallbackName, defaultValue);
     }
 }
