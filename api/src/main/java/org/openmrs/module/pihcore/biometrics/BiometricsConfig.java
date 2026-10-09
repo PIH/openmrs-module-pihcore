@@ -16,38 +16,50 @@ public class BiometricsConfig {
     public static final String DEVICES_URL = "pihcore.biometrics.devicesUrl";
 
     public String getBiometricEngine() {
-        return ConfigUtil.getProperty(BIOMETRIC_ENGINE, "restBiometricEngine");
+        return getProperty(BIOMETRIC_ENGINE, "restBiometricEngine");
     }
 
     public String getTemplateFormat() {
-        return ConfigUtil.getProperty(TEMPLATE_FORMAT, "PROPRIETARY");
+        return getProperty(TEMPLATE_FORMAT, "PROPRIETARY");
     }
 
     /**
      * Called by the OpenMRS server to reach the fingerprint server
      */
     public String getSubjectUrl() {
-        return ConfigUtil.getProperty(SUBJECT_URL, "http://localhost:9000/subject");
+        return getProperty(SUBJECT_URL, "http://localhost:9000/subject");
     }
 
     /**
      * Called by the OpenMRS server to reach the fingerprint server
      */
     public String getMatchUrl() {
-        return ConfigUtil.getProperty(MATCH_URL, "http://localhost:9000/match");
+        return getProperty(MATCH_URL, "http://localhost:9000/match");
     }
 
     /**
      * Called by the browser to reach the fingerprint client on the user's workstation
      */
     public String getScanUrl() {
-        return ConfigUtil.getProperty(SCAN_URL, "http://localhost:9000/fingerprint/scan");
+        return getProperty(SCAN_URL, "http://localhost:9000/fingerprint/scan");
     }
 
     /**
      * Called by the browser to reach the fingerprint client on the user's workstation
      */
     public String getDevicesUrl() {
-        return ConfigUtil.getProperty(DEVICES_URL, "http://localhost:9000/fingerprint/devices");
+        return getProperty(DEVICES_URL, "http://localhost:9000/fingerprint/devices");
+    }
+
+    /**
+     * Reads the property by its name, or if that is blank, by its name in lowercase: Docker instances set runtime
+     * properties as OMRS_EXTRA_* variables, whose names OpenMRS lowercases
+     */
+    private String getProperty(String name, String defaultValue) {
+        String value = ConfigUtil.getProperty(name, null);
+        if (value == null) {
+            value = ConfigUtil.getProperty(name.toLowerCase(), defaultValue);
+        }
+        return value;
     }
 }
