@@ -360,17 +360,38 @@ public class SectionsDefault {
         }
         {
             Field f = new Field();
-            f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIPS OF CONTACT");
+            f.setFormFieldName("obsgroup.PIH:PATIENT CONTACTS CONSTRUCT.obs.PIH:RELATIONSHIP OF RELATIVE TO PATIENT");
             f.setLabel("zl.registration.patient.contactPerson.relationships.label");
             f.setType("obsgroup");
-            if (config.getRegistrationConfig().getContactPerson() != null && config.getRegistrationConfig().getContactPerson().getRequired() == true) {
-				f.setCssClasses(Arrays.asList("required"));
-			}
-            f.setWidget(getTextFieldWidget(30));
+
+            if (config.getRegistrationConfig().getContactPerson() != null
+                    && config.getRegistrationConfig().getContactPerson().getRequired() == true) {
+                f.setCssClasses(Arrays.asList("required"));
+            }
+
+            f.setWidget(toObjectNode(getContactRelationshipWithDropdown()));
             q.addField(f);
         }
 
         return q;
+    }
+
+    protected DropdownWidget getContactRelationshipWithDropdown() {
+        DropdownWidget w = new DropdownWidget();
+
+        w.getConfig().setExpanded(false);
+        w.getConfig().setHideEmptyLabel(true);
+
+        w.getConfig().addOption("PIH:2174", "zl.registration.patient.relationship.father.label");
+        w.getConfig().addOption("PIH:2175", "zl.registration.patient.relationship.mother.label");
+        w.getConfig().addOption("PIH:2179", "zl.registration.patient.relationship.otherRelative.label");
+        w.getConfig().addOption("PIH:2178", "zl.registration.patient.relationship.sibling.label");
+        w.getConfig().addOption("PIH:2176", "zl.registration.patient.relationship.brother.label");
+        w.getConfig().addOption("PIH:2177", "zl.registration.patient.relationship.sister.label");
+        w.getConfig().addOption("PIH:5617", "zl.registration.patient.relationship.partnerOrSpouse.label");
+        w.getConfig().addOption("PIH:1826", "zl.registration.patient.relationship.guardianRelationshipToChild.label");
+
+        return w;
     }
 
     public Question getContactAddress() {
