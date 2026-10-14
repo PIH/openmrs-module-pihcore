@@ -9,7 +9,6 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.appframework.domain.AppTemplate;
 import org.openmrs.module.appframework.domain.Extension;
 import org.openmrs.module.appframework.factory.AppFrameworkFactory;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.authenticationui.AuthenticationUiConfig;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.pihcore.CesConfigConstants;
@@ -45,7 +44,6 @@ import java.util.Set;
 
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants.Extensions.PIH_AUTH_ADMIN_EXTENSION;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants.Extensions.PIH_AUTH_LOGIN_EXTENSION;
-import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addFeatureToggleToExtension;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToAsthmaDashboardFirstColumn;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToClinicianDashboardFirstColumn;
 import static org.openmrs.module.pihcore.apploader.CustomAppLoaderUtil.addToClinicianDashboardSecondColumn;
@@ -132,8 +130,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private Config config;
 
-    private FeatureToggleProperties featureToggles;
-
     private PatientRegistrationApp patientRegistrationApp;
 
     private GraphFactory graphs;
@@ -157,11 +153,9 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     @Autowired
     public CustomAppLoaderFactory(Config config,
-                                  FeatureToggleProperties featureToggles,
                                   PatientRegistrationApp patientRegistrationApp,
                                   GraphFactory graphs) {
         this.config = config;
-        this.featureToggles = featureToggles;
         this.patientRegistrationApp = patientRegistrationApp;
         this.graphs = graphs;
     }
@@ -1426,22 +1420,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         map("linkId", "mirebalaisreports-checkinoverview-link")));
             }
         }
-
-        if (enabledCategories.contains(ReportCategory.DATA_EXPORT)) {
-
-            extensions.add(extension(CustomAppLoaderConstants.Extensions.REPORTING_AD_HOC_ANALYSIS,
-                    "reportingui.adHocAnalysis.label",
-                    null,
-                    "link",
-                    "reportingui/adHocManage.page",
-                    "App: reportingui.adHocAnalysis",
-                    null,
-                    CustomAppLoaderConstants.ExtensionPoints.REPORTING_DATA_EXPORT,
-                    9999,
-                    null));
-
-            addFeatureToggleToExtension(findExtensionById(CustomAppLoaderConstants.Extensions.REPORTING_AD_HOC_ANALYSIS), "reporting_adHocAnalysis");
-        }
     }
 
     private void enableArchives() {
@@ -1607,14 +1585,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                         objectNode("label", "coreapps.app.systemAdministration.label", "link", "/coreapps/systemadministration/systemAdministration.page"),
                         objectNode("label", "coreapps.mergePatientsLong")),
                         "dashboardUrl", (config.getAfterMergeUrl() != null) ? (config.getAfterMergeUrl()) : (config.getDashboardUrl())))));
-
-        apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.FEATURE_TOGGLES,
-                "pih.app.featureToggles.label",
-                "fas fa-fw fa-toggle-on",
-                "pihcore/toggles.page",
-                3,
-                "App: coreapps.systemAdministration",
-                null)));
 
         apps.add(addToSystemAdministrationPage(app(CustomAppLoaderConstants.Apps.LEGACY_ADMINISTRATION,
                 "emr.advancedFeatures",

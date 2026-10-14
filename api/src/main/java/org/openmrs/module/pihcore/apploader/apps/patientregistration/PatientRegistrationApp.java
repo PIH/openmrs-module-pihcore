@@ -4,7 +4,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.node.ObjectNode;
 import org.openmrs.module.appframework.domain.AppDescriptor;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
@@ -17,9 +16,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PatientRegistrationApp {
-
-    @Autowired
-    private FeatureToggleProperties featureToggles;
 
     public AppDescriptor getAppDescriptor(Config config) {
         AppDescriptor d = new AppDescriptor();
@@ -47,7 +43,7 @@ public class PatientRegistrationApp {
         c.setIdentifierTypesToDisplay(config.getRegistrationConfig().getIdentifierTypesToDisplay());
         switch(config.getCountry()) {
             case HAITI:
-                new SectionsHaiti(config, featureToggles).addSections(c);
+                new SectionsHaiti(config).addSections(c);
                 break;
             case LIBERIA:
                 new SectionsLiberia(config).addSections(c);
