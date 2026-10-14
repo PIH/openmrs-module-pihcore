@@ -4,7 +4,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.addresshierarchy.AddressField;
 import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
 import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
-import org.openmrs.module.appframework.feature.FeatureToggleProperties;
 import org.openmrs.module.pihcore.apploader.RequireUtil;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Components;
@@ -25,14 +24,11 @@ import java.util.Map;
 
 public class SectionsHaiti extends SectionsDefault {
 
-    private FeatureToggleProperties featureToggles;
-
     private Config config;
 
-    public SectionsHaiti(Config config, FeatureToggleProperties featureToggles) {
+    public SectionsHaiti(Config config) {
         super(config);
         this.config = config;
-        this.featureToggles = featureToggles;
     }
 
     @Override

@@ -115,7 +115,6 @@ public class CustomAppLoaderConstants {
         public static final String MANAGE_ACCOUNTS = "emr.account.manageAccounts";
         public static final String PRINTER_ADMINISTRATION = "printer.printerAdministration";
         public static final String MERGE_PATIENTS = "coreapps.mergePatients";
-        public static final String FEATURE_TOGGLES = "pih.featureToggles";
         public static final String PATIENT_EXPORT = "pih.exportPatients";
         public static final String PATIENT_IMPORT = "pih.importPatients";
         public static final String LEGACY_ADMINISTRATION = "pih.app.admin.legacyAdmin";
@@ -330,7 +329,6 @@ public class CustomAppLoaderConstants {
 
         public static final String DEATH_CERTIFICATE_HEADER_EXTENSION = "pih.header.deathCertificate";
 
-        public static final String REPORTING_AD_HOC_ANALYSIS = "reportingui.dataExports.adHoc";
 
         public static final String ALLERGY_UI_VISIT_NOTE_NEXT_SUPPORT = "allergyui.allergires.visitNoteNextSupport";
 
@@ -445,8 +443,7 @@ public class CustomAppLoaderConstants {
             Apps.MANAGE_ACCOUNTS,
             Apps.PRINTER_ADMINISTRATION,
             Apps.BED_ADMINISTRATION,
-            Apps.MERGE_PATIENTS,
-            Apps.FEATURE_TOGGLES);
+            Apps.MERGE_PATIENTS);
 
     public static final List<String> OVERALL_ACTIONS_ORDER = Arrays.asList(
             Extensions.ENCOUNTER_LIST_OVERALL_ACTION,

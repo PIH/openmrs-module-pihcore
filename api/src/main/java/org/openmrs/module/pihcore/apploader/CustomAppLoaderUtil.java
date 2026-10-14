@@ -574,14 +574,6 @@ public class CustomAppLoaderUtil {
         return "&createVisit=true";
     }
 
-    static public void addFeatureToggleToApp(AppDescriptor app, String featureToggle) {
-        app.setFeatureToggle(featureToggle);
-    }
-
-    static public void addFeatureToggleToExtension(Extension ext, String featureToggle) {
-        ext.setFeatureToggle(featureToggle);
-    }
-
     static public void registerTemplateForEncounterType(String encounterTypeUuid, Extension template, String icon) {
         registerTemplateForEncounterType(encounterTypeUuid, template, icon, null, false, null, null);
     }
