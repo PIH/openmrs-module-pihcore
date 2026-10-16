@@ -76,4 +76,90 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
         assertTrue(source instanceof SequentialIdentifierGenerator);
         assertEquals(localGenerators.getLocalZlIdentifierGenerator().getUuid(), source.getUuid());
     }
+
+    /**
+     * The local generator with no prefix is used as the production ZL EMR ID generator (TASKS-564), replacing the
+     * one hosted on Zanmi, so it must produce the same identifiers as Zanmi for the same sequence value.
+     * Expected values computed independently from Zanmi's definition: base ACDEFGHJKLMNPRTUVWXY1234567890,
+     * no prefix, first identifier base 10000, length 6, LuhnMod30 check digit
+     */
+    @Test
+    public void localGeneratorWithNoPrefixShouldGenerateSameIdentifiersAsZanmi() {
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+
+        ConfigDescriptor descriptor = new ConfigDescriptor();
+        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
+        descriptor.setLocalZlIdentifierGeneratorEnabled(true);
+        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
+        ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+
+        SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
+        assertEquals("ACDEFGHJKLMNPRTUVWXY1234567890", generator.getBaseCharacterSet());
+        assertEquals("10000", generator.getFirstIdentifierBase());
+
+        // the idgen processor generates using next_sequence_value as the seed
+        assertEquals("1AAAAX", generator.getIdentifierForSeed(16200000L)); // first identifier base 10000
+        assertEquals("33WNJ0", generator.getIdentifierForSeed(18429637L)); // Zanmi next_sequence_value as of 2026-10-16
+        assertEquals("000000", generator.getIdentifierForSeed(24299999L)); // last available identifier
+    }
+
+    /**
+     * A local generator with no prefix issues production ZL EMR IDs, so the pool must not draw from it until its
+     * sequence has been set to continue from the existing generator, or it would reissue identifiers from the start
+     */
+    @Test
+    public void createPatientIdGeneratorShouldNotUseLocalGeneratorWithNoPrefixUntilSequenceValueIsSet() {
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+
+        ConfigDescriptor descriptor = new ConfigDescriptor();
+        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
+        descriptor.setLocalZlIdentifierGeneratorEnabled(true);
+        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
+
+        ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+        SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
+        assertEquals(-1L, identifierSourceService.getSequenceValue(generator));
+        assertTrue(generators.getLocalZlIdentifierPool().getSource() instanceof RemoteIdentifierSource);
+
+        String property = ConfigureHaitiIdGenerators.LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY;
+        try {
+            System.setProperty(property, "18429637");
+            ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+            assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
+            assertEquals(18429637L, identifierSourceService.getSequenceValue(generator));
+
+            // never lowers the sequence, so a property left in place can't cause identifiers to be reissued
+            identifierSourceService.saveSequenceValue(generator, 18430000L);
+            ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+            assertEquals(18430000L, identifierSourceService.getSequenceValue(generator));
+        }
+        finally {
+            System.clearProperty(property);
+        }
+    }
+
+    @Test
+    public void createPatientIdGeneratorShouldSetSequenceValueFromPropertyWhenCreatingLocalGenerator() {
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+
+        ConfigDescriptor descriptor = new ConfigDescriptor();
+        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
+        descriptor.setLocalZlIdentifierGeneratorEnabled(true);
+        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
+
+        String property = ConfigureHaitiIdGenerators.LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY;
+        try {
+            System.setProperty(property, "18429637");
+            ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+            SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
+            assertEquals(18429637L, identifierSourceService.getSequenceValue(generator));
+            assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
+        }
+        finally {
+            System.clearProperty(property);
+        }
+    }
 }
