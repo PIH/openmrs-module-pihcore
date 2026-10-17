@@ -6,7 +6,6 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.AutoGenerationOption;
-import org.openmrs.module.idgen.IdgenUtil;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
@@ -26,7 +25,6 @@ public class ConfigureHaitiIdGenerators {
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL_PROPERTY = "remote_zlidentifier_url";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY = "remote_zlidentifier_username";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD_PROPERTY = "remote_zlidentifier_password";
-    public static final String LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY = "local_zlidentifier_next_sequence_value";
     private static final String ZL_DOSSIER_NUMBER_IDENTIFIER_SOURCE_UUID = "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8";
     private static final String HIVEMR_V1_IDENTIFIER_SOURCE_UUID = "f36ec8b2-70ca-11eb-8aa6-0242ac110002";
     private static final String HIVEMR_V1_AUTOGENERATION_OPTION_UUID = "570fe8a7-70cd-11eb-8aa6-0242ac110002";
@@ -176,21 +174,12 @@ public class ConfigureHaitiIdGenerators {
 		return localZlIdentifierPool;
 	}
 
-    /**
-     * @return the local generator, or null if it doesn't exist and shouldn't be created yet: a generator with no prefix
-     * issues production ZL EMR IDs, so isn't created until it can continue the existing sequence, so that it can't be
-     * used to issue identifiers from the start of the sequence before then
-     */
     public SequentialIdentifierGenerator localZlIdentifierGenerator(PatientIdentifierType zlPatientIdentifierType) {
-        String prefix = config.getDescriptor().getLocalZlIdentifierGeneratorPrefix();
         SequentialIdentifierGenerator localZlIdentifierGenerator;
         try {
             localZlIdentifierGenerator = getLocalZlIdentifierGenerator();
         }
         catch (IllegalStateException ex) {
-            if (StringUtils.isEmpty(prefix) && StringUtils.isBlank(PihCoreUtil.getSystemOrRuntimeProperty(LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY))) {
-                return null;
-            }
             localZlIdentifierGenerator = new SequentialIdentifierGenerator();
             localZlIdentifierGenerator.setName("Local ZL Identifier Generator");
             localZlIdentifierGenerator.setUuid(PihCoreConstants.LOCAL_ZL_IDENTIFIER_GENERATOR_UUID);
@@ -199,52 +188,24 @@ public class ConfigureHaitiIdGenerators {
             localZlIdentifierGenerator.setMaxLength(6);
             localZlIdentifierGenerator.setMinLength(6);
         }
+        String prefix = config.getDescriptor().getLocalZlIdentifierGeneratorPrefix();
         int firstIdentifierBase = (int)Math.pow(10, (4-prefix.length()));
         localZlIdentifierGenerator.setPrefix(prefix);
         localZlIdentifierGenerator.setFirstIdentifierBase(Integer.toString(firstIdentifierBase));
 
         identifierSourceService.saveIdentifierSource(localZlIdentifierGenerator);
-        raiseLocalZlIdentifierSequenceValue(localZlIdentifierGenerator);
         return localZlIdentifierGenerator;
-    }
-
-    /**
-     * If the local_zlidentifier_next_sequence_value property is set, sets the generator's next sequence value to it,
-     * but only if that is higher than the current value, so that identifiers already issued are never reissued.
-     * Used to continue an existing sequence, eg. when moving ZL EMR ID generation off Zanmi (TASKS-564)
-     * A value that isn't a sequence value of the generator fails, rather than risk issuing the wrong identifiers
-     */
-    public void raiseLocalZlIdentifierSequenceValue(SequentialIdentifierGenerator localZlIdentifierGenerator) {
-        String property = PihCoreUtil.getSystemOrRuntimeProperty(LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY);
-        if (StringUtils.isNotBlank(property)) {
-            long nextSequenceValue;
-            try {
-                nextSequenceValue = Long.parseLong(property.trim());
-            }
-            catch (NumberFormatException e) {
-                throw new IllegalStateException(LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY + " must be a whole number, but is " + property, e);
-            }
-            long firstSequenceValue = IdgenUtil.convertFromBase(localZlIdentifierGenerator.getFirstIdentifierBase(), localZlIdentifierGenerator.getBaseCharacterSet().toCharArray());
-            if (nextSequenceValue < firstSequenceValue) {
-                throw new IllegalStateException(LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY + " is " + nextSequenceValue + ", which is below the generator's first sequence value " + firstSequenceValue);
-            }
-            Long currentSequenceValue = identifierSourceService.getSequenceValue(localZlIdentifierGenerator);
-            if (currentSequenceValue == null || currentSequenceValue < nextSequenceValue) {
-                log.warn("Setting Local ZL Identifier Generator next sequence value from " + currentSequenceValue + " to " + nextSequenceValue);
-                identifierSourceService.saveSequenceValue(localZlIdentifierGenerator, nextSequenceValue);
-            }
-        }
     }
 
 	public IdentifierSource zlIdentifierGenerator(PatientIdentifierType zlPatientIdentifierType) {
         if (config.getDescriptor().getLocalZlIdentifierGeneratorEnabled()) {
             SequentialIdentifierGenerator localZlIdentifierGenerator = localZlIdentifierGenerator(zlPatientIdentifierType);
-            if (localZlIdentifierGenerator != null && isReadyToGenerate(localZlIdentifierGenerator)) {
+            if (isReadyToGenerate(localZlIdentifierGenerator)) {
                 return localZlIdentifierGenerator;
             }
             log.warn("Local ZL Identifier Generator has no prefix and no sequence value set, so would issue identifiers " +
-                    "that duplicate those already issued. Using the remote ZL identifier source until " +
-                    LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY + " is set (see TASKS-564)");
+                    "that duplicate those already issued. Using the remote ZL identifier source until its " +
+                    "next_sequence_value is set to continue the existing sequence (see TASKS-564)");
         }
 
         RemoteIdentifierSource remoteZlIdentifierSource;

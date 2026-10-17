@@ -15,7 +15,6 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest {
@@ -93,14 +92,7 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
         descriptor.setCountry(ConfigDescriptor.Country.HAITI);
         descriptor.setLocalZlIdentifierGeneratorEnabled(true);
         ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
-        String property = ConfigureHaitiIdGenerators.LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY;
-        try {
-            System.setProperty(property, "18429637");
-            ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
-        }
-        finally {
-            System.clearProperty(property);
-        }
+        ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
 
         SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
         assertEquals("ACDEFGHJKLMNPRTUVWXY1234567890", generator.getBaseCharacterSet());
@@ -113,9 +105,8 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
     }
 
     /**
-     * A local generator with no prefix issues production ZL EMR IDs, so it isn't created, and the pool doesn't draw
-     * from it, until its sequence can be set to continue from the existing generator, or it would reissue identifiers
-     * from the start
+     * A local generator with no prefix issues production ZL EMR IDs, so the pool must not draw from it until its
+     * sequence has been set to continue from the existing generator, or it would reissue identifiers from the start
      */
     @Test
     public void createPatientIdGeneratorShouldNotUseLocalGeneratorWithNoPrefixUntilSequenceValueIsSet() {
@@ -128,83 +119,14 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
         ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
 
         ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
-        assertThrows(IllegalStateException.class, generators::getLocalZlIdentifierGenerator);
+        SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
+        assertEquals(-1L, identifierSourceService.getSequenceValue(generator));
         assertTrue(generators.getLocalZlIdentifierPool().getSource() instanceof RemoteIdentifierSource);
 
-        String property = ConfigureHaitiIdGenerators.LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY;
-        try {
-            System.setProperty(property, "18429637");
-            ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
-            SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
-            assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
-            assertEquals(18429637L, identifierSourceService.getSequenceValue(generator));
-
-            // never lowers the sequence, so a property left in place can't cause identifiers to be reissued
-            identifierSourceService.saveSequenceValue(generator, 18430000L);
-            ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
-            assertEquals(18430000L, identifierSourceService.getSequenceValue(generator));
-        }
-        finally {
-            System.clearProperty(property);
-        }
-
-        // only needed the first time: once the generator exists, it keeps being used without the property
+        // set once at the switchover, with an update to idgen_seq_id_gen
+        identifierSourceService.saveSequenceValue(generator, 18429637L);
         ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
-        SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
         assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
-        assertEquals(18430000L, identifierSourceService.getSequenceValue(generator));
-    }
-
-    @Test
-    public void createPatientIdGeneratorShouldSetSequenceValueFromPropertyWhenCreatingLocalGenerator() {
-        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
-        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
-
-        ConfigDescriptor descriptor = new ConfigDescriptor();
-        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
-        descriptor.setLocalZlIdentifierGeneratorEnabled(true);
-        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
-
-        String property = ConfigureHaitiIdGenerators.LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY;
-        try {
-            System.setProperty(property, "18429637");
-            ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
-            SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
-            assertEquals(18429637L, identifierSourceService.getSequenceValue(generator));
-            assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
-        }
-        finally {
-            System.clearProperty(property);
-        }
-    }
-
-    @Test
-    public void createPatientIdGeneratorShouldFailIfSequenceValuePropertyIsNotAWholeNumber() {
-        assertSequenceValuePropertyFails("18,429,637", "must be a whole number");
-    }
-
-    @Test
-    public void createPatientIdGeneratorShouldFailIfSequenceValuePropertyIsBelowFirstSequenceValue() {
-        assertSequenceValuePropertyFails("1842963", "below the generator's first sequence value 17009999");
-    }
-
-    private void assertSequenceValuePropertyFails(String value, String expectedMessage) {
-        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
-        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
-
-        ConfigDescriptor descriptor = new ConfigDescriptor();
-        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
-        descriptor.setLocalZlIdentifierGeneratorEnabled(true);
-        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
-
-        String property = ConfigureHaitiIdGenerators.LOCAL_ZL_IDENTIFIER_NEXT_SEQUENCE_VALUE_PROPERTY;
-        try {
-            System.setProperty(property, value);
-            IllegalStateException e = assertThrows(IllegalStateException.class, () -> ConfigureHaitiIdGenerators.createPatientIdGenerator(generators));
-            assertTrue(e.getMessage().contains(expectedMessage), e.getMessage());
-        }
-        finally {
-            System.clearProperty(property);
-        }
+        assertEquals(18429637L, identifierSourceService.getSequenceValue(generator));
     }
 }
