@@ -1,5 +1,6 @@
 package org.openmrs.module.pihcore.identifier.haiti;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.LocationService;
@@ -14,8 +15,12 @@ import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreUtil;
 import org.openmrs.module.pihcore.ZlConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConfigureHaitiIdGenerators {
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_URL_PROPERTY = "remote_zlidentifier_url";
     public static final String REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY = "remote_zlidentifier_username";
@@ -194,7 +199,13 @@ public class ConfigureHaitiIdGenerators {
 
 	public IdentifierSource zlIdentifierGenerator(PatientIdentifierType zlPatientIdentifierType) {
         if (config.getDescriptor().getLocalZlIdentifierGeneratorEnabled()) {
-            return localZlIdentifierGenerator(zlPatientIdentifierType);
+            SequentialIdentifierGenerator localZlIdentifierGenerator = localZlIdentifierGenerator(zlPatientIdentifierType);
+            if (isReadyToGenerate(localZlIdentifierGenerator)) {
+                return localZlIdentifierGenerator;
+            }
+            log.warn("Local ZL Identifier Generator has no prefix and no sequence value set, so would issue identifiers " +
+                    "that duplicate those already issued. Using the remote ZL identifier source until its " +
+                    "next_sequence_value is set to continue the existing sequence (see TASKS-564)");
         }
 
         RemoteIdentifierSource remoteZlIdentifierSource;
@@ -214,6 +225,18 @@ public class ConfigureHaitiIdGenerators {
 		identifierSourceService.saveIdentifierSource(remoteZlIdentifierSource);
 		return remoteZlIdentifierSource;
 	}
+
+    /**
+     * A generator with no prefix issues production ZL EMR IDs, so it must continue the existing sequence rather than
+     * starting again from the first identifier base. A generator with a prefix (eg. test servers) can start from there.
+     */
+    public boolean isReadyToGenerate(SequentialIdentifierGenerator generator) {
+        if (StringUtils.isNotEmpty(generator.getPrefix())) {
+            return true;
+        }
+        Long sequenceValue = identifierSourceService.getSequenceValue(generator);
+        return sequenceValue != null && sequenceValue >= 0;
+    }
 
 	public SequentialIdentifierGenerator sequentialIdentifierGeneratorForDossier(PatientIdentifierType patientIdentifierType, String prefix, String identifierSourceUuid) {
 		SequentialIdentifierGenerator dossierSequenceGenerator;
