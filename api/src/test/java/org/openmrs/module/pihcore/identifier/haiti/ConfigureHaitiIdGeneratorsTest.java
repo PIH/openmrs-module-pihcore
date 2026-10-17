@@ -147,6 +147,12 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
         finally {
             System.clearProperty(property);
         }
+
+        // only needed the first time: once the generator exists, it keeps being used without the property
+        ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+        SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
+        assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
+        assertEquals(18430000L, identifierSourceService.getSequenceValue(generator));
     }
 
     @Test
