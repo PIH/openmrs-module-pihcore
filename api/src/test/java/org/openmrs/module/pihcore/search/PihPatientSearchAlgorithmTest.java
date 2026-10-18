@@ -14,6 +14,7 @@ import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -100,6 +101,101 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
         assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("Jarus"));
         assertThat(results.get(0).getPatient().getPersonName().getFamilyName(), is("Rapondi"));
 
+    }
+
+    @Test
+    public void shouldFindFamilyNameTypoThatChangesPhoneticCode() {
+
+        // "Program" and "Progam" encode to different (truncated) phonetic codes, so the phonetic cohort misses it
+        Patient patient = buildPatient("Dave", "Program");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getFamilyName(), is("Progam"));
+    }
+
+    @Test
+    public void shouldFindGivenNameTypoThatChangesPhoneticCode() {
+
+        // "Davee" and "Dave" are close, but the given name phonetic codes could differ for other typos, so also check
+        // the case where the family name matches phonetically and the given name is within edit distance
+        Patient patient = buildPatient("Dvae", "Progam");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("Dave"));
+    }
+
+    @Test
+    public void shouldFindPatientWithGivenAndFamilyNameSwapped() {
+
+        // the existing patient has given name "Lopez" and family name "Maria"
+        Patient patient = buildPatient("Maria", "Lopez");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("Lopez"));
+        assertThat(results.get(0).getPatient().getPersonName().getFamilyName(), is("Maria"));
+    }
+
+    @Test
+    public void shouldFindPatientWithNamesSwappedAndTypo() {
+
+        Patient patient = buildPatient("Marie", "Lopes");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getFamilyName(), is("Maria"));
+    }
+
+    @Test
+    public void shouldFindPatientWithEquivalentGivenName() {
+
+        // the existing patient is William Santos; "Bill" encodes to a completely different phonetic code
+        Patient patient = buildPatient("Bill", "Santos");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("William"));
+    }
+
+    @Test
+    public void shouldFindPatientWithEquivalentGivenNameAndFamilyNameTypo() {
+
+        Patient patient = buildPatient("Billy", "Santoz");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, 2.0, 10);
+
+        assertThat(results.size(), is(1));
+        assertThat(results.get(0).getPatient().getPersonName().getGivenName(), is("William"));
+    }
+
+    @Test
+    public void shouldNotFindUnrelatedFamilyName() {
+
+        Patient patient = buildPatient("Dave", "Zxqwerty");
+
+        List<PatientAndMatchQuality> results = searchAlgorithm.findSimilarPatients(patient, null, null, 10);
+
+        assertThat(results.size(), is(0));
+    }
+
+    private Patient buildPatient(String givenName, String familyName) {
+        Patient patient = new Patient();
+        PersonName name = new PersonName();
+        patient.addName(name);
+        name.setGivenName(givenName);
+        name.setFamilyName(familyName);
+        patient.setGender("M");
+        Calendar birthdate = Calendar.getInstance();
+        birthdate.set(2001, Calendar.JANUARY, 1, 0, 0, 0);
+        patient.setBirthdate(birthdate.getTime());
+        return patient;
     }
 
     @Test

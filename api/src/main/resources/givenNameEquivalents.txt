@@ -1,0 +1,95 @@
+# Groups of given names that are commonly used interchangeably (nicknames, short forms, spelling and language variants).
+# One group per line, comma-separated. Names are compared ignoring case and accent marks.
+# A name looks up every group it appears in; the lookup is NOT transitive across groups.
+# Used by PihPatientSearchAlgorithm (similar patient search) via GivenNameEquivalents.
+
+# English
+david, dave, davy, davie
+william, bill, billy, will, willy, willie, liam, guillaume
+robert, bob, bobby, rob, robbie, roberto
+richard, rick, ricky, dick, rich, richie, ricardo
+james, jim, jimmy, jamie
+john, johnny, jon, jack, jean, jan, juan, johan, jhon
+jacques, jacob, jacky, jake
+michael, mike, mikey, mick, michel, miguel
+thomas, tom, tommy, thom
+charles, charlie, chuck, charly, carlos
+joseph, joe, joey, josef, jose
+edward, ed, eddie, ted, teddy, ned, edouard, eduardo
+henry, harry, hank, henri, enrique
+anthony, antony, tony, antoine, antonio
+daniel, dan, danny, danel
+matthew, matt, mathieu, mateo
+christopher, chris, christophe, kris
+nicholas, nicolas, nick, nicky, nico
+stephen, steven, steve, etienne, esteban
+andrew, andy, drew, andre, andres
+alexander, alexandre, alex, alexis, sandy
+benjamin, ben, benny, benjamen
+samuel, sam, sammy, samuell
+timothy, tim, timmy, timothee
+peter, pete, pierre, pierrot, pedro
+frederick, frederic, fred, freddy, fredrick
+francis, francois, frank, frankie, franky, frantz, franz, francisco
+raymond, ray, raymon, raymundo
+ronald, ron, ronnie, ronal
+donald, don, donnie, donal
+lawrence, laurence, larry, laurent
+gregory, greg, gregoire, gregorio
+jeffrey, geoffrey, jeff, geoff
+kenneth, ken, kenny
+walter, walt, gualterio
+louis, lewis, louie, luis
+ernest, ernesto, ernst, ernie
+patrick, paddy, patrice
+victor, vic, vicky
+vincent, vince, vinny, vicente
+leonard, leo, leon, lenny
+eugene, gene, eugenio
+gerald, gerard, gerry, jerry
+jeremy, jeremiah, jerry, jeremie
+reginald, reggie, reynold
+sebastian, sebastien, seb
+maurice, morris, mauricio
+wilfrid, wilfred, wilfrid, wilfredo
+emmanuel, manuel, manny, emanuel
+fabian, fabien, fabio
+adrian, adrien, adrián
+
+# Women
+elizabeth, elisabeth, liz, lizzie, lizzy, beth, betty, betsy, eliza, liza
+margaret, margarita, marguerite, maggie, meg, peggy, marge, greta, margot
+katherine, catherine, katharine, kathryn, kate, katie, kathy, cathy, kitty, katia, katerine, caterine
+jennifer, jenny, jen, jenifer
+susan, susanne, suzanne, sue, susie, suzy, susana
+patricia, patty, tricia, trish, patrizia
+deborah, debra, debbie, deb
+rebecca, rebekah, becky, becca, rebeca
+barbara, barb, barbie, barbra
+dorothy, dorothee, dot, dottie, dorothea
+victoria, vicky, vicki, tori
+christine, christina, cristina, tina, chrissy, kristina
+jessica, jess, jessie, jessika
+abigail, abby, abbie, abigael
+sandra, sandy, cassandra, cassie
+cynthia, cindy, cinthia
+stephanie, steph, stefany, stephany
+amanda, mandy, amandine
+anne, ann, anna, annie, anny, hannah, hanna, nancy
+maria, marie, mary, mari, marianne, miriam, maryse, marilyn, molly, polly
+josephine, josefina, josette, josie
+joanna, joan, johanna, jeanne, jane, janet, jeanette, jeannette, joanne
+helen, helene, helena, ellen, elena, nell, nelly
+madeleine, madeline, maddie, magdalena
+carolyn, caroline, carol, carole, carolina, carrie, lina
+veronica, veronique, ronnie, vero
+isabella, isabelle, isabel, bella, belle, izabel
+frances, francoise, francesca, fran, franny, fanny
+louise, louisa, lou, luisa, lulu
+michelle, michele, michaela, shelly, mikaela
+claudette, claudia, claude, claudine
+evelyn, evelyne, eveline, eve, eva, evelina
+yvette, yvonne, yvon
+nathalie, natalie, natalia, natasha
+laura, laurie, lauren
+catherine, katia, katya
