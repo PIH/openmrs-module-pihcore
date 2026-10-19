@@ -64,7 +64,7 @@
         <dispensingVersion>2.1.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>2.2.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
-        <emrapiVersion>3.5.0</emrapiVersion>
+        <emrapiVersion>3.5.1</emrapiVersion>
         <eventVersion>4.0.0</eventVersion>
         <fhir2Version>4.3.0</fhir2Version>
         <growthChartVersion>2.1.0</growthChartVersion>
@@ -84,7 +84,7 @@
         <paperrecordVersion>1.4.1</paperrecordVersion>
         <pihappsVersion>1.2.0-SNAPSHOT</pihappsVersion>
         <printerVersion>1.6.0</printerVersion>
-        <queueVersion>3.1.0</queueVersion>
+        <queueVersion>3.1.1</queueVersion>
         <radiologyappVersion>2.0.0-SNAPSHOT</radiologyappVersion>
         <registrationappVersion>1.30.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>1.13.0</registrationcoreVersion>
@@ -92,7 +92,7 @@
         <reportingrestVersion>2.1.0-SNAPSHOT</reportingrestVersion>
         <reportinguiVersion>1.15.0-SNAPSHOT</reportinguiVersion>
         <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
-        <spaVersion>3.1.0</spaVersion>
+        <spaVersion>3.1.1</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
         <testutilsVersion>1.8.0</testutilsVersion>
         <uicommonsVersion>3.2.0-SNAPSHOT</uicommonsVersion>
