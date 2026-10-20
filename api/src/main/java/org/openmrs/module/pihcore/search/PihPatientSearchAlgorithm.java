@@ -16,6 +16,8 @@ import org.openmrs.module.namephonetics.NamePhonetic;
 import org.openmrs.module.namephonetics.NamePhoneticsUtil;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.metadata.Metadata;
+import org.openmrs.module.registrationcore.api.search.FieldMatchResult;
+import org.openmrs.module.registrationcore.api.search.FieldMatchStatus;
 import org.openmrs.module.registrationcore.api.search.PatientAndMatchQuality;
 import org.openmrs.module.registrationcore.api.search.SimilarPatientSearchAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,10 +122,23 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
 
         List<PatientAndMatchQuality> matches = new ArrayList<PatientAndMatchQuality>();
 
+        // either type may not exist at a given site; the corresponding field is then reported as missing
+        String phoneAttributeName = Metadata.getPhoneNumberAttributeType() != null ? Metadata.getPhoneNumberAttributeType().getName() : null;
+        String mothersFirstNameAttributeName = Metadata.getMothersFirstNameAttributeType() != null ? Metadata.getMothersFirstNameAttributeType().getName() : null;
+
         for (Patient match : patients) {
             List<String> matchedFields = new ArrayList<String>();
 
             double score = 0;
+
+            // per-field points, only used to report the per-field results; they don't affect the overall score
+            double genderScore = 0;
+            double birthdateScore = 0;
+            double nameScore = 0;
+            double addressScore = 0;
+            double phoneScore = 0;
+            double mothersFirstNameScore = 0;
+            FieldMatchStatus birthdateStatus = FieldMatchStatus.MISSING;
 
             // these are matched by the fact that we made it through the name phonetics match
             matchedFields.add("names.givenName");
@@ -133,10 +148,12 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             if (patient.getGender() != null && match.getGender() != null) {
                 if (patient.getGender().equals(match.getGender())) {
                     score += 1;
+                    genderScore = 1;
                     matchedFields.add("gender");
                 }
                 else {
                     score += -8;
+                    genderScore = -8;
                 }
             }
 
@@ -144,16 +161,22 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             if (patient.getBirthdate() != null && match.getBirthdate() != null) {
                 if (!match.getBirthdateEstimated() && new DateTime(patient.getBirthdate()).withTimeAtStartOfDay().equals(new DateTime(match.getBirthdate()).withTimeAtStartOfDay())) {
                     score += 10;
+                    birthdateScore = 10;
+                    birthdateStatus = FieldMatchStatus.MATCH;
                     matchedFields.add("birthdate");
                 }
                 else {
                     int yearsBetween = Math.abs(Years.yearsBetween(new DateTime(patient.getBirthdate()), new DateTime(match.getBirthdate())).getYears());
                     if (yearsBetween <= 5) {
                         score += (6 - yearsBetween);
+                        birthdateScore = 6 - yearsBetween;
+                        birthdateStatus = FieldMatchStatus.SIMILAR;
                         matchedFields.add("birthdate");
                     }
                     else {
                         score += -8;
+                        birthdateScore = -8;
+                        birthdateStatus = FieldMatchStatus.DIFFERENT;
                     }
                 }
             }
@@ -172,7 +195,12 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                     int yearsBetween = Math.abs(patientEstimatedAge - match.getAge());
                     if (yearsBetween < 5) {
                         score += (6 - yearsBetween);
+                        birthdateScore = 6 - yearsBetween;
+                        birthdateStatus = FieldMatchStatus.SIMILAR;
                         matchedFields.add("birthdate");
+                    }
+                    else {
+                        birthdateStatus = FieldMatchStatus.DIFFERENT;
                     }
                 }
             }
@@ -187,14 +215,15 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             middleNameMatch = nameExactMatch(patient.getMiddleName(), match.getMiddleName());
 
             if (familyNameMatch && givenNameMatch && middleNameMatch) {
-                score += 4;
+                nameScore = 4;
             }
             else if (familyNameMatch && givenNameMatch) {
-                score += 2;
+                nameScore = 2;
             }
             else if (familyNameMatch || givenNameMatch || middleNameMatch) {
-                score += 0.5;
+                nameScore = 0.5;
             }
+            score += nameScore;
 
             // check for address matches
             if (config.getRegistrationConfig() != null && config.getRegistrationConfig().getSimilarPatientsSearch() != null
@@ -210,6 +239,7 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                             if (StringUtils.isNotBlank(patientField) && StringUtils.isNotBlank(matchField) &&
                                     stripAccentMarks(patientField).equalsIgnoreCase(stripAccentMarks(matchField))) {
                                 score += new Double(addressFields.get(addressField));
+                                addressScore += new Double(addressFields.get(addressField));
                                 matchedFields.add("addresses." + addressField);
                             }
                         }
@@ -244,18 +274,35 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
 
                         if (stripAccentMarks(patientAttribute).equalsIgnoreCase(stripAccentMarks(matchAttribute))) {
                             score += new Double(personAttributeTypes.get(personAttributeType));
+                            if (personAttributeType.equalsIgnoreCase(phoneAttributeName)) {
+                                phoneScore = new Double(personAttributeTypes.get(personAttributeType));
+                            }
+                            else if (personAttributeType.equalsIgnoreCase(mothersFirstNameAttributeName)) {
+                                mothersFirstNameScore = new Double(personAttributeTypes.get(personAttributeType));
+                            }
                             matchedFields.add("attributes." + personAttributeType);
                         }
                     }
                 }
             }
 
+            List<FieldMatchResult> fieldResults = new ArrayList<FieldMatchResult>();
+            fieldResults.add(new FieldMatchResult(FieldMatchResult.NAME,
+                    (familyNameMatch && givenNameMatch) ? FieldMatchStatus.MATCH : FieldMatchStatus.SIMILAR, nameScore));
+            fieldResults.add(new FieldMatchResult(FieldMatchResult.GENDER, genderStatus(patient, match), genderScore));
+            fieldResults.add(new FieldMatchResult(FieldMatchResult.BIRTHDATE, birthdateStatus, birthdateScore));
+            fieldResults.add(new FieldMatchResult(FieldMatchResult.MOTHERS_FIRST_NAME,
+                    mothersFirstNameStatus(patient, match, mothersFirstNameAttributeName), mothersFirstNameScore));
+            fieldResults.add(new FieldMatchResult(FieldMatchResult.ADDRESS, addressStatus(patient, match), addressScore));
+            fieldResults.add(new FieldMatchResult(FieldMatchResult.PHONE,
+                    phoneStatus(patient, match, phoneAttributeName), phoneScore));
+
             // only take matches that make the cut
             if (cutoff == null) {
-                matches.add(new PatientAndMatchQuality(match, score, matchedFields));
+                matches.add(new PatientAndMatchQuality(match, score, matchedFields, fieldResults));
             } else {
                 if (score >= cutoff) {
-                    matches.add(new PatientAndMatchQuality(match, score, matchedFields));
+                    matches.add(new PatientAndMatchQuality(match, score, matchedFields, fieldResults));
                 }
             }
         }
@@ -282,6 +329,94 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             }
         }
         return false;
+    }
+
+    private FieldMatchStatus genderStatus(Patient patient, Patient match) {
+        if (patient.getGender() == null || match.getGender() == null) {
+            return FieldMatchStatus.MISSING;
+        }
+        return patient.getGender().equals(match.getGender()) ? FieldMatchStatus.MATCH : FieldMatchStatus.DIFFERENT;
+    }
+
+    // compares all configured address fields that are filled in on both sides
+    private FieldMatchStatus addressStatus(Patient patient, Patient match) {
+        if (config.getRegistrationConfig() == null || config.getRegistrationConfig().getSimilarPatientsSearch() == null
+                || !config.getRegistrationConfig().getSimilarPatientsSearch().containsKey("addressFields")) {
+            return FieldMatchStatus.MISSING;
+        }
+        Map<String, String> addressFields = (Map<String,String>) config.getRegistrationConfig().getSimilarPatientsSearch().get("addressFields");
+        PersonAddress patientAddress = patient.getPersonAddress();
+        PersonAddress matchAddress = match.getPersonAddress();
+        if (addressFields == null || patientAddress == null || matchAddress == null) {
+            return FieldMatchStatus.MISSING;
+        }
+
+        int compared = 0;
+        int matched = 0;
+        for (String addressField : addressFields.keySet()) {
+            try {
+                String patientField = (String) PropertyUtils.getProperty(patientAddress, addressField);
+                String matchField = (String) PropertyUtils.getProperty(matchAddress, addressField);
+                if (StringUtils.isNotBlank(patientField) && StringUtils.isNotBlank(matchField)) {
+                    compared++;
+                    if (stripAccentMarks(patientField).equalsIgnoreCase(stripAccentMarks(matchField))) {
+                        matched++;
+                    }
+                }
+            }
+            catch (Exception e) {
+                log.error("Unable to access " + addressField + " on patient during similar patient search");
+            }
+        }
+
+        if (compared == 0) {
+            return FieldMatchStatus.MISSING;
+        }
+        if (matched == compared) {
+            return FieldMatchStatus.MATCH;
+        }
+        return matched > 0 ? FieldMatchStatus.SIMILAR : FieldMatchStatus.DIFFERENT;
+    }
+
+    // as in the score, only the digits are compared
+    private FieldMatchStatus phoneStatus(Patient patient, Patient match, String phoneAttributeName) {
+        String patientPhone = digitsOnly(attributeValue(patient, phoneAttributeName));
+        String matchPhone = digitsOnly(attributeValue(match, phoneAttributeName));
+        if (StringUtils.isBlank(patientPhone) || StringUtils.isBlank(matchPhone)) {
+            return FieldMatchStatus.MISSING;
+        }
+        return patientPhone.equals(matchPhone) ? FieldMatchStatus.MATCH : FieldMatchStatus.DIFFERENT;
+    }
+
+    // as in the score, names that only sound alike (name phonetics) count as a match; here they are reported as similar
+    private FieldMatchStatus mothersFirstNameStatus(Patient patient, Patient match, String mothersFirstNameAttributeName) {
+        String patientName = attributeValue(patient, mothersFirstNameAttributeName);
+        String matchName = attributeValue(match, mothersFirstNameAttributeName);
+        if (StringUtils.isBlank(patientName) || StringUtils.isBlank(matchName)) {
+            return FieldMatchStatus.MISSING;
+        }
+        if (nameExactMatch(patientName, matchName)) {
+            return FieldMatchStatus.MATCH;
+        }
+        String encoder = adminService.getGlobalProperty("namephonetics.givenNameStringEncoder");
+        String patientEncoded = NamePhoneticsUtil.encodeString(patientName, encoder);
+        String matchEncoded = NamePhoneticsUtil.encodeString(matchName, encoder);
+        if (patientEncoded != null && matchEncoded != null
+                && stripAccentMarks(patientEncoded).equalsIgnoreCase(stripAccentMarks(matchEncoded))) {
+            return FieldMatchStatus.SIMILAR;
+        }
+        return FieldMatchStatus.DIFFERENT;
+    }
+
+    private String attributeValue(Patient patient, String attributeTypeName) {
+        if (attributeTypeName == null) {
+            return null;
+        }
+        return patient.getAttribute(attributeTypeName) != null ? patient.getAttribute(attributeTypeName).getValue() : null;
+    }
+
+    private String digitsOnly(String value) {
+        return value != null ? value.replaceAll("[^0-9]", "") : null;
     }
 
     private boolean hasName(Patient patient) {

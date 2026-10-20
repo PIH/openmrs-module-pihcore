@@ -6,7 +6,9 @@ import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConfigLoaderTest extends PihCoreContextSensitiveTest {
 
@@ -21,5 +23,11 @@ public class ConfigLoaderTest extends PihCoreContextSensitiveTest {
     public void loadShouldTolerateWhitespaceAroundConfigNamesInCommaDelimitedList() {
         ConfigDescriptor descriptor = ConfigLoader.load(" default , override ");
         assertThat(descriptor.getWelcomeMessage(), is("Welcome to the PIH EMR"));
+    }
+
+    @Test
+    public void duplicatePatientSectionShouldBeShownUnlessConfigTurnsItOff() {
+        assertTrue(ConfigLoader.load("default").getRegistrationConfig().isShowDuplicatePatientSection());
+        assertFalse(ConfigLoader.load("default,no-duplicate-section").getRegistrationConfig().isShowDuplicatePatientSection());
     }
 }
