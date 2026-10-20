@@ -41,6 +41,7 @@ public class PatientRegistrationApp {
         c.setMatchingPatientsPropertiesToDisplay(config.getRegistrationConfig().getMatchingPatientsPropertiesToDisplay());
         c.setMaxPatientSearchResults(config.getRegistrationConfig().getMaxPatientMatchResults());
         c.setIdentifierTypesToDisplay(config.getRegistrationConfig().getIdentifierTypesToDisplay());
+        c.setShowDuplicatePatientSection(config.getRegistrationConfig().isShowDuplicatePatientSection());
         switch(config.getCountry()) {
             case HAITI:
                 new SectionsHaiti(config).addSections(c);

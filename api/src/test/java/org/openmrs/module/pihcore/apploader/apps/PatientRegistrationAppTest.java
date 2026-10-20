@@ -22,6 +22,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -72,6 +73,7 @@ public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
         assertTrue(d.getConfig().get("allowRetrospectiveEntry").getBooleanValue());
         assertTrue(d.getConfig().get("allowUnknownPatients").getBooleanValue());
         assertTrue(d.getConfig().get("allowManualIdentifier").getBooleanValue());
+        assertTrue(d.getConfig().get("showDuplicatePatientSection").getBooleanValue());
 
         JsonNode demographicsSection = assertSectionFound(d.getConfig(), 0, "demographics", "", 1);
         assertPersonAttributeQuestionFound(demographicsSection, 0, PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID, true);
@@ -89,6 +91,21 @@ public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
         assertObsQuestionFound(socialSection, 3, "obs.PIH:Religion");
 
         assertSectionFound(d.getConfig(), 4, "contacts", "zl.registration.patient.contactPerson.label", 3);
+    }
+
+    @Test
+    public void shouldNotShowDuplicatePatientSectionWhenDisabled() throws Exception {
+        executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
+        authenticate();
+        loadFromInitializer(Domain.CONCEPT_SOURCES, "conceptSources.csv");
+        deployService.installBundle(socioEconomicConcepts);
+
+        Config config = new Config();
+        config.getRegistrationConfig().setShowDuplicatePatientSection(false);
+
+        AppDescriptor d = patientRegistrationApp.getAppDescriptor(config);
+
+        assertFalse(d.getConfig().get("showDuplicatePatientSection").getBooleanValue());
     }
 
     private JsonNode assertSectionFound(JsonNode app, int sectionNumber, String id, String label, int numQuestions) {
