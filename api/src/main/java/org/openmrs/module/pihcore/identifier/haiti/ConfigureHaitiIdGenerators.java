@@ -1,6 +1,5 @@
 package org.openmrs.module.pihcore.identifier.haiti;
 
-import org.apache.commons.lang.StringUtils;
 import org.openmrs.Location;
 import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.LocationService;
@@ -227,12 +226,11 @@ public class ConfigureHaitiIdGenerators {
 	}
 
     /**
-     * Where generators must be seeded, or for a local ZL generator with no prefix (which issues production ZL EMR IDs),
-     * the generator must continue an existing sequence rather than starting again from the first identifier base.
-     * Otherwise (eg. test servers) it can start from there.
+     * A generator must continue an existing sequence rather than starting again from the first identifier base,
+     * unless unseeded generators are allowed (eg. test servers)
      */
     public boolean isReadyToGenerate(SequentialIdentifierGenerator generator) {
-        if (!config.getDescriptor().getRequireSeededIdentifierGenerators() && StringUtils.isNotEmpty(generator.getPrefix())) {
+        if (config.getDescriptor().getAllowUnseededIdentifierGenerators()) {
             return true;
         }
         Long sequenceValue = identifierSourceService.getSequenceValue(generator);
@@ -240,12 +238,12 @@ public class ConfigureHaitiIdGenerators {
     }
 
     /**
-     * Where generators must be seeded, a dossier number generator can be created in advance of migrating a site's
-     * patients (HAI-1248), and its automatic generation is only enabled once its next_sequence_value is set to continue
-     * from the site's existing generator
+     * A dossier number generator can be created in advance of migrating a site's patients (HAI-1248), and its
+     * automatic generation is only enabled once its next_sequence_value is set to continue from the site's existing
+     * generator. Where unseeded generators are allowed, the autogeneration options are left as configured.
      */
     public void enableDossierNumberGeneratorsOnceSeeded() {
-        if (!config.getDescriptor().getRequireSeededIdentifierGenerators()) {
+        if (config.getDescriptor().getAllowUnseededIdentifierGenerators()) {
             return;
         }
         for (AutoGenerationOption option : identifierSourceService.getAutoGenerationOptions(getDossierIdentifierType())) {

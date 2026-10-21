@@ -71,6 +71,7 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
         localDescriptor.setCountry(ConfigDescriptor.Country.HAITI);
         localDescriptor.setLocalZlIdentifierGeneratorEnabled(true);
         localDescriptor.setLocalZlIdentifierGeneratorPrefix("Y");
+        localDescriptor.setAllowUnseededIdentifierGenerators(true);
         ConfigureHaitiIdGenerators localGenerators = new ConfigureHaitiIdGenerators(new Config(localDescriptor), identifierSourceService);
         ConfigureHaitiIdGenerators.createPatientIdGenerator(localGenerators);
 
@@ -134,11 +135,11 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
     }
 
     /**
-     * Where generators must be seeded, a local generator with a prefix (eg. on a test server configured like
+     * Unless unseeded generators are allowed, a local generator with a prefix (eg. on a test server configured like
      * production) is also not used until its sequence value is set
      */
     @Test
-    public void createPatientIdGeneratorShouldNotUseLocalGeneratorWithPrefixUntilSequenceValueIsSetIfSeedingRequired() {
+    public void createPatientIdGeneratorShouldNotUseLocalGeneratorWithPrefixUntilSequenceValueIsSet() {
         loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
         IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
 
@@ -146,7 +147,6 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
         descriptor.setCountry(ConfigDescriptor.Country.HAITI);
         descriptor.setLocalZlIdentifierGeneratorEnabled(true);
         descriptor.setLocalZlIdentifierGeneratorPrefix("Y");
-        descriptor.setRequireSeededIdentifierGenerators(true);
         ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
 
         ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
@@ -159,8 +159,8 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
     }
 
     /**
-     * Where generators must be seeded, a dossier number generator created in advance of migrating a site has
-     * automatic generation disabled until its sequence value is set to continue from the site's existing generator
+     * A dossier number generator created in advance of migrating a site has automatic generation disabled until its
+     * sequence value is set to continue from the site's existing generator
      */
     @Test
     public void enableDossierNumberGeneratorsOnceSeededShouldOnlyEnableAutomaticGenerationOnceSequenceValueIsSet() {
@@ -169,7 +169,6 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
 
         ConfigDescriptor descriptor = new ConfigDescriptor();
         descriptor.setCountry(ConfigDescriptor.Country.HAITI);
-        descriptor.setRequireSeededIdentifierGenerators(true);
         ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
 
         AutoGenerationOption option = createDossierNumberGeneratorAndOption(generators, identifierSourceService);
@@ -187,12 +186,13 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
     }
 
     @Test
-    public void enableDossierNumberGeneratorsOnceSeededShouldNotChangeAutomaticGenerationIfSeedingNotRequired() {
+    public void enableDossierNumberGeneratorsOnceSeededShouldNotChangeAutomaticGenerationIfUnseededGeneratorsAllowed() {
         loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
         IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
 
         ConfigDescriptor descriptor = new ConfigDescriptor();
         descriptor.setCountry(ConfigDescriptor.Country.HAITI);
+        descriptor.setAllowUnseededIdentifierGenerators(true);
         ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
 
         AutoGenerationOption option = createDossierNumberGeneratorAndOption(generators, identifierSourceService);

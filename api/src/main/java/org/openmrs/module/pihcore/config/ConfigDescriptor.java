@@ -124,11 +124,12 @@ public class ConfigDescriptor {
     private String localZlIdentifierGeneratorPrefix;
 
     /**
-     * If true, a sequential identifier generator is not used until its sequence value has been set, so that a
-     * generator that continues an existing sequence (eg. one migrated from another server) can be created in advance
+     * By default, a sequential identifier generator is not used until its sequence value has been set, so that a
+     * generator that continues an existing sequence (eg. one migrated from another server) can be created in advance.
+     * If true (eg. on test servers), a generator can start from its first identifier base.
      */
     @JsonProperty
-    private Boolean requireSeededIdentifierGenerators;
+    private Boolean allowUnseededIdentifierGenerators;
 
     @JsonProperty
     private List<Extension> extensions;
@@ -364,12 +365,12 @@ public class ConfigDescriptor {
         this.localZlIdentifierGeneratorPrefix = localZlIdentifierGeneratorPrefix;
     }
 
-    public Boolean getRequireSeededIdentifierGenerators() {
-        return BooleanUtils.isTrue(requireSeededIdentifierGenerators);
+    public Boolean getAllowUnseededIdentifierGenerators() {
+        return BooleanUtils.isTrue(allowUnseededIdentifierGenerators);
     }
 
-    public void setRequireSeededIdentifierGenerators(Boolean requireSeededIdentifierGenerators) {
-        this.requireSeededIdentifierGenerators = requireSeededIdentifierGenerators;
+    public void setAllowUnseededIdentifierGenerators(Boolean allowUnseededIdentifierGenerators) {
+        this.allowUnseededIdentifierGenerators = allowUnseededIdentifierGenerators;
     }
 
     public List<Extension> getExtensions() {
