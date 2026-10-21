@@ -123,6 +123,13 @@ public class ConfigDescriptor {
     @JsonProperty
     private String localZlIdentifierGeneratorPrefix;
 
+    /**
+     * If true, a sequential identifier generator is not used until its sequence value has been set, so that a
+     * generator that continues an existing sequence (eg. one migrated from another server) can be created in advance
+     */
+    @JsonProperty
+    private Boolean requireSeededIdentifierGenerators;
+
     @JsonProperty
     private List<Extension> extensions;
 
@@ -355,6 +362,14 @@ public class ConfigDescriptor {
 
     public void setLocalZlIdentifierGeneratorPrefix(String localZlIdentifierGeneratorPrefix) {
         this.localZlIdentifierGeneratorPrefix = localZlIdentifierGeneratorPrefix;
+    }
+
+    public Boolean getRequireSeededIdentifierGenerators() {
+        return BooleanUtils.isTrue(requireSeededIdentifierGenerators);
+    }
+
+    public void setRequireSeededIdentifierGenerators(Boolean requireSeededIdentifierGenerators) {
+        this.requireSeededIdentifierGenerators = requireSeededIdentifierGenerators;
     }
 
     public List<Extension> getExtensions() {

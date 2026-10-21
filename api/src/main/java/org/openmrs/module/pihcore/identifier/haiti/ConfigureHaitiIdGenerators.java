@@ -203,7 +203,7 @@ public class ConfigureHaitiIdGenerators {
             if (isReadyToGenerate(localZlIdentifierGenerator)) {
                 return localZlIdentifierGenerator;
             }
-            log.warn("Local ZL Identifier Generator has no prefix and no sequence value set, so would issue identifiers " +
+            log.warn("Local ZL Identifier Generator has no sequence value set, so would issue identifiers " +
                     "that duplicate those already issued. Using the remote ZL identifier source until its " +
                     "next_sequence_value is set to continue the existing sequence (see TASKS-564)");
         }
@@ -227,15 +227,40 @@ public class ConfigureHaitiIdGenerators {
 	}
 
     /**
-     * A generator with no prefix issues production ZL EMR IDs, so it must continue the existing sequence rather than
-     * starting again from the first identifier base. A generator with a prefix (eg. test servers) can start from there.
+     * Where generators must be seeded, or for a local ZL generator with no prefix (which issues production ZL EMR IDs),
+     * the generator must continue an existing sequence rather than starting again from the first identifier base.
+     * Otherwise (eg. test servers) it can start from there.
      */
     public boolean isReadyToGenerate(SequentialIdentifierGenerator generator) {
-        if (StringUtils.isNotEmpty(generator.getPrefix())) {
+        if (!config.getDescriptor().getRequireSeededIdentifierGenerators() && StringUtils.isNotEmpty(generator.getPrefix())) {
             return true;
         }
         Long sequenceValue = identifierSourceService.getSequenceValue(generator);
         return sequenceValue != null && sequenceValue >= 0;
+    }
+
+    /**
+     * Where generators must be seeded, a dossier number generator can be created in advance of migrating a site's
+     * patients (HAI-1248), and its automatic generation is only enabled once its next_sequence_value is set to continue
+     * from the site's existing generator
+     */
+    public void enableDossierNumberGeneratorsOnceSeeded() {
+        if (!config.getDescriptor().getRequireSeededIdentifierGenerators()) {
+            return;
+        }
+        for (AutoGenerationOption option : identifierSourceService.getAutoGenerationOptions(getDossierIdentifierType())) {
+            if (option.getSource() instanceof SequentialIdentifierGenerator) {
+                boolean ready = isReadyToGenerate((SequentialIdentifierGenerator) option.getSource());
+                if (!ready) {
+                    log.warn(option.getSource().getName() + " has no sequence value set, so automatic generation is " +
+                            "disabled until its next_sequence_value is set to continue the existing sequence (see HAI-1248)");
+                }
+                if (option.isAutomaticGenerationEnabled() != ready) {
+                    option.setAutomaticGenerationEnabled(ready);
+                    identifierSourceService.saveAutoGenerationOption(option);
+                }
+            }
+        }
     }
 
 	public SequentialIdentifierGenerator sequentialIdentifierGeneratorForDossier(PatientIdentifierType patientIdentifierType, String prefix, String identifierSourceUuid) {

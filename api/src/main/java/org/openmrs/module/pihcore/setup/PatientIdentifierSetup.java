@@ -21,6 +21,7 @@ public class PatientIdentifierSetup {
             ConfigureHaitiIdGenerators configureHaitiIdGenerators = new ConfigureHaitiIdGenerators(config, identifierSourceService);
             ConfigureHaitiIdGenerators.createPatientIdGenerator(configureHaitiIdGenerators);
             ConfigureHaitiIdGenerators.createDossierNumberGenerator(locationService, configureHaitiIdGenerators, config);
+            configureHaitiIdGenerators.enableDossierNumberGeneratorsOnceSeeded();
             if (ConfigDescriptor.Specialty.HIV.equals(config.getSpecialty())) {
                 ConfigureHaitiIdGenerators.createSourceAndAutoGenerationOptionForHivEmrV1(identifierSourceService);
             }

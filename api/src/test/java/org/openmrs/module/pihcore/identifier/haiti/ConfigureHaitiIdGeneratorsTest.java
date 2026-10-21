@@ -3,6 +3,7 @@ package org.openmrs.module.pihcore.identifier.haiti;
 import org.junit.jupiter.api.Test;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.idgen.AutoGenerationOption;
 import org.openmrs.module.idgen.IdentifierPool;
 import org.openmrs.module.idgen.IdentifierSource;
 import org.openmrs.module.idgen.RemoteIdentifierSource;
@@ -15,6 +16,8 @@ import org.openmrs.module.pihcore.config.ConfigDescriptor;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest {
@@ -128,5 +131,85 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
         ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
         assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
         assertEquals(18429637L, identifierSourceService.getSequenceValue(generator));
+    }
+
+    /**
+     * Where generators must be seeded, a local generator with a prefix (eg. on a test server configured like
+     * production) is also not used until its sequence value is set
+     */
+    @Test
+    public void createPatientIdGeneratorShouldNotUseLocalGeneratorWithPrefixUntilSequenceValueIsSetIfSeedingRequired() {
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+
+        ConfigDescriptor descriptor = new ConfigDescriptor();
+        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
+        descriptor.setLocalZlIdentifierGeneratorEnabled(true);
+        descriptor.setLocalZlIdentifierGeneratorPrefix("Y");
+        descriptor.setRequireSeededIdentifierGenerators(true);
+        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
+
+        ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+        SequentialIdentifierGenerator generator = generators.getLocalZlIdentifierGenerator();
+        assertTrue(generators.getLocalZlIdentifierPool().getSource() instanceof RemoteIdentifierSource);
+
+        identifierSourceService.saveSequenceValue(generator, 1000L);
+        ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+        assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
+    }
+
+    /**
+     * Where generators must be seeded, a dossier number generator created in advance of migrating a site has
+     * automatic generation disabled until its sequence value is set to continue from the site's existing generator
+     */
+    @Test
+    public void enableDossierNumberGeneratorsOnceSeededShouldOnlyEnableAutomaticGenerationOnceSequenceValueIsSet() {
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+
+        ConfigDescriptor descriptor = new ConfigDescriptor();
+        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
+        descriptor.setRequireSeededIdentifierGenerators(true);
+        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
+
+        AutoGenerationOption option = createDossierNumberGeneratorAndOption(generators, identifierSourceService);
+        SequentialIdentifierGenerator generator = (SequentialIdentifierGenerator) option.getSource();
+
+        generators.enableDossierNumberGeneratorsOnceSeeded();
+        assertFalse(identifierSourceService.getAutoGenerationOption(option.getId()).isAutomaticGenerationEnabled());
+        assertNull(identifierSourceService.generateIdentifier(option.getIdentifierType(), option.getLocation(), "test"));
+
+        // set once the site has been migrated, with an update to idgen_seq_id_gen
+        identifierSourceService.saveSequenceValue(generator, 1234L);
+        generators.enableDossierNumberGeneratorsOnceSeeded();
+        assertTrue(identifierSourceService.getAutoGenerationOption(option.getId()).isAutomaticGenerationEnabled());
+        assertEquals("CNG001234", generator.getIdentifierForSeed(identifierSourceService.getSequenceValue(generator)));
+    }
+
+    @Test
+    public void enableDossierNumberGeneratorsOnceSeededShouldNotChangeAutomaticGenerationIfSeedingNotRequired() {
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+
+        ConfigDescriptor descriptor = new ConfigDescriptor();
+        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
+        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
+
+        AutoGenerationOption option = createDossierNumberGeneratorAndOption(generators, identifierSourceService);
+
+        generators.enableDossierNumberGeneratorsOnceSeeded();
+        assertTrue(identifierSourceService.getAutoGenerationOption(option.getId()).isAutomaticGenerationEnabled());
+    }
+
+    private AutoGenerationOption createDossierNumberGeneratorAndOption(ConfigureHaitiIdGenerators generators, IdentifierSourceService identifierSourceService) {
+        SequentialIdentifierGenerator generator = generators.sequentialIdentifierGeneratorForDossier(
+                ConfigureHaitiIdGenerators.getDossierIdentifierType(), "CNG", "9dd9bdf3-4b57-47c3-b731-1000dbdef5d8");
+        AutoGenerationOption option = new AutoGenerationOption();
+        option.setIdentifierType(generator.getIdentifierType());
+        option.setSource(generator);
+        option.setLocation(Context.getLocationService().getLocation(1));
+        option.setManualEntryEnabled(true);
+        option.setAutomaticGenerationEnabled(true);
+        return identifierSourceService.saveAutoGenerationOption(option);
     }
 }
