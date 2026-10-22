@@ -63,7 +63,7 @@
             <span class="patient-dashboard-widget-label">${ ui.message("pihcore.status") }:</span>
             <span class="patient-dashboard-widget-value">${patientStatus}</span>
         </div>
-        <% if (activeVisitUuid != null && showAdmissionTypeAtLocation != null && inpatientLocation.uuid == showAdmissionTypeAtLocation) { %>
+        <% if (activeVisitUuid != null && showAdmissionTypeAtLocation != null && inpatientLocation?.uuid == showAdmissionTypeAtLocation) { %>
         <div>
             <span class="patient-dashboard-widget-label">${ ui.message("pihcore.admission.type") }:</span>
             <span class="patient-dashboard-widget-value">
