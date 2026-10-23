@@ -10,6 +10,7 @@ import org.openmrs.module.idgen.RemoteIdentifierSource;
 import org.openmrs.module.idgen.SequentialIdentifierGenerator;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.initializer.Domain;
+import org.openmrs.module.pihcore.PihCoreConstants;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.config.Config;
 import org.openmrs.module.pihcore.config.ConfigDescriptor;
@@ -132,6 +133,41 @@ public class ConfigureHaitiIdGeneratorsTest extends PihCoreContextSensitiveTest 
         ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
         assertEquals(generator.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
         assertEquals(18429637L, identifierSourceService.getSequenceValue(generator));
+    }
+
+    /**
+     * Servers with no remote ZL identifier source configured (eg. zl-ci) have these runtime properties set but blank.
+     * An unseeded local generator falls back to the remote source, which must then use the defaults rather than
+     * failing to save with no url
+     */
+    @Test
+    public void createPatientIdGeneratorShouldUseDefaultRemoteSourceWhenRemotePropertiesAreBlank() {
+        loadFromInitializer(Domain.PATIENT_IDENTIFIER_TYPES, "zlIdentifierTypes.csv");
+        IdentifierSourceService identifierSourceService = Context.getService(IdentifierSourceService.class);
+
+        ConfigDescriptor descriptor = new ConfigDescriptor();
+        descriptor.setCountry(ConfigDescriptor.Country.HAITI);
+        descriptor.setLocalZlIdentifierGeneratorEnabled(true);
+        descriptor.setLocalZlIdentifierGeneratorPrefix("Y");
+        ConfigureHaitiIdGenerators generators = new ConfigureHaitiIdGenerators(new Config(descriptor), identifierSourceService);
+
+        System.setProperty(ConfigureHaitiIdGenerators.REMOTE_ZL_IDENTIFIER_SOURCE_URL_PROPERTY, "");
+        System.setProperty(ConfigureHaitiIdGenerators.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY, "");
+        System.setProperty(ConfigureHaitiIdGenerators.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD_PROPERTY, "");
+        try {
+            ConfigureHaitiIdGenerators.createPatientIdGenerator(generators);
+            Context.flushSession();
+        }
+        finally {
+            System.clearProperty(ConfigureHaitiIdGenerators.REMOTE_ZL_IDENTIFIER_SOURCE_URL_PROPERTY);
+            System.clearProperty(ConfigureHaitiIdGenerators.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME_PROPERTY);
+            System.clearProperty(ConfigureHaitiIdGenerators.REMOTE_ZL_IDENTIFIER_SOURCE_PASSWORD_PROPERTY);
+        }
+
+        RemoteIdentifierSource remoteSource = generators.getRemoteZlIdentifierSource();
+        assertEquals(remoteSource.getUuid(), generators.getLocalZlIdentifierPool().getSource().getUuid());
+        assertEquals(PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_URL, remoteSource.getUrl());
+        assertEquals(PihCoreConstants.REMOTE_ZL_IDENTIFIER_SOURCE_USERNAME, remoteSource.getUser());
     }
 
     /**
