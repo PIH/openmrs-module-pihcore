@@ -255,6 +255,11 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         && existingDose.encounter.uuid == $scope.encounter.uuid;
                 }
 
+                // only applies when displayed within an encounter, and only if there are no vaccinations to display in the header
+                $scope.noDataEntered = function() {
+                    return $scope.encounter && $scope.historyLoaded && $scope.currentVaccinations.length === 0;
+                }
+
                 $scope.isDoseValidForVaccination = function(sequence, vaccination) {
                     return _.contains(vaccination.doses, sequence.sequenceNumber);
                 }
@@ -274,6 +279,7 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 function loadHistory() {
                     VaccinationService.getHistory($scope.patient).$promise.then(function(response) {
                         $scope.history = response.results;
+                        $scope.historyLoaded = true;
                         $scope.currentVaccinations = getCurrentVaccinations();
                     });
                 }

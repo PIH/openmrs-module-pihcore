@@ -227,6 +227,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         return "";  // no custom template model by default
                     }
 
+                    // only flag encounters with sections (ie visit notes), as other encounter types may have data that isn't stored as obs (ie orders)
+                    $scope.noDataEntered = function() {
+                        return $scope.sections.length > 0 && angular.isArray($scope.encounter.obs) && $scope.encounter.obs.length === 0;
+                    }
+
                     $scope.canExpand = function() {
                         return $scope.encounterState === 'short' && config
                             && (config.longTemplate || config.sections);
@@ -627,6 +632,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.showEncounterDetails = $scope.section.showEncounterDetails;
 
                     $scope.hideIncompleteAlert = $scope.section.hideIncompleteAlert;
+
+                    // sections of an encounter all share the same obs, so we can only tell that a section is empty if the
+                    // encounter has no obs other than vaccinations (which are displayed in their own section)
+                    $scope.noDataEntered = function() {
+                        return $scope.encounter && angular.isArray($scope.encounter.obs)
+                            && !_.find($scope.encounter.obs, function(obs) {
+                                return obs.concept && obs.concept.uuid !== Concepts.vaccinationHistoryConstruct.uuid;
+                            });
+                    }
 
                     $scope.canExpand = function() {
                         return $scope.state === 'short' && $scope.section.longTemplate;
