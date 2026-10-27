@@ -582,6 +582,36 @@ angular.module('constants', [])
         }
 
     })
+    // the review of systems subform reuses the exam findings questions
+    .value('ReviewOfSystemsConcepts', {
+        constitutional: { // PIH:1119
+            uuid: "0adeea3a-15f5-102d-96e4-000c29c2a5d7"
+        },
+        respiratory: { // PIH:1123
+            uuid: "3cd75d0c-26fe-102b-80cb-0017a47871b2"
+        },
+        cardiovascular: { // PIH:1124
+            uuid: "3cd75e9c-26fe-102b-80cb-0017a47871b2"
+        },
+        gastrointestinal: { // PIH:1125
+            uuid: "3cd76054-26fe-102b-80cb-0017a47871b2"
+        },
+        genitourinary: { // PIH:1126
+            uuid: "3cd761ee-26fe-102b-80cb-0017a47871b2"
+        },
+        musculoskeletal: { // PIH:1128
+            uuid: "3cd7650e-26fe-102b-80cb-0017a47871b2"
+        },
+        neurologic: { // PIH:1129
+            uuid: "3cd766a8-26fe-102b-80cb-0017a47871b2"
+        },
+        gynecologic: { // PIH:13229
+            uuid: "20e66bef-d91e-4204-bd60-359dd30444de"
+        },
+        endocrine: { // PIH:21630
+            uuid: "10b89d98-0683-4593-9410-204fac9e4819"
+        }
+    })
     .value('EncounterRoles', {
         attendingSurgeon: {
             uuid: "9b135b19-7ebe-4a51-aea2-69a53f9383af"
