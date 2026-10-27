@@ -255,11 +255,6 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                         && existingDose.encounter.uuid == $scope.encounter.uuid;
                 }
 
-                // only applies when displayed within an encounter, ie no doses were recorded as part of this encounter
-                $scope.noDataEntered = function() {
-                    return $scope.encounter && $scope.historyLoaded && $scope.currentVaccinations.length === 0;
-                }
-
                 $scope.isDoseValidForVaccination = function(sequence, vaccination) {
                     return _.contains(vaccination.doses, sequence.sequenceNumber);
                 }
@@ -279,18 +274,15 @@ angular.module("vaccinations", [ "constants", "ngDialog", "obsService", "encount
                 function loadHistory() {
                     VaccinationService.getHistory($scope.patient).$promise.then(function(response) {
                         $scope.history = response.results;
-                        $scope.historyLoaded = true;
                         $scope.currentVaccinations = getCurrentVaccinations();
                     });
                 }
 
-                // when displayed within an encounter, only include the doses recorded as part of that encounter
                 function getCurrentVaccinations() {
                     var vaccineSequences = [];
                     _.each($scope.vaccinations, function(vaccination) {
                         var mostRecentSequence = _.find($scope.sequences.concat().reverse(), function(sequence) {
-                            return $scope.encounter ? $scope.existingDoseInEncounter(sequence, vaccination)
-                                : $scope.existingDose(sequence, vaccination);
+                            return $scope.existingDose(sequence, vaccination);
                         });
                         if (mostRecentSequence) {
                             vaccineSequences.push({ "vaccination" : vaccination.label, "sequence": mostRecentSequence.label });
