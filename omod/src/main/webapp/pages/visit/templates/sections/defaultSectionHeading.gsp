@@ -2,6 +2,7 @@
     <i class="{{ section.icon }}"></i>  {{ section.label | translate }}
     <i class="icon-exclamation-sign highlight" ng-show="doesNotHaveExistingObs && !hideIncompleteAlert" ></i>
 </span> <!-- encounter-type class added for smoke tests -->
+<span class="no-data-text" ng-show="noDataEntered()">${ ui.message("pihcore.visitNote.noDataEntered") }</span>
 <span ng-show="showEncounterDetails">
     <span class="date-span">
         <i ng-show="encounter.encounterDatetime" class="icon-calendar"></i>{{ encounter.encounterDatetime | serverDateLocalized:DatetimeFormats.dateLocalized }}
