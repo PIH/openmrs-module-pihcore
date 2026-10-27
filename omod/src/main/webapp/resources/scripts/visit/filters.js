@@ -164,6 +164,16 @@ angular.module("filters", [ "uicommons.filters", "constants", "encounterTypeConf
         }
     }])
 
+    .filter("reviewOfSystems", ["ReviewOfSystemsConcepts", function (ReviewOfSystemsConcepts) {
+        return function(listOfObs) {
+            return _.filter(listOfObs, function (candidate) {
+               return _.some(ReviewOfSystemsConcepts, function(it) {
+                   return it.uuid == candidate.concept.uuid;
+               });
+            });
+        }
+    }])
+
     // usage examples:  "obs" --> return the concept and value for the obs
     //                  "obs:{mode: 'value'}"  --> returns just the value for the obs
     //                  "obs:{appendComma:true}"  --> appends a comma *if the obs has a value*
