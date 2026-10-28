@@ -623,6 +623,14 @@ angular.module('constants', [])
             uuid: "4f10ad1a-ec49-48df-98c7-1391c6ac7f05"
         }
     })
+    .value('NoDataEnteredExemptEncounterTypes', {
+        checkIn: {
+            uuid: "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b"
+        },
+        maternalCheckIn: {
+            uuid: "251c03fa-a9dc-4157-855f-b016f4fae9ab"
+        }
+    })
     .value('OrderTypes', {
         drugOrder: {
             uuid: "131168f4-15f5-102d-96e4-000c29c2a5d7"

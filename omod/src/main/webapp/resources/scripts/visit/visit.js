@@ -139,8 +139,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
-    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter", "ngDialog", "$timeout",
-        function(Encounter, Concepts, OrderTypes, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter, ngDialog, $timeout) {
+    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "NoDataEnteredExemptEncounterTypes", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter", "ngDialog", "$timeout",
+        function(Encounter, Concepts, OrderTypes, EncounterRoles, NoDataEnteredExemptEncounterTypes, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter, ngDialog, $timeout) {
             return {
                 restrict: "E",
                 scope: {
@@ -256,10 +256,15 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                         return "";  // no custom template model by default
                     }
 
-                    // flag encounters that have neither obs nor orders; if either isn't part of the encounter
-                    // representation (ie the visit list doesn't fetch orders) we can't tell, so don't flag
+                    // flag form-backed encounters (standalone and multi-section forms) that have neither obs nor orders;
+                    // encounters without a form (ie created by ADT or bed management) aren't data entry, so don't flag those;
+                    // if obs or orders aren't part of the encounter representation (ie the visit list doesn't fetch orders) we can't tell, so don't flag;
+                    // check-in forms only record the patient's arrival, so never flag those
+                    var exemptEncounterTypeUuids = _.pluck(_.values(NoDataEnteredExemptEncounterTypes), 'uuid');
                     $scope.noDataEntered = function() {
-                        return angular.isArray($scope.encounter.obs) && $scope.encounter.obs.length === 0
+                        return !!$scope.encounter.form
+                            && !_.contains(exemptEncounterTypeUuids, $scope.encounter.encounterType && $scope.encounter.encounterType.uuid)
+                            && angular.isArray($scope.encounter.obs) && $scope.encounter.obs.length === 0
                             && angular.isArray($scope.encounter.orders) && $scope.encounter.orders.length === 0;
                     }
 
