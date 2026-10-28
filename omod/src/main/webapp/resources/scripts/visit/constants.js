@@ -624,6 +624,9 @@ angular.module('constants', [])
         }
     })
     .value('NoDataEnteredExemptEncounterTypes', {
+        admission: {
+            uuid: "260566e1-c909-4d61-a96f-c1019291a09d"
+        },
         checkIn: {
             uuid: "55a0d3ea-a4d7-4e88-8f01-5aceb2d3c61b"
         },

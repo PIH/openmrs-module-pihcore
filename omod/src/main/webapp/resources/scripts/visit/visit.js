@@ -259,7 +259,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     // flag form-backed encounters (standalone and multi-section forms) that have neither obs nor orders;
                     // encounters without a form (ie created by ADT or bed management) aren't data entry, so don't flag those;
                     // if obs or orders aren't part of the encounter representation (ie the visit list doesn't fetch orders) we can't tell, so don't flag;
-                    // check-in forms only record the patient's arrival, so never flag those
+                    // check-in and admission forms only record the patient's arrival, so never flag those
                     var exemptEncounterTypeUuids = _.pluck(_.values(NoDataEnteredExemptEncounterTypes), 'uuid');
                     $scope.noDataEntered = function() {
                         return !!$scope.encounter.form
