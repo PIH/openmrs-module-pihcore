@@ -675,10 +675,11 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
                     $scope.hideIncompleteAlert = $scope.section.hideIncompleteAlert;
 
-                    // sections backed by an html form are empty if none of the encounter's obs were matched by that form, and,
-                    // if the form contains an order widget (of any order type: drug, test, ...), the encounter has no orders;
-                    // for other sections we can only tell that a section is empty if the encounter has no obs other than
-                    // vaccinations (which are displayed in their own section)
+                    // a section is flagged as having no data entered when:
+                    // - it is backed by an html form: the form matched none of the encounter's obs, and, if the form has
+                    //   an order widget (of any order type: drug, test, ...), the encounter has no orders either
+                    // - it is not backed by an html form: we can't tell which obs belong to it, so we only flag it when the
+                    //   encounter has no obs at all, ignoring vaccinations (those are displayed in their own section)
                     $scope.noDataEntered = function() {
                         if ($scope.section.templateModelUrl) {
                             return $scope.sectionHasExistingObs === false
