@@ -11,6 +11,9 @@ import org.openmrs.PersonName;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.addresshierarchy.AddressField;
+import org.openmrs.module.addresshierarchy.AddressHierarchyLevel;
+import org.openmrs.module.addresshierarchy.service.AddressHierarchyService;
 import org.openmrs.module.pihcore.PihCoreContextSensitiveTest;
 import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.module.registrationcore.api.search.FieldMatchResult;
@@ -27,6 +30,7 @@ import java.util.HashMap;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -368,12 +372,191 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
         PersonAddress address = new PersonAddress();
         address.setCityVillage("Shiseso");
         patient.addAddress(address);
+        // address3 and address1 are configured too, and are blank, so this is not a match of the whole address
         PatientAndMatchQuality result = search(patient);
-        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.MATCH));
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.SIMILAR));
         assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(1.0));
 
         address.setCityVillage("Elsewhere");
         assertThat(fieldStatus(search(patient), FieldMatchResult.ADDRESS), is(FieldMatchStatus.DIFFERENT));
+    }
+
+    @Test
+    public void shouldNotCountAddressFieldsWhenHigherLevelOfAddressHierarchyDiffers() {
+        createAddressHierarchyLevels();
+        setStoredAddress("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+
+        // same village, section and locality names, but in another department: not the same place
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(address("Haiti", "Ouest", "Shiseso", "Section A", "Locality 1"));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.DIFFERENT));
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(0.0));
+        assertFalse(result.getMatchedFields().contains("addresses.cityVillage"));
+        assertFalse(result.getMatchedFields().contains("addresses.address1"));
+    }
+
+    @Test
+    public void shouldNotCountLowerAddressFieldsWhenAHigherConfiguredFieldDiffers() {
+        createAddressHierarchyLevels();
+        setStoredAddress("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+
+        // same locality name, but in a different village
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(address("Haiti", "Centre", "Elsewhere", "Section A", "Locality 1"));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.DIFFERENT));
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(0.0));
+    }
+
+    @Test
+    public void shouldBeSimilarIfHigherLevelsMatchAndOnlyLowerFieldDiffers() {
+        createAddressHierarchyLevels();
+        setStoredAddress("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(address("Haiti", "Centre", "Shiseso", "Section A", "Locality 2"));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.SIMILAR));
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(2.0));
+        assertTrue(result.getMatchedFields().contains("addresses.cityVillage"));
+        assertTrue(result.getMatchedFields().contains("addresses.address3"));
+        assertFalse(result.getMatchedFields().contains("addresses.address1"));
+    }
+
+    @Test
+    public void shouldMatchIfAllAddressFieldsMatchInAddressHierarchy() {
+        createAddressHierarchyLevels();
+        setStoredAddress("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(address("Haiti", "Centre", "Shiseso", "Section A", "Locality 1"));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.MATCH));
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(3.0));
+    }
+
+    @Test
+    public void shouldOnlyMatchAddressIfAllConfiguredFieldsAreFilledInAndMatch() {
+        setStoredAddress("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+
+        // what is filled in matches, but a field that is blank on one side does not
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(address("Haiti", "Centre", "Shiseso", "Section A", null));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.SIMILAR));
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(2.0));
+        assertFalse(result.getMatchedFields().contains("addresses.address1"));
+    }
+
+    @Test
+    public void shouldIgnoreLevelsOfAddressHierarchyBelowTheConfiguredFields() {
+        // a level below address1, which is not configured
+        AddressHierarchyService service = Context.getService(AddressHierarchyService.class);
+        AddressHierarchyLevel address1Level = createAddressHierarchyLevels();
+        AddressHierarchyLevel address2Level = new AddressHierarchyLevel();
+        address2Level.setName("address2");
+        address2Level.setAddressField(AddressField.ADDRESS_2);
+        address2Level.setParent(address1Level);
+        service.saveAddressHierarchyLevel(address2Level);
+
+        setStoredAddress("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+        patientService.getPatient(13).getPersonAddress().setAddress2("House 1");
+        Context.flushSession();
+
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        PersonAddress address = address("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+        address.setAddress2("House 2");
+        patient.addAddress(address);
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.MATCH));
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(3.0));
+    }
+
+    @Test
+    public void shouldNotReportAddressIfOnlyHigherLevelsOfAddressHierarchyAreFilledIn() {
+        createAddressHierarchyLevels();
+        setStoredAddress("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+
+        // nothing configured to compare, so the same country and department are not a match; and as both addresses are
+        // recorded, the address can't be reported as missing either
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(address("Haiti", "Centre", null, null, null));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS), is(nullValue()));
+    }
+
+    @Test
+    public void shouldNotReportAddressIfNoConfiguredFieldIsFilledInOnBothSides() {
+        setStoredAddress("Haiti", "Centre", "Shiseso", null, null);
+
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(address("Haiti", "Centre", null, "Section A", "Locality 1"));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS), is(nullValue()));
+    }
+
+    @Test
+    public void shouldCountEachAddressFieldOnItsOwnWithoutAddressHierarchy() {
+        setStoredAddress("Haiti", "Centre", "Shiseso", "Section A", "Locality 1");
+
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(address("Haiti", "Ouest", "Shiseso", "Section B", "Locality 1"));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.SIMILAR));
+        assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(2.0));
+    }
+
+    // country > stateProvince > cityVillage > address3 > address1, like the hierarchy at a typical site; returns the bottom level.
+    // They are saved from the bottom up and only then linked, so that the order they are stored in is not the order of the hierarchy
+    private AddressHierarchyLevel createAddressHierarchyLevels() {
+        AddressHierarchyService service = Context.getService(AddressHierarchyService.class);
+        AddressField[] fields = new AddressField[] { AddressField.COUNTRY, AddressField.STATE_PROVINCE,
+                AddressField.CITY_VILLAGE, AddressField.ADDRESS_3, AddressField.ADDRESS_1 };
+        AddressHierarchyLevel[] levels = new AddressHierarchyLevel[fields.length];
+        for (int i = fields.length - 1; i >= 0; i--) {
+            levels[i] = new AddressHierarchyLevel();
+            levels[i].setName(fields[i].getName());
+            levels[i].setAddressField(fields[i]);
+            service.saveAddressHierarchyLevel(levels[i]);
+        }
+        for (int i = 1; i < fields.length; i++) {
+            levels[i].setParent(levels[i - 1]);
+            service.saveAddressHierarchyLevel(levels[i]);
+        }
+        Context.flushSession();
+        return levels[levels.length - 1];
+    }
+
+    // the patient in the test dataset that the searches find
+    private void setStoredAddress(String country, String stateProvince, String cityVillage, String address3, String address1) {
+        Patient stored = patientService.getPatient(13);
+        PersonAddress storedAddress = stored.getPersonAddress();
+        storedAddress.setCountry(country);
+        storedAddress.setStateProvince(stateProvince);
+        storedAddress.setCityVillage(cityVillage);
+        storedAddress.setAddress3(address3);
+        storedAddress.setAddress1(address1);
+        Context.flushSession();
+    }
+
+    private PersonAddress address(String country, String stateProvince, String cityVillage, String address3, String address1) {
+        PersonAddress address = new PersonAddress();
+        address.setCountry(country);
+        address.setStateProvince(stateProvince);
+        address.setCityVillage(cityVillage);
+        address.setAddress3(address3);
+        address.setAddress1(address1);
+        return address;
     }
 
     private List<PatientAndMatchQuality> searchByName(String givenName, String familyName) {
