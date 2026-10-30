@@ -18,6 +18,7 @@ omod/target
 # OS X auto-generated files #
 .DS_Store
 
+.playwright-mcp/
 .vscode/
 .swp
 

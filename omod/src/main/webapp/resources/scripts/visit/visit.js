@@ -50,6 +50,35 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
 
     })
 
+    // loads the html forms behind encounter sections in the background, a few at a time, so that we know which
+    // sections are empty by the time their encounter is expanded, without overloading the server
+    .factory("SectionPrefetchQueue", [ function() {
+        var maxConcurrent = 2;
+        var queue = [];
+        var running = 0;
+
+        function next() {
+            while (running < maxConcurrent && queue.length > 0) {
+                // a load function returns nothing if there is nothing (left) to load
+                var promise = queue.shift()();
+                if (promise) {
+                    running++;
+                    promise.finally(function() {
+                        running--;
+                        next();
+                    });
+                }
+            }
+        }
+
+        return {
+            add: function(load) {
+                queue.push(load);
+                next();
+            }
+        };
+    }])
+
     .directive("dateWithPopup", [ function() {
         return {
             restrict: 'E',
@@ -110,8 +139,8 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
         }
     }])
 
-    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter", "ngDialog", "$timeout",
-        function(Encounter, Concepts, OrderTypes, EncounterRoles, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter, ngDialog, $timeout) {
+    .directive("encounter", [ "Encounter", "Concepts", "OrderTypes", "EncounterRoles", "NoDataEnteredExemptEncounterTypes", "DatetimeFormats", "SessionInfo", "EncounterTypeConfig", "$http", "$sce", "$filter", "ngDialog", "$timeout",
+        function(Encounter, Concepts, OrderTypes, EncounterRoles, NoDataEnteredExemptEncounterTypes, DatetimeFormats, SessionInfo, EncounterTypeConfig, $http, $sce, $filter, ngDialog, $timeout) {
             return {
                 restrict: "E",
                 scope: {
@@ -225,6 +254,18 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                             return config["templateModelUrl"];
                         }
                         return "";  // no custom template model by default
+                    }
+
+                    // flag form-backed encounters (standalone and multi-section forms) that have neither obs nor orders;
+                    // encounters without a form (ie created by ADT or bed management) aren't data entry, so don't flag those;
+                    // if obs or orders aren't part of the encounter representation (ie the visit list doesn't fetch orders) we can't tell, so don't flag;
+                    // check-in and admission forms only record the patient's arrival, so never flag those
+                    var exemptEncounterTypeUuids = _.pluck(_.values(NoDataEnteredExemptEncounterTypes), 'uuid');
+                    $scope.noDataEntered = function() {
+                        return !!$scope.encounter.form
+                            && !_.contains(exemptEncounterTypeUuids, $scope.encounter.encounterType && $scope.encounter.encounterType.uuid)
+                            && angular.isArray($scope.encounter.obs) && $scope.encounter.obs.length === 0
+                            && angular.isArray($scope.encounter.orders) && $scope.encounter.orders.length === 0;
                     }
 
                     $scope.canExpand = function() {
@@ -551,15 +592,16 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
             }
         }])
 
-    .directive("encounterSection", [ "Concepts", "OrderTypes", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout", "initialRouterState",
-        function(Concepts, OrderTypes, DatetimeFormats, SessionInfo, $http, $sce, $timeout, initialRouterState) {
+    .directive("encounterSection", [ "Concepts", "OrderTypes", "DatetimeFormats", "SessionInfo", "$http", "$sce", "$timeout", "initialRouterState", "SectionPrefetchQueue",
+        function(Concepts, OrderTypes, DatetimeFormats, SessionInfo, $http, $sce, $timeout, initialRouterState, SectionPrefetchQueue) {
             return {
                 restrict: "E",
                 scope: {
                     section: "=",
                     encounter: "=",
                     visit: "=",
-                    expandOnLoad: "="
+                    expandOnLoad: "=",
+                    shown: "="
                 },
                 controller: ["$scope", function($scope) {
 
@@ -577,9 +619,14 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                                 encounter: $scope.encounter
                             });
                             $scope.sectionLoaded = true; // not entirely accurate, because it hasn't been loaded yet, bu we want to avoid double loadings
-                            $http.get("/" + OPENMRS_CONTEXT_PATH + url)
+                            return $http.get("/" + OPENMRS_CONTEXT_PATH + url)
                                 .then(function (response) {
                                     $scope.templateModel = response.data;
+                                    // htmlformentryui sets this if any of the encounter's obs were matched by the section's form
+                                    $scope.sectionHasExistingObs = $scope.templateModel.hasExistingObs;
+                                    // hasExistingObs doesn't account for orders, so note whether the section's form contains an order widget
+                                    $scope.sectionHasOrderWidget = !!$scope.templateModel.html
+                                        && $scope.templateModel.html.indexOf("orderwidget-element") >= 0;
                                     if ($scope.templateModel.html) {
                                         // this enabled the "viewEncounerWithHtmlFormLong" view to display raw html returned by the htmlformentryui module
                                         $scope.html = $sce.trustAsHtml($scope.templateModel.html);
@@ -627,6 +674,41 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                     $scope.showEncounterDetails = $scope.section.showEncounterDetails;
 
                     $scope.hideIncompleteAlert = $scope.section.hideIncompleteAlert;
+
+                    // a section is flagged as having no data entered when:
+                    // - it is backed by an html form: the form matched none of the encounter's obs, and, if the form has
+                    //   an order widget (of any order type: drug, test, ...), the encounter has no orders either
+                    // - it is not backed by an html form: we can't tell which obs belong to it, so we only flag it when the
+                    //   encounter has no obs at all, ignoring vaccinations (those are displayed in their own section)
+                    $scope.noDataEntered = function() {
+                        if ($scope.section.templateModelUrl) {
+                            return $scope.sectionHasExistingObs === false
+                                && !($scope.sectionHasOrderWidget && !_.isEmpty($scope.encounter.orders));
+                        }
+                        return $scope.encounter && angular.isArray($scope.encounter.obs)
+                            && !_.find($scope.encounter.obs, function(obs) {
+                                return obs.concept && obs.concept.uuid !== Concepts.vaccinationHistoryConstruct.uuid;
+                            });
+                    }
+
+                    // load the section so we know whether it is empty: right away once the encounter's sections are shown, otherwise
+                    // in the background; whichever comes first does the loading, and expanding the section later reuses what was loaded
+                    $scope.$watch('shown', function(shown) {
+                        if (shown) {
+                            loadSection();
+                        }
+                    });
+
+                    var destroyed = false;
+                    $scope.$on('$destroy', function() {
+                        destroyed = true;
+                    });
+
+                    if ($scope.section.templateModelUrl) {
+                        SectionPrefetchQueue.add(function() {
+                            return destroyed ? null : loadSection();
+                        });
+                    }
 
                     $scope.canExpand = function() {
                         return $scope.state === 'short' && $scope.section.longTemplate;
