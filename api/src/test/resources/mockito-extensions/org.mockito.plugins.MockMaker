@@ -1,1 +1,9 @@
+# Force Mockito's inline mock maker for api tests. Needed for Mockito.mockStatic (e.g. PihEncounterSaveHandlerTest,
+# AddPatientToQueueActionTest).
+#
+# The test classpath has two competing mockito-extensions/org.mockito.plugins.MockMaker files: mock-maker-inline from
+# the openmrs-api tests jar (2.8.9+), and PowerMockMaker from powermock-api-mockito2, which does not support static
+# mocks. Mockito picks one per JVM, so without this file the winner depended on test order, and mockStatic failed with
+# "The used MockMaker PowerMockMaker does not support the creation of static mocks" in a full `mvn clean install`.
+# See UHM-9639.
 mock-maker-inline
