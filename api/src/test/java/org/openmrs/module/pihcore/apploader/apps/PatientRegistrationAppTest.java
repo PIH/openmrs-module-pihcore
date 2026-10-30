@@ -22,6 +22,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -72,13 +73,21 @@ public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
         assertTrue(d.getConfig().get("allowRetrospectiveEntry").getBooleanValue());
         assertTrue(d.getConfig().get("allowUnknownPatients").getBooleanValue());
         assertTrue(d.getConfig().get("allowManualIdentifier").getBooleanValue());
+        assertThat(d.getConfig().get("similarPatientsBanner").getTextValue(), is("note"));
+        assertFalse(d.getConfig().get("checkExactMatchesOnConfirmation").getBooleanValue());
 
         JsonNode demographicsSection = assertSectionFound(d.getConfig(), 0, "demographics", "", 1);
         assertPersonAttributeQuestionFound(demographicsSection, 0, PihEmrConfigConstants.PERSONATTRIBUTETYPE_MOTHERS_FIRST_NAME_UUID, true);
 
-        JsonNode contactInfoSection = assertSectionFound(d.getConfig(), 1, "contactInfo", "registrationapp.patient.contactInfo.label", 2);
+        JsonNode contactInfoSection = assertSectionFound(d.getConfig(), 1, "contactInfo", "registrationapp.patient.contactInfo.label", 3);
         assertSingleFieldQuestion(contactInfoSection, 0, "personAddress");
         assertPersonAttributeQuestionFound(contactInfoSection, 1, PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID, false);
+
+        // the possible duplicates question follows the phone number, and is started by it
+        JsonNode duplicatesField = assertSingleFieldQuestion(contactInfoSection, 2, "possibleDuplicates");
+        assertThat(duplicatesField.get("widget").get("providerName").getTextValue(), is("registrationapp"));
+        assertThat(duplicatesField.get("widget").get("fragmentId").getTextValue(), is("field/possibleDuplicates"));
+        assertThat(duplicatesField.get("widget").get("config").get("triggerField").getTextValue(), is("phoneNumber"));
 
         assertSectionFound(d.getConfig(), 2, "insurance", "zl.registration.patient.insurance.label", 1);
 
@@ -89,6 +98,25 @@ public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
         assertObsQuestionFound(socialSection, 3, "obs.PIH:Religion");
 
         assertSectionFound(d.getConfig(), 4, "contacts", "zl.registration.patient.contactPerson.label", 3);
+    }
+
+    @Test
+    public void shouldNotShowDuplicatePatientSectionWhenDisabled() throws Exception {
+        executeDataSet("org/openmrs/module/pihcore/coreMetadata.xml");
+        authenticate();
+        loadFromInitializer(Domain.CONCEPT_SOURCES, "conceptSources.csv");
+        deployService.installBundle(socioEconomicConcepts);
+
+        Config config = new Config();
+        config.getRegistrationConfig().setShowDuplicatePatientSection(false);
+
+        AppDescriptor d = patientRegistrationApp.getAppDescriptor(config);
+
+        // the contact info section ends with the phone number, and the banner and the exact matches are left as they are
+        JsonNode contactInfoSection = assertSectionFound(d.getConfig(), 1, "contactInfo", "registrationapp.patient.contactInfo.label", 2);
+        assertSingleFieldQuestion(contactInfoSection, 1, "personAttribute");
+        assertFalse(d.getConfig().has("similarPatientsBanner"));
+        assertFalse(d.getConfig().has("checkExactMatchesOnConfirmation"));
     }
 
     private JsonNode assertSectionFound(JsonNode app, int sectionNumber, String id, String label, int numQuestions) {

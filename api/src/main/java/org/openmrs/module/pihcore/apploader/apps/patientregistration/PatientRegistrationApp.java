@@ -7,7 +7,11 @@ import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.pihcore.apploader.CustomAppLoaderConstants;
 import org.openmrs.module.pihcore.PihEmrConfigConstants;
 import org.openmrs.module.pihcore.config.Config;
+import org.openmrs.module.registrationapp.model.Field;
+import org.openmrs.module.registrationapp.model.PossibleDuplicatesWidget;
+import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
+import org.openmrs.module.registrationapp.model.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -60,7 +64,30 @@ public class PatientRegistrationApp {
             default:
                 new SectionsDefault(config).addSections(c);
         }
+        if (hasPossibleDuplicatesQuestion(c)) {
+            // the possible duplicates question reviews the matches, so the form only tells that there are some, and doesn't list
+            // them again on the confirmation
+            c.setSimilarPatientsBanner(RegistrationAppConfig.SIMILAR_PATIENTS_BANNER_NOTE);
+            c.setCheckExactMatchesOnConfirmation(false);
+        }
         return c;
+    }
+
+    private boolean hasPossibleDuplicatesQuestion(RegistrationAppConfig c) {
+        if (c.getSections() != null) {
+            for (Section section : c.getSections()) {
+                if (section.getQuestions() != null) {
+                    for (Question question : section.getQuestions()) {
+                        for (Field field : question.getFields()) {
+                            if (PossibleDuplicatesWidget.FIELD_TYPE.equals(field.getType())) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private ObjectNode toObjectNode(Object o) {
