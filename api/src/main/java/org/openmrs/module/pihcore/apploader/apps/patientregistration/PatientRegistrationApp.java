@@ -78,9 +78,11 @@ public class PatientRegistrationApp {
             for (Section section : c.getSections()) {
                 if (section.getQuestions() != null) {
                     for (Question question : section.getQuestions()) {
-                        for (Field field : question.getFields()) {
-                            if (PossibleDuplicatesWidget.FIELD_TYPE.equals(field.getType())) {
-                                return true;
+                        if (question.getFields() != null) {
+                            for (Field field : question.getFields()) {
+                                if (PossibleDuplicatesWidget.FIELD_TYPE.equals(field.getType())) {
+                                    return true;
+                                }
                             }
                         }
                     }

@@ -64,14 +64,17 @@ import java.util.Map;
  Customizable via pih-config. A set of key-value pairs matching address field names to weights
  The fields are compared from the top of the address hierarchy down (see the address hierarchy levels), and once a field
  differs the fields below it no longer count: the same village name in a different district is not the same village.
- Fields above the configured ones (eg country) are only used this way, they don't score. If there are no address hierarchy
- levels, every configured field counts on its own.
+ Fields above the configured ones (eg country) are only used this way, they don't score; levels below the lowest configured
+ one (eg a house number) are not compared at all. Configured fields that are not in the hierarchy (eg postalCode) never
+ rule out other fields. If there are no address hierarchy levels, every configured field counts on its own.
  A configured field that is blank on either side earns nothing, so only an address where all the configured fields are filled
  in and match gets the full score (and the MATCH status).
 
  Attributes:
  Customizable via pih-config. A set of key-value pairs matching address attribute names to weights
- Special functionality for attribute named "Telephone Number": all non-numeric characters are stripped out before the comparison is made
+ Special functionality for attribute named "Telephone Number": all non-numeric characters are stripped out before the comparison is made (a value without any digits counts as blank)
+ Special functionality for attribute named "First Name of Mother": names that only sound alike (name phonetics) match too
+ Only the attributes that are configured are scored, and reported in the field results.
 
  Example config snippet for Haiti:
 
@@ -135,7 +138,13 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         String phoneAttributeName = Metadata.getPhoneNumberAttributeType() != null ? Metadata.getPhoneNumberAttributeType().getName() : null;
         String mothersFirstNameAttributeName = Metadata.getMothersFirstNameAttributeType() != null ? Metadata.getMothersFirstNameAttributeType().getName() : null;
 
-        List<String> addressHierarchyFields = getAddressHierarchyFields();
+        // the address hierarchy is only needed to compare addresses, which only happens if there are address fields configured
+        Map<String, String> addressFields = getConfiguredAddressFields();
+        List<String> addressHierarchyFields = (addressFields != null && !addressFields.isEmpty())
+                ? getAddressHierarchyFields() : new ArrayList<String>();
+
+        Map<String, String> personAttributeTypes = getConfiguredPersonAttributeTypes();
+        String nameEncoder = adminService.getGlobalProperty("namephonetics.givenNameStringEncoder");
 
         for (Patient match : patients) {
             List<String> matchedFields = new ArrayList<String>();
@@ -147,6 +156,9 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             double addressScore = 0;
             double phoneScore = 0;
             double mothersFirstNameScore = 0;
+            // only for attributes that are configured; the others are left out of the results
+            FieldMatchStatus phoneStatus = null;
+            FieldMatchStatus mothersFirstNameStatus = null;
             double otherAttributesScore = 0;  // configured attributes without a field result of their own, eg birthplace
             FieldMatchStatus birthdateStatus = FieldMatchStatus.MISSING;
 
@@ -198,12 +210,14 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
 
                 if (patientEstimatedAge != null && match.getAge() != null) {
                     int yearsBetween = Math.abs(patientEstimatedAge - match.getAge());
-                    if (yearsBetween < 5) {
+                    // same scale as for an exact birthdate
+                    if (yearsBetween <= 5) {
                         birthdateScore = 6 - yearsBetween;
                         birthdateStatus = FieldMatchStatus.SIMILAR;
                         matchedFields.add("birthdate");
                     }
                     else {
+                        birthdateScore = -8;
                         birthdateStatus = FieldMatchStatus.DIFFERENT;
                     }
                 }
@@ -229,44 +243,59 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
             }
 
             // check for address matches
-            AddressComparison addressComparison = compareAddresses(patient, match, addressHierarchyFields);
+            AddressComparison addressComparison = compareAddresses(patient, match, addressFields, addressHierarchyFields);
             addressScore = addressComparison.score;
             matchedFields.addAll(addressComparison.matchedFields);
 
             // check person attribute matches
-            if (config.getRegistrationConfig() != null && config.getRegistrationConfig().getSimilarPatientsSearch() != null
-                    && config.getRegistrationConfig().getSimilarPatientsSearch().containsKey("personAttributeTypes")) {
-                Map<String, String> personAttributeTypes = (Map<String,String>) config.getRegistrationConfig().getSimilarPatientsSearch().get("personAttributeTypes");
+            if (personAttributeTypes != null) {
                 for (String personAttributeType : personAttributeTypes.keySet()) {
-                    String patientAttribute = patient.getAttribute(personAttributeType) != null ? patient.getAttribute(personAttributeType).getValue() : null;
-                    String matchAttribute = match.getAttribute(personAttributeType) != null ? match.getAttribute(personAttributeType).getValue() : null;
+                    boolean isPhone = personAttributeType.equalsIgnoreCase(phoneAttributeName);
+                    boolean isMothersFirstName = personAttributeType.equalsIgnoreCase(mothersFirstNameAttributeName);
+
+                    String patientAttribute = attributeValue(patient, personAttributeType);
+                    String matchAttribute = attributeValue(match, personAttributeType);
+
+                    // special case telephone number: strip all non-numerics (so a value without any digits is as good as blank)
+                    if (isPhone) {
+                        patientAttribute = digitsOnly(patientAttribute);
+                        matchAttribute = digitsOnly(matchAttribute);
+                    }
+
+                    FieldMatchStatus status = FieldMatchStatus.MISSING;
+                    double attributeScore = 0;
 
                     if (StringUtils.isNotBlank(patientAttribute) && StringUtils.isNotBlank(matchAttribute)) {
+                        status = FieldMatchStatus.DIFFERENT;
 
-                        // special case telephone number: strip all non-numerics
-                        if (personAttributeType.equalsIgnoreCase(Metadata.getPhoneNumberAttributeType().getName())) {
-                            patientAttribute = patientAttribute.replaceAll("[^0-9]", "");
-                            matchAttribute = matchAttribute.replaceAll("[^0-9]", "");
+                        // special case First Name of Mother: names that only sound alike are similar, and score the same as an exact match
+                        boolean same = stripAccentMarks(patientAttribute).equalsIgnoreCase(stripAccentMarks(matchAttribute));
+                        if (same) {
+                            status = FieldMatchStatus.MATCH;
+                        }
+                        else if (isMothersFirstName) {
+                            same = soundAlike(patientAttribute, matchAttribute, nameEncoder);
+                            if (same) {
+                                status = FieldMatchStatus.SIMILAR;
+                            }
                         }
 
-                        // special case First Name of Mother: convert to name phonetics
-                        if (personAttributeType.equalsIgnoreCase(Metadata.getMothersFirstNameAttributeType().getName())) {
-                            patientAttribute = NamePhoneticsUtil.encodeString(patientAttribute, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder"));
-                            matchAttribute = NamePhoneticsUtil.encodeString(matchAttribute, adminService.getGlobalProperty("namephonetics.givenNameStringEncoder"));
-                        }
-
-                        if (stripAccentMarks(patientAttribute).equalsIgnoreCase(stripAccentMarks(matchAttribute))) {
-                            if (personAttributeType.equalsIgnoreCase(phoneAttributeName)) {
-                                phoneScore = new Double(personAttributeTypes.get(personAttributeType));
-                            }
-                            else if (personAttributeType.equalsIgnoreCase(mothersFirstNameAttributeName)) {
-                                mothersFirstNameScore = new Double(personAttributeTypes.get(personAttributeType));
-                            }
-                            else {
-                                otherAttributesScore += new Double(personAttributeTypes.get(personAttributeType));
-                            }
+                        if (same) {
+                            attributeScore = new Double(personAttributeTypes.get(personAttributeType));
                             matchedFields.add("attributes." + personAttributeType);
                         }
+                    }
+
+                    if (isPhone) {
+                        phoneScore = attributeScore;
+                        phoneStatus = status;
+                    }
+                    else if (isMothersFirstName) {
+                        mothersFirstNameScore = attributeScore;
+                        mothersFirstNameStatus = status;
+                    }
+                    else {
+                        otherAttributesScore += attributeScore;
                     }
                 }
             }
@@ -278,13 +307,15 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                     (familyNameMatch && givenNameMatch) ? FieldMatchStatus.MATCH : FieldMatchStatus.SIMILAR, nameScore));
             fieldResults.add(new FieldMatchResult(FieldMatchResult.GENDER, genderStatus(patient, match), genderScore));
             fieldResults.add(new FieldMatchResult(FieldMatchResult.BIRTHDATE, birthdateStatus, birthdateScore));
-            fieldResults.add(new FieldMatchResult(FieldMatchResult.MOTHERS_FIRST_NAME,
-                    mothersFirstNameStatus(patient, match, mothersFirstNameAttributeName), mothersFirstNameScore));
+            if (mothersFirstNameStatus != null) {
+                fieldResults.add(new FieldMatchResult(FieldMatchResult.MOTHERS_FIRST_NAME, mothersFirstNameStatus, mothersFirstNameScore));
+            }
             if (addressComparison.status != null) {
                 fieldResults.add(new FieldMatchResult(FieldMatchResult.ADDRESS, addressComparison.status, addressScore));
             }
-            fieldResults.add(new FieldMatchResult(FieldMatchResult.PHONE,
-                    phoneStatus(patient, match, phoneAttributeName), phoneScore));
+            if (phoneStatus != null) {
+                fieldResults.add(new FieldMatchResult(FieldMatchResult.PHONE, phoneStatus, phoneScore));
+            }
 
             // only take matches that make the cut
             if (cutoff == null) {
@@ -352,6 +383,16 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         return fields;
     }
 
+    // the person attributes to compare and score, from "personAttributeTypes" in the similarPatientsSearch section of pih-config,
+    // mapped to their weights (eg Telephone Number -> "10"); null if none are configured
+    private Map<String, String> getConfiguredPersonAttributeTypes() {
+        if (config.getRegistrationConfig() == null || config.getRegistrationConfig().getSimilarPatientsSearch() == null
+                || !config.getRegistrationConfig().getSimilarPatientsSearch().containsKey("personAttributeTypes")) {
+            return null;
+        }
+        return (Map<String,String>) config.getRegistrationConfig().getSimilarPatientsSearch().get("personAttributeTypes");
+    }
+
     // the address fields to compare and score, from "addressFields" in the similarPatientsSearch section of pih-config, mapped to
     // their weights (eg cityVillage -> "1"); null if none are configured
     private Map<String, String> getConfiguredAddressFields() {
@@ -368,7 +409,10 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
      * is not a difference either). Once a field in the hierarchy differs, the fields below it say nothing about whether it
      * is the same place (the same village name in another district is not the same village), so they stop counting. This
      * also means that fields above the configured ones (eg country) can rule an address out without scoring anything.
-     * Configured fields that are not in the hierarchy are treated as the lowest level and never rule anything out.
+     * Levels of the hierarchy below the lowest configured field are not compared at all (eg a different house number
+     * when only the village is configured), so they can't rule anything out.
+     * Configured fields that are not in the hierarchy (eg postalCode) are compared after the hierarchy, and a difference
+     * in them does not rule out any other field.
      * Without an address hierarchy, every configured field counts on its own.
      *
      * result.score is the sum of the weights of the matching fields, so only a MATCH gets the full score.
@@ -376,43 +420,58 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
      * MATCH: all the configured fields match
      * SIMILAR: some of the configured fields match
      * DIFFERENT: none match, and a field that is filled in on both sides differs
-     * MISSING: the address is not recorded on one or both sides
+     * MISSING: the address is not recorded on one or both sides (or there is no value in any of the fields that are compared)
      * null: both are recorded, but there is nothing to compare (no address fields are configured, or none of them is filled
      * in on both sides); MISSING would wrongly say the address is not recorded, so the field is left out of the results
      *
+     * @param addressFields the address fields to score, mapped to their weights, as returned by getConfiguredAddressFields()
      * @param hierarchyFields the address properties of the address hierarchy levels, from the top (eg country) down, as
      *                        returned by getAddressHierarchyFields(); the order is what decides which fields can rule out
      *                        which; empty if no levels are defined
      */
-    private AddressComparison compareAddresses(Patient patient, Patient match, List<String> hierarchyFields) {
+    private AddressComparison compareAddresses(Patient patient, Patient match, Map<String, String> addressFields, List<String> hierarchyFields) {
         AddressComparison result = new AddressComparison();
 
-        Map<String, String> addressFields = getConfiguredAddressFields();
-        PersonAddress patientAddress = patient.getPersonAddress();
-        PersonAddress matchAddress = match.getPersonAddress();
-        if (patientAddress == null || matchAddress == null) {
-            result.status = FieldMatchStatus.MISSING;
-            return result;
-        }
         if (addressFields == null || addressFields.isEmpty()) {
+            // nothing to score, but still report an address that isn't there
+            if (isBlank(patient.getPersonAddress(), hierarchyFields) || isBlank(match.getPersonAddress(), hierarchyFields)) {
+                result.status = FieldMatchStatus.MISSING;
+            }
             return result;
         }
 
-        // the hierarchy first, then the configured fields that are not in it (they are compared last, so a difference in any
-        // hierarchy level rules them out)
-        List<String> fieldsToCompare = new ArrayList<String>(hierarchyFields);
+        // the hierarchy down to the lowest configured level, then the configured fields that are not in it
+        int lowestConfiguredLevel = -1;
+        for (int i = 0; i < hierarchyFields.size(); i++) {
+            if (addressFields.containsKey(hierarchyFields.get(i))) {
+                lowestConfiguredLevel = i;
+            }
+        }
+        List<String> fieldsToCompare = new ArrayList<String>(hierarchyFields.subList(0, lowestConfiguredLevel + 1));
         for (String addressField : addressFields.keySet()) {
             if (!fieldsToCompare.contains(addressField)) {
                 fieldsToCompare.add(addressField);
             }
         }
 
-        // set when a field in the address hierarchy differs, in which case we stop: the fields below it no longer count as
-        // matches (eg a different department rules out a village with the same name)
+        // a PersonAddress without any value in these fields (which is what a form that was left blank produces) is not an address
+        PersonAddress patientAddress = patient.getPersonAddress();
+        PersonAddress matchAddress = match.getPersonAddress();
+        if (isBlank(patientAddress, fieldsToCompare) || isBlank(matchAddress, fieldsToCompare)) {
+            result.status = FieldMatchStatus.MISSING;
+            return result;
+        }
+
+        // set when a field in the address hierarchy differs, in which case we stop comparing the rest of the hierarchy: the
+        // fields below it no longer count as matches (eg a different department rules out a village with the same name)
         boolean higherLevelDiffers = false;
         int compared = 0;
         int matched = 0;
         for (String addressField : fieldsToCompare) {
+            boolean inHierarchy = hierarchyFields.contains(addressField);
+            if (higherLevelDiffers && inHierarchy) {
+                continue;
+            }
             try {
                 String patientField = (String) PropertyUtils.getProperty(patientAddress, addressField);
                 String matchField = (String) PropertyUtils.getProperty(matchAddress, addressField);
@@ -429,9 +488,8 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
                             result.matchedFields.add("addresses." + addressField);
                         }
                     }
-                    else if (hierarchyFields.contains(addressField)) {
+                    else if (inHierarchy) {
                         higherLevelDiffers = true;
-                        break;
                     }
                 }
             }
@@ -453,34 +511,36 @@ public class PihPatientSearchAlgorithm  implements SimilarPatientSearchAlgorithm
         return result;
     }
 
-    // as in the score, only the digits are compared
-    private FieldMatchStatus phoneStatus(Patient patient, Patient match, String phoneAttributeName) {
-        String patientPhone = digitsOnly(attributeValue(patient, phoneAttributeName));
-        String matchPhone = digitsOnly(attributeValue(match, phoneAttributeName));
-        if (StringUtils.isBlank(patientPhone) || StringUtils.isBlank(matchPhone)) {
-            return FieldMatchStatus.MISSING;
+    // true if there is no address, or none of the given fields has a value in it
+    private boolean isBlank(PersonAddress address, List<String> addressFields) {
+        if (address == null) {
+            return true;
         }
-        return patientPhone.equals(matchPhone) ? FieldMatchStatus.MATCH : FieldMatchStatus.DIFFERENT;
+        for (String addressField : addressFields) {
+            try {
+                if (StringUtils.isNotBlank((String) PropertyUtils.getProperty(address, addressField))) {
+                    return false;
+                }
+            }
+            catch (Exception e) {
+                log.error("Unable to access " + addressField + " on patient during similar patient search");
+            }
+        }
+        return true;
     }
 
-    // as in the score, names that only sound alike (name phonetics) count as a match; here they are reported as similar
-    private FieldMatchStatus mothersFirstNameStatus(Patient patient, Patient match, String mothersFirstNameAttributeName) {
-        String patientName = attributeValue(patient, mothersFirstNameAttributeName);
-        String matchName = attributeValue(match, mothersFirstNameAttributeName);
-        if (StringUtils.isBlank(patientName) || StringUtils.isBlank(matchName)) {
-            return FieldMatchStatus.MISSING;
+    // names that sound alike, according to name phonetics
+    private boolean soundAlike(String name, String otherName, String encoder) {
+        try {
+            String encoded = NamePhoneticsUtil.encodeString(name, encoder);
+            String otherEncoded = NamePhoneticsUtil.encodeString(otherName, encoder);
+            return encoded != null && otherEncoded != null && stripAccentMarks(encoded).equalsIgnoreCase(stripAccentMarks(otherEncoded));
         }
-        if (nameExactMatch(patientName, matchName)) {
-            return FieldMatchStatus.MATCH;
+        catch (RuntimeException e) {
+            // the encoder can't handle some characters; this is only a refinement of the comparison, so don't fail the search
+            log.warn("Unable to encode name during similar patient search", e);
+            return false;
         }
-        String encoder = adminService.getGlobalProperty("namephonetics.givenNameStringEncoder");
-        String patientEncoded = NamePhoneticsUtil.encodeString(patientName, encoder);
-        String matchEncoded = NamePhoneticsUtil.encodeString(matchName, encoder);
-        if (patientEncoded != null && matchEncoded != null
-                && stripAccentMarks(patientEncoded).equalsIgnoreCase(stripAccentMarks(matchEncoded))) {
-            return FieldMatchStatus.SIMILAR;
-        }
-        return FieldMatchStatus.DIFFERENT;
     }
 
     private String attributeValue(Patient patient, String attributeTypeName) {

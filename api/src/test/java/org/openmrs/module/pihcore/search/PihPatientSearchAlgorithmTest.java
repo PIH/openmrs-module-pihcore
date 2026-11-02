@@ -516,6 +516,52 @@ public class PihPatientSearchAlgorithmTest extends PihCoreContextSensitiveTest {
         assertThat(result.getFieldResult(FieldMatchResult.ADDRESS).getScore(), is(2.0));
     }
 
+    @Test
+    public void shouldReportBlankAddressAsMissing() {
+        // a registration form that was left blank still produces a PersonAddress
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAddress(new PersonAddress());
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.ADDRESS), is(FieldMatchStatus.MISSING));
+    }
+
+    @Test
+    public void shouldNotTreatPhoneNumbersWithoutDigitsAsMatching() {
+        Patient stored = patientService.getPatient(13);
+        stored.addAttribute(attribute(Metadata.getPhoneNumberAttributeType(), "N/A"));
+        Context.flushSession();
+
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.addAttribute(attribute(Metadata.getPhoneNumberAttributeType(), "none"));
+
+        PatientAndMatchQuality result = search(patient);
+        assertThat(fieldStatus(result, FieldMatchResult.PHONE), is(FieldMatchStatus.MISSING));
+        assertThat(result.getFieldResult(FieldMatchResult.PHONE).getScore(), is(0.0));
+        assertFalse(result.getMatchedFields().contains("attributes.Telephone Number"));
+    }
+
+    @Test
+    public void shouldScoreEstimatedAgeLikeBirthdate() {
+        // the existing patient is 50 (born 1974-11-02, estimated), and the exact birthdate path scores a gap of 5 years as 1
+        Patient stored = patientService.getPatient(13);
+        int storedAge = stored.getAge();
+
+        Patient patient = patientNamed("Jarus", "Rapondi");
+        patient.setBirthdate(null);
+
+        Map<String, Object> otherDataPoints = new HashMap<String, Object>();
+        otherDataPoints.put("birthdateYears", storedAge + 5);
+        PatientAndMatchQuality result = searchAlgorithm.findSimilarPatients(patient, otherDataPoints, null, 10).get(0);
+        assertThat(fieldStatus(result, FieldMatchResult.BIRTHDATE), is(FieldMatchStatus.SIMILAR));
+        assertThat(result.getFieldResult(FieldMatchResult.BIRTHDATE).getScore(), is(1.0));
+
+        otherDataPoints.put("birthdateYears", storedAge + 6);
+        result = searchAlgorithm.findSimilarPatients(patient, otherDataPoints, null, 10).get(0);
+        assertThat(fieldStatus(result, FieldMatchResult.BIRTHDATE), is(FieldMatchStatus.DIFFERENT));
+        assertThat(result.getFieldResult(FieldMatchResult.BIRTHDATE).getScore(), is(-8.0));
+    }
+
     // country > stateProvince > cityVillage > address3 > address1, like the hierarchy at a typical site; returns the bottom level.
     // They are saved from the bottom up and only then linked, so that the order they are stored in is not the order of the hierarchy
     private AddressHierarchyLevel createAddressHierarchyLevels() {
