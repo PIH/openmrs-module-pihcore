@@ -193,14 +193,14 @@ public class SectionsDefault {
         return s;
     }
 
-    // reviews the patients that are similar to the one being registered, once the phone number has been entered
+    // reviews the patients that are similar to the one being registered; like any other question, it is reached in the order of
+    // the form, and does not depend on any particular field
     public Question getPossibleDuplicatesQuestion() {
         Question q = new Question();
         q.setId("possibleDuplicatesLabel");
         q.setLegend("registrationapp.duplicates.title");
 
         PossibleDuplicatesWidget w = new PossibleDuplicatesWidget();
-        w.getConfig().setTriggerField("phoneNumber");
 
         Field f = new Field();
         f.setType(PossibleDuplicatesWidget.FIELD_TYPE);

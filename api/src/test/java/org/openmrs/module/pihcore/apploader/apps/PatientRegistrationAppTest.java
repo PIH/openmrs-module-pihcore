@@ -83,11 +83,11 @@ public class PatientRegistrationAppTest extends PihCoreContextSensitiveTest {
         assertSingleFieldQuestion(contactInfoSection, 0, "personAddress");
         assertPersonAttributeQuestionFound(contactInfoSection, 1, PihEmrConfigConstants.PERSONATTRIBUTETYPE_TELEPHONE_NUMBER_UUID, false);
 
-        // the possible duplicates question follows the phone number, and is started by it
+        // the possible duplicates question follows the phone number, but is not tied to it
         JsonNode duplicatesField = assertSingleFieldQuestion(contactInfoSection, 2, "possibleDuplicates");
         assertThat(duplicatesField.get("widget").get("providerName").getTextValue(), is("registrationapp"));
         assertThat(duplicatesField.get("widget").get("fragmentId").getTextValue(), is("field/possibleDuplicates"));
-        assertThat(duplicatesField.get("widget").get("config").get("triggerField").getTextValue(), is("phoneNumber"));
+        assertFalse(duplicatesField.get("widget").get("config").has("triggerField"));
 
         assertSectionFound(d.getConfig(), 2, "insurance", "zl.registration.patient.insurance.label", 1);
 
