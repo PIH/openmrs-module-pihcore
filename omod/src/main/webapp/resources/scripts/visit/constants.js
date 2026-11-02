@@ -632,6 +632,12 @@ angular.module('constants', [])
         },
         maternalCheckIn: {
             uuid: "251c03fa-a9dc-4157-855f-b016f4fae9ab"
+        },
+        transfer: {
+            uuid: "436cfe33-6b81-40ef-a455-f134a9f7e580"
+        },
+        exitFromInpatientCare: {
+            uuid: "b6631959-2105-49dd-b154-e1249e0fbcd7"
         }
     })
     .value('OrderTypes', {
