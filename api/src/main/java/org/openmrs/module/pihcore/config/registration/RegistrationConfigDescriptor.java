@@ -49,6 +49,14 @@ public class RegistrationConfigDescriptor {
     @JsonProperty
     private Integer maxPatientMatchResults;
 
+    // whether the registration form has the "Possible duplicates" question (see registrationapp), after the phone number; if so,
+    // the similar patients banner is a note about how many there are, and the exact matches are not listed on the confirmation.
+    // On by default, relies on the registrationcore similar patient search algorithm and registrationapp.strongMatchCutoff global
+    // properties set in the pihemr config; to keep the old form, set this to false and
+    // registrationcore.preciseSimilarPatientSearchAlgorithm to registrationcore.BasicExactPatientSearchAlgorithm
+    @JsonProperty
+    private boolean showDuplicatePatientSection = true;
+
     @JsonProperty
     private boolean showCountryInAddressHierarchy = false;
 
@@ -120,6 +128,14 @@ public class RegistrationConfigDescriptor {
 
     public void setMaxPatientMatchResults(Integer maxPatientMatchResults) {
         this.maxPatientMatchResults = maxPatientMatchResults;
+    }
+
+    public boolean isShowDuplicatePatientSection() {
+        return showDuplicatePatientSection;
+    }
+
+    public void setShowDuplicatePatientSection(boolean showDuplicatePatientSection) {
+        this.showDuplicatePatientSection = showDuplicatePatientSection;
     }
 
     public DemographicsConfigDescriptor getDemographics() {
