@@ -128,7 +128,6 @@ public class ConfigurationSetup {
      *  3. Setting global property values "pihcore.component.<component>=true" for all enabled components, for use in ETL
      *  4. A handful of other places:
      *    - HomepageOverrideController - swap with feature toggle, that toggles to spa login page if toggled on
-     *    - RedirectToDeathNoteIfMissing - swap with feature toggle, if death note is enabled; or possibly a configuration setting (gp or pihconfig value)
      *    - PihRadiologyOrdersMergeActions - don't think a component is appropriate here.  we'd want this to happen regardless of current component status, if orders of this type exist
      *    - PacIntegrationSetup - don't think a comonent is appropriate here.  why not always have the HL7 listener initialized?  Otherwise, add a GP to PACS integration module that can be configured
      */
