@@ -280,10 +280,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
             enableBedAdministration();
         }
 
-        if (config.isComponentEnabled(Components.DEATH_CERTIFICATE)) {
-            enableDeathCertificate();
-        }
-
         if (config.isComponentEnabled(Components.RADIOLOGY)) {
             enableRadiology();
         }
@@ -1011,24 +1007,6 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 null)));
     }
 
-    private void enableDeathCertificate() {
-
-        extensions.add(overallAction(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
-                "mirebalais.deathCertificate.death_certificate",
-                "fas fa-fw fa-times-circle",
-                "link",
-                enterSimpleHtmlFormLinkWithoutVisit(PihCoreUtil.getFormResource("retired/deathCertificate.xml")),
-                "Task: mirebalais.enterDeathCertificate",
-                "!patient.person.dead"
-        ));
-
-        extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.DEATH_CERTIFICATE_HEADER_EXTENSION,
-                "pihcore",
-                "deathcertificate/headerLink",
-                "Task: mirebalais.enterDeathCertificate",
-                CustomAppLoaderConstants.ExtensionPoints.DEATH_INFO_HEADER,
-                null));
-    }
     private void enableHivProgramLocationWarning() {
         extensions.add(fragmentExtension(CustomAppLoaderConstants.Extensions.HIV_PROGRAM_LOCATION_WARNING_HEADER_EXTENSION,
                 "pihcore",
