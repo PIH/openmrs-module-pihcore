@@ -1017,7 +1017,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
                 "mirebalais.deathCertificate.death_certificate",
                 "fas fa-fw fa-times-circle",
                 "link",
-                enterSimpleHtmlFormLinkWithoutVisit(PihCoreUtil.getFormResource("deathCertificate.xml")),
+                enterSimpleHtmlFormLinkWithoutVisit(PihCoreUtil.getFormResource("retired/deathCertificate.xml")),
                 "Task: mirebalais.enterDeathCertificate",
                 "!patient.person.dead"
         ));
