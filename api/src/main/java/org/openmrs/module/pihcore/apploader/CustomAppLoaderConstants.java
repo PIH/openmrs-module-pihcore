@@ -297,7 +297,6 @@ public class CustomAppLoaderConstants {
         public static final String CREATE_HIV_VISIT_OVERALL_ACTION = "coreapps.hiv.createVisit";
         public static final String CREATE_RETROSPECTIVE_VISIT_OVERALL_ACTION = "coreapps.createRetrospectiveVisit";
         public static final String MERGE_VISITS_OVERALL_ACTION = "coreapps.mergeVisits";
-        public static final String DEATH_CERTIFICATE_OVERALL_ACTION = "pih.haiti.deathCertificate";
         public static final String CHART_SEARCH_OVERALL_ACTION = "chartsearch.overallAction";
         public static final String PATIENT_DOCUMENTS_OVERALL_ACTION = "attachments.patientDocuments.overallAction";
         public static final String ORDER_LABS_OVERALL_ACTION = "orderentryowa.orderLabs";
@@ -327,8 +326,6 @@ public class CustomAppLoaderConstants {
         public static final String PIH_AUTH_ADMIN_EXTENSION = "pih.authenticationui.admin";
         public static final String PIH_AUTH_LOGIN_EXTENSION = "pih.authenticationui.login";
 
-        public static final String DEATH_CERTIFICATE_HEADER_EXTENSION = "pih.header.deathCertificate";
-
 
         public static final String ALLERGY_UI_VISIT_NOTE_NEXT_SUPPORT = "allergyui.allergires.visitNoteNextSupport";
 
@@ -355,7 +352,6 @@ public class CustomAppLoaderConstants {
         public static final String ENCOUNTER_TEMPLATE = "org.openmrs.referenceapplication.encounterTemplate";
         public static final String HOME_PAGE = "org.openmrs.referenceapplication.homepageLink";
         public static final String PROGRAM_SUMMARY_LIST = Apps.PROGRAM_SUMMARY_LIST + ".apps";
-        public static final String DEATH_INFO_HEADER = "patientHeader.deathInfo";
         public static final String SECOND_LINE_HEADER = "patientHeader.secondLineFragments";
         public static final String DASHBOARD_TAB = "patientDashboard.tabs";
         public static final String DASHBOARD_INCLUDE_FRAGMENTS = "patientDashboard.includeFragments";
@@ -464,7 +460,6 @@ public class CustomAppLoaderConstants {
             Extensions.SCHEDULE_APPOINTMENT_OVERALL_ACTION,
             Extensions.MERGE_VISITS_OVERALL_ACTION,
             Extensions.REGISTRATION_SUMMARY_OVERALL_ACTION,
-            Extensions.DEATH_CERTIFICATE_OVERALL_ACTION,
             Extensions.PATIENT_DOCUMENTS_OVERALL_ACTION,
             Extensions.CHEMO_ORDERING_VISIT_ACTION,
             Extensions.EDIT_PATIENT_DEMOGRAPHICS,
