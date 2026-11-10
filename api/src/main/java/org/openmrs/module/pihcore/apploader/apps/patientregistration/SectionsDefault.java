@@ -21,6 +21,7 @@ import org.openmrs.module.registrationapp.model.DropdownWidget;
 import org.openmrs.module.registrationapp.model.Field;
 import org.openmrs.module.registrationapp.model.FingerprintWidget;
 import org.openmrs.module.registrationapp.model.PersonAddressWithHierarchyWidget;
+import org.openmrs.module.registrationapp.model.PossibleDuplicatesWidget;
 import org.openmrs.module.registrationapp.model.Question;
 import org.openmrs.module.registrationapp.model.RegistrationAppConfig;
 import org.openmrs.module.registrationapp.model.Section;
@@ -186,7 +187,27 @@ public class SectionsDefault {
         s.setLabel("registrationapp.patient.contactInfo.label");
         s.addQuestion(getAddressQuestion());
         s.addQuestion(getTelephoneNumberQuestion());
+        if (config.getRegistrationConfig().isShowDuplicatePatientSection()) {
+            s.addQuestion(getPossibleDuplicatesQuestion());
+        }
         return s;
+    }
+
+    // reviews the patients that are similar to the one being registered; like any other question, it is reached in the order of
+    // the form, and does not depend on any particular field
+    public Question getPossibleDuplicatesQuestion() {
+        Question q = new Question();
+        q.setId("possibleDuplicatesLabel");
+        q.setLegend("registrationapp.duplicates.title");
+
+        PossibleDuplicatesWidget w = new PossibleDuplicatesWidget();
+
+        Field f = new Field();
+        f.setType(PossibleDuplicatesWidget.FIELD_TYPE);
+        f.setLabel("registrationapp.duplicates.title");
+        f.setWidget(toObjectNode(w));
+        q.addField(f);
+        return q;
     }
 
     public Question getAddressQuestion() {
