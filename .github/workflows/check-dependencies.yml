@@ -1,9 +1,9 @@
 name: Check dependencies
 on:
   schedule:
-    # Hourly, but deliberately not at minute 0: GitHub runs scheduled workflows best-effort, and the
-    # top of the hour is its busiest time, when it delays or drops the most runs. At "0 * * * *" only
-    # about 15% of the hourly runs actually happened (25 of 168 in the week to 2026-11-12).
+    # Hourly, at a quiet minute rather than :00 or :30: GitHub runs scheduled workflows best-effort and
+    # delays or drops them most at busy times such as the top of the hour. On :00 (this workflow) and
+    # :30 (update-versions) only about 15% of hourly runs happened (25-26 of 168 in the week to 2026-11-12).
     - cron: "17 * * * *"
   workflow_dispatch:
 concurrency:
