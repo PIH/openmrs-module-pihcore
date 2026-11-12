@@ -1,7 +1,10 @@
 name: Check dependencies
 on:
   schedule:
-    - cron: "0 * * * *"
+    # Hourly, but deliberately not at minute 0: GitHub runs scheduled workflows best-effort, and the
+    # top of the hour is its busiest time, when it delays or drops the most runs. At "0 * * * *" only
+    # about 15% of the hourly runs actually happened (25 of 168 in the week to 2026-11-12).
+    - cron: "17 * * * *"
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
