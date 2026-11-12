@@ -2,8 +2,9 @@ name: Update Versions
 
 on:
   schedule:
-    # Hourly, at a quiet minute rather than :00 or :30 (see check-dependencies.yml).
-    - cron: "43 * * * *"
+    # Hourly, at a minute picked at random rather than :30 (see check-dependencies.yml). On :30 only
+    # 26 of 168 hourly runs happened in the week to 2026-11-12.
+    - cron: "25 * * * *"
   workflow_dispatch:
 
 jobs:
