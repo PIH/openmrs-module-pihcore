@@ -1,7 +1,8 @@
 name: Check dependencies
 on:
   schedule:
-    - cron: "0 * * * *"
+    # Hourly at a random minute, avoiding :00, when GitHub delays or drops the most scheduled runs.
+    - cron: "39 * * * *"
   workflow_dispatch:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

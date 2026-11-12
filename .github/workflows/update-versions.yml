@@ -2,7 +2,8 @@ name: Update Versions
 
 on:
   schedule:
-    - cron: "30 * * * *"
+    # Hourly at a random minute, avoiding busy times like :00 and :30.
+    - cron: "7 * * * *"
   workflow_dispatch:
 
 jobs:
