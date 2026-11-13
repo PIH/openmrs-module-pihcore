@@ -948,7 +948,7 @@ angular.module("visit", [ "filters", "constants", "encounterTypeConfig", "visitS
                  ngDialog, Encounter, EncounterTypeConfig, CoreappsService, AppFrameworkService, QueueEntry, visitUuid, visitTypeUuid, encounterTypeUuid, suppressActions, patientUuid, encounterUuid,
                  locale, currentSection, goToNext, showVisitLocation, nextSection, initialRouterState, country, site, DatetimeFormats, EncounterTransaction, SessionInfo, Concepts, OrderTypes, VisitTypes) {
 
-          const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref),patient:default,visitType:ref,attributes:default)"
+          const visitRef = "custom:(uuid,startDatetime,stopDatetime,location:ref,encounters:(uuid,display,encounterDatetime,patient:default,location:ref,form:(uuid,version),encounterType:ref,obs:default,orders:ref,voided,visit:(uuid,display,location:(uuid)),encounterProviders:(uuid,encounterRole,provider,dateCreated),creator:ref,auditInfo),patient:default,visitType:ref,attributes:default)"
           const encountersRef = "custom:(uuid,encounterDatetime,patient:(uuid,patientId,display),encounterType:(uuid,display),location:(uuid,name,display),encounterProviders:(uuid,display),form:(uuid,display),obs:(uuid,value,concept:(id,uuid,name:(display),datatype:(uuid)))";
           const queueEntriesRef = "custom:(uuid,display,queue:(uuid,display,location:(uuid,display),service:(uuid,display)),status:(uuid,display),priority:(uuid,display),startedAt,endedAt)";
 
