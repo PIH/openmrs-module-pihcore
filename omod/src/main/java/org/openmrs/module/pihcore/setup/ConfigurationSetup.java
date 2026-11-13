@@ -236,6 +236,9 @@ public class ConfigurationSetup {
             ReportSetup.scheduleMonthlyExportsReports(config);
         }
 
+        setStatus("Setting up the true and false concepts if necessary");
+        BooleanConceptsSetup.setupBooleanConceptsIfMissing(Context.getAdministrationService(), conceptService);
+
         // TODO: This seems harmless here for refreshing, but we should determine if
         // TODO: 1. Has this run everywhere it needs to, and can we remove this code altogether now
         // TODO: 2. If not, can we move this to a liquibase changeset instead
