@@ -3,7 +3,10 @@ package org.openmrs.module.pihcore.setup;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openmrs.Concept;
+import org.openmrs.ConceptMap;
 import org.openmrs.ConceptName;
+import org.openmrs.ConceptReferenceTerm;
+import org.openmrs.ConceptSource;
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
@@ -12,6 +15,7 @@ import org.openmrs.util.OpenmrsConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,30 +32,29 @@ public class BooleanConceptsSetupComponentTest extends PihCoreContextSensitiveTe
     @Qualifier("conceptService")
     ConceptService conceptService;
 
-    private Concept coreTrue;
+    private Concept yes;
 
-    private Concept coreFalse;
+    private Concept no;
 
     @BeforeEach
     public void setUp() {
-        // what a database first created on OpenMRS 2.4+ looks like: core's True and False concepts, but no
-        // concept.true / concept.false
-        coreTrue = coreConcept(BooleanConceptsSetup.CORE_TRUE_CONCEPT_UUID, "True");
-        coreFalse = coreConcept(BooleanConceptsSetup.CORE_FALSE_CONCEPT_UUID, "False");
+        // like a database first created on OpenMRS 2.4+: the PIH Yes and No concepts, but no concept.true / concept.false
+        yes = pihConcept(BooleanConceptsSetup.TRUE_CONCEPT_CODE, "Yes");
+        no = pihConcept(BooleanConceptsSetup.FALSE_CONCEPT_CODE, "No");
         removeGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_TRUE_CONCEPT);
         removeGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_FALSE_CONCEPT);
     }
 
     @Test
-    public void shouldSetMissingTrueAndFalseConceptsToCoresTrueAndFalse() {
+    public void shouldSetMissingTrueAndFalseConceptsToPihYesAndNo() {
         BooleanConceptsSetup.setupBooleanConceptsIfMissing(administrationService, conceptService);
 
         assertThat(administrationService.getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_TRUE_CONCEPT),
-                is(coreTrue.getConceptId().toString()));
+                is(yes.getConceptId().toString()));
         assertThat(administrationService.getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_FALSE_CONCEPT),
-                is(coreFalse.getConceptId().toString()));
-        assertThat(conceptService.getTrueConcept(), is(coreTrue));
-        assertThat(conceptService.getFalseConcept(), is(coreFalse));
+                is(no.getConceptId().toString()));
+        assertThat(conceptService.getTrueConcept(), is(yes));
+        assertThat(conceptService.getFalseConcept(), is(no));
     }
 
     @Test
@@ -62,9 +65,9 @@ public class BooleanConceptsSetupComponentTest extends PihCoreContextSensitiveTe
         BooleanConceptsSetup.setupBooleanConceptsIfMissing(administrationService, conceptService);
 
         assertThat(administrationService.getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_TRUE_CONCEPT),
-                is(coreTrue.getConceptId().toString()));
+                is(yes.getConceptId().toString()));
         assertThat(administrationService.getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_FALSE_CONCEPT),
-                is(coreFalse.getConceptId().toString()));
+                is(no.getConceptId().toString()));
     }
 
     @Test
@@ -79,9 +82,9 @@ public class BooleanConceptsSetupComponentTest extends PihCoreContextSensitiveTe
     }
 
     @Test
-    public void shouldLeaveThemUnsetWhenCoresConceptsAreMissing() {
-        conceptService.purgeConcept(coreTrue);
-        conceptService.purgeConcept(coreFalse);
+    public void shouldLeaveThemUnsetWhenYesAndNoAreMissing() {
+        removePihMapping(yes, BooleanConceptsSetup.TRUE_CONCEPT_CODE);
+        removePihMapping(no, BooleanConceptsSetup.FALSE_CONCEPT_CODE);
 
         BooleanConceptsSetup.setupBooleanConceptsIfMissing(administrationService, conceptService);
 
@@ -89,17 +92,35 @@ public class BooleanConceptsSetupComponentTest extends PihCoreContextSensitiveTe
         assertThat(administrationService.getGlobalProperty(OpenmrsConstants.GLOBAL_PROPERTY_FALSE_CONCEPT), isEmptyOrNullString());
     }
 
-    private Concept coreConcept(String uuid, String name) {
-        Concept concept = conceptService.getConceptByUuid(uuid);
+    private Concept pihConcept(String code, String name) {
+        Concept concept = conceptService.getConceptByMapping(code, BooleanConceptsSetup.PIH_SOURCE);
         if (concept == null) {
+            ConceptSource pih = conceptService.getConceptSourceByName(BooleanConceptsSetup.PIH_SOURCE);
+            if (pih == null) {
+                pih = new ConceptSource();
+                pih.setName(BooleanConceptsSetup.PIH_SOURCE);
+                pih.setDescription(BooleanConceptsSetup.PIH_SOURCE);
+                pih = conceptService.saveConceptSource(pih);
+            }
+            ConceptReferenceTerm term = conceptService.saveConceptReferenceTerm(new ConceptReferenceTerm(pih, code, null));
             concept = new Concept();
-            concept.setUuid(uuid);
             concept.setFullySpecifiedName(new ConceptName(name, Locale.ENGLISH));
             concept.setDatatype(conceptService.getConceptDatatypeByName("N/A"));
             concept.setConceptClass(conceptService.getConceptClassByName("Misc"));
+            concept.addConceptMapping(new ConceptMap(term, conceptService.getConceptMapTypeByName("SAME-AS")));
             concept = conceptService.saveConcept(concept);
         }
         return concept;
+    }
+
+    private void removePihMapping(Concept concept, String code) {
+        for (ConceptMap map : new ArrayList<>(concept.getConceptMappings())) {
+            ConceptReferenceTerm term = map.getConceptReferenceTerm();
+            if (term.getCode().equals(code) && term.getConceptSource().getName().equals(BooleanConceptsSetup.PIH_SOURCE)) {
+                concept.removeConceptMapping(map);
+            }
+        }
+        conceptService.saveConcept(concept);
     }
 
     private void removeGlobalProperty(String property) {
