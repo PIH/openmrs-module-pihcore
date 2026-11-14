@@ -5,10 +5,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.openmrs.EncounterType;
-import org.openmrs.Role;
-import org.openmrs.User;
-import org.openmrs.api.cache.RolePrivilegeCache;
-import org.openmrs.api.cache.RolePrivileges;
 import org.openmrs.api.context.Context;
 import org.openmrs.messagesource.MessageSourceService;
 import org.openmrs.module.Module;
@@ -23,8 +19,6 @@ import org.openmrs.module.pihcore.metadata.Metadata;
 import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.openmrs.util.OpenmrsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 
 import java.io.File;
 import java.io.InputStream;
@@ -107,25 +101,9 @@ public abstract class PihCoreContextSensitiveTest extends BaseModuleContextSensi
         }
     }
 
-    public void warmRolePrivilegeCache() {
-        User user = Context.getAuthenticatedUser();
-        if (user == null) {
-            return;
-        }
-        CacheManager cacheManager = Context.getRegisteredComponent("apiCacheManager", CacheManager.class);
-        Cache cache = cacheManager.getCache(RolePrivilegeCache.CACHE_NAME);
-        if (cache == null) {
-            return;
-        }
-        for (Role role : user.getAllRoles()) {
-            cache.put(RolePrivileges.normalize(role.getRole()), RolePrivilegeCache.computeRolePrivileges(role));
-        }
-    }
-
     public void loadFromInitializer(Domain domain, String file) {
         InitializerService initializerService = Context.getService(InitializerService.class);
         List<File> configFiles = new ArrayList<>();
-        warmRolePrivilegeCache();
         try {
             configFiles.add(addResourceToConfigurationDirectory(domain.getName(), file));
             initializerService.loadUnsafe(true, true);
