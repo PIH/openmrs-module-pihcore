@@ -1,6 +1,6 @@
 <span>{{encounter.encounterDatetime | serverDate:encounterDateFormat}}</span>
 
-<span ng-hide="encounter.encounterDatetime == encounter.auditInfo.dateCreated">
+<span ng-hide="(encounter.encounterDatetime | serverDate:'yyyy-MM-dd HH:mm') == (encounter.auditInfo.dateCreated | serverDate:'yyyy-MM-dd HH:mm')">
     * ${ ui.message("pihcore.visitNote.enteredOn") } {{encounter.auditInfo.dateCreated | serverDate:encounterDateFormat}}
 </span>
 <span>
