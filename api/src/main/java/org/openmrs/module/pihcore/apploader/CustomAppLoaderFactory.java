@@ -3906,6 +3906,28 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableMdrTbProgram() {
         configureBasicProgramDashboard(LesothoConfigConstants.PROGRAM_MDRTB_UUID);
+
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LESOTHO_TB_INITIAL_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + LesothoConfigConstants.ENCOUNTERTYPE_LESOTHOTBINTAKE_UUID,
+                "fas fa-fw fa-wind",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("tbIntake.xml")
+                        + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
+                and(sessionLocationHasTag("Consult Note Location"),
+                        visitDoesNotHaveEncounterOfType(LesothoConfigConstants.ENCOUNTERTYPE_LESOTHOTBINTAKE_UUID),
+                        visitDoesNotHaveEncounterOfType(LesothoConfigConstants.ENCOUNTERTYPE_LESOTHOTBFOLLOWUP_UUID))));
+
+        extensions.add(visitAction(CustomAppLoaderConstants.Extensions.LESOTHO_TB_FOLLOWUP_VISIT_ACTION,
+                "ui.i18n.EncounterType.name." + LesothoConfigConstants.ENCOUNTERTYPE_LESOTHOTBFOLLOWUP_UUID,
+                "fas fa-fw fa-wind",
+                "link",
+                enterStandardHtmlFormLink(PihCoreUtil.getFormResource("tbFollowup.xml")
+                        + "&returnUrl=/" + WebConstants.CONTEXT_PATH + "/" + patientVisitsPageWithSpecificVisitUrl),
+                PihEmrConfigConstants.PRIVILEGE_TASK_EMR_ENTER_CONSULT_NOTE,
+                and(sessionLocationHasTag("Consult Note Location"),
+                        visitDoesNotHaveEncounterOfType(LesothoConfigConstants.ENCOUNTERTYPE_LESOTHOTBINTAKE_UUID),
+                        visitDoesNotHaveEncounterOfType(LesothoConfigConstants.ENCOUNTERTYPE_LESOTHOTBFOLLOWUP_UUID))));
     }
 
     private void enableMentalHealthProgram() {

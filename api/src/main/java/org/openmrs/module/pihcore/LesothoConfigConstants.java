@@ -19,4 +19,7 @@ public class LesothoConfigConstants {
 
 	public static final String PROGRAM_MDRTB_UUID ="7d377413-4626-4342-b015-1ab229964cb4";
 
+	public static final String ENCOUNTERTYPE_LESOTHOTBINTAKE_UUID = "f48a79ff-d0ea-4ee2-8c4b-71b4a6e6ebe8";
+	public static final String ENCOUNTERTYPE_LESOTHOTBFOLLOWUP_UUID = "131e3b40-bdbb-4b6f-bcb6-ab899b8a0f48";
+
 }

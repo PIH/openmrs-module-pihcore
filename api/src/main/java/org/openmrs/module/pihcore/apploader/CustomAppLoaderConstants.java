@@ -277,6 +277,8 @@ public class CustomAppLoaderConstants {
         public static final String SIERRA_LEONE_OUTPATIENT_FOLLOWUP_VISIT_ACTION = "pih.sierraLeone.outpatient.followup";
         public static final String LIBERIA_FAMILY_MED_INITIAL_VISIT_ACTION = "pih.liberia.familyMed.initial";
         public static final String LIBERIA_FAMILY_MED_FOLLOWUP_VISIT_ACTION = "pih.liberia.familyMed.followup";
+        public static final String LESOTHO_TB_INITIAL_VISIT_ACTION = "pih.lesotho.tb.initial";
+        public static final String LESOTHO_TB_FOLLOWUP_VISIT_ACTION = "pih.lesotho.tb.followup";
         public static final String DRUG_REHAB_VISIT_ACTION = "pih.form.drugRehab";
         public static final String PHYSICAL_REHAB_VISIT_ACTION = "pih.form.physicalRehab";
         public static final String SECOND_LINE_HEADER = "patientHeader.secondLineFragments";
