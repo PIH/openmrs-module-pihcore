@@ -50,17 +50,17 @@
 
         <addresshierarchyVersion>3.0.0</addresshierarchyVersion>
         <allergyuiVersion>1.8.7</allergyuiVersion>
-        <appframeworkVersion>2.20.0-SNAPSHOT</appframeworkVersion>
+        <appframeworkVersion>2.20.0</appframeworkVersion>
         <appointmentsVersion>2.2.0</appointmentsVersion>
         <appointmentschedulingVersion>2.0.0</appointmentschedulingVersion>
         <appointmentschedulinguiVersion>2.0.0</appointmentschedulinguiVersion>
         <appuiVersion>1.18.0</appuiVersion>
         <attachmentsVersion>4.1.1-SNAPSHOT</attachmentsVersion>
         <authenticationVersion>2.5.0</authenticationVersion>
-        <authenticationuiVersion>1.4.0-SNAPSHOT</authenticationuiVersion>
+        <authenticationuiVersion>1.4.0</authenticationuiVersion>
         <bedmanagementVersion>7.3.0-SNAPSHOT</bedmanagementVersion>
         <calculationVersion>2.0.0</calculationVersion>
-        <coreappsVersion>4.0.0-SNAPSHOT</coreappsVersion>
+        <coreappsVersion>4.0.0</coreappsVersion>
         <dispensingVersion>2.1.0-SNAPSHOT</dispensingVersion>
         <edtriageappVersion>2.2.0-SNAPSHOT</edtriageappVersion>
         <emrVersion>2.3.0</emrVersion>
@@ -89,13 +89,13 @@
         <registrationappVersion>2.0.0-SNAPSHOT</registrationappVersion>
         <registrationcoreVersion>2.0.0-SNAPSHOT</registrationcoreVersion>
         <reportingVersion>2.2.0</reportingVersion>
-        <reportingrestVersion>2.1.0-SNAPSHOT</reportingrestVersion>
+        <reportingrestVersion>2.1.0</reportingrestVersion>
         <reportinguiVersion>1.15.0-SNAPSHOT</reportinguiVersion>
         <serializationxstreamVersion>0.3.0</serializationxstreamVersion>
         <spaVersion>3.1.1</spaVersion>
         <teleconsultationVersion>2.0.0</teleconsultationVersion>
         <testutilsVersion>1.8.0</testutilsVersion>
-        <uicommonsVersion>3.2.0-SNAPSHOT</uicommonsVersion>
+        <uicommonsVersion>3.2.0</uicommonsVersion>
         <uiframeworkVersion>4.0.0</uiframeworkVersion>
         <uilibraryVersion>2.0.7</uilibraryVersion>
             <webservicesRestVersion>3.6.0</webservicesRestVersion>
