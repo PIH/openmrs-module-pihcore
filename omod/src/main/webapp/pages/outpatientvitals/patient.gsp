@@ -6,7 +6,7 @@
     var breadcrumbs = [
         { icon: "icon-home", link: '/' + OPENMRS_CONTEXT_PATH + '/index.htm' },
         { label: "${ ui.message("mirebalais.outpatientVitals.title") }",
-          link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'pih.uhm.app.vitals' ] ) }"
+          link: "${ ui.pageLink("coreapps", "findpatient/findPatient", [ 'app': 'pih.app.vitalsSearch' ] ) }"
         },
         { label: "${ ui.escapeJs(ui.format(patient.patient)) }" ,
           link: '${ui.pageLink("coreapps", "patientdashboard/patientDashboard", [patientId: patient.id])}'}
@@ -21,11 +21,11 @@ ${ ui.includeFragment("coreapps", "patientHeader", [ patient: patient.patient ])
             emr.navigateTo({
                 provider: "coreapps",
                 page: "findpatient/findPatient",
-                query: { 'app': 'pih.uhm.app.vitals' }
+                query: { 'app': 'pih.app.vitalsSearch' }
             });
         });
         jq('#actions .confirm').click(function() {
-            // always use the standard UI: this page is only used by the uhmVitals app, which is only enabled in Haiti,
+            // always use the standard UI: this page is only used by the vitalsHomepageSearchApp component, which is only enabled in Haiti,
             // where vitals.xml is a standard form (other countries use the vitals list app, see VitalsListPageController)
             emr.navigateTo({
                 provider: "htmlformentryui",
