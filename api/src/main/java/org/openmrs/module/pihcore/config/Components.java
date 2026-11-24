@@ -112,13 +112,13 @@ public class Components {
         public static final String SYSTEM_ADMINISTRATION = "systemAdministration";
         public static final String TODAYS_VISITS = "todaysVisits";
         public static final String TUBERCULOSIS = "tb";  // program and forms
-        public static final String UHM_VITALS = "uhmVitals";
         public static final String VACCINATION_FORM = "vaccination";
         public static final String VCT = "vct";
         public static final String VISIT_MANAGEMENT = "visitManagement";
         public static final String VISIT_NOTE = "visitNote";  // get rid of the left visits bar and enable form sections
         public static final String VITALS = "vitals";
-        public static final String VITALS_HOMEPAGE_APP = "vitalsHomepageApp";
+        public static final String VITALS_HOMEPAGE_APP = "vitalsHomepageApp";  // home page list of today's check-ins without vitals; requires vitals
+        public static final String VITALS_HOMEPAGE_SEARCH_APP = "vitalsHomepageSearchApp";  // home page find-patient-then-enter-vitals app; requires vitals
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
         public static final String WRISTBANDS = "wristbands";
         public static final String CHILDREN = "children";
