@@ -629,10 +629,10 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
         String checkInFormName = "checkin.xml";
 
         // hack; we have a new "v4" form in Haiti and without liveCheckin
-        // but currently we *only* want multi-select type of visit at St Marc
+        // but currently we *only* want multi-select type of visit at St Marc and ZL Central
         // When we deploy multi-select forms everywhere, we can remove this hack.
-        // The 3.5 version is for non-HSN sites.
-        if (config.isCountry(ConfigDescriptor.Country.HAITI) && !config.isSite("HSN_SAINT_MARC")) {
+        // The 3.5 version is for the other Haiti sites.
+        if (config.isCountry(ConfigDescriptor.Country.HAITI) && !config.isSite("HSN_SAINT_MARC") && !config.isSite("CENTRAL")) {
             checkInFormName = "checkin_v3.5.xml";
         }
 
