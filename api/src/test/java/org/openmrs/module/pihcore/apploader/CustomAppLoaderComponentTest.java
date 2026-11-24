@@ -80,14 +80,7 @@ public class CustomAppLoaderComponentTest extends PihCoreContextSensitiveTest {
     }
 
     @Test
-    public void shouldAddVitalsListAppForVitalsHomepageListApp() throws Exception {
-        loadWithComponents(Components.VITALS, Components.VITALS_HOMEPAGE_LIST_APP);
-        assertNotNull(factory.findAppById(CustomAppLoaderConstants.Apps.VITALS));
-        assertNull(factory.findAppById(CustomAppLoaderConstants.Apps.VITALS_SEARCH));
-    }
-
-    @Test
-    public void shouldAddVitalsListAppForDeprecatedVitalsHomepageApp() throws Exception {
+    public void shouldAddVitalsListAppForVitalsHomepageApp() throws Exception {
         loadWithComponents(Components.VITALS, Components.VITALS_HOMEPAGE_APP);
         assertNotNull(factory.findAppById(CustomAppLoaderConstants.Apps.VITALS));
         assertNull(factory.findAppById(CustomAppLoaderConstants.Apps.VITALS_SEARCH));
@@ -102,7 +95,7 @@ public class CustomAppLoaderComponentTest extends PihCoreContextSensitiveTest {
 
     @Test
     public void shouldNotAddVitalsHomepageAppsWithoutVitals() throws Exception {
-        loadWithComponents(Components.VITALS_HOMEPAGE_LIST_APP, Components.VITALS_HOMEPAGE_SEARCH_APP);
+        loadWithComponents(Components.VITALS_HOMEPAGE_APP, Components.VITALS_HOMEPAGE_SEARCH_APP);
         assertNull(factory.findAppById(CustomAppLoaderConstants.Apps.VITALS));
         assertNull(factory.findAppById(CustomAppLoaderConstants.Apps.VITALS_SEARCH));
     }

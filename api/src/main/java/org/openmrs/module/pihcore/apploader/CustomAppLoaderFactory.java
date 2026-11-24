@@ -701,9 +701,7 @@ public class CustomAppLoaderFactory implements AppFrameworkFactory {
 
     private void enableVitals() {
 
-        // vitalsHomepageApp is deprecated, and means the same as vitalsHomepageListApp
-        if (config.isComponentEnabled(Components.VITALS_HOMEPAGE_LIST_APP)
-                || config.isComponentEnabled(Components.VITALS_HOMEPAGE_APP)) {
+        if (config.isComponentEnabled(Components.VITALS_HOMEPAGE_APP)) {
             apps.add(addToHomePage(app(CustomAppLoaderConstants.Apps.VITALS,
                     "pihcore.vitalsList.title",
                     "fas fa-fw fa-heartbeat",

@@ -117,12 +117,7 @@ public class Components {
         public static final String VISIT_MANAGEMENT = "visitManagement";
         public static final String VISIT_NOTE = "visitNote";  // get rid of the left visits bar and enable form sections
         public static final String VITALS = "vitals";
-        /**
-         * @deprecated use {@link #VITALS_HOMEPAGE_LIST_APP}; this is treated the same
-         */
-        @Deprecated
-        public static final String VITALS_HOMEPAGE_APP = "vitalsHomepageApp";
-        public static final String VITALS_HOMEPAGE_LIST_APP = "vitalsHomepageListApp";  // home page list of today's check-ins without vitals; requires vitals
+        public static final String VITALS_HOMEPAGE_APP = "vitalsHomepageApp";  // home page list of today's check-ins without vitals; requires vitals
         public static final String VITALS_HOMEPAGE_SEARCH_APP = "vitalsHomepageSearchApp";  // home page find-patient-then-enter-vitals app; requires vitals
         public static final String WAITING_FOR_CONSULT = "waitingForConsult";
         public static final String WRISTBANDS = "wristbands";
