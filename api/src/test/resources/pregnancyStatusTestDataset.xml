@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- used together with pregnancyProgramTestDataset.xml (which defines the PIH source, id 1001) -->
+<dataset>
+    <concept_reference_source concept_source_id="1002" name="CIEL" description="Mocked CIEL source" hl7_code="CIEL" creator="1" date_created="2005-02-24 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a01" retired="false"/>
+
+    <!-- mocked "Pregnancy status" (CIEL:5272) -->
+    <concept concept_id="1101" retired="false" datatype_id="2" class_id="18" is_set="false" creator="1" date_created="2008-08-15 16:22:03.0" version="" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a02"/>
+    <concept_reference_term concept_reference_term_id="1101" concept_source_id="1002" code="5272" name="5272" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a03"/>
+    <concept_reference_map concept_map_id="1101" concept_id="1101" concept_reference_term_id="1101" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a04"/>
+
+    <!-- mocked "Delivered within the last 6 weeks" (PIH:21869) -->
+    <concept concept_id="1102" retired="false" datatype_id="2" class_id="18" is_set="false" creator="1" date_created="2008-08-15 16:22:03.0" version="" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a05"/>
+    <concept_reference_term concept_reference_term_id="1102" concept_source_id="1001" code="21869" name="21869" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a06"/>
+    <concept_reference_map concept_map_id="1102" concept_id="1102" concept_reference_term_id="1102" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a07"/>
+
+    <!-- mocked Yes (CIEL:1065) -->
+    <concept concept_id="1103" retired="false" datatype_id="4" class_id="18" is_set="false" creator="1" date_created="2008-08-15 16:22:03.0" version="" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a08"/>
+    <concept_reference_term concept_reference_term_id="1103" concept_source_id="1002" code="1065" name="1065" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a09"/>
+    <concept_reference_map concept_map_id="1103" concept_id="1103" concept_reference_term_id="1103" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a10"/>
+
+    <!-- mocked No (CIEL:1066) -->
+    <concept concept_id="1104" retired="false" datatype_id="4" class_id="18" is_set="false" creator="1" date_created="2008-08-15 16:22:03.0" version="" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a11"/>
+    <concept_reference_term concept_reference_term_id="1104" concept_source_id="1002" code="1066" name="1066" retired="0" creator="1" date_created="2004-08-12 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a12"/>
+    <concept_reference_map concept_map_id="1104" concept_id="1104" concept_reference_term_id="1104" concept_map_type_id="2" creator="1" date_created="2004-08-12 00:00:00.0" uuid="7a3c1f2e-5b6d-4e8f-9a0b-1c2d3e4f5a13"/>
+</dataset>
